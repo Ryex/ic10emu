@@ -1,20 +1,4 @@
-#[macro_use]
-mod utils;
-
-use wasm_bindgen::prelude::*;
-
-#[wasm_bindgen]
-extern "C" {
-    fn alert(s: &str);
-}
-
-#[wasm_bindgen]
-pub fn init() {
-    utils::set_panic_hook();
-    log!("Hello from ic10emu!");
-}
-
-#[wasm_bindgen]
+#[allow(dead_code)]
 #[derive(Debug)]
 pub struct VM {
     ip: u8,
@@ -37,7 +21,6 @@ impl Default for VM {
     
 }
 
-#[wasm_bindgen]
 impl VM {
     pub fn new() -> VM {
         VM::default()

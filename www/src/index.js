@@ -1,13 +1,10 @@
-// import {init, VM} from "ic10emu_wasm";
+import {init} from "ic10emu_wasm";
 import * as ace from "ace-code";
 import {Mode as IC10Mode} from "./ic10_mode";
 import * as theme from "ace-code/src/theme/one_dark";
 import {AceLanguageClient} from "ace-linters/build/ace-language-client";
 
-// init();
-//
-// const vm = VM.new();
-// console.log(vm);
+init();
 
 const demoCode = `# This is a comment
 define a_def 10
