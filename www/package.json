@@ -1,0 +1,42 @@
+{
+  "name": "ic10emu",
+  "version": "0.1.0",
+  "description": "an IC10 emulator for IC10 mips from Stationeers",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "start": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryex/ic10emu.git"
+  },
+  "keywords": [
+    "webassembly",
+    "wasm",
+    "rust",
+    "webpack"
+  ],
+  "author": "Rachel Powers <powers.e.rachel@gmail.com>",
+  "license": "(MIT OR Apache-2.0)",
+  "bugs": {
+    "url": "https://github.com/ryex/ic10emu/issues"
+  },
+  "homepage": "https://github.com/ryex/ic10emu#readme",
+  "devDependencies": {
+    "copy-webpack-plugin": "^12.0.2",
+    "hello-wasm-pack": "^0.1.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.2",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.3"
+  },
+  "dependencies": {
+    "ace-code": "^1.32.7",
+    "ace-linters": "^1.1.1",
+    "uuid": "^9.0.1",
+    "ic10emu_wasm": "file:../ic10emu_wasm/pkg",
+    "ic10lsp_wasm": "file:../ic10lsp_wasm/pkg"
+  }
+}

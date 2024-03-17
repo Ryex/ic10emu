@@ -1,0 +1,53 @@
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 'latest'
+      - name: Install rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+      - name: Install wasm-pack
+        uses: jetli/wasm-pack-action@v0.4.0
+        with:
+          version: 'latest'
+      - name: Build ic10lsp
+        run: | 
+          cd ic10lsp_wasm
+          wasm-pack build
+      - name: Build Page
+        run: |
+          cd www
+          pnpm install
+          pnpm build
+      - name: Fix permissions
+        run: |
+          chmod -c -R +rX "www/dist/" | while read line; do
+            echo "::warning title=Invalid file permissions automatically fixed::$line"
+          done
+      - name: Upload artifacts
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: www/dist
+
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+    
