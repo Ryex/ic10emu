@@ -51,20 +51,49 @@ function docReady(fn) {
 
 init();
 
-const demoCode = `# This is a comment
-define a_def 10
-define a_hash HASH("This is a String")
-alias a_var r0
-alias a_device d0
-s d0 12 0 
-move r2 LogicType.Temperature
-move r3 pinf
-main:
+const demoCode = `# Highlighting Demo
+# This is a comment
 
+# Hover a define id anywhere to see it's definition
+define a_def 10 
+
+# Hover HASH("String")'s to see computed crc32
+#     hover here    vvvvvvvvvvvvvvvv
+define a_hash HASH("This is a String") 
+
+# hover over an alias anywhere in the code
+# to see it's definition
+alias a_var r0 
+alias a_device d0
+
+# instructions have Auto Completion, 
+# numeric logic types are identified on hover
+s db 12 0 
+#    ^^
+# hover here
+
+# Enums and their values are Known, Hover them!
+#        vvvvvvvvvvvvvvvvvv
+move r2 LogicType.Temperature
+
+# same with constants
+#       vvvv
+move r3 pinf
+
+# Labels are known
+main:
 l r1 dr15 RatioWater
 move r2 100000.001
+
+# Hover Hash Strings of Known prefab names
+# to get their documentation
+#             vvvvvvvvvvvvvvv
 move r0 HASH("AccessCardBlack")
 beqz r1 test
+
+# -2045627372 is the crc32 hash of a SolarPanel, 
+# hover it to see the documentation!
+#        vvvvvvvvvv  
 move r1 -2045627372
 jal test
 move r1 $FF
@@ -103,11 +132,90 @@ async function setupLsp(editor, mode) {
 
 }
 
+function base64url_encode(buffer) {
+    return btoa(Array.from(new Uint8Array(buffer), b => String.fromCharCode(b)).join(''))
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/, '');
+}
+
+function base64url_decode(value) {
+    const m = value.length % 4;
+    return Uint8Array.from(atob(
+        value.replace(/-/g, '+')
+            .replace(/_/g, '/')
+            .padEnd(value.length + (m === 0 ? 0 : 4 - m), '=')
+    ), c => c.charCodeAt(0)).buffer
+}
+
+async function concatUintArrays(arrays) {
+  const blob = new Blob(arrays);
+  const buffer = await blob.arrayBuffer();
+  return new Uint8Array(buffer);
+}
+
+async function compress(bytes) {
+  const s = new Blob([bytes]).stream();
+  const cs = s.pipeThrough(
+    new CompressionStream('gzip')
+  );
+  const chunks = [];
+  for await (const chunk of cs) {
+    chunks.push(chunk);
+  }
+  return await concatUintArrays(chunks);
+}
+
+async function decompress(bytes) {
+  const s = new Blob([bytes]).stream();
+  const ds = s.pipeThrough(
+    new DecompressionStream('gzip')
+  );
+  const chunks = [];
+  for await (const chunk of ds) {
+    chunks.push(chunk);
+  }
+  return await concatUintArrays(chunks);
+}
+
+
+async function setDocFragment(content) {
+  const bytes = new TextEncoder().encode(content);
+  try {
+    const c_bytes = await compress(bytes);
+    const fragment = base64url_encode(c_bytes);
+    window.history.replaceState(null, "", `#${fragment}`);
+  } catch (e) {
+    console.log("Error compressing content fragment:", e);
+    return;
+  }
+}
+
+async function getContentFromFragment(editor, default_content) {
+  const fragment = window.location.hash.slice(1);
+  console.log("fragment is", fragment);
+  if (fragment.length > 0) {
+    const c_bytes = base64url_decode(fragment);
+    console.log("compressed", c_bytes);
+    try {
+      const bytes = await decompress(c_bytes);
+      console.log("bytes", bytes);
+      const content = new TextDecoder().decode(bytes);
+      console.log("content is", content);
+      editor.getSession().setValue(content);
+    } catch (e) {
+      console.log("Error decompressing content fragment:", e);
+      return;
+    }
+  } else {
+    editor.getSession().setValue(default_content);
+  }
+}
+
 docReady(() => {
   const mode = new IC10Mode()
   var editor = ace.edit("editor", {
     mode: mode,
-    value: demoCode,
     enableBasicAutocompletion: true,
     enableLiveAutocompletion: true,
     enableSnippets: true,
@@ -117,6 +225,11 @@ docReady(() => {
     firstLineNumber: 0,
     printMarginColumn: 52,
   });
+  editor.getSession().on('change', () => {
+    var val = editor.getSession().getValue();
+    setDocFragment(val);
+  });
+
   editor.setTheme("ace/theme/one_dark");
   var statusBar =  new ace_ext_statusbar.StatusBar(editor, document.getElementById("statusBar"));
   statusBar.updateStatus(editor);
@@ -126,6 +239,12 @@ docReady(() => {
 
   editor.session.setValue(demoCode)
   setupLsp(editor, mode);
+
+  getContentFromFragment(editor, demoCode);
+
+  window.addEventListener('hashchange', (event) => {
+    getContentFromFragment(editor, "");
+  });
 });
 
 
