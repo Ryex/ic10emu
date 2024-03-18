@@ -275,10 +275,10 @@ var IC10HighlightRules = function() {
             comment: "Labels at line start: begin_repeat: add ..."
         }, {
             token: "variable.parameter",
-            regex: /\b(?:sp|r(?:a|r*)(?:[0-9]|1[0-5]))\b/,
+            regex: /\b(?:sp|r(?:a|r*)(?:[0-9]|1[0-7]))\b/,
         }, {
             token: "variable.language",
-            regex: /\b(?:d(?:b|r*)(?:[0-9]|1[0-5])(?::[0-9]+)?)\b/,
+            regex: /\b(?:d(?:b|[0-5]|r*(?:[0-9]|1[0-7]))(?::[0-9]+)?)\b/,
         }, {
             token: "support.type",
             regex: "\\b(?:" + logictypes + ")\\b",
@@ -296,7 +296,7 @@ var IC10HighlightRules = function() {
             token: ["support.function", "paren.lparen", "string.quoted", "paren.rparen"],
             regex: /\b(HASH)(\()(\".*\")(\))/,
         }, {
-            token: "identifier",
+            token: "variable.other",
             regex: /\b[a-zA-Z_.][a-zA-Z0-9_.]*\b/,
         }] 
     };
