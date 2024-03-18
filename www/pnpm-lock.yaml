@@ -2867,7 +2867,7 @@ packages:
 
   file:../ic10emu_wasm/pkg:
     resolution: {directory: ../ic10emu_wasm/pkg, type: directory}
-    name: ic10emu
+    name: ic10emu_wasm
     dev: false
 
   file:../ic10lsp_wasm/pkg:

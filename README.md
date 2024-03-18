@@ -23,8 +23,7 @@ This project is divided into four parts:
 
 ## 🚴 Usage
 
-Visit https://github.com/Ryex/ic10emu
-
+Visit https://ryex.github.io/ic10emu/
 
 ## License
 

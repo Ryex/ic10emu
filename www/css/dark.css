@@ -1,9 +1,24 @@
 body {
   background-color: #212529;
+  height: 100%;
+  margin: 0;
 }
 .ace_tooltip {
   background-color: #343a40;
   color: #dee2e6;
+}
+.ace_status-indicator {
+  color: #dee2e6;
+  position: relative;
+  right: 10px;
+  left: 5px;
+  bottom: 4px;
+  border-left: 1px solid;
+  border-right: 1px solid;
+  height: 20px;
+  float: right;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 code {
   color: #e685b5
@@ -13,6 +28,7 @@ code {
   min-height: 30px;
   margin-bottom: 5px;
   border: 1px solid;
+  padding: 0;
 
 }
 .navbar-default {
@@ -47,7 +63,7 @@ code {
 
 ol, ul {
   margin-top: 0;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 .nav > li {
   position: relative;
@@ -60,8 +76,8 @@ ol, ul {
   color: #fff;
 }
 .navbar-text {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   padding: 0;
   position: relative;
 }
