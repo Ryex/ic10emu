@@ -80,6 +80,7 @@ ol, ul {
 }
 .navbar-text {
   padding: 0;
+  padding-right: 10px; 
   position: relative;
 }
 .navbar-nav {

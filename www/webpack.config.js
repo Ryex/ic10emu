@@ -9,7 +9,7 @@ module.exports = {
   },
   mode: "development",
   plugins: [
-    new CopyWebpackPlugin({ patterns: ['index.html', 'css/*.css'] })
+    new CopyWebpackPlugin({ patterns: ['index.html', 'css/*.css', 'img/*.png'] })
   ],
   module: {
     rules: [
