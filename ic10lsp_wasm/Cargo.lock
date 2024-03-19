@@ -395,7 +395,7 @@ checksum = "d897f394bad6a705d5f4104762e116a75639e470d80901eed05a860a95cb1904"
 [[package]]
 name = "ic10lsp"
 version = "0.7.4"
-source = "git+https://github.com/Ryex/ic10lsp.git?branch=wasm#902fdff6e6c42b4a26f28c5df54903cfd61483df"
+source = "git+https://github.com/Ryex/ic10lsp.git?branch=wasm#fe4b1177979a1260469a511f577049b0d7f3aa14"
 dependencies = [
  "clap",
  "const-crc32",
