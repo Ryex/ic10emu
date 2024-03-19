@@ -154,13 +154,30 @@ async function concatUintArrays(arrays) {
   return new Uint8Array(buffer);
 }
 
+async function* streamAsyncIterator(stream) {
+  // Get a lock on the stream
+  const reader = stream.getReader();
+
+  try {
+    while (true) {
+      // Read from the stream
+      const {done, value} = await reader.read();
+      if (done) return;
+      yield value;
+    }
+  }
+  finally {
+    reader.releaseLock();
+  }
+}
+
 async function compress(bytes) {
   const s = new Blob([bytes]).stream();
   const cs = s.pipeThrough(
-    new CompressionStream('gzip')
+    new CompressionStream('deflate-raw')
   );
   const chunks = [];
-  for await (const chunk of cs) {
+  for await (const chunk of streamAsyncIterator(cs)) {
     chunks.push(chunk);
   }
   return await concatUintArrays(chunks);
@@ -169,10 +186,10 @@ async function compress(bytes) {
 async function decompress(bytes) {
   const s = new Blob([bytes]).stream();
   const ds = s.pipeThrough(
-    new DecompressionStream('gzip')
+    new DecompressionStream('deflate-raw')
   );
   const chunks = [];
-  for await (const chunk of ds) {
+  for await (const chunk of streamAsyncIterator(ds)) {
     chunks.push(chunk);
   }
   return await concatUintArrays(chunks);

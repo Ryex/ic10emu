@@ -42,13 +42,12 @@ code {
 }
 .navbar-brand {
   float: left;
-  height: 20px;
   padding: 5px 5px;
   font-size: 18px;
-  line-height: 20px;
 }
 .navbar-default .navbar-brand {
   color: #fff;
+  text-wrap: nowrap;
 }
 
 .navbar-brand a {
@@ -59,6 +58,7 @@ code {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+  flex-wrap: nowrap;
 }
 
 ol, ul {
@@ -74,23 +74,11 @@ ol, ul {
 }
 .navbar-default .navbar-text {
   color: #fff;
+  text-wrap: nowrap;
 }
 .navbar-text {
-  margin-top: 5px;
-  margin-bottom: 5px;
   padding: 0;
   position: relative;
-}
-@media (min-width: 768px) {
-  .navbar-right {
-    float: right !important;
-    margin-right: -15px;
-  }
-}
-@media (min-width: 768px) {
-  .navbar-nav > li {
-    float: left;
-  }
 }
 .navbar-nav {
   margin: 7.5px -15px;
@@ -133,7 +121,9 @@ ol, ul {
 @media (min-width: 768px) {
   .navbar-text {
     float: left;
-    margin-right: 15px;
-    margin-left: 15px;
   }
+}
+.navbar-nav > p {
+  margin-bottom: 0;
+  display: inline-block;
 }

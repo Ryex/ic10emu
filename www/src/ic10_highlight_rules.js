@@ -296,7 +296,7 @@ var IC10HighlightRules = function() {
             token: ["support.function", "paren.lparen", "string.quoted", "paren.rparen"],
             regex: /\b(HASH)(\()(\".*\")(\))/,
         }, {
-            token: "variable.other",
+            token: "entity.name",
             regex: /\b[a-zA-Z_.][a-zA-Z0-9_.]*\b/,
         }] 
     };
