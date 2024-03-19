@@ -1,8 +1,8 @@
-import {init} from "ic10emu_wasm";
+import { init } from "ic10emu_wasm";
 import * as ace from "ace-code";
-import {Mode as IC10Mode} from "./ic10_mode";
+import { Mode as IC10Mode } from "./ic10_mode";
 import * as theme from "ace-code/src/theme/one_dark";
-import {AceLanguageClient} from "ace-linters/build/ace-language-client";
+import { AceLanguageClient } from "ace-linters/build/ace-language-client";
 import ace_ext_statusbar from "ace-code/src/ext/statusbar";
 import ace_ext_keybinding_menu from "ace-code/src/ext/keybinding_menu";
 import _ace_ext_langue_tools from "ace-code/src/ext/language_tools";
@@ -111,41 +111,20 @@ j ra
 const loaded = w =>
   new Promise(r => w.addEventListener("message", r, { once: true }));
 
-async function setupLsp(editor, mode) {
-  // Create a web worker
-  let worker = new Worker(new URL('./lspWorker.js', import.meta.url));
-  await Promise.all([loaded(worker)]);
-
-  const serverData = {
-      module: () => import("ace-linters/build/language-client"),
-      modes: "ic10",
-      type: "webworker",
-      worker: worker,
-  }
-  // Create a language provider for web worker
-  let languageProvider = AceLanguageClient.for(serverData);
-  // Register the editor with the language provider
-  languageProvider.registerEditor(editor);
-
-  let options = mode.options ?? {};
-  languageProvider.setSessionOptions(editor.session, options);
-
-}
-
 function base64url_encode(buffer) {
-    return btoa(Array.from(new Uint8Array(buffer), b => String.fromCharCode(b)).join(''))
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_')
-        .replace(/=+$/, '');
+  return btoa(Array.from(new Uint8Array(buffer), b => String.fromCharCode(b)).join(''))
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
 }
 
 function base64url_decode(value) {
-    const m = value.length % 4;
-    return Uint8Array.from(atob(
-        value.replace(/-/g, '+')
-            .replace(/_/g, '/')
-            .padEnd(value.length + (m === 0 ? 0 : 4 - m), '=')
-    ), c => c.charCodeAt(0)).buffer
+  const m = value.length % 4;
+  return Uint8Array.from(atob(
+    value.replace(/-/g, '+')
+      .replace(/_/g, '/')
+      .padEnd(value.length + (m === 0 ? 0 : 4 - m), '=')
+  ), c => c.charCodeAt(0)).buffer
 }
 
 async function concatUintArrays(arrays) {
@@ -161,7 +140,7 @@ async function* streamAsyncIterator(stream) {
   try {
     while (true) {
       // Read from the stream
-      const {done, value} = await reader.read();
+      const { done, value } = await reader.read();
       if (done) return;
       yield value;
     }
@@ -229,6 +208,27 @@ async function getContentFromFragment(editor, default_content) {
   }
 }
 
+async function setupLsp(editor, mode) {
+  // Create a web worker
+  let worker = new Worker(new URL('./lspWorker.js', import.meta.url));
+  await Promise.all([loaded(worker)]);
+
+  const serverData = {
+    module: () => import("ace-linters/build/language-client"),
+    modes: "ic10",
+    type: "webworker",
+    worker: worker,
+  }
+  // Create a language provider for web worker
+  let languageProvider = AceLanguageClient.for(serverData);
+  // Register the editor with the language provider
+  languageProvider.registerEditor(editor);
+
+  let options = mode.options ?? {};
+  languageProvider.setSessionOptions(editor.session, options);
+
+}
+
 docReady(() => {
   const mode = new IC10Mode()
   var editor = ace.edit("editor", {
@@ -248,7 +248,7 @@ docReady(() => {
   });
 
   editor.setTheme("ace/theme/one_dark");
-  var statusBar =  new ace_ext_statusbar.StatusBar(editor, document.getElementById("statusBar"));
+  var statusBar = new ace_ext_statusbar.StatusBar(editor, document.getElementById("statusBar"));
   statusBar.updateStatus(editor);
   ace_ext_keybinding_menu.init(editor);
   // editor.setOption("keyboardHandler", "ace/keyboard/vim");
@@ -262,9 +262,87 @@ docReady(() => {
   window.addEventListener('hashchange', (event) => {
     getContentFromFragment(editor, "");
   });
+
+  // Menu
+  document.getElementById("mainMenuShare").addEventListener('click', (event) => {
+    const link = document.getElementById("shareLinkText");
+    link.setAttribute('value', window.location);
+    link.setSelectionRange(0, 0);
+  }, { capture: true });
+  document.getElementById("shareLinkCopyButton").addEventListener('click', (event) => {
+    event.preventDefault();
+    const link = document.getElementById("shareLinkText");
+    link.select();
+    link.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(link.value);
+
+  }, { capture: true });
+  document.getElementById("mainMenuOpenFile").addEventListener('click', (event) => {
+    openFile(editor);
+  }, { capture: true });
+  document.getElementById("mainMenuSaveAs").addEventListener('click', (event) => {
+    saveFile(editor.getSession().getValue())
+
+  }, { capture: true });
 });
 
+async function saveFile(content) {
+  const blob = new Blob([content], { type: "text/plain" });
+  if (typeof window.showSaveFilePicker !== "undefined") {
+    console.log("Saving via FileSystem API")
+    const options = {
+      types: [
+        {
+          suggestedName: "code.ic10",
+          description: 'Text Files',
+          accept: {
+            'text/plain': ['.txt', '.ic10'],
+          },
+        },
+      ],
+    };
+    const saveHandle = await window.showSaveFilePicker(options);
+    const ws = await saveHandle.createWritable();
+    await ws.write(blob);
+    await ws.close();
+  } else {
+    console.log("saving file via hidden link event");
+    var a = document.createElement('a');
+    a.download = "code.ic10";
+    a.href = window.URL.createObjectURL(blob);
+    a.click();
+  }
+}
 
+async function openFile(editor) {
+  if (typeof window.showOpenFilePicker !== "undefined") {
+    console.log("opening file via FileSystem Api");
+    const [fileHandle] = await window.showOpenFilePicker();
+    const file = await fileHandle.getFile();
+    const contents = await file.text();
+    const session = editor.getSession();
+    session.setValue(contents);
+  } else {
+    console.log("opening file via hidden input event");
+    let input = document.createElement('input');
+    input.type = 'file';
+    input.accept = ".txt,.ic10,.mips,text/*";
+    input.onchange = _ => {
+      const files = Array.from(input.files);
+      console.log(files);
+      const file = files[0];
+      var reader = new FileReader();
+      reader.onload = (e) => {
+        const contents = e.target.result;
+        const session = editor.getSession();
+        // session.id = file.name;
+        session.setValue(contents);
+      };
+      reader.readAsText(file);
+    };
+    input.click();
+  }
+}
 
 
 

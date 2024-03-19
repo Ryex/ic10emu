@@ -48,6 +48,7 @@ code {
 .navbar-default .navbar-brand {
   color: #fff;
   text-wrap: nowrap;
+  white-space: nowrap;
 }
 
 .navbar-brand a {
@@ -75,13 +76,13 @@ ol, ul {
 .navbar-default .navbar-text {
   color: #fff;
   text-wrap: nowrap;
+  white-space: nowrap;
 }
 .navbar-text {
   padding: 0;
   position: relative;
 }
 .navbar-nav {
-  margin: 7.5px -15px;
   display: block;
 }
 @media (min-width: 768px) {
@@ -126,4 +127,13 @@ ol, ul {
 .navbar-nav > p {
   margin-bottom: 0;
   display: inline-block;
+}
+.navbar-nav .dropdown-menu {
+  position: absolute;
+}
+.modal-title {
+  color: #fff;
+}
+.modal-body button {
+  color: #fff
 }
