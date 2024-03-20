@@ -176,7 +176,8 @@ async function decompress(bytes) {
 
 
 async function setDocFragment(content) {
-  const bytes = new TextEncoder().encode(content);
+  const obj = JSON.stringify({ sessions: [{ content }] })
+  const bytes = new TextEncoder().encode(obj);
   try {
     const c_bytes = await compress(bytes);
     const fragment = base64url_encode(c_bytes);
@@ -185,27 +186,51 @@ async function setDocFragment(content) {
     console.log("Error compressing content fragment:", e);
     return;
   }
+
+}
+
+async function decompressFragment(c_bytes) {
+  try {
+    const bytes = await decompress(c_bytes);
+    const content = new TextDecoder().decode(bytes);
+    return content;
+  } catch (e) {
+    console.log("Error decompressing content fragment:", e);
+    return null;
+  }
+}
+
+function isJsonContent(content) {
+  try {
+    const obj = JSON.parse(content);
+    return [true, obj];
+  } catch (_) {
+    return [false, null];
+  }
 }
 
 async function getContentFromFragment(editor, default_content) {
   const fragment = window.location.hash.slice(1);
-  console.log("fragment is", fragment);
   if (fragment.length > 0) {
     const c_bytes = base64url_decode(fragment);
-    console.log("compressed", c_bytes);
-    try {
-      const bytes = await decompress(c_bytes);
-      console.log("bytes", bytes);
-      const content = new TextDecoder().decode(bytes);
-      console.log("content is", content);
-      editor.getSession().setValue(content);
-    } catch (e) {
-      console.log("Error decompressing content fragment:", e);
-      return;
+    const data = await decompressFragment(c_bytes);
+    if (data !== null) {
+      const [is_json, session] = isJsonContent(data);
+      if (is_json) {
+        try {
+          const content = session.sessions[0].content
+          editor.getSession().setValue(content);
+          return;
+        } catch (e) {
+          console.log("Bad session data:", e);
+        }
+      } else {
+        editor.getSession().setValue(data);
+        return;
+      }
     }
-  } else {
-    editor.getSession().setValue(default_content);
   }
+  editor.getSession().setValue(default_content);
 }
 
 async function setupLsp(editor, mode) {
@@ -229,6 +254,64 @@ async function setupLsp(editor, mode) {
 
 }
 
+function reCalcEditorSize(editor) {
+  const navBar = document.getElementById("navBar");
+  const statusBarContainer = document.getElementById("statusBarContainer");
+
+  const correction = navBar.offsetHeight + statusBarContainer.offsetHeight;
+  const editorContainer = document.getElementById("editor");
+  editorContainer.style.height = `calc( 100vh - ${correction}px - 0.5rem)`;
+  editor.resize(true);
+}
+
+const EditorSettings = {
+  keyboard: "ace",
+  cursor: "ace",
+  fontSize: 16,
+  relativeLineNumbers: false,
+}
+
+function loadEditorSettings(settings) {
+  const saved_settings = window.localStorage.getItem("editorSettings");
+  if (saved_settings !== null && saved_settings.length > 0) {
+    try {
+      const saved = JSON.parse(saved_settings);
+      const temp = Object.assign({}, settings, saved);
+      console.log("tmp load", temp);
+      Object.assign(settings, temp);
+    } catch (e) {
+      console.log("error loading editor settings", e);
+    }
+  }
+}
+
+function saveEditorSettings(settings) {
+  const toSave = JSON.stringify(settings);
+  window.localStorage.setItem("editorSettings", toSave);
+}
+
+function updateEditorSettings(editor, settings) {
+  if (settings.keyboard === 'ace') {
+    editor.setOption('keyboardHandler', null);
+  } else {
+    editor.setOption('keyboardHandler', `ace/keyboard/${settings.keyboard}`);
+  }
+  editor.setOption('cursorStyle', settings.cursor);
+  editor.setOption('fontSize', `${settings.fontSize}px`);
+  editor.setOption('relativeLineNumbers', settings.relativeLineNumbers);
+}
+
+function displayEditorSettings(settings) {
+  document.getElementsByName("editorKeybindRadio").forEach((el) => {
+    el.checked = el.value === settings.keyboard;
+  });
+  document.getElementsByName("editorCursorRadio").forEach((el) => {
+    el.checked = el.value === settings.cursor;
+  });
+  document.getElementById("editorSettingsFontSize").value = settings.fontSize;
+  document.getElementById("editorSettingsRelativeLineNumbers").checked = settings.relativeLineNumbers;
+}
+
 docReady(() => {
   const mode = new IC10Mode()
   var editor = ace.edit("editor", {
@@ -242,6 +325,38 @@ docReady(() => {
     firstLineNumber: 0,
     printMarginColumn: 52,
   });
+  loadEditorSettings(EditorSettings);
+  displayEditorSettings(EditorSettings);
+  updateEditorSettings(editor, EditorSettings);
+  reCalcEditorSize(editor);
+  window.addEventListener('resize', (e) => { reCalcEditorSize(editor) });
+  document.getElementsByName("editorKeybindRadio").forEach((el) => {
+    el.addEventListener('change', (e) => {
+      EditorSettings.keyboard = e.target.value;
+      saveEditorSettings(EditorSettings);
+      updateEditorSettings(editor, EditorSettings);
+    })
+  });
+  document.getElementsByName("editorCursorRadio").forEach((el) => {
+    el.addEventListener('change', (e) => {
+      EditorSettings.cursor = e.target.value;
+      saveEditorSettings(EditorSettings);
+      updateEditorSettings(editor, EditorSettings);
+    })
+  });
+  document.getElementById("editorSettingsFontSize").addEventListener('change', (e) => {
+    EditorSettings.fontSize = e.target.value;
+    saveEditorSettings(EditorSettings);
+    updateEditorSettings(editor, EditorSettings);
+  });
+  document.getElementById("editorSettingsRelativeLineNumbers").addEventListener('change', (e) => {
+    EditorSettings.relativeLineNumbers = e.target.checked;
+    saveEditorSettings(EditorSettings);
+    updateEditorSettings(editor, EditorSettings);
+  })
+
+  console.log(editor.getOption('keyboardHandler'));
+
   editor.getSession().on('change', () => {
     var val = editor.getSession().getValue();
     setDocFragment(val);
@@ -252,6 +367,7 @@ docReady(() => {
   statusBar.updateStatus(editor);
   ace_ext_keybinding_menu.init(editor);
   // editor.setOption("keyboardHandler", "ace/keyboard/vim");
+  editor.setAutoScrollEditorIntoView(true);
 
 
   editor.session.setValue(demoCode)

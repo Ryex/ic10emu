@@ -17,11 +17,17 @@ dependencies:
   ic10lsp_wasm:
     specifier: file:../ic10lsp_wasm/pkg
     version: file:../ic10lsp_wasm/pkg
+  lzma-web:
+    specifier: ^3.0.1
+    version: 3.0.1
   uuid:
     specifier: ^9.0.1
     version: 9.0.1
 
 devDependencies:
+  '@oneidentity/zstd-js':
+    specifier: ^1.0.3
+    version: 1.0.3
   copy-webpack-plugin:
     specifier: ^12.0.2
     version: 12.0.2(webpack@5.90.3)
@@ -125,6 +131,12 @@ packages:
       fastq: 1.17.1
     dev: true
 
+  /@oneidentity/zstd-js@1.0.3:
+    resolution: {integrity: sha512-Jm6sawqxLzBrjC4sg2BeXToa33yPzUmq20CKsehKY2++D/gHb/oSwVjNgT+RH4vys+r8FynrgcNzGwhZWMLzfQ==}
+    dependencies:
+      '@types/emscripten': 1.39.10
+    dev: true
+
   /@pkgjs/parseargs@0.11.0:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
@@ -161,6 +173,10 @@ packages:
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
     dependencies:
       '@types/node': 20.11.28
+    dev: true
+
+  /@types/emscripten@1.39.10:
+    resolution: {integrity: sha512-TB/6hBkYQJxsZHSqyeuO1Jt0AB/bW6G7rHt9g7lML7SOF6lbgcHvw/Lr+69iqN0qxgXLhWKScAon73JNnptuDw==}
     dev: true
 
   /@types/eslint-scope@3.7.7:
@@ -1663,6 +1679,10 @@ packages:
   /luaparse@0.3.1:
     resolution: {integrity: sha512-b21h2bFEbtGXmVqguHogbyrMAA0wOHyp9u/rx+w6Yc9pW1t9YjhGUsp87lYcp7pFRqSWN/PhFkrdIqKEUzRjjQ==}
     hasBin: true
+    dev: false
+
+  /lzma-web@3.0.1:
+    resolution: {integrity: sha512-sb5cdfd+PLNljK/HUgYzvnz4G7r0GFK8sonyGrqJS0FVyUQjFYcnmU2LqTWFi6r48lH1ZBstnxyLWepKM/t7QA==}
     dev: false
 
   /media-typer@0.3.0:

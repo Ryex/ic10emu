@@ -10,8 +10,8 @@ body {
 .ace_status-indicator {
   color: #dee2e6;
   position: relative;
-  right: 10px;
-  left: 5px;
+  /* right: 10px; */
+  /* left: 5px; */
   bottom: 4px;
   border-left: 1px solid;
   border-right: 1px solid;
@@ -23,23 +23,23 @@ body {
 code {
   color: #e685b5
 }
-.navbar {
-  position: relative;
-  min-height: 30px;
-  margin-bottom: 5px;
-  border: 1px solid;
-  padding: 0;
-
-}
+/* .navbar { */
+/*   position: relative; */
+/*   min-height: 30px; */
+/*   margin-bottom: 5px; */
+/*   border: 1px solid; */
+/*   padding: 0; */
+/**/
+/* } */
 .navbar-default {
   background-color: #343a40 ;
   border-color: #495057;
 }
-@media (min-width: 768px) {
-  .navbar {
-    border-radius: 4px;
-  }
-}
+/* @media (min-width: 768px) { */
+/*   .navbar { */
+/*     border-radius: 4px; */
+/*   } */
+/* } */
 .navbar-brand {
   float: left;
   padding: 5px 5px;
@@ -55,17 +55,17 @@ code {
   text-decoration: none;
 }
 
-.nav {
-  padding-left: 0;
-  margin-bottom: 0;
-  list-style: none;
-  flex-wrap: nowrap;
-}
-
-ol, ul {
-  margin-top: 0;
-  margin-bottom: 5px;
-}
+/* .nav { */
+/*   padding-left: 0; */
+/*   margin-bottom: 0; */
+/*   list-style: none; */
+/*   flex-wrap: nowrap; */
+/* } */
+/**/
+/* ol, ul { */
+/*   margin-top: 0; */
+/*   margin-bottom: 5px; */
+/* } */
 .nav > li {
   position: relative;
   display: block;
@@ -83,25 +83,25 @@ ol, ul {
   padding-right: 10px; 
   position: relative;
 }
-.navbar-nav {
-  display: block;
-}
-@media (min-width: 768px) {
-  .navbar-header {
-    float: left;
-  }
-}
-@media (min-width: 768px) {
-    .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
-    margin-left: -15px;
-    }
-}
-@media (min-width: 768px) {
-  .navbar-nav {
-    float: left;
-    margin: 0;
-  }
-}
+/* .navbar-nav { */
+/*   display: block; */
+/* } */
+/* @media (min-width: 768px) { */
+/*   .navbar-header { */
+/*     float: left; */
+/*   } */
+/* } */
+/* @media (min-width: 768px) { */
+/*     .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand { */
+/*     margin-left: -15px; */
+/*     } */
+/* } */
+/* @media (min-width: 768px) { */
+/*   .navbar-nav { */
+/*     float: left; */
+/*     margin: 0; */
+/*   } */
+/* } */
 .navbar-nav > li > a {
   padding-top: 10px;
   padding-bottom: 10px;
@@ -120,17 +120,9 @@ ol, ul {
     padding-top: 10px;
     padding-bottom: 10px;
 }
-@media (min-width: 768px) {
-  .navbar-text {
-    float: left;
-  }
-}
-.navbar-nav > p {
-  margin-bottom: 0;
-  display: inline-block;
-}
 .navbar-nav .dropdown-menu {
   position: absolute;
+  left: .5rem;
 }
 .modal-title {
   color: #fff;
