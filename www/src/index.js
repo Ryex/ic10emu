@@ -325,11 +325,23 @@ docReady(() => {
     firstLineNumber: 0,
     printMarginColumn: 52,
   });
+
+  editor.commands.addCommand({
+    name: "showSettingsMenu",
+    description: "Show settings menu",
+    bindKey: { win: "Ctrl-,", mac: "Command-," },
+    exec: (_editor) => {
+      const offCanvas = new bootstrap.Offcanvas(document.getElementById("editorSettings"));
+      offCanvas.toggle();
+    }
+  });
+
   loadEditorSettings(EditorSettings);
   displayEditorSettings(EditorSettings);
   updateEditorSettings(editor, EditorSettings);
   reCalcEditorSize(editor);
   window.addEventListener('resize', (e) => { reCalcEditorSize(editor) });
+
   document.getElementsByName("editorKeybindRadio").forEach((el) => {
     el.addEventListener('change', (e) => {
       EditorSettings.keyboard = e.target.value;
@@ -357,9 +369,14 @@ docReady(() => {
 
   console.log(editor.getOption('keyboardHandler'));
 
+  let sessionChangeTimeout = 0;
   editor.getSession().on('change', () => {
-    var val = editor.getSession().getValue();
-    setDocFragment(val);
+    if (sessionChangeTimeout) clearTimeout(sessionChangeTimeout);
+    sessionChangeTimeout = setTimeout(() => {
+      var val = editor.getSession().getValue();
+      setDocFragment(val);
+      sessionChangeTimeout = 0;
+    }, 1000);
   });
 
   editor.setTheme("ace/theme/one_dark");
@@ -375,12 +392,12 @@ docReady(() => {
 
   getContentFromFragment(editor, demoCode);
 
-  window.addEventListener('hashchange', (event) => {
+  window.addEventListener('hashchange', (_event) => {
     getContentFromFragment(editor, "");
   });
 
   // Menu
-  document.getElementById("mainMenuShare").addEventListener('click', (event) => {
+  document.getElementById("mainMenuShare").addEventListener('click', (_event) => {
     const link = document.getElementById("shareLinkText");
     link.setAttribute('value', window.location);
     link.setSelectionRange(0, 0);
@@ -391,14 +408,16 @@ docReady(() => {
     link.select();
     link.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(link.value);
-
   }, { capture: true });
-  document.getElementById("mainMenuOpenFile").addEventListener('click', (event) => {
+  document.getElementById("mainMenuOpenFile").addEventListener('click', (_event) => {
     openFile(editor);
   }, { capture: true });
-  document.getElementById("mainMenuSaveAs").addEventListener('click', (event) => {
+  document.getElementById("mainMenuSaveAs").addEventListener('click', (_event) => {
     saveFile(editor.getSession().getValue())
 
+  }, { capture: true });
+  document.getElementById("mainMenuKeyboardShortcuts").addEventListener('click', (_event) => {
+    editor.execCommand("showKeyboardShortcuts");
   }, { capture: true });
 });
 

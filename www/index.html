@@ -47,12 +47,12 @@
   <link rel="stylesheet" href="css/dark.css" />
 </head>
 
-<body>
+<body class="">
   <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
   <script src="./bootstrap.js"></script>
   <div class="App" data-bs-theme="dark">
     <div id="modelShareLink" class="modal fade" tabindex="-1" aria-hidden="true" data-bs-theme="dark">
-      qGZscVxOrTb9tsMA<div class="modal-dialog">
+      <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Share This Code!</h5>
@@ -149,6 +149,11 @@
           </li>
           <li><button id="mainMenuEditorSettings" class="dropdown-item" type="button" data-bs-toggle="offcanvas"
               data-bs-target="#editorSettings" aria-controls="editorSettings">Editor Settings</button></li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><button id="mainMenuKeyboardShortcuts" class="dropdown-item" type="button">Show Keyboard
+              Shortcuts</button></li>
         </ul>
       </div>
       <div class="nav navbar-nav navbar-header">
