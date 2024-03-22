@@ -1,0 +1,3 @@
+Contents 0 The amount of this Reagent present in the machine
+Required 1 The amount of this Reagent needed to complete the Machine's current recipe after subtracting the amount currently present
+Recipe 2 The amount of this Reagent required by the Machine's current recipe

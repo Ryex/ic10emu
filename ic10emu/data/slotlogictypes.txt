@@ -1,0 +1,27 @@
+Charge 10 returns current energy charge the slot occupant is holding
+ChargeRatio 11 returns current energy charge the slot occupant is holding as a ratio between 0 and 1 of its maximum
+Class 12 returns integer representing the class of object
+Damage 4 returns the damage state of the item in the slot
+Efficiency 5 returns the growth efficiency of the plant in the slot
+FilterType 25 
+Growth 7 returns the current growth state of the plant in the slot
+Health 6 returns the health of the plant in the slot
+LineNumber 19 
+Lock 23 
+Mature 16 returns 1 if the plant in this slot is mature, 0 when it isn't
+MaxQuantity 15 returns the max stack size of the item in the slot
+None 0 No description
+OccupantHash 2 returns the has of the current occupant, the unique identifier of the thing
+Occupied 1 returns 0 when slot is not occupied, 1 when it is
+On 22 
+Open 21 
+PrefabHash 17 returns the hash of the structure in the slot
+Pressure 8 returns pressure of the slot occupants internal atmosphere
+PressureAir 14 returns pressure in the air tank of the jetpack in this slot
+PressureWaste 13 returns pressure in the waste tank of the jetpack in this slot
+Quantity 3 returns the current quantity, such as stack size, of the item in the slot
+ReferenceId 26 
+Seeding 18 Whether a plant is seeding (ready to harvest seeds from). Returns 1 if seeding or 0 if not.
+SortingClass 24 
+Temperature 9 returns temperature of the slot occupants internal atmosphere
+Volume 20 

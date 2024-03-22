@@ -1,0 +1,4 @@
+Average 0 Average of all read values
+Sum 1 All read values added together
+Minimum 2 Lowest of all read values
+Maximum 3 Highest of all read values
