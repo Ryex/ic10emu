@@ -266,6 +266,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "290f1a1d9242c78d09ce40a5e87e7554ee637af1351968159f4952f028f75604"
 
 [[package]]
+name = "heck"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "95505c38b4572b2d910cecb0281560f54b440a19336cbbcb27bf6ce6adc6f5a8"
+
+[[package]]
 name = "hermit-abi"
 version = "0.1.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -309,6 +315,7 @@ dependencies = [
  "regex",
  "rust-sitter",
  "rust-sitter-tool",
+ "strum_macros",
 ]
 
 [[package]]
@@ -600,6 +607,8 @@ checksum = "c08c74e62047bb2de4ff487b251e4a92e24f48745648451635cec7d591162d9f"
 [[package]]
 name = "rust-sitter"
 version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e9740bfc968b639729ae72acf0bcacacc8dfee136db6ac11a0c27baa7ccfab13"
 dependencies = [
  "rust-sitter-macro",
  "tree-sitter-c2rust",
@@ -608,6 +617,8 @@ dependencies = [
 [[package]]
 name = "rust-sitter-common"
 version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "49fd04db2e36bf681c70f293db3162105c02d64d7af66827bc639bb1e26827e2"
 dependencies = [
  "quote",
  "syn 1.0.109",
@@ -616,6 +627,8 @@ dependencies = [
 [[package]]
 name = "rust-sitter-macro"
 version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "611081d5efb786ea1864f4f8ca3ebde7a4218a84aedee4b1fbb5be2bb60e6bae"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -626,6 +639,8 @@ dependencies = [
 [[package]]
 name = "rust-sitter-tool"
 version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "37438e08664649ed0967334dec982f8dcc3cec5c39afc73ef669f79f56085336"
 dependencies = [
  "cc",
  "rust-sitter-common",
@@ -656,6 +671,12 @@ dependencies = [
  "linux-raw-sys",
  "windows-sys 0.52.0",
 ]
+
+[[package]]
+name = "rustversion"
+version = "1.0.14"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7ffc183a10b4478d04cbbbfc96d0873219d962dd5accaff2ffbd4ceb7df837f4"
 
 [[package]]
 name = "ryu"
@@ -727,6 +748,19 @@ name = "strsim"
 version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8ea5119cdb4c55b55d432abb513a0429384878c15dde60cc77b1c99de1a95a6a"
+
+[[package]]
+name = "strum_macros"
+version = "0.26.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c6cf59daf282c0a494ba14fd21610a0325f9f90ec9d1231dea26bcb1d696c946"
+dependencies = [
+ "heck",
+ "proc-macro2",
+ "quote",
+ "rustversion",
+ "syn 2.0.53",
+]
 
 [[package]]
 name = "syn"

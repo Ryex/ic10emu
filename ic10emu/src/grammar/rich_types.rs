@@ -2,7 +2,7 @@
 #[derive(PartialEq, Debug)]
 pub struct Register {
     pub indirection: u32,
-    pub target: u32,
+    pub target: u8,
 }
 
 impl Register {
@@ -60,7 +60,7 @@ impl DeviceSpec {
 #[derive(PartialEq, Debug)]
 pub enum Device {
     Db,
-    Numbered(u32),
+    Numbered(u8),
     Indirect(Register),
 }
 

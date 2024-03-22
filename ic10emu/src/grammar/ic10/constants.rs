@@ -1,11 +1,11 @@
 // GENERATED CODE DO NOT MODIFY
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, IntoStaticStr, AsRefStr)]
 pub enum Constant {
-     Nan( #[rust_sitter::leaf(text = "nan", transform = |s| s.to_string() )] String ),
-     Pi( #[rust_sitter::leaf(text = "pi", transform = |s| s.to_string() )] String ),
-     Pinf( #[rust_sitter::leaf(text = "pinf", transform = |s| s.to_string() )] String ),
-     Rad2Deg( #[rust_sitter::leaf(text = "rad2deg", transform = |s| s.to_string() )] String ),
-     Deg2Rad( #[rust_sitter::leaf(text = "deg2rad", transform = |s| s.to_string() )] String ),
-     Ninf( #[rust_sitter::leaf(text = "ninf", transform = |s| s.to_string() )] String ),
-     Epsilon( #[rust_sitter::leaf(text = "epsilon", transform = |s| s.to_string() )] String ),
+     #[rust_sitter::leaf(text = "epsilon" )]Epsilon,
+     #[rust_sitter::leaf(text = "nan" )]Nan,
+     #[rust_sitter::leaf(text = "ninf" )]Ninf,
+     #[rust_sitter::leaf(text = "pinf" )]Pinf,
+     #[rust_sitter::leaf(text = "pi" )]Pi,
+     #[rust_sitter::leaf(text = "deg2rad" )]Deg2Rad,
+     #[rust_sitter::leaf(text = "rad2deg" )]Rad2Deg,
 }

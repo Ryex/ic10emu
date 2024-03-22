@@ -31,14 +31,18 @@ enum Device {
     Generic(GenericDevice),
 }
 
+
 #[derive(Debug)]
 pub struct IC {
     pub id: u16,
-    pub ip: u8,
     pub registers: [f64; 18], // r[0-15]
+    pub ip: u8,
     pub stack: [f64; 512],
+    pub aliases: HashMap<String, compiler::Operand>,
     pub pins: [Option<u16>; 6],
     pub fields: HashMap<u8, LogicField>,
+    pub code: String,
+    pub program: compiler::Program,
 }
 
 #[derive(Debug)]
