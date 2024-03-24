@@ -20,15 +20,10 @@ pub struct LogicField {
 }
 
 #[derive(Debug, Default)]
-pub struct GenericDevice {
+pub struct Device {
     pub id: u16,
     pub fields: HashMap<u8, LogicField>,
-}
-
-#[derive(Debug)]
-enum Device {
-    IC(IC),
-    Generic(GenericDevice),
+    pub IC: Option<IC>
 }
 
 
@@ -40,7 +35,6 @@ pub struct IC {
     pub stack: [f64; 512],
     pub aliases: HashMap<String, compiler::Operand>,
     pub pins: [Option<u16>; 6],
-    pub fields: HashMap<u8, LogicField>,
     pub code: String,
     pub program: compiler::Program,
 }
@@ -95,27 +89,14 @@ impl IC {
             registers: [0.0; 18],
             stack: [0.0; 512],
             pins: [None; 6],
-            fields: HashMap::new(),
-        }
-    }
-}
-
-impl GenericDevice {
-    pub fn new(id: u16) -> Self {
-        GenericDevice {
-            id,
-            fields: HashMap::new(),
+            program: compiler::Program::new(),
+            code: String::new(),
+            aliases: HashMap::new(),
         }
     }
 }
 
 impl Device {
-    pub fn id(&self) -> u16 {
-        match self {
-            Self::IC(ic) => ic.id,
-            Self::Generic(d) => d.id,
-        }
-    }
 }
 
 impl VM {

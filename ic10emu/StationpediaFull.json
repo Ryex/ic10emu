@@ -49,6 +49,52 @@
       "ConnectionInsert": []
     },
     {
+      "Key": "ThingStructureDrinkingFountain",
+      "Title": "<N:EN:StructureDrinkingFountain>",
+      "Description": "<N:EN:StructureDrinkingFountain>",
+      "PrefabName": "StructureDrinkingFountain",
+      "PrefabHash": 1968371847,
+      "SlotInserts": [],
+      "LogicInsert": [
+        {
+          "LogicName": "<link=LogicTypePower><color=orange>Power</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeError><color=orange>Error</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeOn><color=orange>On</color></link>",
+          "LogicAccessTypes": "Read Write"
+        },
+        {
+          "LogicName": "<link=LogicTypeRequiredPower><color=orange>RequiredPower</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypePrefabHash><color=orange>PrefabHash</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeReferenceId><color=orange>ReferenceId</color></link>",
+          "LogicAccessTypes": "Read"
+        }
+      ],
+      "LogicSlotInsert": [],
+      "ModeInsert": [],
+      "ConnectionInsert": [
+        {
+          "LogicName": "Pipe Liquid Input",
+          "LogicAccessTypes": "0"
+        },
+        {
+          "LogicName": "Connection",
+          "LogicAccessTypes": "1"
+        }
+      ]
+    },
+    {
       "Key": "ThingRobot",
       "Title": "AIMeE Bot",
       "Description": "Designed by - presumably drunk - <link=Norsec><color=#0080FFFF>Norsec</color></link> roboticists, AIMeE (or Automated Independent Mechanical Entity) can be a <link=Stationeers><color=#0080FFFF>Stationeer's</color></link> best friend, or tiresome nemesis, or both several times in the same day. \n      \nIntended to unearth and retrieve ores automatically, the unit requires basic programming knowledge to operate, and <link=ThingMotherboardProgrammableChip><color=green>IC Editor Motherboard</color></link>.\n\nAIMEe has 7 modes:\n\nRobotMode.None = 0 = Do nothing\nRobotMode.None = 1 = Follow nearest player\nRobotMode.None = 2 = Move to target in straight line\nRobotMode.None = 3 = Wander around looking for ores in 15 co-ords radius\nRobotMode.None = 4 = Unload in chute input or chute bin within 3 meters / 1.5 large grids\nRobotMode.None = 5 = Path(find) to target\nRobotMode.None = 6 = Automatic assigned state, shows when storage slots are fullConnects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>",
@@ -1463,18 +1509,6 @@
       "ConnectionInsert": []
     },
     {
-      "Key": "ThingCircuitboardAirlockControl",
-      "Title": "Airlock",
-      "Description": "Rumored to have been first sketched on a <link=Norsec><color=#0080FFFF>Norsec</color></link> toilet wall by a disgruntled engineer, the Exgress airlock control circuit board’s versatility and ease of fabrication has made it the <link=Stationeers><color=#0080FFFF>Stationeers</color></link> control system of choice for <link=ThingStructureAirlock><color=green>Airlock</color></link> cycling protocols. \n\nTo enter setup mode, insert the board into a <link=ThingStructureConsole><color=green>Console</color></link> along with a data disk. In this mode, you can see all data-accessible objects currently connected to the <link=ThingStructureConsole><color=green>Console</color></link>. Doors, lights, gas sensors and slave consoles can be selected (highlighted green), and will be controlled once the data disk is removed.",
-      "PrefabName": "CircuitboardAirlockControl",
-      "PrefabHash": 912176135,
-      "SlotInserts": [],
-      "LogicInsert": [],
-      "LogicSlotInsert": [],
-      "ModeInsert": [],
-      "ConnectionInsert": []
-    },
-    {
       "Key": "ThingStructureAirlock",
       "Title": "Airlock",
       "Description": "The standard airlock is a powered portal that forms the main component of an airlock chamber. As long as the airlock is not locked, it can be manually opened using a crowbar.",
@@ -1544,6 +1578,18 @@
           "LogicAccessTypes": "1"
         }
       ]
+    },
+    {
+      "Key": "ThingCircuitboardAirlockControl",
+      "Title": "Airlock",
+      "Description": "Rumored to have been first sketched on a <link=Norsec><color=#0080FFFF>Norsec</color></link> toilet wall by a disgruntled engineer, the Exgress airlock control circuit board’s versatility and ease of fabrication has made it the <link=Stationeers><color=#0080FFFF>Stationeers</color></link> control system of choice for <link=ThingStructureAirlock><color=green>Airlock</color></link> cycling protocols. \n\nTo enter setup mode, insert the board into a <link=ThingStructureConsole><color=green>Console</color></link> along with a data disk. In this mode, you can see all data-accessible objects currently connected to the <link=ThingStructureConsole><color=green>Console</color></link>. Doors, lights, gas sensors and slave consoles can be selected (highlighted green), and will be controlled once the data disk is removed.",
+      "PrefabName": "CircuitboardAirlockControl",
+      "PrefabHash": 912176135,
+      "SlotInserts": [],
+      "LogicInsert": [],
+      "LogicSlotInsert": [],
+      "ModeInsert": [],
+      "ConnectionInsert": []
     },
     {
       "Key": "ThingImGuiCircuitboardAirlockControl",
@@ -1949,11 +1995,11 @@
       "ConnectionInsert": []
     },
     {
-      "Key": "ThingStructureAreaPowerControl",
+      "Key": "ThingStructureAreaPowerControlReversed",
       "Title": "Area Power Control",
-      "Description": "An Area Power Control (APC) has three main functions: \nIts primary purpose is to regulate power flow, ensuring uninterrupted performance from devices and machinery, especially those with a fluctuating draw. \nAPCs also create sub-networks, as no devices on the far side of an APC are visible on the main network.\nLastly, an APC charges batteries, which can provide backup power to the sub-network in the case of an outage. Note that an APC requires a battery to stabilize power draw. It also has two variants, each allowing power to flow in one direction only.",
-      "PrefabName": "StructureAreaPowerControl",
-      "PrefabHash": 1999523701,
+      "Description": "An Area Power Control (APC) has three main functions. \nIts primary purpose is to regulate power flow, ensuring uninterrupted performance from devices and machinery, especially those with a fluctuating draw. \nAPCs also create sub-networks, as no devices on the far side of an APC are visible on the main network. \nLastly, an APC charges batteries, which can provide backup power to the sub-network in the case of an outage. Note that an APC requires a battery to stabilize power draw. It also has two variants, each allowing power to flow in one direction only.",
+      "PrefabName": "StructureAreaPowerControlReversed",
+      "PrefabHash": -1032513487,
       "SlotInserts": [
         {
           "SlotName": "Battery",
@@ -2104,11 +2150,11 @@
       ]
     },
     {
-      "Key": "ThingStructureAreaPowerControlReversed",
+      "Key": "ThingStructureAreaPowerControl",
       "Title": "Area Power Control",
-      "Description": "An Area Power Control (APC) has three main functions. \nIts primary purpose is to regulate power flow, ensuring uninterrupted performance from devices and machinery, especially those with a fluctuating draw. \nAPCs also create sub-networks, as no devices on the far side of an APC are visible on the main network. \nLastly, an APC charges batteries, which can provide backup power to the sub-network in the case of an outage. Note that an APC requires a battery to stabilize power draw. It also has two variants, each allowing power to flow in one direction only.",
-      "PrefabName": "StructureAreaPowerControlReversed",
-      "PrefabHash": -1032513487,
+      "Description": "An Area Power Control (APC) has three main functions: \nIts primary purpose is to regulate power flow, ensuring uninterrupted performance from devices and machinery, especially those with a fluctuating draw. \nAPCs also create sub-networks, as no devices on the far side of an APC are visible on the main network.\nLastly, an APC charges batteries, which can provide backup power to the sub-network in the case of an outage. Note that an APC requires a battery to stabilize power draw. It also has two variants, each allowing power to flow in one direction only.",
+      "PrefabName": "StructureAreaPowerControl",
+      "PrefabHash": 1999523701,
       "SlotInserts": [
         {
           "SlotName": "Battery",
@@ -2596,13 +2642,17 @@
     {
       "Key": "ThingStructureBatterySmall",
       "Title": "Auxiliary Rocket Battery ",
-      "Description": "",
+      "Description": "0.Empty\n1.Critical\n2.VeryLow\n3.Low\n4.Medium\n5.High\n6.Full",
       "PrefabName": "StructureBatterySmall",
       "PrefabHash": -2123455080,
       "SlotInserts": [],
       "LogicInsert": [
         {
           "LogicName": "<link=LogicTypePower><color=orange>Power</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeMode><color=orange>Mode</color></link>",
           "LogicAccessTypes": "Read"
         },
         {
@@ -2639,7 +2689,36 @@
         }
       ],
       "LogicSlotInsert": [],
-      "ModeInsert": [],
+      "ModeInsert": [
+        {
+          "LogicName": "Empty",
+          "LogicAccessTypes": "0"
+        },
+        {
+          "LogicName": "Critical",
+          "LogicAccessTypes": "1"
+        },
+        {
+          "LogicName": "VeryLow",
+          "LogicAccessTypes": "2"
+        },
+        {
+          "LogicName": "Low",
+          "LogicAccessTypes": "3"
+        },
+        {
+          "LogicName": "Medium",
+          "LogicAccessTypes": "4"
+        },
+        {
+          "LogicName": "High",
+          "LogicAccessTypes": "5"
+        },
+        {
+          "LogicName": "Full",
+          "LogicAccessTypes": "6"
+        }
+      ],
       "ConnectionInsert": [
         {
           "LogicName": "Power Input",
@@ -2978,13 +3057,17 @@
     {
       "Key": "ThingStructureBatteryMedium",
       "Title": "Battery (Medium)",
-      "Description": "",
+      "Description": "0.Empty\n1.Critical\n2.VeryLow\n3.Low\n4.Medium\n5.High\n6.Full",
       "PrefabName": "StructureBatteryMedium",
       "PrefabHash": -1125305264,
       "SlotInserts": [],
       "LogicInsert": [
         {
           "LogicName": "<link=LogicTypePower><color=orange>Power</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeMode><color=orange>Mode</color></link>",
           "LogicAccessTypes": "Read"
         },
         {
@@ -3021,7 +3104,36 @@
         }
       ],
       "LogicSlotInsert": [],
-      "ModeInsert": [],
+      "ModeInsert": [
+        {
+          "LogicName": "Empty",
+          "LogicAccessTypes": "0"
+        },
+        {
+          "LogicName": "Critical",
+          "LogicAccessTypes": "1"
+        },
+        {
+          "LogicName": "VeryLow",
+          "LogicAccessTypes": "2"
+        },
+        {
+          "LogicName": "Low",
+          "LogicAccessTypes": "3"
+        },
+        {
+          "LogicName": "Medium",
+          "LogicAccessTypes": "4"
+        },
+        {
+          "LogicName": "High",
+          "LogicAccessTypes": "5"
+        },
+        {
+          "LogicName": "Full",
+          "LogicAccessTypes": "6"
+        }
+      ],
       "ConnectionInsert": [
         {
           "LogicName": "Power Input",
@@ -3309,6 +3421,18 @@
       ]
     },
     {
+      "Key": "ThingItemBatteryChargerSmall",
+      "Title": "Battery Charger Small",
+      "Description": "",
+      "PrefabName": "ItemBatteryChargerSmall",
+      "PrefabHash": 1008295833,
+      "SlotInserts": [],
+      "LogicInsert": [],
+      "LogicSlotInsert": [],
+      "ModeInsert": [],
+      "ConnectionInsert": []
+    },
+    {
       "Key": "ThingStructureBatteryChargerSmall",
       "Title": "Battery Charger Small",
       "Description": "",
@@ -3409,18 +3533,6 @@
           "LogicAccessTypes": "0"
         }
       ]
-    },
-    {
-      "Key": "ThingItemBatteryChargerSmall",
-      "Title": "Battery Charger Small",
-      "Description": "",
-      "PrefabName": "ItemBatteryChargerSmall",
-      "PrefabHash": 1008295833,
-      "SlotInserts": [],
-      "LogicInsert": [],
-      "LogicSlotInsert": [],
-      "ModeInsert": [],
-      "ConnectionInsert": []
     },
     {
       "Key": "ThingBattery_Wireless_cell",
@@ -6102,7 +6214,7 @@
     {
       "Key": "ThingItemGasFilterVolatilesInfinite",
       "Title": "Catalytic Filter (Volatiles)",
-      "Description": "A filter that selectively targets Volatiles. It uses internal pressure differentials to regenerate a unique phase change catalyst, giving it an unlimited lifecycle.",
+      "Description": "A filter that selectively targets <link=GasVolatiles><color=#44AD83>Volatiles</color></link>. It uses internal pressure differentials to regenerate a unique phase change catalyst, giving it an unlimited lifecycle.",
       "PrefabName": "ItemGasFilterVolatilesInfinite",
       "PrefabHash": -1916176068,
       "SlotInserts": [],
@@ -8747,12 +8859,44 @@
           "LogicAccessTypes": "Read"
         },
         {
+          "LogicName": "<link=LogicTypePressure><color=orange>Pressure</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeTemperature><color=orange>Temperature</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
           "LogicName": "<link=LogicTypeLock><color=orange>Lock</color></link>",
           "LogicAccessTypes": "Read Write"
         },
         {
           "LogicName": "<link=LogicTypeSetting><color=orange>Setting</color></link>",
           "LogicAccessTypes": "Read Write"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioOxygen><color=orange>RatioOxygen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioCarbonDioxide><color=orange>RatioCarbonDioxide</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioNitrogen><color=orange>RatioNitrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioPollutant><color=orange>RatioPollutant</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioVolatiles><color=orange>RatioVolatiles</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioWater><color=orange>RatioWater</color></link>",
+          "LogicAccessTypes": "Read"
         },
         {
           "LogicName": "<link=LogicTypeMaximum><color=orange>Maximum</color></link>",
@@ -8771,7 +8915,19 @@
           "LogicAccessTypes": "Read"
         },
         {
+          "LogicName": "<link=LogicTypeTotalMoles><color=orange>TotalMoles</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioNitrousOxide><color=orange>RatioNitrousOxide</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
           "LogicName": "<link=LogicTypePrefabHash><color=orange>PrefabHash</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeCombustion><color=orange>Combustion</color></link>",
           "LogicAccessTypes": "Read"
         },
         {
@@ -16678,12 +16834,44 @@
           "LogicAccessTypes": "Read"
         },
         {
+          "LogicName": "<link=LogicTypePressure><color=orange>Pressure</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeTemperature><color=orange>Temperature</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
           "LogicName": "<link=LogicTypeLock><color=orange>Lock</color></link>",
           "LogicAccessTypes": "Read Write"
         },
         {
           "LogicName": "<link=LogicTypeSetting><color=orange>Setting</color></link>",
           "LogicAccessTypes": "Read Write"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioOxygen><color=orange>RatioOxygen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioCarbonDioxide><color=orange>RatioCarbonDioxide</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioNitrogen><color=orange>RatioNitrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioPollutant><color=orange>RatioPollutant</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioVolatiles><color=orange>RatioVolatiles</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioWater><color=orange>RatioWater</color></link>",
+          "LogicAccessTypes": "Read"
         },
         {
           "LogicName": "<link=LogicTypeMaximum><color=orange>Maximum</color></link>",
@@ -16702,7 +16890,19 @@
           "LogicAccessTypes": "Read"
         },
         {
+          "LogicName": "<link=LogicTypeTotalMoles><color=orange>TotalMoles</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioNitrousOxide><color=orange>RatioNitrousOxide</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
           "LogicName": "<link=LogicTypePrefabHash><color=orange>PrefabHash</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeCombustion><color=orange>Combustion</color></link>",
           "LogicAccessTypes": "Read"
         },
         {
@@ -17216,12 +17416,18 @@
       "ConnectionInsert": []
     },
     {
-      "Key": "ThingItemFireExtinguisher",
-      "Title": "Fire Extinguisher",
-      "Description": "",
-      "PrefabName": "ItemFireExtinguisher",
-      "PrefabHash": 1578288856,
-      "SlotInserts": [],
+      "Key": "ThingItemReusableFireExtinguisher",
+      "Title": "Fire Extinguisher (Reusable)",
+      "Description": "Requires a canister filled with any inert liquid to opperate.",
+      "PrefabName": "ItemReusableFireExtinguisher",
+      "PrefabHash": -1773192190,
+      "SlotInserts": [
+        {
+          "SlotName": "Liquid  Canister",
+          "SlotType": "LiquidCanister",
+          "SlotIndex": "0"
+        }
+      ],
       "LogicInsert": [],
       "LogicSlotInsert": [],
       "ModeInsert": [],
@@ -17339,6 +17545,87 @@
           "LogicAccessTypes": "0"
         }
       ]
+    },
+    {
+      "Key": "ThingItemFlashlight",
+      "Title": "Flashlight",
+      "Description": "A flashlight with a narrow and wide beam options.",
+      "PrefabName": "ItemFlashlight",
+      "PrefabHash": -838472102,
+      "SlotInserts": [
+        {
+          "SlotName": "Battery",
+          "SlotType": "Battery",
+          "SlotIndex": "0"
+        }
+      ],
+      "LogicInsert": [
+        {
+          "LogicName": "<link=LogicTypePower><color=orange>Power</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeMode><color=orange>Mode</color></link>",
+          "LogicAccessTypes": "Read Write"
+        },
+        {
+          "LogicName": "<link=LogicTypeOn><color=orange>On</color></link>",
+          "LogicAccessTypes": "Read Write"
+        },
+        {
+          "LogicName": "<link=LogicTypeReferenceId><color=orange>ReferenceId</color></link>",
+          "LogicAccessTypes": "Read"
+        }
+      ],
+      "LogicSlotInsert": [
+        {
+          "LogicName": "<link=LogicSlotTypeOccupied><color=orange>Occupied</color></link>",
+          "LogicAccessTypes": "0"
+        },
+        {
+          "LogicName": "<link=LogicSlotTypeOccupantHash><color=orange>OccupantHash</color></link>",
+          "LogicAccessTypes": "0"
+        },
+        {
+          "LogicName": "<link=LogicSlotTypeQuantity><color=orange>Quantity</color></link>",
+          "LogicAccessTypes": "0"
+        },
+        {
+          "LogicName": "<link=LogicSlotTypeDamage><color=orange>Damage</color></link>",
+          "LogicAccessTypes": "0"
+        },
+        {
+          "LogicName": "<link=LogicSlotTypeCharge><color=orange>Charge</color></link>",
+          "LogicAccessTypes": "0"
+        },
+        {
+          "LogicName": "<link=LogicSlotTypeChargeRatio><color=orange>ChargeRatio</color></link>",
+          "LogicAccessTypes": "0"
+        },
+        {
+          "LogicName": "<link=LogicSlotTypeClass><color=orange>Class</color></link>",
+          "LogicAccessTypes": "0"
+        },
+        {
+          "LogicName": "<link=LogicSlotTypeMaxQuantity><color=orange>MaxQuantity</color></link>",
+          "LogicAccessTypes": "0"
+        },
+        {
+          "LogicName": "<link=LogicSlotTypeReferenceId><color=orange>ReferenceId</color></link>",
+          "LogicAccessTypes": "0"
+        }
+      ],
+      "ModeInsert": [
+        {
+          "LogicName": "Low Power",
+          "LogicAccessTypes": "0"
+        },
+        {
+          "LogicName": "High Power",
+          "LogicAccessTypes": "1"
+        }
+      ],
+      "ConnectionInsert": []
     },
     {
       "Key": "ThingItemFlour",
@@ -18219,6 +18506,18 @@
         {
           "LogicName": "<link=LogicTypeReferenceId><color=orange>ReferenceId</color></link>",
           "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioHydrogen><color=orange>RatioHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioLiquidHydrogen><color=orange>RatioLiquidHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioPollutedWater><color=orange>RatioPollutedWater</color></link>",
+          "LogicAccessTypes": "Read"
         }
       ],
       "LogicSlotInsert": [],
@@ -18340,6 +18639,18 @@
         },
         {
           "LogicName": "<link=LogicTypeReferenceId><color=orange>ReferenceId</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioHydrogen><color=orange>RatioHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioLiquidHydrogen><color=orange>RatioLiquidHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioPollutedWater><color=orange>RatioPollutedWater</color></link>",
           "LogicAccessTypes": "Read"
         }
       ],
@@ -18605,7 +18916,47 @@
           "LogicAccessTypes": "Read"
         },
         {
+          "LogicName": "<link=LogicTypeRatioLiquidNitrogen><color=orange>RatioLiquidNitrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioLiquidOxygen><color=orange>RatioLiquidOxygen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioLiquidVolatiles><color=orange>RatioLiquidVolatiles</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioSteam><color=orange>RatioSteam</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioLiquidCarbonDioxide><color=orange>RatioLiquidCarbonDioxide</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioLiquidPollutant><color=orange>RatioLiquidPollutant</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioLiquidNitrousOxide><color=orange>RatioLiquidNitrousOxide</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
           "LogicName": "<link=LogicTypeReferenceId><color=orange>ReferenceId</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioHydrogen><color=orange>RatioHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioLiquidHydrogen><color=orange>RatioLiquidHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioPollutedWater><color=orange>RatioPollutedWater</color></link>",
           "LogicAccessTypes": "Read"
         }
       ],
@@ -21743,7 +22094,7 @@
     {
       "Key": "ThingItemVolatiles",
       "Title": "Ice (Volatiles)",
-      "Description": "An extremely reactive ice with numerous hydrocarbons trapped inside. For simplicity's sake, these are often displayed as H2 by devices like the <link=ThingCartridgeAtmosAnalyser><color=green>Atmos Analyzer</color></link>.\n      \nVolatiles combust in a 2:1 ratio with <link=GasOxygen><color=#44AD83>Oxygen</color></link>, creating <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> and pollutants. However when catalysed via devices such as the <link=ThingH2Combustor><color=green>H2 Combustor</color></link> in the presence of <link=GasOxygen><color=#44AD83>Oxygen</color></link>, they produce\n        <link=GasSteam><color=#44AD83>Steam</color></link> and heat with a modicum of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> and <link=GasPollutant><color=#44AD83>Pollutant</color></link> due to the autoignition of the volatiles in the chamber. Along with <link=GasOxygen><color=#44AD83>Oxygen</color></link>, volatiles gas is also the major component of fuel for such devices as the <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link>.\n",
+      "Description": "An extremely reactive ice with numerous hydrocarbons trapped inside. For simplicity's sake, these are often displayed as H2 by devices like the <link=ThingCartridgeAtmosAnalyser><color=green>Atmos Analyzer</color></link>.\n      \n<link=GasVolatiles><color=#44AD83>Volatiles</color></link> combust in a 2:1 ratio with <link=GasOxygen><color=#44AD83>Oxygen</color></link>, creating <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> and pollutants. However when catalysed via devices such as the <link=ThingH2Combustor><color=green>H2 Combustor</color></link> in the presence of <link=GasOxygen><color=#44AD83>Oxygen</color></link>, they produce\n        <link=GasSteam><color=#44AD83>Steam</color></link> and heat with a modicum of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> and <link=GasPollutant><color=#44AD83>Pollutant</color></link> due to the autoignition of the volatiles in the chamber. Along with <link=GasOxygen><color=#44AD83>Oxygen</color></link>, volatiles gas is also the major component of fuel for such devices as the <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link>.\n",
       "PrefabName": "ItemVolatiles",
       "PrefabHash": 1253102035,
       "SlotInserts": [],
@@ -22563,6 +22914,18 @@
         {
           "LogicName": "<link=LogicTypeReferenceId><color=orange>ReferenceId</color></link>",
           "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioHydrogen><color=orange>RatioHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioLiquidHydrogen><color=orange>RatioLiquidHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioPollutedWater><color=orange>RatioPollutedWater</color></link>",
+          "LogicAccessTypes": "Read"
         }
       ],
       "LogicSlotInsert": [],
@@ -22684,6 +23047,18 @@
         },
         {
           "LogicName": "<link=LogicTypeReferenceId><color=orange>ReferenceId</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioHydrogen><color=orange>RatioHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioLiquidHydrogen><color=orange>RatioLiquidHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioPollutedWater><color=orange>RatioPollutedWater</color></link>",
           "LogicAccessTypes": "Read"
         }
       ],
@@ -24016,6 +24391,18 @@
       "Description": "",
       "PrefabName": "ItemKitDoor",
       "PrefabHash": 168615924,
+      "SlotInserts": [],
+      "LogicInsert": [],
+      "LogicSlotInsert": [],
+      "ModeInsert": [],
+      "ConnectionInsert": []
+    },
+    {
+      "Key": "ThingItemKitDrinkingFountain",
+      "Title": "Kit (Drinking Fountain)",
+      "Description": "",
+      "PrefabName": "ItemKitDrinkingFountain",
+      "PrefabHash": -1743663875,
       "SlotInserts": [],
       "LogicInsert": [],
       "LogicSlotInsert": [],
@@ -25523,6 +25910,18 @@
       "ConnectionInsert": []
     },
     {
+      "Key": "ThingItemKitShower",
+      "Title": "Kit (Shower)",
+      "Description": "",
+      "PrefabName": "ItemKitShower",
+      "PrefabHash": 735858725,
+      "SlotInserts": [],
+      "LogicInsert": [],
+      "LogicSlotInsert": [],
+      "ModeInsert": [],
+      "ConnectionInsert": []
+    },
+    {
       "Key": "ThingItemKitSign",
       "Title": "Kit (Sign)",
       "Description": "",
@@ -25960,6 +26359,18 @@
       "Description": "",
       "PrefabName": "ItemKitWaterBottleFiller",
       "PrefabHash": 159886536,
+      "SlotInserts": [],
+      "LogicInsert": [],
+      "LogicSlotInsert": [],
+      "ModeInsert": [],
+      "ConnectionInsert": []
+    },
+    {
+      "Key": "ThingItemKitWaterPurifier",
+      "Title": "Kit (Water Purifier)",
+      "Description": "",
+      "PrefabName": "ItemKitWaterPurifier",
+      "PrefabHash": 611181283,
       "SlotInserts": [],
       "LogicInsert": [],
       "LogicSlotInsert": [],
@@ -28272,6 +28683,18 @@
         {
           "LogicName": "<link=LogicTypeReferenceId><color=orange>ReferenceId</color></link>",
           "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioHydrogen><color=orange>RatioHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioLiquidHydrogen><color=orange>RatioLiquidHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioPollutedWater><color=orange>RatioPollutedWater</color></link>",
+          "LogicAccessTypes": "Read"
         }
       ],
       "LogicSlotInsert": [],
@@ -28709,6 +29132,18 @@
         {
           "LogicName": "<link=LogicTypeReferenceId><color=orange>ReferenceId</color></link>",
           "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioHydrogen><color=orange>RatioHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioLiquidHydrogen><color=orange>RatioLiquidHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioPollutedWater><color=orange>RatioPollutedWater</color></link>",
+          "LogicAccessTypes": "Read"
         }
       ],
       "LogicSlotInsert": [],
@@ -28830,6 +29265,18 @@
         },
         {
           "LogicName": "<link=LogicTypeReferenceId><color=orange>ReferenceId</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioHydrogen><color=orange>RatioHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioLiquidHydrogen><color=orange>RatioLiquidHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioPollutedWater><color=orange>RatioPollutedWater</color></link>",
           "LogicAccessTypes": "Read"
         }
       ],
@@ -29247,6 +29694,18 @@
         {
           "LogicName": "<link=LogicTypeReferenceId><color=orange>ReferenceId</color></link>",
           "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioHydrogen><color=orange>RatioHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioLiquidHydrogen><color=orange>RatioLiquidHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioPollutedWater><color=orange>RatioPollutedWater</color></link>",
+          "LogicAccessTypes": "Read"
         }
       ],
       "LogicSlotInsert": [],
@@ -29407,6 +29866,18 @@
         {
           "LogicName": "<link=LogicTypeReferenceId><color=orange>ReferenceId</color></link>",
           "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioHydrogen><color=orange>RatioHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioLiquidHydrogen><color=orange>RatioLiquidHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioPollutedWater><color=orange>RatioPollutedWater</color></link>",
+          "LogicAccessTypes": "Read"
         }
       ],
       "LogicSlotInsert": [],
@@ -29551,6 +30022,18 @@
         },
         {
           "LogicName": "<link=LogicTypeReferenceId><color=orange>ReferenceId</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioHydrogen><color=orange>RatioHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioLiquidHydrogen><color=orange>RatioLiquidHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioPollutedWater><color=orange>RatioPollutedWater</color></link>",
           "LogicAccessTypes": "Read"
         }
       ],
@@ -34470,11 +34953,11 @@
       "ConnectionInsert": []
     },
     {
-      "Key": "ThingStructurePictureFrameThickLandscapeSmall",
+      "Key": "ThingStructurePictureFrameThickMountLandscapeSmall",
       "Title": "Picture Frame Thick Landscape Small",
       "Description": "",
-      "PrefabName": "StructurePictureFrameThickLandscapeSmall",
-      "PrefabHash": -2041566697,
+      "PrefabName": "StructurePictureFrameThickMountLandscapeSmall",
+      "PrefabHash": 347154462,
       "SlotInserts": [],
       "LogicInsert": [],
       "LogicSlotInsert": [],
@@ -34482,11 +34965,11 @@
       "ConnectionInsert": []
     },
     {
-      "Key": "ThingStructurePictureFrameThickMountLandscapeSmall",
+      "Key": "ThingStructurePictureFrameThickLandscapeSmall",
       "Title": "Picture Frame Thick Landscape Small",
       "Description": "",
-      "PrefabName": "StructurePictureFrameThickMountLandscapeSmall",
-      "PrefabHash": 347154462,
+      "PrefabName": "StructurePictureFrameThickLandscapeSmall",
+      "PrefabHash": -2041566697,
       "SlotInserts": [],
       "LogicInsert": [],
       "LogicSlotInsert": [],
@@ -34542,11 +35025,11 @@
       "ConnectionInsert": []
     },
     {
-      "Key": "ThingStructurePictureFrameThinMountLandscapeLarge",
+      "Key": "ThingStructurePictureFrameThinLandscapeLarge",
       "Title": "Picture Frame Thin Landscape Large",
       "Description": "",
-      "PrefabName": "StructurePictureFrameThinMountLandscapeLarge",
-      "PrefabHash": -1146760430,
+      "PrefabName": "StructurePictureFrameThinLandscapeLarge",
+      "PrefabHash": -1418288625,
       "SlotInserts": [],
       "LogicInsert": [],
       "LogicSlotInsert": [],
@@ -34554,11 +35037,11 @@
       "ConnectionInsert": []
     },
     {
-      "Key": "ThingStructurePictureFrameThinLandscapeLarge",
+      "Key": "ThingStructurePictureFrameThinMountLandscapeLarge",
       "Title": "Picture Frame Thin Landscape Large",
       "Description": "",
-      "PrefabName": "StructurePictureFrameThinLandscapeLarge",
-      "PrefabHash": -1418288625,
+      "PrefabName": "StructurePictureFrameThinMountLandscapeLarge",
+      "PrefabHash": -1146760430,
       "SlotInserts": [],
       "LogicInsert": [],
       "LogicSlotInsert": [],
@@ -34590,18 +35073,6 @@
       "ConnectionInsert": []
     },
     {
-      "Key": "ThingStructurePictureFrameThinPortraitLarge",
-      "Title": "Picture Frame Thin Portrait Large",
-      "Description": "",
-      "PrefabName": "StructurePictureFrameThinPortraitLarge",
-      "PrefabHash": 1212777087,
-      "SlotInserts": [],
-      "LogicInsert": [],
-      "LogicSlotInsert": [],
-      "ModeInsert": [],
-      "ConnectionInsert": []
-    },
-    {
       "Key": "ThingStructurePictureFrameThinMountPortraitLarge",
       "Title": "Picture Frame Thin Portrait Large",
       "Description": "",
@@ -34614,11 +35085,11 @@
       "ConnectionInsert": []
     },
     {
-      "Key": "ThingStructurePictureFrameThinPortraitSmall",
-      "Title": "Picture Frame Thin Portrait Small",
+      "Key": "ThingStructurePictureFrameThinPortraitLarge",
+      "Title": "Picture Frame Thin Portrait Large",
       "Description": "",
-      "PrefabName": "StructurePictureFrameThinPortraitSmall",
-      "PrefabHash": 1684488658,
+      "PrefabName": "StructurePictureFrameThinPortraitLarge",
+      "PrefabHash": 1212777087,
       "SlotInserts": [],
       "LogicInsert": [],
       "LogicSlotInsert": [],
@@ -34631,6 +35102,18 @@
       "Description": "",
       "PrefabName": "StructurePictureFrameThinMountPortraitSmall",
       "PrefabHash": 1835796040,
+      "SlotInserts": [],
+      "LogicInsert": [],
+      "LogicSlotInsert": [],
+      "ModeInsert": [],
+      "ConnectionInsert": []
+    },
+    {
+      "Key": "ThingStructurePictureFrameThinPortraitSmall",
+      "Title": "Picture Frame Thin Portrait Small",
+      "Description": "",
+      "PrefabName": "StructurePictureFrameThinPortraitSmall",
+      "PrefabHash": 1684488658,
       "SlotInserts": [],
       "LogicInsert": [],
       "LogicSlotInsert": [],
@@ -34996,6 +35479,18 @@
         {
           "LogicName": "<link=LogicTypeReferenceId><color=orange>ReferenceId</color></link>",
           "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioHydrogen><color=orange>RatioHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioLiquidHydrogen><color=orange>RatioLiquidHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioPollutedWater><color=orange>RatioPollutedWater</color></link>",
+          "LogicAccessTypes": "Read"
         }
       ],
       "LogicSlotInsert": [],
@@ -35041,6 +35536,18 @@
       "ConnectionInsert": []
     },
     {
+      "Key": "ThingItemPipeCowl",
+      "Title": "Pipe Cowl",
+      "Description": "This creates a <link=ThingItemPipeCowl><color=green>Pipe Cowl</color></link> that can be placed on the end of pipes to expose them to the world atmospheres.",
+      "PrefabName": "ItemPipeCowl",
+      "PrefabHash": -38898376,
+      "SlotInserts": [],
+      "LogicInsert": [],
+      "LogicSlotInsert": [],
+      "ModeInsert": [],
+      "ConnectionInsert": []
+    },
+    {
       "Key": "ThingStructurePipeCowl",
       "Title": "Pipe Cowl",
       "Description": "",
@@ -35056,18 +35563,6 @@
           "LogicAccessTypes": "0"
         }
       ]
-    },
-    {
-      "Key": "ThingItemPipeCowl",
-      "Title": "Pipe Cowl",
-      "Description": "This creates a <link=ThingItemPipeCowl><color=green>Pipe Cowl</color></link> that can be placed on the end of pipes to expose them to the world atmospheres.",
-      "PrefabName": "ItemPipeCowl",
-      "PrefabHash": -38898376,
-      "SlotInserts": [],
-      "LogicInsert": [],
-      "LogicSlotInsert": [],
-      "ModeInsert": [],
-      "ConnectionInsert": []
     },
     {
       "Key": "ThingStructurePipeHeater",
@@ -37279,11 +37774,35 @@
       "ConnectionInsert": []
     },
     {
+      "Key": "ThingItemPureIceHydrogen",
+      "Title": "Pure Ice Hydrogen",
+      "Description": "A frozen chunk of pure <link=GasHydrogen><color=#44AD83>Hydrogen</color></link>",
+      "PrefabName": "ItemPureIceHydrogen",
+      "PrefabHash": 944530361,
+      "SlotInserts": [],
+      "LogicInsert": [],
+      "LogicSlotInsert": [],
+      "ModeInsert": [],
+      "ConnectionInsert": []
+    },
+    {
       "Key": "ThingItemPureIceLiquidCarbonDioxide",
       "Title": "Pure Ice Liquid Carbon Dioxide",
       "Description": "A frozen chunk of pure <link=GasLiquidCarbonDioxide><color=#44AD83>Liquid Carbon Dioxide</color></link>",
       "PrefabName": "ItemPureIceLiquidCarbonDioxide",
       "PrefabHash": -1715945725,
+      "SlotInserts": [],
+      "LogicInsert": [],
+      "LogicSlotInsert": [],
+      "ModeInsert": [],
+      "ConnectionInsert": []
+    },
+    {
+      "Key": "ThingItemPureIceLiquidHydrogen",
+      "Title": "Pure Ice Liquid Hydrogen",
+      "Description": "A frozen chunk of pure <link=GasLiquidHydrogen><color=#44AD83>Liquid Hydrogen</color></link>",
+      "PrefabName": "ItemPureIceLiquidHydrogen",
+      "PrefabHash": -1044933269,
       "SlotInserts": [],
       "LogicInsert": [],
       "LogicSlotInsert": [],
@@ -37392,6 +37911,18 @@
       "Description": "A frozen chunk of pure <link=GasPollutant><color=#44AD83>Pollutant</color></link>",
       "PrefabName": "ItemPureIcePollutant",
       "PrefabHash": -1755356,
+      "SlotInserts": [],
+      "LogicInsert": [],
+      "LogicSlotInsert": [],
+      "ModeInsert": [],
+      "ConnectionInsert": []
+    },
+    {
+      "Key": "ThingItemPureIcePollutedWater",
+      "Title": "Pure Ice Polluted Water",
+      "Description": "A frozen chunk of <link=GasPollutedWater><color=#44AD83>Polluted Water</color></link>",
+      "PrefabName": "ItemPureIcePollutedWater",
+      "PrefabHash": -2073202179,
       "SlotInserts": [],
       "LogicInsert": [],
       "LogicSlotInsert": [],
@@ -40201,11 +40732,11 @@
       "ConnectionInsert": []
     },
     {
-      "Key": "ThingItemSensorProcessingUnitMesonScanner",
-      "Title": "Sensor Processing Unit (Meson Scanner)",
-      "Description": "The Meson Scanner Sensor Processing Unit can be inserted into the <link=ThingItemSensorLenses><color=green>Sensor Lenses</color></link> to show an overlay of pipes and cables. This can be useful when building behind walls or other structures.",
-      "PrefabName": "ItemSensorProcessingUnitMesonScanner",
-      "PrefabHash": -1730464583,
+      "Key": "ThingItemSensorProcessingUnitOreScanner",
+      "Title": "Sensor Processing Unit (Ore Scanner)",
+      "Description": "The Sensor Processing unit can be inserted into <link=ThingItemSensorLenses><color=green>Sensor Lenses</color></link> to reveal underground minerals in a HUD.",
+      "PrefabName": "ItemSensorProcessingUnitOreScanner",
+      "PrefabHash": -1219128491,
       "SlotInserts": [],
       "LogicInsert": [],
       "LogicSlotInsert": [],
@@ -40213,11 +40744,11 @@
       "ConnectionInsert": []
     },
     {
-      "Key": "ThingItemSensorProcessingUnitOreScanner",
-      "Title": "Sensor Processing Unit (Ore Scanner)",
-      "Description": "The Sensor Processing unit can be inserted into <link=ThingItemSensorLenses><color=green>Sensor Lenses</color></link> to reveal underground minerals in a HUD.",
-      "PrefabName": "ItemSensorProcessingUnitOreScanner",
-      "PrefabHash": -1219128491,
+      "Key": "ThingItemSensorProcessingUnitMesonScanner",
+      "Title": "Sensor Processing Unit (T-Ray Scanner)",
+      "Description": "The T-Ray Scanner Sensor Processing Unit can be inserted into the <link=ThingItemSensorLenses><color=green>Sensor Lenses</color></link> to show an overlay of pipes and cables. This can be useful when building behind walls or other structures.",
+      "PrefabName": "ItemSensorProcessingUnitMesonScanner",
+      "PrefabHash": -1730464583,
       "SlotInserts": [],
       "LogicInsert": [],
       "LogicSlotInsert": [],
@@ -40605,6 +41136,114 @@
       ],
       "ModeInsert": [],
       "ConnectionInsert": []
+    },
+    {
+      "Key": "ThingStructureShower",
+      "Title": "Shower",
+      "Description": "",
+      "PrefabName": "StructureShower",
+      "PrefabHash": -775128944,
+      "SlotInserts": [],
+      "LogicInsert": [
+        {
+          "LogicName": "<link=LogicTypeOpen><color=orange>Open</color></link>",
+          "LogicAccessTypes": "Read Write"
+        },
+        {
+          "LogicName": "<link=LogicTypeActivate><color=orange>Activate</color></link>",
+          "LogicAccessTypes": "Read Write"
+        },
+        {
+          "LogicName": "<link=LogicTypeSetting><color=orange>Setting</color></link>",
+          "LogicAccessTypes": "Read Write"
+        },
+        {
+          "LogicName": "<link=LogicTypeMaximum><color=orange>Maximum</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatio><color=orange>Ratio</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypePrefabHash><color=orange>PrefabHash</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeReferenceId><color=orange>ReferenceId</color></link>",
+          "LogicAccessTypes": "Read"
+        }
+      ],
+      "LogicSlotInsert": [],
+      "ModeInsert": [],
+      "ConnectionInsert": [
+        {
+          "LogicName": "Pipe Liquid Input",
+          "LogicAccessTypes": "0"
+        },
+        {
+          "LogicName": "Pipe Liquid Output",
+          "LogicAccessTypes": "1"
+        }
+      ]
+    },
+    {
+      "Key": "ThingStructureShowerPowered",
+      "Title": "Shower (Powered)",
+      "Description": "",
+      "PrefabName": "StructureShowerPowered",
+      "PrefabHash": -1081797501,
+      "SlotInserts": [],
+      "LogicInsert": [
+        {
+          "LogicName": "<link=LogicTypePower><color=orange>Power</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeOpen><color=orange>Open</color></link>",
+          "LogicAccessTypes": "Read Write"
+        },
+        {
+          "LogicName": "<link=LogicTypeError><color=orange>Error</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeOn><color=orange>On</color></link>",
+          "LogicAccessTypes": "Read Write"
+        },
+        {
+          "LogicName": "<link=LogicTypeRequiredPower><color=orange>RequiredPower</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypePrefabHash><color=orange>PrefabHash</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeReferenceId><color=orange>ReferenceId</color></link>",
+          "LogicAccessTypes": "Read"
+        }
+      ],
+      "LogicSlotInsert": [],
+      "ModeInsert": [],
+      "ConnectionInsert": [
+        {
+          "LogicName": "Connection",
+          "LogicAccessTypes": "0"
+        },
+        {
+          "LogicName": "Pipe Liquid Input",
+          "LogicAccessTypes": "1"
+        },
+        {
+          "LogicName": "Pipe Liquid Output",
+          "LogicAccessTypes": "2"
+        },
+        {
+          "LogicName": "Connection",
+          "LogicAccessTypes": "3"
+        }
+      ]
     },
     {
       "Key": "ThingStructureSign1x1",
@@ -41704,6 +42343,18 @@
         {
           "LogicName": "<link=LogicTypeReferenceId><color=orange>ReferenceId</color></link>",
           "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioHydrogen><color=orange>RatioHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioLiquidHydrogen><color=orange>RatioLiquidHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioPollutedWater><color=orange>RatioPollutedWater</color></link>",
+          "LogicAccessTypes": "Read"
         }
       ],
       "LogicSlotInsert": [],
@@ -41830,6 +42481,18 @@
         {
           "LogicName": "<link=LogicTypeReferenceId><color=orange>ReferenceId</color></link>",
           "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioHydrogen><color=orange>RatioHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioLiquidHydrogen><color=orange>RatioLiquidHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioPollutedWater><color=orange>RatioPollutedWater</color></link>",
+          "LogicAccessTypes": "Read"
         }
       ],
       "LogicSlotInsert": [],
@@ -41955,6 +42618,18 @@
         },
         {
           "LogicName": "<link=LogicTypeReferenceId><color=orange>ReferenceId</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioHydrogen><color=orange>RatioHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioLiquidHydrogen><color=orange>RatioLiquidHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioPollutedWater><color=orange>RatioPollutedWater</color></link>",
           "LogicAccessTypes": "Read"
         }
       ],
@@ -43029,11 +43704,11 @@
       "ConnectionInsert": []
     },
     {
-      "Key": "ThingStructureStacker",
+      "Key": "ThingStructureStackerReverse",
       "Title": "Stacker",
-      "Description": "A stacker is an important part of any automated chute network. The <link=Xigo><color=#0080FFFF>Xigo</color></link> ProKompile can be set manually or via logic, to make sure items passing through the stacker are maximized for your storage needs.\nThe ProKompile can stack a wide variety of things such as <link=IngotPage><color=#0080FFFF>ingots</color></link>, as well as splitting stacks into appropriate sizes as needed.",
-      "PrefabName": "StructureStacker",
-      "PrefabHash": -2020231820,
+      "Description": "A stacker is an important part of any automated chute network. The <link=Xigo><color=#0080FFFF>Xigo</color></link> ProKompile can be set manually or via logic, to make sure items passing through the stacker are maximized for your storage needs. The reversed stacker has power and data on the opposite side.\nThe ProKompile can stack a wide variety of things such as <link=IngotPage><color=#0080FFFF>ingots</color></link>, as well as splitting stacks into appropriate sizes as needed.",
+      "PrefabName": "StructureStackerReverse",
+      "PrefabHash": 1585641623,
       "SlotInserts": [
         {
           "SlotName": "Import",
@@ -43046,7 +43721,7 @@
           "SlotIndex": "1"
         },
         {
-          "SlotName": "Processing",
+          "SlotName": "Export",
           "SlotType": "None",
           "SlotIndex": "2"
         }
@@ -43173,11 +43848,11 @@
       ]
     },
     {
-      "Key": "ThingStructureStackerReverse",
+      "Key": "ThingStructureStacker",
       "Title": "Stacker",
-      "Description": "A stacker is an important part of any automated chute network. The <link=Xigo><color=#0080FFFF>Xigo</color></link> ProKompile can be set manually or via logic, to make sure items passing through the stacker are maximized for your storage needs. The reversed stacker has power and data on the opposite side.\nThe ProKompile can stack a wide variety of things such as <link=IngotPage><color=#0080FFFF>ingots</color></link>, as well as splitting stacks into appropriate sizes as needed.",
-      "PrefabName": "StructureStackerReverse",
-      "PrefabHash": 1585641623,
+      "Description": "A stacker is an important part of any automated chute network. The <link=Xigo><color=#0080FFFF>Xigo</color></link> ProKompile can be set manually or via logic, to make sure items passing through the stacker are maximized for your storage needs.\nThe ProKompile can stack a wide variety of things such as <link=IngotPage><color=#0080FFFF>ingots</color></link>, as well as splitting stacks into appropriate sizes as needed.",
+      "PrefabName": "StructureStacker",
+      "PrefabHash": -2020231820,
       "SlotInserts": [
         {
           "SlotName": "Import",
@@ -43190,7 +43865,7 @@
           "SlotIndex": "1"
         },
         {
-          "SlotName": "Export",
+          "SlotName": "Processing",
           "SlotType": "None",
           "SlotIndex": "2"
         }
@@ -44287,6 +44962,18 @@
         {
           "LogicName": "<link=LogicTypeReferenceId><color=orange>ReferenceId</color></link>",
           "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioHydrogen><color=orange>RatioHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioLiquidHydrogen><color=orange>RatioLiquidHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioPollutedWater><color=orange>RatioPollutedWater</color></link>",
+          "LogicAccessTypes": "Read"
         }
       ],
       "LogicSlotInsert": [],
@@ -44435,6 +45122,18 @@
         },
         {
           "LogicName": "<link=LogicTypeReferenceId><color=orange>ReferenceId</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioHydrogen><color=orange>RatioHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioLiquidHydrogen><color=orange>RatioLiquidHydrogen</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeRatioPollutedWater><color=orange>RatioPollutedWater</color></link>",
           "LogicAccessTypes": "Read"
         }
       ],
@@ -48634,21 +49333,16 @@
       ]
     },
     {
-      "Key": "ThingStructureWaterBottleFillerPowered",
-      "Title": "Waterbottle Filler",
-      "Description": "",
-      "PrefabName": "StructureWaterBottleFillerPowered",
-      "PrefabHash": -756587791,
+      "Key": "ThingStructureWaterPurifier",
+      "Title": "Water Purifier",
+      "Description": "Cleans <link=GasPollutedWater><color=#44AD83>Polluted Water</color></link> and outputs <link=GasWater><color=#44AD83>Water</color></link>. The purification process requires <link=ThingItemCharcoal><color=green>Charcoal</color></link> which can be added to the machine via the import bin. The procesing throughput can be improved by increasing the gas pressure of the input pipe relative to the gas pressure of the output pipe.",
+      "PrefabName": "StructureWaterPurifier",
+      "PrefabHash": 887383294,
       "SlotInserts": [
         {
-          "SlotName": "Bottle Slot",
-          "SlotType": "LiquidBottle",
+          "SlotName": "Import",
+          "SlotType": "Ore",
           "SlotIndex": "0"
-        },
-        {
-          "SlotName": "Bottle Slot",
-          "SlotType": "LiquidBottle",
-          "SlotIndex": "1"
         }
       ],
       "LogicInsert": [
@@ -48661,7 +49355,7 @@
           "LogicAccessTypes": "Read"
         },
         {
-          "LogicName": "<link=LogicTypeActivate><color=orange>Activate</color></link>",
+          "LogicName": "<link=LogicTypeLock><color=orange>Lock</color></link>",
           "LogicAccessTypes": "Read Write"
         },
         {
@@ -48673,6 +49367,14 @@
           "LogicAccessTypes": "Read"
         },
         {
+          "LogicName": "<link=LogicTypeClearMemory><color=orange>ClearMemory</color></link>",
+          "LogicAccessTypes": "Write"
+        },
+        {
+          "LogicName": "<link=LogicTypeImportCount><color=orange>ImportCount</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
           "LogicName": "<link=LogicTypePrefabHash><color=orange>PrefabHash</color></link>",
           "LogicAccessTypes": "Read"
         },
@@ -48681,69 +49383,28 @@
           "LogicAccessTypes": "Read"
         }
       ],
-      "LogicSlotInsert": [
-        {
-          "LogicName": "<link=LogicSlotTypeOccupied><color=orange>Occupied</color></link>",
-          "LogicAccessTypes": "0, 1"
-        },
-        {
-          "LogicName": "<link=LogicSlotTypeOccupantHash><color=orange>OccupantHash</color></link>",
-          "LogicAccessTypes": "0, 1"
-        },
-        {
-          "LogicName": "<link=LogicSlotTypeQuantity><color=orange>Quantity</color></link>",
-          "LogicAccessTypes": "0, 1"
-        },
-        {
-          "LogicName": "<link=LogicSlotTypeDamage><color=orange>Damage</color></link>",
-          "LogicAccessTypes": "0, 1"
-        },
-        {
-          "LogicName": "<link=LogicSlotTypePressure><color=orange>Pressure</color></link>",
-          "LogicAccessTypes": "0, 1"
-        },
-        {
-          "LogicName": "<link=LogicSlotTypeTemperature><color=orange>Temperature</color></link>",
-          "LogicAccessTypes": "0, 1"
-        },
-        {
-          "LogicName": "<link=LogicSlotTypeClass><color=orange>Class</color></link>",
-          "LogicAccessTypes": "0, 1"
-        },
-        {
-          "LogicName": "<link=LogicSlotTypeMaxQuantity><color=orange>MaxQuantity</color></link>",
-          "LogicAccessTypes": "0, 1"
-        },
-        {
-          "LogicName": "<link=LogicSlotTypePrefabHash><color=orange>PrefabHash</color></link>",
-          "LogicAccessTypes": "0, 1"
-        },
-        {
-          "LogicName": "<link=LogicSlotTypeVolume><color=orange>Volume</color></link>",
-          "LogicAccessTypes": "0, 1"
-        },
-        {
-          "LogicName": "<link=LogicSlotTypeOpen><color=orange>Open</color></link>",
-          "LogicAccessTypes": "0, 1"
-        },
-        {
-          "LogicName": "<link=LogicSlotTypeSortingClass><color=orange>SortingClass</color></link>",
-          "LogicAccessTypes": "0, 1"
-        },
-        {
-          "LogicName": "<link=LogicSlotTypeReferenceId><color=orange>ReferenceId</color></link>",
-          "LogicAccessTypes": "0, 1"
-        }
-      ],
+      "LogicSlotInsert": [],
       "ModeInsert": [],
       "ConnectionInsert": [
         {
-          "LogicName": "Pipe Liquid Input",
+          "LogicName": "Connection",
           "LogicAccessTypes": "0"
         },
         {
-          "LogicName": "Connection",
+          "LogicName": "Pipe Liquid Input",
           "LogicAccessTypes": "1"
+        },
+        {
+          "LogicName": "Pipe Liquid Output",
+          "LogicAccessTypes": "2"
+        },
+        {
+          "LogicName": "Connection",
+          "LogicAccessTypes": "3"
+        },
+        {
+          "LogicName": "Chute Input",
+          "LogicAccessTypes": "4"
         }
       ]
     },
@@ -48853,6 +49514,120 @@
       "ConnectionInsert": [
         {
           "LogicName": "Connection",
+          "LogicAccessTypes": "0"
+        },
+        {
+          "LogicName": "Connection",
+          "LogicAccessTypes": "1"
+        }
+      ]
+    },
+    {
+      "Key": "ThingStructureWaterBottleFillerPowered",
+      "Title": "Waterbottle Filler",
+      "Description": "",
+      "PrefabName": "StructureWaterBottleFillerPowered",
+      "PrefabHash": -756587791,
+      "SlotInserts": [
+        {
+          "SlotName": "Bottle Slot",
+          "SlotType": "LiquidBottle",
+          "SlotIndex": "0"
+        },
+        {
+          "SlotName": "Bottle Slot",
+          "SlotType": "LiquidBottle",
+          "SlotIndex": "1"
+        }
+      ],
+      "LogicInsert": [
+        {
+          "LogicName": "<link=LogicTypePower><color=orange>Power</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeError><color=orange>Error</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeActivate><color=orange>Activate</color></link>",
+          "LogicAccessTypes": "Read Write"
+        },
+        {
+          "LogicName": "<link=LogicTypeOn><color=orange>On</color></link>",
+          "LogicAccessTypes": "Read Write"
+        },
+        {
+          "LogicName": "<link=LogicTypeRequiredPower><color=orange>RequiredPower</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypePrefabHash><color=orange>PrefabHash</color></link>",
+          "LogicAccessTypes": "Read"
+        },
+        {
+          "LogicName": "<link=LogicTypeReferenceId><color=orange>ReferenceId</color></link>",
+          "LogicAccessTypes": "Read"
+        }
+      ],
+      "LogicSlotInsert": [
+        {
+          "LogicName": "<link=LogicSlotTypeOccupied><color=orange>Occupied</color></link>",
+          "LogicAccessTypes": "0, 1"
+        },
+        {
+          "LogicName": "<link=LogicSlotTypeOccupantHash><color=orange>OccupantHash</color></link>",
+          "LogicAccessTypes": "0, 1"
+        },
+        {
+          "LogicName": "<link=LogicSlotTypeQuantity><color=orange>Quantity</color></link>",
+          "LogicAccessTypes": "0, 1"
+        },
+        {
+          "LogicName": "<link=LogicSlotTypeDamage><color=orange>Damage</color></link>",
+          "LogicAccessTypes": "0, 1"
+        },
+        {
+          "LogicName": "<link=LogicSlotTypePressure><color=orange>Pressure</color></link>",
+          "LogicAccessTypes": "0, 1"
+        },
+        {
+          "LogicName": "<link=LogicSlotTypeTemperature><color=orange>Temperature</color></link>",
+          "LogicAccessTypes": "0, 1"
+        },
+        {
+          "LogicName": "<link=LogicSlotTypeClass><color=orange>Class</color></link>",
+          "LogicAccessTypes": "0, 1"
+        },
+        {
+          "LogicName": "<link=LogicSlotTypeMaxQuantity><color=orange>MaxQuantity</color></link>",
+          "LogicAccessTypes": "0, 1"
+        },
+        {
+          "LogicName": "<link=LogicSlotTypePrefabHash><color=orange>PrefabHash</color></link>",
+          "LogicAccessTypes": "0, 1"
+        },
+        {
+          "LogicName": "<link=LogicSlotTypeVolume><color=orange>Volume</color></link>",
+          "LogicAccessTypes": "0, 1"
+        },
+        {
+          "LogicName": "<link=LogicSlotTypeOpen><color=orange>Open</color></link>",
+          "LogicAccessTypes": "0, 1"
+        },
+        {
+          "LogicName": "<link=LogicSlotTypeSortingClass><color=orange>SortingClass</color></link>",
+          "LogicAccessTypes": "0, 1"
+        },
+        {
+          "LogicName": "<link=LogicSlotTypeReferenceId><color=orange>ReferenceId</color></link>",
+          "LogicAccessTypes": "0, 1"
+        }
+      ],
+      "ModeInsert": [],
+      "ConnectionInsert": [
+        {
+          "LogicName": "Pipe Liquid Input",
           "LogicAccessTypes": "0"
         },
         {
@@ -49234,11 +50009,11 @@
       "ConnectionInsert": []
     },
     {
-      "Key": "ThingItemWreckageAirConditioner1",
+      "Key": "ThingItemWreckageAirConditioner2",
       "Title": "Wreckage Air Conditioner",
       "Description": "",
-      "PrefabName": "ItemWreckageAirConditioner1",
-      "PrefabHash": -1826023284,
+      "PrefabName": "ItemWreckageAirConditioner2",
+      "PrefabHash": 169888054,
       "SlotInserts": [],
       "LogicInsert": [],
       "LogicSlotInsert": [],
@@ -49246,11 +50021,11 @@
       "ConnectionInsert": []
     },
     {
-      "Key": "ThingItemWreckageAirConditioner2",
+      "Key": "ThingItemWreckageAirConditioner1",
       "Title": "Wreckage Air Conditioner",
       "Description": "",
-      "PrefabName": "ItemWreckageAirConditioner2",
-      "PrefabHash": 169888054,
+      "PrefabName": "ItemWreckageAirConditioner1",
+      "PrefabHash": -1826023284,
       "SlotInserts": [],
       "LogicInsert": [],
       "LogicSlotInsert": [],
@@ -49294,23 +50069,11 @@
       "ConnectionInsert": []
     },
     {
-      "Key": "ThingItemWreckageStructureWeatherStation004",
+      "Key": "ThingItemWreckageStructureWeatherStation001",
       "Title": "Wreckage Structure Weather Station",
       "Description": "",
-      "PrefabName": "ItemWreckageStructureWeatherStation004",
-      "PrefabHash": -1104478996,
-      "SlotInserts": [],
-      "LogicInsert": [],
-      "LogicSlotInsert": [],
-      "ModeInsert": [],
-      "ConnectionInsert": []
-    },
-    {
-      "Key": "ThingItemWreckageStructureWeatherStation005",
-      "Title": "Wreckage Structure Weather Station",
-      "Description": "",
-      "PrefabName": "ItemWreckageStructureWeatherStation005",
-      "PrefabHash": -919745414,
+      "PrefabName": "ItemWreckageStructureWeatherStation001",
+      "PrefabHash": -834664349,
       "SlotInserts": [],
       "LogicInsert": [],
       "LogicSlotInsert": [],
@@ -49330,47 +50093,11 @@
       "ConnectionInsert": []
     },
     {
-      "Key": "ThingItemWreckageStructureWeatherStation001",
+      "Key": "ThingItemWreckageStructureWeatherStation005",
       "Title": "Wreckage Structure Weather Station",
       "Description": "",
-      "PrefabName": "ItemWreckageStructureWeatherStation001",
-      "PrefabHash": -834664349,
-      "SlotInserts": [],
-      "LogicInsert": [],
-      "LogicSlotInsert": [],
-      "ModeInsert": [],
-      "ConnectionInsert": []
-    },
-    {
-      "Key": "ThingItemWreckageStructureWeatherStation006",
-      "Title": "Wreckage Structure Weather Station",
-      "Description": "",
-      "PrefabName": "ItemWreckageStructureWeatherStation006",
-      "PrefabHash": 1344576960,
-      "SlotInserts": [],
-      "LogicInsert": [],
-      "LogicSlotInsert": [],
-      "ModeInsert": [],
-      "ConnectionInsert": []
-    },
-    {
-      "Key": "ThingItemWreckageStructureWeatherStation007",
-      "Title": "Wreckage Structure Weather Station",
-      "Description": "",
-      "PrefabName": "ItemWreckageStructureWeatherStation007",
-      "PrefabHash": 656649558,
-      "SlotInserts": [],
-      "LogicInsert": [],
-      "LogicSlotInsert": [],
-      "ModeInsert": [],
-      "ConnectionInsert": []
-    },
-    {
-      "Key": "ThingItemWreckageStructureWeatherStation008",
-      "Title": "Wreckage Structure Weather Station",
-      "Description": "",
-      "PrefabName": "ItemWreckageStructureWeatherStation008",
-      "PrefabHash": -1214467897,
+      "PrefabName": "ItemWreckageStructureWeatherStation005",
+      "PrefabHash": -919745414,
       "SlotInserts": [],
       "LogicInsert": [],
       "LogicSlotInsert": [],
@@ -49390,11 +50117,47 @@
       "ConnectionInsert": []
     },
     {
-      "Key": "ThingItemWreckageTurbineGenerator2",
-      "Title": "Wreckage Turbine Generator",
+      "Key": "ThingItemWreckageStructureWeatherStation008",
+      "Title": "Wreckage Structure Weather Station",
       "Description": "",
-      "PrefabName": "ItemWreckageTurbineGenerator2",
-      "PrefabHash": 98602599,
+      "PrefabName": "ItemWreckageStructureWeatherStation008",
+      "PrefabHash": -1214467897,
+      "SlotInserts": [],
+      "LogicInsert": [],
+      "LogicSlotInsert": [],
+      "ModeInsert": [],
+      "ConnectionInsert": []
+    },
+    {
+      "Key": "ThingItemWreckageStructureWeatherStation007",
+      "Title": "Wreckage Structure Weather Station",
+      "Description": "",
+      "PrefabName": "ItemWreckageStructureWeatherStation007",
+      "PrefabHash": 656649558,
+      "SlotInserts": [],
+      "LogicInsert": [],
+      "LogicSlotInsert": [],
+      "ModeInsert": [],
+      "ConnectionInsert": []
+    },
+    {
+      "Key": "ThingItemWreckageStructureWeatherStation006",
+      "Title": "Wreckage Structure Weather Station",
+      "Description": "",
+      "PrefabName": "ItemWreckageStructureWeatherStation006",
+      "PrefabHash": 1344576960,
+      "SlotInserts": [],
+      "LogicInsert": [],
+      "LogicSlotInsert": [],
+      "ModeInsert": [],
+      "ConnectionInsert": []
+    },
+    {
+      "Key": "ThingItemWreckageStructureWeatherStation004",
+      "Title": "Wreckage Structure Weather Station",
+      "Description": "",
+      "PrefabName": "ItemWreckageStructureWeatherStation004",
+      "PrefabHash": -1104478996,
       "SlotInserts": [],
       "LogicInsert": [],
       "LogicSlotInsert": [],
@@ -49414,6 +50177,18 @@
       "ConnectionInsert": []
     },
     {
+      "Key": "ThingItemWreckageTurbineGenerator2",
+      "Title": "Wreckage Turbine Generator",
+      "Description": "",
+      "PrefabName": "ItemWreckageTurbineGenerator2",
+      "PrefabHash": 98602599,
+      "SlotInserts": [],
+      "LogicInsert": [],
+      "LogicSlotInsert": [],
+      "ModeInsert": [],
+      "ConnectionInsert": []
+    },
+    {
       "Key": "ThingItemWreckageTurbineGenerator1",
       "Title": "Wreckage Turbine Generator",
       "Description": "",
@@ -49426,11 +50201,11 @@
       "ConnectionInsert": []
     },
     {
-      "Key": "ThingItemWreckageWallCooler1",
+      "Key": "ThingItemWreckageWallCooler2",
       "Title": "Wreckage Wall Cooler",
       "Description": "",
-      "PrefabName": "ItemWreckageWallCooler1",
-      "PrefabHash": -1682930158,
+      "PrefabName": "ItemWreckageWallCooler2",
+      "PrefabHash": 45733800,
       "SlotInserts": [],
       "LogicInsert": [],
       "LogicSlotInsert": [],
@@ -49438,11 +50213,11 @@
       "ConnectionInsert": []
     },
     {
-      "Key": "ThingItemWreckageWallCooler2",
+      "Key": "ThingItemWreckageWallCooler1",
       "Title": "Wreckage Wall Cooler",
       "Description": "",
-      "PrefabName": "ItemWreckageWallCooler2",
-      "PrefabHash": 45733800,
+      "PrefabName": "ItemWreckageWallCooler1",
+      "PrefabHash": -1682930158,
       "SlotInserts": [],
       "LogicInsert": [],
       "LogicSlotInsert": [],

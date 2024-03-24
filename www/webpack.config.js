@@ -1,15 +1,26 @@
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const miniCssExtractPlugin = require('mini-css-extract-plugin');
+
+
 const path = require('path');
 
 module.exports = {
-  entry: "./src/bootstrap.js",
+  entry: "./src/js/main.js",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bootstrap.js",
+    filename: "main.js",
+  },
+  devServer: {
+    static: path.resolve(__dirname, 'dist'),
+    port: 8080,
+    hot: true
   },
   mode: "development",
   plugins: [
-    new CopyWebpackPlugin({ patterns: ['index.html', 'css/*.css', 'img/*.png'] })
+    new CopyWebpackPlugin({ patterns: ['img/*.png', 'img/*/*.png'] }),
+    new HtmlWebpackPlugin({ template: './src/index.html'}),
+    new miniCssExtractPlugin()
   ],
   module: {
     rules: [
@@ -19,13 +30,36 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
-      }
-    ],
-    // parser: {
-    //   javascript : { importMeta: false }
-    // }
+        test: /\.(scss)$/,
+        use: [{
+          // inject CSS to page
+          loader: miniCssExtractPlugin.loader
+        }, {
+          // translates CSS into CommonJS modules
+          loader: 'css-loader'
+        }, {
+          // Run postcss actions
+          loader: 'postcss-loader',
+          options: {
+            // `postcssOptions` is needed for postcss 8.x;
+            // if you use postcss 7.x skip the key
+            postcssOptions: {
+              // postcss plugins, can be exported to postcss.config.js
+              plugins: function() {
+                return [
+                  require('autoprefixer')
+                ];
+              }
+            }
+          }
+        }, {
+          // compiles Sass to CSS
+          loader: 'sass-loader'
+        }],
+        // parser: {
+        //   javascript : { importMeta: false }
+        // }
+      },],
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],

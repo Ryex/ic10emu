@@ -88,6 +88,16 @@ body {
   background: #f0f0f0;
 }
 
+.ace_prompt_container {
+  max-width: 603px;
+  width: 100%;
+  margin: 70px auto;
+  padding: 3px;
+  background: #2b3035;
+  border-radius: 2px;
+  box-shadow: 0px 2px 3px 0px #555;
+}
+
 /* ------------------------------------------------------------------------------------------
 * Editor Search Form
 * --------------------------------------------------------------------------------------- */
@@ -352,4 +362,50 @@ code {
 
 .modal-body button {
   color: #fff
+}
+
+
+.ace_dark.ace_editor.ace_autocomplete .ace_completion-highlight {
+  color: #c678dd;
+}
+
+.ace_dark.ace_editor.ace_autocomplete .ace_marker-layer .ace_active-line {
+  background-color: rgba(76, 87, 103, .19);
+}
+
+.ace_dark.ace_editor.ace_autocomplete .ace_line-hover {
+  border: 1px solid rgba(8, 121, 144, 0.5);
+  background: rgba(76, 87, 103, .19);
+}
+
+.ace_dark.ace_editor.ace_autocomplete {
+  border: 1px #484747 solid;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.51);
+  line-height: 1.4;
+  background: #282c34;
+  color: #c1c1c1;
+}
+
+.ace_editor.ace_autocomplete {
+  width: 300px;
+  z-index: 200000;
+  border: 1px #484747 solid;
+  position: fixed;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.51);
+  line-height: 1.4;
+  background: #282c34;
+  color: #c1c1c1;
+}
+
+.ace_editor.ace_autocomplete .ace_completion-highlight {
+  color: #c678dd;
+}
+
+.ace_editor.ace_autocomplete .ace_marker-layer .ace_active-line {
+  background-color: rgba(76, 87, 103, .19);
+}
+
+.ace_editor.ace_autocomplete .ace_line-hover {
+  border: 1px solid rgba(8, 121, 144, 0.5);
+  background: rgba(76, 87, 103, .19);
 }

@@ -94,7 +94,14 @@ pub struct Program {
     pub instructions: Vec<Instruction>,
 }
 
+impl Default for Program {
+    fn default() -> Self {
+        Program::new()
+    }
+}
+
 impl Program {
+    pub fn new() -> Self { Program { instructions: Vec::new() }}
     pub fn try_from_code(input: &str) -> Result<Self, String> {
         let mut code = input.to_string();
         if let Some((i, _)) = code.char_indices().rev().nth(0) {
