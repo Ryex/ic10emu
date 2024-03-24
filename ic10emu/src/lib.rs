@@ -1,6 +1,7 @@
 use core::f64;
 use std::collections::{HashMap, HashSet};
 
+
 mod grammar;
 mod compiler;
 
@@ -23,7 +24,7 @@ pub struct LogicField {
 pub struct Device {
     pub id: u16,
     pub fields: HashMap<u8, LogicField>,
-    pub IC: Option<IC>
+    pub ic: Option<IC>
 }
 
 
@@ -97,6 +98,15 @@ impl IC {
 }
 
 impl Device {
+    pub fn new(id: u16) -> Self {
+        Device { id, fields: HashMap::new(), ic: None }
+    }
+
+    pub fn with_ic(id: u16) -> Self {
+        let mut device = Device::new(id);
+        device.ic = Some(IC::new(id));
+        device
+    }
 }
 
 impl VM {
@@ -109,19 +119,14 @@ impl VM {
             networks: vec![default_network],
             id_gen,
         };
-        let ic = vm.new_ic();
-        vm.add_ic(ic);
+        vm.add_ic();
         vm
     }
 
-    pub fn new_ic(&mut self) -> IC {
-        IC::new(self.id_gen.next())
-    }
-
-    pub fn add_ic(&mut self, ic: IC) {
-        let device = Device::IC(ic);
-        self.ics.insert(device.id());
-        self.devices.insert(device.id(), device);
+    pub fn add_ic(&mut self) {
+        let device = Device::with_ic(self.id_gen.next());
+        self.ics.insert(device.id);
+        self.devices.insert(device.id, device);
     }
 
     pub fn remove_ic(&mut self, id: u16) {

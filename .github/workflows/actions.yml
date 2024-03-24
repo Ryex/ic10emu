@@ -6,6 +6,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Increase Swap
+        uses: get-bridge/swap-space-action@v1
+        with:
+          swap-size-mb: 8192
       - name: Checkout
         uses: actions/checkout@v4
       - name: Install pnpm
