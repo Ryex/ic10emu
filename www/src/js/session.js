@@ -1,6 +1,4 @@
 
-import { BSON } from 'bson';
-
 const demoCode = `# Highlighting Demo
 # This is a comment
 
@@ -104,7 +102,7 @@ class Session {
 
   async saveToFragment() {
     const toSave = { programs: this._programs };
-    const bytes = BSON.serialize(toSave);
+    const bytes = new TextEncoder().encode(JSON.stringify(toSave));
     try {
       const c_bytes = await compress(bytes);
       const fragment = base64url_encode(c_bytes);
@@ -127,7 +125,13 @@ class Session {
       const c_bytes = base64url_decode(fragment);
       const bytes = await decompressFragment(c_bytes);
       if (bytes !== null) {
-        const data = BSON.deserialize(bytes);
+        const txt = new TextDecoder().decode(bytes);
+        const data = getJson(txt);
+        if (data === null) { // backwards compatible
+          this._programs = { 0: txt };
+          this, this._fireOnLoad();
+          return;
+        }
         try {
           this._programs = Object.assign({}, data.programs);
           this._fireOnLoad();
@@ -140,12 +144,20 @@ class Session {
   }
 
 }
- async function decompressFragment(c_bytes) {
+async function decompressFragment(c_bytes) {
   try {
     const bytes = await decompress(c_bytes);
     return bytes;
   } catch (e) {
     console.log("Error decompressing content fragment:", e);
+    return null;
+  }
+}
+
+function getJson(value) {
+  try {
+    return JSON.parse(value);
+  } catch (_) {
     return null;
   }
 }
