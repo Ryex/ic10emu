@@ -19,7 +19,7 @@ module.exports = {
   mode: "development",
   plugins: [
     new CopyWebpackPlugin({ patterns: ['img/*.png', 'img/*/*.png'] }),
-    new HtmlWebpackPlugin({ template: './src/index.html'}),
+    new HtmlWebpackPlugin({ template: './src/index.html' }),
     new miniCssExtractPlugin()
   ],
   module: {
@@ -63,6 +63,12 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    fallback: { 
+      "crypto": require.resolve("crypto-browserify"),
+      "buffer": require.resolve("buffer"),
+      "stream": require.resolve("stream-browserify"),
+      "vm": require.resolve("vm-browserify"),
+    },
   },
   experiments: {
     asyncWebAssembly: true,

@@ -1,13 +1,11 @@
 import { init } from "ic10emu_wasm";
 
 import { IC10Editor, setupLspWorker } from "./editor";
+import { Session } from './session';
 
 const App = {
   editor: null,
-  sessions: [],
-  languageProvider: null,
-  editorSettings: {
-  }
+  session: new Session()
 };
 
 window.App = App;

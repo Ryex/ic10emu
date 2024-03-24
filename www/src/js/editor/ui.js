@@ -56,37 +56,16 @@ function IC10EditorUI(ic10editor) {
 
   console.log(self.ic10editor.editor.getOption('keyboardHandler'));
 
-  // let sessionChangeTimeout = 0;
-  // editor.getSession().on('change', () => {
-  //   if (sessionChangeTimeout) clearTimeout(sessionChangeTimeout);
-  //   sessionChangeTimeout = setTimeout(() => {
-  //     var val = editor.getSession().getValue();
-  //     setDocFragment(val);
-  //     sessionChangeTimeout = 0;
-  //   }, 1000);
-  // });
-
   self.ic10editor.editor.setTheme("ace/theme/one_dark");
   ace.config.loadModule("ace/ext/statusbar", function(module) {
     const statusBar = new module.StatusBar(self.ic10editor.editor, document.getElementById("statusBar"));
     statusBar.updateStatus(self.ic10editor.editor);
   })
 
-  // ace_ext_keybinding_menu.init(editor);
-  // editor.setOption("keyboardHandler", "ace/keyboard/vim");
   self.ic10editor.editor.setAutoScrollEditorIntoView(true);
-
-
-
-  // getContentFromFragment(editor, demoCode);
-
-  // window.addEventListener('hashchange', (_event) => {
-  //   getContentFromFragment(editor, "");
-  // });
-
 }
 
-IC10EditorUI.prototype.updateEditorSettings = function () {
+IC10EditorUI.prototype.updateEditorSettings = function() {
   const settings = this.ic10editor.settings;
   const editor = this.ic10editor.editor;
   if (settings.keyboard === 'ace') {
@@ -99,7 +78,7 @@ IC10EditorUI.prototype.updateEditorSettings = function () {
   editor.setOption('relativeLineNumbers', settings.relativeLineNumbers);
 }
 
-IC10EditorUI.prototype.displayEditorSettings = function () {
+IC10EditorUI.prototype.displayEditorSettings = function() {
   const settings = this.ic10editor.settings;
   document.getElementsByName("editorKeybindRadio").forEach((el) => {
     el.checked = el.value === settings.keyboard;
@@ -111,7 +90,7 @@ IC10EditorUI.prototype.displayEditorSettings = function () {
   document.getElementById("editorSettingsRelativeLineNumbers").checked = settings.relativeLineNumbers;
 }
 
-IC10EditorUI.prototype.reCalcEditorSize = function () {
+IC10EditorUI.prototype.reCalcEditorSize = function() {
   const editor = this.ic10editor.editor;
   const navBar = document.getElementById("navBar");
   const statusBarContainer = document.getElementById("statusBarContainer");

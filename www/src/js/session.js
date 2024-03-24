@@ -1,64 +1,154 @@
 
+import { BSON } from 'bson';
 
-async function setDocFragment(content) {
-  const obj = JSON.stringify({ sessions: [{ content }] })
-  const bytes = new TextEncoder().encode(obj);
-  try {
-    const c_bytes = await compress(bytes);
-    const fragment = base64url_encode(c_bytes);
-    window.history.replaceState(null, "", `#${fragment}`);
-  } catch (e) {
-    console.log("Error compressing content fragment:", e);
-    return;
+const demoCode = `# Highlighting Demo
+# This is a comment
+
+# Hover a define id anywhere to see it's definition
+define a_def 10 
+
+# Hover HASH("String")'s to see computed crc32
+#     hover here    vvvvvvvvvvvvvvvv
+define a_hash HASH("This is a String") 
+
+# hover over an alias anywhere in the code
+# to see it's definition
+alias a_var r0 
+alias a_device d0
+
+# instructions have Auto Completion, 
+# numeric logic types are identified on hover
+s db 12 0 
+#    ^^
+# hover here
+
+# Enums and their values are Known, Hover them!
+#        vvvvvvvvvvvvvvvvvv
+move r2 LogicType.Temperature
+
+# same with constants
+#       vvvv
+move r3 pinf
+
+# Labels are known
+main:
+l r1 dr15 RatioWater
+move r2 100000.001
+
+# Hover Hash Strings of Known prefab names
+# to get their documentation
+#             vvvvvvvvvvvvvvv
+move r0 HASH("AccessCardBlack")
+beqz r1 test
+
+# -2045627372 is the crc32 hash of a SolarPanel, 
+# hover it to see the documentation!
+#        vvvvvvvvvv  
+move r1 -2045627372
+jal test
+move r1 $FF
+beqz 0 test
+move r1 %1000
+yield
+j main
+
+test:
+add r15 r15 1
+j ra
+
+`
+
+class Session {
+  constructor() {
+    this._programs = {};
+    this._save_timeout = 0;
+    this._onLoadCallbacks = [];
+    this.loadFromFragment();
+
+    const self = this;
+    window.addEventListener('hashchange', (_event) => {
+      self.loadFromFragment();
+    });
+  }
+
+  get programs() {
+    return this._programs;
+  }
+
+  set programs(programs) {
+    Object.assign(this._programs, programs);
+  }
+
+  setProgramCode(id, code) {
+    this._programs[id] = code;
+    this.save();
+  }
+
+  onLoad(callback) {
+    this._onLoadCallbacks.push(callback);
+  }
+
+  _fireOnLoad() {
+    for (const i in this._onLoadCallbacks) {
+      const callback = this._onLoadCallbacks[i];
+      callback(this);
+    }
+  }
+
+  save() {
+    if (this._save_timeout) clearTimeout(this._save_timeout);
+    this._save_timeout = setTimeout(() => {
+      this.saveToFragment();
+    }, 1000);
+  }
+
+  async saveToFragment() {
+    const toSave = { programs: this._programs };
+    const bytes = BSON.serialize(toSave);
+    try {
+      const c_bytes = await compress(bytes);
+      const fragment = base64url_encode(c_bytes);
+      window.history.replaceState(null, "", `#${fragment}`);
+    } catch (e) {
+      console.log("Error compressing content fragment:", e);
+      return;
+    }
+
+  }
+
+  async loadFromFragment() {
+    const fragment = window.location.hash.slice(1);
+    if (fragment === "demo") {
+      this._programs = { 0: demoCode };
+      this._fireOnLoad();
+      return;
+    }
+    if (fragment.length > 0) {
+      const c_bytes = base64url_decode(fragment);
+      const bytes = await decompressFragment(c_bytes);
+      if (bytes !== null) {
+        const data = BSON.deserialize(bytes);
+        try {
+          this._programs = Object.assign({}, data.programs);
+          this._fireOnLoad();
+          return;
+        } catch (e) {
+          console.log("Bad session data:", e);
+        }
+      }
+    }
   }
 
 }
-
-async function decompressFragment(c_bytes) {
+ async function decompressFragment(c_bytes) {
   try {
     const bytes = await decompress(c_bytes);
-    const content = new TextDecoder().decode(bytes);
-    return content;
+    return bytes;
   } catch (e) {
     console.log("Error decompressing content fragment:", e);
     return null;
   }
 }
-
-function isJsonContent(content) {
-  try {
-    const obj = JSON.parse(content);
-    return [true, obj];
-  } catch (_) {
-    return [false, null];
-  }
-}
-
-async function getContentFromFragment() {
-  const fragment = window.location.hash.slice(1);
-  if (fragment.length > 0) {
-    const c_bytes = base64url_decode(fragment);
-    const data = await decompressFragment(c_bytes);
-    if (data !== null) {
-      const [is_json, session] = isJsonContent(data);
-      if (is_json) {
-        try {
-          const content = session.sessions[0].content
-          editor.getSession().setValue(content);
-          return;
-        } catch (e) {
-          console.log("Bad session data:", e);
-        }
-      } else {
-        editor.getSession().setValue(data);
-        return;
-      }
-    }
-  }
-
-  editor.getSession().setValue(default_content);
-}
-
 
 async function* streamAsyncIterator(stream) {
   // Get a lock on the stream
@@ -122,3 +212,5 @@ async function decompress(bytes) {
   }
   return await concatUintArrays(chunks);
 }
+
+export { Session };
