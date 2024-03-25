@@ -3,8 +3,8 @@ use std::{
     collections::HashSet,
     env,
     fs::{self, File},
-    io::{BufRead, BufReader, BufWriter, Write},
-    path::{Path, PathBuf},
+    io::{BufWriter, Write},
+    path::Path,
 };
 
 fn write_logictypes(logictypes_grammar: &mut HashSet<String>) {

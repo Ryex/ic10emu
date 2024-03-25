@@ -518,6 +518,11 @@ impl FromStr for Operand {
                         name: s.to_string(),
                         value: *val as f64,
                     }))
+                } else if let Some(val) = SLOT_TYPE_LOOKUP.get(s) {
+                    Ok(Operand::LogicType(LogicType {
+                        name: s.to_string(),
+                        value: *val as f64,
+                    }))
                 } else if let Some(val) = BATCH_MODE_LOOKUP.get(s) {
                     Ok(Operand::LogicType(LogicType {
                         name: s.to_string(),

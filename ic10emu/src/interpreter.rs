@@ -156,7 +156,7 @@ impl IC {
     }
 
     /// processes one line of the contained program
-    pub fn step(&mut self, housing: &mut crate::Device, vm: &mut crate::VM) -> Result<(), ICError> {
+    pub fn step(&mut self, _housing: &mut crate::Device, _vm: &mut crate::VM) -> Result<(), ICError> {
         use grammar::InstructionOp::*;
         use grammar::*;
         use ICError::*;
