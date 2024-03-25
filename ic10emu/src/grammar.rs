@@ -223,6 +223,38 @@ impl Operand {
             &Operand::DeviceSpec { .. } => Err(interpreter::ICError::DeviceNotValue),
         }
     }
+    pub fn get_device_id(
+        &self,
+        ic: &interpreter::IC,
+    ) -> Result<(Option<u16>, Option<u32>), interpreter::ICError> {
+        match &self {
+            &Operand::DeviceSpec { device, channel } => match device {
+                Device::Db => Ok((Some(ic.id), *channel)),
+                Device::Numbered(p) => {
+                    let dp = ic
+                        .pins
+                        .get(*p as usize)
+                        .ok_or(interpreter::ICError::DeviceIndexOutOfRange(*p as f64))
+                        .copied()?;
+                    Ok((dp, *channel))
+                }
+                Device::Indirect {
+                    indirection,
+                    target,
+                } => {
+                    let val = ic.get_register(*indirection, *target)?;
+                    let dp = ic
+                        .pins
+                        .get(val as usize)
+                        .ok_or(interpreter::ICError::DeviceIndexOutOfRange(val))
+                        .copied()?;
+                    Ok((dp, *channel))
+                }
+            },
+            &Operand::Identifier(id) => ic.get_ident_device_id(&id.name),
+            _ => Err(interpreter::ICError::ValueNotDevice),
+        }
+    }
 }
 
 impl FromStr for Operand {

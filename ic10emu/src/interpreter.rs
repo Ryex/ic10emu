@@ -1,4 +1,5 @@
-use std::collections::HashMap;
+use core::f64;
+use std::{collections::HashMap, u32};
 
 use crate::grammar;
 
@@ -26,6 +27,12 @@ pub enum ICError {
     UnknownIdentifier(String),
     #[error("")]
     DeviceNotValue,
+    #[error("")]
+    ValueNotDevice,
+    #[error("")]
+    DeviceNotSet,
+    #[error("")]
+    OperandNotRegister,
 }
 
 #[derive(Debug)]
@@ -127,12 +134,25 @@ impl IC {
         Ok(old_val)
     }
 
-    pub fn get_ident_value(&self, ident: &String) -> Result<f64, ICError> {
+    pub fn get_ident_value(&self, ident: &str) -> Result<f64, ICError> {
         if let Some(operand) = self.aliases.get(ident) {
             operand.get_value(self)
         } else {
-            Err(ICError::UnknownIdentifier(ident.clone()))
+            Err(ICError::UnknownIdentifier(ident.to_string()))
         }
+    }
+
+    pub fn get_ident_device_id(&self, ident: &str) -> Result<(Option<u16>, Option<u32>), ICError> {
+        if let Some(operand) = self.aliases.get(ident) {
+            operand.get_device_id(self)
+        } else {
+            Err(ICError::UnknownIdentifier(ident.to_string()))
+        }
+    }
+
+    /// save ip to 'ra' or register 18
+    fn al(&mut self) {
+        self.registers[17] = self.ip as f64;
     }
 
     /// processes one line of the contained program
@@ -142,18 +162,28 @@ impl IC {
         use ICError::*;
 
         let line = self.program.get_line(self.ip)?;
+        let mut next_ip = self.ip + 1;
         let result: Result<(), ICError> = if let Some(code) = &line.code {
             match code {
-                grammar::Code::Label(label) => {
+                Code::Label(label) => {
                     self.labels.insert(label.id.name.clone(), self.ip);
                     Ok(())
                 }
-                grammar::Code::Instruction(inst) => 'inst: {
+                Code::Instruction(inst) => 'inst: {
                     match inst.instruction {
-                        Nop => Ok(()),
+                        Nop => Ok(()),   // not used, empty line
+                        Label => Ok(()), // Not used
+                        Sleep => Ok(()), // TODO
                         Yield => {
-                            self.should_yield = true;
-                            Ok(())
+                            if inst.operands.len() != 0 {
+                                Err(TooManyOperands {
+                                    provided: inst.operands.len() as u32,
+                                    desired: 0,
+                                })
+                            } else {
+                                self.should_yield = true;
+                                Ok(())
+                            }
                         }
                         Define => match &inst.operands[..] {
                             [_op1] => Err(ToFewOperands {
@@ -251,143 +281,1766 @@ impl IC {
                                 desired: 2,
                             }),
                         },
-                        Breqz => Ok(()),
-                        Sb => Ok(()),
-                        Bgtz => Ok(()),
-                        Beqz => Ok(()),
-                        Blez => Ok(()),
-                        Bapzal => Ok(()),
-                        Tan => Ok(()),
-                        Bapz => Ok(()),
-                        Ble => Ok(()),
-                        Bnez => Ok(()),
-                        J => Ok(()),
-                        Snez => Ok(()),
-                        Snanz => Ok(()),
-                        Xor => Ok(()),
-                        Sdse => Ok(()),
-                        Srl => Ok(()),
-                        Brna => Ok(()),
-                        Sbs => Ok(()),
-                        Bnezal => Ok(()),
-                        Sge => Ok(()),
-                        Bgtal => Ok(()),
-                        Nor => Ok(()),
-                        Bneal => Ok(()),
-                        Label => Ok(()),
-                        Blezal => Ok(()),
-                        Brap => Ok(()),
-                        Log => Ok(()),
-                        Sgez => Ok(()),
-                        Sin => Ok(()),
-                        Seq => Ok(()),
-                        Putd => Ok(()),
-                        Slt => Ok(()),
-                        Snan => Ok(()),
-                        Beqzal => Ok(()),
-                        Bltal => Ok(()),
-                        Lbns => Ok(()),
-                        Poke => Ok(()),
-                        Brlez => Ok(()),
-                        Bdse => Ok(()),
-                        Sleep => Ok(()),
-                        Lb => Ok(()),
-                        Lr => Ok(()),
-                        Slez => Ok(()),
-                        Beqal => Ok(()),
-                        Sdns => Ok(()),
-                        Blt => Ok(()),
-                        Add => Ok(()),
-                        Bdseal => Ok(()),
-                        Beq => Ok(()),
-                        Atan => Ok(()),
-                        Bgtzal => Ok(()),
-                        Mul => Ok(()),
-                        Sra => Ok(()),
-                        Bdns => Ok(()),
-                        Peek => Ok(()),
-                        Sne => Ok(()),
-                        Jr => Ok(()),
-                        Sgt => Ok(()),
-                        Brgt => Ok(()),
-                        Sd => Ok(()),
-                        Brapz => Ok(()),
-                        Breq => Ok(()),
-                        Or => Ok(()),
-                        Bdnsal => Ok(()),
-                        Bna => Ok(()),
-                        Sbn => Ok(()),
-                        Mod => Ok(()),
-                        Asin => Ok(()),
-                        Atan2 => Ok(()),
-                        Bgeal => Ok(()),
-                        Put => Ok(()),
-                        Bgez => Ok(()),
-                        Sapz => Ok(()),
-                        Bleal => Ok(()),
-                        Bltz => Ok(()),
-                        Brlt => Ok(()),
-                        Brltz => Ok(()),
-                        Rand => Ok(()),
-                        Trunc => Ok(()),
-                        Lbn => Ok(()),
-                        Bnazal => Ok(()),
-                        Bne => Ok(()),
-                        Sltz => Ok(()),
-                        Brge => Ok(()),
-                        Div => Ok(()),
-                        Max => Ok(()),
-                        Round => Ok(()),
-                        Sgtz => Ok(()),
-                        Brdns => Ok(()),
-                        Bapal => Ok(()),
-                        Lbs => Ok(()),
-                        Move => Ok(()),
-                        Sla => Ok(()),
-                        And => Ok(()),
-                        Pop => Ok(()),
-                        Brdse => Ok(()),
-                        Sll => Ok(()),
-                        Bap => Ok(()),
+
+                        Beq => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a == b { c as u32 } else { next_ip };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Beqal => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a == b { c as u32 } else { next_ip };
+                                self.al();
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Breq => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a == b {
+                                    (self.ip as f64 + c) as u32
+                                } else {
+                                    next_ip
+                                };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Beqz => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [a, b] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                next_ip = if a == 0.0 { b as u32 } else { next_ip };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Beqzal => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [a, b] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                next_ip = if a == 0.0 { b as u32 } else { next_ip };
+                                self.al();
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Breqz => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [a, b] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                next_ip = if a == 0.0 {
+                                    (self.ip as f64 + b) as u32
+                                } else {
+                                    next_ip
+                                };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Bne => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a != b { c as u32 } else { next_ip };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Bneal => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a != b { c as u32 } else { next_ip };
+                                self.al();
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Brne => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a != b {
+                                    (self.ip as f64 + c) as u32
+                                } else {
+                                    next_ip
+                                };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Bnez => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [a, b] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                next_ip = if a != 0.0 { b as u32 } else { next_ip };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Bnezal => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [a, b] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                next_ip = if a != 0.0 { b as u32 } else { next_ip };
+                                self.al();
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Brnez => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [a, b] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                next_ip = if a != 0.0 {
+                                    (self.ip as f64 + b) as u32
+                                } else {
+                                    next_ip
+                                };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Blt => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a < b { c as u32 } else { next_ip };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Bltal => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a < b { c as u32 } else { next_ip };
+                                self.al();
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Brlt => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a < b {
+                                    (self.ip as f64 + c) as u32
+                                } else {
+                                    next_ip
+                                };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Ble => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a <= b { c as u32 } else { next_ip };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Bleal => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a <= b { c as u32 } else { next_ip };
+                                self.al();
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Brle => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a <= b {
+                                    (self.ip as f64 + c) as u32
+                                } else {
+                                    next_ip
+                                };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Blez => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [a, b] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                next_ip = if a <= 0.0 { b as u32 } else { next_ip };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Blezal => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [a, b] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                next_ip = if a <= 0.0 { b as u32 } else { next_ip };
+                                self.al();
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Brlez => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [a, b] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                next_ip = if a <= 0.0 {
+                                    (self.ip as f64 + b) as u32
+                                } else {
+                                    next_ip
+                                };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Bltz => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [a, b] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                next_ip = if a < 0.0 { b as u32 } else { next_ip };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Bltzal => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [a, b] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                next_ip = if a < 0.0 { b as u32 } else { next_ip };
+                                self.al();
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Brltz => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [a, b] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                next_ip = if a < 0.0 {
+                                    (self.ip as f64 + b) as u32
+                                } else {
+                                    next_ip
+                                };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Bgt => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a > b { c as u32 } else { next_ip };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Bgtal => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a > b { c as u32 } else { next_ip };
+                                self.al();
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Brgt => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a > b {
+                                    (self.ip as f64 + c) as u32
+                                } else {
+                                    next_ip
+                                };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Bgtz => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [a, b] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                next_ip = if a > 0.0 { b as u32 } else { next_ip };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Bgtzal => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [a, b] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                next_ip = if a > 0.0 { b as u32 } else { next_ip };
+                                self.al();
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Brgtz => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [a, b] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                next_ip = if a > 0.0 {
+                                    (self.ip as f64 + b) as u32
+                                } else {
+                                    next_ip
+                                };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Bge => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a >= b { c as u32 } else { next_ip };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Bgeal => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a >= b { c as u32 } else { next_ip };
+                                self.al();
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Brge => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a >= b {
+                                    (self.ip as f64 + c) as u32
+                                } else {
+                                    next_ip
+                                };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Bgez => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [a, b] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                next_ip = if a >= 0.0 { b as u32 } else { next_ip };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Bgezal => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [a, b] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                next_ip = if a >= 0.0 { b as u32 } else { next_ip };
+                                self.al();
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Brgez => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [a, b] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                next_ip = if a >= 0.0 {
+                                    (self.ip as f64 + b) as u32
+                                } else {
+                                    next_ip
+                                };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Bap => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 4,
+                            }),
+                            [a, b, c, d] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                let d = d.get_value(self)?;
+                                next_ip = if f64::abs(a - b)
+                                    <= f64::max(c * f64::max(a.abs(), b.abs()), f64::EPSILON * 8.0)
+                                {
+                                    d as u32
+                                } else {
+                                    next_ip
+                                };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 4,
+                            }),
+                        },
+                        Bapal => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 4,
+                            }),
+                            [a, b, c, d] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                let d = d.get_value(self)?;
+                                next_ip = if f64::abs(a - b)
+                                    <= f64::max(c * f64::max(a.abs(), b.abs()), f64::EPSILON * 8.0)
+                                {
+                                    d as u32
+                                } else {
+                                    next_ip
+                                };
+                                self.al();
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 4,
+                            }),
+                        },
+                        Brap => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 4,
+                            }),
+                            [a, b, c, d] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                let d = d.get_value(self)?;
+                                next_ip = if f64::abs(a - b)
+                                    <= f64::max(c * f64::max(a.abs(), b.abs()), f64::EPSILON * 8.0)
+                                {
+                                    (self.ip as f64 + d) as u32
+                                } else {
+                                    next_ip
+                                };
+                                self.al();
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 4,
+                            }),
+                        },
+                        Bapz => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a.abs() <= f64::max(b * a.abs(), f64::EPSILON * 8.0) {
+                                    c as u32
+                                } else {
+                                    next_ip
+                                };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Bapzal => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a.abs() <= f64::max(b * a.abs(), f64::EPSILON * 8.0) {
+                                    c as u32
+                                } else {
+                                    next_ip
+                                };
+                                self.al();
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Brapz => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a.abs() <= f64::max(b * a.abs(), f64::EPSILON * 8.0) {
+                                    (self.ip as f64 + c) as u32
+                                } else {
+                                    next_ip
+                                };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Bna => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 4,
+                            }),
+                            [a, b, c, d] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                let d = d.get_value(self)?;
+                                next_ip = if f64::abs(a - b)
+                                    > f64::max(c * f64::max(a.abs(), b.abs()), f64::EPSILON * 8.0)
+                                {
+                                    d as u32
+                                } else {
+                                    next_ip
+                                };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 4,
+                            }),
+                        },
+                        Bnaal => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 4,
+                            }),
+                            [a, b, c, d] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                let d = d.get_value(self)?;
+                                next_ip = if f64::abs(a - b)
+                                    > f64::max(c * f64::max(a.abs(), b.abs()), f64::EPSILON * 8.0)
+                                {
+                                    d as u32
+                                } else {
+                                    next_ip
+                                };
+                                self.al();
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 4,
+                            }),
+                        },
+                        Brna => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 4,
+                            }),
+                            [a, b, c, d] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                let d = d.get_value(self)?;
+                                next_ip = if f64::abs(a - b)
+                                    > f64::max(c * f64::max(a.abs(), b.abs()), f64::EPSILON * 8.0)
+                                {
+                                    (self.ip as f64 + d) as u32
+                                } else {
+                                    next_ip
+                                };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 4,
+                            }),
+                        },
+                        Bnaz => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a.abs() > f64::max(b * a.abs(), f64::EPSILON * 8.0) {
+                                    c as u32
+                                } else {
+                                    next_ip
+                                };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Bnazal => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a.abs() > f64::max(b * a.abs(), f64::EPSILON * 8.0) {
+                                    c as u32
+                                } else {
+                                    next_ip
+                                };
+                                self.al();
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Brnaz => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [a, b, c] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                next_ip = if a.abs() > f64::max(b * a.abs(), f64::EPSILON * 8.0) {
+                                    (self.ip as f64 + c) as u32
+                                } else {
+                                    next_ip
+                                };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Bdse => match &inst.operands[..] {
+                            [_] => Err(ToFewOperands {
+                                provided: 1,
+                                desired: 2,
+                            }),
+                            [d, a] => {
+                                let (device, _channel) = d.get_device_id(self)?;
+                                let a = a.get_value(self)?;
+                                next_ip = if device.is_some() { a as u32 } else { next_ip };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Bdseal => match &inst.operands[..] {
+                            [_] => Err(ToFewOperands {
+                                provided: 1,
+                                desired: 2,
+                            }),
+                            [d, a] => {
+                                let (device, _channel) = d.get_device_id(self)?;
+                                let a = a.get_value(self)?;
+                                next_ip = if device.is_some() { a as u32 } else { next_ip };
+                                self.al();
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Brdse => match &inst.operands[..] {
+                            [_] => Err(ToFewOperands {
+                                provided: 1,
+                                desired: 2,
+                            }),
+                            [d, a] => {
+                                let (device, _channel) = d.get_device_id(self)?;
+                                let a = a.get_value(self)?;
+                                next_ip = if device.is_some() {
+                                    (self.ip as f64 + a) as u32
+                                } else {
+                                    next_ip
+                                };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Bdns => match &inst.operands[..] {
+                            [_] => Err(ToFewOperands {
+                                provided: 1,
+                                desired: 2,
+                            }),
+                            [d, a] => {
+                                let (device, _channel) = d.get_device_id(self)?;
+                                let a = a.get_value(self)?;
+                                next_ip = if device.is_none() { a as u32 } else { next_ip };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Bdnsal => match &inst.operands[..] {
+                            [_] => Err(ToFewOperands {
+                                provided: 1,
+                                desired: 2,
+                            }),
+                            [d, a] => {
+                                let (device, _channel) = d.get_device_id(self)?;
+                                let a = a.get_value(self)?;
+                                next_ip = if device.is_none() { a as u32 } else { next_ip };
+                                self.al();
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Brdns => match &inst.operands[..] {
+                            [_] => Err(ToFewOperands {
+                                provided: 1,
+                                desired: 2,
+                            }),
+                            [d, a] => {
+                                let (device, _channel) = d.get_device_id(self)?;
+                                let a = a.get_value(self)?;
+                                next_ip = if device.is_none() {
+                                    (self.ip as f64 + a) as u32
+                                } else {
+                                    next_ip
+                                };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Bnan => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [a, b] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                next_ip = if a.is_nan() { b as u32 } else { next_ip };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Brnan => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [a, b] => {
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                next_ip = if a.is_nan() {
+                                    (self.ip as f64 + b) as u32
+                                } else {
+                                    next_ip
+                                };
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+
+                        J => match &inst.operands[..] {
+                            [a] => {
+                                let a = a.get_value(self)?;
+                                next_ip = a as u32;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 1,
+                            }),
+                        },
+                        Jal => match &inst.operands[..] {
+                            [a] => {
+                                let a = a.get_value(self)?;
+                                next_ip = a as u32;
+                                self.al();
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 1,
+                            }),
+                        },
+                        Jr => match &inst.operands[..] {
+                            [a] => {
+                                let a = a.get_value(self)?;
+                                next_ip = (self.ip as f64 + a) as u32;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 1,
+                            }),
+                        },
+
+                        Seq => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [reg, a, b] => {
+                                let &Operand::RegisterSpec {
+                                    indirection,
+                                    target,
+                                } = reg
+                                else {
+                                    break 'inst Err(OperandNotRegister);
+                                };
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                self.set_register(
+                                    indirection,
+                                    target,
+                                    if a == b { 1.0 } else { 0.0 },
+                                )?;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Seqz => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [reg, a] => {
+                                let &Operand::RegisterSpec {
+                                    indirection,
+                                    target,
+                                } = reg
+                                else {
+                                    break 'inst Err(OperandNotRegister);
+                                };
+                                let a = a.get_value(self)?;
+                                self.set_register(
+                                    indirection,
+                                    target,
+                                    if a == 0.0 { 1.0 } else { 0.0 },
+                                )?;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Sne => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [reg, a, b] => {
+                                let &Operand::RegisterSpec {
+                                    indirection,
+                                    target,
+                                } = reg
+                                else {
+                                    break 'inst Err(OperandNotRegister);
+                                };
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                self.set_register(
+                                    indirection,
+                                    target,
+                                    if a != b { 1.0 } else { 0.0 },
+                                )?;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Snez => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [reg, a] => {
+                                let &Operand::RegisterSpec {
+                                    indirection,
+                                    target,
+                                } = reg
+                                else {
+                                    break 'inst Err(OperandNotRegister);
+                                };
+                                let a = a.get_value(self)?;
+                                self.set_register(
+                                    indirection,
+                                    target,
+                                    if a != 0.0 { 1.0 } else { 0.0 },
+                                )?;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Slt => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [reg, a, b] => {
+                                let &Operand::RegisterSpec {
+                                    indirection,
+                                    target,
+                                } = reg
+                                else {
+                                    break 'inst Err(OperandNotRegister);
+                                };
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                self.set_register(
+                                    indirection,
+                                    target,
+                                    if a < b { 1.0 } else { 0.0 },
+                                )?;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Sltz => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [reg, a] => {
+                                let &Operand::RegisterSpec {
+                                    indirection,
+                                    target,
+                                } = reg
+                                else {
+                                    break 'inst Err(OperandNotRegister);
+                                };
+                                let a = a.get_value(self)?;
+                                self.set_register(
+                                    indirection,
+                                    target,
+                                    if a < 0.0 { 1.0 } else { 0.0 },
+                                )?;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Sle => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [reg, a, b] => {
+                                let &Operand::RegisterSpec {
+                                    indirection,
+                                    target,
+                                } = reg
+                                else {
+                                    break 'inst Err(OperandNotRegister);
+                                };
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                self.set_register(
+                                    indirection,
+                                    target,
+                                    if a <= b { 1.0 } else { 0.0 },
+                                )?;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Slez => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [reg, a] => {
+                                let &Operand::RegisterSpec {
+                                    indirection,
+                                    target,
+                                } = reg
+                                else {
+                                    break 'inst Err(OperandNotRegister);
+                                };
+                                let a = a.get_value(self)?;
+                                self.set_register(
+                                    indirection,
+                                    target,
+                                    if a <= 0.0 { 1.0 } else { 0.0 },
+                                )?;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Sgt => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [reg, a, b] => {
+                                let &Operand::RegisterSpec {
+                                    indirection,
+                                    target,
+                                } = reg
+                                else {
+                                    break 'inst Err(OperandNotRegister);
+                                };
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                self.set_register(
+                                    indirection,
+                                    target,
+                                    if a > b { 1.0 } else { 0.0 },
+                                )?;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Sgtz => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [reg, a] => {
+                                let &Operand::RegisterSpec {
+                                    indirection,
+                                    target,
+                                } = reg
+                                else {
+                                    break 'inst Err(OperandNotRegister);
+                                };
+                                let a = a.get_value(self)?;
+                                self.set_register(
+                                    indirection,
+                                    target,
+                                    if a > 0.0 { 1.0 } else { 0.0 },
+                                )?;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Sge => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [reg, a, b] => {
+                                let &Operand::RegisterSpec {
+                                    indirection,
+                                    target,
+                                } = reg
+                                else {
+                                    break 'inst Err(OperandNotRegister);
+                                };
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                self.set_register(
+                                    indirection,
+                                    target,
+                                    if a >= b { 1.0 } else { 0.0 },
+                                )?;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Sgez => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [reg, a] => {
+                                let &Operand::RegisterSpec {
+                                    indirection,
+                                    target,
+                                } = reg
+                                else {
+                                    break 'inst Err(OperandNotRegister);
+                                };
+                                let a = a.get_value(self)?;
+                                self.set_register(
+                                    indirection,
+                                    target,
+                                    if a >= 0.0 { 1.0 } else { 0.0 },
+                                )?;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Sap => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [reg, a, b, c] => {
+                                let &Operand::RegisterSpec {
+                                    indirection,
+                                    target,
+                                } = reg
+                                else {
+                                    break 'inst Err(OperandNotRegister);
+                                };
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                self.set_register(
+                                    indirection,
+                                    target,
+                                    if f64::abs(a - b)
+                                        <= f64::max(
+                                            c * f64::max(a.abs(), b.abs()),
+                                            f64::EPSILON * 8.0,
+                                        )
+                                    {
+                                        1.0
+                                    } else {
+                                        0.0
+                                    },
+                                )?;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Sapz => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [reg, a, b] => {
+                                let &Operand::RegisterSpec {
+                                    indirection,
+                                    target,
+                                } = reg
+                                else {
+                                    break 'inst Err(OperandNotRegister);
+                                };
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                self.set_register(
+                                    indirection,
+                                    target,
+                                    if a.abs() <= f64::max(b * a.abs(), f64::EPSILON * 8.0) {
+                                        1.0
+                                    } else {
+                                        0.0
+                                    },
+                                )?;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Sna => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 4,
+                            }),
+                            [reg, a, b, c] => {
+                                let &Operand::RegisterSpec {
+                                    indirection,
+                                    target,
+                                } = reg
+                                else {
+                                    break 'inst Err(OperandNotRegister);
+                                };
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                self.set_register(
+                                    indirection,
+                                    target,
+                                    if f64::abs(a - b)
+                                        > f64::max(
+                                            c * f64::max(a.abs(), b.abs()),
+                                            f64::EPSILON * 8.0,
+                                        )
+                                    {
+                                        1.0
+                                    } else {
+                                        0.0
+                                    },
+                                )?;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 4,
+                            }),
+                        },
+                        Snaz => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                            [reg, a, b] => {
+                                let &Operand::RegisterSpec {
+                                    indirection,
+                                    target,
+                                } = reg
+                                else {
+                                    break 'inst Err(OperandNotRegister);
+                                };
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                self.set_register(
+                                    indirection,
+                                    target,
+                                    if a.abs() > f64::max(b * a.abs(), f64::EPSILON * 8.0) {
+                                        1.0
+                                    } else {
+                                        0.0
+                                    },
+                                )?;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 3,
+                            }),
+                        },
+                        Sdse => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [reg, device] => {
+                                let &Operand::RegisterSpec {
+                                    indirection,
+                                    target,
+                                } = reg
+                                else {
+                                    break 'inst Err(OperandNotRegister);
+                                };
+                                let (device, _channel) = device.get_device_id(self)?;
+                                self.set_register(
+                                    indirection,
+                                    target,
+                                    if device.is_some() { 1.0 } else { 0.0 },
+                                )?;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Sdns => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [reg, device] => {
+                                let &Operand::RegisterSpec {
+                                    indirection,
+                                    target,
+                                } = reg
+                                else {
+                                    break 'inst Err(OperandNotRegister);
+                                };
+                                let (device, _channel) = device.get_device_id(self)?;
+                                self.set_register(
+                                    indirection,
+                                    target,
+                                    if device.is_none() { 1.0 } else { 0.0 },
+                                )?;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Snan => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [reg, a] => {
+                                let &Operand::RegisterSpec {
+                                    indirection,
+                                    target,
+                                } = reg
+                                else {
+                                    break 'inst Err(OperandNotRegister);
+                                };
+                                let a = a.get_value(self)?;
+                                self.set_register(
+                                    indirection,
+                                    target,
+                                    if a.is_nan() { 1.0 } else { 0.0 },
+                                )?;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+                        Snanz => match &inst.operands[..] {
+                            oprs @ [_] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                            [reg, a] => {
+                                let &Operand::RegisterSpec {
+                                    indirection,
+                                    target,
+                                } = reg
+                                else {
+                                    break 'inst Err(OperandNotRegister);
+                                };
+                                let a = a.get_value(self)?;
+                                self.set_register(
+                                    indirection,
+                                    target,
+                                    if a.is_nan() { 0.0 } else { 1.0 },
+                                )?;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 2,
+                            }),
+                        },
+
+                        Select => match &inst.operands[..] {
+                            oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(ToFewOperands {
+                                provided: oprs.len() as u32,
+                                desired: 4,
+                            }),
+                            [reg, a, b, c] => {
+                                let &Operand::RegisterSpec {
+                                    indirection,
+                                    target,
+                                } = reg
+                                else {
+                                    break 'inst Err(OperandNotRegister);
+                                };
+                                let a = a.get_value(self)?;
+                                let b = b.get_value(self)?;
+                                let c = c.get_value(self)?;
+                                self.set_register(
+                                    indirection,
+                                    target,
+                                    if a != 0.0 { b } else { c },
+                                )?;
+                                Ok(())
+                            }
+                            oprs => Err(TooManyOperands {
+                                provided: oprs.len() as u32,
+                                desired: 4,
+                            }),
+                        },
+
+
                         Push => Ok(()),
-                        Seqz => Ok(()),
-                        Sub => Ok(()),
-                        Select => Ok(()),
-                        Bge => Ok(()),
-                        Abs => Ok(()),
-                        Brle => Ok(()),
+                        Pop => Ok(()),
+                        Poke => Ok(()),
+                        Peek => Ok(()),
                         Get => Ok(()),
-                        Brnez => Ok(()),
-                        Snaz => Ok(()),
-                        Bnaal => Ok(()),
-                        Ss => Ok(()),
+                        Getd => Ok(()),
+                        Put => Ok(()),
+                        Putd => Ok(()),
+
+                        Sll => Ok(()),
+                        Srl => Ok(()),
+                        Sla => Ok(()),
+                        Sra => Ok(()),
+
+                        And => Ok(()),
+                        Or => Ok(()),
+                        Xor => Ok(()),
+                        Nor => Ok(()),
+                        Not => Ok(()),
+
+                        Add => Ok(()),
+                        Sub => Ok(()),
+                        Mul => Ok(()),
+                        Div => Ok(()),
+                        Mod => Ok(()),
                         Exp => Ok(()),
-                        Bgezal => Ok(()),
-                        Bgt => Ok(()),
-                        Brnaz => Ok(()),
-                        Brgtz => Ok(()),
-                        Brnan => Ok(()),
-                        Bltzal => Ok(()),
-                        Floor => Ok(()),
+                        Log => Ok(()),
+                        Sqrt => Ok(()),
+
+                        Max => Ok(()),
+                        Min => Ok(()),
                         Ceil => Ok(()),
-                        Jal => Ok(()),
+                        Floor => Ok(()),
+                        Abs => Ok(()),
+                        Round => Ok(()),
+                        Trunc => Ok(()),
+
+                        Rand => Ok(()),
+
+                        Sin => Ok(()),
+                        Cos => Ok(()),
+                        Tan => Ok(()),
+                        Asin => Ok(()),
+                        Acos => Ok(()),
+                        Atan => Ok(()),
+                        Atan2 => Ok(()),
+
+                        S => Ok(()),
+                        Sd => Ok(()),
+                        Ss => Ok(()),
+                        Sb => Ok(()),
+                        Sbs => Ok(()),
+                        Sbn => Ok(()),
+
                         L => Ok(()),
                         Ld => Ok(()),
-                        Bnaz => Ok(()),
-                        Sle => Ok(()),
-                        Sna => Ok(()),
-                        Brne => Ok(()),
-                        Acos => Ok(()),
-                        Bnan => Ok(()),
-                        Cos => Ok(()),
-                        Getd => Ok(()),
-                        Min => Ok(()),
-                        Brgez => Ok(()),
-                        S => Ok(()),
-                        Sap => Ok(()),
-                        Sqrt => Ok(()),
                         Ls => Ok(()),
-                        Not => Ok(()),
+                        Lr => Ok(()),
+                        Lb => Ok(()),
+                        Lbn => Ok(()),
+                        Lbns => Ok(()),
+                        Lbs => Ok(()),
+
                         Hcf => Ok(()),
                     }
                 }
@@ -395,8 +2048,7 @@ impl IC {
         } else {
             Ok(())
         };
-        // let ip = housing.i
-        self.ip += 1;
+        self.ip = next_ip;
         result
     }
 }
