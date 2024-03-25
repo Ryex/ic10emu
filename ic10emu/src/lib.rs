@@ -2,8 +2,21 @@ use core::f64;
 use std::collections::{HashMap, HashSet};
 
 
+mod tokens;
 mod grammar;
-mod compiler;
+mod interpreter;
+
+use thiserror::Error;
+
+#[derive(Error, Debug)]
+pub enum VMError {
+    #[error("Device with id '{0}' does not exist")]
+    UnknownId(u16),
+    #[error("Device with id '{0}' does not have a IC Slot")]
+    NoIC(u16),
+    #[error("Code did not compile")]
+    ParseError(#[from] grammar::ParseError)
+}
 
 
 #[derive(Debug)]
@@ -15,29 +28,16 @@ pub enum FieldType {
 
 #[derive(Debug)]
 pub struct LogicField {
-    field_type: FieldType,
-    value: f64,
+    pub field_type: FieldType,
+    pub value: f64,
 
 }
 
 #[derive(Debug, Default)]
 pub struct Device {
     pub id: u16,
-    pub fields: HashMap<u8, LogicField>,
-    pub ic: Option<IC>
-}
-
-
-#[derive(Debug)]
-pub struct IC {
-    pub id: u16,
-    pub registers: [f64; 18], // r[0-15]
-    pub ip: u8,
-    pub stack: [f64; 512],
-    pub aliases: HashMap<String, compiler::Operand>,
-    pub pins: [Option<u16>; 6],
-    pub code: String,
-    pub program: compiler::Program,
+    pub fields: HashMap<u32, LogicField>,
+    pub ic: Option<interpreter::IC>
 }
 
 #[derive(Debug)]
@@ -82,21 +82,6 @@ impl Default for Network {
     }
 }
 
-impl IC {
-    pub fn new(id: u16) -> Self {
-        IC {
-            id,
-            ip: 0,
-            registers: [0.0; 18],
-            stack: [0.0; 512],
-            pins: [None; 6],
-            program: compiler::Program::new(),
-            code: String::new(),
-            aliases: HashMap::new(),
-        }
-    }
-}
-
 impl Device {
     pub fn new(id: u16) -> Self {
         Device { id, fields: HashMap::new(), ic: None }
@@ -104,10 +89,11 @@ impl Device {
 
     pub fn with_ic(id: u16) -> Self {
         let mut device = Device::new(id);
-        device.ic = Some(IC::new(id));
+        device.ic = Some(interpreter::IC::new(id));
         device
     }
 }
+
 
 impl VM {
     pub fn new() -> Self {
@@ -133,6 +119,15 @@ impl VM {
         if  self.ics.remove(&id) {
             self.devices.remove(&id);
         }
+    }
+
+    pub fn set_code(&mut self, id: u16, code: &str) -> Result<bool, VMError> {
+        let device = self.devices.get_mut(&id).ok_or(VMError::UnknownId(id))?;
+        let ic = device.ic.as_mut().ok_or(VMError::NoIC(id))?;
+        let new_prog = interpreter::Program::try_from_code(code)?;
+        ic.program = new_prog;
+        ic.code = code.to_string();
+        Ok(true)
     }
 
 }

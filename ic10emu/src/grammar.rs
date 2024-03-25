@@ -1,1003 +1,663 @@
-pub mod rich_types;
+use crate::interpreter;
+use crate::tokens::SplitConsecutiveIndicesExt;
+use itertools::Itertools;
+use std::error::Error;
+use std::fmt::Display;
+use std::str::FromStr;
 
-#[rust_sitter::grammar("ic10")]
-pub mod ic10 {
-    use super::rich_types::*;
-    use strum_macros::IntoStaticStr;
-    use strum_macros::AsRefStr;
+#[derive(Debug, Clone)]
+pub struct ParseError {
+    pub line: usize,
+    pub start: usize,
+    pub end: usize,
+    pub msg: String,
+}
 
-    #[derive(PartialEq, Debug)]
-    #[rust_sitter::language]
-    pub struct Language {
-        pub lines: Vec<Line>,
+impl Display for ParseError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "{} at line {} {}:{}",
+            self.msg, self.line, self.start, self.end
+        )
+    }
+}
+
+impl Error for ParseError {}
+
+impl ParseError {
+    /// Offset the ParseError in it's line, adding the passed values to it's `start` and `end`
+    pub fn offset(self, offset: usize) -> Self {
+        ParseError {
+            line: self.line,
+            start: self.start + offset,
+            end: self.end + offset,
+            msg: self.msg,
+        }
     }
 
-    #[derive(PartialEq, Debug)]
-    pub struct Line {
-        pub code: Option<Code>,
-        pub comment: Option<Comment>,
-        pub _newline: NewLine,
+    /// Offset the ParseError line, adding the passed value to it's `line`
+    pub fn offset_line(self, offset: usize) -> Self {
+        ParseError {
+            line: self.line + offset,
+            start: self.start,
+            end: self.end,
+            msg: self.msg,
+        }
     }
 
-    // #[derive(Debug)]
-    // #[rust_sitter::prec_left(1)]
-    // pub enum LastLine {
-    //     #[rust_sitter::prec_left(3)]
-    //     Both(Code, Comment),
-    //     #[rust_sitter::prec_left(2)]
-    //     Code(Code),
-    //     #[rust_sitter::prec_left(1)]
-    //     Comment(Comment),
-    // }
+    /// Mark the parse error as extending 'length' bytes from `start`
+    pub fn span(self, length: usize) -> Self {
+        ParseError {
+            line: self.line,
+            start: self.start,
+            end: self.start + length,
+            msg: self.msg,
+        }
+    }
+}
 
-    #[derive(PartialEq, Debug)]
-    pub enum Code {
-        Instruction(Instruction),
-        Label(Label),
-    }
+include!(concat!(env!("OUT_DIR"), "/instructions.rs"));
+include!(concat!(env!("OUT_DIR"), "/logictypes.rs"));
+include!(concat!(env!("OUT_DIR"), "/modes.rs"));
+include!(concat!(env!("OUT_DIR"), "/constants.rs"));
+include!(concat!(env!("OUT_DIR"), "/enums.rs"));
 
-    #[derive(PartialEq, Debug)]
-    pub struct Comment {
-        #[rust_sitter::leaf(text = r"#")]
-        pub _header: (),
-        #[rust_sitter::leaf(pattern = r"[^\n\r]*", transform = |s| s.to_string() )]
-        pub comment: String,
-    }
+pub fn parse(code: &str) -> Result<Vec<Line>, ParseError> {
+    code.lines()
+        .enumerate()
+        .map(|(n, l)| l.parse::<Line>().map_err(|e| e.offset_line(n)))
+        .collect()
+}
 
-    #[derive(PartialEq, Debug)]
-    pub struct Instruction {
-        pub instruction: InstructionOp,
-        pub operands: Vec<Operand>,
-    }
+#[derive(PartialEq, Debug)]
+pub struct Line {
+    pub code: Option<Code>,
+    pub comment: Option<Comment>,
+}
 
-    #[derive(PartialEq, Debug)]
-    pub enum Operand {
-        RegisterSpec(
-            #[rust_sitter::leaf(pattern = r"sp|r(?:a|r*)(?:[0-9]|1[0-7])", transform = |rs| Register::from_str(rs))]
-             Register,
-        ),
-        DeviceSpec(
-            #[rust_sitter::leaf(pattern = r"d(?:b|[0-5]|r*(?:[0-9]|1[0-7]))(?::[0-9]+)?", transform = |ds| DeviceSpec::from_str(ds))]
-             DeviceSpec,
-        ),
-        Number(Number),
-        LogicType(LogicType),
-        Identifier(Identifier),
+impl FromStr for Line {
+    type Err = ParseError;
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let mut parts = s.splitn(2, "#");
+        let code = parts
+            .next()
+            .map(|s| {
+                let s = s.trim_end();
+                if s.is_empty() {
+                    None
+                } else {
+                    Some(s.parse::<Code>())
+                }
+            })
+            .flatten()
+            .transpose()?;
+        let comment = parts.next().map(|s| s.parse()).transpose()?;
+        Ok(Line { code, comment })
     }
+}
 
-    #[derive(PartialEq, Debug)]
-    pub struct Label(pub Identifier, #[rust_sitter::leaf(text = r":")] pub ());
+#[derive(PartialEq, Debug)]
+pub enum Code {
+    Instruction(Instruction),
+    Label(Label),
+}
 
-    #[derive(PartialEq, Debug)]
-    pub struct Identifier {
-        #[rust_sitter::leaf(pattern = r"[a-zA-Z_.][\w\d.]*", transform = |id| id.to_string())]
-        pub name: String,
-    }
+impl FromStr for Code {
+    type Err = ParseError;
 
-    #[derive(PartialEq, Debug)]
-    pub struct HashPreProc {
-        #[rust_sitter::leaf(text = "HASH(\"")]
-        pub _head: (),
-        #[rust_sitter::leaf(pattern = "[^\"\\n]*", transform = |s| HashString::from_str(s) )]
-        pub string: HashString,
-        #[rust_sitter::leaf(text = "\")")]
-        pub _foot: (),
+    /// Parse a non empty Code line from a &str with no comment in it
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let s = s.trim_end();
+        if let Some((index, ':')) = s.chars().enumerate().last() {
+            Ok(Code::Label(
+                s.parse::<Label>().map_err(|e| e.offset(index))?,
+            ))
+        } else {
+            Ok(Code::Instruction(s.parse()?))
+        }
     }
+}
 
-    #[derive(PartialEq, Debug)]
-    pub enum Number {
-        Float(
-            #[rust_sitter::leaf(pattern = r"-?[0-9]+(\.[0-9]+)?", transform = |f| f.parse().unwrap())]
-             f64,
-        ),
-        Binary(
-            #[rust_sitter::leaf(text = r"%")] (),
-            #[rust_sitter::leaf(pattern = r"[01_]+", transform = |b| { 
-                i64::from_str_radix(&b.replace("_", ""), 2).unwrap() as f64 
-            } )]
-            f64,
-        ),
-        Hexadecimal(
-            #[rust_sitter::leaf(text = r"$")] (),
-            #[rust_sitter::leaf(pattern = r"[0-9a-fA-F_]+", transform = |h| {
-                i64::from_str_radix(&h.replace("_", ""), 16).unwrap() as f64
-            } )]
-            f64,
-        ),
-        Constant(Constant),
-        String(HashPreProc),
-        Enum(Enum),
-    }
+#[derive(PartialEq, Debug)]
+pub struct Comment {
+    pub comment: String,
+}
 
-    #[derive(PartialEq, Debug)]
-    #[rust_sitter::extra]
-    struct Whitespace {
-        #[rust_sitter::leaf(pattern = r"[\t ]+")]
-        _whitespace: (),
+impl FromStr for Comment {
+    type Err = ParseError;
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Ok(Comment {
+            comment: s.to_owned(),
+        })
     }
+}
 
-    #[derive(PartialEq, Debug)]
-    pub struct NewLine {
-        #[rust_sitter::leaf(pattern = r"\n|\r\n|\r")]
-        pub _newline: (),
-    }
+#[derive(PartialEq, Debug)]
+pub struct Instruction {
+    pub instruction: InstructionOp,
+    pub operands: Vec<Operand>,
+}
 
-    // WARNING !!! GENERATED CODE BLOW THIS POINT DO NOT MODIFY !!!
-    // WARNING !!! COMMENTS USED AS MARKERS TO PATCH BEFORE GRAMMAR BUILD DO NOT REMOVE !!!
-    // PATCH grammar/ic10/constants.rs
-    // GENERATED CODE DO NOT MODIFY
-    #[derive(PartialEq, Debug, IntoStaticStr, AsRefStr)]
-    pub enum Constant {
-         #[rust_sitter::leaf(text = "pi" )]Pi,
-         #[rust_sitter::leaf(text = "nan" )]Nan,
-         #[rust_sitter::leaf(text = "pinf" )]Pinf,
-         #[rust_sitter::leaf(text = "epsilon" )]Epsilon,
-         #[rust_sitter::leaf(text = "deg2rad" )]Deg2Rad,
-         #[rust_sitter::leaf(text = "rad2deg" )]Rad2Deg,
-         #[rust_sitter::leaf(text = "ninf" )]Ninf,
+impl FromStr for Instruction {
+    type Err = ParseError;
+    /// parse a non-empty string for  an instruction and it's operands
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let mut tokens_iter = s.split_consecutive_with_indices(&[' ', '\t'][..]);
+        let instruction: InstructionOp = {
+            if let Some((index, token)) = tokens_iter.next() {
+                token
+                    .parse::<InstructionOp>()
+                    .map_err(|e| e.offset(index).span(token.len()))
+            } else {
+                Err(ParseError {
+                    line: 0,
+                    start: 0,
+                    end: 0,
+                    msg: format!("Missing instruction"),
+                })
+            }
+        }?;
+        let mut operand_tokens = Vec::new();
+        let mut string_start = None;
+        for (index, token) in tokens_iter {
+            if token.starts_with("HASH(\"") {
+                string_start = Some(index);
+            }
+            if let Some(start) = string_start {
+                if token.ends_with("\")") {
+                    operand_tokens.push((start, &s[start..(index + token.len())]));
+                    string_start = None;
+                }
+            } else {
+                operand_tokens.push((index, token));
+            }
+        }
+        let operands = operand_tokens
+            .into_iter()
+            .map(|(index, token)| {
+                token
+                    .parse::<Operand>()
+                    .map_err(|e| e.offset(index).span(token.len()))
+            })
+            .collect::<Result<Vec<_>, ParseError>>()?;
+        Ok(Instruction {
+            instruction,
+            operands,
+        })
     }
-    // END PATCH grammar/ic10/constants.rs
-    // PATCH grammar/ic10/logictypes.rs
-    // GENERATED CODE DO NOT MODIFY
-    #[derive(PartialEq, Debug, IntoStaticStr, AsRefStr)]
-    pub enum LogicType {
-         #[rust_sitter::leaf(text = "DryMass" )]DryMass,
-         #[rust_sitter::leaf(text = "Charge" )]Charge,
-         #[rust_sitter::leaf(text = "RatioCarbonDioxideInput" )]RatioCarbonDioxideInput,
-         #[rust_sitter::leaf(text = "Setting" )]Setting,
-         #[rust_sitter::leaf(text = "Growth" )]Growth,
-         #[rust_sitter::leaf(text = "Minimum" )]Minimum,
-         #[rust_sitter::leaf(text = "Weight" )]Weight,
-         #[rust_sitter::leaf(text = "RatioLiquidNitrousOxideInput" )]RatioLiquidNitrousOxideInput,
-         #[rust_sitter::leaf(text = "PositionX" )]PositionX,
-         #[rust_sitter::leaf(text = "Inclination" )]Inclination,
-         #[rust_sitter::leaf(text = "PressureSetting" )]PressureSetting,
-         #[rust_sitter::leaf(text = "VelocityZ" )]VelocityZ,
-         #[rust_sitter::leaf(text = "PositionY" )]PositionY,
-         #[rust_sitter::leaf(text = "TemperatureOutput2" )]TemperatureOutput2,
-         #[rust_sitter::leaf(text = "ChargeRatio" )]ChargeRatio,
-         #[rust_sitter::leaf(text = "Channel7" )]Channel7,
-         #[rust_sitter::leaf(text = "HorizontalRatio" )]HorizontalRatio,
-         #[rust_sitter::leaf(text = "PlantHash3" )]PlantHash3,
-         #[rust_sitter::leaf(text = "PlantGrowth1" )]PlantGrowth1,
-         #[rust_sitter::leaf(text = "ImportQuantity" )]ImportQuantity,
-         #[rust_sitter::leaf(text = "Index" )]Index,
-         #[rust_sitter::leaf(text = "RatioWaterOutput2" )]RatioWaterOutput2,
-         #[rust_sitter::leaf(text = "FlightControlRule" )]FlightControlRule,
-         #[rust_sitter::leaf(text = "PrefabHash" )]PrefabHash,
-         #[rust_sitter::leaf(text = "RatioSteamInput2" )]RatioSteamInput2,
-         #[rust_sitter::leaf(text = "Bpm" )]Bpm,
-         #[rust_sitter::leaf(text = "MineablesInQueue" )]MineablesInQueue,
-         #[rust_sitter::leaf(text = "Channel1" )]Channel1,
-         #[rust_sitter::leaf(text = "RatioLiquidCarbonDioxide" )]RatioLiquidCarbonDioxide,
-         #[rust_sitter::leaf(text = "RatioOxygenOutput2" )]RatioOxygenOutput2,
-         #[rust_sitter::leaf(text = "RatioNitrogenInput2" )]RatioNitrogenInput2,
-         #[rust_sitter::leaf(text = "TemperatureSetting" )]TemperatureSetting,
-         #[rust_sitter::leaf(text = "ExportSlotHash" )]ExportSlotHash,
-         #[rust_sitter::leaf(text = "Output" )]Output,
-         #[rust_sitter::leaf(text = "RatioSteam" )]RatioSteam,
-         #[rust_sitter::leaf(text = "Flush" )]Flush,
-         #[rust_sitter::leaf(text = "SettingOutputHash" )]SettingOutputHash,
-         #[rust_sitter::leaf(text = "Damage" )]Damage,
-         #[rust_sitter::leaf(text = "RatioNitrousOxideOutput" )]RatioNitrousOxideOutput,
-         #[rust_sitter::leaf(text = "TemperatureOutput" )]TemperatureOutput,
-         #[rust_sitter::leaf(text = "SoundAlert" )]SoundAlert,
-         #[rust_sitter::leaf(text = "RatioOxygenInput2" )]RatioOxygenInput2,
-         #[rust_sitter::leaf(text = "OverShootTarget" )]OverShootTarget,
-         #[rust_sitter::leaf(text = "RequestHash" )]RequestHash,
-         #[rust_sitter::leaf(text = "PowerRequired" )]PowerRequired,
-         #[rust_sitter::leaf(text = "Rpm" )]Rpm,
-         #[rust_sitter::leaf(text = "VelocityRelativeY" )]VelocityRelativeY,
-         #[rust_sitter::leaf(text = "Vertical" )]Vertical,
-         #[rust_sitter::leaf(text = "Sum" )]Sum,
-         #[rust_sitter::leaf(text = "CombustionLimiter" )]CombustionLimiter,
-         #[rust_sitter::leaf(text = "PressureOutput" )]PressureOutput,
-         #[rust_sitter::leaf(text = "RatioLiquidCarbonDioxideInput" )]RatioLiquidCarbonDioxideInput,
-         #[rust_sitter::leaf(text = "RatioLiquidCarbonDioxideInput2" )]RatioLiquidCarbonDioxideInput2,
-         #[rust_sitter::leaf(text = "Channel5" )]Channel5,
-         #[rust_sitter::leaf(text = "CurrentResearchPodType" )]CurrentResearchPodType,
-         #[rust_sitter::leaf(text = "TemperatureDifferentialEfficiency" )]TemperatureDifferentialEfficiency,
-         #[rust_sitter::leaf(text = "Progress" )]Progress,
-         #[rust_sitter::leaf(text = "VerticalRatio" )]VerticalRatio,
-         #[rust_sitter::leaf(text = "RatioWaterOutput" )]RatioWaterOutput,
-         #[rust_sitter::leaf(text = "SizeX" )]SizeX,
-         #[rust_sitter::leaf(text = "CelestialHash" )]CelestialHash,
-         #[rust_sitter::leaf(text = "MaxQuantity" )]MaxQuantity,
-         #[rust_sitter::leaf(text = "Combustion" )]Combustion,
-         #[rust_sitter::leaf(text = "OrbitPeriod" )]OrbitPeriod,
-         #[rust_sitter::leaf(text = "ReferenceId" )]ReferenceId,
-         #[rust_sitter::leaf(text = "RatioLiquidVolatilesInput" )]RatioLiquidVolatilesInput,
-         #[rust_sitter::leaf(text = "Horizontal" )]Horizontal,
-         #[rust_sitter::leaf(text = "ImportCount" )]ImportCount,
-         #[rust_sitter::leaf(text = "Power" )]Power,
-         #[rust_sitter::leaf(text = "TotalMoles" )]TotalMoles,
-         #[rust_sitter::leaf(text = "LineNumber" )]LineNumber,
-         #[rust_sitter::leaf(text = "TargetY" )]TargetY,
-         #[rust_sitter::leaf(text = "RatioPollutantOutput" )]RatioPollutantOutput,
-         #[rust_sitter::leaf(text = "Occupied" )]Occupied,
-         #[rust_sitter::leaf(text = "Average" )]Average,
-         #[rust_sitter::leaf(text = "PlantHealth1" )]PlantHealth1,
-         #[rust_sitter::leaf(text = "ExportCount" )]ExportCount,
-         #[rust_sitter::leaf(text = "RatioNitrousOxideInput" )]RatioNitrousOxideInput,
-         #[rust_sitter::leaf(text = "PlantGrowth2" )]PlantGrowth2,
-         #[rust_sitter::leaf(text = "TotalMolesInput" )]TotalMolesInput,
-         #[rust_sitter::leaf(text = "RatioLiquidNitrogenOutput" )]RatioLiquidNitrogenOutput,
-         #[rust_sitter::leaf(text = "CollectableGoods" )]CollectableGoods,
-         #[rust_sitter::leaf(text = "RatioWaterInput2" )]RatioWaterInput2,
-         #[rust_sitter::leaf(text = "ImportSlotOccupant" )]ImportSlotOccupant,
-         #[rust_sitter::leaf(text = "RatioPollutantInput2" )]RatioPollutantInput2,
-         #[rust_sitter::leaf(text = "ManualResearchRequiredPod" )]ManualResearchRequiredPod,
-         #[rust_sitter::leaf(text = "RatioOxygenInput" )]RatioOxygenInput,
-         #[rust_sitter::leaf(text = "RequiredPower" )]RequiredPower,
-         #[rust_sitter::leaf(text = "DestinationCode" )]DestinationCode,
-         #[rust_sitter::leaf(text = "Stress" )]Stress,
-         #[rust_sitter::leaf(text = "Channel3" )]Channel3,
-         #[rust_sitter::leaf(text = "PositionZ" )]PositionZ,
-         #[rust_sitter::leaf(text = "PowerPotential" )]PowerPotential,
-         #[rust_sitter::leaf(text = "SizeZ" )]SizeZ,
-         #[rust_sitter::leaf(text = "EnvironmentEfficiency" )]EnvironmentEfficiency,
-         #[rust_sitter::leaf(text = "RatioLiquidCarbonDioxideOutput" )]RatioLiquidCarbonDioxideOutput,
-         #[rust_sitter::leaf(text = "FilterType" )]FilterType,
-         #[rust_sitter::leaf(text = "RatioLiquidOxygen" )]RatioLiquidOxygen,
-         #[rust_sitter::leaf(text = "SolarIrradiance" )]SolarIrradiance,
-         #[rust_sitter::leaf(text = "ForwardY" )]ForwardY,
-         #[rust_sitter::leaf(text = "RatioLiquidCarbonDioxideOutput2" )]RatioLiquidCarbonDioxideOutput2,
-         #[rust_sitter::leaf(text = "Lock" )]Lock,
-         #[rust_sitter::leaf(text = "RatioCarbonDioxideOutput2" )]RatioCarbonDioxideOutput2,
-         #[rust_sitter::leaf(text = "Thrust" )]Thrust,
-         #[rust_sitter::leaf(text = "OccupantHash" )]OccupantHash,
-         #[rust_sitter::leaf(text = "RatioLiquidOxygenInput" )]RatioLiquidOxygenInput,
-         #[rust_sitter::leaf(text = "MinimumWattsToContact" )]MinimumWattsToContact,
-         #[rust_sitter::leaf(text = "PressureEfficiency" )]PressureEfficiency,
-         #[rust_sitter::leaf(text = "CombustionInput2" )]CombustionInput2,
-         #[rust_sitter::leaf(text = "Channel4" )]Channel4,
-         #[rust_sitter::leaf(text = "Idle" )]Idle,
-         #[rust_sitter::leaf(text = "On" )]On,
-         #[rust_sitter::leaf(text = "Channel" )]Channel,
-         #[rust_sitter::leaf(text = "Volume" )]Volume,
-         #[rust_sitter::leaf(text = "PassedMoles" )]PassedMoles,
-         #[rust_sitter::leaf(text = "PlantHash2" )]PlantHash2,
-         #[rust_sitter::leaf(text = "PressureAir" )]PressureAir,
-         #[rust_sitter::leaf(text = "ExportSlotOccupant" )]ExportSlotOccupant,
-         #[rust_sitter::leaf(text = "TotalMolesInput2" )]TotalMolesInput2,
-         #[rust_sitter::leaf(text = "VelocityMagnitude" )]VelocityMagnitude,
-         #[rust_sitter::leaf(text = "ElevatorSpeed" )]ElevatorSpeed,
-         #[rust_sitter::leaf(text = "CelestialParentHash" )]CelestialParentHash,
-         #[rust_sitter::leaf(text = "SettingInput" )]SettingInput,
-         #[rust_sitter::leaf(text = "Contents" )]Contents,
-         #[rust_sitter::leaf(text = "Apex" )]Apex,
-         #[rust_sitter::leaf(text = "AutoLand" )]AutoLand,
-         #[rust_sitter::leaf(text = "PowerGeneration" )]PowerGeneration,
-         #[rust_sitter::leaf(text = "RatioLiquidPollutant" )]RatioLiquidPollutant,
-         #[rust_sitter::leaf(text = "CombustionOutput" )]CombustionOutput,
-         #[rust_sitter::leaf(text = "RatioVolatilesOutput" )]RatioVolatilesOutput,
-         #[rust_sitter::leaf(text = "SettingInputHash" )]SettingInputHash,
-         #[rust_sitter::leaf(text = "RatioVolatilesInput" )]RatioVolatilesInput,
-         #[rust_sitter::leaf(text = "TrueAnomaly" )]TrueAnomaly,
-         #[rust_sitter::leaf(text = "RatioLiquidNitrousOxideOutput" )]RatioLiquidNitrousOxideOutput,
-         #[rust_sitter::leaf(text = "PressureOutput2" )]PressureOutput2,
-         #[rust_sitter::leaf(text = "DistanceAu" )]DistanceAu,
-         #[rust_sitter::leaf(text = "RatioNitrogen" )]RatioNitrogen,
-         #[rust_sitter::leaf(text = "OperationalTemperatureEfficiency" )]OperationalTemperatureEfficiency,
-         #[rust_sitter::leaf(text = "TargetX" )]TargetX,
-         #[rust_sitter::leaf(text = "RatioLiquidPollutantOutput2" )]RatioLiquidPollutantOutput2,
-         #[rust_sitter::leaf(text = "ForceWrite" )]ForceWrite,
-         #[rust_sitter::leaf(text = "RatioLiquidNitrousOxideOutput2" )]RatioLiquidNitrousOxideOutput2,
-         #[rust_sitter::leaf(text = "RatioVolatilesInput2" )]RatioVolatilesInput2,
-         #[rust_sitter::leaf(text = "RatioNitrogenInput" )]RatioNitrogenInput,
-         #[rust_sitter::leaf(text = "RatioNitrousOxide" )]RatioNitrousOxide,
-         #[rust_sitter::leaf(text = "TemperatureInput" )]TemperatureInput,
-         #[rust_sitter::leaf(text = "ThrustToWeight" )]ThrustToWeight,
-         #[rust_sitter::leaf(text = "RatioSteamOutput" )]RatioSteamOutput,
-         #[rust_sitter::leaf(text = "PlantHealth3" )]PlantHealth3,
-         #[rust_sitter::leaf(text = "EntityState" )]EntityState,
-         #[rust_sitter::leaf(text = "Filtration" )]Filtration,
-         #[rust_sitter::leaf(text = "Open" )]Open,
-         #[rust_sitter::leaf(text = "VelocityRelativeZ" )]VelocityRelativeZ,
-         #[rust_sitter::leaf(text = "Pressure" )]Pressure,
-         #[rust_sitter::leaf(text = "Unknown" )]Unknown,
-         #[rust_sitter::leaf(text = "Fuel" )]Fuel,
-         #[rust_sitter::leaf(text = "RatioLiquidVolatilesOutput2" )]RatioLiquidVolatilesOutput2,
-         #[rust_sitter::leaf(text = "TimeToDestination" )]TimeToDestination,
-         #[rust_sitter::leaf(text = "Orientation" )]Orientation,
-         #[rust_sitter::leaf(text = "ContactTypeId" )]ContactTypeId,
-         #[rust_sitter::leaf(text = "RatioPollutantOutput2" )]RatioPollutantOutput2,
-         #[rust_sitter::leaf(text = "WorkingGasEfficiency" )]WorkingGasEfficiency,
-         #[rust_sitter::leaf(text = "RatioWater" )]RatioWater,
-         #[rust_sitter::leaf(text = "AlignmentError" )]AlignmentError,
-         #[rust_sitter::leaf(text = "Recipe" )]Recipe,
-         #[rust_sitter::leaf(text = "RatioLiquidVolatiles" )]RatioLiquidVolatiles,
-         #[rust_sitter::leaf(text = "MinWattsToContact" )]MinWattsToContact,
-         #[rust_sitter::leaf(text = "Plant" )]Plant,
-         #[rust_sitter::leaf(text = "ClearMemory" )]ClearMemory,
-         #[rust_sitter::leaf(text = "SettingOutput" )]SettingOutput,
-         #[rust_sitter::leaf(text = "Health" )]Health,
-         #[rust_sitter::leaf(text = "Mature" )]Mature,
-         #[rust_sitter::leaf(text = "TargetZ" )]TargetZ,
-         #[rust_sitter::leaf(text = "SignalID" )]SignalId,
-         #[rust_sitter::leaf(text = "PlantHealth4" )]PlantHealth4,
-         #[rust_sitter::leaf(text = "PressureInput2" )]PressureInput2,
-         #[rust_sitter::leaf(text = "RatioNitrogenOutput2" )]RatioNitrogenOutput2,
-         #[rust_sitter::leaf(text = "CompletionRatio" )]CompletionRatio,
-         #[rust_sitter::leaf(text = "RatioOxygenOutput" )]RatioOxygenOutput,
-         #[rust_sitter::leaf(text = "Temperature" )]Temperature,
-         #[rust_sitter::leaf(text = "RatioLiquidVolatilesInput2" )]RatioLiquidVolatilesInput2,
-         #[rust_sitter::leaf(text = "Color" )]Color,
-         #[rust_sitter::leaf(text = "RatioOxygen" )]RatioOxygen,
-         #[rust_sitter::leaf(text = "TemperatureExternal" )]TemperatureExternal,
-         #[rust_sitter::leaf(text = "Acceleration" )]Acceleration,
-         #[rust_sitter::leaf(text = "RatioLiquidNitrousOxideInput2" )]RatioLiquidNitrousOxideInput2,
-         #[rust_sitter::leaf(text = "Error" )]Error,
-         #[rust_sitter::leaf(text = "RatioLiquidOxygenInput2" )]RatioLiquidOxygenInput2,
-         #[rust_sitter::leaf(text = "Channel2" )]Channel2,
-         #[rust_sitter::leaf(text = "ForwardX" )]ForwardX,
-         #[rust_sitter::leaf(text = "Reagents" )]Reagents,
-         #[rust_sitter::leaf(text = "CombustionInput" )]CombustionInput,
-         #[rust_sitter::leaf(text = "Required" )]Required,
-         #[rust_sitter::leaf(text = "PlantEfficiency3" )]PlantEfficiency3,
-         #[rust_sitter::leaf(text = "RatioSteamInput" )]RatioSteamInput,
-         #[rust_sitter::leaf(text = "RatioLiquidPollutantInput2" )]RatioLiquidPollutantInput2,
-         #[rust_sitter::leaf(text = "RatioLiquidNitrousOxide" )]RatioLiquidNitrousOxide,
-         #[rust_sitter::leaf(text = "TotalMolesOutput2" )]TotalMolesOutput2,
-         #[rust_sitter::leaf(text = "PlantHash4" )]PlantHash4,
-         #[rust_sitter::leaf(text = "CombustionOutput2" )]CombustionOutput2,
-         #[rust_sitter::leaf(text = "PlantEfficiency2" )]PlantEfficiency2,
-         #[rust_sitter::leaf(text = "RatioLiquidOxygenOutput" )]RatioLiquidOxygenOutput,
-         #[rust_sitter::leaf(text = "NextWeatherEventTime" )]NextWeatherEventTime,
-         #[rust_sitter::leaf(text = "PowerActual" )]PowerActual,
-         #[rust_sitter::leaf(text = "DrillCondition" )]DrillCondition,
-         #[rust_sitter::leaf(text = "RatioLiquidVolatilesOutput" )]RatioLiquidVolatilesOutput,
-         #[rust_sitter::leaf(text = "RatioNitrogenOutput" )]RatioNitrogenOutput,
-         #[rust_sitter::leaf(text = "BurnTimeRemaining" )]BurnTimeRemaining,
-         #[rust_sitter::leaf(text = "VelocityX" )]VelocityX,
-         #[rust_sitter::leaf(text = "MineablesInVicinity" )]MineablesInVicinity,
-         #[rust_sitter::leaf(text = "AutoShutOff" )]AutoShutOff,
-         #[rust_sitter::leaf(text = "ImportSlotHash" )]ImportSlotHash,
-         #[rust_sitter::leaf(text = "ForwardZ" )]ForwardZ,
-         #[rust_sitter::leaf(text = "RatioNitrousOxideOutput2" )]RatioNitrousOxideOutput2,
-         #[rust_sitter::leaf(text = "ExportQuantity" )]ExportQuantity,
-         #[rust_sitter::leaf(text = "PressureWaste" )]PressureWaste,
-         #[rust_sitter::leaf(text = "Mode" )]Mode,
-         #[rust_sitter::leaf(text = "PlantEfficiency1" )]PlantEfficiency1,
-         #[rust_sitter::leaf(text = "Maximum" )]Maximum,
-         #[rust_sitter::leaf(text = "RatioCarbonDioxideOutput" )]RatioCarbonDioxideOutput,
-         #[rust_sitter::leaf(text = "VelocityY" )]VelocityY,
-         #[rust_sitter::leaf(text = "Channel0" )]Channel0,
-         #[rust_sitter::leaf(text = "RecipeHash" )]RecipeHash,
-         #[rust_sitter::leaf(text = "RatioLiquidNitrogenOutput2" )]RatioLiquidNitrogenOutput2,
-         #[rust_sitter::leaf(text = "ReEntryAltitude" )]ReEntryAltitude,
-         #[rust_sitter::leaf(text = "InterrogationProgress" )]InterrogationProgress,
-         #[rust_sitter::leaf(text = "RatioNitrousOxideInput2" )]RatioNitrousOxideInput2,
-         #[rust_sitter::leaf(text = "PlantEfficiency4" )]PlantEfficiency4,
-         #[rust_sitter::leaf(text = "SignalStrength" )]SignalStrength,
-         #[rust_sitter::leaf(text = "RatioPollutantInput" )]RatioPollutantInput,
-         #[rust_sitter::leaf(text = "Harvest" )]Harvest,
-         #[rust_sitter::leaf(text = "Class" )]Class,
-         #[rust_sitter::leaf(text = "PlantHash1" )]PlantHash1,
-         #[rust_sitter::leaf(text = "VolumeOfLiquid" )]VolumeOfLiquid,
-         #[rust_sitter::leaf(text = "RatioSteamOutput2" )]RatioSteamOutput2,
-         #[rust_sitter::leaf(text = "ElevatorLevel" )]ElevatorLevel,
-         #[rust_sitter::leaf(text = "TargetPadIndex" )]TargetPadIndex,
-         #[rust_sitter::leaf(text = "PressureInternal" )]PressureInternal,
-         #[rust_sitter::leaf(text = "RatioLiquidNitrogenInput" )]RatioLiquidNitrogenInput,
-         #[rust_sitter::leaf(text = "RatioWaterInput" )]RatioWaterInput,
-         #[rust_sitter::leaf(text = "Seeding" )]Seeding,
-         #[rust_sitter::leaf(text = "None" )]None,
-         #[rust_sitter::leaf(text = "Ratio" )]Ratio,
-         #[rust_sitter::leaf(text = "RatioCarbonDioxideInput2" )]RatioCarbonDioxideInput2,
-         #[rust_sitter::leaf(text = "Eccentricity" )]Eccentricity,
-         #[rust_sitter::leaf(text = "Throttle" )]Throttle,
-         #[rust_sitter::leaf(text = "WattsReachingContact" )]WattsReachingContact,
-         #[rust_sitter::leaf(text = "Bypass" )]Bypass,
-         #[rust_sitter::leaf(text = "ReturnFuelCost" )]ReturnFuelCost,
-         #[rust_sitter::leaf(text = "TemperatureInput2" )]TemperatureInput2,
-         #[rust_sitter::leaf(text = "ExhaustVelocity" )]ExhaustVelocity,
-         #[rust_sitter::leaf(text = "RatioVolatilesOutput2" )]RatioVolatilesOutput2,
-         #[rust_sitter::leaf(text = "RatioPollutant" )]RatioPollutant,
-         #[rust_sitter::leaf(text = "SizeY" )]SizeY,
-         #[rust_sitter::leaf(text = "PlantGrowth3" )]PlantGrowth3,
-         #[rust_sitter::leaf(text = "RatioVolatiles" )]RatioVolatiles,
-         #[rust_sitter::leaf(text = "SemiMajorAxis" )]SemiMajorAxis,
-         #[rust_sitter::leaf(text = "Time" )]Time,
-         #[rust_sitter::leaf(text = "VelocityRelativeX" )]VelocityRelativeX,
-         #[rust_sitter::leaf(text = "Efficiency" )]Efficiency,
-         #[rust_sitter::leaf(text = "RatioLiquidPollutantInput" )]RatioLiquidPollutantInput,
-         #[rust_sitter::leaf(text = "DistanceKm" )]DistanceKm,
-         #[rust_sitter::leaf(text = "RatioLiquidPollutantOutput" )]RatioLiquidPollutantOutput,
-         #[rust_sitter::leaf(text = "SolarAngle" )]SolarAngle,
-         #[rust_sitter::leaf(text = "SolarConstant" )]SolarConstant,
-         #[rust_sitter::leaf(text = "RatioLiquidNitrogenInput2" )]RatioLiquidNitrogenInput2,
-         #[rust_sitter::leaf(text = "RatioLiquidOxygenOutput2" )]RatioLiquidOxygenOutput2,
-         #[rust_sitter::leaf(text = "Mass" )]Mass,
-         #[rust_sitter::leaf(text = "RatioCarbonDioxide" )]RatioCarbonDioxide,
-         #[rust_sitter::leaf(text = "Quantity" )]Quantity,
-         #[rust_sitter::leaf(text = "PlantHealth2" )]PlantHealth2,
-         #[rust_sitter::leaf(text = "TotalMolesOutput" )]TotalMolesOutput,
-         #[rust_sitter::leaf(text = "PlantGrowth4" )]PlantGrowth4,
-         #[rust_sitter::leaf(text = "Channel6" )]Channel6,
-         #[rust_sitter::leaf(text = "SortingClass" )]SortingClass,
-         #[rust_sitter::leaf(text = "Activate" )]Activate,
-         #[rust_sitter::leaf(text = "AirRelease" )]AirRelease,
-         #[rust_sitter::leaf(text = "PressureExternal" )]PressureExternal,
-         #[rust_sitter::leaf(text = "PressureInput" )]PressureInput,
-         #[rust_sitter::leaf(text = "RatioLiquidNitrogen" )]RatioLiquidNitrogen,
+}
+
+#[derive(PartialEq, Debug, Clone, Copy)]
+pub enum Device {
+    Db,
+    Numbered(u32),
+    Indirect { indirection: u32, target: u32 },
+}
+
+#[derive(PartialEq, Debug)]
+pub enum Operand {
+    RegisterSpec {
+        indirection: u32,
+        target: u32,
+    },
+    DeviceSpec {
+        device: Device,
+        channel: Option<u32>,
+    },
+    Number(Number),
+    LogicType(LogicType),
+    Identifier(Identifier),
+}
+
+impl Operand {
+    pub fn get_value(&self, ic: &interpreter::IC) -> Result<f64, interpreter::ICError> {
+        match &self {
+            &Operand::RegisterSpec {
+                indirection,
+                target,
+            } => ic.get_register(*indirection, *target),
+            &Operand::Number(num) => Ok(num.value()),
+            &Operand::LogicType(lt) => Ok(lt.value),
+            &Operand::Identifier(ident) => ic.get_ident_value(&ident.name),
+            &Operand::DeviceSpec { .. } => Err(interpreter::ICError::DeviceNotValue),
+        }
     }
-    // END PATCH grammar/ic10/logictypes.rs
-    // PATCH grammar/ic10/enums.rs
-    // GENERATED CODE DO NOT MODIFY
-    #[derive(PartialEq, Debug, IntoStaticStr, AsRefStr)]
-    pub enum Enum {
-         #[rust_sitter::leaf(text = "LogicType.PowerGeneration" )]LogicTypePowerGeneration,
-         #[rust_sitter::leaf(text = "SlotClass.Bottle" )]SlotClassBottle,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidOxygenOutput2" )]LogicTypeRatioLiquidOxygenOutput2,
-         #[rust_sitter::leaf(text = "Color.Gray" )]ColorGray,
-         #[rust_sitter::leaf(text = "LogicSlotType.OccupantHash" )]LogicSlotTypeOccupantHash,
-         #[rust_sitter::leaf(text = "LogicType.RatioCarbonDioxideInput" )]LogicTypeRatioCarbonDioxideInput,
-         #[rust_sitter::leaf(text = "LogicType.RatioPollutantOutput2" )]LogicTypeRatioPollutantOutput2,
-         #[rust_sitter::leaf(text = "SlotClass.Circuit" )]SlotClassCircuit,
-         #[rust_sitter::leaf(text = "LogicType.PositionZ" )]LogicTypePositionZ,
-         #[rust_sitter::leaf(text = "LogicType.PressureInternal" )]LogicTypePressureInternal,
-         #[rust_sitter::leaf(text = "RobotMode.None" )]RobotModeNone,
-         #[rust_sitter::leaf(text = "LogicType.TemperatureExternal" )]LogicTypeTemperatureExternal,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidNitrogenInput2" )]LogicTypeRatioLiquidNitrogenInput2,
-         #[rust_sitter::leaf(text = "LogicType.DestinationCode" )]LogicTypeDestinationCode,
-         #[rust_sitter::leaf(text = "LogicType.SizeX" )]LogicTypeSizeX,
-         #[rust_sitter::leaf(text = "SlotClass.Helmet" )]SlotClassHelmet,
-         #[rust_sitter::leaf(text = "SlotClass.Motherboard" )]SlotClassMotherboard,
-         #[rust_sitter::leaf(text = "Equals" )]Equals,
-         #[rust_sitter::leaf(text = "LogicType.HorizontalRatio" )]LogicTypeHorizontalRatio,
-         #[rust_sitter::leaf(text = "LogicType.Open" )]LogicTypeOpen,
-         #[rust_sitter::leaf(text = "LogicType.SettingOutput" )]LogicTypeSettingOutput,
-         #[rust_sitter::leaf(text = "LogicType.ElevatorSpeed" )]LogicTypeElevatorSpeed,
-         #[rust_sitter::leaf(text = "LogicType.ManualResearchRequiredPod" )]LogicTypeManualResearchRequiredPod,
-         #[rust_sitter::leaf(text = "LogicType.PressureInput" )]LogicTypePressureInput,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidCarbonDioxideOutput" )]LogicTypeRatioLiquidCarbonDioxideOutput,
-         #[rust_sitter::leaf(text = "LogicType.Mass" )]LogicTypeMass,
-         #[rust_sitter::leaf(text = "LogicType.MineablesInVicinity" )]LogicTypeMineablesInVicinity,
-         #[rust_sitter::leaf(text = "AirCon.Cold" )]AirConCold,
-         #[rust_sitter::leaf(text = "EntityState.Alive" )]EntityStateAlive,
-         #[rust_sitter::leaf(text = "LogicType.RatioWater" )]LogicTypeRatioWater,
-         #[rust_sitter::leaf(text = "LogicType.Channel3" )]LogicTypeChannel3,
-         #[rust_sitter::leaf(text = "LogicType.Filtration" )]LogicTypeFiltration,
-         #[rust_sitter::leaf(text = "LogicSlotType.Mature" )]LogicSlotTypeMature,
-         #[rust_sitter::leaf(text = "LogicType.VolumeOfLiquid" )]LogicTypeVolumeOfLiquid,
-         #[rust_sitter::leaf(text = "LogicType.Plant" )]LogicTypePlant,
-         #[rust_sitter::leaf(text = "LogicSlotType.On" )]LogicSlotTypeOn,
-         #[rust_sitter::leaf(text = "SlotClass.GasFilter" )]SlotClassGasFilter,
-         #[rust_sitter::leaf(text = "SlotClass.DataDisk" )]SlotClassDataDisk,
-         #[rust_sitter::leaf(text = "GasType.Volatiles" )]GasTypeVolatiles,
-         #[rust_sitter::leaf(text = "AirControl.Draught" )]AirControlDraught,
-         #[rust_sitter::leaf(text = "LogicType.Temperature" )]LogicTypeTemperature,
-         #[rust_sitter::leaf(text = "GasType.Pollutant" )]GasTypePollutant,
-         #[rust_sitter::leaf(text = "GasType.NitrousOxide" )]GasTypeNitrousOxide,
-         #[rust_sitter::leaf(text = "LogicSlotType.Health" )]LogicSlotTypeHealth,
-         #[rust_sitter::leaf(text = "LogicType.RatioNitrousOxideOutput" )]LogicTypeRatioNitrousOxideOutput,
-         #[rust_sitter::leaf(text = "SortingClass.Tools" )]SortingClassTools,
-         #[rust_sitter::leaf(text = "LogicType.ImportCount" )]LogicTypeImportCount,
-         #[rust_sitter::leaf(text = "LogicType.ThrustToWeight" )]LogicTypeThrustToWeight,
-         #[rust_sitter::leaf(text = "LogicSlotType.Quantity" )]LogicSlotTypeQuantity,
-         #[rust_sitter::leaf(text = "LogicType.CelestialParentHash" )]LogicTypeCelestialParentHash,
-         #[rust_sitter::leaf(text = "LogicType.RatioSteamInput2" )]LogicTypeRatioSteamInput2,
-         #[rust_sitter::leaf(text = "SlotClass.Belt" )]SlotClassBelt,
-         #[rust_sitter::leaf(text = "LogicType.ElevatorLevel" )]LogicTypeElevatorLevel,
-         #[rust_sitter::leaf(text = "SlotClass.Wreckage" )]SlotClassWreckage,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidVolatiles" )]LogicTypeRatioLiquidVolatiles,
-         #[rust_sitter::leaf(text = "SlotClass.Organ" )]SlotClassOrgan,
-         #[rust_sitter::leaf(text = "SlotClass.Tool" )]SlotClassTool,
-         #[rust_sitter::leaf(text = "LogicType.CombustionInput" )]LogicTypeCombustionInput,
-         #[rust_sitter::leaf(text = "LogicSlotType.None" )]LogicSlotTypeNone,
-         #[rust_sitter::leaf(text = "LogicType.PositionX" )]LogicTypePositionX,
-         #[rust_sitter::leaf(text = "LogicType.RatioCarbonDioxideInput2" )]LogicTypeRatioCarbonDioxideInput2,
-         #[rust_sitter::leaf(text = "LogicType.RatioNitrogenOutput2" )]LogicTypeRatioNitrogenOutput2,
-         #[rust_sitter::leaf(text = "LogicSlotType.ReferenceId" )]LogicSlotTypeReferenceId,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidNitrogenOutput" )]LogicTypeRatioLiquidNitrogenOutput,
-         #[rust_sitter::leaf(text = "LogicType.RatioWaterInput" )]LogicTypeRatioWaterInput,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidVolatilesInput2" )]LogicTypeRatioLiquidVolatilesInput2,
-         #[rust_sitter::leaf(text = "LogicType.TimeToDestination" )]LogicTypeTimeToDestination,
-         #[rust_sitter::leaf(text = "SlotClass.LiquidCanister" )]SlotClassLiquidCanister,
-         #[rust_sitter::leaf(text = "SlotClass.Blocked" )]SlotClassBlocked,
-         #[rust_sitter::leaf(text = "GasType.Undefined" )]GasTypeUndefined,
-         #[rust_sitter::leaf(text = "AirControl.Offline" )]AirControlOffline,
-         #[rust_sitter::leaf(text = "LogicType.WattsReachingContact" )]LogicTypeWattsReachingContact,
-         #[rust_sitter::leaf(text = "LogicSlotType.Growth" )]LogicSlotTypeGrowth,
-         #[rust_sitter::leaf(text = "DaylightSensorMode.Horizontal" )]DaylightSensorModeHorizontal,
-         #[rust_sitter::leaf(text = "LogicType.SoundAlert" )]LogicTypeSoundAlert,
-         #[rust_sitter::leaf(text = "RobotMode.StorageFull" )]RobotModeStorageFull,
-         #[rust_sitter::leaf(text = "Color.Brown" )]ColorBrown,
-         #[rust_sitter::leaf(text = "LogicType.Time" )]LogicTypeTime,
-         #[rust_sitter::leaf(text = "LogicType.TotalMolesInput2" )]LogicTypeTotalMolesInput2,
-         #[rust_sitter::leaf(text = "LogicType.RatioOxygenOutput" )]LogicTypeRatioOxygenOutput,
-         #[rust_sitter::leaf(text = "LogicSlotType.LineNumber" )]LogicSlotTypeLineNumber,
-         #[rust_sitter::leaf(text = "SlotClass.Uniform" )]SlotClassUniform,
-         #[rust_sitter::leaf(text = "ElevatorMode.Upward" )]ElevatorModeUpward,
-         #[rust_sitter::leaf(text = "LogicType.RatioWaterOutput" )]LogicTypeRatioWaterOutput,
-         #[rust_sitter::leaf(text = "LogicType.Maximum" )]LogicTypeMaximum,
-         #[rust_sitter::leaf(text = "LogicType.AutoShutOff" )]LogicTypeAutoShutOff,
-         #[rust_sitter::leaf(text = "LogicType.AlignmentError" )]LogicTypeAlignmentError,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidOxygen" )]LogicTypeRatioLiquidOxygen,
-         #[rust_sitter::leaf(text = "LogicType.Channel7" )]LogicTypeChannel7,
-         #[rust_sitter::leaf(text = "LogicType.PressureSetting" )]LogicTypePressureSetting,
-         #[rust_sitter::leaf(text = "LogicSlotType.Temperature" )]LogicSlotTypeTemperature,
-         #[rust_sitter::leaf(text = "LogicType.EntityState" )]LogicTypeEntityState,
-         #[rust_sitter::leaf(text = "SlotClass.Plant" )]SlotClassPlant,
-         #[rust_sitter::leaf(text = "LogicType.TargetPadIndex" )]LogicTypeTargetPadIndex,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidNitrogenInput" )]LogicTypeRatioLiquidNitrogenInput,
-         #[rust_sitter::leaf(text = "LogicType.SignalID" )]LogicTypeSignalId,
-         #[rust_sitter::leaf(text = "GasType.LiquidVolatiles" )]GasTypeLiquidVolatiles,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidOxygenInput" )]LogicTypeRatioLiquidOxygenInput,
-         #[rust_sitter::leaf(text = "LogicType.RatioVolatilesOutput2" )]LogicTypeRatioVolatilesOutput2,
-         #[rust_sitter::leaf(text = "LogicType.TemperatureOutput2" )]LogicTypeTemperatureOutput2,
-         #[rust_sitter::leaf(text = "LogicType.VelocityRelativeX" )]LogicTypeVelocityRelativeX,
-         #[rust_sitter::leaf(text = "AirCon.Hot" )]AirConHot,
-         #[rust_sitter::leaf(text = "LogicType.Flush" )]LogicTypeFlush,
-         #[rust_sitter::leaf(text = "AirControl.None" )]AirControlNone,
-         #[rust_sitter::leaf(text = "SlotClass.Egg" )]SlotClassEgg,
-         #[rust_sitter::leaf(text = "SlotClass.Glasses" )]SlotClassGlasses,
-         #[rust_sitter::leaf(text = "LogicType.On" )]LogicTypeOn,
-         #[rust_sitter::leaf(text = "LogicSlotType.ChargeRatio" )]LogicSlotTypeChargeRatio,
-         #[rust_sitter::leaf(text = "Color.Purple" )]ColorPurple,
-         #[rust_sitter::leaf(text = "LogicType.VelocityRelativeY" )]LogicTypeVelocityRelativeY,
-         #[rust_sitter::leaf(text = "LogicType.RatioOxygenInput2" )]LogicTypeRatioOxygenInput2,
-         #[rust_sitter::leaf(text = "LogicType.RatioNitrousOxideInput2" )]LogicTypeRatioNitrousOxideInput2,
-         #[rust_sitter::leaf(text = "SlotClass.Torpedo" )]SlotClassTorpedo,
-         #[rust_sitter::leaf(text = "LogicType.Orientation" )]LogicTypeOrientation,
-         #[rust_sitter::leaf(text = "LogicSlotType.MaxQuantity" )]LogicSlotTypeMaxQuantity,
-         #[rust_sitter::leaf(text = "GasType.Oxygen" )]GasTypeOxygen,
-         #[rust_sitter::leaf(text = "GasType.CarbonDioxide" )]GasTypeCarbonDioxide,
-         #[rust_sitter::leaf(text = "LogicType.PressureEfficiency" )]LogicTypePressureEfficiency,
-         #[rust_sitter::leaf(text = "SlotClass.Ore" )]SlotClassOre,
-         #[rust_sitter::leaf(text = "LogicType.RatioNitrousOxide" )]LogicTypeRatioNitrousOxide,
-         #[rust_sitter::leaf(text = "LogicType.ClearMemory" )]LogicTypeClearMemory,
-         #[rust_sitter::leaf(text = "LogicType.ForwardZ" )]LogicTypeForwardZ,
-         #[rust_sitter::leaf(text = "LogicSlotType.Class" )]LogicSlotTypeClass,
-         #[rust_sitter::leaf(text = "LogicType.TotalMoles" )]LogicTypeTotalMoles,
-         #[rust_sitter::leaf(text = "SlotClass.Magazine" )]SlotClassMagazine,
-         #[rust_sitter::leaf(text = "SlotClass.SoundCartridge" )]SlotClassSoundCartridge,
-         #[rust_sitter::leaf(text = "LogicType.CurrentResearchPodType" )]LogicTypeCurrentResearchPodType,
-         #[rust_sitter::leaf(text = "LogicType.Reagents" )]LogicTypeReagents,
-         #[rust_sitter::leaf(text = "LogicType.PowerRequired" )]LogicTypePowerRequired,
-         #[rust_sitter::leaf(text = "Color.Yellow" )]ColorYellow,
-         #[rust_sitter::leaf(text = "Vent.Inward" )]VentInward,
-         #[rust_sitter::leaf(text = "LogicType.RatioCarbonDioxide" )]LogicTypeRatioCarbonDioxide,
-         #[rust_sitter::leaf(text = "LogicType.RecipeHash" )]LogicTypeRecipeHash,
-         #[rust_sitter::leaf(text = "LogicType.InterrogationProgress" )]LogicTypeInterrogationProgress,
-         #[rust_sitter::leaf(text = "LogicType.RatioNitrogenOutput" )]LogicTypeRatioNitrogenOutput,
-         #[rust_sitter::leaf(text = "LogicType.MineablesInQueue" )]LogicTypeMineablesInQueue,
-         #[rust_sitter::leaf(text = "SlotClass.Ingot" )]SlotClassIngot,
-         #[rust_sitter::leaf(text = "SlotClass.CreditCard" )]SlotClassCreditCard,
-         #[rust_sitter::leaf(text = "LogicType.VelocityX" )]LogicTypeVelocityX,
-         #[rust_sitter::leaf(text = "LogicType.ExhaustVelocity" )]LogicTypeExhaustVelocity,
-         #[rust_sitter::leaf(text = "LogicType.Power" )]LogicTypePower,
-         #[rust_sitter::leaf(text = "LogicType.Idle" )]LogicTypeIdle,
-         #[rust_sitter::leaf(text = "LogicType.Channel2" )]LogicTypeChannel2,
-         #[rust_sitter::leaf(text = "SlotClass.DirtCanister" )]SlotClassDirtCanister,
-         #[rust_sitter::leaf(text = "SortingClass.Ices" )]SortingClassIces,
-         #[rust_sitter::leaf(text = "LogicType.Thrust" )]LogicTypeThrust,
-         #[rust_sitter::leaf(text = "LogicType.RatioPollutantInput2" )]LogicTypeRatioPollutantInput2,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidNitrousOxideOutput2" )]LogicTypeRatioLiquidNitrousOxideOutput2,
-         #[rust_sitter::leaf(text = "LogicType.BurnTimeRemaining" )]LogicTypeBurnTimeRemaining,
-         #[rust_sitter::leaf(text = "SortingClass.Appliances" )]SortingClassAppliances,
-         #[rust_sitter::leaf(text = "LogicType.TargetZ" )]LogicTypeTargetZ,
-         #[rust_sitter::leaf(text = "LogicType.SizeZ" )]LogicTypeSizeZ,
-         #[rust_sitter::leaf(text = "SlotClass.None" )]SlotClassNone,
-         #[rust_sitter::leaf(text = "SortingClass.Default" )]SortingClassDefault,
-         #[rust_sitter::leaf(text = "LogicType.Quantity" )]LogicTypeQuantity,
-         #[rust_sitter::leaf(text = "Vent.Outward" )]VentOutward,
-         #[rust_sitter::leaf(text = "LogicType.Combustion" )]LogicTypeCombustion,
-         #[rust_sitter::leaf(text = "LogicType.RatioVolatilesInput" )]LogicTypeRatioVolatilesInput,
-         #[rust_sitter::leaf(text = "LogicType.RatioOxygen" )]LogicTypeRatioOxygen,
-         #[rust_sitter::leaf(text = "LogicType.PressureInput2" )]LogicTypePressureInput2,
-         #[rust_sitter::leaf(text = "LogicType.RatioCarbonDioxideOutput" )]LogicTypeRatioCarbonDioxideOutput,
-         #[rust_sitter::leaf(text = "EntityState.Decay" )]EntityStateDecay,
-         #[rust_sitter::leaf(text = "LogicType.TemperatureSetting" )]LogicTypeTemperatureSetting,
-         #[rust_sitter::leaf(text = "LogicType.RatioNitrogen" )]LogicTypeRatioNitrogen,
-         #[rust_sitter::leaf(text = "LogicType.TargetX" )]LogicTypeTargetX,
-         #[rust_sitter::leaf(text = "LogicType.RatioVolatilesInput2" )]LogicTypeRatioVolatilesInput2,
-         #[rust_sitter::leaf(text = "SlotClass.Cartridge" )]SlotClassCartridge,
-         #[rust_sitter::leaf(text = "LogicType.SolarIrradiance" )]LogicTypeSolarIrradiance,
-         #[rust_sitter::leaf(text = "LogicSlotType.SortingClass" )]LogicSlotTypeSortingClass,
-         #[rust_sitter::leaf(text = "LogicType.VelocityMagnitude" )]LogicTypeVelocityMagnitude,
-         #[rust_sitter::leaf(text = "LogicType.RatioPollutantOutput" )]LogicTypeRatioPollutantOutput,
-         #[rust_sitter::leaf(text = "LogicType.ReferenceId" )]LogicTypeReferenceId,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidPollutantInput" )]LogicTypeRatioLiquidPollutantInput,
-         #[rust_sitter::leaf(text = "LogicType.CompletionRatio" )]LogicTypeCompletionRatio,
-         #[rust_sitter::leaf(text = "LogicType.Activate" )]LogicTypeActivate,
-         #[rust_sitter::leaf(text = "LogicType.ForwardY" )]LogicTypeForwardY,
-         #[rust_sitter::leaf(text = "PowerMode.Idle" )]PowerModeIdle,
-         #[rust_sitter::leaf(text = "LogicType.OrbitPeriod" )]LogicTypeOrbitPeriod,
-         #[rust_sitter::leaf(text = "LogicType.Channel6" )]LogicTypeChannel6,
-         #[rust_sitter::leaf(text = "LogicType.Mode" )]LogicTypeMode,
-         #[rust_sitter::leaf(text = "LogicType.RatioNitrousOxideInput" )]LogicTypeRatioNitrousOxideInput,
-         #[rust_sitter::leaf(text = "LogicType.VelocityY" )]LogicTypeVelocityY,
-         #[rust_sitter::leaf(text = "SortingClass.Food" )]SortingClassFood,
-         #[rust_sitter::leaf(text = "LogicType.SizeY" )]LogicTypeSizeY,
-         #[rust_sitter::leaf(text = "LogicType.ReEntryAltitude" )]LogicTypeReEntryAltitude,
-         #[rust_sitter::leaf(text = "Color.Black" )]ColorBlack,
-         #[rust_sitter::leaf(text = "AirControl.Pressure" )]AirControlPressure,
-         #[rust_sitter::leaf(text = "LogicSlotType.PressureWaste" )]LogicSlotTypePressureWaste,
-         #[rust_sitter::leaf(text = "LogicType.ExportCount" )]LogicTypeExportCount,
-         #[rust_sitter::leaf(text = "LogicSlotType.FilterType" )]LogicSlotTypeFilterType,
-         #[rust_sitter::leaf(text = "LogicType.RatioSteam" )]LogicTypeRatioSteam,
-         #[rust_sitter::leaf(text = "LogicType.ContactTypeId" )]LogicTypeContactTypeId,
-         #[rust_sitter::leaf(text = "LogicType.TotalMolesInput" )]LogicTypeTotalMolesInput,
-         #[rust_sitter::leaf(text = "LogicType.Pressure" )]LogicTypePressure,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidVolatilesOutput2" )]LogicTypeRatioLiquidVolatilesOutput2,
-         #[rust_sitter::leaf(text = "LogicSlotType.Open" )]LogicSlotTypeOpen,
-         #[rust_sitter::leaf(text = "LogicType.Weight" )]LogicTypeWeight,
-         #[rust_sitter::leaf(text = "LogicType.TargetY" )]LogicTypeTargetY,
-         #[rust_sitter::leaf(text = "LogicType.RatioSteamOutput" )]LogicTypeRatioSteamOutput,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidNitrousOxide" )]LogicTypeRatioLiquidNitrousOxide,
-         #[rust_sitter::leaf(text = "SortingClass.Storage" )]SortingClassStorage,
-         #[rust_sitter::leaf(text = "TransmitterMode.Passive" )]TransmitterModePassive,
-         #[rust_sitter::leaf(text = "LogicType.TemperatureInput2" )]LogicTypeTemperatureInput2,
-         #[rust_sitter::leaf(text = "LogicType.Progress" )]LogicTypeProgress,
-         #[rust_sitter::leaf(text = "LogicType.CollectableGoods" )]LogicTypeCollectableGoods,
-         #[rust_sitter::leaf(text = "Greater" )]Greater,
-         #[rust_sitter::leaf(text = "LogicType.Setting" )]LogicTypeSetting,
-         #[rust_sitter::leaf(text = "LogicType.RatioOxygenInput" )]LogicTypeRatioOxygenInput,
-         #[rust_sitter::leaf(text = "LogicType.SignalStrength" )]LogicTypeSignalStrength,
-         #[rust_sitter::leaf(text = "LogicType.RatioSteamOutput2" )]LogicTypeRatioSteamOutput2,
-         #[rust_sitter::leaf(text = "LogicSlotType.Damage" )]LogicSlotTypeDamage,
-         #[rust_sitter::leaf(text = "LogicSlotType.Charge" )]LogicSlotTypeCharge,
-         #[rust_sitter::leaf(text = "LogicType.RatioPollutant" )]LogicTypeRatioPollutant,
-         #[rust_sitter::leaf(text = "SlotClass.Back" )]SlotClassBack,
-         #[rust_sitter::leaf(text = "LogicType.ForceWrite" )]LogicTypeForceWrite,
-         #[rust_sitter::leaf(text = "SlotClass.DrillHead" )]SlotClassDrillHead,
-         #[rust_sitter::leaf(text = "GasType.Steam" )]GasTypeSteam,
-         #[rust_sitter::leaf(text = "TransmitterMode.Active" )]TransmitterModeActive,
-         #[rust_sitter::leaf(text = "LogicType.EnvironmentEfficiency" )]LogicTypeEnvironmentEfficiency,
-         #[rust_sitter::leaf(text = "NotEquals" )]NotEquals,
-         #[rust_sitter::leaf(text = "GasType.LiquidCarbonDioxide" )]GasTypeLiquidCarbonDioxide,
-         #[rust_sitter::leaf(text = "LogicType.RatioPollutantInput" )]LogicTypeRatioPollutantInput,
-         #[rust_sitter::leaf(text = "LogicType.RatioWaterInput2" )]LogicTypeRatioWaterInput2,
-         #[rust_sitter::leaf(text = "LogicType.RatioVolatiles" )]LogicTypeRatioVolatiles,
-         #[rust_sitter::leaf(text = "LogicType.RatioNitrousOxideOutput2" )]LogicTypeRatioNitrousOxideOutput2,
-         #[rust_sitter::leaf(text = "GasType.LiquidPollutant" )]GasTypeLiquidPollutant,
-         #[rust_sitter::leaf(text = "LogicType.NextWeatherEventTime" )]LogicTypeNextWeatherEventTime,
-         #[rust_sitter::leaf(text = "LogicType.Ratio" )]LogicTypeRatio,
-         #[rust_sitter::leaf(text = "LogicType.SemiMajorAxis" )]LogicTypeSemiMajorAxis,
-         #[rust_sitter::leaf(text = "PowerMode.Discharged" )]PowerModeDischarged,
-         #[rust_sitter::leaf(text = "EntityState.Dead" )]EntityStateDead,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidOxygenOutput" )]LogicTypeRatioLiquidOxygenOutput,
-         #[rust_sitter::leaf(text = "SortingClass.Atmospherics" )]SortingClassAtmospherics,
-         #[rust_sitter::leaf(text = "LogicType.PressureOutput2" )]LogicTypePressureOutput2,
-         #[rust_sitter::leaf(text = "EntityState.Unconscious" )]EntityStateUnconscious,
-         #[rust_sitter::leaf(text = "PowerMode.Discharging" )]PowerModeDischarging,
-         #[rust_sitter::leaf(text = "LogicType.Rpm" )]LogicTypeRpm,
-         #[rust_sitter::leaf(text = "LogicType.RatioSteamInput" )]LogicTypeRatioSteamInput,
-         #[rust_sitter::leaf(text = "LogicType.Eccentricity" )]LogicTypeEccentricity,
-         #[rust_sitter::leaf(text = "LogicType.CombustionOutput2" )]LogicTypeCombustionOutput2,
-         #[rust_sitter::leaf(text = "ElevatorMode.Stationary" )]ElevatorModeStationary,
-         #[rust_sitter::leaf(text = "LogicType.PassedMoles" )]LogicTypePassedMoles,
-         #[rust_sitter::leaf(text = "LogicType.Inclination" )]LogicTypeInclination,
-         #[rust_sitter::leaf(text = "SlotClass.Battery" )]SlotClassBattery,
-         #[rust_sitter::leaf(text = "SlotClass.AccessCard" )]SlotClassAccessCard,
-         #[rust_sitter::leaf(text = "Less" )]Less,
-         #[rust_sitter::leaf(text = "LogicType.Channel5" )]LogicTypeChannel5,
-         #[rust_sitter::leaf(text = "LogicSlotType.Lock" )]LogicSlotTypeLock,
-         #[rust_sitter::leaf(text = "LogicType.PowerPotential" )]LogicTypePowerPotential,
-         #[rust_sitter::leaf(text = "LogicType.Bpm" )]LogicTypeBpm,
-         #[rust_sitter::leaf(text = "LogicType.RatioCarbonDioxideOutput2" )]LogicTypeRatioCarbonDioxideOutput2,
-         #[rust_sitter::leaf(text = "SlotClass.ProgrammableChip" )]SlotClassProgrammableChip,
-         #[rust_sitter::leaf(text = "LogicType.OperationalTemperatureEfficiency" )]LogicTypeOperationalTemperatureEfficiency,
-         #[rust_sitter::leaf(text = "Color.Blue" )]ColorBlue,
-         #[rust_sitter::leaf(text = "SlotClass.ScanningHead" )]SlotClassScanningHead,
-         #[rust_sitter::leaf(text = "LogicType.VelocityZ" )]LogicTypeVelocityZ,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidPollutantOutput2" )]LogicTypeRatioLiquidPollutantOutput2,
-         #[rust_sitter::leaf(text = "LogicType.FlightControlRule" )]LogicTypeFlightControlRule,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidNitrousOxideInput" )]LogicTypeRatioLiquidNitrousOxideInput,
-         #[rust_sitter::leaf(text = "Color.Khaki" )]ColorKhaki,
-         #[rust_sitter::leaf(text = "LogicType.DrillCondition" )]LogicTypeDrillCondition,
-         #[rust_sitter::leaf(text = "LogicType.TrueAnomaly" )]LogicTypeTrueAnomaly,
-         #[rust_sitter::leaf(text = "LogicSlotType.Occupied" )]LogicSlotTypeOccupied,
-         #[rust_sitter::leaf(text = "LogicType.CombustionInput2" )]LogicTypeCombustionInput2,
-         #[rust_sitter::leaf(text = "LogicType.CombustionOutput" )]LogicTypeCombustionOutput,
-         #[rust_sitter::leaf(text = "LogicType.MinimumWattsToContact" )]LogicTypeMinimumWattsToContact,
-         #[rust_sitter::leaf(text = "LogicType.PrefabHash" )]LogicTypePrefabHash,
-         #[rust_sitter::leaf(text = "LogicType.Apex" )]LogicTypeApex,
-         #[rust_sitter::leaf(text = "LogicType.Index" )]LogicTypeIndex,
-         #[rust_sitter::leaf(text = "LogicSlotType.PressureAir" )]LogicSlotTypePressureAir,
-         #[rust_sitter::leaf(text = "SlotClass.SensorProcessingUnit" )]SlotClassSensorProcessingUnit,
-         #[rust_sitter::leaf(text = "LogicType.Output" )]LogicTypeOutput,
-         #[rust_sitter::leaf(text = "LogicType.Channel4" )]LogicTypeChannel4,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidVolatilesInput" )]LogicTypeRatioLiquidVolatilesInput,
-         #[rust_sitter::leaf(text = "ElevatorMode.Downward" )]ElevatorModeDownward,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidVolatilesOutput" )]LogicTypeRatioLiquidVolatilesOutput,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidPollutantInput2" )]LogicTypeRatioLiquidPollutantInput2,
-         #[rust_sitter::leaf(text = "LogicType.DryMass" )]LogicTypeDryMass,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidNitrogen" )]LogicTypeRatioLiquidNitrogen,
-         #[rust_sitter::leaf(text = "LogicType.RatioNitrogenInput" )]LogicTypeRatioNitrogenInput,
-         #[rust_sitter::leaf(text = "SlotClass.Appliance" )]SlotClassAppliance,
-         #[rust_sitter::leaf(text = "LogicType.RequestHash" )]LogicTypeRequestHash,
-         #[rust_sitter::leaf(text = "LogicType.Error" )]LogicTypeError,
-         #[rust_sitter::leaf(text = "DaylightSensorMode.Vertical" )]DaylightSensorModeVertical,
-         #[rust_sitter::leaf(text = "LogicType.DistanceAu" )]LogicTypeDistanceAu,
-         #[rust_sitter::leaf(text = "PowerMode.Charged" )]PowerModeCharged,
-         #[rust_sitter::leaf(text = "LogicType.RatioWaterOutput2" )]LogicTypeRatioWaterOutput2,
-         #[rust_sitter::leaf(text = "LogicType.Fuel" )]LogicTypeFuel,
-         #[rust_sitter::leaf(text = "LogicType.Lock" )]LogicTypeLock,
-         #[rust_sitter::leaf(text = "LogicSlotType.Seeding" )]LogicSlotTypeSeeding,
-         #[rust_sitter::leaf(text = "LogicType.ForwardX" )]LogicTypeForwardX,
-         #[rust_sitter::leaf(text = "LogicType.Harvest" )]LogicTypeHarvest,
-         #[rust_sitter::leaf(text = "Color.Green" )]ColorGreen,
-         #[rust_sitter::leaf(text = "Color.Orange" )]ColorOrange,
-         #[rust_sitter::leaf(text = "SortingClass.Ores" )]SortingClassOres,
-         #[rust_sitter::leaf(text = "SlotClass.Flare" )]SlotClassFlare,
-         #[rust_sitter::leaf(text = "LogicSlotType.Pressure" )]LogicSlotTypePressure,
-         #[rust_sitter::leaf(text = "LogicType.RatioNitrogenInput2" )]LogicTypeRatioNitrogenInput2,
-         #[rust_sitter::leaf(text = "Color.White" )]ColorWhite,
-         #[rust_sitter::leaf(text = "LogicType.TemperatureOutput" )]LogicTypeTemperatureOutput,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidPollutantOutput" )]LogicTypeRatioLiquidPollutantOutput,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidCarbonDioxideOutput2" )]LogicTypeRatioLiquidCarbonDioxideOutput2,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidNitrousOxideInput2" )]LogicTypeRatioLiquidNitrousOxideInput2,
-         #[rust_sitter::leaf(text = "LogicSlotType.Volume" )]LogicSlotTypeVolume,
-         #[rust_sitter::leaf(text = "DaylightSensorMode.Default" )]DaylightSensorModeDefault,
-         #[rust_sitter::leaf(text = "SortingClass.Resources" )]SortingClassResources,
-         #[rust_sitter::leaf(text = "LogicType.RatioVolatilesOutput" )]LogicTypeRatioVolatilesOutput,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidNitrousOxideOutput" )]LogicTypeRatioLiquidNitrousOxideOutput,
-         #[rust_sitter::leaf(text = "LogicType.Charge" )]LogicTypeCharge,
-         #[rust_sitter::leaf(text = "LogicType.RequiredPower" )]LogicTypeRequiredPower,
-         #[rust_sitter::leaf(text = "LogicType.ReturnFuelCost" )]LogicTypeReturnFuelCost,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidOxygenInput2" )]LogicTypeRatioLiquidOxygenInput2,
-         #[rust_sitter::leaf(text = "LogicType.AutoLand" )]LogicTypeAutoLand,
-         #[rust_sitter::leaf(text = "GasType.Water" )]GasTypeWater,
-         #[rust_sitter::leaf(text = "LogicType.LineNumber" )]LogicTypeLineNumber,
-         #[rust_sitter::leaf(text = "SlotClass.LiquidBottle" )]SlotClassLiquidBottle,
-         #[rust_sitter::leaf(text = "RobotMode.PathToTarget" )]RobotModePathToTarget,
-         #[rust_sitter::leaf(text = "LogicSlotType.Efficiency" )]LogicSlotTypeEfficiency,
-         #[rust_sitter::leaf(text = "LogicType.VerticalRatio" )]LogicTypeVerticalRatio,
-         #[rust_sitter::leaf(text = "LogicType.Channel1" )]LogicTypeChannel1,
-         #[rust_sitter::leaf(text = "LogicType.CelestialHash" )]LogicTypeCelestialHash,
-         #[rust_sitter::leaf(text = "SlotClass.Suit" )]SlotClassSuit,
-         #[rust_sitter::leaf(text = "LogicType.PressureOutput" )]LogicTypePressureOutput,
-         #[rust_sitter::leaf(text = "Color.Pink" )]ColorPink,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidCarbonDioxide" )]LogicTypeRatioLiquidCarbonDioxide,
-         #[rust_sitter::leaf(text = "SlotClass.Circuitboard" )]SlotClassCircuitboard,
-         #[rust_sitter::leaf(text = "LogicType.Color" )]LogicTypeColor,
-         #[rust_sitter::leaf(text = "LogicType.TotalMolesOutput" )]LogicTypeTotalMolesOutput,
-         #[rust_sitter::leaf(text = "GasType.LiquidNitrogen" )]GasTypeLiquidNitrogen,
-         #[rust_sitter::leaf(text = "LogicType.TotalMolesOutput2" )]LogicTypeTotalMolesOutput2,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidCarbonDioxideInput2" )]LogicTypeRatioLiquidCarbonDioxideInput2,
-         #[rust_sitter::leaf(text = "LogicType.VelocityRelativeZ" )]LogicTypeVelocityRelativeZ,
-         #[rust_sitter::leaf(text = "LogicType.Acceleration" )]LogicTypeAcceleration,
-         #[rust_sitter::leaf(text = "LogicType.Channel0" )]LogicTypeChannel0,
-         #[rust_sitter::leaf(text = "RobotMode.Follow" )]RobotModeFollow,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidCarbonDioxideInput" )]LogicTypeRatioLiquidCarbonDioxideInput,
-         #[rust_sitter::leaf(text = "LogicType.RatioOxygenOutput2" )]LogicTypeRatioOxygenOutput2,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidPollutant" )]LogicTypeRatioLiquidPollutant,
-         #[rust_sitter::leaf(text = "LogicType.TemperatureInput" )]LogicTypeTemperatureInput,
-         #[rust_sitter::leaf(text = "LogicSlotType.PrefabHash" )]LogicSlotTypePrefabHash,
-         #[rust_sitter::leaf(text = "LogicType.Volume" )]LogicTypeVolume,
-         #[rust_sitter::leaf(text = "RobotMode.MoveToTarget" )]RobotModeMoveToTarget,
-         #[rust_sitter::leaf(text = "LogicType.RatioLiquidNitrogenOutput2" )]LogicTypeRatioLiquidNitrogenOutput2,
-         #[rust_sitter::leaf(text = "RobotMode.Roam" )]RobotModeRoam,
-         #[rust_sitter::leaf(text = "SortingClass.Kits" )]SortingClassKits,
-         #[rust_sitter::leaf(text = "LogicType.TemperatureDifferentialEfficiency" )]LogicTypeTemperatureDifferentialEfficiency,
-         #[rust_sitter::leaf(text = "GasType.Nitrogen" )]GasTypeNitrogen,
-         #[rust_sitter::leaf(text = "LogicType.PowerActual" )]LogicTypePowerActual,
-         #[rust_sitter::leaf(text = "LogicType.SettingInput" )]LogicTypeSettingInput,
-         #[rust_sitter::leaf(text = "Color.Red" )]ColorRed,
-         #[rust_sitter::leaf(text = "LogicType.WorkingGasEfficiency" )]LogicTypeWorkingGasEfficiency,
-         #[rust_sitter::leaf(text = "LogicType.DistanceKm" )]LogicTypeDistanceKm,
-         #[rust_sitter::leaf(text = "LogicType.Vertical" )]LogicTypeVertical,
-         #[rust_sitter::leaf(text = "PowerMode.Charging" )]PowerModeCharging,
-         #[rust_sitter::leaf(text = "LogicType.CombustionLimiter" )]LogicTypeCombustionLimiter,
-         #[rust_sitter::leaf(text = "LogicType.SolarAngle" )]LogicTypeSolarAngle,
-         #[rust_sitter::leaf(text = "LogicType.Horizontal" )]LogicTypeHorizontal,
-         #[rust_sitter::leaf(text = "GasType.LiquidNitrousOxide" )]GasTypeLiquidNitrousOxide,
-         #[rust_sitter::leaf(text = "RobotMode.Unload" )]RobotModeUnload,
-         #[rust_sitter::leaf(text = "SortingClass.Clothing" )]SortingClassClothing,
-         #[rust_sitter::leaf(text = "LogicType.Stress" )]LogicTypeStress,
-         #[rust_sitter::leaf(text = "LogicType.PressureExternal" )]LogicTypePressureExternal,
-         #[rust_sitter::leaf(text = "LogicType.Throttle" )]LogicTypeThrottle,
-         #[rust_sitter::leaf(text = "LogicType.AirRelease" )]LogicTypeAirRelease,
+}
+
+impl FromStr for Operand {
+    type Err = ParseError;
+    /// Parse a str containing an single instruction operand
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let chars = s.chars().collect::<Vec<_>>();
+        match &chars[..] {
+            ['s', 'p'] => Ok(Operand::RegisterSpec {
+                indirection: 0,
+                target: 16,
+            }),
+            ['r', 'a'] => Ok(Operand::RegisterSpec {
+                indirection: 0,
+                target: 17,
+            }),
+            ['r', rest @ ..] => {
+                let mut rest_iter = rest.iter();
+                let indirection = rest_iter.take_while_ref(|c| *c == &'r').count();
+                let target = rest_iter
+                    .take_while_ref(|c| c.is_digit(10))
+                    .collect::<String>()
+                    .parse::<u32>()
+                    .ok();
+                let trailing = rest_iter.count();
+                if let Some(target) = target {
+                    if trailing == 0 {
+                        return Ok(Operand::RegisterSpec {
+                            indirection: indirection as u32,
+                            target,
+                        });
+                    }
+                }
+                Err(ParseError {
+                    line: 0,
+                    start: 0,
+                    end: 0,
+                    msg: format!("Invalid register specifier"),
+                })
+            }
+            ['d', rest @ ..] => match rest {
+                ['b'] => Ok(Operand::DeviceSpec {
+                    device: Device::Db,
+                    channel: None,
+                }),
+                ['b', ':', chan @ ..] => {
+                    if chan.into_iter().all(|c| c.is_digit(10)) {
+                        Ok(Operand::DeviceSpec {
+                            device: Device::Db,
+                            channel: Some(String::from_iter(chan).parse().unwrap()),
+                        })
+                    } else {
+                        Err(ParseError {
+                            line: 0,
+                            start: 3,
+                            end: 3,
+                            msg: format!("Invalid device channel specifier"),
+                        })
+                    }
+                }
+                ['r', rest @ ..] => {
+                    let mut rest_iter = rest.into_iter().peekable();
+                    let indirection = rest_iter.take_while_ref(|c| *c == &'r').count();
+                    let target_str = rest_iter
+                        .take_while_ref(|c| c.is_digit(10))
+                        .collect::<String>();
+                    let target = target_str.parse::<u32>().ok();
+                    let channel = {
+                        if rest_iter.peek() == Some(&&':') {
+                            // take off ':'
+                            rest_iter.next();
+                            let channel_str = rest_iter
+                                .take_while_ref(|c| c.is_digit(10))
+                                .collect::<String>();
+                            let channel = channel_str.parse::<u32>().unwrap();
+                            let trailing = rest_iter.clone().collect::<Vec<_>>();
+                            if trailing.len() == 0 {
+                                Ok(Some(channel))
+                            } else {
+                                let start =
+                                    2 + indirection + target_str.len() + 1 + channel_str.len();
+                                Err(ParseError {
+                                    line: 0,
+                                    start,
+                                    end: start,
+                                    msg: format!("Invalid device channel specifier"),
+                                })
+                            }
+                        } else {
+                            Ok(None)
+                        }
+                    }?;
+                    let trailing = rest_iter.collect::<Vec<_>>();
+                    if let Some(target) = target {
+                        if trailing.len() == 0 {
+                            Ok(Operand::DeviceSpec {
+                                device: Device::Indirect {
+                                    indirection: indirection as u32,
+                                    target,
+                                },
+                                channel,
+                            })
+                        } else {
+                            Err(ParseError {
+                                line: 0,
+                                start: 0,
+                                end: 0,
+                                msg: format!("Invalid register specifier"),
+                            })
+                        }
+                    } else {
+                        Ok(Operand::Identifier(s.parse::<Identifier>()?))
+                    }
+                }
+                [rest @ ..] => {
+                    let mut rest_iter = rest.into_iter().peekable();
+                    let target_str = rest_iter
+                        .take_while_ref(|c| c.is_digit(10))
+                        .collect::<String>();
+                    let target = target_str.parse::<u32>().ok();
+                    let channel = {
+                        if rest_iter.peek() == Some(&&':') {
+                            // take off ':'
+                            rest_iter.next();
+                            let channel_str = rest_iter
+                                .take_while_ref(|c| c.is_digit(10))
+                                .collect::<String>();
+                            let channel = channel_str.parse::<u32>().unwrap();
+                            let trailing = rest_iter.clone().collect::<Vec<_>>();
+                            if trailing.len() == 0 {
+                                Ok(Some(channel))
+                            } else {
+                                let start = 1 + target_str.len() + 1 + channel_str.len();
+                                Err(ParseError {
+                                    line: 0,
+                                    start,
+                                    end: start,
+                                    msg: format!("Invalid device channel specifier"),
+                                })
+                            }
+                        } else {
+                            Ok(None)
+                        }
+                    }?;
+                    let trailing = rest_iter.collect::<Vec<_>>();
+                    if let Some(target) = target {
+                        if trailing.len() == 0 {
+                            Ok(Operand::DeviceSpec {
+                                device: Device::Numbered(target),
+                                channel,
+                            })
+                        } else {
+                            Err(ParseError {
+                                line: 0,
+                                start: 0,
+                                end: 0,
+                                msg: format!("Invalid device specifier"),
+                            })
+                        }
+                    } else {
+                        Ok(Operand::Identifier(s.parse::<Identifier>()?))
+                    }
+                }
+            },
+            ['H', 'A', 'S', 'H', '(', '"', hash_str @ .., '"', ')'] => {
+                if hash_str.iter().all(|c| c != &'"' && c != &'\n') {
+                    Ok(Operand::Number(Number::String(String::from_iter(hash_str))))
+                } else {
+                    Err(ParseError {
+                        line: 0,
+                        start: 0,
+                        end: 0,
+                        msg: format!("Invalid hash string: Can not contain '\"'"),
+                    })
+                }
+            }
+            ['$', rest @ ..] => {
+                let mut rest_iter = rest.into_iter();
+                let num_str = rest_iter
+                    .take_while_ref(|c| c.is_digit(16))
+                    .collect::<String>();
+                let num = i64::from_str_radix(&num_str, 16).unwrap() as f64;
+                let trailing = rest_iter.count();
+                if trailing == 0 {
+                    Ok(Operand::Number(Number::Hexadecimal(num)))
+                } else {
+                    Err(ParseError {
+                        line: 0,
+                        start: 0,
+                        end: 0,
+                        msg: format!("Invalid Hexadecimal Number"),
+                    })
+                }
+            }
+            ['%', rest @ ..] => {
+                let mut rest_iter = rest.into_iter();
+                let num_str = rest_iter
+                    .take_while_ref(|c| c.is_digit(2))
+                    .collect::<String>();
+                let num = i64::from_str_radix(&num_str, 2).unwrap() as f64;
+                let trailing = rest_iter.count();
+                if trailing == 0 {
+                    Ok(Operand::Number(Number::Binary(num)))
+                } else {
+                    Err(ParseError {
+                        line: 0,
+                        start: 0,
+                        end: 0,
+                        msg: format!("Invalid Binary Number"),
+                    })
+                }
+            }
+            [rest @ ..] => {
+                let mut rest_iter = rest.into_iter().peekable();
+                let float_str = if rest_iter.peek() == Some(&&'-') {
+                    format!("{}", rest_iter.next().unwrap())
+                } else {
+                    "".to_string()
+                } + &rest_iter
+                    .take_while_ref(|c| c.is_digit(10))
+                    .collect::<String>();
+                if !float_str.is_empty() {
+                    if rest_iter.peek() == Some(&&'.') {
+                        let decimal_str = rest_iter
+                            .take_while_ref(|c| c.is_digit(10))
+                            .collect::<String>();
+                        if !decimal_str.is_empty() {
+                            let float_str = float_str + "." + &decimal_str;
+                            let num = f64::from_str(&float_str).unwrap();
+                            Ok(Operand::Number(Number::Float(num)))
+                        } else {
+                            let start = float_str.len() + 1;
+                            Err(ParseError {
+                                line: 0,
+                                start,
+                                end: start,
+                                msg: format!("Invalid Decimal Number"),
+                            })
+                        }
+                    } else {
+                        let trailing = rest_iter.count();
+                        if trailing == 0 {
+                            let num = f64::from_str(&float_str).unwrap();
+                            Ok(Operand::Number(Number::Float(num)))
+                        } else {
+                            let start = float_str.len();
+                            Err(ParseError {
+                                line: 0,
+                                start,
+                                end: start,
+                                msg: format!("Invalid Integer Number"),
+                            })
+                        }
+                    }
+                } else if let Some(val) = CONSTANTS_LOOKUP.get(s) {
+                    Ok(Operand::Number(Number::Constant(*val)))
+                } else if let Some(val) = ENUM_LOOKUP.get(s) {
+                    Ok(Operand::Number(Number::Enum(*val as f64)))
+                } else if let Some(val) = LOGIC_TYPE_LOOKUP.get(s) {
+                    Ok(Operand::LogicType(LogicType {
+                        name: s.to_string(),
+                        value: *val as f64,
+                    }))
+                } else if let Some(val) = BATCH_MODE_LOOKUP.get(s) {
+                    Ok(Operand::LogicType(LogicType {
+                        name: s.to_string(),
+                        value: *val as f64,
+                    }))
+                } else if let Some(val) = REAGENT_MODE_LOOKUP.get(s) {
+                    Ok(Operand::LogicType(LogicType {
+                        name: s.to_string(),
+                        value: *val as f64,
+                    }))
+                } else {
+                    Ok(Operand::Identifier(s.parse::<Identifier>()?))
+                }
+            }
+        }
     }
-    // END PATCH grammar/ic10/enums.rs
-    // PATCH grammar/ic10/instructions.rs
-    // GENERATED CODE DO NOT MODIFY
-    #[derive(PartialEq, Debug, IntoStaticStr, AsRefStr)]
-    pub enum InstructionOp {
-         #[rust_sitter::leaf(text = "acos" )]Acos,
-         #[rust_sitter::leaf(text = "label" )]Label,
-         #[rust_sitter::leaf(text = "bna" )]Bna,
-         #[rust_sitter::leaf(text = "bgezal" )]Bgezal,
-         #[rust_sitter::leaf(text = "bgez" )]Bgez,
-         #[rust_sitter::leaf(text = "bnaz" )]Bnaz,
-         #[rust_sitter::leaf(text = "bltal" )]Bltal,
-         #[rust_sitter::leaf(text = "bnezal" )]Bnezal,
-         #[rust_sitter::leaf(text = "brapz" )]Brapz,
-         #[rust_sitter::leaf(text = "yield" )]Yield,
-         #[rust_sitter::leaf(text = "ss" )]Ss,
-         #[rust_sitter::leaf(text = "sqrt" )]Sqrt,
-         #[rust_sitter::leaf(text = "atan2" )]Atan2,
-         #[rust_sitter::leaf(text = "blt" )]Blt,
-         #[rust_sitter::leaf(text = "brdns" )]Brdns,
-         #[rust_sitter::leaf(text = "breq" )]Breq,
-         #[rust_sitter::leaf(text = "poke" )]Poke,
-         #[rust_sitter::leaf(text = "exp" )]Exp,
-         #[rust_sitter::leaf(text = "blezal" )]Blezal,
-         #[rust_sitter::leaf(text = "bnaal" )]Bnaal,
-         #[rust_sitter::leaf(text = "bapzal" )]Bapzal,
-         #[rust_sitter::leaf(text = "sbs" )]Sbs,
-         #[rust_sitter::leaf(text = "select" )]Select,
-         #[rust_sitter::leaf(text = "bgtz" )]Bgtz,
-         #[rust_sitter::leaf(text = "alias" )]Alias,
-         #[rust_sitter::leaf(text = "move" )]Move,
-         #[rust_sitter::leaf(text = "bapz" )]Bapz,
-         #[rust_sitter::leaf(text = "ceil" )]Ceil,
-         #[rust_sitter::leaf(text = "brltz" )]Brltz,
-         #[rust_sitter::leaf(text = "brne" )]Brne,
-         #[rust_sitter::leaf(text = "ls" )]Ls,
-         #[rust_sitter::leaf(text = "pop" )]Pop,
-         #[rust_sitter::leaf(text = "mul" )]Mul,
-         #[rust_sitter::leaf(text = "sgez" )]Sgez,
-         #[rust_sitter::leaf(text = "sin" )]Sin,
-         #[rust_sitter::leaf(text = "beq" )]Beq,
-         #[rust_sitter::leaf(text = "bgtzal" )]Bgtzal,
-         #[rust_sitter::leaf(text = "sne" )]Sne,
-         #[rust_sitter::leaf(text = "lbs" )]Lbs,
-         #[rust_sitter::leaf(text = "sub" )]Sub,
-         #[rust_sitter::leaf(text = "brap" )]Brap,
-         #[rust_sitter::leaf(text = "floor" )]Floor,
-         #[rust_sitter::leaf(text = "bnez" )]Bnez,
-         #[rust_sitter::leaf(text = "jal" )]Jal,
-         #[rust_sitter::leaf(text = "lbn" )]Lbn,
-         #[rust_sitter::leaf(text = "beqz" )]Beqz,
-         #[rust_sitter::leaf(text = "peek" )]Peek,
-         #[rust_sitter::leaf(text = "asin" )]Asin,
-         #[rust_sitter::leaf(text = "mod" )]Mod,
-         #[rust_sitter::leaf(text = "and" )]And,
-         #[rust_sitter::leaf(text = "blez" )]Blez,
-         #[rust_sitter::leaf(text = "bltz" )]Bltz,
-         #[rust_sitter::leaf(text = "s" )]S,
-         #[rust_sitter::leaf(text = "getd" )]Getd,
-         #[rust_sitter::leaf(text = "sgtz" )]Sgtz,
-         #[rust_sitter::leaf(text = "brlt" )]Brlt,
-         #[rust_sitter::leaf(text = "bapal" )]Bapal,
-         #[rust_sitter::leaf(text = "seqz" )]Seqz,
-         #[rust_sitter::leaf(text = "sap" )]Sap,
-         #[rust_sitter::leaf(text = "l" )]L,
-         #[rust_sitter::leaf(text = "sdse" )]Sdse,
-         #[rust_sitter::leaf(text = "j" )]J,
-         #[rust_sitter::leaf(text = "trunc" )]Trunc,
-         #[rust_sitter::leaf(text = "beqal" )]Beqal,
-         #[rust_sitter::leaf(text = "ble" )]Ble,
-         #[rust_sitter::leaf(text = "sd" )]Sd,
-         #[rust_sitter::leaf(text = "log" )]Log,
-         #[rust_sitter::leaf(text = "push" )]Push,
-         #[rust_sitter::leaf(text = "cos" )]Cos,
-         #[rust_sitter::leaf(text = "sla" )]Sla,
-         #[rust_sitter::leaf(text = "sle" )]Sle,
-         #[rust_sitter::leaf(text = "bgeal" )]Bgeal,
-         #[rust_sitter::leaf(text = "sltz" )]Sltz,
-         #[rust_sitter::leaf(text = "bdse" )]Bdse,
-         #[rust_sitter::leaf(text = "brdse" )]Brdse,
-         #[rust_sitter::leaf(text = "get" )]Get,
-         #[rust_sitter::leaf(text = "snanz" )]Snanz,
-         #[rust_sitter::leaf(text = "xor" )]Xor,
-         #[rust_sitter::leaf(text = "brna" )]Brna,
-         #[rust_sitter::leaf(text = "rand" )]Rand,
-         #[rust_sitter::leaf(text = "hcf" )]Hcf,
-         #[rust_sitter::leaf(text = "bltzal" )]Bltzal,
-         #[rust_sitter::leaf(text = "abs" )]Abs,
-         #[rust_sitter::leaf(text = "srl" )]Srl,
-         #[rust_sitter::leaf(text = "bne" )]Bne,
-         #[rust_sitter::leaf(text = "brge" )]Brge,
-         #[rust_sitter::leaf(text = "sge" )]Sge,
-         #[rust_sitter::leaf(text = "define" )]Define,
-         #[rust_sitter::leaf(text = "snaz" )]Snaz,
-         #[rust_sitter::leaf(text = "brgtz" )]Brgtz,
-         #[rust_sitter::leaf(text = "brle" )]Brle,
-         #[rust_sitter::leaf(text = "max" )]Max,
-         #[rust_sitter::leaf(text = "bleal" )]Bleal,
-         #[rust_sitter::leaf(text = "sleep" )]Sleep,
-         #[rust_sitter::leaf(text = "bap" )]Bap,
-         #[rust_sitter::leaf(text = "bdnsal" )]Bdnsal,
-         #[rust_sitter::leaf(text = "bnazal" )]Bnazal,
-         #[rust_sitter::leaf(text = "bdseal" )]Bdseal,
-         #[rust_sitter::leaf(text = "bnan" )]Bnan,
-         #[rust_sitter::leaf(text = "brlez" )]Brlez,
-         #[rust_sitter::leaf(text = "round" )]Round,
-         #[rust_sitter::leaf(text = "sdns" )]Sdns,
-         #[rust_sitter::leaf(text = "sra" )]Sra,
-         #[rust_sitter::leaf(text = "lr" )]Lr,
-         #[rust_sitter::leaf(text = "seq" )]Seq,
-         #[rust_sitter::leaf(text = "brnez" )]Brnez,
-         #[rust_sitter::leaf(text = "brnaz" )]Brnaz,
-         #[rust_sitter::leaf(text = "bgtal" )]Bgtal,
-         #[rust_sitter::leaf(text = "lbns" )]Lbns,
-         #[rust_sitter::leaf(text = "slez" )]Slez,
-         #[rust_sitter::leaf(text = "snan" )]Snan,
-         #[rust_sitter::leaf(text = "bgt" )]Bgt,
-         #[rust_sitter::leaf(text = "lb" )]Lb,
-         #[rust_sitter::leaf(text = "put" )]Put,
-         #[rust_sitter::leaf(text = "bneal" )]Bneal,
-         #[rust_sitter::leaf(text = "atan" )]Atan,
-         #[rust_sitter::leaf(text = "brgt" )]Brgt,
-         #[rust_sitter::leaf(text = "or" )]Or,
-         #[rust_sitter::leaf(text = "add" )]Add,
-         #[rust_sitter::leaf(text = "sb" )]Sb,
-         #[rust_sitter::leaf(text = "tan" )]Tan,
-         #[rust_sitter::leaf(text = "min" )]Min,
-         #[rust_sitter::leaf(text = "slt" )]Slt,
-         #[rust_sitter::leaf(text = "brgez" )]Brgez,
-         #[rust_sitter::leaf(text = "sgt" )]Sgt,
-         #[rust_sitter::leaf(text = "bge" )]Bge,
-         #[rust_sitter::leaf(text = "ld" )]Ld,
-         #[rust_sitter::leaf(text = "sll" )]Sll,
-         #[rust_sitter::leaf(text = "brnan" )]Brnan,
-         #[rust_sitter::leaf(text = "beqzal" )]Beqzal,
-         #[rust_sitter::leaf(text = "sapz" )]Sapz,
-         #[rust_sitter::leaf(text = "snez" )]Snez,
-         #[rust_sitter::leaf(text = "sbn" )]Sbn,
-         #[rust_sitter::leaf(text = "bdns" )]Bdns,
-         #[rust_sitter::leaf(text = "breqz" )]Breqz,
-         #[rust_sitter::leaf(text = "div" )]Div,
-         #[rust_sitter::leaf(text = "not" )]Not,
-         #[rust_sitter::leaf(text = "nor" )]Nor,
-         #[rust_sitter::leaf(text = "putd" )]Putd,
-         #[rust_sitter::leaf(text = "jr" )]Jr,
-         #[rust_sitter::leaf(text = "sna" )]Sna,
+}
+
+#[derive(PartialEq, Debug)]
+pub struct LogicType {
+    pub name: String,
+    pub value: f64,
+}
+
+#[derive(PartialEq, Debug)]
+pub struct Label {
+    pub id: Identifier,
+    // #[rust_sitter::leaf(text = r":")] pub ());
+}
+
+impl FromStr for Label {
+    type Err = ParseError;
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s.chars().enumerate().last() {
+            Some((index, ':')) => Ok(Label {
+                id: s[..index].parse()?,
+            }),
+            Some((index, _)) => Err(ParseError {
+                line: 0,
+                start: index,
+                end: index,
+                msg: "Missing ':' at end of label".to_string(),
+            }),
+            None => Err(ParseError {
+                line: 0,
+                start: 0,
+                end: 0,
+                msg: "empty string for label? parse miscalled".to_string(),
+            }),
+        }
     }
-    // END PATCH grammar/ic10/instructions.rs
+}
+
+#[derive(PartialEq, Debug)]
+pub struct Identifier {
+    // #[rust_sitter::leaf(pattern = r"[a-zA-Z_.][\w\d.]*", transform = |id| id.to_string())]
+    pub name: String,
+}
+
+impl FromStr for Identifier {
+    type Err = ParseError;
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let mut iter = s.chars();
+        if let Some(c) = iter.next() {
+            if match c {
+                'a'..='z' | 'A'..='Z' | '_' | '.' => true,
+                _ => false,
+            } {
+                for (index, cc) in iter.enumerate() {
+                    match cc {
+                        'a'..='z' | 'A'..='Z' | '0'..='9' | '_' | '.' => continue,
+                        cc => {
+                            return Err(ParseError {
+                                line: 0,
+                                start: index,
+                                end: index,
+                                msg: format!("Invalid character in identifier '{}'", cc),
+                            })
+                        }
+                    }
+                }
+                Ok(Identifier { name: s.to_owned() })
+            } else {
+                Err(ParseError {
+                    line: 0,
+                    start: 0,
+                    end: 0,
+                    msg: format!("Invalid character to start an identifier '{}'", c),
+                })
+            }
+        } else {
+            Err(ParseError {
+                line: 0,
+                start: 0,
+                end: 0,
+                msg: format!("Empty Identifier"),
+            })
+        }
+    }
+}
+
+#[derive(PartialEq, Debug)]
+pub enum Number {
+    Float(f64),
+    Binary(f64),
+    Hexadecimal(f64),
+    Constant(f64),
+    String(String),
+    Enum(f64),
+}
+
+impl Number {
+    pub fn value(&self) -> f64 {
+        match self {
+            Number::Enum(val) => *val,
+            Number::Float(val) => *val,
+            Number::Binary(val) => *val,
+            Number::Constant(val) => *val,
+            Number::Hexadecimal(val) => *val,
+            Number::String(s) => const_crc32::crc32(s.as_bytes()) as i32 as f64,
+        }
+    }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::ic10::*;
-    use super::rich_types::*;
     use super::*;
 
     #[test]
     fn successful_parse() {
-        let parsed = ic10::parse("s d0 Setting 0 # This is a comment\n");
+        let parsed = parse("s d0 Setting 0 # This is a comment\n");
         dbg!(&parsed);
         assert_eq!(
             parsed.unwrap(),
-            Language {
-                lines: vec![Line {
-                    code: Some(Code::Instruction(Instruction {
-                        instruction: InstructionOp::S,
-                        operands: vec![
-                            Operand::DeviceSpec(DeviceSpec {
-                                device: Device::Numbered(0),
-                                channel: None,
-                            },),
-                            Operand::LogicType(LogicType::Setting),
-                            Operand::Number(Number::Float(0.0,),),
-                        ],
-                    },),),
-                    comment: Some(Comment {
-                        _header: (),
-                        comment: " This is a comment".to_string()
-                    }),
-                    _newline: NewLine { _newline: () },
-                },],
-            }
+            vec![Line {
+                code: Some(Code::Instruction(Instruction {
+                    instruction: InstructionOp::S,
+                    operands: vec![
+                        Operand::DeviceSpec {
+                            device: Device::Numbered(0),
+                            channel: None,
+                        },
+                        Operand::LogicType(LogicType {
+                            name: "Setting".to_string(),
+                            value: 12.0,
+                        },),
+                        Operand::Number(Number::Float(0.0)),
+                    ],
+                },),),
+                comment: Some(Comment {
+                    comment: " This is a comment".to_string(),
+                },),
+            },],
         );
-        let parsed = ic10::parse("move r0 $fff\n");
+        let parsed = parse("move r0 $fff\n");
         dbg!(&parsed);
         assert_eq!(
             parsed.unwrap(),
-            Language {
-                lines: vec![Line {
-                    code: Some(Code::Instruction(Instruction {
-                        instruction: InstructionOp::Move,
-                        operands: vec![
-                            Operand::RegisterSpec(Register {
-                                indirection: 0,
-                                target: 0,
-                            },),
-                            Operand::Number(Number::Hexadecimal((), 4095.0,),),
-                        ],
-                    },),),
-                    comment: None,
-                    _newline: NewLine { _newline: () },
-                },],
-            }
+            vec![Line {
+                code: Some(Code::Instruction(Instruction {
+                    instruction: InstructionOp::Move,
+                    operands: vec![
+                        Operand::RegisterSpec {
+                            indirection: 0,
+                            target: 0,
+                        },
+                        Operand::Number(Number::Hexadecimal(4095.0)),
+                    ],
+                },),),
+                comment: None,
+            },],
         );
-
-        // assert_eq!(, )
     }
 
     #[test]
@@ -1017,249 +677,231 @@ mod tests {
         move r1 -2045627372 \n\
         move r1 $FF\n\
         move r1 %1000\n\
+        move rr1 0
         yield\n\
         j main\n";
-        let parsed = ic10::parse(code);
+        let parsed = parse(code);
         dbg!(&parsed);
         assert_eq!(
             parsed.unwrap(),
-            Language {
-                lines: vec![
-                    Line {
-                        code: None,
-                        comment: Some(Comment {
-                            _header: (),
-                            comment: " This is a comment".to_string(),
-                        },),
-                        _newline: NewLine { _newline: () },
-                    },
-                    Line {
-                        code: Some(Code::Instruction(Instruction {
-                            instruction: InstructionOp::Define,
-                            operands: vec![
-                                Operand::Identifier(Identifier {
-                                    name: "a_def".to_string()
-                                },),
-                                Operand::Number(Number::Float(10.0,),),
-                            ],
-                        },),),
-                        comment: None,
-                        _newline: NewLine { _newline: () },
-                    },
-                    Line {
-                        code: Some(Code::Instruction(Instruction {
-                            instruction: InstructionOp::Define,
-                            operands: vec![
-                                Operand::Identifier(Identifier {
-                                    name: "a_hash".to_string()
-                                },),
-                                Operand::Number(Number::String(HashPreProc {
-                                    _head: (),
-                                    string: HashString {
-                                        string: "This is a String".to_string(),
-                                        hash: 265971209,
-                                    },
-                                    _foot: (),
-                                },),),
-                            ],
-                        },),),
-                        comment: None,
-                        _newline: NewLine { _newline: () },
-                    },
-                    Line {
-                        code: Some(Code::Instruction(Instruction {
-                            instruction: InstructionOp::Alias,
-                            operands: vec![
-                                Operand::Identifier(Identifier {
-                                    name: "a_var".to_string()
-                                },),
-                                Operand::RegisterSpec(Register {
-                                    indirection: 0,
-                                    target: 0,
-                                },),
-                            ],
-                        },),),
-                        comment: None,
-                        _newline: NewLine { _newline: () },
-                    },
-                    Line {
-                        code: Some(Code::Instruction(Instruction {
-                            instruction: InstructionOp::Alias,
-                            operands: vec![
-                                Operand::Identifier(Identifier {
-                                    name: "a_device".to_string()
-                                },),
-                                Operand::DeviceSpec(DeviceSpec {
-                                    device: Device::Numbered(0,),
-                                    channel: None,
-                                },),
-                            ],
-                        },),),
-                        comment: None,
-                        _newline: NewLine { _newline: () },
-                    },
-                    Line {
-                        code: Some(Code::Instruction(Instruction {
-                            instruction: InstructionOp::S,
-                            operands: vec![
-                                Operand::DeviceSpec(DeviceSpec {
-                                    device: Device::Numbered(0,),
-                                    channel: None,
-                                },),
-                                Operand::Number(Number::Float(12.0,),),
-                                Operand::Number(Number::Float(0.0,),),
-                            ],
-                        },),),
-                        comment: None,
-                        _newline: NewLine { _newline: () },
-                    },
-                    Line {
-                        code: Some(Code::Instruction(Instruction {
-                            instruction: InstructionOp::Move,
-                            operands: vec![
-                                Operand::RegisterSpec(Register {
-                                    indirection: 0,
-                                    target: 2,
-                                },),
-                                Operand::Number(Number::Enum(Enum::LogicTypeTemperature,),),
-                            ],
-                        },),),
-                        comment: None,
-                        _newline: NewLine { _newline: () },
-                    },
-                    Line {
-                        code: Some(Code::Instruction(Instruction {
-                            instruction: InstructionOp::Move,
-                            operands: vec![
-                                Operand::RegisterSpec(Register {
-                                    indirection: 0,
-                                    target: 3,
-                                },),
-                                Operand::Number(Number::Constant(Constant::Pinf,),),
-                            ],
-                        },),),
-                        comment: None,
-                        _newline: NewLine { _newline: () },
-                    },
-                    Line {
-                        code: Some(Code::Label(Label(
-                            Identifier {
-                                name: "main".to_string()
+            vec![
+                Line {
+                    code: None,
+                    comment: Some(Comment {
+                        comment: " This is a comment".to_string(),
+                    },),
+                },
+                Line {
+                    code: Some(Code::Instruction(Instruction {
+                        instruction: InstructionOp::Define,
+                        operands: vec![
+                            Operand::Identifier(Identifier {
+                                name: "a_def".to_string(),
+                            },),
+                            Operand::Number(Number::Float(10.0,),),
+                        ],
+                    },),),
+                    comment: None,
+                },
+                Line {
+                    code: Some(Code::Instruction(Instruction {
+                        instruction: InstructionOp::Define,
+                        operands: vec![
+                            Operand::Identifier(Identifier {
+                                name: "a_hash".to_string(),
+                            },),
+                            Operand::Number(Number::String("This is a String".to_string()),),
+                        ],
+                    },),),
+                    comment: None,
+                },
+                Line {
+                    code: Some(Code::Instruction(Instruction {
+                        instruction: InstructionOp::Alias,
+                        operands: vec![
+                            Operand::Identifier(Identifier {
+                                name: "a_var".to_string(),
+                            },),
+                            Operand::RegisterSpec {
+                                indirection: 0,
+                                target: 0,
                             },
-                            (),
-                        ),),),
-                        comment: None,
-                        _newline: NewLine { _newline: () },
-                    },
-                    Line {
-                        code: None,
-                        comment: None,
-                        _newline: NewLine { _newline: () },
-                    },
-                    Line {
-                        code: Some(Code::Instruction(Instruction {
-                            instruction: InstructionOp::L,
-                            operands: vec![
-                                Operand::RegisterSpec(Register {
+                        ],
+                    },),),
+                    comment: None,
+                },
+                Line {
+                    code: Some(Code::Instruction(Instruction {
+                        instruction: InstructionOp::Alias,
+                        operands: vec![
+                            Operand::Identifier(Identifier {
+                                name: "a_device".to_string(),
+                            },),
+                            Operand::DeviceSpec {
+                                device: Device::Numbered(0),
+                                channel: None,
+                            },
+                        ],
+                    },),),
+                    comment: None,
+                },
+                Line {
+                    code: Some(Code::Instruction(Instruction {
+                        instruction: InstructionOp::S,
+                        operands: vec![
+                            Operand::DeviceSpec {
+                                device: Device::Numbered(0),
+                                channel: None,
+                            },
+                            Operand::Number(Number::Float(12.0)),
+                            Operand::Number(Number::Float(0.0)),
+                        ],
+                    },),),
+                    comment: None,
+                },
+                Line {
+                    code: Some(Code::Instruction(Instruction {
+                        instruction: InstructionOp::Move,
+                        operands: vec![
+                            Operand::RegisterSpec {
+                                indirection: 0,
+                                target: 2,
+                            },
+                            Operand::Number(Number::Enum(6.0)),
+                        ],
+                    },),),
+                    comment: None,
+                },
+                Line {
+                    code: Some(Code::Instruction(Instruction {
+                        instruction: InstructionOp::Move,
+                        operands: vec![
+                            Operand::RegisterSpec {
+                                indirection: 0,
+                                target: 3,
+                            },
+                            Operand::Number(Number::Constant(f64::INFINITY)),
+                        ],
+                    },),),
+                    comment: None,
+                },
+                Line {
+                    code: Some(Code::Label(Label {
+                        id: Identifier {
+                            name: "main".to_string(),
+                        },
+                    },),),
+                    comment: None,
+                },
+                Line {
+                    code: None,
+                    comment: None,
+                },
+                Line {
+                    code: Some(Code::Instruction(Instruction {
+                        instruction: InstructionOp::L,
+                        operands: vec![
+                            Operand::RegisterSpec {
+                                indirection: 0,
+                                target: 1,
+                            },
+                            Operand::DeviceSpec {
+                                device: Device::Indirect {
                                     indirection: 0,
-                                    target: 1,
-                                },),
-                                Operand::DeviceSpec(DeviceSpec {
-                                    device: Device::Indirect(Register {
-                                        indirection: 0,
-                                        target: 15,
-                                    },),
-                                    channel: None,
-                                },),
-                                Operand::LogicType(LogicType::RatioWater,),
-                            ],
-                        },),),
-                        comment: None,
-                        _newline: NewLine { _newline: () },
-                    },
-                    Line {
-                        code: Some(Code::Instruction(Instruction {
-                            instruction: InstructionOp::Move,
-                            operands: vec![
-                                Operand::RegisterSpec(Register {
-                                    indirection: 0,
-                                    target: 0,
-                                },),
-                                Operand::Number(Number::String(HashPreProc {
-                                    _head: (),
-                                    string: HashString {
-                                        string: "AccessCardBlack".to_string(),
-                                        hash: -1330388999,
-                                    },
-                                    _foot: (),
-                                },),),
-                            ],
-                        },),),
-                        comment: None,
-                        _newline: NewLine { _newline: () },
-                    },
-                    Line {
-                        code: Some(Code::Instruction(Instruction {
-                            instruction: InstructionOp::Move,
-                            operands: vec![
-                                Operand::RegisterSpec(Register {
-                                    indirection: 0,
-                                    target: 1,
-                                },),
-                                Operand::Number(Number::Float(-2045627372.0,),),
-                            ],
-                        },),),
-                        comment: None,
-                        _newline: NewLine { _newline: () },
-                    },
-                    Line {
-                        code: Some(Code::Instruction(Instruction {
-                            instruction: InstructionOp::Move,
-                            operands: vec![
-                                Operand::RegisterSpec(Register {
-                                    indirection: 0,
-                                    target: 1,
-                                },),
-                                Operand::Number(Number::Hexadecimal((), 255.0,),),
-                            ],
-                        },),),
-                        comment: None,
-                        _newline: NewLine { _newline: () },
-                    },
-                    Line {
-                        code: Some(Code::Instruction(Instruction {
-                            instruction: InstructionOp::Move,
-                            operands: vec![
-                                Operand::RegisterSpec(Register {
-                                    indirection: 0,
-                                    target: 1,
-                                },),
-                                Operand::Number(Number::Binary((), 8.0,),),
-                            ],
-                        },),),
-                        comment: None,
-                        _newline: NewLine { _newline: () },
-                    },
-                    Line {
-                        code: Some(Code::Instruction(Instruction {
-                            instruction: InstructionOp::Yield,
-                            operands: vec![],
-                        },),),
-                        comment: None,
-                        _newline: NewLine { _newline: () },
-                    },
-                    Line {
-                        code: Some(Code::Instruction(Instruction {
-                            instruction: InstructionOp::J,
-                            operands: vec![Operand::Identifier(Identifier {
-                                name: "main".to_string()
-                            },),],
-                        },),),
-                        comment: None,
-                        _newline: NewLine { _newline: () },
-                    },
-                ],
-            },
+                                    target: 15,
+                                },
+                                channel: None,
+                            },
+                            Operand::LogicType(LogicType {
+                                name: "RatioWater".to_string(),
+                                value: 19.0,
+                            },),
+                        ],
+                    },),),
+                    comment: None,
+                },
+                Line {
+                    code: Some(Code::Instruction(Instruction {
+                        instruction: InstructionOp::Move,
+                        operands: vec![
+                            Operand::RegisterSpec {
+                                indirection: 0,
+                                target: 0,
+                            },
+                            Operand::Number(Number::String("AccessCardBlack".to_string()),),
+                        ],
+                    },),),
+                    comment: None,
+                },
+                Line {
+                    code: Some(Code::Instruction(Instruction {
+                        instruction: InstructionOp::Move,
+                        operands: vec![
+                            Operand::RegisterSpec {
+                                indirection: 0,
+                                target: 1,
+                            },
+                            Operand::Number(Number::Float(-2045627372.0)),
+                        ],
+                    },),),
+                    comment: None,
+                },
+                Line {
+                    code: Some(Code::Instruction(Instruction {
+                        instruction: InstructionOp::Move,
+                        operands: vec![
+                            Operand::RegisterSpec {
+                                indirection: 0,
+                                target: 1,
+                            },
+                            Operand::Number(Number::Hexadecimal(255.0)),
+                        ],
+                    },),),
+                    comment: None,
+                },
+                Line {
+                    code: Some(Code::Instruction(Instruction {
+                        instruction: InstructionOp::Move,
+                        operands: vec![
+                            Operand::RegisterSpec {
+                                indirection: 0,
+                                target: 1,
+                            },
+                            Operand::Number(Number::Binary(8.0)),
+                        ],
+                    },),),
+                    comment: None,
+                },
+                Line {
+                    code: Some(Code::Instruction(Instruction {
+                        instruction: InstructionOp::Move,
+                        operands: vec![
+                            Operand::RegisterSpec {
+                                indirection: 1,
+                                target: 1,
+                            },
+                            Operand::Number(Number::Float(0.0)),
+                        ],
+                    },),),
+                    comment: None,
+                },
+                Line {
+                    code: Some(Code::Instruction(Instruction {
+                        instruction: InstructionOp::Yield,
+                        operands: vec![],
+                    },),),
+                    comment: None,
+                },
+                Line {
+                    code: Some(Code::Instruction(Instruction {
+                        instruction: InstructionOp::J,
+                        operands: vec![Operand::Identifier(Identifier {
+                            name: "main".to_string(),
+                        },),],
+                    },),),
+                    comment: None,
+                },
+            ],
         );
     }
 }

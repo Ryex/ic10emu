@@ -26,7 +26,7 @@ fn write_logictypes(logictypes_grammar: &mut HashSet<String>) {
 
         logictypes_grammar.insert(name.to_string());
         if let Some(v) = val {
-            logictype_lookup_map_builder.entry(name.to_case(Case::Pascal), &format!("{}u8", v));
+            logictype_lookup_map_builder.entry(name, &format!("{}u8", v));
         }
     }
 
@@ -42,7 +42,7 @@ fn write_logictypes(logictypes_grammar: &mut HashSet<String>) {
 
         logictypes_grammar.insert(name.to_string());
         if let Some(v) = val {
-            slotlogictype_lookup_map_builder.entry(name.to_case(Case::Pascal), &format!("{}u8", v));
+            slotlogictype_lookup_map_builder.entry(name, &format!("{}u8", v));
         }
     }
 
@@ -52,9 +52,7 @@ fn write_logictypes(logictypes_grammar: &mut HashSet<String>) {
         logictype_lookup_map_builder.build()
     )
     .unwrap();
-
     println!("cargo:rerun-if-changed=data/logictypes.txt");
-
 
     write!(
         &mut writer,
@@ -90,7 +88,7 @@ fn write_enums(enums_grammar: &mut HashSet<String>) {
         }
 
         if let Some(v) = val {
-            enums_lookup_map_builder.entry(name.to_case(Case::Pascal), &format!("{}u8", v));
+            enums_lookup_map_builder.entry(name, &format!("{}u8", v));
         }
     }
 
@@ -123,7 +121,7 @@ fn write_modes(logictypes_grammar: &mut HashSet<String>) {
 
         logictypes_grammar.insert(name.to_string());
         if let Some(v) = val {
-            batchmode_lookup_map_builder.entry(name.to_case(Case::Pascal), &format!("{}u8", v));
+            batchmode_lookup_map_builder.entry(name, &format!("{}u8", v));
         }
     }
 
@@ -139,7 +137,7 @@ fn write_modes(logictypes_grammar: &mut HashSet<String>) {
 
         logictypes_grammar.insert(name.to_string());
         if let Some(v) = val {
-            reagentmode_lookup_map_builder.entry(name.to_case(Case::Pascal), &format!("{}u8", v));
+            reagentmode_lookup_map_builder.entry(name, &format!("{}u8", v));
         }
     }
 
@@ -179,7 +177,7 @@ fn write_constants(constants_grammar: &mut HashSet<String>) {
         let constant = it.next().unwrap();
 
         constants_grammar.insert(name.to_string());
-        constants_lookup_map_builder.entry(name.to_case(Case::Pascal), constant);
+        constants_lookup_map_builder.entry(name, constant);
     }
 
     write!(
@@ -191,82 +189,13 @@ fn write_constants(constants_grammar: &mut HashSet<String>) {
     println!("cargo:rerun-if-changed=data/constants.txt");
 }
 
-fn write_logictypes_grammar(logictypes: &HashSet<String>) {
-    let dest_path = Path::new("src/grammar/ic10").join("logictypes.rs");
+fn write_instructions_enum() {
+    let out_dir = env::var_os("OUT_DIR").unwrap();
+
+    let dest_path = Path::new(&out_dir).join("instructions.rs");
     let output_file = File::create(dest_path).unwrap();
     let mut writer = BufWriter::new(&output_file);
-    write!(
-        &mut writer,
-        "// GENERATED CODE DO NOT MODIFY\n\
-         #[derive(PartialEq, Debug, IntoStaticStr, AsRefStr)]\n\
-         pub enum LogicType {{\n\
-        "
-    )
-    .unwrap();
-    for typ in logictypes {
-        let enum_name = typ.to_case(Case::Pascal);
 
-        write!(
-            &mut writer,
-            "     #[rust_sitter::leaf(text = \"{typ}\" )]{},\n",
-            &enum_name
-        )
-        .unwrap();
-    }
-    write!(&mut writer, "}}\n").unwrap();
-}
-
-fn write_enums_grammar(enums: &HashSet<String>) {
-    let dest_path = Path::new("src/grammar/ic10").join("enums.rs");
-    let output_file = File::create(dest_path).unwrap();
-    let mut writer = BufWriter::new(&output_file);
-    write!(
-        &mut writer,
-        "// GENERATED CODE DO NOT MODIFY\n\
-         #[derive(PartialEq, Debug, IntoStaticStr, AsRefStr)]\n\
-         pub enum Enum {{\n\
-        "
-    )
-    .unwrap();
-    for typ in enums {
-        let enum_name = typ.replace(".", "").to_case(Case::Pascal);
-
-        write!(
-            &mut writer,
-            "     #[rust_sitter::leaf(text = \"{typ}\" )]{},\n",
-            &enum_name
-        )
-        .unwrap();
-    }
-    write!(&mut writer, "}}\n").unwrap();
-}
-
-fn write_constants_grammar(constants: HashSet<String>) {
-    let dest_path = Path::new("src/grammar/ic10").join("constants.rs");
-    let output_file = File::create(dest_path).unwrap();
-    let mut writer = BufWriter::new(&output_file);
-    write!(
-        &mut writer,
-        "// GENERATED CODE DO NOT MODIFY\n\
-         #[derive(PartialEq, Debug, IntoStaticStr, AsRefStr)]\n\
-         pub enum Constant {{\n\
-        "
-    )
-    .unwrap();
-    for typ in constants {
-        let enum_name = typ.replace(".", "").to_case(Case::Pascal);
-
-        write!(
-            &mut writer,
-            "     #[rust_sitter::leaf(text = \"{typ}\" )]{},\n",
-            &enum_name
-        )
-        .unwrap();
-    }
-    write!(&mut writer, "}}\n").unwrap();
-}
-
-fn load_instructions() -> HashSet<String> {
     let mut instructions = HashSet::new();
     let infile = Path::new("data/instructions.txt");
     let contents = fs::read_to_string(infile).unwrap();
@@ -276,104 +205,6 @@ fn load_instructions() -> HashSet<String> {
         let instruction = it.next().unwrap();
         instructions.insert(instruction.to_string());
     }
-    instructions
-}
-
-fn write_instructions_grammar(instructions: &HashSet<String>) {
-    let dest_path = Path::new("src/grammar/ic10").join("instructions.rs");
-    let output_file = File::create(dest_path).unwrap();
-    let mut writer = BufWriter::new(&output_file);
-
-    write!(
-        &mut writer,
-        "// GENERATED CODE DO NOT MODIFY\n\
-         #[derive(PartialEq, Debug, IntoStaticStr, AsRefStr)]\n\
-         pub enum InstructionOp {{\n\
-        "
-    )
-    .unwrap();
-    for typ in instructions {
-        let enum_name = typ.to_case(Case::Pascal);
-
-        write!(
-            &mut writer,
-            "     #[rust_sitter::leaf(text = \"{typ}\" )]{},\n",
-            &enum_name
-        )
-        .unwrap();
-    }
-    write!(&mut writer, "}}\n").unwrap();
-}
-
-fn patch_grammar() {
-    let out_path = env::var_os("OUT_DIR").unwrap();
-    let out_dir = Path::new(&out_path);
-    let src_dir = Path::new("src");
-    fs::copy(
-        src_dir.join("grammar.rs"),
-        out_dir.join("grammar_unpatched.rs"),
-    )
-    .unwrap();
-    {
-        let grammar_file = File::open(src_dir.join("grammar.rs")).unwrap();
-        let output_file = File::create(out_dir.join("grammar_patched.rs")).unwrap();
-        let mut writer = BufWriter::new(output_file);
-
-        let patch_regex = regex::Regex::new(r"^\s+// PATCH ([\w/.]+)\s*$").unwrap();
-
-        let mut patch_marker: Option<regex::Regex> = None;
-        for line in BufReader::new(grammar_file).lines().flatten() {
-            if let Some(marker) = &patch_marker {
-                if let Some(_) = marker.captures(&line) {
-                    write!(&mut writer, "{}\n", line).unwrap();
-                    patch_marker = None;
-                } else {
-                    continue;
-                }
-            } else {
-                if let Some(captures) = patch_regex.captures(&line) {
-                    write!(&mut writer, "{}\n", line).unwrap();
-                    let in_path = captures.get(1).unwrap();
-                    patch_marker = Some(
-                        regex::Regex::new(&format!(r"^\s+// END PATCH {}\s*$", in_path.as_str()))
-                            .unwrap(),
-                    );
-                    let in_buff =
-                        BufReader::new(File::open(src_dir.join(in_path.as_str())).unwrap());
-                    write!(
-                        &mut writer,
-                        "    {}\n",
-                        in_buff.lines().flatten().collect::<Vec<_>>().join("\n    ")
-                    )
-                    .unwrap();
-                } else {
-                    write!(&mut writer, "{}\n", line).unwrap();
-                }
-            }
-        }
-    }
-    fs::rename(
-        out_dir.join("grammar_patched.rs"),
-        src_dir.join("grammar.rs"),
-    )
-    .unwrap();
-}
-
-fn build_grammar() {
-    println!("cargo:rerun-if-changed=src/grammar/");
-    println!("cargo:rerun-if-changed=src/grammar.rs");
-    // let out_path = env::var_os("OUT_DIR").unwrap();
-    // let out_dir = Path::new(&out_path);
-    rust_sitter_tool::build_parsers(&PathBuf::from("src/lib.rs"));
-    // rust_sitter_tool::build_parsers(&out_dir.join("grammar_patched.rs"));
-}
-
-fn write_instructions_enum(instructions: &HashSet<String>) {
-    let out_dir = env::var_os("OUT_DIR").unwrap();
-
-    let dest_path = Path::new(&out_dir).join("instructions.rs");
-    let output_file = File::create(dest_path).unwrap();
-    let mut writer = BufWriter::new(&output_file);
 
     write!(
         &mut writer,
@@ -385,34 +216,35 @@ fn write_instructions_enum(instructions: &HashSet<String>) {
 
     write!(&mut writer, "     Nop,\n").unwrap();
 
-    for typ in instructions {
+    for typ in &instructions {
         write!(&mut writer, "     {},\n", typ.to_case(Case::Pascal)).unwrap();
     }
     write!(&mut writer, "}}\n").unwrap();
 
     write!(
         &mut writer,
-        "impl From<crate::grammar::ic10::InstructionOp> for InstructionOp {{\n    \
-        fn from(value: crate::grammar::ic10::InstructionOp) -> Self {{\n        \
-            match value {{\n"
+        "impl FromStr for InstructionOp {{\n    \
+            type Err = ParseError;\n    \
+            fn from_str(s: &str) -> Result<Self, Self::Err> {{\n        \
+                let end = s.len();\n        \
+                match s {{\n"
     )
     .unwrap();
 
-    for typ in instructions {
+    for typ in &instructions {
         let name = typ.to_case(Case::Pascal);
-        write!(
-            &mut writer,
-            "            crate::grammar::ic10::InstructionOp::{name} => Self::{name},\n"
-        )
-        .unwrap();
+        write!(&mut writer, "            \"{typ}\" => Ok(Self::{name}),\n").unwrap();
     }
     write!(
         &mut writer,
-        "        }}\n    \
+        "            _ =>    Err(crate::grammar::ParseError {{ line: 0, start: 0, end, msg: format!(\"Unknown instruction '{{}}'\", s) }})\n        \
+            }}\n    \
          }}\n\
     }}"
     )
     .unwrap();
+
+    println!("cargo:rerun-if-changed=data/instructions.txt");
 }
 
 fn main() {
@@ -425,15 +257,5 @@ fn main() {
     write_constants(&mut constants_grammar);
     write_enums(&mut enums_grammar);
 
-    let instructions = load_instructions();
-    write_instructions_enum(&instructions);
-
-    write_logictypes_grammar(&logictype_grammar);
-    write_enums_grammar(&enums_grammar);
-    write_constants_grammar(constants_grammar);
-    write_instructions_grammar(&instructions);
-
-    patch_grammar();
-
-    build_grammar();
+    write_instructions_enum();
 }
