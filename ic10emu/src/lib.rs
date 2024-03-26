@@ -5,6 +5,7 @@ use std::collections::{HashMap, HashSet};
 mod tokens;
 mod grammar;
 mod interpreter;
+mod rand_mscorlib;
 
 use thiserror::Error;
 
@@ -14,8 +15,8 @@ pub enum VMError {
     UnknownId(u16),
     #[error("Device with id '{0}' does not have a IC Slot")]
     NoIC(u16),
-    #[error("Code did not compile")]
-    ParseError(#[from] grammar::ParseError)
+    #[error("IC encoutered an error: {0}")]
+    ICError(#[from] interpreter::ICError)
 }
 
 
@@ -71,6 +72,7 @@ pub struct VM {
     pub devices: HashMap<u16, Device>,
     pub networks: Vec<Network>,
     id_gen: IdSequenceGenerator,
+    random: crate::rand_mscorlib::Random,
 }
 
 impl Default for Network {
@@ -104,6 +106,7 @@ impl VM {
             devices: HashMap::new(),
             networks: vec![default_network],
             id_gen,
+            random: crate::rand_mscorlib::Random::new(),
         };
         vm.add_ic();
         vm

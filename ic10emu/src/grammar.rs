@@ -223,6 +223,30 @@ impl Operand {
             &Operand::DeviceSpec { .. } => Err(interpreter::ICError::DeviceNotValue),
         }
     }
+
+
+    pub fn get_value_i64(&self, ic: &interpreter::IC, signed: bool) -> Result<i64, interpreter::ICError> {
+        let val = self.get_value(ic)?;
+        if val < -9.223372036854776E+18  {
+            Err(interpreter::ICError::ShiftUnderflowI64)
+        } else if val <= 9.223372036854776E+18 {
+            Ok(interpreter::f64_to_i64(val, signed))
+        } else {
+            Err(interpreter::ICError::ShiftOverflowI64)
+        }
+    }
+
+    pub fn get_value_i32(&self, ic: &interpreter::IC) -> Result<i32, interpreter::ICError> {
+        let val = self.get_value(ic)?;
+        if val < -2147483648.0 {
+            Err(interpreter::ICError::ShiftUnderflowI32)
+        } else if val <= 2147483647.0 {
+            Ok(val as i32)
+        } else {
+            Err(interpreter::ICError::ShiftOverflowI32)
+        }
+    }
+
     pub fn get_device_id(
         &self,
         ic: &interpreter::IC,
