@@ -30,9 +30,11 @@ pub enum ICError {
     #[error("")]
     StackIndexOutOfRange(f64),
     #[error("")]
+    SlotIndexOutOfRange(f64),
+    #[error("")]
     UnknownDeviceID(f64),
     #[error("")]
-    ToFewOperands { provided: u32, desired: u32 },
+    TooFewOperands { provided: u32, desired: u32 },
     #[error("")]
     TooManyOperands { provided: u32, desired: u32 },
     #[error("")]
@@ -61,6 +63,38 @@ pub enum ICError {
     StackOverflow,
     #[error("")]
     DuplicateDefine(String),
+    #[error("")]
+    ReadOnlyField(String),
+    #[error("")]
+    WriteOnlyField(String),
+    #[error("")]
+    DeviceHasNoField(String),
+    #[error("")]
+    DeviceHasNoIC,
+    #[error("")]
+    UnknownDeviceId(f64),
+    #[error("")]
+    UnknownLogicType(f64),
+    #[error("")]
+    UnknownSlotLogicType(f64),
+    #[error("")]
+    UnknownBatchMode(f64),
+    #[error("")]
+    UnknownReagentMode(f64),
+    #[error("")]
+    TypeValueNotKnown,
+    #[error("")]
+    EmptyDeviceList,
+    #[error("")]
+    ConnecitonIndexOutOFRange(u32),
+    #[error("")]
+    MissingConnecitonSpecifier,
+    #[error("")]
+    NotDataConnection(u32),
+    #[error("")]
+    NetworkNotConnected(u32),
+    #[error("")]
+    BadNetworkId(u32),
 }
 
 #[derive(Debug)]
@@ -286,8 +320,20 @@ impl IC {
         }
     }
 
-    fn peek(&mut self) -> Result<f64, ICError> {
+    fn peek(&self) -> Result<f64, ICError> {
         let sp = (self.registers[16]) as i32;
+        if sp < 0 {
+            Err(ICError::StackUnderflow)
+        } else if sp >= 512 {
+            Err(ICError::StackOverflow)
+        } else {
+            let last = self.stack[sp as usize];
+            Ok(last)
+        }
+    }
+
+    fn peek_addr(&self, addr: f64) -> Result<f64, ICError> {
+        let sp = (addr) as i32;
         if sp < 0 {
             Err(ICError::StackUnderflow)
         } else if sp >= 512 {
@@ -314,8 +360,7 @@ impl IC {
             let operands = &line.operands;
             match line.instruction {
                 Nop => Ok(()),
-                Label => Ok(()), // Not used
-                Hcf => Ok(()),   // TODO
+                Hcf => Ok(()), // TODO
                 Sleep => match &operands[..] {
                     [a] => {
                         let a = a.get_value(self)?;
@@ -340,7 +385,7 @@ impl IC {
                     }
                 }
                 Define => match &operands[..] {
-                    [_op1] => Err(ToFewOperands {
+                    [_op1] => Err(TooFewOperands {
                         provided: 1,
                         desired: 2,
                     }),
@@ -370,7 +415,7 @@ impl IC {
                     }),
                 },
                 Alias => match &operands[..] {
-                    [_op1] => Err(ToFewOperands {
+                    [_op1] => Err(TooFewOperands {
                         provided: 1,
                         desired: 2,
                     }),
@@ -389,9 +434,12 @@ impl IC {
                                 indirection: *indirection,
                                 target: *target,
                             },
-                            &Operand::DeviceSpec { device, channel } => Operand::DeviceSpec {
+                            &Operand::DeviceSpec {
+                                device,
+                                connection,
+                            } => Operand::DeviceSpec {
                                 device: *device,
-                                channel: *channel,
+                                connection: *connection,
                             },
                             _ => {
                                 break 'inst Err(IncorrectOperandType {
@@ -409,7 +457,7 @@ impl IC {
                     }),
                 },
                 Move => match &operands[..] {
-                    [_op1] => Err(ToFewOperands {
+                    [_op1] => Err(TooFewOperands {
                         provided: 1,
                         desired: 2,
                     }),
@@ -436,7 +484,7 @@ impl IC {
                 },
 
                 Beq => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -453,7 +501,7 @@ impl IC {
                     }),
                 },
                 Beqal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -471,7 +519,7 @@ impl IC {
                     }),
                 },
                 Breq => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -492,7 +540,7 @@ impl IC {
                     }),
                 },
                 Beqz => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -508,7 +556,7 @@ impl IC {
                     }),
                 },
                 Beqzal => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -525,7 +573,7 @@ impl IC {
                     }),
                 },
                 Breqz => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -545,7 +593,7 @@ impl IC {
                     }),
                 },
                 Bne => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -562,7 +610,7 @@ impl IC {
                     }),
                 },
                 Bneal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -580,7 +628,7 @@ impl IC {
                     }),
                 },
                 Brne => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -601,7 +649,7 @@ impl IC {
                     }),
                 },
                 Bnez => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -617,7 +665,7 @@ impl IC {
                     }),
                 },
                 Bnezal => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -634,7 +682,7 @@ impl IC {
                     }),
                 },
                 Brnez => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -654,7 +702,7 @@ impl IC {
                     }),
                 },
                 Blt => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -671,7 +719,7 @@ impl IC {
                     }),
                 },
                 Bltal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -689,7 +737,7 @@ impl IC {
                     }),
                 },
                 Brlt => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -710,7 +758,7 @@ impl IC {
                     }),
                 },
                 Ble => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -727,7 +775,7 @@ impl IC {
                     }),
                 },
                 Bleal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -745,7 +793,7 @@ impl IC {
                     }),
                 },
                 Brle => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -766,7 +814,7 @@ impl IC {
                     }),
                 },
                 Blez => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -782,7 +830,7 @@ impl IC {
                     }),
                 },
                 Blezal => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -799,7 +847,7 @@ impl IC {
                     }),
                 },
                 Brlez => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -819,7 +867,7 @@ impl IC {
                     }),
                 },
                 Bltz => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -835,7 +883,7 @@ impl IC {
                     }),
                 },
                 Bltzal => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -852,7 +900,7 @@ impl IC {
                     }),
                 },
                 Brltz => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -872,7 +920,7 @@ impl IC {
                     }),
                 },
                 Bgt => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -889,7 +937,7 @@ impl IC {
                     }),
                 },
                 Bgtal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -907,7 +955,7 @@ impl IC {
                     }),
                 },
                 Brgt => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -928,7 +976,7 @@ impl IC {
                     }),
                 },
                 Bgtz => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -944,7 +992,7 @@ impl IC {
                     }),
                 },
                 Bgtzal => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -961,7 +1009,7 @@ impl IC {
                     }),
                 },
                 Brgtz => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -981,7 +1029,7 @@ impl IC {
                     }),
                 },
                 Bge => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -998,7 +1046,7 @@ impl IC {
                     }),
                 },
                 Bgeal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1016,7 +1064,7 @@ impl IC {
                     }),
                 },
                 Brge => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1037,7 +1085,7 @@ impl IC {
                     }),
                 },
                 Bgez => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -1053,7 +1101,7 @@ impl IC {
                     }),
                 },
                 Bgezal => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -1070,7 +1118,7 @@ impl IC {
                     }),
                 },
                 Brgez => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -1090,7 +1138,7 @@ impl IC {
                     }),
                 },
                 Bap => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 4,
                     }),
@@ -1114,7 +1162,7 @@ impl IC {
                     }),
                 },
                 Bapal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 4,
                     }),
@@ -1139,7 +1187,7 @@ impl IC {
                     }),
                 },
                 Brap => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 4,
                     }),
@@ -1164,7 +1212,7 @@ impl IC {
                     }),
                 },
                 Bapz => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1185,7 +1233,7 @@ impl IC {
                     }),
                 },
                 Bapzal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1207,7 +1255,7 @@ impl IC {
                     }),
                 },
                 Brapz => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1228,7 +1276,7 @@ impl IC {
                     }),
                 },
                 Bna => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 4,
                     }),
@@ -1252,7 +1300,7 @@ impl IC {
                     }),
                 },
                 Bnaal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 4,
                     }),
@@ -1277,7 +1325,7 @@ impl IC {
                     }),
                 },
                 Brna => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 4,
                     }),
@@ -1301,7 +1349,7 @@ impl IC {
                     }),
                 },
                 Bnaz => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1322,7 +1370,7 @@ impl IC {
                     }),
                 },
                 Bnazal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1344,7 +1392,7 @@ impl IC {
                     }),
                 },
                 Brnaz => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1365,12 +1413,12 @@ impl IC {
                     }),
                 },
                 Bdse => match &operands[..] {
-                    [_] => Err(ToFewOperands {
+                    [_] => Err(TooFewOperands {
                         provided: 1,
                         desired: 2,
                     }),
                     [d, a] => {
-                        let (device, _channel) = d.get_device_id(self)?;
+                        let (device, _connection) = d.get_device_id(self)?;
                         let a = a.get_value(self)?;
                         next_ip = if device.is_some() { a as u32 } else { next_ip };
                         Ok(())
@@ -1381,12 +1429,12 @@ impl IC {
                     }),
                 },
                 Bdseal => match &operands[..] {
-                    [_] => Err(ToFewOperands {
+                    [_] => Err(TooFewOperands {
                         provided: 1,
                         desired: 2,
                     }),
                     [d, a] => {
-                        let (device, _channel) = d.get_device_id(self)?;
+                        let (device, _connection) = d.get_device_id(self)?;
                         let a = a.get_value(self)?;
                         next_ip = if device.is_some() { a as u32 } else { next_ip };
                         self.al();
@@ -1398,12 +1446,12 @@ impl IC {
                     }),
                 },
                 Brdse => match &operands[..] {
-                    [_] => Err(ToFewOperands {
+                    [_] => Err(TooFewOperands {
                         provided: 1,
                         desired: 2,
                     }),
                     [d, a] => {
-                        let (device, _channel) = d.get_device_id(self)?;
+                        let (device, _connection) = d.get_device_id(self)?;
                         let a = a.get_value(self)?;
                         next_ip = if device.is_some() {
                             (self.ip as f64 + a) as u32
@@ -1418,12 +1466,12 @@ impl IC {
                     }),
                 },
                 Bdns => match &operands[..] {
-                    [_] => Err(ToFewOperands {
+                    [_] => Err(TooFewOperands {
                         provided: 1,
                         desired: 2,
                     }),
                     [d, a] => {
-                        let (device, _channel) = d.get_device_id(self)?;
+                        let (device, _connection) = d.get_device_id(self)?;
                         let a = a.get_value(self)?;
                         next_ip = if device.is_none() { a as u32 } else { next_ip };
                         Ok(())
@@ -1434,12 +1482,12 @@ impl IC {
                     }),
                 },
                 Bdnsal => match &operands[..] {
-                    [_] => Err(ToFewOperands {
+                    [_] => Err(TooFewOperands {
                         provided: 1,
                         desired: 2,
                     }),
                     [d, a] => {
-                        let (device, _channel) = d.get_device_id(self)?;
+                        let (device, _connection) = d.get_device_id(self)?;
                         let a = a.get_value(self)?;
                         next_ip = if device.is_none() { a as u32 } else { next_ip };
                         self.al();
@@ -1451,12 +1499,12 @@ impl IC {
                     }),
                 },
                 Brdns => match &operands[..] {
-                    [_] => Err(ToFewOperands {
+                    [_] => Err(TooFewOperands {
                         provided: 1,
                         desired: 2,
                     }),
                     [d, a] => {
-                        let (device, _channel) = d.get_device_id(self)?;
+                        let (device, _connection) = d.get_device_id(self)?;
                         let a = a.get_value(self)?;
                         next_ip = if device.is_none() {
                             (self.ip as f64 + a) as u32
@@ -1471,7 +1519,7 @@ impl IC {
                     }),
                 },
                 Bnan => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -1487,7 +1535,7 @@ impl IC {
                     }),
                 },
                 Brnan => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -1543,7 +1591,7 @@ impl IC {
                 },
 
                 Seq => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1566,7 +1614,7 @@ impl IC {
                     }),
                 },
                 Seqz => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1588,7 +1636,7 @@ impl IC {
                     }),
                 },
                 Sne => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1611,7 +1659,7 @@ impl IC {
                     }),
                 },
                 Snez => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1633,7 +1681,7 @@ impl IC {
                     }),
                 },
                 Slt => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1656,7 +1704,7 @@ impl IC {
                     }),
                 },
                 Sltz => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1678,7 +1726,7 @@ impl IC {
                     }),
                 },
                 Sle => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1701,7 +1749,7 @@ impl IC {
                     }),
                 },
                 Slez => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1723,7 +1771,7 @@ impl IC {
                     }),
                 },
                 Sgt => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1746,7 +1794,7 @@ impl IC {
                     }),
                 },
                 Sgtz => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1768,7 +1816,7 @@ impl IC {
                     }),
                 },
                 Sge => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1791,7 +1839,7 @@ impl IC {
                     }),
                 },
                 Sgez => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1813,7 +1861,7 @@ impl IC {
                     }),
                 },
                 Sap => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1847,7 +1895,7 @@ impl IC {
                     }),
                 },
                 Sapz => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1878,7 +1926,7 @@ impl IC {
                     }),
                 },
                 Sna => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 4,
                     }),
@@ -1912,7 +1960,7 @@ impl IC {
                     }),
                 },
                 Snaz => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1943,7 +1991,7 @@ impl IC {
                     }),
                 },
                 Sdse => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -1955,7 +2003,7 @@ impl IC {
                         else {
                             break 'inst Err(OperandNotRegister);
                         };
-                        let (device, _channel) = device.get_device_id(self)?;
+                        let (device, _connection) = device.get_device_id(self)?;
                         self.set_register(
                             indirection,
                             target,
@@ -1969,7 +2017,7 @@ impl IC {
                     }),
                 },
                 Sdns => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -1981,7 +2029,7 @@ impl IC {
                         else {
                             break 'inst Err(OperandNotRegister);
                         };
-                        let (device, _channel) = device.get_device_id(self)?;
+                        let (device, _connection) = device.get_device_id(self)?;
                         self.set_register(
                             indirection,
                             target,
@@ -1995,7 +2043,7 @@ impl IC {
                     }),
                 },
                 Snan => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -2017,7 +2065,7 @@ impl IC {
                     }),
                 },
                 Snanz => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -2040,7 +2088,7 @@ impl IC {
                 },
 
                 Select => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 4,
                     }),
@@ -2065,7 +2113,7 @@ impl IC {
                 },
 
                 Add => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2088,7 +2136,7 @@ impl IC {
                     }),
                 },
                 Sub => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2111,7 +2159,7 @@ impl IC {
                     }),
                 },
                 Mul => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2134,7 +2182,7 @@ impl IC {
                     }),
                 },
                 Div => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2157,7 +2205,7 @@ impl IC {
                     }),
                 },
                 Mod => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2180,7 +2228,7 @@ impl IC {
                     }),
                 },
                 Exp => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -2202,7 +2250,7 @@ impl IC {
                     }),
                 },
                 Log => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -2224,7 +2272,7 @@ impl IC {
                     }),
                 },
                 Sqrt => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -2247,7 +2295,7 @@ impl IC {
                 },
 
                 Max => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2270,7 +2318,7 @@ impl IC {
                     }),
                 },
                 Min => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2293,7 +2341,7 @@ impl IC {
                     }),
                 },
                 Ceil => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -2315,7 +2363,7 @@ impl IC {
                     }),
                 },
                 Floor => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -2337,7 +2385,7 @@ impl IC {
                     }),
                 },
                 Abs => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -2359,7 +2407,7 @@ impl IC {
                     }),
                 },
                 Round => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -2381,7 +2429,7 @@ impl IC {
                     }),
                 },
                 Trunc => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -2423,7 +2471,7 @@ impl IC {
                 },
 
                 Sin => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -2445,7 +2493,7 @@ impl IC {
                     }),
                 },
                 Cos => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -2467,7 +2515,7 @@ impl IC {
                     }),
                 },
                 Tan => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -2489,7 +2537,7 @@ impl IC {
                     }),
                 },
                 Asin => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -2511,7 +2559,7 @@ impl IC {
                     }),
                 },
                 Acos => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -2533,7 +2581,7 @@ impl IC {
                     }),
                 },
                 Atan => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -2555,7 +2603,7 @@ impl IC {
                     }),
                 },
                 Atan2 => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2579,7 +2627,7 @@ impl IC {
                 },
 
                 Sll | Sla => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2602,7 +2650,7 @@ impl IC {
                     }),
                 },
                 Srl => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2625,7 +2673,7 @@ impl IC {
                     }),
                 },
                 Sra => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2649,7 +2697,7 @@ impl IC {
                 },
 
                 And => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2672,7 +2720,7 @@ impl IC {
                     }),
                 },
                 Or => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2695,7 +2743,7 @@ impl IC {
                     }),
                 },
                 Xor => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2718,7 +2766,7 @@ impl IC {
                     }),
                 },
                 Nor => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(ToFewOperands {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2741,7 +2789,7 @@ impl IC {
                     }),
                 },
                 Not => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -2793,7 +2841,7 @@ impl IC {
                     }),
                 },
                 Poke => match &operands[..] {
-                    oprs @ [_] => Err(ToFewOperands {
+                    oprs @ [_] => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 2,
                     }),
@@ -2827,30 +2875,567 @@ impl IC {
                     }),
                 },
 
-                Get => Ok(()),
-                Getd => Ok(()),
-                Put => Ok(()),
-                Putd => Ok(()),
+                Get => match &operands[..] {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                        provided: oprs.len() as u32,
+                        desired: 3,
+                    }),
+                    [reg, dev_id, addr] => {
+                        let &Operand::RegisterSpec {
+                            indirection,
+                            target,
+                        } = reg
+                        else {
+                            break 'inst Err(OperandNotRegister);
+                        };
+                        let (Some(device_id), _connection) = dev_id.get_device_id(self)? else {
+                            break 'inst Err(DeviceNotSet);
+                        };
+                        let device = vm.get_device_same_network(self.id, device_id);
+                        match device {
+                            Some(device) => match &mut device.ic {
+                                Some(ic) => {
+                                    let addr = addr.get_value(self)?;
+                                    let val = ic.peek_addr(addr)?;
+                                    self.set_register(indirection, target, val)?;
+                                    Ok(())
+                                }
+                                None => Err(DeviceHasNoIC),
+                            },
+                            None => Err(UnknownDeviceID(device_id as f64)),
+                        }
+                    }
+                    oprs => Err(TooManyOperands {
+                        provided: oprs.len() as u32,
+                        desired: 3,
+                    }),
+                },
+                Getd => match &operands[..] {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                        provided: oprs.len() as u32,
+                        desired: 3,
+                    }),
+                    [reg, dev_id, addr] => {
+                        let &Operand::RegisterSpec {
+                            indirection,
+                            target,
+                        } = reg
+                        else {
+                            break 'inst Err(OperandNotRegister);
+                        };
+                        let (Some(device_id), _connection) = dev_id.get_device_id(self)? else {
+                            break 'inst Err(DeviceNotSet);
+                        };
+                        let device = vm.get_device_same_network(self.id, device_id);
+                        match device {
+                            Some(device) => match &mut device.ic {
+                                Some(ic) => {
+                                    let addr = addr.get_value(self)?;
+                                    let val = ic.peek_addr(addr)?;
+                                    self.set_register(indirection, target, val)?;
+                                    Ok(())
+                                }
+                                None => Err(DeviceHasNoIC),
+                            },
+                            None => Err(UnknownDeviceID(device_id as f64)),
+                        }
+                    }
+                    oprs => Err(TooManyOperands {
+                        provided: oprs.len() as u32,
+                        desired: 3,
+                    }),
+                },
+                Put => match &operands[..] {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                        provided: oprs.len() as u32,
+                        desired: 3,
+                    }),
+                    [dev_id, addr, val] => {
+                        let (Some(device_id), _connection) = dev_id.get_device_id(self)? else {
+                            break 'inst Err(DeviceNotSet);
+                        };
+                        let device = vm.get_device_same_network(self.id, device_id as u16);
+                        match device {
+                            Some(device) => match &mut device.ic {
+                                Some(ic) => {
+                                    let addr = addr.get_value(self)?;
+                                    let val = val.get_value(self)?;
+                                    ic.poke(addr, val)?;
+                                    Ok(())
+                                }
+                                None => Err(DeviceHasNoIC),
+                            },
+                            None => Err(UnknownDeviceID(device_id as f64)),
+                        }
+                    }
+                    oprs => Err(TooManyOperands {
+                        provided: oprs.len() as u32,
+                        desired: 3,
+                    }),
+                },
+                Putd => match &operands[..] {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                        provided: oprs.len() as u32,
+                        desired: 3,
+                    }),
+                    [dev_id, addr, val] => {
+                        let device_id = dev_id.get_value(self)?;
+                        if device_id >= u16::MAX as f64 || device_id < u16::MIN as f64 {
+                            break 'inst Err(DeviceIndexOutOfRange(device_id));
+                        }
+                        let device = vm.get_device_same_network(self.id, device_id as u16);
+                        match device {
+                            Some(device) => match &mut device.ic {
+                                Some(ic) => {
+                                    let addr = addr.get_value(self)?;
+                                    let val = val.get_value(self)?;
+                                    ic.poke(addr, val)?;
+                                    Ok(())
+                                }
+                                None => Err(DeviceHasNoIC),
+                            },
+                            None => Err(UnknownDeviceID(device_id)),
+                        }
+                    }
+                    oprs => Err(TooManyOperands {
+                        provided: oprs.len() as u32,
+                        desired: 3,
+                    }),
+                },
 
-                S => Ok(()),
-                Sd => Ok(()),
-                Ss => Ok(()),
-                Sb => Ok(()),
-                Sbs => Ok(()),
-                Sbn => Ok(()),
+                S => match &operands[..] {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                        provided: oprs.len() as u32,
+                        desired: 3,
+                    }),
+                    [dev, lt, val] => {
+                        let (Some(device_id), connection) = dev.get_device_id(self)? else {
+                            break 'inst Err(DeviceNotSet);
+                        };
+                        let lt = LogicType::try_from(lt.get_value(self)?)?;
+                        if CHANNEL_LOGIC_TYPES.contains(&lt) {
+                            let channel = channel_logic_to_channel(lt).unwrap();
+                            let Some(connection) = connection else {
+                                break 'inst Err(MissingConnecitonSpecifier);
+                            };
+                            let network_id = vm
+                                .get_device_same_network(self.id, device_id as u16)
+                                .map(|device| device.get_network_id(connection as usize))
+                                .unwrap_or(Err(UnknownDeviceID(device_id as f64)))?;
+                            let val = val.get_value(self)?;
+                            vm.set_network_channel(network_id as usize, channel, val)?;
+                            return Ok(());
+                        }
+                        let device = vm.get_device_same_network(self.id, device_id as u16);
+                        match device {
+                            Some(device) => {
+                                let val = val.get_value(self)?;
+                                device.set_field(lt, val)?;
+                                Ok(())
+                            }
+                            None => Err(UnknownDeviceID(device_id as f64)),
+                        }
+                    }
+                    oprs => Err(TooManyOperands {
+                        provided: oprs.len() as u32,
+                        desired: 3,
+                    }),
+                },
+                Sd => match &operands[..] {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                        provided: oprs.len() as u32,
+                        desired: 3,
+                    }),
+                    [dev, lt, val] => {
+                        let device_id = dev.get_value(self)?;
+                        if device_id >= u16::MAX as f64 || device_id < u16::MIN as f64 {
+                            break 'inst Err(DeviceIndexOutOfRange(device_id));
+                        }
+                        let device = vm.get_device_same_network(self.id, device_id as u16);
+                        match device {
+                            Some(device) => {
+                                let lt = LogicType::try_from(lt.get_value(self)?)?;
+                                let val = val.get_value(self)?;
+                                device.set_field(lt, val)?;
+                                Ok(())
+                            }
+                            None => Err(UnknownDeviceID(device_id as f64)),
+                        }
+                    }
+                    oprs => Err(TooManyOperands {
+                        provided: oprs.len() as u32,
+                        desired: 3,
+                    }),
+                },
+                Ss => match &operands[..] {
+                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
+                        provided: oprs.len() as u32,
+                        desired: 4,
+                    }),
+                    [dev, index, lt, val] => {
+                        let (Some(device_id), _connection) = dev.get_device_id(self)? else {
+                            break 'inst Err(DeviceNotSet);
+                        };
+                        let device = vm.get_device_same_network(self.id, device_id as u16);
+                        match device {
+                            Some(device) => {
+                                let index = index.get_value(self)?;
+                                let lt = SlotLogicType::try_from(lt.get_value(self)?)?;
+                                let val = val.get_value(self)?;
+                                device.set_slot_field(index, lt, val)?;
+                                Ok(())
+                            }
+                            None => Err(UnknownDeviceID(device_id as f64)),
+                        }
+                    }
+                    oprs => Err(TooManyOperands {
+                        provided: oprs.len() as u32,
+                        desired: 4,
+                    }),
+                },
+                Sb => match &operands[..] {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                        provided: oprs.len() as u32,
+                        desired: 3,
+                    }),
+                    [prefab, lt, val] => {
+                        let prefab = prefab.get_value(self)?;
+                        let lt = LogicType::try_from(lt.get_value(self)?)?;
+                        let val = val.get_value(self)?;
+                        vm.set_batch_device_field(self.id, prefab, lt, val)?;
+                        Ok(())
+                    }
+                    oprs => Err(TooManyOperands {
+                        provided: oprs.len() as u32,
+                        desired: 3,
+                    }),
+                },
+                Sbs => match &operands[..] {
+                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
+                        provided: oprs.len() as u32,
+                        desired: 4,
+                    }),
+                    [prefab, index, lt, val] => {
+                        let prefab = prefab.get_value(self)?;
+                        let index = index.get_value(self)?;
+                        let lt = SlotLogicType::try_from(lt.get_value(self)?)?;
+                        let val = val.get_value(self)?;
+                        vm.set_batch_device_slot_field(self.id, prefab, index, lt, val)?;
+                        Ok(())
+                    }
+                    oprs => Err(TooManyOperands {
+                        provided: oprs.len() as u32,
+                        desired: 4,
+                    }),
+                },
+                Sbn => match &operands[..] {
+                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
+                        provided: oprs.len() as u32,
+                        desired: 4,
+                    }),
+                    [prefab, name, lt, val] => {
+                        let prefab = prefab.get_value(self)?;
+                        let name = name.get_value(self)?;
+                        let lt = LogicType::try_from(lt.get_value(self)?)?;
+                        let val = val.get_value(self)?;
+                        vm.set_batch_name_device_field(self.id, prefab, name, lt, val)?;
+                        Ok(())
+                    }
+                    oprs => Err(TooManyOperands {
+                        provided: oprs.len() as u32,
+                        desired: 4,
+                    }),
+                },
 
-                L => Ok(()),
-                Ld => Ok(()),
-                Ls => Ok(()),
-                Lr => Ok(()),
-                Lb => Ok(()),
-                Lbn => Ok(()),
-                Lbns => Ok(()),
-                Lbs => Ok(()),
+                L => match &operands[..] {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                        provided: oprs.len() as u32,
+                        desired: 3,
+                    }),
+                    [reg, dev, lt] => {
+                        let &Operand::RegisterSpec {
+                            indirection,
+                            target,
+                        } = reg
+                        else {
+                            break 'inst Err(OperandNotRegister);
+                        };
+                        let (Some(device_id), connection) = dev.get_device_id(self)? else {
+                            break 'inst Err(DeviceNotSet);
+                        };
+                        let lt = LogicType::try_from(lt.get_value(self)?)?;
+                        if CHANNEL_LOGIC_TYPES.contains(&lt) {
+                            let channel = channel_logic_to_channel(lt).unwrap();
+                            let Some(connection) = connection else {
+                                break 'inst Err(MissingConnecitonSpecifier);
+                            };
+                            let network_id = vm
+                                .get_device_same_network(self.id, device_id as u16)
+                                .map(|device| device.get_network_id(connection as usize))
+                                .unwrap_or(Err(UnknownDeviceID(device_id as f64)))?;
+                            let val = vm.get_network_channel(network_id as usize, channel)?;
+                            self.set_register(indirection, target, val)?;
+                            return Ok(());
+                        }
+                        let device = vm.get_device_same_network(self.id, device_id as u16);
+                        match device {
+                            Some(device) => {
+                                let val = device.get_field(lt)?;
+                                self.set_register(indirection, target, val)?;
+                                Ok(())
+                            }
+                            None => Err(UnknownDeviceID(device_id as f64)),
+                        }
+                    }
+                    oprs => Err(TooManyOperands {
+                        provided: oprs.len() as u32,
+                        desired: 3,
+                    }),
+                },
+                Ld => match &operands[..] {
+                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                        provided: oprs.len() as u32,
+                        desired: 3,
+                    }),
+                    [reg, dev, lt] => {
+                        let &Operand::RegisterSpec {
+                            indirection,
+                            target,
+                        } = reg
+                        else {
+                            break 'inst Err(OperandNotRegister);
+                        };
+                        let device_id = dev.get_value(self)?;
+                        if device_id >= u16::MAX as f64 || device_id < u16::MIN as f64 {
+                            break 'inst Err(DeviceIndexOutOfRange(device_id));
+                        }
+                        let device = vm.get_device_same_network(self.id, device_id as u16);
+                        match device {
+                            Some(device) => {
+                                let lt = LogicType::try_from(lt.get_value(self)?)?;
+                                let val = device.get_field(lt)?;
+                                self.set_register(indirection, target, val)?;
+                                Ok(())
+                            }
+                            None => Err(UnknownDeviceID(device_id as f64)),
+                        }
+                    }
+                    oprs => Err(TooManyOperands {
+                        provided: oprs.len() as u32,
+                        desired: 3,
+                    }),
+                },
+                Ls => match &operands[..] {
+                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
+                        provided: oprs.len() as u32,
+                        desired: 4,
+                    }),
+                    [reg, dev, index, lt] => {
+                        let &Operand::RegisterSpec {
+                            indirection,
+                            target,
+                        } = reg
+                        else {
+                            break 'inst Err(OperandNotRegister);
+                        };
+                        let (Some(device_id), _connection) = dev.get_device_id(self)? else {
+                            break 'inst Err(DeviceNotSet);
+                        };
+                        let device = vm.get_device_same_network(self.id, device_id as u16);
+                        match device {
+                            Some(device) => {
+                                let index = index.get_value(self)?;
+                                let lt = SlotLogicType::try_from(lt.get_value(self)?)?;
+                                let val = device.get_slot_field(index, lt)?;
+                                self.set_register(indirection, target, val)?;
+                                Ok(())
+                            }
+                            None => Err(UnknownDeviceID(device_id as f64)),
+                        }
+                    }
+                    oprs => Err(TooManyOperands {
+                        provided: oprs.len() as u32,
+                        desired: 4,
+                    }),
+                },
+                Lr => match &operands[..] {
+                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
+                        provided: oprs.len() as u32,
+                        desired: 4,
+                    }),
+                    [reg, dev, rm, name] => {
+                        let &Operand::RegisterSpec {
+                            indirection,
+                            target,
+                        } = reg
+                        else {
+                            break 'inst Err(OperandNotRegister);
+                        };
+                        let (Some(device_id), _connection) = dev.get_device_id(self)? else {
+                            break 'inst Err(DeviceNotSet);
+                        };
+                        let device = vm.get_device_same_network(self.id, device_id as u16);
+                        match device {
+                            Some(device) => {
+                                let rm = ReagentMode::try_from(rm.get_value(self)?)?;
+                                let name = name.get_value(self)?;
+                                let val = device.get_reagent(&rm, name);
+                                self.set_register(indirection, target, val)?;
+                                Ok(())
+                            }
+                            None => Err(UnknownDeviceID(device_id as f64)),
+                        }
+                    }
+                    oprs => Err(TooManyOperands {
+                        provided: oprs.len() as u32,
+                        desired: 4,
+                    }),
+                },
+                Lb => match &operands[..] {
+                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
+                        provided: oprs.len() as u32,
+                        desired: 4,
+                    }),
+                    [reg, prefab, lt, bm] => {
+                        let &Operand::RegisterSpec {
+                            indirection,
+                            target,
+                        } = reg
+                        else {
+                            break 'inst Err(OperandNotRegister);
+                        };
+                        let prefab = prefab.get_value(self)?;
+                        let lt = LogicType::try_from(lt.get_value(self)?)?;
+                        let bm = BatchMode::try_from(bm.get_value(self)?)?;
+                        let val = vm.get_batch_device_field(self.id, prefab, lt, bm)?;
+                        self.set_register(indirection, target, val)?;
+                        Ok(())
+                    }
+                    oprs => Err(TooManyOperands {
+                        provided: oprs.len() as u32,
+                        desired: 4,
+                    }),
+                },
+                Lbn => match &operands[..] {
+                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] | oprs @ [_, _, _, _] => {
+                        Err(TooFewOperands {
+                            provided: oprs.len() as u32,
+                            desired: 5,
+                        })
+                    }
+                    [reg, prefab, name, lt, bm] => {
+                        let &Operand::RegisterSpec {
+                            indirection,
+                            target,
+                        } = reg
+                        else {
+                            break 'inst Err(OperandNotRegister);
+                        };
+                        let prefab = prefab.get_value(self)?;
+                        let name = name.get_value(self)?;
+                        let lt = LogicType::try_from(lt.get_value(self)?)?;
+                        let bm = BatchMode::try_from(bm.get_value(self)?)?;
+                        let val = vm.get_batch_name_device_field(self.id, prefab, name, lt, bm)?;
+                        self.set_register(indirection, target, val)?;
+                        Ok(())
+                    }
+                    oprs => Err(TooManyOperands {
+                        provided: oprs.len() as u32,
+                        desired: 5,
+                    }),
+                },
+                Lbns => match &operands[..] {
+                    oprs @ [_]
+                    | oprs @ [_, _]
+                    | oprs @ [_, _, _]
+                    | oprs @ [_, _, _, _]
+                    | oprs @ [_, _, _, _, _] => Err(TooFewOperands {
+                        provided: oprs.len() as u32,
+                        desired: 6,
+                    }),
+                    [reg, prefab, name, index, slt, bm] => {
+                        let &Operand::RegisterSpec {
+                            indirection,
+                            target,
+                        } = reg
+                        else {
+                            break 'inst Err(OperandNotRegister);
+                        };
+                        let prefab = prefab.get_value(self)?;
+                        let name = name.get_value(self)?;
+                        let index = index.get_value(self)?;
+                        let slt = SlotLogicType::try_from(slt.get_value(self)?)?;
+                        let bm = BatchMode::try_from(bm.get_value(self)?)?;
+                        let val = vm.get_batch_name_device_slot_field(
+                            self.id, prefab, name, index, slt, bm,
+                        )?;
+                        self.set_register(indirection, target, val)?;
+                        Ok(())
+                    }
+                    oprs => Err(TooManyOperands {
+                        provided: oprs.len() as u32,
+                        desired: 6,
+                    }),
+                },
+                Lbs => match &operands[..] {
+                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] | oprs @ [_, _, _, _] => {
+                        Err(TooFewOperands {
+                            provided: oprs.len() as u32,
+                            desired: 5,
+                        })
+                    }
+                    [reg, prefab, index, slt, bm] => {
+                        let &Operand::RegisterSpec {
+                            indirection,
+                            target,
+                        } = reg
+                        else {
+                            break 'inst Err(OperandNotRegister);
+                        };
+                        let prefab = prefab.get_value(self)?;
+                        let index = index.get_value(self)?;
+                        let slt = SlotLogicType::try_from(slt.get_value(self)?)?;
+                        let bm = BatchMode::try_from(bm.get_value(self)?)?;
+                        let val =
+                            vm.get_batch_device_slot_field(self.id, prefab, index, slt, bm)?;
+                        self.set_register(indirection, target, val)?;
+                        Ok(())
+                    }
+                    oprs => Err(TooManyOperands {
+                        provided: oprs.len() as u32,
+                        desired: 5,
+                    }),
+                },
             }
         };
         self.ip = next_ip;
         result
+    }
+}
+
+#[allow(dead_code)]
+const CHANNEL_LOGIC_TYPES: [grammar::LogicType; 8] = [
+    grammar::LogicType::Channel0,
+    grammar::LogicType::Channel1,
+    grammar::LogicType::Channel2,
+    grammar::LogicType::Channel3,
+    grammar::LogicType::Channel4,
+    grammar::LogicType::Channel5,
+    grammar::LogicType::Channel6,
+    grammar::LogicType::Channel7,
+];
+
+fn channel_logic_to_channel(lt: grammar::LogicType) -> Option<usize> {
+    match lt {
+        grammar::LogicType::Channel0 => Some(0),
+        grammar::LogicType::Channel1 => Some(1),
+        grammar::LogicType::Channel2 => Some(2),
+        grammar::LogicType::Channel3 => Some(3),
+        grammar::LogicType::Channel4 => Some(4),
+        grammar::LogicType::Channel5 => Some(5),
+        grammar::LogicType::Channel6 => Some(6),
+        grammar::LogicType::Channel7 => Some(7),
+        _ => None,
     }
 }
 

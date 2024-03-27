@@ -1,20 +1,90 @@
 use convert_case::{Case, Casing};
 use std::{
-    collections::HashSet,
+    collections::{HashMap, HashSet},
     env,
+    fmt::Display,
     fs::{self, File},
     io::{BufWriter, Write},
     path::Path,
+    str::FromStr,
 };
 
-fn write_logictypes(logictypes_grammar: &mut HashSet<String>) {
+trait PrimitiveRepr {}
+impl PrimitiveRepr for u8 {}
+impl PrimitiveRepr for u16 {}
+impl PrimitiveRepr for u32 {}
+impl PrimitiveRepr for u64 {}
+impl PrimitiveRepr for u128 {}
+impl PrimitiveRepr for usize {}
+impl PrimitiveRepr for i8 {}
+impl PrimitiveRepr for i16 {}
+impl PrimitiveRepr for i32 {}
+impl PrimitiveRepr for i64 {}
+impl PrimitiveRepr for i128 {}
+impl PrimitiveRepr for isize {}
+
+struct EnumVariant<P>
+where
+    P: Display + FromStr,
+{
+    pub aliases: Vec<String>,
+    pub value: Option<P>,
+    pub depricated: bool,
+}
+
+fn write_repr_enum<T: std::io::Write, I, P>(
+    writer: &mut BufWriter<T>,
+    name: &str,
+    variants: &I,
+    use_phf: bool,
+) where
+    P: Display + FromStr,
+    for<'a> &'a I: IntoIterator<Item = (&'a String, &'a EnumVariant<P>)>,
+{
+    let additional_strum = if use_phf { "#[strum(use_phf)]\n" } else { "" };
+    write!(
+        writer,
+         "#[derive(Debug, Display, Clone, Copy, PartialEq, Eq, Hash, EnumString, AsRefStr, EnumProperty, EnumIter)]\n\
+         {additional_strum}\
+         pub enum {name} {{\n"
+    )
+    .unwrap();
+    for (name, variant) in variants.into_iter() {
+        let variant_name = name.to_case(Case::Pascal);
+        let mut serialize = vec![name.clone()];
+        serialize.extend(variant.aliases.iter().cloned());
+        let serialize_str = serialize
+            .into_iter()
+            .map(|s| format!("serialize = \"{s}\""))
+            .collect::<Vec<String>>()
+            .join(", ");
+        let depricated_str = if variant.depricated {
+            ", depricated = \"true\"".to_string()
+        } else {
+            "".to_string()
+        };
+        let props_str = if let Some(val) = &variant.value {
+            format!(", props( value = \"{val}\"{depricated_str})")
+        } else {
+            "".to_string()
+        };
+        write!(
+            writer,
+            "    #[strum({serialize_str}{props_str})] {variant_name},\n"
+        )
+        .unwrap();
+    }
+    write!(writer, "}}\n").unwrap();
+}
+
+fn write_logictypes() {
     let out_dir = env::var_os("OUT_DIR").unwrap();
 
     let dest_path = Path::new(&out_dir).join("logictypes.rs");
     let output_file = File::create(dest_path).unwrap();
     let mut writer = BufWriter::new(&output_file);
 
-    let mut logictype_lookup_map_builder = ::phf_codegen::Map::new();
+    let mut logictypes: HashMap<String, EnumVariant<u8>> = HashMap::new();
     let l_infile = Path::new("data/logictypes.txt");
     let l_contents = fs::read_to_string(l_infile).unwrap();
 
@@ -23,14 +93,41 @@ fn write_logictypes(logictypes_grammar: &mut HashSet<String>) {
         let name = it.next().unwrap();
         let val_str = it.next().unwrap();
         let val: Option<u8> = val_str.parse().ok();
+        let docs = it.next();
+        let depricated = docs
+            .map(|docs| docs.trim().to_uppercase() == "DEPRECATED")
+            .unwrap_or(false);
 
-        logictypes_grammar.insert(name.to_string());
-        if let Some(v) = val {
-            logictype_lookup_map_builder.entry(name, &format!("{}u8", v));
+        if let Some(val) = val {
+            if let Some((_other_name, variant)) = logictypes
+                .iter_mut()
+                .find(|(_, variant)| variant.value == Some(val))
+            {
+                variant.aliases.push(name.to_string());
+                variant.depricated = depricated;
+            } else {
+                logictypes.insert(
+                    name.to_string(),
+                    EnumVariant {
+                        aliases: Vec::new(),
+                        value: Some(val),
+                        depricated,
+                    },
+                );
+            }
+        } else {
+            logictypes.insert(
+                name.to_string(),
+                EnumVariant {
+                    aliases: Vec::new(),
+                    value: val,
+                    depricated,
+                },
+            );
         }
     }
 
-    let mut slotlogictype_lookup_map_builder = ::phf_codegen::Map::new();
+    let mut slotlogictypes: HashMap<String, EnumVariant<u8>> = HashMap::new();
     let sl_infile = Path::new("data/slotlogictypes.txt");
     let sl_contents = fs::read_to_string(sl_infile).unwrap();
 
@@ -39,32 +136,50 @@ fn write_logictypes(logictypes_grammar: &mut HashSet<String>) {
         let name = it.next().unwrap();
         let val_str = it.next().unwrap();
         let val: Option<u8> = val_str.parse().ok();
+        let docs = it.next();
+        let depricated = docs
+            .map(|docs| docs.trim().to_uppercase() == "DEPRECATED")
+            .unwrap_or(false);
 
-        logictypes_grammar.insert(name.to_string());
-        if let Some(v) = val {
-            slotlogictype_lookup_map_builder.entry(name, &format!("{}u8", v));
+        if let Some(val) = val {
+            if let Some((_other_name, variant)) = slotlogictypes
+                .iter_mut()
+                .find(|(_, variant)| variant.value == Some(val))
+            {
+                variant.aliases.push(name.to_string());
+                variant.depricated = depricated;
+            } else {
+                slotlogictypes.insert(
+                    name.to_string(),
+                    EnumVariant {
+                        aliases: Vec::new(),
+                        value: Some(val),
+                        depricated,
+                    },
+                );
+            }
+        } else {
+            slotlogictypes.insert(
+                name.to_string(),
+                EnumVariant {
+                    aliases: Vec::new(),
+                    value: val,
+                    depricated,
+                },
+            );
         }
     }
 
-    write!(
-        &mut writer,
-        "pub(crate) const LOGIC_TYPE_LOOKUP: phf::Map<&'static str, u8> = {};\n",
-        logictype_lookup_map_builder.build()
-    )
-    .unwrap();
+    write_repr_enum(&mut writer, "LogicType", &logictypes, true);
+
     println!("cargo:rerun-if-changed=data/logictypes.txt");
 
-    write!(
-        &mut writer,
-        "pub(crate) const SLOT_TYPE_LOOKUP: phf::Map<&'static str, u8> = {};\n",
-        slotlogictype_lookup_map_builder.build()
-    )
-    .unwrap();
+    write_repr_enum(&mut writer, "SlotLogicType", &slotlogictypes, true);
 
     println!("cargo:rerun-if-changed=data/slotlogictypes.txt");
 }
 
-fn write_enums(enums_grammar: &mut HashSet<String>) {
+fn write_enums() {
     let out_dir = env::var_os("OUT_DIR").unwrap();
 
     let dest_path = Path::new(&out_dir).join("enums.rs");
@@ -83,7 +198,6 @@ fn write_enums(enums_grammar: &mut HashSet<String>) {
         let val: Option<u8> = val_str.parse().ok();
 
         if !check_set.contains(name) {
-            enums_grammar.insert(name.to_string());
             check_set.insert(name);
         }
 
@@ -102,14 +216,14 @@ fn write_enums(enums_grammar: &mut HashSet<String>) {
     println!("cargo:rerun-if-changed=data/enums.txt");
 }
 
-fn write_modes(logictypes_grammar: &mut HashSet<String>) {
+fn write_modes() {
     let out_dir = env::var_os("OUT_DIR").unwrap();
 
     let dest_path = Path::new(&out_dir).join("modes.rs");
     let output_file = File::create(dest_path).unwrap();
     let mut writer = BufWriter::new(&output_file);
 
-    let mut batchmode_lookup_map_builder = ::phf_codegen::Map::new();
+    let mut batchmodes: HashMap<String, EnumVariant<u8>> = HashMap::new();
     let b_infile = Path::new("data/batchmodes.txt");
     let b_contents = fs::read_to_string(b_infile).unwrap();
 
@@ -119,13 +233,35 @@ fn write_modes(logictypes_grammar: &mut HashSet<String>) {
         let val_str = it.next().unwrap();
         let val: Option<u8> = val_str.parse().ok();
 
-        logictypes_grammar.insert(name.to_string());
-        if let Some(v) = val {
-            batchmode_lookup_map_builder.entry(name, &format!("{}u8", v));
+        if let Some(val) = val {
+            if let Some((_other_name, variant)) = batchmodes
+                .iter_mut()
+                .find(|(_, variant)| variant.value == Some(val))
+            {
+                variant.aliases.push(name.to_string());
+            } else {
+                batchmodes.insert(
+                    name.to_string(),
+                    EnumVariant {
+                        aliases: Vec::new(),
+                        value: Some(val),
+                        depricated: false,
+                    },
+                );
+            }
+        } else {
+            batchmodes.insert(
+                name.to_string(),
+                EnumVariant {
+                    aliases: Vec::new(),
+                    value: val,
+                    depricated: false,
+                },
+            );
         }
     }
 
-    let mut reagentmode_lookup_map_builder = ::phf_codegen::Map::new();
+    let mut reagentmodes: HashMap<String, EnumVariant<u8>> = HashMap::new();
     let r_infile = Path::new("data/reagentmodes.txt");
     let r_contents = fs::read_to_string(r_infile).unwrap();
 
@@ -135,32 +271,44 @@ fn write_modes(logictypes_grammar: &mut HashSet<String>) {
         let val_str = it.next().unwrap();
         let val: Option<u8> = val_str.parse().ok();
 
-        logictypes_grammar.insert(name.to_string());
-        if let Some(v) = val {
-            reagentmode_lookup_map_builder.entry(name, &format!("{}u8", v));
+        if let Some(val) = val {
+            if let Some((_other_name, variant)) = reagentmodes
+                .iter_mut()
+                .find(|(_, variant)| variant.value == Some(val))
+            {
+                variant.aliases.push(name.to_string());
+            } else {
+                reagentmodes.insert(
+                    name.to_string(),
+                    EnumVariant {
+                        aliases: Vec::new(),
+                        value: Some(val),
+                        depricated: false,
+                    },
+                );
+            }
+        } else {
+            reagentmodes.insert(
+                name.to_string(),
+                EnumVariant {
+                    aliases: Vec::new(),
+                    value: val,
+                    depricated: false,
+                },
+            );
         }
     }
 
-    write!(
-        &mut writer,
-        "pub(crate) const BATCH_MODE_LOOKUP: phf::Map<&'static str, u8> = {};\n",
-        batchmode_lookup_map_builder.build()
-    )
-    .unwrap();
+    write_repr_enum(&mut writer, "BatchMode", &batchmodes, false);
 
     println!("cargo:rerun-if-changed=data/batchmodes.txt");
 
-    write!(
-        &mut writer,
-        "pub(crate) const REAGENT_MODE_LOOKUP: phf::Map<&'static str, u8> = {};\n",
-        reagentmode_lookup_map_builder.build()
-    )
-    .unwrap();
+    write_repr_enum(&mut writer, "ReagentMode", &reagentmodes, false);
 
     println!("cargo:rerun-if-changed=data/reagentmodes.txt");
 }
 
-fn write_constants(constants_grammar: &mut HashSet<String>) {
+fn write_constants() {
     let out_dir = env::var_os("OUT_DIR").unwrap();
 
     let dest_path = Path::new(&out_dir).join("constants.rs");
@@ -176,7 +324,6 @@ fn write_constants(constants_grammar: &mut HashSet<String>) {
         let name = it.next().unwrap();
         let constant = it.next().unwrap();
 
-        constants_grammar.insert(name.to_string());
         constants_lookup_map_builder.entry(name, constant);
     }
 
@@ -248,14 +395,11 @@ fn write_instructions_enum() {
 }
 
 fn main() {
-    let mut logictype_grammar = HashSet::new();
-    let mut enums_grammar = HashSet::new();
-    let mut constants_grammar = HashSet::new();
     // write_instructions();
-    write_logictypes(&mut logictype_grammar);
-    write_modes(&mut logictype_grammar);
-    write_constants(&mut constants_grammar);
-    write_enums(&mut enums_grammar);
+    write_logictypes();
+    write_modes();
+    write_constants();
+    write_enums();
 
     write_instructions_enum();
 }

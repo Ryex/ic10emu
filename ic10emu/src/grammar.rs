@@ -4,6 +4,87 @@ use itertools::Itertools;
 use std::error::Error;
 use std::fmt::Display;
 use std::str::FromStr;
+use strum::EnumProperty;
+
+pub mod generated {
+    use super::ParseError;
+    use crate::interpreter::ICError;
+    use std::str::FromStr;
+    use strum::AsRefStr;
+    use strum::Display;
+    use strum::EnumIter;
+    use strum::EnumProperty;
+    use strum::EnumString;
+    use strum::IntoEnumIterator;
+
+    include!(concat!(env!("OUT_DIR"), "/instructions.rs"));
+    include!(concat!(env!("OUT_DIR"), "/logictypes.rs"));
+    include!(concat!(env!("OUT_DIR"), "/modes.rs"));
+    include!(concat!(env!("OUT_DIR"), "/constants.rs"));
+    include!(concat!(env!("OUT_DIR"), "/enums.rs"));
+
+    impl TryFrom<f64> for LogicType {
+        type Error = ICError;
+        fn try_from(value: f64) -> Result<Self, <LogicType as TryFrom<f64>>::Error> {
+            if let Some(lt) = LogicType::iter().find(|lt| {
+                lt.get_str("value")
+                    .map(|val| val.parse::<u8>().unwrap() as f64 == value)
+                    .unwrap_or(false)
+            }) {
+                Ok(lt)
+            } else {
+                Err(crate::interpreter::ICError::UnknownLogicType(value))
+            }
+        }
+    }
+
+    impl TryFrom<f64> for SlotLogicType {
+        type Error = ICError;
+        fn try_from(value: f64) -> Result<Self, <SlotLogicType as TryFrom<f64>>::Error> {
+            if let Some(slt) = SlotLogicType::iter().find(|lt| {
+                lt.get_str("value")
+                    .map(|val| val.parse::<u8>().unwrap() as f64 == value)
+                    .unwrap_or(false)
+            }) {
+                Ok(slt)
+            } else {
+                Err(crate::interpreter::ICError::UnknownSlotLogicType(value))
+            }
+        }
+    }
+
+    impl TryFrom<f64> for BatchMode {
+        type Error = ICError;
+        fn try_from(value: f64) -> Result<Self, <BatchMode as TryFrom<f64>>::Error> {
+            if let Some(bm) = BatchMode::iter().find(|lt| {
+                lt.get_str("value")
+                    .map(|val| val.parse::<u8>().unwrap() as f64 == value)
+                    .unwrap_or(false)
+            }) {
+                Ok(bm)
+            } else {
+                Err(crate::interpreter::ICError::UnknownBatchMode(value))
+            }
+        }
+    }
+
+    impl TryFrom<f64> for ReagentMode {
+        type Error = ICError;
+        fn try_from(value: f64) -> Result<Self, <ReagentMode as TryFrom<f64>>::Error> {
+            if let Some(rm) = ReagentMode::iter().find(|lt| {
+                lt.get_str("value")
+                    .map(|val| val.parse::<u8>().unwrap() as f64 == value)
+                    .unwrap_or(false)
+            }) {
+                Ok(rm)
+            } else {
+                Err(crate::interpreter::ICError::UnknownReagentMode(value))
+            }
+        }
+    }
+}
+
+pub use generated::*;
 
 #[derive(Debug, Clone)]
 pub struct ParseError {
@@ -56,12 +137,6 @@ impl ParseError {
         }
     }
 }
-
-include!(concat!(env!("OUT_DIR"), "/instructions.rs"));
-include!(concat!(env!("OUT_DIR"), "/logictypes.rs"));
-include!(concat!(env!("OUT_DIR"), "/modes.rs"));
-include!(concat!(env!("OUT_DIR"), "/constants.rs"));
-include!(concat!(env!("OUT_DIR"), "/enums.rs"));
 
 pub fn parse(code: &str) -> Result<Vec<Line>, ParseError> {
     code.lines()
@@ -203,10 +278,13 @@ pub enum Operand {
     },
     DeviceSpec {
         device: Device,
-        channel: Option<u32>,
+        connection: Option<u32>,
     },
     Number(Number),
     LogicType(LogicType),
+    SlotLogicType(SlotLogicType),
+    BatchMode(BatchMode),
+    ReagentMode(ReagentMode),
     Identifier(Identifier),
 }
 
@@ -218,16 +296,34 @@ impl Operand {
                 target,
             } => ic.get_register(*indirection, *target),
             &Operand::Number(num) => Ok(num.value()),
-            &Operand::LogicType(lt) => Ok(lt.value),
+            &Operand::LogicType(lt) => lt
+                .get_str("value")
+                .map(|val| val.parse::<u8>().unwrap() as f64)
+                .ok_or(interpreter::ICError::TypeValueNotKnown),
+            &Operand::SlotLogicType(slt) => slt
+                .get_str("value")
+                .map(|val| val.parse::<u8>().unwrap() as f64)
+                .ok_or(interpreter::ICError::TypeValueNotKnown),
+            &Operand::BatchMode(bm) => bm
+                .get_str("value")
+                .map(|val| val.parse::<u8>().unwrap() as f64)
+                .ok_or(interpreter::ICError::TypeValueNotKnown),
+            &Operand::ReagentMode(rm) => rm
+                .get_str("value")
+                .map(|val| val.parse::<u8>().unwrap() as f64)
+                .ok_or(interpreter::ICError::TypeValueNotKnown),
             &Operand::Identifier(ident) => ic.get_ident_value(&ident.name),
             &Operand::DeviceSpec { .. } => Err(interpreter::ICError::DeviceNotValue),
         }
     }
 
-
-    pub fn get_value_i64(&self, ic: &interpreter::IC, signed: bool) -> Result<i64, interpreter::ICError> {
+    pub fn get_value_i64(
+        &self,
+        ic: &interpreter::IC,
+        signed: bool,
+    ) -> Result<i64, interpreter::ICError> {
         let val = self.get_value(ic)?;
-        if val < -9.223372036854776E+18  {
+        if val < -9.223372036854776E+18 {
             Err(interpreter::ICError::ShiftUnderflowI64)
         } else if val <= 9.223372036854776E+18 {
             Ok(interpreter::f64_to_i64(val, signed))
@@ -252,15 +348,15 @@ impl Operand {
         ic: &interpreter::IC,
     ) -> Result<(Option<u16>, Option<u32>), interpreter::ICError> {
         match &self {
-            &Operand::DeviceSpec { device, channel } => match device {
-                Device::Db => Ok((Some(ic.id), *channel)),
+            &Operand::DeviceSpec { device, connection } => match device {
+                Device::Db => Ok((Some(ic.id), *connection)),
                 Device::Numbered(p) => {
                     let dp = ic
                         .pins
                         .get(*p as usize)
                         .ok_or(interpreter::ICError::DeviceIndexOutOfRange(*p as f64))
                         .copied()?;
-                    Ok((dp, *channel))
+                    Ok((dp, *connection))
                 }
                 Device::Indirect {
                     indirection,
@@ -272,7 +368,7 @@ impl Operand {
                         .get(val as usize)
                         .ok_or(interpreter::ICError::DeviceIndexOutOfRange(val))
                         .copied()?;
-                    Ok((dp, *channel))
+                    Ok((dp, *connection))
                 }
             },
             &Operand::Identifier(id) => ic.get_ident_device_id(&id.name),
@@ -322,20 +418,20 @@ impl FromStr for Operand {
             ['d', rest @ ..] => match rest {
                 ['b'] => Ok(Operand::DeviceSpec {
                     device: Device::Db,
-                    channel: None,
+                    connection: None,
                 }),
                 ['b', ':', chan @ ..] => {
                     if chan.into_iter().all(|c| c.is_digit(10)) {
                         Ok(Operand::DeviceSpec {
                             device: Device::Db,
-                            channel: Some(String::from_iter(chan).parse().unwrap()),
+                            connection: Some(String::from_iter(chan).parse().unwrap()),
                         })
                     } else {
                         Err(ParseError {
                             line: 0,
                             start: 3,
                             end: 3,
-                            msg: format!("Invalid device channel specifier"),
+                            msg: format!("Invalid device connection specifier"),
                         })
                     }
                 }
@@ -346,25 +442,25 @@ impl FromStr for Operand {
                         .take_while_ref(|c| c.is_digit(10))
                         .collect::<String>();
                     let target = target_str.parse::<u32>().ok();
-                    let channel = {
+                    let connection = {
                         if rest_iter.peek() == Some(&&':') {
                             // take off ':'
                             rest_iter.next();
-                            let channel_str = rest_iter
+                            let connection_str = rest_iter
                                 .take_while_ref(|c| c.is_digit(10))
                                 .collect::<String>();
-                            let channel = channel_str.parse::<u32>().unwrap();
+                            let connection = connection_str.parse::<u32>().unwrap();
                             let trailing = rest_iter.clone().collect::<Vec<_>>();
                             if trailing.len() == 0 {
-                                Ok(Some(channel))
+                                Ok(Some(connection))
                             } else {
                                 let start =
-                                    2 + indirection + target_str.len() + 1 + channel_str.len();
+                                    2 + indirection + target_str.len() + 1 + connection_str.len();
                                 Err(ParseError {
                                     line: 0,
                                     start,
                                     end: start,
-                                    msg: format!("Invalid device channel specifier"),
+                                    msg: format!("Invalid device connection specifier"),
                                 })
                             }
                         } else {
@@ -379,7 +475,7 @@ impl FromStr for Operand {
                                     indirection: indirection as u32,
                                     target,
                                 },
-                                channel,
+                                connection: connection,
                             })
                         } else {
                             Err(ParseError {
@@ -399,24 +495,24 @@ impl FromStr for Operand {
                         .take_while_ref(|c| c.is_digit(10))
                         .collect::<String>();
                     let target = target_str.parse::<u32>().ok();
-                    let channel = {
+                    let connection = {
                         if rest_iter.peek() == Some(&&':') {
                             // take off ':'
                             rest_iter.next();
-                            let channel_str = rest_iter
+                            let connection_str = rest_iter
                                 .take_while_ref(|c| c.is_digit(10))
                                 .collect::<String>();
-                            let channel = channel_str.parse::<u32>().unwrap();
+                            let connection = connection_str.parse::<u32>().unwrap();
                             let trailing = rest_iter.clone().collect::<Vec<_>>();
                             if trailing.len() == 0 {
-                                Ok(Some(channel))
+                                Ok(Some(connection))
                             } else {
-                                let start = 1 + target_str.len() + 1 + channel_str.len();
+                                let start = 1 + target_str.len() + 1 + connection_str.len();
                                 Err(ParseError {
                                     line: 0,
                                     start,
                                     end: start,
-                                    msg: format!("Invalid device channel specifier"),
+                                    msg: format!("Invalid device connection specifier"),
                                 })
                             }
                         } else {
@@ -428,7 +524,7 @@ impl FromStr for Operand {
                         if trailing.len() == 0 {
                             Ok(Operand::DeviceSpec {
                                 device: Device::Numbered(target),
-                                channel,
+                                connection: connection,
                             })
                         } else {
                             Err(ParseError {
@@ -537,26 +633,14 @@ impl FromStr for Operand {
                     Ok(Operand::Number(Number::Constant(*val)))
                 } else if let Some(val) = ENUM_LOOKUP.get(s) {
                     Ok(Operand::Number(Number::Enum(*val as f64)))
-                } else if let Some(val) = LOGIC_TYPE_LOOKUP.get(s) {
-                    Ok(Operand::LogicType(LogicType {
-                        name: s.to_string(),
-                        value: *val as f64,
-                    }))
-                } else if let Some(val) = SLOT_TYPE_LOOKUP.get(s) {
-                    Ok(Operand::LogicType(LogicType {
-                        name: s.to_string(),
-                        value: *val as f64,
-                    }))
-                } else if let Some(val) = BATCH_MODE_LOOKUP.get(s) {
-                    Ok(Operand::LogicType(LogicType {
-                        name: s.to_string(),
-                        value: *val as f64,
-                    }))
-                } else if let Some(val) = REAGENT_MODE_LOOKUP.get(s) {
-                    Ok(Operand::LogicType(LogicType {
-                        name: s.to_string(),
-                        value: *val as f64,
-                    }))
+                } else if let Ok(lt) = LogicType::from_str(s) {
+                    Ok(Operand::LogicType(lt))
+                } else if let Ok(slt) = SlotLogicType::from_str(s) {
+                    Ok(Operand::SlotLogicType(slt))
+                } else if let Ok(bm) = BatchMode::from_str(s) {
+                    Ok(Operand::BatchMode(bm))
+                } else if let Ok(rm) = ReagentMode::from_str(s) {
+                    Ok(Operand::ReagentMode(rm))
                 } else {
                     Ok(Operand::Identifier(s.parse::<Identifier>()?))
                 }
@@ -565,11 +649,11 @@ impl FromStr for Operand {
     }
 }
 
-#[derive(PartialEq, Debug)]
-pub struct LogicType {
-    pub name: String,
-    pub value: f64,
-}
+// #[derive(PartialEq, Debug)]
+// pub struct LogicType {
+//     pub name: String,
+//     pub value: f64,
+// }
 
 #[derive(PartialEq, Debug)]
 pub struct Label {
@@ -673,6 +757,7 @@ impl Number {
 
 #[cfg(test)]
 mod tests {
+    use super::generated::*;
     use super::*;
 
     #[test]
@@ -687,12 +772,9 @@ mod tests {
                     operands: vec![
                         Operand::DeviceSpec {
                             device: Device::Numbered(0),
-                            channel: None,
+                            connection: None,
                         },
-                        Operand::LogicType(LogicType {
-                            name: "Setting".to_string(),
-                            value: 12.0,
-                        },),
+                        Operand::LogicType(LogicType::Setting),
                         Operand::Number(Number::Float(0.0)),
                     ],
                 },),),
@@ -800,7 +882,7 @@ mod tests {
                             },),
                             Operand::DeviceSpec {
                                 device: Device::Numbered(0),
-                                channel: None,
+                                connection: None,
                             },
                         ],
                     },),),
@@ -812,7 +894,7 @@ mod tests {
                         operands: vec![
                             Operand::DeviceSpec {
                                 device: Device::Numbered(0),
-                                channel: None,
+                                connection: None,
                             },
                             Operand::Number(Number::Float(12.0)),
                             Operand::Number(Number::Float(0.0)),
@@ -871,12 +953,9 @@ mod tests {
                                     indirection: 0,
                                     target: 15,
                                 },
-                                channel: None,
+                                connection: None,
                             },
-                            Operand::LogicType(LogicType {
-                                name: "RatioWater".to_string(),
-                                value: 19.0,
-                            },),
+                            Operand::LogicType(LogicType::RatioWater),
                         ],
                     },),),
                     comment: None,

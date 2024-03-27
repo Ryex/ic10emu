@@ -11,14 +11,14 @@ Bypass None Bypasses some internal behavoiur of the atmospherics device.
 CelestialHash 242 
 CelestialParentHash 250 
 Channel None Channel on a cable network which should be considered volatile
-Channel0 165 
-Channel1 166 
-Channel2 167 
-Channel3 168 
-Channel4 169 
-Channel5 170 
-Channel6 171 
-Channel7 172 
+Channel0 165 Channel on a cable network which should be considered volatile
+Channel1 166 Channel on a cable network which should be considered volatile
+Channel2 167 Channel on a cable network which should be considered volatile
+Channel3 168 Channel on a cable network which should be considered volatile
+Channel4 169 Channel on a cable network which should be considered volatile
+Channel5 170 Channel on a cable network which should be considered volatile
+Channel6 171 Channel on a cable network which should be considered volatile
+Channel7 172 Channel on a cable network which should be considered volatile
 Charge 11 The current charge the device has
 ClearMemory 62 When set to 1, clears the counter memory (e.g. ExportCount). Will set itself back to 0 when actioned
 CollectableGoods 101 
@@ -45,9 +45,9 @@ EnvironmentEfficiency 104 The Environment Efficiency reported by the machine, as
 Error 4 1 if device is in error state, otherwise 0
 ExhaustVelocity 235 
 ExportCount 63 How many items exported since last ClearMemory
-ExportQuantity None Total quantity of items exported by the device
-ExportSlotHash None DEPRECATED
-ExportSlotOccupant None DEPRECATED
+ExportQuantity 31 Total quantity of items exported by the device
+ExportSlotHash 42 DEPRECATED
+ExportSlotOccupant 32 DEPRECATED
 Filtration 74 The current state of the filtration system, for example Filtration = 1 for a Hardsuit sets filtration to On
 FlightControlRule 236 
 Flush 174 Set to 1 to activate the flush function on the device
@@ -61,9 +61,9 @@ Horizontal 20 Horizontal setting of the device
 HorizontalRatio 34 Radio of horizontal setting for device
 Idle 37 Returns 1 if the device is currently idle, otherwise 0
 ImportCount 64 How many items imported since last ClearMemory
-ImportQuantity None Total quantity of items imported by the device
-ImportSlotHash None DEPRECATED
-ImportSlotOccupant None DEPRECATED
+ImportQuantity 29 Total quantity of items imported by the device
+ImportSlotHash 43 DEPRECATED
+ImportSlotOccupant 30 DEPRECATED
 Inclination 246 
 Index 241 
 InterrogationProgress 157 Progress of this sattellite dish's interrogation of its current target, as a ratio from 0-1
@@ -72,10 +72,10 @@ Lock 10 1 if device is locked, otherwise 0, can be set in most devices and preve
 ManualResearchRequiredPod 94 
 Mass 219 The total Mass of the rocket in kilograms including fuel and cargo. The more massive the rocket the more fuel will be required to move to a new location in space.
 Maximum 23 Maximum setting of the device
-MinWattsToContact None Minimum required amount of watts from the dish hitting the target trader contact to start interrogating the contact
+MinWattsToContact 163 Minimum required amount of watts from the dish hitting the target trader contact to start interrogating the contact
 MineablesInQueue 96 
 MineablesInVicinity 95 
-MinimumWattsToContact 163 
+MinimumWattsToContact 163 Minimum required amount of watts from the dish hitting the target trader contact to start interrogating the contact
 Mode 3 Integer for mode state, different devices will have different mode states available to them
 NextWeatherEventTime 97 
 None None No description
@@ -105,7 +105,7 @@ PlantHealth2 None DEPRECATED
 PlantHealth3 None DEPRECATED
 PlantHealth4 None DEPRECATED
 PositionX 76 The current position in X dimension in world coordinates
-PositionY None The current position in Y dimension in world coordinates
+PositionY 77 The current position in Y dimension in world coordinates
 PositionZ 78 The current position in Z dimension in world coordinates
 Power 1 Can be read to return if the device is correctly powered or not, set via the power system, return 1 if powered and 0 if not
 PowerActual 26 How much energy the device or network is actually using
@@ -206,9 +206,9 @@ Rpm 155 The number of revolutions per minute that the device's spinning mechanis
 SemiMajorAxis 248 
 Setting 12 A variable setting that can be read or written, depending on the device
 SettingInput 91 
-SettingInputHash None The input setting for the device
+SettingInputHash 91 The input setting for the device
 SettingOutput 92 
-SettingOutputHash None The output setting for the device
+SettingOutputHash 91 The output setting for the device
 SignalID 87 Returns the contact ID of the strongest signal from this Satellite
 SignalStrength 86 Returns the degree offset of the strongest contact
 SizeX 160 Size on the X (right) axis of the object in largeGrids (a largeGrid is 2meters)
