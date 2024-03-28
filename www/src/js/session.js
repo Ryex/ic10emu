@@ -37,7 +37,7 @@ move r2 100000.001
 # to get their documentation
 #             vvvvvvvvvvvvvvv
 move r0 HASH("AccessCardBlack")
-beqz r1 test
+beqzal r1 test
 
 # -2045627372 is the crc32 hash of a SolarPanel, 
 # hover it to see the documentation!
@@ -45,7 +45,7 @@ beqz r1 test
 move r1 -2045627372
 jal test
 move r1 $FF
-beqz 0 test
+beqzal 0 test
 move r1 %1000
 yield
 j main
@@ -61,6 +61,9 @@ class Session {
     this._programs = {};
     this._save_timeout = 0;
     this._onLoadCallbacks = [];
+    this._activeSession = 0;
+    this._activeLines = {};
+    this._onActiveLineCallbacks = [];
     this.loadFromFragment();
 
     const self = this;
@@ -75,6 +78,23 @@ class Session {
 
   set programs(programs) {
     Object.assign(this._programs, programs);
+  }
+
+  get activeSession() {
+    return this._activeSession;
+  }
+
+  getActiveLine(id) {
+    return this._activeLines[id];
+  }
+
+  setActiveLine(id, line) {
+    this._activeLines[id] = line;
+    this._fireOnActiveLine();
+  }
+
+  set activeLine(line) {
+    this._activeLine = line;
   }
 
   setProgramCode(id, code) {
@@ -93,10 +113,25 @@ class Session {
     }
   }
 
+  onActiveLine(callback) {
+    this._onActiveLineCallbacks.push(callback);
+  }
+
+  _fireOnActiveLine() {
+    for (const i in this._onActiveLineCallbacks) {
+      const callback = this._onActiveLineCallbacks[i];
+      callback(this);
+    }
+  }
+
   save() {
     if (this._save_timeout) clearTimeout(this._save_timeout);
     this._save_timeout = setTimeout(() => {
       this.saveToFragment();
+      if (window.App.vm) {
+        window.App.vm.updateCode();
+      }
+
     }, 1000);
   }
 

@@ -1,5 +1,5 @@
 use crate::interpreter;
-use crate::tokens::SplitConsecutiveIndicesExt;
+use crate::tokens::{SplitConsecutiveIndicesExt, SplitConsecutiveWithIndices};
 use itertools::Itertools;
 use std::error::Error;
 use std::fmt::Display;
@@ -16,6 +16,7 @@ pub mod generated {
     use strum::EnumProperty;
     use strum::EnumString;
     use strum::IntoEnumIterator;
+    use serde::{Deserialize, Serialize};
 
     include!(concat!(env!("OUT_DIR"), "/instructions.rs"));
     include!(concat!(env!("OUT_DIR"), "/logictypes.rs"));
@@ -85,8 +86,9 @@ pub mod generated {
 }
 
 pub use generated::*;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ParseError {
     pub line: usize,
     pub start: usize,
@@ -233,29 +235,15 @@ impl FromStr for Instruction {
                 })
             }
         }?;
-        let mut operand_tokens = Vec::new();
-        let mut string_start = None;
-        for (index, token) in tokens_iter {
-            if token.starts_with("HASH(\"") {
-                string_start = Some(index);
-            }
-            if let Some(start) = string_start {
-                if token.ends_with("\")") {
-                    operand_tokens.push((start, &s[start..(index + token.len())]));
-                    string_start = None;
-                }
-            } else {
-                operand_tokens.push((index, token));
-            }
-        }
-        let operands = operand_tokens
-            .into_iter()
+        
+        let operands = get_operand_tokens(s, tokens_iter)
+            .iter()
             .map(|(index, token)| {
                 token
                     .parse::<Operand>()
-                    .map_err(|e| e.offset(index).span(token.len()))
+                    .map_err(|e| e.offset(*index).span(token.len()))
             })
-            .collect::<Result<Vec<_>, ParseError>>()?;
+            .try_collect()?;
         Ok(Instruction {
             instruction,
             operands,
@@ -263,14 +251,33 @@ impl FromStr for Instruction {
     }
 }
 
-#[derive(PartialEq, Debug, Clone, Copy)]
+fn get_operand_tokens<'a>(s: &'a str, tokens_iter: SplitConsecutiveWithIndices<'a>) -> Vec<(usize, &'a str)> {
+    let mut operand_tokens = Vec::with_capacity(8);
+    let mut string_start = None;
+    for (index, token) in tokens_iter {
+        if token.starts_with("HASH(\"") {
+            string_start = Some(index);
+        }
+        if let Some(start) = string_start {
+            if token.ends_with("\")") {
+                operand_tokens.push((start, &s[start..(index + token.len())]));
+                string_start = None;
+            }
+        } else {
+            operand_tokens.push((index, token));
+        }
+    }
+    operand_tokens
+}
+
+#[derive(PartialEq, Debug, Clone, Copy, Serialize, Deserialize)]
 pub enum Device {
     Db,
     Numbered(u32),
     Indirect { indirection: u32, target: u32 },
 }
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
 pub enum Operand {
     RegisterSpec {
         indirection: u32,
@@ -349,7 +356,7 @@ impl Operand {
     ) -> Result<(Option<u16>, Option<u32>), interpreter::ICError> {
         match &self {
             &Operand::DeviceSpec { device, connection } => match device {
-                Device::Db => Ok((Some(ic.id), *connection)),
+                Device::Db => Ok((Some(ic.device), *connection)),
                 Device::Numbered(p) => {
                     let dp = ic
                         .pins
@@ -598,6 +605,7 @@ impl FromStr for Operand {
                     .collect::<String>();
                 if !float_str.is_empty() {
                     if rest_iter.peek() == Some(&&'.') {
+                        rest_iter.next();
                         let decimal_str = rest_iter
                             .take_while_ref(|c| c.is_digit(10))
                             .collect::<String>();
@@ -684,7 +692,7 @@ impl FromStr for Label {
     }
 }
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
 pub struct Identifier {
     // #[rust_sitter::leaf(pattern = r"[a-zA-Z_.][\w\d.]*", transform = |id| id.to_string())]
     pub name: String,
@@ -732,7 +740,7 @@ impl FromStr for Identifier {
     }
 }
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
 pub enum Number {
     Float(f64),
     Binary(f64),
@@ -757,7 +765,6 @@ impl Number {
 
 #[cfg(test)]
 mod tests {
-    use super::generated::*;
     use super::*;
 
     #[test]

@@ -1,10 +1,10 @@
-import { init } from "ic10emu_wasm";
-
 import { IC10Editor, setupLspWorker } from "./editor";
 import { Session } from './session';
+import { VirtualMachine } from "./virtual_machine";
 
 const App = {
   editor: null,
+  vm: null,
   session: new Session()
 };
 
@@ -20,9 +20,9 @@ function docReady(fn) {
   }
 }
 
-init();
-
 docReady(() => { 
+
+  App.vm = new VirtualMachine();
 
   App.editor = new IC10Editor();
 

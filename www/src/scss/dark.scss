@@ -409,3 +409,33 @@ code {
   border: 1px solid rgba(8, 121, 144, 0.5);
   background: rgba(76, 87, 103, .19);
 }
+
+.vm_ic_active_line {
+  position: absolute;
+  background: rgba(121, 82, 179, 0.4);
+  z-index: 20;
+}
+
+.vm_reg {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-width: 1200px;
+  max-height: 400px;
+}
+
+// .vm_unset_reg .input-group {
+//   width: inherit;
+// }
+
+.vm_reg_cel {
+  max-width: 300px;
+  height: 32px;
+}
+
+.vm_reg_cel span {
+  min-width: 2.5rem;
+}
+
+.vm_reg_cel input {
+  width: 6rem;
+}

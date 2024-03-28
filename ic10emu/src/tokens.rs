@@ -47,14 +47,16 @@ impl<'a> Iterator for SplitConsecutiveWithIndices<'a> {
                     }
                 } else {
                     let s = &self.haystack[self.start..start];
+                    let index = self.start;
                     self.start = start;
-                    Some((self.start, s))
+                    Some((index, s))
                 }
             }
             None => {
                 let s = &self.haystack[self.start..];
+                let index = self.start;
                 self.start = self.haystack.len();
-                Some((self.start, s))
+                Some((index, s))
             }
         }
     }

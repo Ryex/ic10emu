@@ -107,9 +107,9 @@ export class AsyncStreamQueue {
 
   async next() {
     const done = false;
-    console.log(`AsyncStream(${this.tag}) waiting for message`)
+    // console.log(`AsyncStream(${this.tag}) waiting for message`)
     const value = await this.dequeue();
-    console.log(`AsyncStream(${this.tag}) got message`, decoder.decode(value))
+    // console.log(`AsyncStream(${this.tag}) got message`, decoder.decode(value))
     return { done, value };
   }
 

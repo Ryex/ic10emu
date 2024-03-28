@@ -9,21 +9,30 @@ edition = "2021"
 crate-type = ["lib"]
 
 
-
-
 [dependencies]
 const-crc32 = "1.3.0"
 itertools = "0.12.1"
 phf = "0.11.2"
 rand = "0.8.5"
 regex = "1.10.3"
+serde = { version = "1.0.197", features = ["derive"] }
 strum = { version = "0.26.2", features = ["derive", "phf", "strum_macros"] }
 strum_macros = "0.26.2"
 thiserror = "1.0.58"
+time = { version = "0.3.34", features = [
+    "formatting",
+    "serde",
+    "local-offset",
+] }
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
-web-time = "1.1.0"
 getrandom = { version = "0.2", features = ["js"] }
+time = { version = "0.3.34", features = [
+    "formatting",
+    "serde",
+    "local-offset",
+    "wasm-bindgen",
+] }
 
 
 [build-dependencies]

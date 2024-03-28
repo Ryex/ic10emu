@@ -1,47 +1,56 @@
 use core::f64;
-use std::collections::{HashMap, HashSet};
+use std::{
+    cell::RefCell,
+    collections::{HashMap, HashSet},
+    rc::Rc,
+};
 
-mod grammar;
-mod interpreter;
+pub mod grammar;
+pub mod interpreter;
 mod rand_mscorlib;
-mod tokens;
+pub mod tokens;
 
 use grammar::{BatchMode, LogicType, ReagentMode, SlotLogicType};
-use interpreter::ICError;
+use interpreter::{ICError, LineError};
 use itertools::Itertools;
+use serde::{Deserialize, Serialize};
 use thiserror::Error;
 
-#[derive(Error, Debug)]
+#[derive(Error, Debug, Serialize, Deserialize)]
 pub enum VMError {
     #[error("Device with id '{0}' does not exist")]
     UnknownId(u16),
+    #[error("IC with id '{0}' does not exist")]
+    UnknownIcId(u16),
     #[error("Device with id '{0}' does not have a IC Slot")]
     NoIC(u16),
     #[error("IC encoutered an error: {0}")]
     ICError(#[from] ICError),
+    #[error("IC encoutered an error: {0}")]
+    LineError(#[from] LineError),
     #[error("Invalid network ID {0}")]
     InvalidNetwork(u16),
 }
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub enum FieldType {
     Read,
     Write,
     ReadWrite,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct LogicField {
     pub field_type: FieldType,
     pub value: f64,
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Serialize, Deserialize)]
 pub struct Slot {
     pub fields: HashMap<grammar::SlotLogicType, LogicField>,
 }
 
-#[derive(Debug, Default, Clone, Copy)]
+#[derive(Debug, Default, Clone, Copy, Serialize, Deserialize)]
 pub enum Connection {
     CableNetwork(Option<u16>),
     #[default]
@@ -56,12 +65,12 @@ pub struct Device {
     pub fields: HashMap<grammar::LogicType, LogicField>,
     pub slots: Vec<Slot>,
     pub reagents: HashMap<ReagentMode, HashMap<i32, f64>>,
-    pub ic: Option<interpreter::IC>,
+    pub ic: Option<u16>,
     pub connections: [Connection; 8],
     pub prefab_hash: Option<i32>,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Network {
     pub devices: HashSet<u16>,
     pub channels: [f64; 8],
@@ -74,7 +83,7 @@ struct IdSequenceGenerator {
 
 impl Default for IdSequenceGenerator {
     fn default() -> Self {
-        IdSequenceGenerator { next: 1 }
+        IdSequenceGenerator { next: 0 }
     }
 }
 
@@ -88,13 +97,13 @@ impl IdSequenceGenerator {
 
 #[derive(Debug)]
 pub struct VM {
-    pub ics: HashSet<u16>,
-    pub devices: HashMap<u16, Device>,
-    pub networks: HashMap<u16, Network>,
+    pub ics: HashMap<u16, Rc<RefCell<interpreter::IC>>>,
+    pub devices: HashMap<u16, Rc<RefCell<Device>>>,
+    pub networks: HashMap<u16, Rc<RefCell<Network>>>,
     pub default_network: u16,
     id_gen: IdSequenceGenerator,
     network_id_gen: IdSequenceGenerator,
-    random: crate::rand_mscorlib::Random,
+    random: Rc<RefCell<crate::rand_mscorlib::Random>>,
 }
 
 impl Default for Network {
@@ -146,7 +155,7 @@ impl Network {
 
 impl Device {
     pub fn new(id: u16) -> Self {
-        Device {
+        let mut device = Device {
             id,
             name: None,
             name_hash: None,
@@ -156,12 +165,36 @@ impl Device {
             ic: None,
             connections: [Connection::default(); 8],
             prefab_hash: None,
-        }
+        };
+        device.connections[0] = Connection::CableNetwork(None);
+        device
     }
 
-    pub fn with_ic(id: u16) -> Self {
+    pub fn with_ic(id: u16, ic: u16) -> Self {
         let mut device = Device::new(id);
-        device.ic = Some(interpreter::IC::new(id));
+        device.ic = Some(ic);
+        device.fields.insert(
+            LogicType::Setting,
+            LogicField {
+                field_type: FieldType::ReadWrite,
+                value: 0.0,
+            },
+        );
+        device.fields.insert(
+            LogicType::Error,
+            LogicField {
+                field_type: FieldType::ReadWrite,
+                value: 0.0,
+            },
+        );
+        device.fields.insert(
+            LogicType::PrefabHash,
+            LogicField {
+                field_type: FieldType::Read,
+                value: -128473777.0,
+            },
+        );
+        device.prefab_hash = Some(-128473777);
         device
     }
 
@@ -262,19 +295,19 @@ impl VM {
     pub fn new() -> Self {
         let id_gen = IdSequenceGenerator::default();
         let mut network_id_gen = IdSequenceGenerator::default();
-        let default_network = Network::default();
+        let default_network = Rc::new(RefCell::new(Network::default()));
         let mut networks = HashMap::new();
         let default_network_key = network_id_gen.next();
         networks.insert(default_network_key, default_network);
 
         let mut vm = VM {
-            ics: HashSet::new(),
+            ics: HashMap::new(),
             devices: HashMap::new(),
             networks,
             default_network: default_network_key,
             id_gen,
             network_id_gen,
-            random: crate::rand_mscorlib::Random::new(),
+            random: Rc::new(RefCell::new(crate::rand_mscorlib::Random::new())),
         };
         let _ = vm.add_ic(None);
         vm
@@ -284,8 +317,11 @@ impl VM {
         Device::new(self.id_gen.next())
     }
 
-    fn new_ic(&mut self) -> Device {
-        Device::with_ic(self.id_gen.next())
+    fn new_ic(&mut self) -> (Device, interpreter::IC) {
+        let id = self.id_gen.next();
+        let ic = interpreter::IC::new(id, id);
+        let device = Device::with_ic(id, id);
+        (device, ic)
     }
 
     pub fn add_device(&mut self, network: Option<u16>) -> Result<u16, VMError> {
@@ -314,7 +350,15 @@ impl VM {
             });
         }
         let id = device.id;
-        self.devices.insert(id, device);
+        self.devices.insert(id, Rc::new(RefCell::new(device)));
+        let _ = self.add_device_to_network(
+            id,
+            if let Some(network) = network {
+                network
+            } else {
+                self.default_network
+            },
+        );
         Ok(id)
     }
 
@@ -324,7 +368,7 @@ impl VM {
                 return Err(VMError::InvalidNetwork(*n));
             }
         }
-        let mut device = self.new_ic();
+        let (mut device, ic) = self.new_ic();
         if let Some(first_network) = device
             .connections
             .iter_mut()
@@ -344,45 +388,117 @@ impl VM {
             });
         }
         let id = device.id;
-        self.devices.insert(id, device);
-        self.ics.insert(id);
+        let ic_id = ic.id;
+        self.devices.insert(id, Rc::new(RefCell::new(device)));
+        self.ics.insert(ic_id, Rc::new(RefCell::new(ic)));
+        let _ = self.add_device_to_network(
+            id,
+            if let Some(network) = network {
+                network
+            } else {
+                self.default_network
+            },
+        );
         Ok(id)
     }
 
     pub fn add_network(&mut self) -> u16 {
         let next_id = self.network_id_gen.next();
-        self.networks.insert(next_id, Network::default());
+        self.networks
+            .insert(next_id, Rc::new(RefCell::new(Network::default())));
         next_id
     }
 
-    pub fn get_default_network(&mut self) -> &mut Network {
-        self.networks.get_mut(&self.default_network).unwrap()
+    pub fn get_default_network(&self) -> Rc<RefCell<Network>> {
+        self.networks.get(&self.default_network).cloned().unwrap()
     }
 
-    pub fn get_network(&mut self, id: u16) -> Option<&mut Network> {
-        self.networks.get_mut(&id)
+    pub fn get_network(&self, id: u16) -> Option<Rc<RefCell<Network>>> {
+        self.networks.get(&id).cloned()
     }
 
     pub fn remove_ic(&mut self, id: u16) {
-        if self.ics.remove(&id) {
+        if self.ics.remove(&id).is_some() {
             self.devices.remove(&id);
         }
     }
 
-    pub fn set_code(&mut self, id: u16, code: &str) -> Result<bool, VMError> {
-        let device = self.devices.get_mut(&id).ok_or(VMError::UnknownId(id))?;
-        let ic = device.ic.as_mut().ok_or(VMError::NoIC(id))?;
+    pub fn set_code(&self, id: u16, code: &str) -> Result<bool, VMError> {
+        let device = self
+            .devices
+            .get(&id)
+            .ok_or(VMError::UnknownId(id))?
+            .borrow();
+        let ic_id = *device.ic.as_ref().ok_or(VMError::NoIC(id))?;
+        let mut ic = self
+            .ics
+            .get(&ic_id)
+            .ok_or(VMError::UnknownIcId(ic_id))?
+            .borrow_mut();
         let new_prog = interpreter::Program::try_from_code(code)?;
         ic.program = new_prog;
+        ic.ip = 0;
         ic.code = code.to_string();
         Ok(true)
     }
 
-    pub fn get_device(&mut self, id: u16) -> Option<&mut Device> {
-        self.devices.get_mut(&id)
+    pub fn step_ic(&self, id: u16) -> Result<bool, VMError> {
+        let device = self.devices.get(&id).ok_or(VMError::UnknownId(id))?.clone();
+        let ic_id = *device.borrow().ic.as_ref().ok_or(VMError::NoIC(id))?;
+        let ic = self
+            .ics
+            .get(&ic_id)
+            .ok_or(VMError::UnknownIcId(ic_id))?
+            .clone();
+        ic.borrow_mut().ic = 0;
+        let result = ic.borrow_mut().step(self)?;
+        Ok(result)
     }
 
-    pub fn get_device_same_network(&mut self, source: u16, other: u16) -> Option<&mut Device> {
+    /// returns true if exacuted 128 lines, false if returned early.
+    pub fn run_ic(&self, id: u16, ignore_errors: bool) -> Result<bool, VMError> {
+        let device = self.devices.get(&id).ok_or(VMError::UnknownId(id))?.clone();
+        let ic_id = *device.borrow().ic.as_ref().ok_or(VMError::NoIC(id))?;
+        let ic = self
+            .ics
+            .get(&ic_id)
+            .ok_or(VMError::UnknownIcId(ic_id))?
+            .clone();
+        ic.borrow_mut().ic = 0;
+        for _i in 0..128 {
+            if let Err(err) = ic.borrow_mut().step(self) {
+                if !ignore_errors {
+                    return Err(err.into());
+                }
+            }
+            if let interpreter::ICState::Yield = ic.borrow().state {
+                return Ok(false);
+            } else if let interpreter::ICState::Sleep(_then, _sleep_for) = ic.borrow().state {
+                return Ok(false);
+            }
+        }
+        ic.borrow_mut().state = interpreter::ICState::Yield;
+        Ok(true)
+    }
+
+    pub fn reset_ic(&self, id: u16) -> Result<bool, VMError> {
+        let device = self.devices.get(&id).ok_or(VMError::UnknownId(id))?.clone();
+        let ic_id = *device.borrow().ic.as_ref().ok_or(VMError::NoIC(id))?;
+        let ic = self
+            .ics
+            .get(&ic_id)
+            .ok_or(VMError::UnknownIcId(ic_id))?
+            .clone();
+        ic.borrow_mut().ic = 0;
+        ic.borrow_mut().reset();
+        Ok(true)
+    }
+
+    pub fn get_device(&self, id: u16) -> Option<Rc<RefCell<Device>>> {
+        self.devices.get(&id).cloned()
+    }
+
+    pub fn get_device_same_network(&self, source: u16, other: u16) -> Option<Rc<RefCell<Device>>> {
         if self.devices_on_same_network(&[source, other]) {
             self.get_device(other)
         } else {
@@ -395,29 +511,41 @@ impl VM {
             .networks
             .get(&(id as u16))
             .ok_or(ICError::BadNetworkId(id as u32))?;
-        Ok(network.channels[channel])
+        Ok(network.borrow().channels[channel])
     }
 
-    pub fn set_network_channel(&mut self, id: usize, channel: usize, val: f64) -> Result<(), ICError> {
+    pub fn set_network_channel(&self, id: usize, channel: usize, val: f64) -> Result<(), ICError> {
         let network = self
             .networks
-            .get_mut(&(id as u16))
+            .get(&(id as u16))
             .ok_or(ICError::BadNetworkId(id as u32))?;
-        network.channels[channel] = val;
+        network.borrow_mut().channels[channel] = val;
         Ok(())
     }
 
     pub fn devices_on_same_network(&self, ids: &[u16]) -> bool {
         for (_id, net) in self.networks.iter() {
-            if net.contains(ids) {
+            if net.borrow().contains(ids) {
                 return true;
             }
         }
         false
     }
 
+    fn add_device_to_network(&self, id: u16, network_id: u16) -> Result<bool, VMError> {
+        if !self.devices.contains_key(&id) {
+            return Err(VMError::UnknownId(id));
+        };
+        if let Some(network) = self.networks.get(&network_id) {
+            network.borrow_mut().add(id);
+            Ok(true)
+        } else {
+            Err(VMError::InvalidNetwork(network_id))
+        }
+    }
+
     pub fn set_batch_device_field(
-        &mut self,
+        &self,
         source: u16,
         prefab: f64,
         typ: LogicType,
@@ -425,14 +553,19 @@ impl VM {
     ) -> Result<(), ICError> {
         let networks = &self.networks;
         self.devices
-            .iter_mut()
+            .iter()
             .map(|(id, device)| {
-                if device.fields.get(&LogicType::PrefabHash).map(|f| f.value) == Some(prefab)
+                if device
+                    .borrow()
+                    .fields
+                    .get(&LogicType::PrefabHash)
+                    .map(|f| f.value)
+                    == Some(prefab)
                     && networks
                         .iter()
-                        .any(|(_net_id, net)| net.contains(&[source, *id]))
+                        .any(|(_net_id, net)| net.borrow().contains(&[source, *id]))
                 {
-                    device.set_field(typ, val)
+                    device.clone().borrow_mut().set_field(typ, val)
                 } else {
                     Ok(())
                 }
@@ -441,7 +574,7 @@ impl VM {
     }
 
     pub fn set_batch_device_slot_field(
-        &mut self,
+        &self,
         source: u16,
         prefab: f64,
         index: f64,
@@ -450,14 +583,19 @@ impl VM {
     ) -> Result<(), ICError> {
         let networks = &self.networks;
         self.devices
-            .iter_mut()
+            .iter()
             .map(|(id, device)| {
-                if device.fields.get(&LogicType::PrefabHash).map(|f| f.value) == Some(prefab)
+                if device
+                    .borrow()
+                    .fields
+                    .get(&LogicType::PrefabHash)
+                    .map(|f| f.value)
+                    == Some(prefab)
                     && networks
                         .iter()
-                        .any(|(_net_id, net)| net.contains(&[source, *id]))
+                        .any(|(_net_id, net)| net.borrow().contains(&[source, *id]))
                 {
-                    device.set_slot_field(index, typ, val)
+                    device.borrow_mut().set_slot_field(index, typ, val)
                 } else {
                     Ok(())
                 }
@@ -466,7 +604,7 @@ impl VM {
     }
 
     pub fn set_batch_name_device_field(
-        &mut self,
+        &self,
         source: u16,
         prefab: f64,
         name: f64,
@@ -475,15 +613,20 @@ impl VM {
     ) -> Result<(), ICError> {
         let networks = &self.networks;
         self.devices
-            .iter_mut()
+            .iter()
             .map(|(id, device)| {
-                if device.fields.get(&LogicType::PrefabHash).map(|f| f.value) == Some(prefab)
-                    && Some(name) == device.name_hash
+                if device
+                    .borrow()
+                    .fields
+                    .get(&LogicType::PrefabHash)
+                    .map(|f| f.value)
+                    == Some(prefab)
+                    && Some(name) == device.borrow().name_hash
                     && networks
                         .iter()
-                        .any(|(_net_id, net)| net.contains(&[source, *id]))
+                        .any(|(_net_id, net)| net.borrow().contains(&[source, *id]))
                 {
-                    device.set_field(typ, val)
+                    device.borrow_mut().set_field(typ, val)
                 } else {
                     Ok(())
                 }
@@ -492,7 +635,7 @@ impl VM {
     }
 
     pub fn get_batch_device_field(
-        &mut self,
+        &self,
         source: u16,
         prefab: f64,
         typ: LogicType,
@@ -501,14 +644,19 @@ impl VM {
         let networks = &self.networks;
         let samples = self
             .devices
-            .iter_mut()
+            .iter()
             .map(|(id, device)| {
-                if device.fields.get(&LogicType::PrefabHash).map(|f| f.value) == Some(prefab)
+                if device
+                    .borrow()
+                    .fields
+                    .get(&LogicType::PrefabHash)
+                    .map(|f| f.value)
+                    == Some(prefab)
                     && networks
                         .iter()
-                        .any(|(_net_id, net)| net.contains(&[source, *id]))
+                        .any(|(_net_id, net)| net.borrow().contains(&[source, *id]))
                 {
-                    device.get_field(typ).map(|val| Some(val))
+                    device.borrow_mut().get_field(typ).map(|val| Some(val))
                 } else {
                     Ok(None)
                 }
@@ -535,7 +683,7 @@ impl VM {
     }
 
     pub fn get_batch_name_device_field(
-        &mut self,
+        &self,
         source: u16,
         prefab: f64,
         name: f64,
@@ -545,15 +693,20 @@ impl VM {
         let networks = &self.networks;
         let samples = self
             .devices
-            .iter_mut()
+            .iter()
             .map(|(id, device)| {
-                if device.fields.get(&LogicType::PrefabHash).map(|f| f.value) == Some(prefab)
-                    && Some(name) == device.name_hash
+                if device
+                    .borrow()
+                    .fields
+                    .get(&LogicType::PrefabHash)
+                    .map(|f| f.value)
+                    == Some(prefab)
+                    && Some(name) == device.borrow().name_hash
                     && networks
                         .iter()
-                        .any(|(_net_id, net)| net.contains(&[source, *id]))
+                        .any(|(_net_id, net)| net.borrow().contains(&[source, *id]))
                 {
-                    device.get_field(typ).map(|val| Some(val))
+                    device.borrow().get_field(typ).map(|val| Some(val))
                 } else {
                     Ok(None)
                 }
@@ -580,7 +733,7 @@ impl VM {
     }
 
     pub fn get_batch_name_device_slot_field(
-        &mut self,
+        &self,
         source: u16,
         prefab: f64,
         name: f64,
@@ -591,15 +744,23 @@ impl VM {
         let networks = &self.networks;
         let samples = self
             .devices
-            .iter_mut()
+            .iter()
             .map(|(id, device)| {
-                if device.fields.get(&LogicType::PrefabHash).map(|f| f.value) == Some(prefab)
-                    && Some(name) == device.name_hash
+                if device
+                    .borrow()
+                    .fields
+                    .get(&LogicType::PrefabHash)
+                    .map(|f| f.value)
+                    == Some(prefab)
+                    && Some(name) == device.borrow().name_hash
                     && networks
                         .iter()
-                        .any(|(_net_id, net)| net.contains(&[source, *id]))
+                        .any(|(_net_id, net)| net.borrow().contains(&[source, *id]))
                 {
-                    device.get_slot_field(index, typ).map(|val| Some(val))
+                    device
+                        .borrow()
+                        .get_slot_field(index, typ)
+                        .map(|val| Some(val))
                 } else {
                     Ok(None)
                 }
@@ -626,7 +787,7 @@ impl VM {
     }
 
     pub fn get_batch_device_slot_field(
-        &mut self,
+        &self,
         source: u16,
         prefab: f64,
         index: f64,
@@ -636,14 +797,22 @@ impl VM {
         let networks = &self.networks;
         let samples = self
             .devices
-            .iter_mut()
+            .iter()
             .map(|(id, device)| {
-                if device.fields.get(&LogicType::PrefabHash).map(|f| f.value) == Some(prefab)
+                if device
+                    .borrow()
+                    .fields
+                    .get(&LogicType::PrefabHash)
+                    .map(|f| f.value)
+                    == Some(prefab)
                     && networks
                         .iter()
-                        .any(|(_net_id, net)| net.contains(&[source, *id]))
+                        .any(|(_net_id, net)| net.borrow().contains(&[source, *id]))
                 {
-                    device.get_slot_field(index, typ).map(|val| Some(val))
+                    device
+                        .borrow()
+                        .get_slot_field(index, typ)
+                        .map(|val| Some(val))
                 } else {
                     Ok(None)
                 }

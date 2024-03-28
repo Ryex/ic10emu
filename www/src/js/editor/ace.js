@@ -36,6 +36,8 @@ ace.config.setModuleLoader('ace/keyboard/sublime', () => import('ace-code/src/ke
 ace.config.setModuleLoader('ace/keyboard/vim', () => import('ace-code/src/keyboard/vim.js'));
 ace.config.setModuleLoader('ace/keyboard/vscode', () => import('ace-code/src/keyboard/vscode.js'));
 
+ace.config.setModuleLoader('ace/range', () => import('ace-code/src/range'));
+
 console.log("ace module loaders patched");
 
 export { ace };

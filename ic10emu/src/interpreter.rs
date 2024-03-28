@@ -1,112 +1,148 @@
 use core::f64;
+use serde::{Deserialize, Serialize};
 use std::{
     collections::{HashMap, HashSet},
+    error::Error,
+    fmt::Display,
     u32,
 };
 
 use itertools::Itertools;
-#[cfg(target_arch = "wasm32")]
-use web_time as time;
 
-#[cfg(not(target_arch = "wasm32"))]
-use std::time;
+use time::format_description;
 
 use crate::grammar::{self, ParseError};
 
 use thiserror::Error;
 
-#[derive(Debug, Error)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct LineError {
+    error: ICError,
+    line: u32,
+}
+
+impl Display for LineError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "Error on line {}: {}", self.line, self.error)
+    }
+}
+
+impl Error for LineError {}
+
+#[derive(Debug, Error, Clone, Serialize, Deserialize)]
 pub enum ICError {
     #[error("Error Compileing Code: {0}")]
     ParseError(#[from] ParseError),
-    #[error("")]
+    #[error("Duplicate label {0}")]
     DuplicateLabel(String),
-    #[error("")]
+    #[error("Instruction Pointer out of range: '{0}'")]
     InstructionPointerOutOfRange(u32),
-    #[error("")]
+    #[error("Register Pointer out of range: '{0}'")]
     RegisterIndexOutOfRange(f64),
-    #[error("")]
+    #[error("Device Pointer out of range: '{0}'")]
     DeviceIndexOutOfRange(f64),
-    #[error("")]
+    #[error("Stack index out of range: '{0}'")]
     StackIndexOutOfRange(f64),
-    #[error("")]
+    #[error("slot index out of range: '{0}'")]
     SlotIndexOutOfRange(f64),
-    #[error("")]
+    #[error("Unknown device ID '{0}'")]
     UnknownDeviceID(f64),
-    #[error("")]
+    #[error("Too few operands!: provide: '{provided}', desired: '{desired}'")]
     TooFewOperands { provided: u32, desired: u32 },
-    #[error("")]
+    #[error("Too many operands!: provide: '{provided}', desired: '{desired}'")]
     TooManyOperands { provided: u32, desired: u32 },
-    #[error("")]
+    #[error("Incorrect Operand Type for operand {index}, not a {desired} ")]
     IncorrectOperandType { index: u32, desired: String },
-    #[error("")]
+    #[error("Unknown identifier '{0}")]
     UnknownIdentifier(String),
-    #[error("")]
+    #[error("A Device is not a Value")]
     DeviceNotValue,
-    #[error("")]
+    #[error("A Value is not a Device")]
     ValueNotDevice,
-    #[error("")]
+    #[error("Device Not Set")]
     DeviceNotSet,
-    #[error("")]
-    OperandNotRegister,
-    #[error("")]
+    #[error("Shift Underflow i64(signed long)")]
     ShiftUnderflowI64,
-    #[error("")]
+    #[error("Shift Overflow i64(signed long)")]
     ShiftOverflowI64,
-    #[error("")]
+    #[error("Shift Underflow i32(signed int)")]
     ShiftUnderflowI32,
-    #[error("")]
+    #[error("Shift Overflow i32(signed int)")]
     ShiftOverflowI32,
-    #[error("")]
+    #[error("Stack Underflow")]
     StackUnderflow,
-    #[error("")]
+    #[error("Stack Overflow")]
     StackOverflow,
-    #[error("")]
+    #[error("Duplicate Define '{0}'")]
     DuplicateDefine(String),
-    #[error("")]
+    #[error("Read Only field '{0}'")]
     ReadOnlyField(String),
-    #[error("")]
+    #[error("Write Only field '{0}'")]
     WriteOnlyField(String),
-    #[error("")]
+    #[error("Device Has No Field '{0}'")]
     DeviceHasNoField(String),
-    #[error("")]
+    #[error("Device has not IC")]
     DeviceHasNoIC,
-    #[error("")]
+    #[error("Unknown Device '{0}'")]
     UnknownDeviceId(f64),
-    #[error("")]
+    #[error("Unknown Logic Type '{0}'")]
     UnknownLogicType(f64),
-    #[error("")]
+    #[error("Unknown Slot Logic Type '{0}'")]
     UnknownSlotLogicType(f64),
-    #[error("")]
+    #[error("Unknown Batch Mode '{0}'")]
     UnknownBatchMode(f64),
-    #[error("")]
+    #[error("Unknown Reagent Mode '{0}'")]
     UnknownReagentMode(f64),
-    #[error("")]
+    #[error("Type Value Not Known")]
     TypeValueNotKnown,
-    #[error("")]
+    #[error("Empty Device List")]
     EmptyDeviceList,
-    #[error("")]
+    #[error("Connection index out of range: '{0}'")]
     ConnecitonIndexOutOFRange(u32),
-    #[error("")]
+    #[error("Connection specifier missing")]
     MissingConnecitonSpecifier,
-    #[error("")]
+    #[error("No data network on connection '{0}'")]
     NotDataConnection(u32),
-    #[error("")]
+    #[error("Network not connected on connection '{0}'")]
     NetworkNotConnected(u32),
-    #[error("")]
+    #[error("Bad Network Id '{0}'")]
     BadNetworkId(u32),
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum ICState {
+    Start,
     Running,
     Yield,
-    Sleep(time::SystemTime, f64),
+    Sleep(time::OffsetDateTime, f64),
     HasCaughtFire,
+    Error(LineError),
+}
+
+impl Display for ICState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let out = match self {
+            ICState::Start => "Not Run".to_string(),
+            ICState::Running => "Running".to_string(),
+            ICState::Yield => "Ic has yielded, Resume on next tick".to_string(),
+            ICState::Sleep(then, sleep_for) => {
+                let format = format_description::parse("[hour]:[minute]:[second]").unwrap();
+                let resume = then.clone() + time::Duration::new(*sleep_for as i64, 0);
+                format!(
+                    "Sleeping for {sleep_for} seconds, will resume at {}",
+                    resume.format(&format).unwrap()
+                )
+            }
+            ICState::Error(err) => format!("{err}"),
+            ICState::HasCaughtFire => "IC has caught fire! this is not a joke!".to_string(),
+        };
+        write!(f, "{out}")
+    }
 }
 
 #[derive(Debug)]
 pub struct IC {
+    pub device: u16,
     pub id: u16,
     pub registers: [f64; 18],
     pub ip: u32,
@@ -181,8 +217,9 @@ impl Program {
 }
 
 impl IC {
-    pub fn new(id: u16) -> Self {
+    pub fn new(id: u16, device: u16) -> Self {
         IC {
+            device,
             id,
             ip: 0,
             ic: 0,
@@ -193,7 +230,7 @@ impl IC {
             code: String::new(),
             aliases: HashMap::new(),
             defines: HashMap::new(),
-            state: ICState::Running,
+            state: ICState::Start,
         }
     }
 
@@ -204,7 +241,7 @@ impl IC {
         self.stack = [0.0; 512];
         self.aliases = HashMap::new();
         self.defines = HashMap::new();
-        self.state = ICState::Running;
+        self.state = ICState::Start;
     }
 
     pub fn set_code(&mut self, code: &str) -> Result<(), ICError> {
@@ -279,7 +316,7 @@ impl IC {
 
     /// save ip to 'ra' or register 18
     fn al(&mut self) {
-        self.registers[17] = self.ip as f64;
+        self.registers[17] = self.ip as f64 + 1.0;
     }
 
     fn push(&mut self, val: f64) -> Result<f64, ICError> {
@@ -345,11 +382,21 @@ impl IC {
     }
 
     /// processes one line of the contained program
-    pub fn step(
-        &mut self,
-        _housing: &mut crate::Device,
-        vm: &mut crate::VM,
-    ) -> Result<(), ICError> {
+    pub fn step(&mut self, vm: &crate::VM) -> Result<bool, LineError> {
+        // TODO: handle sleep
+        self.state = ICState::Running;
+        let line = self.ip;
+        let result = self.internal_step(vm);
+        if let Err(error) = result {
+            let error = LineError { error, line };
+            self.state = ICState::Error(error.clone());
+            Err(error)
+        } else {
+            Ok(true)
+        }
+    }
+
+    fn internal_step(&mut self, vm: &crate::VM) -> Result<(), ICError> {
         use grammar::*;
         use ICError::*;
 
@@ -364,7 +411,8 @@ impl IC {
                 Sleep => match &operands[..] {
                     [a] => {
                         let a = a.get_value(self)?;
-                        let now = time::SystemTime::now();
+                        let now = time::OffsetDateTime::now_local()
+                            .unwrap_or(time::OffsetDateTime::now_utc());
                         self.state = ICState::Sleep(now, a);
                         Ok(())
                     }
@@ -434,10 +482,7 @@ impl IC {
                                 indirection: *indirection,
                                 target: *target,
                             },
-                            &Operand::DeviceSpec {
-                                device,
-                                connection,
-                            } => Operand::DeviceSpec {
+                            &Operand::DeviceSpec { device, connection } => Operand::DeviceSpec {
                                 device: *device,
                                 connection: *connection,
                             },
@@ -1601,7 +1646,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1624,7 +1672,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, if a == 0.0 { 1.0 } else { 0.0 })?;
@@ -1646,7 +1697,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1669,7 +1723,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, if a != 0.0 { 1.0 } else { 0.0 })?;
@@ -1691,7 +1748,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1714,7 +1774,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, if a < 0.0 { 1.0 } else { 0.0 })?;
@@ -1736,7 +1799,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1759,7 +1825,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, if a <= 0.0 { 1.0 } else { 0.0 })?;
@@ -1781,7 +1850,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1804,7 +1876,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, if a > 0.0 { 1.0 } else { 0.0 })?;
@@ -1826,7 +1901,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1849,7 +1927,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, if a >= 0.0 { 1.0 } else { 0.0 })?;
@@ -1871,7 +1952,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1905,7 +1989,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1936,7 +2023,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1970,7 +2060,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -2001,7 +2094,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let (device, _connection) = device.get_device_id(self)?;
                         self.set_register(
@@ -2027,7 +2123,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let (device, _connection) = device.get_device_id(self)?;
                         self.set_register(
@@ -2053,7 +2152,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, if a.is_nan() { 1.0 } else { 0.0 })?;
@@ -2075,7 +2177,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, if a.is_nan() { 0.0 } else { 1.0 })?;
@@ -2098,7 +2203,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -2123,7 +2231,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -2146,7 +2257,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -2169,7 +2283,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -2192,7 +2309,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -2215,7 +2335,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -2238,7 +2361,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::exp(a))?;
@@ -2260,7 +2386,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::ln(a))?;
@@ -2282,7 +2411,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::sqrt(a))?;
@@ -2305,7 +2437,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -2328,7 +2463,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -2351,7 +2489,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::ceil(a))?;
@@ -2373,7 +2514,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::floor(a))?;
@@ -2395,7 +2539,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::abs(a))?;
@@ -2417,7 +2564,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::round(a))?;
@@ -2439,7 +2589,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::trunc(a))?;
@@ -2458,9 +2611,12 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
-                        let val = vm.random.next_f64();
+                        let val = vm.random.clone().borrow_mut().next_f64();
                         self.set_register(indirection, target, val)?;
                         Ok(())
                     }
@@ -2481,7 +2637,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::sin(a))?;
@@ -2503,7 +2662,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::cos(a))?;
@@ -2525,7 +2687,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::tan(a))?;
@@ -2547,7 +2712,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::asin(a))?;
@@ -2569,7 +2737,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::acos(a))?;
@@ -2591,7 +2762,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::atan(a))?;
@@ -2613,7 +2787,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -2637,7 +2814,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value_i64(self, true)?;
                         let b = b.get_value_i32(self)?;
@@ -2660,7 +2840,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value_i64(self, false)?;
                         let b = b.get_value_i32(self)?;
@@ -2683,7 +2866,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value_i64(self, true)?;
                         let b = b.get_value_i32(self)?;
@@ -2707,7 +2893,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value_i64(self, true)?;
                         let b = b.get_value_i64(self, true)?;
@@ -2730,7 +2919,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value_i64(self, true)?;
                         let b = b.get_value_i64(self, true)?;
@@ -2753,7 +2945,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value_i64(self, true)?;
                         let b = b.get_value_i64(self, true)?;
@@ -2776,7 +2971,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value_i64(self, true)?;
                         let b = b.get_value_i64(self, true)?;
@@ -2799,7 +2997,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let a = a.get_value_i64(self, true)?;
                         self.set_register(indirection, target, i64_to_f64(!a))?;
@@ -2829,7 +3030,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let val = self.pop()?;
                         self.set_register(indirection, target, val)?;
@@ -2863,7 +3067,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let val = self.peek()?;
                         self.set_register(indirection, target, val)?;
@@ -2886,16 +3093,20 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let (Some(device_id), _connection) = dev_id.get_device_id(self)? else {
                             break 'inst Err(DeviceNotSet);
                         };
-                        let device = vm.get_device_same_network(self.id, device_id);
+                        let device = vm.get_device_same_network(self.device, device_id);
                         match device {
-                            Some(device) => match &mut device.ic {
-                                Some(ic) => {
+                            Some(device) => match device.borrow().ic.as_ref() {
+                                Some(ic_id) => {
                                     let addr = addr.get_value(self)?;
+                                    let ic = vm.ics.get(&ic_id).unwrap().borrow();
                                     let val = ic.peek_addr(addr)?;
                                     self.set_register(indirection, target, val)?;
                                     Ok(())
@@ -2921,16 +3132,20 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let (Some(device_id), _connection) = dev_id.get_device_id(self)? else {
                             break 'inst Err(DeviceNotSet);
                         };
-                        let device = vm.get_device_same_network(self.id, device_id);
+                        let device = vm.get_device_same_network(self.device, device_id);
                         match device {
-                            Some(device) => match &mut device.ic {
-                                Some(ic) => {
+                            Some(device) => match device.borrow().ic.as_ref() {
+                                Some(ic_id) => {
                                     let addr = addr.get_value(self)?;
+                                    let ic = vm.ics.get(&ic_id).unwrap().borrow();
                                     let val = ic.peek_addr(addr)?;
                                     self.set_register(indirection, target, val)?;
                                     Ok(())
@@ -2954,12 +3169,13 @@ impl IC {
                         let (Some(device_id), _connection) = dev_id.get_device_id(self)? else {
                             break 'inst Err(DeviceNotSet);
                         };
-                        let device = vm.get_device_same_network(self.id, device_id as u16);
+                        let device = vm.get_device_same_network(self.device, device_id as u16);
                         match device {
-                            Some(device) => match &mut device.ic {
-                                Some(ic) => {
+                            Some(device) => match device.borrow().ic.as_ref() {
+                                Some(ic_id) => {
                                     let addr = addr.get_value(self)?;
                                     let val = val.get_value(self)?;
+                                    let mut ic = vm.ics.get(&ic_id).unwrap().borrow_mut();
                                     ic.poke(addr, val)?;
                                     Ok(())
                                 }
@@ -2983,12 +3199,13 @@ impl IC {
                         if device_id >= u16::MAX as f64 || device_id < u16::MIN as f64 {
                             break 'inst Err(DeviceIndexOutOfRange(device_id));
                         }
-                        let device = vm.get_device_same_network(self.id, device_id as u16);
+                        let device = vm.get_device_same_network(self.device, device_id as u16);
                         match device {
-                            Some(device) => match &mut device.ic {
-                                Some(ic) => {
+                            Some(device) => match device.borrow().ic.as_ref() {
+                                Some(ic_id) => {
                                     let addr = addr.get_value(self)?;
                                     let val = val.get_value(self)?;
+                                    let mut ic = vm.ics.get(&ic_id).unwrap().borrow_mut();
                                     ic.poke(addr, val)?;
                                     Ok(())
                                 }
@@ -3019,18 +3236,18 @@ impl IC {
                                 break 'inst Err(MissingConnecitonSpecifier);
                             };
                             let network_id = vm
-                                .get_device_same_network(self.id, device_id as u16)
-                                .map(|device| device.get_network_id(connection as usize))
+                                .get_device_same_network(self.device, device_id as u16)
+                                .map(|device| device.borrow().get_network_id(connection as usize))
                                 .unwrap_or(Err(UnknownDeviceID(device_id as f64)))?;
                             let val = val.get_value(self)?;
                             vm.set_network_channel(network_id as usize, channel, val)?;
                             return Ok(());
                         }
-                        let device = vm.get_device_same_network(self.id, device_id as u16);
+                        let device = vm.get_device_same_network(self.device, device_id as u16);
                         match device {
                             Some(device) => {
                                 let val = val.get_value(self)?;
-                                device.set_field(lt, val)?;
+                                device.borrow_mut().set_field(lt, val)?;
                                 Ok(())
                             }
                             None => Err(UnknownDeviceID(device_id as f64)),
@@ -3051,12 +3268,12 @@ impl IC {
                         if device_id >= u16::MAX as f64 || device_id < u16::MIN as f64 {
                             break 'inst Err(DeviceIndexOutOfRange(device_id));
                         }
-                        let device = vm.get_device_same_network(self.id, device_id as u16);
+                        let device = vm.get_device_same_network(self.device, device_id as u16);
                         match device {
                             Some(device) => {
                                 let lt = LogicType::try_from(lt.get_value(self)?)?;
                                 let val = val.get_value(self)?;
-                                device.set_field(lt, val)?;
+                                device.borrow_mut().set_field(lt, val)?;
                                 Ok(())
                             }
                             None => Err(UnknownDeviceID(device_id as f64)),
@@ -3076,13 +3293,13 @@ impl IC {
                         let (Some(device_id), _connection) = dev.get_device_id(self)? else {
                             break 'inst Err(DeviceNotSet);
                         };
-                        let device = vm.get_device_same_network(self.id, device_id as u16);
+                        let device = vm.get_device_same_network(self.device, device_id as u16);
                         match device {
                             Some(device) => {
                                 let index = index.get_value(self)?;
                                 let lt = SlotLogicType::try_from(lt.get_value(self)?)?;
                                 let val = val.get_value(self)?;
-                                device.set_slot_field(index, lt, val)?;
+                                device.borrow_mut().set_slot_field(index, lt, val)?;
                                 Ok(())
                             }
                             None => Err(UnknownDeviceID(device_id as f64)),
@@ -3102,7 +3319,7 @@ impl IC {
                         let prefab = prefab.get_value(self)?;
                         let lt = LogicType::try_from(lt.get_value(self)?)?;
                         let val = val.get_value(self)?;
-                        vm.set_batch_device_field(self.id, prefab, lt, val)?;
+                        vm.set_batch_device_field(self.device, prefab, lt, val)?;
                         Ok(())
                     }
                     oprs => Err(TooManyOperands {
@@ -3120,7 +3337,7 @@ impl IC {
                         let index = index.get_value(self)?;
                         let lt = SlotLogicType::try_from(lt.get_value(self)?)?;
                         let val = val.get_value(self)?;
-                        vm.set_batch_device_slot_field(self.id, prefab, index, lt, val)?;
+                        vm.set_batch_device_slot_field(self.device, prefab, index, lt, val)?;
                         Ok(())
                     }
                     oprs => Err(TooManyOperands {
@@ -3138,7 +3355,7 @@ impl IC {
                         let name = name.get_value(self)?;
                         let lt = LogicType::try_from(lt.get_value(self)?)?;
                         let val = val.get_value(self)?;
-                        vm.set_batch_name_device_field(self.id, prefab, name, lt, val)?;
+                        vm.set_batch_name_device_field(self.device, prefab, name, lt, val)?;
                         Ok(())
                     }
                     oprs => Err(TooManyOperands {
@@ -3158,7 +3375,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let (Some(device_id), connection) = dev.get_device_id(self)? else {
                             break 'inst Err(DeviceNotSet);
@@ -3170,17 +3390,17 @@ impl IC {
                                 break 'inst Err(MissingConnecitonSpecifier);
                             };
                             let network_id = vm
-                                .get_device_same_network(self.id, device_id as u16)
-                                .map(|device| device.get_network_id(connection as usize))
+                                .get_device_same_network(self.device, device_id as u16)
+                                .map(|device| device.borrow().get_network_id(connection as usize))
                                 .unwrap_or(Err(UnknownDeviceID(device_id as f64)))?;
                             let val = vm.get_network_channel(network_id as usize, channel)?;
                             self.set_register(indirection, target, val)?;
                             return Ok(());
                         }
-                        let device = vm.get_device_same_network(self.id, device_id as u16);
+                        let device = vm.get_device_same_network(self.device, device_id as u16);
                         match device {
                             Some(device) => {
-                                let val = device.get_field(lt)?;
+                                let val = device.borrow().get_field(lt)?;
                                 self.set_register(indirection, target, val)?;
                                 Ok(())
                             }
@@ -3203,17 +3423,20 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let device_id = dev.get_value(self)?;
                         if device_id >= u16::MAX as f64 || device_id < u16::MIN as f64 {
                             break 'inst Err(DeviceIndexOutOfRange(device_id));
                         }
-                        let device = vm.get_device_same_network(self.id, device_id as u16);
+                        let device = vm.get_device_same_network(self.device, device_id as u16);
                         match device {
                             Some(device) => {
                                 let lt = LogicType::try_from(lt.get_value(self)?)?;
-                                let val = device.get_field(lt)?;
+                                let val = device.borrow().get_field(lt)?;
                                 self.set_register(indirection, target, val)?;
                                 Ok(())
                             }
@@ -3236,17 +3459,20 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let (Some(device_id), _connection) = dev.get_device_id(self)? else {
                             break 'inst Err(DeviceNotSet);
                         };
-                        let device = vm.get_device_same_network(self.id, device_id as u16);
+                        let device = vm.get_device_same_network(self.device, device_id as u16);
                         match device {
                             Some(device) => {
                                 let index = index.get_value(self)?;
                                 let lt = SlotLogicType::try_from(lt.get_value(self)?)?;
-                                let val = device.get_slot_field(index, lt)?;
+                                let val = device.borrow().get_slot_field(index, lt)?;
                                 self.set_register(indirection, target, val)?;
                                 Ok(())
                             }
@@ -3269,17 +3495,20 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let (Some(device_id), _connection) = dev.get_device_id(self)? else {
                             break 'inst Err(DeviceNotSet);
                         };
-                        let device = vm.get_device_same_network(self.id, device_id as u16);
+                        let device = vm.get_device_same_network(self.device, device_id as u16);
                         match device {
                             Some(device) => {
                                 let rm = ReagentMode::try_from(rm.get_value(self)?)?;
                                 let name = name.get_value(self)?;
-                                let val = device.get_reagent(&rm, name);
+                                let val = device.borrow().get_reagent(&rm, name);
                                 self.set_register(indirection, target, val)?;
                                 Ok(())
                             }
@@ -3302,12 +3531,15 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let prefab = prefab.get_value(self)?;
                         let lt = LogicType::try_from(lt.get_value(self)?)?;
                         let bm = BatchMode::try_from(bm.get_value(self)?)?;
-                        let val = vm.get_batch_device_field(self.id, prefab, lt, bm)?;
+                        let val = vm.get_batch_device_field(self.device, prefab, lt, bm)?;
                         self.set_register(indirection, target, val)?;
                         Ok(())
                     }
@@ -3329,13 +3561,17 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let prefab = prefab.get_value(self)?;
                         let name = name.get_value(self)?;
                         let lt = LogicType::try_from(lt.get_value(self)?)?;
                         let bm = BatchMode::try_from(bm.get_value(self)?)?;
-                        let val = vm.get_batch_name_device_field(self.id, prefab, name, lt, bm)?;
+                        let val =
+                            vm.get_batch_name_device_field(self.device, prefab, name, lt, bm)?;
                         self.set_register(indirection, target, val)?;
                         Ok(())
                     }
@@ -3359,7 +3595,10 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let prefab = prefab.get_value(self)?;
                         let name = name.get_value(self)?;
@@ -3367,7 +3606,12 @@ impl IC {
                         let slt = SlotLogicType::try_from(slt.get_value(self)?)?;
                         let bm = BatchMode::try_from(bm.get_value(self)?)?;
                         let val = vm.get_batch_name_device_slot_field(
-                            self.id, prefab, name, index, slt, bm,
+                            self.device,
+                            prefab,
+                            name,
+                            index,
+                            slt,
+                            bm,
                         )?;
                         self.set_register(indirection, target, val)?;
                         Ok(())
@@ -3390,14 +3634,17 @@ impl IC {
                             target,
                         } = reg
                         else {
-                            break 'inst Err(OperandNotRegister);
+                            break 'inst Err(IncorrectOperandType {
+                                index: 1,
+                                desired: "Register".to_string(),
+                            });
                         };
                         let prefab = prefab.get_value(self)?;
                         let index = index.get_value(self)?;
                         let slt = SlotLogicType::try_from(slt.get_value(self)?)?;
                         let bm = BatchMode::try_from(bm.get_value(self)?)?;
                         let val =
-                            vm.get_batch_device_slot_field(self.id, prefab, index, slt, bm)?;
+                            vm.get_batch_device_slot_field(self.device, prefab, index, slt, bm)?;
                         self.set_register(indirection, target, val)?;
                         Ok(())
                     }
@@ -3408,6 +3655,7 @@ impl IC {
                 },
             }
         };
+        self.ic += 1;
         self.ip = next_ip;
         result
     }
