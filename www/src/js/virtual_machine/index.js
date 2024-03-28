@@ -231,9 +231,9 @@ class VMRegistersUI {
             }
             const aliases = ic.aliases;
             if (aliases) {
-                this.ic_aliases = {}
-                aliases.keys().forEach(alias => {
-                    const target = aliases.get(alias);
+                this.ic_aliases = {};
+                aliases.forEach( (target, alias, _map) => {
+                    // const target = aliases.get(alias);
                     if (target.RegisterSpec &&  target.RegisterSpec.indirection == 0) {
                         const index = target.RegisterSpec.target;
                         this.ic_aliases[alias] = index;
