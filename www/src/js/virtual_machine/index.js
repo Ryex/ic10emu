@@ -232,13 +232,13 @@ class VMRegistersUI {
             const aliases = ic.aliases;
             if (aliases) {
                 this.ic_aliases = {}
-                aliases.keys().forEach(alias => {
+                for (const alias of aliases.keys()) {
                     const target = aliases.get(alias);
                     if (target.RegisterSpec &&  target.RegisterSpec.indirection == 0) {
                         const index = target.RegisterSpec.target;
                         this.ic_aliases[alias] = index;
                     }
-                })
+                }
             }
             console.log(aliases);
         }
