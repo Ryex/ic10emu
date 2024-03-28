@@ -23,6 +23,7 @@ s db 12 0
 # Enums and their values are Known, Hover them!
 #        vvvvvvvvvvvvvvvvvv
 move r2 LogicType.Temperature
+push r2
 
 # same with constants
 #       vvvv
@@ -32,11 +33,13 @@ move r3 pinf
 main:
 l r1 dr15 RatioWater
 move r2 100000.001
+push r2
 
 # Hover Hash Strings of Known prefab names
 # to get their documentation
 #             vvvvvvvvvvvvvvv
 move r0 HASH("AccessCardBlack")
+push r0
 beqzal r1 test
 
 # -2045627372 is the crc32 hash of a SolarPanel, 
@@ -45,8 +48,10 @@ beqzal r1 test
 move r1 -2045627372
 jal test
 move r1 $FF
+push r1
 beqzal 0 test
 move r1 %1000
+push r1
 yield
 j main
 

@@ -89,6 +89,15 @@ class VirtualMachine {
             console.log(e);
         }
     }
+
+    setStack(addr, val) {
+        const ic = this.ics[window.App.session.activeSession];
+        try {
+            ic.setStack(addr, val);
+        } catch (e) {
+            console.log(e);
+        }
+    }
 }
 
 
@@ -97,10 +106,9 @@ class VirtualMachineUI {
         this.vm = vm
         this.state = new VMStateUI(this);
         this.registers = new VMRegistersUI(this);
-        this.buildStackDisplay();
+        this.stack = new VMStackUI(this);
 
         const self = this;
-
 
         document.getElementById("vmControlRun").addEventListener('click', (_event) => {
             self.vm.run();
@@ -117,12 +125,9 @@ class VirtualMachineUI {
     update(ic) {
         this.state.update(ic);
         this.registers.update(ic);
+        this.stack.update(ic);
     }
 
-
-    buildStackDisplay() {
-
-    }
 }
 
 class VMStateUI {
@@ -132,7 +137,6 @@ class VMStateUI {
         this.instructionPointer = document.getElementById("vmActiveICStateIP");
         this.instructionCounter = document.getElementById("vmActiveICStateICount");
         this.lastState = document.getElementById("vmActiveICStateLastRun");
-
     }
 
     update(ic) {
@@ -186,8 +190,6 @@ class VMRegistersUI {
         this.ic_aliases = {}
         regDom.appendChild(this.tbl);
     }
-
-
 
     onCellUpdate(e) {
         let index;
@@ -244,6 +246,77 @@ class VMRegistersUI {
             this.regCels[index].aliasesLabel.innerText = label.join(", ")
         }
     }
+}
+
+class VMStackUI {
+    constructor(ui) {
+        this.ui = ui;
+        const stackDom = document.getElementById("vmActiveStack");
+        this.tbl = document.createElement("div");
+        this.tbl.classList.add("d-flex", "flex-wrap", "justify-content-start", "align-items-end",);
+        this.stackCels = [];
+        for (var i = 0; i < 512; i++) {
+            const container = document.createElement("div");
+            container.classList.add("vm_stack_cel", "align-self-stretch");
+            const cell = document.createElement("div");
+            cell.classList.add("input-group", "input-group-sm")
+            const nameLabel = document.createElement("span");
+            nameLabel.innerText = `${i}`;
+            nameLabel.classList.add("input-group-text")
+            cell.appendChild(nameLabel);
+            const input = document.createElement("input");
+            input.type = "text"
+            input.value = 0;
+            input.dataset.index = i;
+            cell.appendChild(input);
+            
+            this.stackCels.push({
+                cell,
+                nameLabel,
+                input,
+            });
+            container.appendChild(cell);
+            this.tbl.appendChild(container);
+        }
+        this.stackCels.forEach(cell => {
+            cell.input.addEventListener('change', this.onCellUpdate);
+        });
+        stackDom.appendChild(this.tbl);
+    }
+
+    onCellUpdate(e) {
+        let index;
+        let val;
+        try {
+            index = parseInt(e.target.dataset.index);
+            val = parseFloat(e.target.value);
+        } catch (e) {
+            // reset the edit
+            console.log(e);
+            VM.update();
+            return;
+        }
+        VM.setStack(index, val);
+    }
+
+    update(ic) {
+        const self = this;
+        if (ic) {
+            const stack = ic.stack;
+            const sp = ic.registers[16];
+            if (stack) {
+                for (var i = 0; i < stack.length; i++) {
+                    this.stackCels[i].input.value = stack[i];
+                    if (i == sp) {
+                        this.stackCels[i].nameLabel.classList.add("stack_pointer");
+                    } else {
+                        this.stackCels[i].nameLabel.classList.remove("stack_pointer");
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 export { VirtualMachine }

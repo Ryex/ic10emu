@@ -432,3 +432,35 @@ code {
 #vmActiveICState hr {
   margin: 0.25rem 0;
 }
+
+.vm_stack {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-width: 180rem;
+  max-height: 10rem;
+  align-content: flex-end
+}
+
+.vm_stack_cel {
+  max-width: 20rem;
+  height: 24px;
+}
+
+.vm_stack_cel span {
+  min-width: 2.5rem;
+  height: 22px;
+}
+
+.vm_stack_cel input {
+  max-width: 5rem;
+  background-color: var(--bs-body-bg);
+  height: 22px;
+}
+
+.vm_stack_cel .input-group-text {
+  border-radius: 0;
+}
+
+.vm_stack_cel span.stack_pointer  {
+  background-color: var(--bs-success);
+}

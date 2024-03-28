@@ -324,7 +324,7 @@ impl IC {
     }
 
     pub fn push(&mut self, val: f64) -> Result<f64, ICError> {
-        let sp = (self.registers[16]) as i32;
+        let sp = (self.registers[16].round()) as i32;
         if sp < 0 {
             Err(ICError::StackUnderflow)
         } else if sp >= 512 {
@@ -338,14 +338,14 @@ impl IC {
     }
 
     pub fn pop(&mut self) -> Result<f64, ICError> {
-        let sp = (self.registers[16]) as i32;
+        self.registers[16] -= 1.0;
+        let sp = (self.registers[16].round()) as i32;
         if sp < 0 {
             Err(ICError::StackUnderflow)
         } else if sp >= 512 {
             Err(ICError::StackOverflow)
         } else {
             let last = self.stack[sp as usize];
-            self.registers[16] -= 1.0;
             Ok(last)
         }
     }
