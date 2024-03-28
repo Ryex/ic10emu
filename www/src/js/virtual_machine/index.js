@@ -128,27 +128,11 @@ class VirtualMachineUI {
 class VMStateUI {
     constructor(ui) {
         this.ui = ui;
-        const stateDom = document.getElementById("vmActiveICState");
 
-        this.tbl = document.createElement("table");
-        this.tbl.classList.add("table");
-        this.ipRow = this.tbl.insertRow();
-        this.counterRow = this.tbl.insertRow()
-        this.stateRow = this.tbl.insertRow()
-        const ipTh = document.createElement("th");
-        ipTh.appendChild(document.createTextNode("Instruction Pointer"));
-        this.ipRow.appendChild(ipTh);
-        this.instructionPointer = this.ipRow.insertCell();
-        const conuterTh = document.createElement("th");
-        conuterTh.appendChild(document.createTextNode("Last Run Operations"));
-        this.counterRow.appendChild(conuterTh);
-        this.instructionCounter = this.counterRow.insertCell();
-        const stateTh = document.createElement("th");
-        stateTh.appendChild(document.createTextNode("Last State"));
-        this.stateRow.appendChild(stateTh);
-        this.lastState = this.stateRow.insertCell();
+        this.instructionPointer = document.getElementById("vmActiveICStateIP");
+        this.instructionCounter = document.getElementById("vmActiveICStateICount");
+        this.lastState = document.getElementById("vmActiveICStateLastRun");
 
-        stateDom.appendChild(this.tbl);
     }
 
     update(ic) {
@@ -165,11 +149,11 @@ class VMRegistersUI {
         this.ui = ui;
         const regDom = document.getElementById("vmActiveRegisters");
         this.tbl = document.createElement("div");
-        this.tbl.classList.add("d-flex", "flex-wrap", "justify-content-start", "align-items-start", "align-self-center");
+        this.tbl.classList.add("d-flex", "flex-wrap", "justify-content-start", "align-items-end",);
         this.regCels = [];
         for (var i = 0; i < 18; i++) {
             const container = document.createElement("div");
-            container.classList.add("vm_reg_cel");
+            container.classList.add("vm_reg_cel", "align-self-stretch");
             const cell = document.createElement("div");
             cell.classList.add("input-group", "input-group-sm")
             // cell.style.width = "30%";
@@ -183,7 +167,7 @@ class VMRegistersUI {
             input.dataset.index = i;
             cell.appendChild(input);
             const aliasesLabel = document.createElement("span");
-            aliasesLabel.classList.add("input-group-text")
+            aliasesLabel.classList.add("input-group-text", "reg_label")
             aliasesLabel.innerText = "\xa0";
             cell.appendChild(aliasesLabel);
             this.regCels.push({

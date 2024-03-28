@@ -288,41 +288,10 @@ code {
   color: #e685b5
 }
 
-.navbar-default {
-  background-color: #343a40;
-  border-color: #495057;
-}
-
-.navbar-brand {
-  float: left;
-  padding: 5px 5px;
-  font-size: 18px;
-}
-
-.navbar-default .navbar-brand {
-  color: #fff;
-  text-wrap: nowrap;
-  white-space: nowrap;
-}
-
-.navbar-brand a {
-  text-decoration: none;
-}
-
-.nav>li {
-  position: relative;
-  display: block;
-}
-
 .navbar-default .navbar-nav>li>a {
   color: #fff;
 }
 
-.navbar-default .navbar-text {
-  color: #fff;
-  text-wrap: nowrap;
-  white-space: nowrap;
-}
 
 .navbar-text {
   padding: 0;
@@ -336,12 +305,12 @@ code {
   line-height: 20px;
 }
 
-@media (min-width: 768px) {
-  .navbar-nav>li>a {
-    padding-top: 15px;
-    padding-bottom: 15px;
-  }
-}
+// @media (min-width: 768px) {
+//   .navbar-nav>li>a {
+//     padding-top: 15px;
+//     padding-bottom: 15px;
+//   }
+// }
 
 .nav>li>a {
   position: relative;
@@ -419,8 +388,9 @@ code {
 .vm_reg {
   overflow-x: auto;
   overflow-y: auto;
-  max-width: 1200px;
-  max-height: 400px;
+  max-width: 180rem;
+  max-height: 20rem;
+  align-content: flex-end
 }
 
 // .vm_unset_reg .input-group {
@@ -428,15 +398,37 @@ code {
 // }
 
 .vm_reg_cel {
-  max-width: 300px;
-  height: 32px;
+  max-width: 20rem;
+  height: 24px;
 }
 
 .vm_reg_cel span {
   min-width: 2.5rem;
+  height: 22px;
+}
+
+.vm_reg_cel span.reg_label {
+  width: 6rem;
+  height: 22px;
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
 .vm_reg_cel input {
-  width: 6rem;
+  max-width: 8rem;
+  min-width: 3rem;
   background-color: var(--bs-body-bg);
+  height: 22px;
+}
+
+#vmActiveIC {
+  min-width: 28rem;
+}
+
+#editor {
+  min-width: 32em;
+}
+
+#vmActiveICState hr {
+  margin: 0.25rem 0;
 }
