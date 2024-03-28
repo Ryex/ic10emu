@@ -210,7 +210,7 @@ impl FromStr for Comment {
     }
 }
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
 pub struct Instruction {
     pub instruction: InstructionOp,
     pub operands: Vec<Operand>,

@@ -24,7 +24,9 @@ docReady(() => {
 
   App.vm = new VirtualMachine();
 
-  App.editor = new IC10Editor();
+  const init_session_id = App.vm.devices[0];
+
+  App.editor = new IC10Editor(init_session_id);
 
   setupLspWorker().then((worker) => {
     App.editor.setupLsp(worker);

@@ -156,7 +156,7 @@ pub struct IC {
     pub state: ICState,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Program {
     pub instructions: Vec<grammar::Instruction>,
     pub labels: HashMap<String, u32>,
@@ -169,12 +169,14 @@ impl Default for Program {
 }
 
 impl Program {
+
     pub fn new() -> Self {
         Program {
             instructions: Vec::new(),
             labels: HashMap::new(),
         }
     }
+
     pub fn try_from_code(code: &str) -> Result<Self, ICError> {
         let parse_tree = grammar::parse(&code)?;
         let mut labels_set = HashSet::new();
@@ -209,6 +211,7 @@ impl Program {
             labels,
         })
     }
+
     pub fn get_line(&self, line: u32) -> Result<&grammar::Instruction, ICError> {
         self.instructions
             .get(line as usize)
@@ -217,6 +220,7 @@ impl Program {
 }
 
 impl IC {
+
     pub fn new(id: u16, device: u16) -> Self {
         IC {
             device,
@@ -319,7 +323,7 @@ impl IC {
         self.registers[17] = self.ip as f64 + 1.0;
     }
 
-    fn push(&mut self, val: f64) -> Result<f64, ICError> {
+    pub fn push(&mut self, val: f64) -> Result<f64, ICError> {
         let sp = (self.registers[16]) as i32;
         if sp < 0 {
             Err(ICError::StackUnderflow)
@@ -333,7 +337,7 @@ impl IC {
         }
     }
 
-    fn pop(&mut self) -> Result<f64, ICError> {
+    pub fn pop(&mut self) -> Result<f64, ICError> {
         let sp = (self.registers[16]) as i32;
         if sp < 0 {
             Err(ICError::StackUnderflow)
@@ -346,7 +350,7 @@ impl IC {
         }
     }
 
-    fn poke(&mut self, address: f64, val: f64) -> Result<f64, ICError> {
+    pub fn poke(&mut self, address: f64, val: f64) -> Result<f64, ICError> {
         let sp = address as i32;
         if sp < 0 || sp >= 512 {
             Err(ICError::StackIndexOutOfRange(address))
@@ -357,7 +361,7 @@ impl IC {
         }
     }
 
-    fn peek(&self) -> Result<f64, ICError> {
+    pub fn peek(&self) -> Result<f64, ICError> {
         let sp = (self.registers[16]) as i32;
         if sp < 0 {
             Err(ICError::StackUnderflow)
@@ -369,7 +373,7 @@ impl IC {
         }
     }
 
-    fn peek_addr(&self, addr: f64) -> Result<f64, ICError> {
+    pub fn peek_addr(&self, addr: f64) -> Result<f64, ICError> {
         let sp = (addr) as i32;
         if sp < 0 {
             Err(ICError::StackUnderflow)

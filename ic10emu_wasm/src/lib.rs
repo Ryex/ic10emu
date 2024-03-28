@@ -205,8 +205,7 @@ impl DeviceRef {
 
     #[wasm_bindgen(getter, js_name = "state")]
     pub fn ic_state(&self) -> Option<String> {
-        self
-            .device
+        self.device
             .borrow()
             .ic
             .as_ref()
@@ -219,6 +218,26 @@ impl DeviceRef {
             })
             .flatten()
             .map(|state| state.to_string())
+    }
+
+    #[wasm_bindgen(getter, js_name = "program")]
+    pub fn ic_program(&self) -> JsValue {
+        serde_wasm_bindgen::to_value(
+            &self
+                .device
+                .borrow()
+                .ic
+                .as_ref()
+                .map(|ic| {
+                    self.vm
+                        .borrow()
+                        .ics
+                        .get(ic)
+                        .map(|ic| ic.borrow().program.clone())
+                })
+                .flatten(),
+        )
+        .unwrap()
     }
 
     #[wasm_bindgen(js_name = "step")]
@@ -243,6 +262,40 @@ impl DeviceRef {
     pub fn set_code(&self, code: &str) -> Result<bool, JsError> {
         let id = self.device.borrow().id;
         Ok(self.vm.borrow().set_code(id, code)?)
+    }
+
+    #[wasm_bindgen(js_name = "setRegister")]
+    pub fn ic_set_register(&self, index: u32, val: f64) -> Result<f64, JsError> {
+        let ic_id = *self
+            .device
+            .borrow()
+            .ic
+            .as_ref()
+            .ok_or(ic10emu::VMError::NoIC(self.device.borrow().id))?;
+        let vm_borrow = self.vm.borrow();
+        let ic =  vm_borrow
+            .ics
+            .get(&ic_id)
+            .ok_or(ic10emu::VMError::NoIC(self.device.borrow().id))?;
+        let result = ic.borrow_mut().set_register(0, index, val)?;
+        Ok(result)
+    }
+
+    #[wasm_bindgen(js_name = "setStack")]
+    pub fn ic_set_stack(&mut self, address: f64, val: f64) -> Result<f64, JsError> {
+        let ic_id = *self
+            .device
+            .borrow()
+            .ic
+            .as_ref()
+            .ok_or(ic10emu::VMError::NoIC(self.device.borrow().id))?;
+        let vm_borrow = self.vm.borrow();
+        let ic =  vm_borrow
+            .ics
+            .get(&ic_id)
+            .ok_or(ic10emu::VMError::NoIC(self.device.borrow().id))?;
+        let result = ic.borrow_mut().poke(address, val)?;
+        Ok(result)
     }
 }
 

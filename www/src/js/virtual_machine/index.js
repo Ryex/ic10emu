@@ -21,6 +21,10 @@ class VirtualMachine {
 
     }
 
+    get devices () {
+        return this.ic10vm.devices;
+    }
+
     updateCode() {
         const progs = window.App.session.programs;
         for (const id of Object.keys(progs)) {
@@ -28,7 +32,11 @@ class VirtualMachine {
             const prog = progs[id];
             if (ic && prog) {
                 console.time(`CompileProgram_${id}`);
-                this.ics[id].setCode(progs[id]);
+                try {
+                    this.ics[id].setCode(progs[id]);
+                } catch (e) {
+                    console.log(e);
+                }                
                 console.timeEnd(`CompileProgram_${id}`);
             }
         }
@@ -72,14 +80,23 @@ class VirtualMachine {
         window.App.session.setActiveLine(window.App.session.activeSession, ic.ip);
         this.ui.update(ic);
     }
+
+    setRegister(index, val) {
+        const ic = this.ics[window.App.session.activeSession];
+        try {
+            ic.setRegister(index, val);
+        } catch (e) {
+            console.log(e);
+        }
+    }
 }
 
 
 class VirtualMachineUI {
     constructor(vm) {
         this.vm = vm
-        this.state = new VMStateUI();
-        this.registers = new VMRegistersUI();
+        this.state = new VMStateUI(this);
+        this.registers = new VMRegistersUI(this);
         this.buildStackDisplay();
 
         const self = this;
@@ -109,7 +126,8 @@ class VirtualMachineUI {
 }
 
 class VMStateUI {
-    constructor() {
+    constructor(ui) {
+        this.ui = ui;
         const stateDom = document.getElementById("vmActiveICState");
 
         this.tbl = document.createElement("table");
@@ -143,7 +161,8 @@ class VMStateUI {
 }
 
 class VMRegistersUI {
-    constructor() {
+    constructor(ui) {
+        this.ui = ui;
         const regDom = document.getElementById("vmActiveRegisters");
         this.tbl = document.createElement("div");
         this.tbl.classList.add("d-flex", "flex-wrap", "justify-content-start", "align-items-start", "align-self-center");
@@ -161,18 +180,12 @@ class VMRegistersUI {
             const input = document.createElement("input");
             input.type = "text"
             input.value = 0;
-            // input.size = 3;
-            // input.style.width = 40;
+            input.dataset.index = i;
             cell.appendChild(input);
             const aliasesLabel = document.createElement("span");
             aliasesLabel.classList.add("input-group-text")
             aliasesLabel.innerText = "\xa0";
             cell.appendChild(aliasesLabel);
-            if (i == 16 ) {
-                aliasesLabel.innerText = "sp";
-            } else if (i == 17) {
-                aliasesLabel.innerText = "ra";
-            }
             this.regCels.push({
                 cell,
                 nameLabel,
@@ -182,18 +195,69 @@ class VMRegistersUI {
             container.appendChild(cell);
             this.tbl.appendChild(container);
         }
+        this.regCels.forEach(cell => {
+            cell.input.addEventListener('change', this.onCellUpdate);
+        });
+        this.default_aliases = { "sp": 16, "ra": 17 }
+        this.ic_aliases = {}
         regDom.appendChild(this.tbl);
     }
 
+
+
+    onCellUpdate(e) {
+        let index;
+        let val;
+        try {
+            index = parseInt(e.target.dataset.index);
+            val = parseFloat(e.target.value);
+        } catch (e) {
+            // reset the edit
+            console.log(e);
+            VM.update();
+            return;
+        }
+        VM.setRegister(index, val);
+    }
+
     update(ic) {
+        const self = this;
         if (ic) {
             const registers = ic.registers;
             if (registers) {
-                console.log(registers)
                 for (var i = 0; i < registers.length; i++) {
                     this.regCels[i].input.value = registers[i];
                 }
             }
+            const aliases = ic.aliases;
+            if (aliases) {
+                this.ic_aliases = {}
+                aliases.keys().forEach(alias => {
+                    const target = aliases.get(alias);
+                    if (target.RegisterSpec &&  target.RegisterSpec.indirection == 0) {
+                        const index = target.RegisterSpec.target;
+                        this.ic_aliases[alias] = index;
+                    }
+                })
+            }
+            console.log(aliases);
+        }
+        this.updateAliases();
+    }
+
+    updateAliases () {
+        const aliases = Object.assign({}, this.default_aliases, this.ic_aliases);
+        const labels = {}
+        for (const [alias, target] of Object.entries(aliases)) {
+            if (labels.hasOwnProperty(target)) {
+                labels[target].push(alias)
+            } else {
+                labels[target] = [alias]
+            }
+        }
+
+        for(const [index, label] of Object.entries(labels)) {
+            this.regCels[index].aliasesLabel.innerText = label.join(", ")
         }
     }
 }

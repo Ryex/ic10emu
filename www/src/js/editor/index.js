@@ -43,6 +43,7 @@ class IC10Editor {
       customScrollbar: false,
       firstLineNumber: 0,
       printMarginColumn: 52,
+      placeholder: "Your code goes here ...",
     });
 
     this.sessions = {};
@@ -80,16 +81,17 @@ class IC10Editor {
           if (marker) {
             self.sessions[id].removeMarker(marker);
             self.active_line_markers[id] = null;
-
           }
-          self.active_line_markers[id] = self.sessions[id].addMarker(new Range(active_line, 0, active_line, 1), "vm_ic_active_line", "fullLine", true);
-          if (self.active_session == id) {
-            // editor.resize(true);
-            self.aceEditor.scrollToLine(active_line, true, true)
+          const session = self.sessions[id];
+          if (session) {
+            self.active_line_markers[id] = session.addMarker(new Range(active_line, 0, active_line, 1), "vm_ic_active_line", "fullLine", true);
+            if (self.active_session == id) {
+              // editor.resize(true);
+              self.aceEditor.scrollToLine(active_line, true, true)
+            }
           }
         }
       }
-
     })
 
   }
@@ -105,8 +107,20 @@ class IC10Editor {
     if (this.sessions.hasOwnProperty(session_id)) {
       return false;
     }
-    this.sessions[session_id] = ace.createEditSession("", this.mode);
-    this.bindSession(session_id, this.sessions[session_id]);
+    const session = ace.createEditSession("", this.mode);
+    session.setOptions({
+      enableBasicAutocompletion: true,
+      enableLiveAutocompletion: true,
+      enableSnippets: true,
+      theme: "ace/theme/one_dark",
+      fontSize: "16px",
+      customScrollbar: false,
+      firstLineNumber: 0,
+      printMarginColumn: 52,
+      placeholder: "Your code goes here ...",
+    })
+    this.sessions[session_id] = session;
+    this.bindSession(session_id, session);
   }
 
   setupLsp(lsp_worker) {
