@@ -66,11 +66,6 @@ impl DeviceRef {
         serde_wasm_bindgen::to_value(&self.device.borrow().connections).unwrap()
     }
 
-    #[wasm_bindgen(getter, js_name = "prefabHash")]
-    pub fn prefab_hash(&self) -> Option<i32> {
-        self.device.borrow().prefab_hash
-    }
-
     #[wasm_bindgen(getter, js_name = "ip")]
     pub fn ic_ip(&self) -> Option<u32> {
         self.device

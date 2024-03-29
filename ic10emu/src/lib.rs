@@ -67,7 +67,6 @@ pub struct Device {
     pub reagents: HashMap<ReagentMode, HashMap<i32, f64>>,
     pub ic: Option<u16>,
     pub connections: [Connection; 8],
-    pub prefab_hash: Option<i32>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -158,7 +157,6 @@ impl Device {
             reagents: HashMap::new(),
             ic: None,
             connections: [Connection::default(); 8],
-            prefab_hash: None,
         };
         device.connections[0] = Connection::CableNetwork(None);
         device
@@ -188,7 +186,6 @@ impl Device {
                 value: -128473777.0,
             },
         );
-        device.prefab_hash = Some(-128473777);
         device
     }
 
