@@ -191,10 +191,10 @@ impl Program {
                 Some(code) => match code {
                     grammar::Code::Label(label) => {
                         if labels_set.contains(&label.id.name) {
-                            Err(ICError::DuplicateLabel(label.id.name.clone()))
+                            Err(ICError::DuplicateLabel(label.id.name))
                         } else {
                             labels_set.insert(label.id.name.clone());
-                            labels.insert(label.id.name.clone(), line_number as u32);
+                            labels.insert(label.id.name, line_number as u32);
                             Ok(grammar::Instruction {
                                 instruction: grammar::InstructionOp::Nop,
                                 operands: vec![],
@@ -414,7 +414,7 @@ impl IC {
                     [a] => {
                         let a = a.get_value(self)?;
                         let now = time::OffsetDateTime::now_local()
-                            .unwrap_or(time::OffsetDateTime::now_utc());
+                            .unwrap_or_else(|_| time::OffsetDateTime::now_utc());
                         self.state = ICState::Sleep(now, a);
                         Ok(())
                     }
@@ -531,7 +531,7 @@ impl IC {
                 },
 
                 Beq => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -548,7 +548,7 @@ impl IC {
                     }),
                 },
                 Beqal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -566,7 +566,7 @@ impl IC {
                     }),
                 },
                 Breq => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -640,7 +640,7 @@ impl IC {
                     }),
                 },
                 Bne => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -657,7 +657,7 @@ impl IC {
                     }),
                 },
                 Bneal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -675,7 +675,7 @@ impl IC {
                     }),
                 },
                 Brne => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -749,7 +749,7 @@ impl IC {
                     }),
                 },
                 Blt => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -766,7 +766,7 @@ impl IC {
                     }),
                 },
                 Bltal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -784,7 +784,7 @@ impl IC {
                     }),
                 },
                 Brlt => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -805,7 +805,7 @@ impl IC {
                     }),
                 },
                 Ble => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -822,7 +822,7 @@ impl IC {
                     }),
                 },
                 Bleal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -840,7 +840,7 @@ impl IC {
                     }),
                 },
                 Brle => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -967,7 +967,7 @@ impl IC {
                     }),
                 },
                 Bgt => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -984,7 +984,7 @@ impl IC {
                     }),
                 },
                 Bgtal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1002,7 +1002,7 @@ impl IC {
                     }),
                 },
                 Brgt => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1076,7 +1076,7 @@ impl IC {
                     }),
                 },
                 Bge => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1093,7 +1093,7 @@ impl IC {
                     }),
                 },
                 Bgeal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1111,7 +1111,7 @@ impl IC {
                     }),
                 },
                 Brge => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1185,7 +1185,7 @@ impl IC {
                     }),
                 },
                 Bap => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _] | [_, _, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 4,
                     }),
@@ -1209,7 +1209,7 @@ impl IC {
                     }),
                 },
                 Bapal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _] | [_, _, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 4,
                     }),
@@ -1234,7 +1234,7 @@ impl IC {
                     }),
                 },
                 Brap => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _] | [_, _, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 4,
                     }),
@@ -1259,7 +1259,7 @@ impl IC {
                     }),
                 },
                 Bapz => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1280,7 +1280,7 @@ impl IC {
                     }),
                 },
                 Bapzal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1302,7 +1302,7 @@ impl IC {
                     }),
                 },
                 Brapz => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1323,7 +1323,7 @@ impl IC {
                     }),
                 },
                 Bna => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _] | [_, _, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 4,
                     }),
@@ -1347,7 +1347,7 @@ impl IC {
                     }),
                 },
                 Bnaal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _] | [_, _, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 4,
                     }),
@@ -1372,7 +1372,7 @@ impl IC {
                     }),
                 },
                 Brna => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _] | [_, _, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 4,
                     }),
@@ -1396,7 +1396,7 @@ impl IC {
                     }),
                 },
                 Bnaz => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1417,7 +1417,7 @@ impl IC {
                     }),
                 },
                 Bnazal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1439,7 +1439,7 @@ impl IC {
                     }),
                 },
                 Brnaz => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1638,7 +1638,7 @@ impl IC {
                 },
 
                 Seq => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1689,7 +1689,7 @@ impl IC {
                     }),
                 },
                 Sne => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1740,7 +1740,7 @@ impl IC {
                     }),
                 },
                 Slt => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1791,7 +1791,7 @@ impl IC {
                     }),
                 },
                 Sle => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1842,7 +1842,7 @@ impl IC {
                     }),
                 },
                 Sgt => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1893,7 +1893,7 @@ impl IC {
                     }),
                 },
                 Sge => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1944,7 +1944,7 @@ impl IC {
                     }),
                 },
                 Sap => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _] | [_, _, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -1981,7 +1981,7 @@ impl IC {
                     }),
                 },
                 Sapz => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2015,7 +2015,7 @@ impl IC {
                     }),
                 },
                 Sna => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _] | [_, _, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 4,
                     }),
@@ -2052,7 +2052,7 @@ impl IC {
                     }),
                 },
                 Snaz => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2195,7 +2195,7 @@ impl IC {
                 },
 
                 Select => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _] | [_, _, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 4,
                     }),
@@ -2223,7 +2223,7 @@ impl IC {
                 },
 
                 Add => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2249,7 +2249,7 @@ impl IC {
                     }),
                 },
                 Sub => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2275,7 +2275,7 @@ impl IC {
                     }),
                 },
                 Mul => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2301,7 +2301,7 @@ impl IC {
                     }),
                 },
                 Div => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2327,7 +2327,7 @@ impl IC {
                     }),
                 },
                 Mod => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2429,7 +2429,7 @@ impl IC {
                 },
 
                 Max => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2455,7 +2455,7 @@ impl IC {
                     }),
                 },
                 Min => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2779,7 +2779,7 @@ impl IC {
                     }),
                 },
                 Atan2 => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2806,7 +2806,7 @@ impl IC {
                 },
 
                 Sll | Sla => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2832,7 +2832,7 @@ impl IC {
                     }),
                 },
                 Srl => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2858,7 +2858,7 @@ impl IC {
                     }),
                 },
                 Sra => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2885,7 +2885,7 @@ impl IC {
                 },
 
                 And => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2911,7 +2911,7 @@ impl IC {
                     }),
                 },
                 Or => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2937,7 +2937,7 @@ impl IC {
                     }),
                 },
                 Xor => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -2963,7 +2963,7 @@ impl IC {
                     }),
                 },
                 Nor => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -3085,7 +3085,7 @@ impl IC {
                 },
 
                 Get => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -3124,7 +3124,7 @@ impl IC {
                     }),
                 },
                 Getd => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -3163,7 +3163,7 @@ impl IC {
                     }),
                 },
                 Put => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -3192,7 +3192,7 @@ impl IC {
                     }),
                 },
                 Putd => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -3223,7 +3223,7 @@ impl IC {
                 },
 
                 S => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -3233,7 +3233,7 @@ impl IC {
                         };
                         let lt = LogicType::try_from(lt.get_value(self)?)?;
                         if CHANNEL_LOGIC_TYPES.contains(&lt) {
-                            let channel = channel_logic_to_channel(lt).unwrap();
+                            let channel = lt.as_channel().unwrap();
                             let Some(connection) = connection else {
                                 break 'inst Err(MissingConnecitonSpecifier);
                             };
@@ -3261,7 +3261,7 @@ impl IC {
                     }),
                 },
                 Sd => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -3287,7 +3287,7 @@ impl IC {
                     }),
                 },
                 Ss => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _] | [_, _, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 4,
                     }),
@@ -3313,7 +3313,7 @@ impl IC {
                     }),
                 },
                 Sb => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -3330,7 +3330,7 @@ impl IC {
                     }),
                 },
                 Sbs => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _] | [_, _, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 4,
                     }),
@@ -3348,7 +3348,7 @@ impl IC {
                     }),
                 },
                 Sbn => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _] | [_, _, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 4,
                     }),
@@ -3367,7 +3367,7 @@ impl IC {
                 },
 
                 L => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -3387,7 +3387,7 @@ impl IC {
                         };
                         let lt = LogicType::try_from(lt.get_value(self)?)?;
                         if CHANNEL_LOGIC_TYPES.contains(&lt) {
-                            let channel = channel_logic_to_channel(lt).unwrap();
+                            let channel = lt.as_channel().unwrap();
                             let Some(connection) = connection else {
                                 break 'inst Err(MissingConnecitonSpecifier);
                             };
@@ -3415,7 +3415,7 @@ impl IC {
                     }),
                 },
                 Ld => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 3,
                     }),
@@ -3451,7 +3451,7 @@ impl IC {
                     }),
                 },
                 Ls => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _] | [_, _, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 4,
                     }),
@@ -3487,7 +3487,7 @@ impl IC {
                     }),
                 },
                 Lr => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _] | [_, _, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 4,
                     }),
@@ -3523,7 +3523,7 @@ impl IC {
                     }),
                 },
                 Lb => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
+                    oprs @ ([_] | [_, _] | [_, _, _]) => Err(TooFewOperands {
                         provided: oprs.len() as u32,
                         desired: 4,
                     }),
@@ -3551,12 +3551,10 @@ impl IC {
                     }),
                 },
                 Lbn => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] | oprs @ [_, _, _, _] => {
-                        Err(TooFewOperands {
-                            provided: oprs.len() as u32,
-                            desired: 5,
-                        })
-                    }
+                    oprs @ ([_] | [_, _] | [_, _, _] | [_, _, _, _]) => Err(TooFewOperands {
+                        provided: oprs.len() as u32,
+                        desired: 5,
+                    }),
                     [reg, prefab, name, lt, bm] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -3583,14 +3581,12 @@ impl IC {
                     }),
                 },
                 Lbns => match &operands[..] {
-                    oprs @ [_]
-                    | oprs @ [_, _]
-                    | oprs @ [_, _, _]
-                    | oprs @ [_, _, _, _]
-                    | oprs @ [_, _, _, _, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 6,
-                    }),
+                    oprs @ ([_] | [_, _] | [_, _, _] | [_, _, _, _] | [_, _, _, _, _]) => {
+                        Err(TooFewOperands {
+                            provided: oprs.len() as u32,
+                            desired: 6,
+                        })
+                    }
                     [reg, prefab, name, index, slt, bm] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -3624,12 +3620,10 @@ impl IC {
                     }),
                 },
                 Lbs => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] | oprs @ [_, _, _, _] => {
-                        Err(TooFewOperands {
-                            provided: oprs.len() as u32,
-                            desired: 5,
-                        })
-                    }
+                    oprs @ ([_] | [_, _] | [_, _, _] | [_, _, _, _]) => Err(TooFewOperands {
+                        provided: oprs.len() as u32,
+                        desired: 5,
+                    }),
                     [reg, prefab, index, slt, bm] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -3675,24 +3669,29 @@ const CHANNEL_LOGIC_TYPES: [grammar::LogicType; 8] = [
     grammar::LogicType::Channel7,
 ];
 
-fn channel_logic_to_channel(lt: grammar::LogicType) -> Option<usize> {
-    match lt {
-        grammar::LogicType::Channel0 => Some(0),
-        grammar::LogicType::Channel1 => Some(1),
-        grammar::LogicType::Channel2 => Some(2),
-        grammar::LogicType::Channel3 => Some(3),
-        grammar::LogicType::Channel4 => Some(4),
-        grammar::LogicType::Channel5 => Some(5),
-        grammar::LogicType::Channel6 => Some(6),
-        grammar::LogicType::Channel7 => Some(7),
-        _ => None,
+trait LogicTypeExt {
+    fn as_channel(&self) -> Option<usize>;
+}
+impl LogicTypeExt for grammar::LogicType {
+    fn as_channel(&self) -> Option<usize> {
+        match self {
+            grammar::LogicType::Channel0 => Some(0),
+            grammar::LogicType::Channel1 => Some(1),
+            grammar::LogicType::Channel2 => Some(2),
+            grammar::LogicType::Channel3 => Some(3),
+            grammar::LogicType::Channel4 => Some(4),
+            grammar::LogicType::Channel5 => Some(5),
+            grammar::LogicType::Channel6 => Some(6),
+            grammar::LogicType::Channel7 => Some(7),
+            _ => None,
+        }
     }
 }
 
 pub fn f64_to_i64(f: f64, signed: bool) -> i64 {
     let mut num: i64 = (f % 9007199254740992.0) as i64;
     if !signed {
-        num &= 18014398509481983_i64
+        num &= 18014398509481983_i64;
     }
     num
 }
@@ -3701,7 +3700,7 @@ pub fn i64_to_f64(i: i64) -> f64 {
     let flag: bool = (i & 9007199254740992_i64) != 0;
     let mut i = i & 9007199254740991_i64;
     if flag {
-        i &= -9007199254740992_i64
+        i &= -9007199254740992_i64;
     }
     i as f64
 }

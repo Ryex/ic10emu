@@ -15,49 +15,45 @@ impl<'a> Iterator for SplitConsecutiveWithIndices<'a> {
 
         let tail = &self.haystack[self.start..];
 
-        match tail.find(self.chars) {
-            Some(start) => {
-                let end = self.start
-                    + start
-                    + 'find_end: {
-                        let mut last = start;
-                        for (index, c) in tail[start..].chars().enumerate() {
-                            if !self.chars.contains(&c) {
-                                break 'find_end index;
-                            }
-                            last = index + c.len_utf8();
-                        }
-                        last
-                    };
-                let start = self.start + start;
-
-                if self.start == start {
-                    //consecutive delim matches, skip to next match
-                    let start = end;
-                    let end = match &self.haystack[start..].find(self.chars) {
-                        Some(i) => start + i,
-                        None => self.haystack.len(),
-                    };
-                    let s = &self.haystack[start..end];
-                    self.start = end;
-                    if s.is_empty() {
-                        None
-                    } else {
-                        Some((start, s))
+        let Some(start) = tail.find(self.chars) else {
+            let s = &self.haystack[self.start..];
+            let index = self.start;
+            self.start = self.haystack.len();
+            return Some((index, s));
+        };
+        let end = self.start
+            + start
+            + 'find_end: {
+                let mut last = start;
+                for (index, c) in tail[start..].chars().enumerate() {
+                    if !self.chars.contains(&c) {
+                        break 'find_end index;
                     }
-                } else {
-                    let s = &self.haystack[self.start..start];
-                    let index = self.start;
-                    self.start = start;
-                    Some((index, s))
+                    last = index + c.len_utf8();
                 }
+                last
+            };
+        let start = self.start + start;
+
+        if self.start == start {
+            //consecutive delim matches, skip to next match
+            let start = end;
+            let end = match &self.haystack[start..].find(self.chars) {
+                Some(i) => start + i,
+                None => self.haystack.len(),
+            };
+            let s = &self.haystack[start..end];
+            self.start = end;
+            if s.is_empty() {
+                None
+            } else {
+                Some((start, s))
             }
-            None => {
-                let s = &self.haystack[self.start..];
-                let index = self.start;
-                self.start = self.haystack.len();
-                Some((index, s))
-            }
+        } else {
+            let s = &self.haystack[self.start..start];
+            let index = self.start;
+            self.start = start;
+            Some((index, s))
         }
     }
 }

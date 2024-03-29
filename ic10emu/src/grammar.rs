@@ -110,32 +110,32 @@ impl Error for ParseError {}
 
 impl ParseError {
     /// Offset the ParseError in it's line, adding the passed values to it's `start` and `end`
+    #[must_use]
     pub fn offset(self, offset: usize) -> Self {
         ParseError {
-            line: self.line,
             start: self.start + offset,
             end: self.end + offset,
-            msg: self.msg,
+            ..self
         }
     }
 
     /// Offset the ParseError line, adding the passed value to it's `line`
+    #[must_use]
     pub fn offset_line(self, offset: usize) -> Self {
         ParseError {
             line: self.line + offset,
             start: self.start,
-            end: self.end,
-            msg: self.msg,
+            ..self
         }
     }
 
     /// Mark the parse error as extending 'length' bytes from `start`
+    #[must_use]
     pub fn span(self, length: usize) -> Self {
         ParseError {
-            line: self.line,
             start: self.start,
             end: self.start + length,
-            msg: self.msg,
+            ..self
         }
     }
 }
@@ -195,7 +195,7 @@ impl FromStr for Code {
     }
 }
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Eq, Debug)]
 pub struct Comment {
     pub comment: String,
 }
@@ -272,7 +272,7 @@ fn get_operand_tokens<'a>(
     operand_tokens
 }
 
-#[derive(PartialEq, Debug, Clone, Copy, Serialize, Deserialize)]
+#[derive(PartialEq, Eq, Debug, Clone, Copy, Serialize, Deserialize)]
 pub enum Device {
     Db,
     Numbered(u32),
@@ -408,9 +408,8 @@ impl FromStr for Operand {
                     .collect::<String>()
                     .parse::<u32>()
                     .ok();
-                let trailing = rest_iter.count();
                 if let Some(target) = target {
-                    if trailing == 0 {
+                    if rest_iter.next().is_none() {
                         return Ok(Operand::RegisterSpec {
                             indirection: indirection as u32,
                             target,
@@ -459,8 +458,7 @@ impl FromStr for Operand {
                                 .take_while_ref(|c| c.is_ascii_digit())
                                 .collect::<String>();
                             let connection = connection_str.parse::<u32>().unwrap();
-                            let trailing = rest_iter.clone().collect::<Vec<_>>();
-                            if trailing.is_empty() {
+                            if rest_iter.next().is_none() {
                                 Ok(Some(connection))
                             } else {
                                 let start =
@@ -476,9 +474,8 @@ impl FromStr for Operand {
                             Ok(None)
                         }
                     }?;
-                    let trailing = rest_iter.collect::<Vec<_>>();
                     if let Some(target) = target {
-                        if trailing.is_empty() {
+                        if rest_iter.next().is_none() {
                             Ok(Operand::DeviceSpec {
                                 device: Device::Indirect {
                                     indirection: indirection as u32,
@@ -512,8 +509,7 @@ impl FromStr for Operand {
                                 .take_while_ref(|c| c.is_ascii_digit())
                                 .collect::<String>();
                             let connection = connection_str.parse::<u32>().unwrap();
-                            let trailing = rest_iter.clone().collect::<Vec<_>>();
-                            if trailing.is_empty() {
+                            if rest_iter.next().is_none() {
                                 Ok(Some(connection))
                             } else {
                                 let start = 1 + target_str.len() + 1 + connection_str.len();
@@ -528,9 +524,8 @@ impl FromStr for Operand {
                             Ok(None)
                         }
                     }?;
-                    let trailing = rest_iter.collect::<Vec<_>>();
                     if let Some(target) = target {
-                        if trailing.is_empty() {
+                        if rest_iter.next().is_none() {
                             Ok(Operand::DeviceSpec {
                                 device: Device::Numbered(target),
                                 connection,
@@ -566,8 +561,7 @@ impl FromStr for Operand {
                     .take_while_ref(|c| c.is_ascii_hexdigit())
                     .collect::<String>();
                 let num = i64::from_str_radix(&num_str, 16).unwrap() as f64;
-                let trailing = rest_iter.count();
-                if trailing == 0 {
+                if rest_iter.next().is_none() {
                     Ok(Operand::Number(Number::Hexadecimal(num)))
                 } else {
                     Err(ParseError {
@@ -584,8 +578,7 @@ impl FromStr for Operand {
                     .take_while_ref(|c| c.is_digit(2))
                     .collect::<String>();
                 let num = i64::from_str_radix(&num_str, 2).unwrap() as f64;
-                let trailing = rest_iter.count();
-                if trailing == 0 {
+                if rest_iter.next().is_none() {
                     Ok(Operand::Number(Number::Binary(num)))
                 } else {
                     Err(ParseError {
@@ -624,20 +617,17 @@ impl FromStr for Operand {
                                 msg: "Invalid Decimal Number".to_string(),
                             })
                         }
+                    } else if rest_iter.next().is_none() {
+                        let num = f64::from_str(&float_str).unwrap();
+                        Ok(Operand::Number(Number::Float(num)))
                     } else {
-                        let trailing = rest_iter.count();
-                        if trailing == 0 {
-                            let num = f64::from_str(&float_str).unwrap();
-                            Ok(Operand::Number(Number::Float(num)))
-                        } else {
-                            let start = float_str.len();
-                            Err(ParseError {
-                                line: 0,
-                                start,
-                                end: start,
-                                msg: "Invalid Integer Number".to_string(),
-                            })
-                        }
+                        let start = float_str.len();
+                        Err(ParseError {
+                            line: 0,
+                            start,
+                            end: start,
+                            msg: "Invalid Integer Number".to_string(),
+                        })
                     }
                 } else if let Some(val) = CONSTANTS_LOOKUP.get(s) {
                     Ok(Operand::Number(Number::Constant(*val)))
@@ -665,7 +655,7 @@ impl FromStr for Operand {
 //     pub value: f64,
 // }
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Eq, Debug)]
 pub struct Label {
     pub id: Identifier,
     // #[rust_sitter::leaf(text = r":")] pub ());
@@ -694,7 +684,7 @@ impl FromStr for Label {
     }
 }
 
-#[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
+#[derive(PartialEq, Eq, Debug, Clone, Serialize, Deserialize)]
 pub struct Identifier {
     // #[rust_sitter::leaf(pattern = r"[a-zA-Z_.][\w\d.]*", transform = |id| id.to_string())]
     pub name: String,
@@ -752,11 +742,11 @@ pub enum Number {
 impl Number {
     pub fn value(&self) -> f64 {
         match self {
-            Number::Enum(val) => *val,
-            Number::Float(val) => *val,
-            Number::Binary(val) => *val,
-            Number::Constant(val) => *val,
-            Number::Hexadecimal(val) => *val,
+            Number::Enum(val)
+            | Number::Float(val)
+            | Number::Binary(val)
+            | Number::Constant(val)
+            | Number::Hexadecimal(val) => *val,
             Number::String(s) => const_crc32::crc32(s.as_bytes()) as i32 as f64,
         }
     }

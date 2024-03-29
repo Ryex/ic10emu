@@ -329,18 +329,13 @@ impl VM {
             }
         }
         let mut device = self.new_device();
-        if let Some(first_network) = device
-            .connections
-            .iter_mut()
-            .filter_map(|c| {
-                if let Connection::CableNetwork(c) = c {
-                    Some(c)
-                } else {
-                    None
-                }
-            })
-            .next()
-        {
+        if let Some(first_network) = device.connections.iter_mut().find_map(|c| {
+            if let Connection::CableNetwork(c) = c {
+                Some(c)
+            } else {
+                None
+            }
+        }) {
             first_network.replace(if let Some(network) = network {
                 network
             } else {
@@ -367,18 +362,13 @@ impl VM {
             }
         }
         let (mut device, ic) = self.new_ic();
-        if let Some(first_network) = device
-            .connections
-            .iter_mut()
-            .filter_map(|c| {
-                if let Connection::CableNetwork(c) = c {
-                    Some(c)
-                } else {
-                    None
-                }
-            })
-            .next()
-        {
+        if let Some(first_network) = device.connections.iter_mut().find_map(|c| {
+            if let Connection::CableNetwork(c) = c {
+                Some(c)
+            } else {
+                None
+            }
+        }) {
             first_network.replace(if let Some(network) = network {
                 network
             } else {
@@ -522,7 +512,7 @@ impl VM {
     }
 
     pub fn devices_on_same_network(&self, ids: &[u16]) -> bool {
-        for (_id, net) in self.networks.iter() {
+        for net in self.networks.values() {
             if net.borrow().contains(ids) {
                 return true;
             }

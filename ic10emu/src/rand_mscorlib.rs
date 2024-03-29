@@ -11,7 +11,7 @@ pub struct Random {
 }
 
 /// Partial implementation of mscorlib System.Random
-/// https://github.com/microsoft/referencesource/blob/master/mscorlib/system/random.cs#L94
+/// <https://github.com/microsoft/referencesource/blob/master/mscorlib/system/random.cs#L94>
 impl Random {
     pub fn new() -> Self {
         Self::with_seed(rand::random::<i32>())

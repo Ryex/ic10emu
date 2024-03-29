@@ -49,7 +49,7 @@ fn write_repr_enum<T: std::io::Write, I, P>(
          pub enum {name} {{\n"
     )
     .unwrap();
-    for (name, variant) in variants.into_iter() {
+    for (name, variant) in variants {
         let variant_name = name.to_case(Case::Pascal);
         let mut serialize = vec![name.clone()];
         serialize.extend(variant.aliases.iter().cloned());
@@ -354,7 +354,7 @@ fn write_instructions_enum() {
 
     write!(
         &mut writer,
-        "#[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]\n\
+        "#[derive(PartialEq, Eq, Debug, Clone, Serialize, Deserialize)]\n\
          pub enum InstructionOp {{\n\
         "
     )
