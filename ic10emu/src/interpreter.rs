@@ -444,14 +444,13 @@ impl IC {
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 1)),
                 }, // TODO
-                Yield => {
-                    if !operands.is_empty() {
-                        Err(ICError::too_many_operands(operands.len(), 0))
-                    } else {
+                Yield => match &operands[..] {
+                    [] => {
                         self.state = ICState::Yield;
                         Ok(())
                     }
-                }
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 0)),
+                },
                 Define => match &operands[..] {
                     [name, number] => {
                         let &Operand::Identifier(ident) = &name else {
