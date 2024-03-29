@@ -11,7 +11,7 @@ pub struct Random {
 }
 
 /// Partial implementation of mscorlib System.Random
-/// https://github.com/microsoft/referencesource/blob/master/mscorlib/system/random.cs#L94
+/// <https://github.com/microsoft/referencesource/blob/master/mscorlib/system/random.cs#L94>
 impl Random {
     pub fn new() -> Self {
         Self::with_seed(rand::random::<i32>())
@@ -73,8 +73,7 @@ impl Random {
             inextp = 1;
         }
 
-        let mut retval =
-            self.seed_array[inext as usize].wrapping_sub(self.seed_array[inextp as usize]);
+        let mut retval = self.seed_array[inext].wrapping_sub(self.seed_array[inextp]);
 
         if retval == i32::MAX {
             retval -= 1;
@@ -82,7 +81,7 @@ impl Random {
         if retval < 0 {
             retval = retval.wrapping_add(i32::MAX);
         }
-        self.seed_array[inext as usize] = retval;
+        self.seed_array[inext] = retval;
 
         self.inext = inext;
         self.inextp = inextp;

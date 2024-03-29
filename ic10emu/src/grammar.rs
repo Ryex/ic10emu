@@ -9,6 +9,7 @@ use strum::EnumProperty;
 pub mod generated {
     use super::ParseError;
     use crate::interpreter::ICError;
+    use serde::{Deserialize, Serialize};
     use std::str::FromStr;
     use strum::AsRefStr;
     use strum::Display;
@@ -16,7 +17,6 @@ pub mod generated {
     use strum::EnumProperty;
     use strum::EnumString;
     use strum::IntoEnumIterator;
-    use serde::{Deserialize, Serialize};
 
     include!(concat!(env!("OUT_DIR"), "/instructions.rs"));
     include!(concat!(env!("OUT_DIR"), "/logictypes.rs"));
@@ -110,32 +110,32 @@ impl Error for ParseError {}
 
 impl ParseError {
     /// Offset the ParseError in it's line, adding the passed values to it's `start` and `end`
+    #[must_use]
     pub fn offset(self, offset: usize) -> Self {
         ParseError {
-            line: self.line,
             start: self.start + offset,
             end: self.end + offset,
-            msg: self.msg,
+            ..self
         }
     }
 
     /// Offset the ParseError line, adding the passed value to it's `line`
+    #[must_use]
     pub fn offset_line(self, offset: usize) -> Self {
         ParseError {
             line: self.line + offset,
             start: self.start,
-            end: self.end,
-            msg: self.msg,
+            ..self
         }
     }
 
     /// Mark the parse error as extending 'length' bytes from `start`
+    #[must_use]
     pub fn span(self, length: usize) -> Self {
         ParseError {
-            line: self.line,
             start: self.start,
             end: self.start + length,
-            msg: self.msg,
+            ..self
         }
     }
 }
@@ -156,10 +156,10 @@ pub struct Line {
 impl FromStr for Line {
     type Err = ParseError;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let mut parts = s.splitn(2, "#");
+        let mut parts = s.splitn(2, '#');
         let code = parts
             .next()
-            .map(|s| {
+            .and_then(|s| {
                 let s = s.trim_end();
                 if s.is_empty() {
                     None
@@ -167,7 +167,6 @@ impl FromStr for Line {
                     Some(s.parse::<Code>())
                 }
             })
-            .flatten()
             .transpose()?;
         let comment = parts.next().map(|s| s.parse()).transpose()?;
         Ok(Line { code, comment })
@@ -196,7 +195,7 @@ impl FromStr for Code {
     }
 }
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Eq, Debug)]
 pub struct Comment {
     pub comment: String,
 }
@@ -231,11 +230,11 @@ impl FromStr for Instruction {
                     line: 0,
                     start: 0,
                     end: 0,
-                    msg: format!("Missing instruction"),
+                    msg: "Missing instruction".to_owned(),
                 })
             }
         }?;
-        
+
         let operands = get_operand_tokens(s, tokens_iter)
             .iter()
             .map(|(index, token)| {
@@ -251,7 +250,10 @@ impl FromStr for Instruction {
     }
 }
 
-fn get_operand_tokens<'a>(s: &'a str, tokens_iter: SplitConsecutiveWithIndices<'a>) -> Vec<(usize, &'a str)> {
+fn get_operand_tokens<'a>(
+    s: &'a str,
+    tokens_iter: SplitConsecutiveWithIndices<'a>,
+) -> Vec<(usize, &'a str)> {
     let mut operand_tokens = Vec::with_capacity(8);
     let mut string_start = None;
     for (index, token) in tokens_iter {
@@ -270,7 +272,7 @@ fn get_operand_tokens<'a>(s: &'a str, tokens_iter: SplitConsecutiveWithIndices<'
     operand_tokens
 }
 
-#[derive(PartialEq, Debug, Clone, Copy, Serialize, Deserialize)]
+#[derive(PartialEq, Eq, Debug, Clone, Copy, Serialize, Deserialize)]
 pub enum Device {
     Db,
     Numbered(u32),
@@ -298,29 +300,29 @@ pub enum Operand {
 impl Operand {
     pub fn get_value(&self, ic: &interpreter::IC) -> Result<f64, interpreter::ICError> {
         match &self {
-            &Operand::RegisterSpec {
+            Operand::RegisterSpec {
                 indirection,
                 target,
             } => ic.get_register(*indirection, *target),
-            &Operand::Number(num) => Ok(num.value()),
-            &Operand::LogicType(lt) => lt
+            Operand::Number(num) => Ok(num.value()),
+            Operand::LogicType(lt) => lt
                 .get_str("value")
                 .map(|val| val.parse::<u8>().unwrap() as f64)
                 .ok_or(interpreter::ICError::TypeValueNotKnown),
-            &Operand::SlotLogicType(slt) => slt
+            Operand::SlotLogicType(slt) => slt
                 .get_str("value")
                 .map(|val| val.parse::<u8>().unwrap() as f64)
                 .ok_or(interpreter::ICError::TypeValueNotKnown),
-            &Operand::BatchMode(bm) => bm
+            Operand::BatchMode(bm) => bm
                 .get_str("value")
                 .map(|val| val.parse::<u8>().unwrap() as f64)
                 .ok_or(interpreter::ICError::TypeValueNotKnown),
-            &Operand::ReagentMode(rm) => rm
+            Operand::ReagentMode(rm) => rm
                 .get_str("value")
                 .map(|val| val.parse::<u8>().unwrap() as f64)
                 .ok_or(interpreter::ICError::TypeValueNotKnown),
-            &Operand::Identifier(ident) => ic.get_ident_value(&ident.name),
-            &Operand::DeviceSpec { .. } => Err(interpreter::ICError::DeviceNotValue),
+            Operand::Identifier(ident) => ic.get_ident_value(&ident.name),
+            Operand::DeviceSpec { .. } => Err(interpreter::ICError::DeviceNotValue),
         }
     }
 
@@ -330,9 +332,9 @@ impl Operand {
         signed: bool,
     ) -> Result<i64, interpreter::ICError> {
         let val = self.get_value(ic)?;
-        if val < -9.223372036854776E+18 {
+        if val < -9.223_372_036_854_776E18 {
             Err(interpreter::ICError::ShiftUnderflowI64)
-        } else if val <= 9.223372036854776E+18 {
+        } else if val <= 9.223_372_036_854_776E18 {
             Ok(interpreter::f64_to_i64(val, signed))
         } else {
             Err(interpreter::ICError::ShiftOverflowI64)
@@ -355,7 +357,7 @@ impl Operand {
         ic: &interpreter::IC,
     ) -> Result<(Option<u16>, Option<u32>), interpreter::ICError> {
         match &self {
-            &Operand::DeviceSpec { device, connection } => match device {
+            Operand::DeviceSpec { device, connection } => match device {
                 Device::Db => Ok((Some(ic.device), *connection)),
                 Device::Numbered(p) => {
                     let dp = ic
@@ -378,7 +380,7 @@ impl Operand {
                     Ok((dp, *connection))
                 }
             },
-            &Operand::Identifier(id) => ic.get_ident_device_id(&id.name),
+            Operand::Identifier(id) => ic.get_ident_device_id(&id.name),
             _ => Err(interpreter::ICError::ValueNotDevice),
         }
     }
@@ -402,13 +404,12 @@ impl FromStr for Operand {
                 let mut rest_iter = rest.iter();
                 let indirection = rest_iter.take_while_ref(|c| *c == &'r').count();
                 let target = rest_iter
-                    .take_while_ref(|c| c.is_digit(10))
+                    .take_while_ref(|c| c.is_ascii_digit())
                     .collect::<String>()
                     .parse::<u32>()
                     .ok();
-                let trailing = rest_iter.count();
                 if let Some(target) = target {
-                    if trailing == 0 {
+                    if rest_iter.next().is_none() {
                         return Ok(Operand::RegisterSpec {
                             indirection: indirection as u32,
                             target,
@@ -419,7 +420,7 @@ impl FromStr for Operand {
                     line: 0,
                     start: 0,
                     end: 0,
-                    msg: format!("Invalid register specifier"),
+                    msg: "Invalid register specifier".to_owned(),
                 })
             }
             ['d', rest @ ..] => match rest {
@@ -428,7 +429,7 @@ impl FromStr for Operand {
                     connection: None,
                 }),
                 ['b', ':', chan @ ..] => {
-                    if chan.into_iter().all(|c| c.is_digit(10)) {
+                    if chan.iter().all(|c| c.is_ascii_digit()) {
                         Ok(Operand::DeviceSpec {
                             device: Device::Db,
                             connection: Some(String::from_iter(chan).parse().unwrap()),
@@ -438,15 +439,15 @@ impl FromStr for Operand {
                             line: 0,
                             start: 3,
                             end: 3,
-                            msg: format!("Invalid device connection specifier"),
+                            msg: "Invalid device connection specifier".to_owned(),
                         })
                     }
                 }
                 ['r', rest @ ..] => {
-                    let mut rest_iter = rest.into_iter().peekable();
+                    let mut rest_iter = rest.iter().peekable();
                     let indirection = rest_iter.take_while_ref(|c| *c == &'r').count();
                     let target_str = rest_iter
-                        .take_while_ref(|c| c.is_digit(10))
+                        .take_while_ref(|c| c.is_ascii_digit())
                         .collect::<String>();
                     let target = target_str.parse::<u32>().ok();
                     let connection = {
@@ -454,11 +455,10 @@ impl FromStr for Operand {
                             // take off ':'
                             rest_iter.next();
                             let connection_str = rest_iter
-                                .take_while_ref(|c| c.is_digit(10))
+                                .take_while_ref(|c| c.is_ascii_digit())
                                 .collect::<String>();
                             let connection = connection_str.parse::<u32>().unwrap();
-                            let trailing = rest_iter.clone().collect::<Vec<_>>();
-                            if trailing.len() == 0 {
+                            if rest_iter.next().is_none() {
                                 Ok(Some(connection))
                             } else {
                                 let start =
@@ -467,39 +467,38 @@ impl FromStr for Operand {
                                     line: 0,
                                     start,
                                     end: start,
-                                    msg: format!("Invalid device connection specifier"),
+                                    msg: "Invalid device connection specifier".to_owned(),
                                 })
                             }
                         } else {
                             Ok(None)
                         }
                     }?;
-                    let trailing = rest_iter.collect::<Vec<_>>();
                     if let Some(target) = target {
-                        if trailing.len() == 0 {
+                        if rest_iter.next().is_none() {
                             Ok(Operand::DeviceSpec {
                                 device: Device::Indirect {
                                     indirection: indirection as u32,
                                     target,
                                 },
-                                connection: connection,
+                                connection,
                             })
                         } else {
                             Err(ParseError {
                                 line: 0,
                                 start: 0,
                                 end: 0,
-                                msg: format!("Invalid register specifier"),
+                                msg: "Invalid register specifier".to_owned(),
                             })
                         }
                     } else {
                         Ok(Operand::Identifier(s.parse::<Identifier>()?))
                     }
                 }
-                [rest @ ..] => {
-                    let mut rest_iter = rest.into_iter().peekable();
+                rest => {
+                    let mut rest_iter = rest.iter().peekable();
                     let target_str = rest_iter
-                        .take_while_ref(|c| c.is_digit(10))
+                        .take_while_ref(|c| c.is_ascii_digit())
                         .collect::<String>();
                     let target = target_str.parse::<u32>().ok();
                     let connection = {
@@ -507,11 +506,10 @@ impl FromStr for Operand {
                             // take off ':'
                             rest_iter.next();
                             let connection_str = rest_iter
-                                .take_while_ref(|c| c.is_digit(10))
+                                .take_while_ref(|c| c.is_ascii_digit())
                                 .collect::<String>();
                             let connection = connection_str.parse::<u32>().unwrap();
-                            let trailing = rest_iter.clone().collect::<Vec<_>>();
-                            if trailing.len() == 0 {
+                            if rest_iter.next().is_none() {
                                 Ok(Some(connection))
                             } else {
                                 let start = 1 + target_str.len() + 1 + connection_str.len();
@@ -519,26 +517,25 @@ impl FromStr for Operand {
                                     line: 0,
                                     start,
                                     end: start,
-                                    msg: format!("Invalid device connection specifier"),
+                                    msg: "Invalid device connection specifier".to_owned(),
                                 })
                             }
                         } else {
                             Ok(None)
                         }
                     }?;
-                    let trailing = rest_iter.collect::<Vec<_>>();
                     if let Some(target) = target {
-                        if trailing.len() == 0 {
+                        if rest_iter.next().is_none() {
                             Ok(Operand::DeviceSpec {
                                 device: Device::Numbered(target),
-                                connection: connection,
+                                connection,
                             })
                         } else {
                             Err(ParseError {
                                 line: 0,
                                 start: 0,
                                 end: 0,
-                                msg: format!("Invalid device specifier"),
+                                msg: "Invalid device specifier".to_owned(),
                             })
                         }
                     } else {
@@ -554,60 +551,58 @@ impl FromStr for Operand {
                         line: 0,
                         start: 0,
                         end: 0,
-                        msg: format!("Invalid hash string: Can not contain '\"'"),
+                        msg: "Invalid hash string: Can not contain '\"'".to_owned(),
                     })
                 }
             }
             ['$', rest @ ..] => {
-                let mut rest_iter = rest.into_iter();
+                let mut rest_iter = rest.iter();
                 let num_str = rest_iter
-                    .take_while_ref(|c| c.is_digit(16))
+                    .take_while_ref(|c| c.is_ascii_hexdigit())
                     .collect::<String>();
                 let num = i64::from_str_radix(&num_str, 16).unwrap() as f64;
-                let trailing = rest_iter.count();
-                if trailing == 0 {
+                if rest_iter.next().is_none() {
                     Ok(Operand::Number(Number::Hexadecimal(num)))
                 } else {
                     Err(ParseError {
                         line: 0,
                         start: 0,
                         end: 0,
-                        msg: format!("Invalid Hexadecimal Number"),
+                        msg: "Invalid Hexadecimal Number".to_owned(),
                     })
                 }
             }
             ['%', rest @ ..] => {
-                let mut rest_iter = rest.into_iter();
+                let mut rest_iter = rest.iter();
                 let num_str = rest_iter
                     .take_while_ref(|c| c.is_digit(2))
                     .collect::<String>();
                 let num = i64::from_str_radix(&num_str, 2).unwrap() as f64;
-                let trailing = rest_iter.count();
-                if trailing == 0 {
+                if rest_iter.next().is_none() {
                     Ok(Operand::Number(Number::Binary(num)))
                 } else {
                     Err(ParseError {
                         line: 0,
                         start: 0,
                         end: 0,
-                        msg: format!("Invalid Binary Number"),
+                        msg: "Invalid Binary Number".to_owned(),
                     })
                 }
             }
-            [rest @ ..] => {
-                let mut rest_iter = rest.into_iter().peekable();
+            rest => {
+                let mut rest_iter = rest.iter().peekable();
                 let float_str = if rest_iter.peek() == Some(&&'-') {
                     format!("{}", rest_iter.next().unwrap())
                 } else {
-                    "".to_string()
+                    "".to_owned()
                 } + &rest_iter
-                    .take_while_ref(|c| c.is_digit(10))
+                    .take_while_ref(|c| c.is_ascii_digit())
                     .collect::<String>();
                 if !float_str.is_empty() {
                     if rest_iter.peek() == Some(&&'.') {
                         rest_iter.next();
                         let decimal_str = rest_iter
-                            .take_while_ref(|c| c.is_digit(10))
+                            .take_while_ref(|c| c.is_ascii_digit())
                             .collect::<String>();
                         if !decimal_str.is_empty() {
                             let float_str = float_str + "." + &decimal_str;
@@ -619,23 +614,20 @@ impl FromStr for Operand {
                                 line: 0,
                                 start,
                                 end: start,
-                                msg: format!("Invalid Decimal Number"),
+                                msg: "Invalid Decimal Number".to_owned(),
                             })
                         }
+                    } else if rest_iter.next().is_none() {
+                        let num = f64::from_str(&float_str).unwrap();
+                        Ok(Operand::Number(Number::Float(num)))
                     } else {
-                        let trailing = rest_iter.count();
-                        if trailing == 0 {
-                            let num = f64::from_str(&float_str).unwrap();
-                            Ok(Operand::Number(Number::Float(num)))
-                        } else {
-                            let start = float_str.len();
-                            Err(ParseError {
-                                line: 0,
-                                start,
-                                end: start,
-                                msg: format!("Invalid Integer Number"),
-                            })
-                        }
+                        let start = float_str.len();
+                        Err(ParseError {
+                            line: 0,
+                            start,
+                            end: start,
+                            msg: "Invalid Integer Number".to_owned(),
+                        })
                     }
                 } else if let Some(val) = CONSTANTS_LOOKUP.get(s) {
                     Ok(Operand::Number(Number::Constant(*val)))
@@ -663,7 +655,7 @@ impl FromStr for Operand {
 //     pub value: f64,
 // }
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Eq, Debug)]
 pub struct Label {
     pub id: Identifier,
     // #[rust_sitter::leaf(text = r":")] pub ());
@@ -680,19 +672,19 @@ impl FromStr for Label {
                 line: 0,
                 start: index,
                 end: index,
-                msg: "Missing ':' at end of label".to_string(),
+                msg: "Missing ':' at end of label".to_owned(),
             }),
             None => Err(ParseError {
                 line: 0,
                 start: 0,
                 end: 0,
-                msg: "empty string for label? parse miscalled".to_string(),
+                msg: "empty string for label? parse miscalled".to_owned(),
             }),
         }
     }
 }
 
-#[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
+#[derive(PartialEq, Eq, Debug, Clone, Serialize, Deserialize)]
 pub struct Identifier {
     // #[rust_sitter::leaf(pattern = r"[a-zA-Z_.][\w\d.]*", transform = |id| id.to_string())]
     pub name: String,
@@ -703,10 +695,7 @@ impl FromStr for Identifier {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let mut iter = s.chars();
         if let Some(c) = iter.next() {
-            if match c {
-                'a'..='z' | 'A'..='Z' | '_' | '.' => true,
-                _ => false,
-            } {
+            if matches!(c, 'a'..='z' | 'A'..='Z' | '_' | '.') {
                 for (index, cc) in iter.enumerate() {
                     match cc {
                         'a'..='z' | 'A'..='Z' | '0'..='9' | '_' | '.' => continue,
@@ -734,7 +723,7 @@ impl FromStr for Identifier {
                 line: 0,
                 start: 0,
                 end: 0,
-                msg: format!("Empty Identifier"),
+                msg: "Empty Identifier".to_owned(),
             })
         }
     }
@@ -753,11 +742,11 @@ pub enum Number {
 impl Number {
     pub fn value(&self) -> f64 {
         match self {
-            Number::Enum(val) => *val,
-            Number::Float(val) => *val,
-            Number::Binary(val) => *val,
-            Number::Constant(val) => *val,
-            Number::Hexadecimal(val) => *val,
+            Number::Enum(val)
+            | Number::Float(val)
+            | Number::Binary(val)
+            | Number::Constant(val)
+            | Number::Hexadecimal(val) => *val,
             Number::String(s) => const_crc32::crc32(s.as_bytes()) as i32 as f64,
         }
     }
@@ -786,7 +775,7 @@ mod tests {
                     ],
                 },),),
                 comment: Some(Comment {
-                    comment: " This is a comment".to_string(),
+                    comment: " This is a comment".to_owned(),
                 },),
             },],
         );
@@ -838,7 +827,7 @@ mod tests {
                 Line {
                     code: None,
                     comment: Some(Comment {
-                        comment: " This is a comment".to_string(),
+                        comment: " This is a comment".to_owned(),
                     },),
                 },
                 Line {
@@ -846,7 +835,7 @@ mod tests {
                         instruction: InstructionOp::Define,
                         operands: vec![
                             Operand::Identifier(Identifier {
-                                name: "a_def".to_string(),
+                                name: "a_def".to_owned(),
                             },),
                             Operand::Number(Number::Float(10.0,),),
                         ],
@@ -858,9 +847,9 @@ mod tests {
                         instruction: InstructionOp::Define,
                         operands: vec![
                             Operand::Identifier(Identifier {
-                                name: "a_hash".to_string(),
+                                name: "a_hash".to_owned(),
                             },),
-                            Operand::Number(Number::String("This is a String".to_string()),),
+                            Operand::Number(Number::String("This is a String".to_owned()),),
                         ],
                     },),),
                     comment: None,
@@ -870,7 +859,7 @@ mod tests {
                         instruction: InstructionOp::Alias,
                         operands: vec![
                             Operand::Identifier(Identifier {
-                                name: "a_var".to_string(),
+                                name: "a_var".to_owned(),
                             },),
                             Operand::RegisterSpec {
                                 indirection: 0,
@@ -885,7 +874,7 @@ mod tests {
                         instruction: InstructionOp::Alias,
                         operands: vec![
                             Operand::Identifier(Identifier {
-                                name: "a_device".to_string(),
+                                name: "a_device".to_owned(),
                             },),
                             Operand::DeviceSpec {
                                 device: Device::Numbered(0),
@@ -938,7 +927,7 @@ mod tests {
                 Line {
                     code: Some(Code::Label(Label {
                         id: Identifier {
-                            name: "main".to_string(),
+                            name: "main".to_owned(),
                         },
                     },),),
                     comment: None,
@@ -975,7 +964,7 @@ mod tests {
                                 indirection: 0,
                                 target: 0,
                             },
-                            Operand::Number(Number::String("AccessCardBlack".to_string()),),
+                            Operand::Number(Number::String("AccessCardBlack".to_owned()),),
                         ],
                     },),),
                     comment: None,
@@ -1043,7 +1032,7 @@ mod tests {
                     code: Some(Code::Instruction(Instruction {
                         instruction: InstructionOp::J,
                         operands: vec![Operand::Identifier(Identifier {
-                            name: "main".to_string(),
+                            name: "main".to_owned(),
                         },),],
                     },),),
                     comment: None,

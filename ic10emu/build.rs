@@ -29,7 +29,7 @@ where
 {
     pub aliases: Vec<String>,
     pub value: Option<P>,
-    pub depricated: bool,
+    pub deprecated: bool,
 }
 
 fn write_repr_enum<T: std::io::Write, I, P>(
@@ -49,7 +49,7 @@ fn write_repr_enum<T: std::io::Write, I, P>(
          pub enum {name} {{\n"
     )
     .unwrap();
-    for (name, variant) in variants.into_iter() {
+    for (name, variant) in variants {
         let variant_name = name.to_case(Case::Pascal);
         let mut serialize = vec![name.clone()];
         serialize.extend(variant.aliases.iter().cloned());
@@ -58,23 +58,23 @@ fn write_repr_enum<T: std::io::Write, I, P>(
             .map(|s| format!("serialize = \"{s}\""))
             .collect::<Vec<String>>()
             .join(", ");
-        let depricated_str = if variant.depricated {
-            ", depricated = \"true\"".to_string()
+        let deprecated_str = if variant.deprecated {
+            ", deprecated = \"true\"".to_owned()
         } else {
-            "".to_string()
+            "".to_owned()
         };
         let props_str = if let Some(val) = &variant.value {
-            format!(", props( value = \"{val}\"{depricated_str})")
+            format!(", props( value = \"{val}\"{deprecated_str})")
         } else {
-            "".to_string()
+            "".to_owned()
         };
-        write!(
+        writeln!(
             writer,
-            "    #[strum({serialize_str}{props_str})] {variant_name},\n"
+            "    #[strum({serialize_str}{props_str})] {variant_name},"
         )
         .unwrap();
     }
-    write!(writer, "}}\n").unwrap();
+    writeln!(writer, "}}").unwrap();
 }
 
 fn write_logictypes() {
@@ -94,7 +94,7 @@ fn write_logictypes() {
         let val_str = it.next().unwrap();
         let val: Option<u8> = val_str.parse().ok();
         let docs = it.next();
-        let depricated = docs
+        let deprecated = docs
             .map(|docs| docs.trim().to_uppercase() == "DEPRECATED")
             .unwrap_or(false);
 
@@ -104,14 +104,14 @@ fn write_logictypes() {
                 .find(|(_, variant)| variant.value == Some(val))
             {
                 variant.aliases.push(name.to_string());
-                variant.depricated = depricated;
+                variant.deprecated = deprecated;
             } else {
                 logictypes.insert(
                     name.to_string(),
                     EnumVariant {
                         aliases: Vec::new(),
                         value: Some(val),
-                        depricated,
+                        deprecated,
                     },
                 );
             }
@@ -121,7 +121,7 @@ fn write_logictypes() {
                 EnumVariant {
                     aliases: Vec::new(),
                     value: val,
-                    depricated,
+                    deprecated,
                 },
             );
         }
@@ -137,7 +137,7 @@ fn write_logictypes() {
         let val_str = it.next().unwrap();
         let val: Option<u8> = val_str.parse().ok();
         let docs = it.next();
-        let depricated = docs
+        let deprecated = docs
             .map(|docs| docs.trim().to_uppercase() == "DEPRECATED")
             .unwrap_or(false);
 
@@ -147,14 +147,14 @@ fn write_logictypes() {
                 .find(|(_, variant)| variant.value == Some(val))
             {
                 variant.aliases.push(name.to_string());
-                variant.depricated = depricated;
+                variant.deprecated = deprecated;
             } else {
                 slotlogictypes.insert(
                     name.to_string(),
                     EnumVariant {
                         aliases: Vec::new(),
                         value: Some(val),
-                        depricated,
+                        deprecated,
                     },
                 );
             }
@@ -164,7 +164,7 @@ fn write_logictypes() {
                 EnumVariant {
                     aliases: Vec::new(),
                     value: val,
-                    depricated,
+                    deprecated,
                 },
             );
         }
@@ -192,9 +192,8 @@ fn write_enums() {
     let e_contents = fs::read_to_string(e_infile).unwrap();
 
     for line in e_contents.lines().filter(|l| !l.trim().is_empty()) {
-        let mut it = line.splitn(2, ' ');
-        let name = it.next().unwrap();
-        let val_str = it.next().unwrap();
+        let (name, val_str) = line.split_once(' ').unwrap();
+
         let val: Option<u8> = val_str.parse().ok();
 
         if !check_set.contains(name) {
@@ -206,9 +205,9 @@ fn write_enums() {
         }
     }
 
-    write!(
+    writeln!(
         &mut writer,
-        "pub(crate) const ENUM_LOOKUP: phf::Map<&'static str, u8> = {};\n",
+        "pub(crate) const ENUM_LOOKUP: phf::Map<&'static str, u8> = {};",
         enums_lookup_map_builder.build()
     )
     .unwrap();
@@ -245,7 +244,7 @@ fn write_modes() {
                     EnumVariant {
                         aliases: Vec::new(),
                         value: Some(val),
-                        depricated: false,
+                        deprecated: false,
                     },
                 );
             }
@@ -255,7 +254,7 @@ fn write_modes() {
                 EnumVariant {
                     aliases: Vec::new(),
                     value: val,
-                    depricated: false,
+                    deprecated: false,
                 },
             );
         }
@@ -283,7 +282,7 @@ fn write_modes() {
                     EnumVariant {
                         aliases: Vec::new(),
                         value: Some(val),
-                        depricated: false,
+                        deprecated: false,
                     },
                 );
             }
@@ -293,7 +292,7 @@ fn write_modes() {
                 EnumVariant {
                     aliases: Vec::new(),
                     value: val,
-                    depricated: false,
+                    deprecated: false,
                 },
             );
         }
@@ -327,9 +326,9 @@ fn write_constants() {
         constants_lookup_map_builder.entry(name, constant);
     }
 
-    write!(
+    writeln!(
         &mut writer,
-        "pub(crate) const CONSTANTS_LOOKUP: phf::Map<&'static str, f64> = {};\n",
+        "pub(crate) const CONSTANTS_LOOKUP: phf::Map<&'static str, f64> = {};",
         constants_lookup_map_builder.build()
     )
     .unwrap();
@@ -355,18 +354,18 @@ fn write_instructions_enum() {
 
     write!(
         &mut writer,
-        "#[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]\n\
+        "#[derive(PartialEq, Eq, Debug, Clone, Serialize, Deserialize)]\n\
          pub enum InstructionOp {{\n\
         "
     )
     .unwrap();
 
-    write!(&mut writer, "     Nop,\n").unwrap();
+    writeln!(&mut writer, "     Nop,").unwrap();
 
     for typ in &instructions {
-        write!(&mut writer, "     {},\n", typ.to_case(Case::Pascal)).unwrap();
+        writeln!(&mut writer, "     {},", typ.to_case(Case::Pascal)).unwrap();
     }
-    write!(&mut writer, "}}\n").unwrap();
+    writeln!(&mut writer, "}}").unwrap();
 
     write!(
         &mut writer,
@@ -380,7 +379,7 @@ fn write_instructions_enum() {
 
     for typ in &instructions {
         let name = typ.to_case(Case::Pascal);
-        write!(&mut writer, "            \"{typ}\" => Ok(Self::{name}),\n").unwrap();
+        writeln!(&mut writer, "            \"{typ}\" => Ok(Self::{name}),").unwrap();
     }
     write!(
         &mut writer,

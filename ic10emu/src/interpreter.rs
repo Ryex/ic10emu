@@ -31,7 +31,7 @@ impl Error for LineError {}
 
 #[derive(Debug, Error, Clone, Serialize, Deserialize)]
 pub enum ICError {
-    #[error("Error Compileing Code: {0}")]
+    #[error("Error Compiling Code: {0}")]
     ParseError(#[from] ParseError),
     #[error("Duplicate label {0}")]
     DuplicateLabel(String),
@@ -100,13 +100,37 @@ pub enum ICError {
     #[error("Connection index out of range: '{0}'")]
     ConnecitonIndexOutOFRange(u32),
     #[error("Connection specifier missing")]
-    MissingConnecitonSpecifier,
+    MissingConnectionSpecifier,
     #[error("No data network on connection '{0}'")]
     NotDataConnection(u32),
     #[error("Network not connected on connection '{0}'")]
     NetworkNotConnected(u32),
     #[error("Bad Network Id '{0}'")]
     BadNetworkId(u32),
+}
+
+impl ICError {
+    pub const fn too_few_operands(provided: usize, desired: u32) -> Self {
+        ICError::TooFewOperands {
+            provided: provided as u32,
+            desired,
+        }
+    }
+
+    pub const fn too_many_operands(provided: usize, desired: u32) -> Self {
+        ICError::TooManyOperands {
+            provided: provided as u32,
+            desired,
+        }
+    }
+
+    pub const fn mismatch_operands(provided: usize, desired: u32) -> Self {
+        if provided < desired as usize {
+            ICError::too_few_operands(provided, desired)
+        } else {
+            ICError::too_many_operands(provided, desired)
+        }
+    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -122,19 +146,19 @@ pub enum ICState {
 impl Display for ICState {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let out = match self {
-            ICState::Start => "Not Run".to_string(),
-            ICState::Running => "Running".to_string(),
-            ICState::Yield => "Ic has yielded, Resume on next tick".to_string(),
+            ICState::Start => "Not Run".to_owned(),
+            ICState::Running => "Running".to_owned(),
+            ICState::Yield => "Ic has yielded, Resume on next tick".to_owned(),
             ICState::Sleep(then, sleep_for) => {
                 let format = format_description::parse("[hour]:[minute]:[second]").unwrap();
-                let resume = then.clone() + time::Duration::new(*sleep_for as i64, 0);
+                let resume = *then + time::Duration::new(*sleep_for as i64, 0);
                 format!(
                     "Sleeping for {sleep_for} seconds, will resume at {}",
                     resume.format(&format).unwrap()
                 )
             }
             ICState::Error(err) => format!("{err}"),
-            ICState::HasCaughtFire => "IC has caught fire! this is not a joke!".to_string(),
+            ICState::HasCaughtFire => "IC has caught fire! this is not a joke!".to_owned(),
         };
         write!(f, "{out}")
     }
@@ -169,7 +193,6 @@ impl Default for Program {
 }
 
 impl Program {
-
     pub fn new() -> Self {
         Program {
             instructions: Vec::new(),
@@ -178,7 +201,7 @@ impl Program {
     }
 
     pub fn try_from_code(code: &str) -> Result<Self, ICError> {
-        let parse_tree = grammar::parse(&code)?;
+        let parse_tree = grammar::parse(code)?;
         let mut labels_set = HashSet::new();
         let mut labels = HashMap::new();
         let instructions = parse_tree
@@ -192,10 +215,10 @@ impl Program {
                 Some(code) => match code {
                     grammar::Code::Label(label) => {
                         if labels_set.contains(&label.id.name) {
-                            Err(ICError::DuplicateLabel(label.id.name.clone()))
+                            Err(ICError::DuplicateLabel(label.id.name))
                         } else {
                             labels_set.insert(label.id.name.clone());
-                            labels.insert(label.id.name.clone(), line_number as u32);
+                            labels.insert(label.id.name, line_number as u32);
                             Ok(grammar::Instruction {
                                 instruction: grammar::InstructionOp::Nop,
                                 operands: vec![],
@@ -220,7 +243,6 @@ impl Program {
 }
 
 impl IC {
-
     pub fn new(id: u16, device: u16) -> Self {
         IC {
             device,
@@ -352,7 +374,7 @@ impl IC {
 
     pub fn poke(&mut self, address: f64, val: f64) -> Result<f64, ICError> {
         let sp = address as i32;
-        if sp < 0 || sp >= 512 {
+        if !(0..512).contains(&sp) {
             Err(ICError::StackIndexOutOfRange(address))
         } else {
             let last = self.stack[sp as usize];
@@ -416,42 +438,31 @@ impl IC {
                     [a] => {
                         let a = a.get_value(self)?;
                         let now = time::OffsetDateTime::now_local()
-                            .unwrap_or(time::OffsetDateTime::now_utc());
+                            .unwrap_or_else(|_| time::OffsetDateTime::now_utc());
                         self.state = ICState::Sleep(now, a);
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 1,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 1)),
                 }, // TODO
-                Yield => {
-                    if operands.len() != 0 {
-                        Err(TooManyOperands {
-                            provided: operands.len() as u32,
-                            desired: 0,
-                        })
-                    } else {
+                Yield => match &operands[..] {
+                    [] => {
                         self.state = ICState::Yield;
                         Ok(())
                     }
-                }
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 0)),
+                },
                 Define => match &operands[..] {
-                    [_op1] => Err(TooFewOperands {
-                        provided: 1,
-                        desired: 2,
-                    }),
                     [name, number] => {
                         let &Operand::Identifier(ident) = &name else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Name".to_string(),
+                                desired: "Name".to_owned(),
                             });
                         };
                         let &Operand::Number(num) = &number else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 2,
-                                desired: "Number".to_string(),
+                                desired: "Number".to_owned(),
                             });
                         };
                         if self.defines.contains_key(&ident.name) {
@@ -461,55 +472,41 @@ impl IC {
                             Ok(())
                         }
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Alias => match &operands[..] {
-                    [_op1] => Err(TooFewOperands {
-                        provided: 1,
-                        desired: 2,
-                    }),
                     [name, device_reg] => {
                         let &Operand::Identifier(ident) = &name else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Name".to_string(),
+                                desired: "Name".to_owned(),
                             });
                         };
                         let alias = match &device_reg {
-                            &Operand::RegisterSpec {
+                            Operand::RegisterSpec {
                                 indirection,
                                 target,
                             } => Operand::RegisterSpec {
                                 indirection: *indirection,
                                 target: *target,
                             },
-                            &Operand::DeviceSpec { device, connection } => Operand::DeviceSpec {
+                            Operand::DeviceSpec { device, connection } => Operand::DeviceSpec {
                                 device: *device,
                                 connection: *connection,
                             },
                             _ => {
                                 break 'inst Err(IncorrectOperandType {
                                     index: 2,
-                                    desired: "Device Or Register".to_string(),
+                                    desired: "Device Or Register".to_owned(),
                                 })
                             }
                         };
                         self.aliases.insert(ident.name.clone(), alias);
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Move => match &operands[..] {
-                    [_op1] => Err(TooFewOperands {
-                        provided: 1,
-                        desired: 2,
-                    }),
                     [reg, val] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -518,7 +515,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
 
@@ -526,17 +523,10 @@ impl IC {
                         self.set_register(*indirection, *target, val)?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
 
                 Beq => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -544,16 +534,9 @@ impl IC {
                         next_ip = if a == b { c as u32 } else { next_ip };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Beqal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -562,16 +545,9 @@ impl IC {
                         self.al();
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Breq => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -583,32 +559,18 @@ impl IC {
                         };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Beqz => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [a, b] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
                         next_ip = if a == 0.0 { b as u32 } else { next_ip };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Beqzal => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [a, b] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -616,16 +578,9 @@ impl IC {
                         self.al();
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Breqz => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [a, b] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -636,16 +591,9 @@ impl IC {
                         };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Bne => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -653,16 +601,9 @@ impl IC {
                         next_ip = if a != b { c as u32 } else { next_ip };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Bneal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -671,16 +612,9 @@ impl IC {
                         self.al();
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Brne => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -692,32 +626,18 @@ impl IC {
                         };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Bnez => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [a, b] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
                         next_ip = if a != 0.0 { b as u32 } else { next_ip };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Bnezal => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [a, b] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -725,16 +645,9 @@ impl IC {
                         self.al();
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Brnez => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [a, b] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -745,16 +658,9 @@ impl IC {
                         };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Blt => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -762,16 +668,9 @@ impl IC {
                         next_ip = if a < b { c as u32 } else { next_ip };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Bltal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -780,16 +679,9 @@ impl IC {
                         self.al();
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Brlt => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -801,16 +693,9 @@ impl IC {
                         };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Ble => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -818,16 +703,9 @@ impl IC {
                         next_ip = if a <= b { c as u32 } else { next_ip };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Bleal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -836,16 +714,9 @@ impl IC {
                         self.al();
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Brle => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -857,32 +728,18 @@ impl IC {
                         };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Blez => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [a, b] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
                         next_ip = if a <= 0.0 { b as u32 } else { next_ip };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Blezal => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [a, b] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -890,16 +747,9 @@ impl IC {
                         self.al();
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Brlez => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [a, b] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -910,32 +760,18 @@ impl IC {
                         };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Bltz => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [a, b] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
                         next_ip = if a < 0.0 { b as u32 } else { next_ip };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Bltzal => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [a, b] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -943,16 +779,9 @@ impl IC {
                         self.al();
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Brltz => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [a, b] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -963,16 +792,9 @@ impl IC {
                         };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Bgt => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -980,16 +802,9 @@ impl IC {
                         next_ip = if a > b { c as u32 } else { next_ip };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Bgtal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -998,16 +813,9 @@ impl IC {
                         self.al();
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Brgt => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1019,32 +827,18 @@ impl IC {
                         };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Bgtz => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [a, b] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
                         next_ip = if a > 0.0 { b as u32 } else { next_ip };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Bgtzal => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [a, b] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1052,16 +846,9 @@ impl IC {
                         self.al();
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Brgtz => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [a, b] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1072,16 +859,9 @@ impl IC {
                         };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Bge => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1089,16 +869,9 @@ impl IC {
                         next_ip = if a >= b { c as u32 } else { next_ip };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Bgeal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1107,16 +880,9 @@ impl IC {
                         self.al();
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Brge => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1128,32 +894,18 @@ impl IC {
                         };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Bgez => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [a, b] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
                         next_ip = if a >= 0.0 { b as u32 } else { next_ip };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Bgezal => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [a, b] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1161,16 +913,9 @@ impl IC {
                         self.al();
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Brgez => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [a, b] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1181,16 +926,9 @@ impl IC {
                         };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Bap => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
                     [a, b, c, d] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1205,16 +943,9 @@ impl IC {
                         };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
                 },
                 Bapal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
                     [a, b, c, d] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1230,16 +961,9 @@ impl IC {
                         self.al();
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
                 },
                 Brap => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
                     [a, b, c, d] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1255,16 +979,9 @@ impl IC {
                         self.al();
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
                 },
                 Bapz => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1276,16 +993,9 @@ impl IC {
                         };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Bapzal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1298,16 +1008,9 @@ impl IC {
                         self.al();
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Brapz => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1319,16 +1022,9 @@ impl IC {
                         };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Bna => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
                     [a, b, c, d] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1343,16 +1039,9 @@ impl IC {
                         };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
                 },
                 Bnaal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
                     [a, b, c, d] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1368,16 +1057,9 @@ impl IC {
                         self.al();
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
                 },
                 Brna => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
                     [a, b, c, d] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1392,16 +1074,9 @@ impl IC {
                         };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
                 },
                 Bnaz => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1413,16 +1088,9 @@ impl IC {
                         };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Bnazal => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1435,16 +1103,9 @@ impl IC {
                         self.al();
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Brnaz => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [a, b, c] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1456,32 +1117,18 @@ impl IC {
                         };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Bdse => match &operands[..] {
-                    [_] => Err(TooFewOperands {
-                        provided: 1,
-                        desired: 2,
-                    }),
                     [d, a] => {
                         let (device, _connection) = d.get_device_id(self)?;
                         let a = a.get_value(self)?;
                         next_ip = if device.is_some() { a as u32 } else { next_ip };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Bdseal => match &operands[..] {
-                    [_] => Err(TooFewOperands {
-                        provided: 1,
-                        desired: 2,
-                    }),
                     [d, a] => {
                         let (device, _connection) = d.get_device_id(self)?;
                         let a = a.get_value(self)?;
@@ -1489,16 +1136,9 @@ impl IC {
                         self.al();
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Brdse => match &operands[..] {
-                    [_] => Err(TooFewOperands {
-                        provided: 1,
-                        desired: 2,
-                    }),
                     [d, a] => {
                         let (device, _connection) = d.get_device_id(self)?;
                         let a = a.get_value(self)?;
@@ -1509,32 +1149,18 @@ impl IC {
                         };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Bdns => match &operands[..] {
-                    [_] => Err(TooFewOperands {
-                        provided: 1,
-                        desired: 2,
-                    }),
                     [d, a] => {
                         let (device, _connection) = d.get_device_id(self)?;
                         let a = a.get_value(self)?;
                         next_ip = if device.is_none() { a as u32 } else { next_ip };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Bdnsal => match &operands[..] {
-                    [_] => Err(TooFewOperands {
-                        provided: 1,
-                        desired: 2,
-                    }),
                     [d, a] => {
                         let (device, _connection) = d.get_device_id(self)?;
                         let a = a.get_value(self)?;
@@ -1542,16 +1168,9 @@ impl IC {
                         self.al();
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Brdns => match &operands[..] {
-                    [_] => Err(TooFewOperands {
-                        provided: 1,
-                        desired: 2,
-                    }),
                     [d, a] => {
                         let (device, _connection) = d.get_device_id(self)?;
                         let a = a.get_value(self)?;
@@ -1562,32 +1181,18 @@ impl IC {
                         };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Bnan => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [a, b] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
                         next_ip = if a.is_nan() { b as u32 } else { next_ip };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Brnan => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [a, b] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
@@ -1598,10 +1203,7 @@ impl IC {
                         };
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
 
                 J => match &operands[..] {
@@ -1610,10 +1212,7 @@ impl IC {
                         next_ip = a as u32;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 1,
-                    }),
+                    oprs => Err(ICError::too_many_operands(oprs.len(), 1)),
                 },
                 Jal => match &operands[..] {
                     [a] => {
@@ -1622,10 +1221,7 @@ impl IC {
                         self.al();
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 1,
-                    }),
+                    oprs => Err(ICError::too_many_operands(oprs.len(), 1)),
                 },
                 Jr => match &operands[..] {
                     [a] => {
@@ -1633,17 +1229,10 @@ impl IC {
                         next_ip = (self.ip as f64 + a) as u32;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 1,
-                    }),
+                    oprs => Err(ICError::too_many_operands(oprs.len(), 1)),
                 },
 
                 Seq => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -1652,7 +1241,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1660,16 +1249,9 @@ impl IC {
                         self.set_register(indirection, target, if a == b { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Seqz => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -1678,23 +1260,16 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, if a == 0.0 { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Sne => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -1703,7 +1278,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1711,16 +1286,9 @@ impl IC {
                         self.set_register(indirection, target, if a != b { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Snez => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -1729,23 +1297,16 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, if a != 0.0 { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Slt => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -1754,7 +1315,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1762,16 +1323,9 @@ impl IC {
                         self.set_register(indirection, target, if a < b { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Sltz => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -1780,23 +1334,16 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, if a < 0.0 { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Sle => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -1805,7 +1352,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1813,16 +1360,9 @@ impl IC {
                         self.set_register(indirection, target, if a <= b { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Slez => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -1831,23 +1371,16 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, if a <= 0.0 { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Sgt => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -1856,7 +1389,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1864,16 +1397,9 @@ impl IC {
                         self.set_register(indirection, target, if a > b { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Sgtz => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -1882,23 +1408,16 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, if a > 0.0 { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Sge => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -1907,7 +1426,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1915,16 +1434,9 @@ impl IC {
                         self.set_register(indirection, target, if a >= b { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Sgez => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -1933,23 +1445,16 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, if a >= 0.0 { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Sap => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b, c] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -1958,7 +1463,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1977,16 +1482,9 @@ impl IC {
                         )?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Sapz => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -1995,7 +1493,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -2011,16 +1509,9 @@ impl IC {
                         )?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Sna => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
                     [reg, a, b, c] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2029,7 +1520,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -2048,16 +1539,9 @@ impl IC {
                         )?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
                 },
                 Snaz => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2066,7 +1550,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -2082,16 +1566,9 @@ impl IC {
                         )?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Sdse => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [reg, device] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2100,7 +1577,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let (device, _connection) = device.get_device_id(self)?;
@@ -2111,16 +1588,9 @@ impl IC {
                         )?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Sdns => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [reg, device] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2129,7 +1599,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let (device, _connection) = device.get_device_id(self)?;
@@ -2140,16 +1610,9 @@ impl IC {
                         )?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Snan => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2158,23 +1621,16 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, if a.is_nan() { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Snanz => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2183,24 +1639,17 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, if a.is_nan() { 0.0 } else { 1.0 })?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
 
                 Select => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
                     [reg, a, b, c] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2209,7 +1658,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -2218,17 +1667,10 @@ impl IC {
                         self.set_register(indirection, target, if a != 0.0 { b } else { c })?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
                 },
 
                 Add => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2237,7 +1679,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -2245,16 +1687,9 @@ impl IC {
                         self.set_register(indirection, target, a + b)?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Sub => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2263,7 +1698,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -2271,16 +1706,9 @@ impl IC {
                         self.set_register(indirection, target, a - b)?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Mul => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2289,7 +1717,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -2297,16 +1725,9 @@ impl IC {
                         self.set_register(indirection, target, a * b)?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Div => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2315,7 +1736,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -2323,16 +1744,9 @@ impl IC {
                         self.set_register(indirection, target, a / b)?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Mod => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2341,7 +1755,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -2349,16 +1763,9 @@ impl IC {
                         self.set_register(indirection, target, ((a % b) + b) % b)?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Exp => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2367,23 +1774,16 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::exp(a))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Log => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2392,23 +1792,16 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::ln(a))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Sqrt => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2417,24 +1810,17 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::sqrt(a))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
 
                 Max => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2443,7 +1829,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -2451,16 +1837,9 @@ impl IC {
                         self.set_register(indirection, target, f64::max(a, b))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Min => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2469,7 +1848,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -2477,16 +1856,9 @@ impl IC {
                         self.set_register(indirection, target, f64::min(a, b))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Ceil => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2495,23 +1867,16 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::ceil(a))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Floor => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2520,23 +1885,16 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::floor(a))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Abs => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2545,23 +1903,16 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::abs(a))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Round => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2570,23 +1921,16 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::round(a))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Trunc => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2595,17 +1939,14 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::trunc(a))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
 
                 Rand => match &operands[..] {
@@ -2617,24 +1958,17 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let val = vm.random.clone().borrow_mut().next_f64();
                         self.set_register(indirection, target, val)?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 1,
-                    }),
+                    oprs => Err(ICError::too_many_operands(oprs.len(), 1)),
                 },
 
                 Sin => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2643,23 +1977,16 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::sin(a))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Cos => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2668,23 +1995,16 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::cos(a))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Tan => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2693,23 +2013,16 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::tan(a))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Asin => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2718,23 +2031,16 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::asin(a))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Acos => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2743,23 +2049,16 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::acos(a))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Atan => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2768,23 +2067,16 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
                         self.set_register(indirection, target, f64::atan(a))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Atan2 => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2793,7 +2085,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -2801,17 +2093,10 @@ impl IC {
                         self.set_register(indirection, target, f64::atan2(a, b))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
 
                 Sll | Sla => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2820,7 +2105,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value_i64(self, true)?;
@@ -2828,16 +2113,9 @@ impl IC {
                         self.set_register(indirection, target, i64_to_f64(a << b))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Srl => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2846,7 +2124,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value_i64(self, false)?;
@@ -2854,16 +2132,9 @@ impl IC {
                         self.set_register(indirection, target, i64_to_f64((a as u64 >> b) as i64))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Sra => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2872,7 +2143,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value_i64(self, true)?;
@@ -2880,17 +2151,10 @@ impl IC {
                         self.set_register(indirection, target, i64_to_f64(a >> b))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
 
                 And => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2899,7 +2163,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value_i64(self, true)?;
@@ -2907,16 +2171,9 @@ impl IC {
                         self.set_register(indirection, target, i64_to_f64(a & b))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Or => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2925,7 +2182,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value_i64(self, true)?;
@@ -2933,16 +2190,9 @@ impl IC {
                         self.set_register(indirection, target, i64_to_f64(a | b))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Xor => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2951,7 +2201,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value_i64(self, true)?;
@@ -2959,16 +2209,9 @@ impl IC {
                         self.set_register(indirection, target, i64_to_f64(a ^ b))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Nor => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, a, b] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -2977,7 +2220,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value_i64(self, true)?;
@@ -2985,16 +2228,9 @@ impl IC {
                         self.set_register(indirection, target, i64_to_f64(!(a | b)))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Not => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [reg, a] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -3003,17 +2239,14 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value_i64(self, true)?;
                         self.set_register(indirection, target, i64_to_f64(!a))?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
 
                 Push => match &operands[..] {
@@ -3022,10 +2255,7 @@ impl IC {
                         self.push(a)?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 1,
-                    }),
+                    oprs => Err(ICError::too_many_operands(oprs.len(), 1)),
                 },
                 Pop => match &operands[..] {
                     [reg] => {
@@ -3036,33 +2266,23 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let val = self.pop()?;
                         self.set_register(indirection, target, val)?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 1,
-                    }),
+                    oprs => Err(ICError::too_many_operands(oprs.len(), 1)),
                 },
                 Poke => match &operands[..] {
-                    oprs @ [_] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
                     [a, b] => {
                         let a = a.get_value(self)?;
                         let b = b.get_value(self)?;
                         self.poke(a, b)?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 2,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Peek => match &operands[..] {
                     [reg] => {
@@ -3073,24 +2293,17 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let val = self.peek()?;
                         self.set_register(indirection, target, val)?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 1,
-                    }),
+                    oprs => Err(ICError::too_many_operands(oprs.len(), 1)),
                 },
 
                 Get => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, dev_id, addr] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -3099,7 +2312,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let (Some(device_id), _connection) = dev_id.get_device_id(self)? else {
@@ -3110,7 +2323,7 @@ impl IC {
                             Some(device) => match device.borrow().ic.as_ref() {
                                 Some(ic_id) => {
                                     let addr = addr.get_value(self)?;
-                                    let ic = vm.ics.get(&ic_id).unwrap().borrow();
+                                    let ic = vm.ics.get(ic_id).unwrap().borrow();
                                     let val = ic.peek_addr(addr)?;
                                     self.set_register(indirection, target, val)?;
                                     Ok(())
@@ -3120,16 +2333,9 @@ impl IC {
                             None => Err(UnknownDeviceID(device_id as f64)),
                         }
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Getd => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, dev_id, addr] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -3138,7 +2344,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let (Some(device_id), _connection) = dev_id.get_device_id(self)? else {
@@ -3149,7 +2355,7 @@ impl IC {
                             Some(device) => match device.borrow().ic.as_ref() {
                                 Some(ic_id) => {
                                     let addr = addr.get_value(self)?;
-                                    let ic = vm.ics.get(&ic_id).unwrap().borrow();
+                                    let ic = vm.ics.get(ic_id).unwrap().borrow();
                                     let val = ic.peek_addr(addr)?;
                                     self.set_register(indirection, target, val)?;
                                     Ok(())
@@ -3159,27 +2365,20 @@ impl IC {
                             None => Err(UnknownDeviceID(device_id as f64)),
                         }
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Put => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [dev_id, addr, val] => {
                         let (Some(device_id), _connection) = dev_id.get_device_id(self)? else {
                             break 'inst Err(DeviceNotSet);
                         };
-                        let device = vm.get_device_same_network(self.device, device_id as u16);
+                        let device = vm.get_device_same_network(self.device, device_id);
                         match device {
                             Some(device) => match device.borrow().ic.as_ref() {
                                 Some(ic_id) => {
                                     let addr = addr.get_value(self)?;
                                     let val = val.get_value(self)?;
-                                    let mut ic = vm.ics.get(&ic_id).unwrap().borrow_mut();
+                                    let mut ic = vm.ics.get(ic_id).unwrap().borrow_mut();
                                     ic.poke(addr, val)?;
                                     Ok(())
                                 }
@@ -3188,16 +2387,9 @@ impl IC {
                             None => Err(UnknownDeviceID(device_id as f64)),
                         }
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Putd => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [dev_id, addr, val] => {
                         let device_id = dev_id.get_value(self)?;
                         if device_id >= u16::MAX as f64 || device_id < u16::MIN as f64 {
@@ -3209,7 +2401,7 @@ impl IC {
                                 Some(ic_id) => {
                                     let addr = addr.get_value(self)?;
                                     let val = val.get_value(self)?;
-                                    let mut ic = vm.ics.get(&ic_id).unwrap().borrow_mut();
+                                    let mut ic = vm.ics.get(ic_id).unwrap().borrow_mut();
                                     ic.poke(addr, val)?;
                                     Ok(())
                                 }
@@ -3218,36 +2410,29 @@ impl IC {
                             None => Err(UnknownDeviceID(device_id)),
                         }
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
 
                 S => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [dev, lt, val] => {
                         let (Some(device_id), connection) = dev.get_device_id(self)? else {
                             break 'inst Err(DeviceNotSet);
                         };
                         let lt = LogicType::try_from(lt.get_value(self)?)?;
                         if CHANNEL_LOGIC_TYPES.contains(&lt) {
-                            let channel = channel_logic_to_channel(lt).unwrap();
+                            let channel = lt.as_channel().unwrap();
                             let Some(connection) = connection else {
-                                break 'inst Err(MissingConnecitonSpecifier);
+                                break 'inst Err(MissingConnectionSpecifier);
                             };
                             let network_id = vm
-                                .get_device_same_network(self.device, device_id as u16)
+                                .get_device_same_network(self.device, device_id)
                                 .map(|device| device.borrow().get_network_id(connection as usize))
                                 .unwrap_or(Err(UnknownDeviceID(device_id as f64)))?;
                             let val = val.get_value(self)?;
                             vm.set_network_channel(network_id as usize, channel, val)?;
                             return Ok(());
                         }
-                        let device = vm.get_device_same_network(self.device, device_id as u16);
+                        let device = vm.get_device_same_network(self.device, device_id);
                         match device {
                             Some(device) => {
                                 let val = val.get_value(self)?;
@@ -3257,16 +2442,9 @@ impl IC {
                             None => Err(UnknownDeviceID(device_id as f64)),
                         }
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Sd => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [dev, lt, val] => {
                         let device_id = dev.get_value(self)?;
                         if device_id >= u16::MAX as f64 || device_id < u16::MIN as f64 {
@@ -3280,24 +2458,17 @@ impl IC {
                                 device.borrow_mut().set_field(lt, val)?;
                                 Ok(())
                             }
-                            None => Err(UnknownDeviceID(device_id as f64)),
+                            None => Err(UnknownDeviceID(device_id)),
                         }
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Ss => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
                     [dev, index, lt, val] => {
                         let (Some(device_id), _connection) = dev.get_device_id(self)? else {
                             break 'inst Err(DeviceNotSet);
                         };
-                        let device = vm.get_device_same_network(self.device, device_id as u16);
+                        let device = vm.get_device_same_network(self.device, device_id);
                         match device {
                             Some(device) => {
                                 let index = index.get_value(self)?;
@@ -3309,16 +2480,9 @@ impl IC {
                             None => Err(UnknownDeviceID(device_id as f64)),
                         }
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
                 },
                 Sb => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [prefab, lt, val] => {
                         let prefab = prefab.get_value(self)?;
                         let lt = LogicType::try_from(lt.get_value(self)?)?;
@@ -3326,16 +2490,9 @@ impl IC {
                         vm.set_batch_device_field(self.device, prefab, lt, val)?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Sbs => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
                     [prefab, index, lt, val] => {
                         let prefab = prefab.get_value(self)?;
                         let index = index.get_value(self)?;
@@ -3344,16 +2501,9 @@ impl IC {
                         vm.set_batch_device_slot_field(self.device, prefab, index, lt, val)?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
                 },
                 Sbn => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
                     [prefab, name, lt, val] => {
                         let prefab = prefab.get_value(self)?;
                         let name = name.get_value(self)?;
@@ -3362,17 +2512,10 @@ impl IC {
                         vm.set_batch_name_device_field(self.device, prefab, name, lt, val)?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
                 },
 
                 L => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, dev, lt] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -3381,7 +2524,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let (Some(device_id), connection) = dev.get_device_id(self)? else {
@@ -3389,19 +2532,19 @@ impl IC {
                         };
                         let lt = LogicType::try_from(lt.get_value(self)?)?;
                         if CHANNEL_LOGIC_TYPES.contains(&lt) {
-                            let channel = channel_logic_to_channel(lt).unwrap();
+                            let channel = lt.as_channel().unwrap();
                             let Some(connection) = connection else {
-                                break 'inst Err(MissingConnecitonSpecifier);
+                                break 'inst Err(MissingConnectionSpecifier);
                             };
                             let network_id = vm
-                                .get_device_same_network(self.device, device_id as u16)
+                                .get_device_same_network(self.device, device_id)
                                 .map(|device| device.borrow().get_network_id(connection as usize))
                                 .unwrap_or(Err(UnknownDeviceID(device_id as f64)))?;
                             let val = vm.get_network_channel(network_id as usize, channel)?;
                             self.set_register(indirection, target, val)?;
                             return Ok(());
                         }
-                        let device = vm.get_device_same_network(self.device, device_id as u16);
+                        let device = vm.get_device_same_network(self.device, device_id);
                         match device {
                             Some(device) => {
                                 let val = device.borrow().get_field(lt)?;
@@ -3411,16 +2554,9 @@ impl IC {
                             None => Err(UnknownDeviceID(device_id as f64)),
                         }
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Ld => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
                     [reg, dev, lt] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -3429,7 +2565,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let device_id = dev.get_value(self)?;
@@ -3444,19 +2580,12 @@ impl IC {
                                 self.set_register(indirection, target, val)?;
                                 Ok(())
                             }
-                            None => Err(UnknownDeviceID(device_id as f64)),
+                            None => Err(UnknownDeviceID(device_id)),
                         }
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 3,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Ls => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
                     [reg, dev, index, lt] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -3465,13 +2594,13 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let (Some(device_id), _connection) = dev.get_device_id(self)? else {
                             break 'inst Err(DeviceNotSet);
                         };
-                        let device = vm.get_device_same_network(self.device, device_id as u16);
+                        let device = vm.get_device_same_network(self.device, device_id);
                         match device {
                             Some(device) => {
                                 let index = index.get_value(self)?;
@@ -3483,16 +2612,9 @@ impl IC {
                             None => Err(UnknownDeviceID(device_id as f64)),
                         }
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
                 },
                 Lr => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
                     [reg, dev, rm, name] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -3501,13 +2623,13 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let (Some(device_id), _connection) = dev.get_device_id(self)? else {
                             break 'inst Err(DeviceNotSet);
                         };
-                        let device = vm.get_device_same_network(self.device, device_id as u16);
+                        let device = vm.get_device_same_network(self.device, device_id);
                         match device {
                             Some(device) => {
                                 let rm = ReagentMode::try_from(rm.get_value(self)?)?;
@@ -3519,16 +2641,9 @@ impl IC {
                             None => Err(UnknownDeviceID(device_id as f64)),
                         }
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
                 },
                 Lb => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
                     [reg, prefab, lt, bm] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -3537,7 +2652,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let prefab = prefab.get_value(self)?;
@@ -3547,18 +2662,9 @@ impl IC {
                         self.set_register(indirection, target, val)?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 4,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
                 },
                 Lbn => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] | oprs @ [_, _, _, _] => {
-                        Err(TooFewOperands {
-                            provided: oprs.len() as u32,
-                            desired: 5,
-                        })
-                    }
                     [reg, prefab, name, lt, bm] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -3567,7 +2673,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let prefab = prefab.get_value(self)?;
@@ -3579,20 +2685,9 @@ impl IC {
                         self.set_register(indirection, target, val)?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 5,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 5)),
                 },
                 Lbns => match &operands[..] {
-                    oprs @ [_]
-                    | oprs @ [_, _]
-                    | oprs @ [_, _, _]
-                    | oprs @ [_, _, _, _]
-                    | oprs @ [_, _, _, _, _] => Err(TooFewOperands {
-                        provided: oprs.len() as u32,
-                        desired: 6,
-                    }),
                     [reg, prefab, name, index, slt, bm] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -3601,7 +2696,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let prefab = prefab.get_value(self)?;
@@ -3620,18 +2715,9 @@ impl IC {
                         self.set_register(indirection, target, val)?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 6,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 6)),
                 },
                 Lbs => match &operands[..] {
-                    oprs @ [_] | oprs @ [_, _] | oprs @ [_, _, _] | oprs @ [_, _, _, _] => {
-                        Err(TooFewOperands {
-                            provided: oprs.len() as u32,
-                            desired: 5,
-                        })
-                    }
                     [reg, prefab, index, slt, bm] => {
                         let &Operand::RegisterSpec {
                             indirection,
@@ -3640,7 +2726,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let prefab = prefab.get_value(self)?;
@@ -3652,10 +2738,7 @@ impl IC {
                         self.set_register(indirection, target, val)?;
                         Ok(())
                     }
-                    oprs => Err(TooManyOperands {
-                        provided: oprs.len() as u32,
-                        desired: 5,
-                    }),
+                    oprs => Err(ICError::mismatch_operands(oprs.len(), 5)),
                 },
             }
         };
@@ -3677,24 +2760,29 @@ const CHANNEL_LOGIC_TYPES: [grammar::LogicType; 8] = [
     grammar::LogicType::Channel7,
 ];
 
-fn channel_logic_to_channel(lt: grammar::LogicType) -> Option<usize> {
-    match lt {
-        grammar::LogicType::Channel0 => Some(0),
-        grammar::LogicType::Channel1 => Some(1),
-        grammar::LogicType::Channel2 => Some(2),
-        grammar::LogicType::Channel3 => Some(3),
-        grammar::LogicType::Channel4 => Some(4),
-        grammar::LogicType::Channel5 => Some(5),
-        grammar::LogicType::Channel6 => Some(6),
-        grammar::LogicType::Channel7 => Some(7),
-        _ => None,
+trait LogicTypeExt {
+    fn as_channel(&self) -> Option<usize>;
+}
+impl LogicTypeExt for grammar::LogicType {
+    fn as_channel(&self) -> Option<usize> {
+        match self {
+            grammar::LogicType::Channel0 => Some(0),
+            grammar::LogicType::Channel1 => Some(1),
+            grammar::LogicType::Channel2 => Some(2),
+            grammar::LogicType::Channel3 => Some(3),
+            grammar::LogicType::Channel4 => Some(4),
+            grammar::LogicType::Channel5 => Some(5),
+            grammar::LogicType::Channel6 => Some(6),
+            grammar::LogicType::Channel7 => Some(7),
+            _ => None,
+        }
     }
 }
 
 pub fn f64_to_i64(f: f64, signed: bool) -> i64 {
     let mut num: i64 = (f % 9007199254740992.0) as i64;
     if !signed {
-        num &= 18014398509481983_i64
+        num &= 18014398509481983_i64;
     }
     num
 }
@@ -3703,7 +2791,7 @@ pub fn i64_to_f64(i: i64) -> f64 {
     let flag: bool = (i & 9007199254740992_i64) != 0;
     let mut i = i & 9007199254740991_i64;
     if flag {
-        i &= -9007199254740992_i64
+        i &= -9007199254740992_i64;
     }
     i as f64
 }
