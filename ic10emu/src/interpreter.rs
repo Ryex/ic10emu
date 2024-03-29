@@ -31,7 +31,7 @@ impl Error for LineError {}
 
 #[derive(Debug, Error, Clone, Serialize, Deserialize)]
 pub enum ICError {
-    #[error("Error Compileing Code: {0}")]
+    #[error("Error Compiling Code: {0}")]
     ParseError(#[from] ParseError),
     #[error("Duplicate label {0}")]
     DuplicateLabel(String),
@@ -100,7 +100,7 @@ pub enum ICError {
     #[error("Connection index out of range: '{0}'")]
     ConnecitonIndexOutOFRange(u32),
     #[error("Connection specifier missing")]
-    MissingConnecitonSpecifier,
+    MissingConnectionSpecifier,
     #[error("No data network on connection '{0}'")]
     NotDataConnection(u32),
     #[error("Network not connected on connection '{0}'")]
@@ -3235,7 +3235,7 @@ impl IC {
                         if CHANNEL_LOGIC_TYPES.contains(&lt) {
                             let channel = lt.as_channel().unwrap();
                             let Some(connection) = connection else {
-                                break 'inst Err(MissingConnecitonSpecifier);
+                                break 'inst Err(MissingConnectionSpecifier);
                             };
                             let network_id = vm
                                 .get_device_same_network(self.device, device_id)
@@ -3389,7 +3389,7 @@ impl IC {
                         if CHANNEL_LOGIC_TYPES.contains(&lt) {
                             let channel = lt.as_channel().unwrap();
                             let Some(connection) = connection else {
-                                break 'inst Err(MissingConnecitonSpecifier);
+                                break 'inst Err(MissingConnectionSpecifier);
                             };
                             let network_id = vm
                                 .get_device_same_network(self.device, device_id)

@@ -29,7 +29,7 @@ where
 {
     pub aliases: Vec<String>,
     pub value: Option<P>,
-    pub depricated: bool,
+    pub deprecated: bool,
 }
 
 fn write_repr_enum<T: std::io::Write, I, P>(
@@ -58,13 +58,13 @@ fn write_repr_enum<T: std::io::Write, I, P>(
             .map(|s| format!("serialize = \"{s}\""))
             .collect::<Vec<String>>()
             .join(", ");
-        let depricated_str = if variant.depricated {
-            ", depricated = \"true\"".to_string()
+        let deprecated_str = if variant.deprecated {
+            ", deprecated = \"true\"".to_string()
         } else {
             "".to_string()
         };
         let props_str = if let Some(val) = &variant.value {
-            format!(", props( value = \"{val}\"{depricated_str})")
+            format!(", props( value = \"{val}\"{deprecated_str})")
         } else {
             "".to_string()
         };
@@ -94,7 +94,7 @@ fn write_logictypes() {
         let val_str = it.next().unwrap();
         let val: Option<u8> = val_str.parse().ok();
         let docs = it.next();
-        let depricated = docs
+        let deprecated = docs
             .map(|docs| docs.trim().to_uppercase() == "DEPRECATED")
             .unwrap_or(false);
 
@@ -104,14 +104,14 @@ fn write_logictypes() {
                 .find(|(_, variant)| variant.value == Some(val))
             {
                 variant.aliases.push(name.to_string());
-                variant.depricated = depricated;
+                variant.deprecated = deprecated;
             } else {
                 logictypes.insert(
                     name.to_string(),
                     EnumVariant {
                         aliases: Vec::new(),
                         value: Some(val),
-                        depricated,
+                        deprecated,
                     },
                 );
             }
@@ -121,7 +121,7 @@ fn write_logictypes() {
                 EnumVariant {
                     aliases: Vec::new(),
                     value: val,
-                    depricated,
+                    deprecated,
                 },
             );
         }
@@ -137,7 +137,7 @@ fn write_logictypes() {
         let val_str = it.next().unwrap();
         let val: Option<u8> = val_str.parse().ok();
         let docs = it.next();
-        let depricated = docs
+        let deprecated = docs
             .map(|docs| docs.trim().to_uppercase() == "DEPRECATED")
             .unwrap_or(false);
 
@@ -147,14 +147,14 @@ fn write_logictypes() {
                 .find(|(_, variant)| variant.value == Some(val))
             {
                 variant.aliases.push(name.to_string());
-                variant.depricated = depricated;
+                variant.deprecated = deprecated;
             } else {
                 slotlogictypes.insert(
                     name.to_string(),
                     EnumVariant {
                         aliases: Vec::new(),
                         value: Some(val),
-                        depricated,
+                        deprecated,
                     },
                 );
             }
@@ -164,7 +164,7 @@ fn write_logictypes() {
                 EnumVariant {
                     aliases: Vec::new(),
                     value: val,
-                    depricated,
+                    deprecated,
                 },
             );
         }
@@ -244,7 +244,7 @@ fn write_modes() {
                     EnumVariant {
                         aliases: Vec::new(),
                         value: Some(val),
-                        depricated: false,
+                        deprecated: false,
                     },
                 );
             }
@@ -254,7 +254,7 @@ fn write_modes() {
                 EnumVariant {
                     aliases: Vec::new(),
                     value: val,
-                    depricated: false,
+                    deprecated: false,
                 },
             );
         }
@@ -282,7 +282,7 @@ fn write_modes() {
                     EnumVariant {
                         aliases: Vec::new(),
                         value: Some(val),
-                        depricated: false,
+                        deprecated: false,
                     },
                 );
             }
@@ -292,7 +292,7 @@ fn write_modes() {
                 EnumVariant {
                     aliases: Vec::new(),
                     value: val,
-                    depricated: false,
+                    deprecated: false,
                 },
             );
         }
