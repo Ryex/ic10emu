@@ -146,9 +146,9 @@ pub enum ICState {
 impl Display for ICState {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let out = match self {
-            ICState::Start => "Not Run".to_string(),
-            ICState::Running => "Running".to_string(),
-            ICState::Yield => "Ic has yielded, Resume on next tick".to_string(),
+            ICState::Start => "Not Run".to_owned(),
+            ICState::Running => "Running".to_owned(),
+            ICState::Yield => "Ic has yielded, Resume on next tick".to_owned(),
             ICState::Sleep(then, sleep_for) => {
                 let format = format_description::parse("[hour]:[minute]:[second]").unwrap();
                 let resume = *then + time::Duration::new(*sleep_for as i64, 0);
@@ -158,7 +158,7 @@ impl Display for ICState {
                 )
             }
             ICState::Error(err) => format!("{err}"),
-            ICState::HasCaughtFire => "IC has caught fire! this is not a joke!".to_string(),
+            ICState::HasCaughtFire => "IC has caught fire! this is not a joke!".to_owned(),
         };
         write!(f, "{out}")
     }
@@ -456,13 +456,13 @@ impl IC {
                         let &Operand::Identifier(ident) = &name else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Name".to_string(),
+                                desired: "Name".to_owned(),
                             });
                         };
                         let &Operand::Number(num) = &number else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 2,
-                                desired: "Number".to_string(),
+                                desired: "Number".to_owned(),
                             });
                         };
                         if self.defines.contains_key(&ident.name) {
@@ -479,7 +479,7 @@ impl IC {
                         let &Operand::Identifier(ident) = &name else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Name".to_string(),
+                                desired: "Name".to_owned(),
                             });
                         };
                         let alias = match &device_reg {
@@ -497,7 +497,7 @@ impl IC {
                             _ => {
                                 break 'inst Err(IncorrectOperandType {
                                     index: 2,
-                                    desired: "Device Or Register".to_string(),
+                                    desired: "Device Or Register".to_owned(),
                                 })
                             }
                         };
@@ -515,7 +515,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
 
@@ -1241,7 +1241,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1260,7 +1260,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1278,7 +1278,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1297,7 +1297,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1315,7 +1315,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1334,7 +1334,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1352,7 +1352,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1371,7 +1371,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1389,7 +1389,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1408,7 +1408,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1426,7 +1426,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1445,7 +1445,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1463,7 +1463,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1493,7 +1493,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1520,7 +1520,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1550,7 +1550,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1577,7 +1577,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let (device, _connection) = device.get_device_id(self)?;
@@ -1599,7 +1599,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let (device, _connection) = device.get_device_id(self)?;
@@ -1621,7 +1621,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1639,7 +1639,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1658,7 +1658,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1679,7 +1679,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1698,7 +1698,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1717,7 +1717,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1736,7 +1736,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1755,7 +1755,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1774,7 +1774,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1792,7 +1792,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1810,7 +1810,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1829,7 +1829,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1848,7 +1848,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1867,7 +1867,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1885,7 +1885,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1903,7 +1903,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1921,7 +1921,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1939,7 +1939,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1958,7 +1958,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let val = vm.random.clone().borrow_mut().next_f64();
@@ -1977,7 +1977,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -1995,7 +1995,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -2013,7 +2013,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -2031,7 +2031,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -2049,7 +2049,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -2067,7 +2067,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -2085,7 +2085,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value(self)?;
@@ -2105,7 +2105,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value_i64(self, true)?;
@@ -2124,7 +2124,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value_i64(self, false)?;
@@ -2143,7 +2143,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value_i64(self, true)?;
@@ -2163,7 +2163,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value_i64(self, true)?;
@@ -2182,7 +2182,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value_i64(self, true)?;
@@ -2201,7 +2201,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value_i64(self, true)?;
@@ -2220,7 +2220,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value_i64(self, true)?;
@@ -2239,7 +2239,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let a = a.get_value_i64(self, true)?;
@@ -2266,7 +2266,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let val = self.pop()?;
@@ -2293,7 +2293,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let val = self.peek()?;
@@ -2312,7 +2312,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let (Some(device_id), _connection) = dev_id.get_device_id(self)? else {
@@ -2344,7 +2344,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let (Some(device_id), _connection) = dev_id.get_device_id(self)? else {
@@ -2524,7 +2524,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let (Some(device_id), connection) = dev.get_device_id(self)? else {
@@ -2565,7 +2565,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let device_id = dev.get_value(self)?;
@@ -2594,7 +2594,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let (Some(device_id), _connection) = dev.get_device_id(self)? else {
@@ -2623,7 +2623,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let (Some(device_id), _connection) = dev.get_device_id(self)? else {
@@ -2652,7 +2652,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let prefab = prefab.get_value(self)?;
@@ -2673,7 +2673,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let prefab = prefab.get_value(self)?;
@@ -2696,7 +2696,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let prefab = prefab.get_value(self)?;
@@ -2726,7 +2726,7 @@ impl IC {
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
-                                desired: "Register".to_string(),
+                                desired: "Register".to_owned(),
                             });
                         };
                         let prefab = prefab.get_value(self)?;

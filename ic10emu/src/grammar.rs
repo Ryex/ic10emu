@@ -230,7 +230,7 @@ impl FromStr for Instruction {
                     line: 0,
                     start: 0,
                     end: 0,
-                    msg: "Missing instruction".to_string(),
+                    msg: "Missing instruction".to_owned(),
                 })
             }
         }?;
@@ -420,7 +420,7 @@ impl FromStr for Operand {
                     line: 0,
                     start: 0,
                     end: 0,
-                    msg: "Invalid register specifier".to_string(),
+                    msg: "Invalid register specifier".to_owned(),
                 })
             }
             ['d', rest @ ..] => match rest {
@@ -439,7 +439,7 @@ impl FromStr for Operand {
                             line: 0,
                             start: 3,
                             end: 3,
-                            msg: "Invalid device connection specifier".to_string(),
+                            msg: "Invalid device connection specifier".to_owned(),
                         })
                     }
                 }
@@ -467,7 +467,7 @@ impl FromStr for Operand {
                                     line: 0,
                                     start,
                                     end: start,
-                                    msg: "Invalid device connection specifier".to_string(),
+                                    msg: "Invalid device connection specifier".to_owned(),
                                 })
                             }
                         } else {
@@ -488,7 +488,7 @@ impl FromStr for Operand {
                                 line: 0,
                                 start: 0,
                                 end: 0,
-                                msg: "Invalid register specifier".to_string(),
+                                msg: "Invalid register specifier".to_owned(),
                             })
                         }
                     } else {
@@ -517,7 +517,7 @@ impl FromStr for Operand {
                                     line: 0,
                                     start,
                                     end: start,
-                                    msg: "Invalid device connection specifier".to_string(),
+                                    msg: "Invalid device connection specifier".to_owned(),
                                 })
                             }
                         } else {
@@ -535,7 +535,7 @@ impl FromStr for Operand {
                                 line: 0,
                                 start: 0,
                                 end: 0,
-                                msg: "Invalid device specifier".to_string(),
+                                msg: "Invalid device specifier".to_owned(),
                             })
                         }
                     } else {
@@ -551,7 +551,7 @@ impl FromStr for Operand {
                         line: 0,
                         start: 0,
                         end: 0,
-                        msg: "Invalid hash string: Can not contain '\"'".to_string(),
+                        msg: "Invalid hash string: Can not contain '\"'".to_owned(),
                     })
                 }
             }
@@ -568,7 +568,7 @@ impl FromStr for Operand {
                         line: 0,
                         start: 0,
                         end: 0,
-                        msg: "Invalid Hexadecimal Number".to_string(),
+                        msg: "Invalid Hexadecimal Number".to_owned(),
                     })
                 }
             }
@@ -585,7 +585,7 @@ impl FromStr for Operand {
                         line: 0,
                         start: 0,
                         end: 0,
-                        msg: "Invalid Binary Number".to_string(),
+                        msg: "Invalid Binary Number".to_owned(),
                     })
                 }
             }
@@ -594,7 +594,7 @@ impl FromStr for Operand {
                 let float_str = if rest_iter.peek() == Some(&&'-') {
                     format!("{}", rest_iter.next().unwrap())
                 } else {
-                    "".to_string()
+                    "".to_owned()
                 } + &rest_iter
                     .take_while_ref(|c| c.is_ascii_digit())
                     .collect::<String>();
@@ -614,7 +614,7 @@ impl FromStr for Operand {
                                 line: 0,
                                 start,
                                 end: start,
-                                msg: "Invalid Decimal Number".to_string(),
+                                msg: "Invalid Decimal Number".to_owned(),
                             })
                         }
                     } else if rest_iter.next().is_none() {
@@ -626,7 +626,7 @@ impl FromStr for Operand {
                             line: 0,
                             start,
                             end: start,
-                            msg: "Invalid Integer Number".to_string(),
+                            msg: "Invalid Integer Number".to_owned(),
                         })
                     }
                 } else if let Some(val) = CONSTANTS_LOOKUP.get(s) {
@@ -672,13 +672,13 @@ impl FromStr for Label {
                 line: 0,
                 start: index,
                 end: index,
-                msg: "Missing ':' at end of label".to_string(),
+                msg: "Missing ':' at end of label".to_owned(),
             }),
             None => Err(ParseError {
                 line: 0,
                 start: 0,
                 end: 0,
-                msg: "empty string for label? parse miscalled".to_string(),
+                msg: "empty string for label? parse miscalled".to_owned(),
             }),
         }
     }
@@ -723,7 +723,7 @@ impl FromStr for Identifier {
                 line: 0,
                 start: 0,
                 end: 0,
-                msg: "Empty Identifier".to_string(),
+                msg: "Empty Identifier".to_owned(),
             })
         }
     }
@@ -775,7 +775,7 @@ mod tests {
                     ],
                 },),),
                 comment: Some(Comment {
-                    comment: " This is a comment".to_string(),
+                    comment: " This is a comment".to_owned(),
                 },),
             },],
         );
@@ -827,7 +827,7 @@ mod tests {
                 Line {
                     code: None,
                     comment: Some(Comment {
-                        comment: " This is a comment".to_string(),
+                        comment: " This is a comment".to_owned(),
                     },),
                 },
                 Line {
@@ -835,7 +835,7 @@ mod tests {
                         instruction: InstructionOp::Define,
                         operands: vec![
                             Operand::Identifier(Identifier {
-                                name: "a_def".to_string(),
+                                name: "a_def".to_owned(),
                             },),
                             Operand::Number(Number::Float(10.0,),),
                         ],
@@ -847,9 +847,9 @@ mod tests {
                         instruction: InstructionOp::Define,
                         operands: vec![
                             Operand::Identifier(Identifier {
-                                name: "a_hash".to_string(),
+                                name: "a_hash".to_owned(),
                             },),
-                            Operand::Number(Number::String("This is a String".to_string()),),
+                            Operand::Number(Number::String("This is a String".to_owned()),),
                         ],
                     },),),
                     comment: None,
@@ -859,7 +859,7 @@ mod tests {
                         instruction: InstructionOp::Alias,
                         operands: vec![
                             Operand::Identifier(Identifier {
-                                name: "a_var".to_string(),
+                                name: "a_var".to_owned(),
                             },),
                             Operand::RegisterSpec {
                                 indirection: 0,
@@ -874,7 +874,7 @@ mod tests {
                         instruction: InstructionOp::Alias,
                         operands: vec![
                             Operand::Identifier(Identifier {
-                                name: "a_device".to_string(),
+                                name: "a_device".to_owned(),
                             },),
                             Operand::DeviceSpec {
                                 device: Device::Numbered(0),
@@ -927,7 +927,7 @@ mod tests {
                 Line {
                     code: Some(Code::Label(Label {
                         id: Identifier {
-                            name: "main".to_string(),
+                            name: "main".to_owned(),
                         },
                     },),),
                     comment: None,
@@ -964,7 +964,7 @@ mod tests {
                                 indirection: 0,
                                 target: 0,
                             },
-                            Operand::Number(Number::String("AccessCardBlack".to_string()),),
+                            Operand::Number(Number::String("AccessCardBlack".to_owned()),),
                         ],
                     },),),
                     comment: None,
@@ -1032,7 +1032,7 @@ mod tests {
                     code: Some(Code::Instruction(Instruction {
                         instruction: InstructionOp::J,
                         operands: vec![Operand::Identifier(Identifier {
-                            name: "main".to_string(),
+                            name: "main".to_owned(),
                         },),],
                     },),),
                     comment: None,

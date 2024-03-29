@@ -59,14 +59,14 @@ fn write_repr_enum<T: std::io::Write, I, P>(
             .collect::<Vec<String>>()
             .join(", ");
         let deprecated_str = if variant.deprecated {
-            ", deprecated = \"true\"".to_string()
+            ", deprecated = \"true\"".to_owned()
         } else {
-            "".to_string()
+            "".to_owned()
         };
         let props_str = if let Some(val) = &variant.value {
             format!(", props( value = \"{val}\"{deprecated_str})")
         } else {
-            "".to_string()
+            "".to_owned()
         };
         writeln!(
             writer,
