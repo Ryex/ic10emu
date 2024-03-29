@@ -340,7 +340,7 @@ impl VM {
     }
 
     #[wasm_bindgen(getter, js_name = "defaultNetwork")]
-    pub fn defualt_network(&self) -> u16 {
+    pub fn default_network(&self) -> u16 {
         self.vm.borrow().default_network
     }
 

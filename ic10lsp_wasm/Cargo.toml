@@ -28,3 +28,5 @@ ic10lsp = { git = "https://github.com/Ryex/ic10lsp.git", branch = "wasm" }
 opt-level = "s"
 lto = true
 
+[build]
+target = "wasm32-unknown-unknown"

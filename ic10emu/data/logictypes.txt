@@ -20,9 +20,11 @@ Channel5 170 Channel on a cable network which should be considered volatile
 Channel6 171 Channel on a cable network which should be considered volatile
 Channel7 172 Channel on a cable network which should be considered volatile
 Charge 11 The current charge the device has
+Chart 256 
+ChartedNavPoints 259 
 ClearMemory 62 When set to 1, clears the counter memory (e.g. ExportCount). Will set itself back to 0 when actioned
 CollectableGoods 101 
-Color 38 \n        Whether driven by concerns for clarity, safety or simple aesthetics, {LINK:Stationeers;Stationeers} have access to a small rainbow of colors for their constructions. These are the color setting for devices, represented as an integer.\n\n0: Blue\n1: Grey\n2: Green\n3: Orange\n4: Red\n5: Yellow\n6: White\n7: Black\n8: Brown\n9: Khaki\n10: Pink\n11: Purple\n\n        It is an unwavering universal law that anything higher than 11 will be purple. The {LINK:ODA;ODA} is powerless to change this. Similarly, anything lower than 0 will be Blue.\n      
+Color 38 \n        Whether driven by concerns for clarity, safety or simple aesthetics, {LINK:Stationeers;Stationeers} have access to a small rainbow of colors for their constructions. These are the color setting for devices, represented as an integer.\n\n0: Blue\n1: Grey\n2: Green\n3: Orange\n4: Red\n5: Yellow\n6: White\n7: Black\n8: Brown\n9: Khaki\n10: Pink\n11: Purple\n\n        It is an unwavering universal law that anything higher than 11 will be purple. The {LINK:ODA;ODA} is powerless to change this. Similarly, anything lower than 0 will be Blue.\n
 Combustion 98 The assess atmosphere is on fire. Returns 1 if atmosphere is on fire, 0 if not.
 CombustionInput 146 The assess atmosphere is on fire. Returns 1 if device's input network is on fire, 0 if not.
 CombustionInput2 147 The assess atmosphere is on fire. Returns 1 if device's Input2 network is on fire, 0 if not.
@@ -31,8 +33,11 @@ CombustionOutput 148 The assess atmosphere is on fire. Returns 1 if device's Out
 CombustionOutput2 149 The assess atmosphere is on fire. Returns 1 if device's Output2 network is on fire, 0 if not.
 CompletionRatio 61 How complete the current production is for this device, between 0 and 1
 ContactTypeId 198 The type id of the contact.
+CurrentCode 261 
 CurrentResearchPodType 93 
+Density 262 
 DestinationCode 215 Unique identifier code for a destination on the space map.
+Discover 255 
 DistanceAu 244 
 DistanceKm 249 
 DrillCondition 240 
@@ -75,10 +80,12 @@ Maximum 23 Maximum setting of the device
 MinWattsToContact 163 Minimum required amount of watts from the dish hitting the target trader contact to start interrogating the contact
 MineablesInQueue 96 
 MineablesInVicinity 95 
+MinedQuantity 266 
 MinimumWattsToContact 163 Minimum required amount of watts from the dish hitting the target trader contact to start interrogating the contact
 Mode 3 Integer for mode state, different devices will have different mode states available to them
+NavPoints 258 
 NextWeatherEventTime 97 
-None None No description
+None 0 No description
 On 28 The current state of the device, 0 for off, 1 for on
 Open 2 1 if device is open, otherwise 0
 OperationalTemperatureEfficiency 150 How the input pipe's temperature effects the machines efficiency
@@ -88,22 +95,22 @@ Output 70 The output operation for a sort handling device, such as a stacker or 
 OverShootTarget None How far is the landing rocket going to overshoot its landing target at its current thrust. Expressed as a negative value in meters. ensure this is at zero by the time a rocket lands or risk total loss of rocket.
 PassedMoles 234 
 Plant 68 Performs the planting action for any plant based machinery
-PlantEfficiency1 None DEPRECATED
-PlantEfficiency2 None DEPRECATED
-PlantEfficiency3 None DEPRECATED
-PlantEfficiency4 None DEPRECATED
-PlantGrowth1 None DEPRECATED
-PlantGrowth2 None DEPRECATED
-PlantGrowth3 None DEPRECATED
-PlantGrowth4 None DEPRECATED
-PlantHash1 None DEPRECATED
-PlantHash2 None DEPRECATED
-PlantHash3 None DEPRECATED
-PlantHash4 None DEPRECATED
-PlantHealth1 None DEPRECATED
-PlantHealth2 None DEPRECATED
-PlantHealth3 None DEPRECATED
-PlantHealth4 None DEPRECATED
+PlantEfficiency1 52 DEPRECATED
+PlantEfficiency2 53 DEPRECATED
+PlantEfficiency3 54 DEPRECATED
+PlantEfficiency4 55 DEPRECATED
+PlantGrowth1 48 DEPRECATED
+PlantGrowth2 49 DEPRECATED
+PlantGrowth3 50 DEPRECATED
+PlantGrowth4 51 DEPRECATED
+PlantHash1 56 DEPRECATED
+PlantHash2 57 DEPRECATED
+PlantHash3 58 DEPRECATED
+PlantHash4 59 DEPRECATED
+PlantHealth1 44 DEPRECATED
+PlantHealth2 45 DEPRECATED
+PlantHealth3 46 DEPRECATED
+PlantHealth4 47 DEPRECATED
 PositionX 76 The current position in X dimension in world coordinates
 PositionY 77 The current position in Y dimension in world coordinates
 PositionZ 78 The current position in Z dimension in world coordinates
@@ -130,11 +137,13 @@ RatioCarbonDioxideInput 109 The ratio of {GAS:CarbonDioxide} in device's input n
 RatioCarbonDioxideInput2 119 The ratio of {GAS:CarbonDioxide} in device's Input2 network
 RatioCarbonDioxideOutput 129 The ratio of {GAS:CarbonDioxide} in device's Output network
 RatioCarbonDioxideOutput2 139 The ratio of {GAS:CarbonDioxide} in device's Output2 network
+RatioHydrogen 252 The ratio of {GAS:Hydrogen} in device's Atmopshere
 RatioLiquidCarbonDioxide 199 The ratio of {GAS:LiquidCarbonDioxide} in device's Atmosphere
 RatioLiquidCarbonDioxideInput 200 The ratio of {GAS:LiquidCarbonDioxide} in device's Input Atmosphere
 RatioLiquidCarbonDioxideInput2 201 The ratio of {GAS:LiquidCarbonDioxide} in device's Input2 Atmosphere
 RatioLiquidCarbonDioxideOutput 202 The ratio of {GAS:LiquidCarbonDioxide} in device's device's Output Atmosphere
 RatioLiquidCarbonDioxideOutput2 203 The ratio of {GAS:LiquidCarbonDioxide} in device's Output2 Atmopshere
+RatioLiquidHydrogen 253 The ratio of {GAS:LiquidHydrogen} in device's Atmopshere
 RatioLiquidNitrogen 177 The ratio of {GAS:LiquidNitrogen} in device atmosphere
 RatioLiquidNitrogenInput 178 The ratio of {GAS:LiquidNitrogen} in device's input network
 RatioLiquidNitrogenInput2 179 The ratio of {GAS:LiquidNitrogen} in device's Input2 network
@@ -180,6 +189,7 @@ RatioPollutantInput 111 The ratio of pollutant in device's input network
 RatioPollutantInput2 121 The ratio of pollutant in device's Input2 network
 RatioPollutantOutput 131 The ratio of pollutant in device's Output network
 RatioPollutantOutput2 141 The ratio of pollutant in device's Output2 network
+RatioPollutedWater 254 The ratio of polluted water in device atmosphere
 RatioSteam 193 The ratio of {GAS:Steam} in device's Atmosphere
 RatioSteamInput 194 The ratio of {GAS:Steam} in device's Input Atmosphere
 RatioSteamInput2 195 The ratio of {GAS:Steam} in device's Input2 Atmosphere
@@ -202,6 +212,7 @@ ReferenceId 217
 RequestHash 60 When set to the unique identifier, requests an item of the provided type from the device
 RequiredPower 33 Idle operating power quantity, does not necessarily include extra demand power
 ReturnFuelCost 100 
+Richness 263 
 Rpm 155 The number of revolutions per minute that the device's spinning mechanism is doing
 SemiMajorAxis 248 
 Setting 12 A variable setting that can be read or written, depending on the device
@@ -211,6 +222,8 @@ SettingOutput 92
 SettingOutputHash 91 The output setting for the device
 SignalID 87 Returns the contact ID of the strongest signal from this Satellite
 SignalStrength 86 Returns the degree offset of the strongest contact
+Sites 260 
+Size 264 
 SizeX 160 Size on the X (right) axis of the object in largeGrids (a largeGrid is 2meters)
 SizeY 161 Size on the Y(Up) axis of the object in largeGrids (a largeGrid is 2meters)
 SizeZ 162 Size on the Z(Forward) axis of the object in largeGrids (a largeGrid is 2meters)
@@ -219,6 +232,7 @@ SolarConstant None Solar constant of the world
 SolarIrradiance 176 
 SoundAlert 175 Plays a sound alert on the devices speaker
 Stress 156 Machines get stressed when working hard. When Stress reaches 100 the machine will automatically shut down
+Survey 257 
 TargetPadIndex 158 The index of the trader landing pad on this devices data network that it will try to call a trader in to land
 TargetX 88 The target position in X dimension in world coordinates
 TargetY 89 The target position in Y dimension in world coordinates
@@ -241,6 +255,7 @@ TotalMolesInput 115 Returns the total moles of the device's Input Network
 TotalMolesInput2 125 Returns the total moles of the device's Input2 Network
 TotalMolesOutput 135 Returns the total moles of the device's Output Network
 TotalMolesOutput2 145 Returns the total moles of the device's Output2 Network
+TotalQuantity 265 
 TrueAnomaly 251 
 Unknown None No description available
 VelocityMagnitude 79 The current magnitude of the velocity vector

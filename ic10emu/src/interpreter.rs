@@ -98,7 +98,7 @@ pub enum ICError {
     #[error("Empty Device List")]
     EmptyDeviceList,
     #[error("Connection index out of range: '{0}'")]
-    ConnecitonIndexOutOFRange(u32),
+    ConnectionIndexOutOFRange(u32),
     #[error("Connection specifier missing")]
     MissingConnectionSpecifier,
     #[error("No data network on connection '{0}'")]

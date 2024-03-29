@@ -114,8 +114,8 @@ def extract_all():
         json.encoder
         json.dump(
             {
-                "logic_enabeled": logicable,
-                "slot_logic_enabeled": slotlogicable,
+                "logic_enabled": logicable,
+                "slot_logic_enabled": slotlogicable,
                 "devices": devices,
                 "items": items,
             },

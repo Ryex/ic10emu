@@ -24,9 +24,9 @@ pub enum VMError {
     UnknownIcId(u16),
     #[error("Device with id '{0}' does not have a IC Slot")]
     NoIC(u16),
-    #[error("IC encoutered an error: {0}")]
+    #[error("IC encountered an error: {0}")]
     ICError(#[from] ICError),
-    #[error("IC encoutered an error: {0}")]
+    #[error("IC encountered an error: {0}")]
     LineError(#[from] LineError),
     #[error("Invalid network ID {0}")]
     InvalidNetwork(u16),
@@ -191,7 +191,7 @@ impl Device {
 
     pub fn get_network_id(&self, connection: usize) -> Result<u16, ICError> {
         if connection >= 8 {
-            Err(ICError::ConnecitonIndexOutOFRange(connection as u32))
+            Err(ICError::ConnectionIndexOutOFRange(connection as u32))
         } else if let Connection::CableNetwork(network_id) = self.connections[connection] {
             if let Some(network_id) = network_id {
                 Ok(network_id)
@@ -440,7 +440,7 @@ impl VM {
         Ok(result)
     }
 
-    /// returns true if exacuted 128 lines, false if returned early.
+    /// returns true if executed 128 lines, false if returned early.
     pub fn run_ic(&self, id: u16, ignore_errors: bool) -> Result<bool, VMError> {
         let device = self.devices.get(&id).ok_or(VMError::UnknownId(id))?.clone();
         let ic_id = *device.borrow().ic.as_ref().ok_or(VMError::NoIC(id))?;
