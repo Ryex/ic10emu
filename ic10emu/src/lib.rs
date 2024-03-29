@@ -76,15 +76,9 @@ pub struct Network {
     pub channels: [f64; 8],
 }
 
-#[derive(Debug)]
+#[derive(Debug, Default)]
 struct IdSequenceGenerator {
     next: u16,
-}
-
-impl Default for IdSequenceGenerator {
-    fn default() -> Self {
-        IdSequenceGenerator { next: 0 }
-    }
 }
 
 impl IdSequenceGenerator {
@@ -201,16 +195,14 @@ impl Device {
     pub fn get_network_id(&self, connection: usize) -> Result<u16, ICError> {
         if connection >= 8 {
             Err(ICError::ConnecitonIndexOutOFRange(connection as u32))
-        } else {
-            if let Connection::CableNetwork(network_id) = self.connections[connection] {
-                if let Some(network_id) = network_id {
-                    Ok(network_id)
-                } else {
-                    Err(ICError::NetworkNotConnected(connection as u32))
-                }
+        } else if let Connection::CableNetwork(network_id) = self.connections[connection] {
+            if let Some(network_id) = network_id {
+                Ok(network_id)
             } else {
-                Err(ICError::NotDataConnection(connection as u32))
+                Err(ICError::NetworkNotConnected(connection as u32))
             }
+        } else {
+            Err(ICError::NotDataConnection(connection as u32))
         }
     }
 
@@ -288,6 +280,12 @@ impl Device {
             }
         }
         0.0
+    }
+}
+
+impl Default for VM {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
@@ -656,17 +654,14 @@ impl VM {
                         .iter()
                         .any(|(_net_id, net)| net.borrow().contains(&[source, *id]))
                 {
-                    device.borrow_mut().get_field(typ).map(|val| Some(val))
+                    device.borrow_mut().get_field(typ).map(Some)
                 } else {
                     Ok(None)
                 }
             })
             .collect::<Result<Vec<_>, ICError>>()?
             .into_iter()
-            .filter_map(|val| {
-                val.map(|val| if val.is_nan() { None } else { Some(val) })
-                    .flatten()
-            })
+            .filter_map(|val| val.and_then(|val| if val.is_nan() { None } else { Some(val) }))
             .collect_vec();
         match mode {
             BatchMode::Sum => Ok(samples.iter().sum()),
@@ -706,17 +701,14 @@ impl VM {
                         .iter()
                         .any(|(_net_id, net)| net.borrow().contains(&[source, *id]))
                 {
-                    device.borrow().get_field(typ).map(|val| Some(val))
+                    device.borrow().get_field(typ).map(Some)
                 } else {
                     Ok(None)
                 }
             })
             .collect::<Result<Vec<_>, ICError>>()?
             .into_iter()
-            .filter_map(|val| {
-                val.map(|val| if val.is_nan() { None } else { Some(val) })
-                    .flatten()
-            })
+            .filter_map(|val| val.and_then(|val| if val.is_nan() { None } else { Some(val) }))
             .collect_vec();
         match mode {
             BatchMode::Sum => Ok(samples.iter().sum()),
@@ -757,20 +749,14 @@ impl VM {
                         .iter()
                         .any(|(_net_id, net)| net.borrow().contains(&[source, *id]))
                 {
-                    device
-                        .borrow()
-                        .get_slot_field(index, typ)
-                        .map(|val| Some(val))
+                    device.borrow().get_slot_field(index, typ).map(Some)
                 } else {
                     Ok(None)
                 }
             })
             .collect::<Result<Vec<_>, ICError>>()?
             .into_iter()
-            .filter_map(|val| {
-                val.map(|val| if val.is_nan() { None } else { Some(val) })
-                    .flatten()
-            })
+            .filter_map(|val| val.and_then(|val| if val.is_nan() { None } else { Some(val) }))
             .collect_vec();
         match mode {
             BatchMode::Sum => Ok(samples.iter().sum()),
@@ -809,20 +795,14 @@ impl VM {
                         .iter()
                         .any(|(_net_id, net)| net.borrow().contains(&[source, *id]))
                 {
-                    device
-                        .borrow()
-                        .get_slot_field(index, typ)
-                        .map(|val| Some(val))
+                    device.borrow().get_slot_field(index, typ).map(Some)
                 } else {
                     Ok(None)
                 }
             })
             .collect::<Result<Vec<_>, ICError>>()?
             .into_iter()
-            .filter_map(|val| {
-                val.map(|val| if val.is_nan() { None } else { Some(val) })
-                    .flatten()
-            })
+            .filter_map(|val| val.and_then(|val| if val.is_nan() { None } else { Some(val) }))
             .collect_vec();
         match mode {
             BatchMode::Sum => Ok(samples.iter().sum()),

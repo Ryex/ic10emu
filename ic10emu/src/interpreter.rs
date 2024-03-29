@@ -127,7 +127,7 @@ impl Display for ICState {
             ICState::Yield => "Ic has yielded, Resume on next tick".to_string(),
             ICState::Sleep(then, sleep_for) => {
                 let format = format_description::parse("[hour]:[minute]:[second]").unwrap();
-                let resume = then.clone() + time::Duration::new(*sleep_for as i64, 0);
+                let resume = *then + time::Duration::new(*sleep_for as i64, 0);
                 format!(
                     "Sleeping for {sleep_for} seconds, will resume at {}",
                     resume.format(&format).unwrap()
@@ -169,7 +169,6 @@ impl Default for Program {
 }
 
 impl Program {
-
     pub fn new() -> Self {
         Program {
             instructions: Vec::new(),
@@ -178,7 +177,7 @@ impl Program {
     }
 
     pub fn try_from_code(code: &str) -> Result<Self, ICError> {
-        let parse_tree = grammar::parse(&code)?;
+        let parse_tree = grammar::parse(code)?;
         let mut labels_set = HashSet::new();
         let mut labels = HashMap::new();
         let instructions = parse_tree
@@ -220,7 +219,6 @@ impl Program {
 }
 
 impl IC {
-
     pub fn new(id: u16, device: u16) -> Self {
         IC {
             device,
@@ -352,7 +350,7 @@ impl IC {
 
     pub fn poke(&mut self, address: f64, val: f64) -> Result<f64, ICError> {
         let sp = address as i32;
-        if sp < 0 || sp >= 512 {
+        if !(0..512).contains(&sp) {
             Err(ICError::StackIndexOutOfRange(address))
         } else {
             let last = self.stack[sp as usize];
@@ -426,7 +424,7 @@ impl IC {
                     }),
                 }, // TODO
                 Yield => {
-                    if operands.len() != 0 {
+                    if !operands.is_empty() {
                         Err(TooManyOperands {
                             provided: operands.len() as u32,
                             desired: 0,
@@ -479,14 +477,14 @@ impl IC {
                             });
                         };
                         let alias = match &device_reg {
-                            &Operand::RegisterSpec {
+                            Operand::RegisterSpec {
                                 indirection,
                                 target,
                             } => Operand::RegisterSpec {
                                 indirection: *indirection,
                                 target: *target,
                             },
-                            &Operand::DeviceSpec { device, connection } => Operand::DeviceSpec {
+                            Operand::DeviceSpec { device, connection } => Operand::DeviceSpec {
                                 device: *device,
                                 connection: *connection,
                             },
@@ -3110,7 +3108,7 @@ impl IC {
                             Some(device) => match device.borrow().ic.as_ref() {
                                 Some(ic_id) => {
                                     let addr = addr.get_value(self)?;
-                                    let ic = vm.ics.get(&ic_id).unwrap().borrow();
+                                    let ic = vm.ics.get(ic_id).unwrap().borrow();
                                     let val = ic.peek_addr(addr)?;
                                     self.set_register(indirection, target, val)?;
                                     Ok(())
@@ -3149,7 +3147,7 @@ impl IC {
                             Some(device) => match device.borrow().ic.as_ref() {
                                 Some(ic_id) => {
                                     let addr = addr.get_value(self)?;
-                                    let ic = vm.ics.get(&ic_id).unwrap().borrow();
+                                    let ic = vm.ics.get(ic_id).unwrap().borrow();
                                     let val = ic.peek_addr(addr)?;
                                     self.set_register(indirection, target, val)?;
                                     Ok(())
@@ -3173,13 +3171,13 @@ impl IC {
                         let (Some(device_id), _connection) = dev_id.get_device_id(self)? else {
                             break 'inst Err(DeviceNotSet);
                         };
-                        let device = vm.get_device_same_network(self.device, device_id as u16);
+                        let device = vm.get_device_same_network(self.device, device_id);
                         match device {
                             Some(device) => match device.borrow().ic.as_ref() {
                                 Some(ic_id) => {
                                     let addr = addr.get_value(self)?;
                                     let val = val.get_value(self)?;
-                                    let mut ic = vm.ics.get(&ic_id).unwrap().borrow_mut();
+                                    let mut ic = vm.ics.get(ic_id).unwrap().borrow_mut();
                                     ic.poke(addr, val)?;
                                     Ok(())
                                 }
@@ -3209,7 +3207,7 @@ impl IC {
                                 Some(ic_id) => {
                                     let addr = addr.get_value(self)?;
                                     let val = val.get_value(self)?;
-                                    let mut ic = vm.ics.get(&ic_id).unwrap().borrow_mut();
+                                    let mut ic = vm.ics.get(ic_id).unwrap().borrow_mut();
                                     ic.poke(addr, val)?;
                                     Ok(())
                                 }
@@ -3240,14 +3238,14 @@ impl IC {
                                 break 'inst Err(MissingConnecitonSpecifier);
                             };
                             let network_id = vm
-                                .get_device_same_network(self.device, device_id as u16)
+                                .get_device_same_network(self.device, device_id)
                                 .map(|device| device.borrow().get_network_id(connection as usize))
                                 .unwrap_or(Err(UnknownDeviceID(device_id as f64)))?;
                             let val = val.get_value(self)?;
                             vm.set_network_channel(network_id as usize, channel, val)?;
                             return Ok(());
                         }
-                        let device = vm.get_device_same_network(self.device, device_id as u16);
+                        let device = vm.get_device_same_network(self.device, device_id);
                         match device {
                             Some(device) => {
                                 let val = val.get_value(self)?;
@@ -3280,7 +3278,7 @@ impl IC {
                                 device.borrow_mut().set_field(lt, val)?;
                                 Ok(())
                             }
-                            None => Err(UnknownDeviceID(device_id as f64)),
+                            None => Err(UnknownDeviceID(device_id)),
                         }
                     }
                     oprs => Err(TooManyOperands {
@@ -3297,7 +3295,7 @@ impl IC {
                         let (Some(device_id), _connection) = dev.get_device_id(self)? else {
                             break 'inst Err(DeviceNotSet);
                         };
-                        let device = vm.get_device_same_network(self.device, device_id as u16);
+                        let device = vm.get_device_same_network(self.device, device_id);
                         match device {
                             Some(device) => {
                                 let index = index.get_value(self)?;
@@ -3394,14 +3392,14 @@ impl IC {
                                 break 'inst Err(MissingConnecitonSpecifier);
                             };
                             let network_id = vm
-                                .get_device_same_network(self.device, device_id as u16)
+                                .get_device_same_network(self.device, device_id)
                                 .map(|device| device.borrow().get_network_id(connection as usize))
                                 .unwrap_or(Err(UnknownDeviceID(device_id as f64)))?;
                             let val = vm.get_network_channel(network_id as usize, channel)?;
                             self.set_register(indirection, target, val)?;
                             return Ok(());
                         }
-                        let device = vm.get_device_same_network(self.device, device_id as u16);
+                        let device = vm.get_device_same_network(self.device, device_id);
                         match device {
                             Some(device) => {
                                 let val = device.borrow().get_field(lt)?;
@@ -3444,7 +3442,7 @@ impl IC {
                                 self.set_register(indirection, target, val)?;
                                 Ok(())
                             }
-                            None => Err(UnknownDeviceID(device_id as f64)),
+                            None => Err(UnknownDeviceID(device_id)),
                         }
                     }
                     oprs => Err(TooManyOperands {
@@ -3471,7 +3469,7 @@ impl IC {
                         let (Some(device_id), _connection) = dev.get_device_id(self)? else {
                             break 'inst Err(DeviceNotSet);
                         };
-                        let device = vm.get_device_same_network(self.device, device_id as u16);
+                        let device = vm.get_device_same_network(self.device, device_id);
                         match device {
                             Some(device) => {
                                 let index = index.get_value(self)?;
@@ -3507,7 +3505,7 @@ impl IC {
                         let (Some(device_id), _connection) = dev.get_device_id(self)? else {
                             break 'inst Err(DeviceNotSet);
                         };
-                        let device = vm.get_device_same_network(self.device, device_id as u16);
+                        let device = vm.get_device_same_network(self.device, device_id);
                         match device {
                             Some(device) => {
                                 let rm = ReagentMode::try_from(rm.get_value(self)?)?;

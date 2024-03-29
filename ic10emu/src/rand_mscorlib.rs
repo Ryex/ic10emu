@@ -73,8 +73,7 @@ impl Random {
             inextp = 1;
         }
 
-        let mut retval =
-            self.seed_array[inext as usize].wrapping_sub(self.seed_array[inextp as usize]);
+        let mut retval = self.seed_array[inext].wrapping_sub(self.seed_array[inextp]);
 
         if retval == i32::MAX {
             retval -= 1;
@@ -82,7 +81,7 @@ impl Random {
         if retval < 0 {
             retval = retval.wrapping_add(i32::MAX);
         }
-        self.seed_array[inext as usize] = retval;
+        self.seed_array[inext] = retval;
 
         self.inext = inext;
         self.inextp = inextp;

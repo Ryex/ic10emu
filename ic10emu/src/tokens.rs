@@ -21,7 +21,7 @@ impl<'a> Iterator for SplitConsecutiveWithIndices<'a> {
                     + start
                     + 'find_end: {
                         let mut last = start;
-                        for (index, c) in (&tail[start..]).chars().enumerate() {
+                        for (index, c) in tail[start..].chars().enumerate() {
                             if !self.chars.contains(&c) {
                                 break 'find_end index;
                             }
@@ -71,7 +71,7 @@ pub trait SplitConsecutiveIndicesExt:
     ) -> SplitConsecutiveWithIndices<'p> {
         SplitConsecutiveWithIndices {
             haystack: &self[..],
-            chars: chars,
+            chars,
             start: 0,
         }
     }
