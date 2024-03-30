@@ -172,7 +172,6 @@ class VMRegistersUI {
             cell.appendChild(input);
             const aliasesLabel = document.createElement("span");
             aliasesLabel.classList.add("input-group-text", "reg_label")
-            aliasesLabel.innerText = "\xa0";
             cell.appendChild(aliasesLabel);
             this.regCels.push({
                 cell,

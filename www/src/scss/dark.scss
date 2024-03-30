@@ -307,11 +307,11 @@ code {
   color: #fff;
 }
 
-
 .navbar-text {
   padding: 0;
   padding-right: 10px;
   position: relative;
+  color: #fff;
 }
 
 .navbar-nav>li>a {
@@ -405,7 +405,7 @@ code {
   overflow-y: auto;
   max-width: 180rem;
   max-height: 20rem;
-  align-content: flex-end
+  font-size: 14;
 }
 
 // .vm_unset_reg .input-group {
@@ -420,13 +420,18 @@ code {
 .vm_reg_cel span {
   min-width: 2.5rem;
   height: 22px;
+  font-size: 0.875rem;
 }
 
 .vm_reg_cel span.reg_label {
   width: 6rem;
   height: 22px;
   overflow-x: auto;
-  overflow-y: auto;
+  padding-left: 0.125rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-right: 0.25rem;
+  font-size: 0.75rem;
 }
 
 .vm_reg_cel input {
@@ -434,6 +439,7 @@ code {
   min-width: 3rem;
   background-color: var(--bs-body-bg);
   height: 22px;
+  font-size: 0.875rem;
 }
 
 #vmActiveIC {
@@ -452,8 +458,7 @@ code {
   overflow-x: auto;
   overflow-y: auto;
   max-width: 180rem;
-  max-height: 10rem;
-  align-content: flex-end
+  height: 10rem;
 }
 
 .vm_stack_cel {
@@ -462,7 +467,7 @@ code {
 }
 
 .vm_stack_cel span {
-  min-width: 2.5rem;
+  width: 2.5rem;
   height: 22px;
 }
 
