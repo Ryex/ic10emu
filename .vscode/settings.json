@@ -1,0 +1,9 @@
+{
+    "rust-analyzer.linkedProjects": [
+        ".\\ic10emu_wasm\\Cargo.toml",
+        ".\\ic10emu\\Cargo.toml",
+        ".\\ic10lsp_wasm\\Cargo.toml"
+    ],
+    "rust-analyzer.check.allTargets": false,
+    "rust-analyzer.cargo.target": "wasm32-unknown-unknown"
+}

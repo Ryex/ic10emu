@@ -395,7 +395,7 @@ checksum = "d897f394bad6a705d5f4104762e116a75639e470d80901eed05a860a95cb1904"
 [[package]]
 name = "ic10lsp"
 version = "0.7.4"
-source = "git+https://github.com/Ryex/ic10lsp.git?branch=wasm#657c59db0c33a4ab071188a6ecfaf1f7144b02d9"
+source = "git+https://github.com/Ryex/ic10lsp.git?branch=wasm#425541dea0423778b1bdd0785d81b85ac26ba383"
 dependencies = [
  "clap",
  "const-crc32",
@@ -1043,7 +1043,7 @@ dependencies = [
 [[package]]
 name = "tree-sitter-ic10"
 version = "0.5.2"
-source = "git+https://github.com/Ryex/tree-sitter-ic10.git?branch=wasm#5648a5babc6390c67ca30301551f25190f7ef968"
+source = "git+https://github.com/Ryex/tree-sitter-ic10.git?branch=wasm#bc0a4398725e68ec8258b70ee929aaa17e032be2"
 dependencies = [
  "cc",
  "tree-sitter",
