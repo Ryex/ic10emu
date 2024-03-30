@@ -32,14 +32,14 @@ pub enum VMError {
     InvalidNetwork(u16),
 }
 
-#[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum FieldType {
     Read,
     Write,
     ReadWrite,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LogicField {
     pub field_type: FieldType,
     pub value: f64,
@@ -47,6 +47,7 @@ pub struct LogicField {
 
 #[derive(Debug, Default, Serialize, Deserialize)]
 pub struct Slot {
+    pub typ: SlotType,
     pub fields: HashMap<grammar::SlotLogicType, LogicField>,
 }
 
@@ -55,6 +56,79 @@ pub enum Connection {
     CableNetwork(Option<u16>),
     #[default]
     Other,
+}
+
+#[derive(Debug, Default, Clone, Serialize, Deserialize)]
+pub struct DeviceTemplate {
+    pub name: Option<String>,
+    pub hash: Option<i32>,
+    pub logic: HashMap<grammar::LogicType, LogicField>,
+    pub slots: Vec<SlotTemplate>,
+    pub slotlogic: HashMap<grammar::LogicType, usize>,
+    pub conn: HashMap<u32, Connection>,
+}
+
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+pub enum ConnectionType {
+    Chute,
+    Pipe,
+    Power,
+    PowerData,
+    #[default]
+    Data,
+}
+
+impl From<ConnectionType> for Connection {
+    fn from(value: ConnectionType) -> Self {
+        match value {
+            ConnectionType::Chute | ConnectionType::Pipe | ConnectionType::Power => Self::Other,
+            _ => Self::CableNetwork(None),
+        }
+    }
+}
+
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+pub enum SlotType {
+    AccessCard,
+    Appliance,
+    Back,
+    Battery,
+    Blocked,
+    Bottle,
+    Cartridge,
+    Circuitboard,
+    CreditCard,
+    DataDisk,
+    DrillHead,
+    Egg,
+    Entity,
+    Flare,
+    GasCanister,
+    GasFilter,
+    Helmet,
+    Ingot,
+    LiquidBottle,
+    LiquidCanister,
+    Magazine,
+    Ore,
+    Organ,
+    Plant,
+    ProgramableChip,
+    ScanningHead,
+    SensorProcessingUnit,
+    SoundCartridge,
+    Suit,
+    Tool,
+    Torpedo,
+    #[default]
+    #[serde(other)]
+    None,
+}
+
+#[derive(Debug, Default, Clone, Serialize, Deserialize)]
+pub struct SlotTemplate {
+    pub name: String,
+    pub typ: SlotType,
 }
 
 #[derive(Debug, Default)]

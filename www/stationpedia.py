@@ -5,24 +5,11 @@ from collections import defaultdict
 import re
 import json
 
-
-def extract_logicable():
-    logicable = []
-    pedia = {}
-    with Path("./Stationpedia.json").open("r") as f:
-        pedia.update(json.load(f))
-    for page in pedia["pages"]:
-        if page["LogicInsert"] or page["LogicSlotInsert"]:
-            logicable.append(page)
-    # print(f"{len(logicable)} of {len(pedia["pages"])} are logicable")
-    return logicable
-
-
 def extract_all():
     items = {}
     pedia = {}
     linkPat = re.compile(r"<link=\w+><color=[\w#]+>(.+?)</color></link>")
-    with Path("./Stationpedia.json").open("r") as f:
+    with (Path("data") / "Stationpedia.json").open("r") as f:
         pedia.update(json.load(f))
     for page in pedia["pages"]:
         item = defaultdict(list)
@@ -110,7 +97,7 @@ def extract_all():
         if item["logic"] is not None and item["conn"] is not None
     ]
 
-    with open("database.json", "w") as f:
+    with open("data/database.json", "w") as f:
         json.encoder
         json.dump(
             {

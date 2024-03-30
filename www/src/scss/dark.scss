@@ -5,8 +5,17 @@ body {
 }
 
 .ace_tooltip {
-  background-color: #343a40;
-  color: #dee2e6;
+  background: #282c34;
+  color: #c1c1c1;
+  border: 1px #484747 solid;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.51);
+}
+
+.ace_tooltip.ace_dark {
+  background: #282c34;
+  color: #c1c1c1;
+  border: 1px #484747 solid;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.51);
 }
 
 .ace_status-indicator {
@@ -285,7 +294,13 @@ body {
 *  --------------- */
 
 code {
-  color: #e685b5
+  // color: #e685b5
+  color: #c678dd;
+}
+
+.ace_tooltip code {
+    font-style: italic;
+    font-size: 12px;
 }
 
 .navbar-default .navbar-nav>li>a {
