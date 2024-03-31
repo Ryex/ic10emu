@@ -5,11 +5,11 @@ class IC10EditorUI {
 
   constructor(ic10editor) {
 
-    const self = this;
+    const that = this;
 
-    self.ic10editor = ic10editor;
+    that.ic10editor = ic10editor;
 
-    self.ic10editor.aceEditor.commands.addCommand({
+    that.ic10editor.aceEditor.commands.addCommand({
       name: "showSettingsMenu",
       description: "Show settings menu",
       bindKey: { win: "Ctrl-,", mac: "Command-," },
@@ -21,50 +21,50 @@ class IC10EditorUI {
 
     ace.config.loadModule("ace/ext/keyboard_menu", function (module) {
       console.log("keybinding_menu loaded");
-      module.init(self.ic10editor.aceEditor);
+      module.init(that.ic10editor.aceEditor);
     });
 
-    self.ic10editor.loadEditorSettings();
-    self.displayEditorSettings();
-    self.updateEditorSettings();
-    self.reCalcEditorSize();
-    window.addEventListener('resize', (e) => { self.reCalcEditorSize(); });
+    that.ic10editor.loadEditorSettings();
+    that.displayEditorSettings();
+    that.updateEditorSettings();
+    that.reCalcEditorSize();
+    window.addEventListener('resize', (e) => { that.reCalcEditorSize(); });
 
     document.getElementsByName("editorKeybindRadio").forEach((el) => {
       el.addEventListener('change', (e) => {
-        self.ic10editor.settings.keyboard = e.target.value;
-        self.ic10editor.saveEditorSettings();
-        self.updateEditorSettings();
+        that.ic10editor.settings.keyboard = e.target.value;
+        that.ic10editor.saveEditorSettings();
+        that.updateEditorSettings();
       });
     });
 
     document.getElementsByName("editorCursorRadio").forEach((el) => {
       el.addEventListener('change', (e) => {
-        self.ic10editor.settings.cursor = e.target.value;
-        self.ic10editor.saveEditorSettings();
-        self.updateEditorSettings();
+        that.ic10editor.settings.cursor = e.target.value;
+        that.ic10editor.saveEditorSettings();
+        that.updateEditorSettings();
       });
     });
     document.getElementById("editorSettingsFontSize").addEventListener('change', (e) => {
       window.App.editorSettings.fontSize = e.target.value;
-      self.ic10editor.saveEditorSettings();
-      self.updateEditorSettings();
+      that.ic10editor.saveEditorSettings();
+      that.updateEditorSettings();
     });
     document.getElementById("editorSettingsRelativeLineNumbers").addEventListener('change', (e) => {
       window.App.editorSettings.relativeLineNumbers = e.target.checked;
-      self.ic10editor.saveEditorSettings();
-      self.updateEditorSettings();
+      that.ic10editor.saveEditorSettings();
+      that.updateEditorSettings();
     });
 
-    console.log(self.ic10editor.aceEditor.getOption('keyboardHandler'));
+    console.log(that.ic10editor.aceEditor.getOption('keyboardHandler'));
 
-    self.ic10editor.aceEditor.setTheme("ace/theme/one_dark");
+    that.ic10editor.aceEditor.setTheme("ace/theme/one_dark");
     ace.config.loadModule("ace/ext/statusbar", function (module) {
-      const statusBar = new module.StatusBar(self.ic10editor.aceEditor, document.getElementById("statusBar"));
-      statusBar.updateStatus(self.ic10editor.aceEditor);
+      const statusBar = new module.StatusBar(that.ic10editor.aceEditor, document.getElementById("statusBar"));
+      statusBar.updateStatus(that.ic10editor.aceEditor);
     });
 
-    self.ic10editor.aceEditor.setAutoScrollEditorIntoView(true);
+    that.ic10editor.aceEditor.setAutoScrollEditorIntoView(true);
 
   }
 

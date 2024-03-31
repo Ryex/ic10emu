@@ -57,17 +57,17 @@ class IC10Editor {
 
     this.ui = new IC10EditorUI(this);
 
-    const self = this;
+    const that = this;
 
     App.session.onLoad((session) => {
       const updated_ids = [];
       for (const id in session.programs) {
         updated_ids.push(id);
-        self.createOrSetSession(id, session.programs[id]);
+        that.createOrSetSession(id, session.programs[id]);
       }
-      for (const id in self.sessions) {
+      for (const id in that.sessions) {
         if (!updated_ids.includes(id)) {
-          self.destroySession(id);
+          that.destroySession(id);
         }
       }
     });
@@ -77,17 +77,17 @@ class IC10Editor {
       for (const id in Object.keys(session.programs)) {
         const active_line = session.getActiveLine(id);
         if (typeof active_line !== "undefined") {
-          const marker = self.active_line_markers[id];
+          const marker = that.active_line_markers[id];
           if (marker) {
-            self.sessions[id].removeMarker(marker);
-            self.active_line_markers[id] = null;
+            that.sessions[id].removeMarker(marker);
+            that.active_line_markers[id] = null;
           }
-          const session = self.sessions[id];
+          const session = that.sessions[id];
           if (session) {
-            self.active_line_markers[id] = session.addMarker(new Range(active_line, 0, active_line, 1), "vm_ic_active_line", "fullLine", true);
-            if (self.active_session == id) {
+            that.active_line_markers[id] = session.addMarker(new Range(active_line, 0, active_line, 1), "vm_ic_active_line", "fullLine", true);
+            if (that.active_session == id) {
               // editor.resize(true);
-              self.aceEditor.scrollToLine(active_line, true, true)
+              that.aceEditor.scrollToLine(active_line, true, true)
             }
           }
         }

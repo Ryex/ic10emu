@@ -1,4 +1,5 @@
 import { init } from "ic10emu_wasm";
+import { VMDeviceUI } from "./device";
 // import { Card } from 'bootstrap';
 
 class VirtualMachine {
@@ -11,40 +12,76 @@ class VirtualMachine {
         this.ic10vm = vm;
         this.ui = new VirtualMachineUI(this);
 
-        this.ics = {}
-        const ics = this.ic10vm.ics;
-        for (const id of Object.keys(ics)) {
-            this.ics[id] = this.ic10vm.getDevice(parseInt(id));
-        }
-        this.updateCode()
+        this._devices = new Map();
+        this._ics = new Map();
 
+        this.updateDevices();
+
+        this.updateCode()
 
     }
 
     get devices () {
-        return this.ic10vm.devices;
+        return this._devices;
+    }
+
+    get ics () {
+        return this._ics;
+    }
+
+    get activeIC () {
+        return this._ics.get(window.App.session.activeSession);
+    }
+
+    updateDevices() {
+        
+        const device_ids = this.ic10vm.devices;
+        for (const id of device_ids) {
+            if (!this._devices.has(id)){
+                this._devices.set(id, this.ic10vm.getDevice(id));
+            }
+        }
+        for(const id of this._devices) {
+            if (!device_ids.includes(id)) {
+                this._devices.delete(id);
+            }
+        }
+
+        const ics = this.ic10vm.ics;
+        for (const id of ics) {
+            if (!this._ics.has(id)){
+                this._ics.set(id, this._devices.get(id));
+            }
+        }
+        for(const id of this._ics) {
+            if (!ics.includes(id)) {
+                this._ics.delete(id);
+            }
+        }
+
     }
 
     updateCode() {
         const progs = window.App.session.programs;
         for (const id of Object.keys(progs)) {
-            const ic = this.ics[id];
+            const attempt = Date.now().toString(16)
+            const ic = this._ics.get(id);
             const prog = progs[id];
             if (ic && prog) {
-                console.time(`CompileProgram_${id}`);
+                console.time(`CompileProgram_${id}_${attempt}`);
                 try {
                     this.ics[id].setCode(progs[id]);
                 } catch (e) {
                     console.log(e);
                 }                
-                console.timeEnd(`CompileProgram_${id}`);
+                console.timeEnd(`CompileProgram_${id}_${attempt}`);
             }
         }
         this.update();
     }
 
     step() {
-        const ic = this.ics[window.App.session.activeSession];
+        const ic = this.activeIC;
         if (ic) {
             try {
                 ic.step();
@@ -56,7 +93,7 @@ class VirtualMachine {
     }
 
     run() {
-        const ic = this.ics[window.App.session.activeSession];
+        const ic = this.activeIC;
         if (ic) {
             try {
                 ic.run(false);
@@ -68,7 +105,7 @@ class VirtualMachine {
     }
 
     reset() {
-        const ic = this.ics[window.App.session.activeSession];
+        const ic = this.activeIC;
         if (ic) {
             ic.reset();
             this.update();
@@ -76,13 +113,14 @@ class VirtualMachine {
     }
 
     update() {
-        const ic = this.ics[window.App.session.activeSession];
+        this.updateDevices();
+        const ic = this.activeIC;
         window.App.session.setActiveLine(window.App.session.activeSession, ic.ip);
         this.ui.update(ic);
     }
 
     setRegister(index, val) {
-        const ic = this.ics[window.App.session.activeSession];
+        const ic = this.activeIC;
         try {
             ic.setRegister(index, val);
         } catch (e) {
@@ -91,12 +129,17 @@ class VirtualMachine {
     }
 
     setStack(addr, val) {
-        const ic = this.ics[window.App.session.activeSession];
+        const ic = this.activeIC;
         try {
             ic.setStack(addr, val);
         } catch (e) {
             console.log(e);
         }
+    }
+
+    setupDeviceDatabase(db) {
+        this.db = db;
+        console.log("Loaded Device Database", this.db);
     }
 }
 
@@ -107,17 +150,18 @@ class VirtualMachineUI {
         this.state = new VMStateUI(this);
         this.registers = new VMRegistersUI(this);
         this.stack = new VMStackUI(this);
+        this.devices = new VMDeviceUI(this);
 
-        const self = this;
+        const that = this;
 
         document.getElementById("vmControlRun").addEventListener('click', (_event) => {
-            self.vm.run();
+            that.vm.run();
         }, { capture: true });
         document.getElementById("vmControlStep").addEventListener('click', (_event) => {
-            self.vm.step();
+            that.vm.step();
         }, { capture: true });
         document.getElementById("vmControlReset").addEventListener('click', (_event) => {
-            self.vm.reset();
+            that.vm.reset();
         }, { capture: true });
 
     }
@@ -126,6 +170,7 @@ class VirtualMachineUI {
         this.state.update(ic);
         this.registers.update(ic);
         this.stack.update(ic);
+        this.devices.update(ic);
     }
 
 }
@@ -154,10 +199,10 @@ class VMRegistersUI {
         const regDom = document.getElementById("vmActiveRegisters");
         this.tbl = document.createElement("div");
         this.tbl.classList.add("d-flex", "flex-wrap", "justify-content-start", "align-items-end",);
-        this.regCels = [];
+        this.regCells = [];
         for (var i = 0; i < 18; i++) {
             const container = document.createElement("div");
-            container.classList.add("vm_reg_cel", "align-self-stretch");
+            container.classList.add("vm_reg_cel", "align-that-stretch");
             const cell = document.createElement("div");
             cell.classList.add("input-group", "input-group-sm")
             // cell.style.width = "30%";
@@ -173,7 +218,7 @@ class VMRegistersUI {
             const aliasesLabel = document.createElement("span");
             aliasesLabel.classList.add("input-group-text", "reg_label")
             cell.appendChild(aliasesLabel);
-            this.regCels.push({
+            this.regCells.push({
                 cell,
                 nameLabel,
                 aliasesLabel,
@@ -182,7 +227,7 @@ class VMRegistersUI {
             container.appendChild(cell);
             this.tbl.appendChild(container);
         }
-        this.regCels.forEach(cell => {
+        this.regCells.forEach(cell => {
             cell.input.addEventListener('change', this.onCellUpdate);
         });
         this.default_aliases = { "sp": 16, "ra": 17 }
@@ -206,12 +251,12 @@ class VMRegistersUI {
     }
 
     update(ic) {
-        const self = this;
+        const that = this;
         if (ic) {
             const registers = ic.registers;
             if (registers) {
                 for (var i = 0; i < registers.length; i++) {
-                    this.regCels[i].input.value = registers[i];
+                    this.regCells[i].input.value = registers[i];
                 }
             }
             const aliases = ic.aliases;
@@ -242,7 +287,7 @@ class VMRegistersUI {
         }
 
         for(const [index, label] of Object.entries(labels)) {
-            this.regCels[index].aliasesLabel.innerText = label.join(", ")
+            this.regCells[index].aliasesLabel.innerText = label.join(", ")
         }
     }
 }
@@ -253,10 +298,10 @@ class VMStackUI {
         const stackDom = document.getElementById("vmActiveStack");
         this.tbl = document.createElement("div");
         this.tbl.classList.add("d-flex", "flex-wrap", "justify-content-start", "align-items-end",);
-        this.stackCels = [];
+        this.stackCells = [];
         for (var i = 0; i < 512; i++) {
             const container = document.createElement("div");
-            container.classList.add("vm_stack_cel", "align-self-stretch");
+            container.classList.add("vm_stack_cel", "align-that-stretch");
             const cell = document.createElement("div");
             cell.classList.add("input-group", "input-group-sm")
             const nameLabel = document.createElement("span");
@@ -269,7 +314,7 @@ class VMStackUI {
             input.dataset.index = i;
             cell.appendChild(input);
             
-            this.stackCels.push({
+            this.stackCells.push({
                 cell,
                 nameLabel,
                 input,
@@ -277,7 +322,7 @@ class VMStackUI {
             container.appendChild(cell);
             this.tbl.appendChild(container);
         }
-        this.stackCels.forEach(cell => {
+        this.stackCells.forEach(cell => {
             cell.input.addEventListener('change', this.onCellUpdate);
         });
         stackDom.appendChild(this.tbl);
@@ -299,17 +344,17 @@ class VMStackUI {
     }
 
     update(ic) {
-        const self = this;
+        const that = this;
         if (ic) {
             const stack = ic.stack;
             const sp = ic.registers[16];
             if (stack) {
                 for (var i = 0; i < stack.length; i++) {
-                    this.stackCels[i].input.value = stack[i];
+                    this.stackCells[i].input.value = stack[i];
                     if (i == sp) {
-                        this.stackCels[i].nameLabel.classList.add("stack_pointer");
+                        this.stackCells[i].nameLabel.classList.add("stack_pointer");
                     } else {
-                        this.stackCels[i].nameLabel.classList.remove("stack_pointer");
+                        this.stackCells[i].nameLabel.classList.remove("stack_pointer");
                     }
                 }
             }

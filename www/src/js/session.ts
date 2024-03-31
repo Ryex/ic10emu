@@ -63,17 +63,17 @@ j ra
 
 class Session {
   constructor() {
-    this._programs = {};
+    this._programs = new Map();
     this._save_timeout = 0;
     this._onLoadCallbacks = [];
     this._activeSession = 0;
-    this._activeLines = {};
+    this._activeLines = new Map();
     this._onActiveLineCallbacks = [];
     this.loadFromFragment();
 
-    const self = this;
+    const that = this;
     window.addEventListener('hashchange', (_event) => {
-      self.loadFromFragment();
+      that.loadFromFragment();
     });
   }
 
@@ -82,7 +82,7 @@ class Session {
   }
 
   set programs(programs) {
-    Object.assign(this._programs, programs);
+    this._programs = new Map([...programs]);
   }
 
   get activeSession() {
@@ -90,11 +90,11 @@ class Session {
   }
 
   getActiveLine(id) {
-    return this._activeLines[id];
+    return this._activeLines.get(id);
   }
 
   setActiveLine(id, line) {
-    this._activeLines[id] = line;
+    this._activeLines.set(id, line);
     this._fireOnActiveLine();
   }
 
@@ -103,7 +103,7 @@ class Session {
   }
 
   setProgramCode(id, code) {
-    this._programs[id] = code;
+    this._programs.set(id, code);
     this.save();
   }
 
@@ -112,8 +112,7 @@ class Session {
   }
 
   _fireOnLoad() {
-    for (const i in this._onLoadCallbacks) {
-      const callback = this._onLoadCallbacks[i];
+    for (const callback of this._onLoadCallbacks) {
       callback(this);
     }
   }
@@ -123,8 +122,7 @@ class Session {
   }
 
   _fireOnActiveLine() {
-    for (const i in this._onActiveLineCallbacks) {
-      const callback = this._onActiveLineCallbacks[i];
+    for (const callback of this._onActiveLineCallbacks) {
       callback(this);
     }
   }
@@ -141,7 +139,7 @@ class Session {
   }
 
   async saveToFragment() {
-    const toSave = { programs: this._programs };
+    const toSave = { programs: Array.from(this._programs) };
     const bytes = new TextEncoder().encode(JSON.stringify(toSave));
     try {
       const c_bytes = await compress(bytes);
@@ -157,7 +155,7 @@ class Session {
   async loadFromFragment() {
     const fragment = window.location.hash.slice(1);
     if (fragment === "demo") {
-      this._programs = { 0: demoCode };
+      this._programs = new Map([[0, demoCode]]);
       this._fireOnLoad();
       return;
     }
@@ -168,12 +166,12 @@ class Session {
         const txt = new TextDecoder().decode(bytes);
         const data = getJson(txt);
         if (data === null) { // backwards compatible
-          this._programs = { 0: txt };
+          this._programs = new Map([[0, txt]]);
           this, this._fireOnLoad();
           return;
         }
         try {
-          this._programs = Object.assign({}, data.programs);
+          this._programs = new Map(data.programs);
           this._fireOnLoad();
           return;
         } catch (e) {

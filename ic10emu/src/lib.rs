@@ -65,24 +65,50 @@ pub struct DeviceTemplate {
     pub logic: HashMap<grammar::LogicType, LogicField>,
     pub slots: Vec<SlotTemplate>,
     pub slotlogic: HashMap<grammar::LogicType, usize>,
-    pub conn: HashMap<u32, Connection>,
+    pub conn: Vec<(ConnectionType, ConnectionRole)>,
 }
 
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum ConnectionType {
-    Chute,
     Pipe,
     Power,
-    PowerData,
-    #[default]
     Data,
+    Chute,
+    Elevator,
+    PipeLiquid,
+    LandingPad,
+    LaunchPad,
+    PowerAndData,
+    #[serde(other)]
+    #[default]
+    None,
 }
 
-impl From<ConnectionType> for Connection {
-    fn from(value: ConnectionType) -> Self {
-        match value {
-            ConnectionType::Chute | ConnectionType::Pipe | ConnectionType::Power => Self::Other,
-            _ => Self::CableNetwork(None),
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+pub enum ConnectionRole {
+    Input,
+    Input2,
+    Output,
+    Output2,
+    Waste,
+    #[serde(other)]
+    #[default]
+    None,
+}
+
+impl Connection {
+    fn from(typ: ConnectionType, _role: ConnectionRole) -> Self {
+        match typ {
+            ConnectionType::None
+            | ConnectionType::Chute
+            | ConnectionType::Pipe
+            | ConnectionType::Elevator
+            | ConnectionType::LandingPad
+            | ConnectionType::LaunchPad
+            | ConnectionType::PipeLiquid => Self::Other,
+            ConnectionType::Data | ConnectionType::Power | ConnectionType::PowerAndData => {
+                Self::CableNetwork(None)
+            }
         }
     }
 }

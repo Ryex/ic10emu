@@ -19,7 +19,7 @@ module.exports = {
   mode: "production",
   devtool: "source-map",
   plugins: [
-    new CopyWebpackPlugin({ patterns: ['img/*.png', 'img/*/*.png'] }),
+    new CopyWebpackPlugin({ patterns: ['img/*.png', 'img/*/*.png', { from: 'data/database.json', to: 'data' }] }),
     new HtmlWebpackPlugin({ template: './src/index.html' }),
     new miniCssExtractPlugin()
   ],
@@ -119,9 +119,10 @@ module.exports = {
         },
       })
     ]
-  }
-  // output: {
-  //   filename: 'bundle.js',
-  //   path: path.resolve(__dirname, 'dist'),
-  // },
+  },
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    clean: true
+  },
 };

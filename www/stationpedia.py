@@ -5,6 +5,7 @@ from collections import defaultdict
 import re
 import json
 
+
 def extract_all():
     items = {}
     pedia = {}
@@ -19,15 +20,16 @@ def extract_all():
                 "Title": _,
                 "Description": desc,
                 "PrefabName": name,
-                "PrefabHash": hash,
+                "PrefabHash": name_hash,
                 "SlotInserts": slots,
                 "LogicInsert": logic,
                 "LogicSlotInsert": slotlogic,
                 "ModeInsert": modes,
-                "ConnectionInsert": connections,
+                "ConnectionInsert": _,
+                "ConnectionList": connections,  # type: List[Tuple[str, str]]
             }:
                 item["name"] = name
-                item["hash"] = hash
+                item["hash"] = name_hash
                 item["desc"] = re.sub(linkPat, r"\1", desc)
                 match slots:
                     case []:
@@ -47,7 +49,7 @@ def extract_all():
                         item["logic"] = {}
                         for lat in logic:
                             item["logic"][re.sub(linkPat, r"\1", lat["LogicName"])] = (
-                                lat["LogicAccessTypes"]
+                                lat["LogicAccessTypes"].replace(" ", "")
                             )
 
                 match slotlogic:
@@ -75,10 +77,8 @@ def extract_all():
                         item["conn"] = None
                     case _:
                         item["conn"] = {}
-                        for conn in connections:
-                            item["conn"][int(conn["LogicAccessTypes"])] = conn[
-                                "LogicName"
-                            ]
+                        for index, [conn_typ, conn_role] in enumerate(connections):
+                            item["conn"][index] = [conn_typ, conn_role]
 
             case _:
                 print(f"NON-CONFORMING: ")
@@ -91,21 +91,34 @@ def extract_all():
     slotlogicable = [
         item["name"] for item in items.values() if item["slotlogic"] is not None
     ]
+
     devices = [
         item["name"]
         for item in items.values()
         if item["logic"] is not None and item["conn"] is not None
     ]
 
+    def clean_nones(value):
+        if isinstance(value, list):
+            return [clean_nones(x) for x in value if x is not None]
+        elif isinstance(value, dict):
+            return {
+                key: clean_nones(val) for key, val in value.items() if val is not None
+            }
+        else:
+            return value
+
     with open("data/database.json", "w") as f:
         json.encoder
         json.dump(
-            {
-                "logic_enabled": logicable,
-                "slot_logic_enabled": slotlogicable,
-                "devices": devices,
-                "items": items,
-            },
+            clean_nones(
+                {
+                    "logic_enabled": logicable,
+                    "slot_logic_enabled": slotlogicable,
+                    "devices": devices,
+                    "items": items,
+                }
+            ),
             f,
         )
 

@@ -145,7 +145,7 @@
         <a class="navbar-brand active" aria-current="page" href="">Stationeers IC10 Emulator</a>
       </div>
       <div class="nav navbar-nav ms-2">
-        
+
       </div>
       <div class="nav navbar-nav  ms-auto navbar-right d-flex flex-row">
         <a class="navbar-text mt-auto mb-auto align-self-center" href="https://github.com/ryex/ic10emu">View on Github
@@ -192,7 +192,8 @@
           <div id="vmActiveIC" class="container ">
             <div class="ms-1 me-2 pb-2 row border border-secondary rounded bg-secondary bg-opacity-10">
               <div class="mt-2 col">
-                <div id="vmControls" class="btn-group-vertical btn-group-sm " role="group" aria-label="Virtual Machine Controls">
+                <div id="vmControls" class="btn-group-vertical btn-group-sm " role="group"
+                  aria-label="Virtual Machine Controls">
                   <button id="vmControlRun" type="button" class="btn btn-primary">Run</button>
                   <button id="vmControlStep" type="button" class="btn btn-secondary">Step</button>
                   <button id="vmControlReset" type="button" class="btn btn-warning">Reset</button>
@@ -216,6 +217,10 @@
                 </div>
 
               </div>
+            </div>
+            <div class="row mt-2 p2">
+              <button type="button" class="btn btn-outline-secondary">View Devices <span
+                  id="vmViewDeviceCount"></span></button>
             </div>
             <div class="row mt-2">
               <div class="accordion" id="vmActiveIC">
@@ -249,9 +254,6 @@
                 </div>
               </div>
             </div>
-
-
-
           </div>
         </div>
       </div>
@@ -264,6 +266,18 @@
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.7/ace.js" type="text/javascript" charset="utf-8"></script> -->
   <script>
   </script>
+
+
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="vmDevices" aria-labelledby="vmDevicesLabel"
+    data-bs-scroll="true" data-bs-backdrop="false">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="vmDevicesLabel">Devices</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="p-2" id="vmDevicesOCBody"></div>
+    </div>
+  </div>
 </body>
 
 </html>

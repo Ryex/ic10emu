@@ -19,7 +19,7 @@ module.exports = {
   mode: "development",
   devtool: "eval-source-map",
   plugins: [
-    new CopyWebpackPlugin({ patterns: ['img/*.png', 'img/*/*.png'] }),
+    new CopyWebpackPlugin({ patterns: ['img/*.png', 'img/*/*.png', { from: 'data/database.json', to: 'data' }] }),
     new HtmlWebpackPlugin({ template: './src/index.html' }),
     new miniCssExtractPlugin()
   ],
@@ -67,7 +67,7 @@ module.exports = {
       },],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js', '.json'],
     fallback: {
       "crypto": require.resolve("crypto-browserify"),
       "buffer": require.resolve("buffer"),
@@ -79,8 +79,9 @@ module.exports = {
     asyncWebAssembly: true,
     syncWebAssembly: true,
   },
-  // output: {
-  //   filename: 'bundle.js',
-  //   path: path.resolve(__dirname, 'dist'),
-  // },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+
+    clean: true,
+   },
 };
