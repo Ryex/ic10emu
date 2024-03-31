@@ -6,10 +6,11 @@ const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const path = require('path');
 
 module.exports = {
-  entry: "./src/js/main.js",
+  entry: "./src/js/main.ts",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "main.js",
+    clean: true
   },
   devServer: {
     static: path.resolve(__dirname, 'dist'),
@@ -119,10 +120,5 @@ module.exports = {
         },
       })
     ]
-  },
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    clean: true
   },
 };

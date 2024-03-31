@@ -1,9 +1,11 @@
-import { ace } from "./ace";
+import { IC10Editor } from ".";
+import * as ace from "ace-builds";
 import { Offcanvas } from 'bootstrap';
 
 class IC10EditorUI {
+  ic10editor: IC10Editor;
 
-  constructor(ic10editor) {
+  constructor(ic10editor: IC10Editor) {
 
     const that = this;
 
@@ -13,11 +15,11 @@ class IC10EditorUI {
       name: "showSettingsMenu",
       description: "Show settings menu",
       bindKey: { win: "Ctrl-,", mac: "Command-," },
-      exec: (_editor) => {
+      exec: (_editor: ace.Ace.Editor) => {
         const offCanvas = new Offcanvas(document.getElementById("editorSettings"));
         offCanvas.toggle();
       }
-    });
+    } as any);
 
     ace.config.loadModule("ace/ext/keyboard_menu", function (module) {
       console.log("keybinding_menu loaded");
@@ -32,7 +34,7 @@ class IC10EditorUI {
 
     document.getElementsByName("editorKeybindRadio").forEach((el) => {
       el.addEventListener('change', (e) => {
-        that.ic10editor.settings.keyboard = e.target.value;
+        that.ic10editor.settings.keyboard = (e.target as any).value;
         that.ic10editor.saveEditorSettings();
         that.updateEditorSettings();
       });
@@ -40,18 +42,18 @@ class IC10EditorUI {
 
     document.getElementsByName("editorCursorRadio").forEach((el) => {
       el.addEventListener('change', (e) => {
-        that.ic10editor.settings.cursor = e.target.value;
+        that.ic10editor.settings.cursor = (e.target as any).value;
         that.ic10editor.saveEditorSettings();
         that.updateEditorSettings();
       });
     });
     document.getElementById("editorSettingsFontSize").addEventListener('change', (e) => {
-      window.App.editorSettings.fontSize = e.target.value;
+      window.App.editorSettings.fontSize = parseInt((e.target as any).value);
       that.ic10editor.saveEditorSettings();
       that.updateEditorSettings();
     });
     document.getElementById("editorSettingsRelativeLineNumbers").addEventListener('change', (e) => {
-      window.App.editorSettings.relativeLineNumbers = e.target.checked;
+      window.App.editorSettings.relativeLineNumbers = (e.target as any).checked;
       that.ic10editor.saveEditorSettings();
       that.updateEditorSettings();
     });
@@ -76,21 +78,21 @@ class IC10EditorUI {
     } else {
       editor.setOption('keyboardHandler', `ace/keyboard/${settings.keyboard}`);
     }
-    editor.setOption('cursorStyle', settings.cursor);
-    editor.setOption('fontSize', `${settings.fontSize}px`);
+    editor.setOption('cursorStyle', settings.cursor as any);
+    editor.setOption('fontSize', settings.fontSize);
     editor.setOption('relativeLineNumbers', settings.relativeLineNumbers);
   }
 
   displayEditorSettings() {
     const settings = this.ic10editor.settings;
-    document.getElementsByName("editorKeybindRadio").forEach((el) => {
+    document.getElementsByName("editorKeybindRadio").forEach((el: any) => {
       el.checked = el.value === settings.keyboard;
     });
-    document.getElementsByName("editorCursorRadio").forEach((el) => {
+    document.getElementsByName("editorCursorRadio").forEach((el: any) => {
       el.checked = el.value === settings.cursor;
     });
-    document.getElementById("editorSettingsFontSize").value = settings.fontSize;
-    document.getElementById("editorSettingsRelativeLineNumbers").checked = settings.relativeLineNumbers;
+    (document.getElementById("editorSettingsFontSize") as any).value = settings.fontSize;
+    (document.getElementById("editorSettingsRelativeLineNumbers") as any).checked = settings.relativeLineNumbers;
   }
 
   reCalcEditorSize() {

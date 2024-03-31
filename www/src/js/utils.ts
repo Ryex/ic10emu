@@ -1,6 +1,7 @@
+import { Ace } from "ace-builds";
 
 
-function docReady(fn) {
+function docReady(fn: ()=> void) {
   // see if DOM is already available
   if (document.readyState === "complete" || document.readyState === "interactive") {
     setTimeout(fn, 1);
@@ -10,8 +11,7 @@ function docReady(fn) {
 }
 
 // probably not needed, fetch() exists now
-function makeRequest (opts) {
-  const req = new Request()
+function makeRequest(opts: { method: string, url: string, headers: { [key: string]: string }, params: any }) {
   return new Promise(function (resolve, reject) {
     var xhr = new XMLHttpRequest();
     xhr.open(opts.method, opts.url);
@@ -46,22 +46,21 @@ function makeRequest (opts) {
   });
 }
 
-async function saveFile(content) {
+async function saveFile(content: BlobPart) {
   const blob = new Blob([content], { type: "text/plain" });
   if (typeof window.showSaveFilePicker !== "undefined") {
     console.log("Saving via FileSystem API")
-    const options = {
+    const saveHandle = await window.showSaveFilePicker({
       types: [
         {
-          suggestedName: "code.ic10",
+          // suggestedName: "code.ic10",
           description: 'Text Files',
           accept: {
             'text/plain': ['.txt', '.ic10'],
           },
         },
       ],
-    };
-    const saveHandle = await window.showSaveFilePicker(options);
+    });
     const ws = await saveHandle.createWritable();
     await ws.write(blob);
     await ws.close();
@@ -74,7 +73,7 @@ async function saveFile(content) {
   }
 }
 
-async function openFile(editor) {
+async function openFile(editor: Ace.Editor) {
   if (typeof window.showOpenFilePicker !== "undefined") {
     console.log("opening file via FileSystem Api");
     const [fileHandle] = await window.showOpenFilePicker();
@@ -93,7 +92,7 @@ async function openFile(editor) {
       const file = files[0];
       var reader = new FileReader();
       reader.onload = (e) => {
-        const contents = e.target.result;
+        const contents = e.target.result as string;
         const session = editor.getSession();
         // session.id = file.name;
         session.setValue(contents);

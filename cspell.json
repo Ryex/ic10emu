@@ -58,6 +58,7 @@
         "brnez",
         "Circuitboard",
         "codegen",
+        "conv",
         "cstyle",
         "endpos",
         "getd",
@@ -123,6 +124,7 @@
         "thiserror",
         "tokentype",
         "trunc",
+        "Tsify",
         "whos"
     ]
 }

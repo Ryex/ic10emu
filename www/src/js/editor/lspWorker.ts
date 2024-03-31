@@ -1,21 +1,20 @@
 import { ServerConfig, serve } from "ic10lsp_wasm";
-import { v4 as uuidv4 } from 'uuid';
 
 export const encoder = new TextEncoder();
 export const decoder = new TextDecoder();
 
 export default class Bytes {
-  static encode(input) {
+  static encode(input: string) {
     return encoder.encode(input);
   }
 
-  static decode(input) {
+  static decode(input: Uint8Array) {
     return decoder.decode(input);
   }
 
   static append(
-    constructor,
-    ...arrays
+    constructor: Uint8ArrayConstructor,
+    ...arrays: Uint8Array[]
   ) {
     let totalLength = 0;
     for (const arr of arrays) {
@@ -31,23 +30,23 @@ export default class Bytes {
   }
 }
 
-export class AsyncStreamQueue {
+export class AsyncStreamQueue implements AsyncIterator<Uint8Array, undefined, Uint8Array> {
 
-  promises = [];
-  resolvers = [];
-  observers = [];
+  promises: Promise<Uint8Array>[] = [];
+  resolvers: Promise<Uint8Array>[] = [];
+  observers: any = [];
 
   closed = false;
-  locked = false;
   tag = "";
+  stream: WritableStream<Uint8Array>;
 
-  static __add(promises, resolvers) {
+  static __add(promises: any[], resolvers: any[]) {
     promises.push(new Promise((resolve) => {
       resolvers.push(resolve);
     }))
   }
 
-  static __enqueue(closed, promises, resolvers, item) {
+  static __enqueue(closed: boolean, promises: any[], resolvers: any[], item: any) {
     if (!closed) {
       if (!resolvers.length) AsyncStreamQueue.__add(promises, resolvers);
       const resolve = resolvers.shift();
@@ -55,7 +54,7 @@ export class AsyncStreamQueue {
     }
   }
 
-  constructor(tag) {
+  constructor(tag: string) {
     this.tag = tag;
     const closed = this.closed;
     // invariant: at least one of the arrays is empty
@@ -72,7 +71,7 @@ export class AsyncStreamQueue {
     return AsyncStreamQueue.__add(this.promises, this.resolvers);
   }
 
-  enqueue(item) {
+  enqueue(item: Uint8Array) {
     return AsyncStreamQueue.__enqueue(this.closed, this.promises, this.resolvers, item);
   }
 
@@ -95,17 +94,17 @@ export class AsyncStreamQueue {
     return this.promises.length - this.resolvers.length;
   }
 
-  return() {
+  /* return() {
     return new Promise(() => { })
   }
 
-  throw(err) {
+  throw(err: any) {
     return new Promise((_resolve, reject) => {
       reject(err);
     })
-  }
+  } */
 
-  async next() {
+  async next(): Promise<IteratorResult<Uint8Array>> {
     const done = false;
     // console.log(`AsyncStream(${this.tag}) waiting for message`)
     const value = await this.dequeue();
@@ -117,11 +116,11 @@ export class AsyncStreamQueue {
     return this;
   }
 
-  locked() {
+  get locked()  {
     return this.stream.locked;
   }
 
-  abort(reason) {
+  abort(reason: any) {
     return this.stream.abort(reason);
   }
 
@@ -142,8 +141,7 @@ async function start() {
   await serve(config);
 }
 
-function fixup(data) {
-  // data.id = uuidv4();
+function fixup(data: { hasOwnProperty: (arg0: string) => any; params: { hasOwnProperty: (arg0: string) => any; rootUri: string; textDocument: { hasOwnProperty: (arg0: string) => any; uri: string; }; }; }) {
   if (data.hasOwnProperty("params") && data.params.hasOwnProperty("rootUri") && data.params.rootUri === "") {
     data.params.rootUri = null
   }
@@ -159,7 +157,7 @@ function fixup(data) {
   return data
 }
 
-function sendClient(data) {
+function sendClient(data: any) {
   data = fixup(data);
   const data_j = JSON.stringify(data);
   const msg = `Content-Length: ${data_j.length}\r\n\r\n${data_j}`
@@ -212,7 +210,7 @@ listen();
 
 postMessage("ready");
 
-onmessage = function(e) {
+onmessage = function (e) {
   console.log("Client Message:", e.data);
   sendClient(e.data)
 }

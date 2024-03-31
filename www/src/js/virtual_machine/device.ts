@@ -1,9 +1,16 @@
 import { Offcanvas } from 'bootstrap';
+import { VirtualMachine, VirtualMachineUI } from '.';
+import { DeviceRef } from 'ic10emu_wasm';
 
 
 class VMDeviceUI {
+    ui: VirtualMachineUI;
+    root: HTMLDivElement;
+    canvasEl: HTMLElement;
+    deviceCountEl: HTMLElement;
+    canvas: Offcanvas;
 
-    constructor(ui) {
+    constructor(ui: VirtualMachineUI) {
         const that = this;
         that.ui = ui;
         this.root = document.createElement('div');
@@ -13,7 +20,7 @@ class VMDeviceUI {
 
     }
 
-    update(active_ic) {
+    update(active_ic: DeviceRef) {
         const devices = window.VM.devices;
 
 
@@ -22,7 +29,11 @@ class VMDeviceUI {
 }
 
 class VMDeviceCard {
-    constructor(deviceUI, device) {
+    root: HTMLDivElement;
+    viewBtn: HTMLButtonElement;
+    deviceUI: VMDeviceUI;
+    device: DeviceRef;
+    constructor(deviceUI: VMDeviceUI, device: DeviceRef) {
         const that = this;
         this.deviceUI = deviceUI;
         this.device = device;

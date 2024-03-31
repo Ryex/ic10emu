@@ -61,10 +61,21 @@ j ra
 
 `
 
+interface SessionCbFn {
+  (param: Session): void;
+}
+
 class Session {
+  _programs: Map<number, string>;
+  _onLoadCallbacks: SessionCbFn[];
+  _activeSession: number;
+  _activeLines: Map<number, number>;
+  _onActiveLineCallbacks: SessionCbFn[];
+  _activeLine: number;
+  private _save_timeout: ReturnType<typeof setTimeout>;
   constructor() {
     this._programs = new Map();
-    this._save_timeout = 0;
+    this._save_timeout = null;
     this._onLoadCallbacks = [];
     this._activeSession = 0;
     this._activeLines = new Map();
@@ -89,25 +100,25 @@ class Session {
     return this._activeSession;
   }
 
-  getActiveLine(id) {
+  getActiveLine(id: number) {
     return this._activeLines.get(id);
   }
 
-  setActiveLine(id, line) {
+  setActiveLine(id: number, line: number) {
     this._activeLines.set(id, line);
     this._fireOnActiveLine();
   }
 
-  set activeLine(line) {
+  set activeLine(line: number) {
     this._activeLine = line;
   }
 
-  setProgramCode(id, code) {
+  setProgramCode(id: number, code: string) {
     this._programs.set(id, code);
     this.save();
   }
 
-  onLoad(callback) {
+  onLoad(callback: SessionCbFn) {
     this._onLoadCallbacks.push(callback);
   }
 
@@ -117,7 +128,7 @@ class Session {
     }
   }
 
-  onActiveLine(callback) {
+  onActiveLine(callback: SessionCbFn) {
     this._onActiveLineCallbacks.push(callback);
   }
 
@@ -134,7 +145,7 @@ class Session {
       if (window.App.vm) {
         window.App.vm.updateCode();
       }
-
+      this._save_timeout = null;
     }, 1000);
   }
 
@@ -182,7 +193,7 @@ class Session {
   }
 
 }
-async function decompressFragment(c_bytes) {
+async function decompressFragment(c_bytes: ArrayBuffer) {
   try {
     const bytes = await decompress(c_bytes);
     return bytes;
@@ -192,7 +203,7 @@ async function decompressFragment(c_bytes) {
   }
 }
 
-function getJson(value) {
+function getJson(value: any) {
   try {
     return JSON.parse(value);
   } catch (_) {
@@ -200,7 +211,7 @@ function getJson(value) {
   }
 }
 
-async function* streamAsyncIterator(stream) {
+async function* streamAsyncIterator(stream: ReadableStream) {
   // Get a lock on the stream
   const reader = stream.getReader();
 
@@ -217,14 +228,14 @@ async function* streamAsyncIterator(stream) {
   }
 }
 
-function base64url_encode(buffer) {
+function base64url_encode(buffer: ArrayBuffer) {
   return btoa(Array.from(new Uint8Array(buffer), b => String.fromCharCode(b)).join(''))
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
     .replace(/=+$/, '');
 }
 
-function base64url_decode(value) {
+function base64url_decode(value: string): ArrayBuffer {
   const m = value.length % 4;
   return Uint8Array.from(atob(
     value.replace(/-/g, '+')
@@ -233,13 +244,13 @@ function base64url_decode(value) {
   ), c => c.charCodeAt(0)).buffer
 }
 
-async function concatUintArrays(arrays) {
+async function concatUintArrays(arrays: Uint8Array[]) {
   const blob = new Blob(arrays);
   const buffer = await blob.arrayBuffer();
   return new Uint8Array(buffer);
 }
 
-async function compress(bytes) {
+async function compress(bytes: ArrayBuffer) {
   const s = new Blob([bytes]).stream();
   const cs = s.pipeThrough(
     new CompressionStream('deflate-raw')
@@ -251,7 +262,7 @@ async function compress(bytes) {
   return await concatUintArrays(chunks);
 }
 
-async function decompress(bytes) {
+async function decompress(bytes: ArrayBuffer) {
   const s = new Blob([bytes]).stream();
   const ds = s.pipeThrough(
     new DecompressionStream('deflate-raw')
@@ -263,4 +274,4 @@ async function decompress(bytes) {
   return await concatUintArrays(chunks);
 }
 
-export { Session };
+export { Session, SessionCbFn };

@@ -3,10 +3,11 @@
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": true,
-    "module": "es6",
-    "target": "es6",
-    "jsx": "react",
+    "module": "es2022",
+    "target": "es2020",
     "allowJs": true,
-    "moduleResolution": "node"
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "types": ["@types/wicg-file-system-access", "@types/ace"]
   }
 }

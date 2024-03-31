@@ -1,18 +1,15 @@
 #[macro_use]
 mod utils;
+mod types;
+
+use types::{Stack, Registers};
 
 use std::{cell::RefCell, rc::Rc};
 
 use itertools::Itertools;
 // use itertools::Itertools;
-use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
 
-use serde_with::serde_as;
-
-#[serde_as]
-#[derive(Serialize, Deserialize)]
-struct Stack(#[serde_as(as = "[_; 512]")] [f64; 512]);
 
 #[wasm_bindgen]
 extern "C" {
@@ -46,22 +43,22 @@ impl DeviceRef {
         self.device.borrow().name_hash
     }
 
-    #[wasm_bindgen(getter)]
+    #[wasm_bindgen(getter, skip_typescript)]
     pub fn fields(&self) -> JsValue {
         serde_wasm_bindgen::to_value(&self.device.borrow().fields).unwrap()
     }
 
-    #[wasm_bindgen(getter)]
+    #[wasm_bindgen(getter, skip_typescript)]
     pub fn slots(&self) -> JsValue {
         serde_wasm_bindgen::to_value(&self.device.borrow().slots).unwrap()
     }
 
-    #[wasm_bindgen(getter)]
+    #[wasm_bindgen(getter, skip_typescript)]
     pub fn reagents(&self) -> JsValue {
         serde_wasm_bindgen::to_value(&self.device.borrow().reagents).unwrap()
     }
 
-    #[wasm_bindgen(getter)]
+    #[wasm_bindgen(getter, skip_typescript)]
     pub fn connections(&self) -> JsValue {
         serde_wasm_bindgen::to_value(&self.device.borrow().connections).unwrap()
     }
@@ -99,46 +96,38 @@ impl DeviceRef {
     }
 
     #[wasm_bindgen(getter, js_name = "stack")]
-    pub fn ic_stack(&self) -> JsValue {
-        serde_wasm_bindgen::to_value(
-            &self
-                .device
-                .borrow()
-                .ic
-                .as_ref()
-                .map(|ic| {
-                    self.vm
-                        .borrow()
-                        .ics
-                        .get(ic)
-                        .map(|ic| Stack(ic.as_ref().borrow().stack))
-                })
-                .flatten(),
-        )
-        .unwrap()
+    pub fn ic_stack(&self) -> Option<Stack> {
+        self.device
+            .borrow()
+            .ic
+            .as_ref()
+            .map(|ic| {
+                self.vm
+                    .borrow()
+                    .ics
+                    .get(ic)
+                    .map(|ic| Stack(ic.as_ref().borrow().stack))
+            })
+            .flatten()
     }
 
     #[wasm_bindgen(getter, js_name = "registers")]
-    pub fn ic_registers(&self) -> JsValue {
-        serde_wasm_bindgen::to_value(
-            &self
-                .device
-                .borrow()
-                .ic
-                .as_ref()
-                .map(|ic| {
-                    self.vm
-                        .borrow()
-                        .ics
-                        .get(ic)
-                        .map(|ic| ic.as_ref().borrow().registers)
-                })
-                .flatten(),
-        )
-        .unwrap()
+    pub fn ic_registers(&self) -> Option<Registers> {
+        self.device
+            .borrow()
+            .ic
+            .as_ref()
+            .map(|ic| {
+                self.vm
+                    .borrow()
+                    .ics
+                    .get(ic)
+                    .map(|ic| Registers(ic.as_ref().borrow().registers))
+            })
+            .flatten()
     }
 
-    #[wasm_bindgen(getter, js_name = "aliases")]
+    #[wasm_bindgen(getter, js_name = "aliases", skip_typescript)]
     pub fn ic_aliases(&self) -> JsValue {
         serde_wasm_bindgen::to_value(
             &self
@@ -158,7 +147,7 @@ impl DeviceRef {
         .unwrap()
     }
 
-    #[wasm_bindgen(getter, js_name = "defines")]
+    #[wasm_bindgen(getter, js_name = "defines", skip_typescript)]
     pub fn ic_defines(&self) -> JsValue {
         serde_wasm_bindgen::to_value(
             &self
@@ -178,7 +167,7 @@ impl DeviceRef {
         .unwrap()
     }
 
-    #[wasm_bindgen(getter, js_name = "pins")]
+    #[wasm_bindgen(getter, js_name = "pins", skip_typescript)]
     pub fn ic_pins(&self) -> JsValue {
         serde_wasm_bindgen::to_value(
             &self
@@ -268,7 +257,7 @@ impl DeviceRef {
             .as_ref()
             .ok_or(ic10emu::VMError::NoIC(self.device.borrow().id))?;
         let vm_borrow = self.vm.borrow();
-        let ic =  vm_borrow
+        let ic = vm_borrow
             .ics
             .get(&ic_id)
             .ok_or(ic10emu::VMError::NoIC(self.device.borrow().id))?;
@@ -285,7 +274,7 @@ impl DeviceRef {
             .as_ref()
             .ok_or(ic10emu::VMError::NoIC(self.device.borrow().id))?;
         let vm_borrow = self.vm.borrow();
-        let ic =  vm_borrow
+        let ic = vm_borrow
             .ics
             .get(&ic_id)
             .ok_or(ic10emu::VMError::NoIC(self.device.borrow().id))?;

@@ -1,8 +1,34 @@
-import { init } from "ic10emu_wasm";
+import { DeviceRef, VM, init } from "ic10emu_wasm";
 import { VMDeviceUI } from "./device";
 // import { Card } from 'bootstrap';
 
+declare global {
+    interface Window { VM: VirtualMachine }
+}
+
+type DeviceDB = {
+    logic_enabled: string[];
+    slot_logic_enabled: string[];
+    devices: string[];
+    items: {
+        [key: string]: {
+            name: string,
+            hash: number,
+            desc: string,
+            logic?: { [key: string]: string },
+            slots?: { name: string, type: string }[],
+            modes?: { [key: string]: string },
+            conn?: { [key: string]: string[] },
+        }
+    }
+}
+
 class VirtualMachine {
+    ic10vm: VM;
+    ui: VirtualMachineUI;
+    _devices: Map<number, DeviceRef>;
+    _ics: Map<number, DeviceRef>;
+    db: any;
 
     constructor() {
         const vm = init();
@@ -21,27 +47,27 @@ class VirtualMachine {
 
     }
 
-    get devices () {
+    get devices() {
         return this._devices;
     }
 
-    get ics () {
+    get ics() {
         return this._ics;
     }
 
-    get activeIC () {
+    get activeIC() {
         return this._ics.get(window.App.session.activeSession);
     }
 
     updateDevices() {
-        
+
         const device_ids = this.ic10vm.devices;
         for (const id of device_ids) {
-            if (!this._devices.has(id)){
+            if (!this._devices.has(id)) {
                 this._devices.set(id, this.ic10vm.getDevice(id));
             }
         }
-        for(const id of this._devices) {
+        for (const id of this._devices.keys()) {
             if (!device_ids.includes(id)) {
                 this._devices.delete(id);
             }
@@ -49,11 +75,11 @@ class VirtualMachine {
 
         const ics = this.ic10vm.ics;
         for (const id of ics) {
-            if (!this._ics.has(id)){
+            if (!this._ics.has(id)) {
                 this._ics.set(id, this._devices.get(id));
             }
         }
-        for(const id of this._ics) {
+        for (const id of this._ics.keys()) {
             if (!ics.includes(id)) {
                 this._ics.delete(id);
             }
@@ -63,17 +89,17 @@ class VirtualMachine {
 
     updateCode() {
         const progs = window.App.session.programs;
-        for (const id of Object.keys(progs)) {
+        for (const id of progs.keys()) {
             const attempt = Date.now().toString(16)
             const ic = this._ics.get(id);
-            const prog = progs[id];
+            const prog = progs.get(id);
             if (ic && prog) {
                 console.time(`CompileProgram_${id}_${attempt}`);
                 try {
-                    this.ics[id].setCode(progs[id]);
+                    this.ics.get(id).setCode(progs.get(id));
                 } catch (e) {
                     console.log(e);
-                }                
+                }
                 console.timeEnd(`CompileProgram_${id}_${attempt}`);
             }
         }
@@ -119,7 +145,7 @@ class VirtualMachine {
         this.ui.update(ic);
     }
 
-    setRegister(index, val) {
+    setRegister(index: number, val: number) {
         const ic = this.activeIC;
         try {
             ic.setRegister(index, val);
@@ -128,7 +154,7 @@ class VirtualMachine {
         }
     }
 
-    setStack(addr, val) {
+    setStack(addr: number, val: number) {
         const ic = this.activeIC;
         try {
             ic.setStack(addr, val);
@@ -137,7 +163,7 @@ class VirtualMachine {
         }
     }
 
-    setupDeviceDatabase(db) {
+    setupDeviceDatabase(db: DeviceDB) {
         this.db = db;
         console.log("Loaded Device Database", this.db);
     }
@@ -145,7 +171,13 @@ class VirtualMachine {
 
 
 class VirtualMachineUI {
-    constructor(vm) {
+    vm: VirtualMachine;
+    state: VMStateUI;
+    registers: VMRegistersUI;
+    stack: VMStackUI;
+    devices: VMDeviceUI;
+
+    constructor(vm: VirtualMachine) {
         this.vm = vm
         this.state = new VMStateUI(this);
         this.registers = new VMRegistersUI(this);
@@ -166,7 +198,7 @@ class VirtualMachineUI {
 
     }
 
-    update(ic) {
+    update(ic: DeviceRef) {
         this.state.update(ic);
         this.registers.update(ic);
         this.stack.update(ic);
@@ -176,7 +208,11 @@ class VirtualMachineUI {
 }
 
 class VMStateUI {
-    constructor(ui) {
+    ui: VirtualMachineUI;
+    instructionPointer: HTMLElement;
+    instructionCounter: HTMLElement;
+    lastState: HTMLElement;
+    constructor(ui: VirtualMachineUI) {
         this.ui = ui;
 
         this.instructionPointer = document.getElementById("vmActiveICStateIP");
@@ -184,7 +220,7 @@ class VMStateUI {
         this.lastState = document.getElementById("vmActiveICStateLastRun");
     }
 
-    update(ic) {
+    update(ic: { ip: { toString: () => string; }; instructionCount: { toString: () => string; }; state: { toString: () => string; }; }) {
         if (ic) {
             this.instructionPointer.innerText = ic.ip.toString();
             this.instructionCounter.innerText = ic.instructionCount.toString();
@@ -194,7 +230,18 @@ class VMStateUI {
 }
 
 class VMRegistersUI {
-    constructor(ui) {
+    ui: VirtualMachineUI;
+    tbl: HTMLDivElement;
+    regCells: {
+        cell: HTMLDivElement,
+        nameLabel: HTMLSpanElement,
+        aliasesLabel: HTMLSpanElement,
+        input: HTMLInputElement
+    }[];
+    default_aliases: Map<string, number>;
+    ic_aliases: Map<string, number>;
+    constructor(ui: VirtualMachineUI) {
+        const that = this;
         this.ui = ui;
         const regDom = document.getElementById("vmActiveRegisters");
         this.tbl = document.createElement("div");
@@ -212,8 +259,8 @@ class VMRegistersUI {
             cell.appendChild(nameLabel);
             const input = document.createElement("input");
             input.type = "text"
-            input.value = 0;
-            input.dataset.index = i;
+            input.value = (0).toString();
+            input.dataset.index = i.toString();
             cell.appendChild(input);
             const aliasesLabel = document.createElement("span");
             aliasesLabel.classList.add("input-group-text", "reg_label")
@@ -228,72 +275,74 @@ class VMRegistersUI {
             this.tbl.appendChild(container);
         }
         this.regCells.forEach(cell => {
-            cell.input.addEventListener('change', this.onCellUpdate);
+            cell.input.addEventListener('change', that.onCellUpdate);
         });
-        this.default_aliases = { "sp": 16, "ra": 17 }
-        this.ic_aliases = {}
+        this.default_aliases = new Map([["sp", 16], ["ra", 17]]);
+        this.ic_aliases = new Map();
         regDom.appendChild(this.tbl);
     }
 
-    onCellUpdate(e) {
+    onCellUpdate(e: Event) {
         let index;
         let val;
+        let target = (e.target as HTMLInputElement);
         try {
-            index = parseInt(e.target.dataset.index);
-            val = parseFloat(e.target.value);
+            index = parseInt(target.dataset.index);
+            val = parseFloat(target.value);
         } catch (e) {
             // reset the edit
             console.log(e);
-            VM.update();
+            window.VM.update();
             return;
         }
-        VM.setRegister(index, val);
+        window.VM.setRegister(index, val);
     }
 
-    update(ic) {
+    update(ic: DeviceRef) {
         const that = this;
         if (ic) {
             const registers = ic.registers;
             if (registers) {
                 for (var i = 0; i < registers.length; i++) {
-                    this.regCells[i].input.value = registers[i];
+                    this.regCells[i].input.value = registers[i].toString();
                 }
             }
             const aliases = ic.aliases;
             if (aliases) {
-                this.ic_aliases = {};
-                aliases.forEach( (target, alias, _map) => {
-                    // const target = aliases.get(alias);
-                    if (target.RegisterSpec &&  target.RegisterSpec.indirection == 0) {
+                this.ic_aliases = new Map();
+                aliases.forEach((target, alias, _map) => {
+                    if (("RegisterSpec" in target) && target.RegisterSpec.indirection == 0) {
                         const index = target.RegisterSpec.target;
-                        this.ic_aliases[alias] = index;
+                        this.ic_aliases.set(alias, index);
                     }
                 })
             }
-            console.log(aliases);
         }
         this.updateAliases();
     }
 
-    updateAliases () {
-        const aliases = Object.assign({}, this.default_aliases, this.ic_aliases);
-        const labels = {}
-        for (const [alias, target] of Object.entries(aliases)) {
+    updateAliases() {
+        const aliases = new Map([...Array.from(this.default_aliases), ...Array.from(this.ic_aliases)]);
+        const labels = new Map<number, string[]>();
+        for (const [alias, target] of aliases) {
             if (labels.hasOwnProperty(target)) {
-                labels[target].push(alias)
+                labels.get(target).push(alias)
             } else {
-                labels[target] = [alias]
+                labels.set(target, [alias]);
             }
         }
 
-        for(const [index, label] of Object.entries(labels)) {
-            this.regCells[index].aliasesLabel.innerText = label.join(", ")
+        for (const [index, label_list] of labels) {
+            this.regCells[index].aliasesLabel.innerText = label_list.join(", ")
         }
     }
 }
 
 class VMStackUI {
-    constructor(ui) {
+    ui: VirtualMachineUI;
+    tbl: HTMLDivElement;
+    stackCells: { cell: HTMLDivElement, nameLabel: HTMLSpanElement, input: HTMLInputElement }[];
+    constructor(ui: VirtualMachineUI) {
         this.ui = ui;
         const stackDom = document.getElementById("vmActiveStack");
         this.tbl = document.createElement("div");
@@ -310,10 +359,10 @@ class VMStackUI {
             cell.appendChild(nameLabel);
             const input = document.createElement("input");
             input.type = "text"
-            input.value = 0;
-            input.dataset.index = i;
+            input.value = (0).toString();
+            input.dataset.index = i.toString();
             cell.appendChild(input);
-            
+
             this.stackCells.push({
                 cell,
                 nameLabel,
@@ -328,22 +377,22 @@ class VMStackUI {
         stackDom.appendChild(this.tbl);
     }
 
-    onCellUpdate(e) {
+    onCellUpdate(e: Event) {
         let index;
         let val;
+        let target = e.target as HTMLInputElement;
         try {
-            index = parseInt(e.target.dataset.index);
-            val = parseFloat(e.target.value);
+            index = parseInt(target.dataset.index);
+            val = parseFloat(target.value);
         } catch (e) {
             // reset the edit
-            console.log(e);
-            VM.update();
+            window.VM.update();
             return;
         }
-        VM.setStack(index, val);
+        window.VM.setStack(index, val);
     }
 
-    update(ic) {
+    update(ic: { stack: any; registers: any[]; }) {
         const that = this;
         if (ic) {
             const stack = ic.stack;
@@ -363,4 +412,4 @@ class VMStackUI {
 
 }
 
-export { VirtualMachine }
+export { VirtualMachine, VirtualMachineUI , DeviceDB };

@@ -1,10 +1,10 @@
 
 import '@popperjs/core';
 import '../scss/styles.scss';
-import { Dropdown, Model, ButtonGroup } from 'bootstrap';
+import { Dropdown, Modal } from 'bootstrap';
 
 // A dependency graph that contains any wasm must all be imported
-// asynchronously. This `bootstrap.js` file does the single async import, so
+// asynchronously. This `main.js` file does the single async import, so
 // that no one else needs to worry about it again.
-import("./index.js")
-  .catch(e => console.error("Error importing `index.js`:", e));
+import("./index")
+  .catch(e => console.error("Error importing `index.ts`:", e));
