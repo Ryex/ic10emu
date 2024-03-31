@@ -97,6 +97,7 @@ pub enum ConnectionRole {
 }
 
 impl Connection {
+    #[allow(dead_code)]
     fn from(typ: ConnectionType, _role: ConnectionRole) -> Self {
         match typ {
             ConnectionType::None
