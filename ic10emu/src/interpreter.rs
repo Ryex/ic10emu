@@ -373,7 +373,7 @@ impl IC {
     }
 
     pub fn poke(&mut self, address: f64, val: f64) -> Result<f64, ICError> {
-        let sp = address as i32;
+        let sp = address.round() as i32;
         if !(0..512).contains(&sp) {
             Err(ICError::StackIndexOutOfRange(address))
         } else {
@@ -384,7 +384,7 @@ impl IC {
     }
 
     pub fn peek(&self) -> Result<f64, ICError> {
-        let sp = (self.registers[16]) as i32;
+        let sp = (self.registers[16] - 1.0).round() as i32;
         if sp < 0 {
             Err(ICError::StackUnderflow)
         } else if sp >= 512 {

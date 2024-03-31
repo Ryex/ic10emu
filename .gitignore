@@ -2,3 +2,4 @@ pkg/
 dist/
 mode_modules/
 target/
+Session.vim
