@@ -9,7 +9,7 @@ class VMDeviceUI {
     canvasEl: HTMLDivElement;
     deviceCountEl: HTMLElement;
     canvas: Offcanvas;
-    private _deviceCards: Map<number, VMDeviceCard>;
+    private _deviceSummaryCards: Map<number, VMDeviceSummaryCard>;
 
     constructor(ui: VirtualMachineUI) {
         const that = this;
@@ -18,23 +18,23 @@ class VMDeviceUI {
         this.canvasEl = document.getElementById('vmDevicesOCBody') as HTMLDivElement;
         this.deviceCountEl = document.getElementById('vmViewDeviceCount');
         this.canvas = new Offcanvas(this.canvasEl);
-        this._deviceCards = new Map();
+        this._deviceSummaryCards = new Map();
     }
 
     update(active_ic: DeviceRef) {
         const devices = window.VM.devices;
         this.deviceCountEl.innerText = `(${devices.size})`
         for (const [id, device] of devices) {
-            if (!this._deviceCards.has(id)) {
-                this._deviceCards.set(id, new VMDeviceCard(this, device));
+            if (!this._deviceSummaryCards.has(id)) {
+                this._deviceSummaryCards.set(id, new VMDeviceSummaryCard(this, device));
             }
         }
-        this._deviceCards.forEach((card, _id) => { card.update(active_ic)});
+        this._deviceSummaryCards.forEach((card, _id) => { card.update(active_ic)});
     }
 
 }
 
-class VMDeviceCard {
+class VMDeviceSummaryCard {
     root: HTMLDivElement;
     viewBtn: HTMLButtonElement;
     deviceUI: VMDeviceUI;
@@ -71,7 +71,7 @@ class VMDeviceCard {
         const btnTxt = `Device ${this.device.id}${deviceName}`
         this.viewBtn.innerText = btnTxt;
 
-        // regen badges
+        // regenerate badges
         this.device.connections.forEach((conn, index) => {
             if ( typeof conn === "object") {
                 var badge = document.createElement('span');
@@ -107,6 +107,39 @@ class VMDeviceCard {
         this.root.remove();
     }
 
+}
+
+class VMDeviceCard {
+    ui: VMDeviceUI;
+    container: HTMLElement;
+    root: HTMLDivElement;
+
+    header: HTMLHeadingElement;
+    device: DeviceRef;
+    nameInput: HTMLInputElement;
+    nameHash: HTMLSpanElement;
+    badges: HTMLSpanElement[];
+    fieldsContainer: HTMLDivElement;
+    slotsContainer: HTMLDivElement;
+    pinsContainer: HTMLDivElement;
+    networksContainer: HTMLDivElement;
+
+    constructor(ui: VMDeviceUI, container: HTMLElement, device: DeviceRef) {
+        this.ui = ui;
+        this.container = container;
+        this.device = device;
+
+        this.root = document.createElement('div');
+
+        this.header = document.createElement('h5');
+        this.nameInput = document.createElement('input');
+        this.nameHash = document.createElement('span');
+        this.badges = [];
+        this.fieldsContainer = document.createElement('div');
+        this.slotsContainer = document.createElement('div');
+        this.pinsContainer = document.createElement('div');
+        this.networksContainer = document.createElement('div');
+    }
 }
 
 export { VMDeviceUI }
