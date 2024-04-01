@@ -26,11 +26,11 @@ type Defines = Map<string, number>;
 type Pins = (number | undefined)[]
 
 export interface DeviceRef {
-    readonly fields: Fields | undefined;
-    readonly slots: Slot[] | undefined;
-    readonly reagents: Reagents | undefined;
-    readonly connections: Connection[] | undefined;
-    readonly aliases: Aliases | undefined;
-    readonly defines: Defines | undefined;
-    readonly pins: Pins;
+    readonly fields: Fields;
+    readonly slots: Slot[];
+    readonly reagents: Reagents;
+    readonly connections: Connection[];
+    readonly aliases?: Aliases | undefined;
+    readonly defines?: Defines | undefined;
+    readonly pins?: Pins;
 }

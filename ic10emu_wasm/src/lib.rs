@@ -43,6 +43,16 @@ impl DeviceRef {
         self.device.borrow().name_hash
     }
 
+    #[wasm_bindgen(getter, js_name = "prefabName")]
+    pub fn prefab_name(&self) -> Option<String> {
+        self.device.borrow().prefab_name.clone()
+    }
+
+    #[wasm_bindgen(getter, js_name = "prefabHash")]
+    pub fn prefab_hash(&self) -> Option<i32> {
+        self.device.borrow().prefab_hash
+    }
+
     #[wasm_bindgen(getter, skip_typescript)]
     pub fn fields(&self) -> JsValue {
         serde_wasm_bindgen::to_value(&self.device.borrow().fields).unwrap()

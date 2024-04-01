@@ -164,6 +164,8 @@ pub struct Device {
     pub name: Option<String>,
     pub name_hash: Option<f64>,
     pub fields: HashMap<grammar::LogicType, LogicField>,
+    pub prefab_name: Option<String>,
+    pub prefab_hash: Option<i32>,
     pub slots: Vec<Slot>,
     pub reagents: HashMap<ReagentMode, HashMap<i32, f64>>,
     pub ic: Option<u16>,
@@ -253,6 +255,8 @@ impl Device {
             id,
             name: None,
             name_hash: None,
+            prefab_name: None,
+            prefab_hash: None,
             fields: HashMap::new(),
             slots: Vec::new(),
             reagents: HashMap::new(),
@@ -273,6 +277,7 @@ impl Device {
                 value: 0.0,
             },
         );
+        device.prefab_name = Some("StructureCircuitHousing".to_owned());
         device.fields.insert(
             LogicType::Error,
             LogicField {
@@ -280,6 +285,7 @@ impl Device {
                 value: 0.0,
             },
         );
+        device.prefab_hash = Some(-128473777);
         device.fields.insert(
             LogicType::PrefabHash,
             LogicField {

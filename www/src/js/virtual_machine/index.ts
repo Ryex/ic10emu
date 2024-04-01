@@ -28,7 +28,7 @@ class VirtualMachine {
     ui: VirtualMachineUI;
     _devices: Map<number, DeviceRef>;
     _ics: Map<number, DeviceRef>;
-    db: any;
+    db: DeviceDB;
 
     constructor() {
         const vm = init();
@@ -69,6 +69,7 @@ class VirtualMachine {
         }
         for (const id of this._devices.keys()) {
             if (!device_ids.includes(id)) {
+                this._devices.get(id).free();
                 this._devices.delete(id);
             }
         }
@@ -81,6 +82,7 @@ class VirtualMachine {
         }
         for (const id of this._ics.keys()) {
             if (!ics.includes(id)) {
+                this._ics.get(id).free();
                 this._ics.delete(id);
             }
         }

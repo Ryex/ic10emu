@@ -199,7 +199,7 @@
                   <button id="vmControlReset" type="button" class="btn btn-warning">Reset</button>
                 </div>
               </div>
-              <div id="vmActiveICState" class="mt-2 col-2 col-sm-4 col-md-10">
+              <div id="vmActiveICState" class="mt-2 col-9 g-4">
 
                 <div class="hstack g-0">
                   <div>Instruction Pointer</div>
@@ -218,12 +218,34 @@
 
               </div>
             </div>
-            <div class="row mt-2 p2">
-              <button type="button" class="btn btn-outline-secondary">View Devices <span
-                  id="vmViewDeviceCount"></span></button>
+
+            <div class="row mt-1 ms-1 me-1">
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="offcanvas"
+                data-bs-target="#vmDevices" aria-expanded="false"
+                aria-controls="vmDevices">View All Devices <span id="vmViewDeviceCount"></span></button>
+            </div>
+            <div class="row p2">
+              <div class="collapse mt-1" id=vmDeviceSummaryCollapse>
+              </div>
             </div>
             <div class="row mt-2">
-              <div class="accordion" id="vmActiveIC">
+              <div class="accordion vm_accordion" id="vmActiveIC">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                      data-bs-target="#collapseDeviceSummary" aria-expanded="false"
+                      aria-controls="collapseDeviceSummary">
+                      Device Summary
+                    </button>
+                  </h2>
+                  <div id="collapseDeviceSummary" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                      <div id="vmDeviceSummary" class="card card-body vm_device_summary">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div class="accordion-item">
                   <h2 class="accordion-header">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
@@ -268,7 +290,7 @@
   </script>
 
 
-  <div class="offcanvas offcanvas-start" tabindex="-1" id="vmDevices" aria-labelledby="vmDevicesLabel"
+  <div class="offcanvas offcanvas-bottom" tabindex="-1" id="vmDevices" aria-labelledby="vmDevicesLabel"
     data-bs-scroll="true" data-bs-backdrop="false">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="vmDevicesLabel">Devices</h5>

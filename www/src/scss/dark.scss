@@ -400,6 +400,15 @@ code {
   z-index: 20;
 }
 
+.vm_accordion .accordion-button {
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+}
+
+.vm_accordion .accordion-header {
+  line-height: 0.75rem;
+}
+
 .vm_reg {
   overflow-x: auto;
   overflow-y: auto;
@@ -483,4 +492,14 @@ code {
 
 .vm_stack_cel span.stack_pointer  {
   background-color: var(--bs-success);
+}
+
+.vm_device_summary button.btn {
+  line-height: 0.75rem;
+
+}
+
+.vm_device_summary span.badge {
+  line-height: 0.5rem;
+  font-size: 0.65rem;
 }

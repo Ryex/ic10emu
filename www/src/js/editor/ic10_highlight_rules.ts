@@ -1,6 +1,6 @@
 
 
-var ops = (
+const ops = (
     "abs|acos|add|alias|and|asin|atan|atan2|bap|bapal|bapz|bapzal|bdns|" +
     "bdnsal|bdse|bdseal|beq|beqal|beqz|beqzal|bge|bgeal|bgez|bgezal|bgt|" +
     "bgtal|bgtz|bgtzal|ble|bleal|blez|blezal|blt|bltal|bltz|bltzal|bna|" +
@@ -14,7 +14,7 @@ var ops = (
     "xor|yield"
 );
 
-var enums = (
+const enums = (
     "AirCon\\.Cold|AirCon\\.Hot|AirControl\\.Draught|AirControl\\.None|" +
     "AirControl\\.Offline|AirControl\\.Pressure|Color\\.Black|Color\\.Blue|" +
     "Color\\.Brown|Color\\.Gray|Color\\.Green|Color\\.Khaki|Color\\.Orange|" +
@@ -186,157 +186,66 @@ var enums = (
     "Sound\\.TemperatureHigh|Sound\\.TemperatureLow|Sound\\.Three|" +
     "Sound\\.TraderIncoming|Sound\\.TraderLanded|Sound\\.Two|" +
     "Sound\\.Warning|Sound\\.Welcome|TransmitterMode\\.Active|" +
-    "TransmitterMode\\.Passive|Vent\\.Inward|Vent\\.Outward");
-
-var logictypes = (
-    "Acceleration|Activate|AirRelease|AlignmentError|Apex|AutoLand|" +
-    "AutoShutOff|Bpm|BurnTimeRemaining|CelestialHash|CelestialParentHash|" +
-    "Channel0|Channel1|Channel2|Channel3|Channel4|Channel5|Channel6|" +
-    "Channel7|Charge|Chart|ChartedNavPoints|ClearMemory|CollectableGoods|" +
-    "Color|Combustion|CombustionInput|CombustionInput2|CombustionLimiter|" +
-    "CombustionOutput|CombustionOutput2|CompletionRatio|ContactTypeId|" +
-    "CurrentCode|CurrentResearchPodType|Density|DestinationCode|Discover|" +
-    "DistanceAu|DistanceKm|DrillCondition|DryMass|Eccentricity|ElevatorLevel|" +
-    "ElevatorSpeed|EntityState|EnvironmentEfficiency|Error|ExhaustVelocity|" +
-    "ExportCount|ExportQuantity|ExportSlotHash|ExportSlotOccupant|" +
-    "Filtration|FlightControlRule|Flush|ForceWrite|ForwardX|ForwardY|" +
-    "ForwardZ|Fuel|Harvest|Horizontal|HorizontalRatio|Idle|ImportCount|" +
-    "ImportQuantity|ImportSlotHash|ImportSlotOccupant|Inclination|" +
-    "Index|InterrogationProgress|LineNumber|Lock|ManualResearchRequiredPod|" +
-    "Mass|Maximum|MineablesInQueue|MineablesInVicinity|MinedQuantity|" +
-    "MinimumWattsToContact|Mode|NavPoints|NextWeatherEventTime|None|" +
-    "On|Open|OperationalTemperatureEfficiency|OrbitPeriod|Orientation|" +
-    "Output|PassedMoles|Plant|PlantEfficiency1|PlantEfficiency2|PlantEfficiency3|" +
-    "PlantEfficiency4|PlantGrowth1|PlantGrowth2|PlantGrowth3|PlantGrowth4|" +
-    "PlantHash1|PlantHash2|PlantHash3|PlantHash4|PlantHealth1|PlantHealth2|" +
-    "PlantHealth3|PlantHealth4|PositionX|PositionY|PositionZ|Power|" +
-    "PowerActual|PowerGeneration|PowerPotential|PowerRequired|PrefabHash|" +
-    "Pressure|PressureEfficiency|PressureExternal|PressureInput|PressureInput2|" +
-    "PressureInternal|PressureOutput|PressureOutput2|PressureSetting|" +
-    "Progress|Quantity|Ratio|RatioCarbonDioxide|RatioCarbonDioxideInput|" +
-    "RatioCarbonDioxideInput2|RatioCarbonDioxideOutput|RatioCarbonDioxideOutput2|" +
-    "RatioHydrogen|RatioLiquidCarbonDioxide|RatioLiquidCarbonDioxideInput|" +
-    "RatioLiquidCarbonDioxideInput2|RatioLiquidCarbonDioxideOutput|" +
-    "RatioLiquidCarbonDioxideOutput2|RatioLiquidHydrogen|RatioLiquidNitrogen|" +
-    "RatioLiquidNitrogenInput|RatioLiquidNitrogenInput2|RatioLiquidNitrogenOutput|" +
-    "RatioLiquidNitrogenOutput2|RatioLiquidNitrousOxide|RatioLiquidNitrousOxideInput|" +
-    "RatioLiquidNitrousOxideInput2|RatioLiquidNitrousOxideOutput|RatioLiquidNitrousOxideOutput2|" +
-    "RatioLiquidOxygen|RatioLiquidOxygenInput|RatioLiquidOxygenInput2|" +
-    "RatioLiquidOxygenOutput|RatioLiquidOxygenOutput2|RatioLiquidPollutant|" +
-    "RatioLiquidPollutantInput|RatioLiquidPollutantInput2|RatioLiquidPollutantOutput|" +
-    "RatioLiquidPollutantOutput2|RatioLiquidVolatiles|RatioLiquidVolatilesInput|" +
-    "RatioLiquidVolatilesInput2|RatioLiquidVolatilesOutput|RatioLiquidVolatilesOutput2|" +
-    "RatioNitrogen|RatioNitrogenInput|RatioNitrogenInput2|RatioNitrogenOutput|" +
-    "RatioNitrogenOutput2|RatioNitrousOxide|RatioNitrousOxideInput|" +
-    "RatioNitrousOxideInput2|RatioNitrousOxideOutput|RatioNitrousOxideOutput2|" +
-    "RatioOxygen|RatioOxygenInput|RatioOxygenInput2|RatioOxygenOutput|" +
-    "RatioOxygenOutput2|RatioPollutant|RatioPollutantInput|RatioPollutantInput2|" +
-    "RatioPollutantOutput|RatioPollutantOutput2|RatioPollutedWater|" +
-    "RatioSteam|RatioSteamInput|RatioSteamInput2|RatioSteamOutput|" +
-    "RatioSteamOutput2|RatioVolatiles|RatioVolatilesInput|RatioVolatilesInput2|" +
-    "RatioVolatilesOutput|RatioVolatilesOutput2|RatioWater|RatioWaterInput|" +
-    "RatioWaterInput2|RatioWaterOutput|RatioWaterOutput2|ReEntryAltitude|" +
-    "Reagents|RecipeHash|ReferenceId|RequestHash|RequiredPower|ReturnFuelCost|" +
-    "Richness|Rpm|SemiMajorAxis|Setting|SettingInput|SettingOutput|" +
-    "SignalID|SignalStrength|Sites|Size|SizeX|SizeY|SizeZ|SolarAngle|" +
-    "SolarIrradiance|SoundAlert|Stress|Survey|TargetPadIndex|TargetX|" +
-    "TargetY|TargetZ|Temperature|TemperatureDifferentialEfficiency|" +
-    "TemperatureExternal|TemperatureInput|TemperatureInput2|TemperatureOutput|" +
-    "TemperatureOutput2|TemperatureSetting|Throttle|Thrust|ThrustToWeight|" +
-    "Time|TimeToDestination|TotalMoles|TotalMolesInput|TotalMolesInput2|" +
-    "TotalMolesOutput|TotalMolesOutput2|TotalQuantity|TrueAnomaly|" +
-    "VelocityMagnitude|VelocityRelativeX|VelocityRelativeY|VelocityRelativeZ|" +
-    "VelocityX|VelocityY|VelocityZ|Vertical|VerticalRatio|Volume|VolumeOfLiquid|" +
-    "WattsReachingContact|Weight|WorkingGasEfficiency");
-
-var logictypes = (
-    "Acceleration|Activate|AirRelease|AlignmentError|Apex|AutoLand|" +
-    "AutoShutOff|Average|Bpm|BurnTimeRemaining|Bypass|CelestialHash|" +
-    "CelestialParentHash|Channel|Channel0|Channel1|Channel2|Channel3|" +
-    "Channel4|Channel5|Channel6|Channel7|Charge|ChargeRatio|Class|" +
-    "ClearMemory|CollectableGoods|Color|Combustion|CombustionInput|" +
-    "CombustionInput2|CombustionLimiter|CombustionOutput|CombustionOutput2|" +
-    "CompletionRatio|ContactTypeId|Contents|CurrentResearchPodType|Damage|" +
-    "DestinationCode|DistanceAu|DistanceKm|DrillCondition|DryMass|" +
-    "Eccentricity|Efficiency|ElevatorLevel|ElevatorSpeed|EntityState|" +
-    "EnvironmentEfficiency|Error|ExhaustVelocity|ExportCount|" +
-    "ExportQuantity|ExportSlotHash|ExportSlotOccupant|FilterType|" +
-    "Filtration|FlightControlRule|Flush|ForceWrite|ForwardX|ForwardY|" +
-    "ForwardZ|Fuel|Growth|Harvest|Health|Horizontal|HorizontalRatio|" +
-    "Idle|ImportCount|ImportQuantity|ImportSlotHash|ImportSlotOccupant|" +
-    "Inclination|Index|InterrogationProgress|LineNumber|Lock|" +
-    "ManualResearchRequiredPod|Mass|Mature|MaxQuantity|Maximum|" +
-    "MinWattsToContact|MineablesInQueue|MineablesInVicinity|Minimum|" +
-    "MinimumWattsToContact|Mode|NextWeatherEventTime|None|OccupantHash|" +
-    "Occupied|On|Open|OperationalTemperatureEfficiency|OrbitPeriod|" +
-    "Orientation|Output|OverShootTarget|PassedMoles|Plant|" +
-    "PlantEfficiency1|PlantEfficiency2|PlantEfficiency3|PlantEfficiency4|" +
-    "PlantGrowth1|PlantGrowth2|PlantGrowth3|PlantGrowth4|PlantHash1|" +
-    "PlantHash2|PlantHash3|PlantHash4|PlantHealth1|PlantHealth2|" +
-    "PlantHealth3|PlantHealth4|PositionX|PositionY|PositionZ|Power|" +
-    "PowerActual|PowerGeneration|PowerPotential|PowerRequired|" +
-    "PrefabHash|Pressure|PressureAir|PressureEfficiency|PressureExternal|" +
-    "PressureInput|PressureInput2|PressureInternal|PressureOutput|" +
-    "PressureOutput2|PressureSetting|PressureWaste|Progress|Quantity|" +
-    "Ratio|RatioCarbonDioxide|RatioCarbonDioxideInput|" +
-    "RatioCarbonDioxideInput2|RatioCarbonDioxideOutput|" +
-    "RatioCarbonDioxideOutput2|RatioLiquidCarbonDioxide|" +
-    "RatioLiquidCarbonDioxideInput|RatioLiquidCarbonDioxideInput2|" +
-    "RatioLiquidCarbonDioxideOutput|RatioLiquidCarbonDioxideOutput2|" +
-    "RatioLiquidNitrogen|RatioLiquidNitrogenInput|" +
-    "RatioLiquidNitrogenInput2|RatioLiquidNitrogenOutput|" +
-    "RatioLiquidNitrogenOutput2|RatioLiquidNitrousOxide|" +
-    "RatioLiquidNitrousOxideInput|RatioLiquidNitrousOxideInput2|" +
-    "RatioLiquidNitrousOxideOutput|RatioLiquidNitrousOxideOutput2|" +
-    "RatioLiquidOxygen|RatioLiquidOxygenInput|RatioLiquidOxygenInput2|" +
-    "RatioLiquidOxygenOutput|RatioLiquidOxygenOutput2|" +
-    "RatioLiquidPollutant|RatioLiquidPollutantInput|" +
-    "RatioLiquidPollutantInput2|RatioLiquidPollutantOutput|" +
-    "RatioLiquidPollutantOutput2|RatioLiquidVolatiles|" +
-    "RatioLiquidVolatilesInput|RatioLiquidVolatilesInput2|" +
-    "RatioLiquidVolatilesOutput|RatioLiquidVolatilesOutput2|" +
-    "RatioNitrogen|RatioNitrogenInput|RatioNitrogenInput2|" +
-    "RatioNitrogenOutput|RatioNitrogenOutput2|RatioNitrousOxide|" +
-    "RatioNitrousOxideInput|RatioNitrousOxideInput2|" +
-    "RatioNitrousOxideOutput|RatioNitrousOxideOutput2|RatioOxygen|" +
-    "RatioOxygenInput|RatioOxygenInput2|RatioOxygenOutput|" +
-    "RatioOxygenOutput2|RatioPollutant|RatioPollutantInput|" +
-    "RatioPollutantInput2|RatioPollutantOutput|RatioPollutantOutput2|" +
-    "RatioSteam|RatioSteamInput|RatioSteamInput2|RatioSteamOutput|" +
-    "RatioSteamOutput2|RatioVolatiles|RatioVolatilesInput|" +
-    "RatioVolatilesInput2|RatioVolatilesOutput|RatioVolatilesOutput2|" +
-    "RatioWater|RatioWaterInput|RatioWaterInput2|RatioWaterOutput|" +
-    "RatioWaterOutput2|ReEntryAltitude|Reagents|Recipe|RecipeHash|" +
-    "ReferenceId|RequestHash|Required|RequiredPower|ReturnFuelCost|Rpm|" +
-    "Seeding|SemiMajorAxis|Setting|SettingInput|SettingInputHash|" +
-    "SettingOutput|SettingOutputHash|SignalID|SignalStrength|SizeX|SizeY|" +
-    "SizeZ|SolarAngle|SolarConstant|SolarIrradiance|SortingClass|" +
-    "SoundAlert|Stress|Sum|TargetPadIndex|TargetX|TargetY|TargetZ|" +
-    "Temperature|TemperatureDifferentialEfficiency|TemperatureExternal|" +
-    "TemperatureInput|TemperatureInput2|TemperatureOutput|" +
-    "TemperatureOutput2|TemperatureSetting|Throttle|Thrust|ThrustToWeight|" +
-    "Time|TimeToDestination|TotalMoles|TotalMolesInput|TotalMolesInput2|" +
-    "TotalMolesOutput|TotalMolesOutput2|TrueAnomaly|Unknown|" +
-    "VelocityMagnitude|VelocityRelativeX|VelocityRelativeY|" +
-    "VelocityRelativeZ|VelocityX|VelocityY|VelocityZ|Vertical|" +
-    "VerticalRatio|Volume|VolumeOfLiquid|WattsReachingContact|Weight" +
-    "|WorkingGasEfficiency"
+    "TransmitterMode\\.Passive|Vent\\.Inward|Vent\\.Outward"
 );
 
-var logicslottypes = (
+const logictypes = (
+    "Acceleration|Activate|AirRelease|AlignmentError|Apex|AutoLand|AutoShutOff|Bpm|" +
+    "BurnTimeRemaining|CelestialHash|CelestialParentHash|Channel0|Channel1|Channel2|Channel3|Channel4|" +
+    "Channel5|Channel6|Channel7|Charge|Chart|ChartedNavPoints|ClearMemory|CollectableGoods|" +
+    "Color|Combustion|CombustionInput|CombustionInput2|CombustionLimiter|CombustionOutput|CombustionOutput2|CompletionRatio|" +
+    "ContactTypeId|CurrentCode|CurrentResearchPodType|Density|DestinationCode|Discover|DistanceAu|DistanceKm|" +
+    "DrillCondition|DryMass|Eccentricity|ElevatorLevel|ElevatorSpeed|EntityState|EnvironmentEfficiency|Error|" +
+    "ExhaustVelocity|ExportCount|ExportQuantity|ExportSlotHash|ExportSlotOccupant|Filtration|FlightControlRule|Flush|" +
+    "ForceWrite|ForwardX|ForwardY|ForwardZ|Fuel|Harvest|Horizontal|HorizontalRatio|" +
+    "Idle|ImportCount|ImportQuantity|ImportSlotHash|ImportSlotOccupant|Inclination|Index|InterrogationProgress|" +
+    "LineNumber|Lock|ManualResearchRequiredPod|Mass|Maximum|MineablesInQueue|MineablesInVicinity|MinedQuantity|" +
+    "MinimumWattsToContact|Mode|NavPoints|NextWeatherEventTime|None|On|Open|OperationalTemperatureEfficiency|" +
+    "OrbitPeriod|Orientation|Output|PassedMoles|Plant|PlantEfficiency1|PlantEfficiency2|PlantEfficiency3|" +
+    "PlantEfficiency4|PlantGrowth1|PlantGrowth2|PlantGrowth3|PlantGrowth4|PlantHash1|PlantHash2|PlantHash3|" +
+    "PlantHash4|PlantHealth1|PlantHealth2|PlantHealth3|PlantHealth4|PositionX|PositionY|PositionZ|" +
+    "Power|PowerActual|PowerGeneration|PowerPotential|PowerRequired|PrefabHash|Pressure|PressureEfficiency|" +
+    "PressureExternal|PressureInput|PressureInput2|PressureInternal|PressureOutput|PressureOutput2|PressureSetting|Progress|" +
+    "Quantity|Ratio|RatioCarbonDioxide|RatioCarbonDioxideInput|RatioCarbonDioxideInput2|RatioCarbonDioxideOutput|RatioCarbonDioxideOutput2|RatioHydrogen|" +
+    "RatioLiquidCarbonDioxide|RatioLiquidCarbonDioxideInput|RatioLiquidCarbonDioxideInput2|" +
+    "RatioLiquidCarbonDioxideOutput|RatioLiquidCarbonDioxideOutput2|RatioLiquidHydrogen|RatioLiquidNitrogen|RatioLiquidNitrogenInput|" +
+    "RatioLiquidNitrogenInput2|RatioLiquidNitrogenOutput|RatioLiquidNitrogenOutput2|RatioLiquidNitrousOxide|" +
+    "RatioLiquidNitrousOxideInput|RatioLiquidNitrousOxideInput2|RatioLiquidNitrousOxideOutput|RatioLiquidNitrousOxideOutput2|" +
+    "RatioLiquidOxygen|RatioLiquidOxygenInput|RatioLiquidOxygenInput2|RatioLiquidOxygenOutput|" +
+    "RatioLiquidOxygenOutput2|RatioLiquidPollutant|RatioLiquidPollutantInput|RatioLiquidPollutantInput2|" +
+    "RatioLiquidPollutantOutput|RatioLiquidPollutantOutput2|RatioLiquidVolatiles|RatioLiquidVolatilesInput|" +
+    "RatioLiquidVolatilesInput2|RatioLiquidVolatilesOutput|RatioLiquidVolatilesOutput2|RatioNitrogen|" +
+    "RatioNitrogenInput|RatioNitrogenInput2|RatioNitrogenOutput|RatioNitrogenOutput2|RatioNitrousOxide|" +
+    "RatioNitrousOxideInput|RatioNitrousOxideInput2|RatioNitrousOxideOutput|" +
+    "RatioNitrousOxideOutput2|RatioOxygen|RatioOxygenInput|RatioOxygenInput2|RatioOxygenOutput|RatioOxygenOutput2|RatioPollutant|RatioPollutantInput|" +
+    "RatioPollutantInput2|RatioPollutantOutput|RatioPollutantOutput2|RatioPollutedWater|RatioSteam|RatioSteamInput|RatioSteamInput2|RatioSteamOutput|" +
+    "RatioSteamOutput2|RatioVolatiles|RatioVolatilesInput|RatioVolatilesInput2|RatioVolatilesOutput|RatioVolatilesOutput2|RatioWater|RatioWaterInput|" +
+    "RatioWaterInput2|RatioWaterOutput|RatioWaterOutput2|ReEntryAltitude|Reagents|RecipeHash|ReferenceId|RequestHash|" +
+    "RequiredPower|ReturnFuelCost|Richness|Rpm|SemiMajorAxis|Setting|SettingInput|SettingOutput|" +
+    "SignalID|SignalStrength|Sites|Size|SizeX|SizeY|SizeZ|SolarAngle|" +
+    "SolarIrradiance|SoundAlert|Stress|Survey|TargetPadIndex|TargetX|TargetY|TargetZ|" +
+    "Temperature|TemperatureDifferentialEfficiency|TemperatureExternal|TemperatureInput|TemperatureInput2|TemperatureOutput|TemperatureOutput2|TemperatureSetting|" +
+    "Throttle|Thrust|ThrustToWeight|Time|TimeToDestination|TotalMoles|TotalMolesInput|TotalMolesInput2|" +
+    "TotalMolesOutput|TotalMolesOutput2|TotalQuantity|TrueAnomaly|VelocityMagnitude|VelocityRelativeX|VelocityRelativeY|VelocityRelativeZ|" +
+    "VelocityX|VelocityY|VelocityZ|Vertical|VerticalRatio|Volume|VolumeOfLiquid|WattsReachingContact|" +
+    "Weight|WorkingGasEfficiency"
+);
+
+
+const logicslottypes = (
     "Charge|ChargeRatio|Class|Damage|Efficiency|FilterType|Growth|" +
     "Health|LineNumber|Lock|Mature|MaxQuantity|None|OccupantHash|" +
     "Occupied|On|Open|PrefabHash|Pressure|PressureAir|PressureWaste|" +
     "Quantity|ReferenceId|Seeding|SortingClass|Temperature|Volume"
 );
 
-var batchmodes = ("Average|Maximum|Minimum|Sum");
+const batchmodes = ("Average|Maximum|Minimum|Sum");
 
-var reagentmodes = ("Contents|Recipe|Required|TotalContents");
+const reagentmodes = ("Contents|Recipe|Required|TotalContents");
 
-var constants = ("nan|pinf|ninf|pi|deg2rad|rad2deg|epsilon");
+const constants = ("nan|pinf|ninf|pi|deg2rad|rad2deg|epsilon");
 
-var deprecated = (
+const deprecated = (
     "ExportSlotHash|ExportSlotOccupant|ImportSlotHash|ImportSlotOccupant|" +
     "LogicType.ExportSlotHash|LogicType.ExportSlotOccupant|LogicType.ImportSlotHash|" +
     "LogicType.ImportSlotOccupant|LogicType.PlantEfficiency1|LogicType.PlantEfficiency2|" +
@@ -349,9 +258,10 @@ var deprecated = (
     "PlantHash3|PlantHash4|PlantHealth1|PlantHealth2|PlantHealth3|PlantHealth4"
 );
 
+// https://regex101.com/r/XWgqpN/1  << potentially useful regex for labeling jumps
 // regexp must not have capturing parentheses. Use (?:) instead.
 // regexps are ordered -> the first match is used
-var rules = {
+const rules = {
     start: [{
         token: "comment.line.number-sign",
         regex: /#.*$/,
@@ -373,13 +283,12 @@ var rules = {
         token: "variable.language",
         regex: /\b(?:d(?:b|[0-5]|r*(?:[0-9]|1[0-7]))(?::[0-9]+)?)\b/,
     }, {
+        token: "invalid.deprecated",
+        regex: "\\b(?:" + deprecated + ")\\b",
+    }, {
         token: "support.type",
         regex: "\\b(?:" + logictypes + "|" + logicslottypes + "|" + batchmodes + "|" + reagentmodes + ")\\b",
     }, {
-        token: "invalid.deprecated",
-        regex: "\\b(?:" + deprecated + ")\\b",
-    }, 
-    {
         token: "constant.language",
         regex: "\\b(?:" + constants + ")\\b",
     }, {
