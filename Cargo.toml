@@ -1,13 +1,14 @@
 [workspace]
-
-members = ["ic10lsp_wasm", "ic10emu_wasm", "ic10emu"]
+members = ["ic10lsp_wasm", "ic10emu_wasm", "ic10emu", "xtask"]
 resolver = "2"
+
 [workspace.package]
 version = "0.1.0"
 edition = "2021"
-
 
 [profile.release]
 # Tell `rustc` to optimize for small code size.
 opt-level = "s"
 lto = true
+[profile.dev]
+opt-level = 1
