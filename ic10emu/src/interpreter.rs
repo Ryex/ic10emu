@@ -1,5 +1,6 @@
 use core::f64;
 use serde::{Deserialize, Serialize};
+use strum::EnumProperty as _;
 use std::{
     collections::{HashMap, HashSet},
     error::Error,
@@ -11,7 +12,7 @@ use itertools::Itertools;
 
 use time::format_description;
 
-use crate::grammar::{self, ParseError};
+use crate::grammar::{self, Operand, ParseError, Device};
 
 use thiserror::Error;
 
@@ -239,6 +240,88 @@ impl Program {
         self.instructions
             .get(line as usize)
             .ok_or(ICError::InstructionPointerOutOfRange(line))
+    }
+}
+
+impl Operand {
+    pub fn get_value(&self, ic: &IC) -> Result<f64, ICError> {
+        match &self {
+            Operand::RegisterSpec {
+                indirection,
+                target,
+            } => ic.get_register(*indirection, *target),
+            Operand::Number(num) => Ok(num.value()),
+            Operand::LogicType(lt) => lt
+                .get_str("value")
+                .map(|val| val.parse::<u8>().unwrap() as f64)
+                .ok_or(ICError::TypeValueNotKnown),
+            Operand::SlotLogicType(slt) => slt
+                .get_str("value")
+                .map(|val| val.parse::<u8>().unwrap() as f64)
+                .ok_or(ICError::TypeValueNotKnown),
+            Operand::BatchMode(bm) => bm
+                .get_str("value")
+                .map(|val| val.parse::<u8>().unwrap() as f64)
+                .ok_or(ICError::TypeValueNotKnown),
+            Operand::ReagentMode(rm) => rm
+                .get_str("value")
+                .map(|val| val.parse::<u8>().unwrap() as f64)
+                .ok_or(ICError::TypeValueNotKnown),
+            Operand::Identifier(ident) => ic.get_ident_value(&ident.name),
+            Operand::DeviceSpec { .. } => Err(ICError::DeviceNotValue),
+        }
+    }
+
+    pub fn get_value_i64(&self, ic: &IC, signed: bool) -> Result<i64, ICError> {
+        let val = self.get_value(ic)?;
+        if val < -9.223_372_036_854_776E18 {
+            Err(ICError::ShiftUnderflowI64)
+        } else if val <= 9.223_372_036_854_776E18 {
+            Ok(f64_to_i64(val, signed))
+        } else {
+            Err(ICError::ShiftOverflowI64)
+        }
+    }
+
+    pub fn get_value_i32(&self, ic: &IC) -> Result<i32, ICError> {
+        let val = self.get_value(ic)?;
+        if val < -2147483648.0 {
+            Err(ICError::ShiftUnderflowI32)
+        } else if val <= 2147483647.0 {
+            Ok(val as i32)
+        } else {
+            Err(ICError::ShiftOverflowI32)
+        }
+    }
+
+    pub fn get_device_id(&self, ic: &IC) -> Result<(Option<u16>, Option<u32>), ICError> {
+        match &self {
+            Operand::DeviceSpec { device, connection } => match device {
+                Device::Db => Ok((Some(ic.device), *connection)),
+                Device::Numbered(p) => {
+                    let dp = ic
+                        .pins
+                        .get(*p as usize)
+                        .ok_or(ICError::DeviceIndexOutOfRange(*p as f64))
+                        .copied()?;
+                    Ok((dp, *connection))
+                }
+                Device::Indirect {
+                    indirection,
+                    target,
+                } => {
+                    let val = ic.get_register(*indirection, *target)?;
+                    let dp = ic
+                        .pins
+                        .get(val as usize)
+                        .ok_or(ICError::DeviceIndexOutOfRange(val))
+                        .copied()?;
+                    Ok((dp, *connection))
+                }
+            },
+            Operand::Identifier(id) => ic.get_ident_device_id(&id.name),
+            _ => Err(ICError::ValueNotDevice),
+        }
     }
 }
 
