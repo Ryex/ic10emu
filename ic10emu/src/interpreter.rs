@@ -295,8 +295,8 @@ impl Operand {
     }
 
     pub fn get_device_id(&self, ic: &IC) -> Result<(Option<u16>, Option<u32>), ICError> {
-        match &self {
-            Operand::DeviceSpec(DeviceSpec { device, connection }) => match device {
+        if let Some(DeviceSpec { device, connection }) = &self.as_device(ic)? {
+            match device {
                 Device::Db => Ok((Some(ic.device), *connection)),
                 Device::Numbered(p) => {
                     let dp = ic
@@ -318,9 +318,34 @@ impl Operand {
                         .copied()?;
                     Ok((dp, *connection))
                 }
+            }
+        } else {
+            Err(ICError::ValueNotDevice)
+        }
+    }
+
+    pub fn as_register<'a, 's: 'a>(
+        &'s self,
+        ic: &'a IC,
+    ) -> Result<Option<&'a RegisterSpec>, ICError> {
+        match self {
+            Operand::RegisterSpec(reg) => Ok(Some(reg)),
+            Operand::Identifier(ident) => match ic.aliases.get(&ident.name) {
+                Some(Operand::RegisterSpec(reg)) => Ok(Some(reg)),
+                _ => Err(ICError::UnknownIdentifier(ident.name.clone())),
             },
-            Operand::Identifier(id) => ic.get_ident_device_id(&id.name),
-            _ => Err(ICError::ValueNotDevice),
+            _ => Ok(None),
+        }
+    }
+
+    pub fn as_device<'a, 's: 'a>(&'s self, ic: &'a IC) -> Result<Option<&'a DeviceSpec>, ICError> {
+        match self {
+            Operand::DeviceSpec(dev) => Ok(Some(dev)),
+            Operand::Identifier(ident) => match ic.aliases.get(&ident.name) {
+                Some(Operand::DeviceSpec(dev)) => Ok(Some(dev)),
+                _ => Err(ICError::UnknownIdentifier(ident.name.clone())),
+            },
+            _ => Ok(None),
         }
     }
 }
@@ -410,14 +435,6 @@ impl IC {
             Ok(*val)
         } else if let Some(label) = self.program.labels.get(ident) {
             Ok(*label as f64)
-        } else {
-            Err(ICError::UnknownIdentifier(ident.to_string()))
-        }
-    }
-
-    pub fn get_ident_device_id(&self, ident: &str) -> Result<(Option<u16>, Option<u32>), ICError> {
-        if let Some(operand) = self.aliases.get(ident) {
-            operand.get_device_id(self)
         } else {
             Err(ICError::UnknownIdentifier(ident.to_string()))
         }
@@ -593,10 +610,10 @@ impl IC {
                 },
                 Move => match &operands[..] {
                     [reg, val] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = &reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -605,7 +622,7 @@ impl IC {
                         };
 
                         let val = val.get_value(self)?;
-                        self.set_register(*indirection, *target, val)?;
+                        self.set_register(indirection, target, val)?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -1319,10 +1336,10 @@ impl IC {
 
                 Seq => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1338,10 +1355,10 @@ impl IC {
                 },
                 Seqz => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1356,10 +1373,10 @@ impl IC {
                 },
                 Sne => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1375,10 +1392,10 @@ impl IC {
                 },
                 Snez => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1393,10 +1410,10 @@ impl IC {
                 },
                 Slt => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1412,10 +1429,10 @@ impl IC {
                 },
                 Sltz => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1430,10 +1447,10 @@ impl IC {
                 },
                 Sle => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1449,10 +1466,10 @@ impl IC {
                 },
                 Slez => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1467,10 +1484,10 @@ impl IC {
                 },
                 Sgt => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1486,10 +1503,10 @@ impl IC {
                 },
                 Sgtz => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1504,10 +1521,10 @@ impl IC {
                 },
                 Sge => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1523,10 +1540,10 @@ impl IC {
                 },
                 Sgez => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1541,10 +1558,10 @@ impl IC {
                 },
                 Sap => match &operands[..] {
                     [reg, a, b, c] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1571,10 +1588,10 @@ impl IC {
                 },
                 Sapz => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1598,10 +1615,10 @@ impl IC {
                 },
                 Sna => match &operands[..] {
                     [reg, a, b, c] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1628,10 +1645,10 @@ impl IC {
                 },
                 Snaz => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1655,10 +1672,10 @@ impl IC {
                 },
                 Sdse => match &operands[..] {
                     [reg, device] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1677,10 +1694,10 @@ impl IC {
                 },
                 Sdns => match &operands[..] {
                     [reg, device] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1699,10 +1716,10 @@ impl IC {
                 },
                 Snan => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1717,10 +1734,10 @@ impl IC {
                 },
                 Snanz => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1736,10 +1753,10 @@ impl IC {
 
                 Select => match &operands[..] {
                     [reg, a, b, c] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1757,10 +1774,10 @@ impl IC {
 
                 Add => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1776,10 +1793,10 @@ impl IC {
                 },
                 Sub => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1795,10 +1812,10 @@ impl IC {
                 },
                 Mul => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1814,10 +1831,10 @@ impl IC {
                 },
                 Div => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1833,10 +1850,10 @@ impl IC {
                 },
                 Mod => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1852,10 +1869,10 @@ impl IC {
                 },
                 Exp => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1870,10 +1887,10 @@ impl IC {
                 },
                 Log => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1888,10 +1905,10 @@ impl IC {
                 },
                 Sqrt => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1907,10 +1924,10 @@ impl IC {
 
                 Max => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1926,10 +1943,10 @@ impl IC {
                 },
                 Min => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1945,10 +1962,10 @@ impl IC {
                 },
                 Ceil => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1963,10 +1980,10 @@ impl IC {
                 },
                 Floor => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1981,10 +1998,10 @@ impl IC {
                 },
                 Abs => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -1999,10 +2016,10 @@ impl IC {
                 },
                 Round => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2017,10 +2034,10 @@ impl IC {
                 },
                 Trunc => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2036,10 +2053,10 @@ impl IC {
 
                 Rand => match &operands[..] {
                     [reg] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2055,10 +2072,10 @@ impl IC {
 
                 Sin => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2073,10 +2090,10 @@ impl IC {
                 },
                 Cos => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2091,10 +2108,10 @@ impl IC {
                 },
                 Tan => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2109,10 +2126,10 @@ impl IC {
                 },
                 Asin => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2127,10 +2144,10 @@ impl IC {
                 },
                 Acos => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2145,10 +2162,10 @@ impl IC {
                 },
                 Atan => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2163,10 +2180,10 @@ impl IC {
                 },
                 Atan2 => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2183,10 +2200,10 @@ impl IC {
 
                 Sll | Sla => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2202,10 +2219,10 @@ impl IC {
                 },
                 Srl => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2221,10 +2238,10 @@ impl IC {
                 },
                 Sra => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2241,10 +2258,10 @@ impl IC {
 
                 And => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2260,10 +2277,10 @@ impl IC {
                 },
                 Or => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2279,10 +2296,10 @@ impl IC {
                 },
                 Xor => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2298,10 +2315,10 @@ impl IC {
                 },
                 Nor => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2317,10 +2334,10 @@ impl IC {
                 },
                 Not => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2344,10 +2361,10 @@ impl IC {
                 },
                 Pop => match &operands[..] {
                     [reg] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2371,10 +2388,10 @@ impl IC {
                 },
                 Peek => match &operands[..] {
                     [reg] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2390,10 +2407,10 @@ impl IC {
 
                 Get => match &operands[..] {
                     [reg, dev_id, addr] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2422,10 +2439,10 @@ impl IC {
                 },
                 Getd => match &operands[..] {
                     [reg, dev_id, addr] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2602,10 +2619,10 @@ impl IC {
 
                 L => match &operands[..] {
                     [reg, dev, lt] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2643,10 +2660,10 @@ impl IC {
                 },
                 Ld => match &operands[..] {
                     [reg, dev, lt] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2672,10 +2689,10 @@ impl IC {
                 },
                 Ls => match &operands[..] {
                     [reg, dev, index, lt] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2701,10 +2718,10 @@ impl IC {
                 },
                 Lr => match &operands[..] {
                     [reg, dev, rm, name] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2730,10 +2747,10 @@ impl IC {
                 },
                 Lb => match &operands[..] {
                     [reg, prefab, lt, bm] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2751,10 +2768,10 @@ impl IC {
                 },
                 Lbn => match &operands[..] {
                     [reg, prefab, name, lt, bm] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2774,10 +2791,10 @@ impl IC {
                 },
                 Lbns => match &operands[..] {
                     [reg, prefab, name, index, slt, bm] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
@@ -2804,10 +2821,10 @@ impl IC {
                 },
                 Lbs => match &operands[..] {
                     [reg, prefab, index, slt, bm] => {
-                        let &Operand::RegisterSpec(RegisterSpec {
+                        let Some(&RegisterSpec {
                             indirection,
                             target,
-                        }) = reg
+                        }) = reg.as_register(self)?
                         else {
                             break 'inst Err(IncorrectOperandType {
                                 index: 1,
