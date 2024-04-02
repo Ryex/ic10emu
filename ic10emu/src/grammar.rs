@@ -17,7 +17,7 @@ pub mod generated {
     use strum::EnumProperty;
     use strum::EnumString;
     use strum::IntoEnumIterator;
-    
+
     include!(concat!(env!("OUT_DIR"), "/instructions.rs"));
     include!(concat!(env!("OUT_DIR"), "/logictypes.rs"));
     include!(concat!(env!("OUT_DIR"), "/modes.rs"));
@@ -416,12 +416,7 @@ impl FromStr for Operand {
                         });
                     }
                 }
-                Err(ParseError {
-                    line: 0,
-                    start: 0,
-                    end: 0,
-                    msg: "Invalid register specifier".to_owned(),
-                })
+                Ok(Operand::Identifier(s.parse::<Identifier>()?))
             }
             ['d', rest @ ..] => match rest {
                 ['b'] => Ok(Operand::DeviceSpec {
@@ -476,24 +471,16 @@ impl FromStr for Operand {
                     }?;
                     if let Some(target) = target {
                         if rest_iter.next().is_none() {
-                            Ok(Operand::DeviceSpec {
+                            return Ok(Operand::DeviceSpec {
                                 device: Device::Indirect {
                                     indirection: indirection as u32,
                                     target,
                                 },
                                 connection,
-                            })
-                        } else {
-                            Err(ParseError {
-                                line: 0,
-                                start: 0,
-                                end: 0,
-                                msg: "Invalid register specifier".to_owned(),
-                            })
+                            });
                         }
-                    } else {
-                        Ok(Operand::Identifier(s.parse::<Identifier>()?))
                     }
+                    Ok(Operand::Identifier(s.parse::<Identifier>()?))
                 }
                 rest => {
                     let mut rest_iter = rest.iter().peekable();
@@ -526,21 +513,13 @@ impl FromStr for Operand {
                     }?;
                     if let Some(target) = target {
                         if rest_iter.next().is_none() {
-                            Ok(Operand::DeviceSpec {
+                            return Ok(Operand::DeviceSpec {
                                 device: Device::Numbered(target),
                                 connection,
-                            })
-                        } else {
-                            Err(ParseError {
-                                line: 0,
-                                start: 0,
-                                end: 0,
-                                msg: "Invalid device specifier".to_owned(),
-                            })
+                            });
                         }
-                    } else {
-                        Ok(Operand::Identifier(s.parse::<Identifier>()?))
                     }
+                    Ok(Operand::Identifier(s.parse::<Identifier>()?))
                 }
             },
             ['H', 'A', 'S', 'H', '(', '"', hash_str @ .., '"', ')'] => {
