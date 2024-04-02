@@ -1,5 +1,6 @@
 use core::f64;
 use serde::{Deserialize, Serialize};
+use std::string::ToString;
 use std::{
     collections::{HashMap, HashSet},
     error::Error,
@@ -51,14 +52,20 @@ pub enum ICError {
     TooFewOperands { provided: u32, desired: u32 },
     #[error("Too many operands!: provide: '{provided}', desired: '{desired}'")]
     TooManyOperands { provided: u32, desired: u32 },
-    #[error("Incorrect Operand Type for operand {index}, not a {desired} ")]
-    IncorrectOperandType { index: u32, desired: String },
+    #[error("Incorrect Operand Type for instruction `{inst}` operand {index}, not a {desired} ")]
+    IncorrectOperandType {
+        inst: grammar::InstructionOp,
+        index: u32,
+        desired: String,
+    },
     #[error("Unknown identifier '{0}")]
     UnknownIdentifier(String),
     #[error("A Device is not a Value")]
     DeviceNotValue,
     #[error("A Value is not a Device")]
     ValueNotDevice,
+    #[error("A Value is not a Register")]
+    ValueNotRegister,
     #[error("Device Not Set")]
     DeviceNotSet,
     #[error("Shift Underflow i64(signed long)")]
@@ -455,12 +462,14 @@ impl IC {
                     [name, number] => {
                         let &Operand::Identifier(ident) = &name else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Name".to_owned(),
                             });
                         };
                         let &Operand::Number(num) = &number else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 2,
                                 desired: "Number".to_owned(),
                             });
@@ -478,6 +487,7 @@ impl IC {
                     [name, device_reg] => {
                         let &Operand::Identifier(ident) = &name else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Name".to_owned(),
                             });
@@ -496,6 +506,7 @@ impl IC {
                             },
                             _ => {
                                 break 'inst Err(IncorrectOperandType {
+                                    inst: line.instruction,
                                     index: 2,
                                     desired: "Device Or Register".to_owned(),
                                 })
@@ -508,19 +519,20 @@ impl IC {
                 },
                 Move => match &operands[..] {
                     [reg, val] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = &reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
 
                         let val = val.get_value(self)?;
-                        self.set_register(*indirection, *target, val)?;
+                        self.set_register(indirection, target, val)?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -1234,12 +1246,13 @@ impl IC {
 
                 Seq => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1253,12 +1266,13 @@ impl IC {
                 },
                 Seqz => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1271,12 +1285,13 @@ impl IC {
                 },
                 Sne => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1290,12 +1305,13 @@ impl IC {
                 },
                 Snez => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1308,12 +1324,13 @@ impl IC {
                 },
                 Slt => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1327,12 +1344,13 @@ impl IC {
                 },
                 Sltz => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1345,12 +1363,13 @@ impl IC {
                 },
                 Sle => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1364,12 +1383,13 @@ impl IC {
                 },
                 Slez => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1382,12 +1402,13 @@ impl IC {
                 },
                 Sgt => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1401,12 +1422,13 @@ impl IC {
                 },
                 Sgtz => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1419,12 +1441,13 @@ impl IC {
                 },
                 Sge => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1438,12 +1461,13 @@ impl IC {
                 },
                 Sgez => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1456,12 +1480,13 @@ impl IC {
                 },
                 Sap => match &operands[..] {
                     [reg, a, b, c] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1486,12 +1511,13 @@ impl IC {
                 },
                 Sapz => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1513,12 +1539,13 @@ impl IC {
                 },
                 Sna => match &operands[..] {
                     [reg, a, b, c] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1543,12 +1570,13 @@ impl IC {
                 },
                 Snaz => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1570,12 +1598,13 @@ impl IC {
                 },
                 Sdse => match &operands[..] {
                     [reg, device] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1592,12 +1621,13 @@ impl IC {
                 },
                 Sdns => match &operands[..] {
                     [reg, device] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1614,12 +1644,13 @@ impl IC {
                 },
                 Snan => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1632,12 +1663,13 @@ impl IC {
                 },
                 Snanz => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1651,12 +1683,13 @@ impl IC {
 
                 Select => match &operands[..] {
                     [reg, a, b, c] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1672,12 +1705,13 @@ impl IC {
 
                 Add => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1691,12 +1725,13 @@ impl IC {
                 },
                 Sub => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1710,12 +1745,13 @@ impl IC {
                 },
                 Mul => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1729,12 +1765,13 @@ impl IC {
                 },
                 Div => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1748,12 +1785,13 @@ impl IC {
                 },
                 Mod => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1767,12 +1805,13 @@ impl IC {
                 },
                 Exp => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1785,12 +1824,13 @@ impl IC {
                 },
                 Log => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1803,12 +1843,13 @@ impl IC {
                 },
                 Sqrt => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1822,12 +1863,13 @@ impl IC {
 
                 Max => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1841,12 +1883,13 @@ impl IC {
                 },
                 Min => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1860,12 +1903,13 @@ impl IC {
                 },
                 Ceil => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1878,12 +1922,13 @@ impl IC {
                 },
                 Floor => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1896,12 +1941,13 @@ impl IC {
                 },
                 Abs => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1914,12 +1960,13 @@ impl IC {
                 },
                 Round => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1932,12 +1979,13 @@ impl IC {
                 },
                 Trunc => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1951,12 +1999,13 @@ impl IC {
 
                 Rand => match &operands[..] {
                     [reg] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1970,12 +2019,13 @@ impl IC {
 
                 Sin => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -1988,12 +2038,13 @@ impl IC {
                 },
                 Cos => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2006,12 +2057,13 @@ impl IC {
                 },
                 Tan => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2024,12 +2076,13 @@ impl IC {
                 },
                 Asin => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2042,12 +2095,13 @@ impl IC {
                 },
                 Acos => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2060,12 +2114,13 @@ impl IC {
                 },
                 Atan => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2078,12 +2133,13 @@ impl IC {
                 },
                 Atan2 => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2098,12 +2154,13 @@ impl IC {
 
                 Sll | Sla => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2117,12 +2174,13 @@ impl IC {
                 },
                 Srl => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2136,12 +2194,13 @@ impl IC {
                 },
                 Sra => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2156,12 +2215,13 @@ impl IC {
 
                 And => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2175,12 +2235,13 @@ impl IC {
                 },
                 Or => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2194,12 +2255,13 @@ impl IC {
                 },
                 Xor => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2213,12 +2275,13 @@ impl IC {
                 },
                 Nor => match &operands[..] {
                     [reg, a, b] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2232,12 +2295,13 @@ impl IC {
                 },
                 Not => match &operands[..] {
                     [reg, a] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2259,12 +2323,13 @@ impl IC {
                 },
                 Pop => match &operands[..] {
                     [reg] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2286,12 +2351,13 @@ impl IC {
                 },
                 Peek => match &operands[..] {
                     [reg] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2305,12 +2371,13 @@ impl IC {
 
                 Get => match &operands[..] {
                     [reg, dev_id, addr] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2337,12 +2404,13 @@ impl IC {
                 },
                 Getd => match &operands[..] {
                     [reg, dev_id, addr] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2517,12 +2585,13 @@ impl IC {
 
                 L => match &operands[..] {
                     [reg, dev, lt] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2558,12 +2627,13 @@ impl IC {
                 },
                 Ld => match &operands[..] {
                     [reg, dev, lt] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2587,12 +2657,13 @@ impl IC {
                 },
                 Ls => match &operands[..] {
                     [reg, dev, index, lt] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2616,12 +2687,13 @@ impl IC {
                 },
                 Lr => match &operands[..] {
                     [reg, dev, rm, name] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2645,12 +2717,13 @@ impl IC {
                 },
                 Lb => match &operands[..] {
                     [reg, prefab, lt, bm] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2666,12 +2739,13 @@ impl IC {
                 },
                 Lbn => match &operands[..] {
                     [reg, prefab, name, lt, bm] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2689,12 +2763,13 @@ impl IC {
                 },
                 Lbns => match &operands[..] {
                     [reg, prefab, name, index, slt, bm] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
@@ -2719,12 +2794,13 @@ impl IC {
                 },
                 Lbs => match &operands[..] {
                     [reg, prefab, index, slt, bm] => {
-                        let &Operand::RegisterSpec {
+                        let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg
+                        } = reg.translate_alias(self)
                         else {
                             break 'inst Err(IncorrectOperandType {
+                                inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });

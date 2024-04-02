@@ -17,7 +17,7 @@ pub mod generated {
     use strum::EnumProperty;
     use strum::EnumString;
     use strum::IntoEnumIterator;
-    
+
     include!(concat!(env!("OUT_DIR"), "/instructions.rs"));
     include!(concat!(env!("OUT_DIR"), "/logictypes.rs"));
     include!(concat!(env!("OUT_DIR"), "/modes.rs"));
@@ -299,11 +299,11 @@ pub enum Operand {
 
 impl Operand {
     pub fn get_value(&self, ic: &interpreter::IC) -> Result<f64, interpreter::ICError> {
-        match &self {
+        match self.translate_alias(ic) {
             Operand::RegisterSpec {
                 indirection,
                 target,
-            } => ic.get_register(*indirection, *target),
+            } => ic.get_register(indirection, target),
             Operand::Number(num) => Ok(num.value()),
             Operand::LogicType(lt) => lt
                 .get_str("value")
@@ -351,6 +351,22 @@ impl Operand {
             Err(interpreter::ICError::ShiftOverflowI32)
         }
     }
+
+    pub fn translate_alias(&self, ic: &interpreter::IC) -> Self {
+        match &self {
+            Operand::Identifier(id) => {
+                if let Some(alias) = ic.aliases.get(&id.name) {
+                    alias.clone()
+                } else if let Some(define) = ic.defines.get(&id.name) {
+                    Operand::Number(Number::Float(*define))
+                } else {
+                    self.clone()
+                }
+            },
+            _ => self.clone(),
+        }
+    }
+
 
     pub fn get_device_id(
         &self,
@@ -403,25 +419,28 @@ impl FromStr for Operand {
             ['r', rest @ ..] => {
                 let mut rest_iter = rest.iter();
                 let indirection = rest_iter.take_while_ref(|c| *c == &'r').count();
-                let target = rest_iter
+                let target_str = rest_iter
                     .take_while_ref(|c| c.is_ascii_digit())
-                    .collect::<String>()
-                    .parse::<u32>()
-                    .ok();
-                if let Some(target) = target {
-                    if rest_iter.next().is_none() {
-                        return Ok(Operand::RegisterSpec {
-                            indirection: indirection as u32,
-                            target,
-                        });
+                    .collect::<String>();
+                if !target_str.is_empty() {
+                    let target = target_str.parse::<u32>().ok();
+                    if let Some(target) = target {
+                        if rest_iter.next().is_none() {
+                            return Ok(Operand::RegisterSpec {
+                                indirection: indirection as u32,
+                                target,
+                            });
+                        } else {
+                            return Err(ParseError {
+                                line: 0,
+                                start: 0,
+                                end: 0,
+                                msg: "Invalid register specifier".to_owned(),
+                            });
+                        }
                     }
                 }
-                Err(ParseError {
-                    line: 0,
-                    start: 0,
-                    end: 0,
-                    msg: "Invalid register specifier".to_owned(),
-                })
+                Ok(Operand::Identifier(s.parse::<Identifier>()?))
             }
             ['d', rest @ ..] => match rest {
                 ['b'] => Ok(Operand::DeviceSpec {
@@ -449,50 +468,57 @@ impl FromStr for Operand {
                     let target_str = rest_iter
                         .take_while_ref(|c| c.is_ascii_digit())
                         .collect::<String>();
-                    let target = target_str.parse::<u32>().ok();
-                    let connection = {
-                        if rest_iter.peek() == Some(&&':') {
-                            // take off ':'
-                            rest_iter.next();
-                            let connection_str = rest_iter
-                                .take_while_ref(|c| c.is_ascii_digit())
-                                .collect::<String>();
-                            let connection = connection_str.parse::<u32>().unwrap();
+                    if target_str.is_empty() {
+                        Ok(Operand::Identifier(s.parse::<Identifier>()?))
+                    } else {
+                        let target = target_str.parse::<u32>().ok();
+                        if let Some(target) = target {
+                            let connection = {
+                                if rest_iter.peek() == Some(&&':') {
+                                    // take off ':'
+                                    rest_iter.next();
+                                    let connection_str = rest_iter
+                                        .take_while_ref(|c| c.is_ascii_digit())
+                                        .collect::<String>();
+                                    let connection = connection_str.parse::<u32>().unwrap();
+                                    if rest_iter.next().is_none() {
+                                        Ok(Some(connection))
+                                    } else {
+                                        let start = 2
+                                            + indirection
+                                            + target_str.len()
+                                            + 1
+                                            + connection_str.len();
+                                        Err(ParseError {
+                                            line: 0,
+                                            start,
+                                            end: start,
+                                            msg: "Invalid device connection specifier".to_owned(),
+                                        })
+                                    }
+                                } else {
+                                    Ok(None)
+                                }
+                            }?;
                             if rest_iter.next().is_none() {
-                                Ok(Some(connection))
+                                Ok(Operand::DeviceSpec {
+                                    device: Device::Indirect {
+                                        indirection: indirection as u32,
+                                        target,
+                                    },
+                                    connection,
+                                })
                             } else {
-                                let start =
-                                    2 + indirection + target_str.len() + 1 + connection_str.len();
                                 Err(ParseError {
                                     line: 0,
-                                    start,
-                                    end: start,
-                                    msg: "Invalid device connection specifier".to_owned(),
+                                    start: 0,
+                                    end: 0,
+                                    msg: "Invalid register specifier".to_owned(),
                                 })
                             }
                         } else {
-                            Ok(None)
+                            Ok(Operand::Identifier(s.parse::<Identifier>()?))
                         }
-                    }?;
-                    if let Some(target) = target {
-                        if rest_iter.next().is_none() {
-                            Ok(Operand::DeviceSpec {
-                                device: Device::Indirect {
-                                    indirection: indirection as u32,
-                                    target,
-                                },
-                                connection,
-                            })
-                        } else {
-                            Err(ParseError {
-                                line: 0,
-                                start: 0,
-                                end: 0,
-                                msg: "Invalid register specifier".to_owned(),
-                            })
-                        }
-                    } else {
-                        Ok(Operand::Identifier(s.parse::<Identifier>()?))
                     }
                 }
                 rest => {
@@ -757,6 +783,17 @@ mod tests {
     use super::*;
 
     #[test]
+    fn parse_register() {
+        let op = "requestingot".parse::<Operand>();
+        assert_eq!(
+            op.unwrap(),
+            Operand::Identifier(Identifier {
+                name: "requestingot".to_owned()
+            })
+        );
+    }
+
+    #[test]
     fn successful_parse() {
         let parsed = parse("s d0 Setting 0 # This is a comment\n");
         dbg!(&parsed);
@@ -906,7 +943,9 @@ mod tests {
                                 indirection: 0,
                                 target: 2,
                             },
-                            Operand::Number(Number::Enum(6.0)),
+                            Operand::Identifier(Identifier {
+                                name: "LogicType.Temperature".to_owned()
+                            }),
                         ],
                     },),),
                     comment: None,

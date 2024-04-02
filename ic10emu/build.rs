@@ -354,7 +354,7 @@ fn write_instructions_enum() {
 
     write!(
         &mut writer,
-        "#[derive(PartialEq, Eq, Debug, Clone, Serialize, Deserialize)]\n\
+        "#[derive(Debug, Display, PartialEq, Eq, Clone, Copy, Serialize, Deserialize)]\n\
          pub enum InstructionOp {{\n\
         "
     )
