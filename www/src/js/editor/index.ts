@@ -117,7 +117,8 @@ class IC10Editor {
             that.active_line_markers.set(id, session.addMarker(new Range(active_line, 0, active_line, 1), "vm_ic_active_line", "fullLine", true));
             if (that.active_session == id) {
               // editor.resize(true);
-              that.aceEditor.scrollToLine(active_line, true, true, ()=>{})
+              // TODO: Scroll to line if vm was stepped
+              //that.aceEditor.scrollToLine(active_line, true, true, ()=>{})
             }
           }
         }
