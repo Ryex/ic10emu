@@ -1,8 +1,8 @@
 
 [package]
 name = "ic10emu_wasm"
-version = "0.1.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
 
 [dependencies]
 ic10emu = { path = "../ic10emu" }
@@ -27,11 +27,3 @@ console_error_panic_hook = ["dep:console_error_panic_hook"]
 
 [lib]
 crate-type = ["cdylib", "rlib"]
-
-[build]
-target = "wasm32-unknown-unknown"
-
-[profile.release]
-# Tell `rustc` to optimize for small code size.
-opt-level = "s"
-lto = true

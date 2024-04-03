@@ -4,3 +4,4 @@ mode_modules/
 target/
 Session.vim
 *.pyc
+package-lock.json

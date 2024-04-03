@@ -80,4 +80,8 @@ module.exports = {
     asyncWebAssembly: true,
     syncWebAssembly: true,
   },
+  watchOptions: {
+    aggregateTimeout: 200,
+    poll: 200,
+ },
 };

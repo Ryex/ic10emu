@@ -17,13 +17,11 @@ jobs:
       - name: Install wasm-pack
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
       - name: Build ic10lsp
-        run: | 
-          cd ic10lsp_wasm
-          wasm-pack build
+        run: |
+          cargo xtask build -p ic10lsp_wasm --release
       - name: Build ic10emu
-        run: | 
-          cd ic10emu_wasm
-          wasm-pack build
+        run: |
+          cargo xtask build -p ic10emu_wasm --release
       - name: Build Page
         run: |
           cd www
@@ -52,4 +50,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-    
+
