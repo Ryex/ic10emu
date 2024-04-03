@@ -61,7 +61,9 @@
     "ic10emu_wasm": "file:..\\ic10emu_wasm\\pkg",
     "ic10lsp_wasm": "file:..\\ic10lsp_wasm\\pkg",
     "jquery": "^3.7.1",
+    "lit": "^3.1.2",
     "lzma-web": "^3.0.1",
+    "shoelace": "^0.1.1",
     "stream-browserify": "^3.0.0",
     "uuid": "^9.0.1",
     "vm-browserify": "^1.1.2"
