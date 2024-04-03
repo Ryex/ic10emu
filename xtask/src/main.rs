@@ -1,6 +1,6 @@
 use std::process::Command;
 
-use clap::{ArgMatches, Parser, Subcommand};
+use clap::{Parser, Subcommand};
 
 /// Helper program to start ic10emu and website.
 ///
@@ -46,8 +46,6 @@ enum Error {
     BuildFailed(String, String, std::process::ExitStatus),
     #[error("failed to run command `{0}`")]
     Command(String, #[source] std::io::Error),
-    #[error("IO failed {0}")]
-    Io(String, #[source] std::io::Error),
 }
 
 impl std::fmt::Debug for Error {
@@ -125,6 +123,7 @@ fn build<P: AsRef<std::ffi::OsStr> + std::fmt::Debug + std::fmt::Display>(
             cmd.arg("--dev");
         }
         cmd.arg(package);
+        cmd.args(rest);
         let status = cmd
             .status()
             .map_err(|e| Error::Command(format!("{}", cmd.get_program().to_string_lossy()), e))?;
