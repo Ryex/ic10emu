@@ -32,6 +32,7 @@ enum Task {
         packages: Vec<String>,
         /// Additional arguments to pass to wasm-pack, use another `--` to pass to cargo build
         #[arg(last = true, default_values = ["--","-q"])]
+        // #[arg(last = true)]
         rest: Vec<std::ffi::OsString>,
     },
     /// Start the server
@@ -114,6 +115,13 @@ fn build<P: AsRef<std::ffi::OsStr> + std::fmt::Debug + std::fmt::Display>(
     eprintln!("Building packages: {:?}, release: {}", packages, release);
     for package in packages {
         eprintln!("Building package: {}", package);
+        eprintln!(
+            "Running command: {} build {} {} {}",
+            &args.wasm_pack,
+            if release { "--release" } else { "--dev" },
+            package,
+            rest.join(std::ffi::OsStr::new(" ")).to_string_lossy(),
+        );
         let mut cmd = Command::new(&args.wasm_pack);
         cmd.current_dir(workspace);
         cmd.arg("build");

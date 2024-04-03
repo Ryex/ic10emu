@@ -18,10 +18,10 @@ jobs:
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
       - name: Build ic10lsp
         run: |
-          cargo xtask build -p ic10lsp_wasm --release
+          RUST_BACKTRACE=1 cargo xtask build -p ic10lsp_wasm --release -- --
       - name: Build ic10emu
         run: |
-          cargo xtask build -p ic10emu_wasm --release
+          RUST_BACKTRACE=1 cargo xtask build -p ic10emu_wasm --release -- --
       - name: Build Page
         run: |
           cd www
