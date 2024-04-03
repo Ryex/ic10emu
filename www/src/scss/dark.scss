@@ -503,3 +503,26 @@ code {
   line-height: 0.5rem;
   font-size: 0.65rem;
 }
+
+#vmDevices {
+  height: 40vh;
+}
+
+#vmDevicesOCBody .card {
+  width: 24rem;
+}
+
+#vmDevicesOCBody .input-group-text.field_name {
+  // width: 7rem;
+  width: 10rem;
+  padding-right: auto;
+}
+
+#vmDevicesOCBody .input-group-text {
+  width: 5rem;
+}
+
+#vmDevicesOCBody input {
+  width: 7rem;
+  background-color: var(--bs-body-bg);
+}
