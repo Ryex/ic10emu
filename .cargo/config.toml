@@ -1,6 +1,2 @@
-[env]
-CFLAGS_wasm32_unknown_unknown = "-I wasm-sysroot"
-AR = 'llvm-ar'
-
 [alias]
 xtask = "run -p xtask --"
