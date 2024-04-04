@@ -788,10 +788,14 @@ impl Display for Operand {
                 for _ in 0..*indirection {
                     write!(f, "r")?;
                 }
-                match target {
-                    17 => write!(f, "ra"),
-                    16 => write!(f, "sp"),
-                    _ => write!(f, "r{}", target),
+                if *indirection == 0 {
+                    match target {
+                        17 => write!(f, "ra"),
+                        16 => write!(f, "sp"),
+                        _ => write!(f, "r{}", target),
+                    }
+                } else {
+                    write!(f, "r{}", target)
                 }
             }
             Operand::DeviceSpec(DeviceSpec { device, connection }) => {
@@ -1271,10 +1275,18 @@ mod tests {
         test_roundtrip("r15");
         test_roundtrip("rr4");
         test_roundtrip("rrrr4");
+
         test_roundtrip("ra");
-        test_roundtrip("rra");
         test_roundtrip("sp");
+        assert_eq!("r16".parse::<Operand>().unwrap().to_string(), "sp");
+        assert_eq!("r17".parse::<Operand>().unwrap().to_string(), "ra");
+        // Not registers
         test_roundtrip("rsp");
+        test_roundtrip("rra");
+        // Indirect only works through number names
+        test_roundtrip("rr16");
+        test_roundtrip("rr17");
+
         test_roundtrip("Identifier");
         test_roundtrip("db");
         test_roundtrip("d0");
