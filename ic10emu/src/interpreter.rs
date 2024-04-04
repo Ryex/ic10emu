@@ -429,13 +429,15 @@ impl IC {
         }
     }
 
-    fn internal_step(&mut self, vm: &crate::VM) -> Result<(), ICError> {
+    fn internal_step(self: &mut IC, vm: &crate::VM) -> Result<(), ICError> {
         use grammar::*;
         use ICError::*;
 
-        let line = self.program.get_line(self.ip)?;
         let mut next_ip = self.ip + 1;
-        let result: Result<(), ICError> = 'inst: {
+        // XXX: This closure should be replaced with a try block
+        // https://github.com/rust-lang/rust/issues/31436
+        let mut result = |this: &mut Self| -> Result<(), ICError> {
+            let line = this.program.get_line(this.ip)?;
             use grammar::InstructionOp::*;
             let operands = &line.operands;
             match line.instruction {
@@ -443,17 +445,17 @@ impl IC {
                 Hcf => Ok(()), // TODO
                 Sleep => match &operands[..] {
                     [a] => {
-                        let a = a.get_value(self)?;
+                        let a = a.get_value(this)?;
                         let now = time::OffsetDateTime::now_local()
                             .unwrap_or_else(|_| time::OffsetDateTime::now_utc());
-                        self.state = ICState::Sleep(now, a);
+                        this.state = ICState::Sleep(now, a);
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 1)),
                 }, // TODO
                 Yield => match &operands[..] {
                     [] => {
-                        self.state = ICState::Yield;
+                        this.state = ICState::Yield;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 0)),
@@ -461,23 +463,23 @@ impl IC {
                 Define => match &operands[..] {
                     [name, number] => {
                         let &Operand::Identifier(ident) = &name else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Name".to_owned(),
                             });
                         };
                         let &Operand::Number(num) = &number else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 2,
                                 desired: "Number".to_owned(),
                             });
                         };
-                        if self.defines.contains_key(&ident.name) {
+                        if this.defines.contains_key(&ident.name) {
                             Err(DuplicateDefine(ident.name.clone()))
                         } else {
-                            self.defines.insert(ident.name.clone(), num.value());
+                            this.defines.insert(ident.name.clone(), num.value());
                             Ok(())
                         }
                     }
@@ -486,7 +488,7 @@ impl IC {
                 Alias => match &operands[..] {
                     [name, device_reg] => {
                         let &Operand::Identifier(ident) = &name else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Name".to_owned(),
@@ -505,14 +507,14 @@ impl IC {
                                 connection: *connection,
                             },
                             _ => {
-                                break 'inst Err(IncorrectOperandType {
+                                return Err(IncorrectOperandType {
                                     inst: line.instruction,
                                     index: 2,
                                     desired: "Device Or Register".to_owned(),
                                 })
                             }
                         };
-                        self.aliases.insert(ident.name.clone(), alias);
+                        this.aliases.insert(ident.name.clone(), alias);
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -522,17 +524,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
 
-                        let val = val.get_value(self)?;
-                        self.set_register(indirection, target, val)?;
+                        let val = val.get_value(this)?;
+                        this.set_register(indirection, target, val)?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -540,9 +542,9 @@ impl IC {
 
                 Beq => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a == b { c as u32 } else { next_ip };
                         Ok(())
                     }
@@ -550,22 +552,22 @@ impl IC {
                 },
                 Beqal => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a == b { c as u32 } else { next_ip };
-                        self.al();
+                        this.al();
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Breq => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a == b {
-                            (self.ip as f64 + c) as u32
+                            (this.ip as f64 + c) as u32
                         } else {
                             next_ip
                         };
@@ -575,8 +577,8 @@ impl IC {
                 },
                 Beqz => match &operands[..] {
                     [a, b] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
                         next_ip = if a == 0.0 { b as u32 } else { next_ip };
                         Ok(())
                     }
@@ -584,20 +586,20 @@ impl IC {
                 },
                 Beqzal => match &operands[..] {
                     [a, b] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
                         next_ip = if a == 0.0 { b as u32 } else { next_ip };
-                        self.al();
+                        this.al();
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Breqz => match &operands[..] {
                     [a, b] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
                         next_ip = if a == 0.0 {
-                            (self.ip as f64 + b) as u32
+                            (this.ip as f64 + b) as u32
                         } else {
                             next_ip
                         };
@@ -607,9 +609,9 @@ impl IC {
                 },
                 Bne => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a != b { c as u32 } else { next_ip };
                         Ok(())
                     }
@@ -617,22 +619,22 @@ impl IC {
                 },
                 Bneal => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a != b { c as u32 } else { next_ip };
-                        self.al();
+                        this.al();
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Brne => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a != b {
-                            (self.ip as f64 + c) as u32
+                            (this.ip as f64 + c) as u32
                         } else {
                             next_ip
                         };
@@ -642,8 +644,8 @@ impl IC {
                 },
                 Bnez => match &operands[..] {
                     [a, b] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
                         next_ip = if a != 0.0 { b as u32 } else { next_ip };
                         Ok(())
                     }
@@ -651,20 +653,20 @@ impl IC {
                 },
                 Bnezal => match &operands[..] {
                     [a, b] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
                         next_ip = if a != 0.0 { b as u32 } else { next_ip };
-                        self.al();
+                        this.al();
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Brnez => match &operands[..] {
                     [a, b] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
                         next_ip = if a != 0.0 {
-                            (self.ip as f64 + b) as u32
+                            (this.ip as f64 + b) as u32
                         } else {
                             next_ip
                         };
@@ -674,9 +676,9 @@ impl IC {
                 },
                 Blt => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a < b { c as u32 } else { next_ip };
                         Ok(())
                     }
@@ -684,22 +686,22 @@ impl IC {
                 },
                 Bltal => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a < b { c as u32 } else { next_ip };
-                        self.al();
+                        this.al();
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Brlt => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a < b {
-                            (self.ip as f64 + c) as u32
+                            (this.ip as f64 + c) as u32
                         } else {
                             next_ip
                         };
@@ -709,9 +711,9 @@ impl IC {
                 },
                 Ble => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a <= b { c as u32 } else { next_ip };
                         Ok(())
                     }
@@ -719,22 +721,22 @@ impl IC {
                 },
                 Bleal => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a <= b { c as u32 } else { next_ip };
-                        self.al();
+                        this.al();
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Brle => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a <= b {
-                            (self.ip as f64 + c) as u32
+                            (this.ip as f64 + c) as u32
                         } else {
                             next_ip
                         };
@@ -744,8 +746,8 @@ impl IC {
                 },
                 Blez => match &operands[..] {
                     [a, b] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
                         next_ip = if a <= 0.0 { b as u32 } else { next_ip };
                         Ok(())
                     }
@@ -753,20 +755,20 @@ impl IC {
                 },
                 Blezal => match &operands[..] {
                     [a, b] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
                         next_ip = if a <= 0.0 { b as u32 } else { next_ip };
-                        self.al();
+                        this.al();
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Brlez => match &operands[..] {
                     [a, b] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
                         next_ip = if a <= 0.0 {
-                            (self.ip as f64 + b) as u32
+                            (this.ip as f64 + b) as u32
                         } else {
                             next_ip
                         };
@@ -776,8 +778,8 @@ impl IC {
                 },
                 Bltz => match &operands[..] {
                     [a, b] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
                         next_ip = if a < 0.0 { b as u32 } else { next_ip };
                         Ok(())
                     }
@@ -785,20 +787,20 @@ impl IC {
                 },
                 Bltzal => match &operands[..] {
                     [a, b] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
                         next_ip = if a < 0.0 { b as u32 } else { next_ip };
-                        self.al();
+                        this.al();
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Brltz => match &operands[..] {
                     [a, b] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
                         next_ip = if a < 0.0 {
-                            (self.ip as f64 + b) as u32
+                            (this.ip as f64 + b) as u32
                         } else {
                             next_ip
                         };
@@ -808,9 +810,9 @@ impl IC {
                 },
                 Bgt => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a > b { c as u32 } else { next_ip };
                         Ok(())
                     }
@@ -818,22 +820,22 @@ impl IC {
                 },
                 Bgtal => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a > b { c as u32 } else { next_ip };
-                        self.al();
+                        this.al();
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Brgt => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a > b {
-                            (self.ip as f64 + c) as u32
+                            (this.ip as f64 + c) as u32
                         } else {
                             next_ip
                         };
@@ -843,8 +845,8 @@ impl IC {
                 },
                 Bgtz => match &operands[..] {
                     [a, b] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
                         next_ip = if a > 0.0 { b as u32 } else { next_ip };
                         Ok(())
                     }
@@ -852,20 +854,20 @@ impl IC {
                 },
                 Bgtzal => match &operands[..] {
                     [a, b] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
                         next_ip = if a > 0.0 { b as u32 } else { next_ip };
-                        self.al();
+                        this.al();
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Brgtz => match &operands[..] {
                     [a, b] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
                         next_ip = if a > 0.0 {
-                            (self.ip as f64 + b) as u32
+                            (this.ip as f64 + b) as u32
                         } else {
                             next_ip
                         };
@@ -875,9 +877,9 @@ impl IC {
                 },
                 Bge => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a >= b { c as u32 } else { next_ip };
                         Ok(())
                     }
@@ -885,22 +887,22 @@ impl IC {
                 },
                 Bgeal => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a >= b { c as u32 } else { next_ip };
-                        self.al();
+                        this.al();
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Brge => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a >= b {
-                            (self.ip as f64 + c) as u32
+                            (this.ip as f64 + c) as u32
                         } else {
                             next_ip
                         };
@@ -910,8 +912,8 @@ impl IC {
                 },
                 Bgez => match &operands[..] {
                     [a, b] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
                         next_ip = if a >= 0.0 { b as u32 } else { next_ip };
                         Ok(())
                     }
@@ -919,20 +921,20 @@ impl IC {
                 },
                 Bgezal => match &operands[..] {
                     [a, b] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
                         next_ip = if a >= 0.0 { b as u32 } else { next_ip };
-                        self.al();
+                        this.al();
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Brgez => match &operands[..] {
                     [a, b] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
                         next_ip = if a >= 0.0 {
-                            (self.ip as f64 + b) as u32
+                            (this.ip as f64 + b) as u32
                         } else {
                             next_ip
                         };
@@ -942,10 +944,10 @@ impl IC {
                 },
                 Bap => match &operands[..] {
                     [a, b, c, d] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
-                        let d = d.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
+                        let d = d.get_value(this)?;
                         next_ip = if f64::abs(a - b)
                             <= f64::max(c * f64::max(a.abs(), b.abs()), f64::EPSILON * 8.0)
                         {
@@ -959,10 +961,10 @@ impl IC {
                 },
                 Bapal => match &operands[..] {
                     [a, b, c, d] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
-                        let d = d.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
+                        let d = d.get_value(this)?;
                         next_ip = if f64::abs(a - b)
                             <= f64::max(c * f64::max(a.abs(), b.abs()), f64::EPSILON * 8.0)
                         {
@@ -970,34 +972,34 @@ impl IC {
                         } else {
                             next_ip
                         };
-                        self.al();
+                        this.al();
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
                 },
                 Brap => match &operands[..] {
                     [a, b, c, d] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
-                        let d = d.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
+                        let d = d.get_value(this)?;
                         next_ip = if f64::abs(a - b)
                             <= f64::max(c * f64::max(a.abs(), b.abs()), f64::EPSILON * 8.0)
                         {
-                            (self.ip as f64 + d) as u32
+                            (this.ip as f64 + d) as u32
                         } else {
                             next_ip
                         };
-                        self.al();
+                        this.al();
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
                 },
                 Bapz => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a.abs() <= f64::max(b * a.abs(), f64::EPSILON * 8.0) {
                             c as u32
                         } else {
@@ -1009,26 +1011,26 @@ impl IC {
                 },
                 Bapzal => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a.abs() <= f64::max(b * a.abs(), f64::EPSILON * 8.0) {
                             c as u32
                         } else {
                             next_ip
                         };
-                        self.al();
+                        this.al();
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Brapz => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a.abs() <= f64::max(b * a.abs(), f64::EPSILON * 8.0) {
-                            (self.ip as f64 + c) as u32
+                            (this.ip as f64 + c) as u32
                         } else {
                             next_ip
                         };
@@ -1038,10 +1040,10 @@ impl IC {
                 },
                 Bna => match &operands[..] {
                     [a, b, c, d] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
-                        let d = d.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
+                        let d = d.get_value(this)?;
                         next_ip = if f64::abs(a - b)
                             > f64::max(c * f64::max(a.abs(), b.abs()), f64::EPSILON * 8.0)
                         {
@@ -1055,10 +1057,10 @@ impl IC {
                 },
                 Bnaal => match &operands[..] {
                     [a, b, c, d] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
-                        let d = d.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
+                        let d = d.get_value(this)?;
                         next_ip = if f64::abs(a - b)
                             > f64::max(c * f64::max(a.abs(), b.abs()), f64::EPSILON * 8.0)
                         {
@@ -1066,21 +1068,21 @@ impl IC {
                         } else {
                             next_ip
                         };
-                        self.al();
+                        this.al();
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
                 },
                 Brna => match &operands[..] {
                     [a, b, c, d] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
-                        let d = d.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
+                        let d = d.get_value(this)?;
                         next_ip = if f64::abs(a - b)
                             > f64::max(c * f64::max(a.abs(), b.abs()), f64::EPSILON * 8.0)
                         {
-                            (self.ip as f64 + d) as u32
+                            (this.ip as f64 + d) as u32
                         } else {
                             next_ip
                         };
@@ -1090,9 +1092,9 @@ impl IC {
                 },
                 Bnaz => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a.abs() > f64::max(b * a.abs(), f64::EPSILON * 8.0) {
                             c as u32
                         } else {
@@ -1104,26 +1106,26 @@ impl IC {
                 },
                 Bnazal => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a.abs() > f64::max(b * a.abs(), f64::EPSILON * 8.0) {
                             c as u32
                         } else {
                             next_ip
                         };
-                        self.al();
+                        this.al();
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Brnaz => match &operands[..] {
                     [a, b, c] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
                         next_ip = if a.abs() > f64::max(b * a.abs(), f64::EPSILON * 8.0) {
-                            (self.ip as f64 + c) as u32
+                            (this.ip as f64 + c) as u32
                         } else {
                             next_ip
                         };
@@ -1133,8 +1135,8 @@ impl IC {
                 },
                 Bdse => match &operands[..] {
                     [d, a] => {
-                        let (device, _connection) = d.get_device_id(self)?;
-                        let a = a.get_value(self)?;
+                        let (device, _connection) = d.get_device_id(this)?;
+                        let a = a.get_value(this)?;
                         next_ip = if device.is_some() { a as u32 } else { next_ip };
                         Ok(())
                     }
@@ -1142,20 +1144,20 @@ impl IC {
                 },
                 Bdseal => match &operands[..] {
                     [d, a] => {
-                        let (device, _connection) = d.get_device_id(self)?;
-                        let a = a.get_value(self)?;
+                        let (device, _connection) = d.get_device_id(this)?;
+                        let a = a.get_value(this)?;
                         next_ip = if device.is_some() { a as u32 } else { next_ip };
-                        self.al();
+                        this.al();
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Brdse => match &operands[..] {
                     [d, a] => {
-                        let (device, _connection) = d.get_device_id(self)?;
-                        let a = a.get_value(self)?;
+                        let (device, _connection) = d.get_device_id(this)?;
+                        let a = a.get_value(this)?;
                         next_ip = if device.is_some() {
-                            (self.ip as f64 + a) as u32
+                            (this.ip as f64 + a) as u32
                         } else {
                             next_ip
                         };
@@ -1165,8 +1167,8 @@ impl IC {
                 },
                 Bdns => match &operands[..] {
                     [d, a] => {
-                        let (device, _connection) = d.get_device_id(self)?;
-                        let a = a.get_value(self)?;
+                        let (device, _connection) = d.get_device_id(this)?;
+                        let a = a.get_value(this)?;
                         next_ip = if device.is_none() { a as u32 } else { next_ip };
                         Ok(())
                     }
@@ -1174,20 +1176,20 @@ impl IC {
                 },
                 Bdnsal => match &operands[..] {
                     [d, a] => {
-                        let (device, _connection) = d.get_device_id(self)?;
-                        let a = a.get_value(self)?;
+                        let (device, _connection) = d.get_device_id(this)?;
+                        let a = a.get_value(this)?;
                         next_ip = if device.is_none() { a as u32 } else { next_ip };
-                        self.al();
+                        this.al();
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
                 },
                 Brdns => match &operands[..] {
                     [d, a] => {
-                        let (device, _connection) = d.get_device_id(self)?;
-                        let a = a.get_value(self)?;
+                        let (device, _connection) = d.get_device_id(this)?;
+                        let a = a.get_value(this)?;
                         next_ip = if device.is_none() {
-                            (self.ip as f64 + a) as u32
+                            (this.ip as f64 + a) as u32
                         } else {
                             next_ip
                         };
@@ -1197,8 +1199,8 @@ impl IC {
                 },
                 Bnan => match &operands[..] {
                     [a, b] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
                         next_ip = if a.is_nan() { b as u32 } else { next_ip };
                         Ok(())
                     }
@@ -1206,10 +1208,10 @@ impl IC {
                 },
                 Brnan => match &operands[..] {
                     [a, b] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
                         next_ip = if a.is_nan() {
-                            (self.ip as f64 + b) as u32
+                            (this.ip as f64 + b) as u32
                         } else {
                             next_ip
                         };
@@ -1220,7 +1222,7 @@ impl IC {
 
                 J => match &operands[..] {
                     [a] => {
-                        let a = a.get_value(self)?;
+                        let a = a.get_value(this)?;
                         next_ip = a as u32;
                         Ok(())
                     }
@@ -1228,17 +1230,17 @@ impl IC {
                 },
                 Jal => match &operands[..] {
                     [a] => {
-                        let a = a.get_value(self)?;
+                        let a = a.get_value(this)?;
                         next_ip = a as u32;
-                        self.al();
+                        this.al();
                         Ok(())
                     }
                     oprs => Err(ICError::too_many_operands(oprs.len(), 1)),
                 },
                 Jr => match &operands[..] {
                     [a] => {
-                        let a = a.get_value(self)?;
-                        next_ip = (self.ip as f64 + a) as u32;
+                        let a = a.get_value(this)?;
+                        next_ip = (this.ip as f64 + a) as u32;
                         Ok(())
                     }
                     oprs => Err(ICError::too_many_operands(oprs.len(), 1)),
@@ -1249,17 +1251,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        self.set_register(indirection, target, if a == b { 1.0 } else { 0.0 })?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        this.set_register(indirection, target, if a == b { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -1269,16 +1271,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        self.set_register(indirection, target, if a == 0.0 { 1.0 } else { 0.0 })?;
+                        let a = a.get_value(this)?;
+                        this.set_register(indirection, target, if a == 0.0 { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -1288,17 +1290,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        self.set_register(indirection, target, if a != b { 1.0 } else { 0.0 })?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        this.set_register(indirection, target, if a != b { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -1308,16 +1310,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        self.set_register(indirection, target, if a != 0.0 { 1.0 } else { 0.0 })?;
+                        let a = a.get_value(this)?;
+                        this.set_register(indirection, target, if a != 0.0 { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -1327,17 +1329,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        self.set_register(indirection, target, if a < b { 1.0 } else { 0.0 })?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        this.set_register(indirection, target, if a < b { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -1347,16 +1349,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        self.set_register(indirection, target, if a < 0.0 { 1.0 } else { 0.0 })?;
+                        let a = a.get_value(this)?;
+                        this.set_register(indirection, target, if a < 0.0 { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -1366,17 +1368,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        self.set_register(indirection, target, if a <= b { 1.0 } else { 0.0 })?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        this.set_register(indirection, target, if a <= b { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -1386,16 +1388,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        self.set_register(indirection, target, if a <= 0.0 { 1.0 } else { 0.0 })?;
+                        let a = a.get_value(this)?;
+                        this.set_register(indirection, target, if a <= 0.0 { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -1405,17 +1407,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        self.set_register(indirection, target, if a > b { 1.0 } else { 0.0 })?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        this.set_register(indirection, target, if a > b { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -1425,16 +1427,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        self.set_register(indirection, target, if a > 0.0 { 1.0 } else { 0.0 })?;
+                        let a = a.get_value(this)?;
+                        this.set_register(indirection, target, if a > 0.0 { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -1444,17 +1446,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        self.set_register(indirection, target, if a >= b { 1.0 } else { 0.0 })?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        this.set_register(indirection, target, if a >= b { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -1464,16 +1466,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        self.set_register(indirection, target, if a >= 0.0 { 1.0 } else { 0.0 })?;
+                        let a = a.get_value(this)?;
+                        this.set_register(indirection, target, if a >= 0.0 { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -1483,18 +1485,18 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
-                        self.set_register(
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
+                        this.set_register(
                             indirection,
                             target,
                             if f64::abs(a - b)
@@ -1514,17 +1516,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        self.set_register(
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        this.set_register(
                             indirection,
                             target,
                             if a.abs() <= f64::max(b * a.abs(), f64::EPSILON * 8.0) {
@@ -1542,18 +1544,18 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
-                        self.set_register(
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
+                        this.set_register(
                             indirection,
                             target,
                             if f64::abs(a - b)
@@ -1573,17 +1575,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        self.set_register(
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        this.set_register(
                             indirection,
                             target,
                             if a.abs() > f64::max(b * a.abs(), f64::EPSILON * 8.0) {
@@ -1601,16 +1603,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let (device, _connection) = device.get_device_id(self)?;
-                        self.set_register(
+                        let (device, _connection) = device.get_device_id(this)?;
+                        this.set_register(
                             indirection,
                             target,
                             if device.is_some() { 1.0 } else { 0.0 },
@@ -1624,16 +1626,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let (device, _connection) = device.get_device_id(self)?;
-                        self.set_register(
+                        let (device, _connection) = device.get_device_id(this)?;
+                        this.set_register(
                             indirection,
                             target,
                             if device.is_none() { 1.0 } else { 0.0 },
@@ -1647,16 +1649,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        self.set_register(indirection, target, if a.is_nan() { 1.0 } else { 0.0 })?;
+                        let a = a.get_value(this)?;
+                        this.set_register(indirection, target, if a.is_nan() { 1.0 } else { 0.0 })?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -1666,16 +1668,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        self.set_register(indirection, target, if a.is_nan() { 0.0 } else { 1.0 })?;
+                        let a = a.get_value(this)?;
+                        this.set_register(indirection, target, if a.is_nan() { 0.0 } else { 1.0 })?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -1686,18 +1688,18 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        let c = c.get_value(self)?;
-                        self.set_register(indirection, target, if a != 0.0 { b } else { c })?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        let c = c.get_value(this)?;
+                        this.set_register(indirection, target, if a != 0.0 { b } else { c })?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
@@ -1708,17 +1710,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        self.set_register(indirection, target, a + b)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        this.set_register(indirection, target, a + b)?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -1728,17 +1730,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        self.set_register(indirection, target, a - b)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        this.set_register(indirection, target, a - b)?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -1748,17 +1750,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        self.set_register(indirection, target, a * b)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        this.set_register(indirection, target, a * b)?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -1768,17 +1770,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        self.set_register(indirection, target, a / b)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        this.set_register(indirection, target, a / b)?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -1788,17 +1790,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        self.set_register(indirection, target, ((a % b) + b) % b)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        this.set_register(indirection, target, ((a % b) + b) % b)?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -1808,16 +1810,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        self.set_register(indirection, target, f64::exp(a))?;
+                        let a = a.get_value(this)?;
+                        this.set_register(indirection, target, f64::exp(a))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -1827,16 +1829,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        self.set_register(indirection, target, f64::ln(a))?;
+                        let a = a.get_value(this)?;
+                        this.set_register(indirection, target, f64::ln(a))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -1846,16 +1848,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        self.set_register(indirection, target, f64::sqrt(a))?;
+                        let a = a.get_value(this)?;
+                        this.set_register(indirection, target, f64::sqrt(a))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -1866,17 +1868,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        self.set_register(indirection, target, f64::max(a, b))?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        this.set_register(indirection, target, f64::max(a, b))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -1886,17 +1888,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        self.set_register(indirection, target, f64::min(a, b))?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        this.set_register(indirection, target, f64::min(a, b))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -1906,16 +1908,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        self.set_register(indirection, target, f64::ceil(a))?;
+                        let a = a.get_value(this)?;
+                        this.set_register(indirection, target, f64::ceil(a))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -1925,16 +1927,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        self.set_register(indirection, target, f64::floor(a))?;
+                        let a = a.get_value(this)?;
+                        this.set_register(indirection, target, f64::floor(a))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -1944,16 +1946,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        self.set_register(indirection, target, f64::abs(a))?;
+                        let a = a.get_value(this)?;
+                        this.set_register(indirection, target, f64::abs(a))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -1963,16 +1965,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        self.set_register(indirection, target, f64::round(a))?;
+                        let a = a.get_value(this)?;
+                        this.set_register(indirection, target, f64::round(a))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -1982,16 +1984,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        self.set_register(indirection, target, f64::trunc(a))?;
+                        let a = a.get_value(this)?;
+                        this.set_register(indirection, target, f64::trunc(a))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -2002,16 +2004,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
                         let val = vm.random.clone().borrow_mut().next_f64();
-                        self.set_register(indirection, target, val)?;
+                        this.set_register(indirection, target, val)?;
                         Ok(())
                     }
                     oprs => Err(ICError::too_many_operands(oprs.len(), 1)),
@@ -2022,16 +2024,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        self.set_register(indirection, target, f64::sin(a))?;
+                        let a = a.get_value(this)?;
+                        this.set_register(indirection, target, f64::sin(a))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -2041,16 +2043,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        self.set_register(indirection, target, f64::cos(a))?;
+                        let a = a.get_value(this)?;
+                        this.set_register(indirection, target, f64::cos(a))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -2060,16 +2062,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        self.set_register(indirection, target, f64::tan(a))?;
+                        let a = a.get_value(this)?;
+                        this.set_register(indirection, target, f64::tan(a))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -2079,16 +2081,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        self.set_register(indirection, target, f64::asin(a))?;
+                        let a = a.get_value(this)?;
+                        this.set_register(indirection, target, f64::asin(a))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -2098,16 +2100,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        self.set_register(indirection, target, f64::acos(a))?;
+                        let a = a.get_value(this)?;
+                        this.set_register(indirection, target, f64::acos(a))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -2117,16 +2119,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        self.set_register(indirection, target, f64::atan(a))?;
+                        let a = a.get_value(this)?;
+                        this.set_register(indirection, target, f64::atan(a))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -2136,17 +2138,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        self.set_register(indirection, target, f64::atan2(a, b))?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        this.set_register(indirection, target, f64::atan2(a, b))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -2157,17 +2159,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value_i64(self, true)?;
-                        let b = b.get_value_i32(self)?;
-                        self.set_register(indirection, target, i64_to_f64(a << b))?;
+                        let a = a.get_value_i64(this, true)?;
+                        let b = b.get_value_i32(this)?;
+                        this.set_register(indirection, target, i64_to_f64(a << b))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -2177,17 +2179,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value_i64(self, false)?;
-                        let b = b.get_value_i32(self)?;
-                        self.set_register(indirection, target, i64_to_f64((a as u64 >> b) as i64))?;
+                        let a = a.get_value_i64(this, false)?;
+                        let b = b.get_value_i32(this)?;
+                        this.set_register(indirection, target, i64_to_f64((a as u64 >> b) as i64))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -2197,17 +2199,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value_i64(self, true)?;
-                        let b = b.get_value_i32(self)?;
-                        self.set_register(indirection, target, i64_to_f64(a >> b))?;
+                        let a = a.get_value_i64(this, true)?;
+                        let b = b.get_value_i32(this)?;
+                        this.set_register(indirection, target, i64_to_f64(a >> b))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -2218,17 +2220,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value_i64(self, true)?;
-                        let b = b.get_value_i64(self, true)?;
-                        self.set_register(indirection, target, i64_to_f64(a & b))?;
+                        let a = a.get_value_i64(this, true)?;
+                        let b = b.get_value_i64(this, true)?;
+                        this.set_register(indirection, target, i64_to_f64(a & b))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -2238,17 +2240,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value_i64(self, true)?;
-                        let b = b.get_value_i64(self, true)?;
-                        self.set_register(indirection, target, i64_to_f64(a | b))?;
+                        let a = a.get_value_i64(this, true)?;
+                        let b = b.get_value_i64(this, true)?;
+                        this.set_register(indirection, target, i64_to_f64(a | b))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -2258,17 +2260,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value_i64(self, true)?;
-                        let b = b.get_value_i64(self, true)?;
-                        self.set_register(indirection, target, i64_to_f64(a ^ b))?;
+                        let a = a.get_value_i64(this, true)?;
+                        let b = b.get_value_i64(this, true)?;
+                        this.set_register(indirection, target, i64_to_f64(a ^ b))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -2278,17 +2280,17 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value_i64(self, true)?;
-                        let b = b.get_value_i64(self, true)?;
-                        self.set_register(indirection, target, i64_to_f64(!(a | b)))?;
+                        let a = a.get_value_i64(this, true)?;
+                        let b = b.get_value_i64(this, true)?;
+                        this.set_register(indirection, target, i64_to_f64(!(a | b)))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -2298,16 +2300,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let a = a.get_value_i64(self, true)?;
-                        self.set_register(indirection, target, i64_to_f64(!a))?;
+                        let a = a.get_value_i64(this, true)?;
+                        this.set_register(indirection, target, i64_to_f64(!a))?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -2315,8 +2317,8 @@ impl IC {
 
                 Push => match &operands[..] {
                     [a] => {
-                        let a = a.get_value(self)?;
-                        self.push(a)?;
+                        let a = a.get_value(this)?;
+                        this.push(a)?;
                         Ok(())
                     }
                     oprs => Err(ICError::too_many_operands(oprs.len(), 1)),
@@ -2326,25 +2328,25 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let val = self.pop()?;
-                        self.set_register(indirection, target, val)?;
+                        let val = this.pop()?;
+                        this.set_register(indirection, target, val)?;
                         Ok(())
                     }
                     oprs => Err(ICError::too_many_operands(oprs.len(), 1)),
                 },
                 Poke => match &operands[..] {
                     [a, b] => {
-                        let a = a.get_value(self)?;
-                        let b = b.get_value(self)?;
-                        self.poke(a, b)?;
+                        let a = a.get_value(this)?;
+                        let b = b.get_value(this)?;
+                        this.poke(a, b)?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -2354,16 +2356,16 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let val = self.peek()?;
-                        self.set_register(indirection, target, val)?;
+                        let val = this.peek()?;
+                        this.set_register(indirection, target, val)?;
                         Ok(())
                     }
                     oprs => Err(ICError::too_many_operands(oprs.len(), 1)),
@@ -2374,25 +2376,25 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let (Some(device_id), _connection) = dev_id.get_device_id(self)? else {
-                            break 'inst Err(DeviceNotSet);
+                        let (Some(device_id), _connection) = dev_id.get_device_id(this)? else {
+                            return Err(DeviceNotSet);
                         };
-                        let device = vm.get_device_same_network(self.device, device_id);
+                        let device = vm.get_device_same_network(this.device, device_id);
                         match device {
                             Some(device) => match device.borrow().ic.as_ref() {
                                 Some(ic_id) => {
-                                    let addr = addr.get_value(self)?;
+                                    let addr = addr.get_value(this)?;
                                     let ic = vm.ics.get(ic_id).unwrap().borrow();
                                     let val = ic.peek_addr(addr)?;
-                                    self.set_register(indirection, target, val)?;
+                                    this.set_register(indirection, target, val)?;
                                     Ok(())
                                 }
                                 None => Err(DeviceHasNoIC),
@@ -2407,25 +2409,25 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let (Some(device_id), _connection) = dev_id.get_device_id(self)? else {
-                            break 'inst Err(DeviceNotSet);
+                        let (Some(device_id), _connection) = dev_id.get_device_id(this)? else {
+                            return Err(DeviceNotSet);
                         };
-                        let device = vm.get_device_same_network(self.device, device_id);
+                        let device = vm.get_device_same_network(this.device, device_id);
                         match device {
                             Some(device) => match device.borrow().ic.as_ref() {
                                 Some(ic_id) => {
-                                    let addr = addr.get_value(self)?;
+                                    let addr = addr.get_value(this)?;
                                     let ic = vm.ics.get(ic_id).unwrap().borrow();
                                     let val = ic.peek_addr(addr)?;
-                                    self.set_register(indirection, target, val)?;
+                                    this.set_register(indirection, target, val)?;
                                     Ok(())
                                 }
                                 None => Err(DeviceHasNoIC),
@@ -2437,15 +2439,15 @@ impl IC {
                 },
                 Put => match &operands[..] {
                     [dev_id, addr, val] => {
-                        let (Some(device_id), _connection) = dev_id.get_device_id(self)? else {
-                            break 'inst Err(DeviceNotSet);
+                        let (Some(device_id), _connection) = dev_id.get_device_id(this)? else {
+                            return Err(DeviceNotSet);
                         };
-                        let device = vm.get_device_same_network(self.device, device_id);
+                        let device = vm.get_device_same_network(this.device, device_id);
                         match device {
                             Some(device) => match device.borrow().ic.as_ref() {
                                 Some(ic_id) => {
-                                    let addr = addr.get_value(self)?;
-                                    let val = val.get_value(self)?;
+                                    let addr = addr.get_value(this)?;
+                                    let val = val.get_value(this)?;
                                     let mut ic = vm.ics.get(ic_id).unwrap().borrow_mut();
                                     ic.poke(addr, val)?;
                                     Ok(())
@@ -2459,16 +2461,16 @@ impl IC {
                 },
                 Putd => match &operands[..] {
                     [dev_id, addr, val] => {
-                        let device_id = dev_id.get_value(self)?;
+                        let device_id = dev_id.get_value(this)?;
                         if device_id >= u16::MAX as f64 || device_id < u16::MIN as f64 {
-                            break 'inst Err(DeviceIndexOutOfRange(device_id));
+                            return Err(DeviceIndexOutOfRange(device_id));
                         }
-                        let device = vm.get_device_same_network(self.device, device_id as u16);
+                        let device = vm.get_device_same_network(this.device, device_id as u16);
                         match device {
                             Some(device) => match device.borrow().ic.as_ref() {
                                 Some(ic_id) => {
-                                    let addr = addr.get_value(self)?;
-                                    let val = val.get_value(self)?;
+                                    let addr = addr.get_value(this)?;
+                                    let val = val.get_value(this)?;
                                     let mut ic = vm.ics.get(ic_id).unwrap().borrow_mut();
                                     ic.poke(addr, val)?;
                                     Ok(())
@@ -2483,27 +2485,27 @@ impl IC {
 
                 S => match &operands[..] {
                     [dev, lt, val] => {
-                        let (Some(device_id), connection) = dev.get_device_id(self)? else {
-                            break 'inst Err(DeviceNotSet);
+                        let (Some(device_id), connection) = dev.get_device_id(this)? else {
+                            return Err(DeviceNotSet);
                         };
-                        let lt = LogicType::try_from(lt.get_value(self)?)?;
+                        let lt = LogicType::try_from(lt.get_value(this)?)?;
                         if CHANNEL_LOGIC_TYPES.contains(&lt) {
                             let channel = lt.as_channel().unwrap();
                             let Some(connection) = connection else {
-                                break 'inst Err(MissingConnectionSpecifier);
+                                return Err(MissingConnectionSpecifier);
                             };
                             let network_id = vm
-                                .get_device_same_network(self.device, device_id)
+                                .get_device_same_network(this.device, device_id)
                                 .map(|device| device.borrow().get_network_id(connection as usize))
                                 .unwrap_or(Err(UnknownDeviceID(device_id as f64)))?;
-                            let val = val.get_value(self)?;
+                            let val = val.get_value(this)?;
                             vm.set_network_channel(network_id as usize, channel, val)?;
                             return Ok(());
                         }
-                        let device = vm.get_device_same_network(self.device, device_id);
+                        let device = vm.get_device_same_network(this.device, device_id);
                         match device {
                             Some(device) => {
-                                let val = val.get_value(self)?;
+                                let val = val.get_value(this)?;
                                 device.borrow_mut().set_field(lt, val)?;
                                 Ok(())
                             }
@@ -2514,15 +2516,15 @@ impl IC {
                 },
                 Sd => match &operands[..] {
                     [dev, lt, val] => {
-                        let device_id = dev.get_value(self)?;
+                        let device_id = dev.get_value(this)?;
                         if device_id >= u16::MAX as f64 || device_id < u16::MIN as f64 {
-                            break 'inst Err(DeviceIndexOutOfRange(device_id));
+                            return Err(DeviceIndexOutOfRange(device_id));
                         }
-                        let device = vm.get_device_same_network(self.device, device_id as u16);
+                        let device = vm.get_device_same_network(this.device, device_id as u16);
                         match device {
                             Some(device) => {
-                                let lt = LogicType::try_from(lt.get_value(self)?)?;
-                                let val = val.get_value(self)?;
+                                let lt = LogicType::try_from(lt.get_value(this)?)?;
+                                let val = val.get_value(this)?;
                                 device.borrow_mut().set_field(lt, val)?;
                                 Ok(())
                             }
@@ -2533,15 +2535,15 @@ impl IC {
                 },
                 Ss => match &operands[..] {
                     [dev, index, lt, val] => {
-                        let (Some(device_id), _connection) = dev.get_device_id(self)? else {
-                            break 'inst Err(DeviceNotSet);
+                        let (Some(device_id), _connection) = dev.get_device_id(this)? else {
+                            return Err(DeviceNotSet);
                         };
-                        let device = vm.get_device_same_network(self.device, device_id);
+                        let device = vm.get_device_same_network(this.device, device_id);
                         match device {
                             Some(device) => {
-                                let index = index.get_value(self)?;
-                                let lt = SlotLogicType::try_from(lt.get_value(self)?)?;
-                                let val = val.get_value(self)?;
+                                let index = index.get_value(this)?;
+                                let lt = SlotLogicType::try_from(lt.get_value(this)?)?;
+                                let val = val.get_value(this)?;
                                 device.borrow_mut().set_slot_field(index, lt, val)?;
                                 Ok(())
                             }
@@ -2552,32 +2554,32 @@ impl IC {
                 },
                 Sb => match &operands[..] {
                     [prefab, lt, val] => {
-                        let prefab = prefab.get_value(self)?;
-                        let lt = LogicType::try_from(lt.get_value(self)?)?;
-                        let val = val.get_value(self)?;
-                        vm.set_batch_device_field(self.device, prefab, lt, val)?;
+                        let prefab = prefab.get_value(this)?;
+                        let lt = LogicType::try_from(lt.get_value(this)?)?;
+                        let val = val.get_value(this)?;
+                        vm.set_batch_device_field(this.device, prefab, lt, val)?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Sbs => match &operands[..] {
                     [prefab, index, lt, val] => {
-                        let prefab = prefab.get_value(self)?;
-                        let index = index.get_value(self)?;
-                        let lt = SlotLogicType::try_from(lt.get_value(self)?)?;
-                        let val = val.get_value(self)?;
-                        vm.set_batch_device_slot_field(self.device, prefab, index, lt, val)?;
+                        let prefab = prefab.get_value(this)?;
+                        let index = index.get_value(this)?;
+                        let lt = SlotLogicType::try_from(lt.get_value(this)?)?;
+                        let val = val.get_value(this)?;
+                        vm.set_batch_device_slot_field(this.device, prefab, index, lt, val)?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
                 },
                 Sbn => match &operands[..] {
                     [prefab, name, lt, val] => {
-                        let prefab = prefab.get_value(self)?;
-                        let name = name.get_value(self)?;
-                        let lt = LogicType::try_from(lt.get_value(self)?)?;
-                        let val = val.get_value(self)?;
-                        vm.set_batch_name_device_field(self.device, prefab, name, lt, val)?;
+                        let prefab = prefab.get_value(this)?;
+                        let name = name.get_value(this)?;
+                        let lt = LogicType::try_from(lt.get_value(this)?)?;
+                        let val = val.get_value(this)?;
+                        vm.set_batch_name_device_field(this.device, prefab, name, lt, val)?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
@@ -2588,36 +2590,36 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let (Some(device_id), connection) = dev.get_device_id(self)? else {
-                            break 'inst Err(DeviceNotSet);
+                        let (Some(device_id), connection) = dev.get_device_id(this)? else {
+                            return Err(DeviceNotSet);
                         };
-                        let lt = LogicType::try_from(lt.get_value(self)?)?;
+                        let lt = LogicType::try_from(lt.get_value(this)?)?;
                         if CHANNEL_LOGIC_TYPES.contains(&lt) {
                             let channel = lt.as_channel().unwrap();
                             let Some(connection) = connection else {
-                                break 'inst Err(MissingConnectionSpecifier);
+                                return Err(MissingConnectionSpecifier);
                             };
                             let network_id = vm
-                                .get_device_same_network(self.device, device_id)
+                                .get_device_same_network(this.device, device_id)
                                 .map(|device| device.borrow().get_network_id(connection as usize))
                                 .unwrap_or(Err(UnknownDeviceID(device_id as f64)))?;
                             let val = vm.get_network_channel(network_id as usize, channel)?;
-                            self.set_register(indirection, target, val)?;
+                            this.set_register(indirection, target, val)?;
                             return Ok(());
                         }
-                        let device = vm.get_device_same_network(self.device, device_id);
+                        let device = vm.get_device_same_network(this.device, device_id);
                         match device {
                             Some(device) => {
                                 let val = device.borrow().get_field(lt)?;
-                                self.set_register(indirection, target, val)?;
+                                this.set_register(indirection, target, val)?;
                                 Ok(())
                             }
                             None => Err(UnknownDeviceID(device_id as f64)),
@@ -2630,24 +2632,24 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let device_id = dev.get_value(self)?;
+                        let device_id = dev.get_value(this)?;
                         if device_id >= u16::MAX as f64 || device_id < u16::MIN as f64 {
-                            break 'inst Err(DeviceIndexOutOfRange(device_id));
+                            return Err(DeviceIndexOutOfRange(device_id));
                         }
-                        let device = vm.get_device_same_network(self.device, device_id as u16);
+                        let device = vm.get_device_same_network(this.device, device_id as u16);
                         match device {
                             Some(device) => {
-                                let lt = LogicType::try_from(lt.get_value(self)?)?;
+                                let lt = LogicType::try_from(lt.get_value(this)?)?;
                                 let val = device.borrow().get_field(lt)?;
-                                self.set_register(indirection, target, val)?;
+                                this.set_register(indirection, target, val)?;
                                 Ok(())
                             }
                             None => Err(UnknownDeviceID(device_id)),
@@ -2660,24 +2662,24 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let (Some(device_id), _connection) = dev.get_device_id(self)? else {
-                            break 'inst Err(DeviceNotSet);
+                        let (Some(device_id), _connection) = dev.get_device_id(this)? else {
+                            return Err(DeviceNotSet);
                         };
-                        let device = vm.get_device_same_network(self.device, device_id);
+                        let device = vm.get_device_same_network(this.device, device_id);
                         match device {
                             Some(device) => {
-                                let index = index.get_value(self)?;
-                                let lt = SlotLogicType::try_from(lt.get_value(self)?)?;
+                                let index = index.get_value(this)?;
+                                let lt = SlotLogicType::try_from(lt.get_value(this)?)?;
                                 let val = device.borrow().get_slot_field(index, lt)?;
-                                self.set_register(indirection, target, val)?;
+                                this.set_register(indirection, target, val)?;
                                 Ok(())
                             }
                             None => Err(UnknownDeviceID(device_id as f64)),
@@ -2690,24 +2692,24 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let (Some(device_id), _connection) = dev.get_device_id(self)? else {
-                            break 'inst Err(DeviceNotSet);
+                        let (Some(device_id), _connection) = dev.get_device_id(this)? else {
+                            return Err(DeviceNotSet);
                         };
-                        let device = vm.get_device_same_network(self.device, device_id);
+                        let device = vm.get_device_same_network(this.device, device_id);
                         match device {
                             Some(device) => {
-                                let rm = ReagentMode::try_from(rm.get_value(self)?)?;
-                                let name = name.get_value(self)?;
+                                let rm = ReagentMode::try_from(rm.get_value(this)?)?;
+                                let name = name.get_value(this)?;
                                 let val = device.borrow().get_reagent(&rm, name);
-                                self.set_register(indirection, target, val)?;
+                                this.set_register(indirection, target, val)?;
                                 Ok(())
                             }
                             None => Err(UnknownDeviceID(device_id as f64)),
@@ -2720,19 +2722,19 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let prefab = prefab.get_value(self)?;
-                        let lt = LogicType::try_from(lt.get_value(self)?)?;
-                        let bm = BatchMode::try_from(bm.get_value(self)?)?;
-                        let val = vm.get_batch_device_field(self.device, prefab, lt, bm)?;
-                        self.set_register(indirection, target, val)?;
+                        let prefab = prefab.get_value(this)?;
+                        let lt = LogicType::try_from(lt.get_value(this)?)?;
+                        let bm = BatchMode::try_from(bm.get_value(this)?)?;
+                        let val = vm.get_batch_device_field(this.device, prefab, lt, bm)?;
+                        this.set_register(indirection, target, val)?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
@@ -2742,21 +2744,21 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let prefab = prefab.get_value(self)?;
-                        let name = name.get_value(self)?;
-                        let lt = LogicType::try_from(lt.get_value(self)?)?;
-                        let bm = BatchMode::try_from(bm.get_value(self)?)?;
+                        let prefab = prefab.get_value(this)?;
+                        let name = name.get_value(this)?;
+                        let lt = LogicType::try_from(lt.get_value(this)?)?;
+                        let bm = BatchMode::try_from(bm.get_value(this)?)?;
                         let val =
-                            vm.get_batch_name_device_field(self.device, prefab, name, lt, bm)?;
-                        self.set_register(indirection, target, val)?;
+                            vm.get_batch_name_device_field(this.device, prefab, name, lt, bm)?;
+                        this.set_register(indirection, target, val)?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 5)),
@@ -2766,28 +2768,23 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let prefab = prefab.get_value(self)?;
-                        let name = name.get_value(self)?;
-                        let index = index.get_value(self)?;
-                        let slt = SlotLogicType::try_from(slt.get_value(self)?)?;
-                        let bm = BatchMode::try_from(bm.get_value(self)?)?;
+                        let prefab = prefab.get_value(this)?;
+                        let name = name.get_value(this)?;
+                        let index = index.get_value(this)?;
+                        let slt = SlotLogicType::try_from(slt.get_value(this)?)?;
+                        let bm = BatchMode::try_from(bm.get_value(this)?)?;
                         let val = vm.get_batch_name_device_slot_field(
-                            self.device,
-                            prefab,
-                            name,
-                            index,
-                            slt,
-                            bm,
+                            this.device, prefab, name, index, slt, bm,
                         )?;
-                        self.set_register(indirection, target, val)?;
+                        this.set_register(indirection, target, val)?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 6)),
@@ -2797,27 +2794,28 @@ impl IC {
                         let Operand::RegisterSpec {
                             indirection,
                             target,
-                        } = reg.translate_alias(self)
+                        } = reg.translate_alias(this)
                         else {
-                            break 'inst Err(IncorrectOperandType {
+                            return Err(IncorrectOperandType {
                                 inst: line.instruction,
                                 index: 1,
                                 desired: "Register".to_owned(),
                             });
                         };
-                        let prefab = prefab.get_value(self)?;
-                        let index = index.get_value(self)?;
-                        let slt = SlotLogicType::try_from(slt.get_value(self)?)?;
-                        let bm = BatchMode::try_from(bm.get_value(self)?)?;
+                        let prefab = prefab.get_value(this)?;
+                        let index = index.get_value(this)?;
+                        let slt = SlotLogicType::try_from(slt.get_value(this)?)?;
+                        let bm = BatchMode::try_from(bm.get_value(this)?)?;
                         let val =
-                            vm.get_batch_device_slot_field(self.device, prefab, index, slt, bm)?;
-                        self.set_register(indirection, target, val)?;
+                            vm.get_batch_device_slot_field(this.device, prefab, index, slt, bm)?;
+                        this.set_register(indirection, target, val)?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 5)),
                 },
             }
         };
+        let result = result(self);
         self.ic += 1;
         self.ip = next_ip;
         result
