@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark">
+
+<head>
+  <meta charset="utf-8">
+  <title>Stationeers IC10 Emulator</title>
+
+  <meta property="og:title" content="Stationeers IC10 Editor &amp; Emulator" />
+  <meta property="og:description"
+    content="A feature packed code editor for Stationeers IC10 code, paired with a robust debugger and emulator. Edit, test, and share code." />
+  <meta property="og:image" content="https://ryex.github.io/ic10emu/img/embed_preview.png" />
+  <meta property="og:url" content="https://ryex.github.io/ic10emu/" />
+
+  <link rel="stylesheet" href="./main.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/fontawesome.min.js"
+    integrity="sha512-C8qHv0HOaf4yoA7ISuuCTrsPX8qjolYTZyoFRKNA9dFKnxgzIHnYTOJhXQIt6zwpIFzCrRzUBuVgtC4e5K1nhA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/solid.min.js"
+    integrity="sha512-+fI924YJzeYFv7M0R29zJvRThPinSUOAmo5rpR9v6G4eWIbva/prHdZGSPN440vuf781/sOd/Fr+5ey0pqdW9w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/fontawesome.min.css"
+    integrity="sha512-d0olNN35C6VLiulAobxYHZiXJmq+vl+BGIgAxQtD5+kqudro/xNMvv2yIHAciGHpExsIbKX3iLg+0B6d0k4+ZA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/solid.min.css"
+    integrity="sha512-pZlKGs7nEqF4zoG0egeK167l6yovsuL8ap30d07kA5AJUq+WysFlQ02DLXAmN3n0+H3JVz5ni8SJZnrOaYXWBA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/brands.min.js"
+    integrity="sha512-giAmE8KpCT6HP3DEwIvW9LYVnDs79iIaKEYFTjH62EWoglWgdAJa1ahiLUfoc3NFaAeWM6E3VdQyH1Ob2dmwQw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/brands.min.css"
+    integrity="sha512-8RxmFOVaKQe/xtg6lbscU9DU0IRhURWEuiI0tXevv+lXbAHfkpamD4VKFQRto9WgfOJDwOZ74c/s9Yesv3VvIQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="">
+  <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
+  <div class="App">
+    <div id="modelShareLink" class="modal fade" tabindex="-1" aria-hidden="true" data-bs-theme="dark">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Share This Code!</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="input-group mb-3">
+              <input id="shareLinkText" type="text" class="form-control user-select-all"
+                aria-label="Recipient's username" aria-describedby="shareLinkCopyButton" readonly>
+              <button class="btn btn-outline-secondary" type="button" id="shareLinkCopyButton">Copy</button>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="editorSettings" aria-labelledby="editorSettingsLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="editorSettingsLabel">Editor Settings</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="p-2">
+          <h6>Editor Keyboard Bindings</h6>
+          <div class="btn-group" role="group" aria-label="Editor Keyboard Bindings">
+            <input type="radio" class="btn-check" name="editorKeybindRadio" id="editorSettingsKeybindAce"
+              autocomplete="off" checked value="ace">
+            <label class="btn btn-outline-secondary" for="editorSettingsKeybindAce">Ace</label>
+            <input type="radio" class="btn-check" name="editorKeybindRadio" id="editorSettingsKeybindVim"
+              autocomplete="off" value="vim">
+            <label class="btn btn-outline-secondary" for="editorSettingsKeybindVim">Vim</label>
+            <input type="radio" class="btn-check" name="editorKeybindRadio" id="editorSettingsKeybindEmacs"
+              autocomplete="off" value="emacs">
+            <label class="btn btn-outline-secondary" for="editorSettingsKeybindEmacs">Emacs</label>
+            <input type="radio" class="btn-check" name="editorKeybindRadio" id="editorSettingsKeybindSublime"
+              autocomplete="off" value="sublime">
+            <label class="btn btn-outline-secondary" for="editorSettingsKeybindSublime">Sublime</label>
+            <input type="radio" class="btn-check" name="editorKeybindRadio" id="editorSettingsKeybindVSCode"
+              autocomplete="off" value="vscode">
+            <label class="btn btn-outline-secondary" for="editorSettingsKeybindVSCode">VS Code</label>
+          </div>
+        </div>
+        <div class="p-2">
+          <h6>Editor Cursor Style</h6>
+          <div class="btn-group" role="group" aria-label="Editor Keyboard Bindings">
+            <input type="radio" class="btn-check" name="editorCursorRadio" id="editorSettingsCursorAce"
+              autocomplete="off" checked value="ace">
+            <label class="btn btn-outline-secondary" for="editorSettingsCursorAce">Ace</label>
+            <input type="radio" class="btn-check" name="editorCursorRadio" id="editorSettingsCursorSlim"
+              autocomplete="off" value="slim">
+            <label class="btn btn-outline-secondary" for="editorSettingsCursorSlim">Slim</label>
+            <input type="radio" class="btn-check" name="editorCursorRadio" id="editorSettingsCursorSmooth"
+              autocomplete="off" value="smooth">
+            <label class="btn btn-outline-secondary" for="editorSettingsCursorSmooth">Smooth</label>
+            <input type="radio" class="btn-check" name="editorCursorRadio" id="editorSettingsCursorSmoothSlim"
+              autocomplete="off" value="smooth slim">
+            <label class="btn btn-outline-secondary" for="editorSettingsCursorSmoothSlim">Smooth And Slim</label>
+            <input type="radio" class="btn-check" name="editorCursorRadio" id="editorSettingsCursorWide"
+              autocomplete="off" value="wide">
+            <label class="btn btn-outline-secondary" for="editorSettingsCursorWide">Wide</label>
+          </div>
+        </div>
+        <div class="input-group mb-3 p-2">
+          <span class="input-group-text" id="editorFontSizeLabel">Font Size</span>
+          <input id="editorSettingsFontSize" type="number" class="form-control" aria-label="font size"
+            aria-describedby="editorFontSizeLabel" value="16">
+          <span class="input-group-text">px</span>
+        </div>
+        <div class="p-2">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="editorSettingsRelativeLineNumbers">
+            <label class="form-check-label" for="editorSettingsRelativeLineNumbers">Relative Line Numbers</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav id="navBar" class="navbar navbar-default">
+      <div class="nav navbar-nav dropdown ps-2">
+        <button class="btn btn-outline-secondary" type="button" id="mainMenu" data-bs-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="mainMenu">
+          <li><button id="mainMenuShare" class="dropdown-item" type="button" data-bs-toggle="modal"
+              data-bs-target="#modelShareLink">Share</button></li>
+          <li><button id="mainMenuOpenFile" class="dropdown-item" type="button">Open File</button></li>
+          <li><button id="mainMenuSaveAs" class="dropdown-item" type="button">Save As</button></li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><button id="mainMenuEditorSettings" class="dropdown-item" type="button" data-bs-toggle="offcanvas"
+              data-bs-target="#editorSettings" aria-controls="editorSettings">Editor Settings</button></li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><button id="mainMenuKeyboardShortcuts" class="dropdown-item" type="button">Show Keyboard
+              Shortcuts</button></li>
+        </ul>
+      </div>
+      <div class="nav navbar-nav navbar-header ms-2">
+        <a class="navbar-brand active" aria-current="page" href="">Stationeers IC10 Emulator</a>
+      </div>
+      <div class="nav navbar-nav ms-2">
+
+      </div>
+      <div class="nav navbar-nav  ms-auto navbar-right d-flex flex-row">
+        <a class="navbar-text mt-auto mb-auto align-self-center" href="https://github.com/ryex/ic10emu">View on Github
+          <i class="fa-brands fa-github"></i></a>
+      </div>
+
+      <!-- <div class="flex-grow w-100">&nbsp;</div> -->
+      <ul class="nav navbar-nav navbar-right flex-row d-sm-none d-none d-md-flex">
+        <p class="navbar-text mt-auto mb-auto align-self-center">Official Stationeers:</p>
+        <li role="presentation" class="">
+          <a href="https://store.steampowered.com/app/544550/Stationeers/">
+            <i class="fa-brands fa-steam fa-w-16"></i>
+          </a>
+        </li>
+        <li role="presentation" class="">
+          <a href="https://stationeers.com/">
+            <i class="fa-solid fa-globe fa-w-16"></i>
+          </a>
+        </li>
+        <li role="presentation" class="">
+          <a href="https://twitter.com/stationeers">
+            <i class="fa-brands fa-x-twitter"></i>
+          </a>
+        </li>
+        <li role="presentation" class="">
+          <a href="https://discordapp.com/invite/CxR3mRy">
+            <i class="fa-brands fa-discord"></i>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="d-flex flex-row">
+      <div class="d-flex flex-column w-100">
+        <div id="editorContainer" class="p-1 h-100">
+          <div id="editor" class="w-100"></div>
+        </div>
+        <div id="statusBarContainer" class="p-1 mt-auto">
+          <div id="statusBar" class="w-100 text-body">IC10 editor!</div>
+        </div>
+      </div>
+      <div class="d-flex flex-column flex-shrink-1">
+        <div id="virtualMachine">
+          <div id="vmActiveIC" class="container ">
+            <div class="ms-1 me-2 pb-2 row border border-secondary rounded bg-secondary bg-opacity-10">
+              <div class="mt-2 col">
+                <div id="vmControls" class="btn-group-vertical btn-group-sm " role="group"
+                  aria-label="Virtual Machine Controls">
+                  <button id="vmControlRun" type="button" class="btn btn-primary">Run</button>
+                  <button id="vmControlStep" type="button" class="btn btn-secondary">Step</button>
+                  <button id="vmControlReset" type="button" class="btn btn-warning">Reset</button>
+                </div>
+              </div>
+              <div id="vmActiveICState" class="mt-2 col-9 g-4">
+
+                <div class="hstack g-0">
+                  <div>Instruction Pointer</div>
+                  <div class="ms-auto" id="vmActiveICStateIP"></div>
+                </div>
+                <hr />
+                <div class="hstack g-0">
+                  <div>Last Run Operations Count</div>
+                  <div class="ms-auto" id="vmActiveICStateICount"></div>
+                </div>
+                <hr />
+                <div class="hstack g-0">
+                  <div>Last State</div>
+                  <div class="ms-auto" id="vmActiveICStateLastRun"></div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="row mt-1 ms-1 me-1">
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="offcanvas"
+                data-bs-target="#vmDevices" aria-expanded="false"
+                aria-controls="vmDevices">View All Devices <span id="vmViewDeviceCount"></span></button>
+            </div>
+            <div class="row p2">
+              <div class="collapse mt-1" id=vmDeviceSummaryCollapse>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="accordion vm_accordion" id="vmActiveIC">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                      data-bs-target="#collapseDeviceSummary" aria-expanded="false"
+                      aria-controls="collapseDeviceSummary">
+                      Device Summary
+                    </button>
+                  </h2>
+                  <div id="collapseDeviceSummary" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                      <div id="vmDeviceSummary" class="card card-body vm_device_summary">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                      data-bs-target="#collapseReg" aria-expanded="true" aria-controls="collapseReg">
+                      Registers
+                    </button>
+                  </h2>
+                  <div id="collapseReg" class="accordion-collapse collapse show">
+                    <div class="accordion-body">
+                      <div id="vmActiveRegisters" class="vm_reg">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                      data-bs-target="#collapseStack" aria-expanded="false" aria-controls="collapseStack">
+                      Stack
+                    </button>
+                  </h2>
+                  <div id="collapseStack" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                      <div id="vmActiveStack" class="vm_stack">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.7/ace.js" type="text/javascript" charset="utf-8"></script> -->
+  <script>
+  </script>
+
+
+  <div class="offcanvas offcanvas-bottom" tabindex="-1" id="vmDevices" aria-labelledby="vmDevicesLabel"
+    data-bs-scroll="true" data-bs-backdrop="false">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="vmDevicesLabel">Devices</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="p-2" id="vmDevicesOCBody"></div>
+    </div>
+  </div>
+</body>
+
+</html>

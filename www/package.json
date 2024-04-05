@@ -44,6 +44,7 @@
     "sass": "^1.72.0",
     "sass-loader": "^14.1.1",
     "style-loader": "^3.3.4",
+    "ts-lit-plugin": "^2.0.2",
     "ts-loader": "^9.5.1",
     "typescript": "^5.4.3",
     "webpack": "^5.91.0",
@@ -52,6 +53,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
+    "@shoelace-style/shoelace": "^2.15.0",
     "ace-builds": "^1.32.9",
     "ace-linters": "^1.1.2",
     "bootstrap": "^5.3.3",
@@ -63,7 +65,6 @@
     "jquery": "^3.7.1",
     "lit": "^3.1.2",
     "lzma-web": "^3.0.1",
-    "shoelace": "^0.1.1",
     "stream-browserify": "^3.0.0",
     "uuid": "^9.0.1",
     "vm-browserify": "^1.1.2"

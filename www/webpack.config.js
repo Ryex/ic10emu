@@ -36,7 +36,7 @@ module.exports = {
         type: 'asset/resource',
       },
       {
-        test: /\.(scss)$/,
+        test: /\.(s?css)$/,
         use: [{
           // inject CSS to page
           loader: miniCssExtractPlugin.loader

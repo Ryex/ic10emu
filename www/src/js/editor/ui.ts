@@ -11,19 +11,19 @@ class IC10EditorUI {
 
     that.ic10editor = ic10editor;
 
-    that.ic10editor.aceEditor.commands.addCommand({
-      name: "showSettingsMenu",
-      description: "Show settings menu",
-      bindKey: { win: "Ctrl-,", mac: "Command-," },
-      exec: (_editor: ace.Ace.Editor) => {
-        const offCanvas = new Offcanvas(document.getElementById("editorSettings"));
-        offCanvas.toggle();
-      }
-    } as any);
+    // that.ic10editor.editor.commands.addCommand({
+    //   name: "showSettingsMenu",
+    //   description: "Show settings menu",
+    //   bindKey: { win: "Ctrl-,", mac: "Command-," },
+    //   exec: (_editor: ace.Ace.Editor) => {
+    //     const offCanvas = new Offcanvas(document.getElementById("editorSettings"));
+    //     offCanvas.toggle();
+    //   }
+    // } as any);
 
     ace.config.loadModule("ace/ext/keyboard_menu", function (module) {
       console.log("keybinding_menu loaded");
-      module.init(that.ic10editor.aceEditor);
+      module.init(that.ic10editor.editor);
     });
 
     that.ic10editor.loadEditorSettings();
@@ -58,21 +58,17 @@ class IC10EditorUI {
       that.updateEditorSettings();
     });
 
-    console.log(that.ic10editor.aceEditor.getOption('keyboardHandler'));
+    console.log(that.ic10editor.editor.getOption('keyboardHandler'));
 
-    that.ic10editor.aceEditor.setTheme("ace/theme/one_dark");
-    ace.config.loadModule("ace/ext/statusbar", function (module) {
-      const statusBar = new module.StatusBar(that.ic10editor.aceEditor, document.getElementById("statusBar"));
-      statusBar.updateStatus(that.ic10editor.aceEditor);
-    });
+    that.ic10editor.editor.setTheme("ace/theme/one_dark");
 
-    that.ic10editor.aceEditor.setAutoScrollEditorIntoView(true);
+    that.ic10editor.editor.setAutoScrollEditorIntoView(true);
 
   }
 
   updateEditorSettings() {
     const settings = this.ic10editor.settings;
-    const editor = this.ic10editor.aceEditor;
+    const editor = this.ic10editor.editor;
     if (settings.keyboard === 'ace') {
       editor.setOption('keyboardHandler', null);
     } else {
@@ -96,7 +92,7 @@ class IC10EditorUI {
   }
 
   reCalcEditorSize() {
-    const editor = this.ic10editor.aceEditor;
+    const editor = this.ic10editor.editor;
     const navBar = document.getElementById("navBar");
     const statusBarContainer = document.getElementById("statusBarContainer");
 

@@ -3,20 +3,20 @@ const demoCode = `# Highlighting Demo
 # This is a comment
 
 # Hover a define id anywhere to see it's definition
-define a_def 10 
+define a_def 10
 
 # Hover HASH("String")'s to see computed crc32
 #     hover here    vvvvvvvvvvvvvvvv
-define a_hash HASH("This is a String") 
+define a_hash HASH("This is a String")
 
 # hover over an alias anywhere in the code
 # to see it's definition
-alias a_var r0 
+alias a_var r0
 alias a_device d0
 
-# instructions have Auto Completion, 
+# instructions have Auto Completion,
 # numeric logic types are identified on hover
-s db 12 0 
+s db 12 0
 #    ^^
 # hover here
 
@@ -42,9 +42,9 @@ move r0 HASH("AccessCardBlack")
 push r0
 beqzal r1 test
 
-# -2045627372 is the crc32 hash of a SolarPanel, 
+# -2045627372 is the crc32 hash of a SolarPanel,
 # hover it to see the documentation!
-#        vvvvvvvvvv  
+#        vvvvvvvvvv
 move r1 -2045627372
 jal test
 move r1 $FF
@@ -65,7 +65,7 @@ interface SessionCbFn {
   (param: Session): void;
 }
 
-class Session {
+class Session extends EventTarget {
   _programs: Map<number, string>;
   _onLoadCallbacks: SessionCbFn[];
   _activeSession: number;
@@ -74,6 +74,7 @@ class Session {
   _activeLine: number;
   private _save_timeout: ReturnType<typeof setTimeout>;
   constructor() {
+    super();
     this._programs = new Map();
     this._save_timeout = null;
     this._onLoadCallbacks = [];
