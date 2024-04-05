@@ -9,19 +9,19 @@ use std::{
     str::FromStr,
 };
 
-trait PrimitiveRepr {}
-impl PrimitiveRepr for u8 {}
-impl PrimitiveRepr for u16 {}
-impl PrimitiveRepr for u32 {}
-impl PrimitiveRepr for u64 {}
-impl PrimitiveRepr for u128 {}
-impl PrimitiveRepr for usize {}
-impl PrimitiveRepr for i8 {}
-impl PrimitiveRepr for i16 {}
-impl PrimitiveRepr for i32 {}
-impl PrimitiveRepr for i64 {}
-impl PrimitiveRepr for i128 {}
-impl PrimitiveRepr for isize {}
+// trait PrimitiveRepr {}
+// impl PrimitiveRepr for u8 {}
+// impl PrimitiveRepr for u16 {}
+// impl PrimitiveRepr for u32 {}
+// impl PrimitiveRepr for u64 {}
+// impl PrimitiveRepr for u128 {}
+// impl PrimitiveRepr for usize {}
+// impl PrimitiveRepr for i8 {}
+// impl PrimitiveRepr for i16 {}
+// impl PrimitiveRepr for i32 {}
+// impl PrimitiveRepr for i64 {}
+// impl PrimitiveRepr for i128 {}
+// impl PrimitiveRepr for isize {}
 
 struct EnumVariant<P>
 where
@@ -328,7 +328,7 @@ fn write_constants() {
 
     writeln!(
         &mut writer,
-        "pub(crate) const CONSTANTS_LOOKUP: phf::Map<&'static str, f64> = {};",
+        "#[allow(clippy::approx_constant)] pub(crate) const CONSTANTS_LOOKUP: phf::Map<&'static str, f64> = {};",
         constants_lookup_map_builder.build()
     )
     .unwrap();

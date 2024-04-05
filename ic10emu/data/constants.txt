@@ -1,7 +1,7 @@
 nan f64::NAN A constant representing 'not a number'. This constants technically provides a 'quiet' NaN, a signal NaN from some instructions will result in an exception and halt execution
 pinf f64::INFINITY A constant representing a positive infinite value
 ninf f64::NEG_INFINITY A constant representing a negative infinite value
-pi 3.14159265358979f64 \nA constant representing the ratio of the circumference of a circle to its diameter, provided in double percision
+pi 3.141592653589793f64 \nA constant representing the ratio of the circumference of a circle to its diameter, provided in double percision
 deg2rad 0.0174532923847437f64 \nDegrees to radians conversion constant
 rad2deg 57.2957801818848f64 \nRadians to degrees conversion constant
 epsilon f64::EPSILON A constant representing the smallest value representable in double precision

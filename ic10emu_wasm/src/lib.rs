@@ -235,9 +235,9 @@ impl DeviceRef {
     }
 
     #[wasm_bindgen(js_name = "step")]
-    pub fn step_ic(&self) -> Result<bool, JsError> {
+    pub fn step_ic(&self, advance_ip_on_err: bool) -> Result<bool, JsError> {
         let id = self.device.borrow().id;
-        Ok(self.vm.borrow().step_ic(id)?)
+        Ok(self.vm.borrow().step_ic(id, advance_ip_on_err)?)
     }
 
     #[wasm_bindgen(js_name = "run")]
@@ -253,9 +253,17 @@ impl DeviceRef {
     }
 
     #[wasm_bindgen(js_name = "setCode")]
+    /// Set program code if it's valid
     pub fn set_code(&self, code: &str) -> Result<bool, JsError> {
         let id = self.device.borrow().id;
         Ok(self.vm.borrow().set_code(id, code)?)
+    }
+
+    #[wasm_bindgen(js_name = "setCodeInvalid")]
+    /// Set program code and translate invalid lines to Nop, collecting errors
+    pub fn set_code_invlaid(&self, code: &str) -> Result<bool, JsError> {
+        let id = self.device.borrow().id;
+        Ok(self.vm.borrow().set_code_invalid(id, code)?)
     }
 
     #[wasm_bindgen(js_name = "setRegister")]
@@ -319,13 +327,20 @@ impl VM {
     }
 
     #[wasm_bindgen(js_name = "setCode")]
+    /// Set program code if it's valid
     pub fn set_code(&self, id: u16, code: &str) -> Result<bool, JsError> {
         Ok(self.vm.borrow().set_code(id, code)?)
     }
 
+    #[wasm_bindgen(js_name = "setCodeInvalid")]
+    /// Set program code and translate invalid lines to Nop, collecting errors
+    pub fn set_code_invalid(&self, id: u16, code: &str) -> Result<bool, JsError> {
+        Ok(self.vm.borrow().set_code_invalid(id, code)?)
+    }
+
     #[wasm_bindgen(js_name = "stepIC")]
-    pub fn step_ic(&self, id: u16) -> Result<bool, JsError> {
-        Ok(self.vm.borrow().step_ic(id)?)
+    pub fn step_ic(&self, id: u16, advance_ip_on_err: bool) -> Result<bool, JsError> {
+        Ok(self.vm.borrow().step_ic(id, advance_ip_on_err)?)
     }
 
     #[wasm_bindgen(js_name = "runIC")]

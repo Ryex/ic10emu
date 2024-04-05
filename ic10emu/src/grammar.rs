@@ -88,7 +88,7 @@ pub mod generated {
 pub use generated::*;
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
 pub struct ParseError {
     pub line: usize,
     pub start: usize,
@@ -147,6 +147,14 @@ pub fn parse(code: &str) -> Result<Vec<Line>, ParseError> {
         .collect()
 }
 
+/// Like `parse` but can return Code::Invalid for some lines
+pub fn parse_with_invlaid(code: &str) -> Vec<Line> {
+    code.lines()
+        .enumerate()
+        .map(|(n, l)| Line::from_str_with_invalid(n, l))
+        .collect()
+}
+
 #[derive(PartialEq, Debug)]
 pub struct Line {
     pub code: Option<Code>,
@@ -168,8 +176,39 @@ impl FromStr for Line {
                 }
             })
             .transpose()?;
-        let comment = parts.next().map(|s| s.parse()).transpose()?;
+        let comment = parts
+            .next()
+            .map(|s| s.parse())
+            .transpose()
+            .expect("infallible");
         Ok(Line { code, comment })
+    }
+}
+
+impl Line {
+    fn from_str_with_invalid(line: usize, s: &str) -> Self {
+        let mut parts = s.splitn(2, '#');
+        let code_part = parts
+            .next()
+            .and_then(|s| {
+                let s = s.trim_end();
+                if s.is_empty() {
+                    None
+                } else {
+                    Some(s.parse::<Code>().map_err(|e| e.offset_line(line)))
+                }
+            })
+            .transpose();
+        let code = match code_part {
+            Ok(c) => c,
+            Err(e) => Some(Code::Invalid(e)),
+        };
+        let comment = parts
+            .next()
+            .map(|s| s.parse())
+            .transpose()
+            .expect("infallible");
+        Line { code, comment }
     }
 }
 
@@ -177,6 +216,7 @@ impl FromStr for Line {
 pub enum Code {
     Instruction(Instruction),
     Label(Label),
+    Invalid(ParseError),
 }
 
 impl FromStr for Code {
@@ -201,7 +241,7 @@ pub struct Comment {
 }
 
 impl FromStr for Comment {
-    type Err = ParseError;
+    type Err = std::convert::Infallible;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         Ok(Comment {
             comment: s.to_owned(),
@@ -280,15 +320,21 @@ pub enum Device {
 }
 
 #[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
+pub struct RegisterSpec {
+    pub indirection: u32,
+    pub target: u32,
+}
+
+#[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
+pub struct DeviceSpec {
+    pub device: Device,
+    pub connection: Option<u32>,
+}
+
+#[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
 pub enum Operand {
-    RegisterSpec {
-        indirection: u32,
-        target: u32,
-    },
-    DeviceSpec {
-        device: Device,
-        connection: Option<u32>,
-    },
+    RegisterSpec(RegisterSpec),
+    DeviceSpec(DeviceSpec),
     Number(Number),
     LogicType(LogicType),
     SlotLogicType(SlotLogicType),
@@ -298,12 +344,17 @@ pub enum Operand {
 }
 
 impl Operand {
-    pub fn get_value(&self, ic: &interpreter::IC) -> Result<f64, interpreter::ICError> {
+    pub fn as_value(
+        &self,
+        ic: &interpreter::IC,
+        inst: InstructionOp,
+        index: u32,
+    ) -> Result<f64, interpreter::ICError> {
         match self.translate_alias(ic) {
-            Operand::RegisterSpec {
+            Operand::RegisterSpec(RegisterSpec {
                 indirection,
                 target,
-            } => ic.get_register(indirection, target),
+            }) => ic.get_register(indirection, target),
             Operand::Number(num) => Ok(num.value()),
             Operand::LogicType(lt) => lt
                 .get_str("value")
@@ -321,17 +372,85 @@ impl Operand {
                 .get_str("value")
                 .map(|val| val.parse::<u8>().unwrap() as f64)
                 .ok_or(interpreter::ICError::TypeValueNotKnown),
-            Operand::Identifier(ident) => ic.get_ident_value(&ident.name),
-            Operand::DeviceSpec { .. } => Err(interpreter::ICError::DeviceNotValue),
+            Operand::Identifier(id) => {
+                Err(interpreter::ICError::UnknownIdentifier(id.name.to_string()))
+            }
+            Operand::DeviceSpec { .. } => Err(interpreter::ICError::IncorrectOperandType {
+                inst,
+                index,
+                desired: "Value".to_owned(),
+            }),
         }
     }
 
-    pub fn get_value_i64(
+    pub fn as_register(
+        &self,
+        ic: &interpreter::IC,
+        inst: InstructionOp,
+        index: u32,
+    ) -> Result<RegisterSpec, interpreter::ICError> {
+        match self.translate_alias(ic) {
+            Operand::RegisterSpec(reg) => Ok(reg),
+            Operand::Identifier(id) => {
+                Err(interpreter::ICError::UnknownIdentifier(id.name.to_string()))
+            }
+            _ => Err(interpreter::ICError::IncorrectOperandType {
+                inst,
+                index,
+                desired: "Register".to_owned(),
+            }),
+        }
+    }
+
+    pub fn as_device(
+        &self,
+        ic: &interpreter::IC,
+        inst: InstructionOp,
+        index: u32,
+    ) -> Result<(Option<u16>, Option<u32>), interpreter::ICError> {
+        match self.translate_alias(ic) {
+            Operand::DeviceSpec(DeviceSpec { device, connection }) => match device {
+                Device::Db => Ok((Some(ic.device), connection)),
+                Device::Numbered(p) => {
+                    let dp = ic
+                        .pins
+                        .get(p as usize)
+                        .ok_or(interpreter::ICError::DeviceIndexOutOfRange(p as f64))
+                        .copied()?;
+                    Ok((dp, connection))
+                }
+                Device::Indirect {
+                    indirection,
+                    target,
+                } => {
+                    let val = ic.get_register(indirection, target)?;
+                    let dp = ic
+                        .pins
+                        .get(val as usize)
+                        .ok_or(interpreter::ICError::DeviceIndexOutOfRange(val))
+                        .copied()?;
+                    Ok((dp, connection))
+                }
+            },
+            Operand::Identifier(id) => {
+                Err(interpreter::ICError::UnknownIdentifier(id.name.to_string()))
+            }
+            _ => Err(interpreter::ICError::IncorrectOperandType {
+                inst,
+                index,
+                desired: "Value".to_owned(),
+            }),
+        }
+    }
+
+    pub fn as_value_i64(
         &self,
         ic: &interpreter::IC,
         signed: bool,
+        inst: InstructionOp,
+        index: u32,
     ) -> Result<i64, interpreter::ICError> {
-        let val = self.get_value(ic)?;
+        let val = self.as_value(ic, inst, index)?;
         if val < -9.223_372_036_854_776E18 {
             Err(interpreter::ICError::ShiftUnderflowI64)
         } else if val <= 9.223_372_036_854_776E18 {
@@ -341,8 +460,13 @@ impl Operand {
         }
     }
 
-    pub fn get_value_i32(&self, ic: &interpreter::IC) -> Result<i32, interpreter::ICError> {
-        let val = self.get_value(ic)?;
+    pub fn as_value_i32(
+        &self,
+        ic: &interpreter::IC,
+        inst: InstructionOp,
+        index: u32,
+    ) -> Result<i32, interpreter::ICError> {
+        let val = self.as_value(ic, inst, index)?;
         if val < -2147483648.0 {
             Err(interpreter::ICError::ShiftUnderflowI32)
         } else if val <= 2147483647.0 {
@@ -359,45 +483,13 @@ impl Operand {
                     alias.clone()
                 } else if let Some(define) = ic.defines.get(&id.name) {
                     Operand::Number(Number::Float(*define))
+                } else if let Some(label) = ic.program.labels.get(&id.name) {
+                    Operand::Number(Number::Float(*label as f64))
                 } else {
                     self.clone()
                 }
-            },
+            }
             _ => self.clone(),
-        }
-    }
-
-
-    pub fn get_device_id(
-        &self,
-        ic: &interpreter::IC,
-    ) -> Result<(Option<u16>, Option<u32>), interpreter::ICError> {
-        match &self {
-            Operand::DeviceSpec { device, connection } => match device {
-                Device::Db => Ok((Some(ic.device), *connection)),
-                Device::Numbered(p) => {
-                    let dp = ic
-                        .pins
-                        .get(*p as usize)
-                        .ok_or(interpreter::ICError::DeviceIndexOutOfRange(*p as f64))
-                        .copied()?;
-                    Ok((dp, *connection))
-                }
-                Device::Indirect {
-                    indirection,
-                    target,
-                } => {
-                    let val = ic.get_register(*indirection, *target)?;
-                    let dp = ic
-                        .pins
-                        .get(val as usize)
-                        .ok_or(interpreter::ICError::DeviceIndexOutOfRange(val))
-                        .copied()?;
-                    Ok((dp, *connection))
-                }
-            },
-            Operand::Identifier(id) => ic.get_ident_device_id(&id.name),
-            _ => Err(interpreter::ICError::ValueNotDevice),
         }
     }
 }
@@ -408,14 +500,14 @@ impl FromStr for Operand {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let chars = s.chars().collect::<Vec<_>>();
         match &chars[..] {
-            ['s', 'p'] => Ok(Operand::RegisterSpec {
+            ['s', 'p'] => Ok(Operand::RegisterSpec(RegisterSpec {
                 indirection: 0,
                 target: 16,
-            }),
-            ['r', 'a'] => Ok(Operand::RegisterSpec {
+            })),
+            ['r', 'a'] => Ok(Operand::RegisterSpec(RegisterSpec {
                 indirection: 0,
                 target: 17,
-            }),
+            })),
             ['r', rest @ ..] => {
                 let mut rest_iter = rest.iter();
                 let indirection = rest_iter.take_while_ref(|c| *c == &'r').count();
@@ -426,10 +518,10 @@ impl FromStr for Operand {
                     let target = target_str.parse::<u32>().ok();
                     if let Some(target) = target {
                         if rest_iter.next().is_none() {
-                            return Ok(Operand::RegisterSpec {
+                            return Ok(Operand::RegisterSpec(RegisterSpec {
                                 indirection: indirection as u32,
                                 target,
-                            });
+                            }));
                         } else {
                             return Err(ParseError {
                                 line: 0,
@@ -443,16 +535,16 @@ impl FromStr for Operand {
                 Ok(Operand::Identifier(s.parse::<Identifier>()?))
             }
             ['d', rest @ ..] => match rest {
-                ['b'] => Ok(Operand::DeviceSpec {
+                ['b'] => Ok(Operand::DeviceSpec(DeviceSpec {
                     device: Device::Db,
                     connection: None,
-                }),
+                })),
                 ['b', ':', chan @ ..] => {
                     if chan.iter().all(|c| c.is_ascii_digit()) {
-                        Ok(Operand::DeviceSpec {
+                        Ok(Operand::DeviceSpec(DeviceSpec {
                             device: Device::Db,
                             connection: Some(String::from_iter(chan).parse().unwrap()),
-                        })
+                        }))
                     } else {
                         Err(ParseError {
                             line: 0,
@@ -501,13 +593,13 @@ impl FromStr for Operand {
                                 }
                             }?;
                             if rest_iter.next().is_none() {
-                                Ok(Operand::DeviceSpec {
+                                Ok(Operand::DeviceSpec(DeviceSpec {
                                     device: Device::Indirect {
                                         indirection: indirection as u32,
                                         target,
                                     },
                                     connection,
-                                })
+                                }))
                             } else {
                                 Err(ParseError {
                                     line: 0,
@@ -552,10 +644,10 @@ impl FromStr for Operand {
                     }?;
                     if let Some(target) = target {
                         if rest_iter.next().is_none() {
-                            Ok(Operand::DeviceSpec {
+                            Ok(Operand::DeviceSpec(DeviceSpec {
                                 device: Device::Numbered(target),
                                 connection,
-                            })
+                            }))
                         } else {
                             Err(ParseError {
                                 line: 0,
@@ -675,12 +767,6 @@ impl FromStr for Operand {
     }
 }
 
-// #[derive(PartialEq, Debug)]
-// pub struct LogicType {
-//     pub name: String,
-//     pub value: f64,
-// }
-
 #[derive(PartialEq, Eq, Debug)]
 pub struct Label {
     pub id: Identifier,
@@ -712,7 +798,6 @@ impl FromStr for Label {
 
 #[derive(PartialEq, Eq, Debug, Clone, Serialize, Deserialize)]
 pub struct Identifier {
-    // #[rust_sitter::leaf(pattern = r"[a-zA-Z_.][\w\d.]*", transform = |id| id.to_string())]
     pub name: String,
 }
 
@@ -803,10 +888,10 @@ mod tests {
                 code: Some(Code::Instruction(Instruction {
                     instruction: InstructionOp::S,
                     operands: vec![
-                        Operand::DeviceSpec {
+                        Operand::DeviceSpec(DeviceSpec {
                             device: Device::Numbered(0),
                             connection: None,
-                        },
+                        }),
                         Operand::LogicType(LogicType::Setting),
                         Operand::Number(Number::Float(0.0)),
                     ],
@@ -824,10 +909,10 @@ mod tests {
                 code: Some(Code::Instruction(Instruction {
                     instruction: InstructionOp::Move,
                     operands: vec![
-                        Operand::RegisterSpec {
+                        Operand::RegisterSpec(RegisterSpec {
                             indirection: 0,
                             target: 0,
-                        },
+                        }),
                         Operand::Number(Number::Hexadecimal(4095.0)),
                     ],
                 },),),
@@ -898,10 +983,10 @@ mod tests {
                             Operand::Identifier(Identifier {
                                 name: "a_var".to_owned(),
                             },),
-                            Operand::RegisterSpec {
+                            Operand::RegisterSpec(RegisterSpec {
                                 indirection: 0,
                                 target: 0,
-                            },
+                            }),
                         ],
                     },),),
                     comment: None,
@@ -913,10 +998,10 @@ mod tests {
                             Operand::Identifier(Identifier {
                                 name: "a_device".to_owned(),
                             },),
-                            Operand::DeviceSpec {
+                            Operand::DeviceSpec(DeviceSpec {
                                 device: Device::Numbered(0),
                                 connection: None,
-                            },
+                            }),
                         ],
                     },),),
                     comment: None,
@@ -925,10 +1010,10 @@ mod tests {
                     code: Some(Code::Instruction(Instruction {
                         instruction: InstructionOp::S,
                         operands: vec![
-                            Operand::DeviceSpec {
+                            Operand::DeviceSpec(DeviceSpec {
                                 device: Device::Numbered(0),
                                 connection: None,
-                            },
+                            }),
                             Operand::Number(Number::Float(12.0)),
                             Operand::Number(Number::Float(0.0)),
                         ],
@@ -939,10 +1024,10 @@ mod tests {
                     code: Some(Code::Instruction(Instruction {
                         instruction: InstructionOp::Move,
                         operands: vec![
-                            Operand::RegisterSpec {
+                            Operand::RegisterSpec(RegisterSpec {
                                 indirection: 0,
                                 target: 2,
-                            },
+                            }),
                             Operand::Identifier(Identifier {
                                 name: "LogicType.Temperature".to_owned()
                             }),
@@ -954,10 +1039,10 @@ mod tests {
                     code: Some(Code::Instruction(Instruction {
                         instruction: InstructionOp::Move,
                         operands: vec![
-                            Operand::RegisterSpec {
+                            Operand::RegisterSpec(RegisterSpec {
                                 indirection: 0,
                                 target: 3,
-                            },
+                            }),
                             Operand::Number(Number::Constant(f64::INFINITY)),
                         ],
                     },),),
@@ -979,17 +1064,17 @@ mod tests {
                     code: Some(Code::Instruction(Instruction {
                         instruction: InstructionOp::L,
                         operands: vec![
-                            Operand::RegisterSpec {
+                            Operand::RegisterSpec(RegisterSpec {
                                 indirection: 0,
                                 target: 1,
-                            },
-                            Operand::DeviceSpec {
+                            }),
+                            Operand::DeviceSpec(DeviceSpec {
                                 device: Device::Indirect {
                                     indirection: 0,
                                     target: 15,
                                 },
                                 connection: None,
-                            },
+                            }),
                             Operand::LogicType(LogicType::RatioWater),
                         ],
                     },),),
@@ -999,10 +1084,10 @@ mod tests {
                     code: Some(Code::Instruction(Instruction {
                         instruction: InstructionOp::Move,
                         operands: vec![
-                            Operand::RegisterSpec {
+                            Operand::RegisterSpec(RegisterSpec {
                                 indirection: 0,
                                 target: 0,
-                            },
+                            }),
                             Operand::Number(Number::String("AccessCardBlack".to_owned()),),
                         ],
                     },),),
@@ -1012,10 +1097,10 @@ mod tests {
                     code: Some(Code::Instruction(Instruction {
                         instruction: InstructionOp::Move,
                         operands: vec![
-                            Operand::RegisterSpec {
+                            Operand::RegisterSpec(RegisterSpec {
                                 indirection: 0,
                                 target: 1,
-                            },
+                            }),
                             Operand::Number(Number::Float(-2045627372.0)),
                         ],
                     },),),
@@ -1025,10 +1110,10 @@ mod tests {
                     code: Some(Code::Instruction(Instruction {
                         instruction: InstructionOp::Move,
                         operands: vec![
-                            Operand::RegisterSpec {
+                            Operand::RegisterSpec(RegisterSpec {
                                 indirection: 0,
                                 target: 1,
-                            },
+                            }),
                             Operand::Number(Number::Hexadecimal(255.0)),
                         ],
                     },),),
@@ -1038,10 +1123,10 @@ mod tests {
                     code: Some(Code::Instruction(Instruction {
                         instruction: InstructionOp::Move,
                         operands: vec![
-                            Operand::RegisterSpec {
+                            Operand::RegisterSpec(RegisterSpec {
                                 indirection: 0,
                                 target: 1,
-                            },
+                            }),
                             Operand::Number(Number::Binary(8.0)),
                         ],
                     },),),
@@ -1051,10 +1136,10 @@ mod tests {
                     code: Some(Code::Instruction(Instruction {
                         instruction: InstructionOp::Move,
                         operands: vec![
-                            Operand::RegisterSpec {
+                            Operand::RegisterSpec(RegisterSpec {
                                 indirection: 1,
                                 target: 1,
-                            },
+                            }),
                             Operand::Number(Number::Float(0.0)),
                         ],
                     },),),

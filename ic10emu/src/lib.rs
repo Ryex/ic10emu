@@ -515,6 +515,7 @@ impl VM {
         }
     }
 
+    /// Set program code if it's valid
     pub fn set_code(&self, id: u16, code: &str) -> Result<bool, VMError> {
         let device = self
             .devices
@@ -534,7 +535,27 @@ impl VM {
         Ok(true)
     }
 
-    pub fn step_ic(&self, id: u16) -> Result<bool, VMError> {
+    /// Set program code and translate invalid lines to Nop, collecting errors
+    pub fn set_code_invalid(&self, id: u16, code: &str) -> Result<bool, VMError> {
+        let device = self
+            .devices
+            .get(&id)
+            .ok_or(VMError::UnknownId(id))?
+            .borrow();
+        let ic_id = *device.ic.as_ref().ok_or(VMError::NoIC(id))?;
+        let mut ic = self
+            .ics
+            .get(&ic_id)
+            .ok_or(VMError::UnknownIcId(ic_id))?
+            .borrow_mut();
+        let new_prog = interpreter::Program::from_code_with_invalid(code);
+        ic.program = new_prog;
+        ic.ip = 0;
+        ic.code = code.to_string();
+        Ok(true)
+    }
+
+    pub fn step_ic(&self, id: u16, advance_ip_on_err: bool) -> Result<bool, VMError> {
         let device = self.devices.get(&id).ok_or(VMError::UnknownId(id))?.clone();
         let ic_id = *device.borrow().ic.as_ref().ok_or(VMError::NoIC(id))?;
         let ic = self
@@ -543,7 +564,7 @@ impl VM {
             .ok_or(VMError::UnknownIcId(ic_id))?
             .clone();
         ic.borrow_mut().ic = 0;
-        let result = ic.borrow_mut().step(self)?;
+        let result = ic.borrow_mut().step(self, advance_ip_on_err)?;
         Ok(result)
     }
 
@@ -558,7 +579,7 @@ impl VM {
             .clone();
         ic.borrow_mut().ic = 0;
         for _i in 0..128 {
-            if let Err(err) = ic.borrow_mut().step(self) {
+            if let Err(err) = ic.borrow_mut().step(self, ignore_errors) {
                 if !ignore_errors {
                     return Err(err.into());
                 }
