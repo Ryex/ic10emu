@@ -290,6 +290,17 @@ impl FromStr for Instruction {
     }
 }
 
+impl Display for Instruction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let i = self.instruction.to_string().to_lowercase();
+        write!(f, "{}", i)?;
+        for operand in &self.operands {
+            write!(f, " {}", operand)?;
+        }
+        Ok(())
+    }
+}
+
 fn get_operand_tokens<'a>(
     s: &'a str,
     tokens_iter: SplitConsecutiveWithIndices<'a>,
@@ -767,6 +778,88 @@ impl FromStr for Operand {
     }
 }
 
+impl Display for Operand {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Operand::RegisterSpec(RegisterSpec {
+                indirection,
+                target,
+            }) => {
+                for _ in 0..*indirection {
+                    write!(f, "r")?;
+                }
+                if *indirection == 0 {
+                    match target {
+                        17 => write!(f, "ra"),
+                        16 => write!(f, "sp"),
+                        _ => write!(f, "r{}", target),
+                    }
+                } else {
+                    write!(f, "r{}", target)
+                }
+            }
+            Operand::DeviceSpec(DeviceSpec { device, connection }) => {
+                match device {
+                    Device::Db => write!(f, "db"),
+                    Device::Numbered(number) => write!(f, "d{}", number),
+                    Device::Indirect {
+                        indirection,
+                        target,
+                    } => {
+                        write!(f, "d")?;
+                        for _ in 0..=*indirection {
+                            write!(f, "r")?;
+                        }
+                        write!(f, "{}", target)
+                    }
+                }?;
+                if let Some(connection) = connection {
+                    write!(f, ":{connection}")?;
+                }
+                Ok(())
+            }
+            Operand::Number(number) => match number {
+                Number::Float(_) => Display::fmt(&number.value(), f),
+                Number::Hexadecimal(n) => {
+                    // FIXME: precision loss here, maybe we should track the source i64?
+                    write!(f, "${:x}", *n as i64)
+                }
+                Number::Binary(n) => {
+                    // FIXME: precision loss here, maybe we should track the source i64?
+                    write!(f, "%{:b}", *n as i64)
+                }
+                Number::Constant(c) => {
+                    dbg!(c);
+                    let (name, _) = CONSTANTS_LOOKUP
+                        .entries()
+                        .find(|(_, &value)| {
+                            *c == value
+                                || (c.is_nan() && value.is_nan())
+                                || (c.is_infinite()
+                                    && value.is_infinite()
+                                    && c.is_sign_positive() == value.is_sign_positive())
+                        })
+                        .expect("constant should be in lookup table");
+                    Display::fmt(name, f)
+                }
+                Number::String(s) => {
+                    write!(f, r#"HASH("{s}")"#)
+                }
+
+                Number::Enum(_) => {
+                    // TODO: handle better
+                    Display::fmt(&number.value(), f)
+                }
+            },
+            Operand::LogicType(logic) => Display::fmt(logic, f),
+            Operand::SlotLogicType(slot_logic) => Display::fmt(slot_logic, f),
+            Operand::BatchMode(batch_mode) => Display::fmt(batch_mode, f),
+            Operand::ReagentMode(reagent_mode) => Display::fmt(reagent_mode, f),
+            Operand::Identifier(ident) => Display::fmt(&ident, f),
+        }
+    }
+}
+
 #[derive(PartialEq, Eq, Debug)]
 pub struct Label {
     pub id: Identifier,
@@ -837,6 +930,12 @@ impl FromStr for Identifier {
                 msg: "Empty Identifier".to_owned(),
             })
         }
+    }
+}
+
+impl Display for Identifier {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        Display::fmt(&self.name, f)
     }
 }
 
@@ -1163,5 +1262,49 @@ mod tests {
                 },
             ],
         );
+    }
+
+    #[test]
+    fn test_operand_display() {
+        #[track_caller]
+        fn test_roundtrip(s: &str) {
+            let o: Operand = s.parse().expect("test string should parse with FromStr");
+            assert_eq!(o.to_string(), s);
+        }
+        test_roundtrip("r0");
+        test_roundtrip("r15");
+        test_roundtrip("rr4");
+        test_roundtrip("rrrr4");
+
+        test_roundtrip("ra");
+        test_roundtrip("sp");
+        assert_eq!("r16".parse::<Operand>().unwrap().to_string(), "sp");
+        assert_eq!("r17".parse::<Operand>().unwrap().to_string(), "ra");
+        // Not registers
+        test_roundtrip("rsp");
+        test_roundtrip("rra");
+        // Indirect only works through number names
+        test_roundtrip("rr16");
+        test_roundtrip("rr17");
+
+        test_roundtrip("Identifier");
+        test_roundtrip("db");
+        test_roundtrip("d0");
+        test_roundtrip("drr0");
+        test_roundtrip("d0:1");
+        test_roundtrip("42");
+        test_roundtrip("1.2345");
+        test_roundtrip("-1.2345");
+        test_roundtrip(&LogicType::Pressure.to_string());
+        test_roundtrip(&SlotLogicType::Occupied.to_string());
+        test_roundtrip(&BatchMode::Average.to_string());
+        test_roundtrip(&ReagentMode::Recipe.to_string());
+        test_roundtrip("pi");
+        test_roundtrip("pinf");
+        test_roundtrip("ninf");
+        test_roundtrip("nan");
+        test_roundtrip(r#"HASH("StructureFurnace")"#);
+        test_roundtrip("$abcd");
+        test_roundtrip("%1001");
     }
 }
