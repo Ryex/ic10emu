@@ -725,10 +725,8 @@ impl VM {
         let samples = self
             .batch_device(source, prefab, None)
             .map(|device| device.borrow_mut().get_field(typ))
-            .collect::<Result<Vec<_>, ICError>>()?
-            .into_iter()
-            .filter(|val| !val.is_nan())
-            .collect_vec();
+            .filter_ok(|val| !val.is_nan())
+            .collect::<Result<Vec<_>, ICError>>()?;
         Ok(mode.apply(&samples))
     }
 
@@ -743,10 +741,8 @@ impl VM {
         let samples = self
             .batch_device(source, prefab, Some(name))
             .map(|device| device.borrow_mut().get_field(typ))
-            .collect::<Result<Vec<_>, ICError>>()?
-            .into_iter()
-            .filter(|val| !val.is_nan())
-            .collect_vec();
+            .filter_ok(|val| !val.is_nan())
+            .collect::<Result<Vec<_>, ICError>>()?;
         Ok(mode.apply(&samples))
     }
 
@@ -762,10 +758,8 @@ impl VM {
         let samples = self
             .batch_device(source, prefab, Some(name))
             .map(|device| device.borrow().get_slot_field(index, typ))
-            .collect::<Result<Vec<_>, ICError>>()?
-            .into_iter()
-            .filter(|val| !val.is_nan())
-            .collect_vec();
+            .filter_ok(|val| !val.is_nan())
+            .collect::<Result<Vec<_>, ICError>>()?;
         Ok(mode.apply(&samples))
     }
 
@@ -780,10 +774,8 @@ impl VM {
         let samples = self
             .batch_device(source, prefab, None)
             .map(|device| device.borrow().get_slot_field(index, typ))
-            .collect::<Result<Vec<_>, ICError>>()?
-            .into_iter()
-            .filter(|val| !val.is_nan())
-            .collect_vec();
+            .filter_ok(|val| !val.is_nan())
+            .collect::<Result<Vec<_>, ICError>>()?;
         Ok(mode.apply(&samples))
     }
 }
