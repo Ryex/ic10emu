@@ -611,6 +611,26 @@ impl VM {
         self.devices.get(&id).cloned()
     }
 
+    pub fn batch_device(
+        &self,
+        source: u16,
+        prefab_hash: f64,
+        name: Option<f64>,
+    ) -> impl Iterator<Item = &Rc<RefCell<Device>>> {
+        self.devices
+            .iter()
+            .filter(move |(id, device)| {
+                device
+                    .borrow()
+                    .fields
+                    .get(&LogicType::PrefabHash)
+                    .is_some_and(|f| f.value == prefab_hash)
+                    && (name.is_none() || name == device.borrow().name_hash)
+                    && self.devices_on_same_network(&[source, **id])
+            })
+            .map(|(_, d)| d)
+    }
+
     pub fn get_device_same_network(&self, source: u16, other: u16) -> Option<Rc<RefCell<Device>>> {
         if self.devices_on_same_network(&[source, other]) {
             self.get_device(other)
@@ -664,25 +684,8 @@ impl VM {
         typ: LogicType,
         val: f64,
     ) -> Result<(), ICError> {
-        let networks = &self.networks;
-        self.devices
-            .iter()
-            .map(|(id, device)| {
-                if device
-                    .borrow()
-                    .fields
-                    .get(&LogicType::PrefabHash)
-                    .map(|f| f.value)
-                    == Some(prefab)
-                    && networks
-                        .iter()
-                        .any(|(_net_id, net)| net.borrow().contains(&[source, *id]))
-                {
-                    device.clone().borrow_mut().set_field(typ, val)
-                } else {
-                    Ok(())
-                }
-            })
+        self.batch_device(source, prefab, None)
+            .map(|device| device.borrow_mut().set_field(typ, val))
             .try_collect()
     }
 
@@ -694,25 +697,8 @@ impl VM {
         typ: SlotLogicType,
         val: f64,
     ) -> Result<(), ICError> {
-        let networks = &self.networks;
-        self.devices
-            .iter()
-            .map(|(id, device)| {
-                if device
-                    .borrow()
-                    .fields
-                    .get(&LogicType::PrefabHash)
-                    .map(|f| f.value)
-                    == Some(prefab)
-                    && networks
-                        .iter()
-                        .any(|(_net_id, net)| net.borrow().contains(&[source, *id]))
-                {
-                    device.borrow_mut().set_slot_field(index, typ, val)
-                } else {
-                    Ok(())
-                }
-            })
+        self.batch_device(source, prefab, None)
+            .map(|device| device.borrow_mut().set_slot_field(index, typ, val))
             .try_collect()
     }
 
@@ -724,26 +710,8 @@ impl VM {
         typ: LogicType,
         val: f64,
     ) -> Result<(), ICError> {
-        let networks = &self.networks;
-        self.devices
-            .iter()
-            .map(|(id, device)| {
-                if device
-                    .borrow()
-                    .fields
-                    .get(&LogicType::PrefabHash)
-                    .map(|f| f.value)
-                    == Some(prefab)
-                    && Some(name) == device.borrow().name_hash
-                    && networks
-                        .iter()
-                        .any(|(_net_id, net)| net.borrow().contains(&[source, *id]))
-                {
-                    device.borrow_mut().set_field(typ, val)
-                } else {
-                    Ok(())
-                }
-            })
+        self.batch_device(source, prefab, Some(name))
+            .map(|device| device.borrow_mut().set_field(typ, val))
             .try_collect()
     }
 
@@ -754,42 +722,14 @@ impl VM {
         typ: LogicType,
         mode: BatchMode,
     ) -> Result<f64, ICError> {
-        let networks = &self.networks;
         let samples = self
-            .devices
-            .iter()
-            .map(|(id, device)| {
-                if device
-                    .borrow()
-                    .fields
-                    .get(&LogicType::PrefabHash)
-                    .map(|f| f.value)
-                    == Some(prefab)
-                    && networks
-                        .iter()
-                        .any(|(_net_id, net)| net.borrow().contains(&[source, *id]))
-                {
-                    device.borrow_mut().get_field(typ).map(Some)
-                } else {
-                    Ok(None)
-                }
-            })
+            .batch_device(source, prefab, None)
+            .map(|device| device.borrow_mut().get_field(typ))
             .collect::<Result<Vec<_>, ICError>>()?
             .into_iter()
-            .filter_map(|val| val.and_then(|val| if val.is_nan() { None } else { Some(val) }))
+            .filter(|val| !val.is_nan())
             .collect_vec();
-        match mode {
-            BatchMode::Sum => Ok(samples.iter().sum()),
-            BatchMode::Average => Ok(samples.iter().copied().sum::<f64>() / samples.len() as f64),
-            BatchMode::Minimum => Ok(*samples
-                .iter()
-                .min_by(|a, b| a.partial_cmp(b).unwrap())
-                .unwrap_or(&0.0)),
-            BatchMode::Maximum => Ok(*samples
-                .iter()
-                .max_by(|a, b| a.partial_cmp(b).unwrap())
-                .unwrap_or(&0.0)),
-        }
+        Ok(mode.apply(&samples))
     }
 
     pub fn get_batch_name_device_field(
@@ -800,43 +740,14 @@ impl VM {
         typ: LogicType,
         mode: BatchMode,
     ) -> Result<f64, ICError> {
-        let networks = &self.networks;
         let samples = self
-            .devices
-            .iter()
-            .map(|(id, device)| {
-                if device
-                    .borrow()
-                    .fields
-                    .get(&LogicType::PrefabHash)
-                    .map(|f| f.value)
-                    == Some(prefab)
-                    && Some(name) == device.borrow().name_hash
-                    && networks
-                        .iter()
-                        .any(|(_net_id, net)| net.borrow().contains(&[source, *id]))
-                {
-                    device.borrow().get_field(typ).map(Some)
-                } else {
-                    Ok(None)
-                }
-            })
+            .batch_device(source, prefab, Some(name))
+            .map(|device| device.borrow_mut().get_field(typ))
             .collect::<Result<Vec<_>, ICError>>()?
             .into_iter()
-            .filter_map(|val| val.and_then(|val| if val.is_nan() { None } else { Some(val) }))
+            .filter(|val| !val.is_nan())
             .collect_vec();
-        match mode {
-            BatchMode::Sum => Ok(samples.iter().sum()),
-            BatchMode::Average => Ok(samples.iter().copied().sum::<f64>() / samples.len() as f64),
-            BatchMode::Minimum => Ok(*samples
-                .iter()
-                .min_by(|a, b| a.partial_cmp(b).unwrap())
-                .unwrap_or(&0.0)),
-            BatchMode::Maximum => Ok(*samples
-                .iter()
-                .max_by(|a, b| a.partial_cmp(b).unwrap())
-                .unwrap_or(&0.0)),
-        }
+        Ok(mode.apply(&samples))
     }
 
     pub fn get_batch_name_device_slot_field(
@@ -848,43 +759,14 @@ impl VM {
         typ: SlotLogicType,
         mode: BatchMode,
     ) -> Result<f64, ICError> {
-        let networks = &self.networks;
         let samples = self
-            .devices
-            .iter()
-            .map(|(id, device)| {
-                if device
-                    .borrow()
-                    .fields
-                    .get(&LogicType::PrefabHash)
-                    .map(|f| f.value)
-                    == Some(prefab)
-                    && Some(name) == device.borrow().name_hash
-                    && networks
-                        .iter()
-                        .any(|(_net_id, net)| net.borrow().contains(&[source, *id]))
-                {
-                    device.borrow().get_slot_field(index, typ).map(Some)
-                } else {
-                    Ok(None)
-                }
-            })
+            .batch_device(source, prefab, Some(name))
+            .map(|device| device.borrow().get_slot_field(index, typ))
             .collect::<Result<Vec<_>, ICError>>()?
             .into_iter()
-            .filter_map(|val| val.and_then(|val| if val.is_nan() { None } else { Some(val) }))
+            .filter(|val| !val.is_nan())
             .collect_vec();
-        match mode {
-            BatchMode::Sum => Ok(samples.iter().sum()),
-            BatchMode::Average => Ok(samples.iter().copied().sum::<f64>() / samples.len() as f64),
-            BatchMode::Minimum => Ok(*samples
-                .iter()
-                .min_by(|a, b| a.partial_cmp(b).unwrap())
-                .unwrap_or(&0.0)),
-            BatchMode::Maximum => Ok(*samples
-                .iter()
-                .max_by(|a, b| a.partial_cmp(b).unwrap())
-                .unwrap_or(&0.0)),
-        }
+        Ok(mode.apply(&samples))
     }
 
     pub fn get_batch_device_slot_field(
@@ -895,41 +777,30 @@ impl VM {
         typ: SlotLogicType,
         mode: BatchMode,
     ) -> Result<f64, ICError> {
-        let networks = &self.networks;
         let samples = self
-            .devices
-            .iter()
-            .map(|(id, device)| {
-                if device
-                    .borrow()
-                    .fields
-                    .get(&LogicType::PrefabHash)
-                    .map(|f| f.value)
-                    == Some(prefab)
-                    && networks
-                        .iter()
-                        .any(|(_net_id, net)| net.borrow().contains(&[source, *id]))
-                {
-                    device.borrow().get_slot_field(index, typ).map(Some)
-                } else {
-                    Ok(None)
-                }
-            })
+            .batch_device(source, prefab, None)
+            .map(|device| device.borrow().get_slot_field(index, typ))
             .collect::<Result<Vec<_>, ICError>>()?
             .into_iter()
-            .filter_map(|val| val.and_then(|val| if val.is_nan() { None } else { Some(val) }))
+            .filter(|val| !val.is_nan())
             .collect_vec();
-        match mode {
-            BatchMode::Sum => Ok(samples.iter().sum()),
-            BatchMode::Average => Ok(samples.iter().copied().sum::<f64>() / samples.len() as f64),
-            BatchMode::Minimum => Ok(*samples
+        Ok(mode.apply(&samples))
+    }
+}
+
+impl BatchMode {
+    pub fn apply(&self, samples: &[f64]) -> f64 {
+        match self {
+            BatchMode::Sum => samples.iter().sum(),
+            BatchMode::Average => samples.iter().copied().sum::<f64>() / samples.len() as f64,
+            BatchMode::Minimum => *samples
                 .iter()
                 .min_by(|a, b| a.partial_cmp(b).unwrap())
-                .unwrap_or(&0.0)),
-            BatchMode::Maximum => Ok(*samples
+                .unwrap_or(&0.0),
+            BatchMode::Maximum => *samples
                 .iter()
                 .max_by(|a, b| a.partial_cmp(b).unwrap())
-                .unwrap_or(&0.0)),
+                .unwrap_or(&0.0),
         }
     }
 }
