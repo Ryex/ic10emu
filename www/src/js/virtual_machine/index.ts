@@ -112,7 +112,7 @@ class VirtualMachine {
         const ic = this.activeIC;
         if (ic) {
             try {
-                ic.step();
+                ic.step(false);
             } catch (e) {
                 console.log(e);
             }
