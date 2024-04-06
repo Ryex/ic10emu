@@ -60,10 +60,6 @@ j ra
 
 `;
 
-interface CustomEvent extends Event {
-  detail: string
-}
-
 export class Session extends EventTarget {
   _programs: Map<number, string>;
   _activeSession: number;
@@ -142,8 +138,8 @@ export class Session extends EventTarget {
     if (this._save_timeout) clearTimeout(this._save_timeout);
     this._save_timeout = setTimeout(() => {
       this.saveToFragment();
-      if (window.App.vm) {
-        window.App.vm.updateCode();
+      if (window.App!.vm) {
+        window.App!.vm.updateCode();
       }
       this._save_timeout = undefined;
     }, 1000);

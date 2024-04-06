@@ -7,7 +7,6 @@ import { LanguageProvider } from "ace-linters/types/language-provider";
 import { IC10EditorUI } from "./ui";
 import { Range } from "ace-builds";
 
-import { App } from "../index";
 import { Session } from "../session";
 
 // import { Mode as TextMode } from 'ace-code/src/mode/text';
@@ -341,7 +340,6 @@ export class IC10Editor extends BaseElement {
 
     // this.ui = new IC10EditorUI(this);
 
-    const that = this;
   }
 
   protected render() {
@@ -427,7 +425,7 @@ export class IC10Editor extends BaseElement {
 
     this.initializeEditor();
 
-    App.session.onLoad(((e: CustomEvent) => {
+    window.App!.session.onLoad(((e: CustomEvent) => {
       const session = e.detail;
       const updated_ids: number[] = [];
       for (const [id, _] of session.programs) {
@@ -441,9 +439,9 @@ export class IC10Editor extends BaseElement {
         }
       }
     }) as EventListener);
-    App.session.loadFromFragment();
+    window.App!.session.loadFromFragment();
 
-    App.session.onActiveLine(((e: CustomEvent) => {
+    window.App!.session.onActiveLine(((e: CustomEvent) => {
       const session = e.detail;
       for (const id of session.programs.keys()) {
         const active_line = session.getActiveLine(id);

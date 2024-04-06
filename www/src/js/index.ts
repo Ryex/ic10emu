@@ -3,27 +3,6 @@ import { Session } from "./session";
 import { VirtualMachine } from "./virtual_machine";
 import { docReady, openFile, saveFile } from "./utils";
 // import { makeRequest } from "./utils";
-declare global {
-  interface Window {
-    App: App;
-  }
-}
-
-type App = {
-  editorSettings: { fontSize: number; relativeLineNumbers: boolean };
-  editor: IC10Editor;
-  vm: VirtualMachine;
-  session: Session;
-};
-
-export const App: App = {
-  editor: null,
-  vm: null,
-  session: new Session(),
-  editorSettings: { fontSize: 16, relativeLineNumbers: false },
-};
-
-window.App = App;
 
 // const dbPromise = makeRequest({ method: "GET", url: "/data/database.json"});
 // const dbPromise = fetch("/data/database.json").then(resp => resp.json());

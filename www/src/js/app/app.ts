@@ -1,11 +1,16 @@
 import { HTMLTemplateResult, html, css, CSSResultGroup } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { customElement, property, query } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "../components";
 import "./nav.ts";
 
 import "@shoelace-style/shoelace/dist/components/split-panel/split-panel.js";
 
 import "../editor";
+import { IC10Editor } from "../editor";
+import { Session } from "../session";
+import { VirtualMachine } from "../virtual_machine";
+
+
 
 @customElement("ic10emu-app")
 export class App extends BaseElement {
@@ -34,8 +39,21 @@ export class App extends BaseElement {
     `,
   ];
 
+  editorSettings: { fontSize: number; relativeLineNumbers: boolean };
+
+  get editor() {
+    return this.renderRoot.querySelector('ace-ic10') as IC10Editor;
+  }
+
+  vm!: VirtualMachine;
+  session!: Session;
+
   constructor() {
     super();
+    window.App = this;
+    this.session = new Session();
+    this.vm = new VirtualMachine();
+
   }
 
   protected render(): HTMLTemplateResult {
@@ -57,3 +75,10 @@ export class App extends BaseElement {
     `;
   }
 }
+
+declare global {
+  interface Window {
+    App?: App;
+  }
+}
+
