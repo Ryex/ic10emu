@@ -6,6 +6,7 @@ import "@shoelace-style/shoelace/dist/components/menu/menu.js";
 import "@shoelace-style/shoelace/dist/components/divider/divider.js";
 import "@shoelace-style/shoelace/dist/components/menu-item/menu-item.js";
 import "@shoelace-style/shoelace/dist/components/dropdown/dropdown.js";
+import SlMenuItem from "@shoelace-style/shoelace/dist/components/menu-item/menu-item.js";
 
 @customElement("app-nav")
 export class Nav extends BaseElement {
@@ -100,15 +101,15 @@ export class Nav extends BaseElement {
               label="Main Menu"
             ></sl-icon-button>
 
-            <sl-menu class="menu">
+            <sl-menu class="menu" @sl-select=${this._menuClickHandler}>
               <sl-menu-item value="share">Share</sl-menu-item>
               <sl-menu-item value="openFile">Open File</sl-menu-item>
               <sl-menu-item value="saveAs">Save As</sl-menu-item>
-              <sl-devider></sl-devider>
+              <sl-divider></sl-divider>
               <sl-menu-item value="editorSettings"
                 >Editor Settings</sl-menu-item
               >
-              <sl-devider></sl-devider>
+              <sl-divider></sl-divider>
               <sl-menu-item value="keyboardShortcuts"
                 >Editor Keyboard Shortcuts</sl-menu-item
               >
@@ -160,5 +161,32 @@ export class Nav extends BaseElement {
         </ul>
       </nav>
     `;
+  }
+
+  firstUpdated(): void {}
+
+  _menuClickHandler(e: CustomEvent) {
+    const item = e.detail.item as SlMenuItem;
+    switch (item.value) {
+      case "share":
+        this.dispatchEvent(
+          new CustomEvent("app-share-session", { bubbles: true }),
+        );
+        break;
+      case "openFile":
+        this.dispatchEvent(new CustomEvent("app-open-file", { bubbles: true }));
+        break;
+      case "saveAs":
+        this.dispatchEvent(new CustomEvent("app-save-as", { bubbles: true }));
+        break;
+      case "editorSettings":
+        window.Editor?.settingDialog.show();
+        break;
+      case "keyboardShortcuts":
+        // TODO: bind
+        break;
+      default:
+        console.log("Unknown main menu item", item.value);
+    }
   }
 }

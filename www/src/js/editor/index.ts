@@ -1,31 +1,24 @@
-import ace from "ace-builds";
-import "ace-builds/esm-resolver";
+import {
+  ace,
+  EditSession,
+  Range,
+  AceLanguageClient,
+  setupLspWorker,
+} from "./ace";
 
-import { AceLanguageClient } from "ace-linters/build/ace-language-client";
 import { LanguageProvider } from "ace-linters/types/language-provider";
 
-import { IC10EditorUI } from "./ui";
-import { Range } from "ace-builds";
-
-import { Session } from "../session";
-
-// import { Mode as TextMode } from 'ace-code/src/mode/text';
-// to make sure language tools are loaded
-ace.config.loadModule("ace/ext/language_tools");
-
-import { Mode as TextMode } from "ace-builds/src-noconflict/mode-text";
-
-async function setupLspWorker() {
-  // Create a web worker
-  let worker = new Worker(new URL("./lspWorker.ts", import.meta.url));
-
-  const loaded = (w: Worker) =>
-    new Promise((r) => w.addEventListener("message", r, { once: true }));
-  await Promise.all([loaded(worker)]);
-
-  // Register the editor with the language provider
-  return worker;
-}
+import "@shoelace-style/shoelace/dist/components/dialog/dialog.js";
+import "@shoelace-style/shoelace/dist/components/button-group/button-group.js";
+import "@shoelace-style/shoelace/dist/components/button/button.js";
+import "@shoelace-style/shoelace/dist/components/input/input.js";
+import "@shoelace-style/shoelace/dist/components/radio-button/radio-button.js";
+import "@shoelace-style/shoelace/dist/components/radio-group/radio-group.js";
+import '@shoelace-style/shoelace/dist/components/switch/switch.js';
+import SlDialog from "@shoelace-style/shoelace/dist/components/dialog/dialog.js";
+import SlRadioGroup from "@shoelace-style/shoelace/dist/components/radio-group/radio-group.js";
+import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
+import SlSwitch from "@shoelace-style/shoelace/dist/components/switch/switch.js";
 
 declare global {
   interface Window {
@@ -34,8 +27,9 @@ declare global {
 }
 
 import { BaseElement, defaultCss } from "../components";
-import { html, css, HTMLTemplateResult } from "lit";
+import { html } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { editorStyles } from "./styles";
 
 @customElement("ace-ic10")
 export class IC10Editor extends BaseElement {
@@ -46,7 +40,7 @@ export class IC10Editor extends BaseElement {
     fontSize: number;
     relativeLineNumbers: boolean;
   };
-  sessions: Map<number, ace.Ace.EditSession>;
+  sessions: Map<number, EditSession>;
 
   @property({ type: Number })
   accessor active_session: number = 0;
@@ -55,258 +49,7 @@ export class IC10Editor extends BaseElement {
   languageProvider?: LanguageProvider;
   // ui: IC10EditorUI;
 
-  static styles = [
-    ...defaultCss,
-    css`
-      :host {
-        display: block;
-        width: 100%;
-        height: 100%;
-      }
-      #editor {
-        // border: 1px solid;
-        // border-radius: 4px;
-        @apply --ace-widget-editor;
-      }
-      #editorStatusbar {
-        z-index: 9 !important;
-        position: absolute !important;
-        right: 4px;
-        bottom: 4px;
-      }
-      .ace_status-indicator {
-        background-color: #777;
-        color: white;
-        text-align: center;
-        border: none;
-        border-radius: 7px;
-        padding-right: 3px;
-        padding-left: 3px;
-        padding-bottom: 1px;
-        font-size: small;
-        opacity: 0.9;
-      }
-      .hide_statusbar {
-        display: none;
-      }
-      .ace_marker-layer .green {
-        // background-color: ;
-        // color: ;
-        position: absolute;
-      }
-      .ace_marker-layer .darkGrey {
-        // background-color: ;
-        // color: ;
-        position: absolute;
-      }
-      .ace_marker-layer .red {
-        // background-color: ;
-        // color: ;
-        position: absolute;
-      }
-      .ace_marker-layer .blue {
-        // background-color: ;
-        // color: ;
-        position: absolute;
-      }
-      .ace_marker-layer .orange {
-        background-color: #ff9900;
-        color: #555;
-        position: absolute;
-      }
-      .ace_placeholder {
-        color: #808080 !important;
-        // font-family: "" !important;
-        transform: scale(1) !important;
-        opacity: 1 !important;
-        font-style: italic !important;
-      }
-      /* ------------------------------------------------------------------------------------------
-      * Editor Search Form
-      * --------------------------------------------------------------------------------------- */
-      .ace_search {
-        background-color: #2b3035;
-        color: #dee2e6;
-        border: 1px solid #495057;
-        border-top: 0 none;
-        overflow: hidden;
-        margin: 0;
-        padding: 4px 6px 0 4px;
-        position: absolute;
-        top: 0;
-        z-index: 99;
-        white-space: normal;
-      }
-
-      .ace_search.left {
-        border-left: 0 none;
-        border-radius: 0px 0px 5px 0px;
-        left: 0;
-      }
-
-      .ace_search.right {
-        border-radius: 0px 0px 0px 5px;
-        border-right: 0 none;
-        right: 0;
-      }
-
-      .ace_search_form,
-      .ace_replace_form {
-        margin: 0 20px 4px 0;
-        overflow: hidden;
-        line-height: 1.9;
-      }
-
-      .ace_replace_form {
-        margin-right: 0;
-      }
-
-      .ace_search_form.ace_nomatch {
-        outline: 1px solid red;
-      }
-
-      .ace_search_field {
-        border-radius: 3px 0 0 3px;
-        background-color: #343a40;
-        color: #dee2e6;
-        border: 1px solid #41464b;
-        border-right: 0 none;
-        outline: 0;
-        padding: 0;
-        font-size: inherit;
-        margin: 0;
-        line-height: inherit;
-        padding: 0 6px;
-        min-width: 17em;
-        vertical-align: top;
-        min-height: 1.8em;
-        box-sizing: content-box;
-      }
-
-      .ace_searchbtn {
-        border: 1px solid #6c757d;
-        line-height: inherit;
-        display: inline-block;
-        padding: 0 6px;
-        background: #343a40;
-        border-right: 0 none;
-        border-left: 1px solid #6c757d;
-        cursor: pointer;
-        margin: 0;
-        position: relative;
-        color: #fff;
-      }
-
-      .ace_searchbtn:last-child {
-        border-radius: 0 3px 3px 0;
-        border-right: 1px solid #6c757d;
-      }
-
-      .ace_searchbtn:disabled {
-        background: none;
-        cursor: default;
-      }
-
-      .ace_searchbtn:hover {
-        background-color: #161719;
-      }
-
-      .ace_searchbtn.prev,
-      .ace_searchbtn.next {
-        padding: 0px 0.7em;
-      }
-
-      .ace_searchbtn.prev:after,
-      .ace_searchbtn.next:after {
-        content: "";
-        border: solid 2px #6c757d;
-        width: 0.5em;
-        height: 0.5em;
-        border-width: 2px 0 0 2px;
-        display: inline-block;
-        transform: rotate(-45deg);
-      }
-
-      .ace_searchbtn.next:after {
-        border-width: 0 2px 2px 0;
-      }
-
-      .ace_searchbtn_close {
-        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAcCAYAAABRVo5BAAAAZ0lEQVR42u2SUQrAMAhDvazn8OjZBilCkYVVxiis8H4CT0VrAJb4WHT3C5xU2a2IQZXJjiQIRMdkEoJ5Q2yMqpfDIo+XY4k6h+YXOyKqTIj5REaxloNAd0xiKmAtsTHqW8sR2W5f7gCu5nWFUpVjZwAAAABJRU5ErkJggg==)
-          no-repeat 50% 0;
-        border-radius: 50%;
-        border: 0 none;
-        color: #343a40;
-        cursor: pointer;
-        font: 16px/16px Arial;
-        padding: 0;
-        height: 14px;
-        width: 14px;
-        top: 9px;
-        right: 7px;
-        position: absolute;
-      }
-
-      .ace_searchbtn_close:hover {
-        background-color: #656565;
-        background-position: 50% 100%;
-        color: white;
-      }
-
-      .ace_button {
-        background-color: #343a40;
-        margin-left: 2px;
-        cursor: pointer;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -o-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        overflow: hidden;
-        opacity: 0.7;
-        border: 1px solid #6c757d;
-        padding: 1px;
-        box-sizing: border-box !important;
-        color: #fff;
-      }
-
-      .ace_button:hover {
-        background-color: #161719;
-        opacity: 1;
-      }
-
-      .ace_button:active {
-        background-color: #6c757d;
-      }
-
-      .ace_button.checked {
-        background-color: #6c757d;
-        border-color: #6c757d;
-        opacity: 1;
-      }
-
-      .ace_search_options {
-        margin-bottom: 3px;
-        text-align: right;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -o-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        clear: both;
-      }
-
-      .ace_search_counter {
-        float: left;
-        font-family: arial;
-        padding: 0 8px;
-      }
-
-      /* ----------------
-      *  End Ace Search
-      *  --------------- */
-    `,
-  ];
+  static styles = [...defaultCss, editorStyles];
 
   initialInit: boolean;
   editorDiv: HTMLElement;
@@ -319,7 +62,14 @@ export class IC10Editor extends BaseElement {
   private _statusbarIndex: number;
   private _statusbar: any;
   vScrollbarObserver: IntersectionObserver;
-  hScrollbarObserver: any;
+  hScrollbarObserver: IntersectionObserver;
+  stylesObserver: MutationObserver;
+  stylesAdded: string[];
+  tooltipObserver: MutationObserver;
+
+  get settingDialog() {
+    return this.shadowRoot?.querySelector('sl-dialog') as SlDialog
+  }
 
   constructor() {
     super();
@@ -339,11 +89,10 @@ export class IC10Editor extends BaseElement {
     this.active_line_markers = new Map();
 
     // this.ui = new IC10EditorUI(this);
-
   }
 
   protected render() {
-    return html`
+    const result = html`
       <div
         id="editorContainer"
         style="height: 100%; width: 100%; position: relative;"
@@ -354,7 +103,31 @@ export class IC10Editor extends BaseElement {
         ></div>
         <div id="editorStatusbar"></div>
       </div>
+      <sl-dialog label="Editor Settings" class="dialog-focus">
+        <sl-radio-group id="editorKeyboardRadio" label="Editor Keyboard Bindings" value=${this.settings.keyboard}>
+          <sl-radio-button value="ace">Ace</sl-radio-button>
+          <sl-radio-button value="vim">Vim</sl-radio-button>
+          <sl-radio-button value="emacs">Emacs</sl-radio-button>
+          <sl-radio-button value="sublime">Sublime</sl-radio-button>
+          <sl-radio-button value="vscode">VS Code</sl-radio-button>
+        </sl-radio-group>
+        <sl-radio-group id="editorCursorRadio" label="Editor Cursor Style" value=${this.settings.cursor}>
+          <sl-radio-button value="ace">Ace</sl-radio-button>
+          <sl-radio-button value="slim">Slim</sl-radio-button>
+          <sl-radio-button value="smooth">Smooth</sl-radio-button>
+          <sl-radio-button value="smooth slim">Smooth And Slim</sl-radio-button>
+          <sl-radio-button value="wide">Wide</sl-radio-button>
+        </sl-radio-group>
+        <sl-input id="editorFontSize" label="Font Size" type="number" value="${this.settings.fontSize}"></sl-input>
+        <sl-switch id="editorRelativeLineNumbers" ?checked=${this.settings.relativeLineNumbers}>Relative Line Numbers</sl-switch>
+      </sl-dialog>
     `;
+    return result;
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    this.loadEditorSettings();
   }
 
   async firstUpdated() {
@@ -378,8 +151,12 @@ export class IC10Editor extends BaseElement {
     this.initialInit = true;
 
     this.editorDiv = this.shadowRoot?.getElementById("editor") as HTMLElement;
-    this.editorContainerDiv = this.shadowRoot?.getElementById("editorContainer") as HTMLElement;
-    this.editorStatusbarDiv = this.shadowRoot?.getElementById("editorStatusbar") as HTMLElement;
+    this.editorContainerDiv = this.shadowRoot?.getElementById(
+      "editorContainer",
+    ) as HTMLElement;
+    this.editorStatusbarDiv = this.shadowRoot?.getElementById(
+      "editorStatusbar",
+    ) as HTMLElement;
 
     this.editor = ace.edit(this.editorDiv, {
       mode: this.mode,
@@ -397,6 +174,51 @@ export class IC10Editor extends BaseElement {
     this.statusBar = ace.require("ace/ext/statusbar").StatusBar;
     this.snippetManager = ace.require("ace/snippets").snippetManager;
 
+    this.stylesAdded = [];
+    const stylesToMove: string[] = ["vimMode"];
+    const stylesToCopy: string[] = ["autocompletion.css"];
+    const that = this;
+
+    this.stylesObserver = new MutationObserver((_mutations, _observer) => {
+      // ace adds <style></style> nodes, ours should  be <link rel="stylesheet">
+      for (const sheet of document.head.querySelectorAll("style")) {
+        if (!that.stylesAdded.includes(sheet.id)) {
+          if (stylesToMove.includes(sheet.id)) {
+            that.shadowRoot?.appendChild(sheet);
+            that.stylesAdded.push(sheet.id);
+          } else if (stylesToCopy.includes(sheet.id)) {
+            let new_sheet = sheet.cloneNode() as HTMLStyleElement;
+            new_sheet.id = `${sheet.id}_clone`;
+            that.shadowRoot?.appendChild(new_sheet);
+            that.stylesAdded.push(sheet.id);
+          }
+        }
+      }
+    });
+
+    this.stylesObserver.observe(document.head, {
+      attributes: false,
+      childList: true,
+      subtree: true,
+      characterData: false,
+    });
+
+    // Fornow this seems uneeded, tooltips seem to work better on the lightdom
+    // this.tooltipObserver = new MutationObserver((_mutations, _observer) => {
+    //   // we want the toltips on the shadow-dom not the light dom body
+    //   for (const node of document.body.querySelectorAll(
+    //     ".ace_tooltip, .ace_editor.ace_autocomplete",
+    //   )) {
+    //     that.shadowRoot?.appendChild(node);
+    //   }
+    // });
+    // this.tooltipObserver.observe(document.body, {
+    //   attributes: false,
+    //   childList: true,
+    //   subtree: true,
+    //   characterData: false,
+    // });
+
     this.sessions.set(this.active_session, this.editor.getSession());
     this.bindSession(
       this.active_session,
@@ -406,8 +228,6 @@ export class IC10Editor extends BaseElement {
 
     const worker = await setupLspWorker();
     this.setupLsp(worker);
-
-    const that = this;
 
     // when the CSS resize Property is added (to a container-div or ace-ic10 )
     // the correct sizing is maintained (after user resize)
@@ -424,6 +244,11 @@ export class IC10Editor extends BaseElement {
     this.observer.observe(this.editorContainerDiv);
 
     this.initializeEditor();
+  }
+
+  initializeEditor() {
+    let editor = this.editor;
+    const that = this;
 
     window.App!.session.onLoad(((e: CustomEvent) => {
       const session = e.detail;
@@ -471,10 +296,6 @@ export class IC10Editor extends BaseElement {
         }
       }
     }) as EventListener);
-  }
-
-  initializeEditor() {
-    let editor = this.editor;
 
     // change -> possibility to allow saving the value without having to wait for blur
     editor.on("change", () => this.editorChangeAction());
@@ -492,7 +313,7 @@ export class IC10Editor extends BaseElement {
       { root: null },
     );
     this.vScrollbarObserver.observe(
-      this.shadowRoot?.querySelector(".ace_scrollbar-v") as Element,
+      this.shadowRoot!.querySelector(".ace_scrollbar-v")!,
     );
 
     this.hScrollbarObserver = new IntersectionObserver(
@@ -500,8 +321,44 @@ export class IC10Editor extends BaseElement {
       { root: null },
     );
     this.hScrollbarObserver.observe(
-      this.shadowRoot?.querySelector(".ace_scrollbar-h"),
+      this.shadowRoot!.querySelector(".ace_scrollbar-h")!,
     );
+
+    editor.commands.addCommands([{
+      name: "showSettingsMenu",
+      // description: "Show settings menu",
+      bindKey: { win: "Ctrl-,", mac: "Command-,"},
+      exec: (_editor: ace.Ace.Editor) => {
+        that.settingDialog.show();
+      },
+    }]);
+
+    this.updateEditorSettings();
+    const keyboardRadio = this.renderRoot.querySelector("#editorKeyboardRadio")! as SlRadioGroup;
+    const cursorRadio = this.renderRoot.querySelector("#editorCursorRadio")! as SlRadioGroup;
+    const fontSize = this.renderRoot.querySelector("#editorFontSize")! as SlInput;
+    const relativeLineNumbers = this.renderRoot.querySelector("#editorRelativeLineNumbers")! as SlSwitch;
+
+    keyboardRadio.addEventListener("sl-change", _e => {
+      that.settings.keyboard = keyboardRadio.value;
+      that.updateEditorSettings();
+      that.saveEditorSettings();
+    });
+    cursorRadio?.addEventListener("sl-change", _e => {
+      that.settings.cursor = cursorRadio.value;
+      that.updateEditorSettings();
+      that.saveEditorSettings();
+    });
+    fontSize?.addEventListener("sl-change", _e => {
+      that.settings.fontSize = parseInt(fontSize.value)
+      that.updateEditorSettings();
+      that.saveEditorSettings();
+    });
+    relativeLineNumbers?.addEventListener("sl-change", _e => {
+      that.settings.relativeLineNumbers = relativeLineNumbers.checked;
+      that.updateEditorSettings();
+      that.saveEditorSettings();
+    });
   }
 
   resizeEditor() {
@@ -624,7 +481,7 @@ export class IC10Editor extends BaseElement {
     this.editor?.setSession(session);
     const mode = ace.require(this.mode);
     const options = mode?.options ?? {};
-    this.languageProvider?.setSessionOptions(session, options)
+    this.languageProvider?.setSessionOptions(session, options);
     this.active_session = session_id;
     return true;
   }
@@ -647,6 +504,17 @@ export class IC10Editor extends BaseElement {
     window.localStorage.setItem("editorSettings", toSave);
   }
 
+  updateEditorSettings() {
+    if (this.settings.keyboard === 'ace') {
+      this.editor.setOption('keyboardHandler', null);
+    } else {
+      this.editor.setOption('keyboardHandler', `ace/keyboard/${this.settings.keyboard}`);
+    }
+    this.editor.setOption('cursorStyle', this.settings.cursor as any);
+    this.editor.setOption('fontSize', this.settings.fontSize);
+    this.editor.setOption('relativeLineNumbers', this.settings.relativeLineNumbers);
+  }
+
   destroySession(session_id: number) {
     if (!this.sessions.hasOwnProperty(session_id)) {
       return false;
@@ -663,7 +531,7 @@ export class IC10Editor extends BaseElement {
     return true;
   }
 
-  bindSession(session_id: number, session?: ace.Ace.EditSession) {
+  bindSession(session_id: number, session?: EditSession) {
     if (session) {
       session.on("change", () => {
         var val = session.getValue();

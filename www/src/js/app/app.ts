@@ -9,8 +9,7 @@ import "../editor";
 import { IC10Editor } from "../editor";
 import { Session } from "../session";
 import { VirtualMachine } from "../virtual_machine";
-
-
+import { openFile, saveFile } from "../utils";
 
 @customElement("ic10emu-app")
 export class App extends BaseElement {
@@ -42,7 +41,7 @@ export class App extends BaseElement {
   editorSettings: { fontSize: number; relativeLineNumbers: boolean };
 
   get editor() {
-    return this.renderRoot.querySelector('ace-ic10') as IC10Editor;
+    return this.renderRoot.querySelector("ace-ic10") as IC10Editor;
   }
 
   vm!: VirtualMachine;
@@ -56,10 +55,18 @@ export class App extends BaseElement {
 
   }
 
+  protected createRenderRoot(): HTMLElement | DocumentFragment {
+    const root = super.createRenderRoot();
+    root.addEventListener('app-share-session', this._handleShare);
+    root.addEventListener('app-open-file', this._handleOpenFile);
+    root.addEventListener('app-save-as', this._handleSaveAs);
+    return root;
+  }
+
   protected render(): HTMLTemplateResult {
     return html`
       <div class="app-container">
-        <app-nav class=z-fix></app-nav>
+        <app-nav class="z-fix"></app-nav>
         <div class="app-body">
           <sl-split-panel
             style="--min: 20em; --max: calc(100% - 20em);"
@@ -74,6 +81,22 @@ export class App extends BaseElement {
       </div>
     `;
   }
+
+  firstUpdated(): void {
+  }
+
+  _handleShare(_e: Event) {
+    // TODO:
+  }
+
+  _handleSaveAs(_e: Event) {
+    saveFile(window.Editor.editorValue);
+  }
+
+  _handleOpenFile(_e: Event) {
+    openFile(window.Editor.editor);
+  }
+
 }
 
 declare global {
@@ -81,4 +104,3 @@ declare global {
     App?: App;
   }
 }
-

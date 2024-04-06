@@ -4,21 +4,6 @@ body {
   margin: 0;
 }
 
-.ace_tooltip {
-  background: #282c34;
-  color: #c1c1c1;
-  border: 1px #484747 solid;
-  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.51);
-}
-
-.ace_tooltip.ace_dark {
-  background: #282c34;
-  color: #c1c1c1;
-  border: 1px #484747 solid;
-  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.51);
-}
-
-
 #ace_settingsmenu,
 #kbshortcutmenu {
   background-color: rgb(33, 37, 41);
@@ -37,12 +22,12 @@ body {
 
 .ace_optionsMenuEntry:hover {
   background-color: #161719;
-  transition: all 0.3s
+  transition: all 0.3s;
 }
 
 .ace_closeButton {
   background: rgba(245, 146, 146, 0.5);
-  border: 1px solid #F48A8A;
+  border: 1px solid #f48a8a;
   border-radius: 50%;
   padding: 7px;
   position: absolute;
@@ -70,7 +55,7 @@ body {
   vertical-align: middle;
 }
 
-.ace_optionsMenuEntry button[ace_selected_button=true] {
+.ace_optionsMenuEntry button[ace_selected_button="true"] {
   background: #e7e7e7;
   box-shadow: 1px 0px 2px 0px #adadad inset;
   border-color: #adadad;
@@ -96,18 +81,7 @@ body {
   box-shadow: 0px 2px 3px 0px #555;
 }
 
-
-code {
-  // color: #e685b5
-  color: #c678dd;
-}
-
-.ace_tooltip code {
-    font-style: italic;
-    font-size: 12px;
-}
-
-.navbar-default .navbar-nav>li>a {
+.navbar-default .navbar-nav > li > a {
   color: #fff;
 }
 
@@ -118,7 +92,7 @@ code {
   color: #fff;
 }
 
-.navbar-nav>li>a {
+.navbar-nav > li > a {
   padding-top: 10px;
   padding-bottom: 10px;
   line-height: 20px;
@@ -131,7 +105,7 @@ code {
 //   }
 // }
 
-.nav>li>a {
+.nav > li > a {
   position: relative;
   display: block;
   padding: 10px 15px;
@@ -141,7 +115,7 @@ code {
 
 .navbar-nav .dropdown-menu {
   position: absolute;
-  left: .5rem;
+  left: 0.5rem;
 }
 
 .modal-title {
@@ -149,21 +123,51 @@ code {
 }
 
 .modal-body button {
-  color: #fff
+  color: #fff;
 }
 
+/* ----------------
+*  Ace Tooltips
+*  --------------- */
+code {
+  // color: #e685b5
+  color: #c678dd;
+}
+
+.ace_tooltip code {
+  font-style: italic;
+  font-size: 12px;
+}
+
+.ace_tooltip {
+  background: #282c34;
+  color: #c1c1c1;
+  border: 1px #484747 solid;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.51);
+}
+
+.ace_tooltip.ace_dark {
+  background: #282c34;
+  color: #c1c1c1;
+  border: 1px #484747 solid;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.51);
+}
+
+/* ----------------
+*  Ace tooltip
+*  --------------- */
 
 .ace_dark.ace_editor.ace_autocomplete .ace_completion-highlight {
   color: #c678dd;
 }
 
 .ace_dark.ace_editor.ace_autocomplete .ace_marker-layer .ace_active-line {
-  background-color: rgba(76, 87, 103, .19);
+  background-color: rgba(76, 87, 103, 0.19);
 }
 
 .ace_dark.ace_editor.ace_autocomplete .ace_line-hover {
   border: 1px solid rgba(8, 121, 144, 0.5);
-  background: rgba(76, 87, 103, .19);
+  background: rgba(76, 87, 103, 0.19);
 }
 
 .ace_dark.ace_editor.ace_autocomplete {
@@ -190,12 +194,12 @@ code {
 }
 
 .ace_editor.ace_autocomplete .ace_marker-layer .ace_active-line {
-  background-color: rgba(76, 87, 103, .19);
+  background-color: rgba(76, 87, 103, 0.19);
 }
 
 .ace_editor.ace_autocomplete .ace_line-hover {
   border: 1px solid rgba(8, 121, 144, 0.5);
-  background: rgba(76, 87, 103, .19);
+  background: rgba(76, 87, 103, 0.19);
 }
 
 .vm_ic_active_line {
@@ -294,13 +298,12 @@ code {
   border-radius: 0;
 }
 
-.vm_stack_cel span.stack_pointer  {
+.vm_stack_cel span.stack_pointer {
   background-color: var(--bs-success);
 }
 
 .vm_device_summary button.btn {
   line-height: 0.75rem;
-
 }
 
 .vm_device_summary span.badge {
