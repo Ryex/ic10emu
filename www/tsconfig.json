@@ -4,7 +4,7 @@
     "sourceMap": true,
     "noImplicitAny": true,
     "module": "es2022",
-    "target": "es2020",
+    "target": "es2021",
     "allowJs": true,
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
@@ -14,5 +14,6 @@
         "name": "ts-lit-plugin"
       }
     ]
-  }
+  },
+  "include": ["node_modules/lit-scss-loader/types.d.ts"]
 }

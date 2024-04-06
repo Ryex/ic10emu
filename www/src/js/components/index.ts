@@ -1,3 +1,3 @@
-import { BaseElement } from './base';
+import { BaseElement, defaultCss } from './base';
 
-export { BaseElement }
+export { BaseElement, defaultCss }

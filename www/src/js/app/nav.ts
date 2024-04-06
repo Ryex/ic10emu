@@ -1,6 +1,6 @@
 import { HTMLTemplateResult, html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { BaseElement } from "../components";
+import { BaseElement, defaultCss } from "../components";
 import "@shoelace-style/shoelace/dist/components/icon-button/icon-button.js";
 import "@shoelace-style/shoelace/dist/components/menu/menu.js";
 import "@shoelace-style/shoelace/dist/components/divider/divider.js";
@@ -9,66 +9,81 @@ import "@shoelace-style/shoelace/dist/components/dropdown/dropdown.js";
 
 @customElement("app-nav")
 export class Nav extends BaseElement {
-  static styles = css`
-    .nav {
-      display: flex;
-      flex-wrap: wrap;
-      padding-left: 0;
-      margin-bottom: 0;
-      list-style: none;
-    }
-    .navbar {
-      position: relative;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: left;
-      justify-content: space-between;
-      padding: 0.5rem 0;
-    }
-    .navbar-nav {
-      display: flex;
-      flex-direction: column;
-      padding-left: 0;
-      margin-bottom: 0;
-      list-style: none;
-    }
-    .ps-2 {
-      padding-left: 0.5rem !important;
-    }
-    .ms-2 {
-      margin-left: 0.5rem !important;
-    }
-    .ms-auto {
-      margin-left: auto !important;
-    }
-    .flex-row {
-      flex-direction: row !important;
-    }
-    .d-flex {
-      display: flex !important;
-    }
-    @media (min-width: 768px) .d-md-flex {
-      display: flex !important;
-    }
-    @media (min-width: 576px) .d-sm-none {
-      display: none !important;
-    }
-    .d-none {
-      display: none !important;
-    }
-    ol,
-    ul,
-    dl {
-      margin-top: 0;
-      margin-bottom: 1rem;
-    }
-    .navbar-text {
-      padding: 0;
-      padding-right: 10px;
-      position: relative;
-      color: #fff;
-    }
-  `;
+  static styles = [
+    ...defaultCss,
+    css`
+      .nav {
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+      }
+      .navbar {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: left;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+      }
+      .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+      }
+      @media screen and (min-width: 768px) {
+        .navbar-right {
+          display: flex !important;
+          flex-direction: row !important;
+          margin-left: 0.5rem !important;
+        }
+      }
+      .navbar-right {
+        display: none;
+      }
+      ol,
+      ul,
+      dl {
+        margin-top: 0;
+        margin-bottom: 1rem;
+      }
+      .navbar-text {
+        padding: 0;
+        padding-right: 10px;
+        position: relative;
+        color: #fff;
+      }
+      .nav > li > a {
+        color: #fff;
+        line-height: 20px;
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+      .navbar-brand {
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        color: #fff;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .dropdown {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      nav {
+        border-bottom: 1px solid rgb(108, 117, 125);
+      }
+    `,
+  ];
 
   constructor() {
     super();
@@ -77,7 +92,7 @@ export class Nav extends BaseElement {
     return html`
       <nav id="navBar" class="navbar navbar-default">
         <div class="nav navbar-nav ps-2">
-          <sl-dropdown>
+          <sl-dropdown class="dropdown">
             <sl-icon-button
               library="fa"
               name="fas-bars"
@@ -85,7 +100,7 @@ export class Nav extends BaseElement {
               label="Main Menu"
             ></sl-icon-button>
 
-            <sl-menu>
+            <sl-menu class="menu">
               <sl-menu-item value="share">Share</sl-menu-item>
               <sl-menu-item value="openFile">Open File</sl-menu-item>
               <sl-menu-item value="saveAs">Save As</sl-menu-item>
@@ -107,18 +122,16 @@ export class Nav extends BaseElement {
           >
         </div>
 
-        <div class="nav navbar-nav  ms-auto navbar-right d-flex flex-row">
+        <div class="nav navbar-nav  ms-auto d-flex flex-row">
           <a
             class="navbar-text mt-auto mb-auto align-self-center"
             href="https://github.com/ryex/ic10emu"
-            >View on Github <i class="fa-brands fa-github"></i
-          ></a>
+            >View on Github <sl-icon library="fa" name="fab-github"></sl-icon>
+          </a>
         </div>
 
         <!-- <div class="flex-grow w-100">&nbsp;</div> -->
-        <ul
-          class="nav navbar-nav navbar-right flex-row d-sm-none d-none d-md-flex"
-        >
+        <ul class="nav navbar-nav navbar-right">
           <p class="navbar-text mt-auto mb-auto align-self-center">
             Official Stationeers:
           </p>

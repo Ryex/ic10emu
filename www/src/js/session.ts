@@ -1,4 +1,3 @@
-
 const demoCode = `# Highlighting Demo
 # This is a comment
 
@@ -59,32 +58,28 @@ test:
 add r15 r15 1
 j ra
 
-`
+`;
 
-interface SessionCbFn {
-  (param: Session): void;
+interface CustomEvent extends Event {
+  detail: string
 }
 
-class Session extends EventTarget {
+export class Session extends EventTarget {
   _programs: Map<number, string>;
-  _onLoadCallbacks: SessionCbFn[];
   _activeSession: number;
   _activeLines: Map<number, number>;
-  _onActiveLineCallbacks: SessionCbFn[];
   _activeLine: number;
-  private _save_timeout: ReturnType<typeof setTimeout>;
+  _save_timeout?: ReturnType<typeof setTimeout>;
   constructor() {
     super();
     this._programs = new Map();
-    this._save_timeout = null;
-    this._onLoadCallbacks = [];
+    this._save_timeout = undefined;
     this._activeSession = 0;
     this._activeLines = new Map();
-    this._onActiveLineCallbacks = [];
     this.loadFromFragment();
 
     const that = this;
-    window.addEventListener('hashchange', (_event) => {
+    window.addEventListener("hashchange", (_event) => {
       that.loadFromFragment();
     });
   }
@@ -119,24 +114,28 @@ class Session extends EventTarget {
     this.save();
   }
 
-  onLoad(callback: SessionCbFn) {
-    this._onLoadCallbacks.push(callback);
+  onLoad(callback: EventListenerOrEventListenerObject) {
+    this.addEventListener("session-load", callback);
   }
 
   _fireOnLoad() {
-    for (const callback of this._onLoadCallbacks) {
-      callback(this);
-    }
+    this.dispatchEvent(
+      new CustomEvent("session-load", {
+        detail: this,
+      }),
+    );
   }
 
-  onActiveLine(callback: SessionCbFn) {
-    this._onActiveLineCallbacks.push(callback);
+  onActiveLine(callback: EventListenerOrEventListenerObject) {
+    this.addEventListener("active-line", callback);
   }
 
   _fireOnActiveLine() {
-    for (const callback of this._onActiveLineCallbacks) {
-      callback(this);
-    }
+    this.dispatchEvent(
+      new CustomEvent("activeLine", {
+        detail: this,
+      }),
+    );
   }
 
   save() {
@@ -146,7 +145,7 @@ class Session extends EventTarget {
       if (window.App.vm) {
         window.App.vm.updateCode();
       }
-      this._save_timeout = null;
+      this._save_timeout = undefined;
     }, 1000);
   }
 
@@ -161,7 +160,6 @@ class Session extends EventTarget {
       console.log("Error compressing content fragment:", e);
       return;
     }
-
   }
 
   async loadFromFragment() {
@@ -177,7 +175,8 @@ class Session extends EventTarget {
       if (bytes !== null) {
         const txt = new TextDecoder().decode(bytes);
         const data = getJson(txt);
-        if (data === null) { // backwards compatible
+        if (data === null) {
+          // backwards compatible
           this._programs = new Map([[0, txt]]);
           this, this._fireOnLoad();
           return;
@@ -192,7 +191,6 @@ class Session extends EventTarget {
       }
     }
   }
-
 }
 async function decompressFragment(c_bytes: ArrayBuffer) {
   try {
@@ -223,26 +221,31 @@ async function* streamAsyncIterator(stream: ReadableStream) {
       if (done) return;
       yield value;
     }
-  }
-  finally {
+  } finally {
     reader.releaseLock();
   }
 }
 
 function base64url_encode(buffer: ArrayBuffer) {
-  return btoa(Array.from(new Uint8Array(buffer), b => String.fromCharCode(b)).join(''))
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=+$/, '');
+  return btoa(
+    Array.from(new Uint8Array(buffer), (b) => String.fromCharCode(b)).join(""),
+  )
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/, "");
 }
 
 function base64url_decode(value: string): ArrayBuffer {
   const m = value.length % 4;
-  return Uint8Array.from(atob(
-    value.replace(/-/g, '+')
-      .replace(/_/g, '/')
-      .padEnd(value.length + (m === 0 ? 0 : 4 - m), '=')
-  ), c => c.charCodeAt(0)).buffer
+  return Uint8Array.from(
+    atob(
+      value
+        .replace(/-/g, "+")
+        .replace(/_/g, "/")
+        .padEnd(value.length + (m === 0 ? 0 : 4 - m), "="),
+    ),
+    (c) => c.charCodeAt(0),
+  ).buffer;
 }
 
 async function concatUintArrays(arrays: Uint8Array[]) {
@@ -253,10 +256,8 @@ async function concatUintArrays(arrays: Uint8Array[]) {
 
 async function compress(bytes: ArrayBuffer) {
   const s = new Blob([bytes]).stream();
-  const cs = s.pipeThrough(
-    new CompressionStream('deflate-raw')
-  );
-  const chunks = [];
+  const cs = s.pipeThrough(new CompressionStream("deflate-raw"));
+  const chunks: Uint8Array[] = [];
   for await (const chunk of streamAsyncIterator(cs)) {
     chunks.push(chunk);
   }
@@ -265,14 +266,11 @@ async function compress(bytes: ArrayBuffer) {
 
 async function decompress(bytes: ArrayBuffer) {
   const s = new Blob([bytes]).stream();
-  const ds = s.pipeThrough(
-    new DecompressionStream('deflate-raw')
-  );
-  const chunks = [];
+  const ds = s.pipeThrough(new DecompressionStream("deflate-raw"));
+  const chunks: Uint8Array[] = [];
   for await (const chunk of streamAsyncIterator(ds)) {
     chunks.push(chunk);
   }
   return await concatUintArrays(chunks);
 }
 
-export { Session, SessionCbFn };
