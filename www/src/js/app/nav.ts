@@ -1,6 +1,8 @@
 import { HTMLTemplateResult, html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "../components";
+
+import '@shoelace-style/shoelace/dist/components/icon/icon.js';
 import "@shoelace-style/shoelace/dist/components/icon-button/icon-button.js";
 import "@shoelace-style/shoelace/dist/components/menu/menu.js";
 import "@shoelace-style/shoelace/dist/components/divider/divider.js";
@@ -79,6 +81,7 @@ export class Nav extends BaseElement {
         position: relative;
         top: 50%;
         transform: translateY(-50%);
+        z-index: 100;
       }
       nav {
         border-bottom: 1px solid rgb(108, 117, 125);
@@ -101,7 +104,7 @@ export class Nav extends BaseElement {
               label="Main Menu"
             ></sl-icon-button>
 
-            <sl-menu class="menu" @sl-select=${this._menuClickHandler}>
+            <sl-menu class="menu" @sl-select=${this._menuClickHandler} style="z-index: 10">
               <sl-menu-item value="share">Share</sl-menu-item>
               <sl-menu-item value="openFile">Open File</sl-menu-item>
               <sl-menu-item value="saveAs">Save As</sl-menu-item>
@@ -180,10 +183,10 @@ export class Nav extends BaseElement {
         this.dispatchEvent(new CustomEvent("app-save-as", { bubbles: true }));
         break;
       case "editorSettings":
-        window.Editor?.settingDialog.show();
+        window.Editor.settingDialog.show();
         break;
       case "keyboardShortcuts":
-        // TODO: bind
+        window.Editor.kbShortcuts.show();
         break;
       default:
         console.log("Unknown main menu item", item.value);

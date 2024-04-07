@@ -1,7 +1,14 @@
 import { HTMLTemplateResult, html, css, CSSResultGroup } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "../components";
-import "./nav.ts";
+import "./nav";
+import "./share";
+import { ShareSessionDialog } from "./share";
+
+import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js';
+
+// Set the base path to the folder you copied Shoelace's assets to
+setBasePath('/shoelace');
 
 import "@shoelace-style/shoelace/dist/components/split-panel/split-panel.js";
 
@@ -29,9 +36,9 @@ export class App extends BaseElement {
         flex-grow: 1;
         // z-index: auto;
       }
-      .z-fix {
-        z-index: 900;
-      }
+      // .z-fix {
+      //   z-index: 900;
+      // }
       sl-split-panel {
         height: 100%;
       }
@@ -40,9 +47,12 @@ export class App extends BaseElement {
 
   editorSettings: { fontSize: number; relativeLineNumbers: boolean };
 
-  get editor() {
-    return this.renderRoot.querySelector("ace-ic10") as IC10Editor;
-  }
+  @query('ace-ic10') accessor editor: IC10Editor;
+  @query('session-share-dialog') accessor shareDialog: ShareSessionDialog;
+
+  // get editor() {
+  //   return this.renderRoot.querySelector("ace-ic10") as IC10Editor;
+  // }
 
   vm!: VirtualMachine;
   session!: Session;
@@ -57,16 +67,16 @@ export class App extends BaseElement {
 
   protected createRenderRoot(): HTMLElement | DocumentFragment {
     const root = super.createRenderRoot();
-    root.addEventListener('app-share-session', this._handleShare);
-    root.addEventListener('app-open-file', this._handleOpenFile);
-    root.addEventListener('app-save-as', this._handleSaveAs);
+    root.addEventListener('app-share-session', this._handleShare.bind(this));
+    root.addEventListener('app-open-file', this._handleOpenFile.bind(this));
+    root.addEventListener('app-save-as', this._handleSaveAs.bind(this));
     return root;
   }
 
   protected render(): HTMLTemplateResult {
     return html`
       <div class="app-container">
-        <app-nav class="z-fix"></app-nav>
+        <app-nav></app-nav>
         <div class="app-body">
           <sl-split-panel
             style="--min: 20em; --max: calc(100% - 20em);"
@@ -74,10 +84,11 @@ export class App extends BaseElement {
             snap="512px 50%"
             snap-threshold="15"
           >
-            <ace-ic10 slot="start"></ace-ic10>
+            <ace-ic10 slot="start" style=""></ace-ic10>
             <div slot="end">Controls</div>
           </sl-split-panel>
         </div>
+        <session-share-dialog></session-share-dialog>
       </div>
     `;
   }
@@ -87,6 +98,8 @@ export class App extends BaseElement {
 
   _handleShare(_e: Event) {
     // TODO:
+    this.shareDialog.link = window.location.href;
+    this.shareDialog.show();
   }
 
   _handleSaveAs(_e: Event) {

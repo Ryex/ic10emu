@@ -8,7 +8,7 @@ export const editorStyles = css`
   #editor {
     // border: 1px solid;
     // border-radius: 4px;
-    @apply --ace-widget-editor;
+    // @apply --ace-widget-editor;
   }
   #editorStatusbar {
     z-index: 9 !important;

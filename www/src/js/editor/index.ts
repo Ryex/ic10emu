@@ -1,5 +1,6 @@
 import {
   ace,
+  Editor,
   EditSession,
   Range,
   AceLanguageClient,
@@ -14,7 +15,7 @@ import "@shoelace-style/shoelace/dist/components/button/button.js";
 import "@shoelace-style/shoelace/dist/components/input/input.js";
 import "@shoelace-style/shoelace/dist/components/radio-button/radio-button.js";
 import "@shoelace-style/shoelace/dist/components/radio-group/radio-group.js";
-import '@shoelace-style/shoelace/dist/components/switch/switch.js';
+import "@shoelace-style/shoelace/dist/components/switch/switch.js";
 import SlDialog from "@shoelace-style/shoelace/dist/components/dialog/dialog.js";
 import SlRadioGroup from "@shoelace-style/shoelace/dist/components/radio-group/radio-group.js";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
@@ -28,8 +29,11 @@ declare global {
 
 import { BaseElement, defaultCss } from "../components";
 import { html } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { Ref, createRef, ref } from "lit/directives/ref.js";
+import { customElement, property, query } from "lit/decorators.js";
 import { editorStyles } from "./styles";
+import "./shortcuts-ui";
+import { AceKeyboardShortcuts } from "./shortcuts-ui";
 
 @customElement("ace-ic10")
 export class IC10Editor extends BaseElement {
@@ -55,7 +59,7 @@ export class IC10Editor extends BaseElement {
   editorDiv: HTMLElement;
   editorContainerDiv: HTMLElement;
   editorStatusbarDiv: HTMLElement;
-  editor: ace.Ace.Editor;
+  editor: Editor;
   statusBar: any;
   snippetManager: any;
   observer: ResizeObserver;
@@ -67,9 +71,9 @@ export class IC10Editor extends BaseElement {
   stylesAdded: string[];
   tooltipObserver: MutationObserver;
 
-  get settingDialog() {
-    return this.shadowRoot?.querySelector('sl-dialog') as SlDialog
-  }
+  @query('.e-kb-shortcuts') accessor kbShortcuts: AceKeyboardShortcuts;
+
+  @query('.e-settings-dialog') accessor settingDialog: SlDialog;
 
   constructor() {
     super();
@@ -95,32 +99,53 @@ export class IC10Editor extends BaseElement {
     const result = html`
       <div
         id="editorContainer"
-        style="height: 100%; width: 100%; position: relative;"
+        style="height: 100%; width: 100%; position: relative; z-index: auto;"
       >
         <div
           id="editor"
-          style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;"
+          <!-- style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 0; isolation: isolate;" -->
         ></div>
         <div id="editorStatusbar"></div>
       </div>
-      <sl-dialog label="Editor Settings" class="dialog-focus">
-        <sl-radio-group id="editorKeyboardRadio" label="Editor Keyboard Bindings" value=${this.settings.keyboard}>
+      <sl-dialog
+        label="Editor Settings"
+        class="dialog-focus e-settings-dialog"
+      >
+        <sl-radio-group
+          id="editorKeyboardRadio"
+          label="Editor Keyboard Bindings"
+          value=${this.settings.keyboard}
+        >
           <sl-radio-button value="ace">Ace</sl-radio-button>
           <sl-radio-button value="vim">Vim</sl-radio-button>
           <sl-radio-button value="emacs">Emacs</sl-radio-button>
           <sl-radio-button value="sublime">Sublime</sl-radio-button>
           <sl-radio-button value="vscode">VS Code</sl-radio-button>
         </sl-radio-group>
-        <sl-radio-group id="editorCursorRadio" label="Editor Cursor Style" value=${this.settings.cursor}>
+        <sl-radio-group
+          id="editorCursorRadio"
+          label="Editor Cursor Style"
+          value=${this.settings.cursor}
+        >
           <sl-radio-button value="ace">Ace</sl-radio-button>
           <sl-radio-button value="slim">Slim</sl-radio-button>
           <sl-radio-button value="smooth">Smooth</sl-radio-button>
           <sl-radio-button value="smooth slim">Smooth And Slim</sl-radio-button>
           <sl-radio-button value="wide">Wide</sl-radio-button>
         </sl-radio-group>
-        <sl-input id="editorFontSize" label="Font Size" type="number" value="${this.settings.fontSize}"></sl-input>
-        <sl-switch id="editorRelativeLineNumbers" ?checked=${this.settings.relativeLineNumbers}>Relative Line Numbers</sl-switch>
+        <sl-input
+          id="editorFontSize"
+          label="Font Size"
+          type="number"
+          value="${this.settings.fontSize}"
+        ></sl-input>
+        <sl-switch
+          id="editorRelativeLineNumbers"
+          ?checked=${this.settings.relativeLineNumbers}
+          >Relative Line Numbers</sl-switch
+        >
       </sl-dialog>
+      <ace-kb-menu class="e-kb-shortcuts"></ace-kb-menu>
     `;
     return result;
   }
@@ -242,6 +267,8 @@ export class IC10Editor extends BaseElement {
     });
 
     this.observer.observe(this.editorContainerDiv);
+    this.kbShortcuts.editor = this.editor;
+    this.kbShortcuts.requestUpdate();
 
     this.initializeEditor();
   }
@@ -324,37 +351,57 @@ export class IC10Editor extends BaseElement {
       this.shadowRoot!.querySelector(".ace_scrollbar-h")!,
     );
 
-    editor.commands.addCommands([{
-      name: "showSettingsMenu",
-      // description: "Show settings menu",
-      bindKey: { win: "Ctrl-,", mac: "Command-,"},
-      exec: (_editor: ace.Ace.Editor) => {
-        that.settingDialog.show();
+    editor.commands.addCommands([
+      {
+        name: "showSettingsMenu",
+        // description: "Show settings menu",
+        bindKey: { win: "Ctrl-,", mac: "Command-," },
+        exec: (_editor: Editor) => {
+          that.settingDialog.show();
+        },
       },
-    }]);
+      {
+        name: "showKeyboardShortcuts",
+        bindKey: {
+          win: "Ctrl-Alt-h",
+          mac: "Command-Alt-h",
+        },
+        exec: (_editor: Editor) => {
+          that.kbShortcuts.show();
+        },
+      },
+    ]);
 
     this.updateEditorSettings();
-    const keyboardRadio = this.renderRoot.querySelector("#editorKeyboardRadio")! as SlRadioGroup;
-    const cursorRadio = this.renderRoot.querySelector("#editorCursorRadio")! as SlRadioGroup;
-    const fontSize = this.renderRoot.querySelector("#editorFontSize")! as SlInput;
-    const relativeLineNumbers = this.renderRoot.querySelector("#editorRelativeLineNumbers")! as SlSwitch;
+    const keyboardRadio = this.renderRoot.querySelector(
+      "#editorKeyboardRadio",
+    )! as SlRadioGroup;
+    const cursorRadio = this.renderRoot.querySelector(
+      "#editorCursorRadio",
+    )! as SlRadioGroup;
+    const fontSize = this.renderRoot.querySelector(
+      "#editorFontSize",
+    )! as SlInput;
+    const relativeLineNumbers = this.renderRoot.querySelector(
+      "#editorRelativeLineNumbers",
+    )! as SlSwitch;
 
-    keyboardRadio.addEventListener("sl-change", _e => {
+    keyboardRadio.addEventListener("sl-change", (_e) => {
       that.settings.keyboard = keyboardRadio.value;
       that.updateEditorSettings();
       that.saveEditorSettings();
     });
-    cursorRadio?.addEventListener("sl-change", _e => {
+    cursorRadio?.addEventListener("sl-change", (_e) => {
       that.settings.cursor = cursorRadio.value;
       that.updateEditorSettings();
       that.saveEditorSettings();
     });
-    fontSize?.addEventListener("sl-change", _e => {
-      that.settings.fontSize = parseInt(fontSize.value)
+    fontSize?.addEventListener("sl-change", (_e) => {
+      that.settings.fontSize = parseInt(fontSize.value);
       that.updateEditorSettings();
       that.saveEditorSettings();
     });
-    relativeLineNumbers?.addEventListener("sl-change", _e => {
+    relativeLineNumbers?.addEventListener("sl-change", (_e) => {
       that.settings.relativeLineNumbers = relativeLineNumbers.checked;
       that.updateEditorSettings();
       that.saveEditorSettings();
@@ -505,14 +552,20 @@ export class IC10Editor extends BaseElement {
   }
 
   updateEditorSettings() {
-    if (this.settings.keyboard === 'ace') {
-      this.editor.setOption('keyboardHandler', null);
+    if (this.settings.keyboard === "ace") {
+      this.editor.setOption("keyboardHandler", null);
     } else {
-      this.editor.setOption('keyboardHandler', `ace/keyboard/${this.settings.keyboard}`);
+      this.editor.setOption(
+        "keyboardHandler",
+        `ace/keyboard/${this.settings.keyboard}`,
+      );
     }
-    this.editor.setOption('cursorStyle', this.settings.cursor as any);
-    this.editor.setOption('fontSize', this.settings.fontSize);
-    this.editor.setOption('relativeLineNumbers', this.settings.relativeLineNumbers);
+    this.editor.setOption("cursorStyle", this.settings.cursor as any);
+    this.editor.setOption("fontSize", this.settings.fontSize);
+    this.editor.setOption(
+      "relativeLineNumbers",
+      this.settings.relativeLineNumbers,
+    );
   }
 
   destroySession(session_id: number) {

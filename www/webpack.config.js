@@ -25,6 +25,14 @@ module.exports = {
         "img/*.png",
         "img/*/*.png",
         { from: "data/database.json", to: "data" },
+        // Copy Shoelace assets to dist/shoelace
+        {
+          from: path.resolve(
+            __dirname,
+            "node_modules/@shoelace-style/shoelace/dist/assets",
+          ),
+          to: path.resolve(__dirname, "dist/shoelace/assets"),
+        },
       ],
     }),
     new HtmlWebpackPlugin({ template: "./src/index.html" }),
@@ -52,8 +60,8 @@ module.exports = {
             // translates CSS into CommonJS modules
             loader: "css-loader",
             options: {
-              sourceMap: true
-            }
+              sourceMap: true,
+            },
           },
           {
             // Run postcss actions
@@ -73,8 +81,8 @@ module.exports = {
             // compiles Sass to CSS
             loader: "sass-loader",
             options: {
-              sourceMap: true
-            }
+              sourceMap: true,
+            },
           },
         ],
         // parser: {
