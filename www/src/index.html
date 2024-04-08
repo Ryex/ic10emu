@@ -12,6 +12,30 @@
   <meta property="og:url" content="https://ryex.github.io/ic10emu/" />
 
   <link rel="stylesheet" href="./main.css">
+<style>
+  body {
+    opacity: 0;
+  }
+
+  body.ready {
+    opacity: 1;
+    transition: 0.25s opacity;
+  }
+</style>
+<script type="module">
+  await Promise.allSettled([
+    customElements.whenDefined('ic10emu-app'),
+    customElements.whenDefined('ace-ic10'),
+    customElements.whenDefined('vm-ui'),
+    customElements.whenDefined('vm-ic-controls'),
+    customElements.whenDefined('vm-ic-registers'),
+    customElements.whenDefined('vm-ic-stack')
+  ]);
+
+  // Button, card, and rating are registered now! Add
+  // the `ready` class so the UI fades in.
+  document.body.classList.add('ready');
+</script>
 
 </head>
 

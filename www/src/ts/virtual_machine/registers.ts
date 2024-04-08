@@ -8,6 +8,7 @@ import "@shoelace-style/shoelace/dist/components/icon/icon.js";
 import "@shoelace-style/shoelace/dist/components/tooltip/tooltip.js";
 import "@shoelace-style/shoelace/dist/components/input/input.js";
 import { RegisterSpec } from "ic10emu_wasm";
+import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
 
 @customElement("vm-ic-registers")
 export class VMICRegisters extends VMActiveIC {
@@ -18,7 +19,7 @@ export class VMICRegisters extends VMActiveIC {
       }
       .card {
         --padding: 0.5rem;
-        --sl-input-font-size-small: 0.75em
+        --sl-input-font-size-small: 0.75em;
       }
       .card-body {
         display: flex;
@@ -28,6 +29,9 @@ export class VMICRegisters extends VMActiveIC {
       }
       .reg-input {
         width: 10rem;
+      }
+      .tooltip {
+        --max-width: 6rem;
       }
     `,
   ];
@@ -72,19 +76,34 @@ export class VMICRegisters extends VMActiveIC {
             const aliases = registerAliases
               .filter(([_alias, target]) => index === target)
               .map(([alias, _target]) => alias);
-            return html` <sl-input
-              type="text"
-              value="${displayVal(val)}"
-              pattern="${validation}"
-              size="small"
-              class="reg-input"
-            >
-              <span slot="prefix">r${index}</span>
-              <span slot="suffix">${aliases.join(", ")}</span>
-            </sl-input>`;
+            return html`
+              <sl-tooltip placement="left" class="tooltip">
+                <div slot="content">
+                  <strong>Regster r${index}</strong> Aliases:
+                  <em>${aliases.join(", ") || "None"}</em>
+                </div>
+                <sl-input
+                  type="text"
+                  value="${displayVal(val)}"
+                  pattern="${validation}"
+                  size="small"
+                  class="reg-input"
+                  @sl-change=${this._handleCellChange}
+                  key=${index}
+                >
+                  <span slot="prefix">r${index}</span>
+                  <span slot="suffix">${aliases.join(", ")}</span>
+                </sl-input>
+              </sl-tooltip>
+            `;
           })}
         </div>
       </sl-card>
     `;
+  }
+
+  _handleCellChange(e: Event) {
+    const target = e.target as SlInput;
+    console.log(target.getAttribute("key"), target.value);
   }
 }

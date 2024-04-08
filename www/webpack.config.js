@@ -6,7 +6,7 @@ const { SourceMap } = require("module");
 const path = require("path");
 
 module.exports = {
-  entry: "./src/js/main.ts",
+  entry: "./src/ts/main.ts",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "main.js",
@@ -108,4 +108,7 @@ module.exports = {
     aggregateTimeout: 200,
     poll: 200,
   },
+  optimization: {
+    chunkIds: "named",
+  }
 };

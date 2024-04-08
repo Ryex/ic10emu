@@ -22,6 +22,15 @@ export class VMUI extends BaseElement {
       sl-details::part(content) {
         padding: 0.5rem;
       }
+      vm-ic-controls {
+        margin-left: 1rem;
+        margin-right: 1rem;
+        margin-top: 0.5rem;
+      }
+      .side-container {
+        height: 100%
+        overflow-y: auto;
+      }
     `,
   ];
 
@@ -31,13 +40,15 @@ export class VMUI extends BaseElement {
 
   protected render() {
     return html`
-      <vm-ic-controls></vm-ic-controls>
-      <sl-details summary="Registers">
-        <vm-ic-registers></vm-ic-registers>
-      </sl-details>
-      <sl-details summary="Stack">
-        <vm-ic-stack></vm-ic-stack>
-      </sl-details>
+      <div class="side-container">
+        <vm-ic-controls></vm-ic-controls>
+        <sl-details summary="Registers" open>
+          <vm-ic-registers></vm-ic-registers>
+        </sl-details>
+        <sl-details summary="Stack">
+          <vm-ic-stack></vm-ic-stack>
+        </sl-details>
+      </div>
     `;
   }
 }

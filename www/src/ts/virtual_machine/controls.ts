@@ -17,11 +17,12 @@ export class VMICControls extends VMActiveIC {
     ...defaultCss,
     css`
       :host {
+        display: block;
+        box-sizing: border-box;
       }
       .card {
-        margin-left: 1rem;
-        margin-right: 1rem;
-        margin-top: 0.5rem;
+        width: 100%;
+        box-sizing: border-box;
       }
       .controls {
         display: flex;

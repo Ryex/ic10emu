@@ -8,6 +8,7 @@ import "@shoelace-style/shoelace/dist/components/icon/icon.js";
 import "@shoelace-style/shoelace/dist/components/tooltip/tooltip.js";
 import "@shoelace-style/shoelace/dist/components/input/input.js";
 import { RegisterSpec } from "ic10emu_wasm";
+import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
 
 @customElement("vm-ic-stack")
 export class VMICStack extends VMActiveIC {
@@ -56,27 +57,39 @@ export class VMICStack extends VMActiveIC {
       "[-+]?(([0-9]+(\\.[0-9]+)?([eE][+-]?[0-9]+)?)|((\\.[0-9]+)([eE][+-]?[0-9]+)?)|([iI][nN][fF][iI][nN][iI][tT][yY]))";
     const sp = this.registers![16];
 
-
     return html`
       <sl-card class="card">
         <div class="card-body">
           ${this.stack?.map((val, index) => {
-            return html` <sl-input
-              type="text"
-              value="${displayVal(val)}"
-              pattern="${validation}"
-              size="small"
-              class="stack-input ${sp === index ? "stack-pointer" : "" }"
-            >
-              <span
-                slot="prefix"
+            return html`
+              <sl-tooltip
+                placement="left"
               >
-                ${index}
-              </span>
-            </sl-input>`;
+                <div slot="content">
+                ${sp === index ? html`<strong>Stack Pointer</strong>` : ""}
+                Address ${index}
+                </div>
+                <sl-input
+                  type="text"
+                  value="${displayVal(val)}"
+                  pattern="${validation}"
+                  size="small"
+                  class="stack-input ${sp === index ? "stack-pointer" : ""}"
+                  @sl-change=${this._handleCellChange}
+                  key=${index}
+                >
+                  <span slot="prefix"> ${index} </span>
+                </sl-input>
+              </sl-tooltip>
+            `;
           })}
         </div>
       </sl-card>
     `;
+  }
+
+  _handleCellChange(e: Event) {
+    const target = e.target as SlInput;
+    console.log(target.getAttribute("key"), target.value);
   }
 }

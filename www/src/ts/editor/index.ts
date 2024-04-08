@@ -104,14 +104,11 @@ export class IC10Editor extends BaseElement {
       >
         <div
           id="editor"
-          <!-- style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 0; isolation: isolate;" -->
+          style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 0; isolation: isolate;"
         ></div>
         <div id="editorStatusbar"></div>
       </div>
-      <sl-dialog
-        label="Editor Settings"
-        class="dialog-focus e-settings-dialog"
-      >
+      <sl-dialog label="Editor Settings" class="dialog-focus e-settings-dialog">
         <sl-radio-group
           id="editorKeyboardRadio"
           label="Editor Keyboard Bindings"
@@ -262,9 +259,9 @@ export class IC10Editor extends BaseElement {
     });
 
     this.observer = new ResizeObserver(function (entries) {
-      entries.forEach(function (entry) {
+      for (const _entry of entries) {
         that.resizeEditor();
-      });
+      }
     });
 
     this.observer.observe(this.editorContainerDiv);
