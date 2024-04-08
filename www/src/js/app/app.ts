@@ -5,10 +5,10 @@ import "./nav";
 import "./share";
 import { ShareSessionDialog } from "./share";
 
-import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js';
+import { setBasePath } from "@shoelace-style/shoelace/dist/utilities/base-path.js";
 
 // Set the base path to the folder you copied Shoelace's assets to
-setBasePath('/shoelace');
+setBasePath("/shoelace");
 
 import "@shoelace-style/shoelace/dist/components/split-panel/split-panel.js";
 
@@ -17,6 +17,8 @@ import { IC10Editor } from "../editor";
 import { Session } from "../session";
 import { VirtualMachine } from "../virtual_machine";
 import { openFile, saveFile } from "../utils";
+
+import "../virtual_machine/ui";
 
 @customElement("ic10emu-app")
 export class App extends BaseElement {
@@ -34,11 +36,7 @@ export class App extends BaseElement {
       }
       .app-body {
         flex-grow: 1;
-        // z-index: auto;
       }
-      // .z-fix {
-      //   z-index: 900;
-      // }
       sl-split-panel {
         height: 100%;
       }
@@ -47,8 +45,8 @@ export class App extends BaseElement {
 
   editorSettings: { fontSize: number; relativeLineNumbers: boolean };
 
-  @query('ace-ic10') accessor editor: IC10Editor;
-  @query('session-share-dialog') accessor shareDialog: ShareSessionDialog;
+  @query("ace-ic10") accessor editor: IC10Editor;
+  @query("session-share-dialog") accessor shareDialog: ShareSessionDialog;
 
   // get editor() {
   //   return this.renderRoot.querySelector("ace-ic10") as IC10Editor;
@@ -62,14 +60,13 @@ export class App extends BaseElement {
     window.App = this;
     this.session = new Session();
     this.vm = new VirtualMachine();
-
   }
 
   protected createRenderRoot(): HTMLElement | DocumentFragment {
     const root = super.createRenderRoot();
-    root.addEventListener('app-share-session', this._handleShare.bind(this));
-    root.addEventListener('app-open-file', this._handleOpenFile.bind(this));
-    root.addEventListener('app-save-as', this._handleSaveAs.bind(this));
+    root.addEventListener("app-share-session", this._handleShare.bind(this));
+    root.addEventListener("app-open-file", this._handleOpenFile.bind(this));
+    root.addEventListener("app-save-as", this._handleSaveAs.bind(this));
     return root;
   }
 
@@ -85,7 +82,7 @@ export class App extends BaseElement {
             snap-threshold="15"
           >
             <ace-ic10 slot="start" style=""></ace-ic10>
-            <div slot="end">Controls</div>
+            <div slot="end"><vm-ui></vm-ui></div>
           </sl-split-panel>
         </div>
         <session-share-dialog></session-share-dialog>
@@ -93,8 +90,7 @@ export class App extends BaseElement {
     `;
   }
 
-  firstUpdated(): void {
-  }
+  firstUpdated(): void {}
 
   _handleShare(_e: Event) {
     // TODO:
@@ -109,7 +105,6 @@ export class App extends BaseElement {
   _handleOpenFile(_e: Event) {
     openFile(window.Editor.editor);
   }
-
 }
 
 declare global {

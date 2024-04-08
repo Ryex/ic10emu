@@ -1,6 +1,6 @@
 import { Ace } from "ace-builds";
 
-function docReady(fn: () => void) {
+export function docReady(fn: () => void) {
   // see if DOM is already available
   if (
     document.readyState === "complete" ||
@@ -12,8 +12,44 @@ function docReady(fn: () => void) {
   }
 }
 
+
+function replacer(key: any, value: any) {
+  if(value instanceof Map) {
+    return {
+      dataType: 'Map',
+      value: Array.from(value.entries()), // or with spread: value: [...value]
+    };
+  } else {
+    return value;
+  }
+}
+
+function reviver(_key: any, value: any) {
+  if(typeof value === 'object' && value !== null) {
+    if (value.dataType === 'Map') {
+      return new Map(value.value);
+    }
+  }
+  return value;
+}
+
+export function toJson(value: any): string {
+  return JSON.stringify(value, replacer);
+}
+
+export function fromJson(value: string): any {
+  return JSON.parse(value, reviver)
+}
+
+export function structuralEqual(a: any, b: any): boolean {
+  const _a = JSON.stringify(a, replacer);
+  const _b = JSON.stringify(b, replacer);
+  return _a === _b;
+
+}
+
 // probably not needed, fetch() exists now
-function makeRequest(opts: {
+export function makeRequest(opts: {
   method: string;
   url: string;
   headers: { [key: string]: string };
@@ -57,7 +93,7 @@ function makeRequest(opts: {
   });
 }
 
-async function saveFile(content: BlobPart) {
+export async function saveFile(content: BlobPart) {
   const blob = new Blob([content], { type: "text/plain" });
   if (typeof window.showSaveFilePicker !== "undefined") {
     console.log("Saving via FileSystem API");
@@ -88,7 +124,7 @@ async function saveFile(content: BlobPart) {
   }
 }
 
-async function openFile(editor: Ace.Editor) {
+export async function openFile(editor: Ace.Editor) {
   if (typeof window.showOpenFilePicker !== "undefined") {
     console.log("opening file via FileSystem Api");
     try {
@@ -121,4 +157,3 @@ async function openFile(editor: Ace.Editor) {
     input.click();
   }
 }
-export { docReady, makeRequest, saveFile, openFile };

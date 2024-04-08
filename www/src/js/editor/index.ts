@@ -1,5 +1,6 @@
 import {
   ace,
+  Ace,
   Editor,
   EditSession,
   Range,
@@ -32,8 +33,8 @@ import { html } from "lit";
 import { Ref, createRef, ref } from "lit/directives/ref.js";
 import { customElement, property, query } from "lit/decorators.js";
 import { editorStyles } from "./styles";
-import "./shortcuts-ui";
-import { AceKeyboardShortcuts } from "./shortcuts-ui";
+import "./shortcuts_ui";
+import { AceKeyboardShortcuts } from "./shortcuts_ui";
 
 @customElement("ace-ic10")
 export class IC10Editor extends BaseElement {
@@ -71,9 +72,9 @@ export class IC10Editor extends BaseElement {
   stylesAdded: string[];
   tooltipObserver: MutationObserver;
 
-  @query('.e-kb-shortcuts') accessor kbShortcuts: AceKeyboardShortcuts;
+  @query(".e-kb-shortcuts") accessor kbShortcuts: AceKeyboardShortcuts;
 
-  @query('.e-settings-dialog') accessor settingDialog: SlDialog;
+  @query(".e-settings-dialog") accessor settingDialog: SlDialog;
 
   constructor() {
     super();
@@ -294,31 +295,30 @@ export class IC10Editor extends BaseElement {
     window.App!.session.loadFromFragment();
 
     window.App!.session.onActiveLine(((e: CustomEvent) => {
-      const session = e.detail;
-      for (const id of session.programs.keys()) {
-        const active_line = session.getActiveLine(id);
-        if (typeof active_line !== "undefined") {
-          const marker = that.active_line_markers.get(id);
-          if (marker) {
-            that.sessions.get(id)?.removeMarker(marker);
-            that.active_line_markers.set(id, null);
-          }
-          const session = that.sessions.get(id);
-          if (session) {
-            that.active_line_markers.set(
-              id,
-              session.addMarker(
-                new Range(active_line, 0, active_line, 1),
-                "vm_ic_active_line",
-                "fullLine",
-                true,
-              ),
-            );
-            if (that.active_session == id) {
-              // editor.resize(true);
-              // TODO: Scroll to line if vm was stepped
-              //that.editor.scrollToLine(active_line, true, true, ()=>{})
-            }
+      const session = window.App?.session!;
+      const id = e.detail;
+      const active_line = session.getActiveLine(id);
+      if (typeof active_line !== "undefined") {
+        const marker = that.active_line_markers.get(id);
+        if (marker) {
+          that.sessions.get(id)?.removeMarker(marker);
+          that.active_line_markers.set(id, null);
+        }
+        const session = that.sessions.get(id);
+        if (session) {
+          that.active_line_markers.set(
+            id,
+            session.addMarker(
+              new Range(active_line, 0, active_line, 1),
+              "vm_ic_active_line",
+              "fullLine",
+              true,
+            ),
+          );
+          if (that.active_session == id) {
+            // editor.resize(true);
+            // TODO: Scroll to line if vm was stepped
+            //that.editor.scrollToLine(active_line, true, true, ()=>{})
           }
         }
       }

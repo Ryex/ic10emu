@@ -20,6 +20,7 @@ export async function setupLspWorker() {
   return worker;
 }
 
+export import Ace = ace.Ace;
 export import EditSession = ace.Ace.EditSession;
 export import Editor = ace.Ace.Editor;
 import { Range } from "ace-builds";

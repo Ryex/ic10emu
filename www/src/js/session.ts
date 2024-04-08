@@ -60,17 +60,21 @@ j ra
 
 `;
 
+import type { ICError } from "ic10emu_wasm";
+
 export class Session extends EventTarget {
   _programs: Map<number, string>;
-  _activeSession: number;
+  _errors: Map<number, ICError[]>;
+  _activeIC: number;
   _activeLines: Map<number, number>;
   _activeLine: number;
   _save_timeout?: ReturnType<typeof setTimeout>;
   constructor() {
     super();
     this._programs = new Map();
+    this._errors = new Map();
     this._save_timeout = undefined;
-    this._activeSession = 0;
+    this._activeIC = 0;
     this._activeLines = new Map();
     this.loadFromFragment();
 
@@ -86,10 +90,26 @@ export class Session extends EventTarget {
 
   set programs(programs) {
     this._programs = new Map([...programs]);
+    this._fireOnLoad();
   }
 
-  get activeSession() {
-    return this._activeSession;
+  get activeIC() {
+    return this._activeIC;
+  }
+
+  set activeIC(val: number) {
+    this._activeIC = val;
+    this.dispatchEvent(
+      new CustomEvent("session-active-ic", { detail: this.activeIC }),
+    );
+  }
+
+  onActiveIc(callback: EventListenerOrEventListenerObject) {
+    this.addEventListener("session-active-ic", callback);
+  }
+
+  get errors() {
+    return this._errors;
   }
 
   getActiveLine(id: number) {
@@ -98,7 +118,7 @@ export class Session extends EventTarget {
 
   setActiveLine(id: number, line: number) {
     this._activeLines.set(id, line);
-    this._fireOnActiveLine();
+    this._fireOnActiveLine(id);
   }
 
   set activeLine(line: number) {
@@ -108,6 +128,23 @@ export class Session extends EventTarget {
   setProgramCode(id: number, code: string) {
     this._programs.set(id, code);
     this.save();
+  }
+
+  setProgramErrors(id: number, errors: ICError[]) {
+    this._errors.set(id, errors);
+    this._fireOnErrors([id]);
+  }
+
+  _fireOnErrors(ids: number[]) {
+    this.dispatchEvent(
+      new CustomEvent("session-errors", {
+        detail: ids,
+      }),
+    );
+  }
+
+  onErrors(callback: EventListenerOrEventListenerObject) {
+    this.addEventListener("session-errors", callback);
   }
 
   onLoad(callback: EventListenerOrEventListenerObject) {
@@ -126,10 +163,10 @@ export class Session extends EventTarget {
     this.addEventListener("active-line", callback);
   }
 
-  _fireOnActiveLine() {
+  _fireOnActiveLine(id: number) {
     this.dispatchEvent(
-      new CustomEvent("activeLine", {
-        detail: this,
+      new CustomEvent("active-line", {
+        detail: id,
       }),
     );
   }
@@ -269,4 +306,3 @@ async function decompress(bytes: ArrayBuffer) {
   }
   return await concatUintArrays(chunks);
 }
-

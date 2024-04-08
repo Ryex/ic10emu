@@ -316,6 +316,11 @@ export const editorStyles = css`
     background: rgba(76, 87, 103, 0.19);
   }
 
+  .vm_ic_active_line {
+    position: absolute;
+    background: rgba(121, 82, 179, 0.4);
+    z-index: 20;
+  }
   /* ----------------------
   *  Editor Setting dialog
   *  ---------------------- */

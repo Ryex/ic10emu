@@ -79,14 +79,13 @@ impl DeviceRef {
             .borrow()
             .ic
             .as_ref()
-            .map(|ic| {
+            .and_then(|ic| {
                 self.vm
                     .borrow()
                     .ics
                     .get(ic)
                     .map(|ic| ic.as_ref().borrow().ip)
             })
-            .flatten()
     }
 
     #[wasm_bindgen(getter, js_name = "instructionCount")]
@@ -95,14 +94,13 @@ impl DeviceRef {
             .borrow()
             .ic
             .as_ref()
-            .map(|ic| {
+            .and_then(|ic| {
                 self.vm
                     .borrow()
                     .ics
                     .get(ic)
                     .map(|ic| ic.as_ref().borrow().ic)
             })
-            .flatten()
     }
 
     #[wasm_bindgen(getter, js_name = "stack")]
@@ -111,14 +109,13 @@ impl DeviceRef {
             .borrow()
             .ic
             .as_ref()
-            .map(|ic| {
+            .and_then(|ic| {
                 self.vm
                     .borrow()
                     .ics
                     .get(ic)
                     .map(|ic| Stack(ic.as_ref().borrow().stack))
             })
-            .flatten()
     }
 
     #[wasm_bindgen(getter, js_name = "registers")]
@@ -127,14 +124,13 @@ impl DeviceRef {
             .borrow()
             .ic
             .as_ref()
-            .map(|ic| {
+            .and_then(|ic| {
                 self.vm
                     .borrow()
                     .ics
                     .get(ic)
                     .map(|ic| Registers(ic.as_ref().borrow().registers))
             })
-            .flatten()
     }
 
     #[wasm_bindgen(getter, js_name = "aliases", skip_typescript)]
@@ -145,14 +141,13 @@ impl DeviceRef {
                 .borrow()
                 .ic
                 .as_ref()
-                .map(|ic| {
+                .and_then(|ic| {
                     self.vm
                         .borrow()
                         .ics
                         .get(ic)
                         .map(|ic| ic.as_ref().borrow().aliases.clone())
-                })
-                .flatten(),
+                }),
         )
         .unwrap()
     }
@@ -165,14 +160,13 @@ impl DeviceRef {
                 .borrow()
                 .ic
                 .as_ref()
-                .map(|ic| {
+                .and_then(|ic| {
                     self.vm
                         .borrow()
                         .ics
                         .get(ic)
                         .map(|ic| ic.as_ref().borrow().defines.clone())
-                })
-                .flatten(),
+                }),
         )
         .unwrap()
     }
@@ -185,14 +179,13 @@ impl DeviceRef {
                 .borrow()
                 .ic
                 .as_ref()
-                .map(|ic| {
+                .and_then(|ic| {
                     self.vm
                         .borrow()
                         .ics
                         .get(ic)
                         .map(|ic| ic.as_ref().borrow().pins)
-                })
-                .flatten(),
+                }),
         )
         .unwrap()
     }
@@ -203,18 +196,17 @@ impl DeviceRef {
             .borrow()
             .ic
             .as_ref()
-            .map(|ic| {
+            .and_then(|ic| {
                 self.vm
                     .borrow()
                     .ics
                     .get(ic)
                     .map(|ic| ic.borrow().state.clone())
             })
-            .flatten()
             .map(|state| state.to_string())
     }
 
-    #[wasm_bindgen(getter, js_name = "program")]
+    #[wasm_bindgen(getter, js_name = "program", skip_typescript)]
     pub fn ic_program(&self) -> JsValue {
         serde_wasm_bindgen::to_value(
             &self
@@ -222,14 +214,13 @@ impl DeviceRef {
                 .borrow()
                 .ic
                 .as_ref()
-                .map(|ic| {
+                .and_then(|ic| {
                     self.vm
                         .borrow()
                         .ics
                         .get(ic)
                         .map(|ic| ic.borrow().program.clone())
-                })
-                .flatten(),
+                }),
         )
         .unwrap()
     }
@@ -306,6 +297,7 @@ impl DeviceRef {
 pub struct VM {
     vm: Rc<RefCell<ic10emu::VM>>,
 }
+
 #[wasm_bindgen]
 impl VM {
     #[wasm_bindgen(constructor)]
@@ -371,6 +363,18 @@ impl VM {
     #[wasm_bindgen(getter)]
     pub fn ics(&self) -> Vec<u16> {
         self.vm.borrow().ics.keys().copied().collect_vec()
+    }
+
+    #[wasm_bindgen(getter, js_name = "lastOperationModified")]
+    pub fn last_operation_modified(&self) -> Vec<u16> {
+        self.vm.borrow().last_operation_modified()
+    }
+
+}
+
+impl Default for VM {
+    fn default() -> Self {
+        Self::new()
     }
 }
 

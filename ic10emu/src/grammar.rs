@@ -760,8 +760,10 @@ impl FromStr for Operand {
                     }
                 } else if let Some(val) = CONSTANTS_LOOKUP.get(s) {
                     Ok(Operand::Number(Number::Constant(*val)))
-                } else if let Some(val) = ENUM_LOOKUP.get(s) {
-                    Ok(Operand::Number(Number::Enum(*val as f64)))
+                } else if let Ok(val) = LogicEnums::from_str(s) {
+                    Ok(Operand::Number(Number::Enum(
+                        val.get_str("value").unwrap().parse().unwrap(),
+                    )))
                 } else if let Ok(lt) = LogicType::from_str(s) {
                     Ok(Operand::LogicType(lt))
                 } else if let Ok(slt) = SlotLogicType::from_str(s) {
@@ -1127,9 +1129,7 @@ mod tests {
                                 indirection: 0,
                                 target: 2,
                             }),
-                            Operand::Identifier(Identifier {
-                                name: "LogicType.Temperature".to_owned()
-                            }),
+                            Operand::Number(Number::Enum(6.0)),
                         ],
                     },),),
                     comment: None,

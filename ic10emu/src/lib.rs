@@ -200,6 +200,9 @@ pub struct VM {
     id_gen: IdSequenceGenerator,
     network_id_gen: IdSequenceGenerator,
     random: Rc<RefCell<crate::rand_mscorlib::Random>>,
+
+    /// list of device id's touched on the last operation
+    operation_modified: RefCell<Vec<u16>>,
 }
 
 impl Default for Network {
@@ -410,6 +413,7 @@ impl VM {
             id_gen,
             network_id_gen,
             random: Rc::new(RefCell::new(crate::rand_mscorlib::Random::new())),
+            operation_modified: RefCell::new(Vec::new()),
         };
         let _ = vm.add_ic(None);
         vm
@@ -555,9 +559,16 @@ impl VM {
         Ok(true)
     }
 
+    /// returns a list of device ids modified in the last operations
+    pub fn last_operation_modified(&self) -> Vec<u16> {
+        self.operation_modified.borrow().clone()
+    }
+
     pub fn step_ic(&self, id: u16, advance_ip_on_err: bool) -> Result<bool, VMError> {
+        self.operation_modified.borrow_mut().clear();
         let device = self.devices.get(&id).ok_or(VMError::UnknownId(id))?.clone();
         let ic_id = *device.borrow().ic.as_ref().ok_or(VMError::NoIC(id))?;
+        self.set_modified(id);
         let ic = self
             .ics
             .get(&ic_id)
@@ -570,6 +581,7 @@ impl VM {
 
     /// returns true if executed 128 lines, false if returned early.
     pub fn run_ic(&self, id: u16, ignore_errors: bool) -> Result<bool, VMError> {
+        self.operation_modified.borrow_mut().clear();
         let device = self.devices.get(&id).ok_or(VMError::UnknownId(id))?.clone();
         let ic_id = *device.borrow().ic.as_ref().ok_or(VMError::NoIC(id))?;
         let ic = self
@@ -578,6 +590,7 @@ impl VM {
             .ok_or(VMError::UnknownIcId(ic_id))?
             .clone();
         ic.borrow_mut().ic = 0;
+        self.set_modified(id);
         for _i in 0..128 {
             if let Err(err) = ic.borrow_mut().step(self, ignore_errors) {
                 if !ignore_errors {
@@ -592,6 +605,10 @@ impl VM {
         }
         ic.borrow_mut().state = interpreter::ICState::Yield;
         Ok(true)
+    }
+
+    pub fn set_modified(&self, id: u16) {
+        self.operation_modified.borrow_mut().push(id);
     }
 
     pub fn reset_ic(&self, id: u16) -> Result<bool, VMError> {
@@ -666,6 +683,7 @@ impl VM {
     }
 
     fn add_device_to_network(&self, id: u16, network_id: u16) -> Result<bool, VMError> {
+        self.set_modified(id);
         if !self.devices.contains_key(&id) {
             return Err(VMError::UnknownId(id));
         };
@@ -685,7 +703,10 @@ impl VM {
         val: f64,
     ) -> Result<(), ICError> {
         self.batch_device(source, prefab, None)
-            .map(|device| device.borrow_mut().set_field(typ, val))
+            .map(|device| {
+                self.set_modified(device.borrow().id);
+                device.borrow_mut().set_field(typ, val)
+            })
             .try_collect()
     }
 
@@ -698,7 +719,10 @@ impl VM {
         val: f64,
     ) -> Result<(), ICError> {
         self.batch_device(source, prefab, None)
-            .map(|device| device.borrow_mut().set_slot_field(index, typ, val))
+            .map(|device| {
+                self.set_modified(device.borrow().id);
+                device.borrow_mut().set_slot_field(index, typ, val)
+            })
             .try_collect()
     }
 
@@ -711,7 +735,10 @@ impl VM {
         val: f64,
     ) -> Result<(), ICError> {
         self.batch_device(source, prefab, Some(name))
-            .map(|device| device.borrow_mut().set_field(typ, val))
+            .map(|device| {
+                self.set_modified(device.borrow().id);
+                device.borrow_mut().set_field(typ, val)
+            })
             .try_collect()
     }
 

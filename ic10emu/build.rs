@@ -50,7 +50,7 @@ fn write_repr_enum<T: std::io::Write, I, P>(
     )
     .unwrap();
     for (name, variant) in variants {
-        let variant_name = name.to_case(Case::Pascal);
+        let variant_name = name.replace('.', "").to_case(Case::Pascal);
         let mut serialize = vec![name.clone()];
         serialize.extend(variant.aliases.iter().cloned());
         let serialize_str = serialize
@@ -186,31 +186,31 @@ fn write_enums() {
     let output_file = File::create(dest_path).unwrap();
     let mut writer = BufWriter::new(&output_file);
 
-    let mut enums_lookup_map_builder = ::phf_codegen::Map::new();
-    let mut check_set = std::collections::HashSet::new();
+    let mut enums_map: HashMap<String, EnumVariant<u16>> = HashMap::new();
     let e_infile = Path::new("data/enums.txt");
     let e_contents = fs::read_to_string(e_infile).unwrap();
 
     for line in e_contents.lines().filter(|l| !l.trim().is_empty()) {
-        let (name, val_str) = line.split_once(' ').unwrap();
+        let mut it = line.splitn(3, ' ');
+        let name = it.next().unwrap();
+        let val_str = it.next().unwrap();
+        let val: Option<u16> = val_str.parse().ok();
+        let docs = it.next();
+        let deprecated = docs
+            .map(|docs| docs.trim().to_uppercase() == "DEPRECATED")
+            .unwrap_or(false);
 
-        let val: Option<u8> = val_str.parse().ok();
-
-        if !check_set.contains(name) {
-            check_set.insert(name);
-        }
-
-        if let Some(v) = val {
-            enums_lookup_map_builder.entry(name, &format!("{}u8", v));
-        }
+        enums_map.insert(
+            name.to_string(),
+            EnumVariant {
+                aliases: Vec::new(),
+                value: val,
+                deprecated,
+            },
+        );
     }
 
-    writeln!(
-        &mut writer,
-        "pub(crate) const ENUM_LOOKUP: phf::Map<&'static str, u8> = {};",
-        enums_lookup_map_builder.build()
-    )
-    .unwrap();
+    write_repr_enum(&mut writer, "LogicEnums", &enums_map, true);
 
     println!("cargo:rerun-if-changed=data/enums.txt");
 }

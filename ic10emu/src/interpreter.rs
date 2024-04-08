@@ -58,7 +58,7 @@ pub enum ICError {
         index: u32,
         desired: String,
     },
-    #[error("Unknown identifier '{0}")]
+    #[error("Unknown identifier {0}")]
     UnknownIdentifier(String),
     #[error("Device Not Set")]
     DeviceNotSet,
@@ -2030,9 +2030,9 @@ impl IC {
                         let RegisterSpec {
                             indirection,
                             target,
-
                         } = reg.as_register(this, inst, 1)?;
-                        let (Some(device_id), _connection) = dev_id.as_device(this, inst, 2)? else {
+                        let (Some(device_id), _connection) = dev_id.as_device(this, inst, 2)?
+                        else {
                             return Err(DeviceNotSet);
                         };
                         let device = vm.get_device_same_network(this.device, device_id);
@@ -2057,9 +2057,9 @@ impl IC {
                         let RegisterSpec {
                             indirection,
                             target,
-
                         } = reg.as_register(this, inst, 1)?;
-                        let (Some(device_id), _connection) = dev_id.as_device(this, inst, 2)? else {
+                        let (Some(device_id), _connection) = dev_id.as_device(this, inst, 2)?
+                        else {
                             return Err(DeviceNotSet);
                         };
                         let device = vm.get_device_same_network(this.device, device_id);
@@ -2080,9 +2080,9 @@ impl IC {
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Put => match &operands[..] {
-
                     [dev_id, addr, val] => {
-                        let (Some(device_id), _connection) = dev_id.as_device(this, inst, 1)? else {
+                        let (Some(device_id), _connection) = dev_id.as_device(this, inst, 1)?
+                        else {
                             return Err(DeviceNotSet);
                         };
                         let device = vm.get_device_same_network(this.device, device_id);
@@ -2093,6 +2093,7 @@ impl IC {
                                     let val = val.as_value(this, inst, 3)?;
                                     let mut ic = vm.ics.get(ic_id).unwrap().borrow_mut();
                                     ic.poke(addr, val)?;
+                                    vm.set_modified(device_id);
                                     Ok(())
                                 }
                                 None => Err(DeviceHasNoIC),
@@ -2116,6 +2117,7 @@ impl IC {
                                     let val = val.as_value(this, inst, 3)?;
                                     let mut ic = vm.ics.get(ic_id).unwrap().borrow_mut();
                                     ic.poke(addr, val)?;
+                                    vm.set_modified(device_id as u16);
                                     Ok(())
                                 }
                                 None => Err(DeviceHasNoIC),
@@ -2150,6 +2152,7 @@ impl IC {
                             Some(device) => {
                                 let val = val.as_value(this, inst, 1)?;
                                 device.borrow_mut().set_field(lt, val)?;
+                                vm.set_modified(device_id);
                                 Ok(())
                             }
                             None => Err(UnknownDeviceID(device_id as f64)),
@@ -2169,6 +2172,7 @@ impl IC {
                                 let lt = LogicType::try_from(lt.as_value(this, inst, 2)?)?;
                                 let val = val.as_value(this, inst, 3)?;
                                 device.borrow_mut().set_field(lt, val)?;
+                                vm.set_modified(device_id as u16);
                                 Ok(())
                             }
                             None => Err(UnknownDeviceID(device_id)),
@@ -2188,6 +2192,7 @@ impl IC {
                                 let lt = SlotLogicType::try_from(lt.as_value(this, inst, 3)?)?;
                                 let val = val.as_value(this, inst, 4)?;
                                 device.borrow_mut().set_slot_field(index, lt, val)?;
+                                vm.set_modified(device_id);
                                 Ok(())
                             }
                             None => Err(UnknownDeviceID(device_id as f64)),
@@ -2410,8 +2415,8 @@ impl IC {
         let result = process_op(self);
         if result.is_ok() || advance_ip_on_err {
             self.ic += 1;
+            self.ip = next_ip;
         }
-        self.ip = next_ip;
         result
     }
 }

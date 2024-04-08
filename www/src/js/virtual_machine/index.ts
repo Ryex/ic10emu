@@ -1,7 +1,5 @@
 import { DeviceRef, VM, init } from "ic10emu_wasm";
-import { VMDeviceUI } from "./device";
-import { BaseElement } from "../components";
-// import { Card } from 'bootstrap';
+import "./base_device";
 
 declare global {
   interface Window {
@@ -26,7 +24,7 @@ type DeviceDB = {
   };
 };
 
-class VirtualMachine {
+class VirtualMachine extends EventTarget {
   ic10vm: VM;
   ui: VirtualMachineUI;
   _devices: Map<number, DeviceRef>;
@@ -34,12 +32,12 @@ class VirtualMachine {
   db: DeviceDB;
 
   constructor() {
+    super();
     const vm = init();
 
     window.VM = this;
 
     this.ic10vm = vm;
-    // this.ui = new VirtualMachineUI(this);
 
     this._devices = new Map();
     this._ics = new Map();
@@ -58,7 +56,7 @@ class VirtualMachine {
   }
 
   get activeIC() {
-    return this._ics.get(window.App!.session.activeSession);
+    return this._ics.get(window.App!.session.activeIC);
   }
 
   updateDevices() {
@@ -98,7 +96,12 @@ class VirtualMachine {
       if (ic && prog) {
         console.time(`CompileProgram_${id}_${attempt}`);
         try {
-          this.ics.get(id)!.setCode(progs.get(id)!);
+          this.ics.get(id)!.setCodeInvalid(progs.get(id)!);
+          const compiled = this.ics.get(id)?.program!;
+          window.App?.session.setProgramErrors(id, compiled.errors);
+          this.dispatchEvent(
+            new CustomEvent("vm-device-modified", { detail: id }),
+          );
         } catch (e) {
           console.log(e);
         }
@@ -117,6 +120,9 @@ class VirtualMachine {
         console.log(e);
       }
       this.update();
+      this.dispatchEvent(
+        new CustomEvent("vm-run-ic", { detail: this.activeIC!.id }),
+      );
     }
   }
 
@@ -129,6 +135,9 @@ class VirtualMachine {
         console.log(e);
       }
       this.update();
+      this.dispatchEvent(
+        new CustomEvent("vm-run-ic", { detail: this.activeIC!.id }),
+      );
     }
   }
 
@@ -142,24 +151,36 @@ class VirtualMachine {
 
   update() {
     this.updateDevices();
+    this.ic10vm.lastOperationModified.forEach((id, _index, _modifiedIds) => {
+      if (this.devices.has(id)) {
+        this.dispatchEvent(
+          new CustomEvent("vm-device-modified", { detail: id }),
+        );
+      }
+    }, this);
     const ic = this.activeIC!;
-    window.App!.session.setActiveLine(window.App!.session.activeSession, ic.ip!);
-    // this.ui.update(ic);
+    window.App!.session.setActiveLine(window.App!.session.activeIC, ic.ip!);
   }
 
   setRegister(index: number, val: number) {
     const ic = this.activeIC!;
     try {
       ic.setRegister(index, val);
+      this.dispatchEvent(
+        new CustomEvent("vm-device-modified", { detail: ic.id }),
+      );
     } catch (e) {
       console.log(e);
     }
   }
 
   setStack(addr: number, val: number) {
-    const ic = this.activeIC;
+    const ic = this.activeIC!;
     try {
       ic!.setStack(addr, val);
+      this.dispatchEvent(
+        new CustomEvent("vm-device-modified", { detail: ic.id }),
+      );
     } catch (e) {
       console.log(e);
     }
@@ -176,14 +197,12 @@ class VirtualMachineUI {
   state: VMStateUI;
   registers: VMRegistersUI;
   stack: VMStackUI;
-  devices: VMDeviceUI;
 
   constructor(vm: VirtualMachine) {
     this.vm = vm;
     this.state = new VMStateUI(this);
     this.registers = new VMRegistersUI(this);
     this.stack = new VMStackUI(this);
-    this.devices = new VMDeviceUI(this);
 
     const that = this;
 
@@ -214,7 +233,6 @@ class VirtualMachineUI {
     this.state.update(ic);
     this.registers.update(ic);
     this.stack.update(ic);
-    this.devices.update(ic);
   }
 }
 

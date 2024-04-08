@@ -29,6 +29,14 @@ export const defaultCss = [
     .mt-auto {
       margin-top: auto !important;
     }
+    .hstack {
+      display: flex;
+      flex-direction: row;
+    }
+    .vstack {
+      display: flex;
+      flex-direction: column;
+    }
   `,
 ];
 
