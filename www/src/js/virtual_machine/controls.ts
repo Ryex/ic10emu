@@ -1,8 +1,7 @@
 import { html, css } from "lit";
-import { customElement, property, query, state } from "lit/decorators.js";
+import { customElement } from "lit/decorators.js";
 import { defaultCss } from "../components";
-import { DeviceRef, ICError } from "ic10emu_wasm";
-import { VMBaseDevice } from "./base_device";
+import { VMActiveIC } from "./base_device";
 import { structuralEqual } from "../utils";
 
 import "@shoelace-style/shoelace/dist/components/card/card.js";
@@ -13,12 +12,7 @@ import "@shoelace-style/shoelace/dist/components/tooltip/tooltip.js";
 import "@shoelace-style/shoelace/dist/components/divider/divider.js";
 
 @customElement("vm-ic-controls")
-export class VMICControls extends VMBaseDevice {
-  @state() accessor icIP: number;
-  @state() accessor icOpCount: number;
-  @state() accessor icState: string;
-  @state() accessor errors: ICError[];
-
+export class VMICControls extends VMActiveIC {
   static styles = [
     ...defaultCss,
     css`
@@ -27,7 +21,7 @@ export class VMICControls extends VMBaseDevice {
       .card {
         margin-left: 1rem;
         margin-right: 1rem;
-        margin-top: 1rem;
+        margin-top: 0.5rem;
       }
       .controls {
         display: flex;
@@ -54,55 +48,6 @@ export class VMICControls extends VMBaseDevice {
     this.deviceID = window.App!.session.activeIC;
   }
 
-  connectedCallback(): void {
-    const root = super.connectedCallback();
-    window.VM?.addEventListener(
-      "vm-run-ic",
-      this._handleDeviceModified.bind(this),
-    );
-    window.App?.session.addEventListener(
-      "session-active-ic",
-      this._handleActiveIC.bind(this),
-    );
-    this.updateIC();
-    return root;
-  }
-
-  _handleActiveIC(e: CustomEvent) {
-    const id = e.detail;
-    if (this.deviceID !== id) {
-      this.deviceID = id;
-      this.device = window.VM!.devices.get(this.deviceID)!;
-    }
-    this.updateDevice();
-  }
-
-  updateIC() {
-    const ip = this.device.ip!;
-    if (this.icIP !== ip) {
-      this.icIP = ip;
-    }
-    const opCount = this.device.instructionCount!;
-    if (this.icOpCount !== opCount) {
-      this.icOpCount = opCount;
-    }
-    const state = this.device.state!;
-    if (this.icState !== state) {
-      this.icState = state;
-    }
-    const errors = this.device.program!.errors;
-    if (!structuralEqual(this.errors, errors)) {
-      this.errors = errors;
-    }
-  }
-
-  updateDevice(): void {
-    super.updateDevice();
-    this.updateIC();
-  }
-
-  protected firstUpdated(): void {}
-
   protected render() {
     return html`
       <sl-card class="card">
@@ -111,13 +56,21 @@ export class VMICControls extends VMBaseDevice {
             <sl-tooltip
               content="Run the active IC through one tick (128 operations)"
             >
-              <sl-button size="small" variant="primary" @click=${this._handleRunClick}>
+              <sl-button
+                size="small"
+                variant="primary"
+                @click=${this._handleRunClick}
+              >
                 <span>Run</span>
                 <sl-icon name="play" label="Run" slot="prefix"></sl-icon>
               </sl-button>
             </sl-tooltip>
             <sl-tooltip content="Run the active IC through a single operations">
-              <sl-button size="small" variant="success" @click=${this._handleStepClick}>
+              <sl-button
+                size="small"
+                variant="success"
+                @click=${this._handleStepClick}
+              >
                 <span>Step</span>
                 <sl-icon
                   name="chevron-bar-right"
@@ -127,7 +80,11 @@ export class VMICControls extends VMBaseDevice {
               </sl-button>
             </sl-tooltip>
             <sl-tooltip content="Reset the active IC">
-              <sl-button size="small" variant="warning" @click=${this._handleResetClick}>
+              <sl-button
+                size="small"
+                variant="warning"
+                @click=${this._handleResetClick}
+              >
                 <span>Reset</span>
                 <sl-icon
                   name="arrow-clockwise"
@@ -182,9 +139,9 @@ export class VMICControls extends VMBaseDevice {
     window.VM?.run();
   }
   _handleStepClick() {
-    window.VM?.step()
+    window.VM?.step();
   }
   _handleResetClick() {
-    window.VM?.reset()
+    window.VM?.reset();
   }
 }

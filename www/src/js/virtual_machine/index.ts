@@ -357,7 +357,7 @@ class VMRegistersUI {
         });
       }
     }
-    this.updateAliases();
+    // this.updateAliases();
   }
 
   updateAliases() {

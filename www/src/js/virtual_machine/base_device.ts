@@ -6,6 +6,12 @@ import {
   Reagents,
   Slot,
   Connection,
+  ICError,
+  Registers,
+  Stack,
+  Aliases,
+  Defines,
+  Pins,
 } from "ic10emu_wasm";
 import { structuralEqual } from "../utils";
 
@@ -20,6 +26,15 @@ export class VMBaseDevice extends BaseElement {
   @state() accessor slots: Slot[];
   @state() accessor reagents: Reagents;
   @state() accessor connections: Connection[];
+  @state() accessor icIP: number;
+  @state() accessor icOpCount: number;
+  @state() accessor icState: string;
+  @state() accessor errors: ICError[];
+  @state() accessor registers: Registers | null;
+  @state() accessor stack: Stack | null;
+  @state() accessor aliases: Aliases | null;
+  @state() accessor defines: Defines | null;
+  @state() accessor pins: Pins | null;
 
   constructor() {
     super();
@@ -74,5 +89,77 @@ export class VMBaseDevice extends BaseElement {
     if (!structuralEqual(this.connections, connections)) {
       this.connections = connections;
     }
+    this.updateIC();
   }
+
+  updateIC() {
+    const ip = this.device.ip!;
+    if (this.icIP !== ip) {
+      this.icIP = ip;
+    }
+    const opCount = this.device.instructionCount!;
+    if (this.icOpCount !== opCount) {
+      this.icOpCount = opCount;
+    }
+    const state = this.device.state!;
+    if (this.icState !== state) {
+      this.icState = state;
+    }
+    const errors = this.device.program!.errors ?? null;
+    if (!structuralEqual(this.errors, errors)) {
+      this.errors = errors;
+    }
+    const registers = this.device.registers ?? null;
+    if (!structuralEqual(this.registers, registers)) {
+      this.registers = registers;
+    }
+    const stack = this.device.stack ?? null;
+    if (!structuralEqual(this.stack, stack)) {
+      this.stack = stack;
+    }
+    const aliases = this.device.aliases ?? null;
+    if (!structuralEqual(this.aliases, aliases)) {
+      this.aliases = aliases;
+    }
+    const defines = this.device.defines ?? null;
+    if (!structuralEqual(this.defines, defines)) {
+      this.defines = defines;
+    }
+    const pins = this.device.pins ?? null;
+    if(!structuralEqual(this.pins, pins)) {
+      this.pins = pins;
+    }
+  }
+}
+
+export class VMActiveIC extends VMBaseDevice {
+
+  constructor() {
+    super();
+    this.deviceID = window.App!.session.activeIC;
+  }
+
+  connectedCallback(): void {
+    const root = super.connectedCallback();
+    window.VM?.addEventListener(
+      "vm-run-ic",
+      this._handleDeviceModified.bind(this),
+    );
+    window.App?.session.addEventListener(
+      "session-active-ic",
+      this._handleActiveIC.bind(this),
+    );
+    this.updateIC();
+    return root;
+  }
+
+  _handleActiveIC(e: CustomEvent) {
+    const id = e.detail;
+    if (this.deviceID !== id) {
+      this.deviceID = id;
+      this.device = window.VM!.devices.get(this.deviceID)!;
+    }
+    this.updateDevice();
+  }
+
 }

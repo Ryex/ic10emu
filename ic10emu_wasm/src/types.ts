@@ -1,6 +1,6 @@
 export type FieldType = "Read" | "Write" | "ReadWrite";
 
-export  interface LogicField {
+export interface LogicField {
   field_type: FieldType;
   value: number;
 }
@@ -49,49 +49,57 @@ export type Reagents = Map<string, Map<number, number>>;
 
 export type Connection = { CableNetwork: number } | "Other";
 
-export type Alias =
-  | { RegisterSpec: { indirection: number; target: number } }
-  | {
-      DeviceSpec: {
-        device:
-          | "Db"
-          | { Numbered: number }
-          | { Indirect: { indirection: number; target: number } };
-      };
-      connection: number | undefined;
-    };
+export type RegisterSpec = {
+  RegisterSpec: { indirection: number; target: number };
+};
+export type DeviceSpec = {
+  DeviceSpec: {
+    device:
+      | "Db"
+      | { Numbered: number }
+      | { Indirect: { indirection: number; target: number } };
+  };
+  connection: number | undefined;
+};
+export type LogicType = { LogicType: string };
+export type SlotLogicType = { SlotLogicType: string };
+export type BatchMode = { BatchMode: string };
+export type ReagentMode = { ReagentMode: string };
+export type Identifier = { Identifier: { name: string } };
+
+export type NumberFloat = { Float: number };
+export type NumberBinary = { Binary: number };
+export type NumberHexadecimal = { Hexadecimal: number };
+export type NumberConstant = { Constant: number };
+export type NumberString = { String: string };
+export type NumberEnum = { Enum: number };
+
+export type NumberOperand = {
+  Number:
+    | NumberFloat
+    | NumberBinary
+    | NumberHexadecimal
+    | NumberConstant
+    | NumberString
+    | NumberEnum;
+};
+export type Operand =
+  | RegisterSpec
+  | DeviceSpec
+  | NumberOperand
+  | LogicType
+  | SlotLogicType
+  | BatchMode
+  | ReagentMode
+  | Identifier;
+
+export type Alias = RegisterSpec | DeviceSpec;
 
 export type Aliases = Map<string, Alias>;
 
 export type Defines = Map<string, number>;
 
 export type Pins = (number | undefined)[];
-
-export type Operand =
-  | { RegisterSpec: { indirection: number; target: number } }
-  | {
-      DeviceSpec: {
-        device:
-          | "Db"
-          | { Numbered: number }
-          | { Indirect: { indirection: number; target: number } };
-      };
-      connection: number | undefined;
-    }
-  | {
-      Number:
-        | { Float: number }
-        | { Binary: number }
-        | { Hexadecimal: number }
-        | { Constant: number }
-        | { String: string }
-        | { Enum: number };
-    }
-  | { LogicType: string }
-  | { SlotLogicType: string }
-  | { BatchMode: string }
-  | { ReagentMode: string }
-  | { Identifier: { name: string } };
 
 export interface Instruction {
   instruction: string;

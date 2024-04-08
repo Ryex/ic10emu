@@ -2,6 +2,9 @@ import { Offcanvas } from "bootstrap";
 import { VirtualMachine, VirtualMachineUI } from ".";
 import { DeviceRef, VM } from "ic10emu_wasm";
 
+
+
+
 class VMDeviceUI {
   ui: VirtualMachineUI;
   summary: HTMLDivElement;
