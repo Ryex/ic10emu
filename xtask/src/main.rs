@@ -39,6 +39,8 @@ enum Task {
     ///
     /// This does not build the packages, use `build` first
     Start {},
+    /// Runs production page under 'www/dist', Run `build` first.
+    Deploy {},
 }
 
 #[derive(thiserror::Error)]
@@ -98,7 +100,16 @@ fn main() -> Result<(), Error> {
             cmd.args(["run", "start"]).status().map_err(|e| {
                 Error::Command(format!("{}", cmd.get_program().to_string_lossy()), e)
             })?;
-        }
+        },
+        Task::Deploy {} => {
+            pnpm_install(&args, &workspace)?;
+            eprintln!("Production Build");
+            let mut cmd = Command::new(&args.manager);
+            cmd.current_dir(&workspace.join("www"));
+            cmd.args(["run", "build"]).status().map_err(|e| {
+                Error::Command(format!("{}", cmd.get_program().to_string_lossy()), e)
+            })?;
+        },
     }
     Ok(())
 }
