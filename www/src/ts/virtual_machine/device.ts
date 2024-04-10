@@ -1,8 +1,8 @@
 import { Slot } from "ic10emu_wasm";
-import { html, css, HTMLTemplateResult } from "lit";
+import { html, css, HTMLTemplateResult, PropertyValueMap } from "lit";
 import { customElement, state } from "lit/decorators.js";
-import { BaseElement, defaultCss } from "../components";
-import { VMBaseDevice } from "./base_device";
+import { BaseElement, defaultCss, IC10Details } from "../components";
+import { VMDeviceMixin } from "./base_device";
 
 import "@shoelace-style/shoelace/dist/components/card/card.js";
 import "@shoelace-style/shoelace/dist/components/icon/icon.js";
@@ -19,9 +19,10 @@ import "@shoelace-style/shoelace/dist/components/option/option.js";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
 import { parseNumber, structuralEqual } from "../utils";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.js";
+import SlDetails from "@shoelace-style/shoelace/dist/components/details/details.js";
 
 @customElement("vm-device-card")
-export class VMDeviceCard extends VMBaseDevice {
+export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
   image_err: boolean;
 
   static styles = [
@@ -51,14 +52,12 @@ export class VMDeviceCard extends VMBaseDevice {
         align-items: center;
         flex-wrap: wrap;
       }
-      // .device-name {
-      //   box-sizing: border-box;
-      //   width: 8rem;
-      // }
-      // .device-name-hash {
-      //   box-sizing: border-box;
-      //   width: 5rem;
-      // }
+      .device-name::part(input) {
+        width: 10rem;
+      }
+      .device-name-hash::part(input) {
+        width: 7rem;
+      }
       sl-divider {
         --spacing: 0.25rem;
       }
@@ -129,7 +128,7 @@ export class VMDeviceCard extends VMBaseDevice {
           value="${this.nameHash}"
           disabled
         >
-          <span slot="prefix">Name Hash</span>
+          <span slot="prefix">Hash</span>
           <sl-copy-button
             slot="suffix"
             from="vmDeviceCard${this.deviceID}NameHash.value"
@@ -195,6 +194,7 @@ export class VMDeviceCard extends VMBaseDevice {
       </sl-card>
     `;
   }
+
   renderSlots(): HTMLTemplateResult {
     return html`
       <div clas="slots">
@@ -202,9 +202,11 @@ export class VMDeviceCard extends VMBaseDevice {
       </div>
     `;
   }
+
   renderReagents(): HTMLTemplateResult {
     return html``;
   }
+
   renderNetworks(): HTMLTemplateResult {
     const vmNetworks = window.VM!.networks;
     return html`
@@ -260,10 +262,11 @@ export class VMDeviceCard extends VMBaseDevice {
       </div>
     `;
   }
-  protected render(): HTMLTemplateResult {
+
+  render(): HTMLTemplateResult {
     return html`
-      <sl-card class="card">
-        <div class="header" slot="header">${this.renderHeader()}</div>
+      <ic10-details class="device-card" open>
+        <div class="header" slot="summary">${this.renderHeader()}</div>
         <sl-tab-group>
           <sl-tab slot="nav" panel="fields">Fields</sl-tab>
           <sl-tab slot="nav" panel="slots">Slots</sl-tab>
@@ -277,7 +280,7 @@ export class VMDeviceCard extends VMBaseDevice {
           <sl-tab-panel name="networks">${this.renderNetworks()}</sl-tab-panel>
           <sl-tab-panel name="pins">${this.renderPins()}</sl-tab-panel>
         </sl-tab-group>
-      </sl-card>
+      </ic10-details>
     `;
   }
 
@@ -341,6 +344,19 @@ export class VMDeviceCard extends VMBaseDevice {
 export class VMDeviceList extends BaseElement {
   @state() accessor devices: number[];
 
+  static styles = [
+    ...defaultCss,
+    css`
+      .device-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      .device-list-card {
+      }
+    `,
+  ];
+
   constructor() {
     super();
     this.devices = window.VM!.deviceIds;
@@ -367,7 +383,10 @@ export class VMDeviceList extends BaseElement {
       <div class="device-list">
         ${this.devices.map(
           (id, _index, _ids) =>
-            html`<vm-device-card .deviceID=${id}></vm-device-card>`,
+            html`<vm-device-card
+              .deviceID=${id}
+              class="device-list-card"
+            ></vm-device-card>`,
         )}
       </div>
     `;

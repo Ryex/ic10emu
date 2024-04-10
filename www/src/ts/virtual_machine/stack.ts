@@ -1,7 +1,7 @@
 import { html, css } from "lit";
 import { customElement } from "lit/decorators.js";
-import { defaultCss } from "../components";
-import { VMActiveIC } from "./base_device";
+import { BaseElement, defaultCss } from "../components";
+import { VMActiveICMixin } from "./base_device";
 
 import "@shoelace-style/shoelace/dist/components/card/card.js";
 import "@shoelace-style/shoelace/dist/components/icon/icon.js";
@@ -11,7 +11,7 @@ import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
 import { parseNumber } from "../utils";
 
 @customElement("vm-ic-stack")
-export class VMICStack extends VMActiveIC {
+export class VMICStack extends VMActiveICMixin(BaseElement) {
   static styles = [
     ...defaultCss,
     css`
@@ -53,8 +53,6 @@ export class VMICStack extends VMActiveIC {
         return val.toString();
       }
     };
-    const validation =
-      "[\\-+]?(([0-9]+(\\.[0-9]+)?([eE][\\-+]?[0-9]+)?)|((\\.[0-9]+)([eE][\\-+]?[0-9]+)?)|([iI][nN][fF][iI][nN][iI][tT][yY]))";
     const sp = this.registers![16];
 
     return html`
@@ -62,17 +60,14 @@ export class VMICStack extends VMActiveIC {
         <div class="card-body">
           ${this.stack?.map((val, index) => {
             return html`
-              <sl-tooltip
-                placement="left"
-              >
+              <sl-tooltip placement="left">
                 <div slot="content">
-                ${sp === index ? html`<strong>Stack Pointer</strong>` : ""}
-                Address ${index}
+                  ${sp === index ? html`<strong>Stack Pointer</strong>` : ""}
+                  Address ${index}
                 </div>
                 <sl-input
                   type="text"
                   value="${displayVal(val)}"
-                  pattern="${validation}"
                   size="small"
                   class="stack-input ${sp === index ? "stack-pointer" : ""}"
                   @sl-change=${this._handleCellChange}
@@ -91,7 +86,7 @@ export class VMICStack extends VMActiveIC {
   _handleCellChange(e: Event) {
     const input = e.target as SlInput;
     const index = parseInt(input.getAttribute("key")!);
-    const val = parseNumber(input.value)
+    const val = parseNumber(input.value);
     window.VM!.setStack(index, val);
   }
 }

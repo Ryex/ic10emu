@@ -1,7 +1,7 @@
 import { html, css } from "lit";
 import { customElement } from "lit/decorators.js";
-import { defaultCss } from "../components";
-import { VMActiveIC } from "./base_device";
+import { BaseElement, defaultCss } from "../components";
+import { VMActiveICMixin } from "./base_device";
 import { structuralEqual } from "../utils";
 
 import "@shoelace-style/shoelace/dist/components/card/card.js";
@@ -16,7 +16,7 @@ import "@shoelace-style/shoelace/dist/components/option/option.js";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.js";
 
 @customElement("vm-ic-controls")
-export class VMICControls extends VMActiveIC {
+export class VMICControls extends VMActiveICMixin(BaseElement) {
   static styles = [
     ...defaultCss,
     css`
@@ -121,11 +121,11 @@ export class VMICControls extends VMActiveIC {
               @sl-change=${this._handleChangeActiveIC}
             >
               ${ics.map(
-      ([id, device], _index) =>
-        html`<sl-option value=${id}>
+                ([id, device], _index) =>
+                  html`<sl-option value=${id}>
                     Device:${id} ${device.name ?? device.prefabName}
                   </sl-option>`,
-    )}
+              )}
             </sl-select>
           </div>
         </div>
@@ -148,15 +148,15 @@ export class VMICControls extends VMActiveIC {
           <div class="vstack">
             <span>Errors</span>
             ${this.errors.map(
-      (err) =>
-        html`<div class="hstack">
+              (err) =>
+                html`<div class="hstack">
                   <span>
                     Line: ${err.ParseError.line} -
                     ${err.ParseError.start}:${err.ParseError.end}
                   </span>
                   <span class="ms-auto">${err.ParseError.msg}</span>
                 </div>`,
-    )}
+            )}
           </div>
         </div>
       </sl-card>

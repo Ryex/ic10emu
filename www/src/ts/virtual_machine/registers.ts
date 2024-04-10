@@ -1,7 +1,7 @@
 import { html, css } from "lit";
 import { customElement } from "lit/decorators.js";
-import { defaultCss } from "../components";
-import { VMActiveIC } from "./base_device";
+import { BaseElement, defaultCss } from "../components";
+import { VMActiveICMixin } from "./base_device";
 
 import "@shoelace-style/shoelace/dist/components/card/card.js";
 import "@shoelace-style/shoelace/dist/components/icon/icon.js";
@@ -12,7 +12,7 @@ import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
 import { parseNumber } from "../utils";
 
 @customElement("vm-ic-registers")
-export class VMICRegisters extends VMActiveIC {
+export class VMICRegisters extends VMActiveICMixin(BaseElement) {
   static styles = [
     ...defaultCss,
     css`
@@ -57,8 +57,6 @@ export class VMICRegisters extends VMActiveIC {
         return val.toString();
       }
     };
-    const validation =
-      "[\\-+]?(([0-9]+(\\.[0-9]+)?([eE][\\-+]?[0-9]+)?)|((\\.[0-9]+)([eE][\\-+]?[0-9]+)?)|([iI][nN][fF][iI][nN][iI][tT][yY]))";
     const registerAliases: [string, number][] = (
       (
         [...(this.aliases ?? [])].filter(
@@ -74,19 +72,18 @@ export class VMICRegisters extends VMActiveIC {
       <sl-card class="card">
         <div class="card-body">
           ${this.registers?.map((val, index) => {
-      const aliases = registerAliases
-        .filter(([_alias, target]) => index === target)
-        .map(([alias, _target]) => alias);
-      return html`
+            const aliases = registerAliases
+              .filter(([_alias, target]) => index === target)
+              .map(([alias, _target]) => alias);
+            return html`
               <sl-tooltip placement="left" class="tooltip">
                 <div slot="content">
-                  <strong>Regster r${index}</strong> Aliases:
+                  <strong>Register r${index}</strong> Aliases:
                   <em>${aliases.join(", ") || "None"}</em>
                 </div>
                 <sl-input
                   type="text"
                   value="${displayVal(val)}"
-                  pattern="${validation}"
                   size="small"
                   class="reg-input"
                   @sl-change=${this._handleCellChange}
@@ -97,7 +94,7 @@ export class VMICRegisters extends VMActiveIC {
                 </sl-input>
               </sl-tooltip>
             `;
-    })}
+          })}
         </div>
       </sl-card>
     `;
@@ -106,7 +103,7 @@ export class VMICRegisters extends VMActiveIC {
   _handleCellChange(e: Event) {
     const input = e.target as SlInput;
     const index = parseInt(input.getAttribute("key")!);
-    const val = parseNumber(input.value)
+    const val = parseNumber(input.value);
     window.VM!.setRegister(index, val);
   }
 }
