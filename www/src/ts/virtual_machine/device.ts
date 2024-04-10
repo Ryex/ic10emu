@@ -286,7 +286,7 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
 
   _handleChangeName(e: CustomEvent) {
     const input = e.target as SlInput;
-    this.device.setName(input.value);
+    window.VM?.setDeviceName(this.deviceID, input.value)
     this.updateDevice();
   }
 
@@ -294,7 +294,7 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
     const input = e.target as SlInput;
     const field = input.getAttribute("key")!;
     const val = parseNumber(input.value);
-    this.device.setField(field, val);
+    window.VM?.setDeviceField(this.deviceID, field, val)
     this.updateDevice();
   }
 
@@ -303,7 +303,7 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
     const slot = parseInt(input.getAttribute("slotIndex")!);
     const field = input.getAttribute("key")!;
     const val = parseNumber(input.value);
-    this.device.setSlotField(slot, field, val);
+    window.VM?.setDeviceSlotField(this.deviceID, slot, field, val)
     this.updateDevice();
   }
 
