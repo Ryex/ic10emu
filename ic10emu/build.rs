@@ -1,6 +1,6 @@
 use convert_case::{Case, Casing};
 use std::{
-    collections::{HashMap, HashSet},
+    collections::BTreeSet,
     env,
     fmt::Display,
     fs::{self, File},
@@ -8,20 +8,6 @@ use std::{
     path::Path,
     str::FromStr,
 };
-
-// trait PrimitiveRepr {}
-// impl PrimitiveRepr for u8 {}
-// impl PrimitiveRepr for u16 {}
-// impl PrimitiveRepr for u32 {}
-// impl PrimitiveRepr for u64 {}
-// impl PrimitiveRepr for u128 {}
-// impl PrimitiveRepr for usize {}
-// impl PrimitiveRepr for i8 {}
-// impl PrimitiveRepr for i16 {}
-// impl PrimitiveRepr for i32 {}
-// impl PrimitiveRepr for i64 {}
-// impl PrimitiveRepr for i128 {}
-// impl PrimitiveRepr for isize {}
 
 struct EnumVariant<P>
 where
@@ -32,14 +18,14 @@ where
     pub deprecated: bool,
 }
 
-fn write_repr_enum<T: std::io::Write, I, P>(
+fn write_repr_enum<'a, T: std::io::Write, I, P>(
     writer: &mut BufWriter<T>,
     name: &str,
-    variants: &I,
+    variants: I,
     use_phf: bool,
 ) where
-    P: Display + FromStr,
-    for<'a> &'a I: IntoIterator<Item = (&'a String, &'a EnumVariant<P>)>,
+    P: Display + FromStr + 'a,
+    I: Iterator<Item = (&'a String, &'a EnumVariant<P>)>,
 {
     let additional_strum = if use_phf { "#[strum(use_phf)]\n" } else { "" };
     write!(
@@ -84,7 +70,7 @@ fn write_logictypes() {
     let output_file = File::create(dest_path).unwrap();
     let mut writer = BufWriter::new(&output_file);
 
-    let mut logictypes: HashMap<String, EnumVariant<u8>> = HashMap::new();
+    let mut logictypes: Vec<(String, EnumVariant<u8>)> = Vec::new();
     let l_infile = Path::new("data/logictypes.txt");
     let l_contents = fs::read_to_string(l_infile).unwrap();
 
@@ -106,28 +92,28 @@ fn write_logictypes() {
                 variant.aliases.push(name.to_string());
                 variant.deprecated = deprecated;
             } else {
-                logictypes.insert(
+                logictypes.push((
                     name.to_string(),
                     EnumVariant {
                         aliases: Vec::new(),
                         value: Some(val),
                         deprecated,
                     },
-                );
+                ));
             }
         } else {
-            logictypes.insert(
+            logictypes.push((
                 name.to_string(),
                 EnumVariant {
                     aliases: Vec::new(),
                     value: val,
                     deprecated,
                 },
-            );
+            ));
         }
     }
 
-    let mut slotlogictypes: HashMap<String, EnumVariant<u8>> = HashMap::new();
+    let mut slotlogictypes: Vec<(String, EnumVariant<u8>)> = Vec::new();
     let sl_infile = Path::new("data/slotlogictypes.txt");
     let sl_contents = fs::read_to_string(sl_infile).unwrap();
 
@@ -149,32 +135,46 @@ fn write_logictypes() {
                 variant.aliases.push(name.to_string());
                 variant.deprecated = deprecated;
             } else {
-                slotlogictypes.insert(
+                slotlogictypes.push((
                     name.to_string(),
                     EnumVariant {
                         aliases: Vec::new(),
                         value: Some(val),
                         deprecated,
                     },
-                );
+                ));
             }
         } else {
-            slotlogictypes.insert(
+            slotlogictypes.push((
                 name.to_string(),
                 EnumVariant {
                     aliases: Vec::new(),
                     value: val,
                     deprecated,
                 },
-            );
+            ));
         }
     }
 
-    write_repr_enum(&mut writer, "LogicType", &logictypes, true);
+    write_repr_enum(
+        &mut writer,
+        "LogicType",
+        logictypes
+            .iter()
+            .map(|(key, variant)| (key, variant)),
+        true,
+    );
 
     println!("cargo:rerun-if-changed=data/logictypes.txt");
 
-    write_repr_enum(&mut writer, "SlotLogicType", &slotlogictypes, true);
+    write_repr_enum(
+        &mut writer,
+        "SlotLogicType",
+        slotlogictypes
+            .iter()
+            .map(|(key, variant)| (key, variant)),
+        true,
+    );
 
     println!("cargo:rerun-if-changed=data/slotlogictypes.txt");
 }
@@ -186,7 +186,7 @@ fn write_enums() {
     let output_file = File::create(dest_path).unwrap();
     let mut writer = BufWriter::new(&output_file);
 
-    let mut enums_map: HashMap<String, EnumVariant<u16>> = HashMap::new();
+    let mut enums_map: Vec<(String, EnumVariant<u16>)> = Vec::new();
     let e_infile = Path::new("data/enums.txt");
     let e_contents = fs::read_to_string(e_infile).unwrap();
 
@@ -200,17 +200,24 @@ fn write_enums() {
             .map(|docs| docs.trim().to_uppercase() == "DEPRECATED")
             .unwrap_or(false);
 
-        enums_map.insert(
+        enums_map.push((
             name.to_string(),
             EnumVariant {
                 aliases: Vec::new(),
                 value: val,
                 deprecated,
             },
-        );
+        ));
     }
 
-    write_repr_enum(&mut writer, "LogicEnums", &enums_map, true);
+    write_repr_enum(
+        &mut writer,
+        "LogicEnums",
+        enums_map
+            .iter()
+            .map(|(key, variant)| (key, variant)),
+        true,
+    );
 
     println!("cargo:rerun-if-changed=data/enums.txt");
 }
@@ -222,7 +229,7 @@ fn write_modes() {
     let output_file = File::create(dest_path).unwrap();
     let mut writer = BufWriter::new(&output_file);
 
-    let mut batchmodes: HashMap<String, EnumVariant<u8>> = HashMap::new();
+    let mut batchmodes: Vec<(String, EnumVariant<u8>)> = Vec::new();
     let b_infile = Path::new("data/batchmodes.txt");
     let b_contents = fs::read_to_string(b_infile).unwrap();
 
@@ -239,28 +246,28 @@ fn write_modes() {
             {
                 variant.aliases.push(name.to_string());
             } else {
-                batchmodes.insert(
+                batchmodes.push((
                     name.to_string(),
                     EnumVariant {
                         aliases: Vec::new(),
                         value: Some(val),
                         deprecated: false,
                     },
-                );
+                ));
             }
         } else {
-            batchmodes.insert(
+            batchmodes.push((
                 name.to_string(),
                 EnumVariant {
                     aliases: Vec::new(),
                     value: val,
                     deprecated: false,
                 },
-            );
+            ));
         }
     }
 
-    let mut reagentmodes: HashMap<String, EnumVariant<u8>> = HashMap::new();
+    let mut reagentmodes: Vec<(String, EnumVariant<u8>)> = Vec::new();
     let r_infile = Path::new("data/reagentmodes.txt");
     let r_contents = fs::read_to_string(r_infile).unwrap();
 
@@ -277,32 +284,42 @@ fn write_modes() {
             {
                 variant.aliases.push(name.to_string());
             } else {
-                reagentmodes.insert(
+                reagentmodes.push((
                     name.to_string(),
                     EnumVariant {
                         aliases: Vec::new(),
                         value: Some(val),
                         deprecated: false,
                     },
-                );
+                ));
             }
         } else {
-            reagentmodes.insert(
+            reagentmodes.push((
                 name.to_string(),
                 EnumVariant {
                     aliases: Vec::new(),
                     value: val,
                     deprecated: false,
                 },
-            );
+            ));
         }
     }
 
-    write_repr_enum(&mut writer, "BatchMode", &batchmodes, false);
+    write_repr_enum(
+        &mut writer,
+        "BatchMode",
+        batchmodes.iter().map(|(key, variant)| (key, variant)),
+        false,
+    );
 
     println!("cargo:rerun-if-changed=data/batchmodes.txt");
 
-    write_repr_enum(&mut writer, "ReagentMode", &reagentmodes, false);
+    write_repr_enum(
+        &mut writer,
+        "ReagentMode",
+        reagentmodes.iter().map(|(key, variant)| (key, variant)),
+        false,
+    );
 
     println!("cargo:rerun-if-changed=data/reagentmodes.txt");
 }
@@ -342,7 +359,7 @@ fn write_instructions_enum() {
     let output_file = File::create(dest_path).unwrap();
     let mut writer = BufWriter::new(&output_file);
 
-    let mut instructions = HashSet::new();
+    let mut instructions = BTreeSet::new();
     let infile = Path::new("data/instructions.txt");
     let contents = fs::read_to_string(infile).unwrap();
 

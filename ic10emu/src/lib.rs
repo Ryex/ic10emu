@@ -750,7 +750,7 @@ impl VM {
                 return Err(VMError::DeviceNotVisible(other_device, id));
             }
         }
-        if !(0..7).contains(&pin) {
+        if !(0..6).contains(&pin) {
             Err(ICError::PinIndexOutOfRange(pin).into())
         } else {
             let Some(ic_id) = device.borrow().ic else {
@@ -798,7 +798,7 @@ impl VM {
 
             for conn in device_ref.connections.iter_mut() {
                 if let Connection::CableNetwork(conn) = conn {
-                    if Some(network_id) == *conn {
+                    if  *conn == Some(network_id) {
                         *conn = None;
                     }
                 }
