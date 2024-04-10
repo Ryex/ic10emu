@@ -9,6 +9,7 @@ import "@shoelace-style/shoelace/dist/components/tooltip/tooltip.js";
 import "@shoelace-style/shoelace/dist/components/input/input.js";
 import { RegisterSpec } from "ic10emu_wasm";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
+import { parseNumber } from "../utils";
 
 @customElement("vm-ic-registers")
 export class VMICRegisters extends VMActiveIC {
@@ -103,7 +104,9 @@ export class VMICRegisters extends VMActiveIC {
   }
 
   _handleCellChange(e: Event) {
-    const target = e.target as SlInput;
-    console.log(target.getAttribute("key"), target.value);
+    const input = e.target as SlInput;
+    const index = parseInt(input.getAttribute("key")!);
+    const val = parseNumber(input.value)
+    window.VM!.setRegister(index, val);
   }
 }

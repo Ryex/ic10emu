@@ -8,6 +8,7 @@ import "@shoelace-style/shoelace/dist/components/icon/icon.js";
 import "@shoelace-style/shoelace/dist/components/tooltip/tooltip.js";
 import "@shoelace-style/shoelace/dist/components/input/input.js";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
+import { parseNumber } from "../utils";
 
 @customElement("vm-ic-stack")
 export class VMICStack extends VMActiveIC {
@@ -88,7 +89,9 @@ export class VMICStack extends VMActiveIC {
   }
 
   _handleCellChange(e: Event) {
-    const target = e.target as SlInput;
-    console.log(target.getAttribute("key"), target.value);
+    const input = e.target as SlInput;
+    const index = parseInt(input.getAttribute("key")!);
+    const val = parseNumber(input.value)
+    window.VM!.setStack(index, val);
   }
 }

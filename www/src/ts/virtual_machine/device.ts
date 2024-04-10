@@ -93,17 +93,19 @@ export class VMDeviceCard extends VMBaseDevice {
     if (this.deviceID == activeIc?.id) {
       badges.push(html`<sl-badge variant="primary" pill pulse>db</sl-badge>`);
     }
-    activeIc?.pins?.forEach((id, index) => {
+    activeIc?.pins?.forEach((id, _index) => {
       if (this.deviceID == id) {
         badges.push(html`<sl-badge variant="success" pill></sl-badge>`);
       }
     }, this);
     return html`
-      <img
-        class="image"
-        src="img/stationpedia/${this.prefabName}.png"
-        @onerr=${this.onImageErr}
-      />
+      <sl-tooltip content="${this.prefabName}">
+        <img
+          class="image"
+          src="img/stationpedia/${this.prefabName}.png"
+          @onerr=${this.onImageErr}
+        />
+      </sl-tooltip>
       <div class="header-name">
         <sl-input
           id="vmDeviceCard${this.deviceID}Name"
@@ -140,22 +142,30 @@ export class VMDeviceCard extends VMBaseDevice {
 
   renderFields(): HTMLTemplateResult {
     const fields = Array.from(this.fields);
+    const inputIdBase = `vmDeviceCard${this.deviceID}Field`;
     return html`
       ${fields.map(([name, field], _index, _fields) => {
-      return html` <sl-input
+        return html` <sl-input
+          id="${inputIdBase}${name}"
           key="${name}"
           value="${field.value}"
+          ?disabled=${field.field_type === "Read"}
           @sl-change=${this._handleChangeField}
         >
           <span slot="prefix">${name}</span>
+          <sl-copy-button
+            slot="suffix"
+            from="${inputIdBase}${name}.value"
+          ></sl-copy-button>
           <span slot="suffix">${field.field_type}</span>
         </sl-input>`;
-    })}
+      })}
     `;
   }
 
   renderSlot(slot: Slot, slotIndex: number): HTMLTemplateResult {
     const fields = Array.from(slot.fields);
+    const inputIdBase = `vmDeviceCard${this.deviceID}Slot${slotIndex}Field`;
     return html`
       <sl-card class="slot-card">
         <span slot="header" class="slot-header"
@@ -163,18 +173,24 @@ export class VMDeviceCard extends VMBaseDevice {
         >
         <div class="slot-fields">
           ${fields.map(
-      ([name, field], _index, _fields) => html`
+            ([name, field], _index, _fields) => html`
               <sl-input
+                id="${inputIdBase}${name}"
                 slotIndex=${slotIndex}
                 key="${name}"
                 value="${field.value}"
+                ?disabled=${field.field_type === "Read"}
                 @sl-change=${this._handleChangeSlotField}
               >
                 <span slot="prefix">${name}</span>
+                <sl-copy-button
+                  slot="suffix"
+                  from="${inputIdBase}${name}.value"
+                ></sl-copy-button>
                 <span slot="suffix">${field.field_type}</span>
               </sl-input>
             `,
-    )}
+          )}
         </div>
       </sl-card>
     `;
@@ -194,9 +210,9 @@ export class VMDeviceCard extends VMBaseDevice {
     return html`
       <div class="networks">
         ${this.connections.map((connection, index, _conns) => {
-      const conn =
-        typeof connection === "object" ? connection.CableNetwork : null;
-      return html`
+          const conn =
+            typeof connection === "object" ? connection.CableNetwork : null;
+          return html`
             <sl-select
               hoist
               placement="top"
@@ -208,12 +224,12 @@ export class VMDeviceCard extends VMBaseDevice {
             >
               <span slot="prefix">Connection:${index}</span>
               ${vmNetworks.map(
-        (net) =>
-          html`<sl-option value=${net}>Network ${net}</sl-option>`,
-      )}
+                (net) =>
+                  html`<sl-option value=${net}>Network ${net}</sl-option>`,
+              )}
             </sl-select>
           `;
-    })}
+        })}
       </div>
     `;
   }
@@ -223,8 +239,8 @@ export class VMDeviceCard extends VMBaseDevice {
     return html`
       <div class="pins">
         ${pins?.map(
-      (pin, index) =>
-        html`<sl-select
+          (pin, index) =>
+            html`<sl-select
               hoist
               placement="top"
               clearable
@@ -234,13 +250,13 @@ export class VMDeviceCard extends VMBaseDevice {
             >
               <span slot="prefix">d${index}</span>
               ${visibleDevices.map(
-          (device, _index) =>
-            html`<sl-option value=${device.id}>
+                (device, _index) =>
+                  html`<sl-option value=${device.id}>
                     Device ${device.id} : ${device.name ?? device.prefabName}
                   </sl-option>`,
-        )}
+              )}
             </sl-select>`,
-    )}
+        )}
       </div>
     `;
   }
@@ -350,9 +366,9 @@ export class VMDeviceList extends BaseElement {
     return html`
       <div class="device-list">
         ${this.devices.map(
-      (id, _index, _ids) =>
-        html`<vm-device-card .deviceID=${id}></vm-device-card>`,
-    )}
+          (id, _index, _ids) =>
+            html`<vm-device-card .deviceID=${id}></vm-device-card>`,
+        )}
       </div>
     `;
   }
