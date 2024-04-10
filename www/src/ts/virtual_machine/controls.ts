@@ -10,6 +10,10 @@ import "@shoelace-style/shoelace/dist/components/button/button.js";
 import "@shoelace-style/shoelace/dist/components/icon/icon.js";
 import "@shoelace-style/shoelace/dist/components/tooltip/tooltip.js";
 import "@shoelace-style/shoelace/dist/components/divider/divider.js";
+import "@shoelace-style/shoelace/dist/components/select/select.js";
+import "@shoelace-style/shoelace/dist/components/badge/badge.js";
+import "@shoelace-style/shoelace/dist/components/option/option.js";
+import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.js";
 
 @customElement("vm-ic-controls")
 export class VMICControls extends VMActiveIC {
@@ -41,6 +45,19 @@ export class VMICControls extends VMActiveIC {
       sl-divider {
         --spacing: 0.25rem;
       }
+
+      sl-button[variant="success"] {
+        /* Changes the success theme color to purple using primitives */
+        --sl-color-success-600: var(--sl-color-purple-700);
+      }
+      sl-button[variant="primary"] {
+        /* Changes the success theme color to purple using primitives */
+        --sl-color-primary-600: var(--sl-color-cyan-600);
+      }
+      sl-button[variant="warning"] {
+        /* Changes the success theme color to purple using primitives */
+        --sl-color-warning-600: var(--sl-color-amber-600);
+      }
     `,
   ];
 
@@ -50,6 +67,7 @@ export class VMICControls extends VMActiveIC {
   }
 
   protected render() {
+    const ics = Array.from(window.VM!.ics);
     return html`
       <sl-card class="card">
         <div class="controls" slot="header">
@@ -96,10 +114,19 @@ export class VMICControls extends VMActiveIC {
             </sl-tooltip>
           </sl-button-group>
           <div class="device-id">
-            Device:
-            ${this.deviceID}${this.name ?? this.prefabName
-              ? ` : ${this.name ?? this.prefabName}`
-              : ""}
+            <sl-select
+              hoist
+              placement="bottom"
+              value="${this.deviceID}"
+              @sl-change=${this._handleChangeActiveIC}
+            >
+              ${ics.map(
+      ([id, device], _index) =>
+        html`<sl-option value=${id}>
+                    Device:${id} ${device.name ?? device.prefabName}
+                  </sl-option>`,
+    )}
+            </sl-select>
           </div>
         </div>
         <div class="stats">
@@ -121,15 +148,15 @@ export class VMICControls extends VMActiveIC {
           <div class="vstack">
             <span>Errors</span>
             ${this.errors.map(
-              (err) =>
-                html`<div class="hstack">
+      (err) =>
+        html`<div class="hstack">
                   <span>
                     Line: ${err.ParseError.line} -
                     ${err.ParseError.start}:${err.ParseError.end}
                   </span>
                   <span class="ms-auto">${err.ParseError.msg}</span>
                 </div>`,
-            )}
+    )}
           </div>
         </div>
       </sl-card>
@@ -144,5 +171,11 @@ export class VMICControls extends VMActiveIC {
   }
   _handleResetClick() {
     window.VM?.reset();
+  }
+
+  _handleChangeActiveIC(e: CustomEvent) {
+    const select = e.target as SlSelect;
+    const icId = parseInt(select.value as string);
+    window.App!.session.activeIC = icId;
   }
 }

@@ -30,6 +30,8 @@ pub enum VMError {
     LineError(#[from] LineError),
     #[error("Invalid network ID {0}")]
     InvalidNetwork(u16),
+    #[error("Device {0} not visible to device {1} (not on the same networks)")]
+    DeviceNotVisible(u16, u16),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
@@ -169,7 +171,7 @@ pub struct Device {
     pub slots: Vec<Slot>,
     pub reagents: HashMap<ReagentMode, HashMap<i32, f64>>,
     pub ic: Option<u16>,
-    pub connections: [Connection; 8],
+    pub connections: Vec<Connection>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -264,7 +266,7 @@ impl Device {
             slots: Vec::new(),
             reagents: HashMap::new(),
             ic: None,
-            connections: [Connection::default(); 8],
+            connections: vec![Connection::default()],
         };
         device.connections[0] = Connection::CableNetwork(None);
         device
@@ -300,16 +302,19 @@ impl Device {
     }
 
     pub fn get_network_id(&self, connection: usize) -> Result<u16, ICError> {
-        if connection >= 8 {
-            Err(ICError::ConnectionIndexOutOFRange(connection as u32))
+        if connection >= self.connections.len() {
+            Err(ICError::ConnectionIndexOutOfRange(
+                connection,
+                self.connections.len(),
+            ))
         } else if let Connection::CableNetwork(network_id) = self.connections[connection] {
             if let Some(network_id) = network_id {
                 Ok(network_id)
             } else {
-                Err(ICError::NetworkNotConnected(connection as u32))
+                Err(ICError::NetworkNotConnected(connection))
             }
         } else {
-            Err(ICError::NotDataConnection(connection as u32))
+            Err(ICError::NotDataConnection(connection))
         }
     }
 
@@ -388,6 +393,11 @@ impl Device {
         }
         0.0
     }
+
+    pub fn set_name(&mut self, name: &str) {
+        self.name_hash = Some((const_crc32::crc32(name.as_bytes()) as i32).into());
+        self.name = Some(name.to_owned());
+    }
 }
 
 impl Default for VM {
@@ -451,15 +461,28 @@ impl VM {
             });
         }
         let id = device.id;
+
+        let first_data_network =
+            device
+                .connections
+                .iter()
+                .enumerate()
+                .find_map(|(index, conn)| match conn {
+                    &Connection::CableNetwork(_) => Some(index),
+                    &Connection::Other => None,
+                });
         self.devices.insert(id, Rc::new(RefCell::new(device)));
-        let _ = self.add_device_to_network(
-            id,
-            if let Some(network) = network {
-                network
-            } else {
-                self.default_network
-            },
-        );
+        if let Some(first_data_network) = first_data_network {
+            let _ = self.add_device_to_network(
+                id,
+                if let Some(network) = network {
+                    network
+                } else {
+                    self.default_network
+                },
+                first_data_network,
+            );
+        }
         Ok(id)
     }
 
@@ -485,16 +508,28 @@ impl VM {
         }
         let id = device.id;
         let ic_id = ic.id;
+        let first_data_network =
+            device
+                .connections
+                .iter()
+                .enumerate()
+                .find_map(|(index, conn)| match conn {
+                    &Connection::CableNetwork(_) => Some(index),
+                    &Connection::Other => None,
+                });
         self.devices.insert(id, Rc::new(RefCell::new(device)));
         self.ics.insert(ic_id, Rc::new(RefCell::new(ic)));
-        let _ = self.add_device_to_network(
-            id,
-            if let Some(network) = network {
-                network
-            } else {
-                self.default_network
-            },
-        );
+        if let Some(first_data_network) = first_data_network {
+            let _ = self.add_device_to_network(
+                id,
+                if let Some(network) = network {
+                    network
+                } else {
+                    self.default_network
+                },
+                first_data_network,
+            );
+        }
         Ok(id)
     }
 
@@ -682,13 +717,93 @@ impl VM {
         false
     }
 
-    fn add_device_to_network(&self, id: u16, network_id: u16) -> Result<bool, VMError> {
-        self.set_modified(id);
-        if !self.devices.contains_key(&id) {
+    /// return a vecter with the device ids the source id can see via it's connected netowrks
+    pub fn visible_devices(&self, source: u16) -> Vec<u16> {
+        self.networks
+            .values()
+            .filter_map(|net| {
+                if net.borrow().contains(&[source]) {
+                    Some(
+                        net.borrow()
+                            .devices
+                            .iter()
+                            .filter(|id| id != &&source)
+                            .copied()
+                            .collect_vec(),
+                    )
+                } else {
+                    None
+                }
+            })
+            .concat()
+    }
+
+    pub fn set_pin(&self, id: u16, pin: usize, val: Option<u16>) -> Result<bool, VMError> {
+        let Some(device) = self.devices.get(&id) else {
             return Err(VMError::UnknownId(id));
         };
+        if let Some(other_device) = val {
+            if !self.devices.contains_key(&other_device) {
+                return Err(VMError::UnknownId(other_device));
+            }
+            if !self.devices_on_same_network(&[id, other_device]) {
+                return Err(VMError::DeviceNotVisible(other_device, id));
+            }
+        }
+        if !(0..7).contains(&pin) {
+            Err(ICError::PinIndexOutOfRange(pin).into())
+        } else {
+            let Some(ic_id) = device.borrow().ic else {
+                return Err(VMError::NoIC(id));
+            };
+            self.ics.get(&ic_id).unwrap().borrow_mut().pins[pin] = val;
+            Ok(true)
+        }
+    }
+
+    pub fn add_device_to_network(
+        &self,
+        id: u16,
+        network_id: u16,
+        connection: usize,
+    ) -> Result<bool, VMError> {
         if let Some(network) = self.networks.get(&network_id) {
+            let Some(device) = self.devices.get(&id) else {
+                return Err(VMError::UnknownId(id));
+            };
+            if connection >= device.borrow().connections.len() {
+                let conn_len = device.borrow().connections.len();
+                return Err(ICError::ConnectionIndexOutOfRange(connection, conn_len).into());
+            }
+            let Connection::CableNetwork(ref mut conn) =
+                device.borrow_mut().connections[connection]
+            else {
+                return Err(ICError::NotDataConnection(connection).into());
+            };
+            *conn = Some(network_id);
+
             network.borrow_mut().add(id);
+            Ok(true)
+        } else {
+            Err(VMError::InvalidNetwork(network_id))
+        }
+    }
+
+    pub fn remove_device_from_network(&self, id: u16, network_id: u16) -> Result<bool, VMError> {
+        if let Some(network) = self.networks.get(&network_id) {
+            let Some(device) = self.devices.get(&id) else {
+                return Err(VMError::UnknownId(id));
+            };
+            let mut device_ref = device.borrow_mut();
+
+            for conn in device_ref.connections.iter_mut() {
+                if let Connection::CableNetwork(conn) = conn {
+                    if Some(network_id) == *conn {
+                        *conn = None;
+                    }
+                }
+            }
+            network.borrow_mut().remove(id);
             Ok(true)
         } else {
             Err(VMError::InvalidNetwork(network_id))

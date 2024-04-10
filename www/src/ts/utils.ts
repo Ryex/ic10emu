@@ -157,3 +157,23 @@ export async function openFile(editor: Ace.Editor) {
     input.click();
   }
 }
+
+export function parseNumber(s: string): number {
+  switch (s.toLowerCase()) {
+    case 'nan':
+      return Number.NaN;
+    case 'pinf':
+      return Number.POSITIVE_INFINITY;
+    case 'ninf':
+      return Number.NEGATIVE_INFINITY;
+    case 'pi':
+      return 3.141592653589793;
+    case 'deg2rad':
+      return 0.0174532923847437;
+    case 'rad2deg':
+      return 57.2957801818848;
+    case 'epsilon':
+      return Number.EPSILON;
+  }
+  return parseFloat(s);
+}

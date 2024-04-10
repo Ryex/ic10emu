@@ -7,7 +7,6 @@ import "@shoelace-style/shoelace/dist/components/card/card.js";
 import "@shoelace-style/shoelace/dist/components/icon/icon.js";
 import "@shoelace-style/shoelace/dist/components/tooltip/tooltip.js";
 import "@shoelace-style/shoelace/dist/components/input/input.js";
-import { RegisterSpec } from "ic10emu_wasm";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
 
 @customElement("vm-ic-stack")
@@ -54,7 +53,7 @@ export class VMICStack extends VMActiveIC {
       }
     };
     const validation =
-      "[-+]?(([0-9]+(\\.[0-9]+)?([eE][+-]?[0-9]+)?)|((\\.[0-9]+)([eE][+-]?[0-9]+)?)|([iI][nN][fF][iI][nN][iI][tT][yY]))";
+      "[\\-+]?(([0-9]+(\\.[0-9]+)?([eE][\\-+]?[0-9]+)?)|((\\.[0-9]+)([eE][\\-+]?[0-9]+)?)|([iI][nN][fF][iI][nN][iI][tT][yY]))";
     const sp = this.registers![16];
 
     return html`

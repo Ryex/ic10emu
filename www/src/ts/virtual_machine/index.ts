@@ -51,25 +51,49 @@ class VirtualMachine extends EventTarget {
     return this._devices;
   }
 
+  get deviceIds() {
+    return Array.from(this.ic10vm.devices);
+  }
+
   get ics() {
     return this._ics;
+  }
+
+  get icIds() {
+    return Array.from(this.ic10vm.ics);
+  }
+
+  get networks() {
+    return Array.from(this.ic10vm.networks);
+  }
+
+  get defaultNetwork() {
+    return this.ic10vm.defaultNetwork;
   }
 
   get activeIC() {
     return this._ics.get(window.App!.session.activeIC);
   }
 
+  visibleDevices(source: number) {
+    const ids = Array.from(this.ic10vm.visibleDevices(source));
+    return ids.map((id, _index) => this._devices.get(id)!);
+  }
+
   updateDevices() {
+    var update_flag = false;
     const device_ids = this.ic10vm.devices;
     for (const id of device_ids) {
       if (!this._devices.has(id)) {
         this._devices.set(id, this.ic10vm.getDevice(id)!);
+        update_flag = true;
       }
     }
     for (const id of this._devices.keys()) {
       if (!device_ids.includes(id)) {
         this._devices.get(id)!.free();
         this._devices.delete(id);
+        update_flag = true;
       }
     }
 
@@ -77,13 +101,20 @@ class VirtualMachine extends EventTarget {
     for (const id of ics) {
       if (!this._ics.has(id)) {
         this._ics.set(id, this._devices.get(id)!);
+        update_flag = true;
       }
     }
     for (const id of this._ics.keys()) {
       if (!ics.includes(id)) {
         this._ics.get(id)!.free();
         this._ics.delete(id);
+        update_flag = true;
       }
+    }
+    if (update_flag) {
+      this.dispatchEvent(
+        new CustomEvent("vm-devices-update", { detail: device_ids }),
+      );
     }
   }
 
@@ -190,6 +221,7 @@ class VirtualMachine extends EventTarget {
     this.db = db;
     console.log("Loaded Device Database", this.db);
   }
+
 }
 
 class VirtualMachineUI {

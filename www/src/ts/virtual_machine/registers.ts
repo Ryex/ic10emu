@@ -57,7 +57,7 @@ export class VMICRegisters extends VMActiveIC {
       }
     };
     const validation =
-      "[-+]?(([0-9]+(\\.[0-9]+)?([eE][+-]?[0-9]+)?)|((\\.[0-9]+)([eE][+-]?[0-9]+)?)|([iI][nN][fF][iI][nN][iI][tT][yY]))";
+      "[\\-+]?(([0-9]+(\\.[0-9]+)?([eE][\\-+]?[0-9]+)?)|((\\.[0-9]+)([eE][\\-+]?[0-9]+)?)|([iI][nN][fF][iI][nN][iI][tT][yY]))";
     const registerAliases: [string, number][] = (
       (
         [...(this.aliases ?? [])].filter(
@@ -73,10 +73,10 @@ export class VMICRegisters extends VMActiveIC {
       <sl-card class="card">
         <div class="card-body">
           ${this.registers?.map((val, index) => {
-            const aliases = registerAliases
-              .filter(([_alias, target]) => index === target)
-              .map(([alias, _target]) => alias);
-            return html`
+      const aliases = registerAliases
+        .filter(([_alias, target]) => index === target)
+        .map(([alias, _target]) => alias);
+      return html`
               <sl-tooltip placement="left" class="tooltip">
                 <div slot="content">
                   <strong>Regster r${index}</strong> Aliases:
@@ -96,7 +96,7 @@ export class VMICRegisters extends VMActiveIC {
                 </sl-input>
               </sl-tooltip>
             `;
-          })}
+    })}
         </div>
       </sl-card>
     `;

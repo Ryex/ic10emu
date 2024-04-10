@@ -1,7 +1,6 @@
 import { CSSResultGroup, LitElement, css, unsafeCSS } from "lit";
 import shoelaceDark from "@shoelace-style/shoelace/dist/themes/dark.styles.js";
 
-
 export const defaultCss = [
   shoelaceDark,
   css`

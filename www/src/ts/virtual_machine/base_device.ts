@@ -149,7 +149,6 @@ export class VMActiveIC extends VMBaseDevice {
       "session-active-ic",
       this._handleActiveIC.bind(this),
     );
-    this.updateIC();
     return root;
   }
 

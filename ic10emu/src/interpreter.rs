@@ -46,6 +46,10 @@ pub enum ICError {
     StackIndexOutOfRange(f64),
     #[error("slot index out of range: '{0}'")]
     SlotIndexOutOfRange(f64),
+    #[error("pin index {0} out of range 0-6")]
+    PinIndexOutOfRange(usize),
+    #[error("Connection index {0} out of range {1}")]
+    ConnectionIndexOutOfRange(usize, usize),
     #[error("Unknown device ID '{0}'")]
     UnknownDeviceID(f64),
     #[error("Too few operands!: provide: '{provided}', desired: '{desired}'")]
@@ -98,14 +102,12 @@ pub enum ICError {
     TypeValueNotKnown,
     #[error("Empty Device List")]
     EmptyDeviceList,
-    #[error("Connection index out of range: '{0}'")]
-    ConnectionIndexOutOFRange(u32),
     #[error("Connection specifier missing")]
     MissingConnectionSpecifier,
     #[error("No data network on connection '{0}'")]
-    NotDataConnection(u32),
+    NotDataConnection(usize),
     #[error("Network not connected on connection '{0}'")]
-    NetworkNotConnected(u32),
+    NetworkNotConnected(usize),
     #[error("Bad Network Id '{0}'")]
     BadNetworkId(u32),
 }
