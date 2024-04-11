@@ -496,6 +496,8 @@ export class VMAddDeviceButton extends BaseElement {
 
   private _searchResults: DeviceDBEntry[];
 
+  private filterTimeout: number | undefined;
+
   performSearch() {
     if (this.filter) {
       const datapoints: [string, string][] = [];
@@ -504,9 +506,9 @@ export class VMAddDeviceButton extends BaseElement {
       }
       const haystack: string[] = datapoints.map((data) => data[0]);
       const uf = new uFuzzy({});
-      const [idxs, _info, _order] = uf.search(haystack, this._filter, 0, 1e3);
+      const [_idxs, info, order] = uf.search(haystack, this._filter, 0, 1e3);
 
-      const filtered = idxs?.map((idx) => datapoints[idx]);
+      const filtered = order?.map((infoIdx) => datapoints[info.idx[infoIdx]]);
       const names =
         filtered
           ?.map((data) => data[1])
@@ -579,7 +581,14 @@ export class VMAddDeviceButton extends BaseElement {
 
   _handleSearchInput(e: CustomEvent) {
     console.log("search-input", e);
-    this.filter = this.searchInput.value;
+    if (this.filterTimeout) {
+      clearTimeout(this.filterTimeout);
+    }
+    const that = this;
+    this.filterTimeout = setTimeout(() => {
+      that.filter = that.searchInput.value;
+      that.filterTimeout = undefined;
+    }, 200);
   }
 
   _handleAddButtonClick() {
