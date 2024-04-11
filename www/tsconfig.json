@@ -8,12 +8,20 @@
     "allowJs": true,
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "types": ["@types/wicg-file-system-access", "@types/ace"],
+    "types": [
+      "@types/wicg-file-system-access",
+      "@types/ace"
+    ],
     "plugins": [
       {
         "name": "ts-lit-plugin"
+      },
+      {
+        "name": "typescript-lit-html-plugin"
       }
     ]
   },
-  "include": ["node_modules/lit-scss-loader/types.d.ts"]
+  "include": [
+    "node_modules/lit-scss-loader/types.d.ts"
+  ]
 }

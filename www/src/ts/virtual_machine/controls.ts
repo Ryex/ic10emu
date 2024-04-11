@@ -1,8 +1,7 @@
 import { html, css } from "lit";
-import { customElement } from "lit/decorators.js";
+import { customElement, query } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "../components";
 import { VMActiveICMixin } from "./base_device";
-import { structuralEqual } from "../utils";
 
 import "@shoelace-style/shoelace/dist/components/card/card.js";
 import "@shoelace-style/shoelace/dist/components/button-group/button-group.js";
@@ -38,9 +37,13 @@ export class VMICControls extends VMActiveICMixin(BaseElement) {
       }
       .device-id {
         margin-left: 2rem;
+        flex-grow: 1;
       }
       .button-group-toolbar sl-button-group:not(:last-of-type) {
         margin-right: var(--sl-spacing-x-small);
+      }
+      .active-ic-select {
+        width: 100%;
       }
       sl-divider {
         --spacing: 0.25rem;
@@ -61,10 +64,7 @@ export class VMICControls extends VMActiveICMixin(BaseElement) {
     `,
   ];
 
-  constructor() {
-    super();
-    this.deviceID = window.App!.session.activeIC;
-  }
+  @query(".active-ic-select") accessor activeICSelect: SlSelect;
 
   protected render() {
     const ics = Array.from(window.VM!.ics);
@@ -116,13 +116,18 @@ export class VMICControls extends VMActiveICMixin(BaseElement) {
           <div class="device-id">
             <sl-select
               hoist
+              size="small"
               placement="bottom"
               value="${this.deviceID}"
               @sl-change=${this._handleChangeActiveIC}
+              class="active-ic-select"
             >
               ${ics.map(
                 ([id, device], _index) =>
-                  html`<sl-option value=${id}>
+                  html`<sl-option name=${device.name} prefabName=${device.prefabName} value=${id}>
+                    ${device.name
+                      ? html`<span slot="suffix">${device.prefabName}</span>`
+                      : ""}
                     Device:${id} ${device.name ?? device.prefabName}
                   </sl-option>`,
               )}
@@ -171,6 +176,18 @@ export class VMICControls extends VMActiveICMixin(BaseElement) {
   }
   _handleResetClick() {
     window.VM?.reset();
+  }
+
+  updateIC(): void {
+    super.updateIC();
+    this.activeICSelect?.dispatchEvent(new Event("slotchange"));
+    // if (this.activeICSelect) {
+    //   const val = this.activeICSelect.value;
+    //   this.activeICSelect.value = "";
+    //   this.activeICSelect.requestUpdate();
+    //   this.activeICSelect.value = val;
+    //   this.activeICSelect.
+    // }
   }
 
   _handleChangeActiveIC(e: CustomEvent) {

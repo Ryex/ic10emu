@@ -55,6 +55,9 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
       .device-name::part(input) {
         width: 10rem;
       }
+      .device-id::part(input) {
+        width: 2rem;
+      }
       .device-name-hash::part(input) {
         width: 7rem;
       }
@@ -107,6 +110,17 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
       </sl-tooltip>
       <div class="header-name">
         <sl-input
+          id="vmDeviceCard${this.deviceID}Id"
+          class="device-id"
+          size="small"
+          pill
+          value=${this.deviceID}
+          disabled
+        >
+          <span slot="prefix">Id</span>
+          <sl-copy-button slot="suffix" value=${this.deviceID}></sl-copy-button>
+        </sl-input>
+        <sl-input
           id="vmDeviceCard${this.deviceID}Name"
           class="device-name"
           size="small"
@@ -114,7 +128,7 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
           placeholder="${this.prefabName}"
           @sl-change=${this._handleChangeName}
         >
-          <span slot="prefix">Device ${this.deviceID}</span>
+          <span slot="prefix">Name</span>
           <sl-copy-button
             slot="suffix"
             from="vmDeviceCard${this.deviceID}Name.value"
