@@ -1,19 +1,66 @@
 import json
+import re
+from collections import defaultdict
 from pathlib import Path
 from pprint import pprint
-from collections import defaultdict
-import re
-import json
+from typing import Any  # type: ignore[Any]
+from typing import TypedDict
 
 
-def extract_all():
-    items = {}
-    pedia = {}
+class SlotInsert(TypedDict):
+    SlotIndex: str
+    SlotName: str
+    SlotType: str
+
+
+class LInsert(TypedDict):
+    LogicName: str
+    LogicAccessTypes: str
+
+
+class PediaPage(TypedDict):
+    Key: str
+    Title: str
+    Description: str
+    PrefabName: str
+    PrefabHash: int
+    SlotInserts: list[SlotInsert]
+    LogicInsert: list[LInsert]
+    LogicSlotInsert: list[LInsert]
+    ModeInsert: list[LInsert]
+    ConnectionInsert: list[LInsert]
+    ConnectionList: list[list[str]]
+
+
+class Pedia(TypedDict):
+    pages: list[PediaPage]
+
+
+class DBSlot(TypedDict):
+    name: str
+    typ: str
+
+
+class DBPage(TypedDict):
+    name: str
+    hash: int
+    desc: str
+    slots: list[DBSlot] | None
+    logic: dict[str, str] | None
+    slotlogic: dict[str, list[int]] | None
+    modes: dict[int, str] | None
+    conn: dict[int, list[str]] | None
+
+
+def extract_all() -> None:
+    db: dict[str, DBPage] = {}
+    pedia: Pedia = {"pages": []}
     linkPat = re.compile(r"<link=\w+><color=[\w#]+>(.+?)</color></link>")
     with (Path("data") / "Stationpedia.json").open("r") as f:
-        pedia.update(json.load(f))
+        pedia = json.load(f)
     for page in pedia["pages"]:
-        item = defaultdict(list)
+        item: DBPage = defaultdict(list)  # type: ignore[reportAssignmenType]
+
         match page:
             case {
                 "Key": _,
@@ -26,7 +73,7 @@ def extract_all():
                 "LogicSlotInsert": slotlogic,
                 "ModeInsert": modes,
                 "ConnectionInsert": _,
-                "ConnectionList": connections,  # type: List[Tuple[str, str]]
+                "ConnectionList": connections,
             }:
                 item["name"] = name
                 item["hash"] = name_hash
@@ -35,11 +82,11 @@ def extract_all():
                     case []:
                         item["slots"] = None
                     case _:
-                        item["slots"] = [{}] * len(slots)
+                        item["slots"] = [{}] * len(slots)  # type: ignore[reportAssignmenType]
                         for slot in slots:
                             item["slots"][int(slot["SlotIndex"])] = {
                                 "name": slot["SlotName"],
-                                "type": slot["SlotType"],
+                                "typ": slot["SlotType"],
                             }
 
                 match logic:
@@ -85,43 +132,49 @@ def extract_all():
                 pprint(page)
                 return
 
-        items[name] = item
+        db[name] = item
 
-    logicable = [item["name"] for item in items.values() if item["logic"] is not None]
+    logicable = [item["name"] for item in db.values() if item["logic"] is not None]
     slotlogicable = [
-        item["name"] for item in items.values() if item["slotlogic"] is not None
+        item["name"] for item in db.values() if item["slotlogic"] is not None
     ]
 
     devices = [
         item["name"]
-        for item in items.values()
+        for item in db.values()
         if item["logic"] is not None and item["conn"] is not None
     ]
 
-    def clean_nones(value):
+    strutures = [
+        item["name"] for item in db.values() if item["name"].startswith("Structure")
+    ]
+
+    items = [item["name"] for item in db.values() if item["name"] not in strutures]
+
+    def clean_nones(value: Any) -> Any:  # type: ignore[Any]
         if isinstance(value, list):
-            return [clean_nones(x) for x in value if x is not None]
+            return [clean_nones(x) for x in value if x is not None]  # type: ignore[unknown]
         elif isinstance(value, dict):
             return {
-                key: clean_nones(val) for key, val in value.items() if val is not None
+                key: clean_nones(val) for key, val in value.items() if val is not None  # type: ignore[unknown]
             }
         else:
-            return value
+            return value  # type: ignore[Any]
 
     with open("data/database.json", "w") as f:
-        json.encoder
         json.dump(
             clean_nones(
                 {
                     "logic_enabled": logicable,
                     "slot_logic_enabled": slotlogicable,
                     "devices": devices,
+                    "strutures": strutures,
                     "items": items,
+                    "db": db,
                 }
             ),
             f,
         )
-
 
 if __name__ == "__main__":
     # extract_logicable()

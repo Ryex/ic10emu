@@ -1,4 +1,5 @@
 import { DeviceRef, VM, init } from "ic10emu_wasm";
+import { DeviceDB } from "./device_db"
 import "./base_device";
 
 declare global {
@@ -7,28 +8,14 @@ declare global {
   }
 }
 
-type DeviceDB = {
-  logic_enabled: string[];
-  slot_logic_enabled: string[];
-  devices: string[];
-  items: {
-    [key: string]: {
-      name: string;
-      hash: number;
-      desc: string;
-      logic?: { [key: string]: string };
-      slots?: { name: string; type: string }[];
-      modes?: { [key: string]: string };
-      conn?: { [key: string]: string[] };
-    };
-  };
-};
 
 class VirtualMachine extends EventTarget {
   ic10vm: VM;
   _devices: Map<number, DeviceRef>;
   _ics: Map<number, DeviceRef>;
-  db: DeviceDB;
+
+  accessor db: DeviceDB;
+  dbPromise: Promise<{ default: DeviceDB }>
 
   constructor() {
     super();
@@ -41,8 +28,10 @@ class VirtualMachine extends EventTarget {
     this._devices = new Map();
     this._ics = new Map();
 
-    this.updateDevices();
+    this.dbPromise = import("../../../data/database.json");
+    this.dbPromise.then((module) => this.setupDeviceDatabase(module.default))
 
+    this.updateDevices();
     this.updateCode();
   }
 
@@ -257,9 +246,13 @@ class VirtualMachine extends EventTarget {
     }
     return false;
   }
+
   setupDeviceDatabase(db: DeviceDB) {
     this.db = db;
     console.log("Loaded Device Database", this.db);
+    this.dispatchEvent(
+      new CustomEvent("vm-device-db-loaded", { detail: this.db }),
+    );
   }
 }
 

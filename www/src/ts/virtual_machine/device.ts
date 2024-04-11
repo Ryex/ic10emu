@@ -1,8 +1,10 @@
 import { Slot } from "ic10emu_wasm";
-import { html, css, HTMLTemplateResult, PropertyValueMap } from "lit";
-import { customElement, state } from "lit/decorators.js";
-import { BaseElement, defaultCss, IC10Details } from "../components";
+import { html, css, HTMLTemplateResult } from "lit";
+import { customElement, property, query, state } from "lit/decorators.js";
+import { BaseElement, defaultCss } from "../components";
 import { VMDeviceMixin } from "./base_device";
+
+import { default as uFuzzy } from "@leeoniya/ufuzzy";
 
 import "@shoelace-style/shoelace/dist/components/card/card.js";
 import "@shoelace-style/shoelace/dist/components/icon/icon.js";
@@ -16,10 +18,15 @@ import "@shoelace-style/shoelace/dist/components/copy-button/copy-button.js";
 import "@shoelace-style/shoelace/dist/components/select/select.js";
 import "@shoelace-style/shoelace/dist/components/badge/badge.js";
 import "@shoelace-style/shoelace/dist/components/option/option.js";
+import "@shoelace-style/shoelace/dist/components/drawer/drawer.js";
+import "@shoelace-style/shoelace/dist/components/icon/icon.js";
+
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
 import { parseNumber, structuralEqual } from "../utils";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.js";
 import SlDetails from "@shoelace-style/shoelace/dist/components/details/details.js";
+import SlDrawer from "@shoelace-style/shoelace/dist/components/drawer/drawer.js";
+import { DeviceDB, DeviceDBEntry } from "./device_db";
 
 @customElement("vm-device-card")
 export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
@@ -89,6 +96,7 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
     this.image_err = true;
     console.log("Image load error", e);
   }
+
   renderHeader(): HTMLTemplateResult {
     const activeIc = window.VM?.activeIC;
     const badges: HTMLTemplateResult[] = [];
@@ -300,7 +308,7 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
 
   _handleChangeName(e: CustomEvent) {
     const input = e.target as SlInput;
-    window.VM?.setDeviceName(this.deviceID, input.value)
+    window.VM?.setDeviceName(this.deviceID, input.value);
     this.updateDevice();
   }
 
@@ -308,7 +316,7 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
     const input = e.target as SlInput;
     const field = input.getAttribute("key")!;
     const val = parseNumber(input.value);
-    window.VM?.setDeviceField(this.deviceID, field, val)
+    window.VM?.setDeviceField(this.deviceID, field, val);
     this.updateDevice();
   }
 
@@ -317,7 +325,7 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
     const slot = parseInt(input.getAttribute("slotIndex")!);
     const field = input.getAttribute("key")!;
     const val = parseNumber(input.value);
-    window.VM?.setDeviceSlotField(this.deviceID, slot, field, val)
+    window.VM?.setDeviceSlotField(this.deviceID, slot, field, val);
     this.updateDevice();
   }
 
@@ -361,6 +369,16 @@ export class VMDeviceList extends BaseElement {
   static styles = [
     ...defaultCss,
     css`
+      .header {
+        margin-botton: 1rem;
+        margin-right: 2rem;
+        padding: 0.25rem 0.25rem;
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        box-sizing: border-box;
+      }
       .device-list {
         display: flex;
         flex-direction: row;
@@ -394,6 +412,13 @@ export class VMDeviceList extends BaseElement {
 
   protected render(): HTMLTemplateResult {
     return html`
+      <div class="header">
+        <span>
+          Devices:
+          <sl-badge variant="neutral" pill>${this.devices.length}</sl-badge>
+        </span>
+        <vm-add-device-button class="ms-auto"></vm-add-device-button>
+      </div>
       <div class="device-list">
         ${this.devices.map(
           (id, _index, _ids) =>
@@ -403,6 +428,234 @@ export class VMDeviceList extends BaseElement {
             ></vm-device-card>`,
         )}
       </div>
+    `;
+  }
+}
+
+@customElement("vm-add-device-button")
+export class VMAddDeviceButton extends BaseElement {
+  static styles = [
+    ...defaultCss,
+    css`
+      .add-device-drawer {
+        --size: 28rem;
+      }
+
+      .search-results {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+      }
+
+      .card {
+        margin-top: var(--sl-spacing-small);
+        margin-right: var(--sl-spacing-small);
+      }
+
+      .card + .card {
+      }
+    `,
+  ];
+
+  @query("sl-drawer") accessor drawer: SlDrawer;
+  @query(".device-search-input") accessor searchInput: SlInput;
+
+  private _deviceDB: DeviceDB;
+  private _strutures: Map<string, DeviceDBEntry>;
+
+  get deviceDB() {
+    return this._deviceDB;
+  }
+
+  @state()
+  set deviceDB(val: DeviceDB) {
+    this._deviceDB = val;
+    this._strutures = new Map(
+      Object.values(this.deviceDB.db)
+        .filter((entry) => this.deviceDB.strutures.includes(entry.name), this)
+        .filter(
+          (entry) => this.deviceDB.logic_enabled.includes(entry.name),
+          this,
+        )
+        .map((entry) => [entry.name, entry]),
+    );
+    this.performSearch();
+  }
+
+  _filter: string = "";
+
+  get filter() {
+    return this._filter;
+  }
+
+  @state()
+  set filter(val: string) {
+    this._filter = val;
+    this.performSearch();
+  }
+
+  private _searchResults: DeviceDBEntry[];
+
+  performSearch() {
+    if (this.filter) {
+      const datapoints: [string, string][] = [];
+      for (const entry of this._strutures.values()) {
+        datapoints.push([entry.name, entry.name], [entry.desc, entry.name]);
+      }
+      const haystack: string[] = datapoints.map((data) => data[0]);
+      const uf = new uFuzzy({});
+      const [idxs, _info, _order] = uf.search(haystack, this._filter, 0, 1e3);
+
+      const filtered = idxs?.map((idx) => datapoints[idx]);
+      const names =
+        filtered
+          ?.map((data) => data[1])
+          ?.filter((val, index, arr) => arr.indexOf(val) === index) ?? [];
+
+      this._searchResults = names.map((name) => this._strutures.get(name)!);
+    } else {
+      this._searchResults =
+        [] ?? this._strutures ? [...this._strutures.values()] : [];
+    }
+  }
+
+  connectedCallback(): void {
+    const root = super.connectedCallback();
+    window.VM!.addEventListener(
+      "vm-device-db-loaded",
+      this._handleDeviceDBLoad.bind(this),
+    );
+    return root;
+  }
+
+  _handleDeviceDBLoad(e: CustomEvent) {
+    this.deviceDB = e.detail;
+  }
+
+  renderSearchResults(): HTMLTemplateResult {
+    const renderedResults: HTMLTemplateResult[] = this._searchResults?.map(
+      (result) =>
+        html`<vm-device-template
+          name=${result.name}
+          class="card"
+        ></vm-device-template>`,
+    );
+    return html`${renderedResults}`;
+  }
+
+  render() {
+    return html`
+      <sl-button
+        variant="neutral"
+        outline
+        pill
+        @click=${this._handleAddButtonClick}
+      >
+        Add Device
+      </sl-button>
+      <sl-drawer class="add-device-drawer" placement="bottom" no-header>
+        <sl-input
+          class="device-search-input"
+          autofocus
+          placeholder="Search For Device"
+          @sl-input=${this._handleSearchInput}
+        >
+          <span slot="prefix">Search Strutures</span>
+          <sl-icon slot="suffix" name="search"></sl-icon>"
+        </sl-input>
+        <div class="search-results">${this.renderSearchResults()}</div>
+        <sl-button
+          slot="footer"
+          variant="primary"
+          @click=${() => {
+            this.drawer.hide();
+          }}
+        >
+          Close
+        </sl-button>
+      </sl-drawer>
+    `;
+  }
+
+  _handleSearchInput(e: CustomEvent) {
+    console.log("search-input", e);
+    this.filter = this.searchInput.value;
+  }
+
+  _handleAddButtonClick() {
+    this.drawer.show();
+  }
+}
+
+@customElement("vm-device-template")
+export class VmDeviceTemplate extends BaseElement {
+  @property({ type: String }) accessor name: string;
+
+  private _deviceDB: DeviceDB;
+  private image_err: boolean = false;
+
+  static styles = [
+    ...defaultCss,
+    css`
+      .image {
+        width: 3rem;
+        height: 3rem;
+      }
+      .header {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+    `,
+  ];
+
+  constructor() {
+    super();
+    this.deviceDB = window.VM!.db;
+  }
+
+  get deviceDB() {
+    return this._deviceDB;
+  }
+
+  @state()
+  set deviceDB(val: DeviceDB) {
+    this._deviceDB = val;
+  }
+
+  connectedCallback(): void {
+    const root = super.connectedCallback();
+    window.VM!.addEventListener(
+      "vm-device-db-loaded",
+      this._handleDeviceDBLoad.bind(this),
+    );
+    return root;
+  }
+
+  _handleDeviceDBLoad(e: CustomEvent) {
+    this.deviceDB = e.detail;
+  }
+
+  onImageErr(e: Event) {
+    this.image_err = true;
+    console.log("Image load error", e);
+  }
+
+  render() {
+    const device = this.deviceDB.db[this.name];
+    return html`
+      <sl-card>
+        <div class"header" slot="header">
+          <sl-tooltip content="${device.name}">
+            <img
+              class="image"
+              src="img/stationpedia/${device.name}.png"
+              @onerr=${this.onImageErr}
+            />
+          </sl-tooltip>
+          <span class="prefab-name">${device.name}</span> <span class="prefab-hash">${device.hash}</span>
+        </div>
+      </sl-card>
     `;
   }
 }

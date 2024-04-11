@@ -6,7 +6,6 @@ import { docReady, openFile, saveFile } from "./utils";
 
 // const dbPromise = makeRequest({ method: "GET", url: "/data/database.json"});
 // const dbPromise = fetch("/data/database.json").then(resp => resp.json());
-const dbPromise = import("../../data/database.json");
 
 // docReady(() => {
 //   App.vm = new VirtualMachine();

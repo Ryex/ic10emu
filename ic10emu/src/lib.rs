@@ -50,6 +50,9 @@ pub struct LogicField {
 #[derive(Debug, Default, Serialize, Deserialize)]
 pub struct Slot {
     pub typ: SlotType,
+    // FIXME: this actualy needs to be an "Occupant" field
+    // where the Occupant is an items with a
+    // quantity, PrefabName/Hash, fields, etc
     pub fields: HashMap<grammar::SlotLogicType, LogicField>,
 }
 
@@ -266,38 +269,102 @@ impl Device {
             slots: Vec::new(),
             reagents: HashMap::new(),
             ic: None,
-            connections: vec![Connection::default()],
+            connections: vec![Connection::CableNetwork(None)],
         };
-        device.connections[0] = Connection::CableNetwork(None);
+        device.fields.insert(
+            LogicType::ReferenceId,
+            LogicField {
+                field_type: FieldType::Read,
+                value: id as f64,
+            },
+        );
         device
     }
 
     pub fn with_ic(id: u16, ic: u16) -> Self {
         let mut device = Device::new(id);
         device.ic = Some(ic);
-        device.fields.insert(
-            LogicType::Setting,
-            LogicField {
-                field_type: FieldType::ReadWrite,
-                value: 0.0,
-            },
-        );
+        device.connections = vec![Connection::CableNetwork(None), Connection::Other];
         device.prefab_name = Some("StructureCircuitHousing".to_owned());
-        device.fields.insert(
-            LogicType::Error,
-            LogicField {
-                field_type: FieldType::ReadWrite,
-                value: 0.0,
-            },
-        );
         device.prefab_hash = Some(-128473777);
-        device.fields.insert(
-            LogicType::PrefabHash,
-            LogicField {
-                field_type: FieldType::Read,
-                value: -128473777.0,
-            },
-        );
+        device.fields.extend(vec![
+            (
+                LogicType::Power,
+                LogicField {
+                    field_type: FieldType::Read,
+                    value: 1.0,
+                },
+            ),
+            (
+                LogicType::Error,
+                LogicField {
+                    field_type: FieldType::ReadWrite,
+                    value: 0.0,
+                },
+            ),
+            (
+                LogicType::Setting,
+                LogicField {
+                    field_type: FieldType::ReadWrite,
+                    value: 0.0,
+                },
+            ),
+            (
+                LogicType::On,
+                LogicField {
+                    field_type: FieldType::ReadWrite,
+                    value: 0.0,
+                },
+            ),
+            (
+                LogicType::RequiredPower,
+                LogicField {
+                    field_type: FieldType::Read,
+                    value: 0.0,
+                },
+            ),
+            (
+                LogicType::PrefabHash,
+                LogicField {
+                    field_type: FieldType::Read,
+                    value: -128473777.0,
+                },
+            ),
+            (
+                LogicType::LineNumber,
+                LogicField {
+                    field_type: FieldType::ReadWrite,
+                    value: 0.0,
+                },
+            ),
+            (
+                LogicType::ReferenceId,
+                LogicField {
+                    field_type: FieldType::Read,
+                    value: id as f64,
+                },
+            ),
+        ]);
+        device.slots.push(Slot {
+            typ: SlotType::ProgramableChip,
+            fields: HashMap::from([
+                (
+                    SlotLogicType::PrefabHash,
+                    LogicField {
+                        field_type: FieldType::Read,
+                        value: -744098481.0,
+                    },
+                ),
+                (
+                    SlotLogicType::LineNumber,
+                    LogicField {
+                        field_type: FieldType::Read,
+                        value: 0.0,
+                    },
+                ),
+            ]),
+        });
+
         device
     }
 
@@ -318,6 +385,7 @@ impl Device {
         }
     }
 
+    // FIXME: this needs some logic to link some special fields like "LineNumber" to the chip
     pub fn get_field(&self, typ: grammar::LogicType) -> Result<f64, ICError> {
         if let Some(field) = self.fields.get(&typ) {
             if field.field_type == FieldType::Read || field.field_type == FieldType::ReadWrite {
@@ -330,6 +398,7 @@ impl Device {
         }
     }
 
+    // FIXME: this needs some logic to link some special fields like "LineNumber" to the chip
     pub fn set_field(&mut self, typ: grammar::LogicType, val: f64) -> Result<(), ICError> {
         if let Some(field) = self.fields.get_mut(&typ) {
             if field.field_type == FieldType::Write || field.field_type == FieldType::ReadWrite {
@@ -343,6 +412,7 @@ impl Device {
         }
     }
 
+    // FIXME: this needs to work with slot Occupants, see `Slot` decl
     pub fn get_slot_field(&self, index: f64, typ: grammar::SlotLogicType) -> Result<f64, ICError> {
         if let Some(field) = self
             .slots
@@ -361,6 +431,7 @@ impl Device {
         }
     }
 
+    // FIXME: this needs to work with slot Occupants, see `Slot` decl
     pub fn set_slot_field(
         &mut self,
         index: f64,
@@ -462,15 +533,14 @@ impl VM {
         }
         let id = device.id;
 
-        let first_data_network =
-            device
-                .connections
-                .iter()
-                .enumerate()
-                .find_map(|(index, conn)| match conn {
-                    &Connection::CableNetwork(_) => Some(index),
-                    &Connection::Other => None,
-                });
+        let first_data_network = device
+            .connections
+            .iter()
+            .enumerate()
+            .find_map(|(index, conn)| match conn {
+                &Connection::CableNetwork(_) => Some(index),
+                &Connection::Other => None,
+            });
         self.devices.insert(id, Rc::new(RefCell::new(device)));
         if let Some(first_data_network) = first_data_network {
             let _ = self.add_device_to_network(
@@ -508,15 +578,14 @@ impl VM {
         }
         let id = device.id;
         let ic_id = ic.id;
-        let first_data_network =
-            device
-                .connections
-                .iter()
-                .enumerate()
-                .find_map(|(index, conn)| match conn {
-                    &Connection::CableNetwork(_) => Some(index),
-                    &Connection::Other => None,
-                });
+        let first_data_network = device
+            .connections
+            .iter()
+            .enumerate()
+            .find_map(|(index, conn)| match conn {
+                &Connection::CableNetwork(_) => Some(index),
+                &Connection::Other => None,
+            });
         self.devices.insert(id, Rc::new(RefCell::new(device)));
         self.ics.insert(ic_id, Rc::new(RefCell::new(ic)));
         if let Some(first_data_network) = first_data_network {
@@ -798,7 +867,7 @@ impl VM {
 
             for conn in device_ref.connections.iter_mut() {
                 if let Connection::CableNetwork(conn) = conn {
-                    if  *conn == Some(network_id) {
+                    if *conn == Some(network_id) {
                         *conn = None;
                     }
                 }
