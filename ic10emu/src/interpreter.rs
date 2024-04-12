@@ -89,7 +89,7 @@ pub enum ICError {
     #[error("device has not ic")]
     DeviceHasNoIC,
     #[error("unknown device '{0}'")]
-    unknownDeviceId(f64),
+    UnknownDeviceId(f64),
     #[error("unknown logic type '{0}'")]
     UnknownLogicType(f64),
     #[error("unknown slot logic type '{0}'")]
