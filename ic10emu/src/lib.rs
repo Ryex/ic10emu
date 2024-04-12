@@ -538,8 +538,8 @@ impl VM {
             .iter()
             .enumerate()
             .find_map(|(index, conn)| match conn {
-                &Connection::CableNetwork(_) => Some(index),
-                &Connection::Other => None,
+                Connection::CableNetwork(_) => Some(index),
+                Connection::Other => None,
             });
         self.devices.insert(id, Rc::new(RefCell::new(device)));
         if let Some(first_data_network) = first_data_network {
@@ -583,8 +583,8 @@ impl VM {
             .iter()
             .enumerate()
             .find_map(|(index, conn)| match conn {
-                &Connection::CableNetwork(_) => Some(index),
-                &Connection::Other => None,
+                Connection::CableNetwork(_) => Some(index),
+                Connection::Other => None,
             });
         self.devices.insert(id, Rc::new(RefCell::new(device)));
         self.ics.insert(ic_id, Rc::new(RefCell::new(ic)));

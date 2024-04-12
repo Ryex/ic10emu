@@ -1,4 +1,4 @@
-use crate::interpreter;
+use crate::interpreter::{self, ICError};
 use crate::tokens::{SplitConsecutiveIndicesExt, SplitConsecutiveWithIndices};
 use itertools::Itertools;
 use std::error::Error;
@@ -349,6 +349,7 @@ pub enum Operand {
     Number(Number),
     LogicType(LogicType),
     SlotLogicType(SlotLogicType),
+    LogicOrSlotLogicType(LogicType, SlotLogicType),
     BatchMode(BatchMode),
     ReagentMode(ReagentMode),
     Identifier(Identifier),
@@ -369,11 +370,16 @@ impl Operand {
             Operand::Number(num) => Ok(num.value()),
             Operand::LogicType(lt) => lt
                 .get_str("value")
-                .map(|val| val.parse::<u8>().unwrap() as f64)
+                .map(|val| val.parse::<u16>().unwrap() as f64)
                 .ok_or(interpreter::ICError::TypeValueNotKnown),
             Operand::SlotLogicType(slt) => slt
                 .get_str("value")
-                .map(|val| val.parse::<u8>().unwrap() as f64)
+                .map(|val| val.parse::<u16>().unwrap() as f64)
+                .ok_or(interpreter::ICError::TypeValueNotKnown),
+            // default to using LogicType when converting to value
+            Operand::LogicOrSlotLogicType(lt, _) => lt
+                .get_str("value")
+                .map(|val| val.parse::<u16>().unwrap() as f64)
                 .ok_or(interpreter::ICError::TypeValueNotKnown),
             Operand::BatchMode(bm) => bm
                 .get_str("value")
@@ -484,6 +490,32 @@ impl Operand {
             Ok(val as i32)
         } else {
             Err(interpreter::ICError::ShiftOverflowI32)
+        }
+    }
+
+    pub fn as_logic_type(
+        &self,
+        ic: &interpreter::IC,
+        inst: InstructionOp,
+        index: u32,
+    ) -> Result<LogicType, ICError> {
+        match &self {
+            Operand::LogicType(lt) => Ok(*lt),
+            Operand::LogicOrSlotLogicType(lt, _slt) => Ok(*lt),
+            _ => LogicType::try_from(self.as_value(ic, inst, index)?),
+        }
+    }
+
+    pub fn as_slot_logic_type(
+        &self,
+        ic: &interpreter::IC,
+        inst: InstructionOp,
+        index: u32,
+    ) -> Result<SlotLogicType, ICError> {
+        match &self {
+            Operand::SlotLogicType(slt) => Ok(*slt),
+            Operand::LogicOrSlotLogicType(_lt, slt) => Ok(*slt),
+            _ => SlotLogicType::try_from(self.as_value(ic, inst, index)?),
         }
     }
 
@@ -765,9 +797,17 @@ impl FromStr for Operand {
                         val.get_str("value").unwrap().parse().unwrap(),
                     )))
                 } else if let Ok(lt) = LogicType::from_str(s) {
-                    Ok(Operand::LogicType(lt))
+                    if let Ok(slt) = SlotLogicType::from_str(s) {
+                        Ok(Operand::LogicOrSlotLogicType(lt, slt))
+                    } else {
+                        Ok(Operand::LogicType(lt))
+                    }
                 } else if let Ok(slt) = SlotLogicType::from_str(s) {
-                    Ok(Operand::SlotLogicType(slt))
+                    if let Ok(lt) = LogicType::from_str(s) {
+                        Ok(Operand::LogicOrSlotLogicType(lt, slt))
+                    } else {
+                        Ok(Operand::SlotLogicType(slt))
+                    }
                 } else if let Ok(bm) = BatchMode::from_str(s) {
                     Ok(Operand::BatchMode(bm))
                 } else if let Ok(rm) = ReagentMode::from_str(s) {
@@ -855,6 +895,7 @@ impl Display for Operand {
             },
             Operand::LogicType(logic) => Display::fmt(logic, f),
             Operand::SlotLogicType(slot_logic) => Display::fmt(slot_logic, f),
+            Operand::LogicOrSlotLogicType(logic, _) => Display::fmt(logic, f),
             Operand::BatchMode(batch_mode) => Display::fmt(batch_mode, f),
             Operand::ReagentMode(reagent_mode) => Display::fmt(reagent_mode, f),
             Operand::Identifier(ident) => Display::fmt(&ident, f),
@@ -1029,6 +1070,7 @@ mod tests {
         define a_hash HASH(\"This is a String\")\n\
         alias a_var r0\n\
         alias a_device d0\n\
+        s d0 On 1\n\
         s d0 12 0 \n\
         move r2 LogicType.Temperature\n\
         move r3 pinf\n\
@@ -1105,6 +1147,20 @@ mod tests {
                             }),
                         ],
                     },),),
+                    comment: None,
+                },
+                Line {
+                    code: Some(Code::Instruction(Instruction {
+                        instruction: InstructionOp::S,
+                        operands: vec![
+                            Operand::DeviceSpec(DeviceSpec {
+                                device: Device::Numbered(0),
+                                connection: None
+                            }),
+                            Operand::LogicOrSlotLogicType(LogicType::On, SlotLogicType::On),
+                            Operand::Number(Number::Float(1.0))
+                        ]
+                    })),
                     comment: None,
                 },
                 Line {
@@ -1295,10 +1351,10 @@ mod tests {
         test_roundtrip("42");
         test_roundtrip("1.2345");
         test_roundtrip("-1.2345");
-        test_roundtrip(&LogicType::Pressure.to_string());
-        test_roundtrip(&SlotLogicType::Occupied.to_string());
-        test_roundtrip(&BatchMode::Average.to_string());
-        test_roundtrip(&ReagentMode::Recipe.to_string());
+        test_roundtrip(LogicType::Pressure.as_ref());
+        test_roundtrip(SlotLogicType::Occupied.as_ref());
+        test_roundtrip(BatchMode::Average.as_ref());
+        test_roundtrip(ReagentMode::Recipe.as_ref());
         test_roundtrip("pi");
         test_roundtrip("pinf");
         test_roundtrip("ninf");
