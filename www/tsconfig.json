@@ -4,10 +4,21 @@
     "sourceMap": true,
     "noImplicitAny": true,
     "module": "es2022",
-    "target": "es2020",
+    "target": "es2021",
     "allowJs": true,
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "types": ["@types/wicg-file-system-access", "@types/ace"]
-  }
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "types": ["@types/wicg-file-system-access", "@types/ace"],
+    "plugins": [
+      {
+        "name": "ts-lit-plugin"
+      },
+      {
+        "name": "typescript-lit-html-plugin"
+      }
+    ]
+  },
+  "include": ["src/**/*", "node_modules/lit-scss-loader/types.d.ts"]
 }

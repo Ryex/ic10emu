@@ -1,6 +1,6 @@
 use convert_case::{Case, Casing};
 use std::{
-    collections::{HashMap, HashSet},
+    collections::BTreeSet,
     env,
     fmt::Display,
     fs::{self, File},
@@ -8,20 +8,6 @@ use std::{
     path::Path,
     str::FromStr,
 };
-
-// trait PrimitiveRepr {}
-// impl PrimitiveRepr for u8 {}
-// impl PrimitiveRepr for u16 {}
-// impl PrimitiveRepr for u32 {}
-// impl PrimitiveRepr for u64 {}
-// impl PrimitiveRepr for u128 {}
-// impl PrimitiveRepr for usize {}
-// impl PrimitiveRepr for i8 {}
-// impl PrimitiveRepr for i16 {}
-// impl PrimitiveRepr for i32 {}
-// impl PrimitiveRepr for i64 {}
-// impl PrimitiveRepr for i128 {}
-// impl PrimitiveRepr for isize {}
 
 struct EnumVariant<P>
 where
@@ -32,14 +18,14 @@ where
     pub deprecated: bool,
 }
 
-fn write_repr_enum<T: std::io::Write, I, P>(
+fn write_repr_enum<'a, T: std::io::Write, I, P>(
     writer: &mut BufWriter<T>,
     name: &str,
-    variants: &I,
+    variants: I,
     use_phf: bool,
 ) where
-    P: Display + FromStr,
-    for<'a> &'a I: IntoIterator<Item = (&'a String, &'a EnumVariant<P>)>,
+    P: Display + FromStr + 'a,
+    I: IntoIterator<Item = &'a (String, EnumVariant<P>)>,
 {
     let additional_strum = if use_phf { "#[strum(use_phf)]\n" } else { "" };
     write!(
@@ -50,7 +36,7 @@ fn write_repr_enum<T: std::io::Write, I, P>(
     )
     .unwrap();
     for (name, variant) in variants {
-        let variant_name = name.to_case(Case::Pascal);
+        let variant_name = name.replace('.', "").to_case(Case::Pascal);
         let mut serialize = vec![name.clone()];
         serialize.extend(variant.aliases.iter().cloned());
         let serialize_str = serialize
@@ -84,7 +70,7 @@ fn write_logictypes() {
     let output_file = File::create(dest_path).unwrap();
     let mut writer = BufWriter::new(&output_file);
 
-    let mut logictypes: HashMap<String, EnumVariant<u8>> = HashMap::new();
+    let mut logictypes: Vec<(String, EnumVariant<u8>)> = Vec::new();
     let l_infile = Path::new("data/logictypes.txt");
     let l_contents = fs::read_to_string(l_infile).unwrap();
 
@@ -106,28 +92,28 @@ fn write_logictypes() {
                 variant.aliases.push(name.to_string());
                 variant.deprecated = deprecated;
             } else {
-                logictypes.insert(
+                logictypes.push((
                     name.to_string(),
                     EnumVariant {
                         aliases: Vec::new(),
                         value: Some(val),
                         deprecated,
                     },
-                );
+                ));
             }
         } else {
-            logictypes.insert(
+            logictypes.push((
                 name.to_string(),
                 EnumVariant {
                     aliases: Vec::new(),
                     value: val,
                     deprecated,
                 },
-            );
+            ));
         }
     }
 
-    let mut slotlogictypes: HashMap<String, EnumVariant<u8>> = HashMap::new();
+    let mut slotlogictypes: Vec<(String, EnumVariant<u8>)> = Vec::new();
     let sl_infile = Path::new("data/slotlogictypes.txt");
     let sl_contents = fs::read_to_string(sl_infile).unwrap();
 
@@ -149,24 +135,24 @@ fn write_logictypes() {
                 variant.aliases.push(name.to_string());
                 variant.deprecated = deprecated;
             } else {
-                slotlogictypes.insert(
+                slotlogictypes.push((
                     name.to_string(),
                     EnumVariant {
                         aliases: Vec::new(),
                         value: Some(val),
                         deprecated,
                     },
-                );
+                ));
             }
         } else {
-            slotlogictypes.insert(
+            slotlogictypes.push((
                 name.to_string(),
                 EnumVariant {
                     aliases: Vec::new(),
                     value: val,
                     deprecated,
                 },
-            );
+            ));
         }
     }
 
@@ -186,31 +172,31 @@ fn write_enums() {
     let output_file = File::create(dest_path).unwrap();
     let mut writer = BufWriter::new(&output_file);
 
-    let mut enums_lookup_map_builder = ::phf_codegen::Map::new();
-    let mut check_set = std::collections::HashSet::new();
+    let mut enums_map: Vec<(String, EnumVariant<u16>)> = Vec::new();
     let e_infile = Path::new("data/enums.txt");
     let e_contents = fs::read_to_string(e_infile).unwrap();
 
     for line in e_contents.lines().filter(|l| !l.trim().is_empty()) {
-        let (name, val_str) = line.split_once(' ').unwrap();
+        let mut it = line.splitn(3, ' ');
+        let name = it.next().unwrap();
+        let val_str = it.next().unwrap();
+        let val: Option<u16> = val_str.parse().ok();
+        let docs = it.next();
+        let deprecated = docs
+            .map(|docs| docs.trim().to_uppercase() == "DEPRECATED")
+            .unwrap_or(false);
 
-        let val: Option<u8> = val_str.parse().ok();
-
-        if !check_set.contains(name) {
-            check_set.insert(name);
-        }
-
-        if let Some(v) = val {
-            enums_lookup_map_builder.entry(name, &format!("{}u8", v));
-        }
+        enums_map.push((
+            name.to_string(),
+            EnumVariant {
+                aliases: Vec::new(),
+                value: val,
+                deprecated,
+            },
+        ));
     }
 
-    writeln!(
-        &mut writer,
-        "pub(crate) const ENUM_LOOKUP: phf::Map<&'static str, u8> = {};",
-        enums_lookup_map_builder.build()
-    )
-    .unwrap();
+    write_repr_enum(&mut writer, "LogicEnums", &enums_map, true);
 
     println!("cargo:rerun-if-changed=data/enums.txt");
 }
@@ -222,7 +208,7 @@ fn write_modes() {
     let output_file = File::create(dest_path).unwrap();
     let mut writer = BufWriter::new(&output_file);
 
-    let mut batchmodes: HashMap<String, EnumVariant<u8>> = HashMap::new();
+    let mut batchmodes: Vec<(String, EnumVariant<u8>)> = Vec::new();
     let b_infile = Path::new("data/batchmodes.txt");
     let b_contents = fs::read_to_string(b_infile).unwrap();
 
@@ -239,28 +225,28 @@ fn write_modes() {
             {
                 variant.aliases.push(name.to_string());
             } else {
-                batchmodes.insert(
+                batchmodes.push((
                     name.to_string(),
                     EnumVariant {
                         aliases: Vec::new(),
                         value: Some(val),
                         deprecated: false,
                     },
-                );
+                ));
             }
         } else {
-            batchmodes.insert(
+            batchmodes.push((
                 name.to_string(),
                 EnumVariant {
                     aliases: Vec::new(),
                     value: val,
                     deprecated: false,
                 },
-            );
+            ));
         }
     }
 
-    let mut reagentmodes: HashMap<String, EnumVariant<u8>> = HashMap::new();
+    let mut reagentmodes: Vec<(String, EnumVariant<u8>)> = Vec::new();
     let r_infile = Path::new("data/reagentmodes.txt");
     let r_contents = fs::read_to_string(r_infile).unwrap();
 
@@ -277,24 +263,24 @@ fn write_modes() {
             {
                 variant.aliases.push(name.to_string());
             } else {
-                reagentmodes.insert(
+                reagentmodes.push((
                     name.to_string(),
                     EnumVariant {
                         aliases: Vec::new(),
                         value: Some(val),
                         deprecated: false,
                     },
-                );
+                ));
             }
         } else {
-            reagentmodes.insert(
+            reagentmodes.push((
                 name.to_string(),
                 EnumVariant {
                     aliases: Vec::new(),
                     value: val,
                     deprecated: false,
                 },
-            );
+            ));
         }
     }
 
@@ -342,7 +328,7 @@ fn write_instructions_enum() {
     let output_file = File::create(dest_path).unwrap();
     let mut writer = BufWriter::new(&output_file);
 
-    let mut instructions = HashSet::new();
+    let mut instructions = BTreeSet::new();
     let infile = Path::new("data/instructions.txt");
     let contents = fs::read_to_string(infile).unwrap();
 

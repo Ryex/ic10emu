@@ -1,4 +1,4 @@
-use std::process::Command;
+use std::process::{Command, ExitStatus};
 
 use clap::{Parser, Subcommand};
 
@@ -39,6 +39,8 @@ enum Task {
     ///
     /// This does not build the packages, use `build` first
     Start {},
+    /// Runs production page under 'www/dist', Run `build` first.
+    Deploy {},
 }
 
 #[derive(thiserror::Error)]
@@ -91,13 +93,23 @@ fn main() -> Result<(), Error> {
             build(&args, packages, *release, &workspace, rest)?;
         }
         Task::Start {} => {
+            pnpm_install(&args, &workspace)?;
             eprintln!("Starting server");
             let mut cmd = Command::new(&args.manager);
             cmd.current_dir(&workspace.join("www"));
             cmd.args(["run", "start"]).status().map_err(|e| {
                 Error::Command(format!("{}", cmd.get_program().to_string_lossy()), e)
             })?;
-        }
+        },
+        Task::Deploy {} => {
+            pnpm_install(&args, &workspace)?;
+            eprintln!("Production Build");
+            let mut cmd = Command::new(&args.manager);
+            cmd.current_dir(&workspace.join("www"));
+            cmd.args(["run", "build"]).status().map_err(|e| {
+                Error::Command(format!("{}", cmd.get_program().to_string_lossy()), e)
+            })?;
+        },
     }
     Ok(())
 }
@@ -146,4 +158,16 @@ fn build<P: AsRef<std::ffi::OsStr> + std::fmt::Debug + std::fmt::Display>(
         }
     }
     Ok(())
+}
+
+fn pnpm_install(
+    args: &Args,
+    workspace: &std::path::Path,
+) -> Result<ExitStatus, Error> {
+    eprintln!("Running `pnpm install`");
+    let mut cmd = Command::new(&args.manager);
+    cmd.current_dir(&workspace.join("www"));
+    cmd.args(["install"])
+        .status()
+        .map_err(|e| Error::Command(format!("{}", cmd.get_program().to_string_lossy()), e))
 }

@@ -32,81 +32,83 @@ impl Error for LineError {}
 
 #[derive(Debug, Error, Clone, Serialize, Deserialize)]
 pub enum ICError {
-    #[error("Error Compiling Code: {0}")]
+    #[error("error compiling code: {0}")]
     ParseError(#[from] ParseError),
-    #[error("Duplicate label {0}")]
+    #[error("duplicate label {0}")]
     DuplicateLabel(String),
-    #[error("Instruction Pointer out of range: '{0}'")]
+    #[error("instruction pointer out of range: '{0}'")]
     InstructionPointerOutOfRange(u32),
-    #[error("Register Pointer out of range: '{0}'")]
+    #[error("register pointer out of range: '{0}'")]
     RegisterIndexOutOfRange(f64),
-    #[error("Device Pointer out of range: '{0}'")]
+    #[error("device pointer out of range: '{0}'")]
     DeviceIndexOutOfRange(f64),
-    #[error("Stack index out of range: '{0}'")]
+    #[error("stack index out of range: '{0}'")]
     StackIndexOutOfRange(f64),
     #[error("slot index out of range: '{0}'")]
     SlotIndexOutOfRange(f64),
-    #[error("Unknown device ID '{0}'")]
+    #[error("pin index {0} out of range 0-6")]
+    PinIndexOutOfRange(usize),
+    #[error("connection index {0} out of range {1}")]
+    ConnectionIndexOutOfRange(usize, usize),
+    #[error("unknown device ID '{0}'")]
     UnknownDeviceID(f64),
-    #[error("Too few operands!: provide: '{provided}', desired: '{desired}'")]
+    #[error("too few operands!: provide: '{provided}', desired: '{desired}'")]
     TooFewOperands { provided: u32, desired: u32 },
-    #[error("Too many operands!: provide: '{provided}', desired: '{desired}'")]
+    #[error("too many operands!: provide: '{provided}', desired: '{desired}'")]
     TooManyOperands { provided: u32, desired: u32 },
-    #[error("Incorrect Operand Type for instruction `{inst}` operand {index}, not a {desired} ")]
+    #[error("incorrect operand type for instruction `{inst}` operand {index}, not a {desired} ")]
     IncorrectOperandType {
         inst: grammar::InstructionOp,
         index: u32,
         desired: String,
     },
-    #[error("Unknown identifier '{0}")]
+    #[error("unknown identifier {0}")]
     UnknownIdentifier(String),
-    #[error("Device Not Set")]
+    #[error("device Not Set")]
     DeviceNotSet,
-    #[error("Shift Underflow i64(signed long)")]
+    #[error("shift Underflow i64(signed long)")]
     ShiftUnderflowI64,
-    #[error("Shift Overflow i64(signed long)")]
+    #[error("shift Overflow i64(signed long)")]
     ShiftOverflowI64,
-    #[error("Shift Underflow i32(signed int)")]
+    #[error("shift underflow i32(signed int)")]
     ShiftUnderflowI32,
-    #[error("Shift Overflow i32(signed int)")]
+    #[error("shift overflow i32(signed int)")]
     ShiftOverflowI32,
-    #[error("Stack Underflow")]
+    #[error("stack underflow")]
     StackUnderflow,
-    #[error("Stack Overflow")]
+    #[error("stack overflow")]
     StackOverflow,
-    #[error("Duplicate Define '{0}'")]
+    #[error("duplicate define '{0}'")]
     DuplicateDefine(String),
-    #[error("Read Only field '{0}'")]
+    #[error("read only field '{0}'")]
     ReadOnlyField(String),
-    #[error("Write Only field '{0}'")]
+    #[error("write only field '{0}'")]
     WriteOnlyField(String),
-    #[error("Device Has No Field '{0}'")]
+    #[error("device has no field '{0}'")]
     DeviceHasNoField(String),
-    #[error("Device has not IC")]
+    #[error("device has not ic")]
     DeviceHasNoIC,
-    #[error("Unknown Device '{0}'")]
-    UnknownDeviceId(f64),
-    #[error("Unknown Logic Type '{0}'")]
+    #[error("unknown device '{0}'")]
+    unknownDeviceId(f64),
+    #[error("unknown logic type '{0}'")]
     UnknownLogicType(f64),
-    #[error("Unknown Slot Logic Type '{0}'")]
+    #[error("unknown slot logic type '{0}'")]
     UnknownSlotLogicType(f64),
-    #[error("Unknown Batch Mode '{0}'")]
+    #[error("unknown batch mode '{0}'")]
     UnknownBatchMode(f64),
-    #[error("Unknown Reagent Mode '{0}'")]
+    #[error("unknown reagent mode '{0}'")]
     UnknownReagentMode(f64),
-    #[error("Type Value Not Known")]
+    #[error("type value not known")]
     TypeValueNotKnown,
-    #[error("Empty Device List")]
+    #[error("empty device list")]
     EmptyDeviceList,
-    #[error("Connection index out of range: '{0}'")]
-    ConnectionIndexOutOFRange(u32),
-    #[error("Connection specifier missing")]
+    #[error("connection specifier missing")]
     MissingConnectionSpecifier,
-    #[error("No data network on connection '{0}'")]
-    NotDataConnection(u32),
-    #[error("Network not connected on connection '{0}'")]
-    NetworkNotConnected(u32),
-    #[error("Bad Network Id '{0}'")]
+    #[error("no data network on connection '{0}'")]
+    NotDataConnection(usize),
+    #[error("network not connected on connection '{0}'")]
+    NetworkNotConnected(usize),
+    #[error("bad network Id '{0}'")]
     BadNetworkId(u32),
 }
 
@@ -2030,9 +2032,9 @@ impl IC {
                         let RegisterSpec {
                             indirection,
                             target,
-
                         } = reg.as_register(this, inst, 1)?;
-                        let (Some(device_id), _connection) = dev_id.as_device(this, inst, 2)? else {
+                        let (Some(device_id), _connection) = dev_id.as_device(this, inst, 2)?
+                        else {
                             return Err(DeviceNotSet);
                         };
                         let device = vm.get_device_same_network(this.device, device_id);
@@ -2057,9 +2059,9 @@ impl IC {
                         let RegisterSpec {
                             indirection,
                             target,
-
                         } = reg.as_register(this, inst, 1)?;
-                        let (Some(device_id), _connection) = dev_id.as_device(this, inst, 2)? else {
+                        let (Some(device_id), _connection) = dev_id.as_device(this, inst, 2)?
+                        else {
                             return Err(DeviceNotSet);
                         };
                         let device = vm.get_device_same_network(this.device, device_id);
@@ -2080,9 +2082,9 @@ impl IC {
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Put => match &operands[..] {
-
                     [dev_id, addr, val] => {
-                        let (Some(device_id), _connection) = dev_id.as_device(this, inst, 1)? else {
+                        let (Some(device_id), _connection) = dev_id.as_device(this, inst, 1)?
+                        else {
                             return Err(DeviceNotSet);
                         };
                         let device = vm.get_device_same_network(this.device, device_id);
@@ -2093,6 +2095,7 @@ impl IC {
                                     let val = val.as_value(this, inst, 3)?;
                                     let mut ic = vm.ics.get(ic_id).unwrap().borrow_mut();
                                     ic.poke(addr, val)?;
+                                    vm.set_modified(device_id);
                                     Ok(())
                                 }
                                 None => Err(DeviceHasNoIC),
@@ -2116,6 +2119,7 @@ impl IC {
                                     let val = val.as_value(this, inst, 3)?;
                                     let mut ic = vm.ics.get(ic_id).unwrap().borrow_mut();
                                     ic.poke(addr, val)?;
+                                    vm.set_modified(device_id as u16);
                                     Ok(())
                                 }
                                 None => Err(DeviceHasNoIC),
@@ -2131,7 +2135,7 @@ impl IC {
                         let (Some(device_id), connection) = dev.as_device(this, inst, 1)? else {
                             return Err(DeviceNotSet);
                         };
-                        let lt = LogicType::try_from(lt.as_value(this, inst, 2)?)?;
+                        let lt = lt.as_logic_type(this, inst, 2)?;
                         if CHANNEL_LOGIC_TYPES.contains(&lt) {
                             let channel = lt.as_channel().unwrap();
                             let Some(connection) = connection else {
@@ -2150,6 +2154,7 @@ impl IC {
                             Some(device) => {
                                 let val = val.as_value(this, inst, 1)?;
                                 device.borrow_mut().set_field(lt, val)?;
+                                vm.set_modified(device_id);
                                 Ok(())
                             }
                             None => Err(UnknownDeviceID(device_id as f64)),
@@ -2166,9 +2171,10 @@ impl IC {
                         let device = vm.get_device_same_network(this.device, device_id as u16);
                         match device {
                             Some(device) => {
-                                let lt = LogicType::try_from(lt.as_value(this, inst, 2)?)?;
+                                let lt = lt.as_logic_type(this, inst, 2)?;
                                 let val = val.as_value(this, inst, 3)?;
                                 device.borrow_mut().set_field(lt, val)?;
+                                vm.set_modified(device_id as u16);
                                 Ok(())
                             }
                             None => Err(UnknownDeviceID(device_id)),
@@ -2177,7 +2183,7 @@ impl IC {
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Ss => match &operands[..] {
-                    [dev, index, lt, val] => {
+                    [dev, index, slt, val] => {
                         let (Some(device_id), _connection) = dev.as_device(this, inst, 1)? else {
                             return Err(DeviceNotSet);
                         };
@@ -2185,9 +2191,10 @@ impl IC {
                         match device {
                             Some(device) => {
                                 let index = index.as_value(this, inst, 2)?;
-                                let lt = SlotLogicType::try_from(lt.as_value(this, inst, 3)?)?;
+                                let slt = slt.as_slot_logic_type(this, inst, 3)?;
                                 let val = val.as_value(this, inst, 4)?;
-                                device.borrow_mut().set_slot_field(index, lt, val)?;
+                                device.borrow_mut().set_slot_field(index, slt, val)?;
+                                vm.set_modified(device_id);
                                 Ok(())
                             }
                             None => Err(UnknownDeviceID(device_id as f64)),
@@ -2198,7 +2205,7 @@ impl IC {
                 Sb => match &operands[..] {
                     [prefab, lt, val] => {
                         let prefab = prefab.as_value(this, inst, 1)?;
-                        let lt = LogicType::try_from(lt.as_value(this, inst, 2)?)?;
+                        let lt = lt.as_logic_type(this, inst, 2)?;
                         let val = val.as_value(this, inst, 3)?;
                         vm.set_batch_device_field(this.device, prefab, lt, val)?;
                         Ok(())
@@ -2206,12 +2213,12 @@ impl IC {
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Sbs => match &operands[..] {
-                    [prefab, index, lt, val] => {
+                    [prefab, index, slt, val] => {
                         let prefab = prefab.as_value(this, inst, 1)?;
                         let index = index.as_value(this, inst, 2)?;
-                        let lt = SlotLogicType::try_from(lt.as_value(this, inst, 3)?)?;
+                        let slt = slt.as_slot_logic_type(this, inst, 3)?;
                         let val = val.as_value(this, inst, 4)?;
-                        vm.set_batch_device_slot_field(this.device, prefab, index, lt, val)?;
+                        vm.set_batch_device_slot_field(this.device, prefab, index, slt, val)?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
@@ -2220,7 +2227,7 @@ impl IC {
                     [prefab, name, lt, val] => {
                         let prefab = prefab.as_value(this, inst, 1)?;
                         let name = name.as_value(this, inst, 2)?;
-                        let lt = LogicType::try_from(lt.as_value(this, inst, 3)?)?;
+                        let lt = lt.as_logic_type(this, inst, 3)?;
                         let val = val.as_value(this, inst, 4)?;
                         vm.set_batch_name_device_field(this.device, prefab, name, lt, val)?;
                         Ok(())
@@ -2237,7 +2244,7 @@ impl IC {
                         let (Some(device_id), connection) = dev.as_device(this, inst, 2)? else {
                             return Err(DeviceNotSet);
                         };
-                        let lt = LogicType::try_from(lt.as_value(this, inst, 3)?)?;
+                        let lt = lt.as_logic_type(this, inst, 3)?;
                         if CHANNEL_LOGIC_TYPES.contains(&lt) {
                             let channel = lt.as_channel().unwrap();
                             let Some(connection) = connection else {
@@ -2276,7 +2283,7 @@ impl IC {
                         let device = vm.get_device_same_network(this.device, device_id as u16);
                         match device {
                             Some(device) => {
-                                let lt = LogicType::try_from(lt.as_value(this, inst, 3)?)?;
+                                let lt = lt.as_logic_type(this, inst, 3)?;
                                 let val = device.borrow().get_field(lt)?;
                                 this.set_register(indirection, target, val)?;
                                 Ok(())
@@ -2287,7 +2294,7 @@ impl IC {
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
                 },
                 Ls => match &operands[..] {
-                    [reg, dev, index, lt] => {
+                    [reg, dev, index, slt] => {
                         let RegisterSpec {
                             indirection,
                             target,
@@ -2299,8 +2306,8 @@ impl IC {
                         match device {
                             Some(device) => {
                                 let index = index.as_value(this, inst, 3)?;
-                                let lt = SlotLogicType::try_from(lt.as_value(this, inst, 4)?)?;
-                                let val = device.borrow().get_slot_field(index, lt)?;
+                                let slt = slt.as_slot_logic_type(this, inst, 4)?;
+                                let val = device.borrow().get_slot_field(index, slt)?;
                                 this.set_register(indirection, target, val)?;
                                 Ok(())
                             }
@@ -2339,7 +2346,7 @@ impl IC {
                             target,
                         } = reg.as_register(this, inst, 1)?;
                         let prefab = prefab.as_value(this, inst, 2)?;
-                        let lt = LogicType::try_from(lt.as_value(this, inst, 3)?)?;
+                        let lt = lt.as_logic_type(this, inst, 3)?;
                         let bm = BatchMode::try_from(bm.as_value(this, inst, 4)?)?;
                         let val = vm.get_batch_device_field(this.device, prefab, lt, bm)?;
                         this.set_register(indirection, target, val)?;
@@ -2355,7 +2362,7 @@ impl IC {
                         } = reg.as_register(this, inst, 1)?;
                         let prefab = prefab.as_value(this, inst, 2)?;
                         let name = name.as_value(this, inst, 3)?;
-                        let lt = LogicType::try_from(lt.as_value(this, inst, 4)?)?;
+                        let lt = lt.as_logic_type(this, inst, 4)?;
                         let bm = BatchMode::try_from(bm.as_value(this, inst, 5)?)?;
                         let val =
                             vm.get_batch_name_device_field(this.device, prefab, name, lt, bm)?;
@@ -2373,7 +2380,7 @@ impl IC {
                         let prefab = prefab.as_value(this, inst, 2)?;
                         let name = name.as_value(this, inst, 3)?;
                         let index = index.as_value(this, inst, 4)?;
-                        let slt = SlotLogicType::try_from(slt.as_value(this, inst, 5)?)?;
+                        let slt = slt.as_slot_logic_type(this, inst, 5)?;
                         let bm = BatchMode::try_from(bm.as_value(this, inst, 6)?)?;
                         let val = vm.get_batch_name_device_slot_field(
                             this.device,
@@ -2396,7 +2403,7 @@ impl IC {
                         } = reg.as_register(this, inst, 1)?;
                         let prefab = prefab.as_value(this, inst, 2)?;
                         let index = index.as_value(this, inst, 3)?;
-                        let slt = SlotLogicType::try_from(slt.as_value(this, inst, 4)?)?;
+                        let slt = slt.as_slot_logic_type(this, inst, 4)?;
                         let bm = BatchMode::try_from(bm.as_value(this, inst, 5)?)?;
                         let val =
                             vm.get_batch_device_slot_field(this.device, prefab, index, slt, bm)?;
@@ -2410,8 +2417,8 @@ impl IC {
         let result = process_op(self);
         if result.is_ok() || advance_ip_on_err {
             self.ic += 1;
+            self.ip = next_ip;
         }
-        self.ip = next_ip;
         result
     }
 }

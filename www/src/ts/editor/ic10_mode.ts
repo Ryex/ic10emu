@@ -4,7 +4,6 @@ import { rules as highlightRules } from "./ic10_highlight_rules";
 //Support function to create Ace mode
 function createAceMode(modeName: string, highlighterObj: ace.Ace.HighlightRulesMap) {
     (ace as any).define(modeName, ["require", "exports", "module"], function (require: any, exports: any, module: any) {
-        console.log(require);
         var oop = require("ace/lib/oop");
         var TextMode = require("ace/mode/text").Mode;
         var TextHighlightRules = require("ace/mode/text_highlight_rules").TextHighlightRules;

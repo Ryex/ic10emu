@@ -1,22 +1,21 @@
-
 const demoCode = `# Highlighting Demo
 # This is a comment
 
 # Hover a define id anywhere to see it's definition
-define a_def 10 
+define a_def 10
 
 # Hover HASH("String")'s to see computed crc32
 #     hover here    vvvvvvvvvvvvvvvv
-define a_hash HASH("This is a String") 
+define a_hash HASH("This is a String")
 
 # hover over an alias anywhere in the code
 # to see it's definition
-alias a_var r0 
+alias a_var r0
 alias a_device d0
 
-# instructions have Auto Completion, 
+# instructions have Auto Completion,
 # numeric logic types are identified on hover
-s db 12 0 
+s db 12 0
 #    ^^
 # hover here
 
@@ -42,9 +41,9 @@ move r0 HASH("AccessCardBlack")
 push r0
 beqzal r1 test
 
-# -2045627372 is the crc32 hash of a SolarPanel, 
+# -2045627372 is the crc32 hash of a SolarPanel,
 # hover it to see the documentation!
-#        vvvvvvvvvv  
+#        vvvvvvvvvv
 move r1 -2045627372
 jal test
 move r1 $FF
@@ -59,31 +58,28 @@ test:
 add r15 r15 1
 j ra
 
-`
+`;
 
-interface SessionCbFn {
-  (param: Session): void;
-}
+import type { ICError } from "ic10emu_wasm";
 
-class Session {
+export class Session extends EventTarget {
   _programs: Map<number, string>;
-  _onLoadCallbacks: SessionCbFn[];
-  _activeSession: number;
+  _errors: Map<number, ICError[]>;
+  _activeIC: number;
   _activeLines: Map<number, number>;
-  _onActiveLineCallbacks: SessionCbFn[];
   _activeLine: number;
-  private _save_timeout: ReturnType<typeof setTimeout>;
+  _save_timeout?: ReturnType<typeof setTimeout>;
   constructor() {
+    super();
     this._programs = new Map();
-    this._save_timeout = null;
-    this._onLoadCallbacks = [];
-    this._activeSession = 0;
+    this._errors = new Map();
+    this._save_timeout = undefined;
+    this._activeIC = 0;
     this._activeLines = new Map();
-    this._onActiveLineCallbacks = [];
     this.loadFromFragment();
 
     const that = this;
-    window.addEventListener('hashchange', (_event) => {
+    window.addEventListener("hashchange", (_event) => {
       that.loadFromFragment();
     });
   }
@@ -94,10 +90,26 @@ class Session {
 
   set programs(programs) {
     this._programs = new Map([...programs]);
+    this._fireOnLoad();
   }
 
-  get activeSession() {
-    return this._activeSession;
+  get activeIC() {
+    return this._activeIC;
+  }
+
+  set activeIC(val: number) {
+    this._activeIC = val;
+    this.dispatchEvent(
+      new CustomEvent("session-active-ic", { detail: this.activeIC }),
+    );
+  }
+
+  onActiveIc(callback: EventListenerOrEventListenerObject) {
+    this.addEventListener("session-active-ic", callback);
+  }
+
+  get errors() {
+    return this._errors;
   }
 
   getActiveLine(id: number) {
@@ -106,7 +118,7 @@ class Session {
 
   setActiveLine(id: number, line: number) {
     this._activeLines.set(id, line);
-    this._fireOnActiveLine();
+    this._fireOnActiveLine(id);
   }
 
   set activeLine(line: number) {
@@ -118,34 +130,55 @@ class Session {
     this.save();
   }
 
-  onLoad(callback: SessionCbFn) {
-    this._onLoadCallbacks.push(callback);
+  setProgramErrors(id: number, errors: ICError[]) {
+    this._errors.set(id, errors);
+    this._fireOnErrors([id]);
+  }
+
+  _fireOnErrors(ids: number[]) {
+    this.dispatchEvent(
+      new CustomEvent("session-errors", {
+        detail: ids,
+      }),
+    );
+  }
+
+  onErrors(callback: EventListenerOrEventListenerObject) {
+    this.addEventListener("session-errors", callback);
+  }
+
+  onLoad(callback: EventListenerOrEventListenerObject) {
+    this.addEventListener("session-load", callback);
   }
 
   _fireOnLoad() {
-    for (const callback of this._onLoadCallbacks) {
-      callback(this);
-    }
+    this.dispatchEvent(
+      new CustomEvent("session-load", {
+        detail: this,
+      }),
+    );
   }
 
-  onActiveLine(callback: SessionCbFn) {
-    this._onActiveLineCallbacks.push(callback);
+  onActiveLine(callback: EventListenerOrEventListenerObject) {
+    this.addEventListener("active-line", callback);
   }
 
-  _fireOnActiveLine() {
-    for (const callback of this._onActiveLineCallbacks) {
-      callback(this);
-    }
+  _fireOnActiveLine(id: number) {
+    this.dispatchEvent(
+      new CustomEvent("active-line", {
+        detail: id,
+      }),
+    );
   }
 
   save() {
     if (this._save_timeout) clearTimeout(this._save_timeout);
     this._save_timeout = setTimeout(() => {
       this.saveToFragment();
-      if (window.App.vm) {
-        window.App.vm.updateCode();
+      if (window.App!.vm) {
+        window.App!.vm.updateCode();
       }
-      this._save_timeout = null;
+      this._save_timeout = undefined;
     }, 1000);
   }
 
@@ -160,7 +193,6 @@ class Session {
       console.log("Error compressing content fragment:", e);
       return;
     }
-
   }
 
   async loadFromFragment() {
@@ -176,7 +208,8 @@ class Session {
       if (bytes !== null) {
         const txt = new TextDecoder().decode(bytes);
         const data = getJson(txt);
-        if (data === null) { // backwards compatible
+        if (data === null) {
+          // backwards compatible
           this._programs = new Map([[0, txt]]);
           this, this._fireOnLoad();
           return;
@@ -191,7 +224,6 @@ class Session {
       }
     }
   }
-
 }
 async function decompressFragment(c_bytes: ArrayBuffer) {
   try {
@@ -222,26 +254,31 @@ async function* streamAsyncIterator(stream: ReadableStream) {
       if (done) return;
       yield value;
     }
-  }
-  finally {
+  } finally {
     reader.releaseLock();
   }
 }
 
 function base64url_encode(buffer: ArrayBuffer) {
-  return btoa(Array.from(new Uint8Array(buffer), b => String.fromCharCode(b)).join(''))
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=+$/, '');
+  return btoa(
+    Array.from(new Uint8Array(buffer), (b) => String.fromCharCode(b)).join(""),
+  )
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/, "");
 }
 
 function base64url_decode(value: string): ArrayBuffer {
   const m = value.length % 4;
-  return Uint8Array.from(atob(
-    value.replace(/-/g, '+')
-      .replace(/_/g, '/')
-      .padEnd(value.length + (m === 0 ? 0 : 4 - m), '=')
-  ), c => c.charCodeAt(0)).buffer
+  return Uint8Array.from(
+    atob(
+      value
+        .replace(/-/g, "+")
+        .replace(/_/g, "/")
+        .padEnd(value.length + (m === 0 ? 0 : 4 - m), "="),
+    ),
+    (c) => c.charCodeAt(0),
+  ).buffer;
 }
 
 async function concatUintArrays(arrays: Uint8Array[]) {
@@ -252,10 +289,8 @@ async function concatUintArrays(arrays: Uint8Array[]) {
 
 async function compress(bytes: ArrayBuffer) {
   const s = new Blob([bytes]).stream();
-  const cs = s.pipeThrough(
-    new CompressionStream('deflate-raw')
-  );
-  const chunks = [];
+  const cs = s.pipeThrough(new CompressionStream("deflate-raw"));
+  const chunks: Uint8Array[] = [];
   for await (const chunk of streamAsyncIterator(cs)) {
     chunks.push(chunk);
   }
@@ -264,14 +299,10 @@ async function compress(bytes: ArrayBuffer) {
 
 async function decompress(bytes: ArrayBuffer) {
   const s = new Blob([bytes]).stream();
-  const ds = s.pipeThrough(
-    new DecompressionStream('deflate-raw')
-  );
-  const chunks = [];
+  const ds = s.pipeThrough(new DecompressionStream("deflate-raw"));
+  const chunks: Uint8Array[] = [];
   for await (const chunk of streamAsyncIterator(ds)) {
     chunks.push(chunk);
   }
   return await concatUintArrays(chunks);
 }
-
-export { Session, SessionCbFn };
