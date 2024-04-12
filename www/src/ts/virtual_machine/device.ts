@@ -89,6 +89,13 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
         --indicator-color: var(--sl-color-purple-600);
         --sl-color-primary-600: var(--sl-color-purple-600);
       }
+      sl-tab::part(base) {
+        padding: var(--sl-spacing-small) var(--sl-spacing-medium)
+      }
+      sl-tab-group::part(base) {
+        height: 16rem;
+        overflow-y: auto;
+      }
     `,
   ];
 
@@ -438,7 +445,7 @@ export class VMAddDeviceButton extends BaseElement {
     ...defaultCss,
     css`
       .add-device-drawer {
-        --size: 28rem;
+        --size: 32rem;
       }
 
       .search-results {
@@ -560,9 +567,10 @@ export class VMAddDeviceButton extends BaseElement {
           class="device-search-input"
           autofocus
           placeholder="Search For Device"
+          clearable
           @sl-input=${this._handleSearchInput}
         >
-          <span slot="prefix">Search Strutures</span>
+          <span slot="prefix">Search Structures</span>
           <sl-icon slot="suffix" name="search"></sl-icon>"
         </sl-input>
         <div class="search-results">${this.renderSearchResults()}</div>
@@ -606,6 +614,9 @@ export class VmDeviceTemplate extends BaseElement {
   static styles = [
     ...defaultCss,
     css`
+      .template-card {
+        --padding: var(--sl-spacing-small)
+      }
       .image {
         width: 3rem;
         height: 3rem;
@@ -613,7 +624,17 @@ export class VmDeviceTemplate extends BaseElement {
       .header {
         display: flex;
         flex-direction: row;
-        flex-wrap: wrap;
+      }
+      .card-body {
+        // height: 18rem;
+        overflow-y: auto;
+      }
+      sl-tab::part(base) {
+        padding: var(--sl-spacing-small) var(--sl-spacing-medium)
+      }
+      sl-tab-group::part(base) {
+        height: 14rem;
+        overflow-y: auto;
       }
     `,
   ];
@@ -650,11 +671,50 @@ export class VmDeviceTemplate extends BaseElement {
     console.log("Image load error", e);
   }
 
+  renderFields(): HTMLTemplateResult {
+    const device = this.deviceDB.db[this.name];
+    const fields = device.logic ? Object.entries(device.logic) : [];
+    return html`
+      ${fields.map(([name, field_type], _index, _fields) => {
+        return html` <sl-input
+          key="${name}"
+          value="0"
+        >
+          <span slot="prefix">${name}</span>
+          <span slot="suffix">${field_type}</span>
+        </sl-input>`;
+      })}
+    `;
+  }
+
+  renderSlot(slot: Slot, slotIndex: number): HTMLTemplateResult {
+    const fields = Array.from(slot.fields);
+    return html` <sl-card class="slot-card"> </sl-card> `;
+  }
+
+  renderSlots(): HTMLTemplateResult {
+    return html` <div clas="slots"></div> `;
+  }
+
+  renderReagents(): HTMLTemplateResult {
+    return html``;
+  }
+
+  renderNetworks(): HTMLTemplateResult {
+    const vmNetworks = window.VM!.networks;
+    return html` <div class="networks"></div> `;
+  }
+
+  renderPins(): HTMLTemplateResult {
+    const device = this.deviceDB.db[this.name];
+    return html` <div class="pins"></div> `;
+  }
+
   render() {
     const device = this.deviceDB.db[this.name];
     return html`
-      <sl-card>
-        <div class"header" slot="header">
+      <sl-card class="template-card">
+        <div class="header" slot="header">
           <sl-tooltip content="${device.name}">
             <img
               class="image"
@@ -662,7 +722,28 @@ export class VmDeviceTemplate extends BaseElement {
               @onerr=${this.onImageErr}
             />
           </sl-tooltip>
-          <span class="prefab-name">${device.name}</span> <span class="prefab-hash">${device.hash}</span>
+          <div class=vstack>
+            <span class="prefab-name">${device.name}</span>
+            <span class="prefab-hash">${device.hash}</span>
+          </div>
+          <sl-button class="ms-auto" pill variant="success">Add <sl-icon slot="prefix" name="plus-lg"></sl-icon></sl-button>
+        </div>
+        <div class=card-body>
+
+        <sl-tab-group>
+          <sl-tab slot="nav" panel="fields">Fields</sl-tab>
+          <sl-tab slot="nav" panel="slots">Slots</sl-tab>
+          <sl-tab slot="nav" panel="reagents">Reagents</sl-tab>
+          <sl-tab slot="nav" panel="networks">Networks</sl-tab>
+          <sl-tab slot="nav" panel="pins">Pins</sl-tab>
+
+          <sl-tab-panel name="fields">${this.renderFields()}</sl-tab-panel>
+          <sl-tab-panel name="slots">${this.renderSlots()}</sl-tab-panel>
+          <sl-tab-panel name="reagents">${this.renderReagents()}</sl-tab-panel>
+          <sl-tab-panel name="networks">${this.renderNetworks()}</sl-tab-panel>
+          <sl-tab-panel name="pins">${this.renderPins()}</sl-tab-panel>
+        </sl-tab-group>
+
         </div>
       </sl-card>
     `;
