@@ -33,7 +33,7 @@ module.exports = {
             __dirname,
             "node_modules/@shoelace-style/shoelace/dist/assets",
           ),
-          to: path.resolve(__dirname, "dist/shoelace/assets"),
+          to: "shoelace/assets",
         },
       ],
     }),
