@@ -32,83 +32,83 @@ impl Error for LineError {}
 
 #[derive(Debug, Error, Clone, Serialize, Deserialize)]
 pub enum ICError {
-    #[error("Error Compiling Code: {0}")]
+    #[error("error compiling code: {0}")]
     ParseError(#[from] ParseError),
-    #[error("Duplicate label {0}")]
+    #[error("duplicate label {0}")]
     DuplicateLabel(String),
-    #[error("Instruction Pointer out of range: '{0}'")]
+    #[error("instruction pointer out of range: '{0}'")]
     InstructionPointerOutOfRange(u32),
-    #[error("Register Pointer out of range: '{0}'")]
+    #[error("register pointer out of range: '{0}'")]
     RegisterIndexOutOfRange(f64),
-    #[error("Device Pointer out of range: '{0}'")]
+    #[error("device pointer out of range: '{0}'")]
     DeviceIndexOutOfRange(f64),
-    #[error("Stack index out of range: '{0}'")]
+    #[error("stack index out of range: '{0}'")]
     StackIndexOutOfRange(f64),
     #[error("slot index out of range: '{0}'")]
     SlotIndexOutOfRange(f64),
     #[error("pin index {0} out of range 0-6")]
     PinIndexOutOfRange(usize),
-    #[error("Connection index {0} out of range {1}")]
+    #[error("connection index {0} out of range {1}")]
     ConnectionIndexOutOfRange(usize, usize),
-    #[error("Unknown device ID '{0}'")]
+    #[error("unknown device ID '{0}'")]
     UnknownDeviceID(f64),
-    #[error("Too few operands!: provide: '{provided}', desired: '{desired}'")]
+    #[error("too few operands!: provide: '{provided}', desired: '{desired}'")]
     TooFewOperands { provided: u32, desired: u32 },
-    #[error("Too many operands!: provide: '{provided}', desired: '{desired}'")]
+    #[error("too many operands!: provide: '{provided}', desired: '{desired}'")]
     TooManyOperands { provided: u32, desired: u32 },
-    #[error("Incorrect Operand Type for instruction `{inst}` operand {index}, not a {desired} ")]
+    #[error("incorrect operand type for instruction `{inst}` operand {index}, not a {desired} ")]
     IncorrectOperandType {
         inst: grammar::InstructionOp,
         index: u32,
         desired: String,
     },
-    #[error("Unknown identifier {0}")]
+    #[error("unknown identifier {0}")]
     UnknownIdentifier(String),
-    #[error("Device Not Set")]
+    #[error("device Not Set")]
     DeviceNotSet,
-    #[error("Shift Underflow i64(signed long)")]
+    #[error("shift Underflow i64(signed long)")]
     ShiftUnderflowI64,
-    #[error("Shift Overflow i64(signed long)")]
+    #[error("shift Overflow i64(signed long)")]
     ShiftOverflowI64,
-    #[error("Shift Underflow i32(signed int)")]
+    #[error("shift underflow i32(signed int)")]
     ShiftUnderflowI32,
-    #[error("Shift Overflow i32(signed int)")]
+    #[error("shift overflow i32(signed int)")]
     ShiftOverflowI32,
-    #[error("Stack Underflow")]
+    #[error("stack underflow")]
     StackUnderflow,
-    #[error("Stack Overflow")]
+    #[error("stack overflow")]
     StackOverflow,
-    #[error("Duplicate Define '{0}'")]
+    #[error("duplicate define '{0}'")]
     DuplicateDefine(String),
-    #[error("Read Only field '{0}'")]
+    #[error("read only field '{0}'")]
     ReadOnlyField(String),
-    #[error("Write Only field '{0}'")]
+    #[error("write only field '{0}'")]
     WriteOnlyField(String),
-    #[error("Device Has No Field '{0}'")]
+    #[error("device has no field '{0}'")]
     DeviceHasNoField(String),
-    #[error("Device has not IC")]
+    #[error("device has not ic")]
     DeviceHasNoIC,
-    #[error("Unknown Device '{0}'")]
-    UnknownDeviceId(f64),
-    #[error("Unknown Logic Type '{0}'")]
+    #[error("unknown device '{0}'")]
+    unknownDeviceId(f64),
+    #[error("unknown logic type '{0}'")]
     UnknownLogicType(f64),
-    #[error("Unknown Slot Logic Type '{0}'")]
+    #[error("unknown slot logic type '{0}'")]
     UnknownSlotLogicType(f64),
-    #[error("Unknown Batch Mode '{0}'")]
+    #[error("unknown batch mode '{0}'")]
     UnknownBatchMode(f64),
-    #[error("Unknown Reagent Mode '{0}'")]
+    #[error("unknown reagent mode '{0}'")]
     UnknownReagentMode(f64),
-    #[error("Type Value Not Known")]
+    #[error("type value not known")]
     TypeValueNotKnown,
-    #[error("Empty Device List")]
+    #[error("empty device list")]
     EmptyDeviceList,
-    #[error("Connection specifier missing")]
+    #[error("connection specifier missing")]
     MissingConnectionSpecifier,
-    #[error("No data network on connection '{0}'")]
+    #[error("no data network on connection '{0}'")]
     NotDataConnection(usize),
-    #[error("Network not connected on connection '{0}'")]
+    #[error("network not connected on connection '{0}'")]
     NetworkNotConnected(usize),
-    #[error("Bad Network Id '{0}'")]
+    #[error("bad network Id '{0}'")]
     BadNetworkId(u32),
 }
 

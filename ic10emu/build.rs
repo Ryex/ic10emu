@@ -25,7 +25,7 @@ fn write_repr_enum<'a, T: std::io::Write, I, P>(
     use_phf: bool,
 ) where
     P: Display + FromStr + 'a,
-    I: Iterator<Item = (&'a String, &'a EnumVariant<P>)>,
+    I: IntoIterator<Item = &'a (String, EnumVariant<P>)>,
 {
     let additional_strum = if use_phf { "#[strum(use_phf)]\n" } else { "" };
     write!(
@@ -156,25 +156,11 @@ fn write_logictypes() {
         }
     }
 
-    write_repr_enum(
-        &mut writer,
-        "LogicType",
-        logictypes
-            .iter()
-            .map(|(key, variant)| (key, variant)),
-        true,
-    );
+    write_repr_enum(&mut writer, "LogicType", &logictypes, true);
 
     println!("cargo:rerun-if-changed=data/logictypes.txt");
 
-    write_repr_enum(
-        &mut writer,
-        "SlotLogicType",
-        slotlogictypes
-            .iter()
-            .map(|(key, variant)| (key, variant)),
-        true,
-    );
+    write_repr_enum(&mut writer, "SlotLogicType", &slotlogictypes, true);
 
     println!("cargo:rerun-if-changed=data/slotlogictypes.txt");
 }
@@ -210,14 +196,7 @@ fn write_enums() {
         ));
     }
 
-    write_repr_enum(
-        &mut writer,
-        "LogicEnums",
-        enums_map
-            .iter()
-            .map(|(key, variant)| (key, variant)),
-        true,
-    );
+    write_repr_enum(&mut writer, "LogicEnums", &enums_map, true);
 
     println!("cargo:rerun-if-changed=data/enums.txt");
 }
@@ -305,21 +284,11 @@ fn write_modes() {
         }
     }
 
-    write_repr_enum(
-        &mut writer,
-        "BatchMode",
-        batchmodes.iter().map(|(key, variant)| (key, variant)),
-        false,
-    );
+    write_repr_enum(&mut writer, "BatchMode", &batchmodes, false);
 
     println!("cargo:rerun-if-changed=data/batchmodes.txt");
 
-    write_repr_enum(
-        &mut writer,
-        "ReagentMode",
-        reagentmodes.iter().map(|(key, variant)| (key, variant)),
-        false,
-    );
+    write_repr_enum(&mut writer, "ReagentMode", &reagentmodes, false);
 
     println!("cargo:rerun-if-changed=data/reagentmodes.txt");
 }

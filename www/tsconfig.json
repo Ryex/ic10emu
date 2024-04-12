@@ -8,10 +8,9 @@
     "allowJs": true,
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "types": [
-      "@types/wicg-file-system-access",
-      "@types/ace"
-    ],
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "types": ["@types/wicg-file-system-access", "@types/ace"],
     "plugins": [
       {
         "name": "ts-lit-plugin"
@@ -21,7 +20,5 @@
       }
     ]
   },
-  "include": [
-    "node_modules/lit-scss-loader/types.d.ts"
-  ]
+  "include": ["src/**/*", "node_modules/lit-scss-loader/types.d.ts"]
 }

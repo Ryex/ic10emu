@@ -2,7 +2,9 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const miniCssExtractPlugin = require("mini-css-extract-plugin");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
+const { EsbuildPlugin } = require("esbuild-loader");
 
 const path = require("path");
 
@@ -16,6 +18,7 @@ module.exports = {
   mode: "production",
   devtool: "source-map",
   plugins: [
+    new ForkTsCheckerWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
         "img/*.png",
@@ -37,9 +40,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
-        use: "ts-loader",
+        test: /\.[jt]sx?$/,
         exclude: /node_modules/,
+        loader: "esbuild-loader",
+        options: {
+          target: "es2021",
+          tsconfig: "./tsconfig.json",
+        },
       },
       {
         test: /\.(jpg|png|svg|gif)$/,
@@ -55,6 +62,13 @@ module.exports = {
           {
             // translates CSS into CommonJS modules
             loader: "css-loader",
+          },
+          {
+            loader: "esbuild-loader",
+            options: {
+              loader: 'css',
+              minify: true,
+            },
           },
           {
             // Run postcss actions
@@ -75,9 +89,6 @@ module.exports = {
             loader: "sass-loader",
           },
         ],
-        // parser: {
-        //   javascript : { importMeta: false }
-        // }
       },
     ],
   },
@@ -96,8 +107,10 @@ module.exports = {
   },
   optimization: {
     minimizer: [
-      `...`,
-      new CssMinimizerPlugin(),
+      new EsbuildPlugin({
+        target: "es2021", // Syntax to transpile to (see options below for possible values)
+        css: true,
+      }),
       new ImageMinimizerPlugin({
         minimizer: {
           implementation: ImageMinimizerPlugin.imageminMinify,

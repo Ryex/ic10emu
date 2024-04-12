@@ -256,4 +256,4 @@ class VirtualMachine extends EventTarget {
   }
 }
 
-export { VirtualMachine, DeviceDB };
+export { VirtualMachine };

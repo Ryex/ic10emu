@@ -1,6 +1,7 @@
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const miniCssExtractPlugin = require("mini-css-extract-plugin");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const { SourceMap } = require("module");
 
 const path = require("path");
@@ -20,6 +21,7 @@ module.exports = {
   mode: "development",
   devtool: "eval-source-map",
   plugins: [
+    new ForkTsCheckerWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
         "img/*.png",
@@ -41,9 +43,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
-        use: "ts-loader",
+        test: /\.[jt]sx?$/,
         exclude: /node_modules/,
+        loader: "esbuild-loader",
+        options: {
+          target: "es2021",
+          tsconfig: "./tsconfig.json",
+        },
       },
       {
         test: /\.(jpg|png|svg|gif)$/,
@@ -110,5 +116,5 @@ module.exports = {
   },
   optimization: {
     chunkIds: "named",
-  }
+  },
 };

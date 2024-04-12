@@ -21,8 +21,6 @@ export async function setupLspWorker() {
 }
 
 export import Ace = ace.Ace;
-export import EditSession = ace.Ace.EditSession;
-export import Editor = ace.Ace.Editor;
 import { Range } from "ace-builds";
 
 export { ace, TextMode, Range, AceLanguageClient }

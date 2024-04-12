@@ -18,19 +18,19 @@ use thiserror::Error;
 
 #[derive(Error, Debug, Serialize, Deserialize)]
 pub enum VMError {
-    #[error("Device with id '{0}' does not exist")]
+    #[error("device with id '{0}' does not exist")]
     UnknownId(u16),
-    #[error("IC with id '{0}' does not exist")]
+    #[error("ic with id '{0}' does not exist")]
     UnknownIcId(u16),
-    #[error("Device with id '{0}' does not have a IC Slot")]
+    #[error("device with id '{0}' does not have a ic slot")]
     NoIC(u16),
-    #[error("IC encountered an error: {0}")]
+    #[error("ic encountered an error: {0}")]
     ICError(#[from] ICError),
-    #[error("IC encountered an error: {0}")]
+    #[error("ic encountered an error: {0}")]
     LineError(#[from] LineError),
-    #[error("Invalid network ID {0}")]
+    #[error("invalid network id {0}")]
     InvalidNetwork(u16),
-    #[error("Device {0} not visible to device {1} (not on the same networks)")]
+    #[error("device {0} not visible to device {1} (not on the same networks)")]
     DeviceNotVisible(u16, u16),
 }
 
@@ -867,7 +867,7 @@ impl VM {
 
             for conn in device_ref.connections.iter_mut() {
                 if let Connection::CableNetwork(conn) = conn {
-                    if *conn == Some(network_id) {
+                    if conn.is_some_and(|id| id == network_id) {
                         *conn = None;
                     }
                 }

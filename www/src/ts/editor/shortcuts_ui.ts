@@ -1,7 +1,7 @@
 import { BaseElement, defaultCss } from "../components";
 import { html, css, PropertyValueMap } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
-import { ace, Editor } from "./ace";
+import { ace, Ace } from "./ace";
 
 import "@shoelace-style/shoelace/dist/components/drawer/drawer.js";
 
@@ -28,7 +28,7 @@ export class AceKeyboardShortcuts extends BaseElement {
     `,
   ];
 
-  editor?: Editor;
+  editor?: Ace.Editor;
   @query('.drawer') accessor drawer: SlDrawer;
 
   constructor() {

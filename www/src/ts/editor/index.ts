@@ -1,8 +1,6 @@
 import {
   ace,
   Ace,
-  Editor,
-  EditSession,
   Range,
   AceLanguageClient,
   setupLspWorker,
@@ -45,7 +43,7 @@ export class IC10Editor extends BaseElement {
     fontSize: number;
     relativeLineNumbers: boolean;
   };
-  sessions: Map<number, EditSession>;
+  sessions: Map<number, Ace.EditSession>;
 
   @property({ type: Number })
   accessor active_session: number = 0;
@@ -60,7 +58,7 @@ export class IC10Editor extends BaseElement {
   editorDiv: HTMLElement;
   editorContainerDiv: HTMLElement;
   editorStatusbarDiv: HTMLElement;
-  editor: Editor;
+  editor: Ace.Editor;
   statusBar: any;
   snippetManager: any;
   observer: ResizeObserver;
@@ -353,7 +351,7 @@ export class IC10Editor extends BaseElement {
         name: "showSettingsMenu",
         // description: "Show settings menu",
         bindKey: { win: "Ctrl-,", mac: "Command-," },
-        exec: (_editor: Editor) => {
+        exec: (_editor: Ace.Editor) => {
           that.settingDialog.show();
         },
       },
@@ -363,7 +361,7 @@ export class IC10Editor extends BaseElement {
           win: "Ctrl-Alt-h",
           mac: "Command-Alt-h",
         },
-        exec: (_editor: Editor) => {
+        exec: (_editor: Ace.Editor) => {
           that.kbShortcuts.show();
         },
       },
@@ -581,7 +579,7 @@ export class IC10Editor extends BaseElement {
     return true;
   }
 
-  bindSession(session_id: number, session?: EditSession) {
+  bindSession(session_id: number, session?: Ace.EditSession) {
     if (session) {
       session.on("change", () => {
         var val = session.getValue();
