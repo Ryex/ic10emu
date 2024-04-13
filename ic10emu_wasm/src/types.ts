@@ -40,9 +40,18 @@ export type SlotType =
   | "Torpedo"
   | "None";
 
+export interface SlotOccupant {
+  readonly id: number;
+  readonly prefab_hash: number;
+  readonly quantity: number;
+  readonly max_quantity: number;
+  readonly damage: number;
+  readonly fields: Fields;
+}
 export interface Slot {
-  typ: SlotType;
-  fields: Fields;
+  readonly typ: SlotType;
+  readonly occupant: SlotOccupant | undefined;
+  readonly fields: Fields;
 }
 
 export type Reagents = Map<string, Map<number, number>>;
@@ -50,29 +59,37 @@ export type Reagents = Map<string, Map<number, number>>;
 export type Connection = { CableNetwork: number } | "Other";
 
 export type RegisterSpec = {
-  RegisterSpec: { indirection: number; target: number };
+  readonly RegisterSpec: {
+    readonly indirection: number;
+    readonly target: number;
+  };
 };
 export type DeviceSpec = {
-  DeviceSpec: {
-    device:
+  readonly DeviceSpec: {
+    readonly device:
       | "Db"
-      | { Numbered: number }
-      | { Indirect: { indirection: number; target: number } };
+      | { readonly Numbered: number }
+      | {
+          readonly Indirect: {
+            readonly indirection: number;
+            readonly target: number;
+          };
+        };
   };
-  connection: number | undefined;
+  readonly connection: number | undefined;
 };
-export type LogicType = { LogicType: string };
-export type SlotLogicType = { SlotLogicType: string };
-export type BatchMode = { BatchMode: string };
-export type ReagentMode = { ReagentMode: string };
-export type Identifier = { Identifier: { name: string } };
+export type LogicType = { readonly LogicType: string };
+export type SlotLogicType = { readonly SlotLogicType: string };
+export type BatchMode = { readonly BatchMode: string };
+export type ReagentMode = { readonly ReagentMode: string };
+export type Identifier = { readonly Identifier: { name: string } };
 
-export type NumberFloat = { Float: number };
-export type NumberBinary = { Binary: number };
-export type NumberHexadecimal = { Hexadecimal: number };
-export type NumberConstant = { Constant: number };
-export type NumberString = { String: string };
-export type NumberEnum = { Enum: number };
+export type NumberFloat = { readonly Float: number };
+export type NumberBinary = { readonly Binary: number };
+export type NumberHexadecimal = { readonly Hexadecimal: number };
+export type NumberConstant = { readonly Constant: number };
+export type NumberString = { readonly String: string };
+export type NumberEnum = { readonly Enum: number };
 
 export type NumberOperand = {
   Number:
@@ -102,18 +119,23 @@ export type Defines = Map<string, number>;
 export type Pins = (number | undefined)[];
 
 export interface Instruction {
-  instruction: string;
-  operands: Operand[];
+  readonly instruction: string;
+  readonly operands: Operand[];
 }
 
 export type ICError = {
-  ParseError: { line: number; start: number; end: number; msg: string };
+  readonly ParseError: {
+    readonly line: number;
+    readonly start: number;
+    readonly end: number;
+    readonly msg: string;
+  };
 };
 
 export interface Program {
-  instructions: Instruction[];
-  errors: ICError[];
-  labels: Map<string, number>;
+  readonly instructions: Instruction[];
+  readonly errors: ICError[];
+  readonly labels: Map<string, number>;
 }
 
 export interface DeviceRef {
@@ -125,4 +147,5 @@ export interface DeviceRef {
   readonly defines?: Defines | undefined;
   readonly pins?: Pins;
   readonly program?: Program;
+  getSlotFields(slot: number): Fields;
 }

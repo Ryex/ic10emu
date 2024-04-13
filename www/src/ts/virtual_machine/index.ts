@@ -85,20 +85,22 @@ class VirtualMachine extends EventTarget {
       }
     }
 
-    const ics = this.ic10vm.ics;
-    for (const id of ics) {
-      if (!this._ics.has(id)) {
-        this._ics.set(id, this._devices.get(id)!);
-        update_flag = true;
+    for (const [id, device] of this._devices) {
+      if (typeof device.ic !== "undefined") {
+        if (!this._ics.has(id)) {
+          this._ics.set(id, device);
+          update_flag = true;
+        }
       }
     }
+
     for (const id of this._ics.keys()) {
-      if (!ics.includes(id)) {
-        this._ics.get(id)!.free();
+      if (!this._devices.has(id)) {
         this._ics.delete(id);
         update_flag = true;
       }
     }
+
     if (update_flag) {
       this.dispatchEvent(
         new CustomEvent("vm-devices-update", { detail: device_ids }),

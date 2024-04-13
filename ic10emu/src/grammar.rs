@@ -424,7 +424,7 @@ impl Operand {
         ic: &interpreter::IC,
         inst: InstructionOp,
         index: u32,
-    ) -> Result<(Option<u16>, Option<u32>), interpreter::ICError> {
+    ) -> Result<(Option<u32>, Option<u32>), interpreter::ICError> {
         match self.translate_alias(ic) {
             Operand::DeviceSpec(DeviceSpec { device, connection }) => match device {
                 Device::Db => Ok((Some(ic.device), connection)),

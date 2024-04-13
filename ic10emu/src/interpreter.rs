@@ -12,7 +12,9 @@ use itertools::Itertools;
 
 use time::format_description;
 
-use crate::grammar::{self, ParseError};
+use crate::{
+    grammar::{self, ParseError},
+};
 
 use thiserror::Error;
 
@@ -169,15 +171,17 @@ impl Display for ICState {
 
 #[derive(Debug)]
 pub struct IC {
-    pub device: u16,
-    pub id: u16,
+    pub device: u32,
+    pub id: u32,
     pub registers: [f64; 18],
+    /// Instruction Pointer
     pub ip: u32,
+    /// Instruction Count since last yield
     pub ic: u16,
     pub stack: [f64; 512],
     pub aliases: HashMap<String, grammar::Operand>,
     pub defines: HashMap<String, f64>,
-    pub pins: [Option<u16>; 6],
+    pub pins: [Option<u32>; 6],
     pub code: String,
     pub program: Program,
     pub state: ICState,
@@ -295,7 +299,7 @@ impl Program {
 }
 
 impl IC {
-    pub fn new(id: u16, device: u16) -> Self {
+    pub fn new(id: u32, device: u32) -> Self {
         IC {
             device,
             id,
@@ -2111,7 +2115,7 @@ impl IC {
                         if device_id >= u16::MAX as f64 || device_id < u16::MIN as f64 {
                             return Err(DeviceIndexOutOfRange(device_id));
                         }
-                        let device = vm.get_device_same_network(this.device, device_id as u16);
+                        let device = vm.get_device_same_network(this.device, device_id as u32);
                         match device {
                             Some(device) => match device.borrow().ic.as_ref() {
                                 Some(ic_id) => {
@@ -2119,7 +2123,7 @@ impl IC {
                                     let val = val.as_value(this, inst, 3)?;
                                     let mut ic = vm.ics.get(ic_id).unwrap().borrow_mut();
                                     ic.poke(addr, val)?;
-                                    vm.set_modified(device_id as u16);
+                                    vm.set_modified(device_id as u32);
                                     Ok(())
                                 }
                                 None => Err(DeviceHasNoIC),
@@ -2153,7 +2157,7 @@ impl IC {
                         match device {
                             Some(device) => {
                                 let val = val.as_value(this, inst, 1)?;
-                                device.borrow_mut().set_field(lt, val)?;
+                                device.borrow_mut().set_field(lt, val, vm)?;
                                 vm.set_modified(device_id);
                                 Ok(())
                             }
@@ -2168,13 +2172,13 @@ impl IC {
                         if device_id >= u16::MAX as f64 || device_id < u16::MIN as f64 {
                             return Err(DeviceIndexOutOfRange(device_id));
                         }
-                        let device = vm.get_device_same_network(this.device, device_id as u16);
+                        let device = vm.get_device_same_network(this.device, device_id as u32);
                         match device {
                             Some(device) => {
                                 let lt = lt.as_logic_type(this, inst, 2)?;
                                 let val = val.as_value(this, inst, 3)?;
-                                device.borrow_mut().set_field(lt, val)?;
-                                vm.set_modified(device_id as u16);
+                                device.borrow_mut().set_field(lt, val, vm)?;
+                                vm.set_modified(device_id as u32);
                                 Ok(())
                             }
                             None => Err(UnknownDeviceID(device_id)),
@@ -2193,7 +2197,7 @@ impl IC {
                                 let index = index.as_value(this, inst, 2)?;
                                 let slt = slt.as_slot_logic_type(this, inst, 3)?;
                                 let val = val.as_value(this, inst, 4)?;
-                                device.borrow_mut().set_slot_field(index, slt, val)?;
+                                device.borrow_mut().set_slot_field(index, slt, val, vm)?;
                                 vm.set_modified(device_id);
                                 Ok(())
                             }
@@ -2261,7 +2265,7 @@ impl IC {
                         let device = vm.get_device_same_network(this.device, device_id);
                         match device {
                             Some(device) => {
-                                let val = device.borrow().get_field(lt)?;
+                                let val = device.borrow().get_field(lt, vm)?;
                                 this.set_register(indirection, target, val)?;
                                 Ok(())
                             }
@@ -2280,11 +2284,11 @@ impl IC {
                         if device_id >= u16::MAX as f64 || device_id < u16::MIN as f64 {
                             return Err(DeviceIndexOutOfRange(device_id));
                         }
-                        let device = vm.get_device_same_network(this.device, device_id as u16);
+                        let device = vm.get_device_same_network(this.device, device_id as u32);
                         match device {
                             Some(device) => {
                                 let lt = lt.as_logic_type(this, inst, 3)?;
-                                let val = device.borrow().get_field(lt)?;
+                                let val = device.borrow().get_field(lt, vm)?;
                                 this.set_register(indirection, target, val)?;
                                 Ok(())
                             }
@@ -2307,7 +2311,7 @@ impl IC {
                             Some(device) => {
                                 let index = index.as_value(this, inst, 3)?;
                                 let slt = slt.as_slot_logic_type(this, inst, 4)?;
-                                let val = device.borrow().get_slot_field(index, slt)?;
+                                let val = device.borrow().get_slot_field(index, slt, vm)?;
                                 this.set_register(indirection, target, val)?;
                                 Ok(())
                             }
