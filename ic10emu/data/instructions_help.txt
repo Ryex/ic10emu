@@ -8,8 +8,8 @@ atan Returns the angle (radians) whos tan is the specified value
 atan2 Returns the angle (radians) whose tangent is the quotient of two specified values: a (y) and b (x)
 bap Branch to line d if abs(a - b) <= max(c * max(abs(a), abs(b)), float.epsilon * 8)
 bapal Branch to line d if abs(a - b) <= max(c * max(abs(a), abs(b)), float.epsilon * 8) and store next line number in ra
-bapz Branch to line c if abs(a) <= float.epsilon * 8
-bapzal Branch to line c if abs(a) <= float.epsilon * 8
+bapz Branch to line c if abs(a) <= max(b * abs(a), float.epsilon * 8)
+bapzal Branch to line c if abs(a) <= max(b * abs(a), float.epsilon * 8) and store next line number in ra
 bdns Branch to line a if device d isn't set
 bdnsal Jump execution to line a and store next line number if device is not set
 bdse Branch to line a if device d is set
@@ -37,14 +37,14 @@ bltzal Branch to line b if a < 0 and store next line number in ra
 bna Branch to line d if abs(a - b) > max(c * max(abs(a), abs(b)), float.epsilon * 8)
 bnaal Branch to line d if abs(a - b) <= max(c * max(abs(a), abs(b)), float.epsilon * 8) and store next line number in ra
 bnan Branch to line b if a is not a number (NaN)
-bnaz Branch to line c if abs(a) > float.epsilon * 8
-bnazal Branch to line c if abs(a) > float.epsilon * 8
+bnaz Branch to line c if abs(a) > max b * abs(a), float.epsilon * 8)
+bnazal Branch to line c if abs(a) > max b * abs(a), float.epsilon * 8) and store next line number in ra
 bne Branch to line c if a != b
 bneal Branch to line c if a != b and store next line number in ra
 bnez branch to line b if a != 0
 bnezal Branch to line b if a != 0 and store next line number in ra
 brap Relative branch to line d if abs(a - b) <= max(c * max(abs(a), abs(b)), float.epsilon * 8)
-brapz Relative branch to line c if abs(a) <= float.epsilon * 8
+brapz Relative branch to line c if abs(a) <= max(b * abs(a), float.epsilon * 8)
 brdns Relative jump to line a if device is not set
 brdse Relative jump to line a if device is set
 breq Relative branch to line c if a == b
@@ -59,7 +59,7 @@ brlt Relative jump to line c if a < b
 brltz Relative branch to line b if a < 0
 brna Relative branch to line d if abs(a - b) > max(c * max(abs(a), abs(b)), float.epsilon * 8)
 brnan Relative branch to line b if a is not a number (NaN)
-brnaz Relative branch to line c if abs(a) > float.epsilon * 8
+brnaz Relative branch to line c if abs(a) > max(b * abs(a), float.epsilon * 8)
 brne Relative branch to line c if a != b
 brnez Relative branch to line b if a != 0
 ceil Register = smallest integer greater than a
@@ -97,7 +97,7 @@ rand Register = a random value x with 0 <= x < 1
 round Register = a rounded to nearest integer
 s Stores register value to LogicType on device by housing index value.
 sap Register = 1 if abs(a - b) <= max(c * max(abs(a), abs(b)), float.epsilon * 8), otherwise 0
-sapz Register = 1 if |a| <= float.epsilon * 8, otherwise 0
+sapz Register = 1 if |a| <= max(b * abs(a), float.epsilon * 8), otherwise 0
 sb Stores register value to LogicType on all output network devices with provided type hash.
 sbn Stores register value to LogicType on all output network devices with provided type hash and name.
 sbs Stores register value to LogicSlotType on all output network devices with provided type hash in the provided slot.
@@ -122,7 +122,7 @@ sltz Register = 1 if a < 0, otherwise 0
 sna Register = 1 if abs(a - b) > max(c * max(abs(a), abs(b)), float.epsilon * 8), otherwise 0
 snan Register = 1 if a is NaN, otherwise 0
 snanz Register = 0 if a is NaN, otherwise 1
-snaz Register = 1 if |a| > float.epsilon, otherwise 0
+snaz Register = 1 if |a| > max(b * abs(a), float.epsilon), otherwise 0
 sne Register = 1 if a != b, otherwise 0
 snez Register = 1 if a != 0, otherwise 0
 sqrt Register = square root of a
