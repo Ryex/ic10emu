@@ -226,7 +226,7 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
 
   renderSlots(): HTMLTemplateResult {
     return html`
-      <div clas="slots">
+      <div class="slots">
         ${this.slots.map((slot, index, _slots) => this.renderSlot(slot, index))}
       </div>
     `;
@@ -465,7 +465,7 @@ export class VMAddDeviceButton extends BaseElement {
     this._deviceDB = val;
     this._strutures = new Map(
       Object.values(this.deviceDB.db)
-        .filter((entry) => this.deviceDB.strutures.includes(entry.name), this)
+        .filter((entry) => this.deviceDB.structures.includes(entry.name), this)
         .filter(
           (entry) => this.deviceDB.logic_enabled.includes(entry.name),
           this,

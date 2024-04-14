@@ -3,7 +3,7 @@ import re
 from collections import defaultdict
 from pathlib import Path
 from pprint import pprint
-from typing import Any  # type: ignore[Any]
+from typing import Any, NotRequired  # type: ignore[Any]
 from typing import TypedDict
 
 
@@ -29,7 +29,10 @@ class PediaPage(TypedDict):
     LogicSlotInsert: list[LInsert]
     ModeInsert: list[LInsert]
     ConnectionInsert: list[LInsert]
-    ConnectionList: list[list[str]]
+    ConnectionList: NotRequired[list[list[str]]]
+    SlotClass: NotRequired[str]
+    SortingClass: NotRequired[str]
+    DevicesLength: NotRequired[int]
 
 
 class Pedia(TypedDict):
@@ -50,6 +53,9 @@ class DBPage(TypedDict):
     slotlogic: dict[str, list[int]] | None
     modes: dict[int, str] | None
     conn: dict[int, list[str]] | None
+    slotclass: str | None
+    sorting: str | None
+    pins: int | None
 
 
 def extract_all() -> None:
@@ -59,7 +65,7 @@ def extract_all() -> None:
     with (Path("data") / "Stationpedia.json").open("r") as f:
         pedia = json.load(f)
     for page in pedia["pages"]:
-        item: DBPage = defaultdict(list)  # type: ignore[reportAssignmenType]
+        item: DBPage = defaultdict(list)  # type: ignore[reportAssignmentType]
 
         match page:
             case {
@@ -73,8 +79,12 @@ def extract_all() -> None:
                 "LogicSlotInsert": slotlogic,
                 "ModeInsert": modes,
                 "ConnectionInsert": _,
-                "ConnectionList": connections,
             }:
+                connections = page.get("ConnectionList", None)
+                slotclass = page.get("SlotClass", None)
+                sortingclass = page.get("SortingClass", None)
+                deviceslength = page.get("DevicesLength", None)
+
                 item["name"] = name
                 item["hash"] = name_hash
                 item["desc"] = re.sub(linkPat, r"\1", desc)
@@ -82,7 +92,7 @@ def extract_all() -> None:
                     case []:
                         item["slots"] = None
                     case _:
-                        item["slots"] = [{}] * len(slots)  # type: ignore[reportAssignmenType]
+                        item["slots"] = [{}] * len(slots)  # type: ignore[reportAssignmentType]
                         for slot in slots:
                             item["slots"][int(slot["SlotIndex"])] = {
                                 "name": slot["SlotName"],
@@ -120,12 +130,17 @@ def extract_all() -> None:
                             ]
 
                 match connections:
-                    case []:
+                    case [] | None:
                         item["conn"] = None
                     case _:
                         item["conn"] = {}
                         for index, [conn_typ, conn_role] in enumerate(connections):
                             item["conn"][index] = [conn_typ, conn_role]
+
+                item["slotclass"] = slotclass
+                item["sorting"] = sortingclass
+                item["pins"] = deviceslength
+
 
             case _:
                 print(f"NON-CONFORMING: ")
@@ -145,11 +160,11 @@ def extract_all() -> None:
         if item["logic"] is not None and item["conn"] is not None
     ]
 
-    strutures = [
+    structures = [
         item["name"] for item in db.values() if item["name"].startswith("Structure")
     ]
 
-    items = [item["name"] for item in db.values() if item["name"] not in strutures]
+    items = [item["name"] for item in db.values() if item["name"] not in structures]
 
     def clean_nones(value: Any) -> Any:  # type: ignore[Any]
         if isinstance(value, list):
@@ -168,12 +183,15 @@ def extract_all() -> None:
                     "logic_enabled": logicable,
                     "slot_logic_enabled": slotlogicable,
                     "devices": devices,
-                    "strutures": strutures,
+                    "structures": structures,
                     "items": items,
                     "db": db,
+                    "names_by_hash": {page["hash"]: page["name"] for page in db.values()}
                 }
             ),
             f,
+            indent=1,
+            sort_keys=True,
         )
 
 if __name__ == "__main__":
