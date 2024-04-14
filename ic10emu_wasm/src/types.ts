@@ -56,7 +56,9 @@ export interface Slot {
 
 export type Reagents = Map<string, Map<number, number>>;
 
-export type Connection = { CableNetwork: number } | "Other";
+export type Connection =
+  | { readonly CableNetwork: { readonly net: number; readonly typ: string } }
+  | "Other";
 
 export type RegisterSpec = {
   readonly RegisterSpec: {
@@ -67,14 +69,14 @@ export type RegisterSpec = {
 export type DeviceSpec = {
   readonly DeviceSpec: {
     readonly device:
-      | "Db"
-      | { readonly Numbered: number }
-      | {
-          readonly Indirect: {
-            readonly indirection: number;
-            readonly target: number;
-          };
-        };
+    | "Db"
+    | { readonly Numbered: number }
+    | {
+      readonly Indirect: {
+        readonly indirection: number;
+        readonly target: number;
+      };
+    };
   };
   readonly connection: number | undefined;
 };
@@ -93,12 +95,12 @@ export type NumberEnum = { readonly Enum: number };
 
 export type NumberOperand = {
   Number:
-    | NumberFloat
-    | NumberBinary
-    | NumberHexadecimal
-    | NumberConstant
-    | NumberString
-    | NumberEnum;
+  | NumberFloat
+  | NumberBinary
+  | NumberHexadecimal
+  | NumberConstant
+  | NumberString
+  | NumberEnum;
 };
 export type Operand =
   | RegisterSpec

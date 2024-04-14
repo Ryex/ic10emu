@@ -1,5 +1,5 @@
 import { DeviceRef, VM, init } from "ic10emu_wasm";
-import { DeviceDB } from "./device_db"
+import { DeviceDB } from "./device_db";
 import "./base_device";
 
 declare global {
@@ -8,14 +8,13 @@ declare global {
   }
 }
 
-
 class VirtualMachine extends EventTarget {
   ic10vm: VM;
   _devices: Map<number, DeviceRef>;
   _ics: Map<number, DeviceRef>;
 
   accessor db: DeviceDB;
-  dbPromise: Promise<{ default: DeviceDB }>
+  dbPromise: Promise<{ default: DeviceDB }>;
 
   constructor() {
     super();
@@ -29,7 +28,7 @@ class VirtualMachine extends EventTarget {
     this._ics = new Map();
 
     this.dbPromise = import("../../../data/database.json");
-    this.dbPromise.then((module) => this.setupDeviceDatabase(module.default))
+    this.dbPromise.then((module) => this.setupDeviceDatabase(module.default));
 
     this.updateDevices();
     this.updateCode();
@@ -179,17 +178,23 @@ class VirtualMachine extends EventTarget {
         );
       }
     }, this);
-    const ic = this.activeIC!;
-    window.App!.session.setActiveLine(window.App!.session.activeIC, ic.ip!);
+    this.updateDevice(this.activeIC)
+  }
+
+  updateDevice(device: DeviceRef) {
+    this.dispatchEvent(
+      new CustomEvent("vm-device-modified", { detail: device.id }),
+    );
+    if (typeof device.ic !== "undefined") {
+      window.App!.session.setActiveLine(device.id, device.ip!);
+    }
   }
 
   setRegister(index: number, val: number) {
     const ic = this.activeIC!;
     try {
       ic.setRegister(index, val);
-      this.dispatchEvent(
-        new CustomEvent("vm-device-modified", { detail: ic.id }),
-      );
+      this.updateDevice(ic);
     } catch (e) {
       console.log(e);
     }
@@ -199,9 +204,7 @@ class VirtualMachine extends EventTarget {
     const ic = this.activeIC!;
     try {
       ic!.setStack(addr, val);
-      this.dispatchEvent(
-        new CustomEvent("vm-device-modified", { detail: ic.id }),
-      );
+      this.updateDevice(ic);
     } catch (e) {
       console.log(e);
     }
@@ -222,9 +225,7 @@ class VirtualMachine extends EventTarget {
     if (device) {
       try {
         device.setField(field, val);
-        this.dispatchEvent(
-          new CustomEvent("vm-device-modified", { detail: id }),
-        );
+        this.updateDevice(device);
         return true;
       } catch (e) {
         console.log(e);
@@ -238,9 +239,7 @@ class VirtualMachine extends EventTarget {
     if (device) {
       try {
         device.setSlotField(slot, field, val);
-        this.dispatchEvent(
-          new CustomEvent("vm-device-modified", { detail: id }),
-        );
+        this.updateDevice(device);
         return true;
       } catch (e) {
         console.log(e);

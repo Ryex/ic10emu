@@ -2,10 +2,7 @@
 mod utils;
 mod types;
 
-use ic10emu::{
-    grammar::{LogicType, SlotLogicType},
-    Connection,
-};
+use ic10emu::grammar::{LogicType, SlotLogicType};
 use serde::{Deserialize, Serialize};
 use types::{Registers, Stack};
 
@@ -311,32 +308,11 @@ impl DeviceRef {
 
     #[wasm_bindgen(js_name = "setConnection")]
     pub fn set_connection(&self, conn: usize, net: Option<u32>) -> Result<(), JsError> {
-        let mut device_ref = self.device.borrow_mut();
-        let conn_len = device_ref.connections.len();
-        let conn_ref = device_ref
-            .connections
-            .get_mut(conn)
-            .ok_or(BindingError::OutOfBounds(conn, conn_len))?;
-        match conn_ref {
-            &mut Connection::CableNetwork(ref mut net_ref) => *net_ref = net,
-            _ => {
-                *conn_ref = Connection::CableNetwork(net);
-            }
-        }
-        Ok(())
-    }
-
-    #[wasm_bindgen(js_name = "addDeviceToNetwork")]
-    pub fn add_device_to_network(
-        &self,
-        network_id: u32,
-        connection: usize,
-    ) -> Result<bool, JsError> {
-        let id = self.device.borrow().id;
-        Ok(self
-            .vm
+        let device_id = self.device.borrow().id;
+        self.vm
             .borrow()
-            .add_device_to_network(id, network_id, connection)?)
+            .set_device_connection(device_id, conn, net)?;
+        Ok(())
     }
 
     #[wasm_bindgen(js_name = "removeDeviceFromNetwork")]
@@ -438,17 +414,17 @@ impl VM {
         self.vm.borrow().visible_devices(source)
     }
 
-    #[wasm_bindgen(js_name = "addDeviceToNetwork")]
-    pub fn add_device_to_network(
+    #[wasm_bindgen(js_name = "setDeviceConnection")]
+    pub fn set_device_connection(
         &self,
         id: u32,
-        network_id: u32,
         connection: usize,
+        network_id: Option<u32>,
     ) -> Result<bool, JsError> {
         Ok(self
             .vm
             .borrow()
-            .add_device_to_network(id, network_id, connection)?)
+            .set_device_connection(id, connection, network_id)?)
     }
 
     #[wasm_bindgen(js_name = "removeDeviceFromNetwork")]

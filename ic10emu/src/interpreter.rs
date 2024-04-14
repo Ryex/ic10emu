@@ -107,7 +107,7 @@ pub enum ICError {
     #[error("connection specifier missing")]
     MissingConnectionSpecifier,
     #[error("no data network on connection '{0}'")]
-    NotDataConnection(usize),
+    NotACableConnection(usize),
     #[error("network not connected on connection '{0}'")]
     NetworkNotConnected(usize),
     #[error("bad network Id '{0}'")]

@@ -16,6 +16,8 @@ use itertools::Itertools;
 use serde::{Deserialize, Serialize};
 use thiserror::Error;
 
+use crate::interpreter::ICState;
+
 #[derive(Error, Debug, Serialize, Deserialize)]
 pub enum VMError {
     #[error("device with id '{0}' does not exist")]
@@ -227,8 +229,19 @@ impl Slot {
 }
 
 #[derive(Debug, Default, Clone, Copy, Serialize, Deserialize)]
+pub enum CableConnectionType {
+    Power,
+    Data,
+    #[default]
+    PowerAndData,
+}
+
+#[derive(Debug, Default, Clone, Copy, Serialize, Deserialize)]
 pub enum Connection {
-    CableNetwork(Option<u32>),
+    CableNetwork {
+        net: Option<u32>,
+        typ: CableConnectionType,
+    },
     #[default]
     Other,
 }
@@ -282,9 +295,18 @@ impl Connection {
             | ConnectionType::LandingPad
             | ConnectionType::LaunchPad
             | ConnectionType::PipeLiquid => Self::Other,
-            ConnectionType::Data | ConnectionType::Power | ConnectionType::PowerAndData => {
-                Self::CableNetwork(None)
-            }
+            ConnectionType::Data => Self::CableNetwork {
+                net: None,
+                typ: CableConnectionType::Data,
+            },
+            ConnectionType::Power => Self::CableNetwork {
+                net: None,
+                typ: CableConnectionType::Power,
+            },
+            ConnectionType::PowerAndData => Self::CableNetwork {
+                net: None,
+                typ: CableConnectionType::PowerAndData,
+            },
         }
     }
 }
@@ -352,6 +374,7 @@ pub struct Device {
     pub reagents: HashMap<ReagentMode, HashMap<i32, f64>>,
     pub ic: Option<u32>,
     pub connections: Vec<Connection>,
+    pub on: bool,
     fields: HashMap<LogicType, LogicField>,
 }
 
@@ -467,7 +490,11 @@ impl Device {
             slots: Vec::new(),
             reagents: HashMap::new(),
             ic: None,
-            connections: vec![Connection::CableNetwork(None)],
+            on: true,
+            connections: vec![Connection::CableNetwork {
+                net: None,
+                typ: CableConnectionType::default(),
+            }],
         };
         device.fields.insert(
             LogicType::ReferenceId,
@@ -482,33 +509,21 @@ impl Device {
     pub fn with_ic(id: u32, ic: u32) -> Self {
         let mut device = Device::new(id);
         device.ic = Some(ic);
-        device.connections = vec![Connection::CableNetwork(None), Connection::Other];
+        device.connections = vec![
+            Connection::CableNetwork {
+                net: None,
+                typ: CableConnectionType::Data,
+            },
+            Connection::CableNetwork {
+                net: None,
+                typ: CableConnectionType::Power,
+            },
+        ];
         device.prefab_name = Some("StructureCircuitHousing".to_owned());
         device.prefab_hash = Some(-128473777);
         device.fields.extend(vec![
             (
-                LogicType::Power,
-                LogicField {
-                    field_type: FieldType::Read,
-                    value: 1.0,
-                },
-            ),
-            (
-                LogicType::Error,
-                LogicField {
-                    field_type: FieldType::ReadWrite,
-                    value: 0.0,
-                },
-            ),
-            (
                 LogicType::Setting,
-                LogicField {
-                    field_type: FieldType::ReadWrite,
-                    value: 0.0,
-                },
-            ),
-            (
-                LogicType::On,
                 LogicField {
                     field_type: FieldType::ReadWrite,
                     value: 0.0,
@@ -526,20 +541,6 @@ impl Device {
                 LogicField {
                     field_type: FieldType::Read,
                     value: -128473777.0,
-                },
-            ),
-            (
-                LogicType::LineNumber,
-                LogicField {
-                    field_type: FieldType::ReadWrite,
-                    value: 0.0,
-                },
-            ),
-            (
-                LogicType::ReferenceId,
-                LogicField {
-                    field_type: FieldType::Read,
-                    value: id as f64,
                 },
             ),
         ]);
@@ -563,7 +564,35 @@ impl Device {
                     value: ic.ip as f64,
                 },
             );
+            copy.insert(
+                LogicType::Error,
+                LogicField {
+                    field_type: FieldType::Read,
+                    value: match ic.state {
+                        ICState::Error(_) => 1.0,
+                        _ => 0.0,
+                    },
+                },
+            );
         }
+        copy.insert(
+            LogicType::On,
+            LogicField {
+                field_type: FieldType::ReadWrite,
+                value: if self.on && self.has_power() {
+                    1.0
+                } else {
+                    0.0
+                },
+            },
+        );
+        copy.insert(
+            LogicType::Power,
+            LogicField {
+                field_type: FieldType::Read,
+                value: if self.has_power() { 1.0 } else { 0.0 },
+            },
+        );
         copy
     }
 
@@ -573,14 +602,17 @@ impl Device {
                 connection,
                 self.connections.len(),
             ))
-        } else if let Connection::CableNetwork(network_id) = self.connections[connection] {
+        } else if let Connection::CableNetwork {
+            net: network_id, ..
+        } = self.connections[connection]
+        {
             if let Some(network_id) = network_id {
                 Ok(network_id)
             } else {
                 Err(ICError::NetworkNotConnected(connection))
             }
         } else {
-            Err(ICError::NotDataConnection(connection))
+            Err(ICError::NotACableConnection(connection))
         }
     }
 
@@ -598,7 +630,7 @@ impl Device {
                 // when reading it's own IC
                 Ok(0.0)
             }
-        } else if let Some(field) = self.fields.get(&typ) {
+        } else if let Some(field) = self.get_fields(vm).get(&typ) {
             if field.field_type == FieldType::Read || field.field_type == FieldType::ReadWrite {
                 Ok(field.value)
             } else {
@@ -610,7 +642,10 @@ impl Device {
     }
 
     pub fn set_field(&mut self, typ: LogicType, val: f64, vm: &VM) -> Result<(), ICError> {
-        if typ == LogicType::LineNumber && self.ic.is_some() {
+        if typ == LogicType::On {
+            self.on = val != 0.0;
+            Ok(())
+        } else if typ == LogicType::LineNumber && self.ic.is_some() {
             // try borrow to set ip, we shoudl only fail if the ic is in us aka is is *our* ic
             // in game trying to set your own ic's LineNumber appears to be a Nop so this is fine.
             if let Ok(mut ic) = vm
@@ -754,6 +789,20 @@ impl Device {
         self.name_hash = Some((const_crc32::crc32(name.as_bytes()) as i32).into());
         self.name = Some(name.to_owned());
     }
+
+    pub fn has_power(&self) -> bool {
+        self.connections.iter().any(|conn| {
+            if let Connection::CableNetwork { net, typ } = conn {
+                net.is_some()
+                    && matches!(
+                        typ,
+                        CableConnectionType::Power | CableConnectionType::PowerAndData
+                    )
+            } else {
+                false
+            }
+        })
+    }
 }
 
 impl Default for VM {
@@ -809,8 +858,12 @@ impl VM {
         }
         let mut device = self.new_device();
         if let Some(first_network) = device.connections.iter_mut().find_map(|c| {
-            if let Connection::CableNetwork(c) = c {
-                Some(c)
+            if let Connection::CableNetwork {
+                net,
+                typ: CableConnectionType::Data | CableConnectionType::PowerAndData,
+            } = c
+            {
+                Some(net)
             } else {
                 None
             }
@@ -828,19 +881,22 @@ impl VM {
             .iter()
             .enumerate()
             .find_map(|(index, conn)| match conn {
-                Connection::CableNetwork(_) => Some(index),
-                Connection::Other => None,
+                Connection::CableNetwork {
+                    typ: CableConnectionType::Data | CableConnectionType::PowerAndData,
+                    ..
+                } => Some(index),
+                _ => None,
             });
         self.devices.insert(id, Rc::new(RefCell::new(device)));
         if let Some(first_data_network) = first_data_network {
-            let _ = self.add_device_to_network(
+            let _ = self.set_device_connection(
                 id,
-                if let Some(network) = network {
-                    network
-                } else {
-                    self.default_network
-                },
                 first_data_network,
+                if let Some(network) = network {
+                    Some(network)
+                } else {
+                    Some(self.default_network)
+                },
             );
         }
         Ok(id)
@@ -854,8 +910,12 @@ impl VM {
         }
         let (mut device, ic) = self.new_ic();
         if let Some(first_network) = device.connections.iter_mut().find_map(|c| {
-            if let Connection::CableNetwork(c) = c {
-                Some(c)
+            if let Connection::CableNetwork {
+                net,
+                typ: CableConnectionType::Data | CableConnectionType::PowerAndData,
+            } = c
+            {
+                Some(net)
             } else {
                 None
             }
@@ -873,20 +933,23 @@ impl VM {
             .iter()
             .enumerate()
             .find_map(|(index, conn)| match conn {
-                Connection::CableNetwork(_) => Some(index),
-                Connection::Other => None,
+                Connection::CableNetwork {
+                    typ: CableConnectionType::Data | CableConnectionType::PowerAndData,
+                    ..
+                } => Some(index),
+                _ => None,
             });
         self.devices.insert(id, Rc::new(RefCell::new(device)));
         self.ics.insert(ic_id, Rc::new(RefCell::new(ic)));
         if let Some(first_data_network) = first_data_network {
-            let _ = self.add_device_to_network(
+            let _ = self.set_device_connection(
                 id,
-                if let Some(network) = network {
-                    network
-                } else {
-                    self.default_network
-                },
                 first_data_network,
+                if let Some(network) = network {
+                    Some(network)
+                } else {
+                    Some(self.default_network)
+                },
             );
         }
         Ok(id)
@@ -1120,32 +1183,56 @@ impl VM {
         }
     }
 
-    pub fn add_device_to_network(
+    pub fn set_device_connection(
         &self,
         id: u32,
-        network_id: u32,
         connection: usize,
+        target_net: Option<u32>,
     ) -> Result<bool, VMError> {
-        if let Some(network) = self.networks.get(&network_id) {
-            let Some(device) = self.devices.get(&id) else {
-                return Err(VMError::UnknownId(id));
-            };
-            if connection >= device.borrow().connections.len() {
-                let conn_len = device.borrow().connections.len();
-                return Err(ICError::ConnectionIndexOutOfRange(connection, conn_len).into());
-            }
-            let Connection::CableNetwork(ref mut conn) =
-                device.borrow_mut().connections[connection]
-            else {
-                return Err(ICError::NotDataConnection(connection).into());
-            };
-            *conn = Some(network_id);
-
-            network.borrow_mut().add(id);
-            Ok(true)
-        } else {
-            Err(VMError::InvalidNetwork(network_id))
+        let Some(device) = self.devices.get(&id) else {
+            return Err(VMError::UnknownId(id));
+        };
+        if connection >= device.borrow().connections.len() {
+            let conn_len = device.borrow().connections.len();
+            return Err(ICError::ConnectionIndexOutOfRange(connection, conn_len).into());
         }
+
+        {
+            // scope this borrow
+            let connections = &device.borrow().connections;
+            let Connection::CableNetwork { net, .. } = & connections[connection] else {
+                return Err(ICError::NotACableConnection(connection).into());
+            };
+            // remove from current network
+            if let Some(net) = net {
+                if let Some(network) = self.networks.get(net) {
+                    // if there is no other connection to this network
+                    if connections.clone().iter().enumerate().all(|(index, conn)| {
+                        if let Connection::CableNetwork { net: other_net, .. } = conn {
+                            !(other_net.is_some_and(|id| id == *net) && index != connection)
+                        } else {
+                            true
+                        }
+                    }) {
+                        network.borrow_mut().remove(id);
+                    }
+                }
+            }
+        }
+        let mut device_ref = device.borrow_mut();
+        let connections = &mut device_ref.connections;
+        let Connection::CableNetwork { ref mut net, .. } = connections[connection] else {
+            return Err(ICError::NotACableConnection(connection).into());
+        };
+        if let Some(target_net) = target_net {
+            if let Some(network) = self.networks.get(&target_net) {
+                network.borrow_mut().add(id);
+            } else {
+                return Err(VMError::InvalidNetwork(target_net));
+            }
+        }
+        *net = target_net;
+        Ok(true)
     }
 
     pub fn remove_device_from_network(&self, id: u32, network_id: u32) -> Result<bool, VMError> {
@@ -1156,9 +1243,9 @@ impl VM {
             let mut device_ref = device.borrow_mut();
 
             for conn in device_ref.connections.iter_mut() {
-                if let Connection::CableNetwork(conn) = conn {
-                    if conn.is_some_and(|id| id == network_id) {
-                        *conn = None;
+                if let Connection::CableNetwork { net, .. } = conn {
+                    if net.is_some_and(|id| id == network_id) {
+                        *net = None;
                     }
                 }
             }

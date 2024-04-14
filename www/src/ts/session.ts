@@ -117,8 +117,11 @@ export class Session extends EventTarget {
   }
 
   setActiveLine(id: number, line: number) {
-    this._activeLines.set(id, line);
-    this._fireOnActiveLine(id);
+    const last = this._activeLines.get(id);
+    if (last !== line) {
+      this._activeLines.set(id, line);
+      this._fireOnActiveLine(id);
+    }
   }
 
   set activeLine(line: number) {

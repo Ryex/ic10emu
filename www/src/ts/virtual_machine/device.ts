@@ -24,7 +24,6 @@ import "@shoelace-style/shoelace/dist/components/icon/icon.js";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
 import { parseNumber, structuralEqual } from "../utils";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.js";
-import SlDetails from "@shoelace-style/shoelace/dist/components/details/details.js";
 import SlDrawer from "@shoelace-style/shoelace/dist/components/drawer/drawer.js";
 import { DeviceDB, DeviceDBEntry } from "./device_db";
 
@@ -250,15 +249,16 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
               placement="top"
               clearable
               key=${index}
-              value=${conn}
+              value=${conn?.net}
               ?disabled=${conn === null}
               @sl-change=${this._handleChangeConnection}
             >
-              <span slot="prefix">Connection:${index}</span>
+              <span slot="prefix">Connection:${index} </span>
               ${vmNetworks.map(
                 (net) =>
                   html`<sl-option value=${net}>Network ${net}</sl-option>`,
               )}
+              <span slot="prefix"> ${conn?.typ} </span>
             </sl-select>
           `;
         })}
@@ -340,23 +340,8 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
   _handleChangeConnection(e: CustomEvent) {
     const select = e.target as SlSelect;
     const conn = parseInt(select.getAttribute("key")!);
-    const last = this.device.connections[conn];
     const val = select.value ? parseInt(select.value as string) : undefined;
-    if (typeof last === "object" && typeof last.CableNetwork === "number") {
-      // is there no other connection to the previous network?
-      if (
-        !this.device.connections.some((other_conn, index) => {
-          structuralEqual(last, other_conn) && index !== conn;
-        })
-      ) {
-        this.device.removeDeviceFromNetwork(last.CableNetwork);
-      }
-    }
-    if (typeof val !== "undefined") {
-      this.device.addDeviceToNetwork(conn, val);
-    } else {
-      this.device.setConnection(conn, val);
-    }
+    this.device.setConnection(conn, val);
 
     this.updateDevice();
   }
@@ -378,7 +363,7 @@ export class VMDeviceList extends BaseElement {
     ...defaultCss,
     css`
       .header {
-        margin-botton: 1rem;
+        margin-bottom: 1rem;
         margin-right: 2rem;
         padding: 0.25rem 0.25rem;
         align-items: center;
@@ -686,11 +671,11 @@ export class VmDeviceTemplate extends BaseElement {
   }
 
   renderSlot(slot: Slot, slotIndex: number): HTMLTemplateResult {
-    return html` <sl-card class="slot-card"> </sl-card> `;
+    return html`<sl-card class="slot-card"> </sl-card>`;
   }
 
   renderSlots(): HTMLTemplateResult {
-    return html` <div clas="slots"></div> `;
+    return html`<div clas="slots"></div>`;
   }
 
   renderReagents(): HTMLTemplateResult {
@@ -699,12 +684,12 @@ export class VmDeviceTemplate extends BaseElement {
 
   renderNetworks(): HTMLTemplateResult {
     const vmNetworks = window.VM!.networks;
-    return html` <div class="networks"></div> `;
+    return html`<div class="networks"></div>`;
   }
 
   renderPins(): HTMLTemplateResult {
     const device = this.deviceDB.db[this.name];
-    return html` <div class="pins"></div> `;
+    return html`<div class="pins"></div>`;
   }
 
   render() {
@@ -724,8 +709,8 @@ export class VmDeviceTemplate extends BaseElement {
             <span class="prefab-hash">${device.hash}</span>
           </div>
           <sl-button class="ms-auto" pill variant="success"
-            >Add <sl-icon slot="prefix" name="plus-lg"></sl-icon
-          ></sl-button>
+            >Add <sl-icon slot="prefix" name="plus-lg"></sl-icon>
+          </sl-button>
         </div>
         <div class="card-body">
           <sl-tab-group>
