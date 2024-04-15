@@ -1399,15 +1399,18 @@ impl BatchMode {
     pub fn apply(&self, samples: &[f64]) -> f64 {
         match self {
             BatchMode::Sum => samples.iter().sum(),
+            /// Both c-charp and rust return NaN for 0.0/0.0 so we're good here
             BatchMode::Average => samples.iter().copied().sum::<f64>() / samples.len() as f64,
+            /// Game uses a default of Positive INFINITY for Minimum
             BatchMode::Minimum => *samples
                 .iter()
                 .min_by(|a, b| a.partial_cmp(b).unwrap())
-                .unwrap_or(&0.0),
+                .unwrap_or(&f64::INFINITY),
+            /// Game uses default of NEG_INFINITY for Maximum
             BatchMode::Maximum => *samples
                 .iter()
                 .max_by(|a, b| a.partial_cmp(b).unwrap())
-                .unwrap_or(&0.0),
+                .unwrap_or(&f64::NEG_INFINITY),
         }
     }
 }
