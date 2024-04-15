@@ -386,7 +386,7 @@ export type DeviceDBEntry = {
   slotlogic?: { [key in SlotLogicType]: number[] };
   slots?: { name: string; typ: SlotClass }[];
   modes?: { [key: string]: string };
-  conn?: { [key in SlotLogicType]: [NetworkType, ConnectionRole] };
+  conn?: { [key: number]: [NetworkType, ConnectionRole] };
   slotclass?: SlotClass;
   sorting?: SortingClass;
   pins?: number;
@@ -400,6 +400,33 @@ export type DeviceDB = {
   structures: string[];
   db: {
     [key: string]: DeviceDBEntry;
+  };
+  names_by_hash: { [key: number]: string };
+};
+
+
+export type PreCastDeviceDBEntry = {
+  name: string;
+  hash: number;
+  desc: string;
+  logic?: { [key in LogicType]?: string };
+  slotlogic?: { [key in SlotLogicType]?: number[] };
+  slots?: { name: string; typ: string }[];
+  modes?: { [key: string]: string };
+  conn?: { [key: number]: string[] };
+  slotclass?: string;
+  sorting?: string;
+  pins?: number;
+};
+
+export type PreCastDeviceDB = {
+  logic_enabled: string[];
+  slot_logic_enabled: string[];
+  devices: string[];
+  items: string[];
+  structures: string[];
+  db: {
+    [key: string]: PreCastDeviceDBEntry;
   };
   names_by_hash: { [key: number]: string };
 };

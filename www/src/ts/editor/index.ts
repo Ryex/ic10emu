@@ -28,8 +28,7 @@ declare global {
 
 import { BaseElement, defaultCss } from "../components";
 import { html } from "lit";
-import { Ref, createRef, ref } from "lit/directives/ref.js";
-import { customElement, property, query } from "lit/decorators.js";
+import { customElement, state, query } from "lit/decorators.js";
 import { editorStyles } from "./styles";
 import "./shortcuts_ui";
 import { AceKeyboardShortcuts } from "./shortcuts_ui";
@@ -45,8 +44,7 @@ export class IC10Editor extends BaseElement {
   };
   sessions: Map<number, Ace.EditSession>;
 
-  @property({ type: Number })
-  accessor active_session: number = 0;
+  @state() active_session: number = 0;
 
   active_line_markers: Map<number, number | null> = new Map();
   languageProvider?: LanguageProvider;
@@ -291,7 +289,7 @@ export class IC10Editor extends BaseElement {
 
     window.App!.session.onActiveLine(((e: CustomEvent) => {
       const session = window.App?.session!;
-      const id = e.detail;
+      const id: number = e.detail;
       const active_line = session.getActiveLine(id);
       if (typeof active_line !== "undefined") {
         const marker = that.active_line_markers.get(id);
@@ -485,14 +483,14 @@ export class IC10Editor extends BaseElement {
   }
 
   createOrSetSession(session_id: number, content: any) {
-    if (!this.sessions.hasOwnProperty(session_id)) {
+    if (!this.sessions.has(session_id)) {
       this.newSession(session_id);
     }
     this.sessions.get(session_id)?.setValue(content);
   }
 
   newSession(session_id: number) {
-    if (this.sessions.hasOwnProperty(session_id)) {
+    if (this.sessions.has(session_id)) {
       return false;
     }
     const session = ace.createEditSession("", this.mode as any);
@@ -564,7 +562,7 @@ export class IC10Editor extends BaseElement {
   }
 
   destroySession(session_id: number) {
-    if (!this.sessions.hasOwnProperty(session_id)) {
+    if (!this.sessions.has(session_id)) {
       return false;
     }
     if (!(Object.keys(this.sessions).length > 1)) {

@@ -1,4 +1,10 @@
-import { html, css, HTMLTemplateResult, PropertyValueMap } from "lit";
+import {
+  html,
+  css,
+  HTMLTemplateResult,
+  PropertyValueMap,
+  CSSResultGroup,
+} from "lit";
 import { customElement, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import SlDetails from "@shoelace-style/shoelace/dist/components/details/details.js";
@@ -6,6 +12,18 @@ import SlDetails from "@shoelace-style/shoelace/dist/components/details/details.
 @customElement("ic10-details")
 export class IC10Details extends SlDetails {
   @query(".details__summary-icon") accessor summaryIcon: HTMLSpanElement;
+
+  static styles = [
+    SlDetails.styles,
+    css`
+      .details__header {
+        cursor: auto;
+      }
+      .details__summary-icon {
+        cursor: pointer;
+      }
+    `,
+  ];
 
   constructor() {
     super();
@@ -48,34 +66,16 @@ export class IC10Details extends SlDetails {
 
   render() {
     return html`
-      <details
-        part="base"
-        class=${classMap({
-          details: true,
-          "details--open": this.open,
-          "details--disabled": this.disabled,
-        })}
-      >
-        <summary
-          part="header"
-          id="header"
-          class="details__header"
-          role="button"
-          aria-expanded=${this.open ? "true" : "false"}
-          aria-controls="content"
-          aria-disabled=${this.disabled ? "true" : "false"}
-          tabindex=${this.disabled ? "-1" : "0"}
-        >
-          <slot name="summary" part="summary" class="details__summary"
-            >${this.summary}</slot
+      <details part="base" class=${classMap({ details: true, "details--open" : this.open, "details--disabled" : this.disabled,
+        })}>
+        <summary part="header" id="header" class="details__header" role="button" aria-expanded=${this.open ? "true" : "false"
+          } aria-controls="content" aria-disabled=${this.disabled ? "true" : "false" } tabindex=${this.disabled ? "-1" : "0" }
+          @click=${(e: Event)=> e.preventDefault()}
           >
+          <slot name="summary" part="summary" class="details__summary">${this.summary}</slot>
 
-          <span
-            part="summary-icon"
-            class="details__summary-icon"
-            @click=${this.handleSummaryIconClick}
-            @keydown=${this.handleSummaryIconKeyDown}
-          >
+          <span part="summary-icon" class="details__summary-icon" @click=${this.handleSummaryIconClick}
+            @keydown=${this.handleSummaryIconKeyDown}>
             <slot name="expand-icon">
               <sl-icon library="system" name="chevron-right"></sl-icon>
             </slot>

@@ -34,6 +34,8 @@ pub enum VMError {
     InvalidNetwork(u32),
     #[error("device {0} not visible to device {1} (not on the same networks)")]
     DeviceNotVisible(u32, u32),
+    #[error("a device with id {0} already exists")]
+    IdInUse(u32),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
@@ -65,7 +67,7 @@ impl SlotOccupant {
             id,
             prefab_hash,
             quantity: 1,
-            max_quantity: 1, // FIXME: need a good way to set a better default
+            max_quantity: 1,
             damage: 0.0,
             fields: HashMap::new(),
         }
@@ -976,6 +978,35 @@ impl VM {
         }
     }
 
+    pub fn change_device_id(&mut self, old_id: u32, new_id: u32) -> Result<(), VMError> {
+        if self.devices.contains_key(&new_id) | self.ics.contains_key(&new_id) {
+            return Err(VMError::IdInUse(new_id));
+        }
+        let device = self
+            .devices
+            .remove(&old_id)
+            .ok_or(VMError::UnknownId(old_id))?;
+        device.borrow_mut().id = new_id;
+        self.devices.insert(new_id, device);
+        self.ics.iter().for_each(|(_id, ic)| {
+            if let Ok(mut ic_ref) = ic.try_borrow_mut() {
+                ic_ref.pins.iter_mut().for_each(|pin| {
+                    if pin.is_some_and(|d| d == old_id) {
+                        pin.replace(new_id);
+                    }
+                })
+            }
+        });
+        self.networks.iter().for_each(|(_net_id, net)| {
+            if let Ok(mut net_ref) = net.try_borrow_mut() {
+                if net_ref.devices.remove(&old_id) {
+                    net_ref.devices.insert(new_id);
+                }
+            }
+        });
+        Ok(())
+    }
+
     /// Set program code if it's valid
     pub fn set_code(&self, id: u32, code: &str) -> Result<bool, VMError> {
         let device = self
@@ -1113,21 +1144,23 @@ impl VM {
         }
     }
 
-    pub fn get_network_channel(&self, id: usize, channel: usize) -> Result<f64, ICError> {
-        let network = self
-            .networks
-            .get(&(id as u32))
-            .ok_or(ICError::BadNetworkId(id as u32))?;
-        Ok(network.borrow().channels[channel])
+    pub fn get_network_channel(&self, id: u32, channel: usize) -> Result<f64, ICError> {
+        let network = self.networks.get(&id).ok_or(ICError::BadNetworkId(id))?;
+        if !(0..8).contains(&channel) {
+            Err(ICError::ChannelIndexOutOfRange(channel))
+        } else {
+            Ok(network.borrow().channels[channel])
+        }
     }
 
-    pub fn set_network_channel(&self, id: usize, channel: usize, val: f64) -> Result<(), ICError> {
-        let network = self
-            .networks
-            .get(&(id as u32))
-            .ok_or(ICError::BadNetworkId(id as u32))?;
-        network.borrow_mut().channels[channel] = val;
-        Ok(())
+    pub fn set_network_channel(&self, id: u32, channel: usize, val: f64) -> Result<(), ICError> {
+        let network = self.networks.get(&(id)).ok_or(ICError::BadNetworkId(id))?;
+        if !(0..8).contains(&channel) {
+            Err(ICError::ChannelIndexOutOfRange(channel))
+        } else {
+            network.borrow_mut().channels[channel] = val;
+            Ok(())
+        }
     }
 
     pub fn devices_on_same_network(&self, ids: &[u32]) -> bool {
@@ -1200,7 +1233,7 @@ impl VM {
         {
             // scope this borrow
             let connections = &device.borrow().connections;
-            let Connection::CableNetwork { net, .. } = & connections[connection] else {
+            let Connection::CableNetwork { net, .. } = &connections[connection] else {
                 return Err(ICError::NotACableConnection(connection).into());
             };
             // remove from current network

@@ -439,6 +439,11 @@ impl VM {
     pub fn set_pin(&self, id: u32, pin: usize, val: Option<u32>) -> Result<bool, JsError> {
         Ok(self.vm.borrow().set_pin(id, pin, val)?)
     }
+
+    #[wasm_bindgen(js_name = "changeDeviceId")]
+    pub fn change_device_id(&self, old_id: u32, new_id: u32) -> Result<(), JsError> {
+        Ok(self.vm.borrow_mut().change_device_id(old_id, new_id)?)
+    }
 }
 
 impl Default for VM {

@@ -1,5 +1,5 @@
 import { DeviceRef, VM, init } from "ic10emu_wasm";
-import { DeviceDB } from "./device_db";
+import { DeviceDB, PreCastDeviceDB } from "./device_db";
 import "./base_device";
 
 declare global {
@@ -8,13 +8,21 @@ declare global {
   }
 }
 
+export interface ToastMessage {
+  variant: "warning" | "danger" | "success" | "primary" | "neutral";
+  icon: string;
+  title: string;
+  msg: string;
+  id: string;
+}
+
 class VirtualMachine extends EventTarget {
   ic10vm: VM;
   _devices: Map<number, DeviceRef>;
   _ics: Map<number, DeviceRef>;
 
   accessor db: DeviceDB;
-  dbPromise: Promise<{ default: DeviceDB }>;
+  dbPromise: Promise<{ default: PreCastDeviceDB }>;
 
   constructor() {
     super();
@@ -28,7 +36,9 @@ class VirtualMachine extends EventTarget {
     this._ics = new Map();
 
     this.dbPromise = import("../../../data/database.json");
-    this.dbPromise.then((module) => this.setupDeviceDatabase(module.default));
+    this.dbPromise.then((module) =>
+      this.setupDeviceDatabase(module.default as DeviceDB),
+    );
 
     this.updateDevices();
     this.updateCode();
@@ -78,7 +88,6 @@ class VirtualMachine extends EventTarget {
     }
     for (const id of this._devices.keys()) {
       if (!device_ids.includes(id)) {
-        this._devices.get(id)!.free();
         this._devices.delete(id);
         update_flag = true;
       }
@@ -102,7 +111,9 @@ class VirtualMachine extends EventTarget {
 
     if (update_flag) {
       this.dispatchEvent(
-        new CustomEvent("vm-devices-update", { detail: device_ids }),
+        new CustomEvent("vm-devices-update", {
+          detail: Array.from(device_ids),
+        }),
       );
     }
   }
@@ -122,8 +133,8 @@ class VirtualMachine extends EventTarget {
           this.dispatchEvent(
             new CustomEvent("vm-device-modified", { detail: id }),
           );
-        } catch (e) {
-          console.log(e);
+        } catch (err) {
+          this.handleVmError(err);
         }
         console.timeEnd(`CompileProgram_${id}_${attempt}`);
       }
@@ -136,8 +147,8 @@ class VirtualMachine extends EventTarget {
     if (ic) {
       try {
         ic.step(false);
-      } catch (e) {
-        console.log(e);
+      } catch (err) {
+        this.handleVmError(err);
       }
       this.update();
       this.dispatchEvent(
@@ -151,8 +162,8 @@ class VirtualMachine extends EventTarget {
     if (ic) {
       try {
         ic.run(false);
-      } catch (e) {
-        console.log(e);
+      } catch (err) {
+        this.handleVmError(err);
       }
       this.update();
       this.dispatchEvent(
@@ -178,7 +189,7 @@ class VirtualMachine extends EventTarget {
         );
       }
     }, this);
-    this.updateDevice(this.activeIC)
+    this.updateDevice(this.activeIC);
   }
 
   updateDevice(device: DeviceRef) {
@@ -190,13 +201,37 @@ class VirtualMachine extends EventTarget {
     }
   }
 
+  handleVmError(err: Error) {
+    console.log("Error in Virtual Machine", err);
+    const message: ToastMessage = {
+      variant: "danger",
+      icon: "bug",
+      title: `Error in Virtual Machine ${err.name}`,
+      msg: err.message,
+      id: Date.now().toString(16),
+    };
+    this.dispatchEvent(new CustomEvent("vm-message", { detail: message }));
+  }
+
+  changeDeviceId(old_id: number, new_id: number) {
+    try {
+      this.ic10vm.changeDeviceId(old_id, new_id);
+      this.updateDevices();
+      if (window.App.session.activeIC === old_id) {
+        window.App.session.activeIC = new_id;
+      }
+    } catch (err) {
+      this.handleVmError(err);
+    }
+  }
+
   setRegister(index: number, val: number) {
     const ic = this.activeIC!;
     try {
       ic.setRegister(index, val);
       this.updateDevice(ic);
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      this.handleVmError(err);
     }
   }
 
@@ -205,8 +240,8 @@ class VirtualMachine extends EventTarget {
     try {
       ic!.setStack(addr, val);
       this.updateDevice(ic);
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      this.handleVmError(err);
     }
   }
 
@@ -227,8 +262,8 @@ class VirtualMachine extends EventTarget {
         device.setField(field, val);
         this.updateDevice(device);
         return true;
-      } catch (e) {
-        console.log(e);
+      } catch (err) {
+        this.handleVmError(err);
       }
     }
     return false;
@@ -241,8 +276,8 @@ class VirtualMachine extends EventTarget {
         device.setSlotField(slot, field, val);
         this.updateDevice(device);
         return true;
-      } catch (e) {
-        console.log(e);
+      } catch (err) {
+        this.handleVmError(err);
       }
     }
     return false;

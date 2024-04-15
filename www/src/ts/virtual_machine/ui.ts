@@ -1,15 +1,17 @@
 import { HTMLTemplateResult, html, css } from "lit";
-import { customElement, property, query } from "lit/decorators.js";
+import { customElement, property, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "../components";
 import "@shoelace-style/shoelace/dist/components/details/details.js";
 import "@shoelace-style/shoelace/dist/components/tab/tab.js";
 import "@shoelace-style/shoelace/dist/components/tab-panel/tab-panel.js";
 import "@shoelace-style/shoelace/dist/components/tab-group/tab-group.js";
+import "@shoelace-style/shoelace/dist/components/alert/alert.js";
 
 import "./controls";
 import "./registers";
 import "./stack";
 import "./device";
+import { ToastMessage } from ".";
 
 @customElement("vm-ui")
 export class VMUI extends BaseElement {
@@ -34,14 +36,37 @@ export class VMUI extends BaseElement {
         margin-top: 0.5rem;
       }
       .side-container {
-        height: 100%
+        height: 100%;
         overflow-y: auto;
       }
     `,
   ];
 
+
   constructor() {
     super();
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    window.VM.addEventListener("vm-message", this._handleVMMessage.bind(this) )
+  }
+
+  _handleVMMessage(e: CustomEvent) {
+    const msg: ToastMessage = e.detail;
+    const alert = Object.assign(document.createElement('sl-alert'), {
+      variant: msg.variant,
+      closable: true,
+      // duration: 5000,
+      innerHTML: `
+        <sl-icon slot="icon" name="${msg.icon}"></sl-icon>
+        <strong>${msg.title}</strong><br />
+        ${msg.msg}
+      `
+    });
+
+    document.body.append(alert);
+    alert.toast();
   }
 
   protected render() {

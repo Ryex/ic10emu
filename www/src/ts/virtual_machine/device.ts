@@ -62,7 +62,7 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
         width: 10rem;
       }
       .device-id::part(input) {
-        width: 2rem;
+        width: 7rem;
       }
       .device-name-hash::part(input) {
         width: 7rem;
@@ -129,7 +129,7 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
           size="small"
           pill
           value=${this.deviceID}
-          disabled
+          @sl-change=${this._handleChangeID}
         >
           <span slot="prefix">Id</span>
           <sl-copy-button slot="suffix" value=${this.deviceID}></sl-copy-button>
@@ -314,6 +314,16 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
     `;
   }
 
+  _handleChangeID(e: CustomEvent) {
+    const input = e.target as SlInput;
+    const val = input.valueAsNumber;
+    if (!isNaN(val)) {
+      window.VM.changeDeviceId(this.deviceID, val);
+    } else {
+      input.value = this.deviceID.toString();
+    }
+  }
+
   _handleChangeName(e: CustomEvent) {
     const input = e.target as SlInput;
     window.VM?.setDeviceName(this.deviceID, input.value);
@@ -404,7 +414,14 @@ export class VMDeviceList extends BaseElement {
   }
 
   protected render(): HTMLTemplateResult {
-    return html`
+    const deviceCards: HTMLTemplateResult[] = this.devices.map(
+      (id, _index, _ids) =>
+        html`<vm-device-card
+          .deviceID=${id}
+          class="device-list-card"
+        ></vm-device-card>`,
+    );
+    const result = html`
       <div class="header">
         <span>
           Devices:
@@ -413,15 +430,11 @@ export class VMDeviceList extends BaseElement {
         <vm-add-device-button class="ms-auto"></vm-add-device-button>
       </div>
       <div class="device-list">
-        ${this.devices.map(
-          (id, _index, _ids) =>
-            html`<vm-device-card
-              .deviceID=${id}
-              class="device-list-card"
-            ></vm-device-card>`,
-        )}
+        ${deviceCards}
       </div>
     `;
+
+    return result;
   }
 }
 

@@ -12,9 +12,7 @@ use itertools::Itertools;
 
 use time::format_description;
 
-use crate::{
-    grammar::{self, ParseError},
-};
+use crate::grammar::{self, ParseError};
 
 use thiserror::Error;
 
@@ -112,6 +110,8 @@ pub enum ICError {
     NetworkNotConnected(usize),
     #[error("bad network Id '{0}'")]
     BadNetworkId(u32),
+    #[error("channel index out of range '{0}'")]
+    ChannelIndexOutOfRange(usize)
 }
 
 impl ICError {
@@ -2147,10 +2147,10 @@ impl IC {
                             };
                             let network_id = vm
                                 .get_device_same_network(this.device, device_id)
-                                .map(|device| device.borrow().get_network_id(connection as usize))
+                                .map(|device| device.borrow().get_network_id(connection))
                                 .unwrap_or(Err(UnknownDeviceID(device_id as f64)))?;
                             let val = val.as_value(this, inst, 3)?;
-                            vm.set_network_channel(network_id as usize, channel, val)?;
+                            vm.set_network_channel(network_id, channel, val)?;
                             return Ok(());
                         }
                         let device = vm.get_device_same_network(this.device, device_id);
@@ -2256,9 +2256,9 @@ impl IC {
                             };
                             let network_id = vm
                                 .get_device_same_network(this.device, device_id)
-                                .map(|device| device.borrow().get_network_id(connection as usize))
+                                .map(|device| device.borrow().get_network_id(connection))
                                 .unwrap_or(Err(UnknownDeviceID(device_id as f64)))?;
-                            let val = vm.get_network_channel(network_id as usize, channel)?;
+                            let val = vm.get_network_channel(network_id, channel)?;
                             this.set_register(indirection, target, val)?;
                             return Ok(());
                         }
