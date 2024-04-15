@@ -3,8 +3,7 @@ import re
 from collections import defaultdict
 from pathlib import Path
 from pprint import pprint
-from typing import Any, NotRequired  # type: ignore[Any]
-from typing import TypedDict
+from typing import Any, NotRequired, TypedDict  # type: ignore[Any]
 
 
 class SlotInsert(TypedDict):
@@ -33,6 +32,18 @@ class PediaPage(TypedDict):
     SlotClass: NotRequired[str]
     SortingClass: NotRequired[str]
     DevicesLength: NotRequired[int]
+    HasReagents: NotRequired[bool]
+    HasAtmosphere: NotRequired[bool]
+    HasLockState: NotRequired[bool]
+    HasOpenState: NotRequired[bool]
+    HasOnOffState: NotRequired[bool]
+    HasActivateState: NotRequired[bool]
+    HasModeState: NotRequired[bool]
+    HasColorState: NotRequired[bool]
+    IsDynamic: NotRequired[bool]
+    IsDevice: NotRequired[bool]
+    FilterType: NotRequired[str]
+    MaxQuantity: NotRequired[float]
 
 
 class Pedia(TypedDict):
@@ -42,6 +53,14 @@ class Pedia(TypedDict):
 class DBSlot(TypedDict):
     name: str
     typ: str
+
+class DBPageStates(TypedDict):
+    lock: NotRequired[bool]
+    open: NotRequired[bool]
+    mode: NotRequired[bool]
+    onoff: NotRequired[bool]
+    color: NotRequired[bool]
+    activate: NotRequired[bool]
 
 
 class DBPage(TypedDict):
@@ -56,6 +75,13 @@ class DBPage(TypedDict):
     slotclass: str | None
     sorting: str | None
     pins: int | None
+    dynamic: bool
+    device: bool
+    reagents: bool
+    atmosphere: bool
+    states: NotRequired[DBPageStates]
+    filtertype: NotRequired[str]
+    maxquantity: NotRequired[int]
 
 
 def extract_all() -> None:
@@ -84,6 +110,18 @@ def extract_all() -> None:
                 slotclass = page.get("SlotClass", None)
                 sortingclass = page.get("SortingClass", None)
                 deviceslength = page.get("DevicesLength", None)
+                hasRreagents = page.get("HasReagents", None)
+                hasAtmosphere = page.get("HasAtmosphere", None)
+                hasLockState = page.get("HasLockState", None)
+                hasOpenState = page.get("HasOpenState", None)
+                hasOnOffState = page.get("HasOnOffState", None)
+                hasActivateState = page.get("HasActivateState", None)
+                hasModeState = page.get("HasModeState", None)
+                hasColorState = page.get("HasColorState", None)
+                isDynamic = page.get("IsDynamic", None)
+                isDevice = page.get("IsDevice", None)
+                filterType = page.get("FilterType", None)
+                maxQuantity = page.get("MaxQuantity", None)
 
                 item["name"] = name
                 item["hash"] = name_hash
@@ -137,10 +175,75 @@ def extract_all() -> None:
                         for index, [conn_typ, conn_role] in enumerate(connections):
                             item["conn"][index] = [conn_typ, conn_role]
 
+                match hasRreagents:
+                    case None:
+                        item["reagents"] = False
+                    case _:
+                        item["reagents"] = hasRreagents
+
+                match hasAtmosphere:
+                    case None:
+                        item["atmosphere"] = False
+                    case _:
+                        item["atmosphere"] = hasAtmosphere
+
+                states: DBPageStates = {}
+
+                match hasLockState:
+                    case None:
+                        pass
+                    case _:
+                        states["lock"] = hasLockState
+
+                match hasOpenState:
+                    case None:
+                        pass
+                    case _:
+                        states["open"] = hasOpenState
+
+                match hasModeState:
+                    case None:
+                        pass
+                    case _:
+                        states["mode"] = hasModeState
+
+                match hasActivateState:
+                    case None:
+                        pass
+                    case _:
+                        states["activate"] = hasActivateState
+
+                match hasOnOffState:
+                    case None:
+                        pass
+                    case _:
+                        states["onoff"] = hasOnOffState
+
+                match hasColorState:
+                    case None:
+                        pass
+                    case _:
+                        states["color"] = hasColorState
+
+                if len(list(states.keys())) > 0:
+                    item["states"] = states
                 item["slotclass"] = slotclass
                 item["sorting"] = sortingclass
                 item["pins"] = deviceslength
+                item["dynamic"] = isDynamic is True
+                item["device"] = isDevice is True
 
+                match filterType:
+                    case None:
+                        pass
+                    case _:
+                        item["filtertype"] = filterType
+
+                match maxQuantity:
+                    case None:
+                        pass
+                    case _:
+                        item["maxquantity"] = int(maxQuantity)
 
             case _:
                 print(f"NON-CONFORMING: ")
@@ -154,17 +257,13 @@ def extract_all() -> None:
         item["name"] for item in db.values() if item["slotlogic"] is not None
     ]
 
-    devices = [
-        item["name"]
-        for item in db.values()
-        if item["logic"] is not None and item["conn"] is not None
-    ]
+    devices = [item["name"] for item in db.values() if item["device"] is True]
 
     structures = [
         item["name"] for item in db.values() if item["name"].startswith("Structure")
     ]
 
-    items = [item["name"] for item in db.values() if item["name"] not in structures]
+    items = [item["name"] for item in db.values() if item["dynamic"] is True]
 
     def clean_nones(value: Any) -> Any:  # type: ignore[Any]
         if isinstance(value, list):
@@ -186,13 +285,16 @@ def extract_all() -> None:
                     "structures": structures,
                     "items": items,
                     "db": db,
-                    "names_by_hash": {page["hash"]: page["name"] for page in db.values()}
+                    "names_by_hash": {
+                        page["hash"]: page["name"] for page in db.values()
+                    },
                 }
             ),
             f,
             indent=1,
             sort_keys=True,
         )
+
 
 if __name__ == "__main__":
     # extract_logicable()

@@ -378,21 +378,36 @@ export type ReagentMode = "Contents" | "Recipe" | "Required" | "TotalContents";
 
 export type BatchMode = "Average" | "Maximum" | "Minimum" | "Sum";
 
-export type DeviceDBEntry = {
+export interface DeviceDBEntry {
   name: string;
   hash: number;
   desc: string;
-  logic?: { [key in LogicType]: FieldType };
-  slotlogic?: { [key in SlotLogicType]: number[] };
+  device: boolean;
+  dynamic: boolean;
+  logic?: { [key in LogicType]?: FieldType };
+  slotlogic?: { [key in SlotLogicType]?: number[] };
   slots?: { name: string; typ: SlotClass }[];
-  modes?: { [key: string]: string };
+  modes?: { [key: number]: string };
   conn?: { [key: number]: [NetworkType, ConnectionRole] };
   slotclass?: SlotClass;
   sorting?: SortingClass;
   pins?: number;
+  reagents?: boolean;
+  maxquantity?: number;
+  filtertype?: string;
+  states?: DBStates;
 };
 
-export type DeviceDB = {
+export interface DBStates {
+  activate: boolean;
+  color: boolean;
+  lock: boolean;
+  mode: boolean;
+  onoff: boolean;
+  open: boolean;
+}
+
+export interface DeviceDB {
   logic_enabled: string[];
   slot_logic_enabled: string[];
   devices: string[];
@@ -404,29 +419,3 @@ export type DeviceDB = {
   names_by_hash: { [key: number]: string };
 };
 
-
-export type PreCastDeviceDBEntry = {
-  name: string;
-  hash: number;
-  desc: string;
-  logic?: { [key in LogicType]?: string };
-  slotlogic?: { [key in SlotLogicType]?: number[] };
-  slots?: { name: string; typ: string }[];
-  modes?: { [key: string]: string };
-  conn?: { [key: number]: string[] };
-  slotclass?: string;
-  sorting?: string;
-  pins?: number;
-};
-
-export type PreCastDeviceDB = {
-  logic_enabled: string[];
-  slot_logic_enabled: string[];
-  devices: string[];
-  items: string[];
-  structures: string[];
-  db: {
-    [key: string]: PreCastDeviceDBEntry;
-  };
-  names_by_hash: { [key: number]: string };
-};

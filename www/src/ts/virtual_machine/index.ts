@@ -1,5 +1,5 @@
 import { DeviceRef, VM, init } from "ic10emu_wasm";
-import { DeviceDB, PreCastDeviceDB } from "./device_db";
+import { DeviceDB } from "./device_db";
 import "./base_device";
 
 declare global {
@@ -22,7 +22,7 @@ class VirtualMachine extends EventTarget {
   _ics: Map<number, DeviceRef>;
 
   accessor db: DeviceDB;
-  dbPromise: Promise<{ default: PreCastDeviceDB }>;
+  dbPromise: Promise<{ default: DeviceDB }>;
 
   constructor() {
     super();
@@ -35,9 +35,11 @@ class VirtualMachine extends EventTarget {
     this._devices = new Map();
     this._ics = new Map();
 
-    this.dbPromise = import("../../../data/database.json");
+    this.dbPromise = import("../../../data/database.json", {
+      assert: { type: "json" },
+    }) as unknown as Promise<{ default: DeviceDB }>;
     this.dbPromise.then((module) =>
-      this.setupDeviceDatabase(module.default as DeviceDB),
+      this.setupDeviceDatabase(module.default as any as DeviceDB),
     );
 
     this.updateDevices();

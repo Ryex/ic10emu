@@ -359,12 +359,6 @@ pub enum SlotType {
     None = 0,
 }
 
-#[derive(Debug, Default, Clone, Serialize, Deserialize)]
-pub struct SlotTemplate {
-    pub name: String,
-    pub typ: SlotType,
-}
-
 #[derive(Debug, Default)]
 pub struct Device {
     pub id: u32,
