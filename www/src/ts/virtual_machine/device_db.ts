@@ -378,24 +378,41 @@ export type ReagentMode = "Contents" | "Recipe" | "Required" | "TotalContents";
 
 export type BatchMode = "Average" | "Maximum" | "Minimum" | "Sum";
 
+export interface DeviceDBItem {
+  slotclass: SlotClass;
+  sorting: SortingClass;
+  maxquantity?: number;
+  filtertype?: string;
+  consumable?: boolean;
+  ingredient?: boolean;
+  reagents?: { [key: string]: number};
+}
+
+export interface DeviceDBDevice {
+  states: DBStates;
+  reagents: boolean;
+  atmosphere: boolean;
+  pins?: number;
+}
+
+export interface DeviceDBConnection {
+  typ: string;
+  role: string;
+  name: string;
+}
+
 export interface DeviceDBEntry {
   name: string;
   hash: number;
+  title: string;
   desc: string;
-  device: boolean;
-  dynamic: boolean;
+  slots?: { name: string; typ: SlotClass }[];
   logic?: { [key in LogicType]?: FieldType };
   slotlogic?: { [key in SlotLogicType]?: number[] };
-  slots?: { name: string; typ: SlotClass }[];
   modes?: { [key: number]: string };
-  conn?: { [key: number]: [NetworkType, ConnectionRole] };
-  slotclass?: SlotClass;
-  sorting?: SortingClass;
-  pins?: number;
-  reagents?: boolean;
-  maxquantity?: number;
-  filtertype?: string;
-  states?: DBStates;
+  conn?: { [key: number]: DeviceDBConnection };
+  item?: DeviceDBItem;
+  device?: DeviceDBDevice;
 };
 
 export interface DBStates {
@@ -417,5 +434,6 @@ export interface DeviceDB {
     [key: string]: DeviceDBEntry;
   };
   names_by_hash: { [key: number]: string };
+  reagent_hashes: { [key: string]: number}
 };
 

@@ -429,9 +429,7 @@ export class VMDeviceList extends BaseElement {
         </span>
         <vm-add-device-button class="ms-auto"></vm-add-device-button>
       </div>
-      <div class="device-list">
-        ${deviceCards}
-      </div>
+      <div class="device-list">${deviceCards}</div>
     `;
 
     return result;
@@ -508,7 +506,11 @@ export class VMAddDeviceButton extends BaseElement {
     if (this.filter) {
       const datapoints: [string, string][] = [];
       for (const entry of this._strutures.values()) {
-        datapoints.push([entry.name, entry.name], [entry.desc, entry.name]);
+        datapoints.push(
+          [entry.name, entry.name],
+          [entry.title, entry.name],
+          [entry.desc, entry.name],
+        );
       }
       const haystack: string[] = datapoints.map((data) => data[0]);
       const uf = new uFuzzy({});

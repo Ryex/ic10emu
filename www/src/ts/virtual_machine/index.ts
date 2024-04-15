@@ -37,9 +37,10 @@ class VirtualMachine extends EventTarget {
 
     this.dbPromise = import("../../../data/database.json", {
       assert: { type: "json" },
-    }) as unknown as Promise<{ default: DeviceDB }>;
+    }) as Promise<{ default: DeviceDB }>;
+
     this.dbPromise.then((module) =>
-      this.setupDeviceDatabase(module.default as any as DeviceDB),
+      this.setupDeviceDatabase(module.default as DeviceDB),
     );
 
     this.updateDevices();

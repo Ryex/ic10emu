@@ -264,16 +264,6 @@ pub enum Connection {
     Other,
 }
 
-#[derive(Debug, Default, Clone, Serialize, Deserialize)]
-pub struct DeviceTemplate {
-    pub name: Option<String>,
-    pub hash: Option<i32>,
-    pub logic: HashMap<grammar::LogicType, LogicField>,
-    pub slots: Vec<SlotTemplate>,
-    pub slotlogic: HashMap<grammar::LogicType, usize>,
-    pub conn: Vec<(ConnectionType, ConnectionRole)>,
-}
-
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum ConnectionType {
     Pipe,
@@ -379,7 +369,7 @@ pub enum SlotType {
 pub struct Device {
     pub id: u32,
     pub name: Option<String>,
-    pub name_hash: Option<f64>,
+    pub name_hash: Option<i32>,
     pub prefab_name: Option<String>,
     pub prefab_hash: Option<i32>,
     pub slots: Vec<Slot>,
@@ -388,6 +378,19 @@ pub struct Device {
     pub connections: Vec<Connection>,
     pub on: bool,
     fields: HashMap<LogicType, LogicField>,
+}
+
+#[derive(Debug, Default, Clone, Serialize, Deserialize)]
+pub struct DeviceTemplate {
+    pub id: Option<u32>,
+    pub name: Option<String>,
+    pub name_hash: Option<i32>,
+    pub prefab_name: Option<String>,
+    pub prefab_hash: Option<i32>,
+    pub slots: Vec<SlotTemplate>,
+    pub reagents: HashMap<ReagentMode, HashMap<i32, f64>>,
+    pub fields: HashMap<LogicType, LogicField>,
+    pub connections: Vec<(ConnectionType, ConnectionRole)>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]

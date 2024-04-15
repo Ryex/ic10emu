@@ -17,6 +17,29 @@ class LInsert(TypedDict):
     LogicAccessTypes: str
 
 
+class PediaPageItem(TypedDict):
+    SlotClass: str
+    SortingClass: str
+    MaxQuantity: NotRequired[float]
+    FilterType: NotRequired[str]
+    Consumable: NotRequired[bool]
+    Ingredient: NotRequired[bool]
+    Reagents: NotRequired[dict[str, float]]
+
+
+class PediaPageDevice(TypedDict):
+    ConnectionList: list[list[str]]
+    HasReagents: bool
+    HasAtmosphere: bool
+    HasLockState: bool
+    HasOpenState: bool
+    HasOnOffState: bool
+    HasActivateState: bool
+    HasModeState: bool
+    HasColorState: bool
+    DevicesLength: NotRequired[int]
+
+
 class PediaPage(TypedDict):
     Key: str
     Title: str
@@ -28,31 +51,18 @@ class PediaPage(TypedDict):
     LogicSlotInsert: list[LInsert]
     ModeInsert: list[LInsert]
     ConnectionInsert: list[LInsert]
-    ConnectionList: NotRequired[list[list[str]]]
-    SlotClass: NotRequired[str]
-    SortingClass: NotRequired[str]
-    DevicesLength: NotRequired[int]
-    HasReagents: NotRequired[bool]
-    HasAtmosphere: NotRequired[bool]
-    HasLockState: NotRequired[bool]
-    HasOpenState: NotRequired[bool]
-    HasOnOffState: NotRequired[bool]
-    HasActivateState: NotRequired[bool]
-    HasModeState: NotRequired[bool]
-    HasColorState: NotRequired[bool]
-    IsDynamic: NotRequired[bool]
-    IsDevice: NotRequired[bool]
-    FilterType: NotRequired[str]
-    MaxQuantity: NotRequired[float]
+    Device: NotRequired[PediaPageDevice]
+    Item: NotRequired[PediaPageItem]
 
 
 class Pedia(TypedDict):
     pages: list[PediaPage]
-
+    reagents: dict[str, int]
 
 class DBSlot(TypedDict):
     name: str
     typ: str
+
 
 class DBPageStates(TypedDict):
     lock: NotRequired[bool]
@@ -63,30 +73,46 @@ class DBPageStates(TypedDict):
     activate: NotRequired[bool]
 
 
+class DBPageConnection(TypedDict):
+    typ: str
+    role: str
+    name: str
+
+
+class DBPageDevice(TypedDict):
+    states: DBPageStates
+    reagents: bool
+    atmosphere: bool
+    pins: NotRequired[int]
+
+
+class DBPageItem(TypedDict):
+    slotclass: str | None
+    sorting: str | None
+    filtertype: NotRequired[str]
+    maxquantity: NotRequired[int]
+    consumable: NotRequired[bool]
+    ingredient: NotRequired[bool]
+    reagents: NotRequired[dict[str, float]]
+
+
 class DBPage(TypedDict):
     name: str
     hash: int
+    title: str
     desc: str
     slots: list[DBSlot] | None
     logic: dict[str, str] | None
     slotlogic: dict[str, list[int]] | None
     modes: dict[int, str] | None
-    conn: dict[int, list[str]] | None
-    slotclass: str | None
-    sorting: str | None
-    pins: int | None
-    dynamic: bool
-    device: bool
-    reagents: bool
-    atmosphere: bool
-    states: NotRequired[DBPageStates]
-    filtertype: NotRequired[str]
-    maxquantity: NotRequired[int]
+    conn: dict[int, DBPageConnection] | None
+    item: NotRequired[DBPageItem]
+    device: NotRequired[DBPageDevice]
 
 
 def extract_all() -> None:
     db: dict[str, DBPage] = {}
-    pedia: Pedia = {"pages": []}
+    pedia: Pedia = {"pages": [], "reagents": {}}
     linkPat = re.compile(r"<link=\w+><color=[\w#]+>(.+?)</color></link>")
     with (Path("data") / "Stationpedia.json").open("r") as f:
         pedia = json.load(f)
@@ -96,7 +122,7 @@ def extract_all() -> None:
         match page:
             case {
                 "Key": _,
-                "Title": _,
+                "Title": title,
                 "Description": desc,
                 "PrefabName": name,
                 "PrefabHash": name_hash,
@@ -104,27 +130,19 @@ def extract_all() -> None:
                 "LogicInsert": logic,
                 "LogicSlotInsert": slotlogic,
                 "ModeInsert": modes,
-                "ConnectionInsert": _,
+                "ConnectionInsert": conninsert,
             }:
-                connections = page.get("ConnectionList", None)
-                slotclass = page.get("SlotClass", None)
-                sortingclass = page.get("SortingClass", None)
-                deviceslength = page.get("DevicesLength", None)
-                hasRreagents = page.get("HasReagents", None)
-                hasAtmosphere = page.get("HasAtmosphere", None)
-                hasLockState = page.get("HasLockState", None)
-                hasOpenState = page.get("HasOpenState", None)
-                hasOnOffState = page.get("HasOnOffState", None)
-                hasActivateState = page.get("HasActivateState", None)
-                hasModeState = page.get("HasModeState", None)
-                hasColorState = page.get("HasColorState", None)
-                isDynamic = page.get("IsDynamic", None)
-                isDevice = page.get("IsDevice", None)
-                filterType = page.get("FilterType", None)
-                maxQuantity = page.get("MaxQuantity", None)
 
+                connNames = {
+                    int(insert["LogicAccessTypes"]): insert["LogicName"]
+                    for insert in conninsert
+                }
+
+                device = page.get("Device", None)
+                item_props = page.get("Item", None)
                 item["name"] = name
                 item["hash"] = name_hash
+                item["title"] = title
                 item["desc"] = re.sub(linkPat, r"\1", desc)
                 match slots:
                     case []:
@@ -167,83 +185,112 @@ def extract_all() -> None:
                                 "LogicName"
                             ]
 
-                match connections:
-                    case [] | None:
-                        item["conn"] = None
-                    case _:
-                        item["conn"] = {}
-                        for index, [conn_typ, conn_role] in enumerate(connections):
-                            item["conn"][index] = [conn_typ, conn_role]
-
-                match hasRreagents:
-                    case None:
-                        item["reagents"] = False
-                    case _:
-                        item["reagents"] = hasRreagents
-
-                match hasAtmosphere:
-                    case None:
-                        item["atmosphere"] = False
-                    case _:
-                        item["atmosphere"] = hasAtmosphere
-
-                states: DBPageStates = {}
-
-                match hasLockState:
+                match device:
                     case None:
                         pass
-                    case _:
+                    case {
+                        "ConnectionList": connections,
+                        "HasReagents": hasReagents,
+                        "HasAtmosphere": hasAtmosphere,
+                        "HasLockState": hasLockState,
+                        "HasOpenState": hasOpenState,
+                        "HasModeState": hasModeState,
+                        "HasOnOffState": hasOnOffState,
+                        "HasActivateState": hasActivateState,
+                        "HasColorState": hasColorState,
+                    }:
+
+                        match connections:
+                            case []:
+                                item["conn"] = None
+                            case _:
+                                item["conn"] = {}
+                                for index, [conn_typ, conn_role] in enumerate(
+                                    connections
+                                ):
+                                    item["conn"][index] = {
+                                        "typ": conn_typ,
+                                        "role": conn_role,
+                                        "name": connNames.get(index, "Connection"),
+                                    }
+
+                        states: DBPageStates = {}
+
                         states["lock"] = hasLockState
-
-                match hasOpenState:
-                    case None:
-                        pass
-                    case _:
                         states["open"] = hasOpenState
-
-                match hasModeState:
-                    case None:
-                        pass
-                    case _:
                         states["mode"] = hasModeState
-
-                match hasActivateState:
-                    case None:
-                        pass
-                    case _:
                         states["activate"] = hasActivateState
-
-                match hasOnOffState:
-                    case None:
-                        pass
-                    case _:
                         states["onoff"] = hasOnOffState
-
-                match hasColorState:
-                    case None:
-                        pass
-                    case _:
                         states["color"] = hasColorState
 
-                if len(list(states.keys())) > 0:
-                    item["states"] = states
-                item["slotclass"] = slotclass
-                item["sorting"] = sortingclass
-                item["pins"] = deviceslength
-                item["dynamic"] = isDynamic is True
-                item["device"] = isDevice is True
+                        deviceslength = device.get("DevicesLength", None)
+                        dbdevice: DBPageDevice = {
+                            "states": states,
+                            "reagents": hasReagents,
+                            "atmosphere": hasAtmosphere,
+                        }
 
-                match filterType:
+                        match deviceslength:
+                            case None:
+                                pass
+                            case _:
+                                dbdevice["pins"] = deviceslength
+
+                        item["device"] = dbdevice
+
+                    case _:
+                        print(f"NON-CONFORMING: ")
+                        pprint(device)
+                        return
+
+                match item_props:
                     case None:
                         pass
-                    case _:
-                        item["filtertype"] = filterType
+                    case {"SlotClass": slotclass, "SortingClass": sortingclass}:
+                        maxquantity = item_props.get("MaxQuantity", None)
+                        filtertype = item_props.get("FilterType", None)
+                        dbitem: DBPageItem = {
+                            "sorting": sortingclass,
+                            "slotclass": slotclass,
+                        }
+                        match maxquantity:
+                            case None:
+                                pass
+                            case _:
+                                dbitem["maxquantity"] = int(maxquantity)
 
-                match maxQuantity:
-                    case None:
-                        pass
+                        match filtertype:
+                            case None:
+                                pass
+                            case _:
+                                dbitem["filtertype"] = filtertype
+
+                        consumable = item_props.get("Consumable", None)
+                        match consumable:
+                            case None:
+                                pass
+                            case _:
+                                dbitem["consumable"] = consumable
+
+                        ingredient = item_props.get("Ingredient", None)
+                        match ingredient:
+                            case None:
+                                pass
+                            case _:
+                                dbitem["ingredient"] = ingredient
+
+                        reagents = item_props.get("Reagents", None)
+                        match reagents:
+                            case None:
+                                pass
+                            case _:
+                                dbitem["reagents"] = reagents
+
+                        item["item"] = dbitem
                     case _:
-                        item["maxquantity"] = int(maxQuantity)
+                        print(f"NON-CONFORMING: ")
+                        pprint(item_props)
+                        return
 
             case _:
                 print(f"NON-CONFORMING: ")
@@ -257,13 +304,13 @@ def extract_all() -> None:
         item["name"] for item in db.values() if item["slotlogic"] is not None
     ]
 
-    devices = [item["name"] for item in db.values() if item["device"] is True]
+    devices = [item["name"] for item in db.values() if "device" in item]
 
     structures = [
         item["name"] for item in db.values() if item["name"].startswith("Structure")
     ]
 
-    items = [item["name"] for item in db.values() if item["dynamic"] is True]
+    items = [item["name"] for item in db.values() if "item" in item]
 
     def clean_nones(value: Any) -> Any:  # type: ignore[Any]
         if isinstance(value, list):
@@ -288,6 +335,7 @@ def extract_all() -> None:
                     "names_by_hash": {
                         page["hash"]: page["name"] for page in db.values()
                     },
+                    "reagent_hashes": pedia["reagents"]
                 }
             ),
             f,
