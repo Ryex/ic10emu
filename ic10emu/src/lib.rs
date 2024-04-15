@@ -61,6 +61,16 @@ pub struct SlotOccupant {
     fields: HashMap<SlotLogicType, LogicField>,
 }
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct SlotOccupantTemplate {
+    pub id: Option<u32>,
+    pub prefab_hash: i32,
+    pub quantity: u32,
+    pub max_quantity: u32,
+    pub damage: f64,
+    fields: HashMap<SlotLogicType, LogicField>,
+}
+
 impl SlotOccupant {
     pub fn new(id: u32, prefab_hash: i32) -> Self {
         SlotOccupant {
@@ -113,10 +123,16 @@ impl SlotOccupant {
     }
 }
 
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize)]
 pub struct Slot {
     pub typ: SlotType,
     pub occupant: Option<SlotOccupant>,
+}
+
+#[derive(Debug, Default, Clone, Serialize, Deserialize)]
+pub struct SlotTemplate {
+    pub typ: SlotType,
+    pub occupant: Option<SlotOccupantTemplate>,
 }
 
 impl Slot {
@@ -380,35 +396,49 @@ pub struct Network {
     pub channels: [f64; 8],
 }
 
-#[derive(Debug, Default)]
-struct IdSequenceGenerator {
+#[derive(Debug)]
+struct IdSpace {
     next: u32,
+    in_use: Vec<u32>,
 }
 
-impl IdSequenceGenerator {
+impl Default for IdSpace {
+    fn default() -> Self {
+        IdSpace::new()
+    }
+}
+
+impl IdSpace {
+    pub fn new() -> Self {
+        IdSpace {
+            next: 1,
+            in_use: Vec::new(),
+        }
+    }
+
     pub fn next(&mut self) -> u32 {
         let val = self.next;
         self.next += 1;
+        self.in_use.push(val);
         val
     }
 
-    pub fn next_free<'a, I>(&mut self, in_use: I) -> u32
-    where
-        I: IntoIterator<Item = &'a u32>,
-    {
-        let sorted_in_use = in_use.into_iter().sorted();
-        let mut last = None;
-        for val in sorted_in_use.into_iter() {
-            if val > &self.next && last.is_some_and(|last| (val - last) > 1) {
-                break;
-            }
-            last = Some(val);
-        }
-        if let Some(last) = last {
-            self.next = u32::max(*last, self.next) + 1;
-            self.next
+    pub fn use_id(&mut self, id: u32) -> Result<(), VMError> {
+        if self.in_use.contains(&id) {
+            Err(VMError::IdInUse(id))
         } else {
-            self.next()
+            self.in_use.push(id);
+            Ok(())
+        }
+    }
+
+    pub fn free_id(&mut self, id: u32) {
+        if let Some((index, _)) = self
+            .in_use
+            .iter()
+            .find_position(|in_use_id| *in_use_id == &id)
+        {
+            self.in_use.swap_remove(index);
         }
     }
 }
@@ -419,8 +449,8 @@ pub struct VM {
     pub devices: HashMap<u32, Rc<RefCell<Device>>>,
     pub networks: HashMap<u32, Rc<RefCell<Network>>>,
     pub default_network: u32,
-    id_gen: IdSequenceGenerator,
-    network_id_gen: IdSequenceGenerator,
+    id_space: IdSpace,
+    network_id_gen: IdSpace,
     random: Rc<RefCell<crate::rand_mscorlib::Random>>,
 
     /// list of device id's touched on the last operation
@@ -809,11 +839,11 @@ impl Default for VM {
 
 impl VM {
     pub fn new() -> Self {
-        let id_gen = IdSequenceGenerator::default();
-        let mut network_id_gen = IdSequenceGenerator::default();
+        let id_gen = IdSpace::default();
+        let mut network_id_space = IdSpace::default();
         let default_network = Rc::new(RefCell::new(Network::default()));
         let mut networks = HashMap::new();
-        let default_network_key = network_id_gen.next();
+        let default_network_key = network_id_space.next();
         networks.insert(default_network_key, default_network);
 
         let mut vm = VM {
@@ -821,8 +851,8 @@ impl VM {
             devices: HashMap::new(),
             networks,
             default_network: default_network_key,
-            id_gen,
-            network_id_gen,
+            id_space: id_gen,
+            network_id_gen: network_id_space,
             random: Rc::new(RefCell::new(crate::rand_mscorlib::Random::new())),
             operation_modified: RefCell::new(Vec::new()),
         };
@@ -831,16 +861,12 @@ impl VM {
     }
 
     fn new_device(&mut self) -> Device {
-        Device::new(self.id_gen.next())
+        Device::new(self.id_space.next())
     }
 
     fn new_ic(&mut self) -> (Device, interpreter::IC) {
-        let id = self
-            .id_gen
-            .next_free(self.devices.keys().chain(self.ics.keys()));
-        let ic_id = self
-            .id_gen
-            .next_free(self.devices.keys().chain(self.ics.keys()));
+        let id = self.id_space.next();
+        let ic_id = self.id_space.next();
         let ic = interpreter::IC::new(ic_id, id);
         let device = Device::with_ic(id, ic_id);
         (device, ic)
@@ -973,9 +999,7 @@ impl VM {
     }
 
     pub fn change_device_id(&mut self, old_id: u32, new_id: u32) -> Result<(), VMError> {
-        if self.devices.contains_key(&new_id) | self.ics.contains_key(&new_id) {
-            return Err(VMError::IdInUse(new_id));
-        }
+        self.id_space.use_id(new_id)?;
         let device = self
             .devices
             .remove(&old_id)
@@ -998,6 +1022,7 @@ impl VM {
                 }
             }
         });
+        self.id_space.free_id(old_id);
         Ok(())
     }
 
@@ -1399,14 +1424,14 @@ impl BatchMode {
     pub fn apply(&self, samples: &[f64]) -> f64 {
         match self {
             BatchMode::Sum => samples.iter().sum(),
-            /// Both c-charp and rust return NaN for 0.0/0.0 so we're good here
+            // Both c-charp and rust return NaN for 0.0/0.0 so we're good here
             BatchMode::Average => samples.iter().copied().sum::<f64>() / samples.len() as f64,
-            /// Game uses a default of Positive INFINITY for Minimum
+            // Game uses a default of Positive INFINITY for Minimum
             BatchMode::Minimum => *samples
                 .iter()
                 .min_by(|a, b| a.partial_cmp(b).unwrap())
                 .unwrap_or(&f64::INFINITY),
-            /// Game uses default of NEG_INFINITY for Maximum
+            // Game uses default of NEG_INFINITY for Maximum
             BatchMode::Maximum => *samples
                 .iter()
                 .max_by(|a, b| a.partial_cmp(b).unwrap())
