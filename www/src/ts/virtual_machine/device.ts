@@ -416,7 +416,7 @@ export class VMDeviceList extends BaseElement {
 
   constructor() {
     super();
-    this.devices = window.VM!.deviceIds;
+    this.devices = [...window.VM!.deviceIds];
   }
 
   connectedCallback(): void {
@@ -432,6 +432,7 @@ export class VMDeviceList extends BaseElement {
     const ids = e.detail;
     if (!structuralEqual(this.devices, ids)) {
       this.devices = ids;
+      this.devices.sort();
     }
   }
 

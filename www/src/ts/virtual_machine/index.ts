@@ -52,7 +52,9 @@ class VirtualMachine extends EventTarget {
   }
 
   get deviceIds() {
-    return Array.from(this.ic10vm.devices);
+    const ids = Array.from(this.ic10vm.devices);
+    ids.sort();
+    return ids;
   }
 
   get ics() {
@@ -113,9 +115,11 @@ class VirtualMachine extends EventTarget {
     }
 
     if (update_flag) {
+      const ids = Array.from(device_ids);
+      ids.sort()
       this.dispatchEvent(
         new CustomEvent("vm-devices-update", {
-          detail: Array.from(device_ids),
+          detail: ids,
         }),
       );
     }

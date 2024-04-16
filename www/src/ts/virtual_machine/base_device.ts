@@ -47,8 +47,18 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
   superClass: T,
 ) => {
   class VMDeviceMixinClass extends superClass {
-    @property({ type: Number }) accessor deviceID: number;
-    @state() accessor device: DeviceRef;
+
+    _deviceID: number;
+    get deviceID() {
+      return this._deviceID;
+    }
+    @property({ type: Number })
+    set deviceID(val: number) {
+      this._deviceID = val;
+      this.updateDevice();
+    }
+
+    device: DeviceRef;
 
     @state() accessor name: string | null = null;
     @state() accessor nameHash: number | null = null;
@@ -69,7 +79,6 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
 
     connectedCallback(): void {
       const root = super.connectedCallback();
-      this.device = window.VM!.devices.get(this.deviceID)!;
       window.VM?.addEventListener(
         "vm-device-modified",
         this._handleDeviceModified.bind(this),
@@ -97,6 +106,8 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
     }
 
     updateDevice() {
+      this.device = window.VM!.devices.get(this.deviceID)!;
+
       const name = this.device.name ?? null;
       if (this.name !== name) {
         this.name = name;
