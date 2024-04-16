@@ -11,6 +11,7 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "experimentalDecorators": true,
+    "useDefineForClassFields": false,
     "types": ["@types/wicg-file-system-access", "@types/ace"],
     "plugins": [
       {
