@@ -36,6 +36,10 @@ pub enum VMError {
     DeviceNotVisible(u32, u32),
     #[error("a device with id {0} already exists")]
     IdInUse(u32),
+    #[error("device(s) with ids {0:?} already exist")]
+    IdsInUse(Vec<u32>),
+    #[error("atempt to use a set of id's with duplicates: id(s) {0:?} exsist more than once")]
+    DuplicateIds(Vec<u32>),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
@@ -61,14 +65,39 @@ pub struct SlotOccupant {
     fields: HashMap<SlotLogicType, LogicField>,
 }
 
+impl SlotOccupant {
+    pub fn from_template<F>(template: SlotOccupantTemplate, id_fn: F) -> Self
+    where
+        F: FnOnce() -> u32,
+    {
+        let mut fields = template.fields;
+        SlotOccupant {
+            id: template.id.unwrap_or_else(id_fn),
+            prefab_hash: fields
+                .remove(&SlotLogicType::PrefabHash)
+                .map(|field| field.value as i32)
+                .unwrap_or(0),
+            quantity: fields
+                .remove(&SlotLogicType::Quantity)
+                .map(|field| field.value as u32)
+                .unwrap_or(1),
+            max_quantity: fields
+                .remove(&SlotLogicType::MaxQuantity)
+                .map(|field| field.value as u32)
+                .unwrap_or(1),
+            damage: fields
+                .remove(&SlotLogicType::Damage)
+                .map(|field| field.value)
+                .unwrap_or(0.0),
+            fields,
+        }
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SlotOccupantTemplate {
     pub id: Option<u32>,
-    pub prefab_hash: i32,
-    pub quantity: u32,
-    pub max_quantity: u32,
-    pub damage: f64,
-    fields: HashMap<SlotLogicType, LogicField>,
+    pub fields: HashMap<SlotLogicType, LogicField>,
 }
 
 impl SlotOccupant {
@@ -365,99 +394,10 @@ pub enum SlotType {
     None = 0,
 }
 
-#[derive(Debug, Default)]
-pub struct Device {
-    pub id: u32,
-    pub name: Option<String>,
-    pub name_hash: Option<i32>,
-    pub prefab_name: Option<String>,
-    pub prefab_hash: Option<i32>,
-    pub slots: Vec<Slot>,
-    pub reagents: HashMap<ReagentMode, HashMap<i32, f64>>,
-    pub ic: Option<u32>,
-    pub connections: Vec<Connection>,
-    pub on: bool,
-    fields: HashMap<LogicType, LogicField>,
-}
-
-#[derive(Debug, Default, Clone, Serialize, Deserialize)]
-pub struct DeviceTemplate {
-    pub id: Option<u32>,
-    pub name: Option<String>,
-    pub name_hash: Option<i32>,
-    pub prefab_name: Option<String>,
-    pub prefab_hash: Option<i32>,
-    pub slots: Vec<SlotTemplate>,
-    pub reagents: HashMap<ReagentMode, HashMap<i32, f64>>,
-    pub fields: HashMap<LogicType, LogicField>,
-    pub connections: Vec<(ConnectionType, ConnectionRole)>,
-}
-
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Network {
     pub devices: HashSet<u32>,
     pub channels: [f64; 8],
-}
-
-#[derive(Debug)]
-struct IdSpace {
-    next: u32,
-    in_use: Vec<u32>,
-}
-
-impl Default for IdSpace {
-    fn default() -> Self {
-        IdSpace::new()
-    }
-}
-
-impl IdSpace {
-    pub fn new() -> Self {
-        IdSpace {
-            next: 1,
-            in_use: Vec::new(),
-        }
-    }
-
-    pub fn next(&mut self) -> u32 {
-        let val = self.next;
-        self.next += 1;
-        self.in_use.push(val);
-        val
-    }
-
-    pub fn use_id(&mut self, id: u32) -> Result<(), VMError> {
-        if self.in_use.contains(&id) {
-            Err(VMError::IdInUse(id))
-        } else {
-            self.in_use.push(id);
-            Ok(())
-        }
-    }
-
-    pub fn free_id(&mut self, id: u32) {
-        if let Some((index, _)) = self
-            .in_use
-            .iter()
-            .find_position(|in_use_id| *in_use_id == &id)
-        {
-            self.in_use.swap_remove(index);
-        }
-    }
-}
-
-#[derive(Debug)]
-pub struct VM {
-    pub ics: HashMap<u32, Rc<RefCell<interpreter::IC>>>,
-    pub devices: HashMap<u32, Rc<RefCell<Device>>>,
-    pub networks: HashMap<u32, Rc<RefCell<Network>>>,
-    pub default_network: u32,
-    id_space: IdSpace,
-    network_id_gen: IdSpace,
-    random: Rc<RefCell<crate::rand_mscorlib::Random>>,
-
-    /// list of device id's touched on the last operation
-    operation_modified: RefCell<Vec<u32>>,
 }
 
 impl Default for Network {
@@ -507,32 +447,61 @@ impl Network {
     }
 }
 
+#[derive(Debug, Default, Clone, Serialize, Deserialize)]
+pub struct Prefab {
+    name: String,
+    hash: i32,
+}
+
+impl Prefab {
+    pub fn new(name: &str) -> Self {
+        Prefab {
+            name: name.to_owned(),
+            hash: const_crc32::crc32(name.as_bytes()) as i32,
+        }
+    }
+}
+
+#[derive(Debug, Default)]
+pub struct Device {
+    pub id: u32,
+    pub name: Option<String>,
+    pub name_hash: Option<i32>,
+    pub prefab: Option<Prefab>,
+    pub slots: Vec<Slot>,
+    pub reagents: HashMap<ReagentMode, HashMap<i32, f64>>,
+    pub ic: Option<u32>,
+    pub connections: Vec<Connection>,
+    fields: HashMap<LogicType, LogicField>,
+}
+
+#[derive(Debug, Default, Clone, Serialize, Deserialize)]
+pub struct DeviceTemplate {
+    pub id: Option<u32>,
+    pub name: Option<String>,
+    pub prefab_name: Option<String>,
+    pub slots: Vec<SlotTemplate>,
+    pub reagents: HashMap<ReagentMode, HashMap<i32, f64>>,
+    pub connections: Vec<Connection>,
+    pub fields: HashMap<LogicType, LogicField>,
+}
+
 impl Device {
     pub fn new(id: u32) -> Self {
-        let mut device = Device {
+        Device {
             id,
             name: None,
             name_hash: None,
-            prefab_name: None,
-            prefab_hash: None,
+            prefab: None,
             fields: HashMap::new(),
             slots: Vec::new(),
             reagents: HashMap::new(),
             ic: None,
-            on: true,
             connections: vec![Connection::CableNetwork {
                 net: None,
                 typ: CableConnectionType::default(),
             }],
-        };
-        device.fields.insert(
-            LogicType::ReferenceId,
-            LogicField {
-                field_type: FieldType::Read,
-                value: id as f64,
-            },
-        );
-        device
+        }
     }
 
     pub fn with_ic(id: u32, ic: u32) -> Self {
@@ -548,8 +517,7 @@ impl Device {
                 typ: CableConnectionType::Power,
             },
         ];
-        device.prefab_name = Some("StructureCircuitHousing".to_owned());
-        device.prefab_hash = Some(-128473777);
+        device.prefab = Some(Prefab::new("StructureCircuitHousing"));
         device.fields.extend(vec![
             (
                 LogicType::Setting,
@@ -605,21 +573,17 @@ impl Device {
             );
         }
         copy.insert(
-            LogicType::On,
-            LogicField {
-                field_type: FieldType::ReadWrite,
-                value: if self.on && self.has_power() {
-                    1.0
-                } else {
-                    0.0
-                },
-            },
-        );
-        copy.insert(
             LogicType::Power,
             LogicField {
                 field_type: FieldType::Read,
                 value: if self.has_power() { 1.0 } else { 0.0 },
+            },
+        );
+        copy.insert(
+            LogicType::ReferenceId,
+            LogicField {
+                field_type: FieldType::Read,
+                value: self.id as f64,
             },
         );
         copy
@@ -671,10 +635,7 @@ impl Device {
     }
 
     pub fn set_field(&mut self, typ: LogicType, val: f64, vm: &VM) -> Result<(), ICError> {
-        if typ == LogicType::On {
-            self.on = val != 0.0;
-            Ok(())
-        } else if typ == LogicType::LineNumber && self.ic.is_some() {
+        if typ == LogicType::LineNumber && self.ic.is_some() {
             // try borrow to set ip, we shoudl only fail if the ic is in us aka is is *our* ic
             // in game trying to set your own ic's LineNumber appears to be a Nop so this is fine.
             if let Ok(mut ic) = vm
@@ -815,7 +776,7 @@ impl Device {
     }
 
     pub fn set_name(&mut self, name: &str) {
-        self.name_hash = Some((const_crc32::crc32(name.as_bytes()) as i32).into());
+        self.name_hash = Some(const_crc32::crc32(name.as_bytes()) as i32);
         self.name = Some(name.to_owned());
     }
 
@@ -832,6 +793,87 @@ impl Device {
             }
         })
     }
+}
+
+#[derive(Debug)]
+struct IdSpace {
+    next: u32,
+    in_use: HashSet<u32>,
+}
+
+impl Default for IdSpace {
+    fn default() -> Self {
+        IdSpace::new()
+    }
+}
+
+impl IdSpace {
+    pub fn new() -> Self {
+        IdSpace {
+            next: 1,
+            in_use: HashSet::new(),
+        }
+    }
+
+    pub fn next(&mut self) -> u32 {
+        let val = self.next;
+        self.next += 1;
+        self.in_use.insert(val);
+        val
+    }
+
+    pub fn use_id(&mut self, id: u32) -> Result<(), VMError> {
+        if self.in_use.contains(&id) {
+            Err(VMError::IdInUse(id))
+        } else {
+            self.in_use.insert(id);
+            Ok(())
+        }
+    }
+
+    pub fn use_ids<'a, I>(&mut self, ids: I) -> Result<(), VMError>
+    where
+        I: IntoIterator<Item = &'a u32> + std::marker::Copy,
+    {
+        let mut to_use: HashSet<u32> = HashSet::new();
+        let mut duplicates: HashSet<u32> = HashSet::new();
+        let all_uniq = ids.into_iter().copied().all(|id| {
+            if to_use.insert(id) {
+                true
+            } else {
+                duplicates.insert(id);
+                false
+            }
+        });
+        if !all_uniq {
+            return Err(VMError::DuplicateIds(duplicates.into_iter().collect_vec()));
+        }
+        let invalid = self.in_use.intersection(&to_use).copied().collect_vec();
+        if !invalid.is_empty() {
+            return Err(VMError::IdsInUse(invalid));
+        }
+        self.in_use.extend(ids);
+        self.next = self.in_use.iter().max().unwrap_or(&0) + 1;
+        Ok(())
+    }
+
+    pub fn free_id(&mut self, id: u32) {
+        self.in_use.remove(&id);
+    }
+}
+
+#[derive(Debug)]
+pub struct VM {
+    pub ics: HashMap<u32, Rc<RefCell<interpreter::IC>>>,
+    pub devices: HashMap<u32, Rc<RefCell<Device>>>,
+    pub networks: HashMap<u32, Rc<RefCell<Network>>>,
+    pub default_network: u32,
+    id_space: IdSpace,
+    network_id_gen: IdSpace,
+    random: Rc<RefCell<crate::rand_mscorlib::Random>>,
+
+    /// list of device id's touched on the last operation
+    operation_modified: RefCell<Vec<u32>>,
 }
 
 impl Default for VM {
@@ -978,6 +1020,93 @@ impl VM {
             );
         }
         Ok(id)
+    }
+
+    pub fn add_device_from_template(&mut self, template: DeviceTemplate) -> Result<u32, VMError> {
+        for conn in &template.connections {
+            if let Connection::CableNetwork { net: Some(net), .. } = conn {
+                if !self.networks.contains_key(net) {
+                    return Err(VMError::InvalidNetwork(*net));
+                }
+            }
+        }
+
+        // collect the id's this template wants to use
+        let mut to_use_ids = template
+            .slots
+            .iter()
+            .filter_map(|slot| slot.occupant.as_ref().and_then(|occupant| occupant.id))
+            .collect_vec();
+        let device_id = {
+            // attempt to use all the idea at once to error without needing to clean up.
+            if let Some(id) = &template.id {
+                to_use_ids.push(*id);
+                self.id_space.use_ids(&to_use_ids)?;
+                *id
+            } else {
+                self.id_space.use_ids(&to_use_ids)?;
+                self.id_space.next()
+            }
+        };
+
+        let name_hash = template
+            .name
+            .as_ref()
+            .map(|name| const_crc32::crc32(name.as_bytes()) as i32);
+
+        let slots = template
+            .slots
+            .into_iter()
+            .map(|slot| Slot {
+                typ: slot.typ,
+                occupant: slot
+                    .occupant
+                    .map(|occupant| SlotOccupant::from_template(occupant, || self.id_space.next())),
+            })
+            .collect_vec();
+
+        let ic = slots
+            .iter()
+            .find_map(|slot| {
+                if slot.typ == SlotType::ProgramableChip && slot.occupant.is_some() {
+                    Some(slot.occupant.clone()).flatten()
+                } else {
+                    None
+                }
+            })
+            .map(|occupant| occupant.id);
+
+        if let Some(ic_id) = &ic {
+            let chip = interpreter::IC::new(*ic_id, device_id);
+            self.ics.insert(*ic_id, Rc::new(RefCell::new(chip)));
+        }
+
+        let fields = template.fields;
+
+        let device = Device {
+            id: device_id,
+            name: template.name,
+            name_hash,
+            prefab: template.prefab_name.map(|name| Prefab::new(&name)),
+            slots,
+            reagents: template.reagents,
+            ic,
+            connections: template.connections,
+            fields,
+        };
+
+        device.connections.iter().for_each(|conn| {
+            if let Connection::CableNetwork { net: Some(net), .. } = conn {
+                if let Some(network) = self.networks.get(net) {
+                    network.borrow_mut().add(device_id);
+                }
+            }
+        });
+
+        self.devices
+            .insert(device_id, Rc::new(RefCell::new(device)));
+
+        Ok(device_id)
     }
 
     pub fn add_network(&mut self) -> u32 {
@@ -1152,7 +1281,8 @@ impl VM {
                     .fields
                     .get(&LogicType::PrefabHash)
                     .is_some_and(|f| f.value == prefab_hash)
-                    && (name.is_none() || name == device.borrow().name_hash)
+                    && (name.is_none()
+                        || name == device.borrow().name_hash.as_ref().map(|hash| *hash as f64))
                     && self.devices_on_same_network(&[source, **id])
             })
             .map(|(_, d)| d)

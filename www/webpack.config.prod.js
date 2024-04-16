@@ -23,7 +23,7 @@ module.exports = {
       patterns: [
         "img/*.png",
         "img/*/*.png",
-        { from: "data/database.json", to: "data" },
+        // { from: "data/database.json", to: "data" },
         // Copy Shoelace assets to dist/shoelace
         {
           from: path.resolve(
