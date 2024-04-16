@@ -7,7 +7,7 @@ export function connectionFromDeviceDBConnection(conn: DeviceDBConnection): Conn
     return {
       CableNetwork: {
         net: undefined,
-        typ: conn.role
+        typ: conn.typ
       }
     };
   } else {

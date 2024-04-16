@@ -74,6 +74,10 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
         "vm-device-modified",
         this._handleDeviceModified.bind(this),
       );
+      window.VM?.addEventListener(
+        "vm-devices-update",
+        this._handleDevicesModified.bind(this),
+      );
       this.updateDevice();
       return root;
     }
@@ -82,7 +86,14 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
       const id = e.detail;
       if (this.deviceID === id) {
         this.updateDevice();
+      } else {
+        this.requestUpdate();
       }
+    }
+
+    _handleDevicesModified(e: CustomEvent) {
+      const ids = e.detail;
+      this.requestUpdate();
     }
 
     updateDevice() {
@@ -114,7 +125,9 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
       if (!structuralEqual(this.connections, connections)) {
         this.connections = connections;
       }
-      this.updateIC();
+      if (typeof this.device.ic !== "undefined") {
+        this.updateIC();
+      }
     }
 
     updateIC() {
@@ -130,7 +143,7 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
       if (this.icState !== state) {
         this.icState = state;
       }
-      const errors = this.device.program!.errors ?? null;
+      const errors = this.device.program?.errors ?? null;
       if (!structuralEqual(this.errors, errors)) {
         this.errors = errors;
       }
@@ -159,7 +172,9 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
   return VMDeviceMixinClass as Constructor<VMDeviceMixinInterface> & T;
 };
 
-export const VMActiveICMixin = <T extends Constructor<LitElement>>(superClass: T) => {
+export const VMActiveICMixin = <T extends Constructor<LitElement>>(
+  superClass: T,
+) => {
   class VMActiveICMixinClass extends VMDeviceMixin(superClass) {
     constructor() {
       super();
@@ -187,6 +202,6 @@ export const VMActiveICMixin = <T extends Constructor<LitElement>>(superClass: T
       }
       this.updateDevice();
     }
-  };
+  }
   return VMActiveICMixinClass as Constructor<VMDeviceMixinInterface> & T;
-}
+};

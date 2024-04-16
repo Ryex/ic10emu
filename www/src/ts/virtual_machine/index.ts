@@ -1,4 +1,4 @@
-import { DeviceRef, VM, init } from "ic10emu_wasm";
+import { DeviceRef, DeviceTemplate, VM, init } from "ic10emu_wasm";
 import { DeviceDB } from "./device_db";
 import "./base_device";
 
@@ -286,12 +286,53 @@ class VirtualMachine extends EventTarget {
     return false;
   }
 
+  setDeviceConnection(id: number, conn: number, val: number | undefined) {
+    const device = this._devices.get(id);
+    if (typeof device !== "undefined") {
+      try {
+        this.ic10vm.setDeviceConnection(id, conn, val);
+        this.updateDevice(device);
+      } catch (err) {
+        this.handleVmError(err);
+      }
+    }
+  }
+
+  setDevicePin(id: number, pin: number, val: number | undefined) {
+    const device = this._devices.get(id);
+    if (typeof device !== "undefined") {
+      try {
+        this.ic10vm.setPin(id, pin, val)
+        this.updateDevice(device);
+      } catch (err) {
+        this.handleVmError(err);
+      }
+    }
+
+  }
+
   setupDeviceDatabase(db: DeviceDB) {
     this.db = db;
     console.log("Loaded Device Database", this.db);
     this.dispatchEvent(
       new CustomEvent("vm-device-db-loaded", { detail: this.db }),
     );
+  }
+
+  addDeviceFromTemplate(template: DeviceTemplate) {
+    try {
+      console.log("adding device", template);
+      const id = this.ic10vm.addDeviceFromTemplate(template);
+      this._devices.set(id, this.ic10vm.getDevice(id)!);
+      const device_ids = this.ic10vm.devices;
+      this.dispatchEvent(
+        new CustomEvent("vm-devices-update", {
+          detail: Array.from(device_ids),
+        }),
+      );
+    } catch (err) {
+      this.handleVmError(err);
+    }
   }
 }
 
