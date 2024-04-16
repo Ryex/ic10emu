@@ -175,5 +175,38 @@ export function parseNumber(s: string): number {
     case 'epsilon':
       return Number.EPSILON;
   }
+  if (/^%[01]+$/.test(s)) {
+    return parseInt(s.slice(1), 2)
+  }
+  if (/^\$[0-9A-Fa-f]+$/.test(s)) {
+    return parseInt(s.slice(1), 16)
+  }
+  const hex = parseHex(s);
+  if (!isNaN(hex)) {
+    return hex;
+  }
   return parseFloat(s);
+}
+
+export function parseHex(h: string) : number {
+  var val = parseInt(h, 16);
+  if (val.toString(16) === h.toLowerCase()) {
+    return val;
+  } else {
+    return NaN;
+  }
+}
+
+export function parseIntWithHexOrBinary(s: string): number {
+  if (/^%[01]+$/.test(s)) {
+    return parseInt(s.slice(1), 2)
+  }
+  if (/^\$[0-9A-Fa-f]+$/.test(s)) {
+    return parseInt(s.slice(1), 16)
+  }
+  const hex = parseHex(s);
+  if (!isNaN(hex)) {
+    return hex;
+  }
+  return parseInt(s);
 }

@@ -34,7 +34,7 @@ import "@shoelace-style/shoelace/dist/components/drawer/drawer.js";
 import "@shoelace-style/shoelace/dist/components/icon/icon.js";
 
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
-import { parseNumber, structuralEqual } from "../utils";
+import { parseIntWithHexOrBinary, parseNumber, structuralEqual } from "../utils";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.js";
 import SlDrawer from "@shoelace-style/shoelace/dist/components/drawer/drawer.js";
 import { DeviceDB, DeviceDBEntry } from "./device_db";
@@ -339,7 +339,7 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
 
   _handleChangeID(e: CustomEvent) {
     const input = e.target as SlInput;
-    const val = input.valueAsNumber;
+    const val = parseIntWithHexOrBinary(input.value);
     if (!isNaN(val)) {
       window.VM.changeDeviceId(this.deviceID, val);
     } else {
@@ -349,7 +349,8 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
 
   _handleChangeName(e: CustomEvent) {
     const input = e.target as SlInput;
-    window.VM?.setDeviceName(this.deviceID, input.value);
+    const name = input.value.length === 0 ? undefined : input.value;
+    window.VM?.setDeviceName(this.deviceID, name);
     this.updateDevice();
   }
 
