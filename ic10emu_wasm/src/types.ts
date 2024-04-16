@@ -4,7 +4,8 @@ export interface LogicField {
   field_type: FieldType;
   value: number;
 }
-export type Fields = Map<string, LogicField>;
+export type LogicFields = Map<LogicType, LogicField>;
+export type SlotLogicFields = Map<SlotLogicType, LogicField>;
 
 export type SlotType =
   | "AccessCard"
@@ -46,12 +47,12 @@ export interface SlotOccupant {
   readonly quantity: number;
   readonly max_quantity: number;
   readonly damage: number;
-  readonly fields: Fields;
+  readonly fields: SlotLogicFields;
 }
 export interface Slot {
   readonly typ: SlotType;
   readonly occupant: SlotOccupant | undefined;
-  readonly fields: Fields;
+  readonly fields: SlotLogicFields;
 }
 
 export type Reagents = Map<string, Map<number, number>>;
@@ -80,10 +81,10 @@ export type DeviceSpec = {
   };
   readonly connection: number | undefined;
 };
-export type LogicType = { readonly LogicType: string };
-export type SlotLogicType = { readonly SlotLogicType: string };
-export type BatchMode = { readonly BatchMode: string };
-export type ReagentMode = { readonly ReagentMode: string };
+export type OperandLogicType = { readonly LogicType: string };
+export type OperandSlotLogicType = { readonly SlotLogicType: string };
+export type OperandBatchMode = { readonly BatchMode: string };
+export type OperandReagentMode = { readonly ReagentMode: string };
 export type Identifier = { readonly Identifier: { name: string } };
 
 export type NumberFloat = { readonly Float: number };
@@ -106,10 +107,10 @@ export type Operand =
   | RegisterSpec
   | DeviceSpec
   | NumberOperand
-  | LogicType
-  | SlotLogicType
-  | BatchMode
-  | ReagentMode
+  | OperandLogicType
+  | OperandSlotLogicType
+  | OperandBatchMode
+  | OperandReagentMode
   | Identifier;
 
 export type Alias = RegisterSpec | DeviceSpec;
@@ -141,7 +142,7 @@ export interface Program {
 }
 
 export interface DeviceRef {
-  readonly fields: Fields;
+  readonly fields: LogicFields;
   readonly slots: Slot[];
   readonly reagents: Reagents;
   readonly connections: Connection[];
@@ -149,5 +150,29 @@ export interface DeviceRef {
   readonly defines?: Defines | undefined;
   readonly pins?: Pins;
   readonly program?: Program;
-  getSlotFields(slot: number): Fields;
+  getSlotFields(slot: number): SlotLogicFields;
+}
+
+export interface SlotOccupantTemplate {
+  id?: number;
+  fields: { [key in SlotLogicType]?: LogicField };
+}
+
+export interface SlotTemplate {
+  typ: SlotType;
+  occupant?: SlotOccupantTemplate;
+}
+
+export interface DeviceTemplate {
+  id?: number;
+  name?: string;
+  prefab_name?: string;
+  slots: SlotTemplate[];
+  // reagents: { [key: string]: float}
+  connections: Connection[];
+  fields: { [key in LogicType]?: LogicField };
+}
+
+export interface VM {
+  addDeviceFromTemplate(template: DeviceTemplate): number
 }

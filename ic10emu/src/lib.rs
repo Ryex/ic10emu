@@ -449,8 +449,8 @@ impl Network {
 
 #[derive(Debug, Default, Clone, Serialize, Deserialize)]
 pub struct Prefab {
-    name: String,
-    hash: i32,
+    pub name: String,
+    pub hash: i32,
 }
 
 impl Prefab {
@@ -481,7 +481,7 @@ pub struct DeviceTemplate {
     pub name: Option<String>,
     pub prefab_name: Option<String>,
     pub slots: Vec<SlotTemplate>,
-    pub reagents: HashMap<ReagentMode, HashMap<i32, f64>>,
+    // pub reagents: HashMap<ReagentMode, HashMap<i32, f64>>,
     pub connections: Vec<Connection>,
     pub fields: HashMap<LogicType, LogicField>,
 }
@@ -1089,7 +1089,8 @@ impl VM {
             name_hash,
             prefab: template.prefab_name.map(|name| Prefab::new(&name)),
             slots,
-            reagents: template.reagents,
+            // reagents: template.reagents,
+            reagents: HashMap::new(),
             ic,
             connections: template.connections,
             fields,

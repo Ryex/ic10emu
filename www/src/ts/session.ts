@@ -74,7 +74,7 @@ export class Session extends EventTarget {
     this._programs = new Map();
     this._errors = new Map();
     this._save_timeout = undefined;
-    this._activeIC = 0;
+    this._activeIC = 1;
     this._activeLines = new Map();
     this.loadFromFragment();
 
@@ -201,7 +201,7 @@ export class Session extends EventTarget {
   async loadFromFragment() {
     const fragment = window.location.hash.slice(1);
     if (fragment === "demo") {
-      this._programs = new Map([[0, demoCode]]);
+      this._programs = new Map([[1, demoCode]]);
       this._fireOnLoad();
       return;
     }
@@ -213,7 +213,7 @@ export class Session extends EventTarget {
         const data = getJson(txt);
         if (data === null) {
           // backwards compatible
-          this._programs = new Map([[0, txt]]);
+          this._programs = new Map([[1, txt]]);
           this, this._fireOnLoad();
           return;
         }

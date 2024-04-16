@@ -21,6 +21,11 @@ serde_with = "3.7.0"
 tsify = { version = "0.4.5", default-features = false, features = ["js", "wasm-bindgen"] }
 thiserror = "1.0.58"
 
+[build-dependencies]
+ic10emu = { path = "../ic10emu" }
+strum = { version = "0.26.2"}
+itertools = "0.12.1"
+
 [features]
 default = ["console_error_panic_hook"]
 console_error_panic_hook = ["dep:console_error_panic_hook"]

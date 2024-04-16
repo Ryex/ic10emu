@@ -44,7 +44,7 @@ export class IC10Editor extends BaseElement {
   };
   sessions: Map<number, Ace.EditSession>;
 
-  @state() active_session: number = 0;
+  @state() active_session: number = 1;
 
   active_line_markers: Map<number, number | null> = new Map();
   languageProvider?: LanguageProvider;

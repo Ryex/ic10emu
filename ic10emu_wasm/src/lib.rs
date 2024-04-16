@@ -2,7 +2,7 @@
 mod utils;
 mod types;
 
-use ic10emu::grammar::{LogicType, SlotLogicType};
+use ic10emu::{grammar::{LogicType, SlotLogicType}, DeviceTemplate};
 use serde::{Deserialize, Serialize};
 use types::{Registers, Stack};
 
@@ -55,18 +55,18 @@ impl DeviceRef {
     }
 
     #[wasm_bindgen(getter, js_name = "nameHash")]
-    pub fn name_hash(&self) -> Option<f64> {
+    pub fn name_hash(&self) -> Option<i32> {
         self.device.borrow().name_hash
     }
 
     #[wasm_bindgen(getter, js_name = "prefabName")]
     pub fn prefab_name(&self) -> Option<String> {
-        self.device.borrow().prefab_name.clone()
+        self.device.borrow().prefab.as_ref().map(|prefab| prefab.name.clone())
     }
 
     #[wasm_bindgen(getter, js_name = "prefabHash")]
     pub fn prefab_hash(&self) -> Option<i32> {
-        self.device.borrow().prefab_hash
+        self.device.borrow().prefab.as_ref().map(|prefab| prefab.hash)
     }
 
     #[wasm_bindgen(getter, skip_typescript)]
@@ -349,6 +349,12 @@ impl VM {
     #[wasm_bindgen(js_name = "addDevice")]
     pub fn add_device(&self, network: Option<u32>) -> Result<u32, JsError> {
         Ok(self.vm.borrow_mut().add_device(network)?)
+    }
+
+    #[wasm_bindgen(js_name = "addDeviceFromTemplate", skip_typescript)]
+    pub fn add_device_from_template(&self, template: JsValue) -> Result<u32, JsError> {
+        let template: DeviceTemplate = serde_wasm_bindgen::from_value(template)?;
+        Ok(self.vm.borrow_mut().add_device_from_template(template)?)
     }
 
     #[wasm_bindgen(js_name = "getDevice")]

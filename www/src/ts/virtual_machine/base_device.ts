@@ -2,7 +2,7 @@ import { property, state } from "lit/decorators.js";
 
 import {
   DeviceRef,
-  Fields,
+  LogicFields,
   Reagents,
   Slot,
   Connection,
@@ -25,7 +25,7 @@ export declare class VMDeviceMixinInterface {
   name: string | null;
   nameHash: number | null;
   prefabName: string | null;
-  fields: Fields;
+  fields: LogicFields;
   slots: Slot[];
   reagents: Reagents;
   connections: Connection[];
@@ -53,7 +53,7 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
     @state() accessor name: string | null = null;
     @state() accessor nameHash: number | null = null;
     @state() accessor prefabName: string | null;
-    @state() accessor fields: Fields;
+    @state() accessor fields: LogicFields;
     @state() accessor slots: Slot[];
     @state() accessor reagents: Reagents;
     @state() accessor connections: Connection[];
