@@ -32,6 +32,7 @@ import { customElement, state, query } from "lit/decorators.js";
 import { editorStyles } from "./styles";
 import "./shortcuts_ui";
 import { AceKeyboardShortcuts } from "./shortcuts_ui";
+import { LanguageClientConfig, ProviderOptions } from "ace-linters/types/types/language-service";
 
 @customElement("ace-ic10")
 export class IC10Editor extends BaseElement {
@@ -502,14 +503,19 @@ export class IC10Editor extends BaseElement {
   }
 
   setupLsp(lsp_worker: Worker) {
-    const serverData = {
+    const serverData: LanguageClientConfig = {
       module: () => import("ace-linters/build/language-client"),
       modes: "ic10",
       type: "webworker",
       worker: lsp_worker,
     };
+    const options: ProviderOptions = {
+      functionality: {
+        semanticTokens: true
+      }
+    }
     // Create a language provider for web worker
-    this.languageProvider = AceLanguageClient.for(serverData as any);
+    this.languageProvider = AceLanguageClient.for(serverData, options);
     this.languageProvider.registerEditor(this.editor);
   }
 
