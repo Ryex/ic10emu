@@ -397,6 +397,7 @@ pub enum SlotType {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Network {
     pub devices: HashSet<u32>,
+    pub power_only: HashSet<u32>,
     pub channels: [f64; 8],
 }
 
@@ -404,6 +405,7 @@ impl Default for Network {
     fn default() -> Self {
         Network {
             devices: HashSet::new(),
+            power_only: HashSet::new(),
             channels: [f64::NAN; 8],
         }
     }
@@ -416,15 +418,59 @@ pub enum NetworkError {
 }
 
 impl Network {
-    pub fn contains(&self, ids: &[u32]) -> bool {
-        ids.iter().all(|id| self.devices.contains(id))
+    pub fn contains(&self, id: &u32) -> bool {
+        self.devices.contains(id) || self.power_only.contains(id)
     }
 
-    pub fn add(&mut self, id: u32) -> bool {
+    pub fn contains_all(&self, ids: &[u32]) -> bool {
+        ids.iter()
+            .all(|id| self.contains(id))
+    }
+
+    pub fn contains_data(&self, id: &u32) -> bool {
+        self.devices.contains(id)
+    }
+
+    pub fn contains_all_data(&self, ids: &[u32]) -> bool {
+        ids.iter().all(|id| self.contains_data(id))
+    }
+
+    pub fn contains_power(&self, id: &u32) -> bool {
+        self.power_only.contains(id)
+    }
+
+    pub fn contains_all_power(&self, ids: &[u32]) -> bool {
+        ids.iter().all(|id| self.contains_power(id))
+    }
+
+    pub fn data_visible(&self, source: &u32) -> Vec<u32> {
+        if self.contains_data(source) {
+            self.devices
+                .iter()
+                .filter(|id| id != &source)
+                .copied()
+                .collect_vec()
+        } else {
+            Vec::new()
+        }
+    }
+
+    pub fn add_data(&mut self, id: u32) -> bool {
         self.devices.insert(id)
     }
 
-    pub fn remove(&mut self, id: u32) -> bool {
+    pub fn add_power(&mut self, id: u32) -> bool {
+        self.power_only.insert(id)
+    }
+
+    pub fn remove_all(&mut self, id: u32) -> bool {
+        self.devices.remove(&id) || self.power_only.remove(&id)
+    }
+    pub fn remove_data(&mut self, id: u32) -> bool {
+        self.devices.remove(&id)
+    }
+
+    pub fn remove_power(&mut self, id: u32) -> bool {
         self.devices.remove(&id)
     }
 
@@ -1097,9 +1143,20 @@ impl VM {
         };
 
         device.connections.iter().for_each(|conn| {
-            if let Connection::CableNetwork { net: Some(net), .. } = conn {
+            if let Connection::CableNetwork {
+                net: Some(net),
+                typ,
+            } = conn
+            {
                 if let Some(network) = self.networks.get(net) {
-                    network.borrow_mut().add(device_id);
+                    match typ {
+                        CableConnectionType::Power => {
+                            network.borrow_mut().add_power(device_id);
+                        }
+                        _ => {
+                            network.borrow_mut().add_data(device_id);
+                        }
+                    }
                 }
             }
         });
@@ -1318,27 +1375,20 @@ impl VM {
 
     pub fn devices_on_same_network(&self, ids: &[u32]) -> bool {
         for net in self.networks.values() {
-            if net.borrow().contains(ids) {
+            if net.borrow().contains_all_data(ids) {
                 return true;
             }
         }
         false
     }
 
-    /// return a vecter with the device ids the source id can see via it's connected netowrks
+    /// return a vecter with the device ids the source id can see via it's connected networks
     pub fn visible_devices(&self, source: u32) -> Vec<u32> {
         self.networks
             .values()
             .filter_map(|net| {
-                if net.borrow().contains(&[source]) {
-                    Some(
-                        net.borrow()
-                            .devices
-                            .iter()
-                            .filter(|id| id != &&source)
-                            .copied()
-                            .collect_vec(),
-                    )
+                if net.borrow().contains_data(&source) {
+                    Some(net.borrow().data_visible(&source))
                 } else {
                     None
                 }
@@ -1386,33 +1436,59 @@ impl VM {
         {
             // scope this borrow
             let connections = &device.borrow().connections;
-            let Connection::CableNetwork { net, .. } = &connections[connection] else {
+            let Connection::CableNetwork { net, typ } = &connections[connection] else {
                 return Err(ICError::NotACableConnection(connection).into());
             };
             // remove from current network
             if let Some(net) = net {
                 if let Some(network) = self.networks.get(net) {
                     // if there is no other connection to this network
-                    if connections.clone().iter().enumerate().all(|(index, conn)| {
-                        if let Connection::CableNetwork { net: other_net, .. } = conn {
-                            !(other_net.is_some_and(|id| id == *net) && index != connection)
-                        } else {
-                            true
+                    if connections
+                        .iter()
+                        .filter(|conn| {
+                            matches!(conn, Connection::CableNetwork {
+                                net: Some(other_net),
+                                typ: other_typ
+                            } if other_net == net && (
+                                !matches!(typ,  CableConnectionType::Power) ||
+                                matches!(other_typ, CableConnectionType::Data | CableConnectionType::PowerAndData))
+                            )
+                        })
+                        .count()
+                        == 1
+                    {
+                        match typ {
+                            CableConnectionType::Power => {
+                                network.borrow_mut().remove_power(id);
+                            }
+                            _ => {
+                                network.borrow_mut().remove_data(id);
+
+                            }
                         }
-                    }) {
-                        network.borrow_mut().remove(id);
                     }
                 }
             }
         }
         let mut device_ref = device.borrow_mut();
         let connections = &mut device_ref.connections;
-        let Connection::CableNetwork { ref mut net, .. } = connections[connection] else {
+        let Connection::CableNetwork {
+            ref mut net,
+            ref typ,
+        } = connections[connection]
+        else {
             return Err(ICError::NotACableConnection(connection).into());
         };
         if let Some(target_net) = target_net {
             if let Some(network) = self.networks.get(&target_net) {
-                network.borrow_mut().add(id);
+                match typ {
+                    CableConnectionType::Power => {
+                        network.borrow_mut().add_power(id);
+                    }
+                    _ => {
+                        network.borrow_mut().add_data(id);
+                    }
+                }
             } else {
                 return Err(VMError::InvalidNetwork(target_net));
             }
@@ -1435,7 +1511,7 @@ impl VM {
                     }
                 }
             }
-            network.borrow_mut().remove(id);
+            network.borrow_mut().remove_all(id);
             Ok(true)
         } else {
             Err(VMError::InvalidNetwork(network_id))
