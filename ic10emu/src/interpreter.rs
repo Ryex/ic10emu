@@ -111,7 +111,7 @@ pub enum ICError {
     #[error("bad network Id '{0}'")]
     BadNetworkId(u32),
     #[error("channel index out of range '{0}'")]
-    ChannelIndexOutOfRange(usize)
+    ChannelIndexOutOfRange(usize),
 }
 
 impl ICError {
@@ -2046,8 +2046,14 @@ impl IC {
                             Some(device) => match device.borrow().ic.as_ref() {
                                 Some(ic_id) => {
                                     let addr = addr.as_value(this, inst, 3)?;
-                                    let ic = vm.ics.get(ic_id).unwrap().borrow();
-                                    let val = ic.peek_addr(addr)?;
+                                    let val = {
+                                        if ic_id == &this.id {
+                                            this.peek_addr(addr)
+                                        } else {
+                                            let ic = vm.ics.get(ic_id).unwrap().borrow();
+                                            ic.peek_addr(addr)
+                                        }
+                                    }?;
                                     this.set_register(indirection, target, val)?;
                                     Ok(())
                                 }
@@ -2073,8 +2079,14 @@ impl IC {
                             Some(device) => match device.borrow().ic.as_ref() {
                                 Some(ic_id) => {
                                     let addr = addr.as_value(this, inst, 3)?;
-                                    let ic = vm.ics.get(ic_id).unwrap().borrow();
-                                    let val = ic.peek_addr(addr)?;
+                                    let val = {
+                                        if ic_id == &this.id {
+                                            this.peek_addr(addr)
+                                        } else {
+                                            let ic = vm.ics.get(ic_id).unwrap().borrow();
+                                            ic.peek_addr(addr)
+                                        }
+                                    }?;
                                     this.set_register(indirection, target, val)?;
                                     Ok(())
                                 }
@@ -2097,8 +2109,12 @@ impl IC {
                                 Some(ic_id) => {
                                     let addr = addr.as_value(this, inst, 2)?;
                                     let val = val.as_value(this, inst, 3)?;
-                                    let mut ic = vm.ics.get(ic_id).unwrap().borrow_mut();
-                                    ic.poke(addr, val)?;
+                                    if ic_id == &this.id {
+                                        this.poke(addr, val)?;
+                                    } else {
+                                        let mut ic = vm.ics.get(ic_id).unwrap().borrow_mut();
+                                        ic.poke(addr, val)?;
+                                    }
                                     vm.set_modified(device_id);
                                     Ok(())
                                 }
@@ -2121,8 +2137,12 @@ impl IC {
                                 Some(ic_id) => {
                                     let addr = addr.as_value(this, inst, 2)?;
                                     let val = val.as_value(this, inst, 3)?;
-                                    let mut ic = vm.ics.get(ic_id).unwrap().borrow_mut();
-                                    ic.poke(addr, val)?;
+                                    if ic_id == &this.id {
+                                        this.poke(addr, val)?;
+                                    } else {
+                                        let mut ic = vm.ics.get(ic_id).unwrap().borrow_mut();
+                                        ic.poke(addr, val)?;
+                                    }
                                     vm.set_modified(device_id as u32);
                                     Ok(())
                                 }

@@ -14,7 +14,7 @@ use grammar::{BatchMode, LogicType, ReagentMode, SlotLogicType};
 use interpreter::{ICError, LineError};
 use itertools::Itertools;
 use serde::{Deserialize, Serialize};
-use strum_macros::{EnumIter, EnumString, AsRefStr};
+use strum_macros::{AsRefStr, EnumIter, EnumString};
 use thiserror::Error;
 
 use crate::interpreter::ICState;
@@ -1276,8 +1276,12 @@ impl VM {
 
     pub fn step_ic(&self, id: u32, advance_ip_on_err: bool) -> Result<bool, VMError> {
         self.operation_modified.borrow_mut().clear();
-        let device = self.devices.get(&id).ok_or(VMError::UnknownId(id))?.clone();
-        let ic_id = *device.borrow().ic.as_ref().ok_or(VMError::NoIC(id))?;
+        let ic_id = {
+            let device = self.devices.get(&id).ok_or(VMError::UnknownId(id))?;
+            let device_ref = device.borrow();
+            let ic_id = device_ref.ic.as_ref().ok_or(VMError::NoIC(id))?;
+            *ic_id
+        };
         self.set_modified(id);
         let ic = self
             .ics
