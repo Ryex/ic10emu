@@ -460,7 +460,7 @@ export class VMDeviceList extends BaseElement {
   protected render(): HTMLTemplateResult {
     const deviceCards: HTMLTemplateResult[] = this.filteredDeviceIds.map(
       (id, _index, _ids) =>
-        html`< vm - device - card.deviceID=${ id } class="device-list-card" > </vm-device-card>`,
+        html`<vm-device-card .deviceID=${id} class="device-list-card" > </vm-device-card>`,
     );
     const result = html`
       <div class="header">

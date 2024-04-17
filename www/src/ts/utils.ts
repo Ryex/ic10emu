@@ -181,9 +181,11 @@ export function parseNumber(s: string): number {
   if (/^\$[0-9A-Fa-f]+$/.test(s)) {
     return parseInt(s.slice(1), 16)
   }
-  const hex = parseHex(s);
-  if (!isNaN(hex)) {
-    return hex;
+  if (/[a-fA-F]/.test(s)) {
+    const hex = parseHex(s);
+    if (!isNaN(hex)) {
+      return hex;
+    }
   }
   return parseFloat(s);
 }
@@ -204,9 +206,11 @@ export function parseIntWithHexOrBinary(s: string): number {
   if (/^\$[0-9A-Fa-f]+$/.test(s)) {
     return parseInt(s.slice(1), 16)
   }
-  const hex = parseHex(s);
-  if (!isNaN(hex)) {
-    return hex;
+  if (/[a-fA-F]/.test(s)) {
+    const hex = parseHex(s);
+    if (!isNaN(hex)) {
+      return hex;
+    }
   }
   return parseInt(s);
 }
