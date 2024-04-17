@@ -206,7 +206,7 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
     return html`
       ${fields.map(([name, field], _index, _fields) => {
       return html` <sl-input id="${inputIdBase}${name}" key="${name}" value="${field.value}" size="small"
-        ?disabled=${field.field_type==="Read" } @sl-change=${this._handleChangeField}>
+        @sl-change=${this._handleChangeField}>
         <span slot="prefix">${name}</span>
         <sl-copy-button slot="suffix" from="${inputIdBase}${name}.value"></sl-copy-button>
         <span slot="suffix">${field.field_type}</span>
@@ -262,7 +262,7 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
           ${fields.map(
           ([name, field], _index, _fields) => html`
           <sl-input id="${inputIdBase}${name}" slotIndex=${slotIndex} key="${name}" value="${field.value}" size="small"
-            ?disabled=${field.field_type==="Read" } @sl-change=${this._handleChangeSlotField}>
+            @sl-change=${this._handleChangeSlotField}>
             <span slot="prefix">${name}</span>
             <sl-copy-button slot="suffix" from="${inputIdBase}${name}.value"></sl-copy-button>
             <span slot="suffix">${field.field_type}</span>
