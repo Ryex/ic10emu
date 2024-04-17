@@ -514,7 +514,7 @@ export class VMDeviceList extends BaseElement {
     this.filterTimeout = setTimeout(() => {
       that.filter = that.filterInput.value;
       that.filterTimeout = undefined;
-    }, 200);
+    }, 500);
   }
 
   performSearch() {
@@ -713,6 +713,7 @@ export class VMAddDeviceButton extends BaseElement {
 
   _handleAddButtonClick() {
     this.drawer.show();
+    (this.drawer.querySelector('.device-search-input') as SlInput).select();
   }
 }
 
