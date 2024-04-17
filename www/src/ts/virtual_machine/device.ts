@@ -341,13 +341,13 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
       <ic10-details class="device-card" ?open=${this.open}>
         <div class="header" slot="summary">${this.renderHeader()}</div>
         <sl-tab-group>
-          <sl-tab slot="nav" panel="fields">Fields</sl-tab>
+          <sl-tab slot="nav" panel="fields" active>Fields</sl-tab>
           <sl-tab slot="nav" panel="slots">Slots</sl-tab>
           <sl-tab slot="nav" panel="reagents" disabled>Reagents</sl-tab>
           <sl-tab slot="nav" panel="networks">Networks</sl-tab>
           <sl-tab slot="nav" panel="pins" ?disabled=${!this.pins}>Pins</sl-tab>
 
-          <sl-tab-panel name="fields">${this.renderFields()}</sl-tab-panel>
+          <sl-tab-panel name="fields" active>${this.renderFields()}</sl-tab-panel>
           <sl-tab-panel name="slots">${this.renderSlots()}</sl-tab-panel>
           <sl-tab-panel name="reagents">${this.renderReagents()}</sl-tab-panel>
           <sl-tab-panel name="networks">${this.renderNetworks()}</sl-tab-panel>
@@ -431,6 +431,9 @@ export class VMDeviceList extends BaseElement {
       }
       .device-list-card {
         width: 100%;
+      }
+      .device-filter-input {
+        margin-left: auto;
       }
     `,
   ];
