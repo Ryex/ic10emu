@@ -22,6 +22,9 @@ export class IC10Details extends SlDetails {
       .details__summary-icon {
         cursor: pointer;
       }
+      .details__content {
+        padding-top: 0;
+      }
     `,
   ];
 

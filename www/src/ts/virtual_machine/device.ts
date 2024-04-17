@@ -10,6 +10,7 @@ import {
   SlotOccupantTemplate,
   SlotLogicType,
   ConnectionCableNetwork,
+  SlotType,
 } from "ic10emu_wasm";
 import { html, css, HTMLTemplateResult } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
@@ -94,6 +95,13 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
       .device-name-hash::part(input) {
         width: 7rem;
       }
+      .slot-header.image {
+        width: 1.5rem;
+        height: 1.5rem;
+        border: var(--sl-panel-border-width) solid var(--sl-panel-border-color);
+        border-radius: var(--sl-border-radius-medium);
+        background-color: var(--sl-color-neutral-0);
+      }
       sl-divider {
         --spacing: 0.25rem;
       }
@@ -119,11 +127,34 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
         padding: var(--sl-spacing-small) var(--sl-spacing-medium);
       }
       sl-tab-group::part(base) {
-        height: 16rem;
+        max-height: 20rem;
         overflow-y: auto;
       }
     `,
   ];
+
+  private _deviceDB: DeviceDB;
+
+  get deviceDB(): DeviceDB {
+    return this._deviceDB;
+  }
+
+  @state()
+  set deviceDB(val: DeviceDB) {
+    this._deviceDB = val;
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    window.VM!.addEventListener(
+      "vm-device-db-loaded",
+      this._handleDeviceDBLoad.bind(this),
+    );
+  }
+
+  _handleDeviceDBLoad(e: CustomEvent) {
+    this.deviceDB = e.detail;
+  }
 
   onImageErr(e: Event) {
     this.image_err = true;
@@ -145,7 +176,8 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
     }, this);
     return html`
       <sl-tooltip content="${this.prefabName}">
-        <img class="image" src="img/stationpedia/${this.prefabName}.png" @onerr=${this.onImageErr} />
+        <img class="image" src="img/stationpedia/${this.prefabName}.png"
+          onerror="this.src = '${VMDeviceCard.transparentImg}'" />
       </sl-tooltip>
       <div class="header-name">
         <sl-input id="vmDeviceCard${this.deviceID}Id" class="device-id" size="small" pill value=${this.deviceID}
@@ -173,7 +205,7 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
     const inputIdBase = `vmDeviceCard${this.deviceID}Field`;
     return html`
       ${fields.map(([name, field], _index, _fields) => {
-      return html` <sl-input id="${inputIdBase}${name}" key="${name}" value="${field.value}"
+      return html` <sl-input id="${inputIdBase}${name}" key="${name}" value="${field.value}" size="small"
         ?disabled=${field.field_type==="Read" } @sl-change=${this._handleChangeField}>
         <span slot="prefix">${name}</span>
         <sl-copy-button slot="suffix" from="${inputIdBase}${name}.value"></sl-copy-button>
@@ -183,17 +215,53 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
     `;
   }
 
+  lookupSlotOccupantImg(
+    occupant: SlotOccupant | undefined,
+    typ: SlotType,
+  ): string {
+    if (typeof occupant !== "undefined") {
+      const hashLookup = (this.deviceDB ?? {}).names_by_hash ?? {};
+      const prefabName = hashLookup[occupant.prefab_hash] ?? "UnknownHash";
+      return `img/stationpedia/${prefabName}.png`;
+    } else {
+      return `img/stationpedia/SlotIcon_${typ}.png`;
+    }
+  }
+
+  _onSlotImageErr(e: Event) {
+    console.log("image_err", e);
+  }
+
+  static transparentImg =
+    "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" as const;
+
   renderSlot(slot: Slot, slotIndex: number): HTMLTemplateResult {
     const _fields = this.device.getSlotFields(slotIndex);
     const fields = Array.from(_fields.entries());
     const inputIdBase = `vmDeviceCard${this.deviceID}Slot${slotIndex}Field`;
+    const slotImg = this.lookupSlotOccupantImg(slot.occupant, slot.typ);
     return html`
       <sl-card class="slot-card">
+        <img slot="header" class="slot-header image" src="${slotImg}"
+          onerror="this.src = '${VMDeviceCard.transparentImg}'" />
         <span slot="header" class="slot-header">${slotIndex} : ${slot.typ}</span>
+        ${
+        typeof slot.occupant !== "undefined"
+        ? html`
+        <span slot="header" class="slot-header">
+          Occupant: ${slot.occupant.id} : ${slot.occupant.prefab_hash}
+        </span>
+        <span slot="header" class="slot-header">
+          Quantity: ${slot.occupant.quantity}/
+          ${slot.occupant.max_quantity}
+        </span>
+        `
+        : ""
+        }
         <div class="slot-fields">
           ${fields.map(
           ([name, field], _index, _fields) => html`
-          <sl-input id="${inputIdBase}${name}" slotIndex=${slotIndex} key="${name}" value="${field.value}"
+          <sl-input id="${inputIdBase}${name}" slotIndex=${slotIndex} key="${name}" value="${field.value}" size="small"
             ?disabled=${field.field_type==="Read" } @sl-change=${this._handleChangeSlotField}>
             <span slot="prefix">${name}</span>
             <sl-copy-button slot="suffix" from="${inputIdBase}${name}.value"></sl-copy-button>
@@ -221,42 +289,49 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
   renderNetworks(): HTMLTemplateResult {
     const vmNetworks = window.VM!.networks;
     return html`
-      <div class="networks">
-        ${this.connections.map((connection, index, _conns) => {
-        const conn =
-        typeof connection === "object" ? connection.CableNetwork : null;
-        return html`
-        <sl-select hoist placement="top" clearable key=${index} value=${conn?.net} ?disabled=${conn===null}
-          @sl-change=${this._handleChangeConnection}>
-          <span slot="prefix">Connection:${index} </span>
-          ${vmNetworks.map(
-          (net) =>
-          html`<sl-option value=${net}>Network ${net}</sl-option>`,
-          )}
-          <span slot="prefix"> ${conn?.typ} </span>
-        </sl-select>
-        `;
-        })}
-      </div>
-    `;
+      < div class="networks" >
+        ${
+          this.connections.map((connection, index, _conns) => {
+            const conn =
+              typeof connection === "object" ? connection.CableNetwork : null;
+            return html`
+              <sl-select hoist placement="top" clearable key=${index} value=${conn?.net} ?disabled=${conn===null}
+                @sl-change=${this._handleChangeConnection}>
+                <span slot="prefix">Connection:${index} </span>
+                ${vmNetworks.map(
+                (net) =>
+                html`<sl-option value=${net}>Network ${net}</sl-option>`,
+                )}
+                <span slot="prefix"> ${conn?.typ} </span>
+              </sl-select>
+            `;
+          })
+    }
+    </div>
+      `;
   }
   renderPins(): HTMLTemplateResult {
     const pins = this.pins;
     const visibleDevices = window.VM!.visibleDevices(this.deviceID);
     return html`
-      <div class="pins">
-        ${pins?.map(
-        (pin, index) =>
-        html`<sl-select hoist placement="top" clearable key=${index} value=${pin} @sl-change=${this._handleChangePin}>
-          <span slot="prefix">d${index}</span>
-          ${visibleDevices.map(
-          (device, _index) =>
-          html`<sl-option value=${device.id}>
-            Device ${device.id} : ${device.name ?? device.prefabName}
-          </sl-option>`,
-          )}
-        </sl-select>`,
-        )}
+      < div class="pins" >
+        ${
+          pins?.map(
+            (pin, index) =>
+              html`
+                <sl-select hoist placement="top" clearable key=${index} value=${pin} @sl-change=${this._handleChangePin}>
+                <span slot="prefix">d${index}</span>
+                ${visibleDevices.map(
+                  (device, _index) =>
+                    html`
+                      <sl-option value=${device.id}>
+                        Device ${device.id} : ${device.name ?? device.prefabName}
+                      </sl-option>
+                    `,
+                )}
+                </sl-select>`,
+          )
+        }
       </div>
     `;
   }
@@ -383,9 +458,9 @@ export class VMDeviceList extends BaseElement {
   }
 
   protected render(): HTMLTemplateResult {
-    const deviceCards: HTMLTemplateResult[] = this.devices.map(
+    const deviceCards: HTMLTemplateResult[] = this.filteredDeviceIds.map(
       (id, _index, _ids) =>
-        html`<vm-device-card .deviceID=${id} class="device-list-card"></vm-device-card>`,
+        html`< vm - device - card.deviceID=${ id } class="device-list-card" > </vm-device-card>`,
     );
     const result = html`
       <div class="header">
@@ -393,12 +468,79 @@ export class VMDeviceList extends BaseElement {
           Devices:
           <sl-badge variant="neutral" pill>${this.devices.length}</sl-badge>
         </span>
+        <sl-input class="device-filter-input" placeholder="Filter Devices" clearable @sl-input=${this._handleFilterInput}>
+          <sl-icon slot="suffix" name="search"></sl-icon>"
+        </sl-input>
         <vm-add-device-button class="ms-auto"></vm-add-device-button>
       </div>
       <div class="device-list">${deviceCards}</div>
     `;
 
     return result;
+  }
+
+  get filteredDeviceIds() {
+    if (typeof this._filteredDeviceIds !== "undefined") {
+      return this._filteredDeviceIds;
+    } else {
+      return this.devices;
+    }
+  }
+
+  private _filteredDeviceIds: number[] | undefined;
+  private _filter: string = "";
+
+  @query(".device-filter-input") accessor filterInput: SlInput;
+  get filter() {
+    return this._filter;
+  }
+
+  @state()
+  set filter(val: string) {
+    this._filter = val;
+    this.performSearch();
+  }
+
+  private filterTimeout: number | undefined;
+
+  _handleFilterInput(_e: CustomEvent) {
+    if (this.filterTimeout) {
+      clearTimeout(this.filterTimeout);
+    }
+    const that = this;
+    this.filterTimeout = setTimeout(() => {
+      that.filter = that.filterInput.value;
+      that.filterTimeout = undefined;
+    }, 200);
+  }
+
+  performSearch() {
+    if (this._filter) {
+      const datapoints: [string, number][] = [];
+      for (const device_id of this.devices) {
+        const device = window.VM.devices.get(device_id);
+        if (device) {
+          if (typeof device.name !== "undefined") {
+            datapoints.push([device.name, device.id]);
+          }
+          if (typeof device.prefabName !== "undefined") {
+            datapoints.push([device.prefabName, device.id]);
+          }
+        }
+      }
+      const haystack: string[] = datapoints.map((data) => data[0]);
+      const uf = new uFuzzy({});
+      const [_idxs, info, order] = uf.search(haystack, this._filter, 0, 1e3);
+
+      const filtered = order?.map((infoIdx) => datapoints[info.idx[infoIdx]]);
+      const deviceIds: number[] =
+        filtered
+          ?.map((data) => data[1])
+          ?.filter((val, index, arr) => arr.indexOf(val) === index) ?? [];
+      this._filteredDeviceIds = deviceIds;
+    } else {
+      this._filteredDeviceIds = undefined;
+    }
   }
 }
 
@@ -465,7 +607,7 @@ export class VMAddDeviceButton extends BaseElement {
     this.performSearch();
   }
 
-  _filter: string = "";
+  private _filter: string = "";
 
   get filter() {
     return this._filter;
@@ -482,7 +624,7 @@ export class VMAddDeviceButton extends BaseElement {
   private filterTimeout: number | undefined;
 
   performSearch() {
-    if (this.filter) {
+    if (this._filter) {
       const uf = new uFuzzy({});
       const [_idxs, info, order] = uf.search(
         this._haystack,
@@ -556,7 +698,6 @@ export class VMAddDeviceButton extends BaseElement {
   }
 
   _handleSearchInput(e: CustomEvent) {
-    console.log("search-input", e);
     if (this.filterTimeout) {
       clearTimeout(this.filterTimeout);
     }
@@ -687,12 +828,11 @@ export class VmDeviceTemplate extends BaseElement {
   }
 
   connectedCallback(): void {
-    const root = super.connectedCallback();
+    super.connectedCallback();
     window.VM!.addEventListener(
       "vm-device-db-loaded",
       this._handleDeviceDBLoad.bind(this),
     );
-    return root;
   }
 
   _handleDeviceDBLoad(e: CustomEvent) {
@@ -784,7 +924,8 @@ export class VmDeviceTemplate extends BaseElement {
       <sl-card class="template-card">
         <div class="header" slot="header">
           <sl-tooltip content="${device?.name}">
-            <img class="image" src="img/stationpedia/${device?.name}.png" @onerr=${this.onImageErr} />
+            <img class="image" src="img/stationpedia/${device?.name}.png"
+              onerror="this.src = '${VMDeviceCard.transparentImg}'" />
           </sl-tooltip>
           <div class="vstack">
             <span class="prefab-name">${device?.name}</span>

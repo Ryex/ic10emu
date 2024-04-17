@@ -14,6 +14,7 @@ use grammar::{BatchMode, LogicType, ReagentMode, SlotLogicType};
 use interpreter::{ICError, LineError};
 use itertools::Itertools;
 use serde::{Deserialize, Serialize};
+use strum_macros::{EnumIter, EnumString, AsRefStr};
 use thiserror::Error;
 
 use crate::interpreter::ICState;
@@ -348,8 +349,22 @@ impl Connection {
     }
 }
 
-#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
-
+#[derive(
+    Debug,
+    Default,
+    Clone,
+    Copy,
+    PartialEq,
+    Eq,
+    Hash,
+    strum_macros::Display,
+    EnumString,
+    EnumIter,
+    AsRefStr,
+    Serialize,
+    Deserialize,
+)]
+#[strum(serialize_all = "PascalCase")]
 pub enum SlotType {
     Helmet = 1,
     Suit = 2,
@@ -376,7 +391,7 @@ pub enum SlotType {
     Magazine,
     Circuit = 24,
     Bottle,
-    ProgramableChip,
+    ProgrammableChip,
     Glasses,
     CreditCard,
     DirtCanister,
@@ -390,7 +405,6 @@ pub enum SlotType {
     Flare,
     Blocked,
     #[default]
-    #[serde(other)]
     None = 0,
 }
 
@@ -423,8 +437,7 @@ impl Network {
     }
 
     pub fn contains_all(&self, ids: &[u32]) -> bool {
-        ids.iter()
-            .all(|id| self.contains(id))
+        ids.iter().all(|id| self.contains(id))
     }
 
     pub fn contains_data(&self, id: &u32) -> bool {
@@ -588,7 +601,7 @@ impl Device {
             ),
         ]);
         device.slots.push(Slot::with_occupant(
-            SlotType::ProgramableChip,
+            SlotType::ProgrammableChip,
             // -744098481 = ItemIntegratedCircuit10
             SlotOccupant::new(ic, -744098481),
         ));
@@ -710,7 +723,7 @@ impl Device {
             .slots
             .get(index as usize)
             .ok_or(ICError::SlotIndexOutOfRange(index))?;
-        if slot.typ == SlotType::ProgramableChip
+        if slot.typ == SlotType::ProgrammableChip
             && slot.occupant.is_some()
             && self.ic.is_some()
             && typ == SlotLogicType::LineNumber
@@ -743,7 +756,7 @@ impl Device {
             .get(index as usize)
             .ok_or(ICError::SlotIndexOutOfRange(index))?;
         let mut fields = slot.get_fields();
-        if slot.typ == SlotType::ProgramableChip && slot.occupant.is_some() && self.ic.is_some() {
+        if slot.typ == SlotType::ProgrammableChip && slot.occupant.is_some() && self.ic.is_some() {
             // try borrow to get ip, we should only fail if the ic is in us aka is is *our* ic
             if let Ok(ic) = vm
                 .ics
@@ -784,7 +797,7 @@ impl Device {
             .slots
             .get_mut(index as usize)
             .ok_or(ICError::SlotIndexOutOfRange(index))?;
-        if slot.typ == SlotType::ProgramableChip
+        if slot.typ == SlotType::ProgrammableChip
             && slot.occupant.is_some()
             && self.ic.is_some()
             && typ == SlotLogicType::LineNumber
@@ -1114,7 +1127,7 @@ impl VM {
         let ic = slots
             .iter()
             .find_map(|slot| {
-                if slot.typ == SlotType::ProgramableChip && slot.occupant.is_some() {
+                if slot.typ == SlotType::ProgrammableChip && slot.occupant.is_some() {
                     Some(slot.occupant.clone()).flatten()
                 } else {
                     None
