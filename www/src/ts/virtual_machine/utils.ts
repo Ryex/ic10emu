@@ -6,7 +6,7 @@ export function connectionFromDeviceDBConnection(conn: DeviceDBConnection): Conn
   if (CableNetworkTypes.includes(conn.typ)) {
     return {
       CableNetwork: {
-        net: undefined,
+        net: window.VM?.ic10vm.defaultNetwork,
         typ: conn.typ
       }
     };
