@@ -1,4 +1,4 @@
-import { DeviceRef, DeviceTemplate, LogicType, SlotLogicType, VM, init } from "ic10emu_wasm";
+import { DeviceRef, DeviceTemplate, LogicType, SlotLogicType, VMRef, init } from "ic10emu_wasm";
 import { DeviceDB } from "./device_db";
 import "./base_device";
 
@@ -17,7 +17,7 @@ export interface ToastMessage {
 }
 
 class VirtualMachine extends EventTarget {
-  ic10vm: VM;
+  ic10vm: VMRef;
   _devices: Map<number, DeviceRef>;
   _ics: Map<number, DeviceRef>;
 

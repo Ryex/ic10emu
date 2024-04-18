@@ -288,7 +288,7 @@ impl DeviceRef {
         self.device.borrow_mut().set_name(name)
     }
 
-    #[wasm_bindgen(js_name = "setField")]
+    #[wasm_bindgen(js_name = "setField", skip_typescript)]
     pub fn set_field(&self, field: &str, value: f64, force: bool) -> Result<(), JsError> {
         let logic_typ = LogicType::from_str(field)?;
         let mut device_ref = self.device.borrow_mut();
@@ -296,7 +296,7 @@ impl DeviceRef {
         Ok(())
     }
 
-    #[wasm_bindgen(js_name = "setSlotField")]
+    #[wasm_bindgen(js_name = "setSlotField", skip_typescript)]
     pub fn set_slot_field(&self, slot: f64, field: &str, value: f64, force: bool) -> Result<(), JsError> {
         let logic_typ = SlotLogicType::from_str(field)?;
         let mut device_ref = self.device.borrow_mut();
@@ -304,7 +304,7 @@ impl DeviceRef {
         Ok(())
     }
 
-    #[wasm_bindgen(js_name = "getSlotField")]
+    #[wasm_bindgen(js_name = "getSlotField", skip_typescript)]
     pub fn get_slot_field(&self, slot: f64, field: &str) -> Result<f64, JsError> {
         let logic_typ = SlotLogicType::from_str(field)?;
         let device_ref = self.device.borrow_mut();

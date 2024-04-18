@@ -1,6 +1,7 @@
 use std::collections::HashSet;
 
 use serde::{Deserialize, Serialize};
+use strum_macros::{AsRefStr, EnumIter};
 use thiserror::Error;
 
 use itertools::Itertools;
@@ -23,7 +24,9 @@ pub enum Connection {
     Other,
 }
 
-#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(
+    Debug, Default, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, EnumIter, AsRefStr,
+)]
 pub enum ConnectionType {
     Pipe,
     Power,
@@ -39,7 +42,9 @@ pub enum ConnectionType {
     None,
 }
 
-#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(
+    Debug, Default, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, EnumIter, AsRefStr,
+)]
 pub enum ConnectionRole {
     Input,
     Input2,

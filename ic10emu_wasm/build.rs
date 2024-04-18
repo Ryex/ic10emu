@@ -48,6 +48,38 @@ fn main() {
     let rm_tstype = format!("\nexport type ReagentMode = {};", rm_tsunion);
     ts_types.push_str(&rm_tstype);
 
+    let sc_tsunion: String = Itertools::intersperse(
+        ic10emu::device::SortingClass::iter().map(|rm| format!("\"{}\"", rm.as_ref())),
+        "\n  | ".to_owned(),
+    )
+    .collect();
+    let sc_tstype = format!("\nexport type SlotType = {};", sc_tsunion);
+    ts_types.push_str(&sc_tstype);
+
+    let st_tsunion: String = Itertools::intersperse(
+        ic10emu::device::SlotType::iter().map(|rm| format!("\"{}\"", rm.as_ref())),
+        "\n  | ".to_owned(),
+    )
+    .collect();
+    let st_tstype = format!("\nexport type SortingClass = {};", st_tsunion);
+    ts_types.push_str(&st_tstype);
+
+    let ct_tsunion: String = Itertools::intersperse(
+        ic10emu::network::ConnectionType::iter().map(|rm| format!("\"{}\"", rm.as_ref())),
+        "\n  | ".to_owned(),
+    )
+    .collect();
+    let ct_tstype = format!("\nexport type ConnectionType = {};", ct_tsunion);
+    ts_types.push_str(&ct_tstype);
+
+    let cr_tsunion: String = Itertools::intersperse(
+        ic10emu::network::ConnectionRole::iter().map(|rm| format!("\"{}\"", rm.as_ref())),
+        "\n  | ".to_owned(),
+    )
+    .collect();
+    let cr_tstype = format!("\nexport type ConnectionRole = {};", cr_tsunion);
+    ts_types.push_str(&cr_tstype);
+
     let infile = Path::new("src/types.ts");
     let contents = fs::read_to_string(infile).unwrap();
 

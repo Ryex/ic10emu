@@ -7,40 +7,6 @@ export interface LogicField {
 export type LogicFields = Map<LogicType, LogicField>;
 export type SlotLogicFields = Map<SlotLogicType, LogicField>;
 
-export type SlotType =
-  | "AccessCard"
-  | "Appliance"
-  | "Back"
-  | "Battery"
-  | "Blocked"
-  | "Bottle"
-  | "Cartridge"
-  | "Circuitboard"
-  | "CreditCard"
-  | "DataDisk"
-  | "DrillHead"
-  | "Egg"
-  | "Entity"
-  | "Flare"
-  | "GasCanister"
-  | "GasFilter"
-  | "Helmet"
-  | "Ingot"
-  | "LiquidBottle"
-  | "LiquidCanister"
-  | "Magazine"
-  | "Ore"
-  | "Organ"
-  | "Plant"
-  | "ProgramableChip"
-  | "ScanningHead"
-  | "SensorProcessingUnit"
-  | "SoundCartridge"
-  | "Suit"
-  | "Tool"
-  | "Torpedo"
-  | "None";
-
 export interface SlotOccupant {
   readonly id: number;
   readonly prefab_hash: number;
@@ -156,6 +122,9 @@ export interface DeviceRef {
   readonly pins?: Pins;
   readonly program?: Program;
   getSlotFields(slot: number): SlotLogicFields;
+  setField(field: LogicType, value: number, force: boolean): void;
+  setSlotField(slot: number, field: SlotLogicType, value: number, force: boolean): void;
+  getSlotField(slot: number, field: SlotLogicType): number;
 }
 
 export interface SlotOccupantTemplate {
@@ -178,6 +147,6 @@ export interface DeviceTemplate {
   fields: { [key in LogicType]?: LogicField };
 }
 
-export interface VM {
+export interface VMRef {
   addDeviceFromTemplate(template: DeviceTemplate): number;
 }
