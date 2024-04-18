@@ -465,6 +465,11 @@ impl VM {
     pub fn change_device_id(&self, old_id: u32, new_id: u32) -> Result<(), JsError> {
         Ok(self.vm.borrow_mut().change_device_id(old_id, new_id)?)
     }
+
+    #[wasm_bindgen(js_name = "removeDevice")]
+    pub fn remove_device(&self, id: u32) -> Result<(), JsError> {
+        Ok(self.vm.borrow_mut().remove_device(id)?)
+    }
 }
 
 impl Default for VM {

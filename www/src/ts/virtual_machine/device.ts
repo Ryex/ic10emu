@@ -44,6 +44,7 @@ import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.js"
 import SlDrawer from "@shoelace-style/shoelace/dist/components/drawer/drawer.js";
 import { DeviceDB, DeviceDBEntry } from "./device_db";
 import { connectionFromDeviceDBConnection } from "./utils";
+import { SlDialog } from "@shoelace-style/shoelace";
 
 @customElement("vm-device-card")
 export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
@@ -74,6 +75,7 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
       .header {
         display: flex;
         flex-direction: row;
+        flex-grow: 1;
       }
       .header-name {
         display: flex;
@@ -130,6 +132,24 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
         max-height: 20rem;
         overflow-y: auto;
       }
+      sl-icon-button.remove-button::part(base) {
+        color: var(--sl-color-danger-600);
+      }
+      sl-icon-button.remove-button::part(base):hover,
+      sl-icon-button.remove-button::part(base):focus {
+        color: var(--sl-color-danger-500);
+      }
+      sl-icon-button.remove-button::part(base):active {
+        color: var(--sl-color-danger-600);
+      }
+      .remove-dialog-body {
+        display: flex;
+        flex-direction: row;
+      }
+      .dialog-image {
+        width: 3rem;
+        height: 3rem;
+      }
     `,
   ];
 
@@ -163,6 +183,7 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
 
   renderHeader(): HTMLTemplateResult {
     const activeIc = window.VM?.activeIC;
+    const thisIsActiveIc = activeIc.id === this.deviceID;
     const badges: HTMLTemplateResult[] = [];
     if (this.deviceID == activeIc?.id) {
       badges.push(html`<sl-badge variant="primary" pill pulse>db</sl-badge>`);
@@ -196,6 +217,11 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
           <sl-copy-button slot="suffix" from="vmDeviceCard${this.deviceID}NameHash.value"></sl-copy-button>
         </sl-input>
         ${badges.map((badge) => badge)}
+      </div>
+      <div class="ms-auto mt-auto mb-auto me-2">
+        <sl-tooltip content=${thisIsActiveIc ? "Removing the selected Active IC is disabled" : "Remove Device"}>
+          <sl-icon-button class="remove-button" name="trash" label="Remove Device" ?disabled=${thisIsActiveIc} @click=${this._handleDeviceRemoveButton}></sl-icon-button>
+        </sl-tooltip>
       </div>
     `;
   }
@@ -354,14 +380,42 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
           <sl-tab-panel name="pins">${this.renderPins()}</sl-tab-panel>
         </sl-tab-group>
       </ic10-details>
+      <sl-dialog class="remove-device-dialog" no-header @sl-request-close=${this._preventOverlayClose}>
+        <div class="remove-dialog-body">
+          <img class="dialog-image mt-auto mb-auto me-2" src="img/stationpedia/${this.prefabName}.png"
+            onerror="this.src = '${VMDeviceCard.transparentImg}'" />
+          <div class="flex-g">
+            <p><strong>Are you sure you want to remove this device?</strong></p>
+            <span>Id ${this.deviceID} : ${this.name ?? this.prefabName}</span>
+          </div>
+        </div>
+        <div slot="footer">
+          <sl-button variant="primary" autofocus @click=${this._closeRemoveDialog}>Close</sl-button>
+          <sl-button variant="danger" @click=${this._removeDialogRemove}>Remove</sl-button>
+        </div>
+      </sl-dialog>
     `;
+  }
+
+  @query(".remove-device-dialog") removeDialog: SlDialog;
+
+  _preventOverlayClose(event: CustomEvent) {
+    if (event.detail.source === 'overlay') {
+      event.preventDefault();
+    }
+  }
+
+  _closeRemoveDialog() {
+    this.removeDialog.hide()
   }
 
   _handleChangeID(e: CustomEvent) {
     const input = e.target as SlInput;
     const val = parseIntWithHexOrBinary(input.value);
     if (!isNaN(val)) {
-      window.VM.changeDeviceId(this.deviceID, val);
+      if (!window.VM.changeDeviceId(this.deviceID, val)) {
+        input.value = this.deviceID.toString();
+      }
     } else {
       input.value = this.deviceID.toString();
     }
@@ -370,7 +424,9 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
   _handleChangeName(e: CustomEvent) {
     const input = e.target as SlInput;
     const name = input.value.length === 0 ? undefined : input.value;
-    window.VM?.setDeviceName(this.deviceID, name);
+    if (!window.VM?.setDeviceName(this.deviceID, name)) {
+      input.value = this.name;
+    };
     this.updateDevice();
   }
 
@@ -389,6 +445,15 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
     const val = parseNumber(input.value);
     window.VM?.setDeviceSlotField(this.deviceID, slot, field, val);
     this.updateDevice();
+  }
+
+  _handleDeviceRemoveButton(_e: Event) {
+    this.removeDialog.show()
+  }
+
+  _removeDialogRemove() {
+    this.removeDialog.hide()
+    window.VM.removeDevice(this.deviceID)
   }
 
   _handleChangeConnection(e: CustomEvent) {

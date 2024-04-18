@@ -116,7 +116,7 @@ class VirtualMachine extends EventTarget {
 
     if (update_flag) {
       const ids = Array.from(device_ids);
-      ids.sort()
+      ids.sort();
       this.dispatchEvent(
         new CustomEvent("vm-devices-update", {
           detail: ids,
@@ -132,8 +132,8 @@ class VirtualMachine extends EventTarget {
       const ic = this._ics.get(id);
       const prog = progs.get(id);
       if (ic && prog) {
-        console.time(`CompileProgram_${id}_${attempt}`);
         try {
+          console.time(`CompileProgram_${id}_${attempt}`);
           this.ics.get(id)!.setCodeInvalid(progs.get(id)!);
           const compiled = this.ics.get(id)?.program!;
           window.App?.session.setProgramErrors(id, compiled.errors);
@@ -142,8 +142,9 @@ class VirtualMachine extends EventTarget {
           );
         } catch (err) {
           this.handleVmError(err);
+        } finally{
+          console.timeEnd(`CompileProgram_${id}_${attempt}`);
         }
-        console.timeEnd(`CompileProgram_${id}_${attempt}`);
       }
     }
     this.update();
@@ -220,49 +221,59 @@ class VirtualMachine extends EventTarget {
     this.dispatchEvent(new CustomEvent("vm-message", { detail: message }));
   }
 
-  changeDeviceId(old_id: number, new_id: number) {
+  changeDeviceId(old_id: number, new_id: number): boolean {
     try {
       this.ic10vm.changeDeviceId(old_id, new_id);
       this.updateDevices();
       if (window.App.session.activeIC === old_id) {
         window.App.session.activeIC = new_id;
       }
+      return true;
     } catch (err) {
       this.handleVmError(err);
+      return false;
     }
   }
 
-  setRegister(index: number, val: number) {
+  setRegister(index: number, val: number): boolean {
     const ic = this.activeIC!;
     try {
       ic.setRegister(index, val);
       this.updateDevice(ic);
+      return true;
     } catch (err) {
       this.handleVmError(err);
+      return false;
     }
   }
 
-  setStack(addr: number, val: number) {
+  setStack(addr: number, val: number): boolean {
     const ic = this.activeIC!;
     try {
       ic!.setStack(addr, val);
       this.updateDevice(ic);
+      return true;
     } catch (err) {
       this.handleVmError(err);
+      return false;
     }
   }
 
   setDeviceName(id: number, name: string): boolean {
     const device = this._devices.get(id);
     if (device) {
-      device.setName(name);
-      this.dispatchEvent(new CustomEvent("vm-device-modified", { detail: id }));
-      return true;
+      try {
+        device.setName(name);
+        this.dispatchEvent(new CustomEvent("vm-device-modified", { detail: id }));
+        return true;
+      } catch(e) {
+        this.handleVmError(e);
+      }
     }
     return false;
   }
 
-  setDeviceField(id: number, field: string, val: number) {
+  setDeviceField(id: number, field: string, val: number): boolean {
     const device = this._devices.get(id);
     if (device) {
       try {
@@ -276,7 +287,7 @@ class VirtualMachine extends EventTarget {
     return false;
   }
 
-  setDeviceSlotField(id: number, slot: number, field: string, val: number) {
+  setDeviceSlotField(id: number, slot: number, field: string, val: number): boolean {
     const device = this._devices.get(id);
     if (device) {
       try {
@@ -290,29 +301,32 @@ class VirtualMachine extends EventTarget {
     return false;
   }
 
-  setDeviceConnection(id: number, conn: number, val: number | undefined) {
+  setDeviceConnection(id: number, conn: number, val: number | undefined): boolean {
     const device = this._devices.get(id);
     if (typeof device !== "undefined") {
       try {
         this.ic10vm.setDeviceConnection(id, conn, val);
         this.updateDevice(device);
+        return true
       } catch (err) {
         this.handleVmError(err);
       }
     }
+    return false
   }
 
-  setDevicePin(id: number, pin: number, val: number | undefined) {
+  setDevicePin(id: number, pin: number, val: number | undefined): boolean {
     const device = this._devices.get(id);
     if (typeof device !== "undefined") {
       try {
-        this.ic10vm.setPin(id, pin, val)
+        this.ic10vm.setPin(id, pin, val);
         this.updateDevice(device);
+        return true;
       } catch (err) {
         this.handleVmError(err);
       }
     }
-
+    return false;
   }
 
   setupDeviceDatabase(db: DeviceDB) {
@@ -323,7 +337,7 @@ class VirtualMachine extends EventTarget {
     );
   }
 
-  addDeviceFromTemplate(template: DeviceTemplate) {
+  addDeviceFromTemplate(template: DeviceTemplate): boolean {
     try {
       console.log("adding device", template);
       const id = this.ic10vm.addDeviceFromTemplate(template);
@@ -334,8 +348,21 @@ class VirtualMachine extends EventTarget {
           detail: Array.from(device_ids),
         }),
       );
+      return true;
     } catch (err) {
       this.handleVmError(err);
+      return false;
+    }
+  }
+
+  removeDevice(id: number): boolean {
+    try {
+      this.ic10vm.removeDevice(id);
+      this.updateDevices();
+      return true;
+    } catch (err) {
+      this.handleVmError(err);
+      return false;
     }
   }
 }

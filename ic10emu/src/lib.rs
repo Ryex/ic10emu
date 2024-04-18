@@ -1645,6 +1645,25 @@ impl VM {
             .collect::<Result<Vec<_>, ICError>>()?;
         Ok(mode.apply(&samples))
     }
+
+    pub fn remove_device(&mut self, id: u32) -> Result<(), VMError> {
+        let Some(device) = self.devices.remove(&id) else {
+            return Err(VMError::UnknownId(id));
+        };
+
+        for conn in device.borrow().connections.iter() {
+            if let Connection::CableNetwork { net: Some(net), .. } = conn {
+                if let Some(network) = self.networks.get(net) {
+                    network.borrow_mut().remove_all(id);
+                }
+            }
+        }
+        if let Some(ic_id) = device.borrow().ic {
+            let _ = self.ics.remove(&ic_id);
+        }
+        self.id_space.free_id(id);
+        Ok(())
+    }
 }
 
 impl BatchMode {
