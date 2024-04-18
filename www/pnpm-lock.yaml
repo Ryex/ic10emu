@@ -36,10 +36,10 @@ dependencies:
     specifier: ^3.12.0
     version: 3.12.0
   ic10emu_wasm:
-    specifier: file:..\ic10emu_wasm\pkg
+    specifier: file:../ic10emu_wasm/pkg
     version: file:../ic10emu_wasm/pkg
   ic10lsp_wasm:
-    specifier: file:..\ic10lsp_wasm\pkg
+    specifier: file:../ic10lsp_wasm/pkg
     version: file:../ic10lsp_wasm/pkg
   jquery:
     specifier: ^3.7.1
