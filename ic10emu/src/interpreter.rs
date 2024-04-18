@@ -12,7 +12,7 @@ use itertools::Itertools;
 
 use time::format_description;
 
-use crate::grammar::{self, ParseError};
+use crate::{grammar::{self, ParseError}, vm::VM};
 
 use thiserror::Error;
 
@@ -458,7 +458,7 @@ impl IC {
     }
 
     /// processes one line of the contained program
-    pub fn step(&mut self, vm: &crate::VM, advance_ip_on_err: bool) -> Result<bool, LineError> {
+    pub fn step(&mut self, vm: &VM, advance_ip_on_err: bool) -> Result<bool, LineError> {
         // TODO: handle sleep
         self.state = ICState::Running;
         let line = self.ip;
@@ -472,7 +472,7 @@ impl IC {
         }
     }
 
-    fn internal_step(&mut self, vm: &crate::VM, advance_ip_on_err: bool) -> Result<(), ICError> {
+    fn internal_step(&mut self, vm: &VM, advance_ip_on_err: bool) -> Result<(), ICError> {
         use grammar::*;
         use ICError::*;
 
@@ -1793,7 +1793,7 @@ impl IC {
                             indirection,
                             target,
                         } = reg.as_register(this, inst, 1)?;
-                        let val = vm.random.clone().borrow_mut().next_f64();
+                        let val = vm.random_f64();
                         this.set_register(indirection, target, val)?;
                         Ok(())
                     }

@@ -4,7 +4,8 @@ mod types;
 
 use ic10emu::{
     grammar::{LogicType, SlotLogicType},
-    DeviceTemplate,
+    device::{Device, DeviceTemplate},
+    vm::{VMError, VM},
 };
 use serde::{Deserialize, Serialize};
 use types::{Registers, Stack};
@@ -22,8 +23,8 @@ extern "C" {
 
 #[wasm_bindgen]
 pub struct DeviceRef {
-    device: Rc<RefCell<ic10emu::Device>>,
-    vm: Rc<RefCell<ic10emu::VM>>,
+    device: Rc<RefCell<Device>>,
+    vm: Rc<RefCell<VM>>,
 }
 
 use thiserror::Error;
@@ -38,7 +39,7 @@ pub enum BindingError {
 
 #[wasm_bindgen]
 impl DeviceRef {
-    fn from_device(device: Rc<RefCell<ic10emu::Device>>, vm: Rc<RefCell<ic10emu::VM>>) -> Self {
+    fn from_device(device: Rc<RefCell<Device>>, vm: Rc<RefCell<VM>>) -> Self {
         DeviceRef { device, vm }
     }
 
@@ -255,12 +256,12 @@ impl DeviceRef {
             .borrow()
             .ic
             .as_ref()
-            .ok_or(ic10emu::VMError::NoIC(self.device.borrow().id))?;
+            .ok_or(VMError::NoIC(self.device.borrow().id))?;
         let vm_borrow = self.vm.borrow();
         let ic = vm_borrow
             .ics
             .get(&ic_id)
-            .ok_or(ic10emu::VMError::NoIC(self.device.borrow().id))?;
+            .ok_or(VMError::NoIC(self.device.borrow().id))?;
         let result = ic.borrow_mut().set_register(0, index, val)?;
         Ok(result)
     }
@@ -272,12 +273,12 @@ impl DeviceRef {
             .borrow()
             .ic
             .as_ref()
-            .ok_or(ic10emu::VMError::NoIC(self.device.borrow().id))?;
+            .ok_or(VMError::NoIC(self.device.borrow().id))?;
         let vm_borrow = self.vm.borrow();
         let ic = vm_borrow
             .ics
             .get(&ic_id)
-            .ok_or(ic10emu::VMError::NoIC(self.device.borrow().id))?;
+            .ok_or(VMError::NoIC(self.device.borrow().id))?;
         let result = ic.borrow_mut().poke(address, val)?;
         Ok(result)
     }
@@ -344,16 +345,16 @@ impl DeviceRef {
 
 #[wasm_bindgen]
 #[derive(Debug)]
-pub struct VM {
-    vm: Rc<RefCell<ic10emu::VM>>,
+pub struct VMRef {
+    vm: Rc<RefCell<VM>>,
 }
 
 #[wasm_bindgen]
-impl VM {
+impl VMRef {
     #[wasm_bindgen(constructor)]
     pub fn new() -> Self {
-        VM {
-            vm: Rc::new(RefCell::new(ic10emu::VM::new())),
+        VMRef {
+            vm: Rc::new(RefCell::new(VM::new())),
         }
     }
 
@@ -472,16 +473,16 @@ impl VM {
     }
 }
 
-impl Default for VM {
+impl Default for VMRef {
     fn default() -> Self {
         Self::new()
     }
 }
 
 #[wasm_bindgen]
-pub fn init() -> VM {
+pub fn init() -> VMRef {
     utils::set_panic_hook();
-    let vm = VM::new();
+    let vm = VMRef::new();
     log!("Hello from ic10emu!");
     vm
 }

@@ -22,11 +22,11 @@ pub struct SlotOccupant {
     pub quantity: u32,
     pub max_quantity: u32,
     pub damage: f64,
-    pub fields: HashMap<ic10emu::grammar::SlotLogicType, ic10emu::LogicField>,
+    pub fields: HashMap<ic10emu::grammar::SlotLogicType, ic10emu::device::LogicField>,
 }
 
-impl From<&ic10emu::SlotOccupant> for SlotOccupant {
-    fn from(value: &ic10emu::SlotOccupant) -> Self {
+impl From<&ic10emu::device::SlotOccupant> for SlotOccupant {
+    fn from(value: &ic10emu::device::SlotOccupant) -> Self {
         SlotOccupant {
             id: value.id,
             prefab_hash: value.prefab_hash,
@@ -40,13 +40,13 @@ impl From<&ic10emu::SlotOccupant> for SlotOccupant {
 
 #[derive(Debug, Default, Serialize, Deserialize)]
 pub struct Slot {
-    pub typ: ic10emu::SlotType,
+    pub typ: ic10emu::device::SlotType,
     pub occupant: Option<SlotOccupant>,
-    pub fields: HashMap<ic10emu::grammar::SlotLogicType, ic10emu::LogicField>,
+    pub fields: HashMap<ic10emu::grammar::SlotLogicType, ic10emu::device::LogicField>,
 }
 
-impl From<&ic10emu::Slot> for Slot {
-    fn from(value: &ic10emu::Slot) -> Self {
+impl From<&ic10emu::device::Slot> for Slot {
+    fn from(value: &ic10emu::device::Slot) -> Self {
         Slot {
             typ: value.typ,
             occupant: value.occupant.as_ref().map(|occupant| occupant.into()),
