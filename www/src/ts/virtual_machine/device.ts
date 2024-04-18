@@ -314,50 +314,48 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
 
   renderNetworks(): HTMLTemplateResult {
     const vmNetworks = window.VM!.networks;
-    return html`
-      < div class="networks" >
-        ${
-          this.connections.map((connection, index, _conns) => {
-            const conn =
-              typeof connection === "object" ? connection.CableNetwork : null;
-            return html`
-              <sl-select hoist placement="top" clearable key=${index} value=${conn?.net} ?disabled=${conn===null}
-                @sl-change=${this._handleChangeConnection}>
-                <span slot="prefix">Connection:${index} </span>
-                ${vmNetworks.map(
-                (net) =>
-                html`<sl-option value=${net}>Network ${net}</sl-option>`,
-                )}
-                <span slot="prefix"> ${conn?.typ} </span>
-              </sl-select>
-            `;
-          })
-    }
-    </div>
+    const networks = this.connections.map((connection, index, _conns) => {
+      const conn =
+        typeof connection === "object" ? connection.CableNetwork : null;
+      return html`
+        <sl-select hoist placement="top" clearable key=${index} value=${conn?.net} ?disabled=${conn===null}
+          @sl-change=${this._handleChangeConnection}>
+          <span slot="prefix">Connection:${index} </span>
+          ${vmNetworks.map(
+          (net) =>
+          html`<sl-option value=${net}>Network ${net}</sl-option>`,
+          )}
+          <span slot="prefix"> ${conn?.typ} </span>
+        </sl-select>
       `;
+    });
+    return html`
+      <div class="networks">
+        ${networks}
+      </div>
+    `;
   }
   renderPins(): HTMLTemplateResult {
     const pins = this.pins;
     const visibleDevices = window.VM!.visibleDevices(this.deviceID);
-    return html`
-      < div class="pins" >
-        ${
-          pins?.map(
-            (pin, index) =>
+    const pinsHtml = pins?.map(
+      (pin, index) =>
+        html`
+          <sl-select hoist placement="top" clearable key=${index} value=${pin} @sl-change=${this._handleChangePin}>
+          <span slot="prefix">d${index}</span>
+          ${visibleDevices.map(
+            (device, _index) =>
               html`
-                <sl-select hoist placement="top" clearable key=${index} value=${pin} @sl-change=${this._handleChangePin}>
-                <span slot="prefix">d${index}</span>
-                ${visibleDevices.map(
-                  (device, _index) =>
-                    html`
-                      <sl-option value=${device.id}>
-                        Device ${device.id} : ${device.name ?? device.prefabName}
-                      </sl-option>
-                    `,
-                )}
-                </sl-select>`,
-          )
-        }
+                <sl-option value=${device.id}>
+                  Device ${device.id} : ${device.name ?? device.prefabName}
+                </sl-option>
+              `,
+          )}
+          </sl-select>`,
+    );
+    return html`
+      <div class="pins" >
+        ${pinsHtml}
       </div>
     `;
   }
