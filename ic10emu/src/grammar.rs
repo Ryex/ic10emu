@@ -339,7 +339,7 @@ pub struct RegisterSpec {
 #[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
 pub struct DeviceSpec {
     pub device: Device,
-    pub connection: Option<u32>,
+    pub connection: Option<usize>,
 }
 
 #[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
@@ -424,7 +424,7 @@ impl Operand {
         ic: &interpreter::IC,
         inst: InstructionOp,
         index: u32,
-    ) -> Result<(Option<u16>, Option<u32>), interpreter::ICError> {
+    ) -> Result<(Option<u32>, Option<usize>), interpreter::ICError> {
         match self.translate_alias(ic) {
             Operand::DeviceSpec(DeviceSpec { device, connection }) => match device {
                 Device::Db => Ok((Some(ic.device), connection)),
@@ -615,7 +615,7 @@ impl FromStr for Operand {
                                     let connection_str = rest_iter
                                         .take_while_ref(|c| c.is_ascii_digit())
                                         .collect::<String>();
-                                    let connection = connection_str.parse::<u32>().unwrap();
+                                    let connection = connection_str.parse::<usize>().unwrap();
                                     if rest_iter.next().is_none() {
                                         Ok(Some(connection))
                                     } else {
@@ -669,7 +669,7 @@ impl FromStr for Operand {
                             let connection_str = rest_iter
                                 .take_while_ref(|c| c.is_ascii_digit())
                                 .collect::<String>();
-                            let connection = connection_str.parse::<u32>().unwrap();
+                            let connection = connection_str.parse::<usize>().unwrap();
                             if rest_iter.next().is_none() {
                                 Ok(Some(connection))
                             } else {

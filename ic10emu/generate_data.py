@@ -1,15 +1,16 @@
-from collections import defaultdict
-import json
-import xml.etree.ElementTree as ET
 import argparse
-from pathlib import Path
-import sys
-import re
-from itertools import chain
-import struct
 import binascii
+import json
+import re
+import struct
+import sys
+import xml.etree.ElementTree as ET
+from collections import defaultdict
+from itertools import chain
+from pathlib import Path
 
-def intOrNone(val):
+
+def intOrNone(val: str):
     try:
         return int(val)
     except ValueError:
@@ -20,32 +21,32 @@ def main():
             description="Generate instructions, enums, and docs for lsp.\n\nWorks best when using https://github.com/Ryex/StationeersStationpediaExtractor",
             epilog="Point at the Stationeers install and go!",
             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    arg_parser.add_argument("path", help="Path to Stationeers installation")
-    arg_parser.add_argument("--lang", help="language to extract from (ie. english)", default="english")
+    _ = arg_parser.add_argument("path", help="Path to Stationeers installation")
+    _ = arg_parser.add_argument("--lang", help="language to extract from (ie. english)", default="english")
     args = arg_parser.parse_args()
-    install_path = Path(args.path)
+    install_path = Path(args.path) # type:ignore[reportAny]
     if install_path.match("Stationeers/*.exe") or install_path.match("Stationeers/rocketstation_Data"):
         install_path = install_path.parent
     elif install_path.name == "Stationeers":
         pass
     elif (install_path / "Stationeers").is_dir():
         install_path = install_path / "Stationeers"
-    
-    data_path = install_path / "rocketstation_Data" / "StreamingAssets" / "Language" 
+
+    data_path = install_path / "rocketstation_Data" / "StreamingAssets" / "Language"
     if not data_path.is_dir():
 
         print(f"Invalid install path. {install_path} does not point to a valid Stationeers installation")
         arg_parser.print_help()
         sys.exit(1)
 
-    lang = args.lang
+    lang: str = args.lang # type:ignore[reportAny]
     if not (data_path / f"{lang}.xml").is_file():
         print("Language file '{lang}.xml' does not exist. can not pull help strings.")
         sys.exit(2)
 
     extract_data(install_path, data_path, lang)
 
-def extract_data(install_path, data_path: Path, language: str):
+def extract_data(install_path: Path, data_path: Path, language: str):
     tree = ET.parse(data_path / f"{language}.xml")
     root = tree.getroot()
     interface = root.find("Interface")
@@ -53,7 +54,7 @@ def extract_data(install_path, data_path: Path, language: str):
     colors = root.find("Colors")
     elms = [elm for elm in (interface, strings, colors) if elm is not None ]
 
-    
+
     logic_type = re.compile(r"LogicType(\w+)")
     logic_slot_type = re.compile(r"LogicSlotType(\w+)")
     script_command = re.compile(r"ScriptCommand(\w+)")
@@ -89,11 +90,11 @@ def extract_data(install_path, data_path: Path, language: str):
     op_help_patch_path = Path("data") / "instruction_help_patches.json"
     if op_help_patch_path.exists():
         with op_help_patch_path.open(mode="r") as f:
-            patches = defaultdict(dict)
-            patches.update(json.load(f))
+            patches: dict[str, dict[str,str]] = defaultdict(dict)
+            patches.update(json.load(f)) # type:ignore[reportAny]
             operation_help_strings.update(patches[language])
 
-    enums = {}
+    enums: dict[str, tuple[int | None, str]] = {}
     with (Path("data") / "enums.txt").open("r") as f:
         for line in f.readlines():
             match line.strip().split(' ', maxsplit=2):
@@ -121,7 +122,7 @@ def extract_data(install_path, data_path: Path, language: str):
                     logictypes[name] = (intOrNone(val), help)
                 case _:
                     pass
-    
+
     with(Path("data") / "slotlogictypes.txt").open("r") as f:
         for line in f.readlines():
             match line.strip().split(' ', maxsplit=2):
@@ -136,8 +137,8 @@ def extract_data(install_path, data_path: Path, language: str):
                     slotlogictypes[name] = (intOrNone(val), help)
                 case _:
                     pass
-    
-    batchmodes = {}
+
+    batchmodes: dict[str, tuple[int | None, str]] = {}
     with(Path("data") / "batchmodes.txt").open("r") as f:
         for line in f.readlines():
             match line.strip().split(' ', maxsplit=2):
@@ -148,7 +149,7 @@ def extract_data(install_path, data_path: Path, language: str):
                 case _:
                     pass
 
-    reagentmodes = {}
+    reagentmodes: dict[str, tuple[int | None, str]] = {}
     with(Path("data") / "reagentmodes.txt").open("r") as f:
         for line in f.readlines():
             match line.strip().split(' ', maxsplit=2):
@@ -162,8 +163,8 @@ def extract_data(install_path, data_path: Path, language: str):
     enum_values_path = install_path / "Stationpedia" / "Enums.json"
     if enum_values_path.exists():
         with enum_values_path.open(mode="r") as f:
-            enum_values = json.load(f)
-            def update_enum(enum, values):
+            enum_values: dict[str, dict[str, int]] = json.load(f)
+            def update_enum(enum: dict[str, tuple[int | None, str]], values: dict[str, int]):
                 for name, val, in values.items():
                     if name in enum:
                         _, help = enum[name]
@@ -178,13 +179,13 @@ def extract_data(install_path, data_path: Path, language: str):
             update_enum(batchmodes, enum_values["LogicBatchMethod"])
             update_enum(reagentmodes, enum_values["LogicReagentMode"])
             update_enum(enums, enum_values["Enums"])
- 
+
     op_help_path = Path("data") / "instructions_help.txt"
     with op_help_path.open(mode="w") as f:
         for key, val in sorted(operation_help_strings.items()):
-            f.write("{} {}\n".format(key, val.replace("\r", "").replace("\n", "\\n")))
+            _ = f.write("{} {}\n".format(key, val.replace("\r", "").replace("\n", "\\n")))
 
-    stationpedia: dict[str, tuple[str, str | None]] = {}
+    stationpedia: dict[int, tuple[str, str | None]] = {}
     things = root.find("Things")
     reagents = root.find("Reagents")
     hashables = [elm for elm in (things, reagents) if elm is not None]
@@ -197,44 +198,44 @@ def extract_data(install_path, data_path: Path, language: str):
         value = value.text
         if key is None:
             continue
-        crc = binascii.crc32(key.encode('utf-8'))
-        crc_s = struct.unpack("i", struct.pack("I", crc))[0]
-        stationpedia[crc_s] = (key, value)
-    
+        crc_u = binascii.crc32(key.encode('utf-8'))
+        crc_i: int = struct.unpack("i", struct.pack("I", crc_u))[0]
+        stationpedia[crc_i] = (key, value)
+
     exported_stationpedia_path = install_path / "Stationpedia" / "Stationpedia.json"
     if exported_stationpedia_path.exists():
         with exported_stationpedia_path.open(mode="r") as f:
-            exported = json.load(f)
-            for page in exported["pages"]:
+            exported: dict[str, list[dict[str, Any]]] = json.load(f) # type:ignore[reportAny]
+            for page in exported["pages"]:  # type:ignore[reportUnknownVariableType]
                 stationpedia[page["PrefabHash"]] = (page["PrefabName"], page["Title"])
-                
+
     hashables_path = Path("data") / "stationpedia.txt"
     with hashables_path.open(mode="w") as f:
         for key, val in sorted(stationpedia.items(), key=lambda i: i[1][0]):
             name = val[0]
             desc = val[1] if val[1] is not None else ""
-            f.write("{} {} {}\n".format(key, name, desc.replace("\r", "").replace("\n", "\\n")))
+            _ = f.write("{} {} {}\n".format(key, name, desc.replace("\r", "").replace("\n", "\\n")))
 
     logic_types_path = Path("data") / "logictypes.txt"
     with logic_types_path.open(mode="w") as f:
         for t, (v, help) in sorted(logictypes.items()):
-            f.write(f"{t} {v} {help.replace("\r", "").replace("\n", "\\n")}\n")
+            _ = f.write(f"{t} {v} {help.replace("\r", "").replace("\n", "\\n")}\n")
     slot_logic_types_path = Path("data") / "slotlogictypes.txt"
     with slot_logic_types_path.open(mode="w") as f:
         for t, (v, help) in sorted(slotlogictypes.items()):
-            f.write(f"{t} {v} {help.replace("\r", "").replace("\n", "\\n")}\n")
+            _ = f.write(f"{t} {v} {help.replace("\r", "").replace("\n", "\\n")}\n")
     batch_modes_path = Path("data") / "batchmodes.txt"
     with batch_modes_path.open(mode="w") as f:
         for t, (v, help) in sorted(batchmodes.items()):
-            f.write(f"{t} {v} {help.replace("\r", "").replace("\n", "\\n")}\n")
+            _ = f.write(f"{t} {v} {help.replace("\r", "").replace("\n", "\\n")}\n")
     reagent_modes_path = Path("data") / "reagentmodes.txt"
     with reagent_modes_path.open(mode="w") as f:
         for t, (v, help) in sorted(reagentmodes.items()):
-            f.write(f"{t} {v} {help.replace("\r", "").replace("\n", "\\n")}\n")
+            _ = f.write(f"{t} {v} {help.replace("\r", "").replace("\n", "\\n")}\n")
     enums_path = Path("data") / "enums.txt"
     with enums_path.open(mode="w") as f:
         for name, (val, help) in sorted(enums.items()):
-            f.write(f"{name} {val} {help.replace("\r", "").replace("\n", "\\n")}\n")
+            _ = f.write(f"{name} {val} {help.replace("\r", "").replace("\n", "\\n")}\n")
 
 if __name__ == "__main__":
     main()

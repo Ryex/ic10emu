@@ -28,6 +28,9 @@ export const defaultCss = [
     .mt-auto {
       margin-top: auto !important;
     }
+    .me-2 {
+      margin-right: 2rem !important;
+    }
     .hstack {
       display: flex;
       flex-direction: row;
@@ -35,6 +38,9 @@ export const defaultCss = [
     .vstack {
       display: flex;
       flex-direction: column;
+    }
+    .flex-g {
+      flex-grow: 1;
     }
   `,
 ];

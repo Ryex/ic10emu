@@ -4,7 +4,7 @@ mod types;
 
 use ic10emu::{
     grammar::{LogicType, SlotLogicType},
-    Connection,
+    DeviceTemplate,
 };
 use serde::{Deserialize, Serialize};
 use types::{Registers, Stack};
@@ -43,8 +43,13 @@ impl DeviceRef {
     }
 
     #[wasm_bindgen(getter)]
-    pub fn id(&self) -> u16 {
+    pub fn id(&self) -> u32 {
         self.device.borrow().id
+    }
+
+    #[wasm_bindgen(getter)]
+    pub fn ic(&self) -> Option<u32> {
+        self.device.borrow().ic
     }
 
     #[wasm_bindgen(getter)]
@@ -53,28 +58,44 @@ impl DeviceRef {
     }
 
     #[wasm_bindgen(getter, js_name = "nameHash")]
-    pub fn name_hash(&self) -> Option<f64> {
+    pub fn name_hash(&self) -> Option<i32> {
         self.device.borrow().name_hash
     }
 
     #[wasm_bindgen(getter, js_name = "prefabName")]
     pub fn prefab_name(&self) -> Option<String> {
-        self.device.borrow().prefab_name.clone()
+        self.device
+            .borrow()
+            .prefab
+            .as_ref()
+            .map(|prefab| prefab.name.clone())
     }
 
     #[wasm_bindgen(getter, js_name = "prefabHash")]
     pub fn prefab_hash(&self) -> Option<i32> {
-        self.device.borrow().prefab_hash
+        self.device
+            .borrow()
+            .prefab
+            .as_ref()
+            .map(|prefab| prefab.hash)
     }
 
     #[wasm_bindgen(getter, skip_typescript)]
     pub fn fields(&self) -> JsValue {
-        serde_wasm_bindgen::to_value(&self.device.borrow().fields).unwrap()
+        serde_wasm_bindgen::to_value(&self.device.borrow().get_fields(&self.vm.borrow())).unwrap()
     }
 
     #[wasm_bindgen(getter, skip_typescript)]
-    pub fn slots(&self) -> JsValue {
-        serde_wasm_bindgen::to_value(&self.device.borrow().slots).unwrap()
+    pub fn slots(&self) -> Vec<JsValue> {
+        self.device
+            .borrow()
+            .slots
+            .iter()
+            .map(|slot| {
+                let flat_slot: types::Slot = slot.into();
+                serde_wasm_bindgen::to_value(&flat_slot).unwrap()
+            })
+            .collect_vec()
     }
 
     #[wasm_bindgen(getter, skip_typescript)]
@@ -267,67 +288,55 @@ impl DeviceRef {
     }
 
     #[wasm_bindgen(js_name = "setField")]
-    pub fn set_field(&self, field: &str, value: f64) -> Result<f64, JsError> {
+    pub fn set_field(&self, field: &str, value: f64) -> Result<(), JsError> {
         let logic_typ = LogicType::from_str(field)?;
         let mut device_ref = self.device.borrow_mut();
-        let logic_field = device_ref
-            .fields
-            .get_mut(&logic_typ)
-            .ok_or_else(|| BindingError::InvalidEnumVariant(field.to_owned()))?;
-        let last = logic_field.value;
-        logic_field.value = value;
-        Ok(last)
-    }
-
-    #[wasm_bindgen(js_name = "setSlotField")]
-    pub fn set_slot_field(&self, slot: usize, field: &str, value: f64) -> Result<f64, JsError> {
-        let logic_typ = SlotLogicType::from_str(field)?;
-        let mut device_ref = self.device.borrow_mut();
-        let slots_len = device_ref.slots.len();
-        let slot = device_ref
-            .slots
-            .get_mut(slot)
-            .ok_or(BindingError::OutOfBounds(slot, slots_len))?;
-        let logic_field = slot
-            .fields
-            .get_mut(&logic_typ)
-            .ok_or_else(|| BindingError::InvalidEnumVariant(field.to_owned()))?;
-        let last = logic_field.value;
-        logic_field.value = value;
-        Ok(last)
-    }
-
-    #[wasm_bindgen(js_name = "setConnection")]
-    pub fn set_connection(&self, conn: usize, net: Option<u16>) -> Result<(), JsError> {
-        let mut device_ref = self.device.borrow_mut();
-        let conn_len = device_ref.connections.len();
-        let conn_ref = device_ref
-            .connections
-            .get_mut(conn)
-            .ok_or(BindingError::OutOfBounds(conn, conn_len))?;
-        match conn_ref {
-            &mut Connection::CableNetwork(ref mut net_ref) => *net_ref = net,
-            _ => {
-                *conn_ref = Connection::CableNetwork(net);
-            }
-        }
+        device_ref.set_field(logic_typ, value, &self.vm.borrow())?;
         Ok(())
     }
 
-    #[wasm_bindgen(js_name = "addDeviceToNetwork")]
-    pub fn add_device_to_network(&self, network_id: u16, connection: usize) -> Result<bool, JsError> {
-        let id = self.device.borrow().id;
-        Ok(self.vm.borrow().add_device_to_network(id, network_id, connection)?)
+    #[wasm_bindgen(js_name = "setSlotField")]
+    pub fn set_slot_field(&self, slot: f64, field: &str, value: f64) -> Result<(), JsError> {
+        let logic_typ = SlotLogicType::from_str(field)?;
+        let mut device_ref = self.device.borrow_mut();
+        device_ref.set_slot_field(slot, logic_typ, value, &self.vm.borrow())?;
+        Ok(())
+    }
+
+    #[wasm_bindgen(js_name = "getSlotField")]
+    pub fn get_slot_field(&self, slot: f64, field: &str) -> Result<f64, JsError> {
+        let logic_typ = SlotLogicType::from_str(field)?;
+        let device_ref = self.device.borrow_mut();
+        Ok(device_ref.get_slot_field(slot, logic_typ, &self.vm.borrow())?)
+    }
+
+    #[wasm_bindgen(js_name = "getSlotFields", skip_typescript)]
+    pub fn get_slot_fields(&self, slot: f64) -> Result<JsValue, JsError> {
+        let device_ref = self.device.borrow_mut();
+        let fields = device_ref.get_slot_fields(slot, &self.vm.borrow())?;
+        Ok(serde_wasm_bindgen::to_value(&fields).unwrap())
+    }
+
+    #[wasm_bindgen(js_name = "setConnection")]
+    pub fn set_connection(&self, conn: usize, net: Option<u32>) -> Result<(), JsError> {
+        let device_id = self.device.borrow().id;
+        self.vm
+            .borrow()
+            .set_device_connection(device_id, conn, net)?;
+        Ok(())
     }
 
     #[wasm_bindgen(js_name = "removeDeviceFromNetwork")]
-    pub fn remove_device_from_network(&self, network_id: u16) -> Result<bool, JsError> {
+    pub fn remove_device_from_network(&self, network_id: u32) -> Result<bool, JsError> {
         let id = self.device.borrow().id;
-        Ok(self.vm.borrow().remove_device_from_network(id, network_id)?)
+        Ok(self
+            .vm
+            .borrow()
+            .remove_device_from_network(id, network_id)?)
     }
 
     #[wasm_bindgen(js_name = "setPin")]
-    pub fn set_pin(&self, pin: usize, val: Option<u16>) -> Result<bool, JsError> {
+    pub fn set_pin(&self, pin: usize, val: Option<u32>) -> Result<bool, JsError> {
         let id = self.device.borrow().id;
         Ok(self.vm.borrow().set_pin(id, pin, val)?)
     }
@@ -349,89 +358,118 @@ impl VM {
     }
 
     #[wasm_bindgen(js_name = "addDevice")]
-    pub fn add_device(&self, network: Option<u16>) -> Result<u16, JsError> {
+    pub fn add_device(&self, network: Option<u32>) -> Result<u32, JsError> {
         Ok(self.vm.borrow_mut().add_device(network)?)
     }
 
+    #[wasm_bindgen(js_name = "addDeviceFromTemplate", skip_typescript)]
+    pub fn add_device_from_template(&self, template: JsValue) -> Result<u32, JsError> {
+        let template: DeviceTemplate = serde_wasm_bindgen::from_value(template)?;
+        web_sys::console::log_2(
+            &"(wasm) adding device".into(),
+            &serde_wasm_bindgen::to_value(&template).unwrap(),
+        );
+        Ok(self.vm.borrow_mut().add_device_from_template(template)?)
+    }
+
     #[wasm_bindgen(js_name = "getDevice")]
-    pub fn get_device(&self, id: u16) -> Option<DeviceRef> {
+    pub fn get_device(&self, id: u32) -> Option<DeviceRef> {
         let device = self.vm.borrow().get_device(id);
         device.map(|d| DeviceRef::from_device(d.clone(), self.vm.clone()))
     }
 
     #[wasm_bindgen(js_name = "setCode")]
     /// Set program code if it's valid
-    pub fn set_code(&self, id: u16, code: &str) -> Result<bool, JsError> {
+    pub fn set_code(&self, id: u32, code: &str) -> Result<bool, JsError> {
         Ok(self.vm.borrow().set_code(id, code)?)
     }
 
     #[wasm_bindgen(js_name = "setCodeInvalid")]
     /// Set program code and translate invalid lines to Nop, collecting errors
-    pub fn set_code_invalid(&self, id: u16, code: &str) -> Result<bool, JsError> {
+    pub fn set_code_invalid(&self, id: u32, code: &str) -> Result<bool, JsError> {
         Ok(self.vm.borrow().set_code_invalid(id, code)?)
     }
 
     #[wasm_bindgen(js_name = "stepIC")]
-    pub fn step_ic(&self, id: u16, advance_ip_on_err: bool) -> Result<bool, JsError> {
+    pub fn step_ic(&self, id: u32, advance_ip_on_err: bool) -> Result<bool, JsError> {
         Ok(self.vm.borrow().step_ic(id, advance_ip_on_err)?)
     }
 
     #[wasm_bindgen(js_name = "runIC")]
-    pub fn run_ic(&self, id: u16, ignore_errors: bool) -> Result<bool, JsError> {
+    pub fn run_ic(&self, id: u32, ignore_errors: bool) -> Result<bool, JsError> {
         Ok(self.vm.borrow().run_ic(id, ignore_errors)?)
     }
 
     #[wasm_bindgen(js_name = "resetIC")]
-    pub fn reset_ic(&self, id: u16) -> Result<bool, JsError> {
+    pub fn reset_ic(&self, id: u32) -> Result<bool, JsError> {
         Ok(self.vm.borrow().reset_ic(id)?)
     }
 
     #[wasm_bindgen(getter, js_name = "defaultNetwork")]
-    pub fn default_network(&self) -> u16 {
+    pub fn default_network(&self) -> u32 {
         self.vm.borrow().default_network
     }
 
     #[wasm_bindgen(getter)]
-    pub fn devices(&self) -> Vec<u16> {
+    pub fn devices(&self) -> Vec<u32> {
         self.vm.borrow().devices.keys().copied().collect_vec()
     }
 
     #[wasm_bindgen(getter)]
-    pub fn networks(&self) -> Vec<u16> {
+    pub fn networks(&self) -> Vec<u32> {
         self.vm.borrow().networks.keys().copied().collect_vec()
     }
 
     #[wasm_bindgen(getter)]
-    pub fn ics(&self) -> Vec<u16> {
+    pub fn ics(&self) -> Vec<u32> {
         self.vm.borrow().ics.keys().copied().collect_vec()
     }
 
     #[wasm_bindgen(getter, js_name = "lastOperationModified")]
-    pub fn last_operation_modified(&self) -> Vec<u16> {
+    pub fn last_operation_modified(&self) -> Vec<u32> {
         self.vm.borrow().last_operation_modified()
     }
 
     #[wasm_bindgen(js_name = "visibleDevices")]
-    pub fn visible_devices(&self, source: u16) -> Vec<u16> {
+    pub fn visible_devices(&self, source: u32) -> Vec<u32> {
         self.vm.borrow().visible_devices(source)
     }
 
-    #[wasm_bindgen(js_name = "addDeviceToNetwork")]
-    pub fn add_device_to_network(&self, id: u16, network_id: u16, connection: usize) -> Result<bool, JsError> {
-        Ok(self.vm.borrow().add_device_to_network(id, network_id, connection)?)
+    #[wasm_bindgen(js_name = "setDeviceConnection")]
+    pub fn set_device_connection(
+        &self,
+        id: u32,
+        connection: usize,
+        network_id: Option<u32>,
+    ) -> Result<bool, JsError> {
+        Ok(self
+            .vm
+            .borrow()
+            .set_device_connection(id, connection, network_id)?)
     }
 
     #[wasm_bindgen(js_name = "removeDeviceFromNetwork")]
-    pub fn remove_device_from_network(&self, id: u16, network_id: u16) -> Result<bool, JsError> {
-        Ok(self.vm.borrow().remove_device_from_network(id, network_id)?)
+    pub fn remove_device_from_network(&self, id: u32, network_id: u32) -> Result<bool, JsError> {
+        Ok(self
+            .vm
+            .borrow()
+            .remove_device_from_network(id, network_id)?)
     }
 
     #[wasm_bindgen(js_name = "setPin")]
-    pub fn set_pin(&self, id: u16, pin: usize, val: Option<u16>) -> Result<bool, JsError> {
+    pub fn set_pin(&self, id: u32, pin: usize, val: Option<u32>) -> Result<bool, JsError> {
         Ok(self.vm.borrow().set_pin(id, pin, val)?)
     }
 
+    #[wasm_bindgen(js_name = "changeDeviceId")]
+    pub fn change_device_id(&self, old_id: u32, new_id: u32) -> Result<(), JsError> {
+        Ok(self.vm.borrow_mut().change_device_id(old_id, new_id)?)
+    }
 
+    #[wasm_bindgen(js_name = "removeDevice")]
+    pub fn remove_device(&self, id: u32) -> Result<(), JsError> {
+        Ok(self.vm.borrow_mut().remove_device(id)?)
+    }
 }
 
 impl Default for VM {

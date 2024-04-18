@@ -4,7 +4,8 @@ export interface LogicField {
   field_type: FieldType;
   value: number;
 }
-export type Fields = Map<string, LogicField>;
+export type LogicFields = Map<LogicType, LogicField>;
+export type SlotLogicFields = Map<SlotLogicType, LogicField>;
 
 export type SlotType =
   | "AccessCard"
@@ -40,39 +41,63 @@ export type SlotType =
   | "Torpedo"
   | "None";
 
+export interface SlotOccupant {
+  readonly id: number;
+  readonly prefab_hash: number;
+  readonly quantity: number;
+  readonly max_quantity: number;
+  readonly damage: number;
+  readonly fields: SlotLogicFields;
+}
 export interface Slot {
-  typ: SlotType;
-  fields: Fields;
+  readonly typ: SlotType;
+  readonly occupant: SlotOccupant | undefined;
+  readonly fields: SlotLogicFields;
 }
 
 export type Reagents = Map<string, Map<number, number>>;
 
-export type Connection = { CableNetwork: number } | "Other";
+export interface ConnectionCableNetwork {
+  CableNetwork: {
+    net: number | undefined;
+    typ: string;
+  };
+}
+
+export type Connection = ConnectionCableNetwork | "Other";
 
 export type RegisterSpec = {
-  RegisterSpec: { indirection: number; target: number };
+  readonly RegisterSpec: {
+    readonly indirection: number;
+    readonly target: number;
+  };
 };
 export type DeviceSpec = {
-  DeviceSpec: {
-    device:
+  readonly DeviceSpec: {
+    readonly device:
       | "Db"
-      | { Numbered: number }
-      | { Indirect: { indirection: number; target: number } };
+      | { readonly Numbered: number }
+      | {
+          readonly Indirect: {
+            readonly indirection: number;
+            readonly target: number;
+          };
+        };
   };
-  connection: number | undefined;
+  readonly connection: number | undefined;
 };
-export type LogicType = { LogicType: string };
-export type SlotLogicType = { SlotLogicType: string };
-export type BatchMode = { BatchMode: string };
-export type ReagentMode = { ReagentMode: string };
-export type Identifier = { Identifier: { name: string } };
+export type OperandLogicType = { readonly LogicType: string };
+export type OperandSlotLogicType = { readonly SlotLogicType: string };
+export type OperandBatchMode = { readonly BatchMode: string };
+export type OperandReagentMode = { readonly ReagentMode: string };
+export type Identifier = { readonly Identifier: { name: string } };
 
-export type NumberFloat = { Float: number };
-export type NumberBinary = { Binary: number };
-export type NumberHexadecimal = { Hexadecimal: number };
-export type NumberConstant = { Constant: number };
-export type NumberString = { String: string };
-export type NumberEnum = { Enum: number };
+export type NumberFloat = { readonly Float: number };
+export type NumberBinary = { readonly Binary: number };
+export type NumberHexadecimal = { readonly Hexadecimal: number };
+export type NumberConstant = { readonly Constant: number };
+export type NumberString = { readonly String: string };
+export type NumberEnum = { readonly Enum: number };
 
 export type NumberOperand = {
   Number:
@@ -87,10 +112,10 @@ export type Operand =
   | RegisterSpec
   | DeviceSpec
   | NumberOperand
-  | LogicType
-  | SlotLogicType
-  | BatchMode
-  | ReagentMode
+  | OperandLogicType
+  | OperandSlotLogicType
+  | OperandBatchMode
+  | OperandReagentMode
   | Identifier;
 
 export type Alias = RegisterSpec | DeviceSpec;
@@ -102,22 +127,27 @@ export type Defines = Map<string, number>;
 export type Pins = (number | undefined)[];
 
 export interface Instruction {
-  instruction: string;
-  operands: Operand[];
+  readonly instruction: string;
+  readonly operands: Operand[];
 }
 
 export type ICError = {
-  ParseError: { line: number; start: number; end: number; msg: string };
+  readonly ParseError: {
+    readonly line: number;
+    readonly start: number;
+    readonly end: number;
+    readonly msg: string;
+  };
 };
 
 export interface Program {
-  instructions: Instruction[];
-  errors: ICError[];
-  labels: Map<string, number>;
+  readonly instructions: Instruction[];
+  readonly errors: ICError[];
+  readonly labels: Map<string, number>;
 }
 
 export interface DeviceRef {
-  readonly fields: Fields;
+  readonly fields: LogicFields;
   readonly slots: Slot[];
   readonly reagents: Reagents;
   readonly connections: Connection[];
@@ -125,4 +155,29 @@ export interface DeviceRef {
   readonly defines?: Defines | undefined;
   readonly pins?: Pins;
   readonly program?: Program;
+  getSlotFields(slot: number): SlotLogicFields;
+}
+
+export interface SlotOccupantTemplate {
+  id?: number;
+  fields: { [key in SlotLogicType]?: LogicField };
+}
+
+export interface SlotTemplate {
+  typ: SlotType;
+  occupant?: SlotOccupantTemplate;
+}
+
+export interface DeviceTemplate {
+  id?: number;
+  name?: string;
+  prefab_name?: string;
+  slots: SlotTemplate[];
+  // reagents: { [key: string]: float}
+  connections: Connection[];
+  fields: { [key in LogicType]?: LogicField };
+}
+
+export interface VM {
+  addDeviceFromTemplate(template: DeviceTemplate): number;
 }

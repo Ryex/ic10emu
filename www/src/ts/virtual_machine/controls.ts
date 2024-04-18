@@ -52,6 +52,7 @@ export class VMICControls extends VMActiveICMixin(BaseElement) {
       sl-button[variant="success"] {
         /* Changes the success theme color to purple using primitives */
         --sl-color-success-600: var(--sl-color-purple-700);
+        --sl-color-success-500: var(--sl-color-purple-600);
       }
       sl-button[variant="primary"] {
         /* Changes the success theme color to purple using primitives */

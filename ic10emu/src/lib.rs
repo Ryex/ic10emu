@@ -14,24 +14,33 @@ use grammar::{BatchMode, LogicType, ReagentMode, SlotLogicType};
 use interpreter::{ICError, LineError};
 use itertools::Itertools;
 use serde::{Deserialize, Serialize};
+use strum_macros::{AsRefStr, EnumIter, EnumString};
 use thiserror::Error;
+
+use crate::interpreter::ICState;
 
 #[derive(Error, Debug, Serialize, Deserialize)]
 pub enum VMError {
     #[error("device with id '{0}' does not exist")]
-    UnknownId(u16),
+    UnknownId(u32),
     #[error("ic with id '{0}' does not exist")]
-    UnknownIcId(u16),
+    UnknownIcId(u32),
     #[error("device with id '{0}' does not have a ic slot")]
-    NoIC(u16),
+    NoIC(u32),
     #[error("ic encountered an error: {0}")]
     ICError(#[from] ICError),
     #[error("ic encountered an error: {0}")]
     LineError(#[from] LineError),
     #[error("invalid network id {0}")]
-    InvalidNetwork(u16),
+    InvalidNetwork(u32),
     #[error("device {0} not visible to device {1} (not on the same networks)")]
-    DeviceNotVisible(u16, u16),
+    DeviceNotVisible(u32, u32),
+    #[error("a device with id {0} already exists")]
+    IdInUse(u32),
+    #[error("device(s) with ids {0:?} already exist")]
+    IdsInUse(Vec<u32>),
+    #[error("atempt to use a set of id's with duplicates: id(s) {0:?} exsist more than once")]
+    DuplicateIds(Vec<u32>),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
@@ -47,30 +56,242 @@ pub struct LogicField {
     pub value: f64,
 }
 
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct SlotOccupant {
+    pub id: u32,
+    pub prefab_hash: i32,
+    pub quantity: u32,
+    pub max_quantity: u32,
+    pub damage: f64,
+    fields: HashMap<SlotLogicType, LogicField>,
+}
+
+impl SlotOccupant {
+    pub fn from_template<F>(template: SlotOccupantTemplate, id_fn: F) -> Self
+    where
+        F: FnOnce() -> u32,
+    {
+        let mut fields = template.fields;
+        SlotOccupant {
+            id: template.id.unwrap_or_else(id_fn),
+            prefab_hash: fields
+                .remove(&SlotLogicType::PrefabHash)
+                .map(|field| field.value as i32)
+                .unwrap_or(0),
+            quantity: fields
+                .remove(&SlotLogicType::Quantity)
+                .map(|field| field.value as u32)
+                .unwrap_or(1),
+            max_quantity: fields
+                .remove(&SlotLogicType::MaxQuantity)
+                .map(|field| field.value as u32)
+                .unwrap_or(1),
+            damage: fields
+                .remove(&SlotLogicType::Damage)
+                .map(|field| field.value)
+                .unwrap_or(0.0),
+            fields,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct SlotOccupantTemplate {
+    pub id: Option<u32>,
+    pub fields: HashMap<SlotLogicType, LogicField>,
+}
+
+impl SlotOccupant {
+    pub fn new(id: u32, prefab_hash: i32) -> Self {
+        SlotOccupant {
+            id,
+            prefab_hash,
+            quantity: 1,
+            max_quantity: 1,
+            damage: 0.0,
+            fields: HashMap::new(),
+        }
+    }
+
+    /// chainable constructor
+    pub fn with_quantity(mut self, quantity: u32) -> Self {
+        self.quantity = quantity;
+        self
+    }
+
+    /// chainable constructor
+    pub fn with_max_quantity(mut self, max_quantity: u32) -> Self {
+        self.max_quantity = max_quantity;
+        self
+    }
+
+    /// chainable constructor
+    pub fn with_damage(mut self, damage: f64) -> Self {
+        self.damage = damage;
+        self
+    }
+
+    /// chainable constructor
+    pub fn with_fields(mut self, fields: HashMap<SlotLogicType, LogicField>) -> Self {
+        self.fields.extend(fields);
+        self
+    }
+
+    /// chainable constructor
+    pub fn get_fields(&self) -> HashMap<SlotLogicType, LogicField> {
+        self.fields.clone()
+    }
+
+    /// slot field operations don't fail
+    pub fn set_field(&mut self, field: SlotLogicType, val: f64) {
+        if let Some(logic) = self.fields.get_mut(&field) {
+            match logic.field_type {
+                FieldType::ReadWrite | FieldType::Write => logic.value = val,
+                _ => {}
+            }
+        }
+    }
+}
+
+#[derive(Debug, Default, Clone, Serialize, Deserialize)]
 pub struct Slot {
     pub typ: SlotType,
-    // FIXME: this actualy needs to be an "Occupant" field
-    // where the Occupant is an items with a
-    // quantity, PrefabName/Hash, fields, etc
-    pub fields: HashMap<grammar::SlotLogicType, LogicField>,
+    pub occupant: Option<SlotOccupant>,
+}
+
+#[derive(Debug, Default, Clone, Serialize, Deserialize)]
+pub struct SlotTemplate {
+    pub typ: SlotType,
+    pub occupant: Option<SlotOccupantTemplate>,
+}
+
+impl Slot {
+    pub fn new(typ: SlotType) -> Self {
+        Slot {
+            typ,
+            occupant: None,
+        }
+    }
+    pub fn with_occupant(typ: SlotType, occupant: SlotOccupant) -> Self {
+        Slot {
+            typ,
+            occupant: Some(occupant),
+        }
+    }
+
+    pub fn get_fields(&self) -> HashMap<SlotLogicType, LogicField> {
+        let mut copy = self
+            .occupant
+            .as_ref()
+            .map(|occupant| occupant.get_fields())
+            .unwrap_or_default();
+        copy.insert(
+            SlotLogicType::ReferenceId,
+            LogicField {
+                field_type: FieldType::Read,
+                value: self
+                    .occupant
+                    .as_ref()
+                    .map(|occupant| occupant.id as f64)
+                    .unwrap_or(0.0),
+            },
+        );
+        copy.insert(
+            SlotLogicType::Occupied,
+            LogicField {
+                field_type: FieldType::Read,
+                value: if self.occupant.is_some() { 1.0 } else { 0.0 },
+            },
+        );
+        copy.insert(
+            SlotLogicType::OccupantHash,
+            LogicField {
+                field_type: FieldType::Read,
+                value: self
+                    .occupant
+                    .as_ref()
+                    .map(|occupant| occupant.prefab_hash as f64)
+                    .unwrap_or(0.0),
+            },
+        );
+        copy.insert(
+            SlotLogicType::PrefabHash,
+            LogicField {
+                field_type: FieldType::Read,
+                value: self
+                    .occupant
+                    .as_ref()
+                    .map(|occupant| occupant.prefab_hash as f64)
+                    .unwrap_or(0.0),
+            },
+        );
+        copy.insert(
+            SlotLogicType::Quantity,
+            LogicField {
+                field_type: FieldType::Read,
+                value: self
+                    .occupant
+                    .as_ref()
+                    .map(|occupant| occupant.quantity as f64)
+                    .unwrap_or(0.0),
+            },
+        );
+        copy.insert(
+            SlotLogicType::MaxQuantity,
+            LogicField {
+                field_type: FieldType::Read,
+                value: self
+                    .occupant
+                    .as_ref()
+                    .map(|occupant| occupant.max_quantity as f64)
+                    .unwrap_or(0.0),
+            },
+        );
+        copy.insert(
+            SlotLogicType::Class,
+            LogicField {
+                field_type: FieldType::Read,
+                value: self.typ as u32 as f64,
+            },
+        );
+        copy
+    }
+
+    /// the game returns 0.0 for all slotlogic types if they are not set
+    pub fn get_field(&self, field: SlotLogicType) -> f64 {
+        let fields = self.get_fields();
+        fields
+            .get(&field)
+            .map(|field| match field.field_type {
+                FieldType::Read | FieldType::ReadWrite => field.value,
+                _ => 0.0,
+            })
+            .unwrap_or(0.0)
+    }
+
+    pub fn set_field(&mut self, field: SlotLogicType, val: f64) {
+        if let Some(occupant) = self.occupant.as_mut() {
+            occupant.set_field(field, val);
+        }
+    }
+}
+
+#[derive(Debug, Default, Clone, Copy, Serialize, Deserialize)]
+pub enum CableConnectionType {
+    Power,
+    Data,
+    #[default]
+    PowerAndData,
 }
 
 #[derive(Debug, Default, Clone, Copy, Serialize, Deserialize)]
 pub enum Connection {
-    CableNetwork(Option<u16>),
+    CableNetwork {
+        net: Option<u32>,
+        typ: CableConnectionType,
+    },
     #[default]
     Other,
-}
-
-#[derive(Debug, Default, Clone, Serialize, Deserialize)]
-pub struct DeviceTemplate {
-    pub name: Option<String>,
-    pub hash: Option<i32>,
-    pub logic: HashMap<grammar::LogicType, LogicField>,
-    pub slots: Vec<SlotTemplate>,
-    pub slotlogic: HashMap<grammar::LogicType, usize>,
-    pub conn: Vec<(ConnectionType, ConnectionRole)>,
 }
 
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
@@ -112,108 +333,93 @@ impl Connection {
             | ConnectionType::LandingPad
             | ConnectionType::LaunchPad
             | ConnectionType::PipeLiquid => Self::Other,
-            ConnectionType::Data | ConnectionType::Power | ConnectionType::PowerAndData => {
-                Self::CableNetwork(None)
-            }
+            ConnectionType::Data => Self::CableNetwork {
+                net: None,
+                typ: CableConnectionType::Data,
+            },
+            ConnectionType::Power => Self::CableNetwork {
+                net: None,
+                typ: CableConnectionType::Power,
+            },
+            ConnectionType::PowerAndData => Self::CableNetwork {
+                net: None,
+                typ: CableConnectionType::PowerAndData,
+            },
         }
     }
 }
 
-#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(
+    Debug,
+    Default,
+    Clone,
+    Copy,
+    PartialEq,
+    Eq,
+    Hash,
+    strum_macros::Display,
+    EnumString,
+    EnumIter,
+    AsRefStr,
+    Serialize,
+    Deserialize,
+)]
+#[strum(serialize_all = "PascalCase")]
 pub enum SlotType {
-    AccessCard,
-    Appliance,
+    Helmet = 1,
+    Suit = 2,
     Back,
-    Battery,
-    Blocked,
-    Bottle,
-    Cartridge,
-    Circuitboard,
-    CreditCard,
-    DataDisk,
-    DrillHead,
-    Egg,
-    Entity,
-    Flare,
+    GasFilter = 4,
     GasCanister,
-    GasFilter,
-    Helmet,
-    Ingot,
-    LiquidBottle,
-    LiquidCanister,
-    Magazine,
-    Ore,
+    MotherBoard,
+    Circuitboard,
+    DataDisk = 8,
     Organ,
+    Ore,
     Plant,
-    ProgramableChip,
-    ScanningHead,
-    SensorProcessingUnit,
-    SoundCartridge,
-    Suit,
+    Uniform,
+    Entity,
+    Battery,
+    Egg,
+    Belt = 16,
     Tool,
+    Appliance,
+    Ingot,
     Torpedo,
+    Cartridge,
+    AccessCard,
+    Magazine,
+    Circuit = 24,
+    Bottle,
+    ProgrammableChip,
+    Glasses,
+    CreditCard,
+    DirtCanister,
+    SensorProcessingUnit,
+    LiquidCanister,
+    LiquidBottle = 32,
+    Wreckage,
+    SoundCartridge,
+    DrillHead,
+    ScanningHead,
+    Flare,
+    Blocked,
     #[default]
-    #[serde(other)]
-    None,
-}
-
-#[derive(Debug, Default, Clone, Serialize, Deserialize)]
-pub struct SlotTemplate {
-    pub name: String,
-    pub typ: SlotType,
-}
-
-#[derive(Debug, Default)]
-pub struct Device {
-    pub id: u16,
-    pub name: Option<String>,
-    pub name_hash: Option<f64>,
-    pub fields: HashMap<grammar::LogicType, LogicField>,
-    pub prefab_name: Option<String>,
-    pub prefab_hash: Option<i32>,
-    pub slots: Vec<Slot>,
-    pub reagents: HashMap<ReagentMode, HashMap<i32, f64>>,
-    pub ic: Option<u16>,
-    pub connections: Vec<Connection>,
+    None = 0,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Network {
-    pub devices: HashSet<u16>,
+    pub devices: HashSet<u32>,
+    pub power_only: HashSet<u32>,
     pub channels: [f64; 8],
-}
-
-#[derive(Debug, Default)]
-struct IdSequenceGenerator {
-    next: u16,
-}
-
-impl IdSequenceGenerator {
-    pub fn next(&mut self) -> u16 {
-        let val = self.next;
-        self.next += 1;
-        val
-    }
-}
-
-#[derive(Debug)]
-pub struct VM {
-    pub ics: HashMap<u16, Rc<RefCell<interpreter::IC>>>,
-    pub devices: HashMap<u16, Rc<RefCell<Device>>>,
-    pub networks: HashMap<u16, Rc<RefCell<Network>>>,
-    pub default_network: u16,
-    id_gen: IdSequenceGenerator,
-    network_id_gen: IdSequenceGenerator,
-    random: Rc<RefCell<crate::rand_mscorlib::Random>>,
-
-    /// list of device id's touched on the last operation
-    operation_modified: RefCell<Vec<u16>>,
 }
 
 impl Default for Network {
     fn default() -> Self {
         Network {
             devices: HashSet::new(),
+            power_only: HashSet::new(),
             channels: [f64::NAN; 8],
         }
     }
@@ -226,15 +432,58 @@ pub enum NetworkError {
 }
 
 impl Network {
-    pub fn contains(&self, ids: &[u16]) -> bool {
-        ids.iter().all(|id| self.devices.contains(id))
+    pub fn contains(&self, id: &u32) -> bool {
+        self.devices.contains(id) || self.power_only.contains(id)
     }
 
-    pub fn add(&mut self, id: u16) -> bool {
+    pub fn contains_all(&self, ids: &[u32]) -> bool {
+        ids.iter().all(|id| self.contains(id))
+    }
+
+    pub fn contains_data(&self, id: &u32) -> bool {
+        self.devices.contains(id)
+    }
+
+    pub fn contains_all_data(&self, ids: &[u32]) -> bool {
+        ids.iter().all(|id| self.contains_data(id))
+    }
+
+    pub fn contains_power(&self, id: &u32) -> bool {
+        self.power_only.contains(id)
+    }
+
+    pub fn contains_all_power(&self, ids: &[u32]) -> bool {
+        ids.iter().all(|id| self.contains_power(id))
+    }
+
+    pub fn data_visible(&self, source: &u32) -> Vec<u32> {
+        if self.contains_data(source) {
+            self.devices
+                .iter()
+                .filter(|id| id != &source)
+                .copied()
+                .collect_vec()
+        } else {
+            Vec::new()
+        }
+    }
+
+    pub fn add_data(&mut self, id: u32) -> bool {
         self.devices.insert(id)
     }
 
-    pub fn remove(&mut self, id: u16) -> bool {
+    pub fn add_power(&mut self, id: u32) -> bool {
+        self.power_only.insert(id)
+    }
+
+    pub fn remove_all(&mut self, id: u32) -> bool {
+        self.devices.remove(&id) || self.power_only.remove(&id)
+    }
+    pub fn remove_data(&mut self, id: u32) -> bool {
+        self.devices.remove(&id)
+    }
+
+    pub fn remove_power(&mut self, id: u32) -> bool {
         self.devices.remove(&id)
     }
 
@@ -257,60 +506,80 @@ impl Network {
     }
 }
 
+#[derive(Debug, Default, Clone, Serialize, Deserialize)]
+pub struct Prefab {
+    pub name: String,
+    pub hash: i32,
+}
+
+impl Prefab {
+    pub fn new(name: &str) -> Self {
+        Prefab {
+            name: name.to_owned(),
+            hash: const_crc32::crc32(name.as_bytes()) as i32,
+        }
+    }
+}
+
+#[derive(Debug, Default)]
+pub struct Device {
+    pub id: u32,
+    pub name: Option<String>,
+    pub name_hash: Option<i32>,
+    pub prefab: Option<Prefab>,
+    pub slots: Vec<Slot>,
+    pub reagents: HashMap<ReagentMode, HashMap<i32, f64>>,
+    pub ic: Option<u32>,
+    pub connections: Vec<Connection>,
+    fields: HashMap<LogicType, LogicField>,
+}
+
+#[derive(Debug, Default, Clone, Serialize, Deserialize)]
+pub struct DeviceTemplate {
+    pub id: Option<u32>,
+    pub name: Option<String>,
+    pub prefab_name: Option<String>,
+    pub slots: Vec<SlotTemplate>,
+    // pub reagents: HashMap<ReagentMode, HashMap<i32, f64>>,
+    pub connections: Vec<Connection>,
+    pub fields: HashMap<LogicType, LogicField>,
+}
+
 impl Device {
-    pub fn new(id: u16) -> Self {
-        let mut device = Device {
+    pub fn new(id: u32) -> Self {
+        Device {
             id,
             name: None,
             name_hash: None,
-            prefab_name: None,
-            prefab_hash: None,
+            prefab: None,
             fields: HashMap::new(),
             slots: Vec::new(),
             reagents: HashMap::new(),
             ic: None,
-            connections: vec![Connection::CableNetwork(None)],
-        };
-        device.fields.insert(
-            LogicType::ReferenceId,
-            LogicField {
-                field_type: FieldType::Read,
-                value: id as f64,
-            },
-        );
-        device
+            connections: vec![Connection::CableNetwork {
+                net: None,
+                typ: CableConnectionType::default(),
+            }],
+        }
     }
 
-    pub fn with_ic(id: u16, ic: u16) -> Self {
+    pub fn with_ic(id: u32, ic: u32) -> Self {
         let mut device = Device::new(id);
         device.ic = Some(ic);
-        device.connections = vec![Connection::CableNetwork(None), Connection::Other];
-        device.prefab_name = Some("StructureCircuitHousing".to_owned());
-        device.prefab_hash = Some(-128473777);
+        device.connections = vec![
+            Connection::CableNetwork {
+                net: None,
+                typ: CableConnectionType::Data,
+            },
+            Connection::CableNetwork {
+                net: None,
+                typ: CableConnectionType::Power,
+            },
+        ];
+        device.prefab = Some(Prefab::new("StructureCircuitHousing"));
         device.fields.extend(vec![
             (
-                LogicType::Power,
-                LogicField {
-                    field_type: FieldType::Read,
-                    value: 1.0,
-                },
-            ),
-            (
-                LogicType::Error,
-                LogicField {
-                    field_type: FieldType::ReadWrite,
-                    value: 0.0,
-                },
-            ),
-            (
                 LogicType::Setting,
-                LogicField {
-                    field_type: FieldType::ReadWrite,
-                    value: 0.0,
-                },
-            ),
-            (
-                LogicType::On,
                 LogicField {
                     field_type: FieldType::ReadWrite,
                     value: 0.0,
@@ -330,64 +599,90 @@ impl Device {
                     value: -128473777.0,
                 },
             ),
-            (
-                LogicType::LineNumber,
-                LogicField {
-                    field_type: FieldType::ReadWrite,
-                    value: 0.0,
-                },
-            ),
-            (
-                LogicType::ReferenceId,
-                LogicField {
-                    field_type: FieldType::Read,
-                    value: id as f64,
-                },
-            ),
         ]);
-        device.slots.push(Slot {
-            typ: SlotType::ProgramableChip,
-            fields: HashMap::from([
-                (
-                    SlotLogicType::PrefabHash,
-                    LogicField {
-                        field_type: FieldType::Read,
-                        value: -744098481.0,
-                    },
-                ),
-                (
-                    SlotLogicType::LineNumber,
-                    LogicField {
-                        field_type: FieldType::Read,
-                        value: 0.0,
-                    },
-                ),
-            ]),
-        });
+        device.slots.push(Slot::with_occupant(
+            SlotType::ProgrammableChip,
+            // -744098481 = ItemIntegratedCircuit10
+            SlotOccupant::new(ic, -744098481),
+        ));
 
         device
     }
 
-    pub fn get_network_id(&self, connection: usize) -> Result<u16, ICError> {
+    pub fn get_fields(&self, vm: &VM) -> HashMap<LogicType, LogicField> {
+        let mut copy = self.fields.clone();
+        if let Some(ic_id) = &self.ic {
+            let ic = vm.ics.get(ic_id).expect("our own ic to exist").borrow();
+            copy.insert(
+                LogicType::LineNumber,
+                LogicField {
+                    field_type: FieldType::ReadWrite,
+                    value: ic.ip as f64,
+                },
+            );
+            copy.insert(
+                LogicType::Error,
+                LogicField {
+                    field_type: FieldType::Read,
+                    value: match ic.state {
+                        ICState::Error(_) => 1.0,
+                        _ => 0.0,
+                    },
+                },
+            );
+        }
+        copy.insert(
+            LogicType::Power,
+            LogicField {
+                field_type: FieldType::Read,
+                value: if self.has_power() { 1.0 } else { 0.0 },
+            },
+        );
+        copy.insert(
+            LogicType::ReferenceId,
+            LogicField {
+                field_type: FieldType::Read,
+                value: self.id as f64,
+            },
+        );
+        copy
+    }
+
+    pub fn get_network_id(&self, connection: usize) -> Result<u32, ICError> {
         if connection >= self.connections.len() {
             Err(ICError::ConnectionIndexOutOfRange(
                 connection,
                 self.connections.len(),
             ))
-        } else if let Connection::CableNetwork(network_id) = self.connections[connection] {
+        } else if let Connection::CableNetwork {
+            net: network_id, ..
+        } = self.connections[connection]
+        {
             if let Some(network_id) = network_id {
                 Ok(network_id)
             } else {
                 Err(ICError::NetworkNotConnected(connection))
             }
         } else {
-            Err(ICError::NotDataConnection(connection))
+            Err(ICError::NotACableConnection(connection))
         }
     }
 
-    // FIXME: this needs some logic to link some special fields like "LineNumber" to the chip
-    pub fn get_field(&self, typ: grammar::LogicType) -> Result<f64, ICError> {
-        if let Some(field) = self.fields.get(&typ) {
+    pub fn get_field(&self, typ: LogicType, vm: &VM) -> Result<f64, ICError> {
+        if typ == LogicType::LineNumber && self.ic.is_some() {
+            if let Ok(ic) = vm
+                .ics
+                .get(&self.ic.unwrap())
+                .ok_or_else(|| ICError::UnknownDeviceID(self.ic.unwrap() as f64))?
+                .try_borrow()
+            {
+                Ok(ic.ip as f64)
+            } else {
+                // FIXME: the game succeeds in getting the correct line number
+                // when reading it's own IC
+                Ok(0.0)
+            }
+        } else if let Some(field) = self.get_fields(vm).get(&typ) {
             if field.field_type == FieldType::Read || field.field_type == FieldType::ReadWrite {
                 Ok(field.value)
             } else {
@@ -398,9 +693,20 @@ impl Device {
         }
     }
 
-    // FIXME: this needs some logic to link some special fields like "LineNumber" to the chip
-    pub fn set_field(&mut self, typ: grammar::LogicType, val: f64) -> Result<(), ICError> {
-        if let Some(field) = self.fields.get_mut(&typ) {
+    pub fn set_field(&mut self, typ: LogicType, val: f64, vm: &VM) -> Result<(), ICError> {
+        if typ == LogicType::LineNumber && self.ic.is_some() {
+            // try borrow to set ip, we shoudl only fail if the ic is in us aka is is *our* ic
+            // in game trying to set your own ic's LineNumber appears to be a Nop so this is fine.
+            if let Ok(mut ic) = vm
+                .ics
+                .get(&self.ic.unwrap())
+                .ok_or_else(|| ICError::UnknownDeviceID(self.ic.unwrap() as f64))?
+                .try_borrow_mut()
+            {
+                ic.ip = val as u32;
+            }
+            Ok(())
+        } else if let Some(field) = self.fields.get_mut(&typ) {
             if field.field_type == FieldType::Write || field.field_type == FieldType::ReadWrite {
                 field.value = val;
                 Ok(())
@@ -412,48 +718,111 @@ impl Device {
         }
     }
 
-    // FIXME: this needs to work with slot Occupants, see `Slot` decl
-    pub fn get_slot_field(&self, index: f64, typ: grammar::SlotLogicType) -> Result<f64, ICError> {
-        if let Some(field) = self
+    pub fn get_slot_field(&self, index: f64, typ: SlotLogicType, vm: &VM) -> Result<f64, ICError> {
+        let slot = self
             .slots
             .get(index as usize)
-            .ok_or(ICError::SlotIndexOutOfRange(index))?
-            .fields
-            .get(&typ)
+            .ok_or(ICError::SlotIndexOutOfRange(index))?;
+        if slot.typ == SlotType::ProgrammableChip
+            && slot.occupant.is_some()
+            && self.ic.is_some()
+            && typ == SlotLogicType::LineNumber
         {
-            if field.field_type == FieldType::Read || field.field_type == FieldType::ReadWrite {
-                Ok(field.value)
+            // try borrow to get ip, we should only fail if the ic is in us aka is is *our* ic
+            if let Ok(ic) = vm
+                .ics
+                .get(&self.ic.unwrap())
+                .ok_or_else(|| ICError::UnknownDeviceID(self.ic.unwrap() as f64))?
+                .try_borrow()
+            {
+                Ok(ic.ip as f64)
             } else {
-                Err(ICError::WriteOnlyField(typ.to_string()))
+                // FIXME: the game succeeds in getting the correct line number
+                // when reading it's own IC
+                Ok(0.0)
             }
         } else {
-            Err(ICError::DeviceHasNoField(typ.to_string()))
+            Ok(slot.get_field(typ))
         }
     }
 
-    // FIXME: this needs to work with slot Occupants, see `Slot` decl
+    pub fn get_slot_fields(
+        &self,
+        index: f64,
+        vm: &VM,
+    ) -> Result<HashMap<SlotLogicType, LogicField>, ICError> {
+        let slot = self
+            .slots
+            .get(index as usize)
+            .ok_or(ICError::SlotIndexOutOfRange(index))?;
+        let mut fields = slot.get_fields();
+        if slot.typ == SlotType::ProgrammableChip && slot.occupant.is_some() && self.ic.is_some() {
+            // try borrow to get ip, we should only fail if the ic is in us aka is is *our* ic
+            if let Ok(ic) = vm
+                .ics
+                .get(&self.ic.unwrap())
+                .ok_or_else(|| ICError::UnknownDeviceID(self.ic.unwrap() as f64))?
+                .try_borrow()
+            {
+                fields.insert(
+                    SlotLogicType::LineNumber,
+                    LogicField {
+                        field_type: FieldType::ReadWrite,
+                        value: ic.ip as f64,
+                    },
+                );
+            } else {
+                // FIXME: the game succeeds in getting the correct line number
+                // when reading it's own IC
+                fields.insert(
+                    SlotLogicType::LineNumber,
+                    LogicField {
+                        field_type: FieldType::ReadWrite,
+                        value: 0.0,
+                    },
+                );
+            }
+        }
+        Ok(fields)
+    }
+
     pub fn set_slot_field(
         &mut self,
         index: f64,
         typ: grammar::SlotLogicType,
         val: f64,
+        vm: &VM,
     ) -> Result<(), ICError> {
-        if let Some(field) = self
+        let slot = self
             .slots
             .get_mut(index as usize)
-            .ok_or(ICError::SlotIndexOutOfRange(index))?
-            .fields
-            .get_mut(&typ)
+            .ok_or(ICError::SlotIndexOutOfRange(index))?;
+        if slot.typ == SlotType::ProgrammableChip
+            && slot.occupant.is_some()
+            && self.ic.is_some()
+            && typ == SlotLogicType::LineNumber
         {
-            if field.field_type == FieldType::Write || field.field_type == FieldType::ReadWrite {
-                field.value = val;
-                Ok(())
-            } else {
-                Err(ICError::ReadOnlyField(typ.to_string()))
+            // try borrow to set ip, we shoudl only fail if the ic is in us aka is is *our* ic
+            // in game trying to set your own ic's LineNumber appears to be a Nop so this is fine.
+            if let Ok(mut ic) = vm
+                .ics
+                .get(&self.ic.unwrap())
+                .ok_or_else(|| ICError::UnknownDeviceID(self.ic.unwrap() as f64))?
+                .try_borrow_mut()
+            {
+                ic.ip = val as u32;
             }
+            Ok(())
         } else {
-            Err(ICError::DeviceHasNoField(typ.to_string()))
+            slot.set_field(typ, val);
+            Ok(())
         }
+    }
+
+    pub fn get_slot(&self, index: f64) -> Result<&Slot, ICError> {
+        self.slots
+            .get(index as usize)
+            .ok_or(ICError::SlotIndexOutOfRange(index))
     }
 
     pub fn get_reagent(&self, rm: &ReagentMode, reagent: f64) -> f64 {
@@ -466,9 +835,104 @@ impl Device {
     }
 
     pub fn set_name(&mut self, name: &str) {
-        self.name_hash = Some((const_crc32::crc32(name.as_bytes()) as i32).into());
+        self.name_hash = Some(const_crc32::crc32(name.as_bytes()) as i32);
         self.name = Some(name.to_owned());
     }
+
+    pub fn has_power(&self) -> bool {
+        self.connections.iter().any(|conn| {
+            if let Connection::CableNetwork { net, typ } = conn {
+                net.is_some()
+                    && matches!(
+                        typ,
+                        CableConnectionType::Power | CableConnectionType::PowerAndData
+                    )
+            } else {
+                false
+            }
+        })
+    }
+}
+
+#[derive(Debug)]
+struct IdSpace {
+    next: u32,
+    in_use: HashSet<u32>,
+}
+
+impl Default for IdSpace {
+    fn default() -> Self {
+        IdSpace::new()
+    }
+}
+
+impl IdSpace {
+    pub fn new() -> Self {
+        IdSpace {
+            next: 1,
+            in_use: HashSet::new(),
+        }
+    }
+
+    pub fn next(&mut self) -> u32 {
+        let val = self.next;
+        self.next += 1;
+        self.in_use.insert(val);
+        val
+    }
+
+    pub fn use_id(&mut self, id: u32) -> Result<(), VMError> {
+        if self.in_use.contains(&id) {
+            Err(VMError::IdInUse(id))
+        } else {
+            self.in_use.insert(id);
+            Ok(())
+        }
+    }
+
+    pub fn use_ids<'a, I>(&mut self, ids: I) -> Result<(), VMError>
+    where
+        I: IntoIterator<Item = &'a u32> + std::marker::Copy,
+    {
+        let mut to_use: HashSet<u32> = HashSet::new();
+        let mut duplicates: HashSet<u32> = HashSet::new();
+        let all_uniq = ids.into_iter().copied().all(|id| {
+            if to_use.insert(id) {
+                true
+            } else {
+                duplicates.insert(id);
+                false
+            }
+        });
+        if !all_uniq {
+            return Err(VMError::DuplicateIds(duplicates.into_iter().collect_vec()));
+        }
+        let invalid = self.in_use.intersection(&to_use).copied().collect_vec();
+        if !invalid.is_empty() {
+            return Err(VMError::IdsInUse(invalid));
+        }
+        self.in_use.extend(ids);
+        self.next = self.in_use.iter().max().unwrap_or(&0) + 1;
+        Ok(())
+    }
+
+    pub fn free_id(&mut self, id: u32) {
+        self.in_use.remove(&id);
+    }
+}
+
+#[derive(Debug)]
+pub struct VM {
+    pub ics: HashMap<u32, Rc<RefCell<interpreter::IC>>>,
+    pub devices: HashMap<u32, Rc<RefCell<Device>>>,
+    pub networks: HashMap<u32, Rc<RefCell<Network>>>,
+    pub default_network: u32,
+    id_space: IdSpace,
+    network_id_gen: IdSpace,
+    random: Rc<RefCell<crate::rand_mscorlib::Random>>,
+
+    /// list of device id's touched on the last operation
+    operation_modified: RefCell<Vec<u32>>,
 }
 
 impl Default for VM {
@@ -479,11 +943,11 @@ impl Default for VM {
 
 impl VM {
     pub fn new() -> Self {
-        let id_gen = IdSequenceGenerator::default();
-        let mut network_id_gen = IdSequenceGenerator::default();
+        let id_gen = IdSpace::default();
+        let mut network_id_space = IdSpace::default();
         let default_network = Rc::new(RefCell::new(Network::default()));
         let mut networks = HashMap::new();
-        let default_network_key = network_id_gen.next();
+        let default_network_key = network_id_space.next();
         networks.insert(default_network_key, default_network);
 
         let mut vm = VM {
@@ -491,8 +955,8 @@ impl VM {
             devices: HashMap::new(),
             networks,
             default_network: default_network_key,
-            id_gen,
-            network_id_gen,
+            id_space: id_gen,
+            network_id_gen: network_id_space,
             random: Rc::new(RefCell::new(crate::rand_mscorlib::Random::new())),
             operation_modified: RefCell::new(Vec::new()),
         };
@@ -501,17 +965,18 @@ impl VM {
     }
 
     fn new_device(&mut self) -> Device {
-        Device::new(self.id_gen.next())
+        Device::new(self.id_space.next())
     }
 
     fn new_ic(&mut self) -> (Device, interpreter::IC) {
-        let id = self.id_gen.next();
-        let ic = interpreter::IC::new(id, id);
-        let device = Device::with_ic(id, id);
+        let id = self.id_space.next();
+        let ic_id = self.id_space.next();
+        let ic = interpreter::IC::new(ic_id, id);
+        let device = Device::with_ic(id, ic_id);
         (device, ic)
     }
 
-    pub fn add_device(&mut self, network: Option<u16>) -> Result<u16, VMError> {
+    pub fn add_device(&mut self, network: Option<u32>) -> Result<u32, VMError> {
         if let Some(n) = &network {
             if !self.networks.contains_key(n) {
                 return Err(VMError::InvalidNetwork(*n));
@@ -519,8 +984,12 @@ impl VM {
         }
         let mut device = self.new_device();
         if let Some(first_network) = device.connections.iter_mut().find_map(|c| {
-            if let Connection::CableNetwork(c) = c {
-                Some(c)
+            if let Connection::CableNetwork {
+                net,
+                typ: CableConnectionType::Data | CableConnectionType::PowerAndData,
+            } = c
+            {
+                Some(net)
             } else {
                 None
             }
@@ -538,25 +1007,28 @@ impl VM {
             .iter()
             .enumerate()
             .find_map(|(index, conn)| match conn {
-                Connection::CableNetwork(_) => Some(index),
-                Connection::Other => None,
+                Connection::CableNetwork {
+                    typ: CableConnectionType::Data | CableConnectionType::PowerAndData,
+                    ..
+                } => Some(index),
+                _ => None,
             });
         self.devices.insert(id, Rc::new(RefCell::new(device)));
         if let Some(first_data_network) = first_data_network {
-            let _ = self.add_device_to_network(
+            let _ = self.set_device_connection(
                 id,
-                if let Some(network) = network {
-                    network
-                } else {
-                    self.default_network
-                },
                 first_data_network,
+                if let Some(network) = network {
+                    Some(network)
+                } else {
+                    Some(self.default_network)
+                },
             );
         }
         Ok(id)
     }
 
-    pub fn add_ic(&mut self, network: Option<u16>) -> Result<u16, VMError> {
+    pub fn add_ic(&mut self, network: Option<u32>) -> Result<u32, VMError> {
         if let Some(n) = &network {
             if !self.networks.contains_key(n) {
                 return Err(VMError::InvalidNetwork(*n));
@@ -564,8 +1036,12 @@ impl VM {
         }
         let (mut device, ic) = self.new_ic();
         if let Some(first_network) = device.connections.iter_mut().find_map(|c| {
-            if let Connection::CableNetwork(c) = c {
-                Some(c)
+            if let Connection::CableNetwork {
+                net,
+                typ: CableConnectionType::Data | CableConnectionType::PowerAndData,
+            } = c
+            {
+                Some(net)
             } else {
                 None
             }
@@ -583,26 +1059,128 @@ impl VM {
             .iter()
             .enumerate()
             .find_map(|(index, conn)| match conn {
-                Connection::CableNetwork(_) => Some(index),
-                Connection::Other => None,
+                Connection::CableNetwork {
+                    typ: CableConnectionType::Data | CableConnectionType::PowerAndData,
+                    ..
+                } => Some(index),
+                _ => None,
             });
         self.devices.insert(id, Rc::new(RefCell::new(device)));
         self.ics.insert(ic_id, Rc::new(RefCell::new(ic)));
         if let Some(first_data_network) = first_data_network {
-            let _ = self.add_device_to_network(
+            let _ = self.set_device_connection(
                 id,
-                if let Some(network) = network {
-                    network
-                } else {
-                    self.default_network
-                },
                 first_data_network,
+                if let Some(network) = network {
+                    Some(network)
+                } else {
+                    Some(self.default_network)
+                },
             );
         }
         Ok(id)
     }
 
-    pub fn add_network(&mut self) -> u16 {
+    pub fn add_device_from_template(&mut self, template: DeviceTemplate) -> Result<u32, VMError> {
+        for conn in &template.connections {
+            if let Connection::CableNetwork { net: Some(net), .. } = conn {
+                if !self.networks.contains_key(net) {
+                    return Err(VMError::InvalidNetwork(*net));
+                }
+            }
+        }
+
+        // collect the id's this template wants to use
+        let mut to_use_ids = template
+            .slots
+            .iter()
+            .filter_map(|slot| slot.occupant.as_ref().and_then(|occupant| occupant.id))
+            .collect_vec();
+        let device_id = {
+            // attempt to use all the idea at once to error without needing to clean up.
+            if let Some(id) = &template.id {
+                to_use_ids.push(*id);
+                self.id_space.use_ids(&to_use_ids)?;
+                *id
+            } else {
+                self.id_space.use_ids(&to_use_ids)?;
+                self.id_space.next()
+            }
+        };
+
+        let name_hash = template
+            .name
+            .as_ref()
+            .map(|name| const_crc32::crc32(name.as_bytes()) as i32);
+
+        let slots = template
+            .slots
+            .into_iter()
+            .map(|slot| Slot {
+                typ: slot.typ,
+                occupant: slot
+                    .occupant
+                    .map(|occupant| SlotOccupant::from_template(occupant, || self.id_space.next())),
+            })
+            .collect_vec();
+
+        let ic = slots
+            .iter()
+            .find_map(|slot| {
+                if slot.typ == SlotType::ProgrammableChip && slot.occupant.is_some() {
+                    Some(slot.occupant.clone()).flatten()
+                } else {
+                    None
+                }
+            })
+            .map(|occupant| occupant.id);
+
+        if let Some(ic_id) = &ic {
+            let chip = interpreter::IC::new(*ic_id, device_id);
+            self.ics.insert(*ic_id, Rc::new(RefCell::new(chip)));
+        }
+
+        let fields = template.fields;
+
+        let device = Device {
+            id: device_id,
+            name: template.name,
+            name_hash,
+            prefab: template.prefab_name.map(|name| Prefab::new(&name)),
+            slots,
+            // reagents: template.reagents,
+            reagents: HashMap::new(),
+            ic,
+            connections: template.connections,
+            fields,
+        };
+
+        device.connections.iter().for_each(|conn| {
+            if let Connection::CableNetwork {
+                net: Some(net),
+                typ,
+            } = conn
+            {
+                if let Some(network) = self.networks.get(net) {
+                    match typ {
+                        CableConnectionType::Power => {
+                            network.borrow_mut().add_power(device_id);
+                        }
+                        _ => {
+                            network.borrow_mut().add_data(device_id);
+                        }
+                    }
+                }
+            }
+        });
+
+        self.devices
+            .insert(device_id, Rc::new(RefCell::new(device)));
+
+        Ok(device_id)
+    }
+
+    pub fn add_network(&mut self) -> u32 {
         let next_id = self.network_id_gen.next();
         self.networks
             .insert(next_id, Rc::new(RefCell::new(Network::default())));
@@ -613,18 +1191,46 @@ impl VM {
         self.networks.get(&self.default_network).cloned().unwrap()
     }
 
-    pub fn get_network(&self, id: u16) -> Option<Rc<RefCell<Network>>> {
+    pub fn get_network(&self, id: u32) -> Option<Rc<RefCell<Network>>> {
         self.networks.get(&id).cloned()
     }
 
-    pub fn remove_ic(&mut self, id: u16) {
+    pub fn remove_ic(&mut self, id: u32) {
         if self.ics.remove(&id).is_some() {
             self.devices.remove(&id);
         }
     }
 
+    pub fn change_device_id(&mut self, old_id: u32, new_id: u32) -> Result<(), VMError> {
+        self.id_space.use_id(new_id)?;
+        let device = self
+            .devices
+            .remove(&old_id)
+            .ok_or(VMError::UnknownId(old_id))?;
+        device.borrow_mut().id = new_id;
+        self.devices.insert(new_id, device);
+        self.ics.iter().for_each(|(_id, ic)| {
+            if let Ok(mut ic_ref) = ic.try_borrow_mut() {
+                ic_ref.pins.iter_mut().for_each(|pin| {
+                    if pin.is_some_and(|d| d == old_id) {
+                        pin.replace(new_id);
+                    }
+                })
+            }
+        });
+        self.networks.iter().for_each(|(_net_id, net)| {
+            if let Ok(mut net_ref) = net.try_borrow_mut() {
+                if net_ref.devices.remove(&old_id) {
+                    net_ref.devices.insert(new_id);
+                }
+            }
+        });
+        self.id_space.free_id(old_id);
+        Ok(())
+    }
+
     /// Set program code if it's valid
-    pub fn set_code(&self, id: u16, code: &str) -> Result<bool, VMError> {
+    pub fn set_code(&self, id: u32, code: &str) -> Result<bool, VMError> {
         let device = self
             .devices
             .get(&id)
@@ -644,7 +1250,7 @@ impl VM {
     }
 
     /// Set program code and translate invalid lines to Nop, collecting errors
-    pub fn set_code_invalid(&self, id: u16, code: &str) -> Result<bool, VMError> {
+    pub fn set_code_invalid(&self, id: u32, code: &str) -> Result<bool, VMError> {
         let device = self
             .devices
             .get(&id)
@@ -664,14 +1270,18 @@ impl VM {
     }
 
     /// returns a list of device ids modified in the last operations
-    pub fn last_operation_modified(&self) -> Vec<u16> {
+    pub fn last_operation_modified(&self) -> Vec<u32> {
         self.operation_modified.borrow().clone()
     }
 
-    pub fn step_ic(&self, id: u16, advance_ip_on_err: bool) -> Result<bool, VMError> {
+    pub fn step_ic(&self, id: u32, advance_ip_on_err: bool) -> Result<bool, VMError> {
         self.operation_modified.borrow_mut().clear();
-        let device = self.devices.get(&id).ok_or(VMError::UnknownId(id))?.clone();
-        let ic_id = *device.borrow().ic.as_ref().ok_or(VMError::NoIC(id))?;
+        let ic_id = {
+            let device = self.devices.get(&id).ok_or(VMError::UnknownId(id))?;
+            let device_ref = device.borrow();
+            let ic_id = device_ref.ic.as_ref().ok_or(VMError::NoIC(id))?;
+            *ic_id
+        };
         self.set_modified(id);
         let ic = self
             .ics
@@ -684,7 +1294,7 @@ impl VM {
     }
 
     /// returns true if executed 128 lines, false if returned early.
-    pub fn run_ic(&self, id: u16, ignore_errors: bool) -> Result<bool, VMError> {
+    pub fn run_ic(&self, id: u32, ignore_errors: bool) -> Result<bool, VMError> {
         self.operation_modified.borrow_mut().clear();
         let device = self.devices.get(&id).ok_or(VMError::UnknownId(id))?.clone();
         let ic_id = *device.borrow().ic.as_ref().ok_or(VMError::NoIC(id))?;
@@ -711,11 +1321,11 @@ impl VM {
         Ok(true)
     }
 
-    pub fn set_modified(&self, id: u16) {
+    pub fn set_modified(&self, id: u32) {
         self.operation_modified.borrow_mut().push(id);
     }
 
-    pub fn reset_ic(&self, id: u16) -> Result<bool, VMError> {
+    pub fn reset_ic(&self, id: u32) -> Result<bool, VMError> {
         let device = self.devices.get(&id).ok_or(VMError::UnknownId(id))?.clone();
         let ic_id = *device.borrow().ic.as_ref().ok_or(VMError::NoIC(id))?;
         let ic = self
@@ -728,13 +1338,13 @@ impl VM {
         Ok(true)
     }
 
-    pub fn get_device(&self, id: u16) -> Option<Rc<RefCell<Device>>> {
+    pub fn get_device(&self, id: u32) -> Option<Rc<RefCell<Device>>> {
         self.devices.get(&id).cloned()
     }
 
     pub fn batch_device(
         &self,
-        source: u16,
+        source: u32,
         prefab_hash: f64,
         name: Option<f64>,
     ) -> impl Iterator<Item = &Rc<RefCell<Device>>> {
@@ -746,13 +1356,14 @@ impl VM {
                     .fields
                     .get(&LogicType::PrefabHash)
                     .is_some_and(|f| f.value == prefab_hash)
-                    && (name.is_none() || name == device.borrow().name_hash)
+                    && (name.is_none()
+                        || name == device.borrow().name_hash.as_ref().map(|hash| *hash as f64))
                     && self.devices_on_same_network(&[source, **id])
             })
             .map(|(_, d)| d)
     }
 
-    pub fn get_device_same_network(&self, source: u16, other: u16) -> Option<Rc<RefCell<Device>>> {
+    pub fn get_device_same_network(&self, source: u32, other: u32) -> Option<Rc<RefCell<Device>>> {
         if self.devices_on_same_network(&[source, other]) {
             self.get_device(other)
         } else {
@@ -760,46 +1371,41 @@ impl VM {
         }
     }
 
-    pub fn get_network_channel(&self, id: usize, channel: usize) -> Result<f64, ICError> {
-        let network = self
-            .networks
-            .get(&(id as u16))
-            .ok_or(ICError::BadNetworkId(id as u32))?;
-        Ok(network.borrow().channels[channel])
+    pub fn get_network_channel(&self, id: u32, channel: usize) -> Result<f64, ICError> {
+        let network = self.networks.get(&id).ok_or(ICError::BadNetworkId(id))?;
+        if !(0..8).contains(&channel) {
+            Err(ICError::ChannelIndexOutOfRange(channel))
+        } else {
+            Ok(network.borrow().channels[channel])
+        }
     }
 
-    pub fn set_network_channel(&self, id: usize, channel: usize, val: f64) -> Result<(), ICError> {
-        let network = self
-            .networks
-            .get(&(id as u16))
-            .ok_or(ICError::BadNetworkId(id as u32))?;
-        network.borrow_mut().channels[channel] = val;
-        Ok(())
+    pub fn set_network_channel(&self, id: u32, channel: usize, val: f64) -> Result<(), ICError> {
+        let network = self.networks.get(&(id)).ok_or(ICError::BadNetworkId(id))?;
+        if !(0..8).contains(&channel) {
+            Err(ICError::ChannelIndexOutOfRange(channel))
+        } else {
+            network.borrow_mut().channels[channel] = val;
+            Ok(())
+        }
     }
 
-    pub fn devices_on_same_network(&self, ids: &[u16]) -> bool {
+    pub fn devices_on_same_network(&self, ids: &[u32]) -> bool {
         for net in self.networks.values() {
-            if net.borrow().contains(ids) {
+            if net.borrow().contains_all_data(ids) {
                 return true;
             }
         }
         false
     }
 
-    /// return a vecter with the device ids the source id can see via it's connected netowrks
-    pub fn visible_devices(&self, source: u16) -> Vec<u16> {
+    /// return a vecter with the device ids the source id can see via it's connected networks
+    pub fn visible_devices(&self, source: u32) -> Vec<u32> {
         self.networks
             .values()
             .filter_map(|net| {
-                if net.borrow().contains(&[source]) {
-                    Some(
-                        net.borrow()
-                            .devices
-                            .iter()
-                            .filter(|id| id != &&source)
-                            .copied()
-                            .collect_vec(),
-                    )
+                if net.borrow().contains_data(&source) {
+                    Some(net.borrow().data_visible(&source))
                 } else {
                     None
                 }
@@ -807,7 +1413,7 @@ impl VM {
             .concat()
     }
 
-    pub fn set_pin(&self, id: u16, pin: usize, val: Option<u16>) -> Result<bool, VMError> {
+    pub fn set_pin(&self, id: u32, pin: usize, val: Option<u32>) -> Result<bool, VMError> {
         let Some(device) = self.devices.get(&id) else {
             return Err(VMError::UnknownId(id));
         };
@@ -830,35 +1436,85 @@ impl VM {
         }
     }
 
-    pub fn add_device_to_network(
+    pub fn set_device_connection(
         &self,
-        id: u16,
-        network_id: u16,
+        id: u32,
         connection: usize,
+        target_net: Option<u32>,
     ) -> Result<bool, VMError> {
-        if let Some(network) = self.networks.get(&network_id) {
-            let Some(device) = self.devices.get(&id) else {
-                return Err(VMError::UnknownId(id));
-            };
-            if connection >= device.borrow().connections.len() {
-                let conn_len = device.borrow().connections.len();
-                return Err(ICError::ConnectionIndexOutOfRange(connection, conn_len).into());
-            }
-            let Connection::CableNetwork(ref mut conn) =
-                device.borrow_mut().connections[connection]
-            else {
-                return Err(ICError::NotDataConnection(connection).into());
-            };
-            *conn = Some(network_id);
-
-            network.borrow_mut().add(id);
-            Ok(true)
-        } else {
-            Err(VMError::InvalidNetwork(network_id))
+        let Some(device) = self.devices.get(&id) else {
+            return Err(VMError::UnknownId(id));
+        };
+        if connection >= device.borrow().connections.len() {
+            let conn_len = device.borrow().connections.len();
+            return Err(ICError::ConnectionIndexOutOfRange(connection, conn_len).into());
         }
+
+        {
+            // scope this borrow
+            let connections = &device.borrow().connections;
+            let Connection::CableNetwork { net, typ } = &connections[connection] else {
+                return Err(ICError::NotACableConnection(connection).into());
+            };
+            // remove from current network
+            if let Some(net) = net {
+                if let Some(network) = self.networks.get(net) {
+                    // if there is no other connection to this network
+                    if connections
+                        .iter()
+                        .filter(|conn| {
+                            matches!(conn, Connection::CableNetwork {
+                                net: Some(other_net),
+                                typ: other_typ
+                            } if other_net == net && (
+                                !matches!(typ,  CableConnectionType::Power) ||
+                                matches!(other_typ, CableConnectionType::Data | CableConnectionType::PowerAndData))
+                            )
+                        })
+                        .count()
+                        == 1
+                    {
+                        match typ {
+                            CableConnectionType::Power => {
+                                network.borrow_mut().remove_power(id);
+                            }
+                            _ => {
+                                network.borrow_mut().remove_data(id);
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        let mut device_ref = device.borrow_mut();
+        let connections = &mut device_ref.connections;
+        let Connection::CableNetwork {
+            ref mut net,
+            ref typ,
+        } = connections[connection]
+        else {
+            return Err(ICError::NotACableConnection(connection).into());
+        };
+        if let Some(target_net) = target_net {
+            if let Some(network) = self.networks.get(&target_net) {
+                match typ {
+                    CableConnectionType::Power => {
+                        network.borrow_mut().add_power(id);
+                    }
+                    _ => {
+                        network.borrow_mut().add_data(id);
+                    }
+                }
+            } else {
+                return Err(VMError::InvalidNetwork(target_net));
+            }
+        }
+        *net = target_net;
+        Ok(true)
     }
 
-    pub fn remove_device_from_network(&self, id: u16, network_id: u16) -> Result<bool, VMError> {
+    pub fn remove_device_from_network(&self, id: u32, network_id: u32) -> Result<bool, VMError> {
         if let Some(network) = self.networks.get(&network_id) {
             let Some(device) = self.devices.get(&id) else {
                 return Err(VMError::UnknownId(id));
@@ -866,13 +1522,13 @@ impl VM {
             let mut device_ref = device.borrow_mut();
 
             for conn in device_ref.connections.iter_mut() {
-                if let Connection::CableNetwork(conn) = conn {
-                    if conn.is_some_and(|id| id == network_id) {
-                        *conn = None;
+                if let Connection::CableNetwork { net, .. } = conn {
+                    if net.is_some_and(|id| id == network_id) {
+                        *net = None;
                     }
                 }
             }
-            network.borrow_mut().remove(id);
+            network.borrow_mut().remove_all(id);
             Ok(true)
         } else {
             Err(VMError::InvalidNetwork(network_id))
@@ -881,7 +1537,7 @@ impl VM {
 
     pub fn set_batch_device_field(
         &self,
-        source: u16,
+        source: u32,
         prefab: f64,
         typ: LogicType,
         val: f64,
@@ -889,14 +1545,14 @@ impl VM {
         self.batch_device(source, prefab, None)
             .map(|device| {
                 self.set_modified(device.borrow().id);
-                device.borrow_mut().set_field(typ, val)
+                device.borrow_mut().set_field(typ, val, self)
             })
             .try_collect()
     }
 
     pub fn set_batch_device_slot_field(
         &self,
-        source: u16,
+        source: u32,
         prefab: f64,
         index: f64,
         typ: SlotLogicType,
@@ -905,14 +1561,14 @@ impl VM {
         self.batch_device(source, prefab, None)
             .map(|device| {
                 self.set_modified(device.borrow().id);
-                device.borrow_mut().set_slot_field(index, typ, val)
+                device.borrow_mut().set_slot_field(index, typ, val, self)
             })
             .try_collect()
     }
 
     pub fn set_batch_name_device_field(
         &self,
-        source: u16,
+        source: u32,
         prefab: f64,
         name: f64,
         typ: LogicType,
@@ -921,21 +1577,21 @@ impl VM {
         self.batch_device(source, prefab, Some(name))
             .map(|device| {
                 self.set_modified(device.borrow().id);
-                device.borrow_mut().set_field(typ, val)
+                device.borrow_mut().set_field(typ, val, self)
             })
             .try_collect()
     }
 
     pub fn get_batch_device_field(
         &self,
-        source: u16,
+        source: u32,
         prefab: f64,
         typ: LogicType,
         mode: BatchMode,
     ) -> Result<f64, ICError> {
         let samples = self
             .batch_device(source, prefab, None)
-            .map(|device| device.borrow_mut().get_field(typ))
+            .map(|device| device.borrow_mut().get_field(typ, self))
             .filter_ok(|val| !val.is_nan())
             .collect::<Result<Vec<_>, ICError>>()?;
         Ok(mode.apply(&samples))
@@ -943,7 +1599,7 @@ impl VM {
 
     pub fn get_batch_name_device_field(
         &self,
-        source: u16,
+        source: u32,
         prefab: f64,
         name: f64,
         typ: LogicType,
@@ -951,7 +1607,7 @@ impl VM {
     ) -> Result<f64, ICError> {
         let samples = self
             .batch_device(source, prefab, Some(name))
-            .map(|device| device.borrow_mut().get_field(typ))
+            .map(|device| device.borrow_mut().get_field(typ, self))
             .filter_ok(|val| !val.is_nan())
             .collect::<Result<Vec<_>, ICError>>()?;
         Ok(mode.apply(&samples))
@@ -959,7 +1615,7 @@ impl VM {
 
     pub fn get_batch_name_device_slot_field(
         &self,
-        source: u16,
+        source: u32,
         prefab: f64,
         name: f64,
         index: f64,
@@ -968,7 +1624,7 @@ impl VM {
     ) -> Result<f64, ICError> {
         let samples = self
             .batch_device(source, prefab, Some(name))
-            .map(|device| device.borrow().get_slot_field(index, typ))
+            .map(|device| device.borrow().get_slot_field(index, typ, self))
             .filter_ok(|val| !val.is_nan())
             .collect::<Result<Vec<_>, ICError>>()?;
         Ok(mode.apply(&samples))
@@ -976,7 +1632,7 @@ impl VM {
 
     pub fn get_batch_device_slot_field(
         &self,
-        source: u16,
+        source: u32,
         prefab: f64,
         index: f64,
         typ: SlotLogicType,
@@ -984,10 +1640,29 @@ impl VM {
     ) -> Result<f64, ICError> {
         let samples = self
             .batch_device(source, prefab, None)
-            .map(|device| device.borrow().get_slot_field(index, typ))
+            .map(|device| device.borrow().get_slot_field(index, typ, self))
             .filter_ok(|val| !val.is_nan())
             .collect::<Result<Vec<_>, ICError>>()?;
         Ok(mode.apply(&samples))
+    }
+
+    pub fn remove_device(&mut self, id: u32) -> Result<(), VMError> {
+        let Some(device) = self.devices.remove(&id) else {
+            return Err(VMError::UnknownId(id));
+        };
+
+        for conn in device.borrow().connections.iter() {
+            if let Connection::CableNetwork { net: Some(net), .. } = conn {
+                if let Some(network) = self.networks.get(net) {
+                    network.borrow_mut().remove_all(id);
+                }
+            }
+        }
+        if let Some(ic_id) = device.borrow().ic {
+            let _ = self.ics.remove(&ic_id);
+        }
+        self.id_space.free_id(id);
+        Ok(())
     }
 }
 
@@ -995,15 +1670,18 @@ impl BatchMode {
     pub fn apply(&self, samples: &[f64]) -> f64 {
         match self {
             BatchMode::Sum => samples.iter().sum(),
+            // Both c-charp and rust return NaN for 0.0/0.0 so we're good here
             BatchMode::Average => samples.iter().copied().sum::<f64>() / samples.len() as f64,
+            // Game uses a default of Positive INFINITY for Minimum
             BatchMode::Minimum => *samples
                 .iter()
                 .min_by(|a, b| a.partial_cmp(b).unwrap())
-                .unwrap_or(&0.0),
+                .unwrap_or(&f64::INFINITY),
+            // Game uses default of NEG_INFINITY for Maximum
             BatchMode::Maximum => *samples
                 .iter()
                 .max_by(|a, b| a.partial_cmp(b).unwrap())
-                .unwrap_or(&0.0),
+                .unwrap_or(&f64::NEG_INFINITY),
         }
     }
 }

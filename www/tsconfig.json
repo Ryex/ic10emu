@@ -3,13 +3,15 @@
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": true,
-    "module": "es2022",
+    "module": "esnext",
     "target": "es2021",
     "allowJs": true,
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
+    "esModuleInterop": true,
     "isolatedModules": true,
     "experimentalDecorators": true,
+    "useDefineForClassFields": false,
     "types": ["@types/wicg-file-system-access", "@types/ace"],
     "plugins": [
       {

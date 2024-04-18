@@ -2,7 +2,7 @@ import { property, state } from "lit/decorators.js";
 
 import {
   DeviceRef,
-  Fields,
+  LogicFields,
   Reagents,
   Slot,
   Connection,
@@ -25,7 +25,7 @@ export declare class VMDeviceMixinInterface {
   name: string | null;
   nameHash: number | null;
   prefabName: string | null;
-  fields: Fields;
+  fields: LogicFields;
   slots: Slot[];
   reagents: Reagents;
   connections: Connection[];
@@ -47,13 +47,23 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
   superClass: T,
 ) => {
   class VMDeviceMixinClass extends superClass {
-    @property({ type: Number }) accessor deviceID: number;
-    @state() accessor device: DeviceRef;
+
+    _deviceID: number;
+    get deviceID() {
+      return this._deviceID;
+    }
+    @property({ type: Number })
+    set deviceID(val: number) {
+      this._deviceID = val;
+      this.updateDevice();
+    }
+
+    device: DeviceRef;
 
     @state() accessor name: string | null = null;
     @state() accessor nameHash: number | null = null;
     @state() accessor prefabName: string | null;
-    @state() accessor fields: Fields;
+    @state() accessor fields: LogicFields;
     @state() accessor slots: Slot[];
     @state() accessor reagents: Reagents;
     @state() accessor connections: Connection[];
@@ -69,10 +79,13 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
 
     connectedCallback(): void {
       const root = super.connectedCallback();
-      this.device = window.VM!.devices.get(this.deviceID)!;
       window.VM?.addEventListener(
         "vm-device-modified",
         this._handleDeviceModified.bind(this),
+      );
+      window.VM?.addEventListener(
+        "vm-devices-update",
+        this._handleDevicesModified.bind(this),
       );
       this.updateDevice();
       return root;
@@ -82,10 +95,19 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
       const id = e.detail;
       if (this.deviceID === id) {
         this.updateDevice();
+      } else {
+        this.requestUpdate();
       }
     }
 
+    _handleDevicesModified(e: CustomEvent) {
+      const ids = e.detail;
+      this.requestUpdate();
+    }
+
     updateDevice() {
+      this.device = window.VM!.devices.get(this.deviceID)!;
+
       const name = this.device.name ?? null;
       if (this.name !== name) {
         this.name = name;
@@ -114,7 +136,9 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
       if (!structuralEqual(this.connections, connections)) {
         this.connections = connections;
       }
-      this.updateIC();
+      if (typeof this.device.ic !== "undefined") {
+        this.updateIC();
+      }
     }
 
     updateIC() {
@@ -130,7 +154,7 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
       if (this.icState !== state) {
         this.icState = state;
       }
-      const errors = this.device.program!.errors ?? null;
+      const errors = this.device.program?.errors ?? null;
       if (!structuralEqual(this.errors, errors)) {
         this.errors = errors;
       }
@@ -159,7 +183,9 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
   return VMDeviceMixinClass as Constructor<VMDeviceMixinInterface> & T;
 };
 
-export const VMActiveICMixin = <T extends Constructor<LitElement>>(superClass: T) => {
+export const VMActiveICMixin = <T extends Constructor<LitElement>>(
+  superClass: T,
+) => {
   class VMActiveICMixinClass extends VMDeviceMixin(superClass) {
     constructor() {
       super();
@@ -187,6 +213,6 @@ export const VMActiveICMixin = <T extends Constructor<LitElement>>(superClass: T
       }
       this.updateDevice();
     }
-  };
+  }
   return VMActiveICMixinClass as Constructor<VMDeviceMixinInterface> & T;
-}
+};
