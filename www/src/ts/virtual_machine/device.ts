@@ -599,8 +599,8 @@ export class VMAddDeviceButton extends BaseElement {
     const datapoints: [string, string][] = [];
     for (const entry of this._strutures.values()) {
       datapoints.push(
-        [entry.name, entry.name],
         [entry.title, entry.name],
+        [entry.name, entry.name],
         [entry.desc, entry.name],
       );
     }
@@ -843,17 +843,12 @@ export class VmDeviceTemplate extends BaseElement {
     this.deviceDB = e.detail;
   }
 
-  onImageErr(e: Event) {
-    this.image_err = true;
-    console.log("Image load error", e);
-  }
-
   renderFields(): HTMLTemplateResult {
     const fields = Object.entries(this.fields);
     return html`
       ${fields.map(([name, field], _index, _fields) => {
       return html`
-      <sl-input key="${name}" value="${field.value}" @sl-change=${this._handleChangeField} ?disabled=${name==="PrefabHash" }>
+      <sl-input key="${name}" value="${field.value}" size="small" @sl-change=${this._handleChangeField} ?disabled=${name==="PrefabHash"} >
         <span slot="prefix">${name}</span>
         <span slot="suffix">${field.field_type}</span>
       </sl-input>
@@ -932,10 +927,11 @@ export class VmDeviceTemplate extends BaseElement {
               onerror="this.src = '${VMDeviceCard.transparentImg}'" />
           </sl-tooltip>
           <div class="vstack">
-            <span class="prefab-name">${device?.name}</span>
-            <span class="prefab-hash">${device?.hash}</span>
+            <span class="prefab-title">${device.title}</span>
+            <span class="prefab-name"><small>${device?.name}</small></span>
+            <span class="prefab-hash"><small>${device?.hash}</small></span>
           </div>
-          <sl-button class="ms-auto" pill variant="success" @click=${this._handleAddButtonClick}>Add <sl-icon slot="prefix"
+          <sl-button class="ms-auto mt-auto mb-auto" pill variant="success" @click=${this._handleAddButtonClick}>Add <sl-icon slot="prefix"
               name="plus-lg"></sl-icon>
           </sl-button>
         </div>
@@ -943,15 +939,15 @@ export class VmDeviceTemplate extends BaseElement {
           <sl-tab-group>
             <sl-tab slot="nav" panel="fields">Fields</sl-tab>
             <sl-tab slot="nav" panel="slots">Slots</sl-tab>
-            <sl-tab slot="nav" panel="reagents">Reagents</sl-tab>
+            <!-- <sl-tab slot="nav" panel="reagents">Reagents</sl-tab> -->
             <sl-tab slot="nav" panel="networks">Networks</sl-tab>
-            <sl-tab slot="nav" panel="pins">Pins</sl-tab>
+            <!-- <sl-tab slot="nav" panel="pins">Pins</sl-tab> -->
 
             <sl-tab-panel name="fields">${this.renderFields()}</sl-tab-panel>
             <sl-tab-panel name="slots">${this.renderSlots()}</sl-tab-panel>
-            <sl-tab-panel name="reagents">${this.renderReagents()}</sl-tab-panel>
+            <!-- <sl-tab-panel name="reagents">${this.renderReagents()}</sl-tab-panel> -->
             <sl-tab-panel name="networks">${this.renderNetworks()}</sl-tab-panel>
-            <sl-tab-panel name="pins">${this.renderPins()}</sl-tab-panel>
+            <!-- <sl-tab-panel name="pins">${this.renderPins()}</sl-tab-panel> -->
           </sl-tab-group>
         </div>
       </sl-card>
