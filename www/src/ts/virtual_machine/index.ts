@@ -1,4 +1,4 @@
-import { DeviceRef, DeviceTemplate, VM, init } from "ic10emu_wasm";
+import { DeviceRef, DeviceTemplate, LogicType, SlotLogicType, VM, init } from "ic10emu_wasm";
 import { DeviceDB } from "./device_db";
 import "./base_device";
 
@@ -273,11 +273,12 @@ class VirtualMachine extends EventTarget {
     return false;
   }
 
-  setDeviceField(id: number, field: string, val: number): boolean {
+  setDeviceField(id: number, field: LogicType, val: number, force?: boolean): boolean {
+    force = force ?? false;
     const device = this._devices.get(id);
     if (device) {
       try {
-        device.setField(field, val);
+        device.setField(field, val, force);
         this.updateDevice(device);
         return true;
       } catch (err) {
@@ -287,11 +288,12 @@ class VirtualMachine extends EventTarget {
     return false;
   }
 
-  setDeviceSlotField(id: number, slot: number, field: string, val: number): boolean {
+  setDeviceSlotField(id: number, slot: number, field: SlotLogicType, val: number, force?: boolean): boolean {
+    force = force ?? false;
     const device = this._devices.get(id);
     if (device) {
       try {
-        device.setSlotField(slot, field, val);
+        device.setSlotField(slot, field, val, false);
         this.updateDevice(device);
         return true;
       } catch (err) {

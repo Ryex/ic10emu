@@ -288,18 +288,18 @@ impl DeviceRef {
     }
 
     #[wasm_bindgen(js_name = "setField")]
-    pub fn set_field(&self, field: &str, value: f64) -> Result<(), JsError> {
+    pub fn set_field(&self, field: &str, value: f64, force: bool) -> Result<(), JsError> {
         let logic_typ = LogicType::from_str(field)?;
         let mut device_ref = self.device.borrow_mut();
-        device_ref.set_field(logic_typ, value, &self.vm.borrow())?;
+        device_ref.set_field(logic_typ, value, &self.vm.borrow(), force)?;
         Ok(())
     }
 
     #[wasm_bindgen(js_name = "setSlotField")]
-    pub fn set_slot_field(&self, slot: f64, field: &str, value: f64) -> Result<(), JsError> {
+    pub fn set_slot_field(&self, slot: f64, field: &str, value: f64, force: bool) -> Result<(), JsError> {
         let logic_typ = SlotLogicType::from_str(field)?;
         let mut device_ref = self.device.borrow_mut();
-        device_ref.set_slot_field(slot, logic_typ, value, &self.vm.borrow())?;
+        device_ref.set_slot_field(slot, logic_typ, value, &self.vm.borrow(), force)?;
         Ok(())
     }
 

@@ -62,6 +62,7 @@ pub struct SlotOccupant {
     pub prefab_hash: i32,
     pub quantity: u32,
     pub max_quantity: u32,
+    pub sorting_class: SortingClass,
     pub damage: f64,
     fields: HashMap<SlotLogicType, LogicField>,
 }
@@ -90,6 +91,10 @@ impl SlotOccupant {
                 .remove(&SlotLogicType::Damage)
                 .map(|field| field.value)
                 .unwrap_or(0.0),
+            sorting_class: fields
+                .remove(&SlotLogicType::SortingClass)
+                .map(|field| (field.value as u32).into())
+                .unwrap_or(SortingClass::Default),
             fields,
         }
     }
@@ -109,6 +114,7 @@ impl SlotOccupant {
             quantity: 1,
             max_quantity: 1,
             damage: 0.0,
+            sorting_class: SortingClass::Default,
             fields: HashMap::new(),
         }
     }
@@ -142,13 +148,54 @@ impl SlotOccupant {
         self.fields.clone()
     }
 
-    /// slot field operations don't fail
-    pub fn set_field(&mut self, field: SlotLogicType, val: f64) {
+    pub fn set_field(
+        &mut self,
+        field: SlotLogicType,
+        val: f64,
+        force: bool,
+    ) -> Result<(), ICError> {
         if let Some(logic) = self.fields.get_mut(&field) {
             match logic.field_type {
-                FieldType::ReadWrite | FieldType::Write => logic.value = val,
-                _ => {}
+                FieldType::ReadWrite | FieldType::Write => {
+                    logic.value = val;
+                    Ok(())
+                }
+                _ => {
+                    if force {
+                        logic.value = val;
+                        Ok(())
+                    } else {
+                        Err(ICError::ReadOnlyField(field.to_string()))
+                    }
+                }
             }
+        } else if force {
+            self.fields.insert(
+                field,
+                LogicField {
+                    field_type: FieldType::ReadWrite,
+                    value: val,
+                },
+            );
+            Ok(())
+        } else {
+            Err(ICError::ReadOnlyField(field.to_string()))
+        }
+    }
+
+    pub fn can_logic_read(&self, field: SlotLogicType) -> bool {
+        if let Some(logic) = self.fields.get(&field) {
+            matches!(logic.field_type, FieldType::Read | FieldType::ReadWrite)
+        } else {
+            false
+        }
+    }
+
+    pub fn can_logic_write(&self, field: SlotLogicType) -> bool {
+        if let Some(logic) = self.fields.get(&field) {
+            matches!(logic.field_type, FieldType::Write | FieldType::ReadWrite)
+        } else {
+            false
         }
     }
 }
@@ -186,17 +233,6 @@ impl Slot {
             .map(|occupant| occupant.get_fields())
             .unwrap_or_default();
         copy.insert(
-            SlotLogicType::ReferenceId,
-            LogicField {
-                field_type: FieldType::Read,
-                value: self
-                    .occupant
-                    .as_ref()
-                    .map(|occupant| occupant.id as f64)
-                    .unwrap_or(0.0),
-            },
-        );
-        copy.insert(
             SlotLogicType::Occupied,
             LogicField {
                 field_type: FieldType::Read,
@@ -205,17 +241,6 @@ impl Slot {
         );
         copy.insert(
             SlotLogicType::OccupantHash,
-            LogicField {
-                field_type: FieldType::Read,
-                value: self
-                    .occupant
-                    .as_ref()
-                    .map(|occupant| occupant.prefab_hash as f64)
-                    .unwrap_or(0.0),
-            },
-        );
-        copy.insert(
-            SlotLogicType::PrefabHash,
             LogicField {
                 field_type: FieldType::Read,
                 value: self
@@ -237,6 +262,24 @@ impl Slot {
             },
         );
         copy.insert(
+            SlotLogicType::Damage,
+            LogicField {
+                field_type: FieldType::Read,
+                value: self
+                    .occupant
+                    .as_ref()
+                    .map(|occupant| occupant.damage)
+                    .unwrap_or(0.0),
+            },
+        );
+        copy.insert(
+            SlotLogicType::Class,
+            LogicField {
+                field_type: FieldType::Read,
+                value: self.typ as u32 as f64,
+            },
+        );
+        copy.insert(
             SlotLogicType::MaxQuantity,
             LogicField {
                 field_type: FieldType::Read,
@@ -248,16 +291,41 @@ impl Slot {
             },
         );
         copy.insert(
-            SlotLogicType::Class,
+            SlotLogicType::PrefabHash,
             LogicField {
                 field_type: FieldType::Read,
-                value: self.typ as u32 as f64,
+                value: self
+                    .occupant
+                    .as_ref()
+                    .map(|occupant| occupant.prefab_hash as f64)
+                    .unwrap_or(0.0),
+            },
+        );
+        copy.insert(
+            SlotLogicType::SortingClass,
+            LogicField {
+                field_type: FieldType::Read,
+                value: self
+                    .occupant
+                    .as_ref()
+                    .map(|occupant| occupant.sorting_class as u32 as f64)
+                    .unwrap_or(0.0),
+            },
+        );
+        copy.insert(
+            SlotLogicType::ReferenceId,
+            LogicField {
+                field_type: FieldType::Read,
+                value: self
+                    .occupant
+                    .as_ref()
+                    .map(|occupant| occupant.id as f64)
+                    .unwrap_or(0.0),
             },
         );
         copy
     }
 
-    /// the game returns 0.0 for all slotlogic types if they are not set
     pub fn get_field(&self, field: SlotLogicType) -> f64 {
         let fields = self.get_fields();
         fields
@@ -269,9 +337,80 @@ impl Slot {
             .unwrap_or(0.0)
     }
 
-    pub fn set_field(&mut self, field: SlotLogicType, val: f64) {
+    pub fn can_logic_read(&self, field: SlotLogicType) -> bool {
+        match field {
+            SlotLogicType::Pressure | SlotLogicType::Temperature | SlotLogicType::Volume => {
+                matches!(
+                    self.typ,
+                    SlotType::GasCanister | SlotType::LiquidCanister | SlotType::LiquidBottle
+                )
+            }
+            SlotLogicType::Charge | SlotLogicType::ChargeRatio => {
+                matches!(self.typ, SlotType::Battery)
+            }
+            SlotLogicType::Open => matches!(
+                self.typ,
+                SlotType::Helmet | SlotType::Tool | SlotType::Appliance
+            ),
+            SlotLogicType::Lock => matches!(self.typ, SlotType::Helmet),
+            SlotLogicType::FilterType => matches!(self.typ, SlotType::GasFilter),
+            _ => {
+                if let Some(occupant) = self.occupant.as_ref() {
+                    occupant.can_logic_read(field)
+                } else {
+                    false
+                }
+            }
+        }
+    }
+
+    pub fn can_logic_write(&self, field: SlotLogicType) -> bool {
+        match field {
+            SlotLogicType::Open => matches!(
+                self.typ,
+                SlotType::Helmet
+                    | SlotType::GasCanister
+                    | SlotType::LiquidCanister
+                    | SlotType::LiquidBottle
+            ),
+            SlotLogicType::On => matches!(
+                self.typ,
+                SlotType::Helmet | SlotType::Tool | SlotType::Appliance
+            ),
+            SlotLogicType::Lock => matches!(self.typ, SlotType::Helmet),
+            _ => {
+                if let Some(occupant) = self.occupant.as_ref() {
+                    occupant.can_logic_write(field)
+                } else {
+                    false
+                }
+            }
+        }
+    }
+
+    pub fn set_field(
+        &mut self,
+        field: SlotLogicType,
+        val: f64,
+        force: bool,
+    ) -> Result<(), ICError> {
+        if matches!(
+            field,
+            SlotLogicType::Occupied
+                | SlotLogicType::OccupantHash
+                | SlotLogicType::Quantity
+                | SlotLogicType::MaxQuantity
+                | SlotLogicType::Class
+                | SlotLogicType::PrefabHash
+                | SlotLogicType::SortingClass
+                | SlotLogicType::ReferenceId
+        ) {
+            return Err(ICError::ReadOnlyField(field.to_string()));
+        }
         if let Some(occupant) = self.occupant.as_mut() {
-            occupant.set_field(field, val);
+            occupant.set_field(field, val, force)
+        } else {
+            Err(ICError::SlotNotOccupied)
         }
     }
 }
@@ -345,6 +484,55 @@ impl Connection {
                 net: None,
                 typ: CableConnectionType::PowerAndData,
             },
+        }
+    }
+}
+
+#[derive(
+    Debug,
+    Default,
+    Clone,
+    Copy,
+    PartialEq,
+    Eq,
+    Hash,
+    strum_macros::Display,
+    EnumString,
+    EnumIter,
+    AsRefStr,
+    Serialize,
+    Deserialize,
+)]
+#[strum(serialize_all = "PascalCase")]
+pub enum SortingClass {
+    #[default]
+    Default = 0,
+    Kits = 1,
+    Tools = 2,
+    Resources,
+    Food = 4,
+    Clothing,
+    Appliances,
+    Atmospherics,
+    Storage = 8,
+    Ores,
+    Ices,
+}
+
+impl From<u32> for SortingClass {
+    fn from(value: u32) -> Self {
+        match value {
+            1 => Self::Kits,
+            2 => Self::Tools,
+            3 => Self::Resources,
+            4 => Self::Food,
+            5 => Self::Clothing,
+            6 => Self::Appliances,
+            7 => Self::Atmospherics,
+            8 => Self::Storage,
+            9 => Self::Ores,
+            10 => Self::Ices,
+            _ => Self::Default,
         }
     }
 }
@@ -631,13 +819,19 @@ impl Device {
                 },
             );
         }
-        copy.insert(
-            LogicType::Power,
-            LogicField {
-                field_type: FieldType::Read,
-                value: if self.has_power() { 1.0 } else { 0.0 },
-            },
-        );
+        if self.has_power_state() {
+            copy.insert(
+                LogicType::Power,
+                LogicField {
+                    field_type: FieldType::Read,
+                    value: if self.has_power_connection() {
+                        1.0
+                    } else {
+                        0.0
+                    },
+                },
+            );
+        }
         copy.insert(
             LogicType::ReferenceId,
             LogicField {
@@ -668,6 +862,55 @@ impl Device {
         }
     }
 
+    pub fn can_logic_read(&self, field: LogicType) -> bool {
+        match field {
+            LogicType::ReferenceId => true,
+            LogicType::LineNumber | LogicType::Error if self.ic.is_some() => true,
+            LogicType::Power if self.has_power_state() => true,
+            _ => {
+                if let Some(logic) = self.fields.get(&field) {
+                    matches!(logic.field_type, FieldType::Read | FieldType::ReadWrite)
+                } else {
+                    false
+                }
+            }
+        }
+    }
+
+    pub fn can_logic_write(&self, field: LogicType) -> bool {
+        match field {
+            LogicType::ReferenceId => false,
+            LogicType::LineNumber if self.ic.is_some() => true,
+            _ => {
+                if let Some(logic) = self.fields.get(&field) {
+                    matches!(logic.field_type, FieldType::Write | FieldType::ReadWrite)
+                } else {
+                    false
+                }
+            }
+        }
+    }
+
+    pub fn can_slot_logic_read(&self, field: SlotLogicType, slot: usize) -> bool {
+        if self.slots.is_empty() {
+            return false;
+        }
+        let Some(slot) = self.slots.get(slot) else {
+            return false;
+        };
+        slot.can_logic_read(field)
+    }
+
+    pub fn can_slot_logic_write(&self, field: SlotLogicType, slot: usize) -> bool {
+        if self.slots.is_empty() {
+            return false;
+        }
+        let Some(slot) = self.slots.get(slot) else {
+            return false;
+        };
+        slot.can_logic_write(field)
+    }
+
     pub fn get_field(&self, typ: LogicType, vm: &VM) -> Result<f64, ICError> {
         if typ == LogicType::LineNumber && self.ic.is_some() {
             if let Ok(ic) = vm
@@ -678,8 +921,9 @@ impl Device {
             {
                 Ok(ic.ip as f64)
             } else {
-                // FIXME: the game succeeds in getting the correct line number
-                // when reading it's own IC
+                // HACK: the game succeeds in getting the correct line number
+                // when reading it's own IC, but we'll panic trying to do it here
+                // this is worked around in internal_step so just return 0 here
                 Ok(0.0)
             }
         } else if let Some(field) = self.get_fields(vm).get(&typ) {
@@ -693,9 +937,20 @@ impl Device {
         }
     }
 
-    pub fn set_field(&mut self, typ: LogicType, val: f64, vm: &VM) -> Result<(), ICError> {
-        if typ == LogicType::LineNumber && self.ic.is_some() {
-            // try borrow to set ip, we shoudl only fail if the ic is in us aka is is *our* ic
+    pub fn set_field(
+        &mut self,
+        typ: LogicType,
+        val: f64,
+        vm: &VM,
+        force: bool,
+    ) -> Result<(), ICError> {
+        if typ == LogicType::ReferenceId
+            || (typ == LogicType::Error && self.ic.is_some())
+            || (typ == LogicType::Power && self.has_power_state())
+        {
+            Err(ICError::ReadOnlyField(typ.to_string()))
+        } else if typ == LogicType::LineNumber && self.ic.is_some() {
+            // try borrow to set ip, we should only fail if the ic is in use aka is is *our* ic
             // in game trying to set your own ic's LineNumber appears to be a Nop so this is fine.
             if let Ok(mut ic) = vm
                 .ics
@@ -707,12 +962,24 @@ impl Device {
             }
             Ok(())
         } else if let Some(field) = self.fields.get_mut(&typ) {
-            if field.field_type == FieldType::Write || field.field_type == FieldType::ReadWrite {
+            if field.field_type == FieldType::Write
+                || field.field_type == FieldType::ReadWrite
+                || force
+            {
                 field.value = val;
                 Ok(())
             } else {
                 Err(ICError::ReadOnlyField(typ.to_string()))
             }
+        } else if force {
+            self.fields.insert(
+                typ,
+                LogicField {
+                    field_type: FieldType::ReadWrite,
+                    value: val,
+                },
+            );
+            Ok(())
         } else {
             Err(ICError::DeviceHasNoField(typ.to_string()))
         }
@@ -737,8 +1004,9 @@ impl Device {
             {
                 Ok(ic.ip as f64)
             } else {
-                // FIXME: the game succeeds in getting the correct line number
-                // when reading it's own IC
+                // HACK: the game succeeds in getting the correct line number
+                // when reading it's own IC, but we'll panic trying to do it here
+                // this is worked around in internal_step so just return 0 here
                 Ok(0.0)
             }
         } else {
@@ -772,8 +1040,9 @@ impl Device {
                     },
                 );
             } else {
-                // FIXME: the game succeeds in getting the correct line number
-                // when reading it's own IC
+                // HACK: the game succeeds in getting the correct line number
+                // when reading it's own IC, but we'll panic trying to do it here
+                // this is worked around in internal_step so just return 0 here
                 fields.insert(
                     SlotLogicType::LineNumber,
                     LogicField {
@@ -792,6 +1061,7 @@ impl Device {
         typ: grammar::SlotLogicType,
         val: f64,
         vm: &VM,
+        force: bool,
     ) -> Result<(), ICError> {
         let slot = self
             .slots
@@ -814,8 +1084,7 @@ impl Device {
             }
             Ok(())
         } else {
-            slot.set_field(typ, val);
-            Ok(())
+            slot.set_field(typ, val, force)
         }
     }
 
@@ -839,17 +1108,27 @@ impl Device {
         self.name = Some(name.to_owned());
     }
 
-    pub fn has_power(&self) -> bool {
+    pub fn has_power_state(&self) -> bool {
         self.connections.iter().any(|conn| {
-            if let Connection::CableNetwork { net, typ } = conn {
-                net.is_some()
-                    && matches!(
-                        typ,
-                        CableConnectionType::Power | CableConnectionType::PowerAndData
-                    )
-            } else {
-                false
-            }
+            matches!(
+                conn,
+                Connection::CableNetwork {
+                    typ: CableConnectionType::Power | CableConnectionType::PowerAndData,
+                    ..
+                }
+            )
+        })
+    }
+
+    pub fn has_power_connection(&self) -> bool {
+        self.connections.iter().any(|conn| {
+            matches!(
+                conn,
+                Connection::CableNetwork {
+                    net: Some(_),
+                    typ: CableConnectionType::Power | CableConnectionType::PowerAndData,
+                }
+            )
         })
     }
 }
@@ -1541,11 +1820,14 @@ impl VM {
         prefab: f64,
         typ: LogicType,
         val: f64,
+        write_readonly: bool,
     ) -> Result<(), ICError> {
         self.batch_device(source, prefab, None)
             .map(|device| {
                 self.set_modified(device.borrow().id);
-                device.borrow_mut().set_field(typ, val, self)
+                device
+                    .borrow_mut()
+                    .set_field(typ, val, self, write_readonly)
             })
             .try_collect()
     }
@@ -1557,11 +1839,14 @@ impl VM {
         index: f64,
         typ: SlotLogicType,
         val: f64,
+        write_readonly: bool,
     ) -> Result<(), ICError> {
         self.batch_device(source, prefab, None)
             .map(|device| {
                 self.set_modified(device.borrow().id);
-                device.borrow_mut().set_slot_field(index, typ, val, self)
+                device
+                    .borrow_mut()
+                    .set_slot_field(index, typ, val, self, write_readonly)
             })
             .try_collect()
     }
@@ -1573,11 +1858,14 @@ impl VM {
         name: f64,
         typ: LogicType,
         val: f64,
+        write_readonly: bool,
     ) -> Result<(), ICError> {
         self.batch_device(source, prefab, Some(name))
             .map(|device| {
                 self.set_modified(device.borrow().id);
-                device.borrow_mut().set_field(typ, val, self)
+                device
+                    .borrow_mut()
+                    .set_field(typ, val, self, write_readonly)
             })
             .try_collect()
     }

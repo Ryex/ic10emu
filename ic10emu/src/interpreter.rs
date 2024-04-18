@@ -112,6 +112,8 @@ pub enum ICError {
     BadNetworkId(u32),
     #[error("channel index out of range '{0}'")]
     ChannelIndexOutOfRange(usize),
+    #[error("slot has no occupant")]
+    SlotNotOccupied
 }
 
 impl ICError {
@@ -2177,7 +2179,7 @@ impl IC {
                         match device {
                             Some(device) => {
                                 let val = val.as_value(this, inst, 1)?;
-                                device.borrow_mut().set_field(lt, val, vm)?;
+                                device.borrow_mut().set_field(lt, val, vm, false)?;
                                 vm.set_modified(device_id);
                                 Ok(())
                             }
@@ -2197,7 +2199,7 @@ impl IC {
                             Some(device) => {
                                 let lt = lt.as_logic_type(this, inst, 2)?;
                                 let val = val.as_value(this, inst, 3)?;
-                                device.borrow_mut().set_field(lt, val, vm)?;
+                                device.borrow_mut().set_field(lt, val, vm, false)?;
                                 vm.set_modified(device_id as u32);
                                 Ok(())
                             }
@@ -2217,7 +2219,9 @@ impl IC {
                                 let index = index.as_value(this, inst, 2)?;
                                 let slt = slt.as_slot_logic_type(this, inst, 3)?;
                                 let val = val.as_value(this, inst, 4)?;
-                                device.borrow_mut().set_slot_field(index, slt, val, vm)?;
+                                device
+                                    .borrow_mut()
+                                    .set_slot_field(index, slt, val, vm, false)?;
                                 vm.set_modified(device_id);
                                 Ok(())
                             }
@@ -2231,7 +2235,7 @@ impl IC {
                         let prefab = prefab.as_value(this, inst, 1)?;
                         let lt = lt.as_logic_type(this, inst, 2)?;
                         let val = val.as_value(this, inst, 3)?;
-                        vm.set_batch_device_field(this.device, prefab, lt, val)?;
+                        vm.set_batch_device_field(this.device, prefab, lt, val, false)?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -2242,7 +2246,14 @@ impl IC {
                         let index = index.as_value(this, inst, 2)?;
                         let slt = slt.as_slot_logic_type(this, inst, 3)?;
                         let val = val.as_value(this, inst, 4)?;
-                        vm.set_batch_device_slot_field(this.device, prefab, index, slt, val)?;
+                        vm.set_batch_device_slot_field(
+                            this.device,
+                            prefab,
+                            index,
+                            slt,
+                            val,
+                            false,
+                        )?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
@@ -2253,7 +2264,7 @@ impl IC {
                         let name = name.as_value(this, inst, 2)?;
                         let lt = lt.as_logic_type(this, inst, 3)?;
                         let val = val.as_value(this, inst, 4)?;
-                        vm.set_batch_name_device_field(this.device, prefab, name, lt, val)?;
+                        vm.set_batch_name_device_field(this.device, prefab, name, lt, val, false)?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),
@@ -2282,14 +2293,21 @@ impl IC {
                             this.set_register(indirection, target, val)?;
                             return Ok(());
                         }
-                        let device = vm.get_device_same_network(this.device, device_id);
-                        match device {
-                            Some(device) => {
-                                let val = device.borrow().get_field(lt, vm)?;
-                                this.set_register(indirection, target, val)?;
-                                Ok(())
+                        if lt == LogicType::LineNumber && this.device == device_id {
+                            // HACK: we can't use device.get_field as that will try to reborrow our
+                            // ic which will panic
+                            this.set_register(indirection, target, this.ip as f64)?;
+                            Ok(())
+                        } else {
+                            let device = vm.get_device_same_network(this.device, device_id);
+                            match device {
+                                Some(device) => {
+                                    let val = device.borrow().get_field(lt, vm)?;
+                                    this.set_register(indirection, target, val)?;
+                                    Ok(())
+                                }
+                                None => Err(UnknownDeviceID(device_id as f64)),
                             }
-                            None => Err(UnknownDeviceID(device_id as f64)),
                         }
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -2304,15 +2322,22 @@ impl IC {
                         if device_id >= u16::MAX as f64 || device_id < u16::MIN as f64 {
                             return Err(DeviceIndexOutOfRange(device_id));
                         }
-                        let device = vm.get_device_same_network(this.device, device_id as u32);
-                        match device {
-                            Some(device) => {
-                                let lt = lt.as_logic_type(this, inst, 3)?;
-                                let val = device.borrow().get_field(lt, vm)?;
-                                this.set_register(indirection, target, val)?;
-                                Ok(())
+                        let lt = lt.as_logic_type(this, inst, 3)?;
+                        if lt == LogicType::LineNumber && this.device == device_id as u32 {
+                            // HACK: we can't use device.get_field as that will try to reborrow our
+                            // ic which will panic
+                            this.set_register(indirection, target, this.ip as f64)?;
+                            Ok(())
+                        } else {
+                            let device = vm.get_device_same_network(this.device, device_id as u32);
+                            match device {
+                                Some(device) => {
+                                    let val = device.borrow().get_field(lt, vm)?;
+                                    this.set_register(indirection, target, val)?;
+                                    Ok(())
+                                }
+                                None => Err(UnknownDeviceID(device_id)),
                             }
-                            None => Err(UnknownDeviceID(device_id)),
                         }
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -2326,16 +2351,23 @@ impl IC {
                         let (Some(device_id), _connection) = dev.as_device(this, inst, 2)? else {
                             return Err(DeviceNotSet);
                         };
-                        let device = vm.get_device_same_network(this.device, device_id);
-                        match device {
-                            Some(device) => {
-                                let index = index.as_value(this, inst, 3)?;
-                                let slt = slt.as_slot_logic_type(this, inst, 4)?;
-                                let val = device.borrow().get_slot_field(index, slt, vm)?;
-                                this.set_register(indirection, target, val)?;
-                                Ok(())
+                        let slt = slt.as_slot_logic_type(this, inst, 4)?;
+                        if slt == SlotLogicType::LineNumber && this.device == device_id {
+                            // HACK: we can't use device.get_slot_field as that will try to reborrow our
+                            // ic which will panic
+                            this.set_register(indirection, target, this.ip as f64)?;
+                            Ok(())
+                        } else {
+                            let device = vm.get_device_same_network(this.device, device_id);
+                            match device {
+                                Some(device) => {
+                                    let index = index.as_value(this, inst, 3)?;
+                                    let val = device.borrow().get_slot_field(index, slt, vm)?;
+                                    this.set_register(indirection, target, val)?;
+                                    Ok(())
+                                }
+                                None => Err(UnknownDeviceID(device_id as f64)),
                             }
-                            None => Err(UnknownDeviceID(device_id as f64)),
                         }
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 4)),

@@ -430,18 +430,22 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
 
   _handleChangeField(e: CustomEvent) {
     const input = e.target as SlInput;
-    const field = input.getAttribute("key")!;
+    const field = input.getAttribute("key")! as LogicType;
     const val = parseNumber(input.value);
-    window.VM?.setDeviceField(this.deviceID, field, val);
+    if (!window.VM?.setDeviceField(this.deviceID, field, val, true)) {
+      input.value = this.fields.get(field).value.toString();
+    }
     this.updateDevice();
   }
 
   _handleChangeSlotField(e: CustomEvent) {
     const input = e.target as SlInput;
     const slot = parseInt(input.getAttribute("slotIndex")!);
-    const field = input.getAttribute("key")!;
+    const field = input.getAttribute("key")! as SlotLogicType;
     const val = parseNumber(input.value);
-    window.VM?.setDeviceSlotField(this.deviceID, slot, field, val);
+    if (!window.VM?.setDeviceSlotField(this.deviceID, slot, field, val, true)) {
+      input.value = this.device.getSlotField(slot, field).toString();
+    }
     this.updateDevice();
   }
 
