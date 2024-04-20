@@ -5,8 +5,13 @@ const miniCssExtractPlugin = require("mini-css-extract-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const { EsbuildPlugin } = require("esbuild-loader");
+const webpack = require("webpack");
 
 const path = require("path");
+const commitHash = require('child_process')
+  .execSync('git rev-parse --short HEAD')
+  .toString()
+  .trim();
 
 module.exports = {
   entry: "./src/ts/main.ts",
@@ -36,6 +41,10 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({ template: "./src/index.html" }),
     new miniCssExtractPlugin(),
+    new webpack.DefinePlugin({
+      __COMMIT_HASH__: JSON.stringify(commitHash),
+      __BUILD_DATE__: JSON.stringify(new Date),
+    }),
   ],
   module: {
     rules: [

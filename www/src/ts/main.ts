@@ -15,7 +15,7 @@ class DeferedApp {
   get(): Promise<App> {
     const that = this;
     return new Promise(resolve => {
-      if (typeof that.app !== "undefined") {
+      if (typeof that.app === "undefined") {
         that.resolvers.push(resolve);
       } else {
         resolve(that.app);
@@ -45,7 +45,7 @@ class DeferedVM {
   get(): Promise<VirtualMachine> {
     const that = this;
     return new Promise(resolve => {
-      if (typeof that.vm !== "undefined") {
+      if (typeof that.vm === "undefined") {
         that.resolvers.push(resolve);
       } else {
         resolve(that.vm);

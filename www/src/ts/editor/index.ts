@@ -274,11 +274,11 @@ export class IC10Editor extends BaseElement {
 
     const app = await window.App.get();
     app.session.onLoad(((e: CustomEvent) => {
-      const session = e.detail;
+      const session = app.session;
       const updated_ids: number[] = [];
-      for (const [id, _] of session.programs) {
+      for (const [id, code] of session.programs) {
         updated_ids.push(id);
-        that.createOrSetSession(id, session.programs.get(id));
+        that.createOrSetSession(id, code);
       }
       that.activateSession(that.active_session);
       for (const [id, _] of that.sessions) {
@@ -484,18 +484,19 @@ export class IC10Editor extends BaseElement {
     }
   }
 
-  createOrSetSession(session_id: number, content: any) {
+  createOrSetSession(session_id: number, content: string) {
     if (!this.sessions.has(session_id)) {
-      this.newSession(session_id);
+      this.newSession(session_id, content);
+    } else {
+      this.sessions.get(session_id).setValue(content);
     }
-    this.sessions.get(session_id)?.setValue(content);
   }
 
-  newSession(session_id: number) {
+  newSession(session_id: number, content?: string) {
     if (this.sessions.has(session_id)) {
       return false;
     }
-    const session = ace.createEditSession("", this.mode as any);
+    const session = ace.createEditSession(content ?? "", this.mode as any);
     session.setOptions({
       firstLineNumber: 0,
     });

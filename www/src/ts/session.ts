@@ -63,6 +63,11 @@ j ra
 import type { ICError, FrozenVM } from "ic10emu_wasm";
 import { App } from "./app";
 
+import { openDB, DBSchema } from 'idb';
+import { fromJson, toJson } from "./utils";
+
+const LOCAL_DB_VERSION = 1;
+
 export class Session extends EventTarget {
   private _programs: Map<number, string>;
   private _errors: Map<number, ICError[]>;
@@ -179,17 +184,17 @@ export class Session extends EventTarget {
   save() {
     if (this._save_timeout) clearTimeout(this._save_timeout);
     this._save_timeout = setTimeout(() => {
-      this.saveToFragment();
       if (this.app.vm) {
         this.app.vm.updateCode();
       }
+      this.saveToFragment();
       this._save_timeout = undefined;
     }, 1000);
   }
 
   async saveToFragment() {
-    const toSave = { vmState: this.app.vm.saveVMState(), activeIC: this.activeIC };
-    const bytes = new TextEncoder().encode(JSON.stringify(toSave));
+    const toSave = { vm: this.app.vm.saveVMState(), activeIC: this.activeIC };
+    const bytes = new TextEncoder().encode(toJson(toSave));
     try {
       const c_bytes = await compress(bytes, defaultCompression);
       const fragment = base64url_encode(c_bytes);
@@ -200,11 +205,29 @@ export class Session extends EventTarget {
     }
   }
 
+  async load(data: VMState | OldPrograms | string) {
+    if (typeof data === "string") {
+      this._programs = new Map([[1, data]]);
+    } else if ( "programs" in data) {
+      this._programs = new Map(data.programs);
+    } else if ( "vm" in data ) {
+      this._programs = new Map();
+      const state = data.vm;
+      // assign first so it's present when the
+      // vm fires events
+      this._activeIC = data.activeIC;
+      this.app.vm.restoreVMState(state);
+      this.programs = this.app.vm.getPrograms();
+      // assign again to fire event
+      this.activeIC = data.activeIC;
+    }
+    this._fireOnLoad();
+  }
+
   async loadFromFragment() {
     const fragment = window.location.hash.slice(1);
     if (fragment === "demo") {
-      this._programs = new Map([[1, demoCode]]);
-      this._fireOnLoad();
+      this.load(demoCode);
       return;
     }
     if (fragment.length > 0) {
@@ -215,39 +238,78 @@ export class Session extends EventTarget {
         const data = getJson(txt);
         if (data === null) {
           // backwards compatible
-          this._programs = new Map([[1, txt]]);
-          this, this._fireOnLoad();
+          this.load(txt);
           return;
         } else if ("programs" in data) {
-          try {
-            this._programs = new Map(data.programs);
-            this._fireOnLoad();
-            return;
-          } catch (e) {
-            console.log("Bad session data:", e);
-          }
-        } else if ("vmState" in data && "activeIC" in data) {
-          try {
-            this._programs = new Map();
-            const state = data.vmState as FrozenVM;
-            // assign first so it's present when the
-            // vm setting the programs list fires events
-            this._activeIC = data.activeIC;
-            this.app.vm.restoreVMState(state);
-            this.programs = this.app.vm.getPrograms();
-            // assign again to fire event
-            this.activeIC = data.activeIC;
-            this._fireOnLoad();
-            return;
-          } catch (e) {
-            console.log("Bad session data:", e);
-          }
+          this.load(data as OldPrograms);
+          return;
+        } else if ("vm" in data && "activeIC" in data) {
+          this.load(data as VMState);
         } else {
-            console.log("Bad session data:", data);
+          console.log("Bad session data:", data);
         }
       }
     }
   }
+
+  async openIndexDB() {
+    return await openDB<AppDBSchemaV1>("ic10-vm-sessions", LOCAL_DB_VERSION, {
+      upgrade(db, oldVersion, newVersion, transaction, event) {
+        // only db verison currently known is v1
+        if (oldVersion < 1) {
+          const sessionStore = db.createObjectStore('sessions');
+          sessionStore.createIndex('by-date', 'date');
+          sessionStore.createIndex('by-name', 'name');
+        }
+      },
+    });
+  }
+
+  async saveLocal(name: string) {
+    const state: VMState = {
+      vm: (await window.VM.get()).ic10vm.saveVMState(),
+      activeIC: this.activeIC,
+    };
+    const db = await this.openIndexDB();
+    const transaction = db.transaction(['sessions'], "readwrite");
+    const sessionStore = transaction.objectStore("sessions");
+    sessionStore.put({
+      name,
+      date: new Date(),
+      session: state,
+    }, name);
+    this.dispatchEvent(new CustomEvent("sessions-local-update"))
+  }
+
+  async getLocalSaved() {
+    const db = await this.openIndexDB();
+    const sessions = await db.getAll('sessions');
+    return sessions;
+  }
+}
+
+export interface VMState {
+  activeIC: number;
+  vm: FrozenVM;
+}
+
+interface AppDBSchemaV1 extends DBSchema {
+  sessions: {
+    key: string;
+    value: {
+      name: string;
+      date: Date;
+      session: VMState;
+    }
+    indexes: {
+      'by-date': Date;
+      'by-name': string;
+    };
+  }
+}
+
+export interface OldPrograms {
+  programs: [number, string][]
 }
 
 const byteToHex: string[] = [];
@@ -298,7 +360,7 @@ async function decompressFragment(c_bytes: ArrayBuffer) {
 
 function getJson(value: any) {
   try {
-    return JSON.parse(value);
+    return fromJson(value);
   } catch (_) {
     return null;
   }

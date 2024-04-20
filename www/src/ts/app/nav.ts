@@ -107,6 +107,7 @@ export class Nav extends BaseElement {
             <sl-menu class="menu" @sl-select=${this._menuClickHandler} style="z-index: 10">
               <sl-menu-item value="share">Share</sl-menu-item>
               <sl-menu-item value="openFile">Open File</sl-menu-item>
+              <sl-menu-item value="save">Save</sl-menu-item>
               <sl-menu-item value="saveAs">Save As</sl-menu-item>
               <sl-divider></sl-divider>
               <sl-menu-item value="editorSettings"
@@ -178,6 +179,9 @@ export class Nav extends BaseElement {
         break;
       case "openFile":
         this.dispatchEvent(new CustomEvent("app-open-file", { bubbles: true }));
+        break;
+      case "save":
+        this.dispatchEvent(new CustomEvent("app-save", { bubbles: true }));
         break;
       case "saveAs":
         this.dispatchEvent(new CustomEvent("app-save-as", { bubbles: true }));

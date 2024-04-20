@@ -46,6 +46,7 @@ import { DeviceDB, DeviceDBEntry } from "./device_db";
 import { connectionFromDeviceDBConnection } from "./utils";
 import { SlDialog } from "@shoelace-style/shoelace";
 import { repeat } from "lit/directives/repeat.js";
+import { cache } from "lit/directives/cache.js";
 
 @customElement("vm-device-card")
 export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
@@ -221,7 +222,8 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
           class="device-name"
           size="small"
           pill
-          placeholder="${this.prefabName}"
+          placeholder=${this.prefabName}
+          value=${this.name}
           @sl-change=${this._handleChangeName}
         >
           <span slot="prefix">Name</span>
@@ -814,18 +816,20 @@ export class VMAddDeviceButton extends BaseElement {
     this.deviceDB = e.detail;
   }
 
-  renderSearchResults(): HTMLTemplateResult {
-    const renderedResults: HTMLTemplateResult[] = this._searchResults?.map(
-      (result) => html`
+  renderSearchResults() {
+    return repeat(
+      this._searchResults ?? [],
+      (result) => result.name,
+      (result) => cache(html`
         <vm-device-template
           prefab_name=${result.name}
           class="card"
           @add-device-template=${this._handleDeviceAdd}
         >
         </vm-device-template>
-      `,
+      `)
     );
-    return html`${renderedResults}`;
+
   }
 
   _handleDeviceAdd() {
@@ -851,7 +855,7 @@ export class VMAddDeviceButton extends BaseElement {
           @sl-input=${this._handleSearchInput}
         >
           <span slot="prefix">Search Structures</span>
-          <sl-icon slot="suffix" name="search"></sl-icon>"
+          <sl-icon slot="suffix" name="search"></sl-icon>
         </sl-input>
         <div class="search-results">${this.renderSearchResults()}</div>
         <sl-button
@@ -926,8 +930,7 @@ export class VmDeviceTemplate extends BaseElement {
 
   constructor() {
     super();
-    const that = this;
-    window.VM.get().then((vm) => (that.deviceDB = vm.db));
+    this.deviceDB = window.VM.vm.db;
   }
 
   get deviceDB(): DeviceDB {

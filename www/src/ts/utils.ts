@@ -23,7 +23,11 @@ function replacer(key: any, value: any) {
     return {
       dataType: 'Number',
       value: "NaN",
-    }
+    };
+  } else if (typeof value === "undefined" ) {
+    return {
+      dataType: 'undefined',
+    };
   } else {
     return value;
   }
@@ -35,6 +39,8 @@ function reviver(_key: any, value: any) {
       return new Map(value.value);
     } else if (value.dataType === 'Number') {
       return parseFloat(value.value)
+    } else if (value.dataType === 'undefined') {
+      return undefined;
     }
   }
   return value;

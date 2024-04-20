@@ -19,6 +19,15 @@ import { VirtualMachine } from "../virtual_machine";
 import { openFile, saveFile } from "../utils";
 
 import "../virtual_machine/ui";
+import "./save";
+import { SaveDialog } from "./save";
+
+declare global {
+  const __COMMIT_HASH__: string;
+  const __BUILD_DATE__: string;
+}
+
+import packageJson from "../../../package.json"
 
 @customElement("ic10emu-app")
 export class App extends BaseElement {
@@ -43,10 +52,15 @@ export class App extends BaseElement {
     `,
   ];
 
+  version = packageJson.version;
+  gitVer = __COMMIT_HASH__;
+  buildDate = __BUILD_DATE__;
+
   editorSettings: { fontSize: number; relativeLineNumbers: boolean };
 
-  @query("ace-ic10") accessor editor: IC10Editor;
-  @query("session-share-dialog") accessor shareDialog: ShareSessionDialog;
+  @query("ace-ic10") editor: IC10Editor;
+  @query("session-share-dialog") shareDialog: ShareSessionDialog;
+  @query("save-dialog") saveDialog: SaveDialog;
 
   // get editor() {
   //   return this.renderRoot.querySelector("ace-ic10") as IC10Editor;
@@ -67,6 +81,7 @@ export class App extends BaseElement {
     root.addEventListener("app-share-session", this._handleShare.bind(this));
     root.addEventListener("app-open-file", this._handleOpenFile.bind(this));
     root.addEventListener("app-save-as", this._handleSaveAs.bind(this));
+    root.addEventListener("app-save", this._handleSave.bind(this));
     return root;
   }
 
@@ -86,6 +101,7 @@ export class App extends BaseElement {
           </sl-split-panel>
         </div>
         <session-share-dialog></session-share-dialog>
+        <save-dialog></save-dialog>
       </div>
     `;
   }
@@ -102,6 +118,9 @@ export class App extends BaseElement {
     saveFile(window.Editor.editorValue);
   }
 
+  _handleSave(_e: Event) {
+    this.saveDialog.show("save");
+  }
   _handleOpenFile(_e: Event) {
     openFile(window.Editor.editor);
   }

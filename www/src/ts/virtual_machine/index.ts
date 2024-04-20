@@ -127,6 +127,7 @@ class VirtualMachine extends EventTarget {
           detail: ids,
         }),
       );
+      this.app.session.save();
     }
   }
 
@@ -152,7 +153,7 @@ class VirtualMachine extends EventTarget {
         }
       }
     }
-    this.update();
+    this.update(false);
   }
 
   step() {
@@ -193,7 +194,7 @@ class VirtualMachine extends EventTarget {
     }
   }
 
-  update() {
+  update(save: boolean = true) {
     this.updateDevices();
     this.ic10vm.lastOperationModified.forEach((id, _index, _modifiedIds) => {
       if (this.devices.has(id)) {
@@ -202,16 +203,18 @@ class VirtualMachine extends EventTarget {
         );
       }
     }, this);
-    this.updateDevice(this.activeIC);
+    this.updateDevice(this.activeIC, save);
+    if (save) this.app.session.save();
   }
 
-  updateDevice(device: DeviceRef) {
+  updateDevice(device: DeviceRef, save: boolean = true) {
     this.dispatchEvent(
       new CustomEvent("vm-device-modified", { detail: device.id }),
     );
     if (typeof device.ic !== "undefined") {
       this.app.session.setActiveLine(device.id, device.ip!);
     }
+    if (save) this.app.session.save();
   }
 
   handleVmError(err: Error) {
@@ -272,6 +275,7 @@ class VirtualMachine extends EventTarget {
         this.dispatchEvent(
           new CustomEvent("vm-device-modified", { detail: id }),
         );
+        this.app.session.save();
         return true;
       } catch (e) {
         this.handleVmError(e);
@@ -372,6 +376,7 @@ class VirtualMachine extends EventTarget {
           detail: Array.from(device_ids),
         }),
       );
+      this.app.session.save();
       return true;
     } catch (err) {
       this.handleVmError(err);
@@ -411,11 +416,6 @@ class VirtualMachine extends EventTarget {
     );
     return programs;
   }
-}
-
-export interface VMState {
-  activeIC: number;
-  vm: FrozenVM;
 }
 
 export { VirtualMachine };
