@@ -2,14 +2,14 @@ import { HTMLTemplateResult, html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "../components";
 
-import '@shoelace-style/shoelace/dist/components/icon/icon.js';
+import "@shoelace-style/shoelace/dist/components/icon/icon.js";
 import "@shoelace-style/shoelace/dist/components/icon-button/icon-button.js";
 import "@shoelace-style/shoelace/dist/components/menu/menu.js";
 import "@shoelace-style/shoelace/dist/components/divider/divider.js";
 import "@shoelace-style/shoelace/dist/components/menu-item/menu-item.js";
 import "@shoelace-style/shoelace/dist/components/dropdown/dropdown.js";
-import '@shoelace-style/shoelace/dist/components/relative-time/relative-time.js';
-import '@shoelace-style/shoelace/dist/components/tooltip/tooltip.js';
+import "@shoelace-style/shoelace/dist/components/relative-time/relative-time.js";
+import "@shoelace-style/shoelace/dist/components/tooltip/tooltip.js";
 import SlMenuItem from "@shoelace-style/shoelace/dist/components/menu-item/menu-item.js";
 
 @customElement("app-nav")
@@ -99,9 +99,9 @@ export class Nav extends BaseElement {
     super();
   }
 
-  @property() accessor gitVer: string;
-  @property() accessor appVer: string;
-  @property() accessor buildDate: string;
+  @property() gitVer: string;
+  @property() appVer: string;
+  @property() buildDate: string;
   protected render(): HTMLTemplateResult {
     return html`
       <nav id="navBar" class="navbar navbar-default">
@@ -114,7 +114,11 @@ export class Nav extends BaseElement {
               label="Main Menu"
             ></sl-icon-button>
 
-            <sl-menu class="menu" @sl-select=${this._menuClickHandler} style="z-index: 10">
+            <sl-menu
+              class="menu"
+              @sl-select=${this._menuClickHandler}
+              style="z-index: 10"
+            >
               <sl-menu-item value="share">
                 Share
                 <sl-icon name="share" slot="prefix"></sl-icon>
@@ -150,9 +154,7 @@ export class Nav extends BaseElement {
                 Presets
                 <sl-icon name="code-square" slot="prefix"></sl-icon>
                 <sl-menu slot="submenu">
-                  <sl-menu-item value="preset-demo">
-                    Demo
-                  </sl-menu-item>
+                  <sl-menu-item value="preset-demo"> Demo </sl-menu-item>
                 </sl-menu>
               </sl-menu-item>
             </sl-menu>
@@ -167,7 +169,9 @@ export class Nav extends BaseElement {
           </div>
           <div class="hstack version mt-auto mb-auto">
             <small>v${this.appVer}-${this.gitVer}</small>
-            <small class="ms-2"><sl-relative-time date=${this.buildDate}></sl-relative-time></small>
+            <small class="ms-2">
+              <sl-relative-time date=${this.buildDate}></sl-relative-time>
+            </small>
           </div>
         </div>
 
@@ -175,7 +179,8 @@ export class Nav extends BaseElement {
           <a
             class="navbar-text mt-auto mb-auto align-self-center"
             href="https://github.com/ryex/ic10emu"
-            >View on Github <sl-icon library="fa" name="fab-github"></sl-icon>
+            >View on Github
+            <sl-icon library="fa" name="fab-github"></sl-icon>
           </a>
         </div>
 
@@ -239,7 +244,7 @@ export class Nav extends BaseElement {
       case "keyboardShortcuts":
         window.Editor.kbShortcuts.show();
         break;
-      case 'preset-demo':
+      case "preset-demo":
         window.location.hash = "demo";
       default:
         console.log("Unknown main menu item", item.value);

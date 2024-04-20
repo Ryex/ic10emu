@@ -1,10 +1,4 @@
-import {
-  ace,
-  Ace,
-  Range,
-  AceLanguageClient,
-  setupLspWorker,
-} from "./ace";
+import { ace, Ace, Range, AceLanguageClient, setupLspWorker } from "./ace";
 
 import { LanguageProvider } from "ace-linters/types/language-provider";
 
@@ -32,7 +26,10 @@ import { customElement, state, query } from "lit/decorators.js";
 import { editorStyles } from "./styles";
 import "./shortcuts_ui";
 import { AceKeyboardShortcuts } from "./shortcuts_ui";
-import { LanguageClientConfig, ProviderOptions } from "ace-linters/types/types/language-service";
+import {
+  LanguageClientConfig,
+  ProviderOptions,
+} from "ace-linters/types/types/language-service";
 
 @customElement("ace-ic10")
 export class IC10Editor extends BaseElement {
@@ -69,9 +66,9 @@ export class IC10Editor extends BaseElement {
   stylesAdded: string[];
   tooltipObserver: MutationObserver;
 
-  @query(".e-kb-shortcuts") accessor kbShortcuts: AceKeyboardShortcuts;
+  @query(".e-kb-shortcuts") kbShortcuts: AceKeyboardShortcuts;
 
-  @query(".e-settings-dialog") accessor settingDialog: SlDialog;
+  @query(".e-settings-dialog") settingDialog: SlDialog;
 
   constructor() {
     super();
@@ -137,8 +134,9 @@ export class IC10Editor extends BaseElement {
         <sl-switch
           id="editorRelativeLineNumbers"
           ?checked=${this.settings.relativeLineNumbers}
-          >Relative Line Numbers</sl-switch
-        >
+          >
+          Relative Line Numbers
+        </sl-switch>
       </sl-dialog>
       <ace-kb-menu class="e-kb-shortcuts"></ace-kb-menu>
     `;
@@ -513,9 +511,9 @@ export class IC10Editor extends BaseElement {
     };
     const options: ProviderOptions = {
       functionality: {
-        semanticTokens: true
-      }
-    }
+        semanticTokens: true,
+      },
+    };
     // Create a language provider for web worker
     this.languageProvider = AceLanguageClient.for(serverData, options);
     this.languageProvider.registerEditor(this.editor);
@@ -589,7 +587,9 @@ export class IC10Editor extends BaseElement {
     if (session) {
       session.on("change", () => {
         var val = session.getValue();
-        window.App.get().then(app => app.session.setProgramCode(session_id, val));
+        window.App.get().then((app) =>
+          app.session.setProgramCode(session_id, val),
+        );
       });
     }
   }

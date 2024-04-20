@@ -12,9 +12,9 @@ import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
 
 @customElement("session-share-dialog")
 export class ShareSessionDialog extends BaseElement {
-  @query(".dialog") accessor dialog: SlDialog;
-  @query(".input") accessor input: SlInput;
-  @property({ type: String }) accessor link: string;
+  @query(".dialog")  dialog: SlDialog;
+  @query(".input")  input: SlInput;
+  @property({ type: String })  link: string;
 
   constructor() {
     super();

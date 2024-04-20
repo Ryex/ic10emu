@@ -47,7 +47,6 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
   superClass: T,
 ) => {
   class VMDeviceMixinClass extends superClass {
-
     _deviceID: number;
     get deviceID() {
       return this._deviceID;
@@ -60,33 +59,37 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
 
     device: DeviceRef;
 
-    @state() accessor name: string | null = null;
-    @state() accessor nameHash: number | null = null;
-    @state() accessor prefabName: string | null;
-    @state() accessor fields: LogicFields;
-    @state() accessor slots: Slot[];
-    @state() accessor reagents: Reagents;
-    @state() accessor connections: Connection[];
-    @state() accessor icIP: number;
-    @state() accessor icOpCount: number;
-    @state() accessor icState: string;
-    @state() accessor errors: ICError[];
-    @state() accessor registers: Registers | null;
-    @state() accessor stack: Stack | null;
-    @state() accessor aliases: Aliases | null;
-    @state() accessor defines: Defines | null;
-    @state() accessor pins: Pins | null;
+    @state() name: string | null = null;
+    @state() nameHash: number | null = null;
+    @state() prefabName: string | null;
+    @state() fields: LogicFields;
+    @state() slots: Slot[];
+    @state() reagents: Reagents;
+    @state() connections: Connection[];
+    @state() icIP: number;
+    @state() icOpCount: number;
+    @state() icState: string;
+    @state() errors: ICError[];
+    @state() registers: Registers | null;
+    @state() stack: Stack | null;
+    @state() aliases: Aliases | null;
+    @state() defines: Defines | null;
+    @state() pins: Pins | null;
 
     connectedCallback(): void {
       const root = super.connectedCallback();
-      window.VM.get().then(vm => vm.addEventListener(
-        "vm-device-modified",
-        this._handleDeviceModified.bind(this),
-      ));
-      window.VM.get().then(vm => vm.addEventListener(
-        "vm-devices-update",
-        this._handleDevicesModified.bind(this),
-      ));
+      window.VM.get().then((vm) =>
+        vm.addEventListener(
+          "vm-device-modified",
+          this._handleDeviceModified.bind(this),
+        ),
+      );
+      window.VM.get().then((vm) =>
+        vm.addEventListener(
+          "vm-devices-update",
+          this._handleDevicesModified.bind(this),
+        ),
+      );
       this.updateDevice();
       return root;
     }
@@ -194,10 +197,9 @@ export const VMActiveICMixin = <T extends Constructor<LitElement>>(
 
     connectedCallback(): void {
       const root = super.connectedCallback();
-      window.VM.get().then(vm => vm.addEventListener(
-        "vm-run-ic",
-        this._handleDeviceModified.bind(this),
-      ));
+      window.VM.get().then((vm) =>
+        vm.addEventListener("vm-run-ic", this._handleDeviceModified.bind(this)),
+      );
       window.App.app.session.addEventListener(
         "session-active-ic",
         this._handleActiveIC.bind(this),

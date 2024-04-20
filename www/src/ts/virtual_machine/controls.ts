@@ -65,7 +65,7 @@ export class VMICControls extends VMActiveICMixin(BaseElement) {
     `,
   ];
 
-  @query(".active-ic-select") accessor activeICSelect: SlSelect;
+  @query(".active-ic-select") activeICSelect: SlSelect;
 
   protected render() {
     const ics = Array.from(window.VM.vm.ics);
@@ -125,7 +125,11 @@ export class VMICControls extends VMActiveICMixin(BaseElement) {
             >
               ${ics.map(
                 ([id, device], _index) =>
-                  html`<sl-option name=${device.name} prefabName=${device.prefabName} value=${id}>
+                  html`<sl-option
+                    name=${device.name}
+                    prefabName=${device.prefabName}
+                    value=${id}
+                  >
                     ${device.name
                       ? html`<span slot="suffix">${device.prefabName}</span>`
                       : ""}
@@ -170,13 +174,13 @@ export class VMICControls extends VMActiveICMixin(BaseElement) {
   }
 
   _handleRunClick() {
-    window.VM.get().then(vm => vm.run());
+    window.VM.get().then((vm) => vm.run());
   }
   _handleStepClick() {
-    window.VM.get().then(vm => vm.step());
+    window.VM.get().then((vm) => vm.step());
   }
   _handleResetClick() {
-    window.VM.get().then(vm => vm.reset());
+    window.VM.get().then((vm) => vm.reset());
   }
 
   updateIC(): void {

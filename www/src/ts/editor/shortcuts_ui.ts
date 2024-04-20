@@ -29,7 +29,7 @@ export class AceKeyboardShortcuts extends BaseElement {
   ];
 
   editor?: Ace.Editor;
-  @query('.drawer') accessor drawer: SlDrawer;
+  @query(".drawer") drawer: SlDrawer;
 
   constructor() {
     super();

@@ -24,7 +24,7 @@ class VirtualMachine extends EventTarget {
   _devices: Map<number, DeviceRef>;
   _ics: Map<number, DeviceRef>;
 
-  accessor db: DeviceDB;
+  db: DeviceDB;
   dbPromise: Promise<{ default: DeviceDB }>;
 
   private app: App;
