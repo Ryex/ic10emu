@@ -52,7 +52,7 @@ export class App extends BaseElement {
     `,
   ];
 
-  version = packageJson.version;
+  appVersion = packageJson.version;
   gitVer = __COMMIT_HASH__;
   buildDate = __BUILD_DATE__;
 
@@ -80,7 +80,7 @@ export class App extends BaseElement {
     const root = super.createRenderRoot();
     root.addEventListener("app-share-session", this._handleShare.bind(this));
     root.addEventListener("app-open-file", this._handleOpenFile.bind(this));
-    root.addEventListener("app-save-as", this._handleSaveAs.bind(this));
+    root.addEventListener("app-export", this._handleExport.bind(this));
     root.addEventListener("app-save", this._handleSave.bind(this));
     return root;
   }
@@ -88,7 +88,7 @@ export class App extends BaseElement {
   protected render(): HTMLTemplateResult {
     return html`
       <div class="app-container">
-        <app-nav></app-nav>
+        <app-nav appVer=${this.appVersion} gitVer=${this.gitVer} buildDate=${this.buildDate} ></app-nav>
         <div class="app-body">
           <sl-split-panel
             style="--min: 20em; --max: calc(100% - 20em);"
@@ -114,7 +114,7 @@ export class App extends BaseElement {
     this.shareDialog.show();
   }
 
-  _handleSaveAs(_e: Event) {
+  _handleExport(_e: Event) {
     saveFile(window.Editor.editorValue);
   }
 

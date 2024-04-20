@@ -8,6 +8,8 @@ import "@shoelace-style/shoelace/dist/components/menu/menu.js";
 import "@shoelace-style/shoelace/dist/components/divider/divider.js";
 import "@shoelace-style/shoelace/dist/components/menu-item/menu-item.js";
 import "@shoelace-style/shoelace/dist/components/dropdown/dropdown.js";
+import '@shoelace-style/shoelace/dist/components/relative-time/relative-time.js';
+import '@shoelace-style/shoelace/dist/components/tooltip/tooltip.js';
 import SlMenuItem from "@shoelace-style/shoelace/dist/components/menu-item/menu-item.js";
 
 @customElement("app-nav")
@@ -59,6 +61,10 @@ export class Nav extends BaseElement {
         position: relative;
         color: #fff;
       }
+      .navbar-header .version {
+        color: var(--sl-color-neutral-500);
+        font-size: var(--sl-font-size-small);
+      }
       .nav > li > a {
         color: #fff;
         line-height: 20px;
@@ -92,6 +98,10 @@ export class Nav extends BaseElement {
   constructor() {
     super();
   }
+
+  @property() gitVer: string;
+  @property() appVer: string;
+  @property() buildDate: string;
   protected render(): HTMLTemplateResult {
     return html`
       <nav id="navBar" class="navbar navbar-default">
@@ -105,26 +115,60 @@ export class Nav extends BaseElement {
             ></sl-icon-button>
 
             <sl-menu class="menu" @sl-select=${this._menuClickHandler} style="z-index: 10">
-              <sl-menu-item value="share">Share</sl-menu-item>
-              <sl-menu-item value="openFile">Open File</sl-menu-item>
-              <sl-menu-item value="save">Save</sl-menu-item>
-              <sl-menu-item value="saveAs">Save As</sl-menu-item>
+              <sl-menu-item value="share">
+                Share
+                <sl-icon name="share" slot="prefix"></sl-icon>
+              </sl-menu-item>
+              <sl-menu-item value="openFile">
+                Open File
+                <sl-icon name="folder2-open" slot="prefix"></sl-icon>
+              </sl-menu-item>
+              <sl-menu-item value="save">
+                Save
+                <sl-icon name="box-arrow-in-down" slot="prefix"></sl-icon>
+              </sl-menu-item>
+              <sl-menu-item value="load">
+                Load
+                <sl-icon name="box-arrow-up" slot="prefix"></sl-icon>
+              </sl-menu-item>
+              <sl-menu-item value="export">
+                Export current file
+                <sl-icon name="file-earmark-arrow-up" slot="prefix"></sl-icon>
+              </sl-menu-item>
               <sl-divider></sl-divider>
-              <sl-menu-item value="editorSettings"
-                >Editor Settings</sl-menu-item
-              >
+              <sl-menu-item value="editorSettings">
+                Editor Settings
+                <sl-icon name="sliders2" slot="prefix"></sl-icon>
+              </sl-menu-item>
               <sl-divider></sl-divider>
-              <sl-menu-item value="keyboardShortcuts"
-                >Editor Keyboard Shortcuts</sl-menu-item
-              >
+              <sl-menu-item value="keyboardShortcuts">
+                Editor Keyboard Shortcuts
+                <sl-icon name="command" slot="prefix"></sl-icon>
+              </sl-menu-item>
+              <sl-divider></sl-divider>
+              <sl-menu-item>
+                Presets
+                <sl-icon name="code-square" slot="prefix"></sl-icon>
+                <sl-menu slot="submenu">
+                  <sl-menu-item value="preset-demo">
+                    Demo
+                  </sl-menu-item>
+                </sl-menu>
+              </sl-menu-item>
             </sl-menu>
           </sl-dropdown>
         </div>
 
-        <div class="nav navbar-nav navbar-header ms-2">
-          <a class="navbar-brand" aria-current="page" href=""
-            >Stationeers IC10 Emulator</a
-          >
+        <div class="nav navbar-header ms-2 hstack">
+          <div>
+            <a class="navbar-brand" aria-current="page" href="">
+              Stationeers IC10 Emulator
+            </a>
+          </div>
+          <div class="hstack version mt-auto mb-auto">
+            <small>v${this.appVer}-${this.gitVer}</small>
+            <small class="ms-2"><sl-relative-time date=${this.buildDate}></sl-relative-time></small>
+          </div>
         </div>
 
         <div class="nav navbar-nav  ms-auto d-flex flex-row">
@@ -183,8 +227,11 @@ export class Nav extends BaseElement {
       case "save":
         this.dispatchEvent(new CustomEvent("app-save", { bubbles: true }));
         break;
-      case "saveAs":
-        this.dispatchEvent(new CustomEvent("app-save-as", { bubbles: true }));
+      case "load":
+        this.dispatchEvent(new CustomEvent("app-load", { bubbles: true }));
+        break;
+      case "export":
+        this.dispatchEvent(new CustomEvent("app-export", { bubbles: true }));
         break;
       case "editorSettings":
         window.Editor.settingDialog.show();
@@ -192,6 +239,8 @@ export class Nav extends BaseElement {
       case "keyboardShortcuts":
         window.Editor.kbShortcuts.show();
         break;
+      case 'preset-demo':
+        window.location.hash = "demo";
       default:
         console.log("Unknown main menu item", item.value);
     }

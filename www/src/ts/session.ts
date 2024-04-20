@@ -137,6 +137,9 @@ export class Session extends EventTarget {
 
   setProgramCode(id: number, code: string) {
     this._programs.set(id, code);
+    if (this.app.vm) {
+      this.app.vm.updateCode();
+    }
     this.save();
   }
 
@@ -184,9 +187,6 @@ export class Session extends EventTarget {
   save() {
     if (this._save_timeout) clearTimeout(this._save_timeout);
     this._save_timeout = setTimeout(() => {
-      if (this.app.vm) {
-        this.app.vm.updateCode();
-      }
       this.saveToFragment();
       this._save_timeout = undefined;
     }, 1000);

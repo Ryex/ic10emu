@@ -9,7 +9,7 @@ import "@shoelace-style/shoelace/dist/components/tooltip/tooltip.js";
 import "@shoelace-style/shoelace/dist/components/input/input.js";
 import { RegisterSpec } from "ic10emu_wasm";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
-import { parseNumber } from "../utils";
+import { displayNumber, parseNumber } from "../utils";
 
 @customElement("vm-ic-registers")
 export class VMICRegisters extends VMActiveICMixin(BaseElement) {
@@ -47,16 +47,6 @@ export class VMICRegisters extends VMActiveICMixin(BaseElement) {
   }
 
   protected render() {
-    // const inputTypeFromVal = (val: number) => { if (val === Number.NEGATIVE_INFINITY || val === Number.POSITIVE_INFINITY || Number.isNaN(val)) { return "text"; } else { return "number"; } };
-    const displayVal = (val: number) => {
-      if (Number.POSITIVE_INFINITY === val) {
-        return "∞";
-      } else if (Number.NEGATIVE_INFINITY === val) {
-        return "-∞";
-      } else {
-        return val.toString();
-      }
-    };
     const registerAliases: [string, number][] = (
       (
         [...(this.aliases ?? [])].filter(
@@ -83,7 +73,7 @@ export class VMICRegisters extends VMActiveICMixin(BaseElement) {
                 </div>
                 <sl-input
                   type="text"
-                  value="${displayVal(val)}"
+                  value="${displayNumber(val)}"
                   size="small"
                   class="reg-input"
                   @sl-change=${this._handleCellChange}

@@ -137,7 +137,7 @@ class VirtualMachine extends EventTarget {
       const attempt = Date.now().toString(16);
       const ic = this._ics.get(id);
       const prog = progs.get(id);
-      if (ic && prog) {
+      if (ic && prog && ic.code !== prog) {
         try {
           console.time(`CompileProgram_${id}_${attempt}`);
           this.ics.get(id)!.setCodeInvalid(progs.get(id)!);

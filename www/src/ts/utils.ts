@@ -12,21 +12,37 @@ export function docReady(fn: () => void) {
   }
 }
 
+function isZeroNegative(zero: number) {
+  const isZero = zero === 0;
+  const isNegative = 1 / zero === -Infinity;
+  return isNegative && isZero;
+}
 
-function replacer(key: any, value: any) {
-  if(value instanceof Map) {
+export function numberToString(n: number): string {
+  if (isZeroNegative(n)) return "-0";
+  return n.toString();
+}
+export function displayNumber(n: number): string {
+  return numberToString(n).replace("Infinity", "∞");
+}
+
+function replacer(_key: any, value: any) {
+  if (value instanceof Map) {
     return {
-      dataType: 'Map',
+      dataType: "Map",
       value: Array.from(value.entries()), // or with spread: value: [...value]
     };
-  } else if (Number.isNaN(value)) {
+  } else if (
+    typeof value === "number" &&
+    (!Number.isFinite(value) || Number.isNaN(value) || isZeroNegative(value))
+  ) {
     return {
-      dataType: 'Number',
-      value: "NaN",
+      dataType: "Number",
+      value: numberToString(value),
     };
-  } else if (typeof value === "undefined" ) {
+  } else if (typeof value === "undefined") {
     return {
-      dataType: 'undefined',
+      dataType: "undefined",
     };
   } else {
     return value;
@@ -34,12 +50,12 @@ function replacer(key: any, value: any) {
 }
 
 function reviver(_key: any, value: any) {
-  if(typeof value === 'object' && value !== null) {
-    if (value.dataType === 'Map') {
+  if (typeof value === "object" && value !== null) {
+    if (value.dataType === "Map") {
       return new Map(value.value);
-    } else if (value.dataType === 'Number') {
-      return parseFloat(value.value)
-    } else if (value.dataType === 'undefined') {
+    } else if (value.dataType === "Number") {
+      return parseFloat(value.value);
+    } else if (value.dataType === "undefined") {
       return undefined;
     }
   }
@@ -51,14 +67,13 @@ export function toJson(value: any): string {
 }
 
 export function fromJson(value: string): any {
-  return JSON.parse(value, reviver)
+  return JSON.parse(value, reviver);
 }
 
 export function structuralEqual(a: any, b: any): boolean {
   const _a = JSON.stringify(a, replacer);
   const _b = JSON.stringify(b, replacer);
   return _a === _b;
-
 }
 
 // probably not needed, fetch() exists now
@@ -173,26 +188,26 @@ export async function openFile(editor: Ace.Editor) {
 
 export function parseNumber(s: string): number {
   switch (s.toLowerCase()) {
-    case 'nan':
+    case "nan":
       return Number.NaN;
-    case 'pinf':
+    case "pinf":
       return Number.POSITIVE_INFINITY;
-    case 'ninf':
+    case "ninf":
       return Number.NEGATIVE_INFINITY;
-    case 'pi':
+    case "pi":
       return 3.141592653589793;
-    case 'deg2rad':
+    case "deg2rad":
       return 0.0174532923847437;
-    case 'rad2deg':
+    case "rad2deg":
       return 57.2957801818848;
-    case 'epsilon':
+    case "epsilon":
       return Number.EPSILON;
   }
   if (/^%[01]+$/.test(s)) {
-    return parseInt(s.slice(1), 2)
+    return parseInt(s.slice(1), 2);
   }
   if (/^\$[0-9A-Fa-f]+$/.test(s)) {
-    return parseInt(s.slice(1), 16)
+    return parseInt(s.slice(1), 16);
   }
   if (/[a-fA-F]/.test(s)) {
     const hex = parseHex(s);
@@ -200,10 +215,11 @@ export function parseNumber(s: string): number {
       return hex;
     }
   }
+  s.replace("∞", "Infinity");
   return parseFloat(s);
 }
 
-export function parseHex(h: string) : number {
+export function parseHex(h: string): number {
   var val = parseInt(h, 16);
   if (val.toString(16) === h.toLowerCase()) {
     return val;
@@ -214,10 +230,10 @@ export function parseHex(h: string) : number {
 
 export function parseIntWithHexOrBinary(s: string): number {
   if (/^%[01]+$/.test(s)) {
-    return parseInt(s.slice(1), 2)
+    return parseInt(s.slice(1), 2);
   }
   if (/^\$[0-9A-Fa-f]+$/.test(s)) {
-    return parseInt(s.slice(1), 16)
+    return parseInt(s.slice(1), 16);
   }
   if (/[a-fA-F]/.test(s)) {
     const hex = parseHex(s);

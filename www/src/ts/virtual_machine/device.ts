@@ -36,6 +36,7 @@ import "@shoelace-style/shoelace/dist/components/icon/icon.js";
 
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
 import {
+  displayNumber,
   parseIntWithHexOrBinary,
   parseNumber,
   structuralEqual,
@@ -274,7 +275,7 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
         return html` <sl-input
           id="${inputIdBase}${name}"
           key="${name}"
-          value="${field.value}"
+          value="${displayNumber(field.value)}"
           size="small"
           @sl-change=${this._handleChangeField}
         >
@@ -334,8 +335,14 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
         <div class="slot-fields">
           ${fields.map(
           ([name, field], _index, _fields) => html`
-          <sl-input id="${inputIdBase}${name}" slotIndex=${slotIndex} key="${name}" value="${field.value}" size="small"
-            @sl-change=${this._handleChangeSlotField}>
+          <sl-input
+            id="${inputIdBase}${name}"
+            slotIndex=${slotIndex}
+            key="${name}"
+            value="${displayNumber(field.value)}"
+            size="small"
+            @sl-change=${this._handleChangeSlotField}
+          >
             <span slot="prefix">${name}</span>
             <sl-copy-button slot="suffix" from="${inputIdBase}${name}.value"></sl-copy-button>
             <span slot="suffix">${field.field_type}</span>
@@ -1023,7 +1030,7 @@ export class VmDeviceTemplate extends BaseElement {
         return html`
           <sl-input
             key="${name}"
-            value="${field.value}"
+            value="${displayNumber(field.value)}"
             size="small"
             @sl-change=${this._handleChangeField}
             ?disabled=${name === "PrefabHash"}

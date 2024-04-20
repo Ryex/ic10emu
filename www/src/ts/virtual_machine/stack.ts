@@ -8,7 +8,7 @@ import "@shoelace-style/shoelace/dist/components/icon/icon.js";
 import "@shoelace-style/shoelace/dist/components/tooltip/tooltip.js";
 import "@shoelace-style/shoelace/dist/components/input/input.js";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
-import { parseNumber } from "../utils";
+import { displayNumber, parseNumber } from "../utils";
 
 @customElement("vm-ic-stack")
 export class VMICStack extends VMActiveICMixin(BaseElement) {
@@ -44,15 +44,6 @@ export class VMICStack extends VMActiveICMixin(BaseElement) {
   }
 
   protected render() {
-    const displayVal = (val: number) => {
-      if (Number.POSITIVE_INFINITY === val) {
-        return "∞";
-      } else if (Number.NEGATIVE_INFINITY === val) {
-        return "-∞";
-      } else {
-        return val.toString();
-      }
-    };
     const sp = this.registers![16];
 
     return html`
@@ -67,7 +58,7 @@ export class VMICStack extends VMActiveICMixin(BaseElement) {
                 </div>
                 <sl-input
                   type="text"
-                  value="${displayVal(val)}"
+                  value="${displayNumber(val)}"
                   size="small"
                   class="stack-input ${sp === index ? "stack-pointer" : ""}"
                   @sl-change=${this._handleCellChange}
