@@ -20,8 +20,8 @@ export class SaveDialog extends BaseElement {
     ...defaultCss,
   ];
 
-  @state() saves: { name: string, date: Date, session: VMState }[];
-  @state() mode: SaveDialogMode;
+  @state() accessor saves: { name: string, date: Date, session: VMState }[];
+  @state() accessor mode: SaveDialogMode;
 
   constructor() {
     super();
@@ -45,7 +45,7 @@ export class SaveDialog extends BaseElement {
     });
   }
 
-  @query("sl-dialog") dialog: SlDialog;
+  @query("sl-dialog") accessor dialog: SlDialog;
 
   show(mode: SaveDialogMode) {
     this.mode = mode;
@@ -61,9 +61,9 @@ export class SaveDialog extends BaseElement {
       <sl-dialog label="Save Session">
         ${when(this.mode === "save",
           () => html`
-              <div>
+              <div class="hstack mb-2">
                 <sl-input class="save-name-input" autofocus></sl-input>
-                <sl-button variant="success" @click=${this._handleSaveClick}>Save</sl-button>
+                <sl-button class="ms-2" variant="success" @click=${this._handleSaveClick}>Save</sl-button>
               </div>
             `
         )}

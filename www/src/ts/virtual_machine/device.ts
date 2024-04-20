@@ -1,4 +1,4 @@
-import {
+import type {
   Connection,
   DeviceTemplate,
   LogicField,
@@ -43,7 +43,7 @@ import {
 } from "../utils";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.js";
 import SlDrawer from "@shoelace-style/shoelace/dist/components/drawer/drawer.js";
-import { DeviceDB, DeviceDBEntry } from "./device_db";
+import type { DeviceDB, DeviceDBEntry } from "./device_db";
 import { connectionFromDeviceDBConnection } from "./utils";
 import { SlDialog } from "@shoelace-style/shoelace";
 import { repeat } from "lit/directives/repeat.js";
@@ -53,7 +53,7 @@ import { cache } from "lit/directives/cache.js";
 export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
   image_err: boolean;
 
-  @property({ type: Boolean }) open: boolean;
+  @property({ type: Boolean }) accessor open: boolean;
 
   constructor() {
     super();
@@ -465,7 +465,7 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
     `;
   }
 
-  @query(".remove-device-dialog") removeDialog: SlDialog;
+  @query(".remove-device-dialog") accessor removeDialog: SlDialog;
 
   _preventOverlayClose(event: CustomEvent) {
     if (event.detail.source === "overlay") {
@@ -928,12 +928,12 @@ export class VmDeviceTemplate extends BaseElement {
     `,
   ];
 
-  @state() fields: { [key in LogicType]?: LogicField };
-  @state() slots: SlotTemplate[];
-  @state() template: DeviceTemplate;
-  @state() device_id: number | undefined;
-  @state() device_name: string | undefined;
-  @state() connections: Connection[];
+  @state() accessor fields: { [key in LogicType]?: LogicField };
+  @state() accessor slots: SlotTemplate[];
+  @state() accessor template: DeviceTemplate;
+  @state() accessor device_id: number | undefined;
+  @state() accessor device_name: string | undefined;
+  @state() accessor connections: Connection[];
 
   constructor() {
     super();

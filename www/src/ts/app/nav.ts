@@ -99,9 +99,9 @@ export class Nav extends BaseElement {
     super();
   }
 
-  @property() gitVer: string;
-  @property() appVer: string;
-  @property() buildDate: string;
+  @property() accessor gitVer: string;
+  @property() accessor appVer: string;
+  @property() accessor buildDate: string;
   protected render(): HTMLTemplateResult {
     return html`
       <nav id="navBar" class="navbar navbar-default">

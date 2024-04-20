@@ -92,6 +92,7 @@ export class App extends BaseElement {
         <div class="app-body">
           <sl-split-panel
             style="--min: 20em; --max: calc(100% - 20em);"
+
             primary="start"
             snap="512px 50%"
             snap-threshold="15"
