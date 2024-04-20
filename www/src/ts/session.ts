@@ -60,22 +60,28 @@ j ra
 
 `;
 
-import type { ICError } from "ic10emu_wasm";
+import type { ICError, FrozenVM } from "ic10emu_wasm";
+import { App } from "./app";
 
 export class Session extends EventTarget {
-  _programs: Map<number, string>;
-  _errors: Map<number, ICError[]>;
-  _activeIC: number;
-  _activeLines: Map<number, number>;
-  _activeLine: number;
-  _save_timeout?: ReturnType<typeof setTimeout>;
-  constructor() {
+  private _programs: Map<number, string>;
+  private _errors: Map<number, ICError[]>;
+  private _activeIC: number;
+  private _activeLines: Map<number, number>;
+  private _save_timeout?: ReturnType<typeof setTimeout>;
+  private _vm_state: FrozenVM;
+
+  private app: App;
+
+  constructor(app: App) {
     super();
+    this.app = app;
     this._programs = new Map();
     this._errors = new Map();
     this._save_timeout = undefined;
     this._activeIC = 1;
     this._activeLines = new Map();
+    this._vm_state = undefined;
     this.loadFromFragment();
 
     const that = this;
@@ -84,11 +90,11 @@ export class Session extends EventTarget {
     });
   }
 
-  get programs() {
+  get programs(): Map<number, string> {
     return this._programs;
   }
 
-  set programs(programs) {
+  set programs(programs: Iterable<[number, string]>) {
     this._programs = new Map([...programs]);
     this._fireOnLoad();
   }
@@ -122,10 +128,6 @@ export class Session extends EventTarget {
       this._activeLines.set(id, line);
       this._fireOnActiveLine(id);
     }
-  }
-
-  set activeLine(line: number) {
-    this._activeLine = line;
   }
 
   setProgramCode(id: number, code: string) {
@@ -178,18 +180,18 @@ export class Session extends EventTarget {
     if (this._save_timeout) clearTimeout(this._save_timeout);
     this._save_timeout = setTimeout(() => {
       this.saveToFragment();
-      if (window.App!.vm) {
-        window.App!.vm.updateCode();
+      if (this.app.vm) {
+        this.app.vm.updateCode();
       }
       this._save_timeout = undefined;
     }, 1000);
   }
 
   async saveToFragment() {
-    const toSave = { programs: Array.from(this._programs) };
+    const toSave = { vmState: this.app.vm.saveVMState(), activeIC: this.activeIC };
     const bytes = new TextEncoder().encode(JSON.stringify(toSave));
     try {
-      const c_bytes = await compress(bytes);
+      const c_bytes = await compress(bytes, defaultCompression);
       const fragment = base64url_encode(c_bytes);
       window.history.replaceState(null, "", `#${fragment}`);
     } catch (e) {
@@ -216,21 +218,77 @@ export class Session extends EventTarget {
           this._programs = new Map([[1, txt]]);
           this, this._fireOnLoad();
           return;
-        }
-        try {
-          this._programs = new Map(data.programs);
-          this._fireOnLoad();
-          return;
-        } catch (e) {
-          console.log("Bad session data:", e);
+        } else if ("programs" in data) {
+          try {
+            this._programs = new Map(data.programs);
+            this._fireOnLoad();
+            return;
+          } catch (e) {
+            console.log("Bad session data:", e);
+          }
+        } else if ("vmState" in data && "activeIC" in data) {
+          try {
+            this._programs = new Map();
+            const state = data.vmState as FrozenVM;
+            // assign first so it's present when the
+            // vm setting the programs list fires events
+            this._activeIC = data.activeIC;
+            this.app.vm.restoreVMState(state);
+            this.programs = this.app.vm.getPrograms();
+            // assign again to fire event
+            this.activeIC = data.activeIC;
+            this._fireOnLoad();
+            return;
+          } catch (e) {
+            console.log("Bad session data:", e);
+          }
+        } else {
+            console.log("Bad session data:", data);
         }
       }
     }
   }
 }
+
+const byteToHex: string[] = [];
+
+for (let n = 0; n <= 0xff; ++n) {
+  const hexOctet = n.toString(16).padStart(2, "0");
+  byteToHex.push(hexOctet);
+}
+
+function bufToHex(arrayBuffer: ArrayBuffer): string {
+  const buff = new Uint8Array(arrayBuffer);
+  const hexOctets = new Array(buff.length);
+
+  for (let i = 0; i < buff.length; ++i) hexOctets[i] = byteToHex[buff[i]];
+
+  return hexOctets.join("");
+}
+
+export type CompressionFormat = "gzip" | "deflate" | "deflate-raw";
+const defaultCompression = "gzip";
+
+function guessFormat(bytes: ArrayBuffer): CompressionFormat {
+  const header = bufToHex(bytes.slice(0, 8));
+  if (
+    header.startsWith("789c") ||
+    header.startsWith("7801") ||
+    header.startsWith("78DA")
+  ) {
+    return "deflate";
+  } else if (header.startsWith("1f8b08")) {
+    return "gzip";
+  } else {
+    return "deflate-raw";
+  }
+}
+
 async function decompressFragment(c_bytes: ArrayBuffer) {
   try {
-    const bytes = await decompress(c_bytes);
+    const format = guessFormat(c_bytes);
+    console.log("Decompressing fragment with:", format);
+    const bytes = await decompress(c_bytes, format);
     return bytes;
   } catch (e) {
     console.log("Error decompressing content fragment:", e);
@@ -290,9 +348,12 @@ async function concatUintArrays(arrays: Uint8Array[]) {
   return new Uint8Array(buffer);
 }
 
-async function compress(bytes: ArrayBuffer) {
+async function compress(
+  bytes: ArrayBuffer,
+  format: CompressionFormat = defaultCompression,
+) {
   const s = new Blob([bytes]).stream();
-  const cs = s.pipeThrough(new CompressionStream("deflate-raw"));
+  const cs = s.pipeThrough(new CompressionStream(format));
   const chunks: Uint8Array[] = [];
   for await (const chunk of streamAsyncIterator(cs)) {
     chunks.push(chunk);
@@ -300,9 +361,12 @@ async function compress(bytes: ArrayBuffer) {
   return await concatUintArrays(chunks);
 }
 
-async function decompress(bytes: ArrayBuffer) {
+async function decompress(
+  bytes: ArrayBuffer,
+  format: CompressionFormat = defaultCompression,
+) {
   const s = new Blob([bytes]).stream();
-  const ds = s.pipeThrough(new DecompressionStream("deflate-raw"));
+  const ds = s.pipeThrough(new DecompressionStream(format));
   const chunks: Uint8Array[] = [];
   for await (const chunk of streamAsyncIterator(ds)) {
     chunks.push(chunk);

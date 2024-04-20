@@ -1,10 +1,14 @@
 use crate::{
+    device::{Device, DeviceTemplate},
     grammar::{BatchMode, LogicType, SlotLogicType},
-    interpreter::{self, ICError, LineError},
-    device::{Device, DeviceTemplate, Prefab, Slot, SlotOccupant, SlotType},
-    network::{CableConnectionType, Connection, Network},
+    interpreter::{self, FrozenIC, ICError, LineError},
+    network::{CableConnectionType, Connection, FrozenNetwork, Network},
 };
-use std::{cell::RefCell, collections::{HashMap, HashSet}, rc::Rc};
+use std::{
+    cell::RefCell,
+    collections::{HashMap, HashSet},
+    rc::Rc,
+};
 
 use itertools::Itertools;
 use serde::{Deserialize, Serialize};
@@ -41,7 +45,7 @@ pub struct VM {
     pub networks: HashMap<u32, Rc<RefCell<Network>>>,
     pub default_network: u32,
     id_space: IdSpace,
-    network_id_gen: IdSpace,
+    network_id_space: IdSpace,
     random: Rc<RefCell<crate::rand_mscorlib::Random>>,
 
     /// list of device id's touched on the last operation
@@ -58,9 +62,9 @@ impl VM {
     pub fn new() -> Self {
         let id_gen = IdSpace::default();
         let mut network_id_space = IdSpace::default();
-        let default_network = Rc::new(RefCell::new(Network::default()));
-        let mut networks = HashMap::new();
         let default_network_key = network_id_space.next();
+        let default_network = Rc::new(RefCell::new(Network::new(default_network_key)));
+        let mut networks = HashMap::new();
         networks.insert(default_network_key, default_network);
 
         let mut vm = VM {
@@ -69,7 +73,7 @@ impl VM {
             networks,
             default_network: default_network_key,
             id_space: id_gen,
-            network_id_gen: network_id_space,
+            network_id_space,
             random: Rc::new(RefCell::new(crate::rand_mscorlib::Random::new())),
             operation_modified: RefCell::new(Vec::new()),
         };
@@ -208,69 +212,23 @@ impl VM {
         }
 
         // collect the id's this template wants to use
-        let mut to_use_ids = template
+        let to_use_ids = template
             .slots
             .iter()
             .filter_map(|slot| slot.occupant.as_ref().and_then(|occupant| occupant.id))
             .collect_vec();
-        let device_id = {
-            // attempt to use all the idea at once to error without needing to clean up.
-            if let Some(id) = &template.id {
-                to_use_ids.push(*id);
-                self.id_space.use_ids(&to_use_ids)?;
-                *id
-            } else {
-                self.id_space.use_ids(&to_use_ids)?;
-                self.id_space.next()
-            }
-        };
 
-        let name_hash = template
-            .name
-            .as_ref()
-            .map(|name| const_crc32::crc32(name.as_bytes()) as i32);
+        // use those ids or fail
+        self.id_space.use_ids(&to_use_ids)?;
 
-        let slots = template
-            .slots
-            .into_iter()
-            .map(|slot| Slot {
-                typ: slot.typ,
-                occupant: slot
-                    .occupant
-                    .map(|occupant| SlotOccupant::from_template(occupant, || self.id_space.next())),
-            })
-            .collect_vec();
+        let device = Device::from_template(template, || self.id_space.next());
+        let device_id: u32 = device.id;
 
-        let ic = slots
-            .iter()
-            .find_map(|slot| {
-                if slot.typ == SlotType::ProgrammableChip && slot.occupant.is_some() {
-                    Some(slot.occupant.clone()).flatten()
-                } else {
-                    None
-                }
-            })
-            .map(|occupant| occupant.id);
-
-        if let Some(ic_id) = &ic {
+        // if this device says it has an IC make it so.
+        if let Some(ic_id) = &device.ic {
             let chip = interpreter::IC::new(*ic_id, device_id);
             self.ics.insert(*ic_id, Rc::new(RefCell::new(chip)));
         }
-
-        let fields = template.fields;
-
-        let device = Device {
-            id: device_id,
-            name: template.name,
-            name_hash,
-            prefab: template.prefab_name.map(|name| Prefab::new(&name)),
-            slots,
-            // reagents: template.reagents,
-            reagents: HashMap::new(),
-            ic,
-            connections: template.connections,
-            fields,
-        };
 
         device.connections.iter().for_each(|conn| {
             if let Connection::CableNetwork {
@@ -298,9 +256,9 @@ impl VM {
     }
 
     pub fn add_network(&mut self) -> u32 {
-        let next_id = self.network_id_gen.next();
+        let next_id = self.network_id_space.next();
         self.networks
-            .insert(next_id, Rc::new(RefCell::new(Network::default())));
+            .insert(next_id, Rc::new(RefCell::new(Network::new(next_id))));
         next_id
     }
 
@@ -470,7 +428,7 @@ impl VM {
             .filter(move |(id, device)| {
                 device
                     .borrow()
-                    .fields
+                    .get_fields(self)
                     .get(&LogicType::PrefabHash)
                     .is_some_and(|f| f.value == prefab_hash)
                     && (name.is_none()
@@ -790,6 +748,81 @@ impl VM {
         self.id_space.free_id(id);
         Ok(())
     }
+
+    pub fn save_vm_state(&self) -> FrozenVM {
+        FrozenVM {
+            ics: self.ics.values().map(|ic| ic.borrow().into()).collect(),
+            devices: self
+                .devices
+                .values()
+                .map(|device| device.borrow().into())
+                .collect(),
+            networks: self
+                .networks
+                .values()
+                .map(|network| network.borrow().into())
+                .collect(),
+            default_network: self.default_network,
+        }
+    }
+
+    pub fn restore_vm_state(&mut self, state: FrozenVM) -> Result<(), VMError> {
+        self.ics.clear();
+        self.devices.clear();
+        self.networks.clear();
+        self.id_space.reset();
+        self.network_id_space.reset();
+
+        // ic ids sould be in slot occupants, don't duplicate
+        let to_use_ids = state
+            .devices
+            .iter()
+            .map(|template| {
+                let mut ids = template
+                    .slots
+                    .iter()
+                    .filter_map(|slot| slot.occupant.as_ref().and_then(|occupant| occupant.id))
+                    .collect_vec();
+                if let Some(id) = template.id {
+                    ids.push(id);
+                }
+                ids
+            })
+            .concat();
+        self.id_space.use_ids(&to_use_ids)?;
+
+        self.network_id_space
+            .use_ids(&state.networks.iter().map(|net| net.id).collect_vec())?;
+
+        self.ics = state
+            .ics
+            .into_iter()
+            .map(|ic| (ic.id, Rc::new(RefCell::new(ic.into()))))
+            .collect();
+        self.devices = state
+            .devices
+            .into_iter()
+            .map(|template| {
+                let device = Device::from_template(template, || self.id_space.next());
+                (device.id, Rc::new(RefCell::new(device)))
+            })
+            .collect();
+        self.networks = state
+            .networks
+            .into_iter()
+            .map(|network| (network.id, Rc::new(RefCell::new(network.into()))))
+            .collect();
+        self.default_network = state.default_network;
+        Ok(())
+    }
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct FrozenVM {
+    pub ics: Vec<FrozenIC>,
+    pub devices: Vec<DeviceTemplate>,
+    pub networks: Vec<FrozenNetwork>,
+    pub default_network: u32,
 }
 
 impl BatchMode {
@@ -876,5 +909,9 @@ impl IdSpace {
 
     pub fn free_id(&mut self, id: u32) {
         self.in_use.remove(&id);
+    }
+
+    pub fn reset(&mut self) {
+        self.in_use.clear();
     }
 }

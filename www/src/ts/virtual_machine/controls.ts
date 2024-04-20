@@ -68,7 +68,7 @@ export class VMICControls extends VMActiveICMixin(BaseElement) {
   @query(".active-ic-select") accessor activeICSelect: SlSelect;
 
   protected render() {
-    const ics = Array.from(window.VM!.ics);
+    const ics = Array.from(window.VM.vm.ics);
     return html`
       <sl-card class="card">
         <div class="controls" slot="header">
@@ -170,13 +170,13 @@ export class VMICControls extends VMActiveICMixin(BaseElement) {
   }
 
   _handleRunClick() {
-    window.VM?.run();
+    window.VM.get().then(vm => vm.run());
   }
   _handleStepClick() {
-    window.VM?.step();
+    window.VM.get().then(vm => vm.step());
   }
   _handleResetClick() {
-    window.VM?.reset();
+    window.VM.get().then(vm => vm.reset());
   }
 
   updateIC(): void {
@@ -194,6 +194,6 @@ export class VMICControls extends VMActiveICMixin(BaseElement) {
   _handleChangeActiveIC(e: CustomEvent) {
     const select = e.target as SlSelect;
     const icId = parseInt(select.value as string);
-    window.App!.session.activeIC = icId;
+    window.App.app.session.activeIC = icId;
   }
 }

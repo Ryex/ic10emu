@@ -3,9 +3,9 @@ mod utils;
 mod types;
 
 use ic10emu::{
-    grammar::{LogicType, SlotLogicType},
     device::{Device, DeviceTemplate},
-    vm::{VMError, VM},
+    grammar::{LogicType, SlotLogicType},
+    vm::{FrozenVM, VMError, VM},
 };
 use serde::{Deserialize, Serialize};
 use types::{Registers, Stack};
@@ -217,6 +217,17 @@ impl DeviceRef {
         .unwrap()
     }
 
+    #[wasm_bindgen(getter, js_name = "code")]
+    pub fn get_code(&self) -> Option<String> {
+        self.device.borrow().ic.as_ref().and_then(|ic| {
+            self.vm
+                .borrow()
+                .ics
+                .get(ic)
+                .map(|ic| ic.borrow().code.clone())
+        })
+    }
+
     #[wasm_bindgen(js_name = "step")]
     pub fn step_ic(&self, advance_ip_on_err: bool) -> Result<bool, JsError> {
         let id = self.device.borrow().id;
@@ -297,7 +308,13 @@ impl DeviceRef {
     }
 
     #[wasm_bindgen(js_name = "setSlotField", skip_typescript)]
-    pub fn set_slot_field(&self, slot: f64, field: &str, value: f64, force: bool) -> Result<(), JsError> {
+    pub fn set_slot_field(
+        &self,
+        slot: f64,
+        field: &str,
+        value: f64,
+        force: bool,
+    ) -> Result<(), JsError> {
         let logic_typ = SlotLogicType::from_str(field)?;
         let mut device_ref = self.device.borrow_mut();
         device_ref.set_slot_field(slot, logic_typ, value, &self.vm.borrow(), force)?;
@@ -470,6 +487,19 @@ impl VMRef {
     #[wasm_bindgen(js_name = "removeDevice")]
     pub fn remove_device(&self, id: u32) -> Result<(), JsError> {
         Ok(self.vm.borrow_mut().remove_device(id)?)
+    }
+
+    #[wasm_bindgen(js_name = "saveVMState", skip_typescript)]
+    pub fn save_vm_state(&self) -> JsValue {
+        let state = self.vm.borrow().save_vm_state();
+        serde_wasm_bindgen::to_value(&state).unwrap()
+    }
+
+    #[wasm_bindgen(js_name = "restoreVMState", skip_typescript)]
+    pub fn restore_vm_state(&self, state: JsValue) -> Result<(), JsError> {
+        let state: FrozenVM = serde_wasm_bindgen::from_value(state)?;
+        self.vm.borrow_mut().restore_vm_state(state)?;
+        Ok(())
     }
 }
 

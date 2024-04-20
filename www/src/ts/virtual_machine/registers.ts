@@ -104,6 +104,6 @@ export class VMICRegisters extends VMActiveICMixin(BaseElement) {
     const input = e.target as SlInput;
     const index = parseInt(input.getAttribute("key")!);
     const val = parseNumber(input.value);
-    window.VM!.setRegister(index, val);
+    window.VM.vm.setRegister(index, val);
   }
 }

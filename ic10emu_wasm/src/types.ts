@@ -147,6 +147,36 @@ export interface DeviceTemplate {
   fields: { [key in LogicType]?: LogicField };
 }
 
+export interface FrozenIC {
+  device: number;
+  id: number;
+  registers: number[];
+  ip: number;
+  ic: number[];
+  stack: number[];
+  aliases: Aliases;
+  defines: Defines;
+  pins: Pins;
+  state: string;
+  code: string;
+}
+
+export interface FrozenNetwork {
+  id: number;
+  devices: number[];
+  power_only: number[];
+  channels: number[];
+}
+
+export interface FrozenVM {
+  ics: FrozenIC[];
+  devices: DeviceTemplate[];
+  networks: FrozenNetwork[];
+  default_network: number;
+}
+
 export interface VMRef {
   addDeviceFromTemplate(template: DeviceTemplate): number;
+  saveVMState(): FrozenVM;
+  restoreVMState(state: FrozenVM): void;
 }

@@ -1,4 +1,4 @@
-use std::collections::HashSet;
+use std::{collections::HashSet, ops::Deref};
 
 use serde::{Deserialize, Serialize};
 use strum_macros::{AsRefStr, EnumIter};
@@ -85,17 +85,41 @@ impl Connection {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Network {
+    pub id: u32,
     pub devices: HashSet<u32>,
     pub power_only: HashSet<u32>,
     pub channels: [f64; 8],
 }
 
-impl Default for Network {
-    fn default() -> Self {
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct FrozenNetwork {
+    pub id: u32,
+    pub devices: Vec<u32>,
+    pub power_only: Vec<u32>,
+    pub channels: [f64; 8],
+}
+
+impl<T> From<T> for FrozenNetwork
+where
+    T: Deref<Target = Network>,
+{
+    fn from(value: T) -> Self {
+        FrozenNetwork {
+            id: value.id,
+            devices: value.devices.iter().copied().collect_vec(),
+            power_only: value.power_only.iter().copied().collect_vec(),
+            channels: value.channels,
+        }
+    }
+}
+
+impl From<FrozenNetwork> for Network {
+    fn from(value: FrozenNetwork) -> Self {
         Network {
-            devices: HashSet::new(),
-            power_only: HashSet::new(),
-            channels: [f64::NAN; 8],
+            id: value.id,
+            devices: value.devices.into_iter().collect(),
+            power_only: value.power_only.into_iter().collect(),
+            channels: value.channels,
         }
     }
 }
@@ -107,6 +131,16 @@ pub enum NetworkError {
 }
 
 impl Network {
+
+    pub fn new(id: u32) -> Self {
+        Network {
+            id,
+            devices: HashSet::new(),
+            power_only: HashSet::new(),
+            channels: [f64::NAN; 8],
+        }
+    }
+
     pub fn contains(&self, id: &u32) -> bool {
         self.devices.contains(id) || self.power_only.contains(id)
     }

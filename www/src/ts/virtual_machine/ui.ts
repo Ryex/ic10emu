@@ -66,7 +66,7 @@ export class VMUI extends BaseElement {
 
   connectedCallback(): void {
     super.connectedCallback();
-    window.VM.addEventListener("vm-message", this._handleVMMessage.bind(this));
+    window.VM.get().then(vm => vm.addEventListener("vm-message", this._handleVMMessage.bind(this)));
   }
 
   _handleVMMessage(e: CustomEvent) {

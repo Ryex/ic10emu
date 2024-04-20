@@ -268,11 +268,12 @@ export class IC10Editor extends BaseElement {
     this.initializeEditor();
   }
 
-  initializeEditor() {
+  async initializeEditor() {
     let editor = this.editor;
     const that = this;
 
-    window.App!.session.onLoad(((e: CustomEvent) => {
+    const app = await window.App.get();
+    app.session.onLoad(((e: CustomEvent) => {
       const session = e.detail;
       const updated_ids: number[] = [];
       for (const [id, _] of session.programs) {
@@ -286,10 +287,10 @@ export class IC10Editor extends BaseElement {
         }
       }
     }) as EventListener);
-    window.App!.session.loadFromFragment();
+    app.session.loadFromFragment();
 
-    window.App!.session.onActiveLine(((e: CustomEvent) => {
-      const session = window.App?.session!;
+    app.session.onActiveLine(((e: CustomEvent) => {
+      const session = app.session;
       const id: number = e.detail;
       const active_line = session.getActiveLine(id);
       if (typeof active_line !== "undefined") {
@@ -587,7 +588,7 @@ export class IC10Editor extends BaseElement {
     if (session) {
       session.on("change", () => {
         var val = session.getValue();
-        window.App?.session.setProgramCode(session_id, val);
+        window.App.get().then(app => app.session.setProgramCode(session_id, val));
       });
     }
   }

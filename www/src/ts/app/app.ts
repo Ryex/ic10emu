@@ -52,14 +52,14 @@ export class App extends BaseElement {
   //   return this.renderRoot.querySelector("ace-ic10") as IC10Editor;
   // }
 
-  vm!: VirtualMachine;
-  session!: Session;
+  vm: VirtualMachine;
+  session: Session;
 
   constructor() {
     super();
-    window.App = this;
-    this.session = new Session();
-    this.vm = new VirtualMachine();
+    this.session = new Session(this);
+    this.vm = new VirtualMachine(this);
+    window.App.set(this);
   }
 
   protected createRenderRoot(): HTMLElement | DocumentFragment {
@@ -81,7 +81,7 @@ export class App extends BaseElement {
             snap="512px 50%"
             snap-threshold="15"
           >
-            <ace-ic10 slot="start" style=""></ace-ic10>
+            <ace-ic10 slot="start"></ace-ic10>
             <div slot="end"><vm-ui></vm-ui></div>
           </sl-split-panel>
         </div>
@@ -107,8 +107,4 @@ export class App extends BaseElement {
   }
 }
 
-declare global {
-  interface Window {
-    App?: App;
-  }
-}
+

@@ -1,13 +1,16 @@
-import { DeviceRef, DeviceTemplate, LogicType, SlotLogicType, VMRef, init } from "ic10emu_wasm";
+import {
+  DeviceRef,
+  DeviceTemplate,
+  FrozenVM,
+  LogicType,
+  SlotLogicType,
+  VMRef,
+  init,
+} from "ic10emu_wasm";
 import { DeviceDB } from "./device_db";
 import "./base_device";
-
-declare global {
-  interface Window {
-    VM?: VirtualMachine;
-  }
-}
-
+import { fromJson, toJson } from "../utils";
+import { App } from "../app";
 export interface ToastMessage {
   variant: "warning" | "danger" | "success" | "primary" | "neutral";
   icon: string;
@@ -24,11 +27,13 @@ class VirtualMachine extends EventTarget {
   accessor db: DeviceDB;
   dbPromise: Promise<{ default: DeviceDB }>;
 
-  constructor() {
-    super();
-    const vm = init();
+  private app: App;
 
-    window.VM = this;
+  constructor(app: App) {
+    super();
+    this.app = app;
+    const vm = init();
+    window.VM.set(this);
 
     this.ic10vm = vm;
 
@@ -74,7 +79,7 @@ class VirtualMachine extends EventTarget {
   }
 
   get activeIC() {
-    return this._ics.get(window.App!.session.activeIC);
+    return this._ics.get(this.app.session.activeIC);
   }
 
   visibleDevices(source: number) {
@@ -126,7 +131,7 @@ class VirtualMachine extends EventTarget {
   }
 
   updateCode() {
-    const progs = window.App!.session.programs;
+    const progs = this.app.session.programs;
     for (const id of progs.keys()) {
       const attempt = Date.now().toString(16);
       const ic = this._ics.get(id);
@@ -136,13 +141,13 @@ class VirtualMachine extends EventTarget {
           console.time(`CompileProgram_${id}_${attempt}`);
           this.ics.get(id)!.setCodeInvalid(progs.get(id)!);
           const compiled = this.ics.get(id)?.program!;
-          window.App?.session.setProgramErrors(id, compiled.errors);
+          this.app.session.setProgramErrors(id, compiled.errors);
           this.dispatchEvent(
             new CustomEvent("vm-device-modified", { detail: id }),
           );
         } catch (err) {
           this.handleVmError(err);
-        } finally{
+        } finally {
           console.timeEnd(`CompileProgram_${id}_${attempt}`);
         }
       }
@@ -205,7 +210,7 @@ class VirtualMachine extends EventTarget {
       new CustomEvent("vm-device-modified", { detail: device.id }),
     );
     if (typeof device.ic !== "undefined") {
-      window.App!.session.setActiveLine(device.id, device.ip!);
+      this.app.session.setActiveLine(device.id, device.ip!);
     }
   }
 
@@ -225,8 +230,8 @@ class VirtualMachine extends EventTarget {
     try {
       this.ic10vm.changeDeviceId(old_id, new_id);
       this.updateDevices();
-      if (window.App.session.activeIC === old_id) {
-        window.App.session.activeIC = new_id;
+      if (this.app.session.activeIC === old_id) {
+        this.app.session.activeIC = new_id;
       }
       return true;
     } catch (err) {
@@ -264,16 +269,23 @@ class VirtualMachine extends EventTarget {
     if (device) {
       try {
         device.setName(name);
-        this.dispatchEvent(new CustomEvent("vm-device-modified", { detail: id }));
+        this.dispatchEvent(
+          new CustomEvent("vm-device-modified", { detail: id }),
+        );
         return true;
-      } catch(e) {
+      } catch (e) {
         this.handleVmError(e);
       }
     }
     return false;
   }
 
-  setDeviceField(id: number, field: LogicType, val: number, force?: boolean): boolean {
+  setDeviceField(
+    id: number,
+    field: LogicType,
+    val: number,
+    force?: boolean,
+  ): boolean {
     force = force ?? false;
     const device = this._devices.get(id);
     if (device) {
@@ -288,7 +300,13 @@ class VirtualMachine extends EventTarget {
     return false;
   }
 
-  setDeviceSlotField(id: number, slot: number, field: SlotLogicType, val: number, force?: boolean): boolean {
+  setDeviceSlotField(
+    id: number,
+    slot: number,
+    field: SlotLogicType,
+    val: number,
+    force?: boolean,
+  ): boolean {
     force = force ?? false;
     const device = this._devices.get(id);
     if (device) {
@@ -303,18 +321,22 @@ class VirtualMachine extends EventTarget {
     return false;
   }
 
-  setDeviceConnection(id: number, conn: number, val: number | undefined): boolean {
+  setDeviceConnection(
+    id: number,
+    conn: number,
+    val: number | undefined,
+  ): boolean {
     const device = this._devices.get(id);
     if (typeof device !== "undefined") {
       try {
         this.ic10vm.setDeviceConnection(id, conn, val);
         this.updateDevice(device);
-        return true
+        return true;
       } catch (err) {
         this.handleVmError(err);
       }
     }
-    return false
+    return false;
   }
 
   setDevicePin(id: number, pin: number, val: number | undefined): boolean {
@@ -367,6 +389,33 @@ class VirtualMachine extends EventTarget {
       return false;
     }
   }
+
+  saveVMState(): FrozenVM {
+    return this.ic10vm.saveVMState();
+  }
+
+  restoreVMState(state: FrozenVM) {
+    try {
+      this.ic10vm.restoreVMState(state);
+      this._devices = new Map();
+      this._ics = new Map();
+      this.updateDevices();
+    } catch (e) {
+      this.handleVmError(e);
+    }
+  }
+
+  getPrograms() {
+    const programs: [number, string][] = Array.from(this._ics.entries()).map(
+      ([id, ic]) => [id, ic.code],
+    );
+    return programs;
+  }
+}
+
+export interface VMState {
+  activeIC: number;
+  vm: FrozenVM;
 }
 
 export { VirtualMachine };

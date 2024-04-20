@@ -79,14 +79,14 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
 
     connectedCallback(): void {
       const root = super.connectedCallback();
-      window.VM?.addEventListener(
+      window.VM.get().then(vm => vm.addEventListener(
         "vm-device-modified",
         this._handleDeviceModified.bind(this),
-      );
-      window.VM?.addEventListener(
+      ));
+      window.VM.get().then(vm => vm.addEventListener(
         "vm-devices-update",
         this._handleDevicesModified.bind(this),
-      );
+      ));
       this.updateDevice();
       return root;
     }
@@ -106,7 +106,7 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
     }
 
     updateDevice() {
-      this.device = window.VM!.devices.get(this.deviceID)!;
+      this.device = window.VM.vm.devices.get(this.deviceID)!;
 
       const name = this.device.name ?? null;
       if (this.name !== name) {
@@ -189,16 +189,16 @@ export const VMActiveICMixin = <T extends Constructor<LitElement>>(
   class VMActiveICMixinClass extends VMDeviceMixin(superClass) {
     constructor() {
       super();
-      this.deviceID = window.App!.session.activeIC;
+      this.deviceID = window.App.app.session.activeIC;
     }
 
     connectedCallback(): void {
       const root = super.connectedCallback();
-      window.VM?.addEventListener(
+      window.VM.get().then(vm => vm.addEventListener(
         "vm-run-ic",
         this._handleDeviceModified.bind(this),
-      );
-      window.App?.session.addEventListener(
+      ));
+      window.App.app.session.addEventListener(
         "session-active-ic",
         this._handleActiveIC.bind(this),
       );
@@ -209,7 +209,7 @@ export const VMActiveICMixin = <T extends Constructor<LitElement>>(
       const id = e.detail;
       if (this.deviceID !== id) {
         this.deviceID = id;
-        this.device = window.VM!.devices.get(this.deviceID)!;
+        this.device = window.VM.vm.devices.get(this.deviceID)!;
       }
       this.updateDevice();
     }

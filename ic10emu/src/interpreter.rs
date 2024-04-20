@@ -1,6 +1,6 @@
 use core::f64;
 use serde::{Deserialize, Serialize};
-use std::string::ToString;
+use std::{ops::Deref, string::ToString};
 use std::{
     collections::{HashMap, HashSet},
     error::Error,
@@ -12,7 +12,12 @@ use itertools::Itertools;
 
 use time::format_description;
 
-use crate::{grammar::{self, ParseError}, vm::VM};
+use crate::{
+    grammar::{self, ParseError},
+    vm::VM,
+};
+
+use serde_with::serde_as;
 
 use thiserror::Error;
 
@@ -113,7 +118,7 @@ pub enum ICError {
     #[error("channel index out of range '{0}'")]
     ChannelIndexOutOfRange(usize),
     #[error("slot has no occupant")]
-    SlotNotOccupied
+    SlotNotOccupied,
 }
 
 impl ICError {
@@ -187,6 +192,65 @@ pub struct IC {
     pub code: String,
     pub program: Program,
     pub state: ICState,
+}
+
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct FrozenIC {
+    pub device: u32,
+    pub id: u32,
+    pub registers: [f64; 18],
+    /// Instruction Pointer
+    pub ip: u32,
+    /// Instruction Count since last yield
+    pub ic: u16,
+    #[serde_as(as = "[_; 512]")]
+    pub stack: [f64; 512],
+    pub aliases: HashMap<String, grammar::Operand>,
+    pub defines: HashMap<String, f64>,
+    pub pins: [Option<u32>; 6],
+    pub state: ICState,
+    pub code: String,
+}
+
+impl<T> From<T> for FrozenIC
+    where T: Deref<Target = IC>
+{
+    fn from(ic: T) -> Self {
+        FrozenIC {
+            device: ic.device,
+            id: ic.id,
+            registers: ic.registers,
+            ip: ic.ip,
+            ic: ic.ic,
+            stack: ic.stack,
+            aliases: ic.aliases.clone(),
+            defines: ic.defines.clone(),
+            pins: ic.pins,
+            state: ic.state.clone(),
+            code: ic.code.clone(),
+        }
+    }
+}
+
+impl From<FrozenIC> for IC {
+    fn from(value: FrozenIC) -> Self {
+        IC {
+            device: value.device,
+            id: value.id,
+            registers: value.registers,
+            ip: value.ip,
+            ic: value.ic,
+            stack: value.stack,
+            aliases: value.aliases,
+            defines: value.defines,
+            pins: value.pins,
+            state: value.state,
+            code: value.code.clone(),
+            program: Program::from_code_with_invalid(&value.code),
+        }
+    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

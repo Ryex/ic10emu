@@ -19,6 +19,11 @@ function replacer(key: any, value: any) {
       dataType: 'Map',
       value: Array.from(value.entries()), // or with spread: value: [...value]
     };
+  } else if (Number.isNaN(value)) {
+    return {
+      dataType: 'Number',
+      value: "NaN",
+    }
   } else {
     return value;
   }
@@ -28,6 +33,8 @@ function reviver(_key: any, value: any) {
   if(typeof value === 'object' && value !== null) {
     if (value.dataType === 'Map') {
       return new Map(value.value);
+    } else if (value.dataType === 'Number') {
+      return parseFloat(value.value)
     }
   }
   return value;

@@ -1,7 +1,12 @@
 use crate::{
-    grammar::{LogicType, ReagentMode, SlotLogicType}, interpreter::{ICError, ICState}, network::{CableConnectionType, Connection}, vm::VM
+    grammar::{LogicType, ReagentMode, SlotLogicType},
+    interpreter::{ICError, ICState},
+    network::{CableConnectionType, Connection},
+    vm::VM,
 };
-use std::collections::HashMap;
+use std::{collections::HashMap, ops::Deref};
+
+use itertools::Itertools;
 
 use serde::{Deserialize, Serialize};
 use strum_macros::{AsRefStr, EnumIter, EnumString};
@@ -486,7 +491,6 @@ pub enum SlotType {
     None = 0,
 }
 
-
 #[derive(Debug, Default, Clone, Serialize, Deserialize)]
 pub struct Prefab {
     pub name: String,
@@ -512,18 +516,7 @@ pub struct Device {
     pub reagents: HashMap<ReagentMode, HashMap<i32, f64>>,
     pub ic: Option<u32>,
     pub connections: Vec<Connection>,
-    pub fields: HashMap<LogicType, LogicField>,
-}
-
-#[derive(Debug, Default, Clone, Serialize, Deserialize)]
-pub struct DeviceTemplate {
-    pub id: Option<u32>,
-    pub name: Option<String>,
-    pub prefab_name: Option<String>,
-    pub slots: Vec<SlotTemplate>,
-    // pub reagents: HashMap<ReagentMode, HashMap<i32, f64>>,
-    pub connections: Vec<Connection>,
-    pub fields: HashMap<LogicType, LogicField>,
+    fields: HashMap<LogicType, LogicField>,
 }
 
 impl Device {
@@ -923,5 +916,96 @@ impl Device {
                 }
             )
         })
+    }
+}
+
+#[derive(Debug, Default, Clone, Serialize, Deserialize)]
+pub struct DeviceTemplate {
+    pub id: Option<u32>,
+    pub name: Option<String>,
+    pub prefab_name: Option<String>,
+    pub slots: Vec<SlotTemplate>,
+    // pub reagents: HashMap<ReagentMode, HashMap<i32, f64>>,
+    pub connections: Vec<Connection>,
+    pub fields: HashMap<LogicType, LogicField>,
+}
+
+impl Device {
+    /// create a devive from a template and return the device, does not create it's own IC
+    pub fn from_template<F>(template: DeviceTemplate, mut id_fn: F) -> Self
+    where
+        F: FnMut() -> u32,
+    {
+        // id_fn *must* be captured not moved
+        #[allow(clippy::redundant_closure)]
+        let device_id = template.id.unwrap_or_else(|| id_fn());
+        let name_hash = template
+            .name
+            .as_ref()
+            .map(|name| const_crc32::crc32(name.as_bytes()) as i32);
+
+        #[allow(clippy::redundant_closure)]
+        let slots = template
+            .slots
+            .into_iter()
+            .map(|slot| Slot {
+                typ: slot.typ,
+                occupant: slot
+                    .occupant
+                    .map(|occupant| SlotOccupant::from_template(occupant, || id_fn())),
+            })
+            .collect_vec();
+
+        let ic = slots
+            .iter()
+            .find_map(|slot| {
+                if slot.typ == SlotType::ProgrammableChip && slot.occupant.is_some() {
+                    Some(slot.occupant.clone()).flatten()
+                } else {
+                    None
+                }
+            })
+            .map(|occupant| occupant.id);
+
+        let fields = template.fields;
+
+        Device {
+            id: device_id,
+            name: template.name,
+            name_hash,
+            prefab: template.prefab_name.map(|name| Prefab::new(&name)),
+            slots,
+            // reagents: template.reagents,
+            reagents: HashMap::new(),
+            ic,
+            connections: template.connections,
+            fields,
+        }
+    }
+}
+
+impl<T> From<T> for DeviceTemplate
+where
+    T: Deref<Target = Device>,
+{
+    fn from(device: T) -> Self {
+        DeviceTemplate {
+            id: Some(device.id),
+            name: device.name.clone(),
+            prefab_name: device.prefab.as_ref().map(|prefab| prefab.name.clone()),
+            slots: device
+                .slots
+                .iter()
+                .map(|slot| SlotTemplate {
+                    typ: slot.typ,
+                    occupant: slot.occupant.as_ref().map(|occupant| SlotOccupantTemplate {
+                        id: Some(occupant.id),
+                        fields: occupant.get_fields(),
+                    }),
+                })
+                .collect_vec(),
+            connections: device.connections.clone(),
+            fields: device.fields.clone(),
+        }
     }
 }
