@@ -146,7 +146,8 @@ export async function saveFile(content: BlobPart) {
   } else {
     console.log("saving file via hidden link event");
     var a = document.createElement("a");
-    a.download = "code.ic10";
+    const date = new Date().valueOf().toString(16) ;
+    a.download = `code_${date}.ic10`;
     a.href = window.URL.createObjectURL(blob);
     a.click();
   }

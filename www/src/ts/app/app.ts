@@ -82,6 +82,7 @@ export class App extends BaseElement {
     root.addEventListener("app-open-file", this._handleOpenFile.bind(this));
     root.addEventListener("app-export", this._handleExport.bind(this));
     root.addEventListener("app-save", this._handleSave.bind(this));
+    root.addEventListener("app-load", this._handleLoad.bind(this));
     return root;
   }
 
@@ -121,6 +122,10 @@ export class App extends BaseElement {
 
   _handleSave(_e: Event) {
     this.saveDialog.show("save");
+  }
+
+  _handleLoad(_e: Event) {
+    this.saveDialog.show("load");
   }
   _handleOpenFile(_e: Event) {
     openFile(window.Editor.editor);

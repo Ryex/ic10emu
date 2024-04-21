@@ -273,7 +273,7 @@ export class Session extends EventTarget {
     const db = await this.openIndexDB();
     const transaction = db.transaction(['sessions'], "readwrite");
     const sessionStore = transaction.objectStore("sessions");
-    sessionStore.put({
+    await sessionStore.put({
       name,
       date: new Date(),
       session: state,
@@ -281,6 +281,22 @@ export class Session extends EventTarget {
     this.dispatchEvent(new CustomEvent("sessions-local-update"))
   }
 
+  async loadFromLocal(name: string) {
+    const db = await this.openIndexDB();
+    const save = await db.get("sessions", name);
+    if (typeof save !== "undefined") {
+      const { session } = save;
+      this.load(session);
+    }
+  }
+
+  async deleteLocalSave(name: string) {
+    const db = await this.openIndexDB();
+    const transaction = db.transaction(['sessions'], "readwrite");
+    const sessionStore = transaction.objectStore("sessions");
+    await sessionStore.delete(name);
+    this.dispatchEvent(new CustomEvent("sessions-local-update"))
+  }
   async getLocalSaved() {
     const db = await this.openIndexDB();
     const sessions = await db.getAll('sessions');

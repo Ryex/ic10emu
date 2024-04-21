@@ -1,8 +1,9 @@
 import { defineConfig } from "@rsbuild/core";
 import { pluginTypeCheck } from "@rsbuild/plugin-type-check";
-import { pluginImageCompress } from '@rsbuild/plugin-image-compress';
+import { pluginImageCompress } from "@rsbuild/plugin-image-compress";
 
 const rspack = require("@rspack/core");
+const { CssExtractRspackPlugin } = require("@rspack/core");
 
 const path = require("path");
 const commitHash = require("child_process")
@@ -38,6 +39,7 @@ export default defineConfig({
             },
           ],
         }),
+        new CssExtractRspackPlugin(),
         new rspack.DefinePlugin({
           __COMMIT_HASH__: JSON.stringify(commitHash),
           __BUILD_DATE__: JSON.stringify(new Date()),
@@ -63,8 +65,5 @@ export default defineConfig({
       template: "./src/index.html",
     },
   },
-  plugins: [
-    pluginTypeCheck(),
-    pluginImageCompress(),
-  ],
+  plugins: [pluginTypeCheck(), pluginImageCompress()],
 });

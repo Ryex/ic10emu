@@ -72,4 +72,8 @@ $accordion-button-padding-y: 0.5rem;
 //
 // Custom styles
 //
-@import "./dark.scss"
+@import "./dark.scss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
