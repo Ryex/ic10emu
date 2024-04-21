@@ -628,14 +628,14 @@ impl Device {
                 LogicType::LineNumber,
                 LogicField {
                     field_type: FieldType::ReadWrite,
-                    value: ic.ip as f64,
+                    value: ic.ip() as f64,
                 },
             );
             copy.insert(
                 LogicType::Error,
                 LogicField {
                     field_type: FieldType::Read,
-                    value: match ic.state {
+                    value: match *ic.state.borrow() {
                         ICState::Error(_) => 1.0,
                         _ => 0.0,
                     },
@@ -736,19 +736,12 @@ impl Device {
 
     pub fn get_field(&self, typ: LogicType, vm: &VM) -> Result<f64, ICError> {
         if typ == LogicType::LineNumber && self.ic.is_some() {
-            if let Ok(ic) = vm
+            let ic = vm
                 .ics
                 .get(&self.ic.unwrap())
                 .ok_or_else(|| ICError::UnknownDeviceID(self.ic.unwrap() as f64))?
-                .try_borrow()
-            {
-                Ok(ic.ip as f64)
-            } else {
-                // HACK: the game succeeds in getting the correct line number
-                // when reading it's own IC, but we'll panic trying to do it here
-                // this is worked around in internal_step so just return 0 here
-                Ok(0.0)
-            }
+                .borrow();
+            Ok(ic.ip() as f64)
         } else if let Some(field) = self.get_fields(vm).get(&typ) {
             if field.field_type == FieldType::Read || field.field_type == FieldType::ReadWrite {
                 Ok(field.value)
@@ -773,16 +766,12 @@ impl Device {
         {
             Err(ICError::ReadOnlyField(typ.to_string()))
         } else if typ == LogicType::LineNumber && self.ic.is_some() {
-            // try borrow to set ip, we should only fail if the ic is in use aka is is *our* ic
-            // in game trying to set your own ic's LineNumber appears to be a Nop so this is fine.
-            if let Ok(mut ic) = vm
+            let ic = vm
                 .ics
                 .get(&self.ic.unwrap())
                 .ok_or_else(|| ICError::UnknownDeviceID(self.ic.unwrap() as f64))?
-                .try_borrow_mut()
-            {
-                ic.ip = val as u32;
-            }
+                .borrow();
+            ic.set_ip(val as u32);
             Ok(())
         } else if let Some(field) = self.fields.get_mut(&typ) {
             if field.field_type == FieldType::Write
@@ -818,20 +807,12 @@ impl Device {
             && self.ic.is_some()
             && typ == SlotLogicType::LineNumber
         {
-            // try borrow to get ip, we should only fail if the ic is in us aka is is *our* ic
-            if let Ok(ic) = vm
+            let ic = vm
                 .ics
                 .get(&self.ic.unwrap())
                 .ok_or_else(|| ICError::UnknownDeviceID(self.ic.unwrap() as f64))?
-                .try_borrow()
-            {
-                Ok(ic.ip as f64)
-            } else {
-                // HACK: the game succeeds in getting the correct line number
-                // when reading it's own IC, but we'll panic trying to do it here
-                // this is worked around in internal_step so just return 0 here
-                Ok(0.0)
-            }
+                .borrow();
+            Ok(ic.ip() as f64)
         } else {
             Ok(slot.get_field(typ))
         }
@@ -848,32 +829,18 @@ impl Device {
             .ok_or(ICError::SlotIndexOutOfRange(index))?;
         let mut fields = slot.get_fields();
         if slot.typ == SlotType::ProgrammableChip && slot.occupant.is_some() && self.ic.is_some() {
-            // try borrow to get ip, we should only fail if the ic is in us aka is is *our* ic
-            if let Ok(ic) = vm
+            let ic = vm
                 .ics
                 .get(&self.ic.unwrap())
                 .ok_or_else(|| ICError::UnknownDeviceID(self.ic.unwrap() as f64))?
-                .try_borrow()
-            {
-                fields.insert(
-                    SlotLogicType::LineNumber,
-                    LogicField {
-                        field_type: FieldType::ReadWrite,
-                        value: ic.ip as f64,
-                    },
-                );
-            } else {
-                // HACK: the game succeeds in getting the correct line number
-                // when reading it's own IC, but we'll panic trying to do it here
-                // this is worked around in internal_step so just return 0 here
-                fields.insert(
-                    SlotLogicType::LineNumber,
-                    LogicField {
-                        field_type: FieldType::ReadWrite,
-                        value: 0.0,
-                    },
-                );
-            }
+                .borrow();
+            fields.insert(
+                SlotLogicType::LineNumber,
+                LogicField {
+                    field_type: FieldType::ReadWrite,
+                    value: ic.ip() as f64,
+                },
+            );
         }
         Ok(fields)
     }
@@ -883,32 +850,14 @@ impl Device {
         index: f64,
         typ: SlotLogicType,
         val: f64,
-        vm: &VM,
+        _vm: &VM,
         force: bool,
     ) -> Result<(), ICError> {
         let slot = self
             .slots
             .get_mut(index as usize)
             .ok_or(ICError::SlotIndexOutOfRange(index))?;
-        if slot.typ == SlotType::ProgrammableChip
-            && slot.occupant.is_some()
-            && self.ic.is_some()
-            && typ == SlotLogicType::LineNumber
-        {
-            // try borrow to set ip, we shoudl only fail if the ic is in us aka is is *our* ic
-            // in game trying to set your own ic's LineNumber appears to be a Nop so this is fine.
-            if let Ok(mut ic) = vm
-                .ics
-                .get(&self.ic.unwrap())
-                .ok_or_else(|| ICError::UnknownDeviceID(self.ic.unwrap() as f64))?
-                .try_borrow_mut()
-            {
-                ic.ip = val as u32;
-            }
-            Ok(())
-        } else {
-            slot.set_field(typ, val, force)
-        }
+        slot.set_field(typ, val, force)
     }
 
     pub fn get_slot(&self, index: f64) -> Result<&Slot, ICError> {
