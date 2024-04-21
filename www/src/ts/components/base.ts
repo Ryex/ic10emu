@@ -2,7 +2,7 @@ import { CSSResultGroup, LitElement, css } from "lit";
 import shoelaceDark from "@shoelace-style/shoelace/dist/themes/dark.styles.js";
 
 const { cssRules } = Array.from(document.styleSheets).find(
-  (sheet) => sheet.href && sheet.href.endsWith("index.css"),
+  (sheet) => sheet.href && /index\.([\w\d]+\.)?css/.test(sheet.href),
 );
 const globalStyle = css([
   Object.values(cssRules)
