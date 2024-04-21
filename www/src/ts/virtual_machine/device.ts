@@ -165,6 +165,8 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
   @state()
   set deviceDB(val: DeviceDB) {
     this._deviceDB = val;
+    this.updateDevice();
+    this.requestUpdate();
   }
 
   connectedCallback(): void {

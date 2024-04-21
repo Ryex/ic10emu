@@ -152,7 +152,7 @@ export interface FrozenIC {
   id: number;
   registers: number[];
   ip: number;
-  ic: number[];
+  ic: number;
   stack: number[];
   aliases: Aliases;
   defines: Defines;

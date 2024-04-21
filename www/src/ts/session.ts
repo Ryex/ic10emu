@@ -1,70 +1,12 @@
-const demoCode = `# Highlighting Demo
-# This is a comment
 
-# Hover a define id anywhere to see it's definition
-define a_def 10
-
-# Hover HASH("String")'s to see computed crc32
-#     hover here    vvvvvvvvvvvvvvvv
-define a_hash HASH("This is a String")
-
-# hover over an alias anywhere in the code
-# to see it's definition
-alias a_var r0
-alias a_device d0
-
-# instructions have Auto Completion,
-# numeric logic types are identified on hover
-s db 12 0
-#    ^^
-# hover here
-
-# Enums and their values are Known, Hover them!
-#        vvvvvvvvvvvvvvvvvv
-move r2 LogicType.Temperature
-push r2
-
-# same with constants
-#       vvvv
-move r3 pinf
-
-# Labels are known
-main:
-l r1 dr15 RatioWater
-move r2 100000.001
-push r2
-
-# Hover Hash Strings of Known prefab names
-# to get their documentation
-#             vvvvvvvvvvvvvvv
-move r0 HASH("AccessCardBlack")
-push r0
-beqzal r1 test
-
-# -2045627372 is the crc32 hash of a SolarPanel,
-# hover it to see the documentation!
-#        vvvvvvvvvv
-move r1 -2045627372
-jal test
-move r1 $FF
-push r1
-beqzal 0 test
-move r1 %1000
-push r1
-yield
-j main
-
-test:
-add r15 r15 1
-j ra
-
-`;
-
-import type { ICError, FrozenVM } from "ic10emu_wasm";
+import type { ICError, FrozenVM, SlotType } from "ic10emu_wasm";
 import { App } from "./app";
 
-import { openDB, DBSchema } from 'idb';
+import { openDB, DBSchema } from "idb";
 import { fromJson, toJson } from "./utils";
+
+import * as presets from "./presets";
+const { demoVMState } = presets;
 
 const LOCAL_DB_VERSION = 1;
 
@@ -207,10 +149,14 @@ export class Session extends EventTarget {
 
   async load(data: VMState | OldPrograms | string) {
     if (typeof data === "string") {
+      this._activeIC = 1;
+      this.app.vm.restoreVMState(demoVMState.vm);
       this._programs = new Map([[1, data]]);
-    } else if ( "programs" in data) {
+    } else if ("programs" in data) {
+      this._activeIC = 1;
+      this.app.vm.restoreVMState(demoVMState.vm);
       this._programs = new Map(data.programs);
-    } else if ( "vm" in data ) {
+    } else if ("vm" in data) {
       this._programs = new Map();
       const state = data.vm;
       // assign first so it's present when the
@@ -227,7 +173,7 @@ export class Session extends EventTarget {
   async loadFromFragment() {
     const fragment = window.location.hash.slice(1);
     if (fragment === "demo") {
-      this.load(demoCode);
+      this.load(demoVMState);
       return;
     }
     if (fragment.length > 0) {
@@ -257,9 +203,9 @@ export class Session extends EventTarget {
       upgrade(db, oldVersion, newVersion, transaction, event) {
         // only db verison currently known is v1
         if (oldVersion < 1) {
-          const sessionStore = db.createObjectStore('sessions');
-          sessionStore.createIndex('by-date', 'date');
-          sessionStore.createIndex('by-name', 'name');
+          const sessionStore = db.createObjectStore("sessions");
+          sessionStore.createIndex("by-date", "date");
+          sessionStore.createIndex("by-name", "name");
         }
       },
     });
@@ -271,14 +217,17 @@ export class Session extends EventTarget {
       activeIC: this.activeIC,
     };
     const db = await this.openIndexDB();
-    const transaction = db.transaction(['sessions'], "readwrite");
+    const transaction = db.transaction(["sessions"], "readwrite");
     const sessionStore = transaction.objectStore("sessions");
-    await sessionStore.put({
+    await sessionStore.put(
+      {
+        name,
+        date: new Date(),
+        session: state,
+      },
       name,
-      date: new Date(),
-      session: state,
-    }, name);
-    this.dispatchEvent(new CustomEvent("sessions-local-update"))
+    );
+    this.dispatchEvent(new CustomEvent("sessions-local-update"));
   }
 
   async loadFromLocal(name: string) {
@@ -292,14 +241,14 @@ export class Session extends EventTarget {
 
   async deleteLocalSave(name: string) {
     const db = await this.openIndexDB();
-    const transaction = db.transaction(['sessions'], "readwrite");
+    const transaction = db.transaction(["sessions"], "readwrite");
     const sessionStore = transaction.objectStore("sessions");
     await sessionStore.delete(name);
-    this.dispatchEvent(new CustomEvent("sessions-local-update"))
+    this.dispatchEvent(new CustomEvent("sessions-local-update"));
   }
   async getLocalSaved() {
     const db = await this.openIndexDB();
-    const sessions = await db.getAll('sessions');
+    const sessions = await db.getAll("sessions");
     return sessions;
   }
 }
@@ -316,16 +265,16 @@ interface AppDBSchemaV1 extends DBSchema {
       name: string;
       date: Date;
       session: VMState;
-    }
-    indexes: {
-      'by-date': Date;
-      'by-name': string;
     };
-  }
+    indexes: {
+      "by-date": Date;
+      "by-name": string;
+    };
+  };
 }
 
 export interface OldPrograms {
-  programs: [number, string][]
+  programs: [number, string][];
 }
 
 const byteToHex: string[] = [];

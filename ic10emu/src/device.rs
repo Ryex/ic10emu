@@ -113,7 +113,43 @@ impl SlotOccupant {
 
     /// chainable constructor
     pub fn get_fields(&self) -> HashMap<SlotLogicType, LogicField> {
-        self.fields.clone()
+        let mut copy = self.fields.clone();
+        copy.insert(
+            SlotLogicType::PrefabHash,
+            LogicField {
+                field_type: FieldType::Read,
+                value: self.prefab_hash as f64,
+            },
+        );
+        copy.insert(
+            SlotLogicType::SortingClass,
+            LogicField {
+                field_type: FieldType::Read,
+                value: self.sorting_class as u32 as f64,
+            },
+        );
+        copy.insert(
+            SlotLogicType::Quantity,
+            LogicField {
+                field_type: FieldType::Read,
+                value: self.quantity as f64,
+            },
+        );
+        copy.insert(
+            SlotLogicType::MaxQuantity,
+            LogicField {
+                field_type: FieldType::Read,
+                value: self.max_quantity as f64,
+            },
+        );
+        copy.insert(
+            SlotLogicType::Damage,
+            LogicField {
+                field_type: FieldType::Read,
+                value: self.damage,
+            },
+        );
+        copy
     }
 
     pub fn set_field(
@@ -574,10 +610,11 @@ impl Device {
                 },
             ),
         ]);
+        let occupant = SlotOccupant::new(ic, -744098481);
         device.slots.push(Slot::with_occupant(
             SlotType::ProgrammableChip,
             // -744098481 = ItemIntegratedCircuit10
-            SlotOccupant::new(ic, -744098481),
+            occupant,
         ));
 
         device

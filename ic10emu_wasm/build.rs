@@ -53,7 +53,7 @@ fn main() {
         "\n  | ".to_owned(),
     )
     .collect();
-    let sc_tstype = format!("\nexport type SlotType = {};", sc_tsunion);
+    let sc_tstype = format!("\nexport type SortingClass = {};", sc_tsunion);
     ts_types.push_str(&sc_tstype);
 
     let st_tsunion: String = Itertools::intersperse(
@@ -61,7 +61,7 @@ fn main() {
         "\n  | ".to_owned(),
     )
     .collect();
-    let st_tstype = format!("\nexport type SortingClass = {};", st_tsunion);
+    let st_tstype = format!("\nexport type SlotType = {};", st_tsunion);
     ts_types.push_str(&st_tstype);
 
     let ct_tsunion: String = Itertools::intersperse(
