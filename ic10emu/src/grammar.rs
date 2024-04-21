@@ -347,11 +347,13 @@ pub enum Operand {
     RegisterSpec(RegisterSpec),
     DeviceSpec(DeviceSpec),
     Number(Number),
-    LogicType(LogicType),
-    SlotLogicType(SlotLogicType),
-    LogicOrSlotLogicType(LogicType, SlotLogicType),
-    BatchMode(BatchMode),
-    ReagentMode(ReagentMode),
+    Type {
+        logic_type: Option<LogicType>,
+        slot_logic_type: Option<SlotLogicType>,
+        batch_mode: Option<BatchMode>,
+        reagent_mode: Option<ReagentMode>,
+        identifier: Identifier,
+    },
     Identifier(Identifier),
 }
 
@@ -368,27 +370,25 @@ impl Operand {
                 target,
             }) => ic.get_register(indirection, target),
             Operand::Number(num) => Ok(num.value()),
-            Operand::LogicType(lt) => lt
-                .get_str("value")
-                .map(|val| val.parse::<u16>().unwrap() as f64)
-                .ok_or(interpreter::ICError::TypeValueNotKnown),
-            Operand::SlotLogicType(slt) => slt
-                .get_str("value")
-                .map(|val| val.parse::<u16>().unwrap() as f64)
-                .ok_or(interpreter::ICError::TypeValueNotKnown),
-            // default to using LogicType when converting to value
-            Operand::LogicOrSlotLogicType(lt, _) => lt
-                .get_str("value")
-                .map(|val| val.parse::<u16>().unwrap() as f64)
-                .ok_or(interpreter::ICError::TypeValueNotKnown),
-            Operand::BatchMode(bm) => bm
-                .get_str("value")
-                .map(|val| val.parse::<u8>().unwrap() as f64)
-                .ok_or(interpreter::ICError::TypeValueNotKnown),
-            Operand::ReagentMode(rm) => rm
-                .get_str("value")
-                .map(|val| val.parse::<u8>().unwrap() as f64)
-                .ok_or(interpreter::ICError::TypeValueNotKnown),
+            Operand::Type {
+                logic_type,
+                slot_logic_type,
+                batch_mode,
+                reagent_mode,
+                identifier: _,
+            } => {
+                if let Some(lt) = logic_type {
+                    Ok(lt.get_str("value").unwrap().parse::<u16>().unwrap() as f64)
+                } else if let Some(slt) = slot_logic_type {
+                    Ok(slt.get_str("value").unwrap().parse::<u16>().unwrap() as f64)
+                } else if let Some(bm) = batch_mode {
+                    Ok(bm.get_str("value").unwrap().parse::<u8>().unwrap() as f64)
+                } else if let Some(rm) = reagent_mode {
+                    Ok(rm.get_str("value").unwrap().parse::<u8>().unwrap() as f64)
+                } else {
+                    Err(interpreter::ICError::TypeValueNotKnown)
+                }
+            }
             Operand::Identifier(id) => {
                 Err(interpreter::ICError::UnknownIdentifier(id.name.to_string()))
             }
@@ -502,8 +502,10 @@ impl Operand {
         index: u32,
     ) -> Result<LogicType, ICError> {
         match &self {
-            Operand::LogicType(lt) => Ok(*lt),
-            Operand::LogicOrSlotLogicType(lt, _slt) => Ok(*lt),
+            Operand::Type {
+                logic_type: Some(lt),
+                ..
+            } => Ok(*lt),
             _ => LogicType::try_from(self.as_value(ic, inst, index)?),
         }
     }
@@ -515,15 +517,47 @@ impl Operand {
         index: u32,
     ) -> Result<SlotLogicType, ICError> {
         match &self {
-            Operand::SlotLogicType(slt) => Ok(*slt),
-            Operand::LogicOrSlotLogicType(_lt, slt) => Ok(*slt),
+            Operand::Type {
+                slot_logic_type: Some(slt),
+                ..
+            } => Ok(*slt),
             _ => SlotLogicType::try_from(self.as_value(ic, inst, index)?),
+        }
+    }
+
+    pub fn as_batch_mode(
+        &self,
+        ic: &interpreter::IC,
+        inst: InstructionOp,
+        index: u32,
+    ) -> Result<BatchMode, ICError> {
+        match &self {
+            Operand::Type {
+                batch_mode: Some(bm),
+                ..
+            } => Ok(*bm),
+            _ => BatchMode::try_from(self.as_value(ic, inst, index)?),
+        }
+    }
+
+    pub fn as_reagent_mode(
+        &self,
+        ic: &interpreter::IC,
+        inst: InstructionOp,
+        index: u32,
+    ) -> Result<ReagentMode, ICError> {
+        match &self {
+            Operand::Type {
+                reagent_mode: Some(rm),
+                ..
+            } => Ok(*rm),
+            _ => ReagentMode::try_from(self.as_value(ic, inst, index)?),
         }
     }
 
     pub fn translate_alias(&self, ic: &interpreter::IC) -> Self {
         match &self {
-            Operand::Identifier(id) => {
+            Operand::Identifier(id) | Operand::Type { identifier: id, .. } => {
                 if let Some(alias) = ic.aliases.borrow().get(&id.name) {
                     alias.clone()
                 } else if let Some(define) = ic.defines.borrow().get(&id.name) {
@@ -798,24 +832,23 @@ impl FromStr for Operand {
                     Ok(Operand::Number(Number::Enum(
                         val.get_str("value").unwrap().parse().unwrap(),
                     )))
-                } else if let Ok(lt) = LogicType::from_str(s) {
-                    if let Ok(slt) = SlotLogicType::from_str(s) {
-                        Ok(Operand::LogicOrSlotLogicType(lt, slt))
-                    } else {
-                        Ok(Operand::LogicType(lt))
-                    }
-                } else if let Ok(slt) = SlotLogicType::from_str(s) {
-                    if let Ok(lt) = LogicType::from_str(s) {
-                        Ok(Operand::LogicOrSlotLogicType(lt, slt))
-                    } else {
-                        Ok(Operand::SlotLogicType(slt))
-                    }
-                } else if let Ok(bm) = BatchMode::from_str(s) {
-                    Ok(Operand::BatchMode(bm))
-                } else if let Ok(rm) = ReagentMode::from_str(s) {
-                    Ok(Operand::ReagentMode(rm))
                 } else {
-                    Ok(Operand::Identifier(s.parse::<Identifier>()?))
+                    let lt = LogicType::from_str(s).ok();
+                    let slt = SlotLogicType::from_str(s).ok();
+                    let bm = BatchMode::from_str(s).ok();
+                    let rm = ReagentMode::from_str(s).ok();
+                    let identifier = Identifier::from_str(s)?;
+                    if lt.is_some() || slt.is_some() || bm.is_some() || rm.is_some() {
+                        Ok(Operand::Type {
+                            logic_type: lt,
+                            slot_logic_type: slt,
+                            batch_mode: bm,
+                            reagent_mode: rm,
+                            identifier,
+                        })
+                    } else {
+                        Ok(Operand::Identifier(identifier))
+                    }
                 }
             }
         }
@@ -895,11 +928,7 @@ impl Display for Operand {
                     Display::fmt(&number.value(), f)
                 }
             },
-            Operand::LogicType(logic) => Display::fmt(logic, f),
-            Operand::SlotLogicType(slot_logic) => Display::fmt(slot_logic, f),
-            Operand::LogicOrSlotLogicType(logic, _) => Display::fmt(logic, f),
-            Operand::BatchMode(batch_mode) => Display::fmt(batch_mode, f),
-            Operand::ReagentMode(reagent_mode) => Display::fmt(reagent_mode, f),
+            Operand::Type { identifier, .. } => Display::fmt(&identifier, f),
             Operand::Identifier(ident) => Display::fmt(&ident, f),
         }
     }
@@ -1036,7 +1065,15 @@ mod tests {
                             device: Device::Numbered(0),
                             connection: None,
                         }),
-                        Operand::LogicType(LogicType::Setting),
+                        Operand::Type {
+                            logic_type: Some(LogicType::Setting),
+                            slot_logic_type: None,
+                            batch_mode: None,
+                            reagent_mode: None,
+                            identifier: Identifier {
+                                name: "Setting".to_owned(),
+                            },
+                        },
                         Operand::Number(Number::Float(0.0)),
                     ],
                 },),),
@@ -1159,7 +1196,15 @@ mod tests {
                                 device: Device::Numbered(0),
                                 connection: None
                             }),
-                            Operand::LogicOrSlotLogicType(LogicType::On, SlotLogicType::On),
+                            Operand::Type {
+                                logic_type: Some(LogicType::On),
+                                slot_logic_type: Some(SlotLogicType::On),
+                                batch_mode: None,
+                                reagent_mode: None,
+                                identifier: Identifier {
+                                    name: "On".to_owned(),
+                                },
+                            },
                             Operand::Number(Number::Float(1.0))
                         ]
                     })),
@@ -1232,7 +1277,15 @@ mod tests {
                                 },
                                 connection: None,
                             }),
-                            Operand::LogicType(LogicType::RatioWater),
+                            Operand::Type {
+                                logic_type: Some(LogicType::RatioWater),
+                                slot_logic_type: None,
+                                batch_mode: None,
+                                reagent_mode: None,
+                                identifier: Identifier {
+                                    name: "RatioWater".to_owned(),
+                                },
+                            },
                         ],
                     },),),
                     comment: None,
