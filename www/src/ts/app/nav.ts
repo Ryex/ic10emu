@@ -157,6 +157,11 @@ export class Nav extends BaseElement {
                   <sl-menu-item value="preset-demo"> Demo </sl-menu-item>
                 </sl-menu>
               </sl-menu-item>
+              <sl-divider></sl-divider>
+              <sl-menu-item value="changelog">
+                Changelog
+                <sl-icon name="journal-text" slot="prefix"></sl-icon>
+              </sl-menu-item>
             </sl-menu>
           </sl-dropdown>
         </div>
@@ -246,6 +251,10 @@ export class Nav extends BaseElement {
         break;
       case "preset-demo":
         window.location.hash = "demo";
+        break;
+      case "changelog":
+        this.dispatchEvent(new CustomEvent("app-changelog", { bubbles: true }));
+        break;
       default:
         console.log("Unknown main menu item", item.value);
     }

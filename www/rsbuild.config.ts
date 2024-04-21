@@ -37,6 +37,13 @@ export default defineConfig({
               ),
               to: "shoelace/assets",
             },
+            {
+              from: path.resolve(
+                __dirname,
+                "../CHANGELOG.md"
+              ),
+              to: "static/",
+            }
           ],
         }),
         new CssExtractRspackPlugin(),

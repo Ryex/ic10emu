@@ -13,9 +13,7 @@ export function docReady(fn: () => void) {
 }
 
 function isZeroNegative(zero: number) {
-  const isZero = zero === 0;
-  const isNegative = 1 / zero === -Infinity;
-  return isNegative && isZero;
+  return Object.is(zero, -0)
 }
 
 export function numberToString(n: number): string {

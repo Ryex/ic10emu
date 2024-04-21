@@ -21,6 +21,8 @@ import { openFile, saveFile } from "../utils";
 import "../virtual_machine/ui";
 import "./save";
 import { SaveDialog } from "./save";
+import "./welcome";
+import { AppWelcome } from "./welcome";
 
 declare global {
   const __COMMIT_HASH__: string;
@@ -61,6 +63,7 @@ export class App extends BaseElement {
   @query("ace-ic10") editor: IC10Editor;
   @query("session-share-dialog") shareDialog: ShareSessionDialog;
   @query("save-dialog") saveDialog: SaveDialog;
+  @query("app-welcome") appWelcome: AppWelcome;
 
   // get editor() {
   //   return this.renderRoot.querySelector("ace-ic10") as IC10Editor;
@@ -83,6 +86,7 @@ export class App extends BaseElement {
     root.addEventListener("app-export", this._handleExport.bind(this));
     root.addEventListener("app-save", this._handleSave.bind(this));
     root.addEventListener("app-load", this._handleLoad.bind(this));
+    root.addEventListener("app-changelog", this._handleChangelog.bind(this));
     return root;
   }
 
@@ -104,11 +108,54 @@ export class App extends BaseElement {
         </div>
         <session-share-dialog></session-share-dialog>
         <save-dialog></save-dialog>
+        <app-welcome @sl-after-hide=${this.afterWelcomeHide}></app-welcome>
       </div>
     `;
   }
 
-  firstUpdated(): void {}
+  firstUpdated(): void {
+    setTimeout(() => {
+      this.checkSeenVersion();
+    }, 2000);
+  }
+
+  checkSeenVersion() {
+    const seenVersionsStr = window.localStorage.getItem("seenVersions");
+    let seenVersions: string[] = [];
+    if (seenVersionsStr !== null && seenVersionsStr.length > 0) {
+      try {
+        const saved = JSON.parse(seenVersionsStr);
+        seenVersions = saved;
+      } catch (e) {
+        console.log("error pulling seen versions", e);
+      }
+    }
+    const ourVer = `${this.appVersion}_${this.gitVer}_${this.buildDate}`;
+    if (!seenVersions.includes(ourVer)) {
+      this.appWelcome.show();
+    }
+  }
+
+  afterWelcomeHide() {
+    const seenVersionsStr = window.localStorage.getItem("seenVersions");
+    const seenVersions: string[] = [];
+    if (seenVersionsStr !== null && seenVersionsStr.length > 0) {
+      try {
+        const saved = JSON.parse(seenVersionsStr);
+        seenVersions.concat(saved);
+      } catch (e) {
+        console.log("error pulling seen versions", e);
+      }
+    }
+    const unique = new Set(seenVersions);
+    const ourVer = `${this.appVersion}_${this.gitVer}_${this.buildDate}`;
+    if (this.appWelcome.dontShowAgain) {
+      unique.add(ourVer)
+    } else {
+      unique.delete(ourVer)
+    }
+    window.localStorage.setItem("seenVersions", JSON.stringify(Array.from(unique)));
+  }
 
   _handleShare(_e: Event) {
     // TODO:
@@ -129,6 +176,10 @@ export class App extends BaseElement {
   }
   _handleOpenFile(_e: Event) {
     openFile(window.Editor.editor);
+  }
+
+  _handleChangelog(_e: Event) {
+    this.appWelcome.show();
   }
 }
 
