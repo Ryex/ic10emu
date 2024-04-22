@@ -174,7 +174,7 @@ fn write_enums() {
     let output_file = File::create(dest_path).unwrap();
     let mut writer = BufWriter::new(&output_file);
 
-    let mut enums_map: Vec<(String, EnumVariant<u16>)> = Vec::new();
+    let mut enums_map: Vec<(String, EnumVariant<u32>)> = Vec::new();
     let e_infile = Path::new("data/enums.txt");
     let e_contents = fs::read_to_string(e_infile).unwrap();
 
@@ -182,7 +182,7 @@ fn write_enums() {
         let mut it = line.splitn(3, ' ');
         let name = it.next().unwrap();
         let val_str = it.next().unwrap();
-        let val: Option<u16> = val_str.parse().ok();
+        let val: Option<u32> = val_str.parse().ok();
         let docs = it.next();
         let deprecated = docs
             .map(|docs| docs.trim().to_uppercase() == "DEPRECATED")

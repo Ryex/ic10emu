@@ -743,11 +743,11 @@ impl FromStr for Operand {
                             if rest_iter.next().is_none() {
                                 Ok(Some(connection))
                             } else {
-                                let start = 1 + target_str.len() + 1 + connection_str.len();
+                                let end = 1 + target_str.len() + 1 + connection_str.len();
                                 Err(ParseError {
                                     line: 0,
-                                    start,
-                                    end: start,
+                                    start: end - connection_str.len(),
+                                    end,
                                     msg: "Invalid device connection specifier".to_owned(),
                                 })
                             }
@@ -762,10 +762,11 @@ impl FromStr for Operand {
                                 connection,
                             }))
                         } else {
+                            let end = 1 + target_str.len();
                             Err(ParseError {
                                 line: 0,
-                                start: 0,
-                                end: 0,
+                                start: 1,
+                                end,
                                 msg: "Invalid device specifier".to_owned(),
                             })
                         }
@@ -780,8 +781,8 @@ impl FromStr for Operand {
                 } else {
                     Err(ParseError {
                         line: 0,
-                        start: 0,
-                        end: 0,
+                        start: 6,
+                        end: hash_str.len(),
                         msg: "Invalid hash string: Can not contain '\"'".to_owned(),
                     })
                 }
@@ -837,26 +838,40 @@ impl FromStr for Operand {
                             .collect::<String>();
                         if !decimal_str.is_empty() {
                             let float_str = float_str + "." + &decimal_str;
-                            let num = f64::from_str(&float_str).unwrap();
-                            Ok(Operand::Number(Number::Float(num)))
+                            if let Ok(num) = f64::from_str(&float_str) {
+                                Ok(Operand::Number(Number::Float(num)))
+                            } else {
+                                Err(ParseError {
+                                    line: 0,
+                                    start: 0,
+                                    end: 0,
+                                    msg: "Invalid Number".to_owned(),
+                                })
+                            }
                         } else {
-                            let start = float_str.len() + 1;
                             Err(ParseError {
                                 line: 0,
-                                start,
-                                end: start,
+                                start: 0,
+                                end: float_str.len(),
                                 msg: "Invalid Decimal Number".to_owned(),
                             })
                         }
                     } else if rest_iter.next().is_none() {
-                        let num = f64::from_str(&float_str).unwrap();
-                        Ok(Operand::Number(Number::Float(num)))
+                        if let Ok(num) = f64::from_str(&float_str) {
+                            Ok(Operand::Number(Number::Float(num)))
+                        } else {
+                            Err(ParseError {
+                                line: 0,
+                                start: 0,
+                                end: float_str.len(),
+                                msg: "Invalid Number".to_owned(),
+                            })
+                        }
                     } else {
-                        let start = float_str.len();
                         Err(ParseError {
                             line: 0,
-                            start,
-                            end: start,
+                            start: 0,
+                            end: float_str.len(),
                             msg: "Invalid Integer Number".to_owned(),
                         })
                     }
@@ -1484,5 +1499,19 @@ mod tests {
             assert!(value.is_some());
             assert!(value.unwrap().parse::<u8>().is_ok());
         }
+        for le in LogicEnums::iter() {
+            println!("testing Enum.{le}");
+            let value = le.get_str("value");
+            assert!(value.is_some());
+            assert!(value.unwrap().parse::<u32>().is_ok());
+        }
+    }
+
+    #[test]
+    fn bad_parse_does_not_panic() {
+        let code = "move foo -";
+        let parsed = parse(code);
+        assert!(parsed.is_err());
+        println!("{}", parsed.unwrap_err());
     }
 }
