@@ -2,6 +2,7 @@
 
  - prevent borrow panics in VM  during bach operations
  - fix Maximize batch mode
+ - fix panic in parsing invalid numbers
 
 ## v0.2.0
 
