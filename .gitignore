@@ -5,3 +5,6 @@ target/
 Session.vim
 *.pyc
 package-lock.json
+
+# Local Netlify folder
+.netlify
