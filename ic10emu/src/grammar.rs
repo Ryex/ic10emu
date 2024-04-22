@@ -431,6 +431,7 @@ impl Operand {
                 Device::Numbered(p) => {
                     let dp = ic
                         .pins
+                        .borrow()
                         .get(p as usize)
                         .ok_or(interpreter::ICError::DeviceIndexOutOfRange(p as f64))
                         .copied()?;
@@ -443,6 +444,7 @@ impl Operand {
                     let val = ic.get_register(indirection, target)?;
                     let dp = ic
                         .pins
+                        .borrow()
                         .get(val as usize)
                         .ok_or(interpreter::ICError::DeviceIndexOutOfRange(val))
                         .copied()?;
@@ -522,11 +524,11 @@ impl Operand {
     pub fn translate_alias(&self, ic: &interpreter::IC) -> Self {
         match &self {
             Operand::Identifier(id) => {
-                if let Some(alias) = ic.aliases.get(&id.name) {
+                if let Some(alias) = ic.aliases.borrow().get(&id.name) {
                     alias.clone()
-                } else if let Some(define) = ic.defines.get(&id.name) {
+                } else if let Some(define) = ic.defines.borrow().get(&id.name) {
                     Operand::Number(Number::Float(*define))
-                } else if let Some(label) = ic.program.labels.get(&id.name) {
+                } else if let Some(label) = ic.program.borrow().labels.get(&id.name) {
                     Operand::Number(Number::Float(*label as f64))
                 } else {
                     self.clone()
