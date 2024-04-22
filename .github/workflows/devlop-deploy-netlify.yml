@@ -4,6 +4,13 @@ on:
     branches:
       - develop
       - "!main"
+
+permissions:
+  contents: read
+  packages: read
+  checks: write
+  statuses: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -47,3 +54,10 @@ jobs:
           install_command: "echo Skipping installing the dependencies"
           build_command: "echo Skipping building the web files"
           build_directory: www/dist
+      - name: Status check
+        uses: Sibz/github-status-action@v1.1.1
+        with:
+          authToken: ${{ secrets.GITHUB_TOKEN }}
+          context: Netlify preview
+          state: success
+          target_url: ${{ env.NETLIFY_PREVIEW_URL }}
