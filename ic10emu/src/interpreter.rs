@@ -119,6 +119,10 @@ pub enum ICError {
     ChannelIndexOutOfRange(usize),
     #[error("slot has no occupant")]
     SlotNotOccupied,
+    #[error("generated Enum {0} has no value attached. Report this error.")]
+    NoGeneratedValue(String),
+    #[error("generated Enum {0}'s value does not parse as {1} . Report this error.")]
+    BadGeneratedValueParse(String, String),
 }
 
 impl ICError {

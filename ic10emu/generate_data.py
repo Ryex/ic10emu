@@ -8,7 +8,7 @@ import xml.etree.ElementTree as ET
 from collections import defaultdict
 from itertools import chain
 from pathlib import Path
-
+from typing import Any # type:ignore[reportAny]
 
 def intOrNone(val: str):
     try:
@@ -219,23 +219,28 @@ def extract_data(install_path: Path, data_path: Path, language: str):
     logic_types_path = Path("data") / "logictypes.txt"
     with logic_types_path.open(mode="w") as f:
         for t, (v, help) in sorted(logictypes.items()):
-            _ = f.write(f"{t} {v} {help.replace("\r", "").replace("\n", "\\n")}\n")
+            if v is not None:
+                _ = f.write(f"{t} {v} {help.replace("\r", "").replace("\n", "\\n")}\n")
     slot_logic_types_path = Path("data") / "slotlogictypes.txt"
     with slot_logic_types_path.open(mode="w") as f:
         for t, (v, help) in sorted(slotlogictypes.items()):
-            _ = f.write(f"{t} {v} {help.replace("\r", "").replace("\n", "\\n")}\n")
+            if v is not None:
+                _ = f.write(f"{t} {v} {help.replace("\r", "").replace("\n", "\\n")}\n")
     batch_modes_path = Path("data") / "batchmodes.txt"
     with batch_modes_path.open(mode="w") as f:
         for t, (v, help) in sorted(batchmodes.items()):
-            _ = f.write(f"{t} {v} {help.replace("\r", "").replace("\n", "\\n")}\n")
+            if v is not None:
+                _ = f.write(f"{t} {v} {help.replace("\r", "").replace("\n", "\\n")}\n")
     reagent_modes_path = Path("data") / "reagentmodes.txt"
     with reagent_modes_path.open(mode="w") as f:
         for t, (v, help) in sorted(reagentmodes.items()):
-            _ = f.write(f"{t} {v} {help.replace("\r", "").replace("\n", "\\n")}\n")
+            if v is not None:
+                _ = f.write(f"{t} {v} {help.replace("\r", "").replace("\n", "\\n")}\n")
     enums_path = Path("data") / "enums.txt"
     with enums_path.open(mode="w") as f:
         for name, (val, help) in sorted(enums.items()):
-            _ = f.write(f"{name} {val} {help.replace("\r", "").replace("\n", "\\n")}\n")
+            if val is not None:
+                _ = f.write(f"{name} {val} {help.replace("\r", "").replace("\n", "\\n")}\n")
 
 if __name__ == "__main__":
     main()

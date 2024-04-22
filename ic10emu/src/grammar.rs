@@ -378,13 +378,37 @@ impl Operand {
                 identifier: _,
             } => {
                 if let Some(lt) = logic_type {
-                    Ok(lt.get_str("value").unwrap().parse::<u16>().unwrap() as f64)
+                    Ok(lt
+                        .get_str("value")
+                        .ok_or_else(|| ICError::NoGeneratedValue(lt.to_string()))?
+                        .parse::<u16>()
+                        .map_err(|_| {
+                            ICError::BadGeneratedValueParse(lt.to_string(), "u16".to_owned())
+                        })? as f64)
                 } else if let Some(slt) = slot_logic_type {
-                    Ok(slt.get_str("value").unwrap().parse::<u16>().unwrap() as f64)
+                    Ok(slt
+                        .get_str("value")
+                        .ok_or_else(|| ICError::NoGeneratedValue(slt.to_string()))?
+                        .parse::<u8>()
+                        .map_err(|_| {
+                            ICError::BadGeneratedValueParse(slt.to_string(), "u8".to_owned())
+                        })? as f64)
                 } else if let Some(bm) = batch_mode {
-                    Ok(bm.get_str("value").unwrap().parse::<u8>().unwrap() as f64)
+                    Ok(bm
+                        .get_str("value")
+                        .ok_or_else(|| ICError::NoGeneratedValue(bm.to_string()))?
+                        .parse::<u8>()
+                        .map_err(|_| {
+                            ICError::BadGeneratedValueParse(bm.to_string(), "u8".to_owned())
+                        })? as f64)
                 } else if let Some(rm) = reagent_mode {
-                    Ok(rm.get_str("value").unwrap().parse::<u8>().unwrap() as f64)
+                    Ok(rm
+                        .get_str("value")
+                        .ok_or_else(|| ICError::NoGeneratedValue(rm.to_string()))?
+                        .parse::<u8>()
+                        .map_err(|_| {
+                            ICError::BadGeneratedValueParse(rm.to_string(), "u8".to_owned())
+                        })? as f64)
                 } else {
                     Err(interpreter::ICError::TypeValueNotKnown)
                 }
@@ -397,6 +421,49 @@ impl Operand {
                 index,
                 desired: "Value".to_owned(),
             }),
+        }
+    }
+
+    pub fn as_value_i64(
+        &self,
+        ic: &interpreter::IC,
+        signed: bool,
+        inst: InstructionOp,
+        index: u32,
+    ) -> Result<i64, interpreter::ICError> {
+        match self {
+            Self::Number(num) => Ok(num.value_i64()),
+            _ => {
+                let val = self.as_value(ic, inst, index)?;
+                if val < -9.223_372_036_854_776E18 {
+                    Err(interpreter::ICError::ShiftUnderflowI64)
+                } else if val <= 9.223_372_036_854_776E18 {
+                    Ok(interpreter::f64_to_i64(val, signed))
+                } else {
+                    Err(interpreter::ICError::ShiftOverflowI64)
+                }
+            }
+        }
+    }
+
+    pub fn as_value_i32(
+        &self,
+        ic: &interpreter::IC,
+        inst: InstructionOp,
+        index: u32,
+    ) -> Result<i32, interpreter::ICError> {
+        match self {
+            Self::Number(num) => Ok(num.value_i64() as i32),
+            _ => {
+                let val = self.as_value(ic, inst, index)?;
+                if val < -2147483648.0 {
+                    Err(interpreter::ICError::ShiftUnderflowI32)
+                } else if val <= 2147483647.0 {
+                    Ok(val as i32)
+                } else {
+                    Err(interpreter::ICError::ShiftOverflowI32)
+                }
+            }
         }
     }
 
@@ -459,39 +526,6 @@ impl Operand {
                 index,
                 desired: "Value".to_owned(),
             }),
-        }
-    }
-
-    pub fn as_value_i64(
-        &self,
-        ic: &interpreter::IC,
-        signed: bool,
-        inst: InstructionOp,
-        index: u32,
-    ) -> Result<i64, interpreter::ICError> {
-        let val = self.as_value(ic, inst, index)?;
-        if val < -9.223_372_036_854_776E18 {
-            Err(interpreter::ICError::ShiftUnderflowI64)
-        } else if val <= 9.223_372_036_854_776E18 {
-            Ok(interpreter::f64_to_i64(val, signed))
-        } else {
-            Err(interpreter::ICError::ShiftOverflowI64)
-        }
-    }
-
-    pub fn as_value_i32(
-        &self,
-        ic: &interpreter::IC,
-        inst: InstructionOp,
-        index: u32,
-    ) -> Result<i32, interpreter::ICError> {
-        let val = self.as_value(ic, inst, index)?;
-        if val < -2147483648.0 {
-            Err(interpreter::ICError::ShiftUnderflowI32)
-        } else if val <= 2147483647.0 {
-            Ok(val as i32)
-        } else {
-            Err(interpreter::ICError::ShiftOverflowI32)
         }
     }
 
@@ -757,7 +791,7 @@ impl FromStr for Operand {
                 let num_str = rest_iter
                     .take_while_ref(|c| c.is_ascii_hexdigit())
                     .collect::<String>();
-                let num = i64::from_str_radix(&num_str, 16).unwrap() as f64;
+                let num = i64::from_str_radix(&num_str, 16).unwrap();
                 if rest_iter.next().is_none() {
                     Ok(Operand::Number(Number::Hexadecimal(num)))
                 } else {
@@ -774,7 +808,7 @@ impl FromStr for Operand {
                 let num_str = rest_iter
                     .take_while_ref(|c| c.is_digit(2))
                     .collect::<String>();
-                let num = i64::from_str_radix(&num_str, 2).unwrap() as f64;
+                let num = i64::from_str_radix(&num_str, 2).unwrap();
                 if rest_iter.next().is_none() {
                     Ok(Operand::Number(Number::Binary(num)))
                 } else {
@@ -898,12 +932,10 @@ impl Display for Operand {
             Operand::Number(number) => match number {
                 Number::Float(_) => Display::fmt(&number.value(), f),
                 Number::Hexadecimal(n) => {
-                    // FIXME: precision loss here, maybe we should track the source i64?
-                    write!(f, "${:x}", *n as i64)
+                    write!(f, "${:x}", *n)
                 }
                 Number::Binary(n) => {
-                    // FIXME: precision loss here, maybe we should track the source i64?
-                    write!(f, "%{:b}", *n as i64)
+                    write!(f, "%{:b}", *n)
                 }
                 Number::Constant(c) => {
                     dbg!(c);
@@ -1016,8 +1048,8 @@ impl Display for Identifier {
 #[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
 pub enum Number {
     Float(f64),
-    Binary(f64),
-    Hexadecimal(f64),
+    Binary(i64),
+    Hexadecimal(i64),
     Constant(f64),
     String(String),
     Enum(f64),
@@ -1026,12 +1058,17 @@ pub enum Number {
 impl Number {
     pub fn value(&self) -> f64 {
         match self {
-            Number::Enum(val)
-            | Number::Float(val)
-            | Number::Binary(val)
-            | Number::Constant(val)
-            | Number::Hexadecimal(val) => *val,
+            Number::Enum(val) | Number::Float(val) | Number::Constant(val) => *val,
+
+            Number::Binary(val) | Number::Hexadecimal(val) => *val as f64,
             Number::String(s) => const_crc32::crc32(s.as_bytes()) as i32 as f64,
+        }
+    }
+    pub fn value_i64(&self) -> i64 {
+        match self {
+            Number::Enum(val) | Number::Float(val) | Number::Constant(val) => *val as i64,
+            Number::Binary(val) | Number::Hexadecimal(val) => *val,
+            Number::String(s) => const_crc32::crc32(s.as_bytes()) as i32 as i64,
         }
     }
 }
@@ -1094,7 +1131,7 @@ mod tests {
                             indirection: 0,
                             target: 0,
                         }),
-                        Operand::Number(Number::Hexadecimal(4095.0)),
+                        Operand::Number(Number::Hexadecimal(4095)),
                     ],
                 },),),
                 comment: None,
@@ -1324,7 +1361,7 @@ mod tests {
                                 indirection: 0,
                                 target: 1,
                             }),
-                            Operand::Number(Number::Hexadecimal(255.0)),
+                            Operand::Number(Number::Hexadecimal(255)),
                         ],
                     },),),
                     comment: None,
@@ -1337,7 +1374,7 @@ mod tests {
                                 indirection: 0,
                                 target: 1,
                             }),
-                            Operand::Number(Number::Binary(8.0)),
+                            Operand::Number(Number::Binary(8)),
                         ],
                     },),),
                     comment: None,
@@ -1417,5 +1454,35 @@ mod tests {
         test_roundtrip(r#"HASH("StructureFurnace")"#);
         test_roundtrip("$abcd");
         test_roundtrip("%1001");
+    }
+
+
+    #[test]
+    fn all_generated_enums_have_value() {
+        use strum::IntoEnumIterator;
+        for lt in LogicType::iter() {
+            println!("testing LogicType.{lt}");
+            let value = lt.get_str("value");
+            assert!(value.is_some());
+            assert!(value.unwrap().parse::<u16>().is_ok());
+        }
+        for slt in SlotLogicType::iter() {
+            println!("testing SlotLogicType.{slt}");
+            let value = slt.get_str("value");
+            assert!(value.is_some());
+            assert!(value.unwrap().parse::<u8>().is_ok());
+        }
+        for bm in BatchMode::iter() {
+            println!("testing BatchMode.{bm}");
+            let value = bm.get_str("value");
+            assert!(value.is_some());
+            assert!(value.unwrap().parse::<u8>().is_ok());
+        }
+        for rm in ReagentMode::iter() {
+            println!("testing ReagentMode.{rm}");
+            let value = rm.get_str("value");
+            assert!(value.is_some());
+            assert!(value.unwrap().parse::<u8>().is_ok());
+        }
     }
 }
