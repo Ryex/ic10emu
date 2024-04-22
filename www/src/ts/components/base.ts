@@ -31,6 +31,10 @@ export const defaultCss = [
     .flex-g {
       flex-grow: 1;
     }
+    sl-divider:not([vertical]) {
+      border-top-width: var(--width);
+      border-color: var(--color);
+    }
   `,
 ];
 
