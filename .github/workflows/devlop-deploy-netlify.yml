@@ -45,3 +45,4 @@ jobs:
           NETLIFY_DEPLOY_TO_PROD: true
           install_command: "echo Skipping installing the dependencies"
           build_command: "echo Skipping building the web files"
+          build_directory: www/dist
