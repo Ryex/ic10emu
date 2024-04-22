@@ -3,7 +3,7 @@ members = ["ic10lsp_wasm", "ic10emu_wasm", "ic10emu", "xtask"]
 resolver = "2"
 
 [workspace.package]
-version = "0.2.0"
+version = "0.2.1"
 edition = "2021"
 
 [profile.release]

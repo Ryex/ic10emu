@@ -59,8 +59,8 @@ export type OperandReagentMode = { readonly ReagentMode: string };
 export type Identifier = { readonly Identifier: { name: string } };
 
 export type NumberFloat = { readonly Float: number };
-export type NumberBinary = { readonly Binary: number };
-export type NumberHexadecimal = { readonly Hexadecimal: number };
+export type NumberBinary = { readonly Binary: BigInt };
+export type NumberHexadecimal = { readonly Hexadecimal: BigInt };
 export type NumberConstant = { readonly Constant: number };
 export type NumberString = { readonly String: string };
 export type NumberEnum = { readonly Enum: number };

@@ -1,3 +1,9 @@
+## v0.2.1
+
+ - prevent borrow panics in VM during batch operations
+ - fix Maximize batch mode
+ - fix panic in parsing invalid numbers
+
 ## v0.2.0
 
 ### Share VM State!

@@ -1,0 +1,63 @@
+name: deploy preview to netlify
+on:
+  push:
+    branches:
+      - develop
+      - "!main"
+
+permissions:
+  contents: read
+  packages: read
+  checks: write
+  statuses: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: '8.15.7'
+      - name: Install rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+      - name: Install wasm-pack
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+      - name: Build ic10lsp
+        run: |
+          RUST_BACKTRACE=1 cargo xtask build -p ic10lsp_wasm --release -- --
+      - name: Build ic10emu
+        run: |
+          RUST_BACKTRACE=1 cargo xtask build -p ic10emu_wasm --release -- --
+      - name: Build Page
+        run: |
+          cd www
+          pnpm install
+          pnpm build
+      - name: Fix permissions
+        run: |
+          chmod -c -R +rX "www/dist/" | while read line; do
+            echo "::warning title=Invalid file permissions automatically fixed::$line"
+          done
+      - name: Upload artifacts
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: www/dist
+      - name: Deploy to Netlify
+        uses: jsmrcaga/action-netlify-deploy@v2.0.0
+        with:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_TOKEN_SECRET }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_DEPLOY_TO_PROD: true
+          install_command: "echo Skipping installing the dependencies"
+          build_command: "echo Skipping building the web files"
+          build_directory: www/dist
+      - name: Status check
+        uses: Sibz/github-status-action@v1.1.1
+        with:
+          authToken: ${{ secrets.GITHUB_TOKEN }}
+          context: Netlify preview
+          state: success
+          target_url: ${{ env.NETLIFY_PREVIEW_URL }}

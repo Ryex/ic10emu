@@ -1,6 +1,6 @@
 use core::f64;
 use serde::{Deserialize, Serialize};
-use std::{ops::Deref, string::ToString};
+use std::{cell::{Cell, RefCell}, ops::Deref, string::ToString};
 use std::{
     collections::{HashMap, HashSet},
     error::Error,
@@ -119,6 +119,10 @@ pub enum ICError {
     ChannelIndexOutOfRange(usize),
     #[error("slot has no occupant")]
     SlotNotOccupied,
+    #[error("generated Enum {0} has no value attached. Report this error.")]
+    NoGeneratedValue(String),
+    #[error("generated Enum {0}'s value does not parse as {1} . Report this error.")]
+    BadGeneratedValueParse(String, String),
 }
 
 impl ICError {
@@ -180,20 +184,19 @@ impl Display for ICState {
 pub struct IC {
     pub device: u32,
     pub id: u32,
-    pub registers: [f64; 18],
+    pub registers: RefCell<[f64; 18]>,
     /// Instruction Pointer
-    pub ip: u32,
+    pub ip: Cell<u32>,
     /// Instruction Count since last yield
-    pub ic: u16,
-    pub stack: [f64; 512],
-    pub aliases: HashMap<String, grammar::Operand>,
-    pub defines: HashMap<String, f64>,
-    pub pins: [Option<u32>; 6],
-    pub code: String,
-    pub program: Program,
-    pub state: ICState,
+    pub ic: Cell<u16>,
+    pub stack: RefCell<[f64; 512]>,
+    pub aliases: RefCell<HashMap<String, grammar::Operand>>,
+    pub defines: RefCell<HashMap<String, f64>>,
+    pub pins: RefCell<[Option<u32>; 6]>,
+    pub code: RefCell<String>,
+    pub program: RefCell<Program>,
+    pub state: RefCell<ICState>,
 }
-
 
 #[serde_as]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -215,21 +218,22 @@ pub struct FrozenIC {
 }
 
 impl<T> From<T> for FrozenIC
-    where T: Deref<Target = IC>
+where
+    T: Deref<Target = IC>,
 {
     fn from(ic: T) -> Self {
         FrozenIC {
             device: ic.device,
             id: ic.id,
-            registers: ic.registers,
-            ip: ic.ip,
-            ic: ic.ic,
-            stack: ic.stack,
-            aliases: ic.aliases.clone(),
-            defines: ic.defines.clone(),
-            pins: ic.pins,
-            state: ic.state.clone(),
-            code: ic.code.clone(),
+            registers: *ic.registers.borrow(),
+            ip: ic.ip.get(),
+            ic: ic.ic.get(),
+            stack: *ic.stack.borrow(),
+            aliases: ic.aliases.borrow().clone(),
+            defines: ic.defines.borrow().clone(),
+            pins: *ic.pins.borrow(),
+            state: ic.state.borrow().clone(),
+            code: ic.code.borrow().clone(),
         }
     }
 }
@@ -239,16 +243,16 @@ impl From<FrozenIC> for IC {
         IC {
             device: value.device,
             id: value.id,
-            registers: value.registers,
-            ip: value.ip,
-            ic: value.ic,
-            stack: value.stack,
-            aliases: value.aliases,
-            defines: value.defines,
-            pins: value.pins,
-            state: value.state,
-            code: value.code.clone(),
-            program: Program::from_code_with_invalid(&value.code),
+            registers: RefCell::new(value.registers),
+            ip: Cell::new(value.ip),
+            ic: Cell::new(value.ic),
+            stack: RefCell::new(value.stack),
+            aliases: RefCell::new(value.aliases),
+            defines: RefCell::new(value.defines),
+            pins: RefCell::new(value.pins),
+            state: RefCell::new(value.state),
+            code: RefCell::new(value.code.clone()),
+            program: RefCell::new(Program::from_code_with_invalid(&value.code)),
         }
     }
 }
@@ -369,57 +373,49 @@ impl IC {
         IC {
             device,
             id,
-            ip: 0,
-            ic: 0,
-            registers: [0.0; 18],
-            stack: [0.0; 512],
-            pins: [None; 6],
-            program: Program::new(),
-            code: String::new(),
-            aliases: HashMap::new(),
-            defines: HashMap::new(),
-            state: ICState::Start,
+            ip: Cell::new(0),
+            ic: Cell::new(0),
+            registers: RefCell::new([0.0; 18]),
+            stack: RefCell::new([0.0; 512]),
+            pins: RefCell::new([None; 6]),
+            program: RefCell::new(Program::new()),
+            code: RefCell::new(String::new()),
+            aliases: RefCell::new(HashMap::new()),
+            defines: RefCell::new(HashMap::new()),
+            state: RefCell::new(ICState::Start),
         }
     }
 
-    pub fn reset(&mut self) {
-        self.ip = 0;
-        self.ic = 0;
-        self.registers = [0.0; 18];
-        self.stack = [0.0; 512];
-        self.aliases = HashMap::new();
-        self.defines = HashMap::new();
-        self.state = ICState::Start;
+    pub fn reset(&self) {
+        self.ip.replace(0);
+        self.ic.replace(0);
+        self.registers.replace([0.0; 18]);
+        self.stack.replace([0.0; 512]);
+        self.aliases.replace(HashMap::new());
+        self.defines.replace(HashMap::new());
+        self.state.replace(ICState::Start);
     }
 
     /// Set program code if it's valid
-    pub fn set_code(&mut self, code: &str) -> Result<(), ICError> {
+    pub fn set_code(&self, code: &str) -> Result<(), ICError> {
         let prog = Program::try_from_code(code)?;
-        self.ip = 0;
-        self.ic = 0;
-        self.aliases = HashMap::new();
-        self.defines = HashMap::new();
-        self.program = prog;
-        self.code = code.to_string();
+        self.program.replace(prog);
+        self.code.replace(code.to_string());
         Ok(())
     }
 
     /// Set program code and translate invalid lines to Nop, collecting errors
     pub fn set_code_invalid(&mut self, code: &str) {
         let prog = Program::from_code_with_invalid(code);
-        self.ip = 0;
-        self.ic = 0;
-        self.aliases = HashMap::new();
-        self.defines = HashMap::new();
-        self.program = prog;
-        self.code = code.to_string();
+        self.program.replace(prog);
+        self.code.replace(code.to_string());
     }
 
     pub fn get_real_target(&self, indirection: u32, target: u32) -> Result<f64, ICError> {
         let mut i = indirection;
         let mut t = target as f64;
         while i > 0 {
-            if let Some(new_t) = self.registers.get(t as usize) {
+            if let Some(new_t) = self.registers.borrow().get(t as usize) {
                 t = *new_t;
             } else {
                 return Err(ICError::RegisterIndexOutOfRange(t));
@@ -432,6 +428,7 @@ impl IC {
     pub fn get_register(&self, indirection: u32, target: u32) -> Result<f64, ICError> {
         let t = self.get_real_target(indirection, target)?;
         self.registers
+            .borrow()
             .get(t as usize)
             .ok_or(ICError::RegisterIndexOutOfRange(t))
             .copied()
@@ -439,72 +436,76 @@ impl IC {
 
     /// sets a register thorough, recursing through provided indirection, returns value previously
     pub fn set_register(
-        &mut self,
+        &self,
         indirection: u32,
         target: u32,
         val: f64,
     ) -> Result<f64, ICError> {
         let t = self.get_real_target(indirection, target)?;
-        let old_val = self
-            .registers
+        let mut registers = self.registers.borrow_mut();
+        let old_val = registers
             .get(t as usize)
             .ok_or(ICError::RegisterIndexOutOfRange(t))
             .copied()?;
-        self.registers[t as usize] = val;
+        registers[t as usize] = val;
         Ok(old_val)
     }
 
     /// save ip to 'ra' or register 18
-    fn al(&mut self) {
-        self.registers[17] = self.ip as f64 + 1.0;
+    fn al(&self) {
+        self.registers.borrow_mut()[17] = self.ip() as f64 + 1.0;
     }
 
-    pub fn push(&mut self, val: f64) -> Result<f64, ICError> {
-        let sp = (self.registers[16].round()) as i32;
+    pub fn push(&self, val: f64) -> Result<f64, ICError> {
+        let mut registers = self.registers.borrow_mut();
+        let mut stack = self.stack.borrow_mut();
+        let sp = (registers[16].round()) as i32;
         if sp < 0 {
             Err(ICError::StackUnderflow)
         } else if sp >= 512 {
             Err(ICError::StackOverflow)
         } else {
-            let last = self.stack[sp as usize];
-            self.stack[sp as usize] = val;
-            self.registers[16] += 1.0;
+            let last = stack[sp as usize];
+            stack[sp as usize] = val;
+            registers[16] += 1.0;
             Ok(last)
         }
     }
 
-    pub fn pop(&mut self) -> Result<f64, ICError> {
-        self.registers[16] -= 1.0;
-        let sp = (self.registers[16].round()) as i32;
+    pub fn pop(&self) -> Result<f64, ICError> {
+        let mut registers = self.registers.borrow_mut();
+        registers[16] -= 1.0;
+        let sp = (registers[16].round()) as i32;
         if sp < 0 {
             Err(ICError::StackUnderflow)
         } else if sp >= 512 {
             Err(ICError::StackOverflow)
         } else {
-            let last = self.stack[sp as usize];
+            let last = self.stack.borrow()[sp as usize];
             Ok(last)
         }
     }
 
-    pub fn poke(&mut self, address: f64, val: f64) -> Result<f64, ICError> {
+    pub fn poke(&self, address: f64, val: f64) -> Result<f64, ICError> {
         let sp = address.round() as i32;
         if !(0..512).contains(&sp) {
             Err(ICError::StackIndexOutOfRange(address))
         } else {
-            let last = self.stack[sp as usize];
-            self.stack[sp as usize] = val;
+            let mut stack = self.stack.borrow_mut();
+            let last = stack[sp as usize];
+            stack[sp as usize] = val;
             Ok(last)
         }
     }
 
     pub fn peek(&self) -> Result<f64, ICError> {
-        let sp = (self.registers[16] - 1.0).round() as i32;
+        let sp = (self.registers.borrow()[16] - 1.0).round() as i32;
         if sp < 0 {
             Err(ICError::StackUnderflow)
         } else if sp >= 512 {
             Err(ICError::StackOverflow)
         } else {
-            let last = self.stack[sp as usize];
+            let last = self.stack.borrow()[sp as usize];
             Ok(last)
         }
     }
@@ -516,37 +517,49 @@ impl IC {
         } else if sp >= 512 {
             Err(ICError::StackOverflow)
         } else {
-            let last = self.stack[sp as usize];
+            let last = self.stack.borrow()[sp as usize];
             Ok(last)
         }
     }
 
     /// processes one line of the contained program
-    pub fn step(&mut self, vm: &VM, advance_ip_on_err: bool) -> Result<bool, LineError> {
+    pub fn step(&self, vm: &VM, advance_ip_on_err: bool) -> Result<bool, LineError> {
         // TODO: handle sleep
-        self.state = ICState::Running;
-        let line = self.ip;
+        self.state.replace(ICState::Running);
+        let line = self.ip();
         let result = self.internal_step(vm, advance_ip_on_err);
         if let Err(error) = result {
             let error = LineError { error, line };
-            self.state = ICState::Error(error.clone());
+            self.state.replace(ICState::Error(error.clone()));
             Err(error)
         } else {
             Ok(true)
         }
     }
 
-    fn internal_step(&mut self, vm: &VM, advance_ip_on_err: bool) -> Result<(), ICError> {
+    pub fn ip(&self) -> u32 {
+        self.ip.get()
+    }
+
+    pub fn set_ip(&self, val: u32) {
+        self.ip.replace(val);
+    }
+
+    fn internal_step(&self, vm: &VM, advance_ip_on_err: bool) -> Result<(), ICError> {
         use grammar::*;
         use ICError::*;
 
-        let mut next_ip = self.ip + 1;
+        let mut next_ip = self.ip() + 1;
         // XXX: This closure should be replaced with a try block
         // https://github.com/rust-lang/rust/issues/31436
-        let mut process_op = |this: &mut Self| -> Result<(), ICError> {
+        let mut process_op = |this: &Self| -> Result<(), ICError> {
             use grammar::InstructionOp::*;
 
-            let line = this.program.get_line(this.ip)?;
+            // force the program borrow to drop
+            let line = {
+                let prog = this.program.borrow();
+                prog.get_line(this.ip())?.clone()
+            };
             let operands = &line.operands;
             let inst = line.instruction;
             match inst {
@@ -557,14 +570,14 @@ impl IC {
                         let a = a.as_value(this, inst, 1)?;
                         let now = time::OffsetDateTime::now_local()
                             .unwrap_or_else(|_| time::OffsetDateTime::now_utc());
-                        this.state = ICState::Sleep(now, a);
+                        this.state.replace(ICState::Sleep(now, a));
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 1)),
                 }, // TODO
                 Yield => match &operands[..] {
                     [] => {
-                        this.state = ICState::Yield;
+                        this.state.replace(ICState::Yield);
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 0)),
@@ -585,10 +598,11 @@ impl IC {
                                 desired: "Number".to_owned(),
                             });
                         };
-                        if this.defines.contains_key(&ident.name) {
+                        let mut defines = this.defines.borrow_mut();
+                        if defines.contains_key(&ident.name) {
                             Err(DuplicateDefine(ident.name.clone()))
                         } else {
-                            this.defines.insert(ident.name.clone(), num.value());
+                            defines.insert(ident.name.clone(), num.value());
                             Ok(())
                         }
                     }
@@ -625,7 +639,7 @@ impl IC {
                                 })
                             }
                         };
-                        this.aliases.insert(ident.name.clone(), alias);
+                        this.aliases.borrow_mut().insert(ident.name.clone(), alias);
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 2)),
@@ -671,7 +685,7 @@ impl IC {
                         let b = b.as_value(this, inst, 2)?;
                         let c = c.as_value(this, inst, 3)?;
                         next_ip = if a == b {
-                            (this.ip as f64 + c) as u32
+                            (this.ip() as f64 + c) as u32
                         } else {
                             next_ip
                         };
@@ -703,7 +717,7 @@ impl IC {
                         let a = a.as_value(this, inst, 1)?;
                         let b = b.as_value(this, inst, 2)?;
                         next_ip = if a == 0.0 {
-                            (this.ip as f64 + b) as u32
+                            (this.ip() as f64 + b) as u32
                         } else {
                             next_ip
                         };
@@ -738,7 +752,7 @@ impl IC {
                         let b = b.as_value(this, inst, 2)?;
                         let c = c.as_value(this, inst, 3)?;
                         next_ip = if a != b {
-                            (this.ip as f64 + c) as u32
+                            (this.ip() as f64 + c) as u32
                         } else {
                             next_ip
                         };
@@ -770,7 +784,7 @@ impl IC {
                         let a = a.as_value(this, inst, 1)?;
                         let b = b.as_value(this, inst, 2)?;
                         next_ip = if a != 0.0 {
-                            (this.ip as f64 + b) as u32
+                            (this.ip() as f64 + b) as u32
                         } else {
                             next_ip
                         };
@@ -805,7 +819,7 @@ impl IC {
                         let b = b.as_value(this, inst, 2)?;
                         let c = c.as_value(this, inst, 3)?;
                         next_ip = if a < b {
-                            (this.ip as f64 + c) as u32
+                            (this.ip() as f64 + c) as u32
                         } else {
                             next_ip
                         };
@@ -840,7 +854,7 @@ impl IC {
                         let b = b.as_value(this, inst, 2)?;
                         let c = c.as_value(this, inst, 3)?;
                         next_ip = if a <= b {
-                            (this.ip as f64 + c) as u32
+                            (this.ip() as f64 + c) as u32
                         } else {
                             next_ip
                         };
@@ -872,7 +886,7 @@ impl IC {
                         let a = a.as_value(this, inst, 1)?;
                         let b = b.as_value(this, inst, 2)?;
                         next_ip = if a <= 0.0 {
-                            (this.ip as f64 + b) as u32
+                            (this.ip() as f64 + b) as u32
                         } else {
                             next_ip
                         };
@@ -904,7 +918,7 @@ impl IC {
                         let a = a.as_value(this, inst, 1)?;
                         let b = b.as_value(this, inst, 2)?;
                         next_ip = if a < 0.0 {
-                            (this.ip as f64 + b) as u32
+                            (this.ip() as f64 + b) as u32
                         } else {
                             next_ip
                         };
@@ -939,7 +953,7 @@ impl IC {
                         let b = b.as_value(this, inst, 2)?;
                         let c = c.as_value(this, inst, 3)?;
                         next_ip = if a > b {
-                            (this.ip as f64 + c) as u32
+                            (this.ip() as f64 + c) as u32
                         } else {
                             next_ip
                         };
@@ -971,7 +985,7 @@ impl IC {
                         let a = a.as_value(this, inst, 1)?;
                         let b = b.as_value(this, inst, 2)?;
                         next_ip = if a > 0.0 {
-                            (this.ip as f64 + b) as u32
+                            (this.ip() as f64 + b) as u32
                         } else {
                             next_ip
                         };
@@ -1006,7 +1020,7 @@ impl IC {
                         let b = b.as_value(this, inst, 2)?;
                         let c = c.as_value(this, inst, 3)?;
                         next_ip = if a >= b {
-                            (this.ip as f64 + c) as u32
+                            (this.ip() as f64 + c) as u32
                         } else {
                             next_ip
                         };
@@ -1038,7 +1052,7 @@ impl IC {
                         let a = a.as_value(this, inst, 1)?;
                         let b = b.as_value(this, inst, 2)?;
                         next_ip = if a >= 0.0 {
-                            (this.ip as f64 + b) as u32
+                            (this.ip() as f64 + b) as u32
                         } else {
                             next_ip
                         };
@@ -1090,7 +1104,7 @@ impl IC {
                         next_ip = if f64::abs(a - b)
                             <= f64::max(c * f64::max(a.abs(), b.abs()), f64::EPSILON * 8.0)
                         {
-                            (this.ip as f64 + d) as u32
+                            (this.ip() as f64 + d) as u32
                         } else {
                             next_ip
                         };
@@ -1134,7 +1148,7 @@ impl IC {
                         let b = b.as_value(this, inst, 2)?;
                         let c = c.as_value(this, inst, 3)?;
                         next_ip = if a.abs() <= f64::max(b * a.abs(), f64::EPSILON * 8.0) {
-                            (this.ip as f64 + c) as u32
+                            (this.ip() as f64 + c) as u32
                         } else {
                             next_ip
                         };
@@ -1186,7 +1200,7 @@ impl IC {
                         next_ip = if f64::abs(a - b)
                             > f64::max(c * f64::max(a.abs(), b.abs()), f64::EPSILON * 8.0)
                         {
-                            (this.ip as f64 + d) as u32
+                            (this.ip() as f64 + d) as u32
                         } else {
                             next_ip
                         };
@@ -1229,7 +1243,7 @@ impl IC {
                         let b = b.as_value(this, inst, 2)?;
                         let c = c.as_value(this, inst, 3)?;
                         next_ip = if a.abs() > f64::max(b * a.abs(), f64::EPSILON * 8.0) {
-                            (this.ip as f64 + c) as u32
+                            (this.ip() as f64 + c) as u32
                         } else {
                             next_ip
                         };
@@ -1261,7 +1275,7 @@ impl IC {
                         let (device, _connection) = d.as_device(this, inst, 1)?;
                         let a = a.as_value(this, inst, 2)?;
                         next_ip = if device.is_some() {
-                            (this.ip as f64 + a) as u32
+                            (this.ip() as f64 + a) as u32
                         } else {
                             next_ip
                         };
@@ -1293,7 +1307,7 @@ impl IC {
                         let (device, _connection) = d.as_device(this, inst, 1)?;
                         let a = a.as_value(this, inst, 2)?;
                         next_ip = if device.is_none() {
-                            (this.ip as f64 + a) as u32
+                            (this.ip() as f64 + a) as u32
                         } else {
                             next_ip
                         };
@@ -1315,7 +1329,7 @@ impl IC {
                         let a = a.as_value(this, inst, 1)?;
                         let b = b.as_value(this, inst, 2)?;
                         next_ip = if a.is_nan() {
-                            (this.ip as f64 + b) as u32
+                            (this.ip() as f64 + b) as u32
                         } else {
                             next_ip
                         };
@@ -1344,7 +1358,7 @@ impl IC {
                 Jr => match &operands[..] {
                     [a] => {
                         let a = a.as_value(this, inst, 1)?;
-                        next_ip = (this.ip as f64 + a) as u32;
+                        next_ip = (this.ip() as f64 + a) as u32;
                         Ok(())
                     }
                     oprs => Err(ICError::too_many_operands(oprs.len(), 1)),
@@ -2178,7 +2192,7 @@ impl IC {
                                     if ic_id == &this.id {
                                         this.poke(addr, val)?;
                                     } else {
-                                        let mut ic = vm.ics.get(ic_id).unwrap().borrow_mut();
+                                        let ic = vm.ics.get(ic_id).unwrap().borrow();
                                         ic.poke(addr, val)?;
                                     }
                                     vm.set_modified(device_id);
@@ -2206,7 +2220,7 @@ impl IC {
                                     if ic_id == &this.id {
                                         this.poke(addr, val)?;
                                     } else {
-                                        let mut ic = vm.ics.get(ic_id).unwrap().borrow_mut();
+                                        let ic = vm.ics.get(ic_id).unwrap().borrow();
                                         ic.poke(addr, val)?;
                                     }
                                     vm.set_modified(device_id as u32);
@@ -2360,7 +2374,7 @@ impl IC {
                         if lt == LogicType::LineNumber && this.device == device_id {
                             // HACK: we can't use device.get_field as that will try to reborrow our
                             // ic which will panic
-                            this.set_register(indirection, target, this.ip as f64)?;
+                            this.set_register(indirection, target, this.ip() as f64)?;
                             Ok(())
                         } else {
                             let device = vm.get_device_same_network(this.device, device_id);
@@ -2390,7 +2404,7 @@ impl IC {
                         if lt == LogicType::LineNumber && this.device == device_id as u32 {
                             // HACK: we can't use device.get_field as that will try to reborrow our
                             // ic which will panic
-                            this.set_register(indirection, target, this.ip as f64)?;
+                            this.set_register(indirection, target, this.ip() as f64)?;
                             Ok(())
                         } else {
                             let device = vm.get_device_same_network(this.device, device_id as u32);
@@ -2419,7 +2433,7 @@ impl IC {
                         if slt == SlotLogicType::LineNumber && this.device == device_id {
                             // HACK: we can't use device.get_slot_field as that will try to reborrow our
                             // ic which will panic
-                            this.set_register(indirection, target, this.ip as f64)?;
+                            this.set_register(indirection, target, this.ip() as f64)?;
                             Ok(())
                         } else {
                             let device = vm.get_device_same_network(this.device, device_id);
@@ -2448,7 +2462,7 @@ impl IC {
                         let device = vm.get_device_same_network(this.device, device_id);
                         match device {
                             Some(device) => {
-                                let rm = ReagentMode::try_from(rm.as_value(this, inst, 3)?)?;
+                                let rm = rm.as_reagent_mode(this, inst, 3)?;
                                 let name = name.as_value(this, inst, 4)?;
                                 let val = device.borrow().get_reagent(&rm, name);
                                 this.set_register(indirection, target, val)?;
@@ -2467,7 +2481,7 @@ impl IC {
                         } = reg.as_register(this, inst, 1)?;
                         let prefab = prefab.as_value(this, inst, 2)?;
                         let lt = lt.as_logic_type(this, inst, 3)?;
-                        let bm = BatchMode::try_from(bm.as_value(this, inst, 4)?)?;
+                        let bm = bm.as_batch_mode(this, inst, 4)?;
                         let val = vm.get_batch_device_field(this.device, prefab, lt, bm)?;
                         this.set_register(indirection, target, val)?;
                         Ok(())
@@ -2483,7 +2497,7 @@ impl IC {
                         let prefab = prefab.as_value(this, inst, 2)?;
                         let name = name.as_value(this, inst, 3)?;
                         let lt = lt.as_logic_type(this, inst, 4)?;
-                        let bm = BatchMode::try_from(bm.as_value(this, inst, 5)?)?;
+                        let bm = bm.as_batch_mode(this, inst, 5)?;
                         let val =
                             vm.get_batch_name_device_field(this.device, prefab, name, lt, bm)?;
                         this.set_register(indirection, target, val)?;
@@ -2501,7 +2515,7 @@ impl IC {
                         let name = name.as_value(this, inst, 3)?;
                         let index = index.as_value(this, inst, 4)?;
                         let slt = slt.as_slot_logic_type(this, inst, 5)?;
-                        let bm = BatchMode::try_from(bm.as_value(this, inst, 6)?)?;
+                        let bm = bm.as_batch_mode(this, inst, 6)?;
                         let val = vm.get_batch_name_device_slot_field(
                             this.device,
                             prefab,
@@ -2524,7 +2538,7 @@ impl IC {
                         let prefab = prefab.as_value(this, inst, 2)?;
                         let index = index.as_value(this, inst, 3)?;
                         let slt = slt.as_slot_logic_type(this, inst, 4)?;
-                        let bm = BatchMode::try_from(bm.as_value(this, inst, 5)?)?;
+                        let bm = bm.as_batch_mode(this, inst, 5)?;
                         let val =
                             vm.get_batch_device_slot_field(this.device, prefab, index, slt, bm)?;
                         this.set_register(indirection, target, val)?;
@@ -2536,8 +2550,8 @@ impl IC {
         };
         let result = process_op(self);
         if result.is_ok() || advance_ip_on_err {
-            self.ic += 1;
-            self.ip = next_ip;
+            self.ic.set(self.ic.get() + 1);
+            self.set_ip(next_ip);
         }
         result
     }
@@ -2589,4 +2603,84 @@ pub fn i64_to_f64(i: i64) -> f64 {
         i &= -9007199254740992_i64;
     }
     i as f64
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::vm::VMError;
+
+    use super::*;
+
+    #[test]
+    fn batch_modes() -> Result<(), VMError> {
+        let mut vm = VM::new();
+        let ic = vm.add_ic(None).unwrap();
+        let ic_id = {
+            let device = vm.devices.get(&ic).unwrap();
+            let device_ref = device.borrow();
+            device_ref.ic.unwrap()
+        };
+        let ic_chip = vm.ics.get(&ic_id).unwrap().borrow();
+        vm.set_code(
+            ic,
+            r#"lb r0 HASH("ItemActiveVent") On Sum
+            lb r1 HASH("ItemActiveVent") On Maximum
+            lb r2 HASH("ItemActiveVent") On Minimum"#,
+        )?;
+        vm.step_ic(ic, false)?;
+        let r0 = ic_chip.get_register(0, 0).unwrap();
+        assert_eq!(r0, 0.0);
+        vm.step_ic(ic, false)?;
+        let r1 = ic_chip.get_register(0, 1).unwrap();
+        assert_eq!(r1, f64::NEG_INFINITY);
+        vm.step_ic(ic, false)?;
+        let r2 = ic_chip.get_register(0, 2).unwrap();
+        assert_eq!(r2, f64::INFINITY);
+        Ok(())
+    }
+
+    #[test]
+    fn stack() -> Result<(), VMError> {
+        let mut vm = VM::new();
+        let ic = vm.add_ic(None).unwrap();
+        let ic_id = {
+            let device = vm.devices.get(&ic).unwrap();
+            let device_ref = device.borrow();
+            device_ref.ic.unwrap()
+        };
+        let ic_chip = vm.ics.get(&ic_id).unwrap().borrow();
+        vm.set_code(
+            ic,
+            r#"push 100
+            push 10
+            pop r0
+            push 1000
+            peek r1
+            poke 1 20
+            pop r2
+            "#,
+        )?;
+        vm.step_ic(ic, false)?;
+        let stack0 = ic_chip.peek_addr(0.0)?;
+        assert_eq!(stack0, 100.0);
+        vm.step_ic(ic, false)?;
+        let stack1 = ic_chip.peek_addr(1.0)?;
+        assert_eq!(stack1, 10.0);
+        vm.step_ic(ic, false)?;
+        let r0 = ic_chip.get_register(0, 0).unwrap();
+        assert_eq!(r0, 10.0);
+        vm.step_ic(ic, false)?;
+        let stack1 = ic_chip.peek_addr(1.0)?;
+        assert_eq!(stack1, 1000.0);
+        vm.step_ic(ic, false)?;
+        let r1 = ic_chip.get_register(0, 1).unwrap();
+        assert_eq!(r1, 1000.0);
+        vm.step_ic(ic, false)?;
+        let stack1 = ic_chip.peek_addr(1.0)?;
+        assert_eq!(stack1, 20.0);
+        vm.step_ic(ic, false)?;
+        let r2 = ic_chip.get_register(0, 2).unwrap();
+        assert_eq!(r2, 20.0);
+        Ok(())
+    }
 }

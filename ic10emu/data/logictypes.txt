@@ -7,18 +7,16 @@ AutoLand 226 Engages the automatic landing algorithm. The rocket will automatica
 AutoShutOff 218 Turns off all devices in the rocket upon reaching destination
 Bpm 103 Bpm
 BurnTimeRemaining 225 Estimated time in seconds until fuel is depleted. Calculated based on current fuel usage.
-Bypass None Bypasses some internal behavoiur of the atmospherics device.
 CelestialHash 242 
 CelestialParentHash 250 
-Channel None Channel on a cable network which should be considered volatile
-Channel0 165 Channel on a cable network which should be considered volatile
-Channel1 166 Channel on a cable network which should be considered volatile
-Channel2 167 Channel on a cable network which should be considered volatile
-Channel3 168 Channel on a cable network which should be considered volatile
-Channel4 169 Channel on a cable network which should be considered volatile
-Channel5 170 Channel on a cable network which should be considered volatile
-Channel6 171 Channel on a cable network which should be considered volatile
-Channel7 172 Channel on a cable network which should be considered volatile
+Channel0 165 Channel 0 on a cable network which should be considered volatile
+Channel1 166 Channel 1 on a cable network which should be considered volatile
+Channel2 167 Channel 2 on a cable network which should be considered volatile
+Channel3 168 Channel 3 on a cable network which should be considered volatile
+Channel4 169 Channel 4 on a cable network which should be considered volatile
+Channel5 170 Channel 5 on a cable network which should be considered volatile
+Channel6 171 Channel 6 on a cable network which should be considered volatile
+Channel7 172 Channel 7 on a cable network which should be considered volatile
 Charge 11 The current charge the device has
 Chart 256 
 ChartedNavPoints 259 
@@ -92,7 +90,6 @@ OperationalTemperatureEfficiency 150 How the input pipe's temperature effects th
 OrbitPeriod 245 
 Orientation 230 
 Output 70 The output operation for a sort handling device, such as a stacker or sorter, when in logic mode the device will only action one repetition when set zero or above and then back to -1 and await further instructions
-OverShootTarget None How far is the landing rocket going to overshoot its landing target at its current thrust. Expressed as a negative value in meters. ensure this is at zero by the time a rocket lands or risk total loss of rocket.
 PassedMoles 234 
 Plant 68 Performs the planting action for any plant based machinery
 PlantEfficiency1 52 DEPRECATED
@@ -228,7 +225,6 @@ SizeX 160 Size on the X (right) axis of the object in largeGrids (a largeGrid is
 SizeY 161 Size on the Y(Up) axis of the object in largeGrids (a largeGrid is 2meters)
 SizeZ 162 Size on the Z(Forward) axis of the object in largeGrids (a largeGrid is 2meters)
 SolarAngle 22 Solar angle of the device
-SolarConstant None Solar constant of the world
 SolarIrradiance 176 
 SoundAlert 175 Plays a sound alert on the devices speaker
 Stress 156 Machines get stressed when working hard. When Stress reaches 100 the machine will automatically shut down
@@ -257,7 +253,6 @@ TotalMolesOutput 135 Returns the total moles of the device's Output Network
 TotalMolesOutput2 145 Returns the total moles of the device's Output2 Network
 TotalQuantity 265 
 TrueAnomaly 251 
-Unknown None No description available
 VelocityMagnitude 79 The current magnitude of the velocity vector
 VelocityRelativeX 80 The current velocity X relative to the forward vector of this
 VelocityRelativeY 81 The current velocity Y relative to the forward vector of this

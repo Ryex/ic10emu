@@ -285,13 +285,11 @@ impl VM {
         device.borrow_mut().id = new_id;
         self.devices.insert(new_id, device);
         self.ics.iter().for_each(|(_id, ic)| {
-            if let Ok(mut ic_ref) = ic.try_borrow_mut() {
-                ic_ref.pins.iter_mut().for_each(|pin| {
-                    if pin.is_some_and(|d| d == old_id) {
-                        pin.replace(new_id);
-                    }
-                })
-            }
+            ic.borrow().pins.borrow_mut().iter_mut().for_each(|pin| {
+                if pin.is_some_and(|d| d == old_id) {
+                    pin.replace(new_id);
+                }
+            })
         });
         self.networks.iter().for_each(|(_net_id, net)| {
             if let Ok(mut net_ref) = net.try_borrow_mut() {
@@ -312,15 +310,14 @@ impl VM {
             .ok_or(VMError::UnknownId(id))?
             .borrow();
         let ic_id = *device.ic.as_ref().ok_or(VMError::NoIC(id))?;
-        let mut ic = self
+        let ic = self
             .ics
             .get(&ic_id)
             .ok_or(VMError::UnknownIcId(ic_id))?
-            .borrow_mut();
+            .borrow();
         let new_prog = interpreter::Program::try_from_code(code)?;
-        ic.program = new_prog;
-        ic.ip = 0;
-        ic.code = code.to_string();
+        ic.program.replace(new_prog);
+        ic.code.replace(code.to_string());
         Ok(true)
     }
 
@@ -332,15 +329,14 @@ impl VM {
             .ok_or(VMError::UnknownId(id))?
             .borrow();
         let ic_id = *device.ic.as_ref().ok_or(VMError::NoIC(id))?;
-        let mut ic = self
+        let ic = self
             .ics
             .get(&ic_id)
             .ok_or(VMError::UnknownIcId(ic_id))?
             .borrow_mut();
         let new_prog = interpreter::Program::from_code_with_invalid(code);
-        ic.program = new_prog;
-        ic.ip = 0;
-        ic.code = code.to_string();
+        ic.program.replace(new_prog);
+        ic.code.replace(code.to_string());
         Ok(true)
     }
 
@@ -363,8 +359,8 @@ impl VM {
             .get(&ic_id)
             .ok_or(VMError::UnknownIcId(ic_id))?
             .clone();
-        ic.borrow_mut().ic = 0;
-        let result = ic.borrow_mut().step(self, advance_ip_on_err)?;
+        ic.borrow().ic.replace(0);
+        let result = ic.borrow().step(self, advance_ip_on_err)?;
         Ok(result)
     }
 
@@ -378,21 +374,23 @@ impl VM {
             .get(&ic_id)
             .ok_or(VMError::UnknownIcId(ic_id))?
             .clone();
-        ic.borrow_mut().ic = 0;
+        ic.borrow().ic.replace(0);
         self.set_modified(id);
         for _i in 0..128 {
-            if let Err(err) = ic.borrow_mut().step(self, ignore_errors) {
+            if let Err(err) = ic.borrow().step(self, ignore_errors) {
                 if !ignore_errors {
                     return Err(err.into());
                 }
             }
-            if let interpreter::ICState::Yield = ic.borrow().state {
+            if let interpreter::ICState::Yield = *ic.borrow().state.borrow() {
                 return Ok(false);
-            } else if let interpreter::ICState::Sleep(_then, _sleep_for) = ic.borrow().state {
+            } else if let interpreter::ICState::Sleep(_then, _sleep_for) =
+                *ic.borrow().state.borrow()
+            {
                 return Ok(false);
             }
         }
-        ic.borrow_mut().state = interpreter::ICState::Yield;
+        ic.borrow().state.replace(interpreter::ICState::Yield);
         Ok(true)
     }
 
@@ -408,8 +406,8 @@ impl VM {
             .get(&ic_id)
             .ok_or(VMError::UnknownIcId(ic_id))?
             .clone();
-        ic.borrow_mut().ic = 0;
-        ic.borrow_mut().reset();
+        ic.borrow().ic.replace(0);
+        ic.borrow().reset();
         Ok(true)
     }
 
@@ -506,7 +504,7 @@ impl VM {
             let Some(ic_id) = device.borrow().ic else {
                 return Err(VMError::NoIC(id));
             };
-            self.ics.get(&ic_id).unwrap().borrow_mut().pins[pin] = val;
+            self.ics.get(&ic_id).unwrap().borrow().pins.borrow_mut()[pin] = val;
             Ok(true)
         }
     }

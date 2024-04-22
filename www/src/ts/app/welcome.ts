@@ -54,7 +54,7 @@ export class AppWelcome extends BaseElement {
 
   render() {
     return html`
-      <sl-dialog class="welcome-dialog" label="Changlog">
+      <sl-dialog class="welcome-dialog" label="Changelog">
         <h6>Hey there!</h6>
         <p>Looks like there have been some updates since you've last visit.</p>
         <br />
