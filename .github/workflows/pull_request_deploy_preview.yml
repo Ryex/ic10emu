@@ -1,8 +1,8 @@
-name: deploy preview to netlify
+
+name: deploy deploy-preview to netlify for pull request
 on:
-  push:
-    branches:
-      - develop
+  pull_request:
+    types: ['opened', 'edited', 'synchronize']
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -42,7 +42,14 @@ jobs:
         with:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_TOKEN_SECRET }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_DEPLOY_TO_PROD: true
           install_command: "echo Skipping installing the dependencies"
           build_command: "echo Skipping building the web files"
           build_directory: www/dist
+          deploy_alias: ${{ env.BRANCH_NAME }}
+      - name: Status check
+        uses: Sibz/github-status-action@v1.1.1
+        with:
+          authToken: ${{ secrets.GITHUB_TOKEN }}
+          context: Netlify preview
+          state: success
+          target_url: ${{ env.NETLIFY_PREVIEW_URL }}
