@@ -1,3 +1,8 @@
+## v0.2.1
+
+ - prevent borrow panics in VM  during bach operations
+ - fix Maximize batch mode
+
 ## v0.2.0
 
 ### Share VM State!
