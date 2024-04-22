@@ -44,13 +44,15 @@ fn write_repr_enum<'a, T: std::io::Write, I, P>(
             .map(|s| format!("serialize = \"{s}\""))
             .collect::<Vec<String>>()
             .join(", ");
-        let deprecated_str = if variant.deprecated {
-            ", deprecated = \"true\"".to_owned()
-        } else {
-            "".to_owned()
-        };
-        let props_str = if let Some(val) = &variant.value {
-            format!(", props( value = \"{val}\"{deprecated_str})")
+        let mut props = Vec::new();
+        if variant.deprecated {
+            props.push("deprecated = \"true\"".to_owned());
+        }
+        if let Some(val) = &variant.value {
+            props.push(format!("value = \"{val}\""));
+        }
+        let props_str = if !props.is_empty() {
+            format!(", props( {} )", props.join(", "))
         } else {
             "".to_owned()
         };
@@ -70,7 +72,7 @@ fn write_logictypes() {
     let output_file = File::create(dest_path).unwrap();
     let mut writer = BufWriter::new(&output_file);
 
-    let mut logictypes: Vec<(String, EnumVariant<u8>)> = Vec::new();
+    let mut logictypes: Vec<(String, EnumVariant<u16>)> = Vec::new();
     let l_infile = Path::new("data/logictypes.txt");
     let l_contents = fs::read_to_string(l_infile).unwrap();
 
@@ -78,7 +80,7 @@ fn write_logictypes() {
         let mut it = line.splitn(3, ' ');
         let name = it.next().unwrap();
         let val_str = it.next().unwrap();
-        let val: Option<u8> = val_str.parse().ok();
+        let val: Option<u16> = val_str.parse().ok();
         let docs = it.next();
         let deprecated = docs
             .map(|docs| docs.trim().to_uppercase() == "DEPRECATED")

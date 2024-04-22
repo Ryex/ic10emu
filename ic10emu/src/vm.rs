@@ -377,7 +377,7 @@ impl VM {
         ic.borrow().ic.replace(0);
         self.set_modified(id);
         for _i in 0..128 {
-            if let Err(err) = ic.borrow_mut().step(self, ignore_errors) {
+            if let Err(err) = ic.borrow().step(self, ignore_errors) {
                 if !ignore_errors {
                     return Err(err.into());
                 }

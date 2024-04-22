@@ -119,6 +119,10 @@ pub enum ICError {
     ChannelIndexOutOfRange(usize),
     #[error("slot has no occupant")]
     SlotNotOccupied,
+    #[error("generated Enum {0} has no value attached. Report this error.")]
+    NoGeneratedValue(String),
+    #[error("generated Enum {0}'s value does not parse as {1} . Report this error.")]
+    BadGeneratedValueParse(String, String),
 }
 
 impl ICError {
@@ -2458,7 +2462,7 @@ impl IC {
                         let device = vm.get_device_same_network(this.device, device_id);
                         match device {
                             Some(device) => {
-                                let rm = ReagentMode::try_from(rm.as_value(this, inst, 3)?)?;
+                                let rm = rm.as_reagent_mode(this, inst, 3)?;
                                 let name = name.as_value(this, inst, 4)?;
                                 let val = device.borrow().get_reagent(&rm, name);
                                 this.set_register(indirection, target, val)?;
@@ -2477,7 +2481,7 @@ impl IC {
                         } = reg.as_register(this, inst, 1)?;
                         let prefab = prefab.as_value(this, inst, 2)?;
                         let lt = lt.as_logic_type(this, inst, 3)?;
-                        let bm = BatchMode::try_from(bm.as_value(this, inst, 4)?)?;
+                        let bm = bm.as_batch_mode(this, inst, 4)?;
                         let val = vm.get_batch_device_field(this.device, prefab, lt, bm)?;
                         this.set_register(indirection, target, val)?;
                         Ok(())
@@ -2493,7 +2497,7 @@ impl IC {
                         let prefab = prefab.as_value(this, inst, 2)?;
                         let name = name.as_value(this, inst, 3)?;
                         let lt = lt.as_logic_type(this, inst, 4)?;
-                        let bm = BatchMode::try_from(bm.as_value(this, inst, 5)?)?;
+                        let bm = bm.as_batch_mode(this, inst, 5)?;
                         let val =
                             vm.get_batch_name_device_field(this.device, prefab, name, lt, bm)?;
                         this.set_register(indirection, target, val)?;
@@ -2511,7 +2515,7 @@ impl IC {
                         let name = name.as_value(this, inst, 3)?;
                         let index = index.as_value(this, inst, 4)?;
                         let slt = slt.as_slot_logic_type(this, inst, 5)?;
-                        let bm = BatchMode::try_from(bm.as_value(this, inst, 6)?)?;
+                        let bm = bm.as_batch_mode(this, inst, 6)?;
                         let val = vm.get_batch_name_device_slot_field(
                             this.device,
                             prefab,
@@ -2534,7 +2538,7 @@ impl IC {
                         let prefab = prefab.as_value(this, inst, 2)?;
                         let index = index.as_value(this, inst, 3)?;
                         let slt = slt.as_slot_logic_type(this, inst, 4)?;
-                        let bm = BatchMode::try_from(bm.as_value(this, inst, 5)?)?;
+                        let bm = bm.as_batch_mode(this, inst, 5)?;
                         let val =
                             vm.get_batch_device_slot_field(this.device, prefab, index, slt, bm)?;
                         this.set_register(indirection, target, val)?;
@@ -2620,15 +2624,15 @@ mod tests {
         vm.set_code(
             ic,
             r#"lb r0 HASH("ItemActiveVent") On Sum
-            #lb r1 HASH("ItemActiveVent") On Maximum
+            lb r1 HASH("ItemActiveVent") On Maximum
             lb r2 HASH("ItemActiveVent") On Minimum"#,
         )?;
         vm.step_ic(ic, false)?;
         let r0 = ic_chip.get_register(0, 0).unwrap();
         assert_eq!(r0, 0.0);
         vm.step_ic(ic, false)?;
-        // let r1 = ic_chip.get_register(0, 1).unwrap();
-        // assert_eq!(r1, f64::NEG_INFINITY);
+        let r1 = ic_chip.get_register(0, 1).unwrap();
+        assert_eq!(r1, f64::NEG_INFINITY);
         vm.step_ic(ic, false)?;
         let r2 = ic_chip.get_register(0, 2).unwrap();
         assert_eq!(r2, f64::INFINITY);
