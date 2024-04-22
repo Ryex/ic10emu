@@ -1,8 +1,18 @@
 
-name: deploy deploy-preview to netlify for pull request
+name: netlify deploy-preview
 on:
   pull_request:
     types: ['opened', 'edited', 'synchronize']
+    branches:
+      - develop
+      - "!main"
+
+permissions:
+  contents: read
+  packages: read
+  checks: write
+  statuses: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
