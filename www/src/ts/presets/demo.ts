@@ -90,6 +90,10 @@ export const demoVMState: VMState = {
             occupant: {
               id: 2,
               fields: {
+                "PrefabHash": {
+                  field_type: "Read",
+                  value: -744098481,
+                },
                 "Quantity":{
                   field_type: "Read",
                   value: 1
@@ -101,7 +105,7 @@ export const demoVMState: VMState = {
                 "SortingClass": {
                   field_type: "Read",
                   value: 0,
-                }
+                },
               },
             },
           },
