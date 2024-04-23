@@ -14,7 +14,8 @@ import type {
   Pins,
 } from "ic10emu_wasm";
 import { structuralEqual } from "utils";
-import { LitElement } from "lit";
+import { LitElement, PropertyValueMap } from "lit";
+import type { DeviceDB } from "./device_db";
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
@@ -46,7 +47,7 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
   superClass: T,
 ) => {
   class VMDeviceMixinClass extends superClass {
-    _deviceID: number;
+    private _deviceID: number;
     get deviceID() {
       return this._deviceID;
     }
@@ -181,6 +182,11 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
         this.pins = pins;
       }
     }
+
+    update(changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
+      super.update(changedProperties);
+      this.updateDevice();
+    }
   }
   return VMDeviceMixinClass as Constructor<VMDeviceMixinInterface> & T;
 };
@@ -215,5 +221,42 @@ export const VMActiveICMixin = <T extends Constructor<LitElement>>(
       this.updateDevice();
     }
   }
+
   return VMActiveICMixinClass as Constructor<VMDeviceMixinInterface> & T;
 };
+
+export declare class VMDeviceDBMixinInterface {
+  deviceDB: DeviceDB;
+  _handleDeviceDBLoad(e: CustomEvent): void
+}
+
+export const VMDeviceDBMixin = <T extends Constructor<LitElement>>(superClass: T) => {
+  class VMDeviceDBMixinClass extends superClass {
+
+    connectedCallback(): void {
+      const root = super.connectedCallback();
+      window.VM.vm.addEventListener(
+        "vm-device-db-loaded",
+        this._handleDeviceDBLoad.bind(this),
+      );
+      return root;
+    }
+
+    _handleDeviceDBLoad(e: CustomEvent) {
+      this.deviceDB = e.detail;
+    }
+
+    private _deviceDB: DeviceDB;
+
+    get deviceDB(): DeviceDB {
+      return this._deviceDB;
+    }
+
+    @state()
+    set deviceDB(val: DeviceDB) {
+      this._deviceDB = val;
+    }
+  }
+
+  return VMDeviceDBMixinClass as Constructor<VMDeviceDBMixinInterface> & T
+}

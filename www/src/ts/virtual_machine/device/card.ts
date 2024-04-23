@@ -1,17 +1,16 @@
-
 import { html, css, HTMLTemplateResult } from "lit";
-import { customElement, property, query, state } from "lit/decorators.js";
+import { customElement, property, query} from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMDeviceMixin } from "virtual_machine/base_device";
-import type { DeviceDB } from "virtual_machine/device_db";
+import { VMDeviceDBMixin, VMDeviceMixin } from "virtual_machine/base_device";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js";
 import { displayNumber, parseIntWithHexOrBinary, parseNumber } from "utils";
 import { LogicType, Slot, SlotLogicType, SlotOccupant, SlotType } from "ic10emu_wasm";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
 import SlDialog from "@shoelace-style/shoelace/dist/components/dialog/dialog.component.js";
+import "./slot"
 
 @customElement("vm-device-card")
-export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
+export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
   image_err: boolean;
 
   @property({ type: Boolean }) open: boolean;
@@ -117,31 +116,6 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
     `,
   ];
 
-  private _deviceDB: DeviceDB;
-
-  get deviceDB(): DeviceDB {
-    return this._deviceDB;
-  }
-
-  @state()
-  set deviceDB(val: DeviceDB) {
-    this._deviceDB = val;
-    this.updateDevice();
-    this.requestUpdate();
-  }
-
-  connectedCallback(): void {
-    super.connectedCallback();
-    window.VM.vm.addEventListener(
-      "vm-device-db-loaded",
-      this._handleDeviceDBLoad.bind(this),
-    );
-  }
-
-  _handleDeviceDBLoad(e: CustomEvent) {
-    this.deviceDB = e.detail;
-  }
-
   onImageErr(e: Event) {
     this.image_err = true;
     console.log("Image load error", e);
@@ -178,7 +152,7 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
           <sl-copy-button slot="suffix" from="vmDeviceCard${this.deviceID}Name.value"></sl-copy-button>
         </sl-input>
         <sl-input id="vmDeviceCard${this.deviceID}NameHash" size="small" pill class="device-name-hash"
-          value="${this.nameHash}" disabled>
+          value="${this.nameHash}" readonly>
           <span slot="prefix">Hash</span>
           <sl-copy-button slot="suffix" from="vmDeviceCard${this.deviceID}NameHash.value"></sl-copy-button>
         </sl-input>
@@ -208,18 +182,6 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
     `;
   }
 
-  lookupSlotOccupantImg(
-    occupant: SlotOccupant | undefined,
-    typ: SlotType,
-  ): string {
-    if (typeof occupant !== "undefined") {
-      const hashLookup = (this.deviceDB ?? {}).names_by_hash ?? {};
-      const prefabName = hashLookup[occupant.prefab_hash] ?? "UnknownHash";
-      return `img/stationpedia/${prefabName}.png`;
-    } else {
-      return `img/stationpedia/SlotIcon_${typ}.png`;
-    }
-  }
 
   _onSlotImageErr(e: Event) {
     console.log("image_err", e);
@@ -228,54 +190,16 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
   static transparentImg =
     "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" as const;
 
-  renderSlot(slot: Slot, slotIndex: number): HTMLTemplateResult {
-    const _fields = this.device.getSlotFields(slotIndex);
-    const fields = Array.from(_fields.entries());
-    const inputIdBase = `vmDeviceCard${this.deviceID}Slot${slotIndex}Field`;
-    const slotImg = this.lookupSlotOccupantImg(slot.occupant, slot.typ);
-    return html`
-      <sl-card class="slot-card">
-        <img slot="header" class="slot-header image" src="${slotImg}" onerror="this.src = '${VMDeviceCard.transparentImg}'" />
-        <span slot="header" class="slot-header">${slotIndex} : ${slot.typ}</span>
-        ${
-          typeof slot.occupant !== "undefined"
-            ? html`
-                <span slot="header" class="slot-header">
-                  Occupant: ${slot.occupant.id} : ${slot.occupant.prefab_hash}
-                </span>
-                <span slot="header" class="slot-header">
-                  Quantity: ${slot.occupant.quantity}/
-                  ${slot.occupant.max_quantity}
-                </span>
-              `
-            : ""
-        }
-        <div class="slot-fields">
-          ${fields.map(
-          ([name, field], _index, _fields) => html`
-          <sl-input
-            id="${inputIdBase}${name}"
-            slotIndex=${slotIndex}
-            key="${name}"
-            value="${displayNumber(field.value)}"
-            size="small"
-            @sl-change=${this._handleChangeSlotField}
-          >
-            <span slot="prefix">${name}</span>
-            <sl-copy-button slot="suffix" from="${inputIdBase}${name}.value"></sl-copy-button>
-            <span slot="suffix">${field.field_type}</span>
-          </sl-input>
-          `,
-          )}
-        </div>
-      </sl-card>
-    `;
-  }
-
   renderSlots(): HTMLTemplateResult {
     return html`
       <div class="slots">
-        ${this.slots.map((slot, index, _slots) => this.renderSlot(slot, index))}
+        ${this.slots.map((_slot, index, _slots) => html`
+          <vm-device-slot
+            .deviceID=${this.deviceID}
+            .slotIndex=${index}
+          >
+          </vm-device-slot>
+        ` )}
       </div>
     `;
   }
@@ -295,7 +219,7 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
           <span slot="prefix">Connection:${index} </span>
           ${vmNetworks.map(
           (net) =>
-          html`<sl-option value=${net}>Network ${net}</sl-option>`,
+          html`<sl-option value=${net.toString()}>Network ${net}</sl-option>`,
           )}
           <span slot="prefix"> ${conn?.typ} </span>
         </sl-select>
@@ -415,20 +339,6 @@ export class VMDeviceCard extends VMDeviceMixin(BaseElement) {
       this.updateDevice();
     });
   }
-
-  _handleChangeSlotField(e: CustomEvent) {
-    const input = e.target as SlInput;
-    const slot = parseInt(input.getAttribute("slotIndex")!);
-    const field = input.getAttribute("key")! as SlotLogicType;
-    const val = parseNumber(input.value);
-    window.VM.get().then((vm) => {
-      if (!vm.setDeviceSlotField(this.deviceID, slot, field, val, true)) {
-        input.value = this.device.getSlotField(slot, field).toString();
-      }
-      this.updateDevice();
-    });
-  }
-
   _handleDeviceRemoveButton(_e: Event) {
     this.removeDialog.show();
   }

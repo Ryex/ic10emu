@@ -24,11 +24,10 @@ import { displayNumber, parseNumber } from "utils";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js";
 import { VMDeviceCard } from "./card";
+import { VMDeviceDBMixin } from "virtual_machine/base_device";
 
 @customElement("vm-device-template")
-export class VmDeviceTemplate extends BaseElement {
-  private _deviceDB: DeviceDB;
-  private image_err: boolean = false;
+export class VmDeviceTemplate extends VMDeviceDBMixin(BaseElement) {
 
   static styles = [
     ...defaultCss,
@@ -68,16 +67,6 @@ export class VmDeviceTemplate extends BaseElement {
   constructor() {
     super();
     this.deviceDB = window.VM.vm.db;
-  }
-
-  get deviceDB(): DeviceDB {
-    return this._deviceDB;
-  }
-
-  @state()
-  set deviceDB(val: DeviceDB) {
-    this._deviceDB = val;
-    this.setupState();
   }
 
   private _prefab_name: string;
@@ -138,21 +127,6 @@ export class VmDeviceTemplate extends BaseElement {
 
     this.connections = connections.map((conn) => conn[1]);
   }
-
-  connectedCallback(): void {
-    super.connectedCallback();
-    window.VM.get().then((vm) =>
-      vm.addEventListener(
-        "vm-device-db-loaded",
-        this._handleDeviceDBLoad.bind(this),
-      ),
-    );
-  }
-
-  _handleDeviceDBLoad(e: CustomEvent) {
-    this.deviceDB = e.detail;
-  }
-
   renderFields(): HTMLTemplateResult {
     const fields = Object.entries(this.fields);
     return html`
