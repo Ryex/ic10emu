@@ -197,6 +197,7 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
           <vm-device-slot
             .deviceID=${this.deviceID}
             .slotIndex=${index}
+            class-"w-96"
           >
           </vm-device-slot>
         ` )}

@@ -66,13 +66,19 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
     const img = html`<img class="w-10 h-10" src="${slotImg}" oanerror="this.src = '${VMDeviceCard.transparentImg}'" />`;
 
     return html`
-      <div class="flex flex-row w-full me-2">
+      <div class="flex flex-row me-2">
         <div
           class="relative border border-neutral-200/40 rounded-lg p-1
             hover:ring-2 hover:ring-purple-500 hover:ring-offset-1
             hover:ring-offset-purple-500 cursor-pointer me-2"
           @click=${this._handleSlotClick}
         >
+          <div
+          class="absolute top-0 left-0 ml-1 mt-1 text-xs
+            text-neutral-200/90 font-mono bg-neutral-500/40 rounded pl-1 pr-1"
+          >
+            <small>${this.slotIndex}</small>
+          </div>
           <sl-tooltip content="${this.slotOccupantPrefabName() ?? slot.typ}">
             ${img}
           </sl-tooltip>
@@ -80,7 +86,7 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
             typeof slot.occupant !== "undefined",
             () => html`<div
               class="absolute bottom-0 right-0 mr-1 mb-1 text-xs
-                text-neutral-200/90 font-mono bg-neutral-500/40 rounded"
+                text-neutral-200/90 font-mono bg-neutral-500/40 rounded pl-1 pr-1"
             >
               <small>${slot.occupant.quantity} / ${slot.occupant.max_quantity}</small>
             </div>`
@@ -127,7 +133,7 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
   }
 
   _handleSlotClick(e: Event) {
-    console.log(e);
+    console.log(e, e.currentTarget, e.target);
   }
 
   renderFields() {

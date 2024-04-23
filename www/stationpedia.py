@@ -110,6 +110,23 @@ class DBPage(TypedDict):
     device: NotRequired[DBPageDevice]
 
 
+translation_regex = re.compile(r"<N:([A-Z]{2}):(\w+)>")
+translation_keys: set[str] = set()
+translation_codes: set[str] = set()
+def replace_translation(m: re.Match[str]) -> str:
+    match m.groups():
+        case (code, key):
+            translation_keys.add(key)
+            translation_codes.add(code)
+            return key
+        case _ as g:
+            print("bad translation match?", g, m.string)
+            return m.string
+
+def trans(s: str) -> str:
+    return re.sub(translation_regex, replace_translation, s)
+
+
 def extract_all() -> None:
     db: dict[str, DBPage] = {}
     pedia: Pedia = {"pages": [], "reagents": {}}
@@ -142,8 +159,8 @@ def extract_all() -> None:
                 item_props = page.get("Item", None)
                 item["name"] = name
                 item["hash"] = name_hash
-                item["title"] = title
-                item["desc"] = re.sub(linkPat, r"\1", desc)
+                item["title"] = trans(title)
+                item["desc"] = trans(re.sub(linkPat, r"\1", desc))
                 match slots:
                     case []:
                         item["slots"] = None
@@ -151,7 +168,7 @@ def extract_all() -> None:
                         item["slots"] = [{}] * len(slots)  # type: ignore[reportAssignmentType]
                         for slot in slots:
                             item["slots"][int(slot["SlotIndex"])] = {
-                                "name": slot["SlotName"],
+                                "name": trans(slot["SlotName"]),
                                 "typ": slot["SlotType"],
                             }
 
@@ -298,6 +315,12 @@ def extract_all() -> None:
                 return
 
         db[name] = item
+
+
+    print("Translation codes:")
+    pprint(translation_codes)
+    print("Translations keys:")
+    pprint(translation_keys)
 
     logicable = [item["name"] for item in db.values() if item["logic"] is not None]
     slotlogicable = [

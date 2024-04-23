@@ -350,7 +350,7 @@
    "name": "ApplianceTabletDock",
    "slots": [
     {
-     "name": "<N:EN:Tablet>",
+     "name": "Tablet",
      "typ": "Tool"
     }
    ],
@@ -1713,7 +1713,7 @@
      "typ": "Flare"
     },
     {
-     "name": "<N:EN:Chamber>",
+     "name": "Chamber",
      "typ": "Blocked"
     }
    ],
@@ -2146,14 +2146,14 @@
    "title": "Authoring Tool"
   },
   "ItemAuthoringToolRocketNetwork": {
-   "desc": "<N:EN:ItemAuthoringToolRocketNetwork>",
+   "desc": "ItemAuthoringToolRocketNetwork",
    "hash": -1731627004,
    "item": {
     "slotclass": "Tool",
     "sorting": "Tools"
    },
    "name": "ItemAuthoringToolRocketNetwork",
-   "title": "<N:EN:ItemAuthoringToolRocketNetwork>"
+   "title": "ItemAuthoringToolRocketNetwork"
   },
   "ItemBasketBall": {
    "desc": "",
@@ -2356,7 +2356,7 @@
    "title": "Cable Coil"
   },
   "ItemCableCoilHeavy": {
-   "desc": "Use heavy cable coil for power systems with large draws. Unlike <N:EN:StructureCableCoil>, which can only safely conduct 5kW, heavy cables can transmit up to 100kW.",
+   "desc": "Use heavy cable coil for power systems with large draws. Unlike StructureCableCoil, which can only safely conduct 5kW, heavy cables can transmit up to 100kW.",
    "hash": 2060134443,
    "item": {
     "maxquantity": 50,
@@ -2514,7 +2514,7 @@
    "title": "Chem Light (Yellow)"
   },
   "ItemCoalOre": {
-   "desc": "Humanity wouldn't have got to space without humble, combustible coal. Burn it in a <N:EN:SolidFuelGenerator>, smelt it in the Furnace to create alloys, or use it in the Reagent Processor to make  Spray Paint (Black).",
+   "desc": "Humanity wouldn't have got to space without humble, combustible coal. Burn it in a SolidFuelGenerator, smelt it in the Furnace to create alloys, or use it in the Reagent Processor to make  Spray Paint (Black).",
    "hash": 1724793494,
    "item": {
     "ingredient": true,
@@ -11428,14 +11428,14 @@
    "title": "Meteorite"
   },
   "MonsterEgg": {
-   "desc": "<N:EN:MonsterEgg>",
+   "desc": "MonsterEgg",
    "hash": -1667675295,
    "item": {
     "slotclass": "None",
     "sorting": "Default"
    },
    "name": "MonsterEgg",
-   "title": "<N:EN:MonsterEgg>"
+   "title": "MonsterEgg"
   },
   "MotherboardComms": {
    "desc": "When placed in a Computer and connected to a Landingpad Data And Power, a Medium Satellite Dish, and a Vending Machine allows Stationeers to trade with suppliers. Adjust the horizontal and vertical attributes of the Medium Satellite Dish either directly or through logic. You need a communications signal of 95% or above to establish reliable communications with a trader. A minimum of a 3x3 clear pad area with a Landingpad Center at the center is required for a trader to land.",
@@ -11458,14 +11458,14 @@
    "title": "Logic Motherboard"
   },
   "MotherboardMissionControl": {
-   "desc": "<N:EN:MotherboardMissionControl>",
+   "desc": "MotherboardMissionControl",
    "hash": -127121474,
    "item": {
     "slotclass": "Motherboard",
     "sorting": "Default"
    },
    "name": "MotherboardMissionControl",
-   "title": "<N:EN:MotherboardMissionControl>"
+   "title": "MotherboardMissionControl"
   },
   "MotherboardProgrammableChip": {
    "desc": "When placed in a Computer, the IC Editor allows players to write and edit IC code, which can then be uploaded to a Integrated Circuit (IC10) if housed in an IC Housing.",
@@ -12207,18 +12207,18 @@
      "typ": "None"
     },
     {
-     "name": "<N:EN:GasTank>",
+     "name": "GasTank",
      "typ": "None"
     },
     {
-     "name": "<N:EN:GasTank>",
+     "name": "GasTank",
      "typ": "None"
     }
    ],
    "title": "Rover (Cargo)"
   },
   "Rover_MkI": {
-   "desc": "A distant cousin of the jeep, the Mk I {Sinotai electric rover is one of the most simple and durable light vehicles in the known universe. Able to carry two passengers and cargo such as the Portable Gas Tank (Air) or <N:EN:Crate>, it is powered by up to three batteries, accepting everything including Battery Cell (Nuclear).\nA quad-array of hub-mounted electric engines propels the reinforced aluminium frame over most terrain and modest obstacles. While the Mk I is designed for stability in low-horizontality circumstances, if it rolls, try using your Crowbar to put it right way up.Connects to <pos=300>Logic Transmitter",
+   "desc": "A distant cousin of the jeep, the Mk I {Sinotai electric rover is one of the most simple and durable light vehicles in the known universe. Able to carry two passengers and cargo such as the Portable Gas Tank (Air) or Crate, it is powered by up to three batteries, accepting everything including Battery Cell (Nuclear).\nA quad-array of hub-mounted electric engines propels the reinforced aluminium frame over most terrain and modest obstacles. While the Mk I is designed for stability in low-horizontality circumstances, if it rolls, try using your Crowbar to put it right way up.Connects to <pos=300>Logic Transmitter",
    "hash": -2049946335,
    "item": {
     "slotclass": "None",
@@ -12376,27 +12376,27 @@
      "typ": "Battery"
     },
     {
-     "name": "<N:EN:ContainerConnection>",
+     "name": "ContainerConnection",
      "typ": "None"
     },
     {
-     "name": "<N:EN:ContainerConnection>",
+     "name": "ContainerConnection",
      "typ": "None"
     },
     {
-     "name": "<N:EN:GasTankConnection>",
+     "name": "GasTankConnection",
      "typ": "None"
     },
     {
-     "name": "<N:EN:GasTankConnection>",
+     "name": "GasTankConnection",
      "typ": "None"
     },
     {
-     "name": "<N:EN:GasTankConnection>",
+     "name": "GasTankConnection",
      "typ": "None"
     },
     {
-     "name": "<N:EN:GasTankConnection>",
+     "name": "GasTankConnection",
      "typ": "None"
     }
    ],
@@ -15002,10 +15002,10 @@
    "title": "Burnt Cable (3-Way Corner)"
   },
   "StructureCableCorner3HBurnt": {
-   "desc": "<N:EN:StructureCableCorner3HBurnt>",
+   "desc": "StructureCableCorner3HBurnt",
    "hash": 2393826,
    "name": "StructureCableCorner3HBurnt",
-   "title": "<N:EN:StructureCableCorner3HBurnt>"
+   "title": "StructureCableCorner3HBurnt"
   },
   "StructureCableCorner4": {
    "desc": "",
@@ -19639,7 +19639,7 @@
      "typ": "PowerAndData"
     }
    },
-   "desc": "<N:EN:StructureDrinkingFountain>",
+   "desc": "StructureDrinkingFountain",
    "device": {
     "atmosphere": false,
     "reagents": false,
@@ -19662,7 +19662,7 @@
     "RequiredPower": "Read"
    },
    "name": "StructureDrinkingFountain",
-   "title": "<N:EN:StructureDrinkingFountain>"
+   "title": "StructureDrinkingFountain"
   },
   "StructureElectrolyzer": {
    "conn": {
@@ -26586,7 +26586,7 @@
    "title": "Liquid Pipe (Cross Junction)"
   },
   "StructurePipeLiquidCrossJunction3": {
-   "desc": "You can upgrade this pipe to an <N:EN:StructureInsulatedPipeLiquidCrossJunction3> using an Kit (Insulated Liquid Pipe) and a Wrench.",
+   "desc": "You can upgrade this pipe to an StructureInsulatedPipeLiquidCrossJunction3 using an Kit (Insulated Liquid Pipe) and a Wrench.",
    "hash": 1628087508,
    "name": "StructurePipeLiquidCrossJunction3",
    "title": "Liquid Pipe (3-Way Junction)"
@@ -28457,7 +28457,7 @@
      "typ": "None"
     },
     {
-     "name": "<N:EN:HoldingSlot>",
+     "name": "HoldingSlot",
      "typ": "None"
     }
    ],
@@ -30943,7 +30943,7 @@
      "typ": "None"
     },
     {
-     "name": "<N:EN:Export2>",
+     "name": "Export2",
      "typ": "None"
     },
     {
@@ -31798,7 +31798,7 @@
      "typ": "Pipe"
     }
    },
-   "desc": "As tidy as it is useful, the suit storage rack holds an Eva Suit, Space Helmet and a Jetpack Basic.\nWhen powered and connected to <N:EN:Oxygen> and <N:EN:Propellant>, it will recharge the suit's batteries, refill the Canister (Oxygen) and your Filter (Nitrogen) Gas Canister. The wastetank will be pumped out to the pipe connected to the waste outlet.\nAll the rack's pipes must be connected or the unit will show an error state, but it will still charge the battery.",
+   "desc": "As tidy as it is useful, the suit storage rack holds an Eva Suit, Space Helmet and a Jetpack Basic.\nWhen powered and connected to Oxygen and Propellant, it will recharge the suit's batteries, refill the Canister (Oxygen) and your Filter (Nitrogen) Gas Canister. The wastetank will be pumped out to the pipe connected to the waste outlet.\nAll the rack's pipes must be connected or the unit will show an error state, but it will still charge the battery.",
    "device": {
     "atmosphere": false,
     "reagents": false,
