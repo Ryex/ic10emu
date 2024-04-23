@@ -92,7 +92,7 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
         padding: var(--sl-spacing-small) var(--sl-spacing-medium);
       }
       sl-tab-group::part(base) {
-        max-height: 20rem;
+        max-height: 30rem;
         overflow-y: auto;
       }
       sl-icon-button.remove-button::part(base) {
@@ -116,6 +116,11 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
     `,
   ];
 
+  _handleDeviceDBLoad(e: CustomEvent<any>): void {
+    super._handleDeviceDBLoad(e);
+    this.updateDevice();
+  }
+
   onImageErr(e: Event) {
     this.image_err = true;
     console.log("Image load error", e);
@@ -137,21 +142,21 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
     }, this);
     return html`
       <sl-tooltip content="${this.prefabName}">
-        <img class="image" src="img/stationpedia/${this.prefabName}.png"
+        <img class="image me-2" src="img/stationpedia/${this.prefabName}.png"
           onerror="this.src = '${VMDeviceCard.transparentImg}'" />
       </sl-tooltip>
       <div class="header-name">
-        <sl-input id="vmDeviceCard${this.deviceID}Id" class="device-id" size="small" pill value=${this.deviceID}
+        <sl-input id="vmDeviceCard${this.deviceID}Id" class="device-id me-1" size="small" pill value=${this.deviceID}
           @sl-change=${this._handleChangeID}>
           <span slot="prefix">Id</span>
-          <sl-copy-button slot="suffix" value=${this.deviceID}></sl-copy-button>
+          <sl-copy-button slot="suffix" .value=${this.deviceID}></sl-copy-button>
         </sl-input>
-        <sl-input id="vmDeviceCard${this.deviceID}Name" class="device-name" size="small" pill placeholder=${this.prefabName}
+        <sl-input id="vmDeviceCard${this.deviceID}Name" class="device-name me-1" size="small" pill placeholder=${this.prefabName}
           value=${this.name} @sl-change=${this._handleChangeName}>
           <span slot="prefix">Name</span>
           <sl-copy-button slot="suffix" from="vmDeviceCard${this.deviceID}Name.value"></sl-copy-button>
         </sl-input>
-        <sl-input id="vmDeviceCard${this.deviceID}NameHash" size="small" pill class="device-name-hash"
+        <sl-input id="vmDeviceCard${this.deviceID}NameHash" size="small" pill class="device-name-hash me-1"
           value="${this.nameHash}" readonly>
           <span slot="prefix">Hash</span>
           <sl-copy-button slot="suffix" from="vmDeviceCard${this.deviceID}NameHash.value"></sl-copy-button>
@@ -192,12 +197,12 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
 
   renderSlots(): HTMLTemplateResult {
     return html`
-      <div class="slots">
+      <div class="flex flex-row flex-wrap">
         ${this.slots.map((_slot, index, _slots) => html`
           <vm-device-slot
             .deviceID=${this.deviceID}
             .slotIndex=${index}
-            class-"w-96"
+            class-"flex flex-row max-w-lg mr-2 mb-2"
           >
           </vm-device-slot>
         ` )}

@@ -47,6 +47,10 @@ export class VmDeviceTemplate extends VMDeviceDBMixin(BaseElement) {
         // height: 18rem;
         overflow-y: auto;
       }
+      sl-tab-group {
+        --indicator-color: var(--sl-color-purple-600);
+        --sl-color-primary-600: var(--sl-color-purple-600);
+      }
       sl-tab::part(base) {
         padding: var(--sl-spacing-small) var(--sl-spacing-medium);
       }
@@ -222,7 +226,7 @@ export class VmDeviceTemplate extends VMDeviceDBMixin(BaseElement) {
         <div class="header" slot="header">
           <sl-tooltip content="${device?.name}">
             <img
-              class="image"
+              class="image me-2"
               src="img/stationpedia/${device?.name}.png"
               onerror="this.src = '${VMDeviceCard.transparentImg}'"
             />

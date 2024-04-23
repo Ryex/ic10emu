@@ -1,18 +1,17 @@
-
 import { html, css, HTMLTemplateResult } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
 
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
-import {
-  structuralEqual,
-} from "../../utils";
+import { structuralEqual } from "../../utils";
 
 import SlDrawer from "@shoelace-style/shoelace/dist/components/drawer/drawer.js";
 import type { DeviceDB, DeviceDBEntry } from "virtual_machine/device_db";
 import { repeat } from "lit/directives/repeat.js";
 import { cache } from "lit/directives/cache.js";
 import { default as uFuzzy } from "@leeoniya/ufuzzy";
+import { when } from "lit/directives/when.js";
+import { unsafeHTML } from "lit/directives/unsafe-html.js";
 
 @customElement("vm-device-list")
 export class VMDeviceList extends BaseElement {
@@ -169,13 +168,7 @@ export class VMAddDeviceButton extends BaseElement {
     ...defaultCss,
     css`
       .add-device-drawer {
-        --size: 32rem;
-      }
-
-      .search-results {
-        display: flex;
-        flex-direction: row;
-        overflow-x: auto;
+        --size: 36rem;
       }
 
       .card {
@@ -238,7 +231,11 @@ export class VMAddDeviceButton extends BaseElement {
     this.performSearch();
   }
 
-  private _searchResults: DeviceDBEntry[];
+  private _searchResults: {
+    entry: DeviceDBEntry;
+    haystackEntry: string;
+    ranges: number[];
+  }[];
 
   private filterTimeout: number | undefined;
 
@@ -252,18 +249,30 @@ export class VMAddDeviceButton extends BaseElement {
         1e3,
       );
 
-      const filtered = order?.map(
-        (infoIdx) => this._datapoints[info.idx[infoIdx]],
-      );
-      const names =
-        filtered
-          ?.map((data) => data[1])
-          ?.filter((val, index, arr) => arr.indexOf(val) === index) ?? [];
+      const filtered = order?.map((infoIdx) => ({
+        name: this._datapoints[info.idx[infoIdx]][1],
+        haystackEntry: this._haystack[info.idx[infoIdx]],
+        ranges: info.ranges[infoIdx],
+      }));
 
-      this._searchResults = names.map((name) => this._strutures.get(name)!);
+      const unique = [...new Set(filtered.map((obj) => obj.name))].map(
+        (result) => {
+          return filtered.find((obj) => obj.name === result);
+        },
+      );
+
+      this._searchResults = unique.map(({ name, haystackEntry, ranges }) => ({
+        entry: this._strutures.get(name)!,
+        haystackEntry,
+        ranges,
+      }));
     } else {
-      // clear our results and prefilter if the filter is empty
-      this._searchResults = [];
+      // return everything
+      this._searchResults = [...this._strutures.values()].map((st) => ({
+        entry: st,
+        haystackEntry: st.title,
+        ranges: [],
+      }));
     }
   }
 
@@ -283,15 +292,55 @@ export class VMAddDeviceButton extends BaseElement {
   }
 
   renderSearchResults() {
-    return repeat(
-      this._searchResults ?? [],
-      (result) => result.name,
-      (result) => cache(html`
-        <vm-device-template prefab_name=${result.name} class="card" @add-device-template=${this._handleDeviceAdd}>
-        </vm-device-template>
-      `)
+    return when(
+      typeof this._searchResults !== "undefined" && this._searchResults.length < 20,
+      () =>
+        repeat(
+           this._searchResults ?? [],
+          (result) => result.entry.name,
+          (result) =>
+            cache(html`
+              <vm-device-template
+                prefab_name=${result.entry.name}
+                class="card"
+                @add-device-template=${this._handleDeviceAdd}
+              >
+              </vm-device-template>
+            `),
+        ),
+      () => html`
+        <div class="p-2">
+          <p class="p-2">
+            <sl-format-number
+              .value=${this._searchResults.length}
+            ></sl-format-number>
+            results, filter more to get cards
+          </p>
+          <div class="flex flex-row flex-wrap">
+            ${[
+              ...this._searchResults.slice(0, 50),
+              { entry: { title: "", name: "" }, haystackEntry: "...", ranges: [] },
+            ].map((result) => {
+              const hay = result.haystackEntry.slice(0, 15);
+              const ranges = result.ranges.filter((pos) => pos < 20);
+              const key = result.entry.name;
+              return html`<div class="p-2 text-neutral-200/80 italic cursor-pointer" key=${key} @click=${this._handleHaystackClick}>
+                ${result.entry.title} (<small class="text-sm">
+                  ${unsafeHTML(uFuzzy.highlight(hay, ranges))}
+                </small>)
+              </div>`;
+            })}
+          </div>
+        </div>
+      `,
     );
+  }
 
+  _handleHaystackClick(e: Event) {
+    const div = e.currentTarget as HTMLDivElement;
+    const key = div.getAttribute("key");
+    this.filter = key;
+    this.searchInput.value = key;
   }
 
   _handleDeviceAdd() {
@@ -300,20 +349,33 @@ export class VMAddDeviceButton extends BaseElement {
 
   render() {
     return html`
-      <sl-button variant="neutral" outline pill @click=${this._handleAddButtonClick}>
+      <sl-button
+        variant="neutral"
+        outline
+        pill
+        @click=${this._handleAddButtonClick}
+      >
         Add Device
       </sl-button>
       <sl-drawer class="add-device-drawer" placement="bottom" no-header>
-        <sl-input class="device-search-input" autofocus placeholder="Search For Device" clearable
-          @sl-input=${this._handleSearchInput}>
+        <sl-input
+          class="device-search-input"
+          autofocus
+          placeholder="Search For Device"
+          clearable
+          @sl-input=${this._handleSearchInput}
+        >
           <span slot="prefix">Search Structures</span>
           <sl-icon slot="suffix" name="search"></sl-icon>
         </sl-input>
-        <div class="search-results">${this.renderSearchResults()}</div>
-        <sl-button slot="footer" variant="primary" @click=${()=> {
-          this.drawer.hide();
+        <div class="flex flex-row overflow-auto">${this.renderSearchResults()}</div>
+        <sl-button
+          slot="footer"
+          variant="primary"
+          @click=${() => {
+            this.drawer.hide();
           }}
-          >
+        >
           Close
         </sl-button>
       </sl-drawer>
@@ -336,4 +398,3 @@ export class VMAddDeviceButton extends BaseElement {
     (this.drawer.querySelector(".device-search-input") as SlInput).select();
   }
 }
-

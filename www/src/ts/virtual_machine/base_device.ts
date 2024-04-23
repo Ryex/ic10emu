@@ -183,10 +183,6 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
       }
     }
 
-    update(changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
-      super.update(changedProperties);
-      this.updateDevice();
-    }
   }
   return VMDeviceMixinClass as Constructor<VMDeviceMixinInterface> & T;
 };
@@ -239,6 +235,7 @@ export const VMDeviceDBMixin = <T extends Constructor<LitElement>>(superClass: T
         "vm-device-db-loaded",
         this._handleDeviceDBLoad.bind(this),
       );
+      this.deviceDB = window.VM.vm.db!;
       return root;
     }
 

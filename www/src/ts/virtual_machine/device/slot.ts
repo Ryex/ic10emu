@@ -2,7 +2,7 @@ import { html, css, HTMLTemplateResult } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
 import { VMDeviceDBMixin, VMDeviceMixin } from "virtual_machine/base_device";
-import type { DeviceDB } from "virtual_machine/device_db";
+import type { DeviceDB, DeviceDBEntry } from "virtual_machine/device_db";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js";
 import { displayNumber, parseIntWithHexOrBinary, parseNumber } from "utils";
 import {
@@ -29,10 +29,16 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
     ...defaultCss,
     css`
       .slot-card {
-        --padding: var(--sl-spacing-small);
+        --padding: var(--sl-spacing-x-small);
+      }
+      .slot-card::part(header) {
+        padding: var(--sl-spacing-x-small);
       }
       .slot-card::part(base) {
         background-color: var(--sl-color-neutral-50);
+      }
+      .quantity-input sl-input::part(input) {
+        width: 3rem;
       }
     `,
   ];
@@ -59,16 +65,26 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
     }
   }
 
+  slotOcccupantTemplate(): { name: string, typ: SlotType} | undefined {
+    if (this.deviceDB) {
+      const entry = this.deviceDB.db[this.prefabName]
+      return entry?.slots[this.slotIndex];
+    } else {
+      return undefined;
+    }
+  }
+
   renderHeader() {
     const inputIdBase = `vmDeviceSlot${this.deviceID}Slot${this.slotIndex}Head`;
     const slot = this.slots[this.slotIndex];
     const slotImg = this.slotOccupantImg();
-    const img = html`<img class="w-10 h-10" src="${slotImg}" oanerror="this.src = '${VMDeviceCard.transparentImg}'" />`;
+    const img = html`<img class="w-10 h-10" src="${slotImg}" onerror="this.src = '${VMDeviceCard.transparentImg}'" />`;
+    const template = this.slotOcccupantTemplate();
 
     return html`
       <div class="flex flex-row me-2">
         <div
-          class="relative border border-neutral-200/40 rounded-lg p-1
+          class="relative shrink-0 border border-neutral-200/40 rounded-lg p-1
             hover:ring-2 hover:ring-purple-500 hover:ring-offset-1
             hover:ring-offset-purple-500 cursor-pointer me-2"
           @click=${this._handleSlotClick}
@@ -88,30 +104,35 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
               class="absolute bottom-0 right-0 mr-1 mb-1 text-xs
                 text-neutral-200/90 font-mono bg-neutral-500/40 rounded pl-1 pr-1"
             >
-              <small>${slot.occupant.quantity} / ${slot.occupant.max_quantity}</small>
+              <small>${slot.occupant.quantity}/${slot.occupant.max_quantity}</small>
             </div>`
           )}
           <div></div>
         </div>
-        <div class="ms-4 mt-auto mb-auto">
+        <div class="flex flex-col justify-end">
+          <div class="text-sm mt-auto mb-auto">
           ${when(
             typeof slot.occupant !== "undefined",
             () => html`
-              <span class="">
-                ${slot.occupant.id} : ${this.slotOccupantPrefabName()}
+              <span>
+                ${this.slotOccupantPrefabName()}
               </span>
             `,
             () => html`
-              <span class="">
-                ${slot.typ}
+              <span>
+                ${template?.name}
               </span>
             `,
           )}
+          </div>
+          <div class="text-neutral-400 text-xs mt-auto flex flex-col mb-1">
+            <div><strong class="mt-auto mb-auto">Type:</strong><span class="p-1">${slot.typ}</span></div>
+          </div>
         </div>
-        <div class="ms-auto mt-auto mb-auto me-4">
-          ${when(
-            typeof slot.occupant !== "undefined",
-            () => html`
+        ${when(
+          typeof slot.occupant !== "undefined",
+          () => html`
+            <div class="quantity-input ms-auto pl-2 mt-auto mb-auto me-2">
               <sl-input
                 type="number"
                 size="small"
@@ -120,14 +141,14 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
                 .max=${slot.occupant.max_quantity}
               >
                 <div slot="help-text">
-                  <span><strong>Max Quantity:</strong>${slot.occupant.max_quantity}</span>
+                  <span>Max Quantity: ${slot.occupant.max_quantity}</span>
                 </div>
               </sl-input>
-            `,
-            () => html`
-            `,
-          )}
-        </div>
+            </div>
+          `,
+          () => html`
+          `,
+        )}
       </div>
     `;
   }
