@@ -13,9 +13,8 @@ import type {
   Defines,
   Pins,
 } from "ic10emu_wasm";
-import { structuralEqual } from "../utils";
+import { structuralEqual } from "utils";
 import { LitElement } from "lit";
-import { BaseElement } from "../components/base";
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 

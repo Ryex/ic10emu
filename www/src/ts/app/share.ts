@@ -1,6 +1,6 @@
 import { HTMLTemplateResult, html, css } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
-import { BaseElement, defaultCss } from "../components";
+import { BaseElement, defaultCss } from "components";
 
 import "@shoelace-style/shoelace/dist/components/dialog/dialog.js";
 import "@shoelace-style/shoelace/dist/components/input/input.js";

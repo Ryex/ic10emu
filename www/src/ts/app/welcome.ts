@@ -1,7 +1,7 @@
 import { html, css } from "lit";
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { customElement, property, query, state } from "lit/decorators.js";
-import { BaseElement, defaultCss } from "../components";
+import { customElement, property, query } from "lit/decorators.js";
+import { BaseElement, defaultCss } from "components";
 import { SlDialog, SlSwitch } from "@shoelace-style/shoelace";
 import { until } from "lit/directives/until.js";
 

@@ -9,8 +9,7 @@ import {
 } from "ic10emu_wasm";
 import { DeviceDB } from "./device_db";
 import "./base_device";
-import { fromJson, toJson } from "../utils";
-import { App } from "../app";
+import { App } from "app";
 export interface ToastMessage {
   variant: "warning" | "danger" | "success" | "primary" | "neutral";
   icon: string;

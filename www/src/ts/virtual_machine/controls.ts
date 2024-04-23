@@ -1,7 +1,7 @@
 import { html, css } from "lit";
 import { customElement, query } from "lit/decorators.js";
-import { BaseElement, defaultCss } from "../components";
-import { VMActiveICMixin } from "./base_device";
+import { BaseElement, defaultCss } from "components";
+import { VMActiveICMixin } from "virtual_machine/base_device";
 
 import "@shoelace-style/shoelace/dist/components/card/card.js";
 import "@shoelace-style/shoelace/dist/components/button-group/button-group.js";

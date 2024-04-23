@@ -1,7 +1,7 @@
 import { HTMLTemplateResult, html, css, CSSResultGroup } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
-import { BaseElement, defaultCss } from "../components";
-import { VMState } from "../session";
+import { BaseElement, defaultCss } from "components";
+import { VMState } from "session";
 
 import "@shoelace-style/shoelace/dist/components/dialog/dialog.js";
 import "@shoelace-style/shoelace/dist/components/format-date/format-date.js";
