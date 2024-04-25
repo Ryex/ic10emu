@@ -2,14 +2,6 @@ import { HTMLTemplateResult, html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
 
-import "@shoelace-style/shoelace/dist/components/icon/icon.js";
-import "@shoelace-style/shoelace/dist/components/icon-button/icon-button.js";
-import "@shoelace-style/shoelace/dist/components/menu/menu.js";
-import "@shoelace-style/shoelace/dist/components/divider/divider.js";
-import "@shoelace-style/shoelace/dist/components/menu-item/menu-item.js";
-import "@shoelace-style/shoelace/dist/components/dropdown/dropdown.js";
-import "@shoelace-style/shoelace/dist/components/relative-time/relative-time.js";
-import "@shoelace-style/shoelace/dist/components/tooltip/tooltip.js";
 import SlMenuItem from "@shoelace-style/shoelace/dist/components/menu-item/menu-item.js";
 
 @customElement("app-nav")

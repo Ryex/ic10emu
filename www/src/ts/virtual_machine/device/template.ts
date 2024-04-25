@@ -1,25 +1,18 @@
-
-
 import type {
   Connection,
   DeviceTemplate,
   LogicField,
-  LogicFields,
   LogicType,
   Slot,
   SlotTemplate,
-  SlotOccupant,
-  SlotOccupantTemplate,
-  SlotLogicType,
   ConnectionCableNetwork,
-  SlotType,
 } from "ic10emu_wasm";
 import { html, css, HTMLTemplateResult } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
 
 import type { DeviceDB, DeviceDBEntry } from "virtual_machine/device_db";
-import { connectionFromDeviceDBConnection } from "./utils";
+import { connectionFromDeviceDBConnection } from "./dbutils";
 import { displayNumber, parseNumber } from "utils";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js";

@@ -5,9 +5,6 @@ import { BaseElement, defaultCss } from "components";
 import { SlDialog, SlSwitch } from "@shoelace-style/shoelace";
 import { until } from "lit/directives/until.js";
 
-import "@shoelace-style/shoelace/dist/components/spinner/spinner.js";
-import '@shoelace-style/shoelace/dist/components/switch/switch.js';
-
 import { marked } from "marked";
 import { gfmStyles } from "./gfm-styles";
 

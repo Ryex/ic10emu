@@ -3,7 +3,7 @@ import { customElement, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
 
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
-import { structuralEqual } from "../../utils";
+import { structuralEqual } from "utils";
 
 import { repeat } from "lit/directives/repeat.js";
 import { default as uFuzzy } from "@leeoniya/ufuzzy";

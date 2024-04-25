@@ -1,13 +1,25 @@
 import { html, css, HTMLTemplateResult } from "lit";
-import { customElement, property, query} from "lit/decorators.js";
+import { customElement, property, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
 import { VMDeviceDBMixin, VMDeviceMixin } from "virtual_machine/base_device";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js";
 import { displayNumber, parseIntWithHexOrBinary, parseNumber } from "utils";
-import { LogicType, Slot, SlotLogicType, SlotOccupant, SlotType } from "ic10emu_wasm";
+import {
+  LogicType,
+  Slot,
+  SlotLogicType,
+  SlotOccupant,
+  SlotType,
+} from "ic10emu_wasm";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
 import SlDialog from "@shoelace-style/shoelace/dist/components/dialog/dialog.component.js";
-import "./slot"
+import "./slot";
+import { when } from "lit/directives/when.js";
+import { cache } from "lit/directives/cache.js";
+import { until } from "lit/directives/until.js";
+import { repeat } from "lit/directives/repeat.js";
+
+export type CardTab = "fields" | "slots" | "reagents" | "networks" | "pins";
 
 @customElement("vm-device-card")
 export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
@@ -151,8 +163,8 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
           <span slot="prefix">Id</span>
           <sl-copy-button slot="suffix" .value=${this.deviceID}></sl-copy-button>
         </sl-input>
-        <sl-input id="vmDeviceCard${this.deviceID}Name" class="device-name me-1" size="small" pill placeholder=${this.prefabName}
-          value=${this.name} @sl-change=${this._handleChangeName}>
+        <sl-input id="vmDeviceCard${this.deviceID}Name" class="device-name me-1" size="small" pill
+          placeholder=${this.prefabName} value=${this.name} @sl-change=${this._handleChangeName}>
           <span slot="prefix">Name</span>
           <sl-copy-button slot="suffix" from="vmDeviceCard${this.deviceID}Name.value"></sl-copy-button>
         </sl-input>
@@ -172,10 +184,10 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
     `;
   }
 
-  renderFields(): HTMLTemplateResult {
+  renderFields() {
     const fields = Array.from(this.fields.entries());
     const inputIdBase = `vmDeviceCard${this.deviceID}Field`;
-    return html`
+    return this.delayRenderTab("fields", html`
       ${fields.map(([name, field], _index, _fields) => {
       return html` <sl-input id="${inputIdBase}${name}" key="${name}" value="${displayNumber(field.value)}" size="small"
         @sl-change=${this._handleChangeField}>
@@ -184,9 +196,8 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
         <span slot="suffix">${field.field_type}</span>
       </sl-input>`;
       })}
-    `;
+    `);
   }
-
 
   _onSlotImageErr(e: Event) {
     console.log("image_err", e);
@@ -195,26 +206,26 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
   static transparentImg =
     "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" as const;
 
-  renderSlots(): HTMLTemplateResult {
-    return html`
+  async renderSlots() {
+    return this.delayRenderTab("slots", html`
       <div class="flex flex-row flex-wrap">
-        ${this.slots.map((_slot, index, _slots) => html`
-          <vm-device-slot
-            .deviceID=${this.deviceID}
-            .slotIndex=${index}
-            class-"flex flex-row max-w-lg mr-2 mb-2"
-          >
-          </vm-device-slot>
-        ` )}
+        ${repeat(
+        this.slots,
+        (_slot, index) => index,
+        (_slot, index) => html`
+        <vm-device-slot .deviceID=${this.deviceID} .slotIndex=${index} class-"flex flex-row max-w-lg mr-2 mb-2">
+        </vm-device-slot>
+        `,
+        )}
       </div>
-    `;
+    `);
   }
 
-  renderReagents(): HTMLTemplateResult {
-    return html``;
+  renderReagents() {
+    return this.delayRenderTab("reagents", html``);
   }
 
-  renderNetworks(): HTMLTemplateResult {
+  renderNetworks() {
     const vmNetworks = window.VM.vm.networks;
     const networks = this.connections.map((connection, index, _conns) => {
       const conn =
@@ -231,13 +242,10 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
         </sl-select>
       `;
     });
-    return html`
-      <div class="networks">
-        ${networks}
-      </div>
-    `;
+    return this.delayRenderTab("networks", html`<div class="networks">${networks}</div>`);
   }
-  renderPins(): HTMLTemplateResult {
+
+  renderPins() {
     const pins = this.pins;
     const visibleDevices = window.VM.vm.visibleDevices(this.deviceID);
     const pinsHtml = pins?.map(
@@ -255,29 +263,73 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
           )}
           </sl-select>`,
     );
-    return html`
-      <div class="pins" >
-        ${pinsHtml}
-      </div>
-    `;
+    return this.delayRenderTab("pins", html`<div class="pins">${pinsHtml}</div>`);
+  }
+
+  private tabsShown: CardTab[] = ["fields"];
+  private tabResolves: {
+    [key in CardTab]: {
+      result?: HTMLTemplateResult;
+      resolver?: (result: HTMLTemplateResult) => void;
+    };
+  } = {
+      fields: {},
+      slots: {},
+      reagents: {},
+      networks: {},
+      pins: {},
+    };
+
+  delayRenderTab(
+    name: CardTab,
+    result: HTMLTemplateResult,
+  ): Promise<HTMLTemplateResult> {
+    this.tabResolves[name].result = result;
+    return new Promise((resolve) => {
+      if (this.tabsShown.includes(name)) {
+        this.tabResolves[name].resolver = undefined;
+        resolve(result);
+      } else {
+        this.tabResolves[name].resolver = resolve;
+      }
+    });
+  }
+
+  resolveTab(name: CardTab) {
+    if (
+      typeof this.tabResolves[name].resolver !== "undefined" &&
+      typeof this.tabResolves[name].result !== "undefined"
+    ) {
+      this.tabResolves[name].resolver(this.tabResolves[name].result);
+      this.tabsShown.push(name);
+    }
+
   }
 
   render(): HTMLTemplateResult {
     return html`
       <ic10-details class="device-card" ?open=${this.open}>
         <div class="header" slot="summary">${this.renderHeader()}</div>
-        <sl-tab-group>
+        <sl-tab-group @sl-tab-show=${this._handleTabChange}>
           <sl-tab slot="nav" panel="fields" active>Fields</sl-tab>
           <sl-tab slot="nav" panel="slots">Slots</sl-tab>
           <sl-tab slot="nav" panel="reagents" disabled>Reagents</sl-tab>
           <sl-tab slot="nav" panel="networks">Networks</sl-tab>
           <sl-tab slot="nav" panel="pins" ?disabled=${!this.pins}>Pins</sl-tab>
 
-          <sl-tab-panel name="fields" active>${this.renderFields()}</sl-tab-panel>
-          <sl-tab-panel name="slots">${this.renderSlots()}</sl-tab-panel>
-          <sl-tab-panel name="reagents">${this.renderReagents()}</sl-tab-panel>
-          <sl-tab-panel name="networks">${this.renderNetworks()}</sl-tab-panel>
-          <sl-tab-panel name="pins">${this.renderPins()}</sl-tab-panel>
+          <sl-tab-panel name="fields" active>
+            ${until(this.renderFields(), html`<sl-spinner></sl-spinner>`)}
+          </sl-tab-panel>
+          <sl-tab-panel name="slots">
+            ${until(this.renderSlots(), html`<sl-spinner></sl-spinner>`)}
+          </sl-tab-panel>
+          <sl-tab-panel name="reagents">
+            ${until(this.renderReagents(), html`<sl-spinner></sl-spinner>`)}
+          </sl-tab-panel>
+          <sl-tab-panel name="networks">
+            ${until(this.renderNetworks(), html`<sl-spinner></sl-spinner>`)}
+          </sl-tab-panel>
+          <sl-tab-panel name="pins"> ${this.renderPins()} </sl-tab-panel>
         </sl-tab-group>
       </ic10-details>
       <sl-dialog class="remove-device-dialog" no-header @sl-request-close=${this._preventOverlayClose}>
@@ -297,6 +349,10 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
     `;
   }
 
+  _handleTabChange(e: CustomEvent<{ name: string }>) {
+    setTimeout(() => this.resolveTab(e.detail.name as CardTab), 100);
+  }
+
   @query(".remove-device-dialog") removeDialog: SlDialog;
 
   _preventOverlayClose(event: CustomEvent) {
@@ -313,7 +369,7 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
     const input = e.target as SlInput;
     const val = parseIntWithHexOrBinary(input.value);
     if (!isNaN(val)) {
-      window.VM.get().then(vm => {
+      window.VM.get().then((vm) => {
         if (!vm.changeDeviceId(this.deviceID, val)) {
           input.value = this.deviceID.toString();
         }
@@ -326,7 +382,7 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
   _handleChangeName(e: CustomEvent) {
     const input = e.target as SlInput;
     const name = input.value.length === 0 ? undefined : input.value;
-    window.VM.get().then(vm => {
+    window.VM.get().then((vm) => {
       if (!vm.setDeviceName(this.deviceID, name)) {
         input.value = this.name;
       }
@@ -372,4 +428,3 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
     this.updateDevice();
   }
 }
-

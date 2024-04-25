@@ -30,7 +30,7 @@ fn write_repr_enum<'a, T: std::io::Write, I, P>(
     let additional_strum = if use_phf { "#[strum(use_phf)]\n" } else { "" };
     write!(
         writer,
-         "#[derive(Debug, Display, Clone, Copy, PartialEq, Eq, Hash, EnumString, AsRefStr, EnumProperty, EnumIter, Serialize, Deserialize)]\n\
+         "#[derive(Debug, Display, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, EnumString, AsRefStr, EnumProperty, EnumIter, Serialize, Deserialize)]\n\
          {additional_strum}\
          pub enum {name} {{\n"
     )
