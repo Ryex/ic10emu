@@ -131,18 +131,22 @@ export class VMSlotAddDialog extends VMDeviceDBMixin(BaseElement) {
   }
 
   renderSearchResults() {
-    return html`
-      <div class="mt-2 max-h-48 overflow-y-auto w-full">
-        <div class="cursor-pointer hover:bg-neutral-600 rounded px-2 me-1" @click=${this._handleClickNone}>
+    const enableNone = false;
+    const none = html`
+        <div class="cursor-pointer hover:bg-neutral-600 rounded px-2 py-1 me-1" @click=${this._handleClickNone}>
           None
         </div>
+    `;
+    return html`
+      <div class="mt-2 max-h-48 overflow-y-auto w-full">
+        ${enableNone ? none : ""}
         ${this._searchResults.map((result) => {
         const imgSrc = `img/stationpedia/${result.entry.name}.png`;
         const img = html`
         <img class="w-8 h-8 mr-2" src=${imgSrc} onerror="this.src = '${VMDeviceCard.transparentImg}'" />
         `;
         return html`
-        <div class="cursor-pointer hover:bg-neutral-600 rounded px-2 me-1 flex flex-row" key=${result.entry.name} @click=${this._handleClickItem}>
+        <div class="cursor-pointer hover:bg-neutral-600 rounded px-2 py-1 me-1 flex flex-row" key=${result.entry.name} @click=${this._handleClickItem}>
           ${img}
           <div>${result.entry.title}</div>
         </div>

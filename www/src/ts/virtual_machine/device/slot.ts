@@ -45,6 +45,16 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
       .quantity-input sl-input::part(input) {
         width: 3rem;
       }
+      .clear-occupant::part(base) {
+        color: var(--sl-color-warning-500);
+      }
+      .clear-occupant::part(base):hover,
+      .clear-occupant::part(base):focus {
+        color: var(--sl-color-warning-400);
+      }
+      .clear-occupant::part(base):active {
+        color: var(--sl-color-warning-500);
+      }
     `,
   ];
 
@@ -89,6 +99,11 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
       onerror="this.src = '${VMDeviceCard.transparentImg}'"
     />`;
     const template = this.slotOcccupantTemplate();
+
+    const activeIc = window.VM.vm.activeIC;
+    const thisIsActiveIc = activeIc.id === this.deviceID;
+
+    const enableQuantityInput = false;
 
     return html`
       <div class="flex flex-row me-2">
@@ -141,6 +156,7 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
           typeof slot.occupant !== "undefined",
           () => html`
             <div class="quantity-input ms-auto pl-2 mt-auto mb-auto me-2">
+              ${ enableQuantityInput ? html`
               <sl-input
                 type="number"
                 size="small"
@@ -152,13 +168,21 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
                 <div slot="help-text">
                   <span>Max Quantity: ${slot.occupant.max_quantity}</span>
                 </div>
-              </sl-input>
+              </sl-input>` : "" }
+              <sl-tooltip content=${thisIsActiveIc ? "Removing the selected Active IC is disabled" : "Remove Occupant" }>
+                <sl-icon-button class="clear-occupant" name="x-octagon" label="Remove" ?disabled=${thisIsActiveIc}
+                  @click=${this._handleSlotOccupantRemove}></sl-icon-button>
+              </sl-tooltip>
             </div>
           `,
           () => html``,
         )}
       </div>
     `;
+  }
+
+  _handleSlotOccupantRemove() {
+    window.VM.vm.removeDeviceSlotOccupant(this.deviceID, this.slotIndex);
   }
 
   _handleSlotClick(_e: Event) {

@@ -112,9 +112,10 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
 
     _handleDeviceModified(e: CustomEvent) {
       const id = e.detail;
+      const activeIc = window.VM.vm.activeIC;
       if (this.deviceID === id) {
         this.updateDevice();
-      } else {
+      } else if (id === activeIc.id) {
         this.requestUpdate();
       }
     }
