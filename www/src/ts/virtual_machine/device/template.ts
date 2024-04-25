@@ -90,16 +90,6 @@ export class VmDeviceTemplate extends VMDeviceDBMixin(BaseElement) {
   }
 
   setupState() {
-    const slotlogicmap: { [key: number]: SlotLogicType[] } = {};
-    for (const [slt, slotIndexes] of Object.entries(
-      this.dbDevice?.slotlogic ?? {},
-    )) {
-      for (const slotIndex of slotIndexes) {
-        const list = slotlogicmap[slotIndex] ?? [];
-        list.push(slt as SlotLogicType);
-        slotlogicmap[slotIndex] = list;
-      }
-    }
 
     this.fields = Object.fromEntries(
       Object.entries(this.dbDevice?.logic ?? {}).map(([lt, ft]) => {
