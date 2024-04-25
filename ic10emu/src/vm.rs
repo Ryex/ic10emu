@@ -768,8 +768,28 @@ impl VM {
         }
 
         let occupant = SlotOccupant::from_template(template, || self.id_space.next());
+        if let Some(last) = slot.occupant.as_ref() {
+            self.id_space.free_id(last.id);
+        }
         slot.occupant = Some(occupant);
 
+        Ok(())
+    }
+
+    pub fn remove_slot_occupant(&mut self, id: u32, index: usize) -> Result<(), VMError> {
+        let Some(device) = self.devices.get(&id) else {
+            return Err(VMError::UnknownId(id));
+        };
+
+        let mut device_ref = device.borrow_mut();
+        let slot = device_ref
+            .slots
+            .get_mut(index)
+            .ok_or(ICError::SlotIndexOutOfRange(index as f64))?;
+        if let Some(last) = slot.occupant.as_ref() {
+            self.id_space.free_id(last.id);
+        }
+        slot.occupant = None;
         Ok(())
     }
 

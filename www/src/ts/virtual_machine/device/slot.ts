@@ -4,7 +4,7 @@ import { BaseElement, defaultCss } from "components";
 import { VMDeviceDBMixin, VMDeviceMixin } from "virtual_machine/base_device";
 import type { DeviceDB, DeviceDBEntry } from "virtual_machine/device_db";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js";
-import { displayNumber, parseIntWithHexOrBinary, parseNumber } from "utils";
+import { clamp, displayNumber, parseIntWithHexOrBinary, parseNumber } from "utils";
 import {
   LogicType,
   Slot,
@@ -147,6 +147,7 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
                 .value=${slot.occupant.quantity.toString()}
                 .min=${1}
                 .max=${slot.occupant.max_quantity}
+                @sl-change=${this._handleSlotQuantityChange}
               >
                 <div slot="help-text">
                   <span>Max Quantity: ${slot.occupant.max_quantity}</span>
@@ -168,6 +169,15 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
         detail: { deviceID: this.deviceID, slotIndex: this.slotIndex },
       }),
     );
+  }
+
+  _handleSlotQuantityChange(e: Event) {
+    const input = e.currentTarget as SlInput;
+    const slot = this.slots[this.slotIndex];
+    const val = clamp(input.valueAsNumber, 1, slot.occupant.max_quantity);
+    if (!window.VM.vm.setDeviceSlotField(this.deviceID, this.slotIndex, "Quantity", val, true)) {
+      input.value = this.device.getSlotField(this.slotIndex, "Quantity").toString();
+    }
   }
 
   renderFields() {
@@ -202,7 +212,11 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
   _handleChangeSlotField(e: CustomEvent) {
     const input = e.target as SlInput;
     const field = input.getAttribute("key")! as SlotLogicType;
-    const val = parseNumber(input.value);
+    let val = parseNumber(input.value);
+    if (field === "Quantity") {
+      const slot = this.slots[this.slotIndex];
+      val = clamp(input.valueAsNumber, 1, slot.occupant.max_quantity);
+    }
     window.VM.get().then((vm) => {
       if (
         !vm.setDeviceSlotField(this.deviceID, this.slotIndex, field, val, true)

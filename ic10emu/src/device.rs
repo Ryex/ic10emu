@@ -152,13 +152,17 @@ impl SlotOccupant {
         copy
     }
 
-    pub fn set_field(
-        &mut self,
-        field: SlotLogicType,
-        val: f64,
-        force: bool,
-    ) -> Result<(), ICError> {
-        if let Some(logic) = self.fields.get_mut(&field) {
+    pub fn set_field(&mut self, typ: SlotLogicType, val: f64, force: bool) -> Result<(), ICError> {
+        if (typ == SlotLogicType::Quantity) && force {
+            self.quantity = val as u32;
+            Ok(())
+        } else if (typ == SlotLogicType::MaxQuantity) && force {
+            self.max_quantity = val as u32;
+            Ok(())
+        } else if (typ == SlotLogicType::Damage) && force {
+            self.damage = val;
+            Ok(())
+        } else if let Some(logic) = self.fields.get_mut(&typ) {
             match logic.field_type {
                 FieldType::ReadWrite | FieldType::Write => {
                     logic.value = val;
@@ -169,13 +173,13 @@ impl SlotOccupant {
                         logic.value = val;
                         Ok(())
                     } else {
-                        Err(ICError::ReadOnlyField(field.to_string()))
+                        Err(ICError::ReadOnlyField(typ.to_string()))
                     }
                 }
             }
         } else if force {
             self.fields.insert(
-                field,
+                typ,
                 LogicField {
                     field_type: FieldType::ReadWrite,
                     value: val,
@@ -183,7 +187,7 @@ impl SlotOccupant {
             );
             Ok(())
         } else {
-            Err(ICError::ReadOnlyField(field.to_string()))
+            Err(ICError::ReadOnlyField(typ.to_string()))
         }
     }
 
@@ -392,27 +396,20 @@ impl Slot {
         }
     }
 
-    pub fn set_field(
-        &mut self,
-        field: SlotLogicType,
-        val: f64,
-        force: bool,
-    ) -> Result<(), ICError> {
+    pub fn set_field(&mut self, typ: SlotLogicType, val: f64, force: bool) -> Result<(), ICError> {
         if matches!(
-            field,
+            typ,
             SlotLogicType::Occupied
                 | SlotLogicType::OccupantHash
-                | SlotLogicType::Quantity
-                | SlotLogicType::MaxQuantity
                 | SlotLogicType::Class
                 | SlotLogicType::PrefabHash
                 | SlotLogicType::SortingClass
                 | SlotLogicType::ReferenceId
         ) {
-            return Err(ICError::ReadOnlyField(field.to_string()));
+            return Err(ICError::ReadOnlyField(typ.to_string()));
         }
         if let Some(occupant) = self.occupant.as_mut() {
-            occupant.set_field(field, val, force)
+            occupant.set_field(typ, val, force)
         } else {
             Err(ICError::SlotNotOccupied)
         }

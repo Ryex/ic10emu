@@ -316,7 +316,7 @@ class VirtualMachine extends EventTarget {
     const device = this._devices.get(id);
     if (device) {
       try {
-        device.setSlotField(slot, field, val, false);
+        device.setSlotField(slot, field, val, force);
         this.updateDevice(device);
         return true;
       } catch (err) {
@@ -402,6 +402,20 @@ class VirtualMachine extends EventTarget {
       try {
         console.log("setting slot occupant", template);
         this.ic10vm.setSlotOccupant(id, index, template);
+        this.updateDevice(device);
+        return true;
+      } catch (err) {
+        this.handleVmError(err);
+      }
+    }
+    return false;
+  }
+
+  removeDeviceSlotOccupant(id: number, index: number): boolean {
+    const device = this._devices.get(id);
+    if (typeof device !== "undefined") {
+      try {
+        this.ic10vm.removeSlotOccupant(id, index);
         this.updateDevice(device);
         return true;
       } catch (err) {

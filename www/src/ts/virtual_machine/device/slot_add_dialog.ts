@@ -31,6 +31,7 @@ export class VMSlotAddDialog extends VMDeviceDBMixin(BaseElement) {
   ];
 
   private _items: Map<string, DeviceDBEntry> = new Map();
+  private _filteredItems: DeviceDBEntry[];
   private _datapoints: [string, string][] = [];
   private _haystack: string[] = [];
 
@@ -57,33 +58,41 @@ export class VMSlotAddDialog extends VMDeviceDBMixin(BaseElement) {
         .filter((entry) => this.deviceDB.items.includes(entry.name), this)
         .map((entry) => [entry.name, entry]),
     );
+    this.setupSearch();
     this.performSearch();
   }
 
-  performSearch() {
-    if (this._filter) {
+
+  setupSearch() {
+    let filteredItemss = Array.from(this._items.values());
+    if( typeof this.deviceID !== "undefined" && typeof this.slotIndex !== "undefined") {
       const device = window.VM.vm.devices.get(this.deviceID);
       const dbDevice = this.deviceDB.db[device.prefabName]
       const slot = dbDevice.slots[this.slotIndex]
       const typ = slot.typ;
 
-      let filterdItems = Array.from(this._items.values());
-      if (typ !== "None") {
-        filterdItems = Array.from(this._items.values()).filter(item => item.item.slotclass === typ);
+      if (typeof typ === "string" && typ !== "None") {
+        filteredItemss = Array.from(this._items.values()).filter(item => item.item.slotclass === typ);
       }
 
-      const datapoints: [string, string][] = [];
-      for (const entry of filterdItems) {
-        datapoints.push(
-          [entry.title, entry.name],
-          [entry.name, entry.name],
-          [entry.desc, entry.name],
-        );
-      }
+    }
+    this._filteredItems= filteredItemss;
+    const datapoints: [string, string][] = [];
+    for (const entry of this._filteredItems) {
+      datapoints.push(
+        [entry.title, entry.name],
+        [entry.name, entry.name],
+        [entry.desc, entry.name],
+      );
+    }
 
-      const haystack: string[] = datapoints.map((data) => data[0]);
-      this._datapoints = datapoints;
-      this._haystack = haystack;
+    const haystack: string[] = datapoints.map((data) => data[0]);
+    this._datapoints = datapoints;
+    this._haystack = haystack;
+  }
+
+  performSearch() {
+    if (this._filter) {
 
       const uf = new uFuzzy({});
       const [_idxs, info, order] = uf.search(
@@ -113,7 +122,7 @@ export class VMSlotAddDialog extends VMDeviceDBMixin(BaseElement) {
       }));
     } else {
       // return everything
-      this._searchResults = [...this._items.values()].map((st) => ({
+      this._searchResults = [...this._filteredItems].map((st) => ({
         entry: st,
         haystackEntry: st.title,
         ranges: [],
@@ -130,7 +139,7 @@ export class VMSlotAddDialog extends VMDeviceDBMixin(BaseElement) {
         ${this._searchResults.map((result) => {
         const imgSrc = `img/stationpedia/${result.entry.name}.png`;
         const img = html`
-        <img class="w-8 h-8" src=${imgSrc} onerror="this.src = '${VMDeviceCard.transparentImg}'" />
+        <img class="w-8 h-8 mr-2" src=${imgSrc} onerror="this.src = '${VMDeviceCard.transparentImg}'" />
         `;
         return html`
         <div class="cursor-pointer hover:bg-neutral-600 rounded px-2 me-1 flex flex-row" key=${result.entry.name} @click=${this._handleClickItem}>
@@ -144,7 +153,8 @@ export class VMSlotAddDialog extends VMDeviceDBMixin(BaseElement) {
   }
 
   _handleClickNone() {
-    console.log("Clear Slot");
+    window.VM.vm.removeDeviceSlotOccupant(this.deviceID, this.slotIndex);
+    this.hide();
   }
 
   _handleClickItem(e: Event) {
@@ -170,11 +180,13 @@ export class VMSlotAddDialog extends VMDeviceDBMixin(BaseElement) {
     fields["PrefabHash"] = { field_type: "Read", value: entry.hash };
     fields["MaxQuantity"] = { field_type: "Read", value: entry.item.maxquantity ?? 1.0 };
     fields["SortingClass"] = { field_type: "Read", value: sorting };
+    fields["Quantity"] = { field_type: "Read", value: 1 };
 
     const template: SlotOccupantTemplate = {
       fields
     }
     window.VM.vm.setDeviceSlotOccupant(this.deviceID, this.slotIndex, template);
+    this.hide();
   }
 
   @query("sl-dialog.slot-add-dialog") dialog: SlDialog;
@@ -233,6 +245,8 @@ export class VMSlotAddDialog extends VMDeviceDBMixin(BaseElement) {
   show(deviceID: number, slotIndex: number) {
     this.deviceID = deviceID;
     this.slotIndex = slotIndex;
+    this.setupSearch();
+    this.performSearch();
     this.dialog.show();
     this.searchInput.select();
   }

@@ -495,6 +495,11 @@ impl VMRef {
         Ok(self.vm.borrow_mut().set_slot_occupant(id, index, template)?)
     }
 
+    #[wasm_bindgen(js_name = "removeSlotOccupant")]
+    pub fn remove_slot_occupant(&self, id: u32, index: usize) -> Result<(), JsError> {
+        Ok(self.vm.borrow_mut().remove_slot_occupant(id, index)?)
+    }
+
     #[wasm_bindgen(js_name = "saveVMState", skip_typescript)]
     pub fn save_vm_state(&self) -> JsValue {
         let state = self.vm.borrow().save_vm_state();
