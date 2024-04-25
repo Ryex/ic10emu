@@ -55,7 +55,7 @@ export class VmDeviceTemplate extends VMDeviceDBMixin(BaseElement) {
         padding: var(--sl-spacing-small) var(--sl-spacing-medium);
       }
       sl-tab-group::part(base) {
-        height: 14rem;
+        height: 18rem;
         overflow-y: auto;
       }
     `,
@@ -223,7 +223,7 @@ export class VmDeviceTemplate extends VMDeviceDBMixin(BaseElement) {
     const device = this.dbDevice;
     return html`
       <sl-card class="template-card">
-        <div class="header" slot="header">
+        <div class="header h-20 w-96" slot="header">
           <sl-tooltip content="${device?.name}">
             <img
               class="image me-2"

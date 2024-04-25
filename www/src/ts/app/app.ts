@@ -79,7 +79,7 @@ export class App extends BaseElement {
     window.App.set(this);
   }
 
-  protected createRenderRoot(): HTMLElement | DocumentFragment {
+  createRenderRoot(): HTMLElement | DocumentFragment {
     const root = super.createRenderRoot();
     root.addEventListener("app-share-session", this._handleShare.bind(this));
     root.addEventListener("app-open-file", this._handleOpenFile.bind(this));

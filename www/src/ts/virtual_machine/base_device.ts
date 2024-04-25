@@ -94,6 +94,22 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
       return root;
     }
 
+    disconnectedCallback(): void {
+      window.VM.get().then((vm) =>
+        vm.removeEventListener(
+          "vm-device-modified",
+          this._handleDeviceModified.bind(this),
+        ),
+      );
+      window.VM.get().then((vm) =>
+        vm.removeEventListener(
+          "vm-devices-update",
+          this._handleDevicesModified.bind(this),
+        ),
+      );
+
+    }
+
     _handleDeviceModified(e: CustomEvent) {
       const id = e.detail;
       if (this.deviceID === id) {
@@ -182,7 +198,6 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
         this.pins = pins;
       }
     }
-
   }
   return VMDeviceMixinClass as Constructor<VMDeviceMixinInterface> & T;
 };
@@ -208,6 +223,17 @@ export const VMActiveICMixin = <T extends Constructor<LitElement>>(
       return root;
     }
 
+
+    disconnectedCallback(): void {
+      window.VM.get().then((vm) =>
+        vm.removeEventListener("vm-run-ic", this._handleDeviceModified.bind(this)),
+      );
+      window.App.app.session.removeEventListener(
+        "session-active-ic",
+        this._handleActiveIC.bind(this),
+      );
+    }
+
     _handleActiveIC(e: CustomEvent) {
       const id = e.detail;
       if (this.deviceID !== id) {
@@ -223,20 +249,31 @@ export const VMActiveICMixin = <T extends Constructor<LitElement>>(
 
 export declare class VMDeviceDBMixinInterface {
   deviceDB: DeviceDB;
-  _handleDeviceDBLoad(e: CustomEvent): void
+  _handleDeviceDBLoad(e: CustomEvent): void;
+  postDBSetUpdate(): void;
 }
 
-export const VMDeviceDBMixin = <T extends Constructor<LitElement>>(superClass: T) => {
+export const VMDeviceDBMixin = <T extends Constructor<LitElement>>(
+  superClass: T,
+) => {
   class VMDeviceDBMixinClass extends superClass {
-
     connectedCallback(): void {
       const root = super.connectedCallback();
       window.VM.vm.addEventListener(
         "vm-device-db-loaded",
         this._handleDeviceDBLoad.bind(this),
       );
-      this.deviceDB = window.VM.vm.db!;
+      if (typeof window.VM.vm.db !== "undefined") {
+        this.deviceDB = window.VM.vm.db!;
+      }
       return root;
+    }
+
+    disconnectedCallback(): void {
+      window.VM.vm.removeEventListener(
+        "vm-device-db-loaded",
+        this._handleDeviceDBLoad.bind(this),
+      )
     }
 
     _handleDeviceDBLoad(e: CustomEvent) {
@@ -249,11 +286,14 @@ export const VMDeviceDBMixin = <T extends Constructor<LitElement>>(superClass: T
       return this._deviceDB;
     }
 
+    postDBSetUpdate(): void { }
+
     @state()
     set deviceDB(val: DeviceDB) {
       this._deviceDB = val;
+      this.postDBSetUpdate();
     }
   }
 
-  return VMDeviceDBMixinClass as Constructor<VMDeviceDBMixinInterface> & T
-}
+  return VMDeviceDBMixinClass as Constructor<VMDeviceDBMixinInterface> & T;
+};

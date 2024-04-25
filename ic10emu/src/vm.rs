@@ -1,5 +1,5 @@
 use crate::{
-    device::{Device, DeviceTemplate},
+    device::{Device, DeviceTemplate, SlotOccupant, SlotOccupantTemplate},
     grammar::{BatchMode, LogicType, SlotLogicType},
     interpreter::{self, FrozenIC, ICError, LineError},
     network::{CableConnectionType, Connection, FrozenNetwork, Network},
@@ -744,6 +744,32 @@ impl VM {
             let _ = self.ics.remove(&ic_id);
         }
         self.id_space.free_id(id);
+        Ok(())
+    }
+
+    pub fn set_slot_occupant(
+        &mut self,
+        id: u32,
+        index: usize,
+        template: SlotOccupantTemplate,
+    ) -> Result<(), VMError> {
+        let Some(device) = self.devices.get(&id) else {
+            return Err(VMError::UnknownId(id));
+        };
+
+        let mut device_ref = device.borrow_mut();
+        let slot = device_ref
+            .slots
+            .get_mut(index)
+            .ok_or(ICError::SlotIndexOutOfRange(index as f64))?;
+
+        if let Some(id) = template.id.as_ref() {
+            self.id_space.use_id(*id)?;
+        }
+
+        let occupant = SlotOccupant::from_template(template, || self.id_space.next());
+        slot.occupant = Some(occupant);
+
         Ok(())
     }
 

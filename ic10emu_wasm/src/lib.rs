@@ -3,7 +3,7 @@ mod utils;
 mod types;
 
 use ic10emu::{
-    device::{Device, DeviceTemplate},
+    device::{Device, DeviceTemplate, SlotOccupantTemplate},
     grammar::{LogicType, SlotLogicType},
     vm::{FrozenVM, VMError, VM},
 };
@@ -487,6 +487,12 @@ impl VMRef {
     #[wasm_bindgen(js_name = "removeDevice")]
     pub fn remove_device(&self, id: u32) -> Result<(), JsError> {
         Ok(self.vm.borrow_mut().remove_device(id)?)
+    }
+
+    #[wasm_bindgen(js_name = "setSlotOccupant", skip_typescript)]
+    pub fn set_slot_occupant(&self, id: u32, index: usize, template: JsValue) -> Result<(), JsError> {
+        let template: SlotOccupantTemplate = serde_wasm_bindgen::from_value(template)?;
+        Ok(self.vm.borrow_mut().set_slot_occupant(id, index, template)?)
     }
 
     #[wasm_bindgen(js_name = "saveVMState", skip_typescript)]

@@ -4,11 +4,13 @@ import {
   FrozenVM,
   LogicType,
   SlotLogicType,
+  SlotOccupantTemplate,
   VMRef,
   init,
 } from "ic10emu_wasm";
 import { DeviceDB } from "./device_db";
 import "./base_device";
+import "./device";
 import { App } from "app";
 export interface ToastMessage {
   variant: "warning" | "danger" | "success" | "primary" | "neutral";
@@ -392,6 +394,21 @@ class VirtualMachine extends EventTarget {
       this.handleVmError(err);
       return false;
     }
+  }
+
+  setDeviceSlotOccupant(id: number, index: number, template: SlotOccupantTemplate): boolean {
+    const device = this._devices.get(id);
+    if (typeof device !== "undefined") {
+      try {
+        console.log("setting slot occupant", template);
+        this.ic10vm.setSlotOccupant(id, index, template);
+        this.updateDevice(device);
+        return true;
+      } catch (err) {
+        this.handleVmError(err);
+      }
+    }
+    return false;
   }
 
   saveVMState(): FrozenVM {

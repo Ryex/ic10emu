@@ -177,6 +177,7 @@ export interface FrozenVM {
 
 export interface VMRef {
   addDeviceFromTemplate(template: DeviceTemplate): number;
+  setSlotOccupant(id: number, index: number, template: SlotOccupantTemplate);
   saveVMState(): FrozenVM;
   restoreVMState(state: FrozenVM): void;
 }
