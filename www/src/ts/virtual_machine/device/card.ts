@@ -3,19 +3,11 @@ import { customElement, property, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
 import { VMDeviceDBMixin, VMDeviceMixin } from "virtual_machine/base_device";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js";
-import { displayNumber, parseIntWithHexOrBinary, parseNumber } from "utils";
-import {
-  LogicType,
-  Slot,
-  SlotLogicType,
-  SlotOccupant,
-  SlotType,
-} from "ic10emu_wasm";
+import { parseIntWithHexOrBinary, parseNumber } from "utils";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
 import SlDialog from "@shoelace-style/shoelace/dist/components/dialog/dialog.component.js";
 import "./slot";
-import { when } from "lit/directives/when.js";
-import { cache } from "lit/directives/cache.js";
+import "./fields";
 import { until } from "lit/directives/until.js";
 import { repeat } from "lit/directives/repeat.js";
 
@@ -30,6 +22,16 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
   constructor() {
     super();
     this.open = false;
+    this.subscribe(
+      "prefabName",
+      "name",
+      "nameHash",
+      "reagents",
+      "slots-count",
+      "reagents",
+      "connections",
+      "active-ic",
+    );
   }
 
   static styles = [
@@ -71,13 +73,6 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
       }
       .device-name-hash::part(input) {
         width: 7rem;
-      }
-      .slot-header.image {
-        width: 1.5rem;
-        height: 1.5rem;
-        border: var(--sl-panel-border-width) solid var(--sl-panel-border-color);
-        border-radius: var(--sl-border-radius-medium);
-        background-color: var(--sl-color-neutral-0);
       }
       sl-divider {
         --spacing: 0.25rem;
@@ -139,12 +134,12 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
   }
 
   renderHeader(): HTMLTemplateResult {
-    const activeIc = window.VM.vm.activeIC;
-    const thisIsActiveIc = activeIc.id === this.deviceID;
+    const thisIsActiveIc = this.activeICId === this.deviceID;
     const badges: HTMLTemplateResult[] = [];
-    if (this.deviceID == activeIc?.id) {
+    if (thisIsActiveIc) {
       badges.push(html`<sl-badge variant="primary" pill pulse>db</sl-badge>`);
     }
+    const activeIc = window.VM.vm.activeIC;
     activeIc?.pins?.forEach((id, index) => {
       if (this.deviceID == id) {
         badges.push(
@@ -185,18 +180,10 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
   }
 
   renderFields() {
-    const fields = Array.from(this.fields.entries());
-    const inputIdBase = `vmDeviceCard${this.deviceID}Field`;
-    return this.delayRenderTab("fields", html`
-      ${fields.map(([name, field], _index, _fields) => {
-      return html` <sl-input id="${inputIdBase}${name}" key="${name}" value="${displayNumber(field.value)}" size="small"
-        @sl-change=${this._handleChangeField}>
-        <span slot="prefix">${name}</span>
-        <sl-copy-button slot="suffix" from="${inputIdBase}${name}.value"></sl-copy-button>
-        <span slot="suffix">${field.field_type}</span>
-      </sl-input>`;
-      })}
-    `);
+    return this.delayRenderTab(
+      "fields",
+      html`<vm-device-fields .deviceID=${this.deviceID}></vm-device-fields>`,
+    );
   }
 
   _onSlotImageErr(e: Event) {
@@ -207,18 +194,20 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
     "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" as const;
 
   async renderSlots() {
-    return this.delayRenderTab("slots", html`
-      <div class="flex flex-row flex-wrap">
-        ${repeat(
-        this.slots,
-        (_slot, index) => index,
-        (_slot, index) => html`
-        <vm-device-slot .deviceID=${this.deviceID} .slotIndex=${index} class-"flex flex-row max-w-lg mr-2 mb-2">
-        </vm-device-slot>
-        `,
-        )}
-      </div>
-    `);
+    return this.delayRenderTab(
+      "slots",
+      html`
+        <div class="flex flex-row flex-wrap">
+          ${repeat(this.slots,
+            (slot, index) => slot.typ + index.toString(),
+            (_slot, index) => html`
+              <vm-device-slot .deviceID=${this.deviceID} .slotIndex=${index} class-"flex flex-row max-w-lg mr-2 mb-2">
+              </vm-device-slot>
+            `,
+          )}
+        </div>
+      `,
+    );
   }
 
   renderReagents() {
@@ -242,7 +231,10 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
         </sl-select>
       `;
     });
-    return this.delayRenderTab("networks", html`<div class="networks">${networks}</div>`);
+    return this.delayRenderTab(
+      "networks",
+      html`<div class="networks">${networks}</div>`,
+    );
   }
 
   renderPins() {
@@ -303,7 +295,6 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
       this.tabResolves[name].resolver(this.tabResolves[name].result);
       this.tabsShown.push(name);
     }
-
   }
 
   render(): HTMLTemplateResult {
@@ -385,18 +376,6 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
     window.VM.get().then((vm) => {
       if (!vm.setDeviceName(this.deviceID, name)) {
         input.value = this.name;
-      }
-      this.updateDevice();
-    });
-  }
-
-  _handleChangeField(e: CustomEvent) {
-    const input = e.target as SlInput;
-    const field = input.getAttribute("key")! as LogicType;
-    const val = parseNumber(input.value);
-    window.VM.get().then((vm) => {
-      if (!vm.setDeviceField(this.deviceID, field, val, true)) {
-        input.value = this.fields.get(field).value.toString();
       }
       this.updateDevice();
     });

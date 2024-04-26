@@ -5,6 +5,7 @@ import {
   LogicType,
   SlotLogicType,
   SlotOccupantTemplate,
+  Slots,
   VMRef,
   init,
 } from "ic10emu_wasm";
@@ -20,9 +21,39 @@ export interface ToastMessage {
   id: string;
 }
 
+export interface CacheDeviceRef extends DeviceRef {
+  dirty: boolean
+}
+
+function cachedDeviceRef(ref: DeviceRef) {
+  let slotsDirty = true;
+  let cachedSlots: Slots = undefined;
+  return new Proxy<DeviceRef>(ref, {
+    get(target, prop, receiver) {
+      if (prop === "slots") {
+        if (typeof cachedSlots === undefined || slotsDirty) {
+          cachedSlots = target.slots;
+          slotsDirty = false;
+        }
+        return cachedSlots;
+      } else if (prop === "dirty") {
+        return slotsDirty;
+      }
+      return Reflect.get(target, prop, receiver);
+    },
+    set(target, prop, value) {
+      if (prop === "dirty") {
+        slotsDirty = value
+        return true;
+      }
+      return Reflect.set(target, prop, value)
+    }
+  }) as CacheDeviceRef
+}
+
 class VirtualMachine extends EventTarget {
   ic10vm: VMRef;
-  _devices: Map<number, DeviceRef>;
+  _devices: Map<number, CacheDeviceRef>;
   _ics: Map<number, DeviceRef>;
 
   db: DeviceDB;
@@ -93,7 +124,7 @@ class VirtualMachine extends EventTarget {
     const device_ids = this.ic10vm.devices;
     for (const id of device_ids) {
       if (!this._devices.has(id)) {
-        this._devices.set(id, this.ic10vm.getDevice(id)!);
+        this._devices.set(id, cachedDeviceRef(this.ic10vm.getDevice(id)!));
         update_flag = true;
       }
     }
@@ -105,6 +136,7 @@ class VirtualMachine extends EventTarget {
     }
 
     for (const [id, device] of this._devices) {
+      device.dirty = true;
       if (typeof device.ic !== "undefined") {
         if (!this._ics.has(id)) {
           this._ics.set(id, device);
@@ -204,11 +236,13 @@ class VirtualMachine extends EventTarget {
         );
       }
     }, this);
-    this.updateDevice(this.activeIC, save);
+    this.updateDevice(this.activeIC.id, save);
     if (save) this.app.session.save();
   }
 
-  updateDevice(device: DeviceRef, save: boolean = true) {
+  updateDevice(id: number, save: boolean = true) {
+    const device = this._devices.get(id);
+    device.dirty = true;
     this.dispatchEvent(
       new CustomEvent("vm-device-modified", { detail: device.id }),
     );
@@ -248,7 +282,7 @@ class VirtualMachine extends EventTarget {
     const ic = this.activeIC!;
     try {
       ic.setRegister(index, val);
-      this.updateDevice(ic);
+      this.updateDevice(ic.id);
       return true;
     } catch (err) {
       this.handleVmError(err);
@@ -260,7 +294,7 @@ class VirtualMachine extends EventTarget {
     const ic = this.activeIC!;
     try {
       ic!.setStack(addr, val);
-      this.updateDevice(ic);
+      this.updateDevice(ic.id);
       return true;
     } catch (err) {
       this.handleVmError(err);
@@ -296,7 +330,7 @@ class VirtualMachine extends EventTarget {
     if (device) {
       try {
         device.setField(field, val, force);
-        this.updateDevice(device);
+        this.updateDevice(device.id);
         return true;
       } catch (err) {
         this.handleVmError(err);
@@ -317,7 +351,7 @@ class VirtualMachine extends EventTarget {
     if (device) {
       try {
         device.setSlotField(slot, field, val, force);
-        this.updateDevice(device);
+        this.updateDevice(device.id);
         return true;
       } catch (err) {
         this.handleVmError(err);
@@ -335,7 +369,7 @@ class VirtualMachine extends EventTarget {
     if (typeof device !== "undefined") {
       try {
         this.ic10vm.setDeviceConnection(id, conn, val);
-        this.updateDevice(device);
+        this.updateDevice(device.id);
         return true;
       } catch (err) {
         this.handleVmError(err);
@@ -349,7 +383,7 @@ class VirtualMachine extends EventTarget {
     if (typeof device !== "undefined") {
       try {
         this.ic10vm.setPin(id, pin, val);
-        this.updateDevice(device);
+        this.updateDevice(device.id);
         return true;
       } catch (err) {
         this.handleVmError(err);
@@ -370,7 +404,7 @@ class VirtualMachine extends EventTarget {
     try {
       console.log("adding device", template);
       const id = this.ic10vm.addDeviceFromTemplate(template);
-      this._devices.set(id, this.ic10vm.getDevice(id)!);
+      this._devices.set(id, cachedDeviceRef(this.ic10vm.getDevice(id)!));
       const device_ids = this.ic10vm.devices;
       this.dispatchEvent(
         new CustomEvent("vm-devices-update", {
@@ -402,7 +436,7 @@ class VirtualMachine extends EventTarget {
       try {
         console.log("setting slot occupant", template);
         this.ic10vm.setSlotOccupant(id, index, template);
-        this.updateDevice(device);
+        this.updateDevice(device.id);
         return true;
       } catch (err) {
         this.handleVmError(err);
@@ -416,7 +450,7 @@ class VirtualMachine extends EventTarget {
     if (typeof device !== "undefined") {
       try {
         this.ic10vm.removeSlotOccupant(id, index);
-        this.updateDevice(device);
+        this.updateDevice(device.id);
         return true;
       } catch (err) {
         this.handleVmError(err);

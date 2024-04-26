@@ -37,6 +37,7 @@ export class VMICStack extends VMActiveICMixin(BaseElement) {
 
   constructor() {
     super();
+    this.subscribe("ic", "active-ic")
   }
 
   protected render() {

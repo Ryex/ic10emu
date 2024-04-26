@@ -6,7 +6,7 @@ use crate::{
 };
 use std::{
     cell::RefCell,
-    collections::{HashMap, HashSet},
+    collections::{BTreeMap, HashSet},
     rc::Rc,
 };
 
@@ -40,9 +40,9 @@ pub enum VMError {
 
 #[derive(Debug)]
 pub struct VM {
-    pub ics: HashMap<u32, Rc<RefCell<interpreter::IC>>>,
-    pub devices: HashMap<u32, Rc<RefCell<Device>>>,
-    pub networks: HashMap<u32, Rc<RefCell<Network>>>,
+    pub ics: BTreeMap<u32, Rc<RefCell<interpreter::IC>>>,
+    pub devices: BTreeMap<u32, Rc<RefCell<Device>>>,
+    pub networks: BTreeMap<u32, Rc<RefCell<Network>>>,
     pub default_network: u32,
     id_space: IdSpace,
     network_id_space: IdSpace,
@@ -64,12 +64,12 @@ impl VM {
         let mut network_id_space = IdSpace::default();
         let default_network_key = network_id_space.next();
         let default_network = Rc::new(RefCell::new(Network::new(default_network_key)));
-        let mut networks = HashMap::new();
+        let mut networks = BTreeMap::new();
         networks.insert(default_network_key, default_network);
 
         let mut vm = VM {
-            ics: HashMap::new(),
-            devices: HashMap::new(),
+            ics: BTreeMap::new(),
+            devices: BTreeMap::new(),
             networks,
             default_network: default_network_key,
             id_space: id_gen,

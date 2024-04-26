@@ -40,6 +40,7 @@ export class VMICRegisters extends VMActiveICMixin(BaseElement) {
 
   constructor() {
     super();
+    this.subscribe("ic", "active-ic")
   }
 
   protected render() {

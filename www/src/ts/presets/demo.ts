@@ -124,7 +124,20 @@ export const demoVMState: VMState = {
             },
           },
         ],
-        fields: {},
+        fields: {
+          "PrefabHash": {
+            field_type: "Read",
+            value: -128473777,
+          },
+          "Setting": {
+            field_type: "ReadWrite",
+            value: 0,
+          },
+          "RequiredPower": {
+            field_type: "Read",
+            value: 0,
+          }
+        },
       },
     ],
     networks: [

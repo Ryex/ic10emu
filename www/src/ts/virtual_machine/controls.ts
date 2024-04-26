@@ -7,6 +7,12 @@ import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.js"
 
 @customElement("vm-ic-controls")
 export class VMICControls extends VMActiveICMixin(BaseElement) {
+
+  constructor() {
+    super();
+    this.subscribe("ic", "active-ic")
+  }
+
   static styles = [
     ...defaultCss,
     css`
