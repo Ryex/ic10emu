@@ -1,6 +1,5 @@
 #![allow(non_snake_case)]
 
-// use std::collections::BTreeMap;
 use std::collections::BTreeMap;
 
 use itertools::Itertools;
@@ -75,39 +74,3 @@ impl<'a> FromIterator<&'a ic10emu::device::Slot> for Slots {
 }
 
 include!(concat!(env!("OUT_DIR"), "/ts_types.rs"));
-
-// #[serde_as]
-// #[derive(Tsify, Serialize, Deserialize)]
-// #[tsify(into_wasm_abi, from_wasm_abi)]
-// pub struct DeviceLogicField {
-//     field_type: FieldType,
-//     value: f64,
-// }
-//
-// #[serde_as]
-// #[derive(Tsify, Serialize, Deserialize)]
-// #[tsify(into_wasm_abi, from_wasm_abi)]
-// pub struct DeviceSlot {
-//     typ: SlotType,
-//     #[serde_as(as = "Vec<(_, _)>")]
-//     fields: BTreeMap<SlotLogicType, DeviceLogicField>,
-// }
-//
-//
-// #[serde_as]
-// #[derive(Tsify, Serialize, Deserialize)]
-// #[tsify(into_wasm_abi, from_wasm_abi)]
-// pub struct DeviceState{
-//     name: Option<String>,
-//     name_hash: Option<i32>,
-//     prefab_name: Option<String>,
-//     #[serde_as(as = "Vec<(_, _)>")]
-//     fields: BTreeMap<LogicType, DeviceLogicField>,
-//     slots: Vec<DeviceSlot>,
-//     #[serde_as(as = "Vec<(_, _)>")]
-//     reagents: BTreeMap<ReagentMode, Vec<(i32, f64)>>,
-//     connections: Vec<Connection>,
-//     ic: Option<u32>,
-// }
-
-// serde_with::DisplayFromStr

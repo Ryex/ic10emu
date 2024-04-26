@@ -7,20 +7,6 @@ export interface LogicField {
 export type LogicFields = Map<LogicType, LogicField>;
 export type SlotLogicFields = Map<SlotLogicType, LogicField>;
 
-// export interface SlotOccupant {
-//   readonly id: number;
-//   readonly prefab_hash: number;
-//   readonly quantity: number;
-//   readonly max_quantity: number;
-//   readonly damage: number;
-//   readonly fields: SlotLogicFields;
-// }
-// export interface Slot {
-//   readonly typ: SlotType;
-//   readonly occupant: SlotOccupant | undefined;
-//   readonly fields: SlotLogicFields;
-// }
-
 export type Reagents = Map<string, Map<number, number>>;
 
 export interface ConnectionCableNetwork {
