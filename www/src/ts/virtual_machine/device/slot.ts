@@ -38,7 +38,7 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
 
   constructor() {
     super();
-    this.subscribe("active-ic");
+    this.subscribe("active-ic", "prefabName");
   }
 
   static styles = [
@@ -111,7 +111,6 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
     />`;
     const template = this.slotOcccupantTemplate();
 
-    const activeIc = window.VM.vm.activeIC;
     const thisIsActiveIc = this.activeICId === this.deviceID;
 
     const enableQuantityInput = false;
