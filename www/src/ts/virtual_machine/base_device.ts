@@ -59,7 +59,8 @@ export type VMDeviceMixinSubscription =
   | "ic"
   | "active-ic"
   | { field: LogicType }
-  | { slot: number };
+  | { slot: number }
+  | "visible-devices";
 
 export const VMDeviceMixin = <T extends Constructor<LitElement>>(
   superClass: T,
@@ -124,6 +125,10 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
           "vm-device-id-change",
           this._handleDeviceIdChange.bind(this),
         );
+        vm.addEventListener(
+          "vm-devices-removed",
+          this._handleDevicesRemoved.bind(this),
+        )
       });
       this.updateDevice();
       return root;
@@ -143,6 +148,10 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
           "vm-device-id-change",
           this._handleDeviceIdChange.bind(this),
         );
+        vm.removeEventListener(
+          "vm-devices-removed",
+          this._handleDevicesRemoved.bind(this),
+        )
       });
     }
 
@@ -156,6 +165,13 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
         this.deviceSubscriptions.includes("active-ic")
       ) {
         this.updateDevice();
+        this.requestUpdate();
+      } else if (this.deviceSubscriptions.includes("visible-devices")) {
+        const visibleDevices = window.VM.vm.visibleDeviceIds(this.deviceID);
+        if (visibleDevices.includes(id)) {
+          this.updateDevice();
+          this.requestUpdate();
+        }
       }
     }
 
@@ -164,17 +180,39 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
       const ids = e.detail;
       if (ids.includes(this.deviceID)) {
         this.updateDevice();
+        if (this.deviceSubscriptions.includes("visible-devices")) {
+          this.requestUpdate();
+        }
       } else if (
         ids.includes(activeIcId) &&
         this.deviceSubscriptions.includes("active-ic")
       ) {
         this.updateDevice();
+        this.requestUpdate();
+      } else if (this.deviceSubscriptions.includes("visible-devices")) {
+        const visibleDevices = window.VM.vm.visibleDeviceIds(this.deviceID);
+        if (ids.some( id => visibleDevices.includes(id))) {
+          this.updateDevice();
+          this.requestUpdate();
+        }
       }
     }
 
     _handleDeviceIdChange(e: CustomEvent<{ old: number; new: number }>) {
       if (this.deviceID === e.detail.old) {
         this.deviceID = e.detail.new;
+      } else if (this.deviceSubscriptions.includes("visible-devices")) {
+        const visibleDevices = window.VM.vm.visibleDeviceIds(this.deviceID);
+        if (visibleDevices.some(id => id === e.detail.old || id === e.detail.new)) {
+          this.requestUpdate()
+        }
+      }
+    }
+
+    _handleDevicesRemoved(e: CustomEvent<number[]>) {
+      const _ids = e.detail;
+      if (this.deviceSubscriptions.includes("visible-devices")) {
+        this.requestUpdate()
       }
     }
 
