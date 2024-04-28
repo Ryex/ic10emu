@@ -2,13 +2,6 @@ import { ace, Ace, Range, AceLanguageClient, setupLspWorker } from "./ace";
 
 import { LanguageProvider } from "ace-linters/types/language-provider";
 
-import "@shoelace-style/shoelace/dist/components/dialog/dialog.js";
-import "@shoelace-style/shoelace/dist/components/button-group/button-group.js";
-import "@shoelace-style/shoelace/dist/components/button/button.js";
-import "@shoelace-style/shoelace/dist/components/input/input.js";
-import "@shoelace-style/shoelace/dist/components/radio-button/radio-button.js";
-import "@shoelace-style/shoelace/dist/components/radio-group/radio-group.js";
-import "@shoelace-style/shoelace/dist/components/switch/switch.js";
 import SlDialog from "@shoelace-style/shoelace/dist/components/dialog/dialog.js";
 import SlRadioGroup from "@shoelace-style/shoelace/dist/components/radio-group/radio-group.js";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
@@ -42,9 +35,9 @@ export class IC10Editor extends BaseElement {
   };
   sessions: Map<number, Ace.EditSession>;
 
-  @state() active_session: number = 1;
+  @state() activeSession: number = 1;
 
-  active_line_markers: Map<number, number | null> = new Map();
+  activeLineMarkers: Map<number, number | null> = new Map();
   languageProvider?: LanguageProvider;
   // ui: IC10EditorUI;
 
@@ -85,56 +78,35 @@ export class IC10Editor extends BaseElement {
     };
 
     this.sessions = new Map();
-    this.active_line_markers = new Map();
+    this.activeLineMarkers = new Map();
 
     // this.ui = new IC10EditorUI(this);
   }
 
   protected render() {
     const result = html`
-      <div
-        id="editorContainer"
-        style="height: 100%; width: 100%; position: relative; z-index: auto;"
-      >
-        <div
-          id="editor"
-          style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 0; isolation: isolate;"
-        ></div>
+      <div id="editorContainer" style="height: 100%; width: 100%; position: relative; z-index: auto;">
+        <div id="editor" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 0; isolation: isolate;">
+        </div>
         <div id="editorStatusbar"></div>
       </div>
       <sl-dialog label="Editor Settings" class="dialog-focus e-settings-dialog">
-        <sl-radio-group
-          id="editorKeyboardRadio"
-          label="Editor Keyboard Bindings"
-          value=${this.settings.keyboard}
-        >
+        <sl-radio-group id="editorKeyboardRadio" label="Editor Keyboard Bindings" value=${this.settings.keyboard}>
           <sl-radio-button value="ace">Ace</sl-radio-button>
           <sl-radio-button value="vim">Vim</sl-radio-button>
           <sl-radio-button value="emacs">Emacs</sl-radio-button>
           <sl-radio-button value="sublime">Sublime</sl-radio-button>
           <sl-radio-button value="vscode">VS Code</sl-radio-button>
         </sl-radio-group>
-        <sl-radio-group
-          id="editorCursorRadio"
-          label="Editor Cursor Style"
-          value=${this.settings.cursor}
-        >
+        <sl-radio-group id="editorCursorRadio" label="Editor Cursor Style" value=${this.settings.cursor}>
           <sl-radio-button value="ace">Ace</sl-radio-button>
           <sl-radio-button value="slim">Slim</sl-radio-button>
           <sl-radio-button value="smooth">Smooth</sl-radio-button>
           <sl-radio-button value="smooth slim">Smooth And Slim</sl-radio-button>
           <sl-radio-button value="wide">Wide</sl-radio-button>
         </sl-radio-group>
-        <sl-input
-          id="editorFontSize"
-          label="Font Size"
-          type="number"
-          value="${this.settings.fontSize}"
-        ></sl-input>
-        <sl-switch
-          id="editorRelativeLineNumbers"
-          ?checked=${this.settings.relativeLineNumbers}
-          >
+        <sl-input id="editorFontSize" label="Font Size" type="number" value="${this.settings.fontSize}"></sl-input>
+        <sl-switch id="editorRelativeLineNumbers" ?checked=${this.settings.relativeLineNumbers}>
           Relative Line Numbers
         </sl-switch>
       </sl-dialog>
@@ -237,12 +209,9 @@ export class IC10Editor extends BaseElement {
     //   characterData: false,
     // });
 
-    this.sessions.set(this.active_session, this.editor.getSession());
-    this.bindSession(
-      this.active_session,
-      this.sessions.get(this.active_session),
-    );
-    this.active_line_markers.set(this.active_session, null);
+    this.sessions.set(this.activeSession, this.editor.getSession());
+    this.bindSession(this.activeSession, this.sessions.get(this.activeSession));
+    this.activeLineMarkers.set(this.activeSession, null);
 
     const worker = await setupLspWorker();
     this.setupLsp(worker);
@@ -271,35 +240,35 @@ export class IC10Editor extends BaseElement {
     const that = this;
 
     const app = await window.App.get();
-    app.session.onLoad(((e: CustomEvent) => {
+    app.session.onLoad((_e) => {
       const session = app.session;
       const updated_ids: number[] = [];
       for (const [id, code] of session.programs) {
         updated_ids.push(id);
         that.createOrSetSession(id, code);
       }
-      that.activateSession(that.active_session);
+      that.activateSession(that.activeSession);
       for (const [id, _] of that.sessions) {
         if (!updated_ids.includes(id)) {
           that.destroySession(id);
         }
       }
-    }) as EventListener);
+    });
     app.session.loadFromFragment();
 
-    app.session.onActiveLine(((e: CustomEvent) => {
+    app.session.onActiveLine((e) => {
       const session = app.session;
       const id: number = e.detail;
       const active_line = session.getActiveLine(id);
       if (typeof active_line !== "undefined") {
-        const marker = that.active_line_markers.get(id);
+        const marker = that.activeLineMarkers.get(id);
         if (marker) {
           that.sessions.get(id)?.removeMarker(marker);
-          that.active_line_markers.set(id, null);
+          that.activeLineMarkers.set(id, null);
         }
         const session = that.sessions.get(id);
         if (session) {
-          that.active_line_markers.set(
+          that.activeLineMarkers.set(
             id,
             session.addMarker(
               new Range(active_line, 0, active_line, 1),
@@ -308,14 +277,30 @@ export class IC10Editor extends BaseElement {
               true,
             ),
           );
-          if (that.active_session == id) {
+          if (that.activeSession == id) {
             // editor.resize(true);
             // TODO: Scroll to line if vm was stepped
             //that.editor.scrollToLine(active_line, true, true, ()=>{})
           }
         }
       }
-    }) as EventListener);
+    });
+
+    app.session.onIDChange((e) => {
+      const oldID = e.detail.old;
+      const newID = e.detail.new;
+      if (this.sessions.has(oldID)) {
+        this.sessions.set(newID, this.sessions.get(oldID));
+        this.sessions.delete(oldID);
+      }
+      if (this.activeLineMarkers.has(oldID)) {
+        this.activeLineMarkers.set(newID, this.activeLineMarkers.get(oldID));
+        this.activeLineMarkers.delete(oldID);
+      }
+      if (this.activeSession === oldID) {
+        this.activeSession = newID;
+      }
+    });
 
     // change -> possibility to allow saving the value without having to wait for blur
     editor.on("change", () => this.editorChangeAction());
@@ -528,7 +513,7 @@ export class IC10Editor extends BaseElement {
     const mode = ace.require(this.mode);
     const options = mode?.options ?? {};
     this.languageProvider?.setSessionOptions(session, options);
-    this.active_session = session_id;
+    this.activeSession = session_id;
     return true;
   }
 
@@ -576,7 +561,7 @@ export class IC10Editor extends BaseElement {
     }
     const session = this.sessions.get(session_id);
     this.sessions.delete(session_id);
-    if ((this.active_session = session_id)) {
+    if ((this.activeSession = session_id)) {
       this.activateSession(this.sessions.entries().next().value);
     }
     session?.destroy();

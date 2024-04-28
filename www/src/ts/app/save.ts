@@ -1,13 +1,8 @@
 import { HTMLTemplateResult, html, css, CSSResultGroup } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
-import { BaseElement, defaultCss } from "../components";
-import { VMState } from "../session";
+import { BaseElement, defaultCss } from "components";
+import { VMState } from "session";
 
-import "@shoelace-style/shoelace/dist/components/dialog/dialog.js";
-import "@shoelace-style/shoelace/dist/components/format-date/format-date.js";
-import "@shoelace-style/shoelace/dist/components/relative-time/relative-time.js";
-import "@shoelace-style/shoelace/dist/components/format-bytes/format-bytes.js";
-import "@shoelace-style/shoelace/dist/components/spinner/spinner.js";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
 import { repeat } from "lit/directives/repeat.js";
 import SlDialog from "@shoelace-style/shoelace/dist/components/dialog/dialog.js";

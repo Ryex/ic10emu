@@ -4,7 +4,7 @@ use crate::{
     network::{CableConnectionType, Connection},
     vm::VM,
 };
-use std::{collections::HashMap, ops::Deref};
+use std::{collections::BTreeMap, ops::Deref};
 
 use itertools::Itertools;
 
@@ -32,7 +32,7 @@ pub struct SlotOccupant {
     pub max_quantity: u32,
     pub sorting_class: SortingClass,
     pub damage: f64,
-    fields: HashMap<SlotLogicType, LogicField>,
+    fields: BTreeMap<SlotLogicType, LogicField>,
 }
 
 impl SlotOccupant {
@@ -71,7 +71,7 @@ impl SlotOccupant {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SlotOccupantTemplate {
     pub id: Option<u32>,
-    pub fields: HashMap<SlotLogicType, LogicField>,
+    pub fields: BTreeMap<SlotLogicType, LogicField>,
 }
 
 impl SlotOccupant {
@@ -83,7 +83,7 @@ impl SlotOccupant {
             max_quantity: 1,
             damage: 0.0,
             sorting_class: SortingClass::Default,
-            fields: HashMap::new(),
+            fields: BTreeMap::new(),
         }
     }
 
@@ -106,13 +106,13 @@ impl SlotOccupant {
     }
 
     /// chainable constructor
-    pub fn with_fields(mut self, fields: HashMap<SlotLogicType, LogicField>) -> Self {
+    pub fn with_fields(mut self, fields: BTreeMap<SlotLogicType, LogicField>) -> Self {
         self.fields.extend(fields);
         self
     }
 
     /// chainable constructor
-    pub fn get_fields(&self) -> HashMap<SlotLogicType, LogicField> {
+    pub fn get_fields(&self) -> BTreeMap<SlotLogicType, LogicField> {
         let mut copy = self.fields.clone();
         copy.insert(
             SlotLogicType::PrefabHash,
@@ -152,13 +152,17 @@ impl SlotOccupant {
         copy
     }
 
-    pub fn set_field(
-        &mut self,
-        field: SlotLogicType,
-        val: f64,
-        force: bool,
-    ) -> Result<(), ICError> {
-        if let Some(logic) = self.fields.get_mut(&field) {
+    pub fn set_field(&mut self, typ: SlotLogicType, val: f64, force: bool) -> Result<(), ICError> {
+        if (typ == SlotLogicType::Quantity) && force {
+            self.quantity = val as u32;
+            Ok(())
+        } else if (typ == SlotLogicType::MaxQuantity) && force {
+            self.max_quantity = val as u32;
+            Ok(())
+        } else if (typ == SlotLogicType::Damage) && force {
+            self.damage = val;
+            Ok(())
+        } else if let Some(logic) = self.fields.get_mut(&typ) {
             match logic.field_type {
                 FieldType::ReadWrite | FieldType::Write => {
                     logic.value = val;
@@ -169,13 +173,13 @@ impl SlotOccupant {
                         logic.value = val;
                         Ok(())
                     } else {
-                        Err(ICError::ReadOnlyField(field.to_string()))
+                        Err(ICError::ReadOnlyField(typ.to_string()))
                     }
                 }
             }
         } else if force {
             self.fields.insert(
-                field,
+                typ,
                 LogicField {
                     field_type: FieldType::ReadWrite,
                     value: val,
@@ -183,7 +187,7 @@ impl SlotOccupant {
             );
             Ok(())
         } else {
-            Err(ICError::ReadOnlyField(field.to_string()))
+            Err(ICError::ReadOnlyField(typ.to_string()))
         }
     }
 
@@ -230,7 +234,7 @@ impl Slot {
         }
     }
 
-    pub fn get_fields(&self) -> HashMap<SlotLogicType, LogicField> {
+    pub fn get_fields(&self) -> BTreeMap<SlotLogicType, LogicField> {
         let mut copy = self
             .occupant
             .as_ref()
@@ -392,27 +396,20 @@ impl Slot {
         }
     }
 
-    pub fn set_field(
-        &mut self,
-        field: SlotLogicType,
-        val: f64,
-        force: bool,
-    ) -> Result<(), ICError> {
+    pub fn set_field(&mut self, typ: SlotLogicType, val: f64, force: bool) -> Result<(), ICError> {
         if matches!(
-            field,
+            typ,
             SlotLogicType::Occupied
                 | SlotLogicType::OccupantHash
-                | SlotLogicType::Quantity
-                | SlotLogicType::MaxQuantity
                 | SlotLogicType::Class
                 | SlotLogicType::PrefabHash
                 | SlotLogicType::SortingClass
                 | SlotLogicType::ReferenceId
         ) {
-            return Err(ICError::ReadOnlyField(field.to_string()));
+            return Err(ICError::ReadOnlyField(typ.to_string()));
         }
         if let Some(occupant) = self.occupant.as_mut() {
-            occupant.set_field(field, val, force)
+            occupant.set_field(typ, val, force)
         } else {
             Err(ICError::SlotNotOccupied)
         }
@@ -549,10 +546,10 @@ pub struct Device {
     pub name_hash: Option<i32>,
     pub prefab: Option<Prefab>,
     pub slots: Vec<Slot>,
-    pub reagents: HashMap<ReagentMode, HashMap<i32, f64>>,
+    pub reagents: BTreeMap<ReagentMode, BTreeMap<i32, f64>>,
     pub ic: Option<u32>,
     pub connections: Vec<Connection>,
-    fields: HashMap<LogicType, LogicField>,
+    fields: BTreeMap<LogicType, LogicField>,
 }
 
 impl Device {
@@ -562,9 +559,9 @@ impl Device {
             name: None,
             name_hash: None,
             prefab: None,
-            fields: HashMap::new(),
+            fields: BTreeMap::new(),
             slots: Vec::new(),
-            reagents: HashMap::new(),
+            reagents: BTreeMap::new(),
             ic: None,
             connections: vec![Connection::CableNetwork {
                 net: None,
@@ -620,7 +617,7 @@ impl Device {
         device
     }
 
-    pub fn get_fields(&self, vm: &VM) -> HashMap<LogicType, LogicField> {
+    pub fn get_fields(&self, vm: &VM) -> BTreeMap<LogicType, LogicField> {
         let mut copy = self.fields.clone();
         if let Some(ic_id) = &self.ic {
             let ic = vm.ics.get(ic_id).expect("our own ic to exist").borrow();
@@ -822,7 +819,7 @@ impl Device {
         &self,
         index: f64,
         vm: &VM,
-    ) -> Result<HashMap<SlotLogicType, LogicField>, ICError> {
+    ) -> Result<BTreeMap<SlotLogicType, LogicField>, ICError> {
         let slot = self
             .slots
             .get(index as usize)
@@ -911,9 +908,9 @@ pub struct DeviceTemplate {
     pub name: Option<String>,
     pub prefab_name: Option<String>,
     pub slots: Vec<SlotTemplate>,
-    // pub reagents: HashMap<ReagentMode, HashMap<i32, f64>>,
+    // pub reagents: BTreeMap<ReagentMode, BTreeMap<i32, f64>>,
     pub connections: Vec<Connection>,
-    pub fields: HashMap<LogicType, LogicField>,
+    pub fields: BTreeMap<LogicType, LogicField>,
 }
 
 impl Device {
@@ -962,7 +959,7 @@ impl Device {
             prefab: template.prefab_name.map(|name| Prefab::new(&name)),
             slots,
             // reagents: template.reagents,
-            reagents: HashMap::new(),
+            reagents: BTreeMap::new(),
             ic,
             connections: template.connections,
             fields,

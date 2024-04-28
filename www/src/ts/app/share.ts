@@ -1,12 +1,7 @@
 import { HTMLTemplateResult, html, css } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
-import { BaseElement, defaultCss } from "../components";
+import { BaseElement, defaultCss } from "components";
 
-import "@shoelace-style/shoelace/dist/components/dialog/dialog.js";
-import "@shoelace-style/shoelace/dist/components/input/input.js";
-import "@shoelace-style/shoelace/dist/components/icon/icon.js";
-import "@shoelace-style/shoelace/dist/components/icon-button/icon-button.js";
-import "@shoelace-style/shoelace/dist/components/copy-button/copy-button.js";
 import SlDialog from "@shoelace-style/shoelace/dist/components/dialog/dialog.js";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
 

@@ -1,21 +1,18 @@
 import { html, css } from "lit";
 import { customElement, query } from "lit/decorators.js";
-import { BaseElement, defaultCss } from "../components";
-import { VMActiveICMixin } from "./base_device";
+import { BaseElement, defaultCss } from "components";
+import { VMActiveICMixin } from "virtual_machine/base_device";
 
-import "@shoelace-style/shoelace/dist/components/card/card.js";
-import "@shoelace-style/shoelace/dist/components/button-group/button-group.js";
-import "@shoelace-style/shoelace/dist/components/button/button.js";
-import "@shoelace-style/shoelace/dist/components/icon/icon.js";
-import "@shoelace-style/shoelace/dist/components/tooltip/tooltip.js";
-import "@shoelace-style/shoelace/dist/components/divider/divider.js";
-import "@shoelace-style/shoelace/dist/components/select/select.js";
-import "@shoelace-style/shoelace/dist/components/badge/badge.js";
-import "@shoelace-style/shoelace/dist/components/option/option.js";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.js";
 
 @customElement("vm-ic-controls")
 export class VMICControls extends VMActiveICMixin(BaseElement) {
+
+  constructor() {
+    super();
+    this.subscribe("ic", "active-ic")
+  }
+
   static styles = [
     ...defaultCss,
     css`

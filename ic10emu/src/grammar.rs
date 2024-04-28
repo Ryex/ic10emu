@@ -29,7 +29,7 @@ pub mod generated {
         fn try_from(value: f64) -> Result<Self, <LogicType as TryFrom<f64>>::Error> {
             if let Some(lt) = LogicType::iter().find(|lt| {
                 lt.get_str("value")
-                    .map(|val| val.parse::<u8>().unwrap() as f64 == value)
+                    .map(|val| val.parse::<u16>().unwrap() as f64 == value)
                     .unwrap_or(false)
             }) {
                 Ok(lt)

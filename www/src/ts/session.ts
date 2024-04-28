@@ -1,4 +1,3 @@
-
 import type { ICError, FrozenVM, SlotType } from "ic10emu_wasm";
 import { App } from "./app";
 
@@ -57,7 +56,25 @@ export class Session extends EventTarget {
     );
   }
 
-  onActiveIc(callback: EventListenerOrEventListenerObject) {
+  changeID(oldID: number, newID: number) {
+    if (this.programs.has(oldID)) {
+      this.programs.set(newID, this.programs.get(oldID));
+      this.programs.delete(oldID);
+    }
+    this.dispatchEvent(
+      new CustomEvent("session-id-change", {
+        detail: { old: oldID, new: newID },
+      }),
+    );
+  }
+
+  onIDChange(
+    callback: (e: CustomEvent<{ old: number; new: number }>) => any,
+  ) {
+    this.addEventListener("session-id-change", callback);
+  }
+
+  onActiveIc(callback: (e: CustomEvent<number>) => any,) {
     this.addEventListener("session-active-ic", callback);
   }
 
@@ -98,11 +115,11 @@ export class Session extends EventTarget {
     );
   }
 
-  onErrors(callback: EventListenerOrEventListenerObject) {
+  onErrors(callback: (e: CustomEvent<number[]>) => any) {
     this.addEventListener("session-errors", callback);
   }
 
-  onLoad(callback: EventListenerOrEventListenerObject) {
+  onLoad(callback: (e: CustomEvent<Session>) => any) {
     this.addEventListener("session-load", callback);
   }
 
@@ -114,7 +131,7 @@ export class Session extends EventTarget {
     );
   }
 
-  onActiveLine(callback: EventListenerOrEventListenerObject) {
+  onActiveLine(callback: (e: CustomEvent<number>) => any) {
     this.addEventListener("active-line", callback);
   }
 

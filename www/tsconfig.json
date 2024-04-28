@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "baseUrl": "./src/ts",
+    "rootDir": "./src/ts",
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": true,
