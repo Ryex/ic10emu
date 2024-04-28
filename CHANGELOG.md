@@ -1,11 +1,39 @@
-
-
 <!-- insertion marker -->
+
+## [0.2.2] - 2024-04-28
+
+### Summary
+This update brings with it functional slots in the UI! Add items to Stackers, Sorters, Vending machines etc. and interact with the relevant data.
+
+** Note: This does not mean that chute networks and internal inventory mechanics are simulated
+
+There was also some work done on the device search UI to vastly improve it's performance.
+
+
+<small>[Compare with v0.2.1](https://github.com/Ryex/ic10emu/compare/v0.2.1...0.2.2)</small>
+
+### Features
+
+- better slot UI ([c87d3f8](https://github.com/Ryex/ic10emu/commit/c87d3f8bd88a64ad421e5999d7a040de205d4e03) by Rachel Powers).
+- much better slot occupant card ([1790715](https://github.com/Ryex/ic10emu/commit/17907151b34bb6efdbd4370cd449e21dcc8eed54) by Rachel Powers).
+
+### Bug Fixes
+
+- device id change UI event chain fixed; changing the Active IC's ID no longer breaks the UI ([4ac823a](https://github.com/Ryex/ic10emu/commit/4ac823a1bc9d3b572de713ac59a5aabd5f0ff599) by Rachel Powers).
+
+### Performance Improvements
+
+- performance improvments ([cfa240c](https://github.com/Ryex/ic10emu/commit/cfa240c5794817ce4221cdac8be2e96e320edf5c) by Rachel Powers).
+- vastly improve load speed ([6cc2189](https://github.com/Ryex/ic10emu/commit/6cc21899214296f51e93b70a3f9f67c39ba243d3) by Rachel Powers).
+- improve slot UI + device search speedup ([eb4463c](https://github.com/Ryex/ic10emu/commit/eb4463c8ab318e8093e93c1ecaac139cf6dbb74d) by Rachel Powers).
+
 ## [v0.2.1]
 
 - prevent borrow panics in VM during batch operations
 - fix Maximize batch mode
 - fix panic in parsing invalid numbers
+
+<small>[Compare with v0.2.0](https://github.com/Ryex/ic10emu/compare/v0.2.0...v0.2.1)</small>
 
 ## [v0.2.0]
 

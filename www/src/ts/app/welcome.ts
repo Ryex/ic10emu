@@ -52,10 +52,7 @@ export class AppWelcome extends BaseElement {
   render() {
     return html`
       <sl-dialog class="welcome-dialog" label="Changelog">
-        <h6>Hey there!</h6>
         <p>Looks like there have been some updates since you've last visit.</p>
-        <br />
-        <p>Check out the changelog below.</p>
         <div class="p-4 border-1 border-solid rounded-lg max-h-80 mt-4 overflow-y-auto bg-neutral-900 markdown-body">
           ${until(this.getChangelog(), html`<sl-spinner class="ml-2 my-4" style="font-size: 2rem;"></sl-spinner>`)}
         </div>

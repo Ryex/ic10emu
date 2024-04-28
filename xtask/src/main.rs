@@ -139,6 +139,7 @@ fn main() -> Result<(), Error> {
             cmd.args([
                 "-io", "CHANGELOG.md",
                 "-t", "path:CHANGELOG.md.jinja",
+                "-c", "conventional",
                 "--bump", VERSION.unwrap_or("auto"),
                 "--parse-refs",
                 "--trailers"
