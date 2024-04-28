@@ -1,12 +1,12 @@
 use crate::{
-    device::{Device, DeviceTemplate},
+    device::{Device, DeviceTemplate, SlotOccupant, SlotOccupantTemplate},
     grammar::{BatchMode, LogicType, SlotLogicType},
     interpreter::{self, FrozenIC, ICError, LineError},
     network::{CableConnectionType, Connection, FrozenNetwork, Network},
 };
 use std::{
     cell::RefCell,
-    collections::{HashMap, HashSet},
+    collections::{BTreeMap, HashSet},
     rc::Rc,
 };
 
@@ -40,9 +40,9 @@ pub enum VMError {
 
 #[derive(Debug)]
 pub struct VM {
-    pub ics: HashMap<u32, Rc<RefCell<interpreter::IC>>>,
-    pub devices: HashMap<u32, Rc<RefCell<Device>>>,
-    pub networks: HashMap<u32, Rc<RefCell<Network>>>,
+    pub ics: BTreeMap<u32, Rc<RefCell<interpreter::IC>>>,
+    pub devices: BTreeMap<u32, Rc<RefCell<Device>>>,
+    pub networks: BTreeMap<u32, Rc<RefCell<Network>>>,
     pub default_network: u32,
     id_space: IdSpace,
     network_id_space: IdSpace,
@@ -64,12 +64,12 @@ impl VM {
         let mut network_id_space = IdSpace::default();
         let default_network_key = network_id_space.next();
         let default_network = Rc::new(RefCell::new(Network::new(default_network_key)));
-        let mut networks = HashMap::new();
+        let mut networks = BTreeMap::new();
         networks.insert(default_network_key, default_network);
 
         let mut vm = VM {
-            ics: HashMap::new(),
-            devices: HashMap::new(),
+            ics: BTreeMap::new(),
+            devices: BTreeMap::new(),
             networks,
             default_network: default_network_key,
             id_space: id_gen,
@@ -285,11 +285,15 @@ impl VM {
         device.borrow_mut().id = new_id;
         self.devices.insert(new_id, device);
         self.ics.iter().for_each(|(_id, ic)| {
-            ic.borrow().pins.borrow_mut().iter_mut().for_each(|pin| {
+            let mut ic_ref = ic.borrow_mut();
+            if ic_ref.device == old_id {
+                ic_ref.device = new_id;
+            }
+            ic_ref.pins.borrow_mut().iter_mut().for_each(|pin| {
                 if pin.is_some_and(|d| d == old_id) {
                     pin.replace(new_id);
                 }
-            })
+            });
         });
         self.networks.iter().for_each(|(_net_id, net)| {
             if let Ok(mut net_ref) = net.try_borrow_mut() {
@@ -744,6 +748,52 @@ impl VM {
             let _ = self.ics.remove(&ic_id);
         }
         self.id_space.free_id(id);
+        Ok(())
+    }
+
+    pub fn set_slot_occupant(
+        &mut self,
+        id: u32,
+        index: usize,
+        template: SlotOccupantTemplate,
+    ) -> Result<(), VMError> {
+        let Some(device) = self.devices.get(&id) else {
+            return Err(VMError::UnknownId(id));
+        };
+
+        let mut device_ref = device.borrow_mut();
+        let slot = device_ref
+            .slots
+            .get_mut(index)
+            .ok_or(ICError::SlotIndexOutOfRange(index as f64))?;
+
+        if let Some(id) = template.id.as_ref() {
+            self.id_space.use_id(*id)?;
+        }
+
+        let occupant = SlotOccupant::from_template(template, || self.id_space.next());
+        if let Some(last) = slot.occupant.as_ref() {
+            self.id_space.free_id(last.id);
+        }
+        slot.occupant = Some(occupant);
+
+        Ok(())
+    }
+
+    pub fn remove_slot_occupant(&mut self, id: u32, index: usize) -> Result<(), VMError> {
+        let Some(device) = self.devices.get(&id) else {
+            return Err(VMError::UnknownId(id));
+        };
+
+        let mut device_ref = device.borrow_mut();
+        let slot = device_ref
+            .slots
+            .get_mut(index)
+            .ok_or(ICError::SlotIndexOutOfRange(index as f64))?;
+        if let Some(last) = slot.occupant.as_ref() {
+            self.id_space.free_id(last.id);
+        }
+        slot.occupant = None;
         Ok(())
     }
 

@@ -1,4 +1,14 @@
-import { LogicType, SlotLogicType, SortingClass, SlotType, FieldType, ReagentMode, BatchMode, ConnectionType, ConnectionRole } from "ic10emu_wasm";
+import {
+  LogicType,
+  SlotLogicType,
+  SortingClass,
+  SlotType,
+  FieldType,
+  ReagentMode,
+  BatchMode,
+  ConnectionType,
+  ConnectionRole,
+} from "ic10emu_wasm";
 export interface DeviceDBItem {
   slotclass: SlotType;
   sorting: SortingClass;
@@ -6,7 +16,7 @@ export interface DeviceDBItem {
   filtertype?: string;
   consumable?: boolean;
   ingredient?: boolean;
-  reagents?: { [key: string]: number};
+  reagents?: { [key: string]: number };
 }
 
 export interface DeviceDBDevice {
@@ -22,6 +32,22 @@ export interface DeviceDBConnection {
   name: string;
 }
 
+export interface DeviceDBInstruction {
+  typ: string;
+  value: number;
+  desc: string;
+}
+
+export interface DeviceDBMemory {
+  size: number;
+  sizeDisplay: string;
+  access: MemoryAccess
+  instructions?: { [key: string]: DeviceDBInstruction };
+}
+
+export type MemoryAccess = "Read" | "Write" | "ReadWrite" | "None";
+
+
 export interface DeviceDBEntry {
   name: string;
   hash: number;
@@ -29,12 +55,15 @@ export interface DeviceDBEntry {
   desc: string;
   slots?: { name: string; typ: SlotType }[];
   logic?: { [key in LogicType]?: FieldType };
-  slotlogic?: { [key in SlotLogicType]?: number[] };
+  slotlogic?: { [key: number]: {[key in SlotLogicType]?: FieldType }  };
   modes?: { [key: number]: string };
-  conn?: { [key: number]: DeviceDBConnection };
+  conn?: { [key: number]: DeviceDBConnection }
   item?: DeviceDBItem;
   device?: DeviceDBDevice;
-};
+  transmitter: boolean;
+  receiver: boolean;
+  memory?: DeviceDBMemory;
+}
 
 export interface DBStates {
   activate: boolean;
@@ -43,6 +72,12 @@ export interface DBStates {
   mode: boolean;
   onoff: boolean;
   open: boolean;
+}
+
+export interface DeviceDBReagent {
+  Hash: number;
+  Unit: string;
+  Sources?: { [key: string]: number };
 }
 
 export interface DeviceDB {
@@ -55,6 +90,6 @@ export interface DeviceDB {
     [key: string]: DeviceDBEntry;
   };
   names_by_hash: { [key: number]: string };
-  reagent_hashes: { [key: string]: number}
-};
-
+  reagents: { [key: string]: DeviceDBReagent };
+  enums: { [key: string]: { [key: string]: number } };
+}

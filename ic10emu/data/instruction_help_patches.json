@@ -2,11 +2,13 @@
   "english": {
     "bapz": "Branch to line c if abs(a) <= max(b * abs(a), float.epsilon * 8)",
     "bapzal": "Branch to line c if abs(a) <= max(b * abs(a), float.epsilon * 8) and store next line number in ra",
-    "bnaz": "Branch to line c if abs(a) > max b * abs(a), float.epsilon * 8)",
-    "bnazal": "Branch to line c if abs(a) > max b * abs(a), float.epsilon * 8) and store next line number in ra",
+    "bnaz": "Branch to line c if abs(a) > max (b * abs(a), float.epsilon * 8)",
+    "bnazal": "Branch to line c if abs(a) > max (b * abs(a), float.epsilon * 8) and store next line number in ra",
     "brapz": "Relative branch to line c if abs(a) <= max(b * abs(a), float.epsilon * 8)",
     "brnaz": "Relative branch to line c if abs(a) > max(b * abs(a), float.epsilon * 8)",
-    "sapz": "Register = 1 if |a| <= max(b * abs(a), float.epsilon * 8), otherwise 0",
-    "snaz": "Register = 1 if |a| > max(b * abs(a), float.epsilon), otherwise 0"
+    "sapz": "Register = 1 if abs(a) <= max(b * abs(a), float.epsilon * 8), otherwise 0",
+    "snaz": "Register = 1 if abs(a) > max(b * abs(a), float.epsilon), otherwise 0",
+    "log": "Register = base e log(a) or ln(a)",
+    "exp": "Register = exp(a) or e^a"
   }
 }

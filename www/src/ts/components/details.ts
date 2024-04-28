@@ -1,9 +1,6 @@
 import {
   html,
   css,
-  HTMLTemplateResult,
-  PropertyValueMap,
-  CSSResultGroup,
 } from "lit";
 import { customElement, query, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";

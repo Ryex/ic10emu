@@ -37,8 +37,8 @@ bltzal Branch to line b if a < 0 and store next line number in ra
 bna Branch to line d if abs(a - b) > max(c * max(abs(a), abs(b)), float.epsilon * 8)
 bnaal Branch to line d if abs(a - b) <= max(c * max(abs(a), abs(b)), float.epsilon * 8) and store next line number in ra
 bnan Branch to line b if a is not a number (NaN)
-bnaz Branch to line c if abs(a) > max b * abs(a), float.epsilon * 8)
-bnazal Branch to line c if abs(a) > max b * abs(a), float.epsilon * 8) and store next line number in ra
+bnaz Branch to line c if abs(a) > max (b * abs(a), float.epsilon * 8)
+bnazal Branch to line c if abs(a) > max (b * abs(a), float.epsilon * 8) and store next line number in ra
 bne Branch to line c if a != b
 bneal Branch to line c if a != b and store next line number in ra
 bnez branch to line b if a != 0
@@ -66,7 +66,7 @@ ceil Register = smallest integer greater than a
 cos Returns the cosine of the specified angle (radians)
 define Creates a label that will be replaced throughout the program with the provided value.
 div Register = a / b
-exp Register = exp(a)
+exp Register = exp(a) or e^a
 floor Register = largest integer less than a
 hcf Halt and catch fire
 j Jump execution to line a
@@ -79,7 +79,7 @@ lbn Loads LogicType from all output network devices with provided type and name 
 lbns Loads LogicSlotType from slotIndex from all output network devices with provided type and name hashes using the provide batch mode. Average (0), Sum (1), Minimum (2), Maximum (3). Can use either the word, or the number.
 lbs Loads LogicSlotType from slotIndex from all output network devices with provided type hash using the provide batch mode. Average (0), Sum (1), Minimum (2), Maximum (3). Can use either the word, or the number.
 ld Loads device LogicType to register by direct ID reference.
-log Register = log(a)
+log Register = base e log(a) or ln(a)
 lr Loads reagent of device's ReagentMode where a hash of the reagent type to check for. ReagentMode can be either Contents (0), Required (1), Recipe (2). Can use either the word, or the number.
 ls Loads slot LogicSlotType on device to register.
 max Register = max of a or b
@@ -97,7 +97,7 @@ rand Register = a random value x with 0 <= x < 1
 round Register = a rounded to nearest integer
 s Stores register value to LogicType on device by housing index value.
 sap Register = 1 if abs(a - b) <= max(c * max(abs(a), abs(b)), float.epsilon * 8), otherwise 0
-sapz Register = 1 if |a| <= max(b * abs(a), float.epsilon * 8), otherwise 0
+sapz Register = 1 if abs(a) <= max(b * abs(a), float.epsilon * 8), otherwise 0
 sb Stores register value to LogicType on all output network devices with provided type hash.
 sbn Stores register value to LogicType on all output network devices with provided type hash and name.
 sbs Stores register value to LogicSlotType on all output network devices with provided type hash in the provided slot.
@@ -122,7 +122,7 @@ sltz Register = 1 if a < 0, otherwise 0
 sna Register = 1 if abs(a - b) > max(c * max(abs(a), abs(b)), float.epsilon * 8), otherwise 0
 snan Register = 1 if a is NaN, otherwise 0
 snanz Register = 0 if a is NaN, otherwise 1
-snaz Register = 1 if |a| > max(b * abs(a), float.epsilon), otherwise 0
+snaz Register = 1 if abs(a) > max(b * abs(a), float.epsilon), otherwise 0
 sne Register = 1 if a != b, otherwise 0
 snez Register = 1 if a != 0, otherwise 0
 sqrt Register = square root of a

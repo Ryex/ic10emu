@@ -1,11 +1,6 @@
-import { HTMLTemplateResult, html, css } from "lit";
-import { customElement, property, query, state } from "lit/decorators.js";
-import { BaseElement, defaultCss } from "../components";
-import "@shoelace-style/shoelace/dist/components/details/details.js";
-import "@shoelace-style/shoelace/dist/components/tab/tab.js";
-import "@shoelace-style/shoelace/dist/components/tab-panel/tab-panel.js";
-import "@shoelace-style/shoelace/dist/components/tab-group/tab-group.js";
-import "@shoelace-style/shoelace/dist/components/alert/alert.js";
+import { html, css } from "lit";
+import { customElement } from "lit/decorators.js";
+import { BaseElement, defaultCss } from "components";
 
 import "./controls";
 import "./registers";

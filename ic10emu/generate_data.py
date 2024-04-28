@@ -46,6 +46,20 @@ def main():
 
     extract_data(install_path, data_path, lang)
 
+
+translation_regex = re.compile(r"<N:([A-Z]{2}):(\w+)>")
+
+def replace_translation(m: re.Match[str]) -> str:
+    match m.groups():
+        case (_code, key):
+            return key
+        case _:
+            return m.string
+
+def trans(s: str) -> str:
+    return re.sub(translation_regex, replace_translation, s)
+
+
 def extract_data(install_path: Path, data_path: Path, language: str):
     tree = ET.parse(data_path / f"{language}.xml")
     root = tree.getroot()
@@ -74,18 +88,18 @@ def extract_data(install_path: Path, data_path: Path, language: str):
         if key is None or value is None:
             continue
         if match := logic_type.match(key):
-            enum_help_strings[f"LogicType.{match.group(1)}"] = value
+            enum_help_strings[f"LogicType.{match.group(1)}"] = trans(value)
             logictypes[match.group(1)] = (None, value)
         if match := logic_slot_type.match(key):
-            enum_help_strings[f"LogicSlotType.{match.group(1)}"] = value
+            enum_help_strings[f"LogicSlotType.{match.group(1)}"] = trans(value)
             slotlogictypes[match.group(1)] = (None, value)
         if match := color.match(key):
-            enum_help_strings[f"Color.{match.group(1)}"] = value
+            enum_help_strings[f"Color.{match.group(1)}"] = trans(value)
         if match := script_command.match(key):
             if not match.group(1).lower() == "command":
-                operation_help_strings[f"{match.group(1).lower()}"] = value
+                operation_help_strings[f"{match.group(1).lower()}"] = trans(value)
         if match := script_desc.match(key):
-            operation_help_strings[f"{match.group(1).lower()}"] = value
+            operation_help_strings[f"{match.group(1).lower()}"] = trans(value)
 
     op_help_patch_path = Path("data") / "instruction_help_patches.json"
     if op_help_patch_path.exists():
@@ -205,8 +219,8 @@ def extract_data(install_path: Path, data_path: Path, language: str):
     exported_stationpedia_path = install_path / "Stationpedia" / "Stationpedia.json"
     if exported_stationpedia_path.exists():
         with exported_stationpedia_path.open(mode="r") as f:
-            exported: dict[str, list[dict[str, Any]]] = json.load(f) # type:ignore[reportAny]
-            for page in exported["pages"]:  # type:ignore[reportUnknownVariableType]
+            exported: dict[str, list[dict[str, Any]]] = json.load(f)
+            for page in exported["pages"]:
                 stationpedia[page["PrefabHash"]] = (page["PrefabName"], page["Title"])
 
     hashables_path = Path("data") / "stationpedia.txt"

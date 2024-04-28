@@ -2,7 +2,7 @@ use core::f64;
 use serde::{Deserialize, Serialize};
 use std::{cell::{Cell, RefCell}, ops::Deref, string::ToString};
 use std::{
-    collections::{HashMap, HashSet},
+    collections::{BTreeMap, HashSet},
     error::Error,
     fmt::Display,
     u32,
@@ -13,8 +13,7 @@ use itertools::Itertools;
 use time::format_description;
 
 use crate::{
-    grammar::{self, ParseError},
-    vm::VM,
+    device::SlotType, grammar::{self, LogicType, ParseError, SlotLogicType}, vm::VM
 };
 
 use serde_with::serde_as;
@@ -190,8 +189,8 @@ pub struct IC {
     /// Instruction Count since last yield
     pub ic: Cell<u16>,
     pub stack: RefCell<[f64; 512]>,
-    pub aliases: RefCell<HashMap<String, grammar::Operand>>,
-    pub defines: RefCell<HashMap<String, f64>>,
+    pub aliases: RefCell<BTreeMap<String, grammar::Operand>>,
+    pub defines: RefCell<BTreeMap<String, f64>>,
     pub pins: RefCell<[Option<u32>; 6]>,
     pub code: RefCell<String>,
     pub program: RefCell<Program>,
@@ -210,8 +209,8 @@ pub struct FrozenIC {
     pub ic: u16,
     #[serde_as(as = "[_; 512]")]
     pub stack: [f64; 512],
-    pub aliases: HashMap<String, grammar::Operand>,
-    pub defines: HashMap<String, f64>,
+    pub aliases: BTreeMap<String, grammar::Operand>,
+    pub defines: BTreeMap<String, f64>,
     pub pins: [Option<u32>; 6],
     pub state: ICState,
     pub code: String,
@@ -261,7 +260,7 @@ impl From<FrozenIC> for IC {
 pub struct Program {
     pub instructions: Vec<grammar::Instruction>,
     pub errors: Vec<ICError>,
-    pub labels: HashMap<String, u32>,
+    pub labels: BTreeMap<String, u32>,
 }
 
 impl Default for Program {
@@ -275,14 +274,14 @@ impl Program {
         Program {
             instructions: Vec::new(),
             errors: Vec::new(),
-            labels: HashMap::new(),
+            labels: BTreeMap::new(),
         }
     }
 
     pub fn try_from_code(code: &str) -> Result<Self, ICError> {
         let parse_tree = grammar::parse(code)?;
         let mut labels_set = HashSet::new();
-        let mut labels = HashMap::new();
+        let mut labels = BTreeMap::new();
         let errors = Vec::new();
         let instructions = parse_tree
             .into_iter()
@@ -320,7 +319,7 @@ impl Program {
     pub fn from_code_with_invalid(code: &str) -> Self {
         let parse_tree = grammar::parse_with_invlaid(code);
         let mut labels_set = HashSet::new();
-        let mut labels = HashMap::new();
+        let mut labels = BTreeMap::new();
         let mut errors = Vec::new();
         let instructions = parse_tree
             .into_iter()
@@ -380,8 +379,8 @@ impl IC {
             pins: RefCell::new([None; 6]),
             program: RefCell::new(Program::new()),
             code: RefCell::new(String::new()),
-            aliases: RefCell::new(HashMap::new()),
-            defines: RefCell::new(HashMap::new()),
+            aliases: RefCell::new(BTreeMap::new()),
+            defines: RefCell::new(BTreeMap::new()),
             state: RefCell::new(ICState::Start),
         }
     }
@@ -391,8 +390,8 @@ impl IC {
         self.ic.replace(0);
         self.registers.replace([0.0; 18]);
         self.stack.replace([0.0; 512]);
-        self.aliases.replace(HashMap::new());
-        self.defines.replace(HashMap::new());
+        self.aliases.replace(BTreeMap::new());
+        self.defines.replace(BTreeMap::new());
         self.state.replace(ICState::Start);
     }
 
@@ -519,6 +518,16 @@ impl IC {
         } else {
             let last = self.stack.borrow()[sp as usize];
             Ok(last)
+        }
+    }
+
+    pub fn propgate_line_number(&self, vm: &VM) {
+        if let Some(device) = vm.devices.get(&self.device) {
+            let mut device_ref = device.borrow_mut();
+            let _ = device_ref.set_field(LogicType::LineNumber, self.ip.get() as f64, vm, true);
+            if let Some(slot) = device_ref.slots.iter_mut().find(|slot| slot.typ == SlotType::ProgrammableChip) {
+                let _ = slot.set_field(SlotLogicType::LineNumber, self.ip.get() as f64, true);
+            }
         }
     }
 
@@ -2552,6 +2561,7 @@ impl IC {
         if result.is_ok() || advance_ip_on_err {
             self.ic.set(self.ic.get() + 1);
             self.set_ip(next_ip);
+            self.propgate_line_number(vm);
         }
         result
     }

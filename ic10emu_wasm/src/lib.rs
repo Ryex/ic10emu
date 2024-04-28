@@ -3,7 +3,7 @@ mod utils;
 mod types;
 
 use ic10emu::{
-    device::{Device, DeviceTemplate},
+    device::{Device, DeviceTemplate, SlotOccupantTemplate},
     grammar::{LogicType, SlotLogicType},
     vm::{FrozenVM, VMError, VM},
 };
@@ -13,6 +13,7 @@ use types::{Registers, Stack};
 use std::{cell::RefCell, rc::Rc, str::FromStr};
 
 use itertools::Itertools;
+// use std::iter::FromIterator;
 // use itertools::Itertools;
 use wasm_bindgen::prelude::*;
 
@@ -86,17 +87,9 @@ impl DeviceRef {
         serde_wasm_bindgen::to_value(&self.device.borrow().get_fields(&self.vm.borrow())).unwrap()
     }
 
-    #[wasm_bindgen(getter, skip_typescript)]
-    pub fn slots(&self) -> Vec<JsValue> {
-        self.device
-            .borrow()
-            .slots
-            .iter()
-            .map(|slot| {
-                let flat_slot: types::Slot = slot.into();
-                serde_wasm_bindgen::to_value(&flat_slot).unwrap()
-            })
-            .collect_vec()
+    #[wasm_bindgen(getter)]
+    pub fn slots(&self) -> types::Slots {
+        types::Slots::from_iter(self.device.borrow().slots.iter())
     }
 
     #[wasm_bindgen(getter, skip_typescript)]
@@ -487,6 +480,25 @@ impl VMRef {
     #[wasm_bindgen(js_name = "removeDevice")]
     pub fn remove_device(&self, id: u32) -> Result<(), JsError> {
         Ok(self.vm.borrow_mut().remove_device(id)?)
+    }
+
+    #[wasm_bindgen(js_name = "setSlotOccupant", skip_typescript)]
+    pub fn set_slot_occupant(
+        &self,
+        id: u32,
+        index: usize,
+        template: JsValue,
+    ) -> Result<(), JsError> {
+        let template: SlotOccupantTemplate = serde_wasm_bindgen::from_value(template)?;
+        Ok(self
+            .vm
+            .borrow_mut()
+            .set_slot_occupant(id, index, template)?)
+    }
+
+    #[wasm_bindgen(js_name = "removeSlotOccupant")]
+    pub fn remove_slot_occupant(&self, id: u32, index: usize) -> Result<(), JsError> {
+        Ok(self.vm.borrow_mut().remove_slot_occupant(id, index)?)
     }
 
     #[wasm_bindgen(js_name = "saveVMState", skip_typescript)]

@@ -1,15 +1,11 @@
 import { html, css } from "lit";
 import { customElement } from "lit/decorators.js";
-import { BaseElement, defaultCss } from "../components";
-import { VMActiveICMixin } from "./base_device";
+import { BaseElement, defaultCss } from "components";
+import { VMActiveICMixin } from "virtual_machine/base_device";
 
-import "@shoelace-style/shoelace/dist/components/card/card.js";
-import "@shoelace-style/shoelace/dist/components/icon/icon.js";
-import "@shoelace-style/shoelace/dist/components/tooltip/tooltip.js";
-import "@shoelace-style/shoelace/dist/components/input/input.js";
 import { RegisterSpec } from "ic10emu_wasm";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
-import { displayNumber, parseNumber } from "../utils";
+import { displayNumber, parseNumber } from "utils";
 
 @customElement("vm-ic-registers")
 export class VMICRegisters extends VMActiveICMixin(BaseElement) {
@@ -44,6 +40,7 @@ export class VMICRegisters extends VMActiveICMixin(BaseElement) {
 
   constructor() {
     super();
+    this.subscribe("ic", "active-ic")
   }
 
   protected render() {
