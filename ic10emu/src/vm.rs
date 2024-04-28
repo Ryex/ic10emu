@@ -285,11 +285,15 @@ impl VM {
         device.borrow_mut().id = new_id;
         self.devices.insert(new_id, device);
         self.ics.iter().for_each(|(_id, ic)| {
-            ic.borrow().pins.borrow_mut().iter_mut().for_each(|pin| {
+            let mut ic_ref = ic.borrow_mut();
+            if ic_ref.device == old_id {
+                ic_ref.device = new_id;
+            }
+            ic_ref.pins.borrow_mut().iter_mut().for_each(|pin| {
                 if pin.is_some_and(|d| d == old_id) {
                     pin.replace(new_id);
                 }
-            })
+            });
         });
         self.networks.iter().for_each(|(_net_id, net)| {
             if let Ok(mut net_ref) = net.try_borrow_mut() {

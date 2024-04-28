@@ -22,7 +22,7 @@ export interface ToastMessage {
 }
 
 export interface CacheDeviceRef extends DeviceRef {
-  dirty: boolean
+  dirty: boolean;
 }
 
 function cachedDeviceRef(ref: DeviceRef) {
@@ -43,12 +43,12 @@ function cachedDeviceRef(ref: DeviceRef) {
     },
     set(target, prop, value) {
       if (prop === "dirty") {
-        slotsDirty = value
+        slotsDirty = value;
         return true;
       }
-      return Reflect.set(target, prop, value)
-    }
-  }) as CacheDeviceRef
+      return Reflect.set(target, prop, value);
+    },
+  }) as CacheDeviceRef;
 }
 
 class VirtualMachine extends EventTarget {
@@ -264,13 +264,22 @@ class VirtualMachine extends EventTarget {
     this.dispatchEvent(new CustomEvent("vm-message", { detail: message }));
   }
 
-  changeDeviceId(old_id: number, new_id: number): boolean {
+  changeDeviceID(oldID: number, newID: number): boolean {
     try {
-      this.ic10vm.changeDeviceId(old_id, new_id);
-      this.updateDevices();
-      if (this.app.session.activeIC === old_id) {
-        this.app.session.activeIC = new_id;
+      this.ic10vm.changeDeviceId(oldID, newID);
+      if (this.app.session.activeIC === oldID) {
+        this.app.session.activeIC = newID;
       }
+      this.updateDevices();
+      this.dispatchEvent(
+        new CustomEvent("vm-device-id-change", {
+          detail: {
+            old: oldID,
+            new: newID,
+          },
+        }),
+      );
+      this.app.session.changeID(oldID, newID);
       return true;
     } catch (err) {
       this.handleVmError(err);
@@ -430,7 +439,11 @@ class VirtualMachine extends EventTarget {
     }
   }
 
-  setDeviceSlotOccupant(id: number, index: number, template: SlotOccupantTemplate): boolean {
+  setDeviceSlotOccupant(
+    id: number,
+    index: number,
+    template: SlotOccupantTemplate,
+  ): boolean {
     const device = this._devices.get(id);
     if (typeof device !== "undefined") {
       try {

@@ -111,59 +111,79 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
 
     connectedCallback(): void {
       const root = super.connectedCallback();
-      window.VM.get().then((vm) =>
+      window.VM.get().then((vm) => {
         vm.addEventListener(
           "vm-device-modified",
           this._handleDeviceModified.bind(this),
-        ),
-      );
-      window.VM.get().then((vm) =>
+        );
         vm.addEventListener(
           "vm-devices-update",
           this._handleDevicesModified.bind(this),
-        ),
-      );
+        );
+        vm.addEventListener(
+          "vm-device-id-change",
+          this._handleDeviceIdChange.bind(this),
+        );
+      });
       this.updateDevice();
       return root;
     }
 
     disconnectedCallback(): void {
-      window.VM.get().then((vm) =>
+      window.VM.get().then((vm) => {
         vm.removeEventListener(
           "vm-device-modified",
           this._handleDeviceModified.bind(this),
-        ),
-      );
-      window.VM.get().then((vm) =>
+        );
         vm.removeEventListener(
           "vm-devices-update",
           this._handleDevicesModified.bind(this),
-        ),
-      );
+        );
+        vm.removeEventListener(
+          "vm-device-id-change",
+          this._handleDeviceIdChange.bind(this),
+        );
+      });
     }
 
     _handleDeviceModified(e: CustomEvent) {
       const id = e.detail;
-      const activeIc = window.VM.vm.activeIC;
+      const activeIcId = window.App.app.session.activeIC;
       if (this.deviceID === id) {
         this.updateDevice();
-      } else if (id === activeIc.id && this.deviceSubscriptions.includes("active-ic")) {
+      } else if (
+        id === activeIcId &&
+        this.deviceSubscriptions.includes("active-ic")
+      ) {
         this.updateDevice();
       }
     }
 
     _handleDevicesModified(e: CustomEvent<number[]>) {
-      const activeIc = window.VM.vm.activeIC;
+      const activeIcId = window.App.app.session.activeIC;
       const ids = e.detail;
       if (ids.includes(this.deviceID)) {
-        this.updateDevice()
-      } else if (ids.includes(activeIc.id) && this.deviceSubscriptions.includes("active-ic")) {
         this.updateDevice();
+      } else if (
+        ids.includes(activeIcId) &&
+        this.deviceSubscriptions.includes("active-ic")
+      ) {
+        this.updateDevice();
+      }
+    }
+
+    _handleDeviceIdChange(e: CustomEvent<{ old: number; new: number }>) {
+      if (this.deviceID === e.detail.old) {
+        this.deviceID = e.detail.new;
       }
     }
 
     updateDevice() {
       this.device = window.VM.vm.devices.get(this.deviceID)!;
+
+      if (typeof this.device === "undefined") {
+        return;
+      }
 
       for (const sub of this.deviceSubscriptions) {
         if (typeof sub === "string") {
@@ -220,16 +240,21 @@ export const VMDeviceMixin = <T extends Constructor<LitElement>>(
             }
           }
         } else {
-          if ( "field" in sub ) {
+          if ("field" in sub) {
             const fields = this.device.fields;
             if (this.fields.get(sub.field) !== fields.get(sub.field)) {
               this.fields = fields;
             }
-          } else if ( "slot" in sub) {
+          } else if ("slot" in sub) {
             const slots = this.device.slots;
-            if (typeof this.slots === "undefined" || this.slots.length < sub.slot) {
+            if (
+              typeof this.slots === "undefined" ||
+              this.slots.length < sub.slot
+            ) {
               this.slots = slots;
-            } else if (!structuralEqual(this.slots[sub.slot], slots[sub.slot])) {
+            } else if (
+              !structuralEqual(this.slots[sub.slot], slots[sub.slot])
+            ) {
               this.slots = slots;
             }
           }

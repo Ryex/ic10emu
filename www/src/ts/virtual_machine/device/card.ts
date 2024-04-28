@@ -361,7 +361,7 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
     const val = parseIntWithHexOrBinary(input.value);
     if (!isNaN(val)) {
       window.VM.get().then((vm) => {
-        if (!vm.changeDeviceId(this.deviceID, val)) {
+        if (!vm.changeDeviceID(this.deviceID, val)) {
           input.value = this.deviceID.toString();
         }
       });
