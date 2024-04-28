@@ -19,6 +19,7 @@ struct Args {
 }
 
 const PACKAGES: &[&str] = &["ic10lsp_wasm", "ic10emu_wasm"];
+const VALID_VERSION_TYPE: &[&str] = &["patch", "minor", "major"];
 
 #[derive(Debug, Subcommand)]
 enum Task {
@@ -41,6 +42,13 @@ enum Task {
     Start {},
     /// Runs production page under 'www/dist', Run `build` first.
     Deploy {},
+    /// bump the cargo.toml and package,json versions
+    Version {
+        #[arg(last = true, default_value = "patch", value_parser = clap::builder::PossibleValuesParser::new(VALID_VERSION_TYPE))]
+        version: String,
+    },
+    /// update changelog
+    Changelog {},
 }
 
 #[derive(thiserror::Error)]
@@ -66,6 +74,7 @@ impl std::fmt::Debug for Error {
     }
 }
 
+const VERSION: Option<&str> = option_env!("CARGO_PKG_VERSION");
 fn main() -> Result<(), Error> {
     let args = Args::parse();
     let workspace = {
@@ -100,13 +109,40 @@ fn main() -> Result<(), Error> {
             cmd.args(["run", "start"]).status().map_err(|e| {
                 Error::Command(format!("{}", cmd.get_program().to_string_lossy()), e)
             })?;
-        },
+        }
         Task::Deploy {} => {
             pnpm_install(&args, &workspace)?;
             eprintln!("Production Build");
             let mut cmd = Command::new(&args.manager);
             cmd.current_dir(&workspace.join("www"));
             cmd.args(["run", "build"]).status().map_err(|e| {
+                Error::Command(format!("{}", cmd.get_program().to_string_lossy()), e)
+            })?;
+        }
+        Task::Version { version } => {
+            let mut cmd = Command::new("cargo");
+            cmd.current_dir(&workspace);
+            cmd.args(["set-version", "--bump", &version])
+                .status()
+                .map_err(|e| {
+                    Error::Command(format!("{}", cmd.get_program().to_string_lossy()), e)
+                })?;
+            let mut cmd = Command::new(&args.manager);
+            cmd.current_dir(&workspace.join("www"));
+            cmd.args(["version", &version]).status().map_err(|e| {
+                Error::Command(format!("{}", cmd.get_program().to_string_lossy()), e)
+            })?;
+        },
+        Task::Changelog { } => {
+            let mut cmd = Command::new("git-changelog");
+            cmd.current_dir(&workspace);
+            cmd.args([
+                "-io", "CHANGELOG.md",
+                "-t", "path:CHANGELOG.md.jinja",
+                "--bump", VERSION.unwrap_or("auto"),
+                "--parse-refs",
+                "--trailers"
+            ]).status().map_err(|e| {
                 Error::Command(format!("{}", cmd.get_program().to_string_lossy()), e)
             })?;
         },
@@ -160,10 +196,7 @@ fn build<P: AsRef<std::ffi::OsStr> + std::fmt::Debug + std::fmt::Display>(
     Ok(())
 }
 
-fn pnpm_install(
-    args: &Args,
-    workspace: &std::path::Path,
-) -> Result<ExitStatus, Error> {
+fn pnpm_install(args: &Args, workspace: &std::path::Path) -> Result<ExitStatus, Error> {
     eprintln!("Running `pnpm install`");
     let mut cmd = Command::new(&args.manager);
     cmd.current_dir(&workspace.join("www"));
