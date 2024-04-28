@@ -8,6 +8,7 @@ import SlInput from "@shoelace-style/shoelace/dist/components/input/input.compon
 import SlDialog from "@shoelace-style/shoelace/dist/components/dialog/dialog.component.js";
 import "./slot";
 import "./fields";
+import "./pins";
 import { until } from "lit/directives/until.js";
 import { repeat } from "lit/directives/repeat.js";
 
@@ -238,24 +239,12 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
   }
 
   renderPins() {
-    const pins = this.pins;
-    const visibleDevices = window.VM.vm.visibleDevices(this.deviceID);
-    const pinsHtml = pins?.map(
-      (pin, index) =>
-        html`
-          <sl-select hoist placement="top" clearable key=${index} value=${pin} @sl-change=${this._handleChangePin}>
-            <span slot="prefix">d${index}</span>
-            ${visibleDevices.map(
-            (device, _index) =>
-              html`
-                <sl-option value=${device.id}>
-                  Device ${device.id} : ${device.name ?? device.prefabName}
-                </sl-option>
-              `,
-          )}
-          </sl-select>`,
+    return this.delayRenderTab(
+      "pins",
+      html`<div class="pins">
+        <vm-device-pins .deviceID=${this.deviceID}></vm-device-pins>
+      </div>`
     );
-    return this.delayRenderTab("pins", html`<div class="pins">${pinsHtml}</div>`);
   }
 
   private tabsShown: CardTab[] = ["fields"];
@@ -306,7 +295,7 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
           <sl-tab slot="nav" panel="slots">Slots</sl-tab>
           <sl-tab slot="nav" panel="reagents" disabled>Reagents</sl-tab>
           <sl-tab slot="nav" panel="networks">Networks</sl-tab>
-          <sl-tab slot="nav" panel="pins" ?disabled=${!this.pins}>Pins</sl-tab>
+          <sl-tab slot="nav" panel="pins" ?disabled=${!this.device.pins}>Pins</sl-tab>
 
           <sl-tab-panel name="fields" active>
             ${until(this.renderFields(), html`<sl-spinner></sl-spinner>`)}
@@ -320,7 +309,7 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
           <sl-tab-panel name="networks">
             ${until(this.renderNetworks(), html`<sl-spinner></sl-spinner>`)}
           </sl-tab-panel>
-          <sl-tab-panel name="pins"> ${this.renderPins()} </sl-tab-panel>
+          <sl-tab-panel name="pins">${until(this.renderPins(), html`<sl-spinner></sl-spinner>`)} </sl-tab-panel>
         </sl-tab-group>
       </ic10-details>
       <sl-dialog class="remove-device-dialog" no-header @sl-request-close=${this._preventOverlayClose}>
@@ -399,11 +388,4 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
     this.updateDevice();
   }
 
-  _handleChangePin(e: CustomEvent) {
-    const select = e.target as SlSelect;
-    const pin = parseInt(select.getAttribute("key")!);
-    const val = select.value ? parseInt(select.value as string) : undefined;
-    window.VM.get().then((vm) => vm.setDevicePin(this.deviceID, pin, val));
-    this.updateDevice();
-  }
 }

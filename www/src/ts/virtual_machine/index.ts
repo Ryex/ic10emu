@@ -119,8 +119,14 @@ class VirtualMachine extends EventTarget {
     return ids.map((id, _index) => this._devices.get(id)!);
   }
 
+  visibleDeviceIds(source: number) {
+    const ids = Array.from(this.ic10vm.visibleDevices(source));
+    return ids;
+  }
+
   updateDevices() {
     var update_flag = false;
+    const removedDevices = [];
     const device_ids = this.ic10vm.devices;
     for (const id of device_ids) {
       if (!this._devices.has(id)) {
@@ -132,6 +138,7 @@ class VirtualMachine extends EventTarget {
       if (!device_ids.includes(id)) {
         this._devices.delete(id);
         update_flag = true;
+        removedDevices.push(id);
       }
     }
 
@@ -160,6 +167,13 @@ class VirtualMachine extends EventTarget {
           detail: ids,
         }),
       );
+      if (removedDevices.length > 0) {
+        this.dispatchEvent(
+          new CustomEvent("vm-devices-removed", {
+            detail: removedDevices,
+          }),
+        );
+      }
       this.app.session.save();
     }
   }
