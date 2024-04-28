@@ -1,3 +1,7 @@
+
+
+mod object;
+
 use crate::{
     device::{Device, DeviceTemplate, SlotOccupant, SlotOccupantTemplate},
     grammar::{BatchMode, LogicType, SlotLogicType},
