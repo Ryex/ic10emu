@@ -1745,7 +1745,11 @@ impl IC {
                         } = reg.as_register(this, inst, 1)?;
                         let a = a.as_value(this, inst, 2)?;
                         let b = b.as_value(this, inst, 1)?;
-                        this.set_register(indirection, target, ((a % b) + b) % b)?;
+                        let mut m = (a % b);
+                        if m < 0.0 {
+                            m += b;
+                        }
+                        this.set_register(indirection, target, m)?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
