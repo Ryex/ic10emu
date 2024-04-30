@@ -432,7 +432,7 @@ impl Operand {
         index: u32,
     ) -> Result<i64, interpreter::ICError> {
         match self {
-            Self::Number(num) => Ok(num.value_i64()),
+            Self::Number(num) => Ok(num.value_i64(signed)),
             _ => {
                 let val = self.as_value(ic, inst, index)?;
                 if val < -9.223_372_036_854_776E18 {
@@ -445,15 +445,15 @@ impl Operand {
             }
         }
     }
-
     pub fn as_value_i32(
         &self,
         ic: &interpreter::IC,
+        signed: bool,
         inst: InstructionOp,
         index: u32,
     ) -> Result<i32, interpreter::ICError> {
         match self {
-            Self::Number(num) => Ok(num.value_i64() as i32),
+            Self::Number(num) => Ok(num.value_i64(signed) as i32),
             _ => {
                 let val = self.as_value(ic, inst, index)?;
                 if val < -2147483648.0 {
@@ -1079,9 +1079,9 @@ impl Number {
             Number::String(s) => const_crc32::crc32(s.as_bytes()) as i32 as f64,
         }
     }
-    pub fn value_i64(&self) -> i64 {
+    pub fn value_i64(&self, signed: bool) -> i64 {
         match self {
-            Number::Enum(val) | Number::Float(val) | Number::Constant(val) => *val as i64,
+            Number::Enum(val) | Number::Float(val) | Number::Constant(val) => interpreter::f64_to_i64(*val, signed),
             Number::Binary(val) | Number::Hexadecimal(val) => *val,
             Number::String(s) => const_crc32::crc32(s.as_bytes()) as i32 as i64,
         }
@@ -1470,7 +1470,6 @@ mod tests {
         test_roundtrip("$abcd");
         test_roundtrip("%1001");
     }
-
 
     #[test]
     fn all_generated_enums_have_value() {

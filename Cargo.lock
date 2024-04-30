@@ -560,7 +560,7 @@ dependencies = [
 
 [[package]]
 name = "ic10emu"
-version = "0.2.2"
+version = "0.2.3"
 dependencies = [
  "const-crc32",
  "convert_case",
@@ -580,7 +580,7 @@ dependencies = [
 
 [[package]]
 name = "ic10emu_wasm"
-version = "0.2.2"
+version = "0.2.3"
 dependencies = [
  "console_error_panic_hook",
  "ic10emu",
@@ -617,7 +617,7 @@ dependencies = [
 
 [[package]]
 name = "ic10lsp_wasm"
-version = "0.2.2"
+version = "0.2.3"
 dependencies = [
  "console_error_panic_hook",
  "futures",
@@ -1844,7 +1844,7 @@ checksum = "32b752e52a2da0ddfbdbcc6fceadfeede4c939ed16d13e648833a61dfb611ed8"
 
 [[package]]
 name = "xtask"
-version = "0.2.2"
+version = "0.2.3"
 dependencies = [
  "clap",
  "thiserror",
