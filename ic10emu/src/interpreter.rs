@@ -1,6 +1,10 @@
 use core::f64;
 use serde::{Deserialize, Serialize};
-use std::{cell::{Cell, RefCell}, ops::Deref, string::ToString};
+use std::{
+    cell::{Cell, RefCell},
+    ops::Deref,
+    string::ToString,
+};
 use std::{
     collections::{BTreeMap, HashSet},
     error::Error,
@@ -13,7 +17,9 @@ use itertools::Itertools;
 use time::format_description;
 
 use crate::{
-    device::SlotType, grammar::{self, LogicType, ParseError, SlotLogicType}, vm::VM
+    device::SlotType,
+    grammar::{self, LogicType, ParseError, SlotLogicType},
+    vm::VM,
 };
 
 use serde_with::serde_as;
@@ -434,12 +440,7 @@ impl IC {
     }
 
     /// sets a register thorough, recursing through provided indirection, returns value previously
-    pub fn set_register(
-        &self,
-        indirection: u32,
-        target: u32,
-        val: f64,
-    ) -> Result<f64, ICError> {
+    pub fn set_register(&self, indirection: u32, target: u32, val: f64) -> Result<f64, ICError> {
         let t = self.get_real_target(indirection, target)?;
         let mut registers = self.registers.borrow_mut();
         let old_val = registers
@@ -525,7 +526,11 @@ impl IC {
         if let Some(device) = vm.devices.get(&self.device) {
             let mut device_ref = device.borrow_mut();
             let _ = device_ref.set_field(LogicType::LineNumber, self.ip.get() as f64, vm, true);
-            if let Some(slot) = device_ref.slots.iter_mut().find(|slot| slot.typ == SlotType::ProgrammableChip) {
+            if let Some(slot) = device_ref
+                .slots
+                .iter_mut()
+                .find(|slot| slot.typ == SlotType::ProgrammableChip)
+            {
                 let _ = slot.set_field(SlotLogicType::LineNumber, self.ip.get() as f64, true);
             }
         }
@@ -1745,7 +1750,11 @@ impl IC {
                         } = reg.as_register(this, inst, 1)?;
                         let a = a.as_value(this, inst, 2)?;
                         let b = b.as_value(this, inst, 1)?;
-                        this.set_register(indirection, target, ((a % b) + b) % b)?;
+                        let mut m = a % b;
+                        if m < 0.0 {
+                            m += b;
+                        }
+                        this.set_register(indirection, target, m)?;
                         Ok(())
                     }
                     oprs => Err(ICError::mismatch_operands(oprs.len(), 3)),
@@ -1980,7 +1989,7 @@ impl IC {
                             target,
                         } = reg.as_register(this, inst, 1)?;
                         let a = a.as_value_i64(this, true, inst, 2)?;
-                        let b = b.as_value_i32(this, inst, 3)?;
+                        let b = b.as_value_i32(this, true, inst, 3)?;
                         this.set_register(indirection, target, i64_to_f64(a << b))?;
                         Ok(())
                     }
@@ -1993,7 +2002,7 @@ impl IC {
                             target,
                         } = reg.as_register(this, inst, 1)?;
                         let a = a.as_value_i64(this, false, inst, 2)?;
-                        let b = b.as_value_i32(this, inst, 3)?;
+                        let b = b.as_value_i32(this, true, inst, 3)?;
                         this.set_register(indirection, target, i64_to_f64((a as u64 >> b) as i64))?;
                         Ok(())
                     }
@@ -2006,7 +2015,7 @@ impl IC {
                             target,
                         } = reg.as_register(this, inst, 1)?;
                         let a = a.as_value_i64(this, true, inst, 2)?;
-                        let b = b.as_value_i32(this, inst, 3)?;
+                        let b = b.as_value_i32(this, true, inst, 3)?;
                         this.set_register(indirection, target, i64_to_f64(a >> b))?;
                         Ok(())
                     }
@@ -2599,18 +2608,18 @@ impl LogicTypeExt for grammar::LogicType {
 }
 
 pub fn f64_to_i64(f: f64, signed: bool) -> i64 {
-    let mut num: i64 = (f % 9007199254740992.0) as i64;
+    let mut num: i64 = (f % (1i64 << 53) as f64) as i64;
     if !signed {
-        num &= 18014398509481983_i64;
+        num &= (1i64 << 54) - 1;
     }
     num
 }
-
 pub fn i64_to_f64(i: i64) -> f64 {
-    let flag: bool = (i & 9007199254740992_i64) != 0;
-    let mut i = i & 9007199254740991_i64;
+    const MASK: i64 = 1 << 53;
+    let flag: bool = (i & MASK) != 0;
+    let mut i = i & (MASK - 1);
     if flag {
-        i &= -9007199254740992_i64;
+        i |= -MASK;
     }
     i as f64
 }
