@@ -81,6 +81,7 @@ LogicType.AlignmentError 243
 LogicType.Apex 238 
 LogicType.AutoLand 226 Engages the automatic landing algorithm. The rocket will automatically throttle and turn on and off its engines to achieve a smooth landing.
 LogicType.AutoShutOff 218 Turns off all devices in the rocket upon reaching destination
+LogicType.BestContactFilter 267 
 LogicType.Bpm 103 Bpm
 LogicType.BurnTimeRemaining 225 Estimated time in seconds until fuel is depleted. Calculated based on current fuel usage.
 LogicType.CelestialHash 242 
@@ -346,6 +347,11 @@ PowerMode.Charging 3
 PowerMode.Discharged 1 
 PowerMode.Discharging 2 
 PowerMode.Idle 0 
+ReEntryProfile.High 3 
+ReEntryProfile.Max 4 
+ReEntryProfile.Medium 2 
+ReEntryProfile.None 0 
+ReEntryProfile.Optimal 1 
 RobotMode.Follow 1 
 RobotMode.MoveToTarget 2 
 RobotMode.None 0 
@@ -353,6 +359,12 @@ RobotMode.PathToTarget 5
 RobotMode.Roam 3 
 RobotMode.StorageFull 6 
 RobotMode.Unload 4 
+RocketMode.Chart 5 
+RocketMode.Discover 4 
+RocketMode.Invalid 0 
+RocketMode.Mine 2 
+RocketMode.None 1 
+RocketMode.Survey 3 
 SlotClass.AccessCard 22 
 SlotClass.Appliance 18 
 SlotClass.Back 3 
@@ -388,10 +400,18 @@ SlotClass.ScanningHead 36
 SlotClass.SensorProcessingUnit 30 
 SlotClass.SoundCartridge 34 
 SlotClass.Suit 2 
+SlotClass.SuitMod 39 
 SlotClass.Tool 17 
 SlotClass.Torpedo 20 
 SlotClass.Uniform 12 
 SlotClass.Wreckage 33 
+SorterInstruction.FilterPrefabHashEquals 1 
+SorterInstruction.FilterPrefabHashNotEquals 2 
+SorterInstruction.FilterQuantityCompare 5 
+SorterInstruction.FilterSlotTypeCompare 4 
+SorterInstruction.FilterSortingClassCompare 3 
+SorterInstruction.LimitNextExecutionByCount 6 
+SorterInstruction.None 0 
 SortingClass.Appliances 6 
 SortingClass.Atmospherics 7 
 SortingClass.Clothing 5 

@@ -2,6 +2,7 @@ use macro_rules_attribute::derive;
 
 mod macros;
 mod traits;
+mod stationpedia;
 
 use macros::ObjectInterface;
 use traits::*;

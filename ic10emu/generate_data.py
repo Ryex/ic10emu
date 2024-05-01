@@ -210,7 +210,7 @@ def extract_data(install_path: Path, data_path: Path, language: str):
             continue
         key = key.text
         value = value.text
-        if key is None:
+        if key is None or any(bad in key for bad in "(){}|[]") :
             continue
         crc_u = binascii.crc32(key.encode('utf-8'))
         crc_i: int = struct.unpack("i", struct.pack("I", crc_u))[0]

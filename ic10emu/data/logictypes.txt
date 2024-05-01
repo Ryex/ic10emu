@@ -1,14 +1,15 @@
 Acceleration 216 Change in velocity. Rockets that are deccelerating when landing will show this as negative value.
 Activate 9 1 if device is activated (usually means running), otherwise 0
 AirRelease 75 The current state of the air release system, for example AirRelease = 1 for a Hardsuit sets Air Release to On
-AlignmentError 243 
-Apex 238 
+AlignmentError 243
+Apex 238
 AutoLand 226 Engages the automatic landing algorithm. The rocket will automatically throttle and turn on and off its engines to achieve a smooth landing.
 AutoShutOff 218 Turns off all devices in the rocket upon reaching destination
+BestContactFilter 267
 Bpm 103 Bpm
 BurnTimeRemaining 225 Estimated time in seconds until fuel is depleted. Calculated based on current fuel usage.
-CelestialHash 242 
-CelestialParentHash 250 
+CelestialHash 242
+CelestialParentHash 250
 Channel0 165 Channel 0 on a cable network which should be considered volatile
 Channel1 166 Channel 1 on a cable network which should be considered volatile
 Channel2 167 Channel 2 on a cable network which should be considered volatile
@@ -18,10 +19,10 @@ Channel5 170 Channel 5 on a cable network which should be considered volatile
 Channel6 171 Channel 6 on a cable network which should be considered volatile
 Channel7 172 Channel 7 on a cable network which should be considered volatile
 Charge 11 The current charge the device has
-Chart 256 
-ChartedNavPoints 259 
+Chart 256
+ChartedNavPoints 259
 ClearMemory 62 When set to 1, clears the counter memory (e.g. ExportCount). Will set itself back to 0 when actioned
-CollectableGoods 101 
+CollectableGoods 101
 Color 38 \n        Whether driven by concerns for clarity, safety or simple aesthetics, {LINK:Stationeers;Stationeers} have access to a small rainbow of colors for their constructions. These are the color setting for devices, represented as an integer.\n\n0: Blue\n1: Grey\n2: Green\n3: Orange\n4: Red\n5: Yellow\n6: White\n7: Black\n8: Brown\n9: Khaki\n10: Pink\n11: Purple\n\n        It is an unwavering universal law that anything higher than 11 will be purple. The {LINK:ODA;ODA} is powerless to change this. Similarly, anything lower than 0 will be Blue.\n
 Combustion 98 The assess atmosphere is on fire. Returns 1 if atmosphere is on fire, 0 if not.
 CombustionInput 146 The assess atmosphere is on fire. Returns 1 if device's input network is on fire, 0 if not.
@@ -31,34 +32,34 @@ CombustionOutput 148 The assess atmosphere is on fire. Returns 1 if device's Out
 CombustionOutput2 149 The assess atmosphere is on fire. Returns 1 if device's Output2 network is on fire, 0 if not.
 CompletionRatio 61 How complete the current production is for this device, between 0 and 1
 ContactTypeId 198 The type id of the contact.
-CurrentCode 261 
-CurrentResearchPodType 93 
-Density 262 
+CurrentCode 261
+CurrentResearchPodType 93
+Density 262
 DestinationCode 215 Unique identifier code for a destination on the space map.
-Discover 255 
-DistanceAu 244 
-DistanceKm 249 
-DrillCondition 240 
+Discover 255
+DistanceAu 244
+DistanceKm 249
+DrillCondition 240
 DryMass 220 The Mass in kilograms of the rocket excluding fuel. The more massive the rocket the more fuel will be required to move to a new location in space.
-Eccentricity 247 
+Eccentricity 247
 ElevatorLevel 40 Level the elevator is currently at
 ElevatorSpeed 39 Current speed of the elevator
-EntityState 239 
+EntityState 239
 EnvironmentEfficiency 104 The Environment Efficiency reported by the machine, as a float between 0 and 1
 Error 4 1 if device is in error state, otherwise 0
-ExhaustVelocity 235 
+ExhaustVelocity 235
 ExportCount 63 How many items exported since last ClearMemory
 ExportQuantity 31 Total quantity of items exported by the device
 ExportSlotHash 42 DEPRECATED
 ExportSlotOccupant 32 DEPRECATED
 Filtration 74 The current state of the filtration system, for example Filtration = 1 for a Hardsuit sets filtration to On
-FlightControlRule 236 
+FlightControlRule 236
 Flush 174 Set to 1 to activate the flush function on the device
 ForceWrite 85 Forces Logic Writer devices to rewrite value
-ForwardX 227 
-ForwardY 228 
-ForwardZ 229 
-Fuel 99 
+ForwardX 227
+ForwardY 228
+ForwardZ 229
+Fuel 99
 Harvest 69 Performs the harvesting action for any plant based machinery
 Horizontal 20 Horizontal setting of the device
 HorizontalRatio 34 Radio of horizontal setting for device
@@ -67,30 +68,29 @@ ImportCount 64 How many items imported since last ClearMemory
 ImportQuantity 29 Total quantity of items imported by the device
 ImportSlotHash 43 DEPRECATED
 ImportSlotOccupant 30 DEPRECATED
-Inclination 246 
-Index 241 
+Inclination 246
+Index 241
 InterrogationProgress 157 Progress of this sattellite dish's interrogation of its current target, as a ratio from 0-1
 LineNumber 173 The line number of current execution for an integrated circuit running on this device. While this number can be written, use with caution
 Lock 10 1 if device is locked, otherwise 0, can be set in most devices and prevents the user from access the values
-ManualResearchRequiredPod 94 
+ManualResearchRequiredPod 94
 Mass 219 The total Mass of the rocket in kilograms including fuel and cargo. The more massive the rocket the more fuel will be required to move to a new location in space.
 Maximum 23 Maximum setting of the device
-MinWattsToContact 163 Minimum required amount of watts from the dish hitting the target trader contact to start interrogating the contact
-MineablesInQueue 96 
-MineablesInVicinity 95 
-MinedQuantity 266 
+MineablesInQueue 96
+MineablesInVicinity 95
+MinedQuantity 266
 MinimumWattsToContact 163 Minimum required amount of watts from the dish hitting the target trader contact to start interrogating the contact
 Mode 3 Integer for mode state, different devices will have different mode states available to them
-NavPoints 258 
-NextWeatherEventTime 97 
+NavPoints 258
+NextWeatherEventTime 97
 None 0 No description
 On 28 The current state of the device, 0 for off, 1 for on
 Open 2 1 if device is open, otherwise 0
 OperationalTemperatureEfficiency 150 How the input pipe's temperature effects the machines efficiency
-OrbitPeriod 245 
-Orientation 230 
+OrbitPeriod 245
+Orientation 230
 Output 70 The output operation for a sort handling device, such as a stacker or sorter, when in logic mode the device will only action one repetition when set zero or above and then back to -1 and await further instructions
-PassedMoles 234 
+PassedMoles 234
 Plant 68 Performs the planting action for any plant based machinery
 PlantEfficiency1 52 DEPRECATED
 PlantEfficiency2 53 DEPRECATED
@@ -202,33 +202,31 @@ RatioWaterInput 113 The ratio of water in device's input network
 RatioWaterInput2 123 The ratio of water in device's Input2 network
 RatioWaterOutput 133 The ratio of water in device's Output network
 RatioWaterOutput2 143 The ratio of water in device's Output2 network
-ReEntryAltitude 237 
+ReEntryAltitude 237
 Reagents 13 Total number of reagents recorded by the device
 RecipeHash 41 Current hash of the recipe the device is set to produce
-ReferenceId 217 
+ReferenceId 217
 RequestHash 60 When set to the unique identifier, requests an item of the provided type from the device
 RequiredPower 33 Idle operating power quantity, does not necessarily include extra demand power
-ReturnFuelCost 100 
-Richness 263 
+ReturnFuelCost 100
+Richness 263
 Rpm 155 The number of revolutions per minute that the device's spinning mechanism is doing
-SemiMajorAxis 248 
+SemiMajorAxis 248
 Setting 12 A variable setting that can be read or written, depending on the device
-SettingInput 91 
-SettingInputHash 91 The input setting for the device
-SettingOutput 92 
-SettingOutputHash 91 The output setting for the device
+SettingInput 91 The input setting for the device
+SettingOutput 92 The output setting for the device
 SignalID 87 Returns the contact ID of the strongest signal from this Satellite
 SignalStrength 86 Returns the degree offset of the strongest contact
-Sites 260 
-Size 264 
+Sites 260
+Size 264
 SizeX 160 Size on the X (right) axis of the object in largeGrids (a largeGrid is 2meters)
 SizeY 161 Size on the Y(Up) axis of the object in largeGrids (a largeGrid is 2meters)
 SizeZ 162 Size on the Z(Forward) axis of the object in largeGrids (a largeGrid is 2meters)
 SolarAngle 22 Solar angle of the device
-SolarIrradiance 176 
+SolarIrradiance 176
 SoundAlert 175 Plays a sound alert on the devices speaker
 Stress 156 Machines get stressed when working hard. When Stress reaches 100 the machine will automatically shut down
-Survey 257 
+Survey 257
 TargetPadIndex 158 The index of the trader landing pad on this devices data network that it will try to call a trader in to land
 TargetX 88 The target position in X dimension in world coordinates
 TargetY 89 The target position in Y dimension in world coordinates
@@ -251,15 +249,15 @@ TotalMolesInput 115 Returns the total moles of the device's Input Network
 TotalMolesInput2 125 Returns the total moles of the device's Input2 Network
 TotalMolesOutput 135 Returns the total moles of the device's Output Network
 TotalMolesOutput2 145 Returns the total moles of the device's Output2 Network
-TotalQuantity 265 
-TrueAnomaly 251 
+TotalQuantity 265
+TrueAnomaly 251
 VelocityMagnitude 79 The current magnitude of the velocity vector
 VelocityRelativeX 80 The current velocity X relative to the forward vector of this
 VelocityRelativeY 81 The current velocity Y relative to the forward vector of this
 VelocityRelativeZ 82 The current velocity Z relative to the forward vector of this
-VelocityX 231 
-VelocityY 232 
-VelocityZ 233 
+VelocityX 231
+VelocityY 232
+VelocityZ 233
 Vertical 21 Vertical setting of the device
 VerticalRatio 35 Radio of vertical setting for device
 Volume 67 Returns the device atmosphere volume

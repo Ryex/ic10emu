@@ -157,7 +157,7 @@
 -746362430 DynamicCrateCableSupplies Crate (Cabling Supplies)
 166707648 DynamicCrateConveyorSupplies Crate (Conveyor Supplies)
 -282237045 DynamicCratePipeSupplies Crate (Pipe Supplies)
--2085885850 DynamicGPR Ground Penetrating Radar (GPR)
+-2085885850 DynamicGPR <N:EN:DynamicGPR>
 -1713611165 DynamicGasCanisterAir Portable Gas Tank (Air)
 -322413931 DynamicGasCanisterCarbonDioxide Portable Gas Tank (CO2)
 -1741267161 DynamicGasCanisterEmpty Portable Gas Tank
@@ -225,6 +225,7 @@
 -626453759 Invar Invar
 -666742878 Iron Iron
 -842048328 ItemActiveVent Kit (Active Vent)
+1871048978 ItemAdhesiveInsulation Adhesive Insulation
 1722785341 ItemAdvancedTablet Advanced Tablet
 176446172 ItemAlienMushroom Alien Mushroom
 -9559091 ItemAmmoBox Ammo Box
@@ -500,6 +501,8 @@
 288111533 ItemKitIceCrusher Kit (Ice Crusher)
 2067655311 ItemKitInsulatedLiquidPipe Kit (Insulated Liquid Pipe)
 452636699 ItemKitInsulatedPipe Kit (Insulated Pipe)
+-27284803 ItemKitInsulatedPipeUtility Kit (Insulated Pipe Utility Gas)
+-1831558953 ItemKitInsulatedPipeUtilityLiquid Kit (Insulated Pipe Utility Liquid)
 -1708400347 ItemKitInsulatedWaterPipe Insulated Water Pipe Kit
 1935945891 ItemKitInteriorDoors Kit (Interior Doors)
 489494578 ItemKitLadder Kit (Ladder)
@@ -793,6 +796,13 @@
 -2038663432 ItemStelliteGlassSheets Stellite Glass Sheets
 -1897868623 ItemStelliteIngot Ingot (Stellite)
 -1335056202 ItemSugarCane Sugar Cane
+1447327071 ItemSuitAdvancedAC Advanced AC Suit
+711019524 ItemSuitEmergency Emergency Suit
+70631292 ItemSuitHard Hard Suit
+-2020709888 ItemSuitInsulated Insulated Suit
+-1274308304 ItemSuitModCryogenicUpgrade Cryogenic Suit Upgrade
+-942170293 ItemSuitNormal Normal Suit
+416903029 ItemSuitSpace Space Suit
 318109626 ItemSuitStorage Kit (Suit Storage)
 -229808600 ItemTablet Handheld Tablet
 -1782380726 ItemTankConnector Kit (Tank Connector)
@@ -1342,6 +1352,10 @@
 35149429 StructureInLineTankGas1x2 In-Line Tank Gas
 543645499 StructureInLineTankLiquid1x1 In-Line Tank Small Liquid
 -1183969663 StructureInLineTankLiquid1x2 In-Line Tank Liquid
+1818267386 StructureInsulatedInLineTankGas1x1 Insulated In-Line Tank Small Gas
+-177610944 StructureInsulatedInLineTankGas1x2 Insulated In-Line Tank Gas
+-813426145 StructureInsulatedInLineTankLiquid1x1 Insulated In-Line Tank Small Liquid
+1452100517 StructureInsulatedInLineTankLiquid1x2 Insulated In-Line Tank Liquid
 -1967711059 StructureInsulatedPipeCorner Insulated Pipe (Corner)
 -92778058 StructureInsulatedPipeCrossJunction Insulated Pipe (Cross Junction)
 1328210035 StructureInsulatedPipeCrossJunction3 Insulated Pipe (3-Way Junction)
@@ -1422,6 +1436,7 @@
 546002924 StructureLogicRocketUplink Logic Uplink
 1822736084 StructureLogicSelect Logic Select
 -767867194 StructureLogicSlotReader Slot Reader
+873418029 StructureLogicSorter Logic Sorter
 1220484876 StructureLogicSwitch Lever
 321604921 StructureLogicSwitch2 Switch
 -693235651 StructureLogicTransmitter Logic Transmitter
@@ -1638,7 +1653,6 @@
 1570931620 StructureTraderWaypoint Trader Waypoint
 -1423212473 StructureTransformer Transformer (Large)
 -1065725831 StructureTransformerMedium Transformer (Medium)
--771036757 StructureTransformerMedium(Reversed) Transformer Reversed (Medium)
 833912764 StructureTransformerMediumReversed Transformer Reversed (Medium)
 -890946730 StructureTransformerSmall Transformer (Small)
 1054059374 StructureTransformerSmallReversed Transformer Reversed (Small)

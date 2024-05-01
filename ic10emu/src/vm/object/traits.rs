@@ -1,7 +1,9 @@
+use std::fmt::Debug;
+
 use crate::{grammar, vm::{object::{macros::tag_object_traits, ObjectID}, VM}};
 
 tag_object_traits! {
-    #![object_trait(Object)]
+    #![object_trait(Object: Debug)]
 
     pub trait Memory {
         fn size(&self) -> usize;
@@ -53,3 +55,8 @@ tag_object_traits! {
 
 }
 
+impl<T: Debug> Debug for dyn Object<ID = T> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "Object: (ID = {:?}, Type = {})", self.id(), self.type_name())
+    }
+}

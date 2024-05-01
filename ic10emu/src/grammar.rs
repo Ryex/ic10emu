@@ -11,12 +11,9 @@ pub mod generated {
     use crate::interpreter::ICError;
     use serde::{Deserialize, Serialize};
     use std::str::FromStr;
-    use strum::AsRefStr;
-    use strum::Display;
-    use strum::EnumIter;
-    use strum::EnumProperty;
-    use strum::EnumString;
-    use strum::IntoEnumIterator;
+    use strum::{
+        AsRefStr, Display, EnumIter, EnumProperty, EnumString, FromRepr, IntoEnumIterator,
+    };
 
     include!(concat!(env!("OUT_DIR"), "/instructions.rs"));
     include!(concat!(env!("OUT_DIR"), "/logictypes.rs"));
@@ -1081,7 +1078,9 @@ impl Number {
     }
     pub fn value_i64(&self, signed: bool) -> i64 {
         match self {
-            Number::Enum(val) | Number::Float(val) | Number::Constant(val) => interpreter::f64_to_i64(*val, signed),
+            Number::Enum(val) | Number::Float(val) | Number::Constant(val) => {
+                interpreter::f64_to_i64(*val, signed)
+            }
             Number::Binary(val) | Number::Hexadecimal(val) => *val,
             Number::String(s) => const_crc32::crc32(s.as_bytes()) as i32 as i64,
         }
