@@ -54,6 +54,7 @@ pub struct VM {
 
     /// list of device id's touched on the last operation
     operation_modified: RefCell<Vec<u32>>,
+    objects: Vec<object::BoxedObject>,
 }
 
 impl Default for VM {
@@ -64,7 +65,7 @@ impl Default for VM {
 
 impl VM {
     pub fn new() -> Self {
-        let id_gen = IdSpace::default();
+        let id_space = IdSpace::default();
         let mut network_id_space = IdSpace::default();
         let default_network_key = network_id_space.next();
         let default_network = Rc::new(RefCell::new(Network::new(default_network_key)));
@@ -76,10 +77,11 @@ impl VM {
             devices: BTreeMap::new(),
             networks,
             default_network: default_network_key,
-            id_space: id_gen,
+            id_space,
             network_id_space,
             random: Rc::new(RefCell::new(crate::rand_mscorlib::Random::new())),
             operation_modified: RefCell::new(Vec::new()),
+            objects: Vec::new(),
         };
         let _ = vm.add_ic(None);
         vm

@@ -3,32 +3,35 @@ use macro_rules_attribute::derive;
 mod macros;
 mod traits;
 
-use macros::{object_trait, ObjectInterface};
-use traits::Memory;
+use macros::ObjectInterface;
+use traits::*;
 
-use crate::vm::object::traits::Test;
+pub type ObjectID = u32;
+pub type BoxedObject = Box<dyn Object<ID = ObjectID>>;
 
-object_trait!(VmObject { Memory });
 
 #[derive(ObjectInterface!)]
-#[custom(implements(VmObject { Memory }))]
+#[custom(implements(Object { Memory }))]
 pub struct Generic {
-    mem1: Vec<u32>,
+    mem1: Vec<f64>,
 
     #[custom(object_id)]
-    id: u32,
+    id: ObjectID,
 
-    mem2: Vec<u32>,
+    mem2: Vec<f64>,
 }
 
 impl Memory for Generic {
-    fn get_memory(&self) -> &Vec<u32> {
+    fn get_memory(&self) -> &Vec<f64> {
         &self.mem1
     }
 
-    fn set_memory(&mut self, index: usize, val: u32) {
+    fn set_memory(&mut self, index: usize, val: f64) {
         self.mem2[index] = val;
+    }
+
+    fn size(&self) -> usize {
+        self.mem1.len()
     }
 }
 
-impl Test for Generic {}
