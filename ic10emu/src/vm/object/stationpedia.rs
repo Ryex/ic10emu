@@ -7,11 +7,13 @@ use crate::vm::object::BoxedObject;
 
 include!(concat!(env!("OUT_DIR"), "/stationpedia_prefabs.rs"));
 
+#[allow(unused)]
 pub enum PrefabTemplate {
     Hash(i32),
     Name(String),
 }
 
+#[allow(unused)]
 pub fn object_from_prefab_template(template: &PrefabTemplate) -> Option<BoxedObject> {
     let prefab = match template {
         PrefabTemplate::Hash(hash) => StationpediaPrefab::from_repr(*hash),
@@ -24,3 +26,5 @@ pub fn object_from_prefab_template(template: &PrefabTemplate) -> Option<BoxedObj
         _ => None,
     }
 }
+
+mod generic;

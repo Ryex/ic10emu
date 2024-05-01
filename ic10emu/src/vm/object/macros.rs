@@ -1,15 +1,16 @@
 macro_rules! object_trait {
     (@intf {$trait_name:ident $trt:path}) => {
         paste::paste! {
-        #[allow(missing_docs)]
+        #[allow(missing_docs, unused)]
         pub type [<$trt Ref>]<'a, T> = &'a dyn $trt<ID = <T as $trait_name>::ID>;
-        #[allow(missing_docs)]
+        #[allow(missing_docs, unused)]
         pub type [<$trt RefMut>]<'a, T> = &'a mut dyn $trt<ID = <T as $trait_name>::ID>;
         }
     };
     (@body $trait_name:ident $($trt:path),*) => {
         type ID;
         fn id(&self) -> &Self::ID;
+        fn prefab(&self) -> &crate::vm::object::Name;
 
         fn type_name(&self) -> &str;
 
@@ -46,29 +47,21 @@ pub(crate) use object_trait;
 
 macro_rules! ObjectInterface {
     {
-        #[custom(implements($trait_name:ident {$($trt:path),*}))]
-        $( #[$attr:meta] )*
-        $viz:vis struct $struct:ident {
-            $(
-            $(#[#field1:meta])*
-            $field1_viz:vis
-            $field1_name:ident : $field1_ty:ty,
-            ),*
-            #[custom(object_id)]
-            $(#[$id_attr:meta])*
-            $id_viz:vis $field_id:ident: $id_typ:ty,
-            $(
-            $(#[#field2:meta])*
-            $field2_viz:vis
-            $field2_name:ident : $field2_ty:ty,
-            ),*
-        }
+        @final
+        @trt $trait_name:ident; $struct:ident;
+        @impls $($trt:path),*;
+        @id $id_field:ident: $id_typ:ty;
+        @prefab $prefab_field:ident: $prefab_typ:ty;
     } => {
         impl $trait_name for $struct {
             type ID = $id_typ;
 
             fn id(&self) -> &Self::ID {
-                &self.$field_id
+                &self.$id_field
+            }
+
+            fn prefab(&self) -> &crate::vm::object::Name {
+                &self.$prefab_field
             }
 
             fn type_name(&self) -> &str {
@@ -87,18 +80,158 @@ macro_rules! ObjectInterface {
 
             paste::paste!{$(
             #[inline(always)]
-            fn [<as_ $trt:lower>](&self) -> Option<[<$trt Ref>]<Self>> {
+            fn [<as_ $trt:snake>](&self) -> Option<[<$trt Ref>]<Self>> {
                 Some(self)
             }
 
             #[inline(always)]
-            fn [<as_ $trt:lower _mut>](&mut self) -> Option<[<$trt RefMut>]<Self>> {
+            fn [<as_ $trt:snake _mut>](&mut self) -> Option<[<$trt RefMut>]<Self>> {
                 Some(self)
             }
             )*}
 
         }
+    };
+    {
+        @body_id
+        @trt $trait_name:ident; $struct:ident;
+        @impls $($trt:path),*;
+        @id $id_field:ident: $id_typ:ty;
+        #[custom(object_prefab)]
+        $(#[$prefab_attr:meta])*
+        $prefab_viz:vis $prefab_field:ident: $prefab_typ:ty,
+        $( $rest:tt )*
+    } => {
+        $crate::vm::object::macros::ObjectInterface!{
+            @final
+            @trt $trait_name; $struct;
+            @impls $($trt),*;
+            @id $id_field: $id_typ;
+            @prefab $prefab_field: $prefab_typ;
+        }
+    };
+    {
+        @body_id
+        @trt $trait_name:ident; $struct:ident;
+        @impls $($trt:path),*;
+        @id $id_field:ident: $id_typ:ty;
+        $(#[#field:meta])*
+        $field_viz:vis
+        $field_name:ident : $field_ty:ty,
+        $( $rest:tt )*
+    } => {
+        $crate::vm::object::macros::ObjectInterface!{
+            @body_id
+            @trt $trait_name; $struct;
+            @impls $($trt),*;
+            @id $id_field: $id_typ;
+            $( $rest )*
+        }
+    };
+    {
+        @body_prefab
+        @trt $trait_name:ident; $struct:ident;
+        @impls $($trt:path),*;
+        @prefab $prefab_field:ident: $prefab_typ:ty;
+        #[custom(object_id)]
+        $(#[$id_attr:meta])*
+        $id_viz:vis $id_field:ident: $id_typ:ty,
+        $( $rest:tt )*
 
+    } => {
+        $crate::vm::object::macros::ObjectInterface!{
+            @final
+            @trt $trait_name; $struct;
+            @impls $($trt),*;
+            @id $id_field: $id_typ;
+            @prefab $prefab_field: $prefab_typ;
+        }
+    };
+    {
+        @body_prefab
+        @trt $trait_name:ident; $struct:ident;
+        @impls $($trt:path),*;
+        @prefab $prefab_field:ident: $prefab_typ:ty;
+        $(#[#field:meta])*
+        $field_viz:vis
+        $field_name:ident : $field_ty:ty,
+        $( $rest:tt )*
+
+    } => {
+        $crate::vm::object::macros::ObjectInterface!{
+            @body_prefab
+            @trt $trait_name; $struct;
+            @impls $($trt),*;
+            @prefab $prefab_field: $prefab_typ;
+            $( $rest )*
+        }
+    };
+    {
+        @body
+        @trt $trait_name:ident; $struct:ident;
+        @impls $($trt:path),*;
+        #[custom(object_prefab)]
+        $(#[$prefab_attr:meta])*
+        $prefab_viz:vis $prefab_field:ident: $prefab_typ:ty,
+        $( $rest:tt )*
+
+    } => {
+        $crate::vm::object::macros::ObjectInterface!{
+            @body_prefab
+            @trt $trait_name; $struct;
+            @impls $($trt),*;
+            @prefab $prefab_field: $prefab_typ;
+            $( $rest )*
+        }
+    };
+    {
+        @body
+        @trt $trait_name:ident; $struct:ident;
+        @impls $($trt:path),*;
+        #[custom(object_id)]
+        $(#[$id_attr:meta])*
+        $id_viz:vis $id_field:ident: $id_typ:ty,
+        $( $rest:tt )*
+
+    } => {
+        $crate::vm::object::macros::ObjectInterface!{
+            @body_id
+            @trt $trait_name; $struct;
+            @impls $($trt),*;
+            @id $id_field: $id_typ;
+            $( $rest )*
+        }
+    };
+    {
+        @body
+        @trt $trait_name:ident; $struct:ident;
+        @impls $($trt:path),*;
+        $(#[#field:meta])*
+        $field_viz:vis
+        $field_name:ident : $field_ty:ty,
+        $( $rest:tt )*
+
+    } => {
+        $crate::vm::object::macros::ObjectInterface!{
+            @body
+            @trt $trait_name; $struct;
+            @impls $($trt),*;
+            $( $rest )*
+        }
+    };
+    {
+        #[custom(implements($trait_name:ident {$($trt:path),*}))]
+        $( #[$attr:meta] )*
+        $viz:vis struct $struct:ident {
+            $( $body:tt )*
+        }
+    } => {
+        $crate::vm::object::macros::ObjectInterface!{
+            @body
+            @trt $trait_name; $struct;
+            @impls $($trt),*;
+            $( $body )*
+        }
     };
 }
 pub(crate) use ObjectInterface;

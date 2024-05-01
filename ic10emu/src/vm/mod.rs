@@ -54,6 +54,7 @@ pub struct VM {
 
     /// list of device id's touched on the last operation
     operation_modified: RefCell<Vec<u32>>,
+    #[allow(unused)]
     objects: Vec<object::BoxedObject>,
 }
 
