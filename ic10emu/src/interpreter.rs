@@ -7,7 +7,6 @@ use std::{
 };
 use std::{
     collections::{BTreeMap, HashSet},
-    error::Error,
     fmt::Display,
     u32,
 };
@@ -18,7 +17,7 @@ use time::format_description;
 
 use crate::{
     device::SlotType,
-    errors::{ICError, LineError, ParseError},
+    errors::{ICError, LineError},
     grammar,
     vm::{
         enums::script_enums::{LogicSlotType as SlotLogicType, LogicType},
@@ -2506,7 +2505,7 @@ pub fn i64_to_f64(i: i64) -> f64 {
 
 #[cfg(test)]
 mod tests {
-    use crate::vm::VMError;
+    use crate::errors::VMError;
 
     use super::*;
 

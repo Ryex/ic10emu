@@ -3,8 +3,7 @@ use crate::{
     interpreter::ICState,
     network::{CableConnectionType, Connection},
     vm::enums::script_enums::{
-        LogicBatchMethod as BatchMode, LogicReagentMode as ReagentMode,
-        LogicSlotType as SlotLogicType, LogicType,
+        LogicReagentMode as ReagentMode, LogicSlotType as SlotLogicType, LogicType,
     },
     vm::VM,
 };

@@ -3080,7 +3080,7 @@ impl std::str::FromStr for BasicEnum {
     type Err = crate::errors::ParseError;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let end = s.len();
-        match s {
+        match s.to_lowercase().as_str() {
             "aircon.cold" => Ok(Self::AirCon(AirConditioningMode::Cold)),
             "aircon.hot" => Ok(Self::AirCon(AirConditioningMode::Hot)),
             "aircontrol.draught" => Ok(Self::AirControl(AirControlMode::Draught)),

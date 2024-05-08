@@ -52,7 +52,6 @@ fn write_instructions_enum<T: std::io::Write>(
               Display, EnumIter, EnumProperty, EnumString, FromRepr,\n\
          }};\n
          use crate::vm::object::traits::Programmable;\n\
-         use crate::vm::instructions::traits::*;\n\
         "
     )?;
 

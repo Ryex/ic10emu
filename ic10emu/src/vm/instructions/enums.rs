@@ -12,7 +12,6 @@
 use serde::{Deserialize, Serialize};
 use strum::{Display, EnumIter, EnumProperty, EnumString, FromRepr};
 
-use crate::vm::instructions::traits::*;
 use crate::vm::object::traits::Programmable;
 #[derive(
     Debug,

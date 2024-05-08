@@ -182,7 +182,7 @@ fn write_enum_aggragate_mod<T: std::io::Write>(
             type Err = crate::errors::ParseError;\n    \
             fn from_str(s: &str) -> Result<Self, Self::Err> {{\n        \
                 let end = s.len();\n        \
-                match s {{\n            \
+                match s.to_lowercase().as_str() {{\n            \
                     {arms}\n            \
                     _ => Err(crate::errors::ParseError{{ line: 0, start: 0, end, msg: format!(\"Unknown enum '{{}}'\", s) }})\n        \
                 }}\n    \

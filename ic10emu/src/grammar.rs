@@ -1,21 +1,22 @@
-use crate::interpreter;
-use crate::tokens::{SplitConsecutiveIndicesExt, SplitConsecutiveWithIndices};
-use crate::vm::enums::script_enums::{
-    LogicBatchMethod, LogicReagentMode, LogicSlotType, LogicType,
-};
-use crate::vm::instructions::{
-    enums::InstructionOp,
-    operands::{Device, DeviceSpec, Identifier, Number, Operand, RegisterSpec},
-    Instruction, CONSTANTS_LOOKUP,
-};
 use crate::{
     errors::{ICError, ParseError},
-    vm::enums::basic_enums::BasicEnum,
+    interpreter,
+    tokens::{SplitConsecutiveIndicesExt, SplitConsecutiveWithIndices},
+    vm::{
+        enums::{
+            basic_enums::BasicEnum,
+            script_enums::{LogicBatchMethod, LogicReagentMode, LogicSlotType, LogicType},
+        },
+        instructions::{
+            enums::InstructionOp,
+            operands::{Device, DeviceSpec, Identifier, Number, Operand, RegisterSpec},
+            Instruction, CONSTANTS_LOOKUP,
+        },
+    },
 };
 use itertools::Itertools;
-use std::fmt::Display;
-use std::str::FromStr;
-use strum::{EnumProperty, IntoEnumIterator};
+use std::{fmt::Display, str::FromStr};
+use strum::IntoEnumIterator;
 
 impl TryFrom<f64> for LogicType {
     type Error = ICError;
@@ -1102,35 +1103,35 @@ mod tests {
             let value = lt.get_str("value");
             assert!(value.is_some());
             assert!(value.unwrap().parse::<u16>().is_ok());
-            assert_eq!(lt as u16, value.unwrap());
+            assert_eq!(lt as u16, value.unwrap().parse::<u16>().unwrap());
         }
         for slt in LogicSlotType::iter() {
             println!("testing SlotLogicType.{slt}");
             let value = slt.get_str("value");
             assert!(value.is_some());
             assert!(value.unwrap().parse::<u8>().is_ok());
-            assert_eq!(slt as u8, value.unwrap());
+            assert_eq!(slt as u8, value.unwrap().parse::<u8>().unwrap());
         }
         for bm in LogicReagentMode::iter() {
             println!("testing BatchMode.{bm}");
             let value = bm.get_str("value");
             assert!(value.is_some());
             assert!(value.unwrap().parse::<u8>().is_ok());
-            assert_eq!(bm as u8, value.unwrap());
+            assert_eq!(bm as u8, value.unwrap().parse::<u8>().unwrap());
         }
         for rm in LogicReagentMode::iter() {
             println!("testing ReagentMode.{rm}");
             let value = rm.get_str("value");
             assert!(value.is_some());
             assert!(value.unwrap().parse::<u8>().is_ok());
-            assert_eq!(rm as u8, value.unwrap());
+            assert_eq!(rm as u8, value.unwrap().parse::<u8>().unwrap());
         }
         for le in BasicEnum::iter() {
             println!("testing BasicEnum {le}");
             let value = le.get_str("value");
             assert!(value.is_some());
             assert!(value.unwrap().parse::<u32>().is_ok());
-            assert_eq!(le.get_value(), value.unwrap());
+            assert_eq!(le.get_value(), value.unwrap().parse::<u32>().unwrap());
         }
     }
 
