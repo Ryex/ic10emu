@@ -1,21 +1,30 @@
-use std::fmt::Debug;
+use crate::{
+    errors::ICError,
+    vm::{
+        enums::script_enums::{LogicSlotType, LogicType},
+        instructions::Instruction,
+        object::{
+            errors::{LogicError, MemoryError},
+            macros::tag_object_traits,
+            ObjectID, Slot,
+        },
+        VM,
+    },
+};
 
-use crate::{grammar, vm::{object::{errors::{LogicError, MemoryError}, macros::tag_object_traits, ObjectID, Slot}, VM}};
+use std::fmt::Debug;
 
 tag_object_traits! {
     #![object_trait(Object: Debug)]
 
-    pub trait Memory {
+    pub trait MemoryReadable {
         fn memory_size(&self) -> usize;
+        fn get_memory(&self, index: i32) -> Result<f64, MemoryError>;
     }
 
-    pub trait MemoryWritable: Memory {
+    pub trait MemoryWritable: MemoryReadable {
         fn set_memory(&mut self, index: i32, val: f64) -> Result<(), MemoryError>;
         fn clear_memory(&mut self) -> Result<(), MemoryError>;
-    }
-
-    pub trait MemoryReadable: Memory {
-        fn get_memory(&self, index: i32) -> Result<f64, MemoryError>;
     }
 
     pub trait Logicable {
@@ -24,16 +33,23 @@ tag_object_traits! {
         fn name_hash(&self) -> i32;
         fn is_logic_readable(&self) -> bool;
         fn is_logic_writeable(&self) -> bool;
-        fn can_logic_read(&self, lt: grammar::LogicType) -> bool;
-        fn can_logic_write(&self, lt: grammar::LogicType) -> bool;
-        fn set_logic(&mut self, lt: grammar::LogicType, value: f64, force: bool) -> Result<(), LogicError>;
-        fn get_logic(&self, lt: grammar::LogicType) -> Result<f64, LogicError>;
+        fn can_logic_read(&self, lt: LogicType) -> bool;
+        fn can_logic_write(&self, lt: LogicType) -> bool;
+        fn set_logic(&mut self, lt: LogicType, value: f64, force: bool) -> Result<(), LogicError>;
+        fn get_logic(&self, lt: LogicType) -> Result<f64, LogicError>;
 
         fn slots_count(&self) -> usize;
         fn get_slot(&self, index: usize) -> Option<&Slot>;
         fn get_slot_mut(&mut self, index: usize) -> Option<&mut Slot>;
-        fn can_slot_logic_read(&self, slt: grammar::SlotLogicType, index: usize) -> bool;
-        fn get_slot_logic(&self, slt: grammar::SlotLogicType, index: usize, vm: &VM) -> Result<f64, LogicError>;
+        fn can_slot_logic_read(&self, slt: LogicSlotType, index: usize) -> bool;
+        fn get_slot_logic(&self, slt: LogicSlotType, index: usize, vm: &VM) -> Result<f64, LogicError>;
+    }
+
+    pub trait SourceCode {
+        fn set_source_code(&mut self, code: &str) -> Result<(), ICError>;
+        fn set_source_code_with_invalid(&mut self, code: &str);
+        fn get_source_code(&self) -> String;
+        fn get_line(&self, line: usize) -> Result<&Instruction, ICError>;
     }
 
     pub trait CircuitHolder: Logicable {
@@ -49,17 +65,17 @@ tag_object_traits! {
         fn get_batch_mut(&self) -> Vec<LogicableRefMut<Self>>;
     }
 
-    pub trait SourceCode {
+    pub trait Programmable: crate::vm::instructions::traits::ICInstructable {
         fn get_source_code(&self) -> String;
         fn set_source_code(&self, code: String);
-
+        fn step(&mut self) -> Result<(), crate::errors::ICError>;
     }
 
-    pub trait Instructable: Memory {
+    pub trait Instructable: MemoryWritable {
         // fn get_instructions(&self) -> Vec<LogicInstruction>
     }
 
-    pub trait LogicStack: Memory {
+    pub trait LogicStack: MemoryWritable {
         // fn logic_stack(&self) -> LogicStack;
     }
 
@@ -67,10 +83,17 @@ tag_object_traits! {
 
     }
 
+
+
 }
 
 impl<T: Debug> Debug for dyn Object<ID = T> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "Object: (ID = {:?}, Type = {})", self.id(), self.type_name())
+        write!(
+            f,
+            "Object: (ID = {:?}, Type = {})",
+            self.id(),
+            self.type_name()
+        )
     }
 }

@@ -25,7 +25,8 @@ fn main() {
     ts_types.push_str(&lt_tstype);
 
     let slt_tsunion: String = Itertools::intersperse(
-        ic10emu::grammar::generated::SlotLogicType::iter().map(|slt| format!("\"{}\"", slt.as_ref())),
+        ic10emu::grammar::generated::SlotLogicType::iter()
+            .map(|slt| format!("\"{}\"", slt.as_ref())),
         "\n  | ".to_owned(),
     )
     .collect();

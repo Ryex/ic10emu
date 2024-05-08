@@ -1,14 +1,14 @@
 use macro_rules_attribute::derive;
 use serde::{Deserialize, Serialize};
 
-mod macros;
-mod traits;
-mod stationpedia;
-mod errors;
+pub mod errors;
+pub mod macros;
+pub mod stationpedia;
+pub mod traits;
 
 use traits::*;
 
-use crate::{device::SlotType, grammar::SlotLogicType};
+use crate::{device::SlotType, vm::enums::script_enums::LogicSlotType as SlotLogicType};
 
 pub type ObjectID = u32;
 pub type BoxedObject = Box<dyn Object<ID = ObjectID>>;
@@ -45,7 +45,6 @@ pub struct LogicField {
     pub field_type: FieldType,
     pub value: f64,
 }
-
 
 #[derive(Debug, Default, Clone, Serialize, Deserialize)]
 pub struct Slot {

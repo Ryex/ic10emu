@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use thiserror::Error;
 
-use crate::grammar::{LogicType, SlotLogicType};
+use crate::vm::enums::script_enums::{LogicSlotType as SlotLogicType, LogicType};
 
 #[derive(Error, Debug, Serialize, Deserialize)]
 pub enum LogicError {
@@ -14,7 +14,7 @@ pub enum LogicError {
     #[error("can't write slot {1} SlotLogicType {0}")]
     CantSlotWrite(SlotLogicType, usize),
     #[error("slot id {0} is out of range 0..{1}")]
-    SlotIndexOutOfRange(usize, usize)
+    SlotIndexOutOfRange(usize, usize),
 }
 
 #[derive(Error, Debug, Serialize, Deserialize)]

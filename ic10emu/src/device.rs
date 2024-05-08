@@ -1,7 +1,11 @@
 use crate::{
-    grammar::{LogicType, ReagentMode, SlotLogicType},
-    interpreter::{ICError, ICState},
+    errors::ICError,
+    interpreter::ICState,
     network::{CableConnectionType, Connection},
+    vm::enums::script_enums::{
+        LogicBatchMethod as BatchMode, LogicReagentMode as ReagentMode,
+        LogicSlotType as SlotLogicType, LogicType,
+    },
     vm::VM,
 };
 use std::{collections::BTreeMap, ops::Deref};

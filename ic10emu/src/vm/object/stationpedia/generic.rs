@@ -1,14 +1,12 @@
-use crate::{
-    grammar::{LogicType, SlotLogicType},
-    vm::{
-        object::{
-            errors::{LogicError, MemoryError},
-            macros::ObjectInterface,
-            traits::*,
-            FieldType, LogicField, Name, ObjectID, Slot,
-        },
-        VM,
+use crate::vm::{
+    enums::script_enums::{LogicSlotType as SlotLogicType, LogicType},
+    object::{
+        errors::{LogicError, MemoryError},
+        macros::ObjectInterface,
+        traits::*,
+        FieldType, LogicField, Name, ObjectID, Slot,
     },
+    VM,
 };
 use macro_rules_attribute::derive;
 use std::{collections::BTreeMap, usize};
@@ -47,25 +45,9 @@ macro_rules! GWLogicable {
         }
     };
 }
-pub trait GWMemory {
-    fn memory_size(&self) -> usize;
-}
-macro_rules! GWMemory {
-    (
-        $( #[$attr:meta] )*
-        $viz:vis struct $struct:ident {
-            $($body:tt)*
-        }
-    ) => {
-        impl GWMemory for $struct {
-            fn memory_size(&self) -> usize {
-                self.memory.len()
-            }
-        }
-    };
-}
 
-pub trait GWMemoryReadable: GWMemory {
+pub trait GWMemoryReadable {
+    fn memory_size(&self) -> usize;
     fn memory(&self) -> &Vec<f64>;
 }
 macro_rules! GWMemoryReadable {
@@ -76,13 +58,16 @@ macro_rules! GWMemoryReadable {
         }
     ) => {
         impl GWMemoryReadable for $struct {
+            fn memory_size(&self) -> usize {
+                self.memory.len()
+            }
             fn memory(&self) -> &Vec<f64> {
                 &self.memory
             }
         }
     };
 }
-pub trait GWMemoryWritable: GWMemory + GWMemoryReadable {
+pub trait GWMemoryWritable: GWMemoryReadable {
     fn memory_mut(&mut self) -> &mut Vec<f64>;
 }
 macro_rules! GWMemoryWritable {
@@ -202,12 +187,10 @@ impl<T: GWLogicable + Object> Logicable for T {
     }
 }
 
-impl<T: GWMemory + Object> Memory for T {
+impl<T: GWMemoryReadable + Object> MemoryReadable for T {
     fn memory_size(&self) -> usize {
         self.memory_size()
     }
-}
-impl<T: GWMemoryReadable + Memory + Object> MemoryReadable for T {
     fn get_memory(&self, index: i32) -> Result<f64, MemoryError> {
         if index < 0 {
             Err(MemoryError::StackUnderflow(index, self.memory().len()))
@@ -218,7 +201,7 @@ impl<T: GWMemoryReadable + Memory + Object> MemoryReadable for T {
         }
     }
 }
-impl<T: GWMemoryWritable + Memory + Object> MemoryWritable for T {
+impl<T: GWMemoryWritable + MemoryReadable + Object> MemoryWritable for T {
     fn set_memory(&mut self, index: i32, val: f64) -> Result<(), MemoryError> {
         if index < 0 {
             Err(MemoryError::StackUnderflow(index, self.memory().len()))
@@ -270,8 +253,8 @@ pub struct GenericLogicableDevice {
     slots: Vec<Slot>,
 }
 
-#[derive(ObjectInterface!, GWLogicable!, GWMemory!, GWMemoryReadable!)]
-#[custom(implements(Object { Logicable, Memory, MemoryReadable }))]
+#[derive(ObjectInterface!, GWLogicable!, GWMemoryReadable!)]
+#[custom(implements(Object { Logicable, MemoryReadable }))]
 pub struct GenericLogicableMemoryReadable {
     #[custom(object_id)]
     id: ObjectID,
@@ -283,8 +266,8 @@ pub struct GenericLogicableMemoryReadable {
     memory: Vec<f64>,
 }
 
-#[derive(ObjectInterface!, GWLogicable!, GWMemory!, GWMemoryReadable!, GWMemoryWritable!)]
-#[custom(implements(Object { Logicable, Memory, MemoryReadable, MemoryWritable }))]
+#[derive(ObjectInterface!, GWLogicable!, GWMemoryReadable!, GWMemoryWritable!)]
+#[custom(implements(Object { Logicable, MemoryReadable, MemoryWritable }))]
 pub struct GenericLogicableMemoryReadWritable {
     #[custom(object_id)]
     id: ObjectID,
@@ -296,8 +279,8 @@ pub struct GenericLogicableMemoryReadWritable {
     memory: Vec<f64>,
 }
 
-#[derive(ObjectInterface!, GWLogicable!, GWDevice!, GWMemory!, GWMemoryReadable!, GWMemoryWritable!)]
-#[custom(implements(Object { Logicable, Device, Memory, MemoryReadable }))]
+#[derive(ObjectInterface!, GWLogicable!, GWDevice!, GWMemoryReadable!, GWMemoryWritable!)]
+#[custom(implements(Object { Logicable, Device, MemoryReadable }))]
 pub struct GenericLogicableDeviceMemoryReadable {
     #[custom(object_id)]
     id: ObjectID,
@@ -309,8 +292,8 @@ pub struct GenericLogicableDeviceMemoryReadable {
     memory: Vec<f64>,
 }
 
-#[derive(ObjectInterface!, GWLogicable!, GWDevice!, GWMemory!, GWMemoryReadable!, GWMemoryWritable!)]
-#[custom(implements(Object { Logicable, Device, Memory, MemoryReadable, MemoryWritable }))]
+#[derive(ObjectInterface!, GWLogicable!, GWDevice!, GWMemoryReadable!, GWMemoryWritable!)]
+#[custom(implements(Object { Logicable, Device, MemoryReadable, MemoryWritable }))]
 pub struct GenericLogicableDeviceMemoryReadWriteablable {
     #[custom(object_id)]
     id: ObjectID,

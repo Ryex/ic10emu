@@ -131,7 +131,6 @@ pub enum NetworkError {
 }
 
 impl Network {
-
     pub fn new(id: u32) -> Self {
         Network {
             id,

@@ -18,141 +18,20 @@ use time::format_description;
 
 use crate::{
     device::SlotType,
-    grammar::{self, LogicType, ParseError, SlotLogicType},
-    vm::VM,
+    errors::{ICError, LineError, ParseError},
+    grammar,
+    vm::{
+        enums::script_enums::{LogicSlotType as SlotLogicType, LogicType},
+        instructions::{
+            enums::InstructionOp,
+            operands::{DeviceSpec, Operand, RegisterSpec},
+            Instruction,
+        },
+        VM,
+    },
 };
 
 use serde_with::serde_as;
-
-use thiserror::Error;
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct LineError {
-    error: ICError,
-    line: u32,
-}
-
-impl Display for LineError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "Error on line {}: {}", self.line, self.error)
-    }
-}
-
-impl Error for LineError {}
-
-#[derive(Debug, Error, Clone, Serialize, Deserialize)]
-pub enum ICError {
-    #[error("error compiling code: {0}")]
-    ParseError(#[from] ParseError),
-    #[error("duplicate label {0}")]
-    DuplicateLabel(String),
-    #[error("instruction pointer out of range: '{0}'")]
-    InstructionPointerOutOfRange(u32),
-    #[error("register pointer out of range: '{0}'")]
-    RegisterIndexOutOfRange(f64),
-    #[error("device pointer out of range: '{0}'")]
-    DeviceIndexOutOfRange(f64),
-    #[error("stack index out of range: '{0}'")]
-    StackIndexOutOfRange(f64),
-    #[error("slot index out of range: '{0}'")]
-    SlotIndexOutOfRange(f64),
-    #[error("pin index {0} out of range 0-6")]
-    PinIndexOutOfRange(usize),
-    #[error("connection index {0} out of range {1}")]
-    ConnectionIndexOutOfRange(usize, usize),
-    #[error("unknown device ID '{0}'")]
-    UnknownDeviceID(f64),
-    #[error("too few operands!: provide: '{provided}', desired: '{desired}'")]
-    TooFewOperands { provided: u32, desired: u32 },
-    #[error("too many operands!: provide: '{provided}', desired: '{desired}'")]
-    TooManyOperands { provided: u32, desired: u32 },
-    #[error("incorrect operand type for instruction `{inst}` operand {index}, not a {desired} ")]
-    IncorrectOperandType {
-        inst: grammar::InstructionOp,
-        index: u32,
-        desired: String,
-    },
-    #[error("unknown identifier {0}")]
-    UnknownIdentifier(String),
-    #[error("device Not Set")]
-    DeviceNotSet,
-    #[error("shift Underflow i64(signed long)")]
-    ShiftUnderflowI64,
-    #[error("shift Overflow i64(signed long)")]
-    ShiftOverflowI64,
-    #[error("shift underflow i32(signed int)")]
-    ShiftUnderflowI32,
-    #[error("shift overflow i32(signed int)")]
-    ShiftOverflowI32,
-    #[error("stack underflow")]
-    StackUnderflow,
-    #[error("stack overflow")]
-    StackOverflow,
-    #[error("duplicate define '{0}'")]
-    DuplicateDefine(String),
-    #[error("read only field '{0}'")]
-    ReadOnlyField(String),
-    #[error("write only field '{0}'")]
-    WriteOnlyField(String),
-    #[error("device has no field '{0}'")]
-    DeviceHasNoField(String),
-    #[error("device has not ic")]
-    DeviceHasNoIC,
-    #[error("unknown device '{0}'")]
-    UnknownDeviceId(f64),
-    #[error("unknown logic type '{0}'")]
-    UnknownLogicType(f64),
-    #[error("unknown slot logic type '{0}'")]
-    UnknownSlotLogicType(f64),
-    #[error("unknown batch mode '{0}'")]
-    UnknownBatchMode(f64),
-    #[error("unknown reagent mode '{0}'")]
-    UnknownReagentMode(f64),
-    #[error("type value not known")]
-    TypeValueNotKnown,
-    #[error("empty device list")]
-    EmptyDeviceList,
-    #[error("connection specifier missing")]
-    MissingConnectionSpecifier,
-    #[error("no data network on connection '{0}'")]
-    NotACableConnection(usize),
-    #[error("network not connected on connection '{0}'")]
-    NetworkNotConnected(usize),
-    #[error("bad network Id '{0}'")]
-    BadNetworkId(u32),
-    #[error("channel index out of range '{0}'")]
-    ChannelIndexOutOfRange(usize),
-    #[error("slot has no occupant")]
-    SlotNotOccupied,
-    #[error("generated Enum {0} has no value attached. Report this error.")]
-    NoGeneratedValue(String),
-    #[error("generated Enum {0}'s value does not parse as {1} . Report this error.")]
-    BadGeneratedValueParse(String, String),
-}
-
-impl ICError {
-    pub const fn too_few_operands(provided: usize, desired: u32) -> Self {
-        ICError::TooFewOperands {
-            provided: provided as u32,
-            desired,
-        }
-    }
-
-    pub const fn too_many_operands(provided: usize, desired: u32) -> Self {
-        ICError::TooManyOperands {
-            provided: provided as u32,
-            desired,
-        }
-    }
-
-    pub const fn mismatch_operands(provided: usize, desired: u32) -> Self {
-        if provided < desired as usize {
-            ICError::too_few_operands(provided, desired)
-        } else {
-            ICError::too_many_operands(provided, desired)
-        }
-    }
-}
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum ICState {
@@ -195,7 +74,7 @@ pub struct IC {
     /// Instruction Count since last yield
     pub ic: Cell<u16>,
     pub stack: RefCell<[f64; 512]>,
-    pub aliases: RefCell<BTreeMap<String, grammar::Operand>>,
+    pub aliases: RefCell<BTreeMap<String, Operand>>,
     pub defines: RefCell<BTreeMap<String, f64>>,
     pub pins: RefCell<[Option<u32>; 6]>,
     pub code: RefCell<String>,
@@ -215,7 +94,7 @@ pub struct FrozenIC {
     pub ic: u16,
     #[serde_as(as = "[_; 512]")]
     pub stack: [f64; 512],
-    pub aliases: BTreeMap<String, grammar::Operand>,
+    pub aliases: BTreeMap<String, Operand>,
     pub defines: BTreeMap<String, f64>,
     pub pins: [Option<u32>; 6],
     pub state: ICState,
@@ -264,7 +143,7 @@ impl From<FrozenIC> for IC {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Program {
-    pub instructions: Vec<grammar::Instruction>,
+    pub instructions: Vec<Instruction>,
     pub errors: Vec<ICError>,
     pub labels: BTreeMap<String, u32>,
 }
@@ -293,8 +172,8 @@ impl Program {
             .into_iter()
             .enumerate()
             .map(|(line_number, line)| match line.code {
-                None => Ok(grammar::Instruction {
-                    instruction: grammar::InstructionOp::Nop,
+                None => Ok(Instruction {
+                    instruction: InstructionOp::Nop,
                     operands: vec![],
                 }),
                 Some(code) => match code {
@@ -304,8 +183,8 @@ impl Program {
                         } else {
                             labels_set.insert(label.id.name.clone());
                             labels.insert(label.id.name, line_number as u32);
-                            Ok(grammar::Instruction {
-                                instruction: grammar::InstructionOp::Nop,
+                            Ok(Instruction {
+                                instruction: InstructionOp::Nop,
                                 operands: vec![],
                             })
                         }
@@ -331,8 +210,8 @@ impl Program {
             .into_iter()
             .enumerate()
             .map(|(line_number, line)| match line.code {
-                None => grammar::Instruction {
-                    instruction: grammar::InstructionOp::Nop,
+                None => Instruction {
+                    instruction: InstructionOp::Nop,
                     operands: vec![],
                 },
                 Some(code) => match code {
@@ -343,16 +222,16 @@ impl Program {
                             labels_set.insert(label.id.name.clone());
                             labels.insert(label.id.name, line_number as u32);
                         }
-                        grammar::Instruction {
-                            instruction: grammar::InstructionOp::Nop,
+                        Instruction {
+                            instruction: InstructionOp::Nop,
                             operands: vec![],
                         }
                     }
                     grammar::Code::Instruction(instruction) => instruction,
                     grammar::Code::Invalid(err) => {
                         errors.push(err.into());
-                        grammar::Instruction {
-                            instruction: grammar::InstructionOp::Nop,
+                        Instruction {
+                            instruction: InstructionOp::Nop,
                             operands: vec![],
                         }
                     }
@@ -366,7 +245,7 @@ impl Program {
         }
     }
 
-    pub fn get_line(&self, line: u32) -> Result<&grammar::Instruction, ICError> {
+    pub fn get_line(&self, line: u32) -> Result<&Instruction, ICError> {
         self.instructions
             .get(line as usize)
             .ok_or(ICError::InstructionPointerOutOfRange(line))
@@ -560,14 +439,13 @@ impl IC {
     }
 
     fn internal_step(&self, vm: &VM, advance_ip_on_err: bool) -> Result<(), ICError> {
-        use grammar::*;
         use ICError::*;
 
         let mut next_ip = self.ip() + 1;
         // XXX: This closure should be replaced with a try block
         // https://github.com/rust-lang/rust/issues/31436
         let mut process_op = |this: &Self| -> Result<(), ICError> {
-            use grammar::InstructionOp::*;
+            use InstructionOp::*;
 
             // force the program borrow to drop
             let line = {
@@ -578,7 +456,9 @@ impl IC {
             let inst = line.instruction;
             match inst {
                 Nop => Ok(()),
-                Hcf => Ok(()), // TODO
+                Hcf => Ok(()),   // TODO
+                Clr => Ok(()),   // TODO
+                Label => Ok(()), // NOP
                 Sleep => match &operands[..] {
                     [a] => {
                         let a = a.as_value(this, inst, 1)?;
@@ -2577,31 +2457,31 @@ impl IC {
 }
 
 #[allow(dead_code)]
-const CHANNEL_LOGIC_TYPES: [grammar::LogicType; 8] = [
-    grammar::LogicType::Channel0,
-    grammar::LogicType::Channel1,
-    grammar::LogicType::Channel2,
-    grammar::LogicType::Channel3,
-    grammar::LogicType::Channel4,
-    grammar::LogicType::Channel5,
-    grammar::LogicType::Channel6,
-    grammar::LogicType::Channel7,
+const CHANNEL_LOGIC_TYPES: [LogicType; 8] = [
+    LogicType::Channel0,
+    LogicType::Channel1,
+    LogicType::Channel2,
+    LogicType::Channel3,
+    LogicType::Channel4,
+    LogicType::Channel5,
+    LogicType::Channel6,
+    LogicType::Channel7,
 ];
 
 trait LogicTypeExt {
     fn as_channel(&self) -> Option<usize>;
 }
-impl LogicTypeExt for grammar::LogicType {
+impl LogicTypeExt for LogicType {
     fn as_channel(&self) -> Option<usize> {
         match self {
-            grammar::LogicType::Channel0 => Some(0),
-            grammar::LogicType::Channel1 => Some(1),
-            grammar::LogicType::Channel2 => Some(2),
-            grammar::LogicType::Channel3 => Some(3),
-            grammar::LogicType::Channel4 => Some(4),
-            grammar::LogicType::Channel5 => Some(5),
-            grammar::LogicType::Channel6 => Some(6),
-            grammar::LogicType::Channel7 => Some(7),
+            LogicType::Channel0 => Some(0),
+            LogicType::Channel1 => Some(1),
+            LogicType::Channel2 => Some(2),
+            LogicType::Channel3 => Some(3),
+            LogicType::Channel4 => Some(4),
+            LogicType::Channel5 => Some(5),
+            LogicType::Channel6 => Some(6),
+            LogicType::Channel7 => Some(7),
             _ => None,
         }
     }

@@ -1,12 +1,15 @@
-
-
-mod object;
+pub mod enums;
+pub mod instructions;
+pub mod object;
 
 use crate::{
     device::{Device, DeviceTemplate, SlotOccupant, SlotOccupantTemplate},
-    grammar::{BatchMode, LogicType, SlotLogicType},
-    interpreter::{self, FrozenIC, ICError, LineError},
+    errors::{ICError, VMError},
+    interpreter::{self, FrozenIC},
     network::{CableConnectionType, Connection, FrozenNetwork, Network},
+    vm::enums::script_enums::{
+        LogicBatchMethod as BatchMode, LogicSlotType as SlotLogicType, LogicType,
+    },
 };
 use std::{
     cell::RefCell,
@@ -16,31 +19,6 @@ use std::{
 
 use itertools::Itertools;
 use serde::{Deserialize, Serialize};
-use thiserror::Error;
-
-#[derive(Error, Debug, Serialize, Deserialize)]
-pub enum VMError {
-    #[error("device with id '{0}' does not exist")]
-    UnknownId(u32),
-    #[error("ic with id '{0}' does not exist")]
-    UnknownIcId(u32),
-    #[error("device with id '{0}' does not have a ic slot")]
-    NoIC(u32),
-    #[error("ic encountered an error: {0}")]
-    ICError(#[from] ICError),
-    #[error("ic encountered an error: {0}")]
-    LineError(#[from] LineError),
-    #[error("invalid network id {0}")]
-    InvalidNetwork(u32),
-    #[error("device {0} not visible to device {1} (not on the same networks)")]
-    DeviceNotVisible(u32, u32),
-    #[error("a device with id {0} already exists")]
-    IdInUse(u32),
-    #[error("device(s) with ids {0:?} already exist")]
-    IdsInUse(Vec<u32>),
-    #[error("atempt to use a set of id's with duplicates: id(s) {0:?} exsist more than once")]
-    DuplicateIds(Vec<u32>),
-}
 
 #[derive(Debug)]
 pub struct VM {

@@ -1,138 +1,62 @@
-use crate::interpreter::{self, ICError};
+use crate::interpreter;
 use crate::tokens::{SplitConsecutiveIndicesExt, SplitConsecutiveWithIndices};
+use crate::vm::enums::script_enums::{
+    LogicBatchMethod, LogicReagentMode, LogicSlotType, LogicType,
+};
+use crate::vm::instructions::{
+    enums::InstructionOp,
+    operands::{Device, DeviceSpec, Identifier, Number, Operand, RegisterSpec},
+    Instruction, CONSTANTS_LOOKUP,
+};
+use crate::{
+    errors::{ICError, ParseError},
+    vm::enums::basic_enums::BasicEnum,
+};
 use itertools::Itertools;
-use std::error::Error;
 use std::fmt::Display;
 use std::str::FromStr;
-use strum::EnumProperty;
+use strum::{EnumProperty, IntoEnumIterator};
 
-pub mod generated {
-    use super::ParseError;
-    use crate::interpreter::ICError;
-    use serde::{Deserialize, Serialize};
-    use std::str::FromStr;
-    use strum::{
-        AsRefStr, Display, EnumIter, EnumProperty, EnumString, FromRepr, IntoEnumIterator,
-    };
-
-    include!(concat!(env!("OUT_DIR"), "/instructions.rs"));
-    include!(concat!(env!("OUT_DIR"), "/logictypes.rs"));
-    include!(concat!(env!("OUT_DIR"), "/modes.rs"));
-    include!(concat!(env!("OUT_DIR"), "/constants.rs"));
-    include!(concat!(env!("OUT_DIR"), "/enums.rs"));
-
-    impl TryFrom<f64> for LogicType {
-        type Error = ICError;
-        fn try_from(value: f64) -> Result<Self, <LogicType as TryFrom<f64>>::Error> {
-            if let Some(lt) = LogicType::iter().find(|lt| {
-                lt.get_str("value")
-                    .map(|val| val.parse::<u16>().unwrap() as f64 == value)
-                    .unwrap_or(false)
-            }) {
-                Ok(lt)
-            } else {
-                Err(crate::interpreter::ICError::UnknownLogicType(value))
-            }
-        }
-    }
-
-    impl TryFrom<f64> for SlotLogicType {
-        type Error = ICError;
-        fn try_from(value: f64) -> Result<Self, <SlotLogicType as TryFrom<f64>>::Error> {
-            if let Some(slt) = SlotLogicType::iter().find(|lt| {
-                lt.get_str("value")
-                    .map(|val| val.parse::<u8>().unwrap() as f64 == value)
-                    .unwrap_or(false)
-            }) {
-                Ok(slt)
-            } else {
-                Err(crate::interpreter::ICError::UnknownSlotLogicType(value))
-            }
-        }
-    }
-
-    impl TryFrom<f64> for BatchMode {
-        type Error = ICError;
-        fn try_from(value: f64) -> Result<Self, <BatchMode as TryFrom<f64>>::Error> {
-            if let Some(bm) = BatchMode::iter().find(|lt| {
-                lt.get_str("value")
-                    .map(|val| val.parse::<u8>().unwrap() as f64 == value)
-                    .unwrap_or(false)
-            }) {
-                Ok(bm)
-            } else {
-                Err(crate::interpreter::ICError::UnknownBatchMode(value))
-            }
-        }
-    }
-
-    impl TryFrom<f64> for ReagentMode {
-        type Error = ICError;
-        fn try_from(value: f64) -> Result<Self, <ReagentMode as TryFrom<f64>>::Error> {
-            if let Some(rm) = ReagentMode::iter().find(|lt| {
-                lt.get_str("value")
-                    .map(|val| val.parse::<u8>().unwrap() as f64 == value)
-                    .unwrap_or(false)
-            }) {
-                Ok(rm)
-            } else {
-                Err(crate::interpreter::ICError::UnknownReagentMode(value))
-            }
+impl TryFrom<f64> for LogicType {
+    type Error = ICError;
+    fn try_from(value: f64) -> Result<Self, <LogicType as TryFrom<f64>>::Error> {
+        if let Some(lt) = LogicType::iter().find(|lt| *lt as u16 as f64 == value) {
+            Ok(lt)
+        } else {
+            Err(ICError::UnknownLogicType(value))
         }
     }
 }
 
-pub use generated::*;
-use serde::{Deserialize, Serialize};
-
-#[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
-pub struct ParseError {
-    pub line: usize,
-    pub start: usize,
-    pub end: usize,
-    pub msg: String,
-}
-
-impl Display for ParseError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "{} at line {} {}:{}",
-            self.msg, self.line, self.start, self.end
-        )
+impl TryFrom<f64> for LogicSlotType {
+    type Error = ICError;
+    fn try_from(value: f64) -> Result<Self, <LogicSlotType as TryFrom<f64>>::Error> {
+        if let Some(slt) = LogicSlotType::iter().find(|lt| *lt as u8 as f64 == value) {
+            Ok(slt)
+        } else {
+            Err(ICError::UnknownSlotLogicType(value))
+        }
     }
 }
 
-impl Error for ParseError {}
-
-impl ParseError {
-    /// Offset the ParseError in it's line, adding the passed values to it's `start` and `end`
-    #[must_use]
-    pub fn offset(self, offset: usize) -> Self {
-        ParseError {
-            start: self.start + offset,
-            end: self.end + offset,
-            ..self
+impl TryFrom<f64> for LogicBatchMethod {
+    type Error = ICError;
+    fn try_from(value: f64) -> Result<Self, <LogicBatchMethod as TryFrom<f64>>::Error> {
+        if let Some(bm) = LogicBatchMethod::iter().find(|lt| *lt as u8 as f64 == value) {
+            Ok(bm)
+        } else {
+            Err(ICError::UnknownBatchMode(value))
         }
     }
+}
 
-    /// Offset the ParseError line, adding the passed value to it's `line`
-    #[must_use]
-    pub fn offset_line(self, offset: usize) -> Self {
-        ParseError {
-            line: self.line + offset,
-            start: self.start,
-            ..self
-        }
-    }
-
-    /// Mark the parse error as extending 'length' bytes from `start`
-    #[must_use]
-    pub fn span(self, length: usize) -> Self {
-        ParseError {
-            start: self.start,
-            end: self.start + length,
-            ..self
+impl TryFrom<f64> for LogicReagentMode {
+    type Error = ICError;
+    fn try_from(value: f64) -> Result<Self, <LogicReagentMode as TryFrom<f64>>::Error> {
+        if let Some(rm) = LogicReagentMode::iter().find(|lt| *lt as u8 as f64 == value) {
+            Ok(rm)
+        } else {
+            Err(ICError::UnknownReagentMode(value))
         }
     }
 }
@@ -246,12 +170,6 @@ impl FromStr for Comment {
     }
 }
 
-#[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
-pub struct Instruction {
-    pub instruction: InstructionOp,
-    pub operands: Vec<Operand>,
-}
-
 impl FromStr for Instruction {
     type Err = ParseError;
     /// parse a non-empty string for  an instruction and it's operands
@@ -259,9 +177,16 @@ impl FromStr for Instruction {
         let mut tokens_iter = s.split_consecutive_with_indices(&[' ', '\t'][..]);
         let instruction: InstructionOp = {
             if let Some((index, token)) = tokens_iter.next() {
-                token
-                    .parse::<InstructionOp>()
-                    .map_err(|e| e.offset(index).span(token.len()))
+                token.parse::<InstructionOp>().map_err(|_e| {
+                    ParseError {
+                        line: 0,
+                        start: 0,
+                        end: 0,
+                        msg: format!("unknown instruction '{token}'"),
+                    }
+                    .offset(index)
+                    .span(token.len())
+                })
             } else {
                 Err(ParseError {
                     line: 0,
@@ -318,290 +243,6 @@ fn get_operand_tokens<'a>(
         }
     }
     operand_tokens
-}
-
-#[derive(PartialEq, Eq, Debug, Clone, Copy, Serialize, Deserialize)]
-pub enum Device {
-    Db,
-    Numbered(u32),
-    Indirect { indirection: u32, target: u32 },
-}
-
-#[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
-pub struct RegisterSpec {
-    pub indirection: u32,
-    pub target: u32,
-}
-
-#[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
-pub struct DeviceSpec {
-    pub device: Device,
-    pub connection: Option<usize>,
-}
-
-#[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
-pub enum Operand {
-    RegisterSpec(RegisterSpec),
-    DeviceSpec(DeviceSpec),
-    Number(Number),
-    Type {
-        logic_type: Option<LogicType>,
-        slot_logic_type: Option<SlotLogicType>,
-        batch_mode: Option<BatchMode>,
-        reagent_mode: Option<ReagentMode>,
-        identifier: Identifier,
-    },
-    Identifier(Identifier),
-}
-
-impl Operand {
-    pub fn as_value(
-        &self,
-        ic: &interpreter::IC,
-        inst: InstructionOp,
-        index: u32,
-    ) -> Result<f64, interpreter::ICError> {
-        match self.translate_alias(ic) {
-            Operand::RegisterSpec(RegisterSpec {
-                indirection,
-                target,
-            }) => ic.get_register(indirection, target),
-            Operand::Number(num) => Ok(num.value()),
-            Operand::Type {
-                logic_type,
-                slot_logic_type,
-                batch_mode,
-                reagent_mode,
-                identifier: _,
-            } => {
-                if let Some(lt) = logic_type {
-                    Ok(lt
-                        .get_str("value")
-                        .ok_or_else(|| ICError::NoGeneratedValue(lt.to_string()))?
-                        .parse::<u16>()
-                        .map_err(|_| {
-                            ICError::BadGeneratedValueParse(lt.to_string(), "u16".to_owned())
-                        })? as f64)
-                } else if let Some(slt) = slot_logic_type {
-                    Ok(slt
-                        .get_str("value")
-                        .ok_or_else(|| ICError::NoGeneratedValue(slt.to_string()))?
-                        .parse::<u8>()
-                        .map_err(|_| {
-                            ICError::BadGeneratedValueParse(slt.to_string(), "u8".to_owned())
-                        })? as f64)
-                } else if let Some(bm) = batch_mode {
-                    Ok(bm
-                        .get_str("value")
-                        .ok_or_else(|| ICError::NoGeneratedValue(bm.to_string()))?
-                        .parse::<u8>()
-                        .map_err(|_| {
-                            ICError::BadGeneratedValueParse(bm.to_string(), "u8".to_owned())
-                        })? as f64)
-                } else if let Some(rm) = reagent_mode {
-                    Ok(rm
-                        .get_str("value")
-                        .ok_or_else(|| ICError::NoGeneratedValue(rm.to_string()))?
-                        .parse::<u8>()
-                        .map_err(|_| {
-                            ICError::BadGeneratedValueParse(rm.to_string(), "u8".to_owned())
-                        })? as f64)
-                } else {
-                    Err(interpreter::ICError::TypeValueNotKnown)
-                }
-            }
-            Operand::Identifier(id) => {
-                Err(interpreter::ICError::UnknownIdentifier(id.name.to_string()))
-            }
-            Operand::DeviceSpec { .. } => Err(interpreter::ICError::IncorrectOperandType {
-                inst,
-                index,
-                desired: "Value".to_owned(),
-            }),
-        }
-    }
-
-    pub fn as_value_i64(
-        &self,
-        ic: &interpreter::IC,
-        signed: bool,
-        inst: InstructionOp,
-        index: u32,
-    ) -> Result<i64, interpreter::ICError> {
-        match self {
-            Self::Number(num) => Ok(num.value_i64(signed)),
-            _ => {
-                let val = self.as_value(ic, inst, index)?;
-                if val < -9.223_372_036_854_776E18 {
-                    Err(interpreter::ICError::ShiftUnderflowI64)
-                } else if val <= 9.223_372_036_854_776E18 {
-                    Ok(interpreter::f64_to_i64(val, signed))
-                } else {
-                    Err(interpreter::ICError::ShiftOverflowI64)
-                }
-            }
-        }
-    }
-    pub fn as_value_i32(
-        &self,
-        ic: &interpreter::IC,
-        signed: bool,
-        inst: InstructionOp,
-        index: u32,
-    ) -> Result<i32, interpreter::ICError> {
-        match self {
-            Self::Number(num) => Ok(num.value_i64(signed) as i32),
-            _ => {
-                let val = self.as_value(ic, inst, index)?;
-                if val < -2147483648.0 {
-                    Err(interpreter::ICError::ShiftUnderflowI32)
-                } else if val <= 2147483647.0 {
-                    Ok(val as i32)
-                } else {
-                    Err(interpreter::ICError::ShiftOverflowI32)
-                }
-            }
-        }
-    }
-
-    pub fn as_register(
-        &self,
-        ic: &interpreter::IC,
-        inst: InstructionOp,
-        index: u32,
-    ) -> Result<RegisterSpec, interpreter::ICError> {
-        match self.translate_alias(ic) {
-            Operand::RegisterSpec(reg) => Ok(reg),
-            Operand::Identifier(id) => {
-                Err(interpreter::ICError::UnknownIdentifier(id.name.to_string()))
-            }
-            _ => Err(interpreter::ICError::IncorrectOperandType {
-                inst,
-                index,
-                desired: "Register".to_owned(),
-            }),
-        }
-    }
-
-    pub fn as_device(
-        &self,
-        ic: &interpreter::IC,
-        inst: InstructionOp,
-        index: u32,
-    ) -> Result<(Option<u32>, Option<usize>), interpreter::ICError> {
-        match self.translate_alias(ic) {
-            Operand::DeviceSpec(DeviceSpec { device, connection }) => match device {
-                Device::Db => Ok((Some(ic.device), connection)),
-                Device::Numbered(p) => {
-                    let dp = ic
-                        .pins
-                        .borrow()
-                        .get(p as usize)
-                        .ok_or(interpreter::ICError::DeviceIndexOutOfRange(p as f64))
-                        .copied()?;
-                    Ok((dp, connection))
-                }
-                Device::Indirect {
-                    indirection,
-                    target,
-                } => {
-                    let val = ic.get_register(indirection, target)?;
-                    let dp = ic
-                        .pins
-                        .borrow()
-                        .get(val as usize)
-                        .ok_or(interpreter::ICError::DeviceIndexOutOfRange(val))
-                        .copied()?;
-                    Ok((dp, connection))
-                }
-            },
-            Operand::Identifier(id) => {
-                Err(interpreter::ICError::UnknownIdentifier(id.name.to_string()))
-            }
-            _ => Err(interpreter::ICError::IncorrectOperandType {
-                inst,
-                index,
-                desired: "Value".to_owned(),
-            }),
-        }
-    }
-
-    pub fn as_logic_type(
-        &self,
-        ic: &interpreter::IC,
-        inst: InstructionOp,
-        index: u32,
-    ) -> Result<LogicType, ICError> {
-        match &self {
-            Operand::Type {
-                logic_type: Some(lt),
-                ..
-            } => Ok(*lt),
-            _ => LogicType::try_from(self.as_value(ic, inst, index)?),
-        }
-    }
-
-    pub fn as_slot_logic_type(
-        &self,
-        ic: &interpreter::IC,
-        inst: InstructionOp,
-        index: u32,
-    ) -> Result<SlotLogicType, ICError> {
-        match &self {
-            Operand::Type {
-                slot_logic_type: Some(slt),
-                ..
-            } => Ok(*slt),
-            _ => SlotLogicType::try_from(self.as_value(ic, inst, index)?),
-        }
-    }
-
-    pub fn as_batch_mode(
-        &self,
-        ic: &interpreter::IC,
-        inst: InstructionOp,
-        index: u32,
-    ) -> Result<BatchMode, ICError> {
-        match &self {
-            Operand::Type {
-                batch_mode: Some(bm),
-                ..
-            } => Ok(*bm),
-            _ => BatchMode::try_from(self.as_value(ic, inst, index)?),
-        }
-    }
-
-    pub fn as_reagent_mode(
-        &self,
-        ic: &interpreter::IC,
-        inst: InstructionOp,
-        index: u32,
-    ) -> Result<ReagentMode, ICError> {
-        match &self {
-            Operand::Type {
-                reagent_mode: Some(rm),
-                ..
-            } => Ok(*rm),
-            _ => ReagentMode::try_from(self.as_value(ic, inst, index)?),
-        }
-    }
-
-    pub fn translate_alias(&self, ic: &interpreter::IC) -> Self {
-        match &self {
-            Operand::Identifier(id) | Operand::Type { identifier: id, .. } => {
-                if let Some(alias) = ic.aliases.borrow().get(&id.name) {
-                    alias.clone()
-                } else if let Some(define) = ic.defines.borrow().get(&id.name) {
-                    Operand::Number(Number::Float(*define))
-                } else if let Some(label) = ic.program.borrow().labels.get(&id.name) {
-                    Operand::Number(Number::Float(*label as f64))
-                } else {
-                    self.clone()
-                }
-            }
-            _ => self.clone(),
-        }
-    }
 }
 
 impl FromStr for Operand {
@@ -874,15 +515,13 @@ impl FromStr for Operand {
                     }
                 } else if let Some(val) = CONSTANTS_LOOKUP.get(s) {
                     Ok(Operand::Number(Number::Constant(*val)))
-                } else if let Ok(val) = LogicEnums::from_str(s) {
-                    Ok(Operand::Number(Number::Enum(
-                        val.get_str("value").unwrap().parse().unwrap(),
-                    )))
+                } else if let Ok(val) = BasicEnum::from_str(s) {
+                    Ok(Operand::Number(Number::Enum(val.get_value() as f64)))
                 } else {
                     let lt = LogicType::from_str(s).ok();
-                    let slt = SlotLogicType::from_str(s).ok();
-                    let bm = BatchMode::from_str(s).ok();
-                    let rm = ReagentMode::from_str(s).ok();
+                    let slt = LogicSlotType::from_str(s).ok();
+                    let bm = LogicBatchMethod::from_str(s).ok();
+                    let rm = LogicReagentMode::from_str(s).ok();
                     let identifier = Identifier::from_str(s)?;
                     if lt.is_some() || slt.is_some() || bm.is_some() || rm.is_some() {
                         Ok(Operand::Type {
@@ -1007,11 +646,6 @@ impl FromStr for Label {
     }
 }
 
-#[derive(PartialEq, Eq, Debug, Clone, Serialize, Deserialize)]
-pub struct Identifier {
-    pub name: String,
-}
-
 impl FromStr for Identifier {
     type Err = ParseError;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
@@ -1055,16 +689,6 @@ impl Display for Identifier {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         Display::fmt(&self.name, f)
     }
-}
-
-#[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
-pub enum Number {
-    Float(f64),
-    Binary(i64),
-    Hexadecimal(i64),
-    Constant(f64),
-    String(String),
-    Enum(f64),
 }
 
 impl Number {
@@ -1249,7 +873,7 @@ mod tests {
                             }),
                             Operand::Type {
                                 logic_type: Some(LogicType::On),
-                                slot_logic_type: Some(SlotLogicType::On),
+                                slot_logic_type: Some(LogicSlotType::On),
                                 batch_mode: None,
                                 reagent_mode: None,
                                 identifier: Identifier {
@@ -1458,9 +1082,9 @@ mod tests {
         test_roundtrip("1.2345");
         test_roundtrip("-1.2345");
         test_roundtrip(LogicType::Pressure.as_ref());
-        test_roundtrip(SlotLogicType::Occupied.as_ref());
-        test_roundtrip(BatchMode::Average.as_ref());
-        test_roundtrip(ReagentMode::Recipe.as_ref());
+        test_roundtrip(LogicSlotType::Occupied.as_ref());
+        test_roundtrip(LogicBatchMethod::Average.as_ref());
+        test_roundtrip(LogicReagentMode::Recipe.as_ref());
         test_roundtrip("pi");
         test_roundtrip("pinf");
         test_roundtrip("ninf");
@@ -1478,30 +1102,35 @@ mod tests {
             let value = lt.get_str("value");
             assert!(value.is_some());
             assert!(value.unwrap().parse::<u16>().is_ok());
+            assert_eq!(lt as u16, value.unwrap());
         }
-        for slt in SlotLogicType::iter() {
+        for slt in LogicSlotType::iter() {
             println!("testing SlotLogicType.{slt}");
             let value = slt.get_str("value");
             assert!(value.is_some());
             assert!(value.unwrap().parse::<u8>().is_ok());
+            assert_eq!(slt as u8, value.unwrap());
         }
-        for bm in BatchMode::iter() {
+        for bm in LogicReagentMode::iter() {
             println!("testing BatchMode.{bm}");
             let value = bm.get_str("value");
             assert!(value.is_some());
             assert!(value.unwrap().parse::<u8>().is_ok());
+            assert_eq!(bm as u8, value.unwrap());
         }
-        for rm in ReagentMode::iter() {
+        for rm in LogicReagentMode::iter() {
             println!("testing ReagentMode.{rm}");
             let value = rm.get_str("value");
             assert!(value.is_some());
             assert!(value.unwrap().parse::<u8>().is_ok());
+            assert_eq!(rm as u8, value.unwrap());
         }
-        for le in LogicEnums::iter() {
-            println!("testing Enum.{le}");
+        for le in BasicEnum::iter() {
+            println!("testing BasicEnum {le}");
             let value = le.get_str("value");
             assert!(value.is_some());
             assert!(value.unwrap().parse::<u32>().is_ok());
+            assert_eq!(le.get_value(), value.unwrap());
         }
     }
 

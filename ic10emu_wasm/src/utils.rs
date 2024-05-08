@@ -10,9 +10,7 @@ pub fn set_panic_hook() {
         console_error_panic_hook::set_once();
         web_sys::console::log_1(&format!("Panic hook set...").into());
     }
-    
 }
-
 
 extern crate web_sys;
 

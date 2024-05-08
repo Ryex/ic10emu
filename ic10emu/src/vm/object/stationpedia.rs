@@ -1,11 +1,7 @@
 use std::str::FromStr;
 
-use serde::{Deserialize, Serialize};
-use strum::{AsRefStr, Display, EnumIter, EnumProperty, EnumString, FromRepr};
-
+use crate::vm::enums::prefabs::StationpediaPrefab;
 use crate::vm::object::BoxedObject;
-
-include!(concat!(env!("OUT_DIR"), "/stationpedia_prefabs.rs"));
 
 #[allow(unused)]
 pub enum PrefabTemplate {
@@ -27,4 +23,4 @@ pub fn object_from_prefab_template(template: &PrefabTemplate) -> Option<BoxedObj
     }
 }
 
-mod generic;
+pub mod generic;
