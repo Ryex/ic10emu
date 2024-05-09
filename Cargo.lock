@@ -672,6 +672,7 @@ dependencies = [
 name = "ic10emu"
 version = "0.2.3"
 dependencies = [
+ "color-eyre",
  "const-crc32",
  "getrandom",
  "itertools",

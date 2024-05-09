@@ -714,10 +714,22 @@ impl Number {
 
 #[cfg(test)]
 mod tests {
+    use color_eyre::eyre::Ok;
+    use strum::EnumProperty;
+
     use super::*;
 
+    static INIT: std::sync::Once = std::sync::Once::new();
+
+    fn setup()  {
+        INIT.call_once(|| {
+            let _ = color_eyre::install();
+        })
+    }
+
     #[test]
-    fn parse_register() {
+    fn parse_register() -> color_eyre::Result<()> {
+        setup();
         let op = "requestingot".parse::<Operand>();
         assert_eq!(
             op.unwrap(),
@@ -725,10 +737,12 @@ mod tests {
                 name: "requestingot".to_owned()
             })
         );
+        Ok(())
     }
 
     #[test]
-    fn successful_parse() {
+    fn successful_parse() -> color_eyre::Result<()> {
+        setup();
         let parsed = parse("s d0 Setting 0 # This is a comment\n");
         dbg!(&parsed);
         assert_eq!(
@@ -776,10 +790,12 @@ mod tests {
                 comment: None,
             },],
         );
+        Ok(())
     }
 
     #[test]
-    fn parse_code_chunk() {
+    fn parse_code_chunk() -> color_eyre::Result<()> {
+        setup();
         let code = "# This is a comment\n\
         define a_def 10\n\
         define a_hash HASH(\"This is a String\")\n\
@@ -1049,15 +1065,19 @@ mod tests {
                 },
             ],
         );
+        Ok(())
     }
 
     #[test]
-    fn test_operand_display() {
+    fn test_operand_display() -> color_eyre::Result<()> {
+        setup();
+
         #[track_caller]
         fn test_roundtrip(s: &str) {
             let o: Operand = s.parse().expect("test string should parse with FromStr");
             assert_eq!(o.to_string(), s);
         }
+
         test_roundtrip("r0");
         test_roundtrip("r15");
         test_roundtrip("rr4");
@@ -1093,10 +1113,12 @@ mod tests {
         test_roundtrip(r#"HASH("StructureFurnace")"#);
         test_roundtrip("$abcd");
         test_roundtrip("%1001");
+        Ok(())
     }
 
     #[test]
-    fn all_generated_enums_have_value() {
+    fn all_generated_enums_have_value() -> color_eyre::Result<()> {
+        setup();
         use strum::IntoEnumIterator;
         for lt in LogicType::iter() {
             println!("testing LogicType.{lt}");
@@ -1133,13 +1155,16 @@ mod tests {
             assert!(value.unwrap().parse::<u32>().is_ok());
             assert_eq!(le.get_value(), value.unwrap().parse::<u32>().unwrap());
         }
+        Ok(())
     }
 
     #[test]
-    fn bad_parse_does_not_panic() {
+    fn bad_parse_does_not_panic() -> color_eyre::Result<()> {
+        setup();
         let code = "move foo -";
         let parsed = parse(code);
         assert!(parsed.is_err());
         println!("{}", parsed.unwrap_err());
+        Ok(())
     }
 }

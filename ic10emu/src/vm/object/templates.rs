@@ -245,3 +245,42 @@ pub struct ItemLogicMemoryTemplate {
     pub slots: Vec<SlotInfo>,
     pub memory: MemoryInfo,
 }
+
+#[cfg(test)]
+mod tests {
+
+    use serde_derive::Deserialize;
+    use serde_json;
+    use std::collections::BTreeMap;
+    use std::fs::File;
+    use std::io::BufReader;
+    use std::path::PathBuf;
+
+    use super::ObjectTemplate;
+
+    static INIT: std::sync::Once = std::sync::Once::new();
+
+    fn setup() {
+        INIT.call_once(|| {
+            let _ = color_eyre::install();
+        })
+    }
+
+    #[derive(Debug, Deserialize)]
+    struct Database {
+        pub prefabs: BTreeMap<String, ObjectTemplate>,
+    }
+
+
+    #[test]
+    fn all_database_prefabs_parse() -> color_eyre::Result<()> {
+        setup();
+        let mut d = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        d = d.parent().unwrap().join("data").join("database.json");
+        println!("loading database from {}", d.display());
+
+        let database: Database = serde_json::from_reader(BufReader::new(File::open(d)?))?;
+
+        Ok(())
+    }
+}

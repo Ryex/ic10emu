@@ -2511,8 +2511,19 @@ mod tests {
 
     use super::*;
 
+    use color_eyre::eyre::Ok;
+
+    static INIT: std::sync::Once = std::sync::Once::new();
+
+    fn setup()  {
+        INIT.call_once(|| {
+            let _ = color_eyre::install();
+        })
+    }
+
     #[test]
-    fn batch_modes() -> Result<(), VMError> {
+    fn batch_modes() -> color_eyre::Result<()> {
+        setup();
         let mut vm = VM::new();
         let ic = vm.add_ic(None).unwrap();
         let ic_id = {
@@ -2540,7 +2551,8 @@ mod tests {
     }
 
     #[test]
-    fn stack() -> Result<(), VMError> {
+    fn stack() -> color_eyre::Result<()> {
+        setup();
         let mut vm = VM::new();
         let ic = vm.add_ic(None).unwrap();
         let ic_id = {
