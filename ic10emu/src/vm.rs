@@ -7,9 +7,7 @@ use crate::{
     errors::{ICError, VMError},
     interpreter::{self, FrozenIC},
     network::{CableConnectionType, Connection, FrozenNetwork, Network},
-    vm::enums::script_enums::{
-        LogicBatchMethod as BatchMode, LogicSlotType as SlotLogicType, LogicType,
-    },
+    vm::enums::script_enums::{LogicBatchMethod as BatchMode, LogicSlotType, LogicType},
 };
 use std::{
     cell::RefCell,
@@ -620,7 +618,7 @@ impl VM {
         source: u32,
         prefab: f64,
         index: f64,
-        typ: SlotLogicType,
+        typ: LogicSlotType,
         val: f64,
         write_readonly: bool,
     ) -> Result<(), ICError> {
@@ -690,7 +688,7 @@ impl VM {
         prefab: f64,
         name: f64,
         index: f64,
-        typ: SlotLogicType,
+        typ: LogicSlotType,
         mode: BatchMode,
     ) -> Result<f64, ICError> {
         let samples = self
@@ -706,7 +704,7 @@ impl VM {
         source: u32,
         prefab: f64,
         index: f64,
-        typ: SlotLogicType,
+        typ: LogicSlotType,
         mode: BatchMode,
     ) -> Result<f64, ICError> {
         let samples = self

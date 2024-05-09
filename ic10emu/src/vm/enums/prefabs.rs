@@ -33,414 +33,57 @@ use strum::{AsRefStr, Display, EnumIter, EnumProperty, EnumString, FromRepr};
 #[repr(i32)]
 pub enum StationpediaPrefab {
     #[strum(
-        serialize = "DynamicGPR",
-        props(
-            name = r#"<N:EN:DynamicGPR>"#,
-            desc = r#"<N:EN:DynamicGPR>"#,
-            value = "-2085885850"
-        )
+        serialize = "ItemKitGroundTelescope",
+        props(name = r#"Kit (Telescope)"#, desc = r#""#, value = "-2140672772")
     )]
-    DynamicGpr = -2085885850i32,
+    ItemKitGroundTelescope = -2140672772i32,
     #[strum(
-        serialize = "ItemAuthoringToolRocketNetwork",
+        serialize = "StructureSmallSatelliteDish",
         props(
-            name = r#"<N:EN:ItemAuthoringToolRocketNetwork>"#,
-            desc = r#"<N:EN:ItemAuthoringToolRocketNetwork>"#,
-            value = "-1731627004"
-        )
-    )]
-    ItemAuthoringToolRocketNetwork = -1731627004i32,
-    #[strum(
-        serialize = "MonsterEgg",
-        props(
-            name = r#"<N:EN:MonsterEgg>"#,
-            desc = r#"<N:EN:MonsterEgg>"#,
-            value = "-1667675295"
-        )
-    )]
-    MonsterEgg = -1667675295i32,
-    #[strum(
-        serialize = "MotherboardMissionControl",
-        props(
-            name = r#"<N:EN:MotherboardMissionControl>"#,
-            desc = r#"<N:EN:MotherboardMissionControl>"#,
-            value = "-127121474"
-        )
-    )]
-    MotherboardMissionControl = -127121474i32,
-    #[strum(
-        serialize = "StructureCableCorner3HBurnt",
-        props(
-            name = r#"<N:EN:StructureCableCorner3HBurnt>"#,
-            desc = r#"<N:EN:StructureCableCorner3HBurnt>"#,
-            value = "2393826"
-        )
-    )]
-    StructureCableCorner3HBurnt = 2393826i32,
-    #[strum(
-        serialize = "StructureDrinkingFountain",
-        props(
-            name = r#"<N:EN:StructureDrinkingFountain>"#,
-            desc = r#"<N:EN:StructureDrinkingFountain>"#,
-            value = "1968371847"
-        )
-    )]
-    StructureDrinkingFountain = 1968371847i32,
-    #[strum(
-        serialize = "Robot",
-        props(
-            name = r#"AIMeE Bot"#,
-            desc = r#"Designed by - presumably drunk - <link=Norsec><color=#0080FFFF>Norsec</color></link> roboticists, AIMeE (or Automated Independent Mechanical Entity) can be a <link=Stationeers><color=#0080FFFF>Stationeer's</color></link> best friend, or tiresome nemesis, or both several times in the same day.
+            name = r#"Small Satellite Dish"#,
+            desc = r#"This small communications unit can be used to communicate with nearby trade vessels.
 
-Intended to unearth and retrieve ores automatically, the unit requires basic programming knowledge to operate, and <link=ThingMotherboardProgrammableChip><color=green>IC Editor Motherboard</color></link>.
-
-AIMEe has 7 modes:
-
-RobotMode.None = 0 = Do nothing
-RobotMode.None = 1 = Follow nearest player
-RobotMode.None = 2 = Move to target in straight line
-RobotMode.None = 3 = Wander around looking for ores in 15 co-ords radius
-RobotMode.None = 4 = Unload in chute input or chute bin within 3 meters / 1.5 large grids
-RobotMode.None = 5 = Path(find) to target
-RobotMode.None = 6 = Automatic assigned state, shows when storage slots are fullConnects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>"#,
-            value = "434786784"
+        When connected to a <link=ThingStructureComputer><color=green>Computer</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic."#,
+            value = "-2138748650"
         )
     )]
-    Robot = 434786784i32,
+    StructureSmallSatelliteDish = -2138748650i32,
     #[strum(
-        serialize = "StructureAccessBridge",
+        serialize = "StructureStairwellBackRight",
         props(
-            name = r#"Access Bridge"#,
-            desc = r#"Extendable bridge that spans three grids"#,
-            value = "1298920475"
-        )
-    )]
-    StructureAccessBridge = 1298920475i32,
-    #[strum(
-        serialize = "AccessCardBlack",
-        props(name = r#"Access Card (Black)"#, desc = r#""#, value = "-1330388999")
-    )]
-    AccessCardBlack = -1330388999i32,
-    #[strum(
-        serialize = "AccessCardBlue",
-        props(name = r#"Access Card (Blue)"#, desc = r#""#, value = "-1411327657")
-    )]
-    AccessCardBlue = -1411327657i32,
-    #[strum(
-        serialize = "AccessCardBrown",
-        props(name = r#"Access Card (Brown)"#, desc = r#""#, value = "1412428165")
-    )]
-    AccessCardBrown = 1412428165i32,
-    #[strum(
-        serialize = "AccessCardGray",
-        props(name = r#"Access Card (Gray)"#, desc = r#""#, value = "-1339479035")
-    )]
-    AccessCardGray = -1339479035i32,
-    #[strum(
-        serialize = "AccessCardGreen",
-        props(name = r#"Access Card (Green)"#, desc = r#""#, value = "-374567952")
-    )]
-    AccessCardGreen = -374567952i32,
-    #[strum(
-        serialize = "AccessCardKhaki",
-        props(name = r#"Access Card (Khaki)"#, desc = r#""#, value = "337035771")
-    )]
-    AccessCardKhaki = 337035771i32,
-    #[strum(
-        serialize = "AccessCardOrange",
-        props(name = r#"Access Card (Orange)"#, desc = r#""#, value = "-332896929")
-    )]
-    AccessCardOrange = -332896929i32,
-    #[strum(
-        serialize = "AccessCardPink",
-        props(name = r#"Access Card (Pink)"#, desc = r#""#, value = "431317557")
-    )]
-    AccessCardPink = 431317557i32,
-    #[strum(
-        serialize = "AccessCardPurple",
-        props(name = r#"Access Card (Purple)"#, desc = r#""#, value = "459843265")
-    )]
-    AccessCardPurple = 459843265i32,
-    #[strum(
-        serialize = "AccessCardRed",
-        props(name = r#"Access Card (Red)"#, desc = r#""#, value = "-1713748313")
-    )]
-    AccessCardRed = -1713748313i32,
-    #[strum(
-        serialize = "AccessCardWhite",
-        props(name = r#"Access Card (White)"#, desc = r#""#, value = "2079959157")
-    )]
-    AccessCardWhite = 2079959157i32,
-    #[strum(
-        serialize = "AccessCardYellow",
-        props(name = r#"Access Card (Yellow)"#, desc = r#""#, value = "568932536")
-    )]
-    AccessCardYellow = 568932536i32,
-    #[strum(
-        serialize = "StructureLiquidDrain",
-        props(
-            name = r#"Active Liquid Outlet"#,
-            desc = r#"When connected to power and activated, it pumps liquid from a liquid network into the world."#,
-            value = "1687692899"
-        )
-    )]
-    StructureLiquidDrain = 1687692899i32,
-    #[strum(
-        serialize = "StructureActiveVent",
-        props(
-            name = r#"Active Vent"#,
-            desc = r#"The active vent is a powered device for maintaining <link=GasPage><color=#0080FFFF>gas</color></link> pressure by pumping gas into (or out of) a pipe network. The vent has two modes: 'Outward' sets it to pump gas into a space until pressure is reached; 'Inward' sets it to pump gas out until pressure is reached. The pressure parameter can be set on a connected <link=ThingStructureConsole><color=green>Console</color></link>. Default pressure is 101kPa for Outward; 0kPa for Inward ..."#,
-            value = "-1129453144"
-        )
-    )]
-    StructureActiveVent = -1129453144i32,
-    #[strum(
-        serialize = "ItemAdhesiveInsulation",
-        props(name = r#"Adhesive Insulation"#, desc = r#""#, value = "1871048978")
-    )]
-    ItemAdhesiveInsulation = 1871048978i32,
-    #[strum(
-        serialize = "CircuitboardAdvAirlockControl",
-        props(name = r#"Advanced Airlock"#, desc = r#""#, value = "1633663176")
-    )]
-    CircuitboardAdvAirlockControl = 1633663176i32,
-    #[strum(
-        serialize = "StructureAdvancedComposter",
-        props(
-            name = r#"Advanced Composter"#,
-            desc = r#"The advanced composter creates <link=ThingFertilizer><color=green>Fertilizer</color></link> out of organic matter. It accepts <link=OrganicPage><color=#0080FFFF>food</color></link>, <link=ThingDecayedFood><color=green>Decayed Food</color></link> or <link=ThingItemBiomass><color=green>Biomass</color></link>. It requires <link=GasWater><color=#44AD83>Water</color></link> and power to operate, accelerating the natural composting process.
-When processing, it releases nitrogen and volatiles, as well a small amount of heat.
-
-<size=120%><b>Compost composition</b></size>
-Fertilizer is produced at a 1:3 ratio of fertilizer to ingredients. The fertilizer's effects on plants will vary depending on the respective proportions of its ingredients.
-
-- <link=OrganicPage><color=#0080FFFF>Food</color></link> increases PLANT YIELD up to two times
-- <link=ThingDecayedFood><color=green>Decayed Food</color></link> increases plant GROWTH SPEED up to two times
-- <link=ThingItemBiomass><color=green>Biomass</color></link> increases the NUMBER OF GROWTH CYCLES the fertilizer lasts for up to five times
-"#,
-            value = "446212963"
-        )
-    )]
-    StructureAdvancedComposter = 446212963i32,
-    #[strum(
-        serialize = "StructureAdvancedFurnace",
-        props(
-            name = r#"Advanced Furnace"#,
-            desc = r#"The advanced furnace comes with integrated inlet and outlet pumps for controlling the unit's internal pressure."#,
-            value = "545937711"
-        )
-    )]
-    StructureAdvancedFurnace = 545937711i32,
-    #[strum(
-        serialize = "StructureAdvancedPackagingMachine",
-        props(
-            name = r#"Advanced Packaging Machine"#,
-            desc = r#"The <link=Xigo><color=#0080FFFF>Xigo</color></link> Advanced Cannifier Multi-Plus Pro is an automateable packaging machine that uses <link=ThingItemEmptyCan><color=green>Empty Can</color></link>s and cooked <link=OrganicPage><color=#0080FFFF>food</color></link> to create canned sustenance that does not decay. Note that the ACMPP only accepts cooked food and tin cans."#,
-            value = "-463037670"
-        )
-    )]
-    StructureAdvancedPackagingMachine = -463037670i32,
-    #[strum(
-        serialize = "ItemAdvancedTablet",
-        props(
-            name = r#"Advanced Tablet"#,
-            desc = r#"The advanced <link=Xigo><color=#0080FFFF>Xigo</color></link> Padi 2 tablet is an improved version of the basic <link=ThingItemTablet><color=green>Handheld Tablet</color></link>, boasting two <link=CartridgePage><color=#0080FFFF>cartridge</color></link> slots. The Padi 2 accepts <link=ThingCartridgeAtmosAnalyser><color=green>Atmos Analyzer</color></link>, <link=ThingCartridgeTracker><color=green>Tracker</color></link>, <link=ThingCartridgeMedicalAnalyser><color=green>Medical Analyzer</color></link>, <link=ThingCartridgeOreScanner><color=green>Ore Scanner</color></link>, <link=ThingCartridgeElectronicReader><color=green>eReader</color></link>, and various other cartridges.
-
-	  With a <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> in the <link=SlotProgrammableChip><color=orange>Programmable Chip</color></link>, you can access variable slots on the carrying human using the device numbers (d0, d1, etc...), so long as the item can be access via logic, such as the <link=ThingItemHardSuit><color=green>Hardsuit</color></link>.Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>"#,
-            value = "1722785341"
-        )
-    )]
-    ItemAdvancedTablet = 1722785341i32,
-    #[strum(
-        serialize = "StructureAirConditioner",
-        props(
-            name = r#"Air Conditioner"#,
-            desc = r#"Built using the <link=ThingItemKitAtmospherics><color=green>Kit (Atmospherics)</color></link>, the <link=ExMin><color=#0080FFFF>ExMin-designed</color></link> air conditioner is used to raise or lower input gas temperature.
-
-The unit has three pipe connections: input, output, and waste. Gas fed into the input will be heated or cooled to reach the target temperature, while the opposite will happen to gas on the waste network.
-
-Multiple Efficiency Multipliers can effect the amount of energy the Air Conditioner uses, and these can be view on the unit's green Information Panel. As the temperature difference between input and waste increases, the Temperature Differential Efficiency Multiplier will decrease. If input or waste temperature is extremely hot or cold, the Operational Temperature Efficiency will decrease. If the input or waste pipe has approach low pressures, the Pressure Efficiency will decrease.
-
-<link=ThingStructurePipeRadiator><color=green>Pipe Convection Radiator</color></link>s may be useful in bringing extreme pipe temperatures back towards normal world temperatures.
-
-For more information on using the air conditioner, consult the <link=TemperatureControlPage><color=#0080FFFF>temperature control</color></link> Guides page."#,
-            value = "-2087593337"
-        )
-    )]
-    StructureAirConditioner = -2087593337i32,
-    #[strum(
-        serialize = "CircuitboardAirControl",
-        props(
-            name = r#"Air Control"#,
-            desc = r#"When added to a <link=ThingStructureConsole><color=green>Console</color></link>, air control circuit boards allow you to program an <link=ThingStructureActiveVent><color=green>Active Vent</color></link>. As with small dogs and 83% of people, air control circuits have only three modes: Pressure, Draft and Offline. Pressure mode maintains a 100kPa atmosphere, switching the active vent between inward and outward flow until target pressure is achieved. Draft mode allows you to pair active vents to circulate air. Offline mode deactivates the vent. "#,
-            value = "1618019559"
-        )
-    )]
-    CircuitboardAirControl = 1618019559i32,
-    #[strum(
-        serialize = "CircuitboardAirlockControl",
-        props(
-            name = r#"Airlock"#,
-            desc = r#"Rumored to have been first sketched on a <link=Norsec><color=#0080FFFF>Norsec</color></link> toilet wall by a disgruntled engineer, the Exgress airlock control circuit board’s versatility and ease of fabrication has made it the <link=Stationeers><color=#0080FFFF>Stationeers</color></link> control system of choice for <link=ThingStructureAirlock><color=green>Airlock</color></link> cycling protocols.
-
-To enter setup mode, insert the board into a <link=ThingStructureConsole><color=green>Console</color></link> along with a data disk. In this mode, you can see all data-accessible objects currently connected to the <link=ThingStructureConsole><color=green>Console</color></link>. Doors, lights, gas sensors and slave consoles can be selected (highlighted green), and will be controlled once the data disk is removed."#,
-            value = "912176135"
-        )
-    )]
-    CircuitboardAirlockControl = 912176135i32,
-    #[strum(
-        serialize = "StructureAirlock",
-        props(
-            name = r#"Airlock"#,
-            desc = r#"The standard airlock is a powered portal that forms the main component of an airlock chamber. As long as the airlock is not locked, it can be manually opened using a crowbar."#,
-            value = "-2105052344"
-        )
-    )]
-    StructureAirlock = -2105052344i32,
-    #[strum(
-        serialize = "ImGuiCircuitboardAirlockControl",
-        props(name = r#"Airlock (Experimental)"#, desc = r#""#, value = "-73796547")
-    )]
-    ImGuiCircuitboardAirlockControl = -73796547i32,
-    #[strum(
-        serialize = "ItemAlienMushroom",
-        props(name = r#"Alien Mushroom"#, desc = r#""#, value = "176446172")
-    )]
-    ItemAlienMushroom = 176446172i32,
-    #[strum(
-        serialize = "ItemAmmoBox",
-        props(name = r#"Ammo Box"#, desc = r#""#, value = "-9559091")
-    )]
-    ItemAmmoBox = -9559091i32,
-    #[strum(
-        serialize = "ItemAngleGrinder",
-        props(
-            name = r#"Angle Grinder"#,
-            desc = r#"Angles-be-gone with the trusty angle grinder."#,
-            value = "201215010"
-        )
-    )]
-    ItemAngleGrinder = 201215010i32,
-    #[strum(
-        serialize = "ApplianceDeskLampLeft",
-        props(
-            name = r#"Appliance Desk Lamp Left"#,
+            name = r#"Stairwell (Back Right)"#,
             desc = r#""#,
-            value = "-1683849799"
+            value = "-2128896573"
         )
     )]
-    ApplianceDeskLampLeft = -1683849799i32,
+    StructureStairwellBackRight = -2128896573i32,
     #[strum(
-        serialize = "ApplianceDeskLampRight",
+        serialize = "StructureBench2",
         props(
-            name = r#"Appliance Desk Lamp Right"#,
+            name = r#"Bench (High Tech Style)"#,
             desc = r#""#,
-            value = "1174360780"
+            value = "-2127086069"
         )
     )]
-    ApplianceDeskLampRight = 1174360780i32,
+    StructureBench2 = -2127086069i32,
     #[strum(
-        serialize = "ApplianceSeedTray",
+        serialize = "ItemLiquidPipeValve",
         props(
-            name = r#"Appliance Seed Tray"#,
-            desc = r#"The seed tray can hold up to twelve plants or seeds and can be used to facilitate fast experimentation and testing of plant genetics."#,
-            value = "142831994"
+            name = r#"Kit (Liquid Pipe Valve)"#,
+            desc = r#"This kit creates a <link=ThingStructureLiquidValve><color=green>Liquid Valve</color></link>."#,
+            value = "-2126113312"
         )
     )]
-    ApplianceSeedTray = 142831994i32,
+    ItemLiquidPipeValve = -2126113312i32,
     #[strum(
-        serialize = "StructureArcFurnace",
+        serialize = "ItemDisposableBatteryCharger",
         props(
-            name = r#"Arc Furnace"#,
-            desc = r#"The simplest smelting system available to the average <link=Stationeers><color=#0080FFFF>Stationeer</color></link>, <link=Recurso><color=#0080FFFF>Recurso's</color></link> arc furnace was forged itself in the depths of the Solar System to help explorational geologists determine the purity of potential asteroidal mining targets.
-Co-opted by the <link=ODA><color=#0080FFFF>ODA</color></link>, it now provides Stationeers with a way to produce pure ingots of various resources.
-The smelting process also releases a range of by product <link=GasPage><color=#0080FFFF>gases</color></link>, principally <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>, <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link>, <link=GasVolatiles><color=#44AD83>Volatiles</color></link> and <link=GasOxygen><color=#44AD83>Oxygen</color></link> in differing ratios. These can be recaptured from the atmosphere by filtering, but also make the arc furnace a risk in closed environments.
-Unlike the more advanced <link=ThingStructureFurnace><color=green>Furnace</color></link>, the arc furnace cannot create <link=IngotPage><color=#0080FFFF>alloys</color></link>."#,
-            value = "-247344692"
+            name = r#"Disposable Battery Charger"#,
+            desc = r#"Consumable battery the recharges your suit battery. If used on a HEM-Droid it will recharge the HEM-Droids internal battery."#,
+            value = "-2124435700"
         )
     )]
-    StructureArcFurnace = -247344692i32,
-    #[strum(
-        serialize = "ItemArcWelder",
-        props(name = r#"Arc Welder"#, desc = r#""#, value = "1385062886")
-    )]
-    ItemArcWelder = 1385062886i32,
-    #[strum(
-        serialize = "StructureAreaPowerControlReversed",
-        props(
-            name = r#"Area Power Control"#,
-            desc = r#"An Area Power Control (APC) has three main functions.
-Its primary purpose is to regulate power flow, ensuring uninterrupted performance from devices and machinery, especially those with a fluctuating draw.
-APCs also create sub-networks, as no devices on the far side of an APC are visible on the main network.
-Lastly, an APC charges batteries, which can provide backup power to the sub-network in the case of an outage. Note that an APC requires a battery to stabilize power draw. It also has two variants, each allowing power to flow in one direction only."#,
-            value = "-1032513487"
-        )
-    )]
-    StructureAreaPowerControlReversed = -1032513487i32,
-    #[strum(
-        serialize = "StructureAreaPowerControl",
-        props(
-            name = r#"Area Power Control"#,
-            desc = r#"An Area Power Control (APC) has three main functions:
-Its primary purpose is to regulate power flow, ensuring uninterrupted performance from devices and machinery, especially those with a fluctuating draw.
-APCs also create sub-networks, as no devices on the far side of an APC are visible on the main network.
-Lastly, an APC charges batteries, which can provide backup power to the sub-network in the case of an outage. Note that an APC requires a battery to stabilize power draw. It also has two variants, each allowing power to flow in one direction only."#,
-            value = "1999523701"
-        )
-    )]
-    StructureAreaPowerControl = 1999523701i32,
-    #[strum(
-        serialize = "ItemAstroloySheets",
-        props(name = r#"Astroloy Sheets"#, desc = r#""#, value = "-1662476145")
-    )]
-    ItemAstroloySheets = -1662476145i32,
-    #[strum(
-        serialize = "CartridgeAtmosAnalyser",
-        props(
-            name = r#"Atmos Analyzer"#,
-            desc = r#"The Lorenz atmos analyzer is a multi-functional mass-spectrometer designed by <link=ExMin><color=#0080FFFF>ExMin</color></link> for use with the OreCore <link=ThingItemTablet><color=green>Handheld Tablet</color></link>. It displays the pressure, concentration and molar quantity of <link=GasPage><color=#0080FFFF>gas</color></link> in rooms, tanks, or pipe networks."#,
-            value = "-1550278665"
-        )
-    )]
-    CartridgeAtmosAnalyser = -1550278665i32,
-    #[strum(
-        serialize = "ItemAuthoringTool",
-        props(name = r#"Authoring Tool"#, desc = r#""#, value = "789015045")
-    )]
-    ItemAuthoringTool = 789015045i32,
-    #[strum(
-        serialize = "StructureAutolathe",
-        props(
-            name = r#"Autolathe"#,
-            desc = r#"The foundation of most <link=Stationeers><color=#0080FFFF>Stationeer</color></link> fabrication systems, the <link=ExMin><color=#0080FFFF>ExMin</color></link> autolathe is a multi-axis molecular compositional system. Its complexity demands considerable time to assemble, but it remains an indispensable creation tool. Upgrade the device using a <link=ThingAutolathePrinterMod><color=green>Autolathe Printer Mod</color></link> for additional recipes and faster processing speeds.
-	  "#,
-            value = "336213101"
-        )
-    )]
-    StructureAutolathe = 336213101i32,
-    #[strum(
-        serialize = "AutolathePrinterMod",
-        props(
-            name = r#"Autolathe Printer Mod"#,
-            desc = r#"Apply to an <link=ThingStructureAutolathe><color=green>Autolathe</color></link> with a <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link> or <link=ThingItemArcWelder><color=green>Arc Welder</color></link> to upgrade for increased processing speed and more recipe options."#,
-            value = "221058307"
-        )
-    )]
-    AutolathePrinterMod = 221058307i32,
-    #[strum(
-        serialize = "StructureAutomatedOven",
-        props(name = r#"Automated Oven"#, desc = r#""#, value = "-1672404896")
-    )]
-    StructureAutomatedOven = -1672404896i32,
-    #[strum(
-        serialize = "StructureAutoMinerSmall",
-        props(
-            name = r#"Autominer (Small)"#,
-            desc = r#"The <link=Recurso><color=#0080FFFF>Recurso</color></link> SquareDig autominer is a structure that when built will mine a vertical 2x2 shaft until it hits bedrock. The autominer can be connected to a chute system, and is controllable by a logic network. Note that the autominer outputs more <link=OrePage><color=#0080FFFF>ore</color></link> than a conventional <link=ThingItemMiningDrill><color=green>Mining Drill</color></link> over the same area."#,
-            value = "7274344"
-        )
-    )]
-    StructureAutoMinerSmall = 7274344i32,
+    ItemDisposableBatteryCharger = -2124435700i32,
     #[strum(
         serialize = "StructureBatterySmall",
         props(
@@ -457,6 +100,2422 @@ Lastly, an APC charges batteries, which can provide backup power to the sub-netw
     )]
     StructureBatterySmall = -2123455080i32,
     #[strum(
+        serialize = "StructureLiquidPipeAnalyzer",
+        props(name = r#"Liquid Pipe Analyzer"#, desc = r#""#, value = "-2113838091")
+    )]
+    StructureLiquidPipeAnalyzer = -2113838091i32,
+    #[strum(
+        serialize = "ItemGasTankStorage",
+        props(
+            name = r#"Kit (Canister Storage)"#,
+            desc = r#"This kit produces a <link=ThingItemGasTankStorage><color=green>Kit (Canister Storage)</color></link> for refilling a <link=ThingItemGasCanisterEmpty><color=green>Canister</color></link>."#,
+            value = "-2113012215"
+        )
+    )]
+    ItemGasTankStorage = -2113012215i32,
+    #[strum(
+        serialize = "StructureFrameCorner",
+        props(
+            name = r#"Steel Frame (Corner)"#,
+            desc = r#"More durable than the <link=ThingStructureFrameIron><color=green>Iron Frame</color></link>, steel frames also offer several variations for more complex lattice constructions. 
+With a little patience and maneuvering, the corner frame's Gothic-inspired silhouette allows the creation of ogival arches and even more ambitious architecture, although they are not airtight and cannot be built on."#,
+            value = "-2112390778"
+        )
+    )]
+    StructureFrameCorner = -2112390778i32,
+    #[strum(
+        serialize = "ItemPotatoBaked",
+        props(name = r#"Baked Potato"#, desc = r#""#, value = "-2111886401")
+    )]
+    ItemPotatoBaked = -2111886401i32,
+    #[strum(
+        serialize = "ItemFlashingLight",
+        props(name = r#"Kit (Flashing Light)"#, desc = r#""#, value = "-2107840748")
+    )]
+    ItemFlashingLight = -2107840748i32,
+    #[strum(
+        serialize = "ItemLiquidPipeVolumePump",
+        props(
+            name = r#"Kit (Liquid Volume Pump)"#,
+            desc = r#""#,
+            value = "-2106280569"
+        )
+    )]
+    ItemLiquidPipeVolumePump = -2106280569i32,
+    #[strum(
+        serialize = "StructureAirlock",
+        props(
+            name = r#"Airlock"#,
+            desc = r#"The standard airlock is a powered portal that forms the main component of an airlock chamber. As long as the airlock is not locked, it can be manually opened using a crowbar."#,
+            value = "-2105052344"
+        )
+    )]
+    StructureAirlock = -2105052344i32,
+    #[strum(
+        serialize = "ItemCannedCondensedMilk",
+        props(
+            name = r#"Canned Condensed Milk"#,
+            desc = r#"Made in an <link=ThingStructureAdvancedPackagingMachine><color=green>Advanced Packaging Machine</color></link> or <link=ThingAppliancePackagingMachine><color=green>Basic Packaging Machine</color></link>, using <link=ThingItemCookedCondensedMilk><color=green>Condensed Milk</color></link> and an <link=ThingItemEmptyCan><color=green>Empty Can</color></link>, canned condensed milk is fairly high in nutrition, and does not <link=DecayPage><color=#0080FFFF>decay</color></link>."#,
+            value = "-2104175091"
+        )
+    )]
+    ItemCannedCondensedMilk = -2104175091i32,
+    #[strum(
+        serialize = "ItemKitHydraulicPipeBender",
+        props(
+            name = r#"Kit (Hydraulic Pipe Bender)"#,
+            desc = r#""#,
+            value = "-2098556089"
+        )
+    )]
+    ItemKitHydraulicPipeBender = -2098556089i32,
+    #[strum(
+        serialize = "ItemKitLogicMemory",
+        props(name = r#"Kit (Logic Memory)"#, desc = r#""#, value = "-2098214189")
+    )]
+    ItemKitLogicMemory = -2098214189i32,
+    #[strum(
+        serialize = "StructureInteriorDoorGlass",
+        props(
+            name = r#"Interior Door Glass"#,
+            desc = r#"0.Operate
+1.Logic"#,
+            value = "-2096421875"
+        )
+    )]
+    StructureInteriorDoorGlass = -2096421875i32,
+    #[strum(
+        serialize = "StructureAirConditioner",
+        props(
+            name = r#"Air Conditioner"#,
+            desc = r#"Built using the <link=ThingItemKitAtmospherics><color=green>Kit (Atmospherics)</color></link>, the <link=ExMin><color=#0080FFFF>ExMin-designed</color></link> air conditioner is used to raise or lower input gas temperature.
+	  
+The unit has three pipe connections: input, output, and waste. Gas fed into the input will be heated or cooled to reach the target temperature, while the opposite will happen to gas on the waste network.
+
+Multiple Efficiency Multipliers can effect the amount of energy the Air Conditioner uses, and these can be view on the unit's green Information Panel. As the temperature difference between input and waste increases, the Temperature Differential Efficiency Multiplier will decrease. If input or waste temperature is extremely hot or cold, the Operational Temperature Efficiency will decrease. If the input or waste pipe has approach low pressures, the Pressure Efficiency will decrease.
+
+<link=ThingStructurePipeRadiator><color=green>Pipe Convection Radiator</color></link>s may be useful in bringing extreme pipe temperatures back towards normal world temperatures. 
+  
+For more information on using the air conditioner, consult the <link=TemperatureControlPage><color=#0080FFFF>temperature control</color></link> Guides page."#,
+            value = "-2087593337"
+        )
+    )]
+    StructureAirConditioner = -2087593337i32,
+    #[strum(
+        serialize = "StructureRocketMiner",
+        props(
+            name = r#"Rocket Miner"#,
+            desc = r#"Gathers available resources at the rocket's current space location."#,
+            value = "-2087223687"
+        )
+    )]
+    StructureRocketMiner = -2087223687i32,
+    #[strum(
+        serialize = "DynamicGPR",
+        props(
+            name = r#"<N:EN:DynamicGPR>"#,
+            desc = r#"<N:EN:DynamicGPR>"#,
+            value = "-2085885850"
+        )
+    )]
+    DynamicGpr = -2085885850i32,
+    #[strum(
+        serialize = "UniformCommander",
+        props(name = r#"Uniform Commander"#, desc = r#""#, value = "-2083426457")
+    )]
+    UniformCommander = -2083426457i32,
+    #[strum(
+        serialize = "StructureWindTurbine",
+        props(
+            name = r#"Wind Turbine"#,
+            desc = r#"The Stationeers wind turbine was first designed by Norsec atmospheric engineers, looking to create a wind-driven power generation system that would operate even on exceedingly low atmosphere worlds. The ultra-light blades respond to exceedingly low atmospheric densities, while being strong enough to function even under huge strain in much more demanding environments.
+While the wind turbine is optimized to produce power (up to 500W) even on low atmosphere worlds, it performs best in denser environments. Output varies with wind speed and, during storms, may increase dramatically (up to 10,000W), so be careful to design your power networks with that in mind."#,
+            value = "-2082355173"
+        )
+    )]
+    StructureWindTurbine = -2082355173i32,
+    #[strum(
+        serialize = "StructureInsulatedPipeTJunction",
+        props(
+            name = r#"Insulated Pipe (T Junction)"#,
+            desc = r#"Insulated pipes greatly reduce heat loss from gases stored in them."#,
+            value = "-2076086215"
+        )
+    )]
+    StructureInsulatedPipeTJunction = -2076086215i32,
+    #[strum(
+        serialize = "ItemPureIcePollutedWater",
+        props(
+            name = r#"Pure Ice Polluted Water"#,
+            desc = r#"A frozen chunk of <link=GasPollutedWater><color=#44AD83>Polluted Water</color></link>"#,
+            value = "-2073202179"
+        )
+    )]
+    ItemPureIcePollutedWater = -2073202179i32,
+    #[strum(
+        serialize = "RailingIndustrial02",
+        props(
+            name = r#"Railing Industrial (Type 2)"#,
+            desc = r#""#,
+            value = "-2072792175"
+        )
+    )]
+    RailingIndustrial02 = -2072792175i32,
+    #[strum(
+        serialize = "StructurePipeInsulatedLiquidCrossJunction",
+        props(
+            name = r#"Insulated Liquid Pipe (Cross Junction)"#,
+            desc = r#"Liquid piping with very low temperature loss or gain."#,
+            value = "-2068497073"
+        )
+    )]
+    StructurePipeInsulatedLiquidCrossJunction = -2068497073i32,
+    #[strum(
+        serialize = "ItemWeldingTorch",
+        props(
+            name = r#"Welding Torch"#,
+            desc = r#"Stored in the standard issue <link=Stationeers><color=#0080FFFF>Stationeers</color></link> <link=ThingItemToolBelt><color=green>Tool Belt</color></link>, the Arlite welding torch is used to construct a range of essential structures.
+An upgraded version of the classic 'Zairo' model first manufactured by <link=ExMin><color=#0080FFFF>ExMin</color></link> for modular space habitat assembly, the Arlite is powered by a single <link=ThingItemGasCanisterFuel><color=green>Canister (Fuel)</color></link> and designed to function equally well in deep space and deep gravity wells."#,
+            value = "-2066892079"
+        )
+    )]
+    ItemWeldingTorch = -2066892079i32,
+    #[strum(
+        serialize = "StructurePictureFrameThickMountPortraitSmall",
+        props(
+            name = r#"Picture Frame Thick Mount Portrait Small"#,
+            desc = r#""#,
+            value = "-2066653089"
+        )
+    )]
+    StructurePictureFrameThickMountPortraitSmall = -2066653089i32,
+    #[strum(
+        serialize = "Landingpad_DataConnectionPiece",
+        props(
+            name = r#"Landingpad Data And Power"#,
+            desc = r#"Provides power to the landing pad. The data port must be connected to the data port of a computer with a communications motherboard for a trader to be called in to land."#,
+            value = "-2066405918"
+        )
+    )]
+    LandingpadDataConnectionPiece = -2066405918i32,
+    #[strum(
+        serialize = "ItemKitPictureFrame",
+        props(name = r#"Kit Picture Frame"#, desc = r#""#, value = "-2062364768")
+    )]
+    ItemKitPictureFrame = -2062364768i32,
+    #[strum(
+        serialize = "ItemMKIIArcWelder",
+        props(name = r#"Mk II Arc Welder"#, desc = r#""#, value = "-2061979347")
+    )]
+    ItemMkiiArcWelder = -2061979347i32,
+    #[strum(
+        serialize = "StructureCompositeWindow",
+        props(
+            name = r#"Composite Window"#,
+            desc = r#"Air-tight and resistant to extreme temperatures, composite walls come in several charming, near identical varieties - reflecting their designer's focus on form over function."#,
+            value = "-2060571986"
+        )
+    )]
+    StructureCompositeWindow = -2060571986i32,
+    #[strum(
+        serialize = "ItemEmergencyDrill",
+        props(name = r#"Emergency Drill"#, desc = r#""#, value = "-2052458905")
+    )]
+    ItemEmergencyDrill = -2052458905i32,
+    #[strum(
+        serialize = "Rover_MkI",
+        props(
+            name = r#"Rover MkI"#,
+            desc = r#"A distant cousin of the jeep, the Mk I {<link=Sinotai><color=#0080FFFF>Sinotai</color></link> electric rover is one of the most simple and durable light vehicles in the known universe. Able to carry two passengers and cargo such as the <link=ThingDynamicGasCanisterAir><color=green>Portable Gas Tank (Air)</color></link> or <link=ThingCrate><color=green><N:EN:Crate></color></link>, it is powered by up to three batteries, accepting everything including <link=ThingItemBatteryCellNuclear><color=green>Battery Cell (Nuclear)</color></link>.
+A quad-array of hub-mounted electric engines propels the reinforced aluminium frame over most terrain and modest obstacles. While the Mk I is designed for stability in low-horizontality circumstances, if it rolls, try using your <link=ThingItemCrowbar><color=green>Crowbar</color></link> to put it right way up.Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>"#,
+            value = "-2049946335"
+        )
+    )]
+    RoverMkI = -2049946335i32,
+    #[strum(
+        serialize = "StructureSolarPanel",
+        props(
+            name = r#"Solar Panel"#,
+            desc = r#"<link=Sinotai><color=#0080FFFF>Sinotai's</color></link> standard solar panels are used for generating power from sunlight. They can be connected to <link=LogicPage><color=#0080FFFF>Logic</color></link> systems, in order to track sunlight, but their reduced during storms and when damaged. You can repair these using some trusty <link=ThingItemDuctTape><color=green>Duct Tape</color></link>."#,
+            value = "-2045627372"
+        )
+    )]
+    StructureSolarPanel = -2045627372i32,
+    #[strum(
+        serialize = "CircuitboardShipDisplay",
+        props(
+            name = r#"Ship Display"#,
+            desc = r#"When the original <link=Stationeers><color=#0080FFFF>Stationeer</color></link> Handbook collapsed under its own weight into a singularity, certain information was irretrievably lost. Amongst this mysterious corpus of knowledge is the exact purpose of the ship display board."#,
+            value = "-2044446819"
+        )
+    )]
+    CircuitboardShipDisplay = -2044446819i32,
+    #[strum(
+        serialize = "StructureBench",
+        props(
+            name = r#"Powered Bench"#,
+            desc = r#"When it's time to sit, nothing supports you like a bench. This bench is powered, so you can use appliances like the <link=ThingApplianceMicrowave><color=green>Microwave</color></link>."#,
+            value = "-2042448192"
+        )
+    )]
+    StructureBench = -2042448192i32,
+    #[strum(
+        serialize = "StructurePictureFrameThickLandscapeSmall",
+        props(
+            name = r#"Picture Frame Thick Landscape Small"#,
+            desc = r#""#,
+            value = "-2041566697"
+        )
+    )]
+    StructurePictureFrameThickLandscapeSmall = -2041566697i32,
+    #[strum(
+        serialize = "ItemKitLargeSatelliteDish",
+        props(
+            name = r#"Kit (Large Satellite Dish)"#,
+            desc = r#""#,
+            value = "-2039971217"
+        )
+    )]
+    ItemKitLargeSatelliteDish = -2039971217i32,
+    #[strum(
+        serialize = "ItemKitMusicMachines",
+        props(name = r#"Kit (Music Machines)"#, desc = r#""#, value = "-2038889137")
+    )]
+    ItemKitMusicMachines = -2038889137i32,
+    #[strum(
+        serialize = "ItemStelliteGlassSheets",
+        props(
+            name = r#"Stellite Glass Sheets"#,
+            desc = r#"A stronger glass substitute."#,
+            value = "-2038663432"
+        )
+    )]
+    ItemStelliteGlassSheets = -2038663432i32,
+    #[strum(
+        serialize = "ItemKitVendingMachine",
+        props(name = r#"Kit (Vending Machine)"#, desc = r#""#, value = "-2038384332")
+    )]
+    ItemKitVendingMachine = -2038384332i32,
+    #[strum(
+        serialize = "StructurePumpedLiquidEngine",
+        props(
+            name = r#"Pumped Liquid Engine"#,
+            desc = r#"Liquid propellants bring greater efficiencies with Pumped Liquid Engine. Two inputs are provided so Stationeers can seperate their fuels, the Setting variable controls the mixing ratio of the inputs. The engine is designed to run on <link=GasLiquidVolatiles><color=#44AD83>Liquid Volatiles</color></link> and <link=GasLiquidOxygen><color=#44AD83>Liquid Oxygen</color></link>, some Stationeers have reported excessive thrust values by switching to <link=GasLiquidNitrousOxide><color=#44AD83>Liquid Nitrous Oxide</color></link>"#,
+            value = "-2031440019"
+        )
+    )]
+    StructurePumpedLiquidEngine = -2031440019i32,
+    #[strum(
+        serialize = "StructurePictureFrameThinLandscapeSmall",
+        props(
+            name = r#"Picture Frame Thin Landscape Small"#,
+            desc = r#""#,
+            value = "-2024250974"
+        )
+    )]
+    StructurePictureFrameThinLandscapeSmall = -2024250974i32,
+    #[strum(
+        serialize = "StructureStacker",
+        props(
+            name = r#"Stacker"#,
+            desc = r#"A stacker is an important part of any automated chute network. The <link=Xigo><color=#0080FFFF>Xigo</color></link> ProKompile can be set manually or via logic, to make sure items passing through the stacker are maximized for your storage needs.
+The ProKompile can stack a wide variety of things such as <link=IngotPage><color=#0080FFFF>ingots</color></link>, as well as splitting stacks into appropriate sizes as needed."#,
+            value = "-2020231820"
+        )
+    )]
+    StructureStacker = -2020231820i32,
+    #[strum(
+        serialize = "ItemMKIIScrewdriver",
+        props(
+            name = r#"Mk II Screwdriver"#,
+            desc = r#"This standard issue frictional adherence adjustor is a top of the line, bi-rotational model with a columnated uni-grip. It's definitely not just a screwdriver. Use it for construction and deconstruction of certain kits, and setting values on <link=LogicUnitPage><color=#0080FFFF>logic</color></link> units. The MK II is more resistant to temperature and pressure."#,
+            value = "-2015613246"
+        )
+    )]
+    ItemMkiiScrewdriver = -2015613246i32,
+    #[strum(
+        serialize = "StructurePressurePlateLarge",
+        props(name = r#"Trigger Plate (Large)"#, desc = r#""#, value = "-2008706143")
+    )]
+    StructurePressurePlateLarge = -2008706143i32,
+    #[strum(
+        serialize = "StructurePipeLiquidCrossJunction5",
+        props(
+            name = r#"Liquid Pipe (5-Way Junction)"#,
+            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeLiquidCrossJunction5><color=green>Insulated Liquid Pipe (5-Way Junction)</color></link> using an <link=ThingItemKitInsulatedLiquidPipe><color=green>Kit (Insulated Liquid Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
+            value = "-2006384159"
+        )
+    )]
+    StructurePipeLiquidCrossJunction5 = -2006384159i32,
+    #[strum(
+        serialize = "ItemGasFilterWater",
+        props(
+            name = r#"Filter (Water)"#,
+            desc = r#"<link=Sinotai><color=#0080FFFF>Sinotai</color></link> filters are used to capture various gases, which can be disposed of, or used elsewhere. <link=GasWater><color=#44AD83>Water</color></link> can be collected by filtering smelted <link=ThingItemIce><color=green>Ice (Water)</color></link>"#,
+            value = "-1993197973"
+        )
+    )]
+    ItemGasFilterWater = -1993197973i32,
+    #[strum(
+        serialize = "SpaceShuttle",
+        props(
+            name = r#"Space Shuttle"#,
+            desc = r#"An antiquated <link=Sinotai><color=#0080FFFF>Sinotai</color></link> transport craft, long since decommissioned."#,
+            value = "-1991297271"
+        )
+    )]
+    SpaceShuttle = -1991297271i32,
+    #[strum(
+        serialize = "SeedBag_Fern",
+        props(
+            name = r#"Fern Seeds"#,
+            desc = r#"Grow a <link=ThingItemFern><color=green>Fern</color></link>."#,
+            value = "-1990600883"
+        )
+    )]
+    SeedBagFern = -1990600883i32,
+    #[strum(
+        serialize = "ItemSecurityCamera",
+        props(
+            name = r#"Security Camera"#,
+            desc = r#"Security cameras can be paired with a <link=ThingStructureMotionSensor><color=green>Motion Sensor</color></link>, then connected to a <link=ThingStructureConsole><color=green>Console</color></link> fitted with a <link=ThingCircuitboardCameraDisplay><color=green>Camera Display</color></link> for that 'always watched' feeling."#,
+            value = "-1981101032"
+        )
+    )]
+    ItemSecurityCamera = -1981101032i32,
+    #[strum(
+        serialize = "CardboardBox",
+        props(name = r#"Cardboard Box"#, desc = r#""#, value = "-1976947556")
+    )]
+    CardboardBox = -1976947556i32,
+    #[strum(
+        serialize = "ItemSoundCartridgeSynth",
+        props(name = r#"Sound Cartridge Synth"#, desc = r#""#, value = "-1971419310")
+    )]
+    ItemSoundCartridgeSynth = -1971419310i32,
+    #[strum(
+        serialize = "StructureCornerLocker",
+        props(name = r#"Corner Locker"#, desc = r#""#, value = "-1968255729")
+    )]
+    StructureCornerLocker = -1968255729i32,
+    #[strum(
+        serialize = "StructureInsulatedPipeCorner",
+        props(
+            name = r#"Insulated Pipe (Corner)"#,
+            desc = r#"Insulated pipes greatly reduce heat loss from gases stored in them."#,
+            value = "-1967711059"
+        )
+    )]
+    StructureInsulatedPipeCorner = -1967711059i32,
+    #[strum(
+        serialize = "StructureWallArchCornerSquare",
+        props(
+            name = r#"Wall (Arch Corner Square)"#,
+            desc = r#""#,
+            value = "-1963016580"
+        )
+    )]
+    StructureWallArchCornerSquare = -1963016580i32,
+    #[strum(
+        serialize = "StructureControlChair",
+        props(
+            name = r#"Control Chair"#,
+            desc = r#"Once, these chairs were the heart of space-going behemoths. Now, they're items of nostalgia built only by a handful of Stationeers with a sense of history. In other words, kitsch."#,
+            value = "-1961153710"
+        )
+    )]
+    StructureControlChair = -1961153710i32,
+    #[strum(
+        serialize = "PortableComposter",
+        props(
+            name = r#"Portable Composter"#,
+            desc = r#"A simple composting device, the basic composter creates <link=ThingFertilizer><color=green>Fertilizer</color></link> out of organic matter. It accepts <link=OrganicPage><color=#0080FFFF>food</color></link>, <link=ThingDecayedFood><color=green>Decayed Food</color></link> or <link=ThingItemBiomass><color=green>Biomass</color></link>. It requires a full <link=ThingItemLiquidCanisterEmpty><color=green>Liquid Canister</color></link> and a battery to operate, accelerating the natural composting process.
+When processing, it releases nitrogen and volatiles, as well a small amount of heat.
+
+<size=120%><b>Compost composition</b></size>
+Fertilizer is produced at a 1:3 ratio of fertilizer to ingredients. The fertilizer's effects on plants will vary depending on the respective proportions of its ingredients.
+
+- <link=OrganicPage><color=#0080FFFF>food</color></link> increases PLANT YIELD up to two times
+- <link=ThingDecayedFood><color=green>Decayed Food</color></link> increases plant GROWTH SPEED up to two times
+- <link=ThingItemBiomass><color=green>Biomass</color></link> increases the NUMBER OF GROWTH CYCLES the fertilizer lasts for"#,
+            value = "-1958705204"
+        )
+    )]
+    PortableComposter = -1958705204i32,
+    #[strum(
+        serialize = "CartridgeGPS",
+        props(name = r#"GPS"#, desc = r#""#, value = "-1957063345")
+    )]
+    CartridgeGps = -1957063345i32,
+    #[strum(
+        serialize = "StructureConsoleLED1x3",
+        props(
+            name = r#"LED Display (Large)"#,
+            desc = r#"0.Default
+1.Percent
+2.Power"#,
+            value = "-1949054743"
+        )
+    )]
+    StructureConsoleLed1X3 = -1949054743i32,
+    #[strum(
+        serialize = "ItemDuctTape",
+        props(
+            name = r#"Duct Tape"#,
+            desc = r#"In the distant past, one of Earth's great champions taught a generation of 'Fix-It People' that duct tape was the answer to any problem. <link=Stationeers><color=#0080FFFF>Stationeers</color></link> have demonstrated that this is truth holds strong, so long as the problem is a damaged <link=ThingItemEvaSuit><color=green>Eva Suit</color></link>, <link=ThingItemJetpackBasic><color=green>Jetpack Basic</color></link>, <link=ThingItemSpaceHelmet><color=green>Space Helmet</color></link>, or even a <link=ThingStructureSolarPanel><color=green>Solar Panel</color></link>.
+To use on yourself: put duct tape in your active hand, hold RIGHT MOUSE BUTTON to automatically repair damage."#,
+            value = "-1943134693"
+        )
+    )]
+    ItemDuctTape = -1943134693i32,
+    #[strum(
+        serialize = "DynamicLiquidCanisterEmpty",
+        props(
+            name = r#"Portable Liquid Tank"#,
+            desc = r#"This portable tank stores liquid, and liquid only. You can bolt one to a <link=ThingItemTankConnectorLiquid><color=green>Kit (Liquid Tank Connector)</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link>, then connect it to a pipe network to refill it. You can refill a <link=ThingItemGasCanisterWater><color=green>Liquid Canister (Water)</color></link> by attaching it to the tank's striped section. Or you could use a <link=ThingItemWrench><color=green>Wrench</color></link> to attach it to a rocket and take it somewhere distant and dry, then feel good about yourself."#,
+            value = "-1939209112"
+        )
+    )]
+    DynamicLiquidCanisterEmpty = -1939209112i32,
+    #[strum(
+        serialize = "ItemKitDeepMiner",
+        props(name = r#"Kit (Deep Miner)"#, desc = r#""#, value = "-1935075707")
+    )]
+    ItemKitDeepMiner = -1935075707i32,
+    #[strum(
+        serialize = "ItemKitAutomatedOven",
+        props(name = r#"Kit (Automated Oven)"#, desc = r#""#, value = "-1931958659")
+    )]
+    ItemKitAutomatedOven = -1931958659i32,
+    #[strum(
+        serialize = "MothershipCore",
+        props(
+            name = r#"Mothership Core"#,
+            desc = r#"A relic of from an earlier era of space ambition, <link=Sinotai><color=#0080FFFF>Sinotai's</color></link> mothership cores formed the central element of a generation's space-going creations. While Sinotai's pivot to smaller, modular craft upset some purists, motherships continue to be built and maintained by dedicated enthusiasts."#,
+            value = "-1930442922"
+        )
+    )]
+    MothershipCore = -1930442922i32,
+    #[strum(
+        serialize = "ItemKitSolarPanel",
+        props(name = r#"Kit (Solar Panel)"#, desc = r#""#, value = "-1924492105")
+    )]
+    ItemKitSolarPanel = -1924492105i32,
+    #[strum(
+        serialize = "CircuitboardPowerControl",
+        props(
+            name = r#"Power Control"#,
+            desc = r#"Under distant suns and demanding environments, <link=Stationeers><color=#0080FFFF>Stationeer</color></link> systems need to balance reliability, resilience and versatility. The power control board allows remote enabling and disabling of selected devices, disconnecting manual operation. 
+      
+The circuit board has two modes: 'Link' switches all devices on or off; 'Toggle' switches each device to their alternate state. "#,
+            value = "-1923778429"
+        )
+    )]
+    CircuitboardPowerControl = -1923778429i32,
+    #[strum(
+        serialize = "SeedBag_Tomato",
+        props(
+            name = r#"Tomato Seeds"#,
+            desc = r#"Grow a <link=ThingItemTomato><color=green>Tomato</color></link>."#,
+            value = "-1922066841"
+        )
+    )]
+    SeedBagTomato = -1922066841i32,
+    #[strum(
+        serialize = "StructureChuteUmbilicalFemale",
+        props(
+            name = r#"Umbilical Socket (Chute)"#,
+            desc = r#""#,
+            value = "-1918892177"
+        )
+    )]
+    StructureChuteUmbilicalFemale = -1918892177i32,
+    #[strum(
+        serialize = "StructureMediumConvectionRadiator",
+        props(
+            name = r#"Medium Convection Radiator"#,
+            desc = r#"A stand-alone radiator unit optimized for exchanging heat with its surrounding atmosphere."#,
+            value = "-1918215845"
+        )
+    )]
+    StructureMediumConvectionRadiator = -1918215845i32,
+    #[strum(
+        serialize = "ItemGasFilterVolatilesInfinite",
+        props(
+            name = r#"Catalytic Filter (Volatiles)"#,
+            desc = r#"A filter that selectively targets <link=GasVolatiles><color=#44AD83>Volatiles</color></link>. It uses internal pressure differentials to regenerate a unique phase change catalyst, giving it an unlimited lifecycle."#,
+            value = "-1916176068"
+        )
+    )]
+    ItemGasFilterVolatilesInfinite = -1916176068i32,
+    #[strum(
+        serialize = "MotherboardSorter",
+        props(
+            name = r#"Sorter Motherboard"#,
+            desc = r#"Motherboards are connected to <link=ThingStructureComputer><color=green>Computer</color></link>s to perform various technical functions.
+The <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> K-cops 10-10 sorter motherboard permits <link=Stationeers><color=#0080FFFF>Stationeers</color></link> to control which items a <link=ThingStructureSorter><color=green>Sorter</color></link> does, and does not, permit to pass."#,
+            value = "-1908268220"
+        )
+    )]
+    MotherboardSorter = -1908268220i32,
+    #[strum(
+        serialize = "ItemSoundCartridgeDrums",
+        props(name = r#"Sound Cartridge Drums"#, desc = r#""#, value = "-1901500508")
+    )]
+    ItemSoundCartridgeDrums = -1901500508i32,
+    #[strum(
+        serialize = "StructureFairingTypeA3",
+        props(name = r#"Fairing (Type A3)"#, desc = r#""#, value = "-1900541738")
+    )]
+    StructureFairingTypeA3 = -1900541738i32,
+    #[strum(
+        serialize = "RailingElegant02",
+        props(
+            name = r#"Railing Elegant (Type 2)"#,
+            desc = r#""#,
+            value = "-1898247915"
+        )
+    )]
+    RailingElegant02 = -1898247915i32,
+    #[strum(
+        serialize = "ItemStelliteIngot",
+        props(name = r#"Ingot (Stellite)"#, desc = r#""#, value = "-1897868623")
+    )]
+    ItemStelliteIngot = -1897868623i32,
+    #[strum(
+        serialize = "StructureSmallTableBacklessSingle",
+        props(
+            name = r#"Small (Table Backless Single)"#,
+            desc = r#""#,
+            value = "-1897221677"
+        )
+    )]
+    StructureSmallTableBacklessSingle = -1897221677i32,
+    #[strum(
+        serialize = "StructureHydraulicPipeBender",
+        props(
+            name = r#"Hydraulic Pipe Bender"#,
+            desc = r#"A go-to tool for all your atmospheric and plumbing needs, the <link=ExMin><color=#0080FFFF>ExMin</color></link> Atmoprinter will create everything from pipes, pumps and tanks, to vents and filters, ensuring your survival in any environment. Upgrade the Atmoprinter using a <link=ThingPipeBenderMod><color=green>Pipe Bender Mod</color></link> for additional recipes and faster processing speeds."#,
+            value = "-1888248335"
+        )
+    )]
+    StructureHydraulicPipeBender = -1888248335i32,
+    #[strum(
+        serialize = "ItemWrench",
+        props(
+            name = r#"Wrench"#,
+            desc = r#"One of humanity's enduring contributions to the cosmos, the wrench represents the essence of our species. A simple, effective and spiritually barren tool, use it to build and deconstruct a variety of <link=StructurePage><color=#0080FFFF>structures</color></link>"#,
+            value = "-1886261558"
+        )
+    )]
+    ItemWrench = -1886261558i32,
+    #[strum(
+        serialize = "ItemSoundCartridgeBass",
+        props(name = r#"Sound Cartridge Bass"#, desc = r#""#, value = "-1883441704")
+    )]
+    ItemSoundCartridgeBass = -1883441704i32,
+    #[strum(
+        serialize = "ItemSprayCanGreen",
+        props(
+            name = r#"Spray Paint (Green)"#,
+            desc = r#"Green is the color of life, and longing. Paradoxically, it's also the color of envy, and tolerance. It denotes sickness, youth, and wealth. But really, it's just what light does at around 500 billionths of a meter."#,
+            value = "-1880941852"
+        )
+    )]
+    ItemSprayCanGreen = -1880941852i32,
+    #[strum(
+        serialize = "StructurePipeCrossJunction5",
+        props(
+            name = r#"Pipe (5-Way Junction)"#,
+            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeCrossJunction5><color=green>Insulated Pipe (5-Way Junction)</color></link> using an <link=ThingItemKitInsulatedPipe><color=green>Kit (Insulated Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
+            value = "-1877193979"
+        )
+    )]
+    StructurePipeCrossJunction5 = -1877193979i32,
+    #[strum(
+        serialize = "StructureSDBHopper",
+        props(name = r#"SDB Hopper"#, desc = r#""#, value = "-1875856925")
+    )]
+    StructureSdbHopper = -1875856925i32,
+    #[strum(
+        serialize = "ItemMKIIMiningDrill",
+        props(
+            name = r#"Mk II Mining Drill"#,
+            desc = r#"The handheld 'Topo' tri-cone rotary mining drill was made for one thing: quick digging. Modeled on a classic <link=Recurso><color=#0080FFFF>Recurso</color></link> zero-g design, it functions equally well in vacuum and atmosphere, with cemented carbide bits to increase resilience and bearing life, and reduce spalling. As Jenk Murtons once said, 'The Topo don't stopo.' The MK II is more resistant to temperature and pressure."#,
+            value = "-1875271296"
+        )
+    )]
+    ItemMkiiMiningDrill = -1875271296i32,
+    #[strum(
+        serialize = "Landingpad_TaxiPieceCorner",
+        props(
+            name = r#"Landingpad Taxi Corner"#,
+            desc = r#""#,
+            value = "-1872345847"
+        )
+    )]
+    LandingpadTaxiPieceCorner = -1872345847i32,
+    #[strum(
+        serialize = "ItemKitStairwell",
+        props(name = r#"Kit (Stairwell)"#, desc = r#""#, value = "-1868555784")
+    )]
+    ItemKitStairwell = -1868555784i32,
+    #[strum(
+        serialize = "ItemKitVendingMachineRefrigerated",
+        props(
+            name = r#"Kit (Vending Machine Refrigerated)"#,
+            desc = r#""#,
+            value = "-1867508561"
+        )
+    )]
+    ItemKitVendingMachineRefrigerated = -1867508561i32,
+    #[strum(
+        serialize = "ItemKitGasUmbilical",
+        props(name = r#"Kit (Gas Umbilical)"#, desc = r#""#, value = "-1867280568")
+    )]
+    ItemKitGasUmbilical = -1867280568i32,
+    #[strum(
+        serialize = "ItemBatteryCharger",
+        props(
+            name = r#"Kit (Battery Charger)"#,
+            desc = r#"This kit produces a 5-slot <link=ThingItemBatteryCharger><color=green>Kit (Battery Charger)</color></link>."#,
+            value = "-1866880307"
+        )
+    )]
+    ItemBatteryCharger = -1866880307i32,
+    #[strum(
+        serialize = "ItemMuffin",
+        props(
+            name = r#"Muffin"#,
+            desc = r#"A delicious, semi-healthful snack, nothing comforts a <link=Stationeers><color=#0080FFFF>Stationeer</color></link> 800 million kilometers from home like a hand-made muffin."#,
+            value = "-1864982322"
+        )
+    )]
+    ItemMuffin = -1864982322i32,
+    #[strum(
+        serialize = "ItemKitDynamicHydroponics",
+        props(
+            name = r#"Kit (Portable Hydroponics)"#,
+            desc = r#""#,
+            value = "-1861154222"
+        )
+    )]
+    ItemKitDynamicHydroponics = -1861154222i32,
+    #[strum(
+        serialize = "StructureWallLight",
+        props(name = r#"Wall Light"#, desc = r#""#, value = "-1860064656")
+    )]
+    StructureWallLight = -1860064656i32,
+    #[strum(
+        serialize = "StructurePipeLiquidCorner",
+        props(
+            name = r#"Liquid Pipe (Corner)"#,
+            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeLiquidCorner><color=green>Insulated Liquid Pipe (Corner)</color></link> using an <link=ThingItemKitInsulatedLiquidPipe><color=green>Kit (Insulated Liquid Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
+            value = "-1856720921"
+        )
+    )]
+    StructurePipeLiquidCorner = -1856720921i32,
+    #[strum(
+        serialize = "ItemGasCanisterWater",
+        props(
+            name = r#"Liquid Canister (Water)"#,
+            desc = r#""#,
+            value = "-1854861891"
+        )
+    )]
+    ItemGasCanisterWater = -1854861891i32,
+    #[strum(
+        serialize = "ItemKitLaunchMount",
+        props(name = r#"Kit (Launch Mount)"#, desc = r#""#, value = "-1854167549")
+    )]
+    ItemKitLaunchMount = -1854167549i32,
+    #[strum(
+        serialize = "DeviceLfoVolume",
+        props(
+            name = r#"Low frequency oscillator"#,
+            desc = r#"The low frequency oscillator (or LFO) makes everything sound dark, twisted and crunchy by altering the shape of the waves output by a <link=ThingLogicStepSequencer8><color=green>Logic Step Sequencer</color></link>.
+      
+To set up an LFO:
+
+1. Place the LFO unit
+2. Set the LFO output to a <link=ThingPassiveSpeaker><color=green>Passive Speaker</color></link>
+2. Set a sequencers' output to LFO - so the sequencer's signal runs through the LFO to a speaker.
+3. Place a <link=ThingStopWatch><color=green>Stop Watch</color></link> or use an existing one, then use a <link=ThingStructureLogicWriter><color=green>Logic Writer</color></link> to write it to the LFO.
+4. Use another logic writer to write the BPM to the LFO.
+5. You are ready. This is the future. You're in space. Make it sound cool.
+
+For more info, check out the <link=MusicPage><color=#0080FFFF>music page</color></link>."#,
+            value = "-1844430312"
+        )
+    )]
+    DeviceLfoVolume = -1844430312i32,
+    #[strum(
+        serialize = "StructureCableCornerH3",
+        props(
+            name = r#"Heavy Cable (3-Way Corner)"#,
+            desc = r#""#,
+            value = "-1843379322"
+        )
+    )]
+    StructureCableCornerH3 = -1843379322i32,
+    #[strum(
+        serialize = "StructureCompositeCladdingAngledCornerInner",
+        props(
+            name = r#"Composite Cladding (Angled Corner Inner)"#,
+            desc = r#""#,
+            value = "-1841871763"
+        )
+    )]
+    StructureCompositeCladdingAngledCornerInner = -1841871763i32,
+    #[strum(
+        serialize = "StructureHydroponicsTrayData",
+        props(
+            name = r#"Hydroponics Device"#,
+            desc = r#"The <link=Agrizero><color=#0080FFFF>Agrizero</color></link> hydroponics device is the ideal vessel for growing a range of <link=OrganicPage><color=#0080FFFF>plantlife</color></link>. It must be supplied with <link=GasWater><color=#44AD83>Water</color></link> using a pipe network, and sufficient light to generate photosynthesis. 
+It can be automated using the <link=ThingStructureHarvie><color=green>Harvie</color></link>. Note that unlike the <link=ThingStructureHydroponicsTray><color=green>Hydroponics Tray</color></link>, these cannot be placed consecutively as they are considered devices rather than pure pipes. They do, however, allow data interrogation for logic systems."#,
+            value = "-1841632400"
+        )
+    )]
+    StructureHydroponicsTrayData = -1841632400i32,
+    #[strum(
+        serialize = "ItemKitInsulatedPipeUtilityLiquid",
+        props(
+            name = r#"Kit (Insulated Pipe Utility Liquid)"#,
+            desc = r#""#,
+            value = "-1831558953"
+        )
+    )]
+    ItemKitInsulatedPipeUtilityLiquid = -1831558953i32,
+    #[strum(
+        serialize = "ItemKitWall",
+        props(name = r#"Kit (Wall)"#, desc = r#""#, value = "-1826855889")
+    )]
+    ItemKitWall = -1826855889i32,
+    #[strum(
+        serialize = "ItemWreckageAirConditioner1",
+        props(
+            name = r#"Wreckage Air Conditioner"#,
+            desc = r#""#,
+            value = "-1826023284"
+        )
+    )]
+    ItemWreckageAirConditioner1 = -1826023284i32,
+    #[strum(
+        serialize = "ItemKitStirlingEngine",
+        props(name = r#"Kit (Stirling Engine)"#, desc = r#""#, value = "-1821571150")
+    )]
+    ItemKitStirlingEngine = -1821571150i32,
+    #[strum(
+        serialize = "StructureGasUmbilicalMale",
+        props(
+            name = r#"Umbilical (Gas)"#,
+            desc = r#"0.Left
+1.Center
+2.Right"#,
+            value = "-1814939203"
+        )
+    )]
+    StructureGasUmbilicalMale = -1814939203i32,
+    #[strum(
+        serialize = "StructureSleeperRight",
+        props(
+            name = r#"Sleeper Right"#,
+            desc = r#"A horizontal variant of the sleeper. Will keep players hydrated and fed while they are logged out - as long as a breathable atmosphere is provided."#,
+            value = "-1812330717"
+        )
+    )]
+    StructureSleeperRight = -1812330717i32,
+    #[strum(
+        serialize = "StructureManualHatch",
+        props(
+            name = r#"Manual Hatch"#,
+            desc = r#"Can be welded using a <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link> or <link=ThingItemArcWelder><color=green>Arc Welder</color></link> to lock it in the current state. Use the welder again to unlock."#,
+            value = "-1808154199"
+        )
+    )]
+    StructureManualHatch = -1808154199i32,
+    #[strum(
+        serialize = "ItemOxite",
+        props(
+            name = r#"Ice (Oxite)"#,
+            desc = r#"Oxite ice is largely composed of frozen <link=GasOxygen><color=#44AD83>Oxygen</color></link>, and found on many planets in the Solar System. Highly valuable and sought after, not all planets a <link=Stationeers><color=#0080FFFF>Stationeer</color></link> visits will have some. 
+
+Highly sensitive to temperature, oxite will begin to melt as soon as it is mined, unless the temperature is below zero, or it is stored in the <link=ThingItemMiningBelt><color=green>Mining Belt</color></link>, <link=ThingItemMiningBeltAdvanced><color=green>Mining Belt MK II</color></link> or devices like the <link=ThingStructureIceCrusher><color=green>Ice Crusher</color></link> or <link=ThingStructureFridgeSmall><color=green>Fridge Small</color></link>. When melting, oxite produces a mixture of <link=GasOxygen><color=#44AD83>Oxygen</color></link> and <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>."#,
+            value = "-1805394113"
+        )
+    )]
+    ItemOxite = -1805394113i32,
+    #[strum(
+        serialize = "ItemKitLiquidTurboVolumePump",
+        props(
+            name = r#"Kit (Turbo Volume Pump - Liquid)"#,
+            desc = r#""#,
+            value = "-1805020897"
+        )
+    )]
+    ItemKitLiquidTurboVolumePump = -1805020897i32,
+    #[strum(
+        serialize = "StructureLiquidUmbilicalMale",
+        props(
+            name = r#"Umbilical (Liquid)"#,
+            desc = r#"0.Left
+1.Center
+2.Right"#,
+            value = "-1798420047"
+        )
+    )]
+    StructureLiquidUmbilicalMale = -1798420047i32,
+    #[strum(
+        serialize = "StructurePipeMeter",
+        props(
+            name = r#"Pipe Meter"#,
+            desc = r#"While the Stationeers program has, thus far, inspired little in the way of classical poetry, the following haiku was found etched, ironically, on a piece of pipe wreckage found on Vulcan:
+"Humble pipe meter
+speaks the truth, transmits pressure
+within any pipe""#,
+            value = "-1798362329"
+        )
+    )]
+    StructurePipeMeter = -1798362329i32,
+    #[strum(
+        serialize = "ItemKitUprightWindTurbine",
+        props(
+            name = r#"Kit (Upright Wind Turbine)"#,
+            desc = r#""#,
+            value = "-1798044015"
+        )
+    )]
+    ItemKitUprightWindTurbine = -1798044015i32,
+    #[strum(
+        serialize = "ItemPipeRadiator",
+        props(
+            name = r#"Kit (Radiator)"#,
+            desc = r#"This kit creates a <link=ThingStructurePipeRadiator><color=green>Pipe Convection Radiator</color></link>."#,
+            value = "-1796655088"
+        )
+    )]
+    ItemPipeRadiator = -1796655088i32,
+    #[strum(
+        serialize = "StructureOverheadShortCornerLocker",
+        props(
+            name = r#"Overhead Corner Locker"#,
+            desc = r#""#,
+            value = "-1794932560"
+        )
+    )]
+    StructureOverheadShortCornerLocker = -1794932560i32,
+    #[strum(
+        serialize = "ItemCableAnalyser",
+        props(name = r#"Kit (Cable Analyzer)"#, desc = r#""#, value = "-1792787349")
+    )]
+    ItemCableAnalyser = -1792787349i32,
+    #[strum(
+        serialize = "Landingpad_LiquidConnectorOutwardPiece",
+        props(
+            name = r#"Landingpad Liquid Output"#,
+            desc = r#"Pumps liquid purchased from a trader out of the landing pad. You can increase the landing pad's liquid storage capacity by adding more <link=ThingLandingpad_GasCylinderTankPiece><color=green>Landingpad Gas Storage</color></link> to the landing pad."#,
+            value = "-1788929869"
+        )
+    )]
+    LandingpadLiquidConnectorOutwardPiece = -1788929869i32,
+    #[strum(
+        serialize = "StructurePipeCorner",
+        props(
+            name = r#"Pipe (Corner)"#,
+            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeCorner><color=green>Insulated Pipe (Corner)</color></link> using an <link=ThingItemKitInsulatedPipe><color=green>Kit (Insulated Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
+            value = "-1785673561"
+        )
+    )]
+    StructurePipeCorner = -1785673561i32,
+    #[strum(
+        serialize = "ItemKitSensor",
+        props(name = r#"Kit (Sensors)"#, desc = r#""#, value = "-1776897113")
+    )]
+    ItemKitSensor = -1776897113i32,
+    #[strum(
+        serialize = "ItemReusableFireExtinguisher",
+        props(
+            name = r#"Fire Extinguisher (Reusable)"#,
+            desc = r#"Requires a canister filled with any inert liquid to opperate."#,
+            value = "-1773192190"
+        )
+    )]
+    ItemReusableFireExtinguisher = -1773192190i32,
+    #[strum(
+        serialize = "CartridgeOreScanner",
+        props(
+            name = r#"Ore Scanner"#,
+            desc = r#"When inserted into a <link=ThingItemTablet><color=green>Handheld Tablet</color></link> the scanner will display minerals hidden underground on the tablet."#,
+            value = "-1768732546"
+        )
+    )]
+    CartridgeOreScanner = -1768732546i32,
+    #[strum(
+        serialize = "ItemPipeVolumePump",
+        props(
+            name = r#"Kit (Volume Pump)"#,
+            desc = r#"This kit creates a <link=ThingStructureVolumePump><color=green>Volume Pump</color></link>."#,
+            value = "-1766301997"
+        )
+    )]
+    ItemPipeVolumePump = -1766301997i32,
+    #[strum(
+        serialize = "StructureGrowLight",
+        props(
+            name = r#"Grow Light"#,
+            desc = r#"<link=Agrizero><color=#0080FFFF>Agrizero's</color></link> leading hydroponic lighting system, the GrowUp UV light supplements sunshine in low light or sun-distant conditions. The unit adds growability over the space of a grid, so requires proximate placement to work. "#,
+            value = "-1758710260"
+        )
+    )]
+    StructureGrowLight = -1758710260i32,
+    #[strum(
+        serialize = "ItemHardSuit",
+        props(
+            name = r#"Hardsuit"#,
+            desc = r#"Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>"#,
+            value = "-1758310454"
+        )
+    )]
+    ItemHardSuit = -1758310454i32,
+    #[strum(
+        serialize = "StructureRailing",
+        props(
+            name = r#"Railing Industrial (Type 1)"#,
+            desc = r#""Safety third.""#,
+            value = "-1756913871"
+        )
+    )]
+    StructureRailing = -1756913871i32,
+    #[strum(
+        serialize = "StructureCableJunction4Burnt",
+        props(
+            name = r#"Burnt Cable (4-Way Junction)"#,
+            desc = r#""#,
+            value = "-1756896811"
+        )
+    )]
+    StructureCableJunction4Burnt = -1756896811i32,
+    #[strum(
+        serialize = "ItemCreditCard",
+        props(name = r#"Credit Card"#, desc = r#""#, value = "-1756772618")
+    )]
+    ItemCreditCard = -1756772618i32,
+    #[strum(
+        serialize = "ItemKitBlastDoor",
+        props(name = r#"Kit (Blast Door)"#, desc = r#""#, value = "-1755116240")
+    )]
+    ItemKitBlastDoor = -1755116240i32,
+    #[strum(
+        serialize = "ItemKitAutolathe",
+        props(name = r#"Kit (Autolathe)"#, desc = r#""#, value = "-1753893214")
+    )]
+    ItemKitAutolathe = -1753893214i32,
+    #[strum(
+        serialize = "ItemKitPassiveLargeRadiatorGas",
+        props(name = r#"Kit (Medium Radiator)"#, desc = r#""#, value = "-1752768283")
+    )]
+    ItemKitPassiveLargeRadiatorGas = -1752768283i32,
+    #[strum(
+        serialize = "StructurePictureFrameThinMountLandscapeSmall",
+        props(
+            name = r#"Picture Frame Thin Landscape Small"#,
+            desc = r#""#,
+            value = "-1752493889"
+        )
+    )]
+    StructurePictureFrameThinMountLandscapeSmall = -1752493889i32,
+    #[strum(
+        serialize = "ItemPipeHeater",
+        props(
+            name = r#"Pipe Heater Kit (Gas)"#,
+            desc = r#"Creates a <link=ThingStructurePipeHeater><color=green>Pipe Heater (Gas)</color></link>."#,
+            value = "-1751627006"
+        )
+    )]
+    ItemPipeHeater = -1751627006i32,
+    #[strum(
+        serialize = "ItemPureIceLiquidPollutant",
+        props(
+            name = r#"Pure Ice Liquid Pollutant"#,
+            desc = r#"A frozen chunk of pure <link=GasLiquidPollutant><color=#44AD83>Liquid Pollutant</color></link>"#,
+            value = "-1748926678"
+        )
+    )]
+    ItemPureIceLiquidPollutant = -1748926678i32,
+    #[strum(
+        serialize = "ItemKitDrinkingFountain",
+        props(
+            name = r#"Kit (Drinking Fountain)"#,
+            desc = r#""#,
+            value = "-1743663875"
+        )
+    )]
+    ItemKitDrinkingFountain = -1743663875i32,
+    #[strum(
+        serialize = "DynamicGasCanisterEmpty",
+        props(
+            name = r#"Portable Gas Tank"#,
+            desc = r#"Portable gas tanks store gas. To refill one, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or bad things happen. Once it's full, you can refill a <link=ThingItemGasCanisterEmpty><color=green>Canister</color></link> by attaching it to the tank's striped section. Or you could vent the tank's variable flow rate valve into a room and create an atmosphere."#,
+            value = "-1741267161"
+        )
+    )]
+    DynamicGasCanisterEmpty = -1741267161i32,
+    #[strum(
+        serialize = "ItemSpaceCleaner",
+        props(
+            name = r#"Space Cleaner"#,
+            desc = r#"There was a time when humanity really wanted to keep space clean. That time has passed."#,
+            value = "-1737666461"
+        )
+    )]
+    ItemSpaceCleaner = -1737666461i32,
+    #[strum(
+        serialize = "ItemAuthoringToolRocketNetwork",
+        props(
+            name = r#"<N:EN:ItemAuthoringToolRocketNetwork>"#,
+            desc = r#"<N:EN:ItemAuthoringToolRocketNetwork>"#,
+            value = "-1731627004"
+        )
+    )]
+    ItemAuthoringToolRocketNetwork = -1731627004i32,
+    #[strum(
+        serialize = "ItemSensorProcessingUnitMesonScanner",
+        props(
+            name = r#"Sensor Processing Unit (T-Ray Scanner)"#,
+            desc = r#"The T-Ray Scanner Sensor Processing Unit can be inserted into the <link=ThingItemSensorLenses><color=green>Sensor Lenses</color></link> to show an overlay of pipes and cables. This can be useful when building behind walls or other structures."#,
+            value = "-1730464583"
+        )
+    )]
+    ItemSensorProcessingUnitMesonScanner = -1730464583i32,
+    #[strum(
+        serialize = "ItemWaterWallCooler",
+        props(
+            name = r#"Kit (Liquid Wall Cooler)"#,
+            desc = r#""#,
+            value = "-1721846327"
+        )
+    )]
+    ItemWaterWallCooler = -1721846327i32,
+    #[strum(
+        serialize = "ItemPureIceLiquidCarbonDioxide",
+        props(
+            name = r#"Pure Ice Liquid Carbon Dioxide"#,
+            desc = r#"A frozen chunk of pure <link=GasLiquidCarbonDioxide><color=#44AD83>Liquid Carbon Dioxide</color></link>"#,
+            value = "-1715945725"
+        )
+    )]
+    ItemPureIceLiquidCarbonDioxide = -1715945725i32,
+    #[strum(
+        serialize = "AccessCardRed",
+        props(name = r#"Access Card (Red)"#, desc = r#""#, value = "-1713748313")
+    )]
+    AccessCardRed = -1713748313i32,
+    #[strum(
+        serialize = "DynamicGasCanisterAir",
+        props(
+            name = r#"Portable Gas Tank (Air)"#,
+            desc = r#"Portable gas tanks do one thing: store gas. But there's lots you can do with them. To refill the tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or bad things happen. Once it's full, you can refill a <link=ThingItemGasCanisterOxygen><color=green>Canister (Oxygen)</color></link> by attaching it to the tank's striped section. Or you could vent the tank's variable flow rate valve into a room and create an atmosphere. They also attach to rovers and rockets. Alternatively, kick it over and practice barrel rolling. The possibilities are endless."#,
+            value = "-1713611165"
+        )
+    )]
+    DynamicGasCanisterAir = -1713611165i32,
+    #[strum(
+        serialize = "StructureMotionSensor",
+        props(
+            name = r#"Motion Sensor"#,
+            desc = r#"Originally developed to monitor dance marathons, the motion sensor can also be connected to <link=LogicPage><color=#0080FFFF>Logic</color></link> systems for security purposes, automatic lighting, doors and various other applications.
+The sensor activates whenever a player enters the grid it is placed on."#,
+            value = "-1713470563"
+        )
+    )]
+    StructureMotionSensor = -1713470563i32,
+    #[strum(
+        serialize = "ItemCookedPowderedEggs",
+        props(
+            name = r#"Powdered Eggs"#,
+            desc = r#"A high-nutrient cooked food, which can be canned."#,
+            value = "-1712264413"
+        )
+    )]
+    ItemCookedPowderedEggs = -1712264413i32,
+    #[strum(
+        serialize = "ItemGasCanisterNitrousOxide",
+        props(
+            name = r#"Gas Canister (Sleeping)"#,
+            desc = r#""#,
+            value = "-1712153401"
+        )
+    )]
+    ItemGasCanisterNitrousOxide = -1712153401i32,
+    #[strum(
+        serialize = "ItemKitHeatExchanger",
+        props(name = r#"Kit Heat Exchanger"#, desc = r#""#, value = "-1710540039")
+    )]
+    ItemKitHeatExchanger = -1710540039i32,
+    #[strum(
+        serialize = "ItemPureIceNitrogen",
+        props(
+            name = r#"Pure Ice Nitrogen"#,
+            desc = r#"A frozen chunk of pure <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>"#,
+            value = "-1708395413"
+        )
+    )]
+    ItemPureIceNitrogen = -1708395413i32,
+    #[strum(
+        serialize = "ItemKitPipeRadiatorLiquid",
+        props(
+            name = r#"Kit (Pipe Radiator Liquid)"#,
+            desc = r#""#,
+            value = "-1697302609"
+        )
+    )]
+    ItemKitPipeRadiatorLiquid = -1697302609i32,
+    #[strum(
+        serialize = "StructureInLineTankGas1x1",
+        props(
+            name = r#"In-Line Tank Small Gas"#,
+            desc = r#"A small expansion tank that increases the volume of a pipe network."#,
+            value = "-1693382705"
+        )
+    )]
+    StructureInLineTankGas1X1 = -1693382705i32,
+    #[strum(
+        serialize = "SeedBag_Rice",
+        props(
+            name = r#"Rice Seeds"#,
+            desc = r#"Grow some <link=ThingItemRice><color=green>Rice</color></link>."#,
+            value = "-1691151239"
+        )
+    )]
+    SeedBagRice = -1691151239i32,
+    #[strum(
+        serialize = "StructurePictureFrameThickPortraitLarge",
+        props(
+            name = r#"Picture Frame Thick Portrait Large"#,
+            desc = r#""#,
+            value = "-1686949570"
+        )
+    )]
+    StructurePictureFrameThickPortraitLarge = -1686949570i32,
+    #[strum(
+        serialize = "ApplianceDeskLampLeft",
+        props(
+            name = r#"Appliance Desk Lamp Left"#,
+            desc = r#""#,
+            value = "-1683849799"
+        )
+    )]
+    ApplianceDeskLampLeft = -1683849799i32,
+    #[strum(
+        serialize = "ItemWreckageWallCooler1",
+        props(name = r#"Wreckage Wall Cooler"#, desc = r#""#, value = "-1682930158")
+    )]
+    ItemWreckageWallCooler1 = -1682930158i32,
+    #[strum(
+        serialize = "StructureGasUmbilicalFemale",
+        props(
+            name = r#"Umbilical Socket (Gas)"#,
+            desc = r#""#,
+            value = "-1680477930"
+        )
+    )]
+    StructureGasUmbilicalFemale = -1680477930i32,
+    #[strum(
+        serialize = "ItemGasFilterWaterInfinite",
+        props(
+            name = r#"Catalytic Filter (Water)"#,
+            desc = r#"A filter that selectively targets Water. It uses internal pressure differentials to regenerate a unique phase change catalyst, giving it an unlimited lifecycle."#,
+            value = "-1678456554"
+        )
+    )]
+    ItemGasFilterWaterInfinite = -1678456554i32,
+    #[strum(
+        serialize = "StructurePassthroughHeatExchangerGasToGas",
+        props(
+            name = r#"CounterFlow Heat Exchanger - Gas + Gas"#,
+            desc = r#"Exchange heat from one pipe network to another. By drawing down the pressure of the outputs with a pump or regulator and regulating input pressures, the temperatures of two counterflowing networks can be effectively exchanged.
+      Balancing the throughput of both inputs is key to creating a good exhange of temperatures."#,
+            value = "-1674187440"
+        )
+    )]
+    StructurePassthroughHeatExchangerGasToGas = -1674187440i32,
+    #[strum(
+        serialize = "StructureAutomatedOven",
+        props(name = r#"Automated Oven"#, desc = r#""#, value = "-1672404896")
+    )]
+    StructureAutomatedOven = -1672404896i32,
+    #[strum(
+        serialize = "StructureElectrolyzer",
+        props(
+            name = r#"Electrolyzer"#,
+            desc = r#"The <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> Electrolyzer splits <link=GasWater><color=#44AD83>Water</color></link> into hydrogen and <link=GasOxygen><color=#44AD83>Oxygen</color></link>. Employing unknown proprietary technology, the device uses water's latent heat as the energy to drive the electrosis process. If there is a downside to this near-miraculous fission, it's that the device is limited by the quantity of power available, which is used to maintain the temperature output. In other words, the machine works best with hot gas."#,
+            value = "-1668992663"
+        )
+    )]
+    StructureElectrolyzer = -1668992663i32,
+    #[strum(
+        serialize = "MonsterEgg",
+        props(
+            name = r#"<N:EN:MonsterEgg>"#,
+            desc = r#"<N:EN:MonsterEgg>"#,
+            value = "-1667675295"
+        )
+    )]
+    MonsterEgg = -1667675295i32,
+    #[strum(
+        serialize = "ItemMiningDrillHeavy",
+        props(
+            name = r#"Mining Drill (Heavy)"#,
+            desc = r#"Sometimes mining trips require something a little bigger to bring home the goods. This scaled up version of the <link=Recurso><color=#0080FFFF>Recurso</color></link> 'Topo' design <link=ThingItemMiningDrill><color=green>Mining Drill</color></link> can literally move mountains. The heavy mining drill will remove more ground and mine <link=OrePage><color=#0080FFFF>ore</color></link> more quickly than the standard mining drill. The heavy mining drill is also resilient to temperature and pressure. So no matter what planet or extreme weather conditions may be present, the Recurso heavy mining drill will get the job done."#,
+            value = "-1663349918"
+        )
+    )]
+    ItemMiningDrillHeavy = -1663349918i32,
+    #[strum(
+        serialize = "ItemAstroloySheets",
+        props(name = r#"Astroloy Sheets"#, desc = r#""#, value = "-1662476145")
+    )]
+    ItemAstroloySheets = -1662476145i32,
+    #[strum(
+        serialize = "ItemWreckageTurbineGenerator1",
+        props(
+            name = r#"Wreckage Turbine Generator"#,
+            desc = r#""#,
+            value = "-1662394403"
+        )
+    )]
+    ItemWreckageTurbineGenerator1 = -1662394403i32,
+    #[strum(
+        serialize = "ItemMiningBackPack",
+        props(name = r#"Mining Backpack"#, desc = r#""#, value = "-1650383245")
+    )]
+    ItemMiningBackPack = -1650383245i32,
+    #[strum(
+        serialize = "ItemSprayCanGrey",
+        props(
+            name = r#"Spray Paint (Grey)"#,
+            desc = r#"Arguably the most popular color in the universe, grey was invented so designers had something to do."#,
+            value = "-1645266981"
+        )
+    )]
+    ItemSprayCanGrey = -1645266981i32,
+    #[strum(
+        serialize = "ItemReagentMix",
+        props(
+            name = r#"Reagent Mix"#,
+            desc = r#"Reagent mix is pure potential. A slurry of undifferentiated <link=OrePage><color=#0080FFFF>ores</color></link>, it is output by the <link=ThingStructureRecycler><color=green>Recycler</color></link> and can be fed into the <link=ThingStructureCentrifuge><color=green>Centrifuge</color></link> to separate and recover the individual materials. Reagent mix is also output by the <link=ThingStructureFurnace><color=green>Furnace</color></link> when the current contents are ejected without smelting a specific ingot."#,
+            value = "-1641500434"
+        )
+    )]
+    ItemReagentMix = -1641500434i32,
+    #[strum(
+        serialize = "CartridgeAccessController",
+        props(
+            name = r#"Cartridge (Access Controller)"#,
+            desc = r#""#,
+            value = "-1634532552"
+        )
+    )]
+    CartridgeAccessController = -1634532552i32,
+    #[strum(
+        serialize = "StructureRecycler",
+        props(
+            name = r#"Recycler"#,
+            desc = r#"A device for collecting the raw resources while destroying an item. Produces <link=ThingItemReagentMix><color=green>Reagent Mix</color></link> containing packages of reagents. Pass these through the <link=ThingStructureCentrifuge><color=green>Centrifuge</color></link> to gain back the source ores. Plants and organic matter passed through will create Biomass, which when passed through the <link=ThingStructureCentrifuge><color=green>Centrifuge</color></link> will produce <link=ThingItemBiomass><color=green>Biomass</color></link>."#,
+            value = "-1633947337"
+        )
+    )]
+    StructureRecycler = -1633947337i32,
+    #[strum(
+        serialize = "StructureSmallTableBacklessDouble",
+        props(
+            name = r#"Small (Table Backless Double)"#,
+            desc = r#""#,
+            value = "-1633000411"
+        )
+    )]
+    StructureSmallTableBacklessDouble = -1633000411i32,
+    #[strum(
+        serialize = "ItemKitRocketGasFuelTank",
+        props(
+            name = r#"Kit (Rocket Gas Fuel Tank)"#,
+            desc = r#""#,
+            value = "-1629347579"
+        )
+    )]
+    ItemKitRocketGasFuelTank = -1629347579i32,
+    #[strum(
+        serialize = "StructureStairwellFrontPassthrough",
+        props(
+            name = r#"Stairwell (Front Passthrough)"#,
+            desc = r#""#,
+            value = "-1625452928"
+        )
+    )]
+    StructureStairwellFrontPassthrough = -1625452928i32,
+    #[strum(
+        serialize = "StructureCableJunctionBurnt",
+        props(
+            name = r#"Burnt Cable (Junction)"#,
+            desc = r#""#,
+            value = "-1620686196"
+        )
+    )]
+    StructureCableJunctionBurnt = -1620686196i32,
+    #[strum(
+        serialize = "ItemKitPipe",
+        props(name = r#"Kit (Pipe)"#, desc = r#""#, value = "-1619793705")
+    )]
+    ItemKitPipe = -1619793705i32,
+    #[strum(
+        serialize = "ItemPureIce",
+        props(
+            name = r#"Pure Ice Water"#,
+            desc = r#"A frozen chunk of pure <link=GasWater><color=#44AD83>Water</color></link>"#,
+            value = "-1616308158"
+        )
+    )]
+    ItemPureIce = -1616308158i32,
+    #[strum(
+        serialize = "StructureBasketHoop",
+        props(name = r#"Basket Hoop"#, desc = r#""#, value = "-1613497288")
+    )]
+    StructureBasketHoop = -1613497288i32,
+    #[strum(
+        serialize = "StructureWallPaddedThinNoBorder",
+        props(
+            name = r#"Wall (Padded Thin No Border)"#,
+            desc = r#""#,
+            value = "-1611559100"
+        )
+    )]
+    StructureWallPaddedThinNoBorder = -1611559100i32,
+    #[strum(
+        serialize = "StructureTankBig",
+        props(name = r#"Large Tank"#, desc = r#""#, value = "-1606848156")
+    )]
+    StructureTankBig = -1606848156i32,
+    #[strum(
+        serialize = "StructureInsulatedTankConnectorLiquid",
+        props(
+            name = r#"Insulated Tank Connector Liquid"#,
+            desc = r#""#,
+            value = "-1602030414"
+        )
+    )]
+    StructureInsulatedTankConnectorLiquid = -1602030414i32,
+    #[strum(
+        serialize = "ItemKitTurbineGenerator",
+        props(
+            name = r#"Kit (Turbine Generator)"#,
+            desc = r#""#,
+            value = "-1590715731"
+        )
+    )]
+    ItemKitTurbineGenerator = -1590715731i32,
+    #[strum(
+        serialize = "ItemKitCrateMkII",
+        props(name = r#"Kit (Crate Mk II)"#, desc = r#""#, value = "-1585956426")
+    )]
+    ItemKitCrateMkIi = -1585956426i32,
+    #[strum(
+        serialize = "StructureRefrigeratedVendingMachine",
+        props(
+            name = r#"Refrigerated Vending Machine"#,
+            desc = r#"The refrigerated OmniKool vending machine is an advanced version of the standard <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, which maintains an optimum pressure and constant temperature of -130 degrees C, to prevent food spoilage. It can hold up to 100 stacks.
+The OmniKool also has an in-built <link=ThingStructureStacker><color=green>Stacker</color></link>, allowing players to set the stack sizes of any items ADDED to the device. The unit's default stack size is 50.
+NOTE: altering stack sizes DOES NOT update existing stacks within the machine, only those subsequently added. "#,
+            value = "-1577831321"
+        )
+    )]
+    StructureRefrigeratedVendingMachine = -1577831321i32,
+    #[strum(
+        serialize = "ItemFlowerBlue",
+        props(name = r#"Flower (Blue)"#, desc = r#""#, value = "-1573623434")
+    )]
+    ItemFlowerBlue = -1573623434i32,
+    #[strum(
+        serialize = "ItemWallCooler",
+        props(
+            name = r#"Kit (Wall Cooler)"#,
+            desc = r#"This kit creates a <link=ThingStructureWallCooler><color=green>Wall Cooler</color></link>."#,
+            value = "-1567752627"
+        )
+    )]
+    ItemWallCooler = -1567752627i32,
+    #[strum(
+        serialize = "StructureSolarPanel45",
+        props(
+            name = r#"Solar Panel (Angled)"#,
+            desc = r#"<link=Sinotai><color=#0080FFFF>Sinotai</color></link> basic solar panels generate power from sunlight, sitting at 45 degrees to the ground. Their efficiency is reduced during storms and when damaged. You can repair these using some trusty <link=ThingItemDuctTape><color=green>Duct Tape</color></link>."#,
+            value = "-1554349863"
+        )
+    )]
+    StructureSolarPanel45 = -1554349863i32,
+    #[strum(
+        serialize = "ItemGasCanisterPollutants",
+        props(name = r#"Canister (Pollutants)"#, desc = r#""#, value = "-1552586384")
+    )]
+    ItemGasCanisterPollutants = -1552586384i32,
+    #[strum(
+        serialize = "CartridgeAtmosAnalyser",
+        props(
+            name = r#"Atmos Analyzer"#,
+            desc = r#"The Lorenz atmos analyzer is a multi-functional mass-spectrometer designed by <link=ExMin><color=#0080FFFF>ExMin</color></link> for use with the OreCore <link=ThingItemTablet><color=green>Handheld Tablet</color></link>. It displays the pressure, concentration and molar quantity of <link=GasPage><color=#0080FFFF>gas</color></link> in rooms, tanks, or pipe networks."#,
+            value = "-1550278665"
+        )
+    )]
+    CartridgeAtmosAnalyser = -1550278665i32,
+    #[strum(
+        serialize = "StructureWallPaddedArchLightsFittings",
+        props(
+            name = r#"Wall (Padded Arch Lights Fittings)"#,
+            desc = r#""#,
+            value = "-1546743960"
+        )
+    )]
+    StructureWallPaddedArchLightsFittings = -1546743960i32,
+    #[strum(
+        serialize = "StructureSolarPanelDualReinforced",
+        props(
+            name = r#"Solar Panel (Heavy Dual)"#,
+            desc = r#"This solar panel is resistant to storm damage."#,
+            value = "-1545574413"
+        )
+    )]
+    StructureSolarPanelDualReinforced = -1545574413i32,
+    #[strum(
+        serialize = "StructureCableCorner4",
+        props(name = r#"Cable (4-Way Corner)"#, desc = r#""#, value = "-1542172466")
+    )]
+    StructureCableCorner4 = -1542172466i32,
+    #[strum(
+        serialize = "StructurePressurePlateSmall",
+        props(name = r#"Trigger Plate (Small)"#, desc = r#""#, value = "-1536471028")
+    )]
+    StructurePressurePlateSmall = -1536471028i32,
+    #[strum(
+        serialize = "StructureFlashingLight",
+        props(
+            name = r#"Flashing Light"#,
+            desc = r#"Few objects or ideas are as clearly and transparently named as the Flashing Light, although fans of scrupulous accuracy have been known to refer to it by its full, official title: 'Default Yellow Flashing Light'."#,
+            value = "-1535893860"
+        )
+    )]
+    StructureFlashingLight = -1535893860i32,
+    #[strum(
+        serialize = "StructureFuselageTypeA2",
+        props(name = r#"Fuselage (Type A2)"#, desc = r#""#, value = "-1533287054")
+    )]
+    StructureFuselageTypeA2 = -1533287054i32,
+    #[strum(
+        serialize = "ItemPipeDigitalValve",
+        props(
+            name = r#"Kit (Digital Valve)"#,
+            desc = r#"This kit creates a <link=ThingStructureDigitalValve><color=green>Digital Valve</color></link>."#,
+            value = "-1532448832"
+        )
+    )]
+    ItemPipeDigitalValve = -1532448832i32,
+    #[strum(
+        serialize = "StructureCableJunctionH5",
+        props(
+            name = r#"Heavy Cable (5-Way Junction)"#,
+            desc = r#""#,
+            value = "-1530571426"
+        )
+    )]
+    StructureCableJunctionH5 = -1530571426i32,
+    #[strum(
+        serialize = "StructureFlagSmall",
+        props(name = r#"Small Flag"#, desc = r#""#, value = "-1529819532")
+    )]
+    StructureFlagSmall = -1529819532i32,
+    #[strum(
+        serialize = "StopWatch",
+        props(name = r#"Stop Watch"#, desc = r#""#, value = "-1527229051")
+    )]
+    StopWatch = -1527229051i32,
+    #[strum(
+        serialize = "ItemUraniumOre",
+        props(
+            name = r#"Ore (Uranium)"#,
+            desc = r#"In 1934, Enrico Fermi noticed that bombarding uranium with neutrons produced a burst of beta rays, and a new material. This process was named 'nuclear fission', and resulted in cheap energy, the Cold War, and countless thousand deaths. While reasonably common throughout the Solar System, <link=Stationeers><color=#0080FFFF>Stationeers</color></link> are wary of the material."#,
+            value = "-1516581844"
+        )
+    )]
+    ItemUraniumOre = -1516581844i32,
+    #[strum(
+        serialize = "Landingpad_ThreshholdPiece",
+        props(name = r#"Landingpad Threshhold"#, desc = r#""#, value = "-1514298582")
+    )]
+    LandingpadThreshholdPiece = -1514298582i32,
+    #[strum(
+        serialize = "ItemFlowerGreen",
+        props(name = r#"Flower (Green)"#, desc = r#""#, value = "-1513337058")
+    )]
+    ItemFlowerGreen = -1513337058i32,
+    #[strum(
+        serialize = "StructureCompositeCladdingAngled",
+        props(
+            name = r#"Composite Cladding (Angled)"#,
+            desc = r#""#,
+            value = "-1513030150"
+        )
+    )]
+    StructureCompositeCladdingAngled = -1513030150i32,
+    #[strum(
+        serialize = "StructureChairThickSingle",
+        props(name = r#"Chair (Thick Single)"#, desc = r#""#, value = "-1510009608")
+    )]
+    StructureChairThickSingle = -1510009608i32,
+    #[strum(
+        serialize = "StructureInsulatedPipeCrossJunction5",
+        props(
+            name = r#"Insulated Pipe (5-Way Junction)"#,
+            desc = r#"Insulated pipes greatly reduce heat loss from gases stored in them."#,
+            value = "-1505147578"
+        )
+    )]
+    StructureInsulatedPipeCrossJunction5 = -1505147578i32,
+    #[strum(
+        serialize = "ItemNitrice",
+        props(
+            name = r#"Ice (Nitrice)"#,
+            desc = r#"Nitrice is the nickname given to solid <link=GasNitrogen><color=#44AD83>Nitrogen</color></link> Ice, and found on many planets and moons in the Solar System. Given the inert nature of the <link=GasNitrogen><color=#44AD83>Nitrogen</color></link> it produces, the ice is useful when making breathable atmospheres with low flammability.
+
+Highly sensitive to temperature, nitrice will begin to melt as soon as it is mined, unless the temperature is below zero, or it is stored in the <link=ThingItemMiningBelt><color=green>Mining Belt</color></link>, <link=ThingItemMiningBeltAdvanced><color=green>Mining Belt MK II</color></link> or devices like the <link=ThingStructureIceCrusher><color=green>Ice Crusher</color></link> or <link=ThingStructureFridgeSmall><color=green>Fridge Small</color></link>."#,
+            value = "-1499471529"
+        )
+    )]
+    ItemNitrice = -1499471529i32,
+    #[strum(
+        serialize = "StructureCargoStorageSmall",
+        props(name = r#"Cargo Storage (Small)"#, desc = r#""#, value = "-1493672123")
+    )]
+    StructureCargoStorageSmall = -1493672123i32,
+    #[strum(
+        serialize = "StructureLogicCompare",
+        props(
+            name = r#"Logic Compare"#,
+            desc = r#"0.Equals
+1.Greater
+2.Less
+3.NotEquals"#,
+            value = "-1489728908"
+        )
+    )]
+    StructureLogicCompare = -1489728908i32,
+    #[strum(
+        serialize = "Landingpad_TaxiPieceStraight",
+        props(
+            name = r#"Landingpad Taxi Straight"#,
+            desc = r#""#,
+            value = "-1477941080"
+        )
+    )]
+    LandingpadTaxiPieceStraight = -1477941080i32,
+    #[strum(
+        serialize = "StructurePassthroughHeatExchangerLiquidToLiquid",
+        props(
+            name = r#"CounterFlow Heat Exchanger - Liquid + Liquid"#,
+            desc = r#"Exchange heat from one pipe network to another. By drawing down the pressure of the outputs with a pump or regulator and regulating input pressures, the temperatures of two counterflowing networks can be effectively exchanged.
+        Balancing the throughput of both inputs is key to creating a good exchange of temperatures."#,
+            value = "-1472829583"
+        )
+    )]
+    StructurePassthroughHeatExchangerLiquidToLiquid = -1472829583i32,
+    #[strum(
+        serialize = "ItemKitCompositeCladding",
+        props(name = r#"Kit (Cladding)"#, desc = r#""#, value = "-1470820996")
+    )]
+    ItemKitCompositeCladding = -1470820996i32,
+    #[strum(
+        serialize = "StructureChuteInlet",
+        props(
+            name = r#"Chute Inlet"#,
+            desc = r#"The aim for any <link=Stationeers><color=#0080FFFF>Stationeer</color></link> is to make off-world survival less of a struggle for themselves, and those who will follow in their footsteps.
+The chute inlet is an aperture by which items can be introduced to <link=ImportExportPage><color=#0080FFFF>import/export</color></link> networks. Note that its origins in zero-gravity mining means chute inlets are unpowered and permanently open, rather than interactable, allowing objects to be thrown in. They can be connected to <link=LogicUnitPage><color=#0080FFFF>logic</color></link> systems to monitor throughput."#,
+            value = "-1469588766"
+        )
+    )]
+    StructureChuteInlet = -1469588766i32,
+    #[strum(
+        serialize = "StructureSleeper",
+        props(name = r#"Sleeper"#, desc = r#""#, value = "-1467449329")
+    )]
+    StructureSleeper = -1467449329i32,
+    #[strum(
+        serialize = "CartridgeElectronicReader",
+        props(name = r#"eReader"#, desc = r#""#, value = "-1462180176")
+    )]
+    CartridgeElectronicReader = -1462180176i32,
+    #[strum(
+        serialize = "StructurePictureFrameThickMountPortraitLarge",
+        props(
+            name = r#"Picture Frame Thick Mount Portrait Large"#,
+            desc = r#""#,
+            value = "-1459641358"
+        )
+    )]
+    StructurePictureFrameThickMountPortraitLarge = -1459641358i32,
+    #[strum(
+        serialize = "ItemSteelFrames",
+        props(
+            name = r#"Steel Frames"#,
+            desc = r#"An advanced and stronger version of <link=ThingItemIronFrames><color=green>Iron Frames</color></link>, steel frames are placed by right-clicking. To complete construction, use <link=ThingItemSteelSheets><color=green>Steel Sheets</color></link> and a <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link> in your active hand."#,
+            value = "-1448105779"
+        )
+    )]
+    ItemSteelFrames = -1448105779i32,
+    #[strum(
+        serialize = "StructureChuteFlipFlopSplitter",
+        props(
+            name = r#"Chute Flip Flop Splitter"#,
+            desc = r#"A chute that toggles between two outputs"#,
+            value = "-1446854725"
+        )
+    )]
+    StructureChuteFlipFlopSplitter = -1446854725i32,
+    #[strum(
+        serialize = "StructurePictureFrameThickLandscapeLarge",
+        props(
+            name = r#"Picture Frame Thick Landscape Large"#,
+            desc = r#""#,
+            value = "-1434523206"
+        )
+    )]
+    StructurePictureFrameThickLandscapeLarge = -1434523206i32,
+    #[strum(
+        serialize = "ItemKitAdvancedComposter",
+        props(
+            name = r#"Kit (Advanced Composter)"#,
+            desc = r#""#,
+            value = "-1431998347"
+        )
+    )]
+    ItemKitAdvancedComposter = -1431998347i32,
+    #[strum(
+        serialize = "StructureLiquidTankBigInsulated",
+        props(
+            name = r#"Insulated Liquid Tank Big"#,
+            desc = r#""#,
+            value = "-1430440215"
+        )
+    )]
+    StructureLiquidTankBigInsulated = -1430440215i32,
+    #[strum(
+        serialize = "StructureEvaporationChamber",
+        props(
+            name = r#"Evaporation Chamber"#,
+            desc = r#"A device for safely evaporating liquids into gasses. Liquids and Gasses will both exist safely inside the device. Lowering the pressure target of the in-built back pressure regulator using the setting wheel will change the boiling temperature of liquids inside.
+        The secondary gas input on the left is a heat-exchanger input and allows for heat exchange between the secondary input pipe and the internal atmosphere of the Evaporation Chamber. 
+        Paired with <link=ThingStructureCondensationChamber><color=green>Condensation Chamber</color></link> Stationeers can exploit the phase change properties of gases to build a DIY air conditioner."#,
+            value = "-1429782576"
+        )
+    )]
+    StructureEvaporationChamber = -1429782576i32,
+    #[strum(
+        serialize = "StructureWallGeometryTMirrored",
+        props(
+            name = r#"Wall (Geometry T Mirrored)"#,
+            desc = r#""#,
+            value = "-1427845483"
+        )
+    )]
+    StructureWallGeometryTMirrored = -1427845483i32,
+    #[strum(
+        serialize = "KitchenTableShort",
+        props(name = r#"Kitchen Table (Short)"#, desc = r#""#, value = "-1427415566")
+    )]
+    KitchenTableShort = -1427415566i32,
+    #[strum(
+        serialize = "StructureChairRectangleSingle",
+        props(
+            name = r#"Chair (Rectangle Single)"#,
+            desc = r#""#,
+            value = "-1425428917"
+        )
+    )]
+    StructureChairRectangleSingle = -1425428917i32,
+    #[strum(
+        serialize = "StructureTransformer",
+        props(
+            name = r#"Transformer (Large)"#,
+            desc = r#"The large <link=Norsec><color=#0080FFFF>Norsec</color></link> transformer is a critical component of extended <link=ElectronicPage><color=#0080FFFF>electrical</color></link> networks, controlling the maximum power that will flow down a cable. To prevent overloading, output can be set from 0 to 50,000W. 
+Note that transformers operate as data isolators, preventing data flowing into any network beyond it."#,
+            value = "-1423212473"
+        )
+    )]
+    StructureTransformer = -1423212473i32,
+    #[strum(
+        serialize = "StructurePictureFrameThinLandscapeLarge",
+        props(
+            name = r#"Picture Frame Thin Landscape Large"#,
+            desc = r#""#,
+            value = "-1418288625"
+        )
+    )]
+    StructurePictureFrameThinLandscapeLarge = -1418288625i32,
+    #[strum(
+        serialize = "StructureCompositeCladdingAngledCornerInnerLong",
+        props(
+            name = r#"Composite Cladding (Angled Corner Inner Long)"#,
+            desc = r#""#,
+            value = "-1417912632"
+        )
+    )]
+    StructureCompositeCladdingAngledCornerInnerLong = -1417912632i32,
+    #[strum(
+        serialize = "ItemPlantEndothermic_Genepool2",
+        props(
+            name = r#"Winterspawn (Beta variant)"#,
+            desc = r#"<link=Agrizero><color=#0080FFFF>Agrizero's</color></link> Winterspawn atmospheric bio-processor is a recent addition to their catalog of genespliced environmental decorations. Using ambient heat to split <link=GasWater><color=#44AD83>Water</color></link> into <link=GasVolatiles><color=#44AD83>Volatiles</color></link> and <link=GasOxygen><color=#44AD83>Oxygen</color></link>, the Winterspawn cools its surroundings when supplied with sufficient <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>. The beta variant has a peak cooling and electrolysis capacity of 150Watts and is most efficient operating in air temperatures of 14 to 24 Degrees Celsius."#,
+            value = "-1414203269"
+        )
+    )]
+    ItemPlantEndothermicGenepool2 = -1414203269i32,
+    #[strum(
+        serialize = "ItemFlowerOrange",
+        props(name = r#"Flower (Orange)"#, desc = r#""#, value = "-1411986716")
+    )]
+    ItemFlowerOrange = -1411986716i32,
+    #[strum(
+        serialize = "AccessCardBlue",
+        props(name = r#"Access Card (Blue)"#, desc = r#""#, value = "-1411327657")
+    )]
+    AccessCardBlue = -1411327657i32,
+    #[strum(
+        serialize = "StructureWallSmallPanelsOpen",
+        props(
+            name = r#"Wall (Small Panels Open)"#,
+            desc = r#""#,
+            value = "-1407480603"
+        )
+    )]
+    StructureWallSmallPanelsOpen = -1407480603i32,
+    #[strum(
+        serialize = "ItemNickelIngot",
+        props(name = r#"Ingot (Nickel)"#, desc = r#""#, value = "-1406385572")
+    )]
+    ItemNickelIngot = -1406385572i32,
+    #[strum(
+        serialize = "StructurePipeCrossJunction",
+        props(
+            name = r#"Pipe (Cross Junction)"#,
+            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeCrossJunction><color=green>Insulated Pipe (Cross Junction)</color></link> using an <link=ThingItemKitInsulatedPipe><color=green>Kit (Insulated Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
+            value = "-1405295588"
+        )
+    )]
+    StructurePipeCrossJunction = -1405295588i32,
+    #[strum(
+        serialize = "StructureCableJunction6",
+        props(
+            name = r#"Cable (6-Way Junction)"#,
+            desc = r#"Carrying power and data alike, cable coil has come to symbolize the innovation, independence and flexibility of <link=Stationeers><color=#0080FFFF>Stationeer</color></link> duty - so much so, the <link=ODA><color=#0080FFFF>ODA</color></link> designated it an official <link=ToolPage><color=#0080FFFF>'tool'</color></link> during the 3rd Decannual Stationeer Solar Conference.
+Normal coil has a maximum wattage of 5kW. For higher-current applications, use <link=ThingItemCableCoilHeavy><color=green>Cable Coil (Heavy)</color></link>."#,
+            value = "-1404690610"
+        )
+    )]
+    StructureCableJunction6 = -1404690610i32,
+    #[strum(
+        serialize = "ItemPassiveVentInsulated",
+        props(
+            name = r#"Kit (Insulated Passive Vent)"#,
+            desc = r#""#,
+            value = "-1397583760"
+        )
+    )]
+    ItemPassiveVentInsulated = -1397583760i32,
+    #[strum(
+        serialize = "ItemKitChairs",
+        props(name = r#"Kit (Chairs)"#, desc = r#""#, value = "-1394008073")
+    )]
+    ItemKitChairs = -1394008073i32,
+    #[strum(
+        serialize = "StructureBatteryLarge",
+        props(
+            name = r#"Station Battery (Large)"#,
+            desc = r#"Providing even better large-scale, reliable power storage than the {THING;StructureBattery}, the <link=Sinotai><color=#0080FFFF>Sinotai</color></link> 'Da Dianchi' large station battery is the heart of most <link=Stationeers><color=#0080FFFF>Stationeer</color></link> bases. 
+There are a variety of cautions to the design of electrical systems using batteries, and every experienced Stationeer has a story to tell, hence the Stationeer adage: 'Dianzi cooks, but it also frys.' 
+<size=120%><b>POWER OUTPUT</b></size>
+Able to store up to 9000001 watts of power, there are no practical limits to its throughput, hence it is wise to use <link=ThingItemCableCoilHeavy><color=green>Cable Coil (Heavy)</color></link>. Seasoned electrical engineers will also laugh in the face of those who fail to separate out their power generation networks using an <link=ThingStructureAreaPowerControl><color=green>Area Power Control</color></link> and <link=ThingStructureTransformer><color=green>Transformer (Large)</color></link>. "#,
+            value = "-1388288459"
+        )
+    )]
+    StructureBatteryLarge = -1388288459i32,
+    #[strum(
+        serialize = "ItemGasFilterNitrogenL",
+        props(
+            name = r#"Heavy Filter (Nitrogen)"#,
+            desc = r#""#,
+            value = "-1387439451"
+        )
+    )]
+    ItemGasFilterNitrogenL = -1387439451i32,
+    #[strum(
+        serialize = "KitchenTableTall",
+        props(name = r#"Kitchen Table (Tall)"#, desc = r#""#, value = "-1386237782")
+    )]
+    KitchenTableTall = -1386237782i32,
+    #[strum(
+        serialize = "StructureCapsuleTankGas",
+        props(
+            name = r#"Gas Capsule Tank Small"#,
+            desc = r#""#,
+            value = "-1385712131"
+        )
+    )]
+    StructureCapsuleTankGas = -1385712131i32,
+    #[strum(
+        serialize = "StructureCryoTubeVertical",
+        props(
+            name = r#"Cryo Tube Vertical"#,
+            desc = r#"The vertical variant of the cryo tube. Will heal players and organs as well as revive dead players when provided with an atmosphere of Nitrogen below -150C."#,
+            value = "-1381321828"
+        )
+    )]
+    StructureCryoTubeVertical = -1381321828i32,
+    #[strum(
+        serialize = "StructureWaterWallCooler",
+        props(name = r#"Liquid Wall Cooler"#, desc = r#""#, value = "-1369060582")
+    )]
+    StructureWaterWallCooler = -1369060582i32,
+    #[strum(
+        serialize = "ItemKitTables",
+        props(name = r#"Kit (Tables)"#, desc = r#""#, value = "-1361598922")
+    )]
+    ItemKitTables = -1361598922i32,
+    #[strum(
+        serialize = "ItemResearchCapsuleGreen",
+        props(
+            name = r#"Research Capsule Green"#,
+            desc = r#""#,
+            value = "-1352732550"
+        )
+    )]
+    ItemResearchCapsuleGreen = -1352732550i32,
+    #[strum(
+        serialize = "StructureLargeHangerDoor",
+        props(
+            name = r#"Large Hangar Door"#,
+            desc = r#"1 x 3 modular door piece for building hangar doors."#,
+            value = "-1351081801"
+        )
+    )]
+    StructureLargeHangerDoor = -1351081801i32,
+    #[strum(
+        serialize = "ItemGoldOre",
+        props(
+            name = r#"Ore (Gold)"#,
+            desc = r#"Surprisingly common throughout the Solar System, <link=ReagentGold><color=#B566FF>Gold</color></link> is thought to originate in the heart of supernovas, gathering as dust in the early stages of solar formation, then incorporating into the slowly accreting planetary bodies. Now a prized element in <link=Stationeers><color=#0080FFFF>Stationeer</color></link> construction, <link=ReagentGold><color=#B566FF>Gold</color></link> is valued not for its beauty, but its reliability: inert, durable, conductive and highly stable, gold's strength is that it does nothing."#,
+            value = "-1348105509"
+        )
+    )]
+    ItemGoldOre = -1348105509i32,
+    #[strum(
+        serialize = "ItemCannedMushroom",
+        props(
+            name = r#"Canned Mushroom"#,
+            desc = r#"Made in an <link=ThingStructureAdvancedPackagingMachine><color=green>Advanced Packaging Machine</color></link> or <link=ThingAppliancePackagingMachine><color=green>Basic Packaging Machine</color></link>, using <link=ThingItemCookedMushroom><color=green>Cooked Mushroom</color></link>  and a <link=ThingItemEmptyCan><color=green>Empty Can</color></link>, delicious mushroom soup is fairly high in nutrition, and does not <link=DecayPage><color=#0080FFFF>decay</color></link>."#,
+            value = "-1344601965"
+        )
+    )]
+    ItemCannedMushroom = -1344601965i32,
+    #[strum(
+        serialize = "AppliancePaintMixer",
+        props(name = r#"Paint Mixer"#, desc = r#""#, value = "-1339716113")
+    )]
+    AppliancePaintMixer = -1339716113i32,
+    #[strum(
+        serialize = "AccessCardGray",
+        props(name = r#"Access Card (Gray)"#, desc = r#""#, value = "-1339479035")
+    )]
+    AccessCardGray = -1339479035i32,
+    #[strum(
+        serialize = "StructureChuteDigitalValveRight",
+        props(
+            name = r#"Chute Digital Valve Right"#,
+            desc = r#"The Digital Chute Valve will stop the flow of materials when set to closed and when set to open, will act like a straight chute. The valve will automatically close after a certain number of items have passed through. This threshold can be set using the dial."#,
+            value = "-1337091041"
+        )
+    )]
+    StructureChuteDigitalValveRight = -1337091041i32,
+    #[strum(
+        serialize = "ItemKitSmallDirectHeatExchanger",
+        props(
+            name = r#"Kit (Small Direct Heat Exchanger)"#,
+            desc = r#""#,
+            value = "-1332682164"
+        )
+    )]
+    ItemKitSmallDirectHeatExchanger = -1332682164i32,
+    #[strum(
+        serialize = "AccessCardBlack",
+        props(name = r#"Access Card (Black)"#, desc = r#""#, value = "-1330388999")
+    )]
+    AccessCardBlack = -1330388999i32,
+    #[strum(
+        serialize = "StructureLogicWriter",
+        props(name = r#"Logic Writer"#, desc = r#""#, value = "-1326019434")
+    )]
+    StructureLogicWriter = -1326019434i32,
+    #[strum(
+        serialize = "StructureLogicWriterSwitch",
+        props(name = r#"Logic Writer Switch"#, desc = r#""#, value = "-1321250424")
+    )]
+    StructureLogicWriterSwitch = -1321250424i32,
+    #[strum(
+        serialize = "StructureWallIron04",
+        props(name = r#"Iron Wall (Type 4)"#, desc = r#""#, value = "-1309433134")
+    )]
+    StructureWallIron04 = -1309433134i32,
+    #[strum(
+        serialize = "ItemPureIceLiquidVolatiles",
+        props(
+            name = r#"Pure Ice Liquid Volatiles"#,
+            desc = r#"A frozen chunk of pure <link=GasLiquidVolatiles><color=#44AD83>Liquid Volatiles</color></link>"#,
+            value = "-1306628937"
+        )
+    )]
+    ItemPureIceLiquidVolatiles = -1306628937i32,
+    #[strum(
+        serialize = "StructureWallLightBattery",
+        props(name = r#"Wall Light (Battery)"#, desc = r#""#, value = "-1306415132")
+    )]
+    StructureWallLightBattery = -1306415132i32,
+    #[strum(
+        serialize = "AppliancePlantGeneticAnalyzer",
+        props(
+            name = r#"Plant Genetic Analyzer"#,
+            desc = r#"The Genetic Analyzer can be used to process samples from the <link=ThingItemPlantSampler><color=green>Plant Sampler</color></link>. Once processed, the genetic information of the sampled plant can be viewed by clicking on the search button.
+
+Individual Gene Value Widgets: 
+Most gene values will appear as a sliding bar between a minimum value on the left and a maximum value on the right. The actual value of the gene is in the middle of the bar, in orange.
+
+Multiple Gene Value Widgets: 
+For temperature and pressure ranges, four genes appear on the same widget. The orange values underneath the bar are the minimum and maximum thresholds for growth. Outside of this range, the plant will stop growing and eventually die. The blue values underneath the bar are the minimum and maximum thresholds for ideal growth. Inside of this range, the plant will grow at maximum speed. The white values above the bar are the minimum and maximum achievable values for the growth threshold."#,
+            value = "-1303038067"
+        )
+    )]
+    AppliancePlantGeneticAnalyzer = -1303038067i32,
+    #[strum(
+        serialize = "ItemIronIngot",
+        props(
+            name = r#"Ingot (Iron)"#,
+            desc = r#"The most basic unit of construction available to <link=Stationeers><color=#0080FFFF>Stationeer</color></link>-kind, iron ingots are created by smelting <link=ThingItemIronOre><color=green>Ore (Iron)</color></link> in the <link=ThingStructureFurnace><color=green>Furnace</color></link> and <link=ThingStructureArcFurnace><color=green>Arc Furnace</color></link>, and used to create a variety of items."#,
+            value = "-1301215609"
+        )
+    )]
+    ItemIronIngot = -1301215609i32,
+    #[strum(
+        serialize = "StructureSleeperVertical",
+        props(
+            name = r#"Sleeper Vertical"#,
+            desc = r#"The vertical variant of the sleeper. Will keep players hydrated and fed while they are logged out - as long as a breathable atmosphere is provided."#,
+            value = "-1300059018"
+        )
+    )]
+    StructureSleeperVertical = -1300059018i32,
+    #[strum(
+        serialize = "Landingpad_2x2CenterPiece01",
+        props(
+            name = r#"Landingpad 2x2 Center Piece"#,
+            desc = r#"Recommended for larger traders. This allows for the creation of 4x4 and 6x6 landing areas with symetrical doors"#,
+            value = "-1295222317"
+        )
+    )]
+    Landingpad2X2CenterPiece01 = -1295222317i32,
+    #[strum(
+        serialize = "SeedBag_Corn",
+        props(
+            name = r#"Corn Seeds"#,
+            desc = r#"Grow a <link=ThingItemCorn><color=green>Corn</color></link>."#,
+            value = "-1290755415"
+        )
+    )]
+    SeedBagCorn = -1290755415i32,
+    #[strum(
+        serialize = "StructureDigitalValve",
+        props(
+            name = r#"Digital Valve"#,
+            desc = r#"The digital valve allows <link=Stationeers><color=#0080FFFF>Stationeers</color></link> to create <link=LogicPage><color=#0080FFFF>logic-controlled</color></link> valves and pipe networks."#,
+            value = "-1280984102"
+        )
+    )]
+    StructureDigitalValve = -1280984102i32,
+    #[strum(
+        serialize = "StructureTankConnector",
+        props(
+            name = r#"Tank Connector"#,
+            desc = r#"Tank connectors are basic mounting devices that allow you to attach a <link=ThingDynamicGasCanisterEmpty><color=green>Portable Gas Tank</color></link> to a gas pipe network."#,
+            value = "-1276379454"
+        )
+    )]
+    StructureTankConnector = -1276379454i32,
+    #[strum(
+        serialize = "ItemSuitModCryogenicUpgrade",
+        props(
+            name = r#"Cryogenic Suit Upgrade"#,
+            desc = r#"Enables suits with basic cooling functionality to work with cryogenic liquid."#,
+            value = "-1274308304"
+        )
+    )]
+    ItemSuitModCryogenicUpgrade = -1274308304i32,
+    #[strum(
+        serialize = "ItemKitLandingPadWaypoint",
+        props(
+            name = r#"Kit (Landing Pad Runway)"#,
+            desc = r#""#,
+            value = "-1267511065"
+        )
+    )]
+    ItemKitLandingPadWaypoint = -1267511065i32,
+    #[strum(
+        serialize = "DynamicGasTankAdvancedOxygen",
+        props(
+            name = r#"Portable Gas Tank Mk II (Oxygen)"#,
+            desc = r#"0.Mode0
+1.Mode1"#,
+            value = "-1264455519"
+        )
+    )]
+    DynamicGasTankAdvancedOxygen = -1264455519i32,
+    #[strum(
+        serialize = "ItemBasketBall",
+        props(name = r#"Basket Ball"#, desc = r#""#, value = "-1262580790")
+    )]
+    ItemBasketBall = -1262580790i32,
+    #[strum(
+        serialize = "ItemSpacepack",
+        props(
+            name = r#"Spacepack"#,
+            desc = r#"The basic <link=CHAC><color=#0080FFFF>CHAC</color></link> spacepack isn't 'technically' a jetpack, it's a gas thruster. It can be powered by any gas, so long as the internal pressure of the <link=AtmosphericsPage><color=#0080FFFF>canister</color></link> is higher than the ambient external pressure. If the external pressure is greater, the spacepack will not function.
+Indispensable for building, mining and general movement, it has ten storage slots and lets <link=Stationeers><color=#0080FFFF>Stationeers</color></link> fly at 3m/s, compared to the more powerful <link=ThingItemJetpackBasic><color=green>Jetpack Basic</color></link> or <link=ThingItemHardJetpack><color=green>Hardsuit Jetpack</color></link>. Adjusting the thrust value alters your rate of acceleration, while activating the stablizer causes the spacepack to hover when a given height is reached.
+USE: 'J' to activate; 'space' to fly up; 'left ctrl' to descend; and 'WASD' to move."#,
+            value = "-1260618380"
+        )
+    )]
+    ItemSpacepack = -1260618380i32,
+    #[strum(
+        serialize = "ItemKitRocketDatalink",
+        props(name = r#"Kit (Rocket Datalink)"#, desc = r#""#, value = "-1256996603")
+    )]
+    ItemKitRocketDatalink = -1256996603i32,
+    #[strum(
+        serialize = "StructureGasSensor",
+        props(
+            name = r#"Gas Sensor"#,
+            desc = r#"Gas sensors are designed to monitor and report basic atmospheric information, including temperature, pressure, and gas ratios. They also make wonderful wedding presents."#,
+            value = "-1252983604"
+        )
+    )]
+    StructureGasSensor = -1252983604i32,
+    #[strum(
+        serialize = "ItemPureIceCarbonDioxide",
+        props(
+            name = r#"Pure Ice Carbon Dioxide"#,
+            desc = r#"A frozen chunk of pure <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link>"#,
+            value = "-1251009404"
+        )
+    )]
+    ItemPureIceCarbonDioxide = -1251009404i32,
+    #[strum(
+        serialize = "ItemKitTurboVolumePump",
+        props(
+            name = r#"Kit (Turbo Volume Pump - Gas)"#,
+            desc = r#""#,
+            value = "-1248429712"
+        )
+    )]
+    ItemKitTurboVolumePump = -1248429712i32,
+    #[strum(
+        serialize = "ItemGasFilterNitrousOxide",
+        props(
+            name = r#"Filter (Nitrous Oxide)"#,
+            desc = r#""#,
+            value = "-1247674305"
+        )
+    )]
+    ItemGasFilterNitrousOxide = -1247674305i32,
+    #[strum(
+        serialize = "StructureChairThickDouble",
+        props(name = r#"Chair (Thick Double)"#, desc = r#""#, value = "-1245724402")
+    )]
+    StructureChairThickDouble = -1245724402i32,
+    #[strum(
+        serialize = "StructureWallPaddingArchVent",
+        props(
+            name = r#"Wall (Padding Arch Vent)"#,
+            desc = r#""#,
+            value = "-1243329828"
+        )
+    )]
+    StructureWallPaddingArchVent = -1243329828i32,
+    #[strum(
+        serialize = "ItemKitConsole",
+        props(name = r#"Kit (Consoles)"#, desc = r#""#, value = "-1241851179")
+    )]
+    ItemKitConsole = -1241851179i32,
+    #[strum(
+        serialize = "ItemKitBeds",
+        props(name = r#"Kit (Beds)"#, desc = r#""#, value = "-1241256797")
+    )]
+    ItemKitBeds = -1241256797i32,
+    #[strum(
+        serialize = "StructureFrameIron",
+        props(name = r#"Iron Frame"#, desc = r#""#, value = "-1240951678")
+    )]
+    StructureFrameIron = -1240951678i32,
+    #[strum(
+        serialize = "ItemDirtyOre",
+        props(
+            name = r#"Dirty Ore"#,
+            desc = r#"Ore mined from bedrock via the <link=ThingStructureDeepMiner><color=green>Deep Miner</color></link> which then can be used in the <link=ThingStructureCentrifuge><color=green>Centrifuge</color></link>, or <link=ThingStructureCombustionCentrifuge><color=green>Combustion Centrifuge</color></link>. Once processed, it produces ore in a ratio similar to the average found on the planet's surface. "#,
+            value = "-1234745580"
+        )
+    )]
+    ItemDirtyOre = -1234745580i32,
+    #[strum(
+        serialize = "StructureLargeDirectHeatExchangeGastoGas",
+        props(
+            name = r#"Large Direct Heat Exchanger - Gas + Gas"#,
+            desc = r#"Direct Heat Exchangers equalize the temperature of the two input networks."#,
+            value = "-1230658883"
+        )
+    )]
+    StructureLargeDirectHeatExchangeGastoGas = -1230658883i32,
+    #[strum(
+        serialize = "ItemSensorProcessingUnitOreScanner",
+        props(
+            name = r#"Sensor Processing Unit (Ore Scanner)"#,
+            desc = r#"The Sensor Processing unit can be inserted into <link=ThingItemSensorLenses><color=green>Sensor Lenses</color></link> to reveal underground minerals in a HUD."#,
+            value = "-1219128491"
+        )
+    )]
+    ItemSensorProcessingUnitOreScanner = -1219128491i32,
+    #[strum(
+        serialize = "StructurePictureFrameThickPortraitSmall",
+        props(
+            name = r#"Picture Frame Thick Portrait Small"#,
+            desc = r#""#,
+            value = "-1218579821"
+        )
+    )]
+    StructurePictureFrameThickPortraitSmall = -1218579821i32,
+    #[strum(
+        serialize = "ItemGasFilterOxygenL",
+        props(name = r#"Heavy Filter (Oxygen)"#, desc = r#""#, value = "-1217998945")
+    )]
+    ItemGasFilterOxygenL = -1217998945i32,
+    #[strum(
+        serialize = "Landingpad_LiquidConnectorInwardPiece",
+        props(
+            name = r#"Landingpad Liquid Input"#,
+            desc = r#""#,
+            value = "-1216167727"
+        )
+    )]
+    LandingpadLiquidConnectorInwardPiece = -1216167727i32,
+    #[strum(
+        serialize = "ItemWreckageStructureWeatherStation008",
+        props(
+            name = r#"Wreckage Structure Weather Station"#,
+            desc = r#""#,
+            value = "-1214467897"
+        )
+    )]
+    ItemWreckageStructureWeatherStation008 = -1214467897i32,
+    #[strum(
+        serialize = "ItemPlantThermogenic_Creative",
+        props(
+            name = r#"Thermogenic Plant Creative"#,
+            desc = r#""#,
+            value = "-1208890208"
+        )
+    )]
+    ItemPlantThermogenicCreative = -1208890208i32,
+    #[strum(
+        serialize = "ItemRocketScanningHead",
+        props(name = r#"Rocket Scanner Head"#, desc = r#""#, value = "-1198702771")
+    )]
+    ItemRocketScanningHead = -1198702771i32,
+    #[strum(
+        serialize = "StructureCableStraightBurnt",
+        props(
+            name = r#"Burnt Cable (Straight)"#,
+            desc = r#""#,
+            value = "-1196981113"
+        )
+    )]
+    StructureCableStraightBurnt = -1196981113i32,
+    #[strum(
+        serialize = "ItemHydroponicTray",
+        props(
+            name = r#"Kit (Hydroponic Tray)"#,
+            desc = r#"This kits creates a <link=ThingStructureHydroponicsTray><color=green>Hydroponics Tray</color></link> for growing various plants."#,
+            value = "-1193543727"
+        )
+    )]
+    ItemHydroponicTray = -1193543727i32,
+    #[strum(
+        serialize = "ItemCannedRicePudding",
+        props(
+            name = r#"Canned Rice Pudding"#,
+            desc = r#"Made in an <link=ThingStructureAdvancedPackagingMachine><color=green>Advanced Packaging Machine</color></link> or <link=ThingAppliancePackagingMachine><color=green>Basic Packaging Machine</color></link>, using <link=ThingItemCookedRice><color=green>Cooked Rice</color></link> and an <link=ThingItemEmptyCan><color=green>Empty Can</color></link>, canned rice pudding is a sweet treat, fairly high in nutrition, and does not <link=DecayPage><color=#0080FFFF>decay</color></link>."#,
+            value = "-1185552595"
+        )
+    )]
+    ItemCannedRicePudding = -1185552595i32,
+    #[strum(
+        serialize = "StructureInLineTankLiquid1x2",
+        props(
+            name = r#"In-Line Tank Liquid"#,
+            desc = r#"A small expansion tank that increases the volume of a pipe network."#,
+            value = "-1183969663"
+        )
+    )]
+    StructureInLineTankLiquid1X2 = -1183969663i32,
+    #[strum(
+        serialize = "StructureInteriorDoorTriangle",
+        props(
+            name = r#"Interior Door Triangle"#,
+            desc = r#"0.Operate
+1.Logic"#,
+            value = "-1182923101"
+        )
+    )]
+    StructureInteriorDoorTriangle = -1182923101i32,
+    #[strum(
+        serialize = "ItemKitElectronicsPrinter",
+        props(
+            name = r#"Kit (Electronics Printer)"#,
+            desc = r#""#,
+            value = "-1181922382"
+        )
+    )]
+    ItemKitElectronicsPrinter = -1181922382i32,
+    #[strum(
+        serialize = "StructureWaterBottleFiller",
+        props(name = r#"Water Bottle Filler"#, desc = r#""#, value = "-1178961954")
+    )]
+    StructureWaterBottleFiller = -1178961954i32,
+    #[strum(
+        serialize = "StructureWallVent",
+        props(
+            name = r#"Wall Vent"#,
+            desc = r#"Used to mix atmospheres passively between two walls."#,
+            value = "-1177469307"
+        )
+    )]
+    StructureWallVent = -1177469307i32,
+    #[strum(
+        serialize = "ItemSensorLenses",
+        props(
+            name = r#"Sensor Lenses"#,
+            desc = r#"These <link=Norsec><color=#0080FFFF>Norsec</color></link> glasses might not be the most fashionable thing, but when a <link=ThingItemSensorProcessingUnitOreScanner><color=green>Sensor Processing Unit (Ore Scanner)</color></link> is inserted, Stationeers can use these handy glasses to x-ray the ground and find ores that are hidden beneath the surface."#,
+            value = "-1176140051"
+        )
+    )]
+    ItemSensorLenses = -1176140051i32,
+    #[strum(
+        serialize = "ItemSoundCartridgeLeads",
+        props(name = r#"Sound Cartridge Leads"#, desc = r#""#, value = "-1174735962")
+    )]
+    ItemSoundCartridgeLeads = -1174735962i32,
+    #[strum(
+        serialize = "StructureMediumConvectionRadiatorLiquid",
+        props(
+            name = r#"Medium Convection Radiator Liquid"#,
+            desc = r#"A stand-alone liquid radiator unit optimized for exchanging heat with its surrounding atmosphere."#,
+            value = "-1169014183"
+        )
+    )]
+    StructureMediumConvectionRadiatorLiquid = -1169014183i32,
+    #[strum(
+        serialize = "ItemKitFridgeBig",
+        props(name = r#"Kit (Fridge Large)"#, desc = r#""#, value = "-1168199498")
+    )]
+    ItemKitFridgeBig = -1168199498i32,
+    #[strum(
+        serialize = "ItemKitPipeLiquid",
+        props(name = r#"Kit (Liquid Pipe)"#, desc = r#""#, value = "-1166461357")
+    )]
+    ItemKitPipeLiquid = -1166461357i32,
+    #[strum(
+        serialize = "StructureWallFlatCornerTriangleFlat",
+        props(
+            name = r#"Wall (Flat Corner Triangle Flat)"#,
+            desc = r#""#,
+            value = "-1161662836"
+        )
+    )]
+    StructureWallFlatCornerTriangleFlat = -1161662836i32,
+    #[strum(
+        serialize = "StructureLogicMathUnary",
+        props(
+            name = r#"Math Unary"#,
+            desc = r#"0.Ceil
+1.Floor
+2.Abs
+3.Log
+4.Exp
+5.Round
+6.Rand
+7.Sqrt
+8.Sin
+9.Cos
+10.Tan
+11.Asin
+12.Acos
+13.Atan
+14.Not"#,
+            value = "-1160020195"
+        )
+    )]
+    StructureLogicMathUnary = -1160020195i32,
+    #[strum(
+        serialize = "ItemPlantEndothermic_Creative",
+        props(
+            name = r#"Endothermic Plant Creative"#,
+            desc = r#""#,
+            value = "-1159179557"
+        )
+    )]
+    ItemPlantEndothermicCreative = -1159179557i32,
+    #[strum(
+        serialize = "ItemSensorProcessingUnitCelestialScanner",
+        props(
+            name = r#"Sensor Processing Unit (Celestial Scanner)"#,
+            desc = r#""#,
+            value = "-1154200014"
+        )
+    )]
+    ItemSensorProcessingUnitCelestialScanner = -1154200014i32,
+    #[strum(
+        serialize = "StructureChairRectangleDouble",
+        props(
+            name = r#"Chair (Rectangle Double)"#,
+            desc = r#""#,
+            value = "-1152812099"
+        )
+    )]
+    StructureChairRectangleDouble = -1152812099i32,
+    #[strum(
+        serialize = "ItemGasCanisterOxygen",
+        props(name = r#"Canister (Oxygen)"#, desc = r#""#, value = "-1152261938")
+    )]
+    ItemGasCanisterOxygen = -1152261938i32,
+    #[strum(
+        serialize = "ItemPureIceOxygen",
+        props(
+            name = r#"Pure Ice Oxygen"#,
+            desc = r#"A frozen chunk of pure <link=GasOxygen><color=#44AD83>Oxygen</color></link>"#,
+            value = "-1150448260"
+        )
+    )]
+    ItemPureIceOxygen = -1150448260i32,
+    #[strum(
         serialize = "StructureBackPressureRegulator",
         props(
             name = r#"Back Pressure Regulator"#,
@@ -466,10 +2525,900 @@ Lastly, an APC charges batteries, which can provide backup power to the sub-netw
     )]
     StructureBackPressureRegulator = -1149857558i32,
     #[strum(
-        serialize = "ItemPotatoBaked",
-        props(name = r#"Baked Potato"#, desc = r#""#, value = "-2111886401")
+        serialize = "StructurePictureFrameThinMountLandscapeLarge",
+        props(
+            name = r#"Picture Frame Thin Landscape Large"#,
+            desc = r#""#,
+            value = "-1146760430"
+        )
     )]
-    ItemPotatoBaked = -2111886401i32,
+    StructurePictureFrameThinMountLandscapeLarge = -1146760430i32,
+    #[strum(
+        serialize = "StructureMediumRadiatorLiquid",
+        props(
+            name = r#"Medium Radiator Liquid"#,
+            desc = r#"A stand-alone liquid radiator unit optimized for radiating heat in vacuums."#,
+            value = "-1141760613"
+        )
+    )]
+    StructureMediumRadiatorLiquid = -1141760613i32,
+    #[strum(
+        serialize = "ApplianceMicrowave",
+        props(
+            name = r#"Microwave"#,
+            desc = r#"While countless 'better' ways of cooking <link=FoodPage><color=#0080FFFF>Food</color></link> have been invented in the last few hundred years, few are as durable or easy to fabricate as the OK-Zoomer microwave. Licensed from <link=Xigo><color=#0080FFFF>Xigo</color></link>, the plans are based on a classic model from the mid-21st century, giving it a charmingly retro feel. But don't worry, it oscillates <link=GasWater><color=#44AD83>Water</color></link> molecules more than adequately. 
+Just bolt it to a <link=ThingStructureBench><color=green>Powered Bench</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link> to power it, follow the recipe, and you're cooking."#,
+            value = "-1136173965"
+        )
+    )]
+    ApplianceMicrowave = -1136173965i32,
+    #[strum(
+        serialize = "ItemPipeGasMixer",
+        props(
+            name = r#"Kit (Gas Mixer)"#,
+            desc = r#"This kit creates a <link=ThingStructureGasMixer><color=green>Gas Mixer</color></link>."#,
+            value = "-1134459463"
+        )
+    )]
+    ItemPipeGasMixer = -1134459463i32,
+    #[strum(
+        serialize = "CircuitboardModeControl",
+        props(
+            name = r#"Mode Control"#,
+            desc = r#"Can't decide which mode you love most? This circuit board allows you to switch any connected device between operation modes."#,
+            value = "-1134148135"
+        )
+    )]
+    CircuitboardModeControl = -1134148135i32,
+    #[strum(
+        serialize = "StructureActiveVent",
+        props(
+            name = r#"Active Vent"#,
+            desc = r#"The active vent is a powered device for maintaining <link=GasPage><color=#0080FFFF>gas</color></link> pressure by pumping gas into (or out of) a pipe network. The vent has two modes: 'Outward' sets it to pump gas into a space until pressure is reached; 'Inward' sets it to pump gas out until pressure is reached. The pressure parameter can be set on a connected <link=ThingStructureConsole><color=green>Console</color></link>. Default pressure is 101kPa for Outward; 0kPa for Inward ..."#,
+            value = "-1129453144"
+        )
+    )]
+    StructureActiveVent = -1129453144i32,
+    #[strum(
+        serialize = "StructureWallPaddedArchCorner",
+        props(
+            name = r#"Wall (Padded Arch Corner)"#,
+            desc = r#""#,
+            value = "-1126688298"
+        )
+    )]
+    StructureWallPaddedArchCorner = -1126688298i32,
+    #[strum(
+        serialize = "StructurePlanter",
+        props(
+            name = r#"Planter"#,
+            desc = r#"A small planter for decorative or hydroponic purposes. Can be connected to <link=GasWater><color=#44AD83>Water</color></link>, or watered manually using a <link=ThingItemWaterBottle><color=green>Water Bottle</color></link> or <link=ThingItemGasCanisterWater><color=green>Liquid Canister (Water)</color></link>."#,
+            value = "-1125641329"
+        )
+    )]
+    StructurePlanter = -1125641329i32,
+    #[strum(
+        serialize = "StructureBatteryMedium",
+        props(
+            name = r#"Battery (Medium)"#,
+            desc = r#"0.Empty
+1.Critical
+2.VeryLow
+3.Low
+4.Medium
+5.High
+6.Full"#,
+            value = "-1125305264"
+        )
+    )]
+    StructureBatteryMedium = -1125305264i32,
+    #[strum(
+        serialize = "ItemHorticultureBelt",
+        props(name = r#"Horticulture Belt"#, desc = r#""#, value = "-1117581553")
+    )]
+    ItemHorticultureBelt = -1117581553i32,
+    #[strum(
+        serialize = "CartridgeMedicalAnalyser",
+        props(
+            name = r#"Medical Analyzer"#,
+            desc = r#"When added to the OreCore <link=ThingItemTablet><color=green>Handheld Tablet</color></link>, <link=Asura><color=#0080FFFF>Asura's</color></link>'s ReadyMed medical analyzer reveals the health, or otherwise, of users various organs. Due to a design flaw, older models were notorious for producing quasar-like levels of x-ray radiation. Recent advances in shielding have more than halved the risk to users."#,
+            value = "-1116110181"
+        )
+    )]
+    CartridgeMedicalAnalyser = -1116110181i32,
+    #[strum(
+        serialize = "StructureCompositeFloorGrating3",
+        props(
+            name = r#"Composite Floor Grating  (Type 3)"#,
+            desc = r#""#,
+            value = "-1113471627"
+        )
+    )]
+    StructureCompositeFloorGrating3 = -1113471627i32,
+    #[strum(
+        serialize = "ItemWreckageStructureWeatherStation004",
+        props(
+            name = r#"Wreckage Structure Weather Station"#,
+            desc = r#""#,
+            value = "-1104478996"
+        )
+    )]
+    ItemWreckageStructureWeatherStation004 = -1104478996i32,
+    #[strum(
+        serialize = "StructureCableFuse1k",
+        props(name = r#"Fuse (1kW)"#, desc = r#""#, value = "-1103727120")
+    )]
+    StructureCableFuse1K = -1103727120i32,
+    #[strum(
+        serialize = "WeaponTorpedo",
+        props(name = r#"Torpedo"#, desc = r#""#, value = "-1102977898")
+    )]
+    WeaponTorpedo = -1102977898i32,
+    #[strum(
+        serialize = "StructureWallPaddingThin",
+        props(name = r#"Wall (Padding Thin)"#, desc = r#""#, value = "-1102403554")
+    )]
+    StructureWallPaddingThin = -1102403554i32,
+    #[strum(
+        serialize = "Landingpad_GasConnectorOutwardPiece",
+        props(
+            name = r#"Landingpad Gas Output"#,
+            desc = r#"Pumps gas purchased from a trader out of the landing pad. You can increase the landing pad's gas storage capacity by adding more <link=ThingLandingpad_GasCylinderTankPiece><color=green>Landingpad Gas Storage</color></link> to the landing pad."#,
+            value = "-1100218307"
+        )
+    )]
+    LandingpadGasConnectorOutwardPiece = -1100218307i32,
+    #[strum(
+        serialize = "AppliancePlantGeneticSplicer",
+        props(
+            name = r#"Plant Genetic Splicer"#,
+            desc = r#"The Genetic Splicer can be used to copy a single <link=GeneticsPage><color=#0080FFFF>gene</color></link> from one 'source' plant to another 'target' plant of the same type. After copying, the source plant will be destroyed.
+        
+To begin splicing, place a plant or seed bag in the left slot (source) and place another plant or seed bag of the same type in the right slot (target). You can select a gene using the arrow buttons. Close the sliding door and press the green activate button. Once splicing has begun, the device will be locked until the process has finished (which will take approximately twenty minutes). If you want to cancel splicing you can power off the bench or detach the appliance as a last resort."#,
+            value = "-1094868323"
+        )
+    )]
+    AppliancePlantGeneticSplicer = -1094868323i32,
+    #[strum(
+        serialize = "StructureMediumRocketGasFuelTank",
+        props(
+            name = r#"Gas Capsule Tank Medium"#,
+            desc = r#""#,
+            value = "-1093860567"
+        )
+    )]
+    StructureMediumRocketGasFuelTank = -1093860567i32,
+    #[strum(
+        serialize = "StructureStairs4x2Rails",
+        props(name = r#"Stairs with Rails"#, desc = r#""#, value = "-1088008720")
+    )]
+    StructureStairs4X2Rails = -1088008720i32,
+    #[strum(
+        serialize = "StructureShowerPowered",
+        props(name = r#"Shower (Powered)"#, desc = r#""#, value = "-1081797501")
+    )]
+    StructureShowerPowered = -1081797501i32,
+    #[strum(
+        serialize = "ItemCookedMushroom",
+        props(
+            name = r#"Cooked Mushroom"#,
+            desc = r#"A high-nutrient cooked food, which can be canned."#,
+            value = "-1076892658"
+        )
+    )]
+    ItemCookedMushroom = -1076892658i32,
+    #[strum(
+        serialize = "ItemGlasses",
+        props(name = r#"Glasses"#, desc = r#""#, value = "-1068925231")
+    )]
+    ItemGlasses = -1068925231i32,
+    #[strum(
+        serialize = "KitchenTableSimpleTall",
+        props(
+            name = r#"Kitchen Table (Simple Tall)"#,
+            desc = r#""#,
+            value = "-1068629349"
+        )
+    )]
+    KitchenTableSimpleTall = -1068629349i32,
+    #[strum(
+        serialize = "ItemGasFilterOxygenM",
+        props(
+            name = r#"Medium Filter (Oxygen)"#,
+            desc = r#""#,
+            value = "-1067319543"
+        )
+    )]
+    ItemGasFilterOxygenM = -1067319543i32,
+    #[strum(
+        serialize = "StructureTransformerMedium",
+        props(
+            name = r#"Transformer (Medium)"#,
+            desc = r#"Transformers control the maximum power that will flow down a sub-network of cables, to prevent overloading <link=ElectronicPage><color=#0080FFFF>electrical</color></link> systems. 
+Medium transformers are used in larger setups where more than 5000W is required, with output that can be set to a maximum of 25000W.
+Note that transformers also operate as data isolators, preventing data flowing into any network beyond it."#,
+            value = "-1065725831"
+        )
+    )]
+    StructureTransformerMedium = -1065725831i32,
+    #[strum(
+        serialize = "ItemKitDynamicCanister",
+        props(
+            name = r#"Kit (Portable Gas Tank)"#,
+            desc = r#""#,
+            value = "-1061945368"
+        )
+    )]
+    ItemKitDynamicCanister = -1061945368i32,
+    #[strum(
+        serialize = "ItemEmergencyPickaxe",
+        props(name = r#"Emergency Pickaxe"#, desc = r#""#, value = "-1061510408")
+    )]
+    ItemEmergencyPickaxe = -1061510408i32,
+    #[strum(
+        serialize = "ItemWheat",
+        props(
+            name = r#"Wheat"#,
+            desc = r#"A classical symbol of growth and new life, wheat takes a moderate time to grow. Its main use is to create <link=ReagentPage><color=#0080FFFF>flour</color></link> using the <link=ThingApplianceReagentProcessor><color=green>Reagent Processor</color></link>."#,
+            value = "-1057658015"
+        )
+    )]
+    ItemWheat = -1057658015i32,
+    #[strum(
+        serialize = "ItemEmergencyArcWelder",
+        props(name = r#"Emergency Arc Welder"#, desc = r#""#, value = "-1056029600")
+    )]
+    ItemEmergencyArcWelder = -1056029600i32,
+    #[strum(
+        serialize = "ItemGasFilterOxygenInfinite",
+        props(
+            name = r#"Catalytic Filter (Oxygen)"#,
+            desc = r#"A filter that selectively targets Oxygen. It uses internal pressure differentials to regenerate a unique phase change catalyst, giving it an unlimited lifecycle."#,
+            value = "-1055451111"
+        )
+    )]
+    ItemGasFilterOxygenInfinite = -1055451111i32,
+    #[strum(
+        serialize = "StructureLiquidTurboVolumePump",
+        props(
+            name = r#"Turbo Volume Pump (Liquid)"#,
+            desc = r#"Shifts 10 times more liquid than a basic <link=ThingStructureVolumePump><color=green>Volume Pump</color></link>, with a mode that can be set to flow in either direction."#,
+            value = "-1051805505"
+        )
+    )]
+    StructureLiquidTurboVolumePump = -1051805505i32,
+    #[strum(
+        serialize = "ItemPureIceLiquidHydrogen",
+        props(
+            name = r#"Pure Ice Liquid Hydrogen"#,
+            desc = r#"A frozen chunk of pure <link=GasLiquidHydrogen><color=#44AD83>Liquid Hydrogen</color></link>"#,
+            value = "-1044933269"
+        )
+    )]
+    ItemPureIceLiquidHydrogen = -1044933269i32,
+    #[strum(
+        serialize = "StructureCompositeCladdingAngledCornerInnerLongR",
+        props(
+            name = r#"Composite Cladding (Angled Corner Inner Long R)"#,
+            desc = r#""#,
+            value = "-1032590967"
+        )
+    )]
+    StructureCompositeCladdingAngledCornerInnerLongR = -1032590967i32,
+    #[strum(
+        serialize = "StructureAreaPowerControlReversed",
+        props(
+            name = r#"Area Power Control"#,
+            desc = r#"An Area Power Control (APC) has three main functions. 
+Its primary purpose is to regulate power flow, ensuring uninterrupted performance from devices and machinery, especially those with a fluctuating draw. 
+APCs also create sub-networks, as no devices on the far side of an APC are visible on the main network. 
+Lastly, an APC charges batteries, which can provide backup power to the sub-network in the case of an outage. Note that an APC requires a battery to stabilize power draw. It also has two variants, each allowing power to flow in one direction only."#,
+            value = "-1032513487"
+        )
+    )]
+    StructureAreaPowerControlReversed = -1032513487i32,
+    #[strum(
+        serialize = "StructureChuteOutlet",
+        props(
+            name = r#"Chute Outlet"#,
+            desc = r#"The aim for any <link=Stationeers><color=#0080FFFF>Stationeer</color></link> is to make off-world survival less of a struggle for themselves, and those who will follow in their footsteps.
+The chute outlet is an aperture for exiting items from <link=ImportExportPage><color=#0080FFFF>import/export</color></link> networks. Note that the outlet's origins in zero-gravity mining means they are permanently open, rather than interactable, but can be connected to <link=LogicUnitPage><color=#0080FFFF>logic</color></link> systems to monitor throughput."#,
+            value = "-1022714809"
+        )
+    )]
+    StructureChuteOutlet = -1022714809i32,
+    #[strum(
+        serialize = "ItemKitHarvie",
+        props(name = r#"Kit (Harvie)"#, desc = r#""#, value = "-1022693454")
+    )]
+    ItemKitHarvie = -1022693454i32,
+    #[strum(
+        serialize = "ItemGasCanisterFuel",
+        props(name = r#"Canister (Fuel)"#, desc = r#""#, value = "-1014695176")
+    )]
+    ItemGasCanisterFuel = -1014695176i32,
+    #[strum(
+        serialize = "StructureCompositeWall04",
+        props(
+            name = r#"Composite Wall (Type 4)"#,
+            desc = r#""#,
+            value = "-1011701267"
+        )
+    )]
+    StructureCompositeWall04 = -1011701267i32,
+    #[strum(
+        serialize = "StructureSorter",
+        props(
+            name = r#"Sorter"#,
+            desc = r#"No amount of automation is complete without some way of moving different items to different parts of a system. The <link=Xigo><color=#0080FFFF>Xigo</color></link> A2B sorter can be programmed via a computer with a <link=ThingMotherboardSorter><color=green>Sorter Motherboard</color></link> to direct various items into different chute networks. Filtered items are always passed out the righthand side of the sorter, while non filtered items continue straight through."#,
+            value = "-1009150565"
+        )
+    )]
+    StructureSorter = -1009150565i32,
+    #[strum(
+        serialize = "StructurePipeLabel",
+        props(
+            name = r#"Pipe Label"#,
+            desc = r#"As its perspicacious name suggests, the pipe label is designed to be attached to a straight stretch of pipe. Users can then label the label with the <link=ThingItemLabeller><color=green>Labeller</color></link>."#,
+            value = "-999721119"
+        )
+    )]
+    StructurePipeLabel = -999721119i32,
+    #[strum(
+        serialize = "ItemCannedEdamame",
+        props(
+            name = r#"Canned Edamame"#,
+            desc = r#"Made in an <link=ThingStructureAdvancedPackagingMachine><color=green>Advanced Packaging Machine</color></link> or <link=ThingAppliancePackagingMachine><color=green>Basic Packaging Machine</color></link>, using <link=ThingItemCookedSoybean><color=green>Cooked Soybean</color></link> and an <link=ThingItemEmptyCan><color=green>Empty Can</color></link>, canned edamame beans are fairly high in nutrition, and do not <link=DecayPage><color=#0080FFFF>decay</color></link>."#,
+            value = "-999714082"
+        )
+    )]
+    ItemCannedEdamame = -999714082i32,
+    #[strum(
+        serialize = "ItemTomato",
+        props(
+            name = r#"Tomato"#,
+            desc = r#"Tomato plants are perennial, and will produce multiple harvests without needing to be replanted. Once the plant is mature, it will fruit at a moderate pace."#,
+            value = "-998592080"
+        )
+    )]
+    ItemTomato = -998592080i32,
+    #[strum(
+        serialize = "ItemCobaltOre",
+        props(
+            name = r#"Ore (Cobalt)"#,
+            desc = r#"Cobalt is a chemical element with the symbol "Co" and is typically found in only small deposits. Cobalt is a rare substance, but used create the <link=ThingItemHealPill><color=green>Heal Pill</color></link> and several  <link=IngotPage><color=#0080FFFF>alloys</color></link>."#,
+            value = "-983091249"
+        )
+    )]
+    ItemCobaltOre = -983091249i32,
+    #[strum(
+        serialize = "StructureCableCorner4HBurnt",
+        props(
+            name = r#"Burnt Heavy Cable (4-Way Corner)"#,
+            desc = r#""#,
+            value = "-981223316"
+        )
+    )]
+    StructureCableCorner4HBurnt = -981223316i32,
+    #[strum(
+        serialize = "Landingpad_StraightPiece01",
+        props(
+            name = r#"Landingpad Straight"#,
+            desc = r#"Extends the size of the landing pad area. A basic trader shuttle requires a 3x3 clear landing area."#,
+            value = "-976273247"
+        )
+    )]
+    LandingpadStraightPiece01 = -976273247i32,
+    #[strum(
+        serialize = "StructureMediumRadiator",
+        props(
+            name = r#"Medium Radiator"#,
+            desc = r#"A stand-alone radiator unit optimized for radiating heat in vacuums."#,
+            value = "-975966237"
+        )
+    )]
+    StructureMediumRadiator = -975966237i32,
+    #[strum(
+        serialize = "ItemDynamicScrubber",
+        props(
+            name = r#"Kit (Portable Scrubber)"#,
+            desc = r#""#,
+            value = "-971920158"
+        )
+    )]
+    ItemDynamicScrubber = -971920158i32,
+    #[strum(
+        serialize = "StructureCondensationValve",
+        props(
+            name = r#"Condensation Valve"#,
+            desc = r#"Allows for the removal of any liquids from a gas pipe into a liquid pipe. Only allows liquids to pass in one direction."#,
+            value = "-965741795"
+        )
+    )]
+    StructureCondensationValve = -965741795i32,
+    #[strum(
+        serialize = "StructureChuteUmbilicalMale",
+        props(
+            name = r#"Umbilical (Chute)"#,
+            desc = r#"0.Left
+1.Center
+2.Right"#,
+            value = "-958884053"
+        )
+    )]
+    StructureChuteUmbilicalMale = -958884053i32,
+    #[strum(
+        serialize = "ItemKitElevator",
+        props(name = r#"Kit (Elevator)"#, desc = r#""#, value = "-945806652")
+    )]
+    ItemKitElevator = -945806652i32,
+    #[strum(
+        serialize = "StructureSolarPanelReinforced",
+        props(
+            name = r#"Solar Panel (Heavy)"#,
+            desc = r#"This solar panel is resistant to storm damage."#,
+            value = "-934345724"
+        )
+    )]
+    StructureSolarPanelReinforced = -934345724i32,
+    #[strum(
+        serialize = "ItemKitRocketTransformerSmall",
+        props(
+            name = r#"Kit (Transformer Small (Rocket))"#,
+            desc = r#""#,
+            value = "-932335800"
+        )
+    )]
+    ItemKitRocketTransformerSmall = -932335800i32,
+    #[strum(
+        serialize = "CartridgeConfiguration",
+        props(name = r#"Configuration"#, desc = r#""#, value = "-932136011")
+    )]
+    CartridgeConfiguration = -932136011i32,
+    #[strum(
+        serialize = "ItemSilverIngot",
+        props(name = r#"Ingot (Silver)"#, desc = r#""#, value = "-929742000")
+    )]
+    ItemSilverIngot = -929742000i32,
+    #[strum(
+        serialize = "ItemKitHydroponicAutomated",
+        props(
+            name = r#"Kit (Automated Hydroponics)"#,
+            desc = r#""#,
+            value = "-927931558"
+        )
+    )]
+    ItemKitHydroponicAutomated = -927931558i32,
+    #[strum(
+        serialize = "StructureSmallTableRectangleSingle",
+        props(
+            name = r#"Small (Table Rectangle Single)"#,
+            desc = r#""#,
+            value = "-924678969"
+        )
+    )]
+    StructureSmallTableRectangleSingle = -924678969i32,
+    #[strum(
+        serialize = "ItemWreckageStructureWeatherStation005",
+        props(
+            name = r#"Wreckage Structure Weather Station"#,
+            desc = r#""#,
+            value = "-919745414"
+        )
+    )]
+    ItemWreckageStructureWeatherStation005 = -919745414i32,
+    #[strum(
+        serialize = "ItemSilverOre",
+        props(
+            name = r#"Ore (Silver)"#,
+            desc = r#"Silver is a chemical element with the symbol "Ag". Valued by many <link=Stationeers><color=#0080FFFF>Stationeers</color></link> for its attractive luster and sheen, it is also used in a variety of <link=ElectronicPage><color=#0080FFFF>electronics</color></link> components and <link=IngotPage><color=#0080FFFF>alloys</color></link>."#,
+            value = "-916518678"
+        )
+    )]
+    ItemSilverOre = -916518678i32,
+    #[strum(
+        serialize = "StructurePipeTJunction",
+        props(
+            name = r#"Pipe (T Junction)"#,
+            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeTJunction><color=green>Insulated Pipe (T Junction)</color></link> using an <link=ThingItemKitInsulatedPipe><color=green>Kit (Insulated Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
+            value = "-913817472"
+        )
+    )]
+    StructurePipeTJunction = -913817472i32,
+    #[strum(
+        serialize = "ItemPickaxe",
+        props(
+            name = r#"Pickaxe"#,
+            desc = r#"When the sun sets and the <link=ThingItemMiningDrill><color=green>Mining Drill</color></link> runs dead, its batteries drained and your <link=ThingStructureSolarPanel><color=green>Solar Panel</color></link> cold and lifeless, the <link=ThingStructureAutolathe><color=green>Autolathe</color></link> empty, the way forward unclear, one thing holds back the endless night of defeat: the trusty pickaxe."#,
+            value = "-913649823"
+        )
+    )]
+    ItemPickaxe = -913649823i32,
+    #[strum(
+        serialize = "ItemPipeLiquidRadiator",
+        props(
+            name = r#"Kit (Liquid Radiator)"#,
+            desc = r#"This kit creates a <link=ThingStructureLiquidPipeRadiator><color=green>Liquid Pipe Convection Radiator</color></link>."#,
+            value = "-906521320"
+        )
+    )]
+    ItemPipeLiquidRadiator = -906521320i32,
+    #[strum(
+        serialize = "StructurePortablesConnector",
+        props(name = r#"Portables Connector"#, desc = r#""#, value = "-899013427")
+    )]
+    StructurePortablesConnector = -899013427i32,
+    #[strum(
+        serialize = "StructureCompositeFloorGrating2",
+        props(
+            name = r#"Composite Floor Grating  (Type 2)"#,
+            desc = r#""#,
+            value = "-895027741"
+        )
+    )]
+    StructureCompositeFloorGrating2 = -895027741i32,
+    #[strum(
+        serialize = "StructureTransformerSmall",
+        props(
+            name = r#"Transformer (Small)"#,
+            desc = r#"Transformers control the maximum power that will flow down a cable subnetwork, to prevent overloading <link=ElectronicPage><color=#0080FFFF>electrical</color></link> systems. Output on small transformers can be set from 0 to 5000W.
+Note that transformers operate as data isolators, preventing data flowing into any network beyond it."#,
+            value = "-890946730"
+        )
+    )]
+    StructureTransformerSmall = -890946730i32,
+    #[strum(
+        serialize = "StructureCableCorner",
+        props(
+            name = r#"Cable (Corner)"#,
+            desc = r#"Carrying power and data alike, cable coil has come to symbolize the innovation, independence and flexibility of <link=Stationeers><color=#0080FFFF>Stationeer</color></link> life - so essential, the <link=ODA><color=#0080FFFF>ODA</color></link> designated it an official <link=ToolPage><color=#0080FFFF>'tool'</color></link> during the 3rd Decannual Stationeer Solar Conference.
+Normal coil has a maximum wattage of 5kW. For higher-current applications, use <link=ThingItemCableCoilHeavy><color=green>Cable Coil (Heavy)</color></link>."#,
+            value = "-889269388"
+        )
+    )]
+    StructureCableCorner = -889269388i32,
+    #[strum(
+        serialize = "ItemKitChuteUmbilical",
+        props(name = r#"Kit (Chute Umbilical)"#, desc = r#""#, value = "-876560854")
+    )]
+    ItemKitChuteUmbilical = -876560854i32,
+    #[strum(
+        serialize = "ItemPureIceSteam",
+        props(
+            name = r#"Pure Ice Steam"#,
+            desc = r#"A frozen chunk of pure <link=GasSteam><color=#44AD83>Steam</color></link>"#,
+            value = "-874791066"
+        )
+    )]
+    ItemPureIceSteam = -874791066i32,
+    #[strum(
+        serialize = "ItemBeacon",
+        props(name = r#"Tracking Beacon"#, desc = r#""#, value = "-869869491")
+    )]
+    ItemBeacon = -869869491i32,
+    #[strum(
+        serialize = "ItemKitWindTurbine",
+        props(name = r#"Kit (Wind Turbine)"#, desc = r#""#, value = "-868916503")
+    )]
+    ItemKitWindTurbine = -868916503i32,
+    #[strum(
+        serialize = "ItemKitRocketMiner",
+        props(name = r#"Kit (Rocket Miner)"#, desc = r#""#, value = "-867969909")
+    )]
+    ItemKitRocketMiner = -867969909i32,
+    #[strum(
+        serialize = "StructureStairwellBackPassthrough",
+        props(
+            name = r#"Stairwell (Back Passthrough)"#,
+            desc = r#""#,
+            value = "-862048392"
+        )
+    )]
+    StructureStairwellBackPassthrough = -862048392i32,
+    #[strum(
+        serialize = "StructureWallArch",
+        props(name = r#"Wall (Arch)"#, desc = r#""#, value = "-858143148")
+    )]
+    StructureWallArch = -858143148i32,
+    #[strum(
+        serialize = "HumanSkull",
+        props(name = r#"Human Skull"#, desc = r#""#, value = "-857713709")
+    )]
+    HumanSkull = -857713709i32,
+    #[strum(
+        serialize = "StructureLogicMemory",
+        props(name = r#"Logic Memory"#, desc = r#""#, value = "-851746783")
+    )]
+    StructureLogicMemory = -851746783i32,
+    #[strum(
+        serialize = "StructureChuteBin",
+        props(
+            name = r#"Chute Bin"#,
+            desc = r#"The <link=Stationeers><color=#0080FFFF>Stationeer's</color></link> goal is to make off-world survival less of a struggle for themselves, and those who will follow in their footsteps.
+Like most <link=Recurso><color=#0080FFFF>Recurso</color></link>-designed systems, chute bins are simple and robust powered items, allowing items to be manually passed into chute networks by pulling a lever. They can also be programmed with <link=LogicUnitPage><color=#0080FFFF>logic</color></link> to operate automatically, although full automation requires the use items such as a <link=ThingStructureSDBHopper><color=green>SDB Hopper</color></link>."#,
+            value = "-850484480"
+        )
+    )]
+    StructureChuteBin = -850484480i32,
+    #[strum(
+        serialize = "ItemKitWallFlat",
+        props(name = r#"Kit (Flat Wall)"#, desc = r#""#, value = "-846838195")
+    )]
+    ItemKitWallFlat = -846838195i32,
+    #[strum(
+        serialize = "ItemActiveVent",
+        props(
+            name = r#"Kit (Active Vent)"#,
+            desc = r#"When constructed, this kit places an <link=ThingStructureActiveVent><color=green>Active Vent</color></link> on any support structure."#,
+            value = "-842048328"
+        )
+    )]
+    ItemActiveVent = -842048328i32,
+    #[strum(
+        serialize = "ItemFlashlight",
+        props(
+            name = r#"Flashlight"#,
+            desc = r#"A flashlight with a narrow and wide beam options."#,
+            value = "-838472102"
+        )
+    )]
+    ItemFlashlight = -838472102i32,
+    #[strum(
+        serialize = "ItemWreckageStructureWeatherStation001",
+        props(
+            name = r#"Wreckage Structure Weather Station"#,
+            desc = r#""#,
+            value = "-834664349"
+        )
+    )]
+    ItemWreckageStructureWeatherStation001 = -834664349i32,
+    #[strum(
+        serialize = "ItemBiomass",
+        props(
+            name = r#"Biomass"#,
+            desc = r#"Diced organic material that is returned when food and organic matter is passed through the <link=ThingStructureRecycler><color=green>Recycler</color></link> and <link=ThingStructureCentrifuge><color=green>Centrifuge</color></link>. Can be burned in a <link=ThingStructureFurnace><color=green>Furnace</color></link> into <link=ThingItemCharcoal><color=green>Charcoal</color></link> for use in the <link=ThingStructureSolidFuelGenerator><color=green>Generator (Solid Fuel)</color></link>."#,
+            value = "-831480639"
+        )
+    )]
+    ItemBiomass = -831480639i32,
+    #[strum(
+        serialize = "ItemKitPowerTransmitterOmni",
+        props(
+            name = r#"Kit (Power Transmitter Omni)"#,
+            desc = r#""#,
+            value = "-831211676"
+        )
+    )]
+    ItemKitPowerTransmitterOmni = -831211676i32,
+    #[strum(
+        serialize = "StructureKlaxon",
+        props(
+            name = r#"Klaxon Speaker"#,
+            desc = r#"Klaxons allow you to play over 50 announcements and sounds, depending on your <link=LogicPage><color=#0080FFFF>Logic</color></link> set-up. Set the mode to select the output."#,
+            value = "-828056979"
+        )
+    )]
+    StructureKlaxon = -828056979i32,
+    #[strum(
+        serialize = "StructureElevatorLevelFront",
+        props(
+            name = r#"Elevator Level (Cabled)"#,
+            desc = r#""#,
+            value = "-827912235"
+        )
+    )]
+    StructureElevatorLevelFront = -827912235i32,
+    #[strum(
+        serialize = "ItemKitPipeOrgan",
+        props(name = r#"Kit (Pipe Organ)"#, desc = r#""#, value = "-827125300")
+    )]
+    ItemKitPipeOrgan = -827125300i32,
+    #[strum(
+        serialize = "ItemKitWallPadded",
+        props(name = r#"Kit (Padded Wall)"#, desc = r#""#, value = "-821868990")
+    )]
+    ItemKitWallPadded = -821868990i32,
+    #[strum(
+        serialize = "DynamicGasCanisterFuel",
+        props(
+            name = r#"Portable Gas Tank (Fuel)"#,
+            desc = r#"Portable tanks store gas. They're good at it. If you need to refill a tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or things get messy. You can refill a <link=ThingItemGasCanisterFuel><color=green>Canister (Fuel)</color></link> by attaching it to the tank's striped section. Or you could use a <link=ThingItemWrench><color=green>Wrench</color></link> to attach it to a rover or rocket for later. It's really up to you."#,
+            value = "-817051527"
+        )
+    )]
+    DynamicGasCanisterFuel = -817051527i32,
+    #[strum(
+        serialize = "StructureReinforcedCompositeWindowSteel",
+        props(
+            name = r#"Reinforced Window (Composite Steel)"#,
+            desc = r#"Enjoy vistas of even the most savage, alien landscapes with these heavy duty window frames, which are resistant to pressure differentials up to 1MPa."#,
+            value = "-816454272"
+        )
+    )]
+    StructureReinforcedCompositeWindowSteel = -816454272i32,
+    #[strum(
+        serialize = "StructureConsoleLED5",
+        props(
+            name = r#"LED Display (Small)"#,
+            desc = r#"0.Default
+1.Percent
+2.Power"#,
+            value = "-815193061"
+        )
+    )]
+    StructureConsoleLed5 = -815193061i32,
+    #[strum(
+        serialize = "StructureInsulatedInLineTankLiquid1x1",
+        props(
+            name = r#"Insulated In-Line Tank Small Liquid"#,
+            desc = r#""#,
+            value = "-813426145"
+        )
+    )]
+    StructureInsulatedInLineTankLiquid1X1 = -813426145i32,
+    #[strum(
+        serialize = "StructureChuteDigitalFlipFlopSplitterLeft",
+        props(
+            name = r#"Chute Digital Flip Flop Splitter Left"#,
+            desc = r#"The digital flip flop will toggle between two outputs using a specified ratio (n:1). For example, setting the dial to 2 would allow two items to pass through the primary output before flipping to the secondary output."#,
+            value = "-810874728"
+        )
+    )]
+    StructureChuteDigitalFlipFlopSplitterLeft = -810874728i32,
+    #[strum(
+        serialize = "MotherboardRockets",
+        props(
+            name = r#"Rocket Control Motherboard"#,
+            desc = r#""#,
+            value = "-806986392"
+        )
+    )]
+    MotherboardRockets = -806986392i32,
+    #[strum(
+        serialize = "ItemKitFurnace",
+        props(name = r#"Kit (Furnace)"#, desc = r#""#, value = "-806743925")
+    )]
+    ItemKitFurnace = -806743925i32,
+    #[strum(
+        serialize = "ItemTropicalPlant",
+        props(
+            name = r#"Tropical Lily"#,
+            desc = r#"An anthurium, evolved in the jungles of South America, which will tolerate higher temperatures than most plants."#,
+            value = "-800947386"
+        )
+    )]
+    ItemTropicalPlant = -800947386i32,
+    #[strum(
+        serialize = "ItemKitLiquidTank",
+        props(name = r#"Kit (Liquid Tank)"#, desc = r#""#, value = "-799849305")
+    )]
+    ItemKitLiquidTank = -799849305i32,
+    #[strum(
+        serialize = "StructureResearchMachine",
+        props(name = r#"Research Machine"#, desc = r#""#, value = "-796627526")
+    )]
+    StructureResearchMachine = -796627526i32,
+    #[strum(
+        serialize = "StructureCompositeDoor",
+        props(
+            name = r#"Composite Door"#,
+            desc = r#"<link=Recurso><color=#0080FFFF>Recurso's</color></link> composite doors are rated to 300kPa, which is more than sufficient for most purposes they were designed for. However, steep pressure differentials are not your friend."#,
+            value = "-793837322"
+        )
+    )]
+    StructureCompositeDoor = -793837322i32,
+    #[strum(
+        serialize = "StructureStorageLocker",
+        props(name = r#"Locker"#, desc = r#""#, value = "-793623899")
+    )]
+    StructureStorageLocker = -793623899i32,
+    #[strum(
+        serialize = "RespawnPoint",
+        props(
+            name = r#"Respawn Point"#,
+            desc = r#"Place a respawn point to set a player entry point to your base when loading in, or returning from the dead."#,
+            value = "-788672929"
+        )
+    )]
+    RespawnPoint = -788672929i32,
+    #[strum(
+        serialize = "ItemInconelIngot",
+        props(name = r#"Ingot (Inconel)"#, desc = r#""#, value = "-787796599")
+    )]
+    ItemInconelIngot = -787796599i32,
+    #[strum(
+        serialize = "StructurePoweredVentLarge",
+        props(
+            name = r#"Powered Vent Large"#,
+            desc = r#"For building large scale airlock systems and pressurised hangers, a bigger and bolder version of the <link=ThingStructurePoweredVent><color=green>Powered Vent</color></link> that can effeciently pull a vacuum in large room."#,
+            value = "-785498334"
+        )
+    )]
+    StructurePoweredVentLarge = -785498334i32,
+    #[strum(
+        serialize = "ItemKitWallGeometry",
+        props(name = r#"Kit (Geometric Wall)"#, desc = r#""#, value = "-784733231")
+    )]
+    ItemKitWallGeometry = -784733231i32,
+    #[strum(
+        serialize = "StructureInsulatedPipeCrossJunction4",
+        props(
+            name = r#"Insulated Pipe (4-Way Junction)"#,
+            desc = r#"Insulated pipes greatly reduce heat loss from gases stored in them."#,
+            value = "-783387184"
+        )
+    )]
+    StructureInsulatedPipeCrossJunction4 = -783387184i32,
+    #[strum(
+        serialize = "StructurePowerConnector",
+        props(
+            name = r#"Power Connector"#,
+            desc = r#"Attaches a <link=ThingItemKitDynamicGenerator><color=green>Kit (Portable Generator)</color></link> to a power network."#,
+            value = "-782951720"
+        )
+    )]
+    StructurePowerConnector = -782951720i32,
+    #[strum(
+        serialize = "StructureLiquidPipeOneWayValve",
+        props(
+            name = r#"One Way Valve (Liquid)"#,
+            desc = r#"The one way valve moves liquid in one direction only: from input side to output side. It only permits flow if the input pressure is higher than output pressure.."#,
+            value = "-782453061"
+        )
+    )]
+    StructureLiquidPipeOneWayValve = -782453061i32,
+    #[strum(
+        serialize = "StructureWallLargePanelArrow",
+        props(
+            name = r#"Wall (Large Panel Arrow)"#,
+            desc = r#""#,
+            value = "-776581573"
+        )
+    )]
+    StructureWallLargePanelArrow = -776581573i32,
+    #[strum(
+        serialize = "StructureShower",
+        props(name = r#"Shower"#, desc = r#""#, value = "-775128944")
+    )]
+    StructureShower = -775128944i32,
+    #[strum(
+        serialize = "ItemChemLightBlue",
+        props(
+            name = r#"Chem Light (Blue)"#,
+            desc = r#"A safe and slightly rave-some source of blue light. Snap to activate."#,
+            value = "-772542081"
+        )
+    )]
+    ItemChemLightBlue = -772542081i32,
+    #[strum(
+        serialize = "StructureLogicSlotReader",
+        props(name = r#"Slot Reader"#, desc = r#""#, value = "-767867194")
+    )]
+    StructureLogicSlotReader = -767867194i32,
+    #[strum(
+        serialize = "ItemGasCanisterCarbonDioxide",
+        props(name = r#"Canister (CO2)"#, desc = r#""#, value = "-767685874")
+    )]
+    ItemGasCanisterCarbonDioxide = -767685874i32,
+    #[strum(
+        serialize = "ItemPipeAnalyizer",
+        props(
+            name = r#"Kit (Pipe Analyzer)"#,
+            desc = r#"This kit creates a <link=ThingStructurePipeAnalysizer><color=green>Pipe Analyzer</color></link>."#,
+            value = "-767597887"
+        )
+    )]
+    ItemPipeAnalyizer = -767597887i32,
+    #[strum(
+        serialize = "StructureBatteryChargerSmall",
+        props(name = r#"Battery Charger Small"#, desc = r#""#, value = "-761772413")
+    )]
+    StructureBatteryChargerSmall = -761772413i32,
+    #[strum(
+        serialize = "StructureWaterBottleFillerPowered",
+        props(name = r#"Waterbottle Filler"#, desc = r#""#, value = "-756587791")
+    )]
+    StructureWaterBottleFillerPowered = -756587791i32,
     #[strum(
         serialize = "AppliancePackagingMachine",
         props(
@@ -495,34 +3444,521 @@ Note: the Cannifier will flash an error on its activation switch if you attempt 
     )]
     AppliancePackagingMachine = -749191906i32,
     #[strum(
-        serialize = "ItemBasketBall",
-        props(name = r#"Basket Ball"#, desc = r#""#, value = "-1262580790")
-    )]
-    ItemBasketBall = -1262580790i32,
-    #[strum(
-        serialize = "StructureBasketHoop",
-        props(name = r#"Basket Hoop"#, desc = r#""#, value = "-1613497288")
-    )]
-    StructureBasketHoop = -1613497288i32,
-    #[strum(
-        serialize = "StructureLogicBatchReader",
-        props(name = r#"Batch Reader"#, desc = r#""#, value = "264413729")
-    )]
-    StructureLogicBatchReader = 264413729i32,
-    #[strum(
-        serialize = "StructureLogicBatchSlotReader",
-        props(name = r#"Batch Slot Reader"#, desc = r#""#, value = "436888930")
-    )]
-    StructureLogicBatchSlotReader = 436888930i32,
-    #[strum(
-        serialize = "StructureLogicBatchWriter",
-        props(name = r#"Batch Writer"#, desc = r#""#, value = "1415443359")
-    )]
-    StructureLogicBatchWriter = 1415443359i32,
-    #[strum(
-        serialize = "StructureBatteryMedium",
+        serialize = "ItemIntegratedCircuit10",
         props(
-            name = r#"Battery (Medium)"#,
+            name = r#"Integrated Circuit (IC10)"#,
+            desc = r#""#,
+            value = "-744098481"
+        )
+    )]
+    ItemIntegratedCircuit10 = -744098481i32,
+    #[strum(
+        serialize = "ItemLabeller",
+        props(
+            name = r#"Labeller"#,
+            desc = r#"A labeller lets you set names and values on a variety of devices and structures, including <link=ThingStructureConsole><color=green>Console</color></link> and <link=LogicPage><color=#0080FFFF>Logic</color></link>."#,
+            value = "-743968726"
+        )
+    )]
+    ItemLabeller = -743968726i32,
+    #[strum(
+        serialize = "StructureCableJunctionH4",
+        props(
+            name = r#"Heavy Cable (4-Way Junction)"#,
+            desc = r#""#,
+            value = "-742234680"
+        )
+    )]
+    StructureCableJunctionH4 = -742234680i32,
+    #[strum(
+        serialize = "StructureWallCooler",
+        props(
+            name = r#"Wall Cooler"#,
+            desc = r#"The <link=Xigo><color=#0080FFFF>Xigo</color></link> Freezy Boi wall cooler complements the wall heater, which can only raise the temperature. The wall cooler functions by drawing heat from the surrounding atmosphere and adding that heat into its pipe network.
+In order to run the wall cooler properly, you will need to connect pipes to the wall cooler and fill the connected pipe network with any type of gas. The gas's heat capacity and volume will determine how fast it reacts to temperature changes.
+
+<size=120%><b>EFFICIENCY</b></size>
+The higher the difference in temperature between the gas stored in the pipes and the room, the less efficient the wall cooler will be. So to keep the wall cooler running at an acceptable efficiency you will need to get rid of the heat that accumulates in the pipes connected to it. A common practice would be to run the pipes to the outside and use radiators on the outside section of the pipes to get rid of the heat.
+The less efficient the wall cooler, the less power it consumes. It will consume 1010W at max efficiency. The wall cooler can be controlled by logic chips to run when the temperature hits a certain degree.
+<size=120%><b>ERRORS</b></size>
+If the wall cooler is flashing an error then it is missing one of the following:
+
+- Pipe connection to the wall cooler.
+- Gas in the connected pipes, or pressure is too low.
+- Atmosphere in the surrounding environment or pressure is too low.
+
+For more information about how to control temperatures, consult the <link=TemperatureControlPage><color=#0080FFFF>temperature control</color></link> Guides page."#,
+            value = "-739292323"
+        )
+    )]
+    StructureWallCooler = -739292323i32,
+    #[strum(
+        serialize = "StructurePurgeValve",
+        props(
+            name = r#"Purge Valve"#,
+            desc = r#"Allows for removal of pressurant gas and evaporated liquids from a liquid pipe. Similar in function to a <link=ThingStructureBackPressureRegulator><color=green>Back Pressure Regulator</color></link> the <link=ThingStructurePurgeValve><color=green>Purge Valve</color></link> moves gas from the input liquid pipe to the output gas pipe aiming to keep the pressure of the input at the target setting."#,
+            value = "-737232128"
+        )
+    )]
+    StructurePurgeValve = -737232128i32,
+    #[strum(
+        serialize = "StructureCrateMount",
+        props(name = r#"Container Mount"#, desc = r#""#, value = "-733500083")
+    )]
+    StructureCrateMount = -733500083i32,
+    #[strum(
+        serialize = "ItemKitDynamicGenerator",
+        props(
+            name = r#"Kit (Portable Generator)"#,
+            desc = r#""#,
+            value = "-732720413"
+        )
+    )]
+    ItemKitDynamicGenerator = -732720413i32,
+    #[strum(
+        serialize = "StructureConsoleDual",
+        props(
+            name = r#"Console Dual"#,
+            desc = r#"This <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> control box manages devices such as the <link=ThingStructureActiveVent><color=green>Active Vent</color></link>, <link=ThingStructureGasSensor><color=green>Gas Sensor</color></link>, <link=ThingStructureCompositeDoor><color=green>Composite Door</color></link> and others, depending on which <link=LogicPage><color=#0080FFFF>circuitboard</color></link> is inserted into the unit. It has separate data and power ports.
+A completed console displays all devices connected to the current power network. Any devices not related to the installed circuitboard will be greyed-out and inoperable. Consoles are locked once a <link=ThingItemDataDisk><color=green>Data Disk</color></link> is removed."#,
+            value = "-722284333"
+        )
+    )]
+    StructureConsoleDual = -722284333i32,
+    #[strum(
+        serialize = "ItemGasFilterOxygen",
+        props(
+            name = r#"Filter (Oxygen)"#,
+            desc = r#"<link=Sinotai><color=#0080FFFF>Sinotai</color></link> have cornered the market in filter design. Their trademarked templates are simple to print and highly efficient at capturing various gases, which can be disposed of or used elsewhere. <link=GasOxygen><color=#44AD83>Oxygen</color></link> is a common byproduct of smelting various ores, but must be filtered of such impurities as <link=GasNitrogen><color=#44AD83>Nitrogen</color></link> using this filter and various devices, such as the <link=ThingItemDynamicScrubber><color=green>Kit (Portable Scrubber)</color></link>."#,
+            value = "-721824748"
+        )
+    )]
+    ItemGasFilterOxygen = -721824748i32,
+    #[strum(
+        serialize = "ItemCookedTomato",
+        props(
+            name = r#"Cooked Tomato"#,
+            desc = r#"A high-nutrient cooked food, which can be canned."#,
+            value = "-709086714"
+        )
+    )]
+    ItemCookedTomato = -709086714i32,
+    #[strum(
+        serialize = "ItemCopperOre",
+        props(
+            name = r#"Ore (Copper)"#,
+            desc = r#"Copper is a chemical element with the symbol "Cu". This common and highly conductive material is found on most astronomical bodies and is used in a variety of manufacturing processes including electronic components, alloys, and wires."#,
+            value = "-707307845"
+        )
+    )]
+    ItemCopperOre = -707307845i32,
+    #[strum(
+        serialize = "StructureLogicTransmitter",
+        props(
+            name = r#"Logic Transmitter"#,
+            desc = r#"Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>"#,
+            value = "-693235651"
+        )
+    )]
+    StructureLogicTransmitter = -693235651i32,
+    #[strum(
+        serialize = "StructureValve",
+        props(name = r#"Valve"#, desc = r#""#, value = "-692036078")
+    )]
+    StructureValve = -692036078i32,
+    #[strum(
+        serialize = "StructureCompositeWindowIron",
+        props(name = r#"Iron Window"#, desc = r#""#, value = "-688284639")
+    )]
+    StructureCompositeWindowIron = -688284639i32,
+    #[strum(
+        serialize = "ItemSprayCanBlack",
+        props(
+            name = r#"Spray Paint (Black)"#,
+            desc = r#"Go classic, clandestine or just plain Gothic with black paint, which can be applied to most items. Each can has 20 uses."#,
+            value = "-688107795"
+        )
+    )]
+    ItemSprayCanBlack = -688107795i32,
+    #[strum(
+        serialize = "ItemRocketMiningDrillHeadLongTerm",
+        props(
+            name = r#"Mining-Drill Head (Long Term)"#,
+            desc = r#""#,
+            value = "-684020753"
+        )
+    )]
+    ItemRocketMiningDrillHeadLongTerm = -684020753i32,
+    #[strum(
+        serialize = "ItemMiningBelt",
+        props(
+            name = r#"Mining Belt"#,
+            desc = r#"Originally developed by <link=Recurso><color=#0080FFFF>Recurso Espaciais</color></link> for asteroid mining, the <link=Stationeers><color=#0080FFFF>Stationeer's</color></link> mining belt has room for two <link=ToolPage><color=#0080FFFF>tools</color></link> and eight <link=OrePage><color=#0080FFFF>ore</color></link> stacks. While wearing the belt, <link=OrePage><color=#0080FFFF>ore</color></link> is automatically stored there when mined. Volatile and temperature-dependent remain stable in the environmentally controlled unit."#,
+            value = "-676435305"
+        )
+    )]
+    ItemMiningBelt = -676435305i32,
+    #[strum(
+        serialize = "ItemGasCanisterSmart",
+        props(
+            name = r#"Gas Canister (Smart)"#,
+            desc = r#"0.Mode0
+1.Mode1"#,
+            value = "-668314371"
+        )
+    )]
+    ItemGasCanisterSmart = -668314371i32,
+    #[strum(
+        serialize = "ItemFlour",
+        props(
+            name = r#"Flour"#,
+            desc = r#"Pulverized <link=ThingItemWheat><color=green>Wheat</color></link>, a key ingredient in many foods created by the <link=ThingApplianceMicrowave><color=green>Microwave</color></link> and the <link=ThingItemKitAutomatedOven><color=green>Kit (Automated Oven)</color></link>."#,
+            value = "-665995854"
+        )
+    )]
+    ItemFlour = -665995854i32,
+    #[strum(
+        serialize = "StructureSmallTableRectangleDouble",
+        props(
+            name = r#"Small (Table Rectangle Double)"#,
+            desc = r#""#,
+            value = "-660451023"
+        )
+    )]
+    StructureSmallTableRectangleDouble = -660451023i32,
+    #[strum(
+        serialize = "StructureChuteUmbilicalFemaleSide",
+        props(
+            name = r#"Umbilical Socket Angle (Chute)"#,
+            desc = r#""#,
+            value = "-659093969"
+        )
+    )]
+    StructureChuteUmbilicalFemaleSide = -659093969i32,
+    #[strum(
+        serialize = "ItemSteelIngot",
+        props(
+            name = r#"Ingot (Steel)"#,
+            desc = r#"Steel ingots are a metal alloy, crafted in a <link=ThingStructureFurnace><color=green>Furnace</color></link> by smelting <link=ThingItemIronOre><color=green>Ore (Iron)</color></link> and <link=ThingItemCoalOre><color=green>Ore (Coal)</color></link> at a ratio of 3:1.
+It may not be elegant, but <link=ThingItemOxite><color=green>Ice (Oxite)</color></link> and <link=ThingItemVolatiles><color=green>Ice (Volatiles)</color></link> can be combined at a ratio of 1:2 in a furnace to create the necessary gas mixture for smelting."#,
+            value = "-654790771"
+        )
+    )]
+    ItemSteelIngot = -654790771i32,
+    #[strum(
+        serialize = "SeedBag_Wheet",
+        props(
+            name = r#"Wheat Seeds"#,
+            desc = r#"Grow some <link=ThingItemWheat><color=green>Wheat</color></link>."#,
+            value = "-654756733"
+        )
+    )]
+    SeedBagWheet = -654756733i32,
+    #[strum(
+        serialize = "StructureRocketTower",
+        props(name = r#"Launch Tower"#, desc = r#""#, value = "-654619479")
+    )]
+    StructureRocketTower = -654619479i32,
+    #[strum(
+        serialize = "StructureGasUmbilicalFemaleSide",
+        props(
+            name = r#"Umbilical Socket Angle (Gas)"#,
+            desc = r#""#,
+            value = "-648683847"
+        )
+    )]
+    StructureGasUmbilicalFemaleSide = -648683847i32,
+    #[strum(
+        serialize = "StructureLockerSmall",
+        props(name = r#"Locker (Small)"#, desc = r#""#, value = "-647164662")
+    )]
+    StructureLockerSmall = -647164662i32,
+    #[strum(
+        serialize = "StructureSecurityPrinter",
+        props(
+            name = r#"Security Printer"#,
+            desc = r#"Any <link=Stationeer><color=#0080FFFF>Stationeer</color></link> concerned about security needs the <link=Harkwell><color=#0080FFFF>Harkwell-designed</color></link> Vigilant-E security printer. Use the Vigilant-E to create a <link=ThingCartridgeAccessController><color=green>Cartridge (Access Controller)</color></link>, in order to restrict access to different parts of your base via keycards like the <link=ThingAccessCardBlue><color=green>Access Card (Blue)</color></link>. The printer also makes a variety of weapons and ammunitions to defend your base against any hostile, aggressive or just slightly rude entites you encounter as you explore the Solar System.
+"#,
+            value = "-641491515"
+        )
+    )]
+    StructureSecurityPrinter = -641491515i32,
+    #[strum(
+        serialize = "StructureWallSmallPanelsArrow",
+        props(
+            name = r#"Wall (Small Panels Arrow)"#,
+            desc = r#""#,
+            value = "-639306697"
+        )
+    )]
+    StructureWallSmallPanelsArrow = -639306697i32,
+    #[strum(
+        serialize = "ItemKitDynamicMKIILiquidCanister",
+        props(
+            name = r#"Kit (Portable Liquid Tank Mk II)"#,
+            desc = r#""#,
+            value = "-638019974"
+        )
+    )]
+    ItemKitDynamicMkiiLiquidCanister = -638019974i32,
+    #[strum(
+        serialize = "ItemKitRocketManufactory",
+        props(
+            name = r#"Kit (Rocket Manufactory)"#,
+            desc = r#""#,
+            value = "-636127860"
+        )
+    )]
+    ItemKitRocketManufactory = -636127860i32,
+    #[strum(
+        serialize = "ItemPureIceVolatiles",
+        props(
+            name = r#"Pure Ice Volatiles"#,
+            desc = r#"A frozen chunk of pure <link=GasVolatiles><color=#44AD83>Volatiles</color></link>"#,
+            value = "-633723719"
+        )
+    )]
+    ItemPureIceVolatiles = -633723719i32,
+    #[strum(
+        serialize = "ItemGasFilterNitrogenM",
+        props(
+            name = r#"Medium Filter (Nitrogen)"#,
+            desc = r#""#,
+            value = "-632657357"
+        )
+    )]
+    ItemGasFilterNitrogenM = -632657357i32,
+    #[strum(
+        serialize = "StructureCableFuse5k",
+        props(name = r#"Fuse (5kW)"#, desc = r#""#, value = "-631590668")
+    )]
+    StructureCableFuse5K = -631590668i32,
+    #[strum(
+        serialize = "StructureCableJunction6Burnt",
+        props(
+            name = r#"Burnt Cable (6-Way Junction)"#,
+            desc = r#""#,
+            value = "-628145954"
+        )
+    )]
+    StructureCableJunction6Burnt = -628145954i32,
+    #[strum(
+        serialize = "StructureComputer",
+        props(
+            name = r#"Computer"#,
+            desc = r#"In some ways a relic, the 'Chonk R1' was designed by severely conflicted <link=Norsec><color=#0080FFFF>Norsec</color></link> technicians, who needed a unit that could operate with a wide range of <link=LogicUnitPage><color=#0080FFFF>motherboards</color></link>, while also enduring the worst a new Cadet could throw at it.
+The result is a machine described by some as 'the only PC likely to survive our collision with a black hole', while other, less appreciative users regard it as sharing most of its technological DNA with a cheese grater.
+Compatible motherboards:
+- <link=ThingMotherboardLogic><color=green>Logic Motherboard</color></link>
+- <link=ThingMotherboardManufacturing><color=green>Manufacturing Motherboard</color></link>
+- <link=ThingMotherboardSorter><color=green>Sorter Motherboard</color></link>
+- <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link>
+- <link=ThingMotherboardProgrammableChip><color=green>IC Editor Motherboard</color></link>"#,
+            value = "-626563514"
+        )
+    )]
+    StructureComputer = -626563514i32,
+    #[strum(
+        serialize = "StructurePressureFedGasEngine",
+        props(
+            name = r#"Pressure Fed Gas Engine"#,
+            desc = r#"Inefficient but very powerful, the Pressure Fed Gas Engine moves gas from each of its two inputs based on the pressure of the input pipes. Control the mixing ratio of fuels by tweaking the input pressures to target a 2:1 mix of <link=GasVolatiles><color=#44AD83>Volatiles</color></link> to <link=GasOxygen><color=#44AD83>Oxygen</color></link> gas. Chilling propellant gasses or using <link=GasNitrousOxide><color=#44AD83>Nitrous Oxide</color></link> as an oxydizer will result in even higher thrust outputs."#,
+            value = "-624011170"
+        )
+    )]
+    StructurePressureFedGasEngine = -624011170i32,
+    #[strum(
+        serialize = "StructureGroundBasedTelescope",
+        props(
+            name = r#"Telescope"#,
+            desc = r#"A telescope that can be oriented to observe Celestial Bodies. When within full alignment will show orbital information for that celestial object. Atmospheric conditions may disrupt the ability to observe some objects at some times of day. To collect Horizontal and Vertical values you can use a <link=ThingStructureRocketCelestialTracker><color=green>Rocket Celestial Tracker</color></link> while it is in orbit, or a <link=ThingStructureDaylightSensor><color=green>Daylight Sensor</color></link> for primary body data."#,
+            value = "-619745681"
+        )
+    )]
+    StructureGroundBasedTelescope = -619745681i32,
+    #[strum(
+        serialize = "ItemKitAdvancedFurnace",
+        props(name = r#"Kit (Advanced Furnace)"#, desc = r#""#, value = "-616758353")
+    )]
+    ItemKitAdvancedFurnace = -616758353i32,
+    #[strum(
+        serialize = "StructureHeatExchangerLiquidtoLiquid",
+        props(
+            name = r#"Heat Exchanger - Liquid"#,
+            desc = r#"The original specs for the N Series Flow-P heat exchanger were rumored to have been scrawled on the back of a burger receipt by a bored <link=Sinotai><color=#0080FFFF>Sinotai</color></link> designer riding up the Brazilian space elevator, but that hasn't stopped it becoming one of the most widely-copied heat exchanger designs in the Solar System.
+The 'N Flow-P' has four connections, allowing you to pass two liquid networks into the unit, which then works to equalize temperature across the two separate networks.
+As the N Flow-P is a passive system, it equalizes pressure across the entire of each individual network, unless connected to liquid management devices like a <link=ThingStructureLiquidVolumePump><color=green>Liquid Volume Pump</color></link> or a <link=ThingStructureBackLiquidPressureRegulator><color=green>Liquid Back Volume Regulator</color></link>.
+"#,
+            value = "-613784254"
+        )
+    )]
+    StructureHeatExchangerLiquidtoLiquid = -613784254i32,
+    #[strum(
+        serialize = "StructureChuteJunction",
+        props(
+            name = r#"Chute (Junction)"#,
+            desc = r#"The aim for any <link=Stationeers><color=#0080FFFF>Stationeer</color></link> is to make off-world survival less of a struggle for themselves, and those who will follow in their footsteps.
+Chute junctions are fundamental components of chute networks, allowing merging or splitting of these networks. When combined with a programmed <link=ThingStructureSorter><color=green>Sorter</color></link>, items can be sent down different paths to various machines with <link=ImportExportPage><color=#0080FFFF>import/export</color></link> slots."#,
+            value = "-611232514"
+        )
+    )]
+    StructureChuteJunction = -611232514i32,
+    #[strum(
+        serialize = "StructureChuteWindow",
+        props(
+            name = r#"Chute (Window)"#,
+            desc = r#"Chute's with windows let you see what's passing through your <link=ImportExportPage><color=#0080FFFF>import/export</color></link> network. But be warned, they are not insulated as other chutes are. Ices will melt."#,
+            value = "-607241919"
+        )
+    )]
+    StructureChuteWindow = -607241919i32,
+    #[strum(
+        serialize = "ItemWearLamp",
+        props(name = r#"Headlamp"#, desc = r#""#, value = "-598730959")
+    )]
+    ItemWearLamp = -598730959i32,
+    #[strum(
+        serialize = "ItemKitAdvancedPackagingMachine",
+        props(
+            name = r#"Kit (Advanced Packaging Machine)"#,
+            desc = r#""#,
+            value = "-598545233"
+        )
+    )]
+    ItemKitAdvancedPackagingMachine = -598545233i32,
+    #[strum(
+        serialize = "ItemChemLightGreen",
+        props(
+            name = r#"Chem Light (Green)"#,
+            desc = r#"Enliven the dreariest, airless rock with this glowy green light. Snap to activate."#,
+            value = "-597479390"
+        )
+    )]
+    ItemChemLightGreen = -597479390i32,
+    #[strum(
+        serialize = "EntityRoosterBrown",
+        props(
+            name = r#"Entity Rooster Brown"#,
+            desc = r#"The common brown rooster. Don't let it hear you say that."#,
+            value = "-583103395"
+        )
+    )]
+    EntityRoosterBrown = -583103395i32,
+    #[strum(
+        serialize = "StructureLargeExtendableRadiator",
+        props(
+            name = r#"Large Extendable Radiator"#,
+            desc = r#"Omptimised for radiating heat in vacuum and low pressure environments. If pointed at the sun it will heat its contents rapidly via solar heating. The panels can fold away to stop all heat radiation/solar heating and protect them from storms."#,
+            value = "-566775170"
+        )
+    )]
+    StructureLargeExtendableRadiator = -566775170i32,
+    #[strum(
+        serialize = "StructureMediumHangerDoor",
+        props(
+            name = r#"Medium Hangar Door"#,
+            desc = r#"1 x 2 modular door piece for building hangar doors."#,
+            value = "-566348148"
+        )
+    )]
+    StructureMediumHangerDoor = -566348148i32,
+    #[strum(
+        serialize = "StructureLaunchMount",
+        props(
+            name = r#"Launch Mount"#,
+            desc = r#"The first piece to place whern building a rocket. Rockets can be constructed and/or landed here. Each Launch Mount will be allocated a slot on the Space Map and assigned a Location Code."#,
+            value = "-558953231"
+        )
+    )]
+    StructureLaunchMount = -558953231i32,
+    #[strum(
+        serialize = "StructureShortLocker",
+        props(name = r#"Short Locker"#, desc = r#""#, value = "-554553467")
+    )]
+    StructureShortLocker = -554553467i32,
+    #[strum(
+        serialize = "ItemKitCrateMount",
+        props(name = r#"Kit (Container Mount)"#, desc = r#""#, value = "-551612946")
+    )]
+    ItemKitCrateMount = -551612946i32,
+    #[strum(
+        serialize = "ItemKitCryoTube",
+        props(name = r#"Kit (Cryo Tube)"#, desc = r#""#, value = "-545234195")
+    )]
+    ItemKitCryoTube = -545234195i32,
+    #[strum(
+        serialize = "StructureSolarPanelDual",
+        props(
+            name = r#"Solar Panel (Dual)"#,
+            desc = r#"<link=Sinotai><color=#0080FFFF>Sinotai</color></link> dual solar panels are used for generating power from sunlight, with dedicated data and power ports. They can be connected to {<link=LogicPage><color=#0080FFFF>Logic</color></link> systems, in order to track sunlight, but their efficiency is reduced during storms and when damaged. You can repair these using some trusty <link=ThingItemDuctTape><color=green>Duct Tape</color></link>."#,
+            value = "-539224550"
+        )
+    )]
+    StructureSolarPanelDual = -539224550i32,
+    #[strum(
+        serialize = "ItemPlantSwitchGrass",
+        props(name = r#"Switch Grass"#, desc = r#""#, value = "-532672323")
+    )]
+    ItemPlantSwitchGrass = -532672323i32,
+    #[strum(
+        serialize = "StructureInsulatedPipeLiquidTJunction",
+        props(
+            name = r#"Insulated Liquid Pipe (T Junction)"#,
+            desc = r#"Liquid piping with very low temperature loss or gain."#,
+            value = "-532384855"
+        )
+    )]
+    StructureInsulatedPipeLiquidTJunction = -532384855i32,
+    #[strum(
+        serialize = "ItemKitSolarPanelBasicReinforced",
+        props(
+            name = r#"Kit (Solar Panel Basic Heavy)"#,
+            desc = r#""#,
+            value = "-528695432"
+        )
+    )]
+    ItemKitSolarPanelBasicReinforced = -528695432i32,
+    #[strum(
+        serialize = "ItemChemLightRed",
+        props(
+            name = r#"Chem Light (Red)"#,
+            desc = r#"A red glowstick. Snap to activate. Then reach for the lasers."#,
+            value = "-525810132"
+        )
+    )]
+    ItemChemLightRed = -525810132i32,
+    #[strum(
+        serialize = "ItemKitWallIron",
+        props(name = r#"Kit (Iron Wall)"#, desc = r#""#, value = "-524546923")
+    )]
+    ItemKitWallIron = -524546923i32,
+    #[strum(
+        serialize = "ItemEggCarton",
+        props(
+            name = r#"Egg Carton"#,
+            desc = r#"Within, eggs reside in mysterious, marmoreal silence."#,
+            value = "-524289310"
+        )
+    )]
+    ItemEggCarton = -524289310i32,
+    #[strum(
+        serialize = "StructureWaterDigitalValve",
+        props(name = r#"Liquid Digital Valve"#, desc = r#""#, value = "-517628750")
+    )]
+    StructureWaterDigitalValve = -517628750i32,
+    #[strum(
+        serialize = "StructureSmallDirectHeatExchangeLiquidtoLiquid",
+        props(
+            name = r#"Small Direct Heat Exchanger - Liquid + Liquid"#,
+            desc = r#"Direct Heat Exchangers equalize the temperature of the two input networks."#,
+            value = "-507770416"
+        )
+    )]
+    StructureSmallDirectHeatExchangeLiquidtoLiquid = -507770416i32,
+    #[strum(
+        serialize = "ItemWirelessBatteryCellExtraLarge",
+        props(
+            name = r#"Wireless Battery Cell Extra Large"#,
             desc = r#"0.Empty
 1.Critical
 2.VeryLow
@@ -530,66 +3966,76 @@ Note: the Cannifier will flash an error on its activation switch if you attempt 
 4.Medium
 5.High
 6.Full"#,
-            value = "-1125305264"
+            value = "-504717121"
         )
     )]
-    StructureBatteryMedium = -1125305264i32,
+    ItemWirelessBatteryCellExtraLarge = -504717121i32,
     #[strum(
-        serialize = "ItemBatteryCellLarge",
+        serialize = "ItemGasFilterPollutantsInfinite",
         props(
-            name = r#"Battery Cell (Large)"#,
-            desc = r#"First mass-produced by <link=Xigo><color=#0080FFFF>Xigo</color></link> in 2155 on the basis of a unattributed prototype, the classic silicon anode solid-state design extends its optimum temperature range.
-
-<size=120%><b>POWER OUTPUT</b></size>
-The large power cell can discharge 288kW of power.
-"#,
-            value = "-459827268"
+            name = r#"Catalytic Filter (Pollutants)"#,
+            desc = r#"A filter that selectively targets Pollutants. It uses internal pressure differentials to regenerate a unique phase change catalyst, giving it an unlimited lifecycle."#,
+            value = "-503738105"
         )
     )]
-    ItemBatteryCellLarge = -459827268i32,
+    ItemGasFilterPollutantsInfinite = -503738105i32,
     #[strum(
-        serialize = "ItemBatteryCellNuclear",
+        serialize = "ItemSprayCanBlue",
         props(
-            name = r#"Battery Cell (Nuclear)"#,
-            desc = r#"Illegal on Earth since the Chengdu Event, Norsec nuclear power cells found a new and drastically less safety-conscious market offworld.
-
-<size=120%><b>POWER OUTPUT</b></size>
-Pushing the power-weight balance to its limits, the 'nuke' has a 2.3 megawatt charge (2304000W), reflecting its reliance on exotic <link=IngotPage><color=#0080FFFF>superalloys</color></link>."#,
-            value = "544617306"
+            name = r#"Spray Paint (Blue)"#,
+            desc = r#"What kind of a color is blue? The kind of of color that says, 'Hey, what about me?'"#,
+            value = "-498464883"
         )
     )]
-    ItemBatteryCellNuclear = 544617306i32,
+    ItemSprayCanBlue = -498464883i32,
     #[strum(
-        serialize = "ItemBatteryCell",
+        serialize = "RespawnPointWallMounted",
         props(
-            name = r#"Battery Cell (Small)"#,
-            desc = r#"Harnessing a design pioneered in the early 21st century, the small battery cell is the <link=Stationeers><color=#0080FFFF>Stationeer's</color></link> basic unit of portable electrical power. While it lacks the charge of a <link=ThingItemBatteryCellLarge><color=green>Battery Cell (Large)</color></link> or <link=ThingItemBatteryCellNuclear><color=green>Battery Cell (Nuclear)</color></link>, it has the humble advantage of being fabricated from basic resources.
-
-<size=120%><b>POWER OUTPUT</b></size>
-The small cell stores up to 36000 watts of power."#,
-            value = "700133157"
+            name = r#"Respawn Point (Mounted)"#,
+            desc = r#""#,
+            value = "-491247370"
         )
     )]
-    ItemBatteryCell = 700133157i32,
+    RespawnPointWallMounted = -491247370i32,
     #[strum(
-        serialize = "StructureBatteryCharger",
+        serialize = "ItemIronSheets",
+        props(name = r#"Iron Sheets"#, desc = r#""#, value = "-487378546")
+    )]
+    ItemIronSheets = -487378546i32,
+    #[strum(
+        serialize = "ItemGasCanisterVolatiles",
+        props(name = r#"Canister (Volatiles)"#, desc = r#""#, value = "-472094806")
+    )]
+    ItemGasCanisterVolatiles = -472094806i32,
+    #[strum(
+        serialize = "ItemCableCoil",
         props(
-            name = r#"Battery Cell Charger"#,
-            desc = r#"The 5-slot <link=Xigo><color=#0080FFFF>Xigo</color></link> battery charger fits the <link=ThingItemBatteryCell><color=green>Battery Cell (Small)</color></link>, <link=ThingItemBatteryCellLarge><color=green>Battery Cell (Large)</color></link> and <link=ThingItemBatteryCellNuclear><color=green>Battery Cell (Nuclear)</color></link>, providing up to 500W to any connected cell. Note: the older design means this device has minor power draw (10W) even when not charging."#,
-            value = "1945930022"
+            name = r#"Cable Coil"#,
+            desc = r#"Bodily metaphors are tired and anthropocentric, but it was Frida Stuppen, the first <link=ODA><color=#0080FFFF>ODA</color></link> Administrator, who said, 'Let the cabling be as the nerve and the vessel, transmitting power and data alike through systems we forge among the stars.' Later commentators suggested that she was simply putting a romantic gloss on a piece of dubious economy. Whatever the case, standard cabling is where any <link=Stationeers><color=#0080FFFF>Stationeer's</color></link> network begins. 
+Normal coil has a maximum wattage of 5kW. For higher-current applications, use <link=ThingItemCableCoilHeavy><color=green>Cable Coil (Heavy)</color></link>."#,
+            value = "-466050668"
         )
     )]
-    StructureBatteryCharger = 1945930022i32,
+    ItemCableCoil = -466050668i32,
     #[strum(
-        serialize = "StructureBatteryChargerSmall",
-        props(name = r#"Battery Charger Small"#, desc = r#""#, value = "-761772413")
+        serialize = "StructureToolManufactory",
+        props(
+            name = r#"Tool Manufactory"#,
+            desc = r#"No mission can be completed without the proper tools. The <link=Norsec><color=#0080FFFF>Norsec</color></link> ThuulDek manufactory can fabricate almost any tool or hand-held device a <link=Stationeer><color=#0080FFFF>Stationeer</color></link> may need to complete their mission, as well as a variety of delightful paints.
+Upgrade the device using a <link=ThingToolPrinterMod><color=green>Tool Printer Mod</color></link> for additional recipes and faster processing speeds."#,
+            value = "-465741100"
+        )
     )]
-    StructureBatteryChargerSmall = -761772413i32,
+    StructureToolManufactory = -465741100i32,
     #[strum(
-        serialize = "ItemBatteryChargerSmall",
-        props(name = r#"Battery Charger Small"#, desc = r#""#, value = "1008295833")
+        serialize = "StructureAdvancedPackagingMachine",
+        props(
+            name = r#"Advanced Packaging Machine"#,
+            desc = r#"The <link=Xigo><color=#0080FFFF>Xigo</color></link> Advanced Cannifier Multi-Plus Pro is an automateable packaging machine that uses <link=ThingItemEmptyCan><color=green>Empty Can</color></link>s and cooked <link=OrganicPage><color=#0080FFFF>food</color></link> to create canned sustenance that does not decay. Note that the ACMPP only accepts cooked food and tin cans."#,
+            value = "-463037670"
+        )
     )]
-    ItemBatteryChargerSmall = 1008295833i32,
+    StructureAdvancedPackagingMachine = -463037670i32,
     #[strum(
         serialize = "Battery_Wireless_cell",
         props(
@@ -606,6 +4052,803 @@ The small cell stores up to 36000 watts of power."#,
     )]
     BatteryWirelessCell = -462415758i32,
     #[strum(
+        serialize = "ItemBatteryCellLarge",
+        props(
+            name = r#"Battery Cell (Large)"#,
+            desc = r#"First mass-produced by <link=Xigo><color=#0080FFFF>Xigo</color></link> in 2155 on the basis of a unattributed prototype, the classic silicon anode solid-state design extends its optimum temperature range.
+
+<size=120%><b>POWER OUTPUT</b></size>
+The large power cell can discharge 288kW of power. 
+"#,
+            value = "-459827268"
+        )
+    )]
+    ItemBatteryCellLarge = -459827268i32,
+    #[strum(
+        serialize = "StructureLiquidVolumePump",
+        props(name = r#"Liquid Volume Pump"#, desc = r#""#, value = "-454028979")
+    )]
+    StructureLiquidVolumePump = -454028979i32,
+    #[strum(
+        serialize = "ItemKitTransformer",
+        props(
+            name = r#"Kit (Transformer Large)"#,
+            desc = r#""#,
+            value = "-453039435"
+        )
+    )]
+    ItemKitTransformer = -453039435i32,
+    #[strum(
+        serialize = "StructureVendingMachine",
+        props(
+            name = r#"Vending Machine"#,
+            desc = r#"The <link=Xigo><color=#0080FFFF>Xigo-designed</color></link> 'Slot Mate' vending machine allows storage of almost any item, while also operating as a distribution point for working with <link=TradingPage><color=#0080FFFF>Traders</color></link>. You cannot trade without a vending machine, or its more advanced equivalent, the <link=ThingStructureRefrigeratedVendingMachine><color=green>Refrigerated Vending Machine</color></link>. Each vending machine can hold up to 100 stacks."#,
+            value = "-443130773"
+        )
+    )]
+    StructureVendingMachine = -443130773i32,
+    #[strum(
+        serialize = "StructurePipeHeater",
+        props(
+            name = r#"Pipe Heater (Gas)"#,
+            desc = r#"Adds 1000 joules of heat per tick to the contents of your pipe network."#,
+            value = "-419758574"
+        )
+    )]
+    StructurePipeHeater = -419758574i32,
+    #[strum(
+        serialize = "StructurePipeCrossJunction4",
+        props(
+            name = r#"Pipe (4-Way Junction)"#,
+            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeCrossJunction4><color=green>Insulated Pipe (4-Way Junction)</color></link> using an <link=ThingItemKitInsulatedPipe><color=green>Kit (Insulated Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
+            value = "-417629293"
+        )
+    )]
+    StructurePipeCrossJunction4 = -417629293i32,
+    #[strum(
+        serialize = "StructureLadder",
+        props(name = r#"Ladder"#, desc = r#""#, value = "-415420281")
+    )]
+    StructureLadder = -415420281i32,
+    #[strum(
+        serialize = "ItemHardJetpack",
+        props(
+            name = r#"Hardsuit Jetpack"#,
+            desc = r#"The <link=Norsec><color=#0080FFFF>Norsec</color></link> jetpack isn't 'technically' a jetpack at all, it's a gas thruster. It can be powered by any gas, so long as the internal pressure of the <link=AtmosphericsPage><color=#0080FFFF>canister</color></link> is higher than the ambient external pressure. If the external pressure is greater, the spacepack will not function. Adjusting the thrust value alters your rate of acceleration, while activating the stablizer causes the spacepack to hover when a given height is reached.
+The hardsuit jetpack is capable of much higher speeds than the <link=ThingItemJetpackBasic><color=green>Jetpack Basic</color></link> - up to 15m/s. Indispensable for building, mining and general movement, it has fourteen storage slots.
+USE: 'J' to activate; 'space' to fly up; 'left ctrl' to descend; and 'WASD' to move."#,
+            value = "-412551656"
+        )
+    )]
+    ItemHardJetpack = -412551656i32,
+    #[strum(
+        serialize = "CircuitboardCameraDisplay",
+        props(
+            name = r#"Camera Display"#,
+            desc = r#"Surveillance is sometimes necessary when building bases in highly hostile environments. The camera display circuit board allows wary Stationeers to turn a <link=ThingStructureConsole><color=green>Console</color></link> into a security display when connected to a <link=ThingStructureCamera><color=green>Camera</color></link>."#,
+            value = "-412104504"
+        )
+    )]
+    CircuitboardCameraDisplay = -412104504i32,
+    #[strum(
+        serialize = "ItemCopperIngot",
+        props(
+            name = r#"Ingot (Copper)"#,
+            desc = r#"Copper ingots are created by smelting <link=ThingItemCopperOre><color=green>Ore (Copper)</color></link> in the <link=ThingStructureFurnace><color=green>Furnace</color></link> and <link=ThingStructureArcFurnace><color=green>Arc Furnace</color></link>, and used to create a variety of items."#,
+            value = "-404336834"
+        )
+    )]
+    ItemCopperIngot = -404336834i32,
+    #[strum(
+        serialize = "ReagentColorOrange",
+        props(name = r#"Color Dye (Orange)"#, desc = r#""#, value = "-400696159")
+    )]
+    ReagentColorOrange = -400696159i32,
+    #[strum(
+        serialize = "StructureBattery",
+        props(
+            name = r#"Station Battery"#,
+            desc = r#"Providing large-scale, reliable power storage, the <link=Sinotai><color=#0080FFFF>Sinotai</color></link> 'Dianzi' station battery is the heart of most <link=Stationeers><color=#0080FFFF>Stationeer</color></link> bases. 
+There are a variety of cautions to the design of electrical systems using batteries, and every experienced Stationeer has a story to tell, hence the Stationeer adage: 'Dianzi cooks, but it also frys.' 
+<size=120%><b>POWER OUTPUT</b></size>
+Able to store up to 3600000W of power, there are no practical limits to its throughput, hence it is wise to use <link=ThingItemCableCoilHeavy><color=green>Cable Coil (Heavy)</color></link>. Seasoned electrical engineers will also laugh in the face of those who fail to separate out their power generation networks using an <link=ThingStructureAreaPowerControl><color=green>Area Power Control</color></link> and <link=ThingStructureTransformer><color=green>Transformer (Large)</color></link>."#,
+            value = "-400115994"
+        )
+    )]
+    StructureBattery = -400115994i32,
+    #[strum(
+        serialize = "StructurePipeRadiatorFlat",
+        props(
+            name = r#"Pipe Radiator"#,
+            desc = r#"A pipe mounted radiator optimized for radiating heat in vacuums."#,
+            value = "-399883995"
+        )
+    )]
+    StructurePipeRadiatorFlat = -399883995i32,
+    #[strum(
+        serialize = "StructureCompositeCladdingAngledLong",
+        props(
+            name = r#"Composite Cladding (Long Angled)"#,
+            desc = r#""#,
+            value = "-387546514"
+        )
+    )]
+    StructureCompositeCladdingAngledLong = -387546514i32,
+    #[strum(
+        serialize = "DynamicGasTankAdvanced",
+        props(
+            name = r#"Gas Tank Mk II"#,
+            desc = r#"0.Mode0
+1.Mode1"#,
+            value = "-386375420"
+        )
+    )]
+    DynamicGasTankAdvanced = -386375420i32,
+    #[strum(
+        serialize = "WeaponPistolEnergy",
+        props(
+            name = r#"Energy Pistol"#,
+            desc = r#"0.Stun
+1.Kill"#,
+            value = "-385323479"
+        )
+    )]
+    WeaponPistolEnergy = -385323479i32,
+    #[strum(
+        serialize = "ItemFertilizedEgg",
+        props(
+            name = r#"Egg"#,
+            desc = r#"To hatch it requires an incubation temperature of between 35 and 45 degrees Celsius and will hatch into a <link=ThingNpcChick><color=green>Chick</color></link>. If the egg is exposed to tepratures below 10 degrees it will no longer be viable."#,
+            value = "-383972371"
+        )
+    )]
+    ItemFertilizedEgg = -383972371i32,
+    #[strum(
+        serialize = "ItemRocketMiningDrillHeadIce",
+        props(
+            name = r#"Mining-Drill Head (Ice)"#,
+            desc = r#""#,
+            value = "-380904592"
+        )
+    )]
+    ItemRocketMiningDrillHeadIce = -380904592i32,
+    #[strum(
+        serialize = "Flag_ODA_8m",
+        props(name = r#"Flag (ODA 8m)"#, desc = r#""#, value = "-375156130")
+    )]
+    FlagOda8M = -375156130i32,
+    #[strum(
+        serialize = "AccessCardGreen",
+        props(name = r#"Access Card (Green)"#, desc = r#""#, value = "-374567952")
+    )]
+    AccessCardGreen = -374567952i32,
+    #[strum(
+        serialize = "StructureChairBoothCornerLeft",
+        props(
+            name = r#"Chair (Booth Corner Left)"#,
+            desc = r#""#,
+            value = "-367720198"
+        )
+    )]
+    StructureChairBoothCornerLeft = -367720198i32,
+    #[strum(
+        serialize = "ItemKitFuselage",
+        props(name = r#"Kit (Fuselage)"#, desc = r#""#, value = "-366262681")
+    )]
+    ItemKitFuselage = -366262681i32,
+    #[strum(
+        serialize = "ItemSolidFuel",
+        props(
+            name = r#"Solid Fuel (Hydrocarbon)"#,
+            desc = r#""#,
+            value = "-365253871"
+        )
+    )]
+    ItemSolidFuel = -365253871i32,
+    #[strum(
+        serialize = "ItemKitSolarPanelReinforced",
+        props(
+            name = r#"Kit (Solar Panel Heavy)"#,
+            desc = r#""#,
+            value = "-364868685"
+        )
+    )]
+    ItemKitSolarPanelReinforced = -364868685i32,
+    #[strum(
+        serialize = "ItemToolBelt",
+        props(
+            name = r#"Tool Belt"#,
+            desc = r#"If there's one piece of equipment that embodies <link=Stationeers><color=#0080FFFF>Stationeer</color></link> life above all else, it's the humble toolbelt (Editor's note: a recent <link=ODA><color=#0080FFFF>ODA</color></link> survey of iconic Stationeer equipment also rated the smoking, toxic ruins of an over-pressurized <link=ThingStructureFurnace><color=green>Furnace</color></link> lying amid the charred remains of your latest base very highly).
+Designed to meet the most strict-ish ODA safety standards, the toolbelt's eight slots hold one thing: tools, and <link=ThingItemCableCoil><color=green>Cable Coil</color></link>. Not to be confused with the <link=ThingItemMiningBelt><color=green>Mining Belt</color></link>."#,
+            value = "-355127880"
+        )
+    )]
+    ItemToolBelt = -355127880i32,
+    #[strum(
+        serialize = "ItemEmergencyAngleGrinder",
+        props(
+            name = r#"Emergency Angle Grinder"#,
+            desc = r#""#,
+            value = "-351438780"
+        )
+    )]
+    ItemEmergencyAngleGrinder = -351438780i32,
+    #[strum(
+        serialize = "StructureCableFuse50k",
+        props(name = r#"Fuse (50kW)"#, desc = r#""#, value = "-349716617")
+    )]
+    StructureCableFuse50K = -349716617i32,
+    #[strum(
+        serialize = "StructureCompositeCladdingAngledCornerLongR",
+        props(
+            name = r#"Composite Cladding (Long Angled Mirrored Corner)"#,
+            desc = r#""#,
+            value = "-348918222"
+        )
+    )]
+    StructureCompositeCladdingAngledCornerLongR = -348918222i32,
+    #[strum(
+        serialize = "StructureFiltration",
+        props(
+            name = r#"Filtration"#,
+            desc = r#"The Filtration Unit is based on a long-standing <link=ExMin><color=#0080FFFF>ExMin</color></link> system, itself based on older designs of uncertain provenance. It is available in the <link=ThingItemKitAtmospherics><color=green>Kit (Atmospherics)</color></link>.
+The device has nonetheless proven indispensable for <link=Stationeers><color=#0080FFFF>Stationeer</color></link> atmospheric systems, as it can filter two <link=GasPage><color=#0080FFFF>gases</color></link> simultaneously from a single pipe network using a dual filter array. The unit has an input, and a filter output as well as an unfiltered outlet for any residual gases.
+"#,
+            value = "-348054045"
+        )
+    )]
+    StructureFiltration = -348054045i32,
+    #[strum(
+        serialize = "StructureLogicReader",
+        props(name = r#"Logic Reader"#, desc = r#""#, value = "-345383640")
+    )]
+    StructureLogicReader = -345383640i32,
+    #[strum(
+        serialize = "ItemKitMotherShipCore",
+        props(name = r#"Kit (Mothership)"#, desc = r#""#, value = "-344968335")
+    )]
+    ItemKitMotherShipCore = -344968335i32,
+    #[strum(
+        serialize = "StructureCamera",
+        props(
+            name = r#"Camera"#,
+            desc = r#"Nothing says 'I care' like a security camera that's been linked a <link=ThingStructureMotionSensor><color=green>Motion Sensor</color></link> and a <link=ThingStructureConsole><color=green>Console</color></link> fitted with a <link=ThingCircuitboardCameraDisplay><color=green>Camera Display</color></link>.
+Be there, even when you're not."#,
+            value = "-342072665"
+        )
+    )]
+    StructureCamera = -342072665i32,
+    #[strum(
+        serialize = "StructureCableJunctionHBurnt",
+        props(name = r#"Burnt Cable (Junction)"#, desc = r#""#, value = "-341365649")
+    )]
+    StructureCableJunctionHBurnt = -341365649i32,
+    #[strum(
+        serialize = "MotherboardComms",
+        props(
+            name = r#"Communications Motherboard"#,
+            desc = r#"When placed in a <link=ThingStructureComputer><color=green>Computer</color></link> and connected to a <link=ThingLandingpad_DataConnectionPiece><color=green>Landingpad Data And Power</color></link>, a <link=ThingStructureSatelliteDish><color=green>Medium Satellite Dish</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link> allows Stationeers to trade with suppliers. Adjust the horizontal and vertical attributes of the <link=ThingStructureSatelliteDish><color=green>Medium Satellite Dish</color></link> either directly or through logic. You need a communications signal of 95% or above to establish reliable communications with a trader. A minimum of a 3x3 clear pad area with a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link> at the center is required for a trader to land."#,
+            value = "-337075633"
+        )
+    )]
+    MotherboardComms = -337075633i32,
+    #[strum(
+        serialize = "AccessCardOrange",
+        props(name = r#"Access Card (Orange)"#, desc = r#""#, value = "-332896929")
+    )]
+    AccessCardOrange = -332896929i32,
+    #[strum(
+        serialize = "StructurePowerTransmitterOmni",
+        props(name = r#"Power Transmitter Omni"#, desc = r#""#, value = "-327468845")
+    )]
+    StructurePowerTransmitterOmni = -327468845i32,
+    #[strum(
+        serialize = "StructureGlassDoor",
+        props(
+            name = r#"Glass Door"#,
+            desc = r#"0.Operate
+1.Logic"#,
+            value = "-324331872"
+        )
+    )]
+    StructureGlassDoor = -324331872i32,
+    #[strum(
+        serialize = "DynamicGasCanisterCarbonDioxide",
+        props(
+            name = r#"Portable Gas Tank (CO2)"#,
+            desc = r#"Portable gas tanks do one thing: store gas. To refill the tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or ... boom. Once it's full, you can refill a <link=ThingItemGasCanisterCarbonDioxide><color=green>Canister (CO2)</color></link> by attaching it to the tank's striped section. Or you could vent the tank's variable flow rate valve into a room and create an atmosphere ... of sorts."#,
+            value = "-322413931"
+        )
+    )]
+    DynamicGasCanisterCarbonDioxide = -322413931i32,
+    #[strum(
+        serialize = "StructureVolumePump",
+        props(
+            name = r#"Volume Pump"#,
+            desc = r#"The volume pump pumps pumpable gases. It also separates out pipe networks into separate networks."#,
+            value = "-321403609"
+        )
+    )]
+    StructureVolumePump = -321403609i32,
+    #[strum(
+        serialize = "DynamicMKIILiquidCanisterWater",
+        props(
+            name = r#"Portable Liquid Tank Mk II (Water)"#,
+            desc = r#"An insulated version of the <link=ThingDynamicMKIILiquidCanisterWater><color=green>Portable Liquid Tank Mk II (Water)</color></link>, for storing liquids without them gaining or losing temperature."#,
+            value = "-319510386"
+        )
+    )]
+    DynamicMkiiLiquidCanisterWater = -319510386i32,
+    #[strum(
+        serialize = "ItemKitRocketBattery",
+        props(name = r#"Kit (Rocket Battery)"#, desc = r#""#, value = "-314072139")
+    )]
+    ItemKitRocketBattery = -314072139i32,
+    #[strum(
+        serialize = "ElectronicPrinterMod",
+        props(
+            name = r#"Electronic Printer Mod"#,
+            desc = r#"Apply to an <link=ThingStructureElectronicsPrinter><color=green>Electronics Printer</color></link> with a <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link> or <link=ThingItemArcWelder><color=green>Arc Welder</color></link> to upgrade for increased processing speed and more recipe options."#,
+            value = "-311170652"
+        )
+    )]
+    ElectronicPrinterMod = -311170652i32,
+    #[strum(
+        serialize = "ItemWreckageHydroponicsTray1",
+        props(
+            name = r#"Wreckage Hydroponics Tray"#,
+            desc = r#""#,
+            value = "-310178617"
+        )
+    )]
+    ItemWreckageHydroponicsTray1 = -310178617i32,
+    #[strum(
+        serialize = "ItemKitRocketCelestialTracker",
+        props(
+            name = r#"Kit (Rocket Celestial Tracker)"#,
+            desc = r#""#,
+            value = "-303008602"
+        )
+    )]
+    ItemKitRocketCelestialTracker = -303008602i32,
+    #[strum(
+        serialize = "StructureFrameSide",
+        props(
+            name = r#"Steel Frame (Side)"#,
+            desc = r#"More durable than the <link=ThingStructureFrameIron><color=green>Iron Frame</color></link>, steel frames also provide variations for more ornate constructions."#,
+            value = "-302420053"
+        )
+    )]
+    StructureFrameSide = -302420053i32,
+    #[strum(
+        serialize = "ItemInvarIngot",
+        props(name = r#"Ingot (Invar)"#, desc = r#""#, value = "-297990285")
+    )]
+    ItemInvarIngot = -297990285i32,
+    #[strum(
+        serialize = "StructureSmallTableThickSingle",
+        props(
+            name = r#"Small Table (Thick Single)"#,
+            desc = r#""#,
+            value = "-291862981"
+        )
+    )]
+    StructureSmallTableThickSingle = -291862981i32,
+    #[strum(
+        serialize = "ItemSiliconIngot",
+        props(name = r#"Ingot (Silicon)"#, desc = r#""#, value = "-290196476")
+    )]
+    ItemSiliconIngot = -290196476i32,
+    #[strum(
+        serialize = "StructureLiquidPipeHeater",
+        props(
+            name = r#"Pipe Heater (Liquid)"#,
+            desc = r#"Adds 1000 joules of heat per tick to the contents of your pipe network."#,
+            value = "-287495560"
+        )
+    )]
+    StructureLiquidPipeHeater = -287495560i32,
+    #[strum(
+        serialize = "StructureStirlingEngine",
+        props(
+            name = r#"Stirling Engine"#,
+            desc = r#"Harnessing an ancient thermal exploit, the <link=Recurso><color=#0080FFFF>Recurso</color></link> 'Libra' Stirling Engine generates power via the expansion and contraction of a working gas to drive pistons operating an electrical generator.
+      
+When high pressure hot gas is supplied into the input pipe, this gas will heat the hot side of the unit, then pass into the output pipe. The cooler side uses the room's ambient atmosphere, which must be kept at a lower temperature and pressure in order to create a differential. Add a working gas by inserting a <link=SlotGasCanister><color=orange>Gas Canister</color></link>. The unit must be deactivated when adding or removing canisters, or the working gas may leak into the surrounding atmosphere.
+ 
+Gases with a low molecular mass make the most efficient working gases. Increasing the moles of working gas can result in a greater potential power output. However, overpressuring the unit may have ... sub-optimal results."#,
+            value = "-260316435"
+        )
+    )]
+    StructureStirlingEngine = -260316435i32,
+    #[strum(
+        serialize = "StructureCompositeCladdingRounded",
+        props(
+            name = r#"Composite Cladding (Rounded)"#,
+            desc = r#""#,
+            value = "-259357734"
+        )
+    )]
+    StructureCompositeCladdingRounded = -259357734i32,
+    #[strum(
+        serialize = "SMGMagazine",
+        props(name = r#"SMG Magazine"#, desc = r#""#, value = "-256607540")
+    )]
+    SmgMagazine = -256607540i32,
+    #[strum(
+        serialize = "ItemLiquidPipeHeater",
+        props(
+            name = r#"Pipe Heater Kit (Liquid)"#,
+            desc = r#"Creates a <link=ThingStructureLiquidPipeHeater><color=green>Pipe Heater (Liquid)</color></link>."#,
+            value = "-248475032"
+        )
+    )]
+    ItemLiquidPipeHeater = -248475032i32,
+    #[strum(
+        serialize = "StructureArcFurnace",
+        props(
+            name = r#"Arc Furnace"#,
+            desc = r#"The simplest smelting system available to the average <link=Stationeers><color=#0080FFFF>Stationeer</color></link>, <link=Recurso><color=#0080FFFF>Recurso's</color></link> arc furnace was forged itself in the depths of the Solar System to help explorational geologists determine the purity of potential asteroidal mining targets.
+Co-opted by the <link=ODA><color=#0080FFFF>ODA</color></link>, it now provides Stationeers with a way to produce pure ingots of various resources.
+The smelting process also releases a range of by product <link=GasPage><color=#0080FFFF>gases</color></link>, principally <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>, <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link>, <link=GasVolatiles><color=#44AD83>Volatiles</color></link> and <link=GasOxygen><color=#44AD83>Oxygen</color></link> in differing ratios. These can be recaptured from the atmosphere by filtering, but also make the arc furnace a risk in closed environments. 
+Unlike the more advanced <link=ThingStructureFurnace><color=green>Furnace</color></link>, the arc furnace cannot create <link=IngotPage><color=#0080FFFF>alloys</color></link>."#,
+            value = "-247344692"
+        )
+    )]
+    StructureArcFurnace = -247344692i32,
+    #[strum(
+        serialize = "ItemTablet",
+        props(
+            name = r#"Handheld Tablet"#,
+            desc = r#"The <link=Xigo><color=#0080FFFF>Xigo</color></link> handheld 'Padi' tablet is an all-purpose data platform, provided as standard issue to all <link=Stationeers><color=#0080FFFF>Stationeers</color></link>. A dynamic multi-tool that accepts a range of <link=CartridgePage><color=#0080FFFF>cartridges</color></link>, the Padi becomes an <link=ThingCartridgeAtmosAnalyser><color=green>Atmos Analyzer</color></link> or <link=ThingCartridgeTracker><color=green>Tracker</color></link>, <link=ThingCartridgeMedicalAnalyser><color=green>Medical Analyzer</color></link>, <link=ThingCartridgeOreScanner><color=green>Ore Scanner</color></link>, <link=ThingCartridgeElectronicReader><color=green>eReader</color></link>, and various other functions."#,
+            value = "-229808600"
+        )
+    )]
+    ItemTablet = -229808600i32,
+    #[strum(
+        serialize = "StructureGovernedGasEngine",
+        props(
+            name = r#"Pumped Gas Engine"#,
+            desc = r#"The most reliable of all the rocket engines, the Pumped Gas Engine runs on a 2:1 mix of <link=GasVolatiles><color=#44AD83>Volatiles</color></link> to <link=GasOxygen><color=#44AD83>Oxygen</color></link> gas."#,
+            value = "-214232602"
+        )
+    )]
+    StructureGovernedGasEngine = -214232602i32,
+    #[strum(
+        serialize = "StructureStairs4x2RailR",
+        props(
+            name = r#"Stairs with Rail (Right)"#,
+            desc = r#""#,
+            value = "-212902482"
+        )
+    )]
+    StructureStairs4X2RailR = -212902482i32,
+    #[strum(
+        serialize = "ItemLeadOre",
+        props(
+            name = r#"Ore (Lead)"#,
+            desc = r#"Lead is a chemical element with the symbol "Pb". It is a dense, heavy metal with a low melting point. Lead is a used to make a variety of things such as <link=IngotPage><color=#0080FFFF>alloys</color></link> like <link=ThingItemSolderIngot><color=green>Ingot (Solder)</color></link> and munitions."#,
+            value = "-190236170"
+        )
+    )]
+    ItemLeadOre = -190236170i32,
+    #[strum(
+        serialize = "StructureBeacon",
+        props(name = r#"Beacon"#, desc = r#""#, value = "-188177083")
+    )]
+    StructureBeacon = -188177083i32,
+    #[strum(
+        serialize = "ItemGasFilterCarbonDioxideInfinite",
+        props(
+            name = r#"Catalytic Filter (Carbon Dioxide)"#,
+            desc = r#"A filter that selectively targets Carbon Dioxide. It uses internal pressure differentials to regenerate a unique phase change catalyst, giving it an unlimited lifecycle."#,
+            value = "-185568964"
+        )
+    )]
+    ItemGasFilterCarbonDioxideInfinite = -185568964i32,
+    #[strum(
+        serialize = "ItemLiquidCanisterEmpty",
+        props(name = r#"Liquid Canister"#, desc = r#""#, value = "-185207387")
+    )]
+    ItemLiquidCanisterEmpty = -185207387i32,
+    #[strum(
+        serialize = "ItemMKIIWireCutters",
+        props(
+            name = r#"Mk II Wire Cutters"#,
+            desc = r#"Wirecutters allow you to deconstruct various <link=StructurePage><color=#0080FFFF>structures</color></link>, as well as cross-lay cables when held in your non-active hand, and defuse explosives as needed. Wirecutters are stored in the <link=ThingItemToolBelt><color=green>Tool Belt</color></link>, along with other essential <link=ToolPage><color=#0080FFFF>tools</color></link>."#,
+            value = "-178893251"
+        )
+    )]
+    ItemMkiiWireCutters = -178893251i32,
+    #[strum(
+        serialize = "ItemPlantThermogenic_Genepool1",
+        props(
+            name = r#"Hades Flower (Alpha strain)"#,
+            desc = r#"The <link=Agrizero><color=#0080FFFF>Agrizero's</color></link>-created Hades Flower is the result of as dubious experiment to combine the allure of tropical plants with the comfort and homeliness of a heat pump. The plant breathes a 1:3 mix of <link=GasVolatiles><color=#44AD83>Volatiles</color></link> and <link=GasOxygen><color=#44AD83>Oxygen</color></link>, and exhales heated <link=GasPollutant><color=#44AD83>Pollutant</color></link>."#,
+            value = "-177792789"
+        )
+    )]
+    ItemPlantThermogenicGenepool1 = -177792789i32,
+    #[strum(
+        serialize = "StructureInsulatedInLineTankGas1x2",
+        props(
+            name = r#"Insulated In-Line Tank Gas"#,
+            desc = r#""#,
+            value = "-177610944"
+        )
+    )]
+    StructureInsulatedInLineTankGas1X2 = -177610944i32,
+    #[strum(
+        serialize = "StructureCableCornerBurnt",
+        props(name = r#"Burnt Cable (Corner)"#, desc = r#""#, value = "-177220914")
+    )]
+    StructureCableCornerBurnt = -177220914i32,
+    #[strum(
+        serialize = "StructureCableJunction",
+        props(
+            name = r#"Cable (Junction)"#,
+            desc = r#"Carrying power and data alike, cable coil has come to symbolize the innovation, independence and flexibility of <link=Stationeers><color=#0080FFFF>Stationeer</color></link> life - so much so, the <link=ODA><color=#0080FFFF>ODA</color></link> designated it an official <link=ToolPage><color=#0080FFFF>'tool'</color></link> during the 3rd Decannual Stationeer Solar Conference.
+Normal coil has a maximum wattage of 5kW. For higher-current applications, use <link=ThingItemCableCoilHeavy><color=green>Cable Coil (Heavy)</color></link>."#,
+            value = "-175342021"
+        )
+    )]
+    StructureCableJunction = -175342021i32,
+    #[strum(
+        serialize = "ItemKitLaunchTower",
+        props(
+            name = r#"Kit (Rocket Launch Tower)"#,
+            desc = r#""#,
+            value = "-174523552"
+        )
+    )]
+    ItemKitLaunchTower = -174523552i32,
+    #[strum(
+        serialize = "StructureBench3",
+        props(name = r#"Bench (Frame Style)"#, desc = r#""#, value = "-164622691")
+    )]
+    StructureBench3 = -164622691i32,
+    #[strum(
+        serialize = "MotherboardProgrammableChip",
+        props(
+            name = r#"IC Editor Motherboard"#,
+            desc = r#"When placed in a <link=ThingStructureComputer><color=green>Computer</color></link>, the IC Editor allows players to write and edit IC code, which can then be uploaded to a <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> if housed in an <link=ThingStructureCircuitHousing><color=green>IC Housing</color></link>."#,
+            value = "-161107071"
+        )
+    )]
+    MotherboardProgrammableChip = -161107071i32,
+    #[strum(
+        serialize = "ItemSprayCanOrange",
+        props(
+            name = r#"Spray Paint (Orange)"#,
+            desc = r#"Orange is fun, but also suggestive of hazards. Sitting proudly in the middle of the visual spectrum, it has nothing to prove."#,
+            value = "-158007629"
+        )
+    )]
+    ItemSprayCanOrange = -158007629i32,
+    #[strum(
+        serialize = "StructureWallPaddedCorner",
+        props(name = r#"Wall (Padded Corner)"#, desc = r#""#, value = "-155945899")
+    )]
+    StructureWallPaddedCorner = -155945899i32,
+    #[strum(
+        serialize = "StructureCableStraightH",
+        props(name = r#"Heavy Cable (Straight)"#, desc = r#""#, value = "-146200530")
+    )]
+    StructureCableStraightH = -146200530i32,
+    #[strum(
+        serialize = "StructureDockPortSide",
+        props(name = r#"Dock (Port Side)"#, desc = r#""#, value = "-137465079")
+    )]
+    StructureDockPortSide = -137465079i32,
+    #[strum(
+        serialize = "StructureCircuitHousing",
+        props(name = r#"IC Housing"#, desc = r#""#, value = "-128473777")
+    )]
+    StructureCircuitHousing = -128473777i32,
+    #[strum(
+        serialize = "MotherboardMissionControl",
+        props(
+            name = r#"<N:EN:MotherboardMissionControl>"#,
+            desc = r#"<N:EN:MotherboardMissionControl>"#,
+            value = "-127121474"
+        )
+    )]
+    MotherboardMissionControl = -127121474i32,
+    #[strum(
+        serialize = "ItemKitSpeaker",
+        props(name = r#"Kit (Speaker)"#, desc = r#""#, value = "-126038526")
+    )]
+    ItemKitSpeaker = -126038526i32,
+    #[strum(
+        serialize = "StructureLogicReagentReader",
+        props(name = r#"Reagent Reader"#, desc = r#""#, value = "-124308857")
+    )]
+    StructureLogicReagentReader = -124308857i32,
+    #[strum(
+        serialize = "ItemGasFilterNitrousOxideInfinite",
+        props(
+            name = r#"Catalytic Filter (Nitrous Oxide)"#,
+            desc = r#"A filter that selectively targets Nitrous Oxide. It uses internal pressure differentials to regenerate a unique phase change catalyst, giving it an unlimited lifecycle."#,
+            value = "-123934842"
+        )
+    )]
+    ItemGasFilterNitrousOxideInfinite = -123934842i32,
+    #[strum(
+        serialize = "ItemKitPressureFedGasEngine",
+        props(
+            name = r#"Kit (Pressure Fed Gas Engine)"#,
+            desc = r#""#,
+            value = "-121514007"
+        )
+    )]
+    ItemKitPressureFedGasEngine = -121514007i32,
+    #[strum(
+        serialize = "StructureCableJunction4HBurnt",
+        props(
+            name = r#"Burnt Cable (4-Way Junction)"#,
+            desc = r#""#,
+            value = "-115809132"
+        )
+    )]
+    StructureCableJunction4HBurnt = -115809132i32,
+    #[strum(
+        serialize = "ElevatorCarrage",
+        props(name = r#"Elevator"#, desc = r#""#, value = "-110788403")
+    )]
+    ElevatorCarrage = -110788403i32,
+    #[strum(
+        serialize = "StructureFairingTypeA2",
+        props(name = r#"Fairing (Type A2)"#, desc = r#""#, value = "-104908736")
+    )]
+    StructureFairingTypeA2 = -104908736i32,
+    #[strum(
+        serialize = "ItemKitPressureFedLiquidEngine",
+        props(
+            name = r#"Kit (Pressure Fed Liquid Engine)"#,
+            desc = r#""#,
+            value = "-99091572"
+        )
+    )]
+    ItemKitPressureFedLiquidEngine = -99091572i32,
+    #[strum(
+        serialize = "Meteorite",
+        props(name = r#"Meteorite"#, desc = r#""#, value = "-99064335")
+    )]
+    Meteorite = -99064335i32,
+    #[strum(
+        serialize = "ItemKitArcFurnace",
+        props(name = r#"Kit (Arc Furnace)"#, desc = r#""#, value = "-98995857")
+    )]
+    ItemKitArcFurnace = -98995857i32,
+    #[strum(
+        serialize = "StructureInsulatedPipeCrossJunction",
+        props(
+            name = r#"Insulated Pipe (Cross Junction)"#,
+            desc = r#"Insulated pipes greatly reduce heat loss from gases stored in them."#,
+            value = "-92778058"
+        )
+    )]
+    StructureInsulatedPipeCrossJunction = -92778058i32,
+    #[strum(
+        serialize = "ItemWaterPipeMeter",
+        props(name = r#"Kit (Liquid Pipe Meter)"#, desc = r#""#, value = "-90898877")
+    )]
+    ItemWaterPipeMeter = -90898877i32,
+    #[strum(
+        serialize = "FireArmSMG",
+        props(
+            name = r#"Fire Arm SMG"#,
+            desc = r#"0.Single
+1.Auto"#,
+            value = "-86315541"
+        )
+    )]
+    FireArmSmg = -86315541i32,
+    #[strum(
+        serialize = "ItemHardsuitHelmet",
+        props(
+            name = r#"Hardsuit Helmet"#,
+            desc = r#"The Hardsuit Helmet is similar to the <link=ThingItemSpaceHelmet><color=green>Space Helmet</color></link>, but can withstand higher temperatures and pressures. It's perfect for enduring harsh environments like Venus and Vulcan."#,
+            value = "-84573099"
+        )
+    )]
+    ItemHardsuitHelmet = -84573099i32,
+    #[strum(
+        serialize = "ItemSolderIngot",
+        props(name = r#"Ingot (Solder)"#, desc = r#""#, value = "-82508479")
+    )]
+    ItemSolderIngot = -82508479i32,
+    #[strum(
+        serialize = "CircuitboardGasDisplay",
+        props(
+            name = r#"Gas Display"#,
+            desc = r#"Information is power. Place this circuitboard into a <link=ThingStructureConsole><color=green>Console</color></link> to create a display that shows gas pressure or temperature of any connected tank, storage cannister, <link=ThingItemPipeAnalyizer><color=green>Kit (Pipe Analyzer)</color></link> or <link=ThingItemGasSensor><color=green>Kit (Gas Sensor)</color></link>."#,
+            value = "-82343730"
+        )
+    )]
+    CircuitboardGasDisplay = -82343730i32,
+    #[strum(
+        serialize = "DynamicGenerator",
+        props(
+            name = r#"Portable Generator"#,
+            desc = r#"Every <link=Stationeers><color=#0080FFFF>Stationeer's</color></link> best friend, the portable generator gets you up and running, fast. Fill it with a <link=ThingItemGasCanisterFuel><color=green>Canister (Fuel)</color></link> to power up and charge a <link=ThingItemBatteryCell><color=green>Battery Cell (Small)</color></link>, or attach it to a <link=ThingStructurePowerConnector><color=green>Power Connector</color></link> to link it into your electrical network. It's pressure driven, so functions more efficiently at lower temperatures, and REALLY efficiently if supercooled. Perfecting your fuel mix also makes a big difference."#,
+            value = "-82087220"
+        )
+    )]
+    DynamicGenerator = -82087220i32,
+    #[strum(
+        serialize = "ItemFlowerRed",
+        props(name = r#"Flower (Red)"#, desc = r#""#, value = "-81376085")
+    )]
+    ItemFlowerRed = -81376085i32,
+    #[strum(
+        serialize = "KitchenTableSimpleShort",
+        props(
+            name = r#"Kitchen Table (Simple Short)"#,
+            desc = r#""#,
+            value = "-78099334"
+        )
+    )]
+    KitchenTableSimpleShort = -78099334i32,
+    #[strum(
+        serialize = "ImGuiCircuitboardAirlockControl",
+        props(name = r#"Airlock (Experimental)"#, desc = r#""#, value = "-73796547")
+    )]
+    ImGuiCircuitboardAirlockControl = -73796547i32,
+    #[strum(
+        serialize = "StructureInsulatedPipeLiquidCrossJunction6",
+        props(
+            name = r#"Insulated Liquid Pipe (6-Way Junction)"#,
+            desc = r#"Liquid piping with very low temperature loss or gain."#,
+            value = "-72748982"
+        )
+    )]
+    StructureInsulatedPipeLiquidCrossJunction6 = -72748982i32,
+    #[strum(
+        serialize = "StructureCompositeCladdingAngledCorner",
+        props(
+            name = r#"Composite Cladding (Angled Corner)"#,
+            desc = r#""#,
+            value = "-69685069"
+        )
+    )]
+    StructureCompositeCladdingAngledCorner = -69685069i32,
+    #[strum(
+        serialize = "StructurePowerTransmitter",
+        props(
+            name = r#"Microwave Power Transmitter"#,
+            desc = r#"The <link=Norsec><color=#0080FFFF>Norsec</color></link> Wireless Power Transmitter is an uni-directional, A-to-B, far field microwave electrical transmission system.The rotatable base transmitter delivers a narrow, non-lethal microwave beam to a dedicated base receiver.
+The transmitter must be aligned to the base station in order to transmit any power. The brightness of the transmitter's collimator arc provides an indication of transmission intensity. Note that there is an attrition over longer ranges, so the unit requires more power over greater distances to deliver the same output."#,
+            value = "-65087121"
+        )
+    )]
+    StructurePowerTransmitter = -65087121i32,
+    #[strum(
+        serialize = "ItemFrenchFries",
+        props(
+            name = r#"Canned French Fries"#,
+            desc = r#"Because space would suck without 'em."#,
+            value = "-57608687"
+        )
+    )]
+    ItemFrenchFries = -57608687i32,
+    #[strum(
+        serialize = "StructureConsoleLED1x2",
+        props(
+            name = r#"LED Display (Medium)"#,
+            desc = r#"0.Default
+1.Percent
+2.Power"#,
+            value = "-53151617"
+        )
+    )]
+    StructureConsoleLed1X2 = -53151617i32,
+    #[strum(
+        serialize = "UniformMarine",
+        props(name = r#"Marine Uniform"#, desc = r#""#, value = "-48342840")
+    )]
+    UniformMarine = -48342840i32,
+    #[strum(
         serialize = "Battery_Wireless_cell_Big",
         props(
             name = r#"Battery Wireless Cell (Big)"#,
@@ -621,454 +4864,465 @@ The small cell stores up to 36000 watts of power."#,
     )]
     BatteryWirelessCellBig = -41519077i32,
     #[strum(
-        serialize = "StructureBeacon",
-        props(name = r#"Beacon"#, desc = r#""#, value = "-188177083")
+        serialize = "StructureCableCornerH",
+        props(name = r#"Heavy Cable (Corner)"#, desc = r#""#, value = "-39359015")
     )]
-    StructureBeacon = -188177083i32,
+    StructureCableCornerH = -39359015i32,
     #[strum(
-        serialize = "StructureAngledBench",
-        props(name = r#"Bench (Angled)"#, desc = r#""#, value = "1811979158")
-    )]
-    StructureAngledBench = 1811979158i32,
-    #[strum(
-        serialize = "StructureBench1",
-        props(name = r#"Bench (Counter Style)"#, desc = r#""#, value = "406745009")
-    )]
-    StructureBench1 = 406745009i32,
-    #[strum(
-        serialize = "StructureFlatBench",
-        props(name = r#"Bench (Flat)"#, desc = r#""#, value = "839890807")
-    )]
-    StructureFlatBench = 839890807i32,
-    #[strum(
-        serialize = "StructureBench3",
-        props(name = r#"Bench (Frame Style)"#, desc = r#""#, value = "-164622691")
-    )]
-    StructureBench3 = -164622691i32,
-    #[strum(
-        serialize = "StructureBench2",
+        serialize = "ItemPipeCowl",
         props(
-            name = r#"Bench (High Tech Style)"#,
+            name = r#"Pipe Cowl"#,
+            desc = r#"This creates a <link=ThingItemPipeCowl><color=green>Pipe Cowl</color></link> that can be placed on the end of pipes to expose them to the world atmospheres."#,
+            value = "-38898376"
+        )
+    )]
+    ItemPipeCowl = -38898376i32,
+    #[strum(
+        serialize = "StructureStairwellFrontLeft",
+        props(name = r#"Stairwell (Front Left)"#, desc = r#""#, value = "-37454456")
+    )]
+    StructureStairwellFrontLeft = -37454456i32,
+    #[strum(
+        serialize = "StructureWallPaddedWindowThin",
+        props(
+            name = r#"Wall (Padded Window Thin)"#,
             desc = r#""#,
-            value = "-2127086069"
+            value = "-37302931"
         )
     )]
-    StructureBench2 = -2127086069i32,
+    StructureWallPaddedWindowThin = -37302931i32,
     #[strum(
-        serialize = "StructureBench4",
+        serialize = "StructureInsulatedTankConnector",
         props(
-            name = r#"Bench (Workbench Style)"#,
+            name = r#"Insulated Tank Connector"#,
             desc = r#""#,
-            value = "1750375230"
+            value = "-31273349"
         )
     )]
-    StructureBench4 = 1750375230i32,
+    StructureInsulatedTankConnector = -31273349i32,
     #[strum(
-        serialize = "ItemBiomass",
+        serialize = "ItemKitInsulatedPipeUtility",
         props(
-            name = r#"Biomass"#,
-            desc = r#"Diced organic material that is returned when food and organic matter is passed through the <link=ThingStructureRecycler><color=green>Recycler</color></link> and <link=ThingStructureCentrifuge><color=green>Centrifuge</color></link>. Can be burned in a <link=ThingStructureFurnace><color=green>Furnace</color></link> into <link=ThingItemCharcoal><color=green>Charcoal</color></link> for use in the <link=ThingStructureSolidFuelGenerator><color=green>Generator (Solid Fuel)</color></link>."#,
-            value = "-831480639"
+            name = r#"Kit (Insulated Pipe Utility Gas)"#,
+            desc = r#""#,
+            value = "-27284803"
         )
     )]
-    ItemBiomass = -831480639i32,
+    ItemKitInsulatedPipeUtility = -27284803i32,
     #[strum(
-        serialize = "StructureBlastDoor",
+        serialize = "DynamicLight",
         props(
-            name = r#"Blast Door"#,
-            desc = r#"Airtight and almost undamageable, the original 'Millmar' series of blast door was designed by off-world mining giant <link=Recurso><color=#0080FFFF>Recurso</color></link> to protect asteroid-mining facilities from nuclear-incident-level explosive decompression.
-Short of a pocket-sized singularity blinking into the local space-time frame, there is effectively no limit to the pressure these blast doors can contain - ideal for constructing airlocks in pressure-sensitive environments."#,
-            value = "337416191"
+            name = r#"Portable Light"#,
+            desc = r#"Philippe Starck might not applaud, but this battery-powered light source undarkens the corners when illumination's lacking. Powered by any battery, it's a 'no-frills' <link=Xigo><color=#0080FFFF>Xigo</color></link> design that can be cheaply fabricated with the minimum of fuss. Unless you like fuss. In which case, fuss all you like."#,
+            value = "-21970188"
         )
     )]
-    StructureBlastDoor = 337416191i32,
+    DynamicLight = -21970188i32,
     #[strum(
-        serialize = "StructureBlockBed",
+        serialize = "ItemKitBatteryLarge",
+        props(name = r#"Kit (Battery Large)"#, desc = r#""#, value = "-21225041")
+    )]
+    ItemKitBatteryLarge = -21225041i32,
+    #[strum(
+        serialize = "StructureSmallTableThickDouble",
         props(
-            name = r#"Block Bed"#,
+            name = r#"Small (Table Thick Double)"#,
+            desc = r#""#,
+            value = "-19246131"
+        )
+    )]
+    StructureSmallTableThickDouble = -19246131i32,
+    #[strum(
+        serialize = "ItemAmmoBox",
+        props(name = r#"Ammo Box"#, desc = r#""#, value = "-9559091")
+    )]
+    ItemAmmoBox = -9559091i32,
+    #[strum(
+        serialize = "StructurePipeLiquidCrossJunction4",
+        props(
+            name = r#"Liquid Pipe (4-Way Junction)"#,
+            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeLiquidCrossJunction4><color=green>Insulated Liquid Pipe (4-Way Junction)</color></link> using an <link=ThingItemKitInsulatedLiquidPipe><color=green>Kit (Insulated Liquid Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
+            value = "-9555593"
+        )
+    )]
+    StructurePipeLiquidCrossJunction4 = -9555593i32,
+    #[strum(
+        serialize = "DynamicGasCanisterRocketFuel",
+        props(
+            name = r#"Dynamic Gas Canister Rocket Fuel"#,
+            desc = r#""#,
+            value = "-8883951"
+        )
+    )]
+    DynamicGasCanisterRocketFuel = -8883951i32,
+    #[strum(
+        serialize = "ItemPureIcePollutant",
+        props(
+            name = r#"Pure Ice Pollutant"#,
+            desc = r#"A frozen chunk of pure <link=GasPollutant><color=#44AD83>Pollutant</color></link>"#,
+            value = "-1755356"
+        )
+    )]
+    ItemPureIcePollutant = -1755356i32,
+    #[strum(
+        serialize = "ItemWreckageLargeExtendableRadiator01",
+        props(
+            name = r#"Wreckage Large Extendable Radiator"#,
+            desc = r#""#,
+            value = "-997763"
+        )
+    )]
+    ItemWreckageLargeExtendableRadiator01 = -997763i32,
+    #[strum(
+        serialize = "StructureSingleBed",
+        props(
+            name = r#"Single Bed"#,
             desc = r#"Description coming."#,
-            value = "697908419"
+            value = "-492611"
         )
     )]
-    StructureBlockBed = 697908419i32,
+    StructureSingleBed = -492611i32,
     #[strum(
-        serialize = "StructureBlocker",
-        props(name = r#"Blocker"#, desc = r#""#, value = "378084505")
-    )]
-    StructureBlocker = 378084505i32,
-    #[strum(
-        serialize = "ItemBreadLoaf",
-        props(name = r#"Bread Loaf"#, desc = r#""#, value = "893514943")
-    )]
-    ItemBreadLoaf = 893514943i32,
-    #[strum(
-        serialize = "StructureCableCorner3Burnt",
+        serialize = "StructureCableCorner3HBurnt",
         props(
-            name = r#"Burnt Cable (3-Way Corner)"#,
+            name = r#"<N:EN:StructureCableCorner3HBurnt>"#,
+            desc = r#"<N:EN:StructureCableCorner3HBurnt>"#,
+            value = "2393826"
+        )
+    )]
+    StructureCableCorner3HBurnt = 2393826i32,
+    #[strum(
+        serialize = "StructureAutoMinerSmall",
+        props(
+            name = r#"Autominer (Small)"#,
+            desc = r#"The <link=Recurso><color=#0080FFFF>Recurso</color></link> SquareDig autominer is a structure that when built will mine a vertical 2x2 shaft until it hits bedrock. The autominer can be connected to a chute system, and is controllable by a logic network. Note that the autominer outputs more <link=OrePage><color=#0080FFFF>ore</color></link> than a conventional <link=ThingItemMiningDrill><color=green>Mining Drill</color></link> over the same area."#,
+            value = "7274344"
+        )
+    )]
+    StructureAutoMinerSmall = 7274344i32,
+    #[strum(
+        serialize = "CrateMkII",
+        props(
+            name = r#"Crate Mk II"#,
+            desc = r#"A more heavily reinforced version of the iconic <link=ThingDynamicCrate><color=green>Dynamic Crate</color></link>, the Crate Mk II is resistant to incredibly high pressures and temperatures. Short of disposing of it in a black hole, the Mk II is about as safe as luggage gets."#,
+            value = "8709219"
+        )
+    )]
+    CrateMkIi = 8709219i32,
+    #[strum(
+        serialize = "ItemGasFilterWaterM",
+        props(name = r#"Medium Filter (Water)"#, desc = r#""#, value = "8804422")
+    )]
+    ItemGasFilterWaterM = 8804422i32,
+    #[strum(
+        serialize = "StructureWallPaddedNoBorder",
+        props(name = r#"Wall (Padded No Border)"#, desc = r#""#, value = "8846501")
+    )]
+    StructureWallPaddedNoBorder = 8846501i32,
+    #[strum(
+        serialize = "ItemGasFilterVolatiles",
+        props(
+            name = r#"Filter (Volatiles)"#,
+            desc = r#"Filters are used to capture various gases, which can be disposed of or used elsewhere. <link=GasVolatiles><color=#44AD83>Volatiles</color></link> are created by exposing <link=ThingItemVolatiles><color=green>Ice (Volatiles)</color></link> to heat. The product can then be collected and combined with <link=GasOxygen><color=#44AD83>Oxygen</color></link> to create fuel, or used within a <link=ThingStructureFurnace><color=green>Furnace</color></link> to smelt ores and create <link=IngotPage><color=#0080FFFF>alloys</color></link>."#,
+            value = "15011598"
+        )
+    )]
+    ItemGasFilterVolatiles = 15011598i32,
+    #[strum(
+        serialize = "ItemMiningCharge",
+        props(
+            name = r#"Mining Charge"#,
+            desc = r#"A low cost, high yield explosive with a 10 second timer."#,
+            value = "15829510"
+        )
+    )]
+    ItemMiningCharge = 15829510i32,
+    #[strum(
+        serialize = "ItemKitEngineSmall",
+        props(name = r#"Kit (Engine Small)"#, desc = r#""#, value = "19645163")
+    )]
+    ItemKitEngineSmall = 19645163i32,
+    #[strum(
+        serialize = "StructureHeatExchangerGastoGas",
+        props(
+            name = r#"Heat Exchanger - Gas"#,
+            desc = r#"The original specs for the N Series Flow-P heat exchanger were rumored to have been scrawled on the back of a burger receipt by a bored <link=Sinotai><color=#0080FFFF>Sinotai</color></link> designer riding up the Brazilian space elevator, but that hasn't stopped it becoming one of the most widely-copied heat exchanger designs in the Solar System.
+The 'N Flow-P' has four connections, allowing you to pass two gas networks into the unit, which then works to equalize temperature across the two separate networks.
+As the N Flow-P is a passive system, it equalizes pressure across the entire of each individual network, unless connected to gas management devices like a <link=ThingStructureVolumePump><color=green>Volume Pump</color></link> or a <link=ThingStructureBackPressureRegulator><color=green>Back Pressure Regulator</color></link>."#,
+            value = "21266291"
+        )
+    )]
+    StructureHeatExchangerGastoGas = 21266291i32,
+    #[strum(
+        serialize = "StructurePressurantValve",
+        props(
+            name = r#"Pressurant Valve"#,
+            desc = r#"Pumps gas into a liquid pipe in order to raise the pressure"#,
+            value = "23052817"
+        )
+    )]
+    StructurePressurantValve = 23052817i32,
+    #[strum(
+        serialize = "StructureWallHeater",
+        props(
+            name = r#"Wall Heater"#,
+            desc = r#"The <link=Xigo><color=#0080FFFF>Xigo</color></link> wall heater is a simple device that can be installed on a wall or frame and connected to power. When switched on, it will start heating the surrounding environment. It consumes 1010W of power and can be controlled by logic chips to run when the temperature hits a certain level."#,
+            value = "24258244"
+        )
+    )]
+    StructureWallHeater = 24258244i32,
+    #[strum(
+        serialize = "StructurePassiveLargeRadiatorLiquid",
+        props(
+            name = r#"Medium Convection Radiator Liquid"#,
+            desc = r#"Has been replaced by <link=ThingStructureMediumConvectionRadiatorLiquid><color=green>Medium Convection Radiator Liquid</color></link>."#,
+            value = "24786172"
+        )
+    )]
+    StructurePassiveLargeRadiatorLiquid = 24786172i32,
+    #[strum(
+        serialize = "StructureWallPlating",
+        props(name = r#"Wall (Plating)"#, desc = r#""#, value = "26167457")
+    )]
+    StructureWallPlating = 26167457i32,
+    #[strum(
+        serialize = "ItemSprayCanPurple",
+        props(
+            name = r#"Spray Paint (Purple)"#,
+            desc = r#"Purple is a curious color. You need to be careful with purple. It can be very good, or go horribly, horribly wrong."#,
+            value = "30686509"
+        )
+    )]
+    ItemSprayCanPurple = 30686509i32,
+    #[strum(
+        serialize = "DynamicGasCanisterNitrousOxide",
+        props(
+            name = r#"Portable Gas Tank (Nitrous Oxide)"#,
             desc = r#""#,
-            value = "318437449"
+            value = "30727200"
         )
     )]
-    StructureCableCorner3Burnt = 318437449i32,
+    DynamicGasCanisterNitrousOxide = 30727200i32,
     #[strum(
-        serialize = "StructureCableCorner4Burnt",
+        serialize = "StructureInLineTankGas1x2",
         props(
-            name = r#"Burnt Cable (4-Way Corner)"#,
-            desc = r#""#,
-            value = "268421361"
+            name = r#"In-Line Tank Gas"#,
+            desc = r#"A small expansion tank that increases the volume of a pipe network."#,
+            value = "35149429"
         )
     )]
-    StructureCableCorner4Burnt = 268421361i32,
+    StructureInLineTankGas1X2 = 35149429i32,
     #[strum(
-        serialize = "StructureCableJunction4Burnt",
+        serialize = "ItemSteelSheets",
         props(
-            name = r#"Burnt Cable (4-Way Junction)"#,
-            desc = r#""#,
-            value = "-1756896811"
+            name = r#"Steel Sheets"#,
+            desc = r#"An advanced building material, <link=ThingItemSteelIngot><color=green>Ingot (Steel)</color></link> sheets are used when constructing a <link=ThingStructureFrame><color=green>Steel Frame</color></link> and several other <link=StructuresPage><color=#0080FFFF>wall</color></link> types."#,
+            value = "38555961"
         )
     )]
-    StructureCableJunction4Burnt = -1756896811i32,
-    #[strum(
-        serialize = "StructureCableJunction4HBurnt",
-        props(
-            name = r#"Burnt Cable (4-Way Junction)"#,
-            desc = r#""#,
-            value = "-115809132"
-        )
-    )]
-    StructureCableJunction4HBurnt = -115809132i32,
-    #[strum(
-        serialize = "StructureCableJunction5Burnt",
-        props(
-            name = r#"Burnt Cable (5-Way Junction)"#,
-            desc = r#""#,
-            value = "1545286256"
-        )
-    )]
-    StructureCableJunction5Burnt = 1545286256i32,
-    #[strum(
-        serialize = "StructureCableJunction6Burnt",
-        props(
-            name = r#"Burnt Cable (6-Way Junction)"#,
-            desc = r#""#,
-            value = "-628145954"
-        )
-    )]
-    StructureCableJunction6Burnt = -628145954i32,
-    #[strum(
-        serialize = "StructureCableJunction6HBurnt",
-        props(
-            name = r#"Burnt Cable (6-Way Junction)"#,
-            desc = r#""#,
-            value = "1854404029"
-        )
-    )]
-    StructureCableJunction6HBurnt = 1854404029i32,
-    #[strum(
-        serialize = "StructureCableCornerHBurnt",
-        props(name = r#"Burnt Cable (Corner)"#, desc = r#""#, value = "1931412811")
-    )]
-    StructureCableCornerHBurnt = 1931412811i32,
-    #[strum(
-        serialize = "StructureCableCornerBurnt",
-        props(name = r#"Burnt Cable (Corner)"#, desc = r#""#, value = "-177220914")
-    )]
-    StructureCableCornerBurnt = -177220914i32,
-    #[strum(
-        serialize = "StructureCableJunctionHBurnt",
-        props(name = r#"Burnt Cable (Junction)"#, desc = r#""#, value = "-341365649")
-    )]
-    StructureCableJunctionHBurnt = -341365649i32,
-    #[strum(
-        serialize = "StructureCableJunctionBurnt",
-        props(
-            name = r#"Burnt Cable (Junction)"#,
-            desc = r#""#,
-            value = "-1620686196"
-        )
-    )]
-    StructureCableJunctionBurnt = -1620686196i32,
-    #[strum(
-        serialize = "StructureCableStraightHBurnt",
-        props(name = r#"Burnt Cable (Straight)"#, desc = r#""#, value = "2085762089")
-    )]
-    StructureCableStraightHBurnt = 2085762089i32,
-    #[strum(
-        serialize = "StructureCableStraightBurnt",
-        props(
-            name = r#"Burnt Cable (Straight)"#,
-            desc = r#""#,
-            value = "-1196981113"
-        )
-    )]
-    StructureCableStraightBurnt = -1196981113i32,
-    #[strum(
-        serialize = "StructureCableCorner4HBurnt",
-        props(
-            name = r#"Burnt Heavy Cable (4-Way Corner)"#,
-            desc = r#""#,
-            value = "-981223316"
-        )
-    )]
-    StructureCableCorner4HBurnt = -981223316i32,
-    #[strum(
-        serialize = "StructureCableJunctionH5Burnt",
-        props(
-            name = r#"Burnt Heavy Cable (5-Way Junction)"#,
-            desc = r#""#,
-            value = "1701593300"
-        )
-    )]
-    StructureCableJunctionH5Burnt = 1701593300i32,
-    #[strum(
-        serialize = "StructureLogicButton",
-        props(name = r#"Button"#, desc = r#""#, value = "491845673")
-    )]
-    StructureLogicButton = 491845673i32,
-    #[strum(
-        serialize = "StructureCableCorner3",
-        props(
-            name = r#"Cable (3-Way Corner)"#,
-            desc = r#"Carrying power and data alike, cable coil has come to symbolize the innovation, independence and flexibility of <link=Stationeers><color=#0080FFFF>Stationeer</color></link> life - so essential, the <link=ODA><color=#0080FFFF>ODA</color></link> designated it an official <link=ToolPage><color=#0080FFFF>'tool'</color></link> during the 3rd Decannual Stationeer Solar Conference.
-Normal coil has a maximum wattage of 5kW. For higher-current applications, use <link=ThingItemCableCoilHeavy><color=green>Cable Coil (Heavy)</color></link>."#,
-            value = "980469101"
-        )
-    )]
-    StructureCableCorner3 = 980469101i32,
-    #[strum(
-        serialize = "StructureCableCorner4",
-        props(name = r#"Cable (4-Way Corner)"#, desc = r#""#, value = "-1542172466")
-    )]
-    StructureCableCorner4 = -1542172466i32,
-    #[strum(
-        serialize = "StructureCableJunction4",
-        props(
-            name = r#"Cable (4-Way Junction)"#,
-            desc = r#"Carrying power and data alike, cable coil has come to symbolize the innovation, independence and flexibility of <link=Stationeers><color=#0080FFFF>Stationeer</color></link> life - so much so, the <link=ODA><color=#0080FFFF>ODA</color></link> designated it an official <link=ToolPage><color=#0080FFFF>'tool'</color></link> during the 3rd Decannual Stationeer Solar Conference.
-Normal coil has a maximum wattage of 5kW. For higher-current applications, use <link=ThingItemCableCoilHeavy><color=green>Cable Coil (Heavy)</color></link>."#,
-            value = "1112047202"
-        )
-    )]
-    StructureCableJunction4 = 1112047202i32,
-    #[strum(
-        serialize = "StructureCableJunction5",
-        props(name = r#"Cable (5-Way Junction)"#, desc = r#""#, value = "894390004")
-    )]
-    StructureCableJunction5 = 894390004i32,
-    #[strum(
-        serialize = "StructureCableJunction6",
-        props(
-            name = r#"Cable (6-Way Junction)"#,
-            desc = r#"Carrying power and data alike, cable coil has come to symbolize the innovation, independence and flexibility of <link=Stationeers><color=#0080FFFF>Stationeer</color></link> duty - so much so, the <link=ODA><color=#0080FFFF>ODA</color></link> designated it an official <link=ToolPage><color=#0080FFFF>'tool'</color></link> during the 3rd Decannual Stationeer Solar Conference.
-Normal coil has a maximum wattage of 5kW. For higher-current applications, use <link=ThingItemCableCoilHeavy><color=green>Cable Coil (Heavy)</color></link>."#,
-            value = "-1404690610"
-        )
-    )]
-    StructureCableJunction6 = -1404690610i32,
-    #[strum(
-        serialize = "StructureCableCorner",
-        props(
-            name = r#"Cable (Corner)"#,
-            desc = r#"Carrying power and data alike, cable coil has come to symbolize the innovation, independence and flexibility of <link=Stationeers><color=#0080FFFF>Stationeer</color></link> life - so essential, the <link=ODA><color=#0080FFFF>ODA</color></link> designated it an official <link=ToolPage><color=#0080FFFF>'tool'</color></link> during the 3rd Decannual Stationeer Solar Conference.
-Normal coil has a maximum wattage of 5kW. For higher-current applications, use <link=ThingItemCableCoilHeavy><color=green>Cable Coil (Heavy)</color></link>."#,
-            value = "-889269388"
-        )
-    )]
-    StructureCableCorner = -889269388i32,
-    #[strum(
-        serialize = "StructureCableJunction",
-        props(
-            name = r#"Cable (Junction)"#,
-            desc = r#"Carrying power and data alike, cable coil has come to symbolize the innovation, independence and flexibility of <link=Stationeers><color=#0080FFFF>Stationeer</color></link> life - so much so, the <link=ODA><color=#0080FFFF>ODA</color></link> designated it an official <link=ToolPage><color=#0080FFFF>'tool'</color></link> during the 3rd Decannual Stationeer Solar Conference.
-Normal coil has a maximum wattage of 5kW. For higher-current applications, use <link=ThingItemCableCoilHeavy><color=green>Cable Coil (Heavy)</color></link>."#,
-            value = "-175342021"
-        )
-    )]
-    StructureCableJunction = -175342021i32,
-    #[strum(
-        serialize = "StructureCableStraight",
-        props(
-            name = r#"Cable (Straight)"#,
-            desc = r#"Carrying power and data alike, cable coil has come to symbolize the innovation, independence and flexibility of <link=Stationeers><color=#0080FFFF>Stationeer</color></link> life - so much so, the <link=ODA><color=#0080FFFF>ODA</color></link> designated it an official <link=ToolPage><color=#0080FFFF>'tool'</color></link>.
-Normal coil has a maximum wattage of 5kW. For higher-current applications, use <link=ThingItemCableCoilHeavy><color=green>Cable Coil (Heavy)</color></link>."#,
-            value = "605357050"
-        )
-    )]
-    StructureCableStraight = 605357050i32,
-    #[strum(
-        serialize = "StructureCableAnalysizer",
-        props(name = r#"Cable Analyzer"#, desc = r#""#, value = "1036015121")
-    )]
-    StructureCableAnalysizer = 1036015121i32,
-    #[strum(
-        serialize = "ItemCableCoil",
-        props(
-            name = r#"Cable Coil"#,
-            desc = r#"Bodily metaphors are tired and anthropocentric, but it was Frida Stuppen, the first <link=ODA><color=#0080FFFF>ODA</color></link> Administrator, who said, 'Let the cabling be as the nerve and the vessel, transmitting power and data alike through systems we forge among the stars.' Later commentators suggested that she was simply putting a romantic gloss on a piece of dubious economy. Whatever the case, standard cabling is where any <link=Stationeers><color=#0080FFFF>Stationeer's</color></link> network begins.
-Normal coil has a maximum wattage of 5kW. For higher-current applications, use <link=ThingItemCableCoilHeavy><color=green>Cable Coil (Heavy)</color></link>."#,
-            value = "-466050668"
-        )
-    )]
-    ItemCableCoil = -466050668i32,
-    #[strum(
-        serialize = "ItemCableCoilHeavy",
-        props(
-            name = r#"Cable Coil (Heavy)"#,
-            desc = r#"Use heavy cable coil for power systems with large draws. Unlike <link=ThingStructureCableCoil><color=green><N:EN:StructureCableCoil></color></link>, which can only safely conduct 5kW, heavy cables can transmit up to 100kW."#,
-            value = "2060134443"
-        )
-    )]
-    ItemCableCoilHeavy = 2060134443i32,
-    #[strum(
-        serialize = "StructureCamera",
-        props(
-            name = r#"Camera"#,
-            desc = r#"Nothing says 'I care' like a security camera that's been linked a <link=ThingStructureMotionSensor><color=green>Motion Sensor</color></link> and a <link=ThingStructureConsole><color=green>Console</color></link> fitted with a <link=ThingCircuitboardCameraDisplay><color=green>Camera Display</color></link>.
-Be there, even when you're not."#,
-            value = "-342072665"
-        )
-    )]
-    StructureCamera = -342072665i32,
-    #[strum(
-        serialize = "CircuitboardCameraDisplay",
-        props(
-            name = r#"Camera Display"#,
-            desc = r#"Surveillance is sometimes necessary when building bases in highly hostile environments. The camera display circuit board allows wary Stationeers to turn a <link=ThingStructureConsole><color=green>Console</color></link> into a security display when connected to a <link=ThingStructureCamera><color=green>Camera</color></link>."#,
-            value = "-412104504"
-        )
-    )]
-    CircuitboardCameraDisplay = -412104504i32,
+    ItemSteelSheets = 38555961i32,
     #[strum(
         serialize = "ItemGasCanisterEmpty",
         props(name = r#"Canister"#, desc = r#""#, value = "42280099")
     )]
     ItemGasCanisterEmpty = 42280099i32,
     #[strum(
-        serialize = "ItemGasCanisterCarbonDioxide",
-        props(name = r#"Canister (CO2)"#, desc = r#""#, value = "-767685874")
+        serialize = "ItemWreckageWallCooler2",
+        props(name = r#"Wreckage Wall Cooler"#, desc = r#""#, value = "45733800")
     )]
-    ItemGasCanisterCarbonDioxide = -767685874i32,
+    ItemWreckageWallCooler2 = 45733800i32,
     #[strum(
-        serialize = "ItemGasCanisterFuel",
-        props(name = r#"Canister (Fuel)"#, desc = r#""#, value = "-1014695176")
+        serialize = "ItemPumpkinPie",
+        props(name = r#"Pumpkin Pie"#, desc = r#""#, value = "62768076")
     )]
-    ItemGasCanisterFuel = -1014695176i32,
+    ItemPumpkinPie = 62768076i32,
     #[strum(
-        serialize = "ItemGasCanisterNitrogen",
-        props(name = r#"Canister (Nitrogen)"#, desc = r#""#, value = "2145068424")
-    )]
-    ItemGasCanisterNitrogen = 2145068424i32,
-    #[strum(
-        serialize = "ItemGasCanisterOxygen",
-        props(name = r#"Canister (Oxygen)"#, desc = r#""#, value = "-1152261938")
-    )]
-    ItemGasCanisterOxygen = -1152261938i32,
-    #[strum(
-        serialize = "ItemGasCanisterPollutants",
-        props(name = r#"Canister (Pollutants)"#, desc = r#""#, value = "-1552586384")
-    )]
-    ItemGasCanisterPollutants = -1552586384i32,
-    #[strum(
-        serialize = "ItemGasCanisterVolatiles",
-        props(name = r#"Canister (Volatiles)"#, desc = r#""#, value = "-472094806")
-    )]
-    ItemGasCanisterVolatiles = -472094806i32,
-    #[strum(
-        serialize = "ItemCannedCondensedMilk",
+        serialize = "ItemGasFilterPollutantsM",
         props(
-            name = r#"Canned Condensed Milk"#,
-            desc = r#"Made in an <link=ThingStructureAdvancedPackagingMachine><color=green>Advanced Packaging Machine</color></link> or <link=ThingAppliancePackagingMachine><color=green>Basic Packaging Machine</color></link>, using <link=ThingItemCookedCondensedMilk><color=green>Condensed Milk</color></link> and an <link=ThingItemEmptyCan><color=green>Empty Can</color></link>, canned condensed milk is fairly high in nutrition, and does not <link=DecayPage><color=#0080FFFF>decay</color></link>."#,
-            value = "-2104175091"
-        )
-    )]
-    ItemCannedCondensedMilk = -2104175091i32,
-    #[strum(
-        serialize = "ItemCannedEdamame",
-        props(
-            name = r#"Canned Edamame"#,
-            desc = r#"Made in an <link=ThingStructureAdvancedPackagingMachine><color=green>Advanced Packaging Machine</color></link> or <link=ThingAppliancePackagingMachine><color=green>Basic Packaging Machine</color></link>, using <link=ThingItemCookedSoybean><color=green>Cooked Soybean</color></link> and an <link=ThingItemEmptyCan><color=green>Empty Can</color></link>, canned edamame beans are fairly high in nutrition, and do not <link=DecayPage><color=#0080FFFF>decay</color></link>."#,
-            value = "-999714082"
-        )
-    )]
-    ItemCannedEdamame = -999714082i32,
-    #[strum(
-        serialize = "ItemFrenchFries",
-        props(
-            name = r#"Canned French Fries"#,
-            desc = r#"Because space would suck without 'em."#,
-            value = "-57608687"
-        )
-    )]
-    ItemFrenchFries = -57608687i32,
-    #[strum(
-        serialize = "ItemCannedMushroom",
-        props(
-            name = r#"Canned Mushroom"#,
-            desc = r#"Made in an <link=ThingStructureAdvancedPackagingMachine><color=green>Advanced Packaging Machine</color></link> or <link=ThingAppliancePackagingMachine><color=green>Basic Packaging Machine</color></link>, using <link=ThingItemCookedMushroom><color=green>Cooked Mushroom</color></link>  and a <link=ThingItemEmptyCan><color=green>Empty Can</color></link>, delicious mushroom soup is fairly high in nutrition, and does not <link=DecayPage><color=#0080FFFF>decay</color></link>."#,
-            value = "-1344601965"
-        )
-    )]
-    ItemCannedMushroom = -1344601965i32,
-    #[strum(
-        serialize = "ItemCannedPowderedEggs",
-        props(
-            name = r#"Canned Powdered Eggs"#,
-            desc = r#"Made in an <link=ThingStructureAdvancedPackagingMachine><color=green>Advanced Packaging Machine</color></link> or <link=ThingAppliancePackagingMachine><color=green>Basic Packaging Machine</color></link>, using <link=ThingItemCookedPowderedEggs><color=green>Powdered Eggs</color></link>  and an <link=ThingItemEmptyCan><color=green>Empty Can</color></link>, canned powdered eggs are an exciting, dynamic food that's fairly high in nutrition, and does not <link=DecayPage><color=#0080FFFF>decay</color></link>."#,
-            value = "1161510063"
-        )
-    )]
-    ItemCannedPowderedEggs = 1161510063i32,
-    #[strum(
-        serialize = "ItemCannedRicePudding",
-        props(
-            name = r#"Canned Rice Pudding"#,
-            desc = r#"Made in an <link=ThingStructureAdvancedPackagingMachine><color=green>Advanced Packaging Machine</color></link> or <link=ThingAppliancePackagingMachine><color=green>Basic Packaging Machine</color></link>, using <link=ThingItemCookedRice><color=green>Cooked Rice</color></link> and an <link=ThingItemEmptyCan><color=green>Empty Can</color></link>, canned rice pudding is a sweet treat, fairly high in nutrition, and does not <link=DecayPage><color=#0080FFFF>decay</color></link>."#,
-            value = "-1185552595"
-        )
-    )]
-    ItemCannedRicePudding = -1185552595i32,
-    #[strum(
-        serialize = "CardboardBox",
-        props(name = r#"Cardboard Box"#, desc = r#""#, value = "-1976947556")
-    )]
-    CardboardBox = -1976947556i32,
-    #[strum(
-        serialize = "StructureCargoStorageMedium",
-        props(name = r#"Cargo Storage (Medium)"#, desc = r#""#, value = "1151864003")
-    )]
-    StructureCargoStorageMedium = 1151864003i32,
-    #[strum(
-        serialize = "StructureCargoStorageSmall",
-        props(name = r#"Cargo Storage (Small)"#, desc = r#""#, value = "-1493672123")
-    )]
-    StructureCargoStorageSmall = -1493672123i32,
-    #[strum(
-        serialize = "CartridgeAccessController",
-        props(
-            name = r#"Cartridge (Access Controller)"#,
+            name = r#"Medium Filter (Pollutants)"#,
             desc = r#""#,
-            value = "-1634532552"
+            value = "63677771"
         )
     )]
-    CartridgeAccessController = -1634532552i32,
+    ItemGasFilterPollutantsM = 63677771i32,
     #[strum(
-        serialize = "CartridgePlantAnalyser",
+        serialize = "StructurePipeStraight",
         props(
-            name = r#"Cartridge Plant Analyser"#,
+            name = r#"Pipe (Straight)"#,
+            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeStraight><color=green>Insulated Pipe (Straight)</color></link> using an <link=ThingItemKitInsulatedPipe><color=green>Kit (Insulated Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
+            value = "73728932"
+        )
+    )]
+    StructurePipeStraight = 73728932i32,
+    #[strum(
+        serialize = "ItemKitDockingPort",
+        props(name = r#"Kit (Docking Port)"#, desc = r#""#, value = "77421200")
+    )]
+    ItemKitDockingPort = 77421200i32,
+    #[strum(
+        serialize = "CartridgeTracker",
+        props(name = r#"Tracker"#, desc = r#""#, value = "81488783")
+    )]
+    CartridgeTracker = 81488783i32,
+    #[strum(
+        serialize = "ToyLuna",
+        props(name = r#"Toy Luna"#, desc = r#""#, value = "94730034")
+    )]
+    ToyLuna = 94730034i32,
+    #[strum(
+        serialize = "ItemWreckageTurbineGenerator2",
+        props(
+            name = r#"Wreckage Turbine Generator"#,
             desc = r#""#,
-            value = "1101328282"
+            value = "98602599"
         )
     )]
-    CartridgePlantAnalyser = 1101328282i32,
+    ItemWreckageTurbineGenerator2 = 98602599i32,
     #[strum(
-        serialize = "ItemGasFilterCarbonDioxideInfinite",
+        serialize = "StructurePowerUmbilicalFemale",
         props(
-            name = r#"Catalytic Filter (Carbon Dioxide)"#,
-            desc = r#"A filter that selectively targets Carbon Dioxide. It uses internal pressure differentials to regenerate a unique phase change catalyst, giving it an unlimited lifecycle."#,
-            value = "-185568964"
+            name = r#"Umbilical Socket (Power)"#,
+            desc = r#""#,
+            value = "101488029"
         )
     )]
-    ItemGasFilterCarbonDioxideInfinite = -185568964i32,
+    StructurePowerUmbilicalFemale = 101488029i32,
+    #[strum(
+        serialize = "DynamicSkeleton",
+        props(name = r#"Skeleton"#, desc = r#""#, value = "106953348")
+    )]
+    DynamicSkeleton = 106953348i32,
+    #[strum(
+        serialize = "ItemWaterBottle",
+        props(
+            name = r#"Water Bottle"#,
+            desc = r#"Delicious and pure H20, refined from local sources as varied as Venusian ice and trans-Solar comets. Empty bottles can be refilled using the <link=ThingStructureWaterBottleFiller><color=green>Water Bottle Filler</color></link>."#,
+            value = "107741229"
+        )
+    )]
+    ItemWaterBottle = 107741229i32,
+    #[strum(
+        serialize = "DynamicGasCanisterVolatiles",
+        props(
+            name = r#"Portable Gas Tank (Volatiles)"#,
+            desc = r#"Portable tanks store gas. To refill one, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link>, then connect it to a pipe network. Don't fill it above 10 MPa, unless you're the sort who loves complicated, flammable emergencies. You can refill a <link=ThingItemGasCanisterVolatiles><color=green>Canister (Volatiles)</color></link> by attaching it to the tank's striped section. Or you could use a <link=ThingItemWrench><color=green>Wrench</color></link> to attach to a rocket and show it around the Solar System."#,
+            value = "108086870"
+        )
+    )]
+    DynamicGasCanisterVolatiles = 108086870i32,
+    #[strum(
+        serialize = "StructureCompositeCladdingRoundedCornerInner",
+        props(
+            name = r#"Composite Cladding (Rounded Corner Inner)"#,
+            desc = r#""#,
+            value = "110184667"
+        )
+    )]
+    StructureCompositeCladdingRoundedCornerInner = 110184667i32,
+    #[strum(
+        serialize = "ItemTerrainManipulator",
+        props(
+            name = r#"Terrain Manipulator"#,
+            desc = r#"0.Mode0
+1.Mode1"#,
+            value = "111280987"
+        )
+    )]
+    ItemTerrainManipulator = 111280987i32,
+    #[strum(
+        serialize = "FlareGun",
+        props(name = r#"Flare Gun"#, desc = r#""#, value = "118685786")
+    )]
+    FlareGun = 118685786i32,
+    #[strum(
+        serialize = "ItemKitPlanter",
+        props(name = r#"Kit (Planter)"#, desc = r#""#, value = "119096484")
+    )]
+    ItemKitPlanter = 119096484i32,
+    #[strum(
+        serialize = "ReagentColorGreen",
+        props(name = r#"Color Dye (Green)"#, desc = r#""#, value = "120807542")
+    )]
+    ReagentColorGreen = 120807542i32,
+    #[strum(
+        serialize = "DynamicGasCanisterNitrogen",
+        props(
+            name = r#"Portable Gas Tank (Nitrogen)"#,
+            desc = r#"Portable tanks store gas. If you need to refill a tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or you'll end up with <link=GasNitrogen><color=#44AD83>Nitrogen</color></link> in places you weren't expecting. You can refill a <link=ThingItemGasCanisterNitrogen><color=green>Canister (Nitrogen)</color></link> by attaching it to the tank's striped section. Or you could use a <link=ThingItemWrench><color=green>Wrench</color></link> to attach it to a rover or rocket for later."#,
+            value = "121951301"
+        )
+    )]
+    DynamicGasCanisterNitrogen = 121951301i32,
+    #[strum(
+        serialize = "ItemKitPressurePlate",
+        props(name = r#"Kit (Trigger Plate)"#, desc = r#""#, value = "123504691")
+    )]
+    ItemKitPressurePlate = 123504691i32,
+    #[strum(
+        serialize = "ItemKitLogicSwitch",
+        props(name = r#"Kit (Logic Switch)"#, desc = r#""#, value = "124499454")
+    )]
+    ItemKitLogicSwitch = 124499454i32,
+    #[strum(
+        serialize = "StructureCompositeCladdingSpherical",
+        props(
+            name = r#"Composite Cladding (Spherical)"#,
+            desc = r#""#,
+            value = "139107321"
+        )
+    )]
+    StructureCompositeCladdingSpherical = 139107321i32,
+    #[strum(
+        serialize = "ItemLaptop",
+        props(
+            name = r#"Laptop"#,
+            desc = r#"The Laptop functions as a portable IC editor. To operate the Laptop it must be powered with a battery, have a <link=ThingMotherboardProgrammableChip><color=green>IC Editor Motherboard</color></link> in the motherboard slot, and an <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> in the Programmable Chip Slot.
+
+You must place the laptop down to interact with the onsreen UI.
+        
+Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>"#,
+            value = "141535121"
+        )
+    )]
+    ItemLaptop = 141535121i32,
+    #[strum(
+        serialize = "ApplianceSeedTray",
+        props(
+            name = r#"Appliance Seed Tray"#,
+            desc = r#"The seed tray can hold up to twelve plants or seeds and can be used to facilitate fast experimentation and testing of plant genetics."#,
+            value = "142831994"
+        )
+    )]
+    ApplianceSeedTray = 142831994i32,
+    #[strum(
+        serialize = "Landingpad_TaxiPieceHold",
+        props(name = r#"Landingpad Taxi Hold"#, desc = r#""#, value = "146051619")
+    )]
+    LandingpadTaxiPieceHold = 146051619i32,
+    #[strum(
+        serialize = "StructureFuselageTypeC5",
+        props(name = r#"Fuselage (Type C5)"#, desc = r#""#, value = "147395155")
+    )]
+    StructureFuselageTypeC5 = 147395155i32,
+    #[strum(
+        serialize = "ItemKitBasket",
+        props(name = r#"Kit (Basket)"#, desc = r#""#, value = "148305004")
+    )]
+    ItemKitBasket = 148305004i32,
+    #[strum(
+        serialize = "StructureRocketCircuitHousing",
+        props(name = r#"Rocket Circuit Housing"#, desc = r#""#, value = "150135861")
+    )]
+    StructureRocketCircuitHousing = 150135861i32,
+    #[strum(
+        serialize = "StructurePipeCrossJunction6",
+        props(
+            name = r#"Pipe (6-Way Junction)"#,
+            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeCrossJunction6><color=green>Insulated Pipe (6-Way Junction)</color></link> using an <link=ThingItemKitInsulatedPipe><color=green>Kit (Insulated Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
+            value = "152378047"
+        )
+    )]
+    StructurePipeCrossJunction6 = 152378047i32,
     #[strum(
         serialize = "ItemGasFilterNitrogenInfinite",
         props(
@@ -1079,230 +5333,52 @@ Be there, even when you're not."#,
     )]
     ItemGasFilterNitrogenInfinite = 152751131i32,
     #[strum(
-        serialize = "ItemGasFilterNitrousOxideInfinite",
-        props(
-            name = r#"Catalytic Filter (Nitrous Oxide)"#,
-            desc = r#"A filter that selectively targets Nitrous Oxide. It uses internal pressure differentials to regenerate a unique phase change catalyst, giving it an unlimited lifecycle."#,
-            value = "-123934842"
-        )
+        serialize = "StructureStairs4x2RailL",
+        props(name = r#"Stairs with Rail (Left)"#, desc = r#""#, value = "155214029")
     )]
-    ItemGasFilterNitrousOxideInfinite = -123934842i32,
-    #[strum(
-        serialize = "ItemGasFilterOxygenInfinite",
-        props(
-            name = r#"Catalytic Filter (Oxygen)"#,
-            desc = r#"A filter that selectively targets Oxygen. It uses internal pressure differentials to regenerate a unique phase change catalyst, giving it an unlimited lifecycle."#,
-            value = "-1055451111"
-        )
-    )]
-    ItemGasFilterOxygenInfinite = -1055451111i32,
-    #[strum(
-        serialize = "ItemGasFilterPollutantsInfinite",
-        props(
-            name = r#"Catalytic Filter (Pollutants)"#,
-            desc = r#"A filter that selectively targets Pollutants. It uses internal pressure differentials to regenerate a unique phase change catalyst, giving it an unlimited lifecycle."#,
-            value = "-503738105"
-        )
-    )]
-    ItemGasFilterPollutantsInfinite = -503738105i32,
-    #[strum(
-        serialize = "ItemGasFilterVolatilesInfinite",
-        props(
-            name = r#"Catalytic Filter (Volatiles)"#,
-            desc = r#"A filter that selectively targets <link=GasVolatiles><color=#44AD83>Volatiles</color></link>. It uses internal pressure differentials to regenerate a unique phase change catalyst, giving it an unlimited lifecycle."#,
-            value = "-1916176068"
-        )
-    )]
-    ItemGasFilterVolatilesInfinite = -1916176068i32,
-    #[strum(
-        serialize = "ItemGasFilterWaterInfinite",
-        props(
-            name = r#"Catalytic Filter (Water)"#,
-            desc = r#"A filter that selectively targets Water. It uses internal pressure differentials to regenerate a unique phase change catalyst, giving it an unlimited lifecycle."#,
-            value = "-1678456554"
-        )
-    )]
-    ItemGasFilterWaterInfinite = -1678456554i32,
-    #[strum(
-        serialize = "StructureCentrifuge",
-        props(
-            name = r#"Centrifuge"#,
-            desc = r#"If a <link=ThingStructureRecycler><color=green>Recycler</color></link> or unbalanced <link=ThingStructureFurnace><color=green>Furnace</color></link> outputs <link=ReagentPage><color=#0080FFFF>reagent</color></link> mixture rather than the desired <link=IngotPage><color=#0080FFFF>ingots</color></link>, a centrifuge allows you to reclaim the raw <link=OrePage><color=#0080FFFF>ore</color></link>.
-        It also refines <link=ThingItemDirtyOre><color=green>Dirty Ore</color></link> produced from the <link=ThingStructureDeepMiner><color=green>Deep Miner</color></link> and <link=ThingItemSpaceOre><color=green>Dirty Ore</color></link> produced from the <link=ThingStructureRocketMiner><color=green>Rocket Miner</color></link>.
-        Its bigger brother <link=ThingStructureCombustionCentrifuge><color=green>Combustion Centrifuge</color></link> can be used to process items significantly faster. Items processed by the centrifuge will be de-gassed.
-        If openned while powered on, the centrifuge will enter an errored state and reduce its rpm to 0 and then export any items."#,
-            value = "690945935"
-        )
-    )]
-    StructureCentrifuge = 690945935i32,
-    #[strum(
-        serialize = "ItemCerealBar",
-        props(
-            name = r#"Cereal Bar"#,
-            desc = r#"Sustains, without decay. If only all our relationships were so well balanced."#,
-            value = "791746840"
-        )
-    )]
-    ItemCerealBar = 791746840i32,
-    #[strum(
-        serialize = "StructureChair",
-        props(
-            name = r#"Chair"#,
-            desc = r#"One of the universe's many chairs, optimized for bipeds with somewhere between zero and two upper limbs."#,
-            value = "1167659360"
-        )
-    )]
-    StructureChair = 1167659360i32,
-    #[strum(
-        serialize = "StructureChairBacklessDouble",
-        props(
-            name = r#"Chair (Backless Double)"#,
-            desc = r#""#,
-            value = "1944858936"
-        )
-    )]
-    StructureChairBacklessDouble = 1944858936i32,
-    #[strum(
-        serialize = "StructureChairBacklessSingle",
-        props(
-            name = r#"Chair (Backless Single)"#,
-            desc = r#""#,
-            value = "1672275150"
-        )
-    )]
-    StructureChairBacklessSingle = 1672275150i32,
-    #[strum(
-        serialize = "StructureChairBoothCornerLeft",
-        props(
-            name = r#"Chair (Booth Corner Left)"#,
-            desc = r#""#,
-            value = "-367720198"
-        )
-    )]
-    StructureChairBoothCornerLeft = -367720198i32,
-    #[strum(
-        serialize = "StructureChairBoothMiddle",
-        props(name = r#"Chair (Booth Middle)"#, desc = r#""#, value = "1640720378")
-    )]
-    StructureChairBoothMiddle = 1640720378i32,
-    #[strum(
-        serialize = "StructureChairRectangleDouble",
-        props(
-            name = r#"Chair (Rectangle Double)"#,
-            desc = r#""#,
-            value = "-1152812099"
-        )
-    )]
-    StructureChairRectangleDouble = -1152812099i32,
-    #[strum(
-        serialize = "StructureChairRectangleSingle",
-        props(
-            name = r#"Chair (Rectangle Single)"#,
-            desc = r#""#,
-            value = "-1425428917"
-        )
-    )]
-    StructureChairRectangleSingle = -1425428917i32,
-    #[strum(
-        serialize = "StructureChairThickDouble",
-        props(name = r#"Chair (Thick Double)"#, desc = r#""#, value = "-1245724402")
-    )]
-    StructureChairThickDouble = -1245724402i32,
-    #[strum(
-        serialize = "StructureChairThickSingle",
-        props(name = r#"Chair (Thick Single)"#, desc = r#""#, value = "-1510009608")
-    )]
-    StructureChairThickSingle = -1510009608i32,
-    #[strum(
-        serialize = "ItemCharcoal",
-        props(
-            name = r#"Charcoal"#,
-            desc = r#"Charcoal is a lightweight, black carbon residue produced by heating <link=ThingItemBiomass><color=green>Biomass</color></link> in a <link=ThingStructureArcFurnace><color=green>Arc Furnace</color></link>. It contains less energy potential than <link=ThingItemCoalOre><color=green>Ore (Coal)</color></link>, but can be used as a basic fuel source. Charcoal can also be substituted for coal in <link=IngotPage><color=#0080FFFF>alloy</color></link> recipes."#,
-            value = "252561409"
-        )
-    )]
-    ItemCharcoal = 252561409i32,
-    #[strum(
-        serialize = "ItemChemLightBlue",
-        props(
-            name = r#"Chem Light (Blue)"#,
-            desc = r#"A safe and slightly rave-some source of blue light. Snap to activate."#,
-            value = "-772542081"
-        )
-    )]
-    ItemChemLightBlue = -772542081i32,
-    #[strum(
-        serialize = "ItemChemLightGreen",
-        props(
-            name = r#"Chem Light (Green)"#,
-            desc = r#"Enliven the dreariest, airless rock with this glowy green light. Snap to activate."#,
-            value = "-597479390"
-        )
-    )]
-    ItemChemLightGreen = -597479390i32,
-    #[strum(
-        serialize = "ItemChemLightRed",
-        props(
-            name = r#"Chem Light (Red)"#,
-            desc = r#"A red glowstick. Snap to activate. Then reach for the lasers."#,
-            value = "-525810132"
-        )
-    )]
-    ItemChemLightRed = -525810132i32,
-    #[strum(
-        serialize = "ItemChemLightWhite",
-        props(
-            name = r#"Chem Light (White)"#,
-            desc = r#"Snap the glowstick to activate a pale radiance that keeps the darkness at bay."#,
-            value = "1312166823"
-        )
-    )]
-    ItemChemLightWhite = 1312166823i32,
-    #[strum(
-        serialize = "ItemChemLightYellow",
-        props(
-            name = r#"Chem Light (Yellow)"#,
-            desc = r#"Dispel the darkness with this yellow glowstick."#,
-            value = "1224819963"
-        )
-    )]
-    ItemChemLightYellow = 1224819963i32,
-    #[strum(
-        serialize = "ApplianceChemistryStation",
-        props(name = r#"Chemistry Station"#, desc = r#""#, value = "1365789392")
-    )]
-    ApplianceChemistryStation = 1365789392i32,
+    StructureStairs4X2RailL = 155214029i32,
     #[strum(
         serialize = "NpcChick",
         props(name = r#"Chick"#, desc = r#""#, value = "155856647")
     )]
     NpcChick = 155856647i32,
     #[strum(
-        serialize = "NpcChicken",
-        props(name = r#"Chicken"#, desc = r#""#, value = "399074198")
+        serialize = "ItemWaspaloyIngot",
+        props(name = r#"Ingot (Waspaloy)"#, desc = r#""#, value = "156348098")
     )]
-    NpcChicken = 399074198i32,
+    ItemWaspaloyIngot = 156348098i32,
     #[strum(
-        serialize = "StructureChuteCorner",
+        serialize = "StructureReinforcedWallPaddedWindowThin",
         props(
-            name = r#"Chute (Corner)"#,
-            desc = r#"Chutes act as pipes for items. Use them to connect various <link=ImportExportPage><color=#0080FFFF>import/export</color></link> equipment together such as the <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link> and printers like the <link=ThingStructureAutolathe><color=green>Autolathe</color></link>.
-The aim for any <link=Stationeers><color=#0080FFFF>Stationeer</color></link> is to make off-world survival less of a struggle for themselves, and those who will follow in their footsteps.
-Chute corners are fundamental components of chute networks, which allow the transport of items between machines with <link=ImportExportPage><color=#0080FFFF>import/export</color></link> slots, such as the <link=ThingStructureFurnace><color=green>Furnace</color></link> and other automatable structures."#,
-            value = "1360330136"
+            name = r#"Reinforced Window (Thin)"#,
+            desc = r#"Enjoy vistas of even the most savage, alien landscapes with these heavy duty window frames, which are resistant to pressure differentials up to 1MPa."#,
+            value = "158502707"
         )
     )]
-    StructureChuteCorner = 1360330136i32,
+    StructureReinforcedWallPaddedWindowThin = 158502707i32,
     #[strum(
-        serialize = "StructureChuteJunction",
+        serialize = "ItemKitWaterBottleFiller",
         props(
-            name = r#"Chute (Junction)"#,
-            desc = r#"The aim for any <link=Stationeers><color=#0080FFFF>Stationeer</color></link> is to make off-world survival less of a struggle for themselves, and those who will follow in their footsteps.
-Chute junctions are fundamental components of chute networks, allowing merging or splitting of these networks. When combined with a programmed <link=ThingStructureSorter><color=green>Sorter</color></link>, items can be sent down different paths to various machines with <link=ImportExportPage><color=#0080FFFF>import/export</color></link> slots."#,
-            value = "-611232514"
+            name = r#"Kit (Water Bottle Filler)"#,
+            desc = r#""#,
+            value = "159886536"
         )
     )]
-    StructureChuteJunction = -611232514i32,
+    ItemKitWaterBottleFiller = 159886536i32,
+    #[strum(
+        serialize = "ItemEmergencyWrench",
+        props(name = r#"Emergency Wrench"#, desc = r#""#, value = "162553030")
+    )]
+    ItemEmergencyWrench = 162553030i32,
+    #[strum(
+        serialize = "StructureChuteDigitalFlipFlopSplitterRight",
+        props(
+            name = r#"Chute Digital Flip Flop Splitter Right"#,
+            desc = r#"The digital flip flop will toggle between two outputs using a specified ratio (n:1). For example, setting the dial to 2 would allow two items to pass through the primary output before flipping to the secondary output."#,
+            value = "163728359"
+        )
+    )]
+    StructureChuteDigitalFlipFlopSplitterRight = 163728359i32,
     #[strum(
         serialize = "StructureChuteStraight",
         props(
@@ -1315,223 +5391,150 @@ Chutes are fundamental components of chute networks, which allow the transport o
     )]
     StructureChuteStraight = 168307007i32,
     #[strum(
-        serialize = "StructureChuteWindow",
+        serialize = "ItemKitDoor",
+        props(name = r#"Kit (Door)"#, desc = r#""#, value = "168615924")
+    )]
+    ItemKitDoor = 168615924i32,
+    #[strum(
+        serialize = "ItemWreckageAirConditioner2",
         props(
-            name = r#"Chute (Window)"#,
-            desc = r#"Chute's with windows let you see what's passing through your <link=ImportExportPage><color=#0080FFFF>import/export</color></link> network. But be warned, they are not insulated as other chutes are. Ices will melt."#,
-            value = "-607241919"
-        )
-    )]
-    StructureChuteWindow = -607241919i32,
-    #[strum(
-        serialize = "StructureChuteBin",
-        props(
-            name = r#"Chute Bin"#,
-            desc = r#"The <link=Stationeers><color=#0080FFFF>Stationeer's</color></link> goal is to make off-world survival less of a struggle for themselves, and those who will follow in their footsteps.
-Like most <link=Recurso><color=#0080FFFF>Recurso</color></link>-designed systems, chute bins are simple and robust powered items, allowing items to be manually passed into chute networks by pulling a lever. They can also be programmed with <link=LogicUnitPage><color=#0080FFFF>logic</color></link> to operate automatically, although full automation requires the use items such as a <link=ThingStructureSDBHopper><color=green>SDB Hopper</color></link>."#,
-            value = "-850484480"
-        )
-    )]
-    StructureChuteBin = -850484480i32,
-    #[strum(
-        serialize = "StructureChuteDigitalFlipFlopSplitterLeft",
-        props(
-            name = r#"Chute Digital Flip Flop Splitter Left"#,
-            desc = r#"The digital flip flop will toggle between two outputs using a specified ratio (n:1). For example, setting the dial to 2 would allow two items to pass through the primary output before flipping to the secondary output."#,
-            value = "-810874728"
-        )
-    )]
-    StructureChuteDigitalFlipFlopSplitterLeft = -810874728i32,
-    #[strum(
-        serialize = "StructureChuteDigitalFlipFlopSplitterRight",
-        props(
-            name = r#"Chute Digital Flip Flop Splitter Right"#,
-            desc = r#"The digital flip flop will toggle between two outputs using a specified ratio (n:1). For example, setting the dial to 2 would allow two items to pass through the primary output before flipping to the secondary output."#,
-            value = "163728359"
-        )
-    )]
-    StructureChuteDigitalFlipFlopSplitterRight = 163728359i32,
-    #[strum(
-        serialize = "StructureChuteDigitalValveLeft",
-        props(
-            name = r#"Chute Digital Valve Left"#,
-            desc = r#"The Digital Chute Valve will stop the flow of materials when set to closed and when set to open, will act like a straight chute. The valve will automatically close after a certain number of items have passed through. This threshold can be set using the dial."#,
-            value = "648608238"
-        )
-    )]
-    StructureChuteDigitalValveLeft = 648608238i32,
-    #[strum(
-        serialize = "StructureChuteDigitalValveRight",
-        props(
-            name = r#"Chute Digital Valve Right"#,
-            desc = r#"The Digital Chute Valve will stop the flow of materials when set to closed and when set to open, will act like a straight chute. The valve will automatically close after a certain number of items have passed through. This threshold can be set using the dial."#,
-            value = "-1337091041"
-        )
-    )]
-    StructureChuteDigitalValveRight = -1337091041i32,
-    #[strum(
-        serialize = "StructureChuteFlipFlopSplitter",
-        props(
-            name = r#"Chute Flip Flop Splitter"#,
-            desc = r#"A chute that toggles between two outputs"#,
-            value = "-1446854725"
-        )
-    )]
-    StructureChuteFlipFlopSplitter = -1446854725i32,
-    #[strum(
-        serialize = "StructureChuteInlet",
-        props(
-            name = r#"Chute Inlet"#,
-            desc = r#"The aim for any <link=Stationeers><color=#0080FFFF>Stationeer</color></link> is to make off-world survival less of a struggle for themselves, and those who will follow in their footsteps.
-The chute inlet is an aperture by which items can be introduced to <link=ImportExportPage><color=#0080FFFF>import/export</color></link> networks. Note that its origins in zero-gravity mining means chute inlets are unpowered and permanently open, rather than interactable, allowing objects to be thrown in. They can be connected to <link=LogicUnitPage><color=#0080FFFF>logic</color></link> systems to monitor throughput."#,
-            value = "-1469588766"
-        )
-    )]
-    StructureChuteInlet = -1469588766i32,
-    #[strum(
-        serialize = "StructureChuteOutlet",
-        props(
-            name = r#"Chute Outlet"#,
-            desc = r#"The aim for any <link=Stationeers><color=#0080FFFF>Stationeer</color></link> is to make off-world survival less of a struggle for themselves, and those who will follow in their footsteps.
-The chute outlet is an aperture for exiting items from <link=ImportExportPage><color=#0080FFFF>import/export</color></link> networks. Note that the outlet's origins in zero-gravity mining means they are permanently open, rather than interactable, but can be connected to <link=LogicUnitPage><color=#0080FFFF>logic</color></link> systems to monitor throughput."#,
-            value = "-1022714809"
-        )
-    )]
-    StructureChuteOutlet = -1022714809i32,
-    #[strum(
-        serialize = "StructureChuteOverflow",
-        props(
-            name = r#"Chute Overflow"#,
-            desc = r#"The overflow chute will direct materials to its overflow port when the thing connected to its default port is already occupied."#,
-            value = "225377225"
-        )
-    )]
-    StructureChuteOverflow = 225377225i32,
-    #[strum(
-        serialize = "StructureChuteValve",
-        props(
-            name = r#"Chute Valve"#,
-            desc = r#"The Chute Valve will stop the flow of materials when set to closed and when set to open, will act like a straight chute."#,
-            value = "434875271"
-        )
-    )]
-    StructureChuteValve = 434875271i32,
-    #[strum(
-        serialize = "ItemCoffeeMug",
-        props(name = r#"Coffee Mug"#, desc = r#""#, value = "1800622698")
-    )]
-    ItemCoffeeMug = 1800622698i32,
-    #[strum(
-        serialize = "ReagentColorBlue",
-        props(name = r#"Color Dye (Blue)"#, desc = r#""#, value = "980054869")
-    )]
-    ReagentColorBlue = 980054869i32,
-    #[strum(
-        serialize = "ReagentColorGreen",
-        props(name = r#"Color Dye (Green)"#, desc = r#""#, value = "120807542")
-    )]
-    ReagentColorGreen = 120807542i32,
-    #[strum(
-        serialize = "ReagentColorOrange",
-        props(name = r#"Color Dye (Orange)"#, desc = r#""#, value = "-400696159")
-    )]
-    ReagentColorOrange = -400696159i32,
-    #[strum(
-        serialize = "ReagentColorRed",
-        props(name = r#"Color Dye (Red)"#, desc = r#""#, value = "1998377961")
-    )]
-    ReagentColorRed = 1998377961i32,
-    #[strum(
-        serialize = "ReagentColorYellow",
-        props(name = r#"Color Dye (Yellow)"#, desc = r#""#, value = "635208006")
-    )]
-    ReagentColorYellow = 635208006i32,
-    #[strum(
-        serialize = "StructureCombustionCentrifuge",
-        props(
-            name = r#"Combustion Centrifuge"#,
-            desc = r#"The Combustion Centrifuge is a gas powered version of the <link=ThingStructureCentrifuge><color=green>Centrifuge</color></link>. If a <link=ThingStructureRecycler><color=green>Recycler</color></link> or unbalanced <link=ThingStructureFurnace><color=green>Furnace</color></link> outputs <link=ReagentPage><color=#0080FFFF>reagent</color></link> mixture rather than the desired <link=IngotPage><color=#0080FFFF>ingots</color></link>, a centrifuge allows you to reclaim the raw <link=OrePage><color=#0080FFFF>ore</color></link>.
-        It also refines <link=ThingItemDirtyOre><color=green>Dirty Ore</color></link> produced from the <link=ThingStructureDeepMiner><color=green>Deep Miner</color></link> and <link=ThingItemSpaceOre><color=green>Dirty Ore</color></link> produced from the <link=ThingStructureRocketMiner><color=green>Rocket Miner</color></link>. A combustible fuel mix should be supplied to the gas input, and waste gasses should be vented from the output.
-        The machine's RPMs must be controlled via the throttle and combustion limiter levers. If the Combustion Centrifuge gains, or loses, RPMs too fast it will experience stress, and eventually grind to a halt.  Higher RPMs directly result in faster processing speeds.
-        The throttle lever controls the amount of fuel being pulled into the machine, increasing the temperature inside the engine, and leading to an increase in RPM. The limiter lever influences the speed of the combustion, and how much uncombusted gas is in the exhaust.
-        Ejecting ore from the Combustion Centrifuge while it is at high RPMs will result in additional stress build up.  If turned off while not stressed, the machine will automatically start to brake, and reduce RPMs in a controlled manner.
-	  "#,
-            value = "1238905683"
-        )
-    )]
-    StructureCombustionCentrifuge = 1238905683i32,
-    #[strum(
-        serialize = "MotherboardComms",
-        props(
-            name = r#"Communications Motherboard"#,
-            desc = r#"When placed in a <link=ThingStructureComputer><color=green>Computer</color></link> and connected to a <link=ThingLandingpad_DataConnectionPiece><color=green>Landingpad Data And Power</color></link>, a <link=ThingStructureSatelliteDish><color=green>Medium Satellite Dish</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link> allows Stationeers to trade with suppliers. Adjust the horizontal and vertical attributes of the <link=ThingStructureSatelliteDish><color=green>Medium Satellite Dish</color></link> either directly or through logic. You need a communications signal of 95% or above to establish reliable communications with a trader. A minimum of a 3x3 clear pad area with a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link> at the center is required for a trader to land."#,
-            value = "-337075633"
-        )
-    )]
-    MotherboardComms = -337075633i32,
-    #[strum(
-        serialize = "StructureCompositeCladdingAngledCornerInnerLongL",
-        props(
-            name = r#"Composite Cladding (Angled Corner Inner Long L)"#,
+            name = r#"Wreckage Air Conditioner"#,
             desc = r#""#,
-            value = "947705066"
+            value = "169888054"
         )
     )]
-    StructureCompositeCladdingAngledCornerInnerLongL = 947705066i32,
+    ItemWreckageAirConditioner2 = 169888054i32,
     #[strum(
-        serialize = "StructureCompositeCladdingAngledCornerInnerLongR",
+        serialize = "Landingpad_GasCylinderTankPiece",
         props(
-            name = r#"Composite Cladding (Angled Corner Inner Long R)"#,
-            desc = r#""#,
-            value = "-1032590967"
+            name = r#"Landingpad Gas Storage"#,
+            desc = r#"Increases the volume of the landing pads gas storage capacity. This volume is used for buying and selling gas to traders."#,
+            value = "170818567"
         )
     )]
-    StructureCompositeCladdingAngledCornerInnerLongR = -1032590967i32,
+    LandingpadGasCylinderTankPiece = 170818567i32,
     #[strum(
-        serialize = "StructureCompositeCladdingAngledCornerInnerLong",
-        props(
-            name = r#"Composite Cladding (Angled Corner Inner Long)"#,
-            desc = r#""#,
-            value = "-1417912632"
-        )
+        serialize = "ItemKitStairs",
+        props(name = r#"Kit (Stairs)"#, desc = r#""#, value = "170878959")
     )]
-    StructureCompositeCladdingAngledCornerInnerLong = -1417912632i32,
+    ItemKitStairs = 170878959i32,
     #[strum(
-        serialize = "StructureCompositeCladdingAngledCornerInner",
+        serialize = "ItemPlantSampler",
         props(
-            name = r#"Composite Cladding (Angled Corner Inner)"#,
-            desc = r#""#,
-            value = "-1841871763"
+            name = r#"Plant Sampler"#,
+            desc = r#"The Plant Sampler allows you to take a <link=GeneticsPage><color=#0080FFFF>gene</color></link> sample of a growing plant. The sampler can then be placed in the <link=ThingAppliancePlantGeneticAnalyzer><color=green>Plant Genetic Analyzer</color></link> to attain and interpret the results."#,
+            value = "173023800"
         )
     )]
-    StructureCompositeCladdingAngledCornerInner = -1841871763i32,
+    ItemPlantSampler = 173023800i32,
     #[strum(
-        serialize = "StructureCompositeCladdingAngledCorner",
-        props(
-            name = r#"Composite Cladding (Angled Corner)"#,
-            desc = r#""#,
-            value = "-69685069"
-        )
+        serialize = "ItemAlienMushroom",
+        props(name = r#"Alien Mushroom"#, desc = r#""#, value = "176446172")
     )]
-    StructureCompositeCladdingAngledCorner = -69685069i32,
+    ItemAlienMushroom = 176446172i32,
     #[strum(
-        serialize = "StructureCompositeCladdingAngled",
+        serialize = "ItemKitSatelliteDish",
         props(
-            name = r#"Composite Cladding (Angled)"#,
+            name = r#"Kit (Medium Satellite Dish)"#,
             desc = r#""#,
-            value = "-1513030150"
+            value = "178422810"
         )
     )]
-    StructureCompositeCladdingAngled = -1513030150i32,
+    ItemKitSatelliteDish = 178422810i32,
     #[strum(
-        serialize = "StructureCompositeCladdingCylindricalPanel",
+        serialize = "StructureRocketEngineTiny",
+        props(name = r#"Rocket Engine (Tiny)"#, desc = r#""#, value = "178472613")
+    )]
+    StructureRocketEngineTiny = 178472613i32,
+    #[strum(
+        serialize = "StructureWallPaddedNoBorderCorner",
         props(
-            name = r#"Composite Cladding (Cylindrical Panel)"#,
+            name = r#"Wall (Padded No Border Corner)"#,
             desc = r#""#,
-            value = "1077151132"
+            value = "179694804"
         )
     )]
-    StructureCompositeCladdingCylindricalPanel = 1077151132i32,
+    StructureWallPaddedNoBorderCorner = 179694804i32,
+    #[strum(
+        serialize = "StructureShelfMedium",
+        props(
+            name = r#"Shelf Medium"#,
+            desc = r#"A shelf for putting things on, so you can see them."#,
+            value = "182006674"
+        )
+    )]
+    StructureShelfMedium = 182006674i32,
+    #[strum(
+        serialize = "StructureExpansionValve",
+        props(
+            name = r#"Expansion Valve"#,
+            desc = r#"Allows for moving liquids from a liquid pipe into a gas pipe. Only allows liquids to pass in one direction. Typically this is done to allow the liquid to evaporate into a gas as part of an airconditioning loop."#,
+            value = "195298587"
+        )
+    )]
+    StructureExpansionValve = 195298587i32,
+    #[strum(
+        serialize = "ItemCableFuse",
+        props(name = r#"Kit (Cable Fuses)"#, desc = r#""#, value = "195442047")
+    )]
+    ItemCableFuse = 195442047i32,
+    #[strum(
+        serialize = "ItemKitRoverMKI",
+        props(name = r#"Kit (Rover Mk I)"#, desc = r#""#, value = "197243872")
+    )]
+    ItemKitRoverMki = 197243872i32,
+    #[strum(
+        serialize = "DynamicGasCanisterWater",
+        props(
+            name = r#"Portable Liquid Tank (Water)"#,
+            desc = r#"This portable tank stores liquid, and liquid only. You just have to fill it up. To do this, bolt one to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link>, then connect it to <link=ThingStructurePipeLiquidStraight><color=green>Liquid Pipe (Straight)</color></link> to supply liquid to a network. 
+Try to keep pressure under 10 MPa, or you'll end up wet, hurt and sorry, without any of the fun.
+You can refill a <link=ThingItemGasCanisterWater><color=green>Liquid Canister (Water)</color></link> by attaching it to the tank's striped section. Or you could use a <link=ThingItemWrench><color=green>Wrench</color></link> to attach it to a rocket and take it somewhere distant and dry, then feel good about yourself."#,
+            value = "197293625"
+        )
+    )]
+    DynamicGasCanisterWater = 197293625i32,
+    #[strum(
+        serialize = "ItemAngleGrinder",
+        props(
+            name = r#"Angle Grinder"#,
+            desc = r#"Angles-be-gone with the trusty angle grinder."#,
+            value = "201215010"
+        )
+    )]
+    ItemAngleGrinder = 201215010i32,
+    #[strum(
+        serialize = "StructureCableCornerH4",
+        props(
+            name = r#"Heavy Cable (4-Way Corner)"#,
+            desc = r#""#,
+            value = "205837861"
+        )
+    )]
+    StructureCableCornerH4 = 205837861i32,
+    #[strum(
+        serialize = "ItemEmergencySpaceHelmet",
+        props(name = r#"Emergency Space Helmet"#, desc = r#""#, value = "205916793")
+    )]
+    ItemEmergencySpaceHelmet = 205916793i32,
+    #[strum(
+        serialize = "ItemKitGovernedGasRocketEngine",
+        props(
+            name = r#"Kit (Pumped Gas Rocket Engine)"#,
+            desc = r#""#,
+            value = "206848766"
+        )
+    )]
+    ItemKitGovernedGasRocketEngine = 206848766i32,
+    #[strum(
+        serialize = "StructurePressureRegulator",
+        props(
+            name = r#"Pressure Regulator"#,
+            desc = r#"Controlling the flow of gas between two pipe networks, pressure regulators shift gas until a set pressure on the outlet side is achieved, or the gas supply is exhausted. The back pressure regulator, by contrast, will only operate when pressure on the intake side exceeds the set value. With a max pressure of over 20,000kPa, it requires power to operate."#,
+            value = "209854039"
+        )
+    )]
+    StructurePressureRegulator = 209854039i32,
     #[strum(
         serialize = "StructureCompositeCladdingCylindrical",
         props(
@@ -1542,104 +5545,309 @@ The chute outlet is an aperture for exiting items from <link=ImportExportPage><c
     )]
     StructureCompositeCladdingCylindrical = 212919006i32,
     #[strum(
-        serialize = "StructureCompositeCladdingAngledCornerLong",
-        props(
-            name = r#"Composite Cladding (Long Angled Corner)"#,
-            desc = r#""#,
-            value = "850558385"
-        )
+        serialize = "ItemCropHay",
+        props(name = r#"Hay"#, desc = r#""#, value = "215486157")
     )]
-    StructureCompositeCladdingAngledCornerLong = 850558385i32,
+    ItemCropHay = 215486157i32,
     #[strum(
-        serialize = "StructureCompositeCladdingAngledCornerLongR",
-        props(
-            name = r#"Composite Cladding (Long Angled Mirrored Corner)"#,
-            desc = r#""#,
-            value = "-348918222"
-        )
+        serialize = "ItemKitLogicProcessor",
+        props(name = r#"Kit (Logic Processor)"#, desc = r#""#, value = "220644373")
     )]
-    StructureCompositeCladdingAngledCornerLongR = -348918222i32,
+    ItemKitLogicProcessor = 220644373i32,
     #[strum(
-        serialize = "StructureCompositeCladdingAngledLong",
+        serialize = "AutolathePrinterMod",
         props(
-            name = r#"Composite Cladding (Long Angled)"#,
-            desc = r#""#,
-            value = "-387546514"
+            name = r#"Autolathe Printer Mod"#,
+            desc = r#"Apply to an <link=ThingStructureAutolathe><color=green>Autolathe</color></link> with a <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link> or <link=ThingItemArcWelder><color=green>Arc Welder</color></link> to upgrade for increased processing speed and more recipe options."#,
+            value = "221058307"
         )
     )]
-    StructureCompositeCladdingAngledLong = -387546514i32,
+    AutolathePrinterMod = 221058307i32,
     #[strum(
-        serialize = "StructureCompositeCladdingPanel",
+        serialize = "StructureChuteOverflow",
         props(
-            name = r#"Composite Cladding (Panel)"#,
-            desc = r#""#,
-            value = "1997436771"
+            name = r#"Chute Overflow"#,
+            desc = r#"The overflow chute will direct materials to its overflow port when the thing connected to its default port is already occupied."#,
+            value = "225377225"
         )
     )]
-    StructureCompositeCladdingPanel = 1997436771i32,
+    StructureChuteOverflow = 225377225i32,
     #[strum(
-        serialize = "StructureCompositeCladdingRoundedCornerInner",
+        serialize = "ItemLiquidPipeAnalyzer",
         props(
-            name = r#"Composite Cladding (Rounded Corner Inner)"#,
+            name = r#"Kit (Liquid Pipe Analyzer)"#,
             desc = r#""#,
-            value = "110184667"
+            value = "226055671"
         )
     )]
-    StructureCompositeCladdingRoundedCornerInner = 110184667i32,
+    ItemLiquidPipeAnalyzer = 226055671i32,
     #[strum(
-        serialize = "StructureCompositeCladdingRoundedCorner",
+        serialize = "ItemGoldIngot",
         props(
-            name = r#"Composite Cladding (Rounded Corner)"#,
+            name = r#"Ingot (Gold)"#,
+            desc = r#"There is an enduring paradox at the heart of the <link=Stationeers><color=#0080FFFF>Stationeers</color></link> project: An initiative conceived as 'cut-price space exploration' uses <link=ReagentGold><color=#B566FF>Gold</color></link> as a fundamental ingredient in fabricating so much of its equipment and materiel. "#,
+            value = "226410516"
+        )
+    )]
+    ItemGoldIngot = 226410516i32,
+    #[strum(
+        serialize = "KitStructureCombustionCentrifuge",
+        props(
+            name = r#"Kit (Combustion Centrifuge)"#,
             desc = r#""#,
-            value = "1951525046"
+            value = "231903234"
         )
     )]
-    StructureCompositeCladdingRoundedCorner = 1951525046i32,
+    KitStructureCombustionCentrifuge = 231903234i32,
     #[strum(
-        serialize = "StructureCompositeCladdingRounded",
+        serialize = "ItemExplosive",
+        props(name = r#"Remote Explosive"#, desc = r#""#, value = "235361649")
+    )]
+    ItemExplosive = 235361649i32,
+    #[strum(
+        serialize = "StructureConsole",
         props(
-            name = r#"Composite Cladding (Rounded)"#,
+            name = r#"Console"#,
+            desc = r#"This <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> control box manages devices such as the <link=ThingStructureActiveVent><color=green>Active Vent</color></link>, <link=ThingStructurePassiveVent><color=green>Passive Vent</color></link>, <link=ThingStructureGasSensor><color=green>Gas Sensor</color></link> and <link=ThingStructureCompositeDoor><color=green>Composite Door</color></link>, depending on which <link=LogicPage><color=#0080FFFF>circuitboard</color></link> is inserted into the unit. It has a shared data/power port.
+A completed console displays all devices connected to the current power network. Any devices not related to the installed circuitboard will be greyed-out and inoperable. Consoles are locked once a <link=ThingItemDataDisk><color=green>Data Disk</color></link> is removed."#,
+            value = "235638270"
+        )
+    )]
+    StructureConsole = 235638270i32,
+    #[strum(
+        serialize = "ItemPassiveVent",
+        props(
+            name = r#"Passive Vent"#,
+            desc = r#"This kit creates a <link=ThingItemPassiveVent><color=green>Passive Vent</color></link> among other variants."#,
+            value = "238631271"
+        )
+    )]
+    ItemPassiveVent = 238631271i32,
+    #[strum(
+        serialize = "ItemMKIIAngleGrinder",
+        props(
+            name = r#"Mk II Angle Grinder"#,
+            desc = r#"Angles-be-gone with the trusty angle grinder. The MK II is more resistant to temperature and pressure."#,
+            value = "240174650"
+        )
+    )]
+    ItemMkiiAngleGrinder = 240174650i32,
+    #[strum(
+        serialize = "Handgun",
+        props(name = r#"Handgun"#, desc = r#""#, value = "247238062")
+    )]
+    Handgun = 247238062i32,
+    #[strum(
+        serialize = "PassiveSpeaker",
+        props(name = r#"Passive Speaker"#, desc = r#""#, value = "248893646")
+    )]
+    PassiveSpeaker = 248893646i32,
+    #[strum(
+        serialize = "ItemKitBeacon",
+        props(name = r#"Kit (Beacon)"#, desc = r#""#, value = "249073136")
+    )]
+    ItemKitBeacon = 249073136i32,
+    #[strum(
+        serialize = "ItemCharcoal",
+        props(
+            name = r#"Charcoal"#,
+            desc = r#"Charcoal is a lightweight, black carbon residue produced by heating <link=ThingItemBiomass><color=green>Biomass</color></link> in a <link=ThingStructureArcFurnace><color=green>Arc Furnace</color></link>. It contains less energy potential than <link=ThingItemCoalOre><color=green>Ore (Coal)</color></link>, but can be used as a basic fuel source. Charcoal can also be substituted for coal in <link=IngotPage><color=#0080FFFF>alloy</color></link> recipes."#,
+            value = "252561409"
+        )
+    )]
+    ItemCharcoal = 252561409i32,
+    #[strum(
+        serialize = "StructureSuitStorage",
+        props(
+            name = r#"Suit Storage"#,
+            desc = r#"As tidy as it is useful, the suit storage rack holds an <link=ThingItemEvaSuit><color=green>Eva Suit</color></link>, <link=ThingItemSpaceHelmet><color=green>Space Helmet</color></link> and a <link=ThingItemJetpackBasic><color=green>Jetpack Basic</color></link>.
+When powered and connected to <link=ThingOxygen><color=green><N:EN:Oxygen></color></link> and <link=ThingPropellant><color=green><N:EN:Propellant></color></link>, it will recharge the suit's batteries, refill the <link=ThingItemGasCanisterOxygen><color=green>Canister (Oxygen)</color></link> and your <link=ThingItemGasFilterNitrogen><color=green>Filter (Nitrogen)</color></link> <link=SlotGasCanister><color=orange>Gas Canister</color></link>. The wastetank will be pumped out to the pipe connected to the waste outlet.
+All the rack's pipes must be connected or the unit will show an error state, but it will still charge the battery."#,
+            value = "255034731"
+        )
+    )]
+    StructureSuitStorage = 255034731i32,
+    #[strum(
+        serialize = "ItemCorn",
+        props(
+            name = r#"Corn"#,
+            desc = r#"A long growth time staple crop. Its low requirement for darkness allows for accelerated growing if provided with extra light."#,
+            value = "258339687"
+        )
+    )]
+    ItemCorn = 258339687i32,
+    #[strum(
+        serialize = "StructurePipeLiquidTJunction",
+        props(
+            name = r#"Liquid Pipe (T Junction)"#,
+            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeLiquidTJunction><color=green>Insulated Liquid Pipe (T Junction)</color></link> using an <link=ThingItemKitInsulatedLiquidPipe><color=green>Kit (Insulated Liquid Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
+            value = "262616717"
+        )
+    )]
+    StructurePipeLiquidTJunction = 262616717i32,
+    #[strum(
+        serialize = "StructureLogicBatchReader",
+        props(name = r#"Batch Reader"#, desc = r#""#, value = "264413729")
+    )]
+    StructureLogicBatchReader = 264413729i32,
+    #[strum(
+        serialize = "StructureDeepMiner",
+        props(
+            name = r#"Deep Miner"#,
+            desc = r#"Drills through terrain until it hits bedrock. Once inside bedrock <link=ThingItemDirtyOre><color=green>Dirty Ore</color></link> is produced roughly every 90s"#,
+            value = "265720906"
+        )
+    )]
+    StructureDeepMiner = 265720906i32,
+    #[strum(
+        serialize = "ItemEmergencyScrewdriver",
+        props(name = r#"Emergency Screwdriver"#, desc = r#""#, value = "266099983")
+    )]
+    ItemEmergencyScrewdriver = 266099983i32,
+    #[strum(
+        serialize = "ItemFilterFern",
+        props(
+            name = r#"Darga Fern"#,
+            desc = r#"A fern adapted by <link=Agrizero><color=#0080FFFF>Agrizero</color></link>to process a much greater volume of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> into <link=GasOxygen><color=#44AD83>Oxygen</color></link> than an average plant."#,
+            value = "266654416"
+        )
+    )]
+    ItemFilterFern = 266654416i32,
+    #[strum(
+        serialize = "StructureCableCorner4Burnt",
+        props(
+            name = r#"Burnt Cable (4-Way Corner)"#,
             desc = r#""#,
-            value = "-259357734"
+            value = "268421361"
         )
     )]
-    StructureCompositeCladdingRounded = -259357734i32,
+    StructureCableCorner4Burnt = 268421361i32,
     #[strum(
-        serialize = "StructureCompositeCladdingSphericalCap",
+        serialize = "StructureFrameCornerCut",
         props(
-            name = r#"Composite Cladding (Spherical Cap)"#,
+            name = r#"Steel Frame (Corner Cut)"#,
+            desc = r#"0.Mode0
+1.Mode1"#,
+            value = "271315669"
+        )
+    )]
+    StructureFrameCornerCut = 271315669i32,
+    #[strum(
+        serialize = "StructureTankSmallInsulated",
+        props(name = r#"Tank Small (Insulated)"#, desc = r#""#, value = "272136332")
+    )]
+    StructureTankSmallInsulated = 272136332i32,
+    #[strum(
+        serialize = "StructureCableFuse100k",
+        props(name = r#"Fuse (100kW)"#, desc = r#""#, value = "281380789")
+    )]
+    StructureCableFuse100K = 281380789i32,
+    #[strum(
+        serialize = "ItemKitIceCrusher",
+        props(name = r#"Kit (Ice Crusher)"#, desc = r#""#, value = "288111533")
+    )]
+    ItemKitIceCrusher = 288111533i32,
+    #[strum(
+        serialize = "ItemKitPowerTransmitter",
+        props(name = r#"Kit (Power Transmitter)"#, desc = r#""#, value = "291368213")
+    )]
+    ItemKitPowerTransmitter = 291368213i32,
+    #[strum(
+        serialize = "StructurePipeLiquidCrossJunction6",
+        props(
+            name = r#"Liquid Pipe (6-Way Junction)"#,
+            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeLiquidCrossJunction6><color=green>Insulated Liquid Pipe (6-Way Junction)</color></link> using an <link=ThingItemKitInsulatedLiquidPipe><color=green>Kit (Insulated Liquid Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
+            value = "291524699"
+        )
+    )]
+    StructurePipeLiquidCrossJunction6 = 291524699i32,
+    #[strum(
+        serialize = "ItemKitLandingPadBasic",
+        props(name = r#"Kit (Landing Pad Basic)"#, desc = r#""#, value = "293581318")
+    )]
+    ItemKitLandingPadBasic = 293581318i32,
+    #[strum(
+        serialize = "StructureInsulatedPipeLiquidStraight",
+        props(
+            name = r#"Insulated Liquid Pipe (Straight)"#,
+            desc = r#"Liquid piping with very low temperature loss or gain."#,
+            value = "295678685"
+        )
+    )]
+    StructureInsulatedPipeLiquidStraight = 295678685i32,
+    #[strum(
+        serialize = "StructureWallFlatCornerSquare",
+        props(
+            name = r#"Wall (Flat Corner Square)"#,
             desc = r#""#,
-            value = "534213209"
+            value = "298130111"
         )
     )]
-    StructureCompositeCladdingSphericalCap = 534213209i32,
+    StructureWallFlatCornerSquare = 298130111i32,
     #[strum(
-        serialize = "StructureCompositeCladdingSphericalCorner",
+        serialize = "ItemHat",
         props(
-            name = r#"Composite Cladding (Spherical Corner)"#,
+            name = r#"Hat"#,
+            desc = r#"As the name suggests, this is a hat."#,
+            value = "299189339"
+        )
+    )]
+    ItemHat = 299189339i32,
+    #[strum(
+        serialize = "ItemWaterPipeDigitalValve",
+        props(
+            name = r#"Kit (Liquid Digital Valve)"#,
             desc = r#""#,
-            value = "1751355139"
+            value = "309693520"
         )
     )]
-    StructureCompositeCladdingSphericalCorner = 1751355139i32,
+    ItemWaterPipeDigitalValve = 309693520i32,
     #[strum(
-        serialize = "StructureCompositeCladdingSpherical",
+        serialize = "SeedBag_Mushroom",
         props(
-            name = r#"Composite Cladding (Spherical)"#,
+            name = r#"Mushroom Seeds"#,
+            desc = r#"Grow a <link=ThingItemMushroom><color=green>Mushroom</color></link>."#,
+            value = "311593418"
+        )
+    )]
+    SeedBagMushroom = 311593418i32,
+    #[strum(
+        serialize = "StructureCableCorner3Burnt",
+        props(
+            name = r#"Burnt Cable (3-Way Corner)"#,
             desc = r#""#,
-            value = "139107321"
+            value = "318437449"
         )
     )]
-    StructureCompositeCladdingSpherical = 139107321i32,
+    StructureCableCorner3Burnt = 318437449i32,
     #[strum(
-        serialize = "StructureCompositeDoor",
+        serialize = "StructureLogicSwitch2",
+        props(name = r#"Switch"#, desc = r#""#, value = "321604921")
+    )]
+    StructureLogicSwitch2 = 321604921i32,
+    #[strum(
+        serialize = "StructureOccupancySensor",
         props(
-            name = r#"Composite Door"#,
-            desc = r#"<link=Recurso><color=#0080FFFF>Recurso's</color></link> composite doors are rated to 300kPa, which is more than sufficient for most purposes they were designed for. However, steep pressure differentials are not your friend."#,
-            value = "-793837322"
+            name = r#"Occupancy Sensor"#,
+            desc = r#"Will be triggered if there is a player in the same room as the sensor. The quantity variable will show the number of players. You can use configure it to only detect players who hold the correct Access Card using a <link=ThingCartridgeAccessController><color=green>Cartridge (Access Controller)</color></link> in a <link=ThingItemTablet><color=green>Handheld Tablet</color></link>. This sensor only works when placed in a room."#,
+            value = "322782515"
         )
     )]
-    StructureCompositeDoor = -793837322i32,
+    StructureOccupancySensor = 322782515i32,
+    #[strum(
+        serialize = "ItemKitSDBHopper",
+        props(name = r#"Kit (SDB Hopper)"#, desc = r#""#, value = "323957548")
+    )]
+    ItemKitSdbHopper = 323957548i32,
+    #[strum(
+        serialize = "ItemMKIIDrill",
+        props(
+            name = r#"Mk II Drill"#,
+            desc = r#"The <link=ExMin><color=#0080FFFF>ExMin</color></link> Off-whirled Hand Drill has been a companion to <link=Stationeers><color=#0080FFFF>Stationeers</color></link> for decades. Essential for assembling and deconstructing various items and structures, regardless of gravity, pressure or temperature."#,
+            value = "324791548"
+        )
+    )]
+    ItemMkiiDrill = 324791548i32,
     #[strum(
         serialize = "StructureCompositeFloorGrating",
         props(
@@ -1650,23 +5858,635 @@ The chute outlet is an aperture for exiting items from <link=ImportExportPage><c
     )]
     StructureCompositeFloorGrating = 324868581i32,
     #[strum(
-        serialize = "StructureCompositeFloorGrating2",
-        props(
-            name = r#"Composite Floor Grating  (Type 2)"#,
-            desc = r#""#,
-            value = "-895027741"
-        )
+        serialize = "ItemKitSleeper",
+        props(name = r#"Kit (Sleeper)"#, desc = r#""#, value = "326752036")
     )]
-    StructureCompositeFloorGrating2 = -895027741i32,
+    ItemKitSleeper = 326752036i32,
     #[strum(
-        serialize = "StructureCompositeFloorGrating3",
+        serialize = "EntityChickenBrown",
         props(
-            name = r#"Composite Floor Grating  (Type 3)"#,
-            desc = r#""#,
-            value = "-1113471627"
+            name = r#"Entity Chicken Brown"#,
+            desc = r#"Like so many of its brethren, this is a chicken. A brown one. It will eat soybeans, corn, and wheat, and lay eggs. Some will be fertilized, producing further chickens. Some will not."#,
+            value = "334097180"
         )
     )]
-    StructureCompositeFloorGrating3 = -1113471627i32,
+    EntityChickenBrown = 334097180i32,
+    #[strum(
+        serialize = "StructurePassiveVent",
+        props(
+            name = r#"Passive Vent"#,
+            desc = r#"Passive vents allow gases to move into and out of pipe networks, which are closed systems unless connected to a device or structure. Passive vents are not powered, merely an aperture, essentially turning an enclosed space into part of the pipe network. "#,
+            value = "335498166"
+        )
+    )]
+    StructurePassiveVent = 335498166i32,
+    #[strum(
+        serialize = "StructureAutolathe",
+        props(
+            name = r#"Autolathe"#,
+            desc = r#"The foundation of most <link=Stationeers><color=#0080FFFF>Stationeer</color></link> fabrication systems, the <link=ExMin><color=#0080FFFF>ExMin</color></link> autolathe is a multi-axis molecular compositional system. Its complexity demands considerable time to assemble, but it remains an indispensable creation tool. Upgrade the device using a <link=ThingAutolathePrinterMod><color=green>Autolathe Printer Mod</color></link> for additional recipes and faster processing speeds.
+	  "#,
+            value = "336213101"
+        )
+    )]
+    StructureAutolathe = 336213101i32,
+    #[strum(
+        serialize = "AccessCardKhaki",
+        props(name = r#"Access Card (Khaki)"#, desc = r#""#, value = "337035771")
+    )]
+    AccessCardKhaki = 337035771i32,
+    #[strum(
+        serialize = "StructureBlastDoor",
+        props(
+            name = r#"Blast Door"#,
+            desc = r#"Airtight and almost undamageable, the original 'Millmar' series of blast door was designed by off-world mining giant <link=Recurso><color=#0080FFFF>Recurso</color></link> to protect asteroid-mining facilities from nuclear-incident-level explosive decompression.
+Short of a pocket-sized singularity blinking into the local space-time frame, there is effectively no limit to the pressure these blast doors can contain - ideal for constructing airlocks in pressure-sensitive environments."#,
+            value = "337416191"
+        )
+    )]
+    StructureBlastDoor = 337416191i32,
+    #[strum(
+        serialize = "ItemKitWeatherStation",
+        props(name = r#"Kit (Weather Station)"#, desc = r#""#, value = "337505889")
+    )]
+    ItemKitWeatherStation = 337505889i32,
+    #[strum(
+        serialize = "StructureStairwellFrontRight",
+        props(name = r#"Stairwell (Front Right)"#, desc = r#""#, value = "340210934")
+    )]
+    StructureStairwellFrontRight = 340210934i32,
+    #[strum(
+        serialize = "ItemKitGrowLight",
+        props(name = r#"Kit (Grow Light)"#, desc = r#""#, value = "341030083")
+    )]
+    ItemKitGrowLight = 341030083i32,
+    #[strum(
+        serialize = "StructurePictureFrameThickMountLandscapeSmall",
+        props(
+            name = r#"Picture Frame Thick Landscape Small"#,
+            desc = r#""#,
+            value = "347154462"
+        )
+    )]
+    StructurePictureFrameThickMountLandscapeSmall = 347154462i32,
+    #[strum(
+        serialize = "RoverCargo",
+        props(
+            name = r#"Rover (Cargo)"#,
+            desc = r#"Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>"#,
+            value = "350726273"
+        )
+    )]
+    RoverCargo = 350726273i32,
+    #[strum(
+        serialize = "StructureInsulatedPipeLiquidCrossJunction4",
+        props(
+            name = r#"Insulated Liquid Pipe (4-Way Junction)"#,
+            desc = r#"Liquid piping with very low temperature loss or gain."#,
+            value = "363303270"
+        )
+    )]
+    StructureInsulatedPipeLiquidCrossJunction4 = 363303270i32,
+    #[strum(
+        serialize = "ItemHardBackpack",
+        props(
+            name = r#"Hardsuit Backpack"#,
+            desc = r#"This backpack can be useful when you are working inside and don't need to fly around."#,
+            value = "374891127"
+        )
+    )]
+    ItemHardBackpack = 374891127i32,
+    #[strum(
+        serialize = "ItemKitDynamicLiquidCanister",
+        props(
+            name = r#"Kit (Portable Liquid Tank)"#,
+            desc = r#""#,
+            value = "375541286"
+        )
+    )]
+    ItemKitDynamicLiquidCanister = 375541286i32,
+    #[strum(
+        serialize = "ItemKitGasGenerator",
+        props(
+            name = r#"Kit (Gas Fuel Generator)"#,
+            desc = r#""#,
+            value = "377745425"
+        )
+    )]
+    ItemKitGasGenerator = 377745425i32,
+    #[strum(
+        serialize = "StructureBlocker",
+        props(name = r#"Blocker"#, desc = r#""#, value = "378084505")
+    )]
+    StructureBlocker = 378084505i32,
+    #[strum(
+        serialize = "StructurePressureFedLiquidEngine",
+        props(
+            name = r#"Pressure Fed Liquid Engine"#,
+            desc = r#"Highly efficient and powerful, the Pressure Fed Liquid Engine is a challenging engine to run in a stable configuration. Liquid is pulled from the input into the engine based on the input gas pressure. Some gas is also moved in this process so Stationeers will need to devise a system to maintain a high gas pressure in the liquid input pipe. The second liquid pipe connection is an optional heat-exchanger connection which exchanges heat between the pipes contents and the engine bell, the Setting variable drives the effectiveness of the heat-exchanger."#,
+            value = "379750958"
+        )
+    )]
+    StructurePressureFedLiquidEngine = 379750958i32,
+    #[strum(
+        serialize = "ItemPureIceNitrous",
+        props(
+            name = r#"Pure Ice NitrousOxide"#,
+            desc = r#"A frozen chunk of pure <link=GasNitrousOxide><color=#44AD83>Nitrous Oxide</color></link>"#,
+            value = "386754635"
+        )
+    )]
+    ItemPureIceNitrous = 386754635i32,
+    #[strum(
+        serialize = "StructureWallSmallPanelsMonoChrome",
+        props(
+            name = r#"Wall (Small Panels Mono Chrome)"#,
+            desc = r#""#,
+            value = "386820253"
+        )
+    )]
+    StructureWallSmallPanelsMonoChrome = 386820253i32,
+    #[strum(
+        serialize = "ItemMKIIDuctTape",
+        props(
+            name = r#"Mk II Duct Tape"#,
+            desc = r#"In the distant past, one of Earth's great champions taught a generation of 'Fix-It People' that duct tape was the answer to any problem. <link=Stationeers><color=#0080FFFF>Stationeers</color></link> have demonstrated that this is truth holds strong, so long as the problem is a damaged <link=ThingItemEvaSuit><color=green>Eva Suit</color></link>, <link=ThingItemJetpackBasic><color=green>Jetpack Basic</color></link>, <link=ThingItemSpaceHelmet><color=green>Space Helmet</color></link>, or even a <link=ThingStructureSolarPanel><color=green>Solar Panel</color></link>.
+To use on yourself: put duct tape in your active hand, hold RIGHT MOUSE BUTTON to automatically repair damage."#,
+            value = "388774906"
+        )
+    )]
+    ItemMkiiDuctTape = 388774906i32,
+    #[strum(
+        serialize = "ItemWreckageStructureRTG1",
+        props(name = r#"Wreckage Structure RTG"#, desc = r#""#, value = "391453348")
+    )]
+    ItemWreckageStructureRtg1 = 391453348i32,
+    #[strum(
+        serialize = "ItemPipeLabel",
+        props(
+            name = r#"Kit (Pipe Label)"#,
+            desc = r#"This kit creates a <link=ThingStructurePipeLabel><color=green>Pipe Label</color></link>."#,
+            value = "391769637"
+        )
+    )]
+    ItemPipeLabel = 391769637i32,
+    #[strum(
+        serialize = "DynamicGasCanisterPollutants",
+        props(
+            name = r#"Portable Gas Tank (Pollutants)"#,
+            desc = r#""#,
+            value = "396065382"
+        )
+    )]
+    DynamicGasCanisterPollutants = 396065382i32,
+    #[strum(
+        serialize = "NpcChicken",
+        props(name = r#"Chicken"#, desc = r#""#, value = "399074198")
+    )]
+    NpcChicken = 399074198i32,
+    #[strum(
+        serialize = "RailingElegant01",
+        props(
+            name = r#"Railing Elegant (Type 1)"#,
+            desc = r#""#,
+            value = "399661231"
+        )
+    )]
+    RailingElegant01 = 399661231i32,
+    #[strum(
+        serialize = "StructureBench1",
+        props(name = r#"Bench (Counter Style)"#, desc = r#""#, value = "406745009")
+    )]
+    StructureBench1 = 406745009i32,
+    #[strum(
+        serialize = "ItemAstroloyIngot",
+        props(
+            name = r#"Ingot (Astroloy)"#,
+            desc = r#"Due to the original Stationeer manual collapsing into a singularity, Astroloy recipes have been warped by spacetime contortions. The correct Astroloy recipe, as memorialized for all time in a series of charming plastic icons, is 1.0 Copper, 1.0 Cobalt, and 2.0 Steel."#,
+            value = "412924554"
+        )
+    )]
+    ItemAstroloyIngot = 412924554i32,
+    #[strum(
+        serialize = "ItemGasFilterCarbonDioxideM",
+        props(
+            name = r#"Medium Filter (Carbon Dioxide)"#,
+            desc = r#""#,
+            value = "416897318"
+        )
+    )]
+    ItemGasFilterCarbonDioxideM = 416897318i32,
+    #[strum(
+        serialize = "ItemPillStun",
+        props(
+            name = r#"Pill (Paralysis)"#,
+            desc = r#"Through rarely publicized, the existence of this pill is an open secret. For use when all else has failed, the Sayonara Suppository immobilizes and rapidly ends the average <link=Stationeers><color=#0080FFFF>Stationeer</color></link>. The delivery mode ensures that if a Stationeer chooses to take this pill, they really have to want it."#,
+            value = "418958601"
+        )
+    )]
+    ItemPillStun = 418958601i32,
+    #[strum(
+        serialize = "ItemKitCrate",
+        props(name = r#"Kit (Crate)"#, desc = r#""#, value = "429365598")
+    )]
+    ItemKitCrate = 429365598i32,
+    #[strum(
+        serialize = "AccessCardPink",
+        props(name = r#"Access Card (Pink)"#, desc = r#""#, value = "431317557")
+    )]
+    AccessCardPink = 431317557i32,
+    #[strum(
+        serialize = "StructureWaterPipeMeter",
+        props(name = r#"Liquid Pipe Meter"#, desc = r#""#, value = "433184168")
+    )]
+    StructureWaterPipeMeter = 433184168i32,
+    #[strum(
+        serialize = "Robot",
+        props(
+            name = r#"AIMeE Bot"#,
+            desc = r#"Designed by - presumably drunk - <link=Norsec><color=#0080FFFF>Norsec</color></link> roboticists, AIMeE (or Automated Independent Mechanical Entity) can be a <link=Stationeers><color=#0080FFFF>Stationeer's</color></link> best friend, or tiresome nemesis, or both several times in the same day. 
+      
+Intended to unearth and retrieve ores automatically, the unit requires basic programming knowledge to operate, and <link=ThingMotherboardProgrammableChip><color=green>IC Editor Motherboard</color></link>.
+
+AIMEe has 7 modes:
+
+RobotMode.None = 0 = Do nothing
+RobotMode.None = 1 = Follow nearest player
+RobotMode.None = 2 = Move to target in straight line
+RobotMode.None = 3 = Wander around looking for ores in 15 co-ords radius
+RobotMode.None = 4 = Unload in chute input or chute bin within 3 meters / 1.5 large grids
+RobotMode.None = 5 = Path(find) to target
+RobotMode.None = 6 = Automatic assigned state, shows when storage slots are fullConnects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>"#,
+            value = "434786784"
+        )
+    )]
+    Robot = 434786784i32,
+    #[strum(
+        serialize = "StructureChuteValve",
+        props(
+            name = r#"Chute Valve"#,
+            desc = r#"The Chute Valve will stop the flow of materials when set to closed and when set to open, will act like a straight chute."#,
+            value = "434875271"
+        )
+    )]
+    StructureChuteValve = 434875271i32,
+    #[strum(
+        serialize = "StructurePipeAnalysizer",
+        props(
+            name = r#"Pipe Analyzer"#,
+            desc = r#"Allegedly the outcome of a weekend father-daughter electronics project by an overzealous {<link=ExMin><color=#0080FFFF>ExMin</color></link> engineer, the pipe analyzer is essentially a more advanced version of the <link=ThingStructurePipeMeter><color=green>Pipe Meter</color></link>.
+Displaying the internal pressure of pipe networks, it  also reads out temperature and gas contents, and can be connected to a <link=ThingStructureConsole><color=green>Console</color></link> or <link=ThingStructureComputer><color=green>Computer</color></link> via a {<link=LogicPage><color=#0080FFFF>Logic</color></link> system."#,
+            value = "435685051"
+        )
+    )]
+    StructurePipeAnalysizer = 435685051i32,
+    #[strum(
+        serialize = "StructureLogicBatchSlotReader",
+        props(name = r#"Batch Slot Reader"#, desc = r#""#, value = "436888930")
+    )]
+    StructureLogicBatchSlotReader = 436888930i32,
+    #[strum(
+        serialize = "StructureSatelliteDish",
+        props(
+            name = r#"Medium Satellite Dish"#,
+            desc = r#"This medium communications unit can be used to communicate with nearby trade vessels.
+      
+When connected to a <link=ThingStructureComputer><color=green>Computer</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic."#,
+            value = "439026183"
+        )
+    )]
+    StructureSatelliteDish = 439026183i32,
+    #[strum(
+        serialize = "StructureIceCrusher",
+        props(
+            name = r#"Ice Crusher"#,
+            desc = r#"The <link=Recurso><color=#0080FFFF>Recurso</color></link> KoolAuger converts various ices into their respective <link=GasPage><color=#0080FFFF>gases</color></link> and liquids.
+A remarkably smart and compact sublimation-melting unit, it produces gas or liquid depending on the ice being processed. The upper outlet is gas, the lower for liquid, and while you can attach any pipe you like to either outlet, it will only function if the correct network is attached. It will also only pass gas or liquid into a network if it is powered and turned on.
+If the KoolAuger is full, it will not accept any further ice until the gas or liquid contents is drained. In this state, it will flash a yellow error state on the activation switch."#,
+            value = "443849486"
+        )
+    )]
+    StructureIceCrusher = 443849486i32,
+    #[strum(
+        serialize = "PipeBenderMod",
+        props(
+            name = r#"Pipe Bender Mod"#,
+            desc = r#"Apply to an <link=ThingStructureHydraulicPipeBender><color=green>Hydraulic Pipe Bender</color></link> with a <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link> or <link=ThingItemArcWelder><color=green>Arc Welder</color></link> to upgrade for increased processing speed and more recipe options."#,
+            value = "443947415"
+        )
+    )]
+    PipeBenderMod = 443947415i32,
+    #[strum(
+        serialize = "StructureAdvancedComposter",
+        props(
+            name = r#"Advanced Composter"#,
+            desc = r#"The advanced composter creates <link=ThingFertilizer><color=green>Fertilizer</color></link> out of organic matter. It accepts <link=OrganicPage><color=#0080FFFF>food</color></link>, <link=ThingDecayedFood><color=green>Decayed Food</color></link> or <link=ThingItemBiomass><color=green>Biomass</color></link>. It requires <link=GasWater><color=#44AD83>Water</color></link> and power to operate, accelerating the natural composting process.
+When processing, it releases nitrogen and volatiles, as well a small amount of heat. 
+
+<size=120%><b>Compost composition</b></size>
+Fertilizer is produced at a 1:3 ratio of fertilizer to ingredients. The fertilizer's effects on plants will vary depending on the respective proportions of its ingredients.
+
+- <link=OrganicPage><color=#0080FFFF>Food</color></link> increases PLANT YIELD up to two times
+- <link=ThingDecayedFood><color=green>Decayed Food</color></link> increases plant GROWTH SPEED up to two times
+- <link=ThingItemBiomass><color=green>Biomass</color></link> increases the NUMBER OF GROWTH CYCLES the fertilizer lasts for up to five times
+"#,
+            value = "446212963"
+        )
+    )]
+    StructureAdvancedComposter = 446212963i32,
+    #[strum(
+        serialize = "ItemKitLargeDirectHeatExchanger",
+        props(
+            name = r#"Kit (Large Direct Heat Exchanger)"#,
+            desc = r#""#,
+            value = "450164077"
+        )
+    )]
+    ItemKitLargeDirectHeatExchanger = 450164077i32,
+    #[strum(
+        serialize = "ItemKitInsulatedPipe",
+        props(name = r#"Kit (Insulated Pipe)"#, desc = r#""#, value = "452636699")
+    )]
+    ItemKitInsulatedPipe = 452636699i32,
+    #[strum(
+        serialize = "AccessCardPurple",
+        props(name = r#"Access Card (Purple)"#, desc = r#""#, value = "459843265")
+    )]
+    AccessCardPurple = 459843265i32,
+    #[strum(
+        serialize = "ItemGasFilterNitrousOxideL",
+        props(
+            name = r#"Heavy Filter (Nitrous Oxide)"#,
+            desc = r#""#,
+            value = "465267979"
+        )
+    )]
+    ItemGasFilterNitrousOxideL = 465267979i32,
+    #[strum(
+        serialize = "StructurePipeCowl",
+        props(name = r#"Pipe Cowl"#, desc = r#""#, value = "465816159")
+    )]
+    StructurePipeCowl = 465816159i32,
+    #[strum(
+        serialize = "StructureSDBHopperAdvanced",
+        props(name = r#"SDB Hopper Advanced"#, desc = r#""#, value = "467225612")
+    )]
+    StructureSdbHopperAdvanced = 467225612i32,
+    #[strum(
+        serialize = "StructureCableJunctionH",
+        props(
+            name = r#"Heavy Cable (3-Way Junction)"#,
+            desc = r#""#,
+            value = "469451637"
+        )
+    )]
+    StructureCableJunctionH = 469451637i32,
+    #[strum(
+        serialize = "ItemHEMDroidRepairKit",
+        props(
+            name = r#"HEMDroid Repair Kit"#,
+            desc = r#"Repairs damaged HEM-Droids to full health."#,
+            value = "470636008"
+        )
+    )]
+    ItemHemDroidRepairKit = 470636008i32,
+    #[strum(
+        serialize = "ItemKitRocketCargoStorage",
+        props(
+            name = r#"Kit (Rocket Cargo Storage)"#,
+            desc = r#""#,
+            value = "479850239"
+        )
+    )]
+    ItemKitRocketCargoStorage = 479850239i32,
+    #[strum(
+        serialize = "StructureLiquidPressureRegulator",
+        props(
+            name = r#"Liquid Volume Regulator"#,
+            desc = r#"Regulates the volume ratio of liquid in the output Liquid pipe. This is expressed as percentage where 100 is totally full and 0 is empty."#,
+            value = "482248766"
+        )
+    )]
+    StructureLiquidPressureRegulator = 482248766i32,
+    #[strum(
+        serialize = "SeedBag_Switchgrass",
+        props(name = r#"Switchgrass Seed"#, desc = r#""#, value = "488360169")
+    )]
+    SeedBagSwitchgrass = 488360169i32,
+    #[strum(
+        serialize = "ItemKitLadder",
+        props(name = r#"Kit (Ladder)"#, desc = r#""#, value = "489494578")
+    )]
+    ItemKitLadder = 489494578i32,
+    #[strum(
+        serialize = "StructureLogicButton",
+        props(name = r#"Button"#, desc = r#""#, value = "491845673")
+    )]
+    StructureLogicButton = 491845673i32,
+    #[strum(
+        serialize = "ItemRTG",
+        props(
+            name = r#"Kit (Creative RTG)"#,
+            desc = r#"This kit creates that miracle of modern science, a <link=ThingItemRTG><color=green>Kit (Creative RTG)</color></link>."#,
+            value = "495305053"
+        )
+    )]
+    ItemRtg = 495305053i32,
+    #[strum(
+        serialize = "ItemKitAIMeE",
+        props(name = r#"Kit (AIMeE)"#, desc = r#""#, value = "496830914")
+    )]
+    ItemKitAiMeE = 496830914i32,
+    #[strum(
+        serialize = "ItemSprayCanWhite",
+        props(
+            name = r#"Spray Paint (White)"#,
+            desc = r#"White looks clean, sharp and nice. But <link=Stationeers><color=#0080FFFF>Stationeering</color></link> can be a dirty job. White tends to scuff."#,
+            value = "498481505"
+        )
+    )]
+    ItemSprayCanWhite = 498481505i32,
+    #[strum(
+        serialize = "ItemElectrumIngot",
+        props(name = r#"Ingot (Electrum)"#, desc = r#""#, value = "502280180")
+    )]
+    ItemElectrumIngot = 502280180i32,
+    #[strum(
+        serialize = "MotherboardLogic",
+        props(
+            name = r#"Logic Motherboard"#,
+            desc = r#"Motherboards are connected to <link=ThingStructureComputer><color=green>Computer</color></link>s to perform various technical functions.
+The <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> K-cops logic motherboard allows <link=Stationeers><color=#0080FFFF>Stationeers</color></link> to set variables and actions on specific <link=LogicUnitPage><color=#0080FFFF>logic</color></link>-controlled items."#,
+            value = "502555944"
+        )
+    )]
+    MotherboardLogic = 502555944i32,
+    #[strum(
+        serialize = "StructureStairwellBackLeft",
+        props(name = r#"Stairwell (Back Left)"#, desc = r#""#, value = "505924160")
+    )]
+    StructureStairwellBackLeft = 505924160i32,
+    #[strum(
+        serialize = "ItemKitAccessBridge",
+        props(name = r#"Kit (Access Bridge)"#, desc = r#""#, value = "513258369")
+    )]
+    ItemKitAccessBridge = 513258369i32,
+    #[strum(
+        serialize = "StructureRocketTransformerSmall",
+        props(
+            name = r#"Transformer Small (Rocket)"#,
+            desc = r#""#,
+            value = "518925193"
+        )
+    )]
+    StructureRocketTransformerSmall = 518925193i32,
+    #[strum(
+        serialize = "DynamicAirConditioner",
+        props(
+            name = r#"Portable Air Conditioner"#,
+            desc = r#"The <link=Sinotai><color=#0080FFFF>Sinotai</color></link>-designed Huxi portable air conditioner cools by drawing heat from the atmosphere and storing it, or adding heat to the atmosphere from its internal tank. With a max internal pressure of 8106kPa, its capacity is relatively limited, physics being clear on this subject. To extend its temperature storage ability, bolt the Huxi to a <link=ThingStructureTankConnector><color=green>Tank Connector</color></link>, then connect it to a pipe network supplying hot or cold <link=GasPage><color=#0080FFFF>gases</color></link>."#,
+            value = "519913639"
+        )
+    )]
+    DynamicAirConditioner = 519913639i32,
+    #[strum(
+        serialize = "ItemKitToolManufactory",
+        props(name = r#"Kit (Tool Manufactory)"#, desc = r#""#, value = "529137748")
+    )]
+    ItemKitToolManufactory = 529137748i32,
+    #[strum(
+        serialize = "ItemKitSign",
+        props(name = r#"Kit (Sign)"#, desc = r#""#, value = "529996327")
+    )]
+    ItemKitSign = 529996327i32,
+    #[strum(
+        serialize = "StructureCompositeCladdingSphericalCap",
+        props(
+            name = r#"Composite Cladding (Spherical Cap)"#,
+            desc = r#""#,
+            value = "534213209"
+        )
+    )]
+    StructureCompositeCladdingSphericalCap = 534213209i32,
+    #[strum(
+        serialize = "ItemPureIceLiquidOxygen",
+        props(
+            name = r#"Pure Ice Liquid Oxygen"#,
+            desc = r#"A frozen chunk of pure <link=GasLiquidOxygen><color=#44AD83>Liquid Oxygen</color></link>"#,
+            value = "541621589"
+        )
+    )]
+    ItemPureIceLiquidOxygen = 541621589i32,
+    #[strum(
+        serialize = "ItemWreckageStructureWeatherStation003",
+        props(
+            name = r#"Wreckage Structure Weather Station"#,
+            desc = r#""#,
+            value = "542009679"
+        )
+    )]
+    ItemWreckageStructureWeatherStation003 = 542009679i32,
+    #[strum(
+        serialize = "StructureInLineTankLiquid1x1",
+        props(
+            name = r#"In-Line Tank Small Liquid"#,
+            desc = r#"A small expansion tank that increases the volume of a pipe network."#,
+            value = "543645499"
+        )
+    )]
+    StructureInLineTankLiquid1X1 = 543645499i32,
+    #[strum(
+        serialize = "ItemBatteryCellNuclear",
+        props(
+            name = r#"Battery Cell (Nuclear)"#,
+            desc = r#"Illegal on Earth since the Chengdu Event, Norsec nuclear power cells found a new and drastically less safety-conscious market offworld.
+
+<size=120%><b>POWER OUTPUT</b></size>
+Pushing the power-weight balance to its limits, the 'nuke' has a 2.3 megawatt charge (2304000W), reflecting its reliance on exotic <link=IngotPage><color=#0080FFFF>superalloys</color></link>."#,
+            value = "544617306"
+        )
+    )]
+    ItemBatteryCellNuclear = 544617306i32,
+    #[strum(
+        serialize = "ItemCornSoup",
+        props(
+            name = r#"Corn Soup"#,
+            desc = r#"Made using <link=ThingItemCookedCorn><color=green>Cooked Corn</color></link> and an <link=ThingItemEmptyCan><color=green>Empty Can</color></link> in a <link=ThingAppliancePackagingMachine><color=green>Basic Packaging Machine</color></link> or <link=ThingStructureAdvancedPackagingMachine><color=green>Advanced Packaging Machine</color></link>. Faily high in nutrition, canned food does not <link=DecayPage><color=#0080FFFF>decay</color></link>."#,
+            value = "545034114"
+        )
+    )]
+    ItemCornSoup = 545034114i32,
+    #[strum(
+        serialize = "StructureAdvancedFurnace",
+        props(
+            name = r#"Advanced Furnace"#,
+            desc = r#"The advanced furnace comes with integrated inlet and outlet pumps for controlling the unit's internal pressure."#,
+            value = "545937711"
+        )
+    )]
+    StructureAdvancedFurnace = 545937711i32,
+    #[strum(
+        serialize = "StructureLogicRocketUplink",
+        props(name = r#"Logic Uplink"#, desc = r#""#, value = "546002924")
+    )]
+    StructureLogicRocketUplink = 546002924i32,
+    #[strum(
+        serialize = "StructureLogicDial",
+        props(
+            name = r#"Dial"#,
+            desc = r#"An assignable dial with up to 1000 modes."#,
+            value = "554524804"
+        )
+    )]
+    StructureLogicDial = 554524804i32,
+    #[strum(
+        serialize = "StructureLightLongWide",
+        props(name = r#"Wall Light (Long Wide)"#, desc = r#""#, value = "555215790")
+    )]
+    StructureLightLongWide = 555215790i32,
+    #[strum(
+        serialize = "StructureProximitySensor",
+        props(
+            name = r#"Proximity Sensor"#,
+            desc = r#"Will be triggered if there is a player in the range of the sensor (as defined by the setting dial). The quantity variable will show the number of players. You can configure the sensor to only detect players who hold the correct Access Card using a <link=ThingCartridgeAccessController><color=green>Cartridge (Access Controller)</color></link> in a <link=ThingItemTablet><color=green>Handheld Tablet</color></link>."#,
+            value = "568800213"
+        )
+    )]
+    StructureProximitySensor = 568800213i32,
+    #[strum(
+        serialize = "AccessCardYellow",
+        props(name = r#"Access Card (Yellow)"#, desc = r#""#, value = "568932536")
+    )]
+    AccessCardYellow = 568932536i32,
+    #[strum(
+        serialize = "StructureDiodeSlide",
+        props(name = r#"Diode Slide"#, desc = r#""#, value = "576516101")
+    )]
+    StructureDiodeSlide = 576516101i32,
+    #[strum(
+        serialize = "ItemKitSecurityPrinter",
+        props(name = r#"Kit (Security Printer)"#, desc = r#""#, value = "578078533")
+    )]
+    ItemKitSecurityPrinter = 578078533i32,
+    #[strum(
+        serialize = "ItemKitCentrifuge",
+        props(name = r#"Kit (Centrifuge)"#, desc = r#""#, value = "578182956")
+    )]
+    ItemKitCentrifuge = 578182956i32,
+    #[strum(
+        serialize = "DynamicHydroponics",
+        props(name = r#"Portable Hydroponics"#, desc = r#""#, value = "587726607")
+    )]
+    DynamicHydroponics = 587726607i32,
+    #[strum(
+        serialize = "ItemKitPipeUtilityLiquid",
+        props(
+            name = r#"Kit (Pipe Utility Liquid)"#,
+            desc = r#""#,
+            value = "595478589"
+        )
+    )]
+    ItemKitPipeUtilityLiquid = 595478589i32,
     #[strum(
         serialize = "StructureCompositeFloorGrating4",
         props(
@@ -1677,14 +6497,557 @@ The chute outlet is an aperture for exiting items from <link=ImportExportPage><c
     )]
     StructureCompositeFloorGrating4 = 600133846i32,
     #[strum(
-        serialize = "StructureCompositeFloorGratingOpen",
+        serialize = "StructureCableStraight",
         props(
-            name = r#"Composite Floor Grating Open"#,
-            desc = r#""#,
-            value = "2109695912"
+            name = r#"Cable (Straight)"#,
+            desc = r#"Carrying power and data alike, cable coil has come to symbolize the innovation, independence and flexibility of <link=Stationeers><color=#0080FFFF>Stationeer</color></link> life - so much so, the <link=ODA><color=#0080FFFF>ODA</color></link> designated it an official <link=ToolPage><color=#0080FFFF>'tool'</color></link>.
+Normal coil has a maximum wattage of 5kW. For higher-current applications, use <link=ThingItemCableCoilHeavy><color=green>Cable Coil (Heavy)</color></link>."#,
+            value = "605357050"
         )
     )]
-    StructureCompositeFloorGratingOpen = 2109695912i32,
+    StructureCableStraight = 605357050i32,
+    #[strum(
+        serialize = "StructureLiquidTankSmallInsulated",
+        props(
+            name = r#"Insulated Liquid Tank Small"#,
+            desc = r#""#,
+            value = "608607718"
+        )
+    )]
+    StructureLiquidTankSmallInsulated = 608607718i32,
+    #[strum(
+        serialize = "ItemKitWaterPurifier",
+        props(name = r#"Kit (Water Purifier)"#, desc = r#""#, value = "611181283")
+    )]
+    ItemKitWaterPurifier = 611181283i32,
+    #[strum(
+        serialize = "ItemKitLiquidTankInsulated",
+        props(
+            name = r#"Kit (Insulated Liquid Tank)"#,
+            desc = r#""#,
+            value = "617773453"
+        )
+    )]
+    ItemKitLiquidTankInsulated = 617773453i32,
+    #[strum(
+        serialize = "StructureWallSmallPanelsAndHatch",
+        props(
+            name = r#"Wall (Small Panels And Hatch)"#,
+            desc = r#""#,
+            value = "619828719"
+        )
+    )]
+    StructureWallSmallPanelsAndHatch = 619828719i32,
+    #[strum(
+        serialize = "ItemGasFilterNitrogen",
+        props(
+            name = r#"Filter (Nitrogen)"#,
+            desc = r#"Filters are used to capture various gases, which can be disposed of or used elsewhere. <link=GasNitrogen><color=#44AD83>Nitrogen</color></link> is a byproduct of smelting various ores, notably <link=ThingItemNitrice><color=green>Ice (Nitrice)</color></link>, which may be combined with <link=GasOxygen><color=#44AD83>Oxygen</color></link> to make a breathable - and considerably less flammable - atmosphere."#,
+            value = "632853248"
+        )
+    )]
+    ItemGasFilterNitrogen = 632853248i32,
+    #[strum(
+        serialize = "ReagentColorYellow",
+        props(name = r#"Color Dye (Yellow)"#, desc = r#""#, value = "635208006")
+    )]
+    ReagentColorYellow = 635208006i32,
+    #[strum(
+        serialize = "StructureWallPadding",
+        props(name = r#"Wall (Padding)"#, desc = r#""#, value = "635995024")
+    )]
+    StructureWallPadding = 635995024i32,
+    #[strum(
+        serialize = "ItemKitPassthroughHeatExchanger",
+        props(
+            name = r#"Kit (CounterFlow Heat Exchanger)"#,
+            desc = r#""#,
+            value = "636112787"
+        )
+    )]
+    ItemKitPassthroughHeatExchanger = 636112787i32,
+    #[strum(
+        serialize = "StructureChuteDigitalValveLeft",
+        props(
+            name = r#"Chute Digital Valve Left"#,
+            desc = r#"The Digital Chute Valve will stop the flow of materials when set to closed and when set to open, will act like a straight chute. The valve will automatically close after a certain number of items have passed through. This threshold can be set using the dial."#,
+            value = "648608238"
+        )
+    )]
+    StructureChuteDigitalValveLeft = 648608238i32,
+    #[strum(
+        serialize = "ItemRocketMiningDrillHeadHighSpeedIce",
+        props(
+            name = r#"Mining-Drill Head (High Speed Ice)"#,
+            desc = r#""#,
+            value = "653461728"
+        )
+    )]
+    ItemRocketMiningDrillHeadHighSpeedIce = 653461728i32,
+    #[strum(
+        serialize = "ItemWreckageStructureWeatherStation007",
+        props(
+            name = r#"Wreckage Structure Weather Station"#,
+            desc = r#""#,
+            value = "656649558"
+        )
+    )]
+    ItemWreckageStructureWeatherStation007 = 656649558i32,
+    #[strum(
+        serialize = "ItemRice",
+        props(
+            name = r#"Rice"#,
+            desc = r#"Rice grows at a moderate rate as long as its supplied with plenty of water.  Being more dependant on water, rice plants can easily die during periods of drought."#,
+            value = "658916791"
+        )
+    )]
+    ItemRice = 658916791i32,
+    #[strum(
+        serialize = "ItemPlasticSheets",
+        props(name = r#"Plastic Sheets"#, desc = r#""#, value = "662053345")
+    )]
+    ItemPlasticSheets = 662053345i32,
+    #[strum(
+        serialize = "ItemKitTransformerSmall",
+        props(name = r#"Kit (Transformer Small)"#, desc = r#""#, value = "665194284")
+    )]
+    ItemKitTransformerSmall = 665194284i32,
+    #[strum(
+        serialize = "StructurePipeLiquidStraight",
+        props(
+            name = r#"Liquid Pipe (Straight)"#,
+            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeLiquidStraight><color=green>Insulated Liquid Pipe (Straight)</color></link> using an <link=ThingItemKitInsulatedLiquidPipe><color=green>Kit (Insulated Liquid Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
+            value = "667597982"
+        )
+    )]
+    StructurePipeLiquidStraight = 667597982i32,
+    #[strum(
+        serialize = "ItemSpaceIce",
+        props(name = r#"Space Ice"#, desc = r#""#, value = "675686937")
+    )]
+    ItemSpaceIce = 675686937i32,
+    #[strum(
+        serialize = "ItemRemoteDetonator",
+        props(name = r#"Remote Detonator"#, desc = r#""#, value = "678483886")
+    )]
+    ItemRemoteDetonator = 678483886i32,
+    #[strum(
+        serialize = "ItemKitAirlockGate",
+        props(name = r#"Kit (Hangar Door)"#, desc = r#""#, value = "682546947")
+    )]
+    ItemKitAirlockGate = 682546947i32,
+    #[strum(
+        serialize = "ItemScrewdriver",
+        props(
+            name = r#"Screwdriver"#,
+            desc = r#"This standard issue frictional adherence adjustor is a top of the line, bi-rotational model with a columnated uni-grip. It's definitely not just a screwdriver. Use it for construction and deconstruction of certain kits, and setting values on <link=LogicUnitPage><color=#0080FFFF>logic</color></link> units."#,
+            value = "687940869"
+        )
+    )]
+    ItemScrewdriver = 687940869i32,
+    #[strum(
+        serialize = "ItemTomatoSoup",
+        props(
+            name = r#"Tomato Soup"#,
+            desc = r#"Made using <link=ThingItemCookedTomato><color=green>Cooked Tomato</color></link>s and an <link=ThingItemEmptyCan><color=green>Empty Can</color></link> in a <link=ThingAppliancePackagingMachine><color=green>Basic Packaging Machine</color></link> or <link=ThingStructureAdvancedPackagingMachine><color=green>Advanced Packaging Machine</color></link>."#,
+            value = "688734890"
+        )
+    )]
+    ItemTomatoSoup = 688734890i32,
+    #[strum(
+        serialize = "StructureCentrifuge",
+        props(
+            name = r#"Centrifuge"#,
+            desc = r#"If a <link=ThingStructureRecycler><color=green>Recycler</color></link> or unbalanced <link=ThingStructureFurnace><color=green>Furnace</color></link> outputs <link=ReagentPage><color=#0080FFFF>reagent</color></link> mixture rather than the desired <link=IngotPage><color=#0080FFFF>ingots</color></link>, a centrifuge allows you to reclaim the raw <link=OrePage><color=#0080FFFF>ore</color></link>. 
+        It also refines <link=ThingItemDirtyOre><color=green>Dirty Ore</color></link> produced from the <link=ThingStructureDeepMiner><color=green>Deep Miner</color></link> and <link=ThingItemSpaceOre><color=green>Dirty Ore</color></link> produced from the <link=ThingStructureRocketMiner><color=green>Rocket Miner</color></link>. 
+        Its bigger brother <link=ThingStructureCombustionCentrifuge><color=green>Combustion Centrifuge</color></link> can be used to process items significantly faster. Items processed by the centrifuge will be de-gassed. 
+        If openned while powered on, the centrifuge will enter an errored state and reduce its rpm to 0 and then export any items."#,
+            value = "690945935"
+        )
+    )]
+    StructureCentrifuge = 690945935i32,
+    #[strum(
+        serialize = "StructureBlockBed",
+        props(
+            name = r#"Block Bed"#,
+            desc = r#"Description coming."#,
+            value = "697908419"
+        )
+    )]
+    StructureBlockBed = 697908419i32,
+    #[strum(
+        serialize = "ItemBatteryCell",
+        props(
+            name = r#"Battery Cell (Small)"#,
+            desc = r#"Harnessing a design pioneered in the early 21st century, the small battery cell is the <link=Stationeers><color=#0080FFFF>Stationeer's</color></link> basic unit of portable electrical power. While it lacks the charge of a <link=ThingItemBatteryCellLarge><color=green>Battery Cell (Large)</color></link> or <link=ThingItemBatteryCellNuclear><color=green>Battery Cell (Nuclear)</color></link>, it has the humble advantage of being fabricated from basic resources.
+
+<size=120%><b>POWER OUTPUT</b></size>
+The small cell stores up to 36000 watts of power."#,
+            value = "700133157"
+        )
+    )]
+    ItemBatteryCell = 700133157i32,
+    #[strum(
+        serialize = "ItemSpaceHelmet",
+        props(
+            name = r#"Space Helmet"#,
+            desc = r#"The basic space helmet insulates <link=Stationeers><color=#0080FFFF>Stationeers</color></link> against everything from hard vacuum to weird cooking smells. Providing a pressure-controlled, breathable atmosphere, it comes with a built-in light powered by your <link=ThingItemEvaSuit><color=green>Eva Suit</color></link> <link=ThingItemBatteryCell><color=green>Battery Cell (Small)</color></link>.
+It also incorporates a lock/unlock feature to avoid accidental opening, as well as a flush function to expel and replace the internal atmosphere. If damaged, use <link=ThingItemDuctTape><color=green>Duct Tape</color></link> to fix it, or paint it any color you like using the <link=ThingAppliancePaintMixer><color=green>Paint Mixer</color></link>."#,
+            value = "714830451"
+        )
+    )]
+    ItemSpaceHelmet = 714830451i32,
+    #[strum(
+        serialize = "StructureCompositeWall02",
+        props(name = r#"Composite Wall (Type 2)"#, desc = r#""#, value = "718343384")
+    )]
+    StructureCompositeWall02 = 718343384i32,
+    #[strum(
+        serialize = "ItemKitRocketCircuitHousing",
+        props(
+            name = r#"Kit (Rocket Circuit Housing)"#,
+            desc = r#""#,
+            value = "721251202"
+        )
+    )]
+    ItemKitRocketCircuitHousing = 721251202i32,
+    #[strum(
+        serialize = "ItemKitResearchMachine",
+        props(name = r#"Kit Research Machine"#, desc = r#""#, value = "724776762")
+    )]
+    ItemKitResearchMachine = 724776762i32,
+    #[strum(
+        serialize = "ItemElectronicParts",
+        props(name = r#"Electronic Parts"#, desc = r#""#, value = "731250882")
+    )]
+    ItemElectronicParts = 731250882i32,
+    #[strum(
+        serialize = "ItemKitShower",
+        props(name = r#"Kit (Shower)"#, desc = r#""#, value = "735858725")
+    )]
+    ItemKitShower = 735858725i32,
+    #[strum(
+        serialize = "StructureUnloader",
+        props(
+            name = r#"Unloader"#,
+            desc = r#"The <link=Xigo><color=#0080FFFF>Xigo</color></link> Re:Gurge is a handy unit for unloading any items inserted into it, and feeding them into a chute network. For instance, if you add a full <link=ThingItemMiningBelt><color=green>Mining Belt</color></link>, the Re:Gurge will empty a mining belt of its contents, insert them into the chute network, then insert the mining belt itself. A <link=ThingStructureSorter><color=green>Sorter</color></link> is recommended to reclaim the mining belt.
+
+Output = 0 exporting the main item
+Output = 1 exporting items inside and eventually the main item."#,
+            value = "750118160"
+        )
+    )]
+    StructureUnloader = 750118160i32,
+    #[strum(
+        serialize = "ItemKitRailing",
+        props(name = r#"Kit (Railing)"#, desc = r#""#, value = "750176282")
+    )]
+    ItemKitRailing = 750176282i32,
+    #[strum(
+        serialize = "ItemResearchCapsuleYellow",
+        props(name = r#"Research Capsule Yellow"#, desc = r#""#, value = "750952701")
+    )]
+    ItemResearchCapsuleYellow = 750952701i32,
+    #[strum(
+        serialize = "StructureFridgeSmall",
+        props(
+            name = r#"Fridge Small"#,
+            desc = r#"Essentially a heavily insulated box that allows users to pipe in any desired atmosphere, the <link=Recurso><color=#0080FFFF>Recurso</color></link> Minibar fridge was a simple solution to the problem of <link=NutritionPage><color=#0080FFFF>food decay</color></link>. It stores a small number of items, at any temperature you can muster.
+      
+      For more information about food preservation, visit the <link=DecayPage><color=#0080FFFF>food decay</color></link> section of the Stationpedia."#,
+            value = "751887598"
+        )
+    )]
+    StructureFridgeSmall = 751887598i32,
+    #[strum(
+        serialize = "DynamicScrubber",
+        props(
+            name = r#"Portable Air Scrubber"#,
+            desc = r#"A portable scrubber does just what it sounds like: removes specific substances from the air. For instance, attaching a <link=ThingItemGasFilterCarbonDioxide><color=green>Filter (Carbon Dioxide)</color></link> will pull <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> from the surrounding atmosphere. Note that the scrubber has room for one battery and two filters, which will double its operating speed. Neat. When it reaches an internal pressure of 8106kPA, an error signal will flash on the switch, indicating it needs to be emptied. Either vent it directly, or attach it to a pipe network via a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
+            value = "755048589"
+        )
+    )]
+    DynamicScrubber = 755048589i32,
+    #[strum(
+        serialize = "ItemKitEngineLarge",
+        props(name = r#"Kit (Engine Large)"#, desc = r#""#, value = "755302726")
+    )]
+    ItemKitEngineLarge = 755302726i32,
+    #[strum(
+        serialize = "ItemKitTank",
+        props(name = r#"Kit (Tank)"#, desc = r#""#, value = "771439840")
+    )]
+    ItemKitTank = 771439840i32,
+    #[strum(
+        serialize = "ItemLiquidCanisterSmart",
+        props(
+            name = r#"Liquid Canister (Smart)"#,
+            desc = r#"0.Mode0
+1.Mode1"#,
+            value = "777684475"
+        )
+    )]
+    ItemLiquidCanisterSmart = 777684475i32,
+    #[strum(
+        serialize = "StructureWallArchTwoTone",
+        props(name = r#"Wall (Arch Two Tone)"#, desc = r#""#, value = "782529714")
+    )]
+    StructureWallArchTwoTone = 782529714i32,
+    #[strum(
+        serialize = "ItemAuthoringTool",
+        props(name = r#"Authoring Tool"#, desc = r#""#, value = "789015045")
+    )]
+    ItemAuthoringTool = 789015045i32,
+    #[strum(
+        serialize = "WeaponEnergy",
+        props(name = r#"Weapon Energy"#, desc = r#""#, value = "789494694")
+    )]
+    WeaponEnergy = 789494694i32,
+    #[strum(
+        serialize = "ItemCerealBar",
+        props(
+            name = r#"Cereal Bar"#,
+            desc = r#"Sustains, without decay. If only all our relationships were so well balanced."#,
+            value = "791746840"
+        )
+    )]
+    ItemCerealBar = 791746840i32,
+    #[strum(
+        serialize = "StructureLargeDirectHeatExchangeLiquidtoLiquid",
+        props(
+            name = r#"Large Direct Heat Exchange - Liquid + Liquid"#,
+            desc = r#"Direct Heat Exchangers equalize the temperature of the two input networks."#,
+            value = "792686502"
+        )
+    )]
+    StructureLargeDirectHeatExchangeLiquidtoLiquid = 792686502i32,
+    #[strum(
+        serialize = "StructureLightLong",
+        props(name = r#"Wall Light (Long)"#, desc = r#""#, value = "797794350")
+    )]
+    StructureLightLong = 797794350i32,
+    #[strum(
+        serialize = "StructureWallIron03",
+        props(name = r#"Iron Wall (Type 3)"#, desc = r#""#, value = "798439281")
+    )]
+    StructureWallIron03 = 798439281i32,
+    #[strum(
+        serialize = "ItemPipeValve",
+        props(
+            name = r#"Kit (Pipe Valve)"#,
+            desc = r#"This kit creates a <link=ThingStructureValve><color=green>Valve</color></link>."#,
+            value = "799323450"
+        )
+    )]
+    ItemPipeValve = 799323450i32,
+    #[strum(
+        serialize = "StructureConsoleMonitor",
+        props(
+            name = r#"Console Monitor"#,
+            desc = r#"This <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> control box manages devices such as the <link=ThingStructureActiveVent><color=green>Active Vent</color></link>, <link=ThingStructurePassiveVent><color=green>Passive Vent</color></link>, <link=ThingStructureGasSensor><color=green>Gas Sensor</color></link>, <link=ThingItemSecurityCamera><color=green>Security Camera</color></link> and <link=ThingStructureCompositeDoor><color=green>Composite Door</color></link>, depending on which <link=LogicPage><color=#0080FFFF>circuitboard</color></link> is inserted into the unit. It has a shared data/power port, and a charming sloped interface.
+A completed console displays all devices connected to the current power network. Any devices not related to the installed circuitboard will be greyed-out and inoperable. Consoles are locked once a <link=ThingItemDataDisk><color=green>Data Disk</color></link> is removed."#,
+            value = "801677497"
+        )
+    )]
+    StructureConsoleMonitor = 801677497i32,
+    #[strum(
+        serialize = "StructureRover",
+        props(name = r#"Rover Frame"#, desc = r#""#, value = "806513938")
+    )]
+    StructureRover = 806513938i32,
+    #[strum(
+        serialize = "StructureRocketAvionics",
+        props(name = r#"Rocket Avionics"#, desc = r#""#, value = "808389066")
+    )]
+    StructureRocketAvionics = 808389066i32,
+    #[strum(
+        serialize = "UniformOrangeJumpSuit",
+        props(name = r#"Jump Suit (Orange)"#, desc = r#""#, value = "810053150")
+    )]
+    UniformOrangeJumpSuit = 810053150i32,
+    #[strum(
+        serialize = "StructureSolidFuelGenerator",
+        props(
+            name = r#"Generator (Solid Fuel)"#,
+            desc = r#"The mainstay of power generation for Stationeers, this device provides 20kW of power. Multiple solid resources can be loaded. While operating, the device will output its maximum power regardless of whether you have captured it or not. Watch for blown wires! It will output much more power than your regular <link=ThingItemCableCoil><color=green>Cable Coil</color></link> can handle."#,
+            value = "813146305"
+        )
+    )]
+    StructureSolidFuelGenerator = 813146305i32,
+    #[strum(
+        serialize = "Landingpad_GasConnectorInwardPiece",
+        props(name = r#"Landingpad Gas Input"#, desc = r#""#, value = "817945707")
+    )]
+    LandingpadGasConnectorInwardPiece = 817945707i32,
+    #[strum(
+        serialize = "ItemResearchCapsule",
+        props(name = r#"Research Capsule Blue"#, desc = r#""#, value = "819096942")
+    )]
+    ItemResearchCapsule = 819096942i32,
+    #[strum(
+        serialize = "StructureElevatorShaft",
+        props(name = r#"Elevator Shaft (Cabled)"#, desc = r#""#, value = "826144419")
+    )]
+    StructureElevatorShaft = 826144419i32,
+    #[strum(
+        serialize = "StructureTransformerMediumReversed",
+        props(
+            name = r#"Transformer Reversed (Medium)"#,
+            desc = r#"Transformers control the maximum power that will flow down a sub-network of cables, to prevent overloading <link=ElectronicPage><color=#0080FFFF>electrical</color></link> systems. 
+Medium transformers are used in larger setups where more than 5000W is required, with output that can be set to a maximum of 25000W.
+Note that transformers also operate as data isolators, preventing data flowing into any network beyond it."#,
+            value = "833912764"
+        )
+    )]
+    StructureTransformerMediumReversed = 833912764i32,
+    #[strum(
+        serialize = "StructureFlatBench",
+        props(name = r#"Bench (Flat)"#, desc = r#""#, value = "839890807")
+    )]
+    StructureFlatBench = 839890807i32,
+    #[strum(
+        serialize = "ItemPowerConnector",
+        props(
+            name = r#"Kit (Power Connector)"#,
+            desc = r#"This kit creates a <link=ThingStructurePowerConnector><color=green>Power Connector</color></link>."#,
+            value = "839924019"
+        )
+    )]
+    ItemPowerConnector = 839924019i32,
+    #[strum(
+        serialize = "ItemKitHorizontalAutoMiner",
+        props(name = r#"Kit (OGRE)"#, desc = r#""#, value = "844391171")
+    )]
+    ItemKitHorizontalAutoMiner = 844391171i32,
+    #[strum(
+        serialize = "ItemKitSolarPanelBasic",
+        props(name = r#"Kit (Solar Panel Basic)"#, desc = r#""#, value = "844961456")
+    )]
+    ItemKitSolarPanelBasic = 844961456i32,
+    #[strum(
+        serialize = "ItemSprayCanBrown",
+        props(
+            name = r#"Spray Paint (Brown)"#,
+            desc = r#"In more artistic <link=Stationeers><color=#0080FFFF>Stationeers</color></link> circles, the absence of brown is often lamented, but seldom changed."#,
+            value = "845176977"
+        )
+    )]
+    ItemSprayCanBrown = 845176977i32,
+    #[strum(
+        serialize = "ItemKitLargeExtendableRadiator",
+        props(
+            name = r#"Kit (Large Extendable Radiator)"#,
+            desc = r#""#,
+            value = "847430620"
+        )
+    )]
+    ItemKitLargeExtendableRadiator = 847430620i32,
+    #[strum(
+        serialize = "StructureInteriorDoorPadded",
+        props(
+            name = r#"Interior Door Padded"#,
+            desc = r#"0.Operate
+1.Logic"#,
+            value = "847461335"
+        )
+    )]
+    StructureInteriorDoorPadded = 847461335i32,
+    #[strum(
+        serialize = "ItemKitRecycler",
+        props(name = r#"Kit (Recycler)"#, desc = r#""#, value = "849148192")
+    )]
+    ItemKitRecycler = 849148192i32,
+    #[strum(
+        serialize = "StructureCompositeCladdingAngledCornerLong",
+        props(
+            name = r#"Composite Cladding (Long Angled Corner)"#,
+            desc = r#""#,
+            value = "850558385"
+        )
+    )]
+    StructureCompositeCladdingAngledCornerLong = 850558385i32,
+    #[strum(
+        serialize = "ItemPlantEndothermic_Genepool1",
+        props(
+            name = r#"Winterspawn (Alpha variant)"#,
+            desc = r#"<link=Agrizero><color=#0080FFFF>Agrizero's</color></link> Winterspawn atmospheric bio-processor is a recent addition to their catalog of genespliced environmental decorations. Using ambient heat to split <link=GasWater><color=#44AD83>Water</color></link> into <link=GasVolatiles><color=#44AD83>Volatiles</color></link> and <link=GasOxygen><color=#44AD83>Oxygen</color></link>, the Winterspawn cools its surroundings, when supplied with sufficient <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>. The alpha variant has a peak cooling and electrolysis capacity of 90Watts and is most efficient operating in air temperatures of 0 to 40 Degrees Celsius."#,
+            value = "851290561"
+        )
+    )]
+    ItemPlantEndothermicGenepool1 = 851290561i32,
+    #[strum(
+        serialize = "CircuitboardDoorControl",
+        props(
+            name = r#"Door Control"#,
+            desc = r#"A basic tool of <link=Stationeers><color=#0080FFFF>Stationeer</color></link> base construction, this circuit board provides a way to open and close a <link=ThingStructureCompositeDoor><color=green>Composite Door</color></link>, <link=ThingStructureBlastDoor><color=green>Blast Door</color></link> or <link=ThingStructureGlassDoor><color=green>Glass Door</color></link> remotely, when connected to a <link=ThingStructureConsole><color=green>Console</color></link>. This system can be further linked to <link=ThingStructureMotionSensor><color=green>Motion Sensor</color></link> to create automatic doors."#,
+            value = "855694771"
+        )
+    )]
+    CircuitboardDoorControl = 855694771i32,
+    #[strum(
+        serialize = "ItemCrowbar",
+        props(
+            name = r#"Crowbar"#,
+            desc = r#"<link=Recurso><color=#0080FFFF>Recurso's</color></link> entry-level crowbar is useful in a variety of everyday <link=Stationeers><color=#0080FFFF>Stationeer</color></link> settings, from opening <link=ThingStructureAreaPowerControl><color=green>Area Power Control</color></link>s and unpowered <link=ThingStructureAirlock><color=green>Airlock</color></link>s, to splatting pan-dimensional headcrabs, should the need arise."#,
+            value = "856108234"
+        )
+    )]
+    ItemCrowbar = 856108234i32,
+    #[strum(
+        serialize = "Rover_MkI_build_states",
+        props(name = r#"Rover MKI"#, desc = r#""#, value = "861674123")
+    )]
+    RoverMkIBuildStates = 861674123i32,
+    #[strum(
+        serialize = "AppliancePlantGeneticStabilizer",
+        props(
+            name = r#"Plant Genetic Stabilizer"#,
+            desc = r#"The Genetic Stabilizer can be used to manipulate gene stability on a specific <link=OrganicPage><color=#0080FFFF>Plants</color></link> or <link=OrganicPage><color=#0080FFFF>Seeds</color></link>. It has two modes Stabilize and Destabilize.
+Stabilize: Increases all genes stability by 50%.
+Destabilize: Decreases all gene stability by 10% other than a chosen gene which will received decreased stability by 50%.
+      "#,
+            value = "871432335"
+        )
+    )]
+    AppliancePlantGeneticStabilizer = 871432335i32,
+    #[strum(
+        serialize = "ItemRoadFlare",
+        props(
+            name = r#"Road Flare"#,
+            desc = r#"Designed to burn anywhere in the Solar System, the EZC magnesium fusee supplies its own oxygen to fuel combustion, and dispel the eternal night of space."#,
+            value = "871811564"
+        )
+    )]
+    ItemRoadFlare = 871811564i32,
+    #[strum(
+        serialize = "CartridgeGuide",
+        props(name = r#"Guide"#, desc = r#""#, value = "872720793")
+    )]
+    CartridgeGuide = 872720793i32,
+    #[strum(
+        serialize = "StructureLogicSorter",
+        props(
+            name = r#"Logic Sorter"#,
+            desc = r#"Contains an Internal Memory which is assessed to check whether something should be sorted. When an item is in the <link=SlotImport><color=orange>Import</color></link> Slot, the stack is checked and if result is true the thing is moved to the <link=SlotExport2><color=orange>Export 2</color></link> slot, otherwise it is moved to the <link=SlotExport><color=orange>Export</color></link> slot. The Mode is used in how the stack is assessed, by default the mode is ALL, so every instruction in the stack would need to return true."#,
+            value = "873418029"
+        )
+    )]
+    StructureLogicSorter = 873418029i32,
+    #[strum(
+        serialize = "StructureLogicRocketDownlink",
+        props(name = r#"Logic Rocket Downlink"#, desc = r#""#, value = "876108549")
+    )]
+    StructureLogicRocketDownlink = 876108549i32,
+    #[strum(
+        serialize = "StructureSign1x1",
+        props(name = r#"Sign 1x1"#, desc = r#""#, value = "879058460")
+    )]
+    StructureSign1X1 = 879058460i32,
+    #[strum(
+        serialize = "ItemKitLocker",
+        props(name = r#"Kit (Locker)"#, desc = r#""#, value = "882301399")
+    )]
+    ItemKitLocker = 882301399i32,
     #[strum(
         serialize = "StructureCompositeFloorGratingOpenRotated",
         props(
@@ -1694,6 +7057,788 @@ The chute outlet is an aperture for exiting items from <link=ImportExportPage><c
         )
     )]
     StructureCompositeFloorGratingOpenRotated = 882307910i32,
+    #[strum(
+        serialize = "StructureWaterPurifier",
+        props(
+            name = r#"Water Purifier"#,
+            desc = r#"Cleans <link=GasPollutedWater><color=#44AD83>Polluted Water</color></link> and outputs <link=GasWater><color=#44AD83>Water</color></link>. The purification process requires <link=ThingItemCharcoal><color=green>Charcoal</color></link> which can be added to the machine via the import bin. The procesing throughput can be improved by increasing the gas pressure of the input pipe relative to the gas pressure of the output pipe."#,
+            value = "887383294"
+        )
+    )]
+    StructureWaterPurifier = 887383294i32,
+    #[strum(
+        serialize = "ItemIgniter",
+        props(
+            name = r#"Kit (Igniter)"#,
+            desc = r#"This kit creates an <link=ThingItemIgniter><color=green>Kit (Igniter)</color></link> unit."#,
+            value = "890106742"
+        )
+    )]
+    ItemIgniter = 890106742i32,
+    #[strum(
+        serialize = "ItemFern",
+        props(
+            name = r#"Fern"#,
+            desc = r#"There was a time, when Stationeers had to make <link=ThingReagentFenoxitone><color=green>Fenoxitone Powder</color></link> using the <link=ThingApplianceReagentProcessor><color=green>Reagent Processor</color></link>. Recent advances in technology allow you to use equivalent quantities of fern directly in recipes."#,
+            value = "892110467"
+        )
+    )]
+    ItemFern = 892110467i32,
+    #[strum(
+        serialize = "ItemBreadLoaf",
+        props(name = r#"Bread Loaf"#, desc = r#""#, value = "893514943")
+    )]
+    ItemBreadLoaf = 893514943i32,
+    #[strum(
+        serialize = "StructureCableJunction5",
+        props(name = r#"Cable (5-Way Junction)"#, desc = r#""#, value = "894390004")
+    )]
+    StructureCableJunction5 = 894390004i32,
+    #[strum(
+        serialize = "ItemInsulation",
+        props(
+            name = r#"Insulation"#,
+            desc = r#"Mysterious in the extreme, the function of this item is lost to the ages."#,
+            value = "897176943"
+        )
+    )]
+    ItemInsulation = 897176943i32,
+    #[strum(
+        serialize = "StructureWallFlatCornerRound",
+        props(
+            name = r#"Wall (Flat Corner Round)"#,
+            desc = r#""#,
+            value = "898708250"
+        )
+    )]
+    StructureWallFlatCornerRound = 898708250i32,
+    #[strum(
+        serialize = "ItemHardMiningBackPack",
+        props(name = r#"Hard Mining Backpack"#, desc = r#""#, value = "900366130")
+    )]
+    ItemHardMiningBackPack = 900366130i32,
+    #[strum(
+        serialize = "ItemDirtCanister",
+        props(
+            name = r#"Dirt Canister"#,
+            desc = r#"A container the will fill with Dirt when using a <link=ThingItemMiningDrill><color=green>Mining Drill</color></link> when placed inside a <link=ThingItemMiningBelt><color=green>Mining Belt</color></link>. You can then use this <link=SlotDirtCanister><color=orange>Dirt Canister</color></link> with the <link=ThingItemTerrainManipulator><color=green>Terrain Manipulator</color></link> to adjust the terrain to suit your needs."#,
+            value = "902565329"
+        )
+    )]
+    ItemDirtCanister = 902565329i32,
+    #[strum(
+        serialize = "StructureSign2x1",
+        props(name = r#"Sign 2x1"#, desc = r#""#, value = "908320837")
+    )]
+    StructureSign2X1 = 908320837i32,
+    #[strum(
+        serialize = "CircuitboardAirlockControl",
+        props(
+            name = r#"Airlock"#,
+            desc = r#"Rumored to have been first sketched on a <link=Norsec><color=#0080FFFF>Norsec</color></link> toilet wall by a disgruntled engineer, the Exgress airlock control circuit board’s versatility and ease of fabrication has made it the <link=Stationeers><color=#0080FFFF>Stationeers</color></link> control system of choice for <link=ThingStructureAirlock><color=green>Airlock</color></link> cycling protocols. 
+
+To enter setup mode, insert the board into a <link=ThingStructureConsole><color=green>Console</color></link> along with a data disk. In this mode, you can see all data-accessible objects currently connected to the <link=ThingStructureConsole><color=green>Console</color></link>. Doors, lights, gas sensors and slave consoles can be selected (highlighted green), and will be controlled once the data disk is removed."#,
+            value = "912176135"
+        )
+    )]
+    CircuitboardAirlockControl = 912176135i32,
+    #[strum(
+        serialize = "Landingpad_BlankPiece",
+        props(name = r#"Landingpad"#, desc = r#""#, value = "912453390")
+    )]
+    LandingpadBlankPiece = 912453390i32,
+    #[strum(
+        serialize = "ItemKitPipeRadiator",
+        props(name = r#"Kit (Pipe Radiator)"#, desc = r#""#, value = "920411066")
+    )]
+    ItemKitPipeRadiator = 920411066i32,
+    #[strum(
+        serialize = "StructureLogicMinMax",
+        props(
+            name = r#"Logic Min/Max"#,
+            desc = r#"0.Greater
+1.Less"#,
+            value = "929022276"
+        )
+    )]
+    StructureLogicMinMax = 929022276i32,
+    #[strum(
+        serialize = "StructureSolarPanel45Reinforced",
+        props(
+            name = r#"Solar Panel (Heavy Angled)"#,
+            desc = r#"This solar panel is resistant to storm damage."#,
+            value = "930865127"
+        )
+    )]
+    StructureSolarPanel45Reinforced = 930865127i32,
+    #[strum(
+        serialize = "StructurePoweredVent",
+        props(
+            name = r#"Powered Vent"#,
+            desc = r#"Great for moving large quantities of air into a pipe network. Its primary purpose is for the creation of multi-grid airlocks. It can effeciently pull a vacuum on a small to medium sized room."#,
+            value = "938836756"
+        )
+    )]
+    StructurePoweredVent = 938836756i32,
+    #[strum(
+        serialize = "ItemPureIceHydrogen",
+        props(
+            name = r#"Pure Ice Hydrogen"#,
+            desc = r#"A frozen chunk of pure <link=GasHydrogen><color=#44AD83>Hydrogen</color></link>"#,
+            value = "944530361"
+        )
+    )]
+    ItemPureIceHydrogen = 944530361i32,
+    #[strum(
+        serialize = "StructureHeatExchangeLiquidtoGas",
+        props(
+            name = r#"Heat Exchanger - Liquid + Gas"#,
+            desc = r#"The original specs for the N Series Flow-P heat exchanger were rumored to have been scrawled on the back of a burger receipt by a bored <link=Sinotai><color=#0080FFFF>Sinotai</color></link> designer riding up the Brazilian space elevator, but that hasn't stopped it becoming one of the most widely-copied heat exchanger designs in the Solar System.
+The 'N Flow-P' has four connections, allowing you to pass separate liquid and gas networks into the unit, which then works to equalize temperature across the two separate networks.
+As the N Flow-P is a passive system, it equalizes pressure across the entire of each individual network, unless connected to devices like a <link=ThingStructureVolumePump><color=green>Volume Pump</color></link> or a <link=ThingStructureBackLiquidPressureRegulator><color=green>Liquid Back Volume Regulator</color></link>."#,
+            value = "944685608"
+        )
+    )]
+    StructureHeatExchangeLiquidtoGas = 944685608i32,
+    #[strum(
+        serialize = "StructureCompositeCladdingAngledCornerInnerLongL",
+        props(
+            name = r#"Composite Cladding (Angled Corner Inner Long L)"#,
+            desc = r#""#,
+            value = "947705066"
+        )
+    )]
+    StructureCompositeCladdingAngledCornerInnerLongL = 947705066i32,
+    #[strum(
+        serialize = "StructurePictureFrameThickMountLandscapeLarge",
+        props(
+            name = r#"Picture Frame Thick Landscape Large"#,
+            desc = r#""#,
+            value = "950004659"
+        )
+    )]
+    StructurePictureFrameThickMountLandscapeLarge = 950004659i32,
+    #[strum(
+        serialize = "ItemResearchCapsuleRed",
+        props(name = r#"Research Capsule Red"#, desc = r#""#, value = "954947943")
+    )]
+    ItemResearchCapsuleRed = 954947943i32,
+    #[strum(
+        serialize = "StructureTankSmallAir",
+        props(name = r#"Small Tank (Air)"#, desc = r#""#, value = "955744474")
+    )]
+    StructureTankSmallAir = 955744474i32,
+    #[strum(
+        serialize = "StructureHarvie",
+        props(
+            name = r#"Harvie"#,
+            desc = r#"Use above a <link=ThingStructureHydroponicsTray><color=green>Hydroponics Tray</color></link> or <link=ThingStructureHydroponicsTrayData><color=green>Hydroponics Device</color></link> to manage the planting and harvest of your crops. It contains a button that will allow you to activate it's modes, or connect it to a logic system to do this for you. The modes indicate current growth status of the plant below. Import is used for planting, and harvested plants are sent to export."#,
+            value = "958056199"
+        )
+    )]
+    StructureHarvie = 958056199i32,
+    #[strum(
+        serialize = "StructureFridgeBig",
+        props(
+            name = r#"Fridge (Large)"#,
+            desc = r#"The <link=Xigo><color=#0080FFFF>Xigo</color></link> Koolaid fridge is a self-cooling storage device with 15 slots that preserves food when powered and turned on. While many users have complained about the placement of the power switch, its place in the pantheon of off-world whiteware is unquestioned.
+      
+With its own permanent internal atmosphere, the Koolaid fridge slows the decay of <link=OrganicPage><color=#0080FFFF>food</color></link> by maintaining an optimal internal temperature. Its power usage varies on the external temperature against which it must balance its internal temperature. As such, it must shed heat to operate, so the Koolaid fridge DOES NOT work in a vacuum.
+      
+Also, don't leave the door open, as it will equalize with the current world temperature. And maybe start to beep.
+
+For more information about food preservation, visit the <link=DecayPage><color=#0080FFFF>food decay</color></link> section of the Stationpedia."#,
+            value = "958476921"
+        )
+    )]
+    StructureFridgeBig = 958476921i32,
+    #[strum(
+        serialize = "ItemKitAirlock",
+        props(name = r#"Kit (Airlock)"#, desc = r#""#, value = "964043875")
+    )]
+    ItemKitAirlock = 964043875i32,
+    #[strum(
+        serialize = "EntityRoosterBlack",
+        props(
+            name = r#"Entity Rooster Black"#,
+            desc = r#"This is a rooster. It is black. There is dignity in this."#,
+            value = "966959649"
+        )
+    )]
+    EntityRoosterBlack = 966959649i32,
+    #[strum(
+        serialize = "ItemKitSorter",
+        props(name = r#"Kit (Sorter)"#, desc = r#""#, value = "969522478")
+    )]
+    ItemKitSorter = 969522478i32,
+    #[strum(
+        serialize = "ItemEmergencyCrowbar",
+        props(name = r#"Emergency Crowbar"#, desc = r#""#, value = "976699731")
+    )]
+    ItemEmergencyCrowbar = 976699731i32,
+    #[strum(
+        serialize = "Landingpad_DiagonalPiece01",
+        props(
+            name = r#"Landingpad Diagonal"#,
+            desc = r#"Extends the size of the landing pad area. A basic trader shuttle requires a 3x3 clear landing area."#,
+            value = "977899131"
+        )
+    )]
+    LandingpadDiagonalPiece01 = 977899131i32,
+    #[strum(
+        serialize = "ReagentColorBlue",
+        props(name = r#"Color Dye (Blue)"#, desc = r#""#, value = "980054869")
+    )]
+    ReagentColorBlue = 980054869i32,
+    #[strum(
+        serialize = "StructureCableCorner3",
+        props(
+            name = r#"Cable (3-Way Corner)"#,
+            desc = r#"Carrying power and data alike, cable coil has come to symbolize the innovation, independence and flexibility of <link=Stationeers><color=#0080FFFF>Stationeer</color></link> life - so essential, the <link=ODA><color=#0080FFFF>ODA</color></link> designated it an official <link=ToolPage><color=#0080FFFF>'tool'</color></link> during the 3rd Decannual Stationeer Solar Conference.
+Normal coil has a maximum wattage of 5kW. For higher-current applications, use <link=ThingItemCableCoilHeavy><color=green>Cable Coil (Heavy)</color></link>."#,
+            value = "980469101"
+        )
+    )]
+    StructureCableCorner3 = 980469101i32,
+    #[strum(
+        serialize = "ItemNVG",
+        props(name = r#"Night Vision Goggles"#, desc = r#""#, value = "982514123")
+    )]
+    ItemNvg = 982514123i32,
+    #[strum(
+        serialize = "StructurePlinth",
+        props(name = r#"Plinth"#, desc = r#""#, value = "989835703")
+    )]
+    StructurePlinth = 989835703i32,
+    #[strum(
+        serialize = "ItemSprayCanYellow",
+        props(
+            name = r#"Spray Paint (Yellow)"#,
+            desc = r#"A caricature of light itself, yellow lacks the self-confidence of red, or the swagger of purple. It's less fun than orange, but less emotionally limp than khaki. It's hard to know when yellow is appropriate, but it persists as a primary color regardless. Suggesting that yellow gonna yellow, no matter what anyone thinks."#,
+            value = "995468116"
+        )
+    )]
+    ItemSprayCanYellow = 995468116i32,
+    #[strum(
+        serialize = "StructureRocketCelestialTracker",
+        props(
+            name = r#"Rocket Celestial Tracker"#,
+            desc = r#"The Celestial Tracker can be placed in Rockets and when turned on will provide data that can be used to orientate devices such as the <link=ThingStructureGroundBasedTelescope><color=green>Telescope</color></link>. The Horizontal and Vertical output is localized to the orientation of the tracker. You can calibrate your alignment by comparing the result for the primary body with the output from the <link=ThingStructureDaylightSensor><color=green>Daylight Sensor</color></link>. Full functionality will only be available in orbit, but you can configure using the primary body. For aligning with the telescope, have the face plate facing up and the cables facing in the same direction as for the telescope and the output values will be aligned."#,
+            value = "997453927"
+        )
+    )]
+    StructureRocketCelestialTracker = 997453927i32,
+    #[strum(
+        serialize = "ItemHighVolumeGasCanisterEmpty",
+        props(
+            name = r#"High Volume Gas Canister"#,
+            desc = r#""#,
+            value = "998653377"
+        )
+    )]
+    ItemHighVolumeGasCanisterEmpty = 998653377i32,
+    #[strum(
+        serialize = "ItemKitLogicTransmitter",
+        props(
+            name = r#"Kit (Logic Transmitter)"#,
+            desc = r#""#,
+            value = "1005397063"
+        )
+    )]
+    ItemKitLogicTransmitter = 1005397063i32,
+    #[strum(
+        serialize = "StructureIgniter",
+        props(
+            name = r#"Igniter"#,
+            desc = r#"It gets the party started. Especially if that party is an explosive gas mixture."#,
+            value = "1005491513"
+        )
+    )]
+    StructureIgniter = 1005491513i32,
+    #[strum(
+        serialize = "SeedBag_Potato",
+        props(
+            name = r#"Potato Seeds"#,
+            desc = r#"Grow a <link=ThingItemPotato><color=green>Potato</color></link>."#,
+            value = "1005571172"
+        )
+    )]
+    SeedBagPotato = 1005571172i32,
+    #[strum(
+        serialize = "ItemDataDisk",
+        props(name = r#"Data Disk"#, desc = r#""#, value = "1005843700")
+    )]
+    ItemDataDisk = 1005843700i32,
+    #[strum(
+        serialize = "ItemBatteryChargerSmall",
+        props(name = r#"Battery Charger Small"#, desc = r#""#, value = "1008295833")
+    )]
+    ItemBatteryChargerSmall = 1008295833i32,
+    #[strum(
+        serialize = "EntityChickenWhite",
+        props(
+            name = r#"Entity Chicken White"#,
+            desc = r#"It's a chicken, as white as moondust. It will eat soybeans, corn, and wheat, and lay eggs. Some will be fertilized, producing further chickens. Some will not."#,
+            value = "1010807532"
+        )
+    )]
+    EntityChickenWhite = 1010807532i32,
+    #[strum(
+        serialize = "ItemKitStacker",
+        props(name = r#"Kit (Stacker)"#, desc = r#""#, value = "1013244511")
+    )]
+    ItemKitStacker = 1013244511i32,
+    #[strum(
+        serialize = "StructureTankSmall",
+        props(name = r#"Small Tank"#, desc = r#""#, value = "1013514688")
+    )]
+    StructureTankSmall = 1013514688i32,
+    #[strum(
+        serialize = "ItemEmptyCan",
+        props(
+            name = r#"Empty Can"#,
+            desc = r#"Used for making soups when combined with food in the <link=ThingAppliancePackagingMachine><color=green>Basic Packaging Machine</color></link> or <link=ThingStructureAdvancedPackagingMachine><color=green>Advanced Packaging Machine</color></link>. Fairly high in nutrition, canned food does not <link=DecayPage><color=#0080FFFF>decay</color></link>."#,
+            value = "1013818348"
+        )
+    )]
+    ItemEmptyCan = 1013818348i32,
+    #[strum(
+        serialize = "ItemKitTankInsulated",
+        props(name = r#"Kit (Tank Insulated)"#, desc = r#""#, value = "1021053608")
+    )]
+    ItemKitTankInsulated = 1021053608i32,
+    #[strum(
+        serialize = "ItemKitChute",
+        props(name = r#"Kit (Basic Chutes)"#, desc = r#""#, value = "1025254665")
+    )]
+    ItemKitChute = 1025254665i32,
+    #[strum(
+        serialize = "StructureFuselageTypeA1",
+        props(name = r#"Fuselage (Type A1)"#, desc = r#""#, value = "1033024712")
+    )]
+    StructureFuselageTypeA1 = 1033024712i32,
+    #[strum(
+        serialize = "StructureCableAnalysizer",
+        props(name = r#"Cable Analyzer"#, desc = r#""#, value = "1036015121")
+    )]
+    StructureCableAnalysizer = 1036015121i32,
+    #[strum(
+        serialize = "StructureCableJunctionH6",
+        props(
+            name = r#"Heavy Cable (6-Way Junction)"#,
+            desc = r#""#,
+            value = "1036780772"
+        )
+    )]
+    StructureCableJunctionH6 = 1036780772i32,
+    #[strum(
+        serialize = "ItemGasFilterVolatilesM",
+        props(
+            name = r#"Medium Filter (Volatiles)"#,
+            desc = r#""#,
+            value = "1037507240"
+        )
+    )]
+    ItemGasFilterVolatilesM = 1037507240i32,
+    #[strum(
+        serialize = "ItemKitPortablesConnector",
+        props(
+            name = r#"Kit (Portables Connector)"#,
+            desc = r#""#,
+            value = "1041148999"
+        )
+    )]
+    ItemKitPortablesConnector = 1041148999i32,
+    #[strum(
+        serialize = "StructureFloorDrain",
+        props(
+            name = r#"Passive Liquid Inlet"#,
+            desc = r#"A passive liquid floor inlet that quickly removes liquids in one direction from the world into the connected pipe network. It will equalise gasses with the world atmosphere also."#,
+            value = "1048813293"
+        )
+    )]
+    StructureFloorDrain = 1048813293i32,
+    #[strum(
+        serialize = "StructureWallGeometryStreight",
+        props(
+            name = r#"Wall (Geometry Straight)"#,
+            desc = r#""#,
+            value = "1049735537"
+        )
+    )]
+    StructureWallGeometryStreight = 1049735537i32,
+    #[strum(
+        serialize = "StructureTransformerSmallReversed",
+        props(
+            name = r#"Transformer Reversed (Small)"#,
+            desc = r#"Transformers control the maximum power that will flow down a cable subnetwork, to prevent overloading <link=ElectronicPage><color=#0080FFFF>electrical</color></link> systems. Output on small transformers can be set from 0 to 5000W.
+Note that transformers operate as data isolators, preventing data flowing into any network beyond it."#,
+            value = "1054059374"
+        )
+    )]
+    StructureTransformerSmallReversed = 1054059374i32,
+    #[strum(
+        serialize = "ItemMiningDrill",
+        props(
+            name = r#"Mining Drill"#,
+            desc = r#"The handheld 'Topo' tri-cone rotary mining drill was made for one thing: quick digging. Modeled on a classic <link=Recurso><color=#0080FFFF>Recurso</color></link> zero-g design, it functions equally well in vacuum and atmosphere, with cemented carbide bits to increase resilience and bearing life, and reduce spalling. As Jenk Murtons once said, 'The Topo don't stopo.'"#,
+            value = "1055173191"
+        )
+    )]
+    ItemMiningDrill = 1055173191i32,
+    #[strum(
+        serialize = "ItemConstantanIngot",
+        props(name = r#"Ingot (Constantan)"#, desc = r#""#, value = "1058547521")
+    )]
+    ItemConstantanIngot = 1058547521i32,
+    #[strum(
+        serialize = "StructureInsulatedPipeCrossJunction6",
+        props(
+            name = r#"Insulated Pipe (6-Way Junction)"#,
+            desc = r#"Insulated pipes greatly reduce heat loss from gases stored in them."#,
+            value = "1061164284"
+        )
+    )]
+    StructureInsulatedPipeCrossJunction6 = 1061164284i32,
+    #[strum(
+        serialize = "Landingpad_CenterPiece01",
+        props(
+            name = r#"Landingpad Center"#,
+            desc = r#"The target point where the trader shuttle will land. Requires a clear view of the sky."#,
+            value = "1070143159"
+        )
+    )]
+    LandingpadCenterPiece01 = 1070143159i32,
+    #[strum(
+        serialize = "StructureHorizontalAutoMiner",
+        props(
+            name = r#"OGRE"#,
+            desc = r#"The <link=Recurso><color=#0080FFFF>Recurso</color></link> OGRE (Orthogonal Ground Rotating Excavator) is a base structure with attached mining vehicle, which will mine a horizontal shaft up to X meters long. When full, the mining vehicle will return to the base to empty itself, before returning to dig. If it encounters empty space, it will also return to base and await instruction. The unit will return if deactivated.
+      
+The OGRE can be connected to a chute system, and is controllable by a logic network. Note that the OGRE outputs more <link=OrePage><color=#0080FFFF>ore</color></link> than a conventional <link=ThingItemMiningDrill><color=green>Mining Drill</color></link> over the same area, due to more efficient processing.
+
+<size=120%><b>MODES</b></size>
+Idle - 0
+Mining - 1
+Returning - 2
+DepostingOre - 3
+Finished - 4
+"#,
+            value = "1070427573"
+        )
+    )]
+    StructureHorizontalAutoMiner = 1070427573i32,
+    #[strum(
+        serialize = "ItemDynamicAirCon",
+        props(
+            name = r#"Kit (Portable Air Conditioner)"#,
+            desc = r#""#,
+            value = "1072914031"
+        )
+    )]
+    ItemDynamicAirCon = 1072914031i32,
+    #[strum(
+        serialize = "ItemMarineHelmet",
+        props(name = r#"Marine Helmet"#, desc = r#""#, value = "1073631646")
+    )]
+    ItemMarineHelmet = 1073631646i32,
+    #[strum(
+        serialize = "StructureDaylightSensor",
+        props(
+            name = r#"Daylight Sensor"#,
+            desc = r#"Daylight sensors provide data on whether the current region of your base is in sunlight, and report the exact solar angle. Note that the orientation of the sensor alters the reported solar angle, while <link=LogicPage><color=#0080FFFF>Logic</color></link> systems can be used to offset it."#,
+            value = "1076425094"
+        )
+    )]
+    StructureDaylightSensor = 1076425094i32,
+    #[strum(
+        serialize = "StructureCompositeCladdingCylindricalPanel",
+        props(
+            name = r#"Composite Cladding (Cylindrical Panel)"#,
+            desc = r#""#,
+            value = "1077151132"
+        )
+    )]
+    StructureCompositeCladdingCylindricalPanel = 1077151132i32,
+    #[strum(
+        serialize = "ItemRocketMiningDrillHeadMineral",
+        props(
+            name = r#"Mining-Drill Head (Mineral)"#,
+            desc = r#""#,
+            value = "1083675581"
+        )
+    )]
+    ItemRocketMiningDrillHeadMineral = 1083675581i32,
+    #[strum(
+        serialize = "ItemKitSuitStorage",
+        props(name = r#"Kit (Suit Storage)"#, desc = r#""#, value = "1088892825")
+    )]
+    ItemKitSuitStorage = 1088892825i32,
+    #[strum(
+        serialize = "StructurePictureFrameThinMountPortraitLarge",
+        props(
+            name = r#"Picture Frame Thin Portrait Large"#,
+            desc = r#""#,
+            value = "1094895077"
+        )
+    )]
+    StructurePictureFrameThinMountPortraitLarge = 1094895077i32,
+    #[strum(
+        serialize = "StructureLiquidTankBig",
+        props(name = r#"Liquid Tank Big"#, desc = r#""#, value = "1098900430")
+    )]
+    StructureLiquidTankBig = 1098900430i32,
+    #[strum(
+        serialize = "Landingpad_CrossPiece",
+        props(
+            name = r#"Landingpad Cross"#,
+            desc = r#"Extends the size of the landing pad area. A basic trader shuttle requires a 3x3 clear landing area."#,
+            value = "1101296153"
+        )
+    )]
+    LandingpadCrossPiece = 1101296153i32,
+    #[strum(
+        serialize = "CartridgePlantAnalyser",
+        props(
+            name = r#"Cartridge Plant Analyser"#,
+            desc = r#""#,
+            value = "1101328282"
+        )
+    )]
+    CartridgePlantAnalyser = 1101328282i32,
+    #[strum(
+        serialize = "ItemSiliconOre",
+        props(
+            name = r#"Ore (Silicon)"#,
+            desc = r#"Silicon is a chemical element with the symbol "Si" and is one of the most useful elements to <link=Stationeers><color=#0080FFFF>Stationeers</color></link>. Readily available throughout the universe, silicon is used in a range of <link=IngotPage><color=#0080FFFF>alloys</color></link>, glass, plastics and various electronic components a Stationeer may  need to complete their mission."#,
+            value = "1103972403"
+        )
+    )]
+    ItemSiliconOre = 1103972403i32,
+    #[strum(
+        serialize = "ItemWallLight",
+        props(
+            name = r#"Kit (Lights)"#,
+            desc = r#"This kit creates any one of ten <link=ThingItemWallLight><color=green>Kit (Lights)</color></link> variants."#,
+            value = "1108423476"
+        )
+    )]
+    ItemWallLight = 1108423476i32,
+    #[strum(
+        serialize = "StructureCableJunction4",
+        props(
+            name = r#"Cable (4-Way Junction)"#,
+            desc = r#"Carrying power and data alike, cable coil has come to symbolize the innovation, independence and flexibility of <link=Stationeers><color=#0080FFFF>Stationeer</color></link> life - so much so, the <link=ODA><color=#0080FFFF>ODA</color></link> designated it an official <link=ToolPage><color=#0080FFFF>'tool'</color></link> during the 3rd Decannual Stationeer Solar Conference.
+Normal coil has a maximum wattage of 5kW. For higher-current applications, use <link=ThingItemCableCoilHeavy><color=green>Cable Coil (Heavy)</color></link>."#,
+            value = "1112047202"
+        )
+    )]
+    StructureCableJunction4 = 1112047202i32,
+    #[strum(
+        serialize = "ItemPillHeal",
+        props(
+            name = r#"Pill (Medical)"#,
+            desc = r#"Three centuries of pharmaceutical technology compressed into one small, easy to ingest pill: the Heal Pill, aka the Proton Pill, aka Mr Happy contains active enzymes, therapeutic proteins, modified microbial strains, and mammalian cell line analogues in a single-dose boost of high purity, efficacy, and potency that potentiates a swift parasympathetic immune response."#,
+            value = "1118069417"
+        )
+    )]
+    ItemPillHeal = 1118069417i32,
+    #[strum(
+        serialize = "StructureMediumRocketLiquidFuelTank",
+        props(
+            name = r#"Liquid Capsule Tank Medium"#,
+            desc = r#""#,
+            value = "1143639539"
+        )
+    )]
+    StructureMediumRocketLiquidFuelTank = 1143639539i32,
+    #[strum(
+        serialize = "StructureCargoStorageMedium",
+        props(name = r#"Cargo Storage (Medium)"#, desc = r#""#, value = "1151864003")
+    )]
+    StructureCargoStorageMedium = 1151864003i32,
+    #[strum(
+        serialize = "WeaponRifleEnergy",
+        props(
+            name = r#"Energy Rifle"#,
+            desc = r#"0.Stun
+1.Kill"#,
+            value = "1154745374"
+        )
+    )]
+    WeaponRifleEnergy = 1154745374i32,
+    #[strum(
+        serialize = "StructureSDBSilo",
+        props(
+            name = r#"SDB Silo"#,
+            desc = r#"The majestic silo holds large quantities of almost anything. While it is doing that, it cannot be deconstructed. Note also, that any food you put into a silo is likely to <link=DecayPage><color=#0080FFFF>decay</color></link> extremely rapidly. The silo can hold up to 600 stacks."#,
+            value = "1155865682"
+        )
+    )]
+    StructureSdbSilo = 1155865682i32,
+    #[strum(
+        serialize = "Flag_ODA_4m",
+        props(name = r#"Flag (ODA 4m)"#, desc = r#""#, value = "1159126354")
+    )]
+    FlagOda4M = 1159126354i32,
+    #[strum(
+        serialize = "ItemCannedPowderedEggs",
+        props(
+            name = r#"Canned Powdered Eggs"#,
+            desc = r#"Made in an <link=ThingStructureAdvancedPackagingMachine><color=green>Advanced Packaging Machine</color></link> or <link=ThingAppliancePackagingMachine><color=green>Basic Packaging Machine</color></link>, using <link=ThingItemCookedPowderedEggs><color=green>Powdered Eggs</color></link>  and an <link=ThingItemEmptyCan><color=green>Empty Can</color></link>, canned powdered eggs are an exciting, dynamic food that's fairly high in nutrition, and does not <link=DecayPage><color=#0080FFFF>decay</color></link>."#,
+            value = "1161510063"
+        )
+    )]
+    ItemCannedPowderedEggs = 1161510063i32,
+    #[strum(
+        serialize = "ItemKitFurniture",
+        props(name = r#"Kit (Furniture)"#, desc = r#""#, value = "1162905029")
+    )]
+    ItemKitFurniture = 1162905029i32,
+    #[strum(
+        serialize = "StructureGasGenerator",
+        props(name = r#"Gas Fuel Generator"#, desc = r#""#, value = "1165997963")
+    )]
+    StructureGasGenerator = 1165997963i32,
+    #[strum(
+        serialize = "StructureChair",
+        props(
+            name = r#"Chair"#,
+            desc = r#"One of the universe's many chairs, optimized for bipeds with somewhere between zero and two upper limbs."#,
+            value = "1167659360"
+        )
+    )]
+    StructureChair = 1167659360i32,
+    #[strum(
+        serialize = "StructureWallPaddedArchLightFittingTop",
+        props(
+            name = r#"Wall (Padded Arch Light Fitting Top)"#,
+            desc = r#""#,
+            value = "1171987947"
+        )
+    )]
+    StructureWallPaddedArchLightFittingTop = 1171987947i32,
+    #[strum(
+        serialize = "StructureShelf",
+        props(name = r#"Shelf"#, desc = r#""#, value = "1172114950")
+    )]
+    StructureShelf = 1172114950i32,
+    #[strum(
+        serialize = "ApplianceDeskLampRight",
+        props(
+            name = r#"Appliance Desk Lamp Right"#,
+            desc = r#""#,
+            value = "1174360780"
+        )
+    )]
+    ApplianceDeskLampRight = 1174360780i32,
+    #[strum(
+        serialize = "ItemKitRegulator",
+        props(
+            name = r#"Kit (Pressure Regulator)"#,
+            desc = r#""#,
+            value = "1181371795"
+        )
+    )]
+    ItemKitRegulator = 1181371795i32,
+    #[strum(
+        serialize = "ItemKitCompositeFloorGrating",
+        props(name = r#"Kit (Floor Grating)"#, desc = r#""#, value = "1182412869")
+    )]
+    ItemKitCompositeFloorGrating = 1182412869i32,
+    #[strum(
+        serialize = "StructureWallArchPlating",
+        props(name = r#"Wall (Arch Plating)"#, desc = r#""#, value = "1182510648")
+    )]
+    StructureWallArchPlating = 1182510648i32,
+    #[strum(
+        serialize = "StructureWallPaddedCornerThin",
+        props(
+            name = r#"Wall (Padded Corner Thin)"#,
+            desc = r#""#,
+            value = "1183203913"
+        )
+    )]
+    StructureWallPaddedCornerThin = 1183203913i32,
+    #[strum(
+        serialize = "StructurePowerTransmitterReceiver",
+        props(
+            name = r#"Microwave Power Receiver"#,
+            desc = r#"The <link=Norsec><color=#0080FFFF>Norsec</color></link> Wireless Power Transmitter is an uni-directional, A-to-B, far field microwave electrical transmission system.The rotatable base transmitter delivers a narrow, non-lethal microwave beam to a dedicated base receiver.
+The transmitter must be aligned to the base station in order to transmit any power. The brightness of the transmitter's collimator arc provides an indication of transmission intensity. Note that there is an attrition over longer ranges, so the unit requires more power over greater distances to deliver the same output.Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>"#,
+            value = "1195820278"
+        )
+    )]
+    StructurePowerTransmitterReceiver = 1195820278i32,
+    #[strum(
+        serialize = "ItemPipeMeter",
+        props(
+            name = r#"Kit (Pipe Meter)"#,
+            desc = r#"This kit creates a <link=ThingStructurePipeMeter><color=green>Pipe Meter</color></link>."#,
+            value = "1207939683"
+        )
+    )]
+    ItemPipeMeter = 1207939683i32,
+    #[strum(
+        serialize = "StructurePictureFrameThinPortraitLarge",
+        props(
+            name = r#"Picture Frame Thin Portrait Large"#,
+            desc = r#""#,
+            value = "1212777087"
+        )
+    )]
+    StructurePictureFrameThinPortraitLarge = 1212777087i32,
+    #[strum(
+        serialize = "StructureSleeperLeft",
+        props(
+            name = r#"Sleeper Left"#,
+            desc = r#"A horizontal variant of the sleeper. Will keep players hydrated and fed while they are logged out - as long as a breathable atmosphere is provided."#,
+            value = "1213495833"
+        )
+    )]
+    StructureSleeperLeft = 1213495833i32,
+    #[strum(
+        serialize = "ItemIce",
+        props(
+            name = r#"Ice (Water)"#,
+            desc = r#"Water ice can be found on most planets in the Solar System, though not all worlds visited by <link=Stationeers><color=#0080FFFF>Stationeers</color></link> possess this resource. Highly sensitive to temperature, ice will begin to melt as soon as it is mined, unless kept in the <link=ThingItemMiningBelt><color=green>Mining Belt</color></link>. When melting, ice produces a mixture of <link=GasSteam><color=#44AD83>Steam</color></link> and <link=GasNitrogen><color=#44AD83>Nitrogen</color></link> gas."#,
+            value = "1217489948"
+        )
+    )]
+    ItemIce = 1217489948i32,
+    #[strum(
+        serialize = "StructureLogicSwitch",
+        props(name = r#"Lever"#, desc = r#""#, value = "1220484876")
+    )]
+    StructureLogicSwitch = 1220484876i32,
+    #[strum(
+        serialize = "StructureLiquidUmbilicalFemaleSide",
+        props(
+            name = r#"Umbilical Socket Angle (Liquid)"#,
+            desc = r#""#,
+            value = "1220870319"
+        )
+    )]
+    StructureLiquidUmbilicalFemaleSide = 1220870319i32,
+    #[strum(
+        serialize = "ItemKitAtmospherics",
+        props(name = r#"Kit (Atmospherics)"#, desc = r#""#, value = "1222286371")
+    )]
+    ItemKitAtmospherics = 1222286371i32,
+    #[strum(
+        serialize = "ItemChemLightYellow",
+        props(
+            name = r#"Chem Light (Yellow)"#,
+            desc = r#"Dispel the darkness with this yellow glowstick."#,
+            value = "1224819963"
+        )
+    )]
+    ItemChemLightYellow = 1224819963i32,
+    #[strum(
+        serialize = "ItemIronFrames",
+        props(name = r#"Iron Frames"#, desc = r#""#, value = "1225836666")
+    )]
+    ItemIronFrames = 1225836666i32,
     #[strum(
         serialize = "CompositeRollCover",
         props(
@@ -1714,53 +7859,383 @@ The chute outlet is an aperture for exiting items from <link=ImportExportPage><c
     )]
     StructureCompositeWall = 1237302061i32,
     #[strum(
-        serialize = "StructureCompositeWall02",
-        props(name = r#"Composite Wall (Type 2)"#, desc = r#""#, value = "718343384")
-    )]
-    StructureCompositeWall02 = 718343384i32,
-    #[strum(
-        serialize = "StructureCompositeWall03",
+        serialize = "StructureCombustionCentrifuge",
         props(
-            name = r#"Composite Wall (Type 3)"#,
+            name = r#"Combustion Centrifuge"#,
+            desc = r#"The Combustion Centrifuge is a gas powered version of the <link=ThingStructureCentrifuge><color=green>Centrifuge</color></link>. If a <link=ThingStructureRecycler><color=green>Recycler</color></link> or unbalanced <link=ThingStructureFurnace><color=green>Furnace</color></link> outputs <link=ReagentPage><color=#0080FFFF>reagent</color></link> mixture rather than the desired <link=IngotPage><color=#0080FFFF>ingots</color></link>, a centrifuge allows you to reclaim the raw <link=OrePage><color=#0080FFFF>ore</color></link>.
+        It also refines <link=ThingItemDirtyOre><color=green>Dirty Ore</color></link> produced from the <link=ThingStructureDeepMiner><color=green>Deep Miner</color></link> and <link=ThingItemSpaceOre><color=green>Dirty Ore</color></link> produced from the <link=ThingStructureRocketMiner><color=green>Rocket Miner</color></link>. A combustible fuel mix should be supplied to the gas input, and waste gasses should be vented from the output. 
+        The machine's RPMs must be controlled via the throttle and combustion limiter levers. If the Combustion Centrifuge gains, or loses, RPMs too fast it will experience stress, and eventually grind to a halt.  Higher RPMs directly result in faster processing speeds. 
+        The throttle lever controls the amount of fuel being pulled into the machine, increasing the temperature inside the engine, and leading to an increase in RPM. The limiter lever influences the speed of the combustion, and how much uncombusted gas is in the exhaust. 
+        Ejecting ore from the Combustion Centrifuge while it is at high RPMs will result in additional stress build up.  If turned off while not stressed, the machine will automatically start to brake, and reduce RPMs in a controlled manner.
+	  "#,
+            value = "1238905683"
+        )
+    )]
+    StructureCombustionCentrifuge = 1238905683i32,
+    #[strum(
+        serialize = "ItemVolatiles",
+        props(
+            name = r#"Ice (Volatiles)"#,
+            desc = r#"An extremely reactive ice with numerous hydrocarbons trapped inside. For simplicity's sake, these are often displayed as H2 by devices like the <link=ThingCartridgeAtmosAnalyser><color=green>Atmos Analyzer</color></link>.
+      
+<link=GasVolatiles><color=#44AD83>Volatiles</color></link> combust in a 2:1 ratio with <link=GasOxygen><color=#44AD83>Oxygen</color></link>, creating <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> and pollutants. However when catalysed via devices such as the <link=ThingH2Combustor><color=green>H2 Combustor</color></link> in the presence of <link=GasOxygen><color=#44AD83>Oxygen</color></link>, they produce
+        <link=GasSteam><color=#44AD83>Steam</color></link> and heat with a modicum of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> and <link=GasPollutant><color=#44AD83>Pollutant</color></link> due to the autoignition of the volatiles in the chamber. Along with <link=GasOxygen><color=#44AD83>Oxygen</color></link>, volatiles gas is also the major component of fuel for such devices as the <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link>.
+"#,
+            value = "1253102035"
+        )
+    )]
+    ItemVolatiles = 1253102035i32,
+    #[strum(
+        serialize = "HandgunMagazine",
+        props(name = r#"Handgun Magazine"#, desc = r#""#, value = "1254383185")
+    )]
+    HandgunMagazine = 1254383185i32,
+    #[strum(
+        serialize = "ItemGasFilterVolatilesL",
+        props(
+            name = r#"Heavy Filter (Volatiles)"#,
             desc = r#""#,
-            value = "1574321230"
+            value = "1255156286"
         )
     )]
-    StructureCompositeWall03 = 1574321230i32,
+    ItemGasFilterVolatilesL = 1255156286i32,
     #[strum(
-        serialize = "StructureCompositeWall04",
+        serialize = "ItemMiningDrillPneumatic",
         props(
-            name = r#"Composite Wall (Type 4)"#,
+            name = r#"Pneumatic Mining Drill"#,
+            desc = r#"0.Default
+1.Flatten"#,
+            value = "1258187304"
+        )
+    )]
+    ItemMiningDrillPneumatic = 1258187304i32,
+    #[strum(
+        serialize = "StructureSmallTableDinnerSingle",
+        props(
+            name = r#"Small (Table Dinner Single)"#,
             desc = r#""#,
-            value = "-1011701267"
+            value = "1260651529"
         )
     )]
-    StructureCompositeWall04 = -1011701267i32,
+    StructureSmallTableDinnerSingle = 1260651529i32,
     #[strum(
-        serialize = "StructureCompositeWindow",
+        serialize = "ApplianceReagentProcessor",
         props(
-            name = r#"Composite Window"#,
-            desc = r#"Air-tight and resistant to extreme temperatures, composite walls come in several charming, near identical varieties - reflecting their designer's focus on form over function."#,
-            value = "-2060571986"
+            name = r#"Reagent Processor"#,
+            desc = r#"Sitting somewhere between a high powered juicer and an alchemist's alembic, the <link=Xigo><color=#0080FFFF>Xigo</color></link> reagent processor turns certain raw materials and food items into cooking and crafting ingredients. Indispensible in any space kitchen, just bolt it to the bench, and you're ready to go."#,
+            value = "1260918085"
         )
     )]
-    StructureCompositeWindow = -2060571986i32,
+    ApplianceReagentProcessor = 1260918085i32,
     #[strum(
-        serialize = "StructureComputer",
+        serialize = "StructurePressurePlateMedium",
+        props(name = r#"Trigger Plate (Medium)"#, desc = r#""#, value = "1269458680")
+    )]
+    StructurePressurePlateMedium = 1269458680i32,
+    #[strum(
+        serialize = "ItemPumpkin",
         props(
-            name = r#"Computer"#,
-            desc = r#"In some ways a relic, the 'Chonk R1' was designed by severely conflicted <link=Norsec><color=#0080FFFF>Norsec</color></link> technicians, who needed a unit that could operate with a wide range of <link=LogicUnitPage><color=#0080FFFF>motherboards</color></link>, while also enduring the worst a new Cadet could throw at it.
-The result is a machine described by some as 'the only PC likely to survive our collision with a black hole', while other, less appreciative users regard it as sharing most of its technological DNA with a cheese grater.
-Compatible motherboards:
-- <link=ThingMotherboardLogic><color=green>Logic Motherboard</color></link>
-- <link=ThingMotherboardManufacturing><color=green>Manufacturing Motherboard</color></link>
-- <link=ThingMotherboardSorter><color=green>Sorter Motherboard</color></link>
-- <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link>
-- <link=ThingMotherboardProgrammableChip><color=green>IC Editor Motherboard</color></link>"#,
-            value = "-626563514"
+            name = r#"Pumpkin"#,
+            desc = r#"Pumpkins are a perennial plant, with both a long growth time, and a long time between harvests.  Its low requirement for darkness allows for accelerated growing if provided with extra light."#,
+            value = "1277828144"
         )
     )]
-    StructureComputer = -626563514i32,
+    ItemPumpkin = 1277828144i32,
+    #[strum(
+        serialize = "ItemPumpkinSoup",
+        props(
+            name = r#"Pumpkin Soup"#,
+            desc = r#"Made using <link=ThingItemCookedPumpkin><color=green>Cooked Pumpkin</color></link> and an <link=ThingItemEmptyCan><color=green>Empty Can</color></link> in a <link=ThingAppliancePackagingMachine><color=green>Basic Packaging Machine</color></link> or <link=ThingStructureAdvancedPackagingMachine><color=green>Advanced Packaging Machine</color></link>. Fairly high in nutrition, canned food does not <link=DecayPage><color=#0080FFFF>decay</color></link>"#,
+            value = "1277979876"
+        )
+    )]
+    ItemPumpkinSoup = 1277979876i32,
+    #[strum(
+        serialize = "StructureTankBigInsulated",
+        props(name = r#"Tank Big (Insulated)"#, desc = r#""#, value = "1280378227")
+    )]
+    StructureTankBigInsulated = 1280378227i32,
+    #[strum(
+        serialize = "StructureWallArchCornerTriangle",
+        props(
+            name = r#"Wall (Arch Corner Triangle)"#,
+            desc = r#""#,
+            value = "1281911841"
+        )
+    )]
+    StructureWallArchCornerTriangle = 1281911841i32,
+    #[strum(
+        serialize = "StructureTurbineGenerator",
+        props(name = r#"Turbine Generator"#, desc = r#""#, value = "1282191063")
+    )]
+    StructureTurbineGenerator = 1282191063i32,
+    #[strum(
+        serialize = "StructurePipeIgniter",
+        props(
+            name = r#"Pipe Igniter"#,
+            desc = r#"Ignites the atmosphere inside the attached pipe network."#,
+            value = "1286441942"
+        )
+    )]
+    StructurePipeIgniter = 1286441942i32,
+    #[strum(
+        serialize = "StructureWallIron",
+        props(name = r#"Iron Wall (Type 1)"#, desc = r#""#, value = "1287324802")
+    )]
+    StructureWallIron = 1287324802i32,
+    #[strum(
+        serialize = "ItemSprayGun",
+        props(
+            name = r#"Spray Gun"#,
+            desc = r#"Use with Spray cans in the <link=SlotSprayCan><color=orange>Spray Can</color></link> to paint structures, cables and pipes. Much more efficient and faster than doing it with individual spray cans."#,
+            value = "1289723966"
+        )
+    )]
+    ItemSprayGun = 1289723966i32,
+    #[strum(
+        serialize = "ItemKitSolidGenerator",
+        props(name = r#"Kit (Solid Generator)"#, desc = r#""#, value = "1293995736")
+    )]
+    ItemKitSolidGenerator = 1293995736i32,
+    #[strum(
+        serialize = "StructureAccessBridge",
+        props(
+            name = r#"Access Bridge"#,
+            desc = r#"Extendable bridge that spans three grids"#,
+            value = "1298920475"
+        )
+    )]
+    StructureAccessBridge = 1298920475i32,
+    #[strum(
+        serialize = "StructurePipeOrgan",
+        props(
+            name = r#"Pipe Organ"#,
+            desc = r#"The pipe organ can be attached to one end of a <link=ThingItemPipeValve><color=green>Kit (Pipe Valve)</color></link>. The length of the pipe after the pipe organ changes the pitch of the note it will play when the valve is opened. Use <link=LogicPage><color=#0080FFFF>Logic</color></link> to open and close the valves to create some custom tunes for your base or an audible warning."#,
+            value = "1305252611"
+        )
+    )]
+    StructurePipeOrgan = 1305252611i32,
+    #[strum(
+        serialize = "StructureElectronicsPrinter",
+        props(
+            name = r#"Electronics Printer"#,
+            desc = r#"The electronic printer will create any <link=ElectronicPage><color=#0080FFFF>electronic</color></link> part you need. From circuit boards and electronic devices to solar panels. The choice is yours. Upgrade the device using a <link=ThingElectronicPrinterMod><color=green>Electronic Printer Mod</color></link> for additional recipes and faster processing speeds."#,
+            value = "1307165496"
+        )
+    )]
+    StructureElectronicsPrinter = 1307165496i32,
+    #[strum(
+        serialize = "StructureFuselageTypeA4",
+        props(name = r#"Fuselage (Type A4)"#, desc = r#""#, value = "1308115015")
+    )]
+    StructureFuselageTypeA4 = 1308115015i32,
+    #[strum(
+        serialize = "StructureSmallDirectHeatExchangeGastoGas",
+        props(
+            name = r#"Small Direct Heat Exchanger - Gas + Gas"#,
+            desc = r#"Direct Heat Exchangers equalize the temperature of the two input networks."#,
+            value = "1310303582"
+        )
+    )]
+    StructureSmallDirectHeatExchangeGastoGas = 1310303582i32,
+    #[strum(
+        serialize = "StructureTurboVolumePump",
+        props(
+            name = r#"Turbo Volume Pump (Gas)"#,
+            desc = r#"Shifts 10 times more gas than a basic <link=ThingStructureVolumePump><color=green>Volume Pump</color></link>, with a mode that can be set to flow in either direction."#,
+            value = "1310794736"
+        )
+    )]
+    StructureTurboVolumePump = 1310794736i32,
+    #[strum(
+        serialize = "ItemChemLightWhite",
+        props(
+            name = r#"Chem Light (White)"#,
+            desc = r#"Snap the glowstick to activate a pale radiance that keeps the darkness at bay."#,
+            value = "1312166823"
+        )
+    )]
+    ItemChemLightWhite = 1312166823i32,
+    #[strum(
+        serialize = "ItemMilk",
+        props(
+            name = r#"Milk"#,
+            desc = r#"Full disclosure, it's not actually 'milk', but an <link=Agrizero><color=#0080FFFF>Agrizero-invented</color></link> synthesis of 5ml <link=ThingItemSoyOil><color=green>Soy Oil</color></link> and 5g <link=ThingItemFern><color=green>Fern</color></link>, delicately blended in the <link=ThingApplianceChemistryStation><color=green>Chemistry Station</color></link>. Surprisingly filling, it can be used as an ingredient to cook other <link=FoodPage><color=#0080FFFF>food</color></link> in the <link=ThingApplianceMicrowave><color=green>Microwave</color></link> or <link=ThingStructureAutomatedOven><color=green>Automated Oven</color></link>. Think, <link=ThingItemMuffin><color=green>Muffin</color></link>."#,
+            value = "1327248310"
+        )
+    )]
+    ItemMilk = 1327248310i32,
+    #[strum(
+        serialize = "StructureInsulatedPipeCrossJunction3",
+        props(
+            name = r#"Insulated Pipe (3-Way Junction)"#,
+            desc = r#"Insulated pipes greatly reduce heat loss from gases stored in them."#,
+            value = "1328210035"
+        )
+    )]
+    StructureInsulatedPipeCrossJunction3 = 1328210035i32,
+    #[strum(
+        serialize = "StructureShortCornerLocker",
+        props(name = r#"Short Corner Locker"#, desc = r#""#, value = "1330754486")
+    )]
+    StructureShortCornerLocker = 1330754486i32,
+    #[strum(
+        serialize = "StructureTankConnectorLiquid",
+        props(
+            name = r#"Liquid Tank Connector"#,
+            desc = r#"These basic mounting devices allow you to attach a <link=ThingDynamicLiquidCanisterEmpty><color=green>Portable Liquid Tank</color></link> to a liquid pipe network."#,
+            value = "1331802518"
+        )
+    )]
+    StructureTankConnectorLiquid = 1331802518i32,
+    #[strum(
+        serialize = "ItemSprayCanPink",
+        props(
+            name = r#"Spray Paint (Pink)"#,
+            desc = r#"With the invention of enduring chemical dyes, the 20th century bestowed associations with innocence and tenderness upon this pale tint of red. Yet classically, it was the color of seduction and eroticism. Things change."#,
+            value = "1344257263"
+        )
+    )]
+    ItemSprayCanPink = 1344257263i32,
+    #[strum(
+        serialize = "CircuitboardGraphDisplay",
+        props(name = r#"Graph Display"#, desc = r#""#, value = "1344368806")
+    )]
+    CircuitboardGraphDisplay = 1344368806i32,
+    #[strum(
+        serialize = "ItemWreckageStructureWeatherStation006",
+        props(
+            name = r#"Wreckage Structure Weather Station"#,
+            desc = r#""#,
+            value = "1344576960"
+        )
+    )]
+    ItemWreckageStructureWeatherStation006 = 1344576960i32,
+    #[strum(
+        serialize = "ItemCookedCorn",
+        props(
+            name = r#"Cooked Corn"#,
+            desc = r#"A high-nutrient cooked food, which can be canned."#,
+            value = "1344773148"
+        )
+    )]
+    ItemCookedCorn = 1344773148i32,
+    #[strum(
+        serialize = "ItemCookedSoybean",
+        props(
+            name = r#"Cooked Soybean"#,
+            desc = r#"A high-nutrient cooked food, which can be canned."#,
+            value = "1353449022"
+        )
+    )]
+    ItemCookedSoybean = 1353449022i32,
+    #[strum(
+        serialize = "StructureChuteCorner",
+        props(
+            name = r#"Chute (Corner)"#,
+            desc = r#"Chutes act as pipes for items. Use them to connect various <link=ImportExportPage><color=#0080FFFF>import/export</color></link> equipment together such as the <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link> and printers like the <link=ThingStructureAutolathe><color=green>Autolathe</color></link>.
+The aim for any <link=Stationeers><color=#0080FFFF>Stationeer</color></link> is to make off-world survival less of a struggle for themselves, and those who will follow in their footsteps.
+Chute corners are fundamental components of chute networks, which allow the transport of items between machines with <link=ImportExportPage><color=#0080FFFF>import/export</color></link> slots, such as the <link=ThingStructureFurnace><color=green>Furnace</color></link> and other automatable structures."#,
+            value = "1360330136"
+        )
+    )]
+    StructureChuteCorner = 1360330136i32,
+    #[strum(
+        serialize = "DynamicGasCanisterOxygen",
+        props(
+            name = r#"Portable Gas Tank (Oxygen)"#,
+            desc = r#"Portable tanks store gas. If you need to refill a tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or you'll be picking tank shards out of your face. You can refill a <link=ThingItemGasCanisterOxygen><color=green>Canister (Oxygen)</color></link> by attaching it to the tank's striped section. Or you could vent it into a sealed room to create an atmosphere. Or even paint it pink, call it Steve and fill that sad space in your heart."#,
+            value = "1360925836"
+        )
+    )]
+    DynamicGasCanisterOxygen = 1360925836i32,
+    #[strum(
+        serialize = "StructurePassiveVentInsulated",
+        props(name = r#"Insulated Passive Vent"#, desc = r#""#, value = "1363077139")
+    )]
+    StructurePassiveVentInsulated = 1363077139i32,
+    #[strum(
+        serialize = "ApplianceChemistryStation",
+        props(name = r#"Chemistry Station"#, desc = r#""#, value = "1365789392")
+    )]
+    ApplianceChemistryStation = 1365789392i32,
+    #[strum(
+        serialize = "ItemPipeIgniter",
+        props(name = r#"Kit (Pipe Igniter)"#, desc = r#""#, value = "1366030599")
+    )]
+    ItemPipeIgniter = 1366030599i32,
+    #[strum(
+        serialize = "ItemFries",
+        props(name = r#"French Fries"#, desc = r#""#, value = "1371786091")
+    )]
+    ItemFries = 1371786091i32,
+    #[strum(
+        serialize = "StructureSleeperVerticalDroid",
+        props(
+            name = r#"Droid Sleeper Vertical"#,
+            desc = r#"The Droid Sleeper will recharge robot batteries and equiped suit batteries if present. This sleeper variant is only safe for robots. Entering as a non robot character will cause you to take damage."#,
+            value = "1382098999"
+        )
+    )]
+    StructureSleeperVerticalDroid = 1382098999i32,
+    #[strum(
+        serialize = "ItemArcWelder",
+        props(name = r#"Arc Welder"#, desc = r#""#, value = "1385062886")
+    )]
+    ItemArcWelder = 1385062886i32,
+    #[strum(
+        serialize = "ItemSoyOil",
+        props(name = r#"Soy Oil"#, desc = r#""#, value = "1387403148")
+    )]
+    ItemSoyOil = 1387403148i32,
+    #[strum(
+        serialize = "ItemKitRocketAvionics",
+        props(name = r#"Kit (Avionics)"#, desc = r#""#, value = "1396305045")
+    )]
+    ItemKitRocketAvionics = 1396305045i32,
+    #[strum(
+        serialize = "ItemMarineBodyArmor",
+        props(name = r#"Marine Armor"#, desc = r#""#, value = "1399098998")
+    )]
+    ItemMarineBodyArmor = 1399098998i32,
+    #[strum(
+        serialize = "StructureStairs4x2",
+        props(name = r#"Stairs"#, desc = r#""#, value = "1405018945")
+    )]
+    StructureStairs4X2 = 1405018945i32,
+    #[strum(
+        serialize = "ItemKitBattery",
+        props(name = r#"Kit (Battery)"#, desc = r#""#, value = "1406656973")
+    )]
+    ItemKitBattery = 1406656973i32,
+    #[strum(
+        serialize = "StructureLargeDirectHeatExchangeGastoLiquid",
+        props(
+            name = r#"Large Direct Heat Exchanger - Gas + Liquid"#,
+            desc = r#"Direct Heat Exchangers equalize the temperature of the two input networks."#,
+            value = "1412338038"
+        )
+    )]
+    StructureLargeDirectHeatExchangeGastoLiquid = 1412338038i32,
+    #[strum(
+        serialize = "AccessCardBrown",
+        props(name = r#"Access Card (Brown)"#, desc = r#""#, value = "1412428165")
+    )]
+    AccessCardBrown = 1412428165i32,
+    #[strum(
+        serialize = "StructureCapsuleTankLiquid",
+        props(
+            name = r#"Liquid Capsule Tank Small"#,
+            desc = r#""#,
+            value = "1415396263"
+        )
+    )]
+    StructureCapsuleTankLiquid = 1415396263i32,
+    #[strum(
+        serialize = "StructureLogicBatchWriter",
+        props(name = r#"Batch Writer"#, desc = r#""#, value = "1415443359")
+    )]
+    StructureLogicBatchWriter = 1415443359i32,
     #[strum(
         serialize = "StructureCondensationChamber",
         props(
@@ -1773,211 +8248,73 @@ Compatible motherboards:
     )]
     StructureCondensationChamber = 1420719315i32,
     #[strum(
-        serialize = "StructureCondensationValve",
+        serialize = "SeedBag_Pumpkin",
         props(
-            name = r#"Condensation Valve"#,
-            desc = r#"Allows for the removal of any liquids from a gas pipe into a liquid pipe. Only allows liquids to pass in one direction."#,
-            value = "-965741795"
+            name = r#"Pumpkin Seeds"#,
+            desc = r#"Grow a <link=ThingItemPumpkin><color=green>Pumpkin</color></link>."#,
+            value = "1423199840"
         )
     )]
-    StructureCondensationValve = -965741795i32,
+    SeedBagPumpkin = 1423199840i32,
     #[strum(
-        serialize = "ItemCookedCondensedMilk",
+        serialize = "ItemPureIceLiquidNitrous",
         props(
-            name = r#"Condensed Milk"#,
-            desc = r#"A high-nutrient cooked food, which can be canned."#,
-            value = "1715917521"
+            name = r#"Pure Ice Liquid Nitrous"#,
+            desc = r#"A frozen chunk of pure <link=GasLiquidNitrousOxide><color=#44AD83>Liquid Nitrous Oxide</color></link>"#,
+            value = "1428477399"
         )
     )]
-    ItemCookedCondensedMilk = 1715917521i32,
+    ItemPureIceLiquidNitrous = 1428477399i32,
     #[strum(
-        serialize = "CartridgeConfiguration",
-        props(name = r#"Configuration"#, desc = r#""#, value = "-932136011")
-    )]
-    CartridgeConfiguration = -932136011i32,
-    #[strum(
-        serialize = "StructureConsole",
+        serialize = "StructureFrame",
         props(
-            name = r#"Console"#,
-            desc = r#"This <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> control box manages devices such as the <link=ThingStructureActiveVent><color=green>Active Vent</color></link>, <link=ThingStructurePassiveVent><color=green>Passive Vent</color></link>, <link=ThingStructureGasSensor><color=green>Gas Sensor</color></link> and <link=ThingStructureCompositeDoor><color=green>Composite Door</color></link>, depending on which <link=LogicPage><color=#0080FFFF>circuitboard</color></link> is inserted into the unit. It has a shared data/power port.
-A completed console displays all devices connected to the current power network. Any devices not related to the installed circuitboard will be greyed-out and inoperable. Consoles are locked once a <link=ThingItemDataDisk><color=green>Data Disk</color></link> is removed."#,
-            value = "235638270"
+            name = r#"Steel Frame"#,
+            desc = r#"More durable than the <link=ThingStructureFrameIron><color=green>Iron Frame</color></link>, steel frames also have several variations for more complex constructions, such as the <link=ThingStructureFrameCorner><color=green>Steel Frame (Corner)</color></link> and <link=ThingStructureFrameCornerCut><color=green>Steel Frame (Corner Cut)</color></link>. Like iron frames, they are placed then completed by welding <link=ThingItemSteelSheets><color=green>Steel Sheets</color></link> to the open framework."#,
+            value = "1432512808"
         )
     )]
-    StructureConsole = 235638270i32,
+    StructureFrame = 1432512808i32,
     #[strum(
-        serialize = "StructureConsoleDual",
+        serialize = "StructureWaterBottleFillerBottom",
         props(
-            name = r#"Console Dual"#,
-            desc = r#"This <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> control box manages devices such as the <link=ThingStructureActiveVent><color=green>Active Vent</color></link>, <link=ThingStructureGasSensor><color=green>Gas Sensor</color></link>, <link=ThingStructureCompositeDoor><color=green>Composite Door</color></link> and others, depending on which <link=LogicPage><color=#0080FFFF>circuitboard</color></link> is inserted into the unit. It has separate data and power ports.
-A completed console displays all devices connected to the current power network. Any devices not related to the installed circuitboard will be greyed-out and inoperable. Consoles are locked once a <link=ThingItemDataDisk><color=green>Data Disk</color></link> is removed."#,
-            value = "-722284333"
+            name = r#"Water Bottle Filler Bottom"#,
+            desc = r#""#,
+            value = "1433754995"
         )
     )]
-    StructureConsoleDual = -722284333i32,
+    StructureWaterBottleFillerBottom = 1433754995i32,
     #[strum(
-        serialize = "StructureConsoleMonitor",
+        serialize = "StructureLightRoundSmall",
         props(
-            name = r#"Console Monitor"#,
-            desc = r#"This <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> control box manages devices such as the <link=ThingStructureActiveVent><color=green>Active Vent</color></link>, <link=ThingStructurePassiveVent><color=green>Passive Vent</color></link>, <link=ThingStructureGasSensor><color=green>Gas Sensor</color></link>, <link=ThingItemSecurityCamera><color=green>Security Camera</color></link> and <link=ThingStructureCompositeDoor><color=green>Composite Door</color></link>, depending on which <link=LogicPage><color=#0080FFFF>circuitboard</color></link> is inserted into the unit. It has a shared data/power port, and a charming sloped interface.
-A completed console displays all devices connected to the current power network. Any devices not related to the installed circuitboard will be greyed-out and inoperable. Consoles are locked once a <link=ThingItemDataDisk><color=green>Data Disk</color></link> is removed."#,
-            value = "801677497"
+            name = r#"Light Round (Small)"#,
+            desc = r#"Description coming."#,
+            value = "1436121888"
         )
     )]
-    StructureConsoleMonitor = 801677497i32,
+    StructureLightRoundSmall = 1436121888i32,
     #[strum(
-        serialize = "StructureCrateMount",
-        props(name = r#"Container Mount"#, desc = r#""#, value = "-733500083")
-    )]
-    StructureCrateMount = -733500083i32,
-    #[strum(
-        serialize = "StructureControlChair",
+        serialize = "ItemRocketMiningDrillHeadHighSpeedMineral",
         props(
-            name = r#"Control Chair"#,
-            desc = r#"Once, these chairs were the heart of space-going behemoths. Now, they're items of nostalgia built only by a handful of Stationeers with a sense of history. In other words, kitsch."#,
-            value = "-1961153710"
+            name = r#"Mining-Drill Head (High Speed Mineral)"#,
+            desc = r#""#,
+            value = "1440678625"
         )
     )]
-    StructureControlChair = -1961153710i32,
+    ItemRocketMiningDrillHeadHighSpeedMineral = 1440678625i32,
     #[strum(
-        serialize = "ItemCookedCorn",
+        serialize = "ItemMKIICrowbar",
         props(
-            name = r#"Cooked Corn"#,
-            desc = r#"A high-nutrient cooked food, which can be canned."#,
-            value = "1344773148"
+            name = r#"Mk II Crowbar"#,
+            desc = r#"<link=Recurso><color=#0080FFFF>Recurso's</color></link> entry-level crowbar is useful in a variety of everyday <link=Stationeers><color=#0080FFFF>Stationeer</color></link> settings, from opening <link=ThingStructureAreaPowerControl><color=green>Area Power Control</color></link>s and unpowered <link=ThingStructureAirlock><color=green>Airlock</color></link>s, to splatting pan-dimensional headcrabs, should the need arise. The MK II is more resistant to temperature and pressure."#,
+            value = "1440775434"
         )
     )]
-    ItemCookedCorn = 1344773148i32,
+    ItemMkiiCrowbar = 1440775434i32,
     #[strum(
-        serialize = "ItemCookedMushroom",
-        props(
-            name = r#"Cooked Mushroom"#,
-            desc = r#"A high-nutrient cooked food, which can be canned."#,
-            value = "-1076892658"
-        )
+        serialize = "StructureHydroponicsStation",
+        props(name = r#"Hydroponics Station"#, desc = r#""#, value = "1441767298")
     )]
-    ItemCookedMushroom = -1076892658i32,
-    #[strum(
-        serialize = "ItemCookedPumpkin",
-        props(
-            name = r#"Cooked Pumpkin"#,
-            desc = r#"A high-nutrient cooked food, which can be canned."#,
-            value = "1849281546"
-        )
-    )]
-    ItemCookedPumpkin = 1849281546i32,
-    #[strum(
-        serialize = "ItemCookedRice",
-        props(
-            name = r#"Cooked Rice"#,
-            desc = r#"A high-nutrient cooked food, which can be canned."#,
-            value = "2013539020"
-        )
-    )]
-    ItemCookedRice = 2013539020i32,
-    #[strum(
-        serialize = "ItemCookedSoybean",
-        props(
-            name = r#"Cooked Soybean"#,
-            desc = r#"A high-nutrient cooked food, which can be canned."#,
-            value = "1353449022"
-        )
-    )]
-    ItemCookedSoybean = 1353449022i32,
-    #[strum(
-        serialize = "ItemCookedTomato",
-        props(
-            name = r#"Cooked Tomato"#,
-            desc = r#"A high-nutrient cooked food, which can be canned."#,
-            value = "-709086714"
-        )
-    )]
-    ItemCookedTomato = -709086714i32,
-    #[strum(
-        serialize = "ItemCorn",
-        props(
-            name = r#"Corn"#,
-            desc = r#"A long growth time staple crop. Its low requirement for darkness allows for accelerated growing if provided with extra light."#,
-            value = "258339687"
-        )
-    )]
-    ItemCorn = 258339687i32,
-    #[strum(
-        serialize = "SeedBag_Corn",
-        props(
-            name = r#"Corn Seeds"#,
-            desc = r#"Grow a <link=ThingItemCorn><color=green>Corn</color></link>."#,
-            value = "-1290755415"
-        )
-    )]
-    SeedBagCorn = -1290755415i32,
-    #[strum(
-        serialize = "ItemCornSoup",
-        props(
-            name = r#"Corn Soup"#,
-            desc = r#"Made using <link=ThingItemCookedCorn><color=green>Cooked Corn</color></link> and an <link=ThingItemEmptyCan><color=green>Empty Can</color></link> in a <link=ThingAppliancePackagingMachine><color=green>Basic Packaging Machine</color></link> or <link=ThingStructureAdvancedPackagingMachine><color=green>Advanced Packaging Machine</color></link>. Faily high in nutrition, canned food does not <link=DecayPage><color=#0080FFFF>decay</color></link>."#,
-            value = "545034114"
-        )
-    )]
-    ItemCornSoup = 545034114i32,
-    #[strum(
-        serialize = "StructureCornerLocker",
-        props(name = r#"Corner Locker"#, desc = r#""#, value = "-1968255729")
-    )]
-    StructureCornerLocker = -1968255729i32,
-    #[strum(
-        serialize = "StructurePassthroughHeatExchangerGasToGas",
-        props(
-            name = r#"CounterFlow Heat Exchanger - Gas + Gas"#,
-            desc = r#"Exchange heat from one pipe network to another. By drawing down the pressure of the outputs with a pump or regulator and regulating input pressures, the temperatures of two counterflowing networks can be effectively exchanged.
-      Balancing the throughput of both inputs is key to creating a good exhange of temperatures."#,
-            value = "-1674187440"
-        )
-    )]
-    StructurePassthroughHeatExchangerGasToGas = -1674187440i32,
-    #[strum(
-        serialize = "StructurePassthroughHeatExchangerGasToLiquid",
-        props(
-            name = r#"CounterFlow Heat Exchanger - Gas + Liquid"#,
-            desc = r#"Exchange heat from one pipe network to another. By drawing down the pressure of the outputs with a pump or regulator and regulating input pressures, the temperatures of two counterflowing networks can be effectively exchanged.
-        Balancing the throughput of both inputs is key to creating a good exhange of temperatures."#,
-            value = "1928991265"
-        )
-    )]
-    StructurePassthroughHeatExchangerGasToLiquid = 1928991265i32,
-    #[strum(
-        serialize = "StructurePassthroughHeatExchangerLiquidToLiquid",
-        props(
-            name = r#"CounterFlow Heat Exchanger - Liquid + Liquid"#,
-            desc = r#"Exchange heat from one pipe network to another. By drawing down the pressure of the outputs with a pump or regulator and regulating input pressures, the temperatures of two counterflowing networks can be effectively exchanged.
-        Balancing the throughput of both inputs is key to creating a good exchange of temperatures."#,
-            value = "-1472829583"
-        )
-    )]
-    StructurePassthroughHeatExchangerLiquidToLiquid = -1472829583i32,
-    #[strum(
-        serialize = "CrateMkII",
-        props(
-            name = r#"Crate Mk II"#,
-            desc = r#"A more heavily reinforced version of the iconic <link=ThingDynamicCrate><color=green>Dynamic Crate</color></link>, the Crate Mk II is resistant to incredibly high pressures and temperatures. Short of disposing of it in a black hole, the Mk II is about as safe as luggage gets."#,
-            value = "8709219"
-        )
-    )]
-    CrateMkIi = 8709219i32,
-    #[strum(
-        serialize = "ItemCreditCard",
-        props(name = r#"Credit Card"#, desc = r#""#, value = "-1756772618")
-    )]
-    ItemCreditCard = -1756772618i32,
-    #[strum(
-        serialize = "ItemCrowbar",
-        props(
-            name = r#"Crowbar"#,
-            desc = r#"<link=Recurso><color=#0080FFFF>Recurso's</color></link> entry-level crowbar is useful in a variety of everyday <link=Stationeers><color=#0080FFFF>Stationeer</color></link> settings, from opening <link=ThingStructureAreaPowerControl><color=green>Area Power Control</color></link>s and unpowered <link=ThingStructureAirlock><color=green>Airlock</color></link>s, to splatting pan-dimensional headcrabs, should the need arise."#,
-            value = "856108234"
-        )
-    )]
-    ItemCrowbar = 856108234i32,
+    StructureHydroponicsStation = 1441767298i32,
     #[strum(
         serialize = "StructureCryoTubeHorizontal",
         props(
@@ -1988,55 +8325,148 @@ A completed console displays all devices connected to the current power network.
     )]
     StructureCryoTubeHorizontal = 1443059329i32,
     #[strum(
-        serialize = "StructureCryoTubeVertical",
+        serialize = "StructureInsulatedInLineTankLiquid1x2",
         props(
-            name = r#"Cryo Tube Vertical"#,
-            desc = r#"The vertical variant of the cryo tube. Will heal players and organs as well as revive dead players when provided with an atmosphere of Nitrogen below -150C."#,
-            value = "-1381321828"
+            name = r#"Insulated In-Line Tank Liquid"#,
+            desc = r#""#,
+            value = "1452100517"
         )
     )]
-    StructureCryoTubeVertical = -1381321828i32,
+    StructureInsulatedInLineTankLiquid1X2 = 1452100517i32,
     #[strum(
-        serialize = "StructureCryoTube",
+        serialize = "ItemKitPassiveLargeRadiatorLiquid",
         props(
-            name = r#"CryoTube"#,
-            desc = r#"The exact operation of the Longsleep cryotube remains a commercial secret, with <link=Norsec><color=#0080FFFF>Norsec</color></link> merely licensing the design. Able to regenerate organ damage when supplied with power and an atmosphere, the Longsleep is a minor miracle of modern medical technology."#,
-            value = "1938254586"
+            name = r#"Kit (Medium Radiator Liquid)"#,
+            desc = r#""#,
+            value = "1453961898"
         )
     )]
-    StructureCryoTube = 1938254586i32,
+    ItemKitPassiveLargeRadiatorLiquid = 1453961898i32,
     #[strum(
-        serialize = "ItemSuitModCryogenicUpgrade",
+        serialize = "ItemKitReinforcedWindows",
         props(
-            name = r#"Cryogenic Suit Upgrade"#,
-            desc = r#"Enables suits with basic cooling functionality to work with cryogenic liquid."#,
-            value = "-1274308304"
+            name = r#"Kit (Reinforced Windows)"#,
+            desc = r#""#,
+            value = "1459985302"
         )
     )]
-    ItemSuitModCryogenicUpgrade = -1274308304i32,
+    ItemKitReinforcedWindows = 1459985302i32,
     #[strum(
-        serialize = "ItemFilterFern",
+        serialize = "ItemWreckageStructureWeatherStation002",
         props(
-            name = r#"Darga Fern"#,
-            desc = r#"A fern adapted by <link=Agrizero><color=#0080FFFF>Agrizero</color></link>to process a much greater volume of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> into <link=GasOxygen><color=#44AD83>Oxygen</color></link> than an average plant."#,
-            value = "266654416"
+            name = r#"Wreckage Structure Weather Station"#,
+            desc = r#""#,
+            value = "1464424921"
         )
     )]
-    ItemFilterFern = 266654416i32,
+    ItemWreckageStructureWeatherStation002 = 1464424921i32,
     #[strum(
-        serialize = "ItemDataDisk",
-        props(name = r#"Data Disk"#, desc = r#""#, value = "1005843700")
-    )]
-    ItemDataDisk = 1005843700i32,
-    #[strum(
-        serialize = "StructureDaylightSensor",
+        serialize = "StructureHydroponicsTray",
         props(
-            name = r#"Daylight Sensor"#,
-            desc = r#"Daylight sensors provide data on whether the current region of your base is in sunlight, and report the exact solar angle. Note that the orientation of the sensor alters the reported solar angle, while <link=LogicPage><color=#0080FFFF>Logic</color></link> systems can be used to offset it."#,
-            value = "1076425094"
+            name = r#"Hydroponics Tray"#,
+            desc = r#"The <link=Agrizero><color=#0080FFFF>Agrizero</color></link> hydroponics tray is the ideal vessel for growing a range of <link=OrganicPage><color=#0080FFFF>plantlife</color></link>. It must be supplied with water using a pipe network, and sufficient light to generate photosynthesis. 
+It can be automated using the <link=ThingStructureHarvie><color=green>Harvie</color></link>."#,
+            value = "1464854517"
         )
     )]
-    StructureDaylightSensor = 1076425094i32,
+    StructureHydroponicsTray = 1464854517i32,
+    #[strum(
+        serialize = "ItemMkIIToolbelt",
+        props(
+            name = r#"Tool Belt MK II"#,
+            desc = r#"A large, ten-slot tool belt with two extra generic slots for carrying whatever takes your fancy."#,
+            value = "1467558064"
+        )
+    )]
+    ItemMkIiToolbelt = 1467558064i32,
+    #[strum(
+        serialize = "StructureOverheadShortLocker",
+        props(name = r#"Overhead Locker"#, desc = r#""#, value = "1468249454")
+    )]
+    StructureOverheadShortLocker = 1468249454i32,
+    #[strum(
+        serialize = "ItemMiningBeltMKII",
+        props(
+            name = r#"Mining Belt MK II"#,
+            desc = r#"A larger and more capacious mining belt, the Mk II is similar to the <link=ThingItemMiningBelt><color=green>Mining Belt</color></link>, but has 13 slots instead of the basic 8, to increase the length of your mining trips. It also has space for two tools. "#,
+            value = "1470787934"
+        )
+    )]
+    ItemMiningBeltMkii = 1470787934i32,
+    #[strum(
+        serialize = "StructureTorpedoRack",
+        props(name = r#"Torpedo Rack"#, desc = r#""#, value = "1473807953")
+    )]
+    StructureTorpedoRack = 1473807953i32,
+    #[strum(
+        serialize = "StructureWallIron02",
+        props(name = r#"Iron Wall (Type 2)"#, desc = r#""#, value = "1485834215")
+    )]
+    StructureWallIron02 = 1485834215i32,
+    #[strum(
+        serialize = "StructureWallLargePanel",
+        props(name = r#"Wall (Large Panel)"#, desc = r#""#, value = "1492930217")
+    )]
+    StructureWallLargePanel = 1492930217i32,
+    #[strum(
+        serialize = "ItemKitLogicCircuit",
+        props(name = r#"Kit (IC Housing)"#, desc = r#""#, value = "1512322581")
+    )]
+    ItemKitLogicCircuit = 1512322581i32,
+    #[strum(
+        serialize = "ItemSprayCanRed",
+        props(
+            name = r#"Spray Paint (Red)"#,
+            desc = r#"The king of colors, red is perhaps the defining tone of the universe. Linked to blood, royalty, fire and damnation, it is the chromatic expression of power."#,
+            value = "1514393921"
+        )
+    )]
+    ItemSprayCanRed = 1514393921i32,
+    #[strum(
+        serialize = "StructureLightRound",
+        props(
+            name = r#"Light Round"#,
+            desc = r#"Description coming."#,
+            value = "1514476632"
+        )
+    )]
+    StructureLightRound = 1514476632i32,
+    #[strum(
+        serialize = "Fertilizer",
+        props(
+            name = r#"Fertilizer"#,
+            desc = r#"Fertilizer alters plant growth processes, and is created by the basic composter and the <link=ThingStructureAdvancedComposter><color=green>Advanced Composter</color></link> using <link=OrganicPage><color=#0080FFFF>organic</color></link> matter.
+Fertilizer's affects depend on its ingredients:
+
+- <link=OrganicPage><color=#0080FFFF>Food</color></link> increases PLANT YIELD up to two times
+- <link=ThingDecayedFood><color=green>Decayed Food</color></link> increases plant GROWTH SPEED up to two times
+- <link=ThingItemBiomass><color=green>Biomass</color></link> increases the NUMBER OF GROWTH CYCLES the fertilizer lasts for
+
+The effect of these ingredients depends on their respective proportions in the composter when processing is activated. "#,
+            value = "1517856652"
+        )
+    )]
+    Fertilizer = 1517856652i32,
+    #[strum(
+        serialize = "StructurePowerUmbilicalMale",
+        props(
+            name = r#"Umbilical (Power)"#,
+            desc = r#"0.Left
+1.Center
+2.Right"#,
+            value = "1529453938"
+        )
+    )]
+    StructurePowerUmbilicalMale = 1529453938i32,
+    #[strum(
+        serialize = "ItemRocketMiningDrillHeadDurable",
+        props(
+            name = r#"Mining-Drill Head (Durable)"#,
+            desc = r#""#,
+            value = "1530764483"
+        )
+    )]
+    ItemRocketMiningDrillHeadDurable = 1530764483i32,
     #[strum(
         serialize = "DecayedFood",
         props(
@@ -2047,7 +8477,7 @@ A completed console displays all devices connected to the current power network.
 
 - FOOD TYPE - Each <link=OrganicPage><color=#0080FFFF>food</color></link> type has its own decay properties. <link=ThingItemTomatoSoup><color=green>Tomato Soup</color></link> lasts a lot longer than a <link=ThingItemTomato><color=green>Tomato</color></link>, for instance.
 
-- PRESSURE - Food decays faster when the pressure drops below 1 atmosphere (101kPa). Decay happens exponentially more quickly as the atmosphere approaches a perfect vacuum. There is no effect from higher pressures.
+- PRESSURE - Food decays faster when the pressure drops below 1 atmosphere (101kPa). Decay happens exponentially more quickly as the atmosphere approaches a perfect vacuum. There is no effect from higher pressures. 
 
 - ATMOSPHERE - Different gases can slow and accelerate the decay process. The process will take account of respective gas ratios in mixed atmospheres in calculating the decay modifier. The following rates apply across all foods:
 
@@ -2066,14 +8496,556 @@ A completed console displays all devices connected to the current power network.
     )]
     DecayedFood = 1531087544i32,
     #[strum(
-        serialize = "StructureDeepMiner",
+        serialize = "LogicStepSequencer8",
         props(
-            name = r#"Deep Miner"#,
-            desc = r#"Drills through terrain until it hits bedrock. Once inside bedrock <link=ThingItemDirtyOre><color=green>Dirty Ore</color></link> is produced roughly every 90s"#,
-            value = "265720906"
+            name = r#"Logic Step Sequencer"#,
+            desc = r#"The <link=ODA><color=#0080FFFF>ODA</color></link> does not approve of soundtracks or other distractions.
+As such, <link=Stationeers><color=#0080FFFF>Stationeers</color></link> have had to create their own musical accompaniment to the demanding labor of building and maintaining off-world infrastructure.
+Central to this pastime is the step sequencer, which allows Stationeers to sequence short musical patterns or loops. 
+
+<size=120%><b>DIY MUSIC - GETTING STARTED</b></size>
+
+1: Connect 8 <link=ThingDeviceStepUnit><color=green>Device Step Unit</color></link>s to your step sequencer via the data port on the left hand side.
+
+2: Label each step unit, then assign step units 1 through 8 on the step sequencer using the screwdriver.
+
+3: Select the output speaker (eg <link=ThingPassiveSpeaker><color=green>Passive Speaker</color></link>) where the sequencer will play the sounds. This needs to be connected to the logic network on the right hand side of the sequencer.
+
+4: Place a <link=ThingStopWatch><color=green>Stop Watch</color></link> and use a <link=ThingStructureLogicReader><color=green>Logic Reader</color></link> and <link=ThingStructureLogicWriter><color=green>Logic Writer</color></link> to write the time to the time variable on the sequencer.
+
+5: Set the BPM on the sequencer using a <link=ThingStructureLogicDial><color=green>Dial</color></link> and a <link=ThingStructureLogicWriter><color=green>Logic Writer</color></link> to write to the sequencer's BPM variable. A higher bpm will play the sequence faster. 
+
+6: Insert a sound cartridge of your choosing and select which variant of sound you wish to play by pushing the arrow buttons located above and below the sound cartridge slot.
+
+7: Choose the pitch of the sounds to play by setting the dial on each of your 8 step units to the desired note. With drums, each note is a different drum sounds. You can trial your sounds by pushing the activate button on each step unit (with the sequencer inactive).
+
+8: Get freaky with the <link=ThingDeviceLfoVolume><color=green>Low frequency oscillator</color></link>.
+
+9: Finally, activate the sequencer, Vibeoneer."#,
+            value = "1531272458"
         )
     )]
-    StructureDeepMiner = 265720906i32,
+    LogicStepSequencer8 = 1531272458i32,
+    #[strum(
+        serialize = "ItemKitDynamicGasTankAdvanced",
+        props(
+            name = r#"Kit (Portable Gas Tank Mk II)"#,
+            desc = r#""#,
+            value = "1533501495"
+        )
+    )]
+    ItemKitDynamicGasTankAdvanced = 1533501495i32,
+    #[strum(
+        serialize = "ItemWireCutters",
+        props(
+            name = r#"Wire Cutters"#,
+            desc = r#"Wirecutters allow you to deconstruct various <link=StructurePage><color=#0080FFFF>structures</color></link>, as well as cross-lay cables when held in your non-active hand, and defuse explosives as needed. Wirecutters are stored in the <link=ThingItemToolBelt><color=green>Tool Belt</color></link>, along with other essential <link=ToolPage><color=#0080FFFF>tools</color></link>."#,
+            value = "1535854074"
+        )
+    )]
+    ItemWireCutters = 1535854074i32,
+    #[strum(
+        serialize = "StructureLadderEnd",
+        props(name = r#"Ladder End"#, desc = r#""#, value = "1541734993")
+    )]
+    StructureLadderEnd = 1541734993i32,
+    #[strum(
+        serialize = "ItemGrenade",
+        props(
+            name = r#"Hand Grenade"#,
+            desc = r#"Invented by the Romans, who threw Greek Fire at their enemies in ceramic jars, the word 'grenade' is derived from the Old French word for 'pomegranate', as many modern grenades resemble this round, many-seeded fruit. Also like many grenades before it, this one goes boom and breaks stuff."#,
+            value = "1544275894"
+        )
+    )]
+    ItemGrenade = 1544275894i32,
+    #[strum(
+        serialize = "StructureCableJunction5Burnt",
+        props(
+            name = r#"Burnt Cable (5-Way Junction)"#,
+            desc = r#""#,
+            value = "1545286256"
+        )
+    )]
+    StructureCableJunction5Burnt = 1545286256i32,
+    #[strum(
+        serialize = "StructurePlatformLadderOpen",
+        props(name = r#"Ladder Platform"#, desc = r#""#, value = "1559586682")
+    )]
+    StructurePlatformLadderOpen = 1559586682i32,
+    #[strum(
+        serialize = "StructureTraderWaypoint",
+        props(name = r#"Trader Waypoint"#, desc = r#""#, value = "1570931620")
+    )]
+    StructureTraderWaypoint = 1570931620i32,
+    #[strum(
+        serialize = "ItemKitLiquidUmbilical",
+        props(name = r#"Kit (Liquid Umbilical)"#, desc = r#""#, value = "1571996765")
+    )]
+    ItemKitLiquidUmbilical = 1571996765i32,
+    #[strum(
+        serialize = "StructureCompositeWall03",
+        props(
+            name = r#"Composite Wall (Type 3)"#,
+            desc = r#""#,
+            value = "1574321230"
+        )
+    )]
+    StructureCompositeWall03 = 1574321230i32,
+    #[strum(
+        serialize = "ItemKitRespawnPointWallMounted",
+        props(name = r#"Kit (Respawn)"#, desc = r#""#, value = "1574688481")
+    )]
+    ItemKitRespawnPointWallMounted = 1574688481i32,
+    #[strum(
+        serialize = "ItemHastelloyIngot",
+        props(name = r#"Ingot (Hastelloy)"#, desc = r#""#, value = "1579842814")
+    )]
+    ItemHastelloyIngot = 1579842814i32,
+    #[strum(
+        serialize = "StructurePipeOneWayValve",
+        props(
+            name = r#"One Way Valve (Gas)"#,
+            desc = r#"The one way valve moves gas in one direction only: from input side to output side. It only permits flow if the input pressure is higher than output pressure.
+"#,
+            value = "1580412404"
+        )
+    )]
+    StructurePipeOneWayValve = 1580412404i32,
+    #[strum(
+        serialize = "StructureStackerReverse",
+        props(
+            name = r#"Stacker"#,
+            desc = r#"A stacker is an important part of any automated chute network. The <link=Xigo><color=#0080FFFF>Xigo</color></link> ProKompile can be set manually or via logic, to make sure items passing through the stacker are maximized for your storage needs. The reversed stacker has power and data on the opposite side.
+The ProKompile can stack a wide variety of things such as <link=IngotPage><color=#0080FFFF>ingots</color></link>, as well as splitting stacks into appropriate sizes as needed."#,
+            value = "1585641623"
+        )
+    )]
+    StructureStackerReverse = 1585641623i32,
+    #[strum(
+        serialize = "ItemKitEvaporationChamber",
+        props(
+            name = r#"Kit (Phase Change Device)"#,
+            desc = r#""#,
+            value = "1587787610"
+        )
+    )]
+    ItemKitEvaporationChamber = 1587787610i32,
+    #[strum(
+        serialize = "ItemGlassSheets",
+        props(
+            name = r#"Glass Sheets"#,
+            desc = r#"A fundamental construction component, glass sheets are created from <link=ReagentSilicon><color=#B566FF>Silicon</color></link>. Fabricated on the <link=ThingStructureAutolathe><color=green>Autolathe</color></link>, they are used to make {THING:StructureSolarPanel;Solar Panels}, <link=ThingStructureAirlock;Airlocks><color=green><N:EN:StructureAirlock;Airlocks></color></link> and many other structures."#,
+            value = "1588896491"
+        )
+    )]
+    ItemGlassSheets = 1588896491i32,
+    #[strum(
+        serialize = "StructureWallPaddedArch",
+        props(name = r#"Wall (Padded Arch)"#, desc = r#""#, value = "1590330637")
+    )]
+    StructureWallPaddedArch = 1590330637i32,
+    #[strum(
+        serialize = "StructureLightRoundAngled",
+        props(
+            name = r#"Light Round (Angled)"#,
+            desc = r#"Description coming."#,
+            value = "1592905386"
+        )
+    )]
+    StructureLightRoundAngled = 1592905386i32,
+    #[strum(
+        serialize = "StructureWallGeometryT",
+        props(name = r#"Wall (Geometry T)"#, desc = r#""#, value = "1602758612")
+    )]
+    StructureWallGeometryT = 1602758612i32,
+    #[strum(
+        serialize = "ItemKitElectricUmbilical",
+        props(name = r#"Kit (Power Umbilical)"#, desc = r#""#, value = "1603046970")
+    )]
+    ItemKitElectricUmbilical = 1603046970i32,
+    #[strum(
+        serialize = "Lander",
+        props(name = r#"Lander"#, desc = r#""#, value = "1605130615")
+    )]
+    Lander = 1605130615i32,
+    #[strum(
+        serialize = "CartridgeNetworkAnalyser",
+        props(
+            name = r#"Network Analyzer"#,
+            desc = r#"A minor masterpiece of micro-electronic engineering, the network analyzer displays the current, voltage and wattage of a cable network, as well as any devices connected to it. Based on a widely-copied <link=Sinotai><color=#0080FFFF>Sinotai</color></link> design, it's used in conjunction with the OreCore <link=ThingItemTablet><color=green>Handheld Tablet</color></link>."#,
+            value = "1606989119"
+        )
+    )]
+    CartridgeNetworkAnalyser = 1606989119i32,
+    #[strum(
+        serialize = "CircuitboardAirControl",
+        props(
+            name = r#"Air Control"#,
+            desc = r#"When added to a <link=ThingStructureConsole><color=green>Console</color></link>, air control circuit boards allow you to program an <link=ThingStructureActiveVent><color=green>Active Vent</color></link>. As with small dogs and 83% of people, air control circuits have only three modes: Pressure, Draft and Offline. Pressure mode maintains a 100kPa atmosphere, switching the active vent between inward and outward flow until target pressure is achieved. Draft mode allows you to pair active vents to circulate air. Offline mode deactivates the vent. "#,
+            value = "1618019559"
+        )
+    )]
+    CircuitboardAirControl = 1618019559i32,
+    #[strum(
+        serialize = "StructureUprightWindTurbine",
+        props(
+            name = r#"Upright Wind Turbine"#,
+            desc = r#"Norsec's basic wind turbine is an easily fabricated, rapidly deployed design that is strong enough to withstand the worst that environments can throw at it. 
+While the wind turbine is optimized to produce power even on low atmosphere worlds (up to 200W), it performs best in denser environments. Output varies with wind speed, and during storms, may increase dramatically (up to 800W), so be careful to design your power networks with that in mind."#,
+            value = "1622183451"
+        )
+    )]
+    StructureUprightWindTurbine = 1622183451i32,
+    #[strum(
+        serialize = "StructureFairingTypeA1",
+        props(name = r#"Fairing (Type A1)"#, desc = r#""#, value = "1622567418")
+    )]
+    StructureFairingTypeA1 = 1622567418i32,
+    #[strum(
+        serialize = "ItemKitWallArch",
+        props(name = r#"Kit (Arched Wall)"#, desc = r#""#, value = "1625214531")
+    )]
+    ItemKitWallArch = 1625214531i32,
+    #[strum(
+        serialize = "StructurePipeLiquidCrossJunction3",
+        props(
+            name = r#"Liquid Pipe (3-Way Junction)"#,
+            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeLiquidCrossJunction3><color=green><N:EN:StructureInsulatedPipeLiquidCrossJunction3></color></link> using an <link=ThingItemKitInsulatedLiquidPipe><color=green>Kit (Insulated Liquid Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
+            value = "1628087508"
+        )
+    )]
+    StructurePipeLiquidCrossJunction3 = 1628087508i32,
+    #[strum(
+        serialize = "StructureGasTankStorage",
+        props(
+            name = r#"Gas Tank Storage"#,
+            desc = r#"When connected to a pipe network, the tank storage unit allows you to refill a <link=ThingItemGasCanisterEmpty><color=green>Canister</color></link>, as well as read various atmospheric data from the <link=SlotGasCanister><color=orange>Gas Canister</color></link>."#,
+            value = "1632165346"
+        )
+    )]
+    StructureGasTankStorage = 1632165346i32,
+    #[strum(
+        serialize = "CircuitboardHashDisplay",
+        props(name = r#"Hash Display"#, desc = r#""#, value = "1633074601")
+    )]
+    CircuitboardHashDisplay = 1633074601i32,
+    #[strum(
+        serialize = "CircuitboardAdvAirlockControl",
+        props(name = r#"Advanced Airlock"#, desc = r#""#, value = "1633663176")
+    )]
+    CircuitboardAdvAirlockControl = 1633663176i32,
+    #[strum(
+        serialize = "ItemGasFilterCarbonDioxide",
+        props(
+            name = r#"Filter (Carbon Dioxide)"#,
+            desc = r#"Given humanity's obsession with exhaling <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link>, all <link=Stationeers><color=#0080FFFF>Stationeers</color></link> are issued two basic <link=Sinotai><color=#0080FFFF>Sinotai</color></link> <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> <link=SlotGasFilter><color=orange>Gas Filter</color></link> as part of their standard deployment kit (SDK). These filters allow passage of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> into the suit's waste <link=ThingItemGasCanisterEmpty><color=green>Canister</color></link>, but are also critical components of the <link=ThingDynamicScrubber><color=green>Portable Air Scrubber</color></link> and the <link=ThingStructureFiltration><color=green>Filtration</color></link>. The <link=ThingItemGasFilterCarbonDioxideM><color=green>Medium Filter (Carbon Dioxide)</color></link> and <link=ThingItemGasFilterCarbonDioxideL><color=green>Heavy Filter (Carbon Dioxide)</color></link> are also available."#,
+            value = "1635000764"
+        )
+    )]
+    ItemGasFilterCarbonDioxide = 1635000764i32,
+    #[strum(
+        serialize = "StructureWallFlat",
+        props(name = r#"Wall (Flat)"#, desc = r#""#, value = "1635864154")
+    )]
+    StructureWallFlat = 1635864154i32,
+    #[strum(
+        serialize = "StructureChairBoothMiddle",
+        props(name = r#"Chair (Booth Middle)"#, desc = r#""#, value = "1640720378")
+    )]
+    StructureChairBoothMiddle = 1640720378i32,
+    #[strum(
+        serialize = "StructureWallArchArrow",
+        props(name = r#"Wall (Arch Arrow)"#, desc = r#""#, value = "1649708822")
+    )]
+    StructureWallArchArrow = 1649708822i32,
+    #[strum(
+        serialize = "StructureInsulatedPipeLiquidCrossJunction5",
+        props(
+            name = r#"Insulated Liquid Pipe (5-Way Junction)"#,
+            desc = r#"Liquid piping with very low temperature loss or gain."#,
+            value = "1654694384"
+        )
+    )]
+    StructureInsulatedPipeLiquidCrossJunction5 = 1654694384i32,
+    #[strum(
+        serialize = "StructureLogicMath",
+        props(
+            name = r#"Logic Math"#,
+            desc = r#"0.Add
+1.Subtract
+2.Multiply
+3.Divide
+4.Mod
+5.Atan2
+6.Pow
+7.Log"#,
+            value = "1657691323"
+        )
+    )]
+    StructureLogicMath = 1657691323i32,
+    #[strum(
+        serialize = "ItemKitFridgeSmall",
+        props(name = r#"Kit (Fridge Small)"#, desc = r#""#, value = "1661226524")
+    )]
+    ItemKitFridgeSmall = 1661226524i32,
+    #[strum(
+        serialize = "ItemScanner",
+        props(
+            name = r#"Handheld Scanner"#,
+            desc = r#"A mysterious piece of technology, rumored to have Zrillian origins."#,
+            value = "1661270830"
+        )
+    )]
+    ItemScanner = 1661270830i32,
+    #[strum(
+        serialize = "ItemEmergencyToolBelt",
+        props(name = r#"Emergency Tool Belt"#, desc = r#""#, value = "1661941301")
+    )]
+    ItemEmergencyToolBelt = 1661941301i32,
+    #[strum(
+        serialize = "StructureEmergencyButton",
+        props(
+            name = r#"Important Button"#,
+            desc = r#"Description coming."#,
+            value = "1668452680"
+        )
+    )]
+    StructureEmergencyButton = 1668452680i32,
+    #[strum(
+        serialize = "ItemKitAutoMinerSmall",
+        props(name = r#"Kit (Autominer Small)"#, desc = r#""#, value = "1668815415")
+    )]
+    ItemKitAutoMinerSmall = 1668815415i32,
+    #[strum(
+        serialize = "StructureChairBacklessSingle",
+        props(
+            name = r#"Chair (Backless Single)"#,
+            desc = r#""#,
+            value = "1672275150"
+        )
+    )]
+    StructureChairBacklessSingle = 1672275150i32,
+    #[strum(
+        serialize = "ItemPureIceLiquidNitrogen",
+        props(
+            name = r#"Pure Ice Liquid Nitrogen"#,
+            desc = r#"A frozen chunk of pure <link=GasLiquidNitrogen><color=#44AD83>Liquid Nitrogen</color></link>"#,
+            value = "1674576569"
+        )
+    )]
+    ItemPureIceLiquidNitrogen = 1674576569i32,
+    #[strum(
+        serialize = "ItemEvaSuit",
+        props(
+            name = r#"Eva Suit"#,
+            desc = r#"The EVA suit is the basic suit <link=Stationeers><color=#0080FFFF>Stationeers</color></link> need to survive in the inhospitable environment of space. For more information on EVA suits, consult the <link=EVAPage><color=#0080FFFF>EVA suit</color></link> guide."#,
+            value = "1677018918"
+        )
+    )]
+    ItemEvaSuit = 1677018918i32,
+    #[strum(
+        serialize = "StructurePictureFrameThinPortraitSmall",
+        props(
+            name = r#"Picture Frame Thin Portrait Small"#,
+            desc = r#""#,
+            value = "1684488658"
+        )
+    )]
+    StructurePictureFrameThinPortraitSmall = 1684488658i32,
+    #[strum(
+        serialize = "StructureLiquidDrain",
+        props(
+            name = r#"Active Liquid Outlet"#,
+            desc = r#"When connected to power and activated, it pumps liquid from a liquid network into the world."#,
+            value = "1687692899"
+        )
+    )]
+    StructureLiquidDrain = 1687692899i32,
+    #[strum(
+        serialize = "StructureLiquidTankStorage",
+        props(
+            name = r#"Liquid Tank Storage"#,
+            desc = r#"When connected to a liquid pipe network, the tank storage unit allows you to refill a <link=ThingItemLiquidCanisterEmpty><color=green>Liquid Canister</color></link>, as well as read various atmospheric data from the <link=SlotGasCanister><color=orange>Gas Canister</color></link>. It will not accept gas canisters."#,
+            value = "1691898022"
+        )
+    )]
+    StructureLiquidTankStorage = 1691898022i32,
+    #[strum(
+        serialize = "StructurePipeRadiator",
+        props(
+            name = r#"Pipe Convection Radiator"#,
+            desc = r#"A simple heat exchanger, pipe radiators can be placed on pipes to shed or gain heat, depending on the temperature of the surrounding atmosphere. If the atmosphere is hotter, heat will be added the gas within the pipe network, and visa versa if colder. In a vacuum, heat will be radiated. 
+The speed of heat gain or loss will depend on the gas in question. Adding multiple radiators will speed up heat transfer."#,
+            value = "1696603168"
+        )
+    )]
+    StructurePipeRadiator = 1696603168i32,
+    #[strum(
+        serialize = "StructureSolarPanelFlatReinforced",
+        props(
+            name = r#"Solar Panel (Heavy Flat)"#,
+            desc = r#"This solar panel is resistant to storm damage."#,
+            value = "1697196770"
+        )
+    )]
+    StructureSolarPanelFlatReinforced = 1697196770i32,
+    #[strum(
+        serialize = "ToolPrinterMod",
+        props(
+            name = r#"Tool Printer Mod"#,
+            desc = r#"Apply to an <link=ThingStructureToolManufactory><color=green>Tool Manufactory</color></link> with a <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link> or <link=ThingItemArcWelder><color=green>Arc Welder</color></link> to upgrade for increased processing speed and more recipe options."#,
+            value = "1700018136"
+        )
+    )]
+    ToolPrinterMod = 1700018136i32,
+    #[strum(
+        serialize = "StructureCableJunctionH5Burnt",
+        props(
+            name = r#"Burnt Heavy Cable (5-Way Junction)"#,
+            desc = r#""#,
+            value = "1701593300"
+        )
+    )]
+    StructureCableJunctionH5Burnt = 1701593300i32,
+    #[strum(
+        serialize = "ItemKitFlagODA",
+        props(name = r#"Kit (ODA Flag)"#, desc = r#""#, value = "1701764190")
+    )]
+    ItemKitFlagOda = 1701764190i32,
+    #[strum(
+        serialize = "StructureWallSmallPanelsTwoTone",
+        props(
+            name = r#"Wall (Small Panels Two Tone)"#,
+            desc = r#""#,
+            value = "1709994581"
+        )
+    )]
+    StructureWallSmallPanelsTwoTone = 1709994581i32,
+    #[strum(
+        serialize = "ItemFlowerYellow",
+        props(name = r#"Flower (Yellow)"#, desc = r#""#, value = "1712822019")
+    )]
+    ItemFlowerYellow = 1712822019i32,
+    #[strum(
+        serialize = "StructureInsulatedPipeLiquidCorner",
+        props(
+            name = r#"Insulated Liquid Pipe (Corner)"#,
+            desc = r#"Liquid piping with very low temperature loss or gain."#,
+            value = "1713710802"
+        )
+    )]
+    StructureInsulatedPipeLiquidCorner = 1713710802i32,
+    #[strum(
+        serialize = "ItemCookedCondensedMilk",
+        props(
+            name = r#"Condensed Milk"#,
+            desc = r#"A high-nutrient cooked food, which can be canned."#,
+            value = "1715917521"
+        )
+    )]
+    ItemCookedCondensedMilk = 1715917521i32,
+    #[strum(
+        serialize = "ItemGasSensor",
+        props(name = r#"Kit (Gas Sensor)"#, desc = r#""#, value = "1717593480")
+    )]
+    ItemGasSensor = 1717593480i32,
+    #[strum(
+        serialize = "ItemAdvancedTablet",
+        props(
+            name = r#"Advanced Tablet"#,
+            desc = r#"The advanced <link=Xigo><color=#0080FFFF>Xigo</color></link> Padi 2 tablet is an improved version of the basic <link=ThingItemTablet><color=green>Handheld Tablet</color></link>, boasting two <link=CartridgePage><color=#0080FFFF>cartridge</color></link> slots. The Padi 2 accepts <link=ThingCartridgeAtmosAnalyser><color=green>Atmos Analyzer</color></link>, <link=ThingCartridgeTracker><color=green>Tracker</color></link>, <link=ThingCartridgeMedicalAnalyser><color=green>Medical Analyzer</color></link>, <link=ThingCartridgeOreScanner><color=green>Ore Scanner</color></link>, <link=ThingCartridgeElectronicReader><color=green>eReader</color></link>, and various other cartridges.
+	  
+	  With a <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> in the <link=SlotProgrammableChip><color=orange>Programmable Chip</color></link>, you can access variable slots on the carrying human using the device numbers (d0, d1, etc...), so long as the item can be access via logic, such as the <link=ThingItemHardSuit><color=green>Hardsuit</color></link>.Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>"#,
+            value = "1722785341"
+        )
+    )]
+    ItemAdvancedTablet = 1722785341i32,
+    #[strum(
+        serialize = "ItemCoalOre",
+        props(
+            name = r#"Ore (Coal)"#,
+            desc = r#"Humanity wouldn't have got to space without humble, combustible coal. Burn it in a <link=ThingSolidFuelGenerator><color=green><N:EN:SolidFuelGenerator></color></link>, smelt it in the <link=ThingStructureFurnace><color=green>Furnace</color></link> to create <link=AlloysPage><color=#0080FFFF>alloys</color></link>, or use it in the <link=ThingApplianceReagentProcessor><color=green>Reagent Processor</color></link> to make  <link=ThingItemSprayCanBlack><color=green>Spray Paint (Black)</color></link>."#,
+            value = "1724793494"
+        )
+    )]
+    ItemCoalOre = 1724793494i32,
+    #[strum(
+        serialize = "EntityChick",
+        props(
+            name = r#"Entity Chick"#,
+            desc = r#"Once a chick is hatched, it gets hungry. It will eat soybeans, corn, and wheat, and lay eggs. Some will be fertilized, producing further chickens. Some will not."#,
+            value = "1730165908"
+        )
+    )]
+    EntityChick = 1730165908i32,
+    #[strum(
+        serialize = "StructureLiquidUmbilicalFemale",
+        props(
+            name = r#"Umbilical Socket (Liquid)"#,
+            desc = r#""#,
+            value = "1734723642"
+        )
+    )]
+    StructureLiquidUmbilicalFemale = 1734723642i32,
+    #[strum(
+        serialize = "StructureAirlockGate",
+        props(
+            name = r#"Small Hangar Door"#,
+            desc = r#"1 x 1 modular door piece for building hangar doors."#,
+            value = "1736080881"
+        )
+    )]
+    StructureAirlockGate = 1736080881i32,
+    #[strum(
+        serialize = "CartridgeOreScannerColor",
+        props(
+            name = r#"Ore Scanner (Color)"#,
+            desc = r#"When inserted into a <link=ThingItemTablet><color=green>Handheld Tablet</color></link> the scanner will display minerals hidden underground in different colors on the tablet."#,
+            value = "1738236580"
+        )
+    )]
+    CartridgeOreScannerColor = 1738236580i32,
+    #[strum(
+        serialize = "StructureBench4",
+        props(
+            name = r#"Bench (Workbench Style)"#,
+            desc = r#""#,
+            value = "1750375230"
+        )
+    )]
+    StructureBench4 = 1750375230i32,
+    #[strum(
+        serialize = "StructureCompositeCladdingSphericalCorner",
+        props(
+            name = r#"Composite Cladding (Spherical Corner)"#,
+            desc = r#""#,
+            value = "1751355139"
+        )
+    )]
+    StructureCompositeCladdingSphericalCorner = 1751355139i32,
+    #[strum(
+        serialize = "ItemKitRocketScanner",
+        props(name = r#"Kit (Rocket Scanner)"#, desc = r#""#, value = "1753647154")
+    )]
+    ItemKitRocketScanner = 1753647154i32,
+    #[strum(
+        serialize = "ItemAreaPowerControl",
+        props(
+            name = r#"Kit (Power Controller)"#,
+            desc = r#"This kit places a <link=ThingStructureAreaPowerControl><color=green>Area Power Control</color></link> (APC) on any support structure. The APC kit has two options, selecting which direction you would like the APC power to flow."#,
+            value = "1757673317"
+        )
+    )]
+    ItemAreaPowerControl = 1757673317i32,
+    #[strum(
+        serialize = "ItemIronOre",
+        props(
+            name = r#"Ore (Iron)"#,
+            desc = r#"Abundant throughout the Solar System, iron is the <link=OrePage><color=#0080FFFF>ore</color></link> most commonly used by <link=Stationeers><color=#0080FFFF>Stationeers</color></link> constructing offworld bases. It can be smelted into both <link=ThingItemIronIngot><color=green>Ingot (Iron)</color></link>s and <link=ThingItemSteelIngot><color=green>Ingot (Steel)</color></link>s."#,
+            value = "1758427767"
+        )
+    )]
+    ItemIronOre = 1758427767i32,
     #[strum(
         serialize = "DeviceStepUnit",
         props(
@@ -2169,7 +9141,7 @@ A completed console displays all devices connected to the current power network.
 88.E5
 89.F5
 90.F#5
-91.G5
+91.G5 
 92.G#5
 93.A5
 94.A#5
@@ -2211,2236 +9183,66 @@ A completed console displays all devices connected to the current power network.
     )]
     DeviceStepUnit = 1762696475i32,
     #[strum(
-        serialize = "StructureLogicDial",
+        serialize = "StructureWallPaddedThinNoBorderCorner",
         props(
-            name = r#"Dial"#,
-            desc = r#"An assignable dial with up to 1000 modes."#,
-            value = "554524804"
-        )
-    )]
-    StructureLogicDial = 554524804i32,
-    #[strum(
-        serialize = "StructureDigitalValve",
-        props(
-            name = r#"Digital Valve"#,
-            desc = r#"The digital valve allows <link=Stationeers><color=#0080FFFF>Stationeers</color></link> to create <link=LogicPage><color=#0080FFFF>logic-controlled</color></link> valves and pipe networks."#,
-            value = "-1280984102"
-        )
-    )]
-    StructureDigitalValve = -1280984102i32,
-    #[strum(
-        serialize = "StructureDiodeSlide",
-        props(name = r#"Diode Slide"#, desc = r#""#, value = "576516101")
-    )]
-    StructureDiodeSlide = 576516101i32,
-    #[strum(
-        serialize = "ItemDirtCanister",
-        props(
-            name = r#"Dirt Canister"#,
-            desc = r#"A container the will fill with Dirt when using a <link=ThingItemMiningDrill><color=green>Mining Drill</color></link> when placed inside a <link=ThingItemMiningBelt><color=green>Mining Belt</color></link>. You can then use this <link=SlotDirtCanister><color=orange>Dirt Canister</color></link> with the <link=ThingItemTerrainManipulator><color=green>Terrain Manipulator</color></link> to adjust the terrain to suit your needs."#,
-            value = "902565329"
-        )
-    )]
-    ItemDirtCanister = 902565329i32,
-    #[strum(
-        serialize = "ItemSpaceOre",
-        props(
-            name = r#"Dirty Ore"#,
-            desc = r#"Ore mined from asteroids via the <link=ThingStructureRocketMiner><color=green>Rocket Miner</color></link> which then must be processed in the <link=ThingStructureCentrifuge><color=green>Centrifuge</color></link>, or <link=ThingStructureCombustionCentrifuge><color=green>Combustion Centrifuge</color></link> to produce smeltable ores."#,
-            value = "2131916219"
-        )
-    )]
-    ItemSpaceOre = 2131916219i32,
-    #[strum(
-        serialize = "ItemDirtyOre",
-        props(
-            name = r#"Dirty Ore"#,
-            desc = r#"Ore mined from bedrock via the <link=ThingStructureDeepMiner><color=green>Deep Miner</color></link> which then can be used in the <link=ThingStructureCentrifuge><color=green>Centrifuge</color></link>, or <link=ThingStructureCombustionCentrifuge><color=green>Combustion Centrifuge</color></link>. Once processed, it produces ore in a ratio similar to the average found on the planet's surface. "#,
-            value = "-1234745580"
-        )
-    )]
-    ItemDirtyOre = -1234745580i32,
-    #[strum(
-        serialize = "ItemDisposableBatteryCharger",
-        props(
-            name = r#"Disposable Battery Charger"#,
-            desc = r#"Consumable battery the recharges your suit battery. If used on a HEM-Droid it will recharge the HEM-Droids internal battery."#,
-            value = "-2124435700"
-        )
-    )]
-    ItemDisposableBatteryCharger = -2124435700i32,
-    #[strum(
-        serialize = "StructureDockPortSide",
-        props(name = r#"Dock (Port Side)"#, desc = r#""#, value = "-137465079")
-    )]
-    StructureDockPortSide = -137465079i32,
-    #[strum(
-        serialize = "CircuitboardDoorControl",
-        props(
-            name = r#"Door Control"#,
-            desc = r#"A basic tool of <link=Stationeers><color=#0080FFFF>Stationeer</color></link> base construction, this circuit board provides a way to open and close a <link=ThingStructureCompositeDoor><color=green>Composite Door</color></link>, <link=ThingStructureBlastDoor><color=green>Blast Door</color></link> or <link=ThingStructureGlassDoor><color=green>Glass Door</color></link> remotely, when connected to a <link=ThingStructureConsole><color=green>Console</color></link>. This system can be further linked to <link=ThingStructureMotionSensor><color=green>Motion Sensor</color></link> to create automatic doors."#,
-            value = "855694771"
-        )
-    )]
-    CircuitboardDoorControl = 855694771i32,
-    #[strum(
-        serialize = "StructureSleeperVerticalDroid",
-        props(
-            name = r#"Droid Sleeper Vertical"#,
-            desc = r#"The Droid Sleeper will recharge robot batteries and equiped suit batteries if present. This sleeper variant is only safe for robots. Entering as a non robot character will cause you to take damage."#,
-            value = "1382098999"
-        )
-    )]
-    StructureSleeperVerticalDroid = 1382098999i32,
-    #[strum(
-        serialize = "ItemDuctTape",
-        props(
-            name = r#"Duct Tape"#,
-            desc = r#"In the distant past, one of Earth's great champions taught a generation of 'Fix-It People' that duct tape was the answer to any problem. <link=Stationeers><color=#0080FFFF>Stationeers</color></link> have demonstrated that this is truth holds strong, so long as the problem is a damaged <link=ThingItemEvaSuit><color=green>Eva Suit</color></link>, <link=ThingItemJetpackBasic><color=green>Jetpack Basic</color></link>, <link=ThingItemSpaceHelmet><color=green>Space Helmet</color></link>, or even a <link=ThingStructureSolarPanel><color=green>Solar Panel</color></link>.
-To use on yourself: put duct tape in your active hand, hold RIGHT MOUSE BUTTON to automatically repair damage."#,
-            value = "-1943134693"
-        )
-    )]
-    ItemDuctTape = -1943134693i32,
-    #[strum(
-        serialize = "DynamicCrate",
-        props(
-            name = r#"Dynamic Crate"#,
-            desc = r#"The humble dynamic crate has become a symbol of <link=Stationeers><color=#0080FFFF>Stationeer</color></link> invention and independence. With twelve slots and handles at either end for ease of carriage, it's both standard issue and critical kit for cadets and Commanders alike."#,
-            value = "1941079206"
-        )
-    )]
-    DynamicCrate = 1941079206i32,
-    #[strum(
-        serialize = "DynamicGasCanisterRocketFuel",
-        props(
-            name = r#"Dynamic Gas Canister Rocket Fuel"#,
+            name = r#"Wall (Padded Thin No Border Corner)"#,
             desc = r#""#,
-            value = "-8883951"
+            value = "1769527556"
         )
     )]
-    DynamicGasCanisterRocketFuel = -8883951i32,
+    StructureWallPaddedThinNoBorderCorner = 1769527556i32,
     #[strum(
-        serialize = "ItemFertilizedEgg",
+        serialize = "ItemKitWindowShutter",
+        props(name = r#"Kit (Window Shutter)"#, desc = r#""#, value = "1779979754")
+    )]
+    ItemKitWindowShutter = 1779979754i32,
+    #[strum(
+        serialize = "StructureRocketManufactory",
+        props(name = r#"Rocket Manufactory"#, desc = r#""#, value = "1781051034")
+    )]
+    StructureRocketManufactory = 1781051034i32,
+    #[strum(
+        serialize = "SeedBag_Soybean",
         props(
-            name = r#"Egg"#,
-            desc = r#"To hatch it requires an incubation temperature of between 35 and 45 degrees Celsius and will hatch into a <link=ThingNpcChick><color=green>Chick</color></link>. If the egg is exposed to tepratures below 10 degrees it will no longer be viable."#,
-            value = "-383972371"
+            name = r#"Soybean Seeds"#,
+            desc = r#"Grow some <link=ThingItemSoybean><color=green>Soybean</color></link>."#,
+            value = "1783004244"
         )
     )]
-    ItemFertilizedEgg = -383972371i32,
-    #[strum(
-        serialize = "ItemEggCarton",
-        props(
-            name = r#"Egg Carton"#,
-            desc = r#"Within, eggs reside in mysterious, marmoreal silence."#,
-            value = "-524289310"
-        )
-    )]
-    ItemEggCarton = -524289310i32,
-    #[strum(
-        serialize = "StructureElectrolyzer",
-        props(
-            name = r#"Electrolyzer"#,
-            desc = r#"The <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> Electrolyzer splits <link=GasWater><color=#44AD83>Water</color></link> into hydrogen and <link=GasOxygen><color=#44AD83>Oxygen</color></link>. Employing unknown proprietary technology, the device uses water's latent heat as the energy to drive the electrosis process. If there is a downside to this near-miraculous fission, it's that the device is limited by the quantity of power available, which is used to maintain the temperature output. In other words, the machine works best with hot gas."#,
-            value = "-1668992663"
-        )
-    )]
-    StructureElectrolyzer = -1668992663i32,
-    #[strum(
-        serialize = "ItemElectronicParts",
-        props(name = r#"Electronic Parts"#, desc = r#""#, value = "731250882")
-    )]
-    ItemElectronicParts = 731250882i32,
-    #[strum(
-        serialize = "ElectronicPrinterMod",
-        props(
-            name = r#"Electronic Printer Mod"#,
-            desc = r#"Apply to an <link=ThingStructureElectronicsPrinter><color=green>Electronics Printer</color></link> with a <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link> or <link=ThingItemArcWelder><color=green>Arc Welder</color></link> to upgrade for increased processing speed and more recipe options."#,
-            value = "-311170652"
-        )
-    )]
-    ElectronicPrinterMod = -311170652i32,
-    #[strum(
-        serialize = "StructureElectronicsPrinter",
-        props(
-            name = r#"Electronics Printer"#,
-            desc = r#"The electronic printer will create any <link=ElectronicPage><color=#0080FFFF>electronic</color></link> part you need. From circuit boards and electronic devices to solar panels. The choice is yours. Upgrade the device using a <link=ThingElectronicPrinterMod><color=green>Electronic Printer Mod</color></link> for additional recipes and faster processing speeds."#,
-            value = "1307165496"
-        )
-    )]
-    StructureElectronicsPrinter = 1307165496i32,
-    #[strum(
-        serialize = "ElevatorCarrage",
-        props(name = r#"Elevator"#, desc = r#""#, value = "-110788403")
-    )]
-    ElevatorCarrage = -110788403i32,
-    #[strum(
-        serialize = "StructureElevatorLevelIndustrial",
-        props(name = r#"Elevator Level"#, desc = r#""#, value = "2060648791")
-    )]
-    StructureElevatorLevelIndustrial = 2060648791i32,
-    #[strum(
-        serialize = "StructureElevatorLevelFront",
-        props(
-            name = r#"Elevator Level (Cabled)"#,
-            desc = r#""#,
-            value = "-827912235"
-        )
-    )]
-    StructureElevatorLevelFront = -827912235i32,
-    #[strum(
-        serialize = "StructureElevatorShaftIndustrial",
-        props(name = r#"Elevator Shaft"#, desc = r#""#, value = "1998354978")
-    )]
-    StructureElevatorShaftIndustrial = 1998354978i32,
-    #[strum(
-        serialize = "StructureElevatorShaft",
-        props(name = r#"Elevator Shaft (Cabled)"#, desc = r#""#, value = "826144419")
-    )]
-    StructureElevatorShaft = 826144419i32,
-    #[strum(
-        serialize = "ItemEmergencyAngleGrinder",
-        props(
-            name = r#"Emergency Angle Grinder"#,
-            desc = r#""#,
-            value = "-351438780"
-        )
-    )]
-    ItemEmergencyAngleGrinder = -351438780i32,
-    #[strum(
-        serialize = "ItemEmergencyArcWelder",
-        props(name = r#"Emergency Arc Welder"#, desc = r#""#, value = "-1056029600")
-    )]
-    ItemEmergencyArcWelder = -1056029600i32,
-    #[strum(
-        serialize = "ItemEmergencyCrowbar",
-        props(name = r#"Emergency Crowbar"#, desc = r#""#, value = "976699731")
-    )]
-    ItemEmergencyCrowbar = 976699731i32,
-    #[strum(
-        serialize = "ItemEmergencyDrill",
-        props(name = r#"Emergency Drill"#, desc = r#""#, value = "-2052458905")
-    )]
-    ItemEmergencyDrill = -2052458905i32,
+    SeedBagSoybean = 1783004244i32,
     #[strum(
         serialize = "ItemEmergencyEvaSuit",
         props(name = r#"Emergency Eva Suit"#, desc = r#""#, value = "1791306431")
     )]
     ItemEmergencyEvaSuit = 1791306431i32,
     #[strum(
-        serialize = "ItemEmergencyPickaxe",
-        props(name = r#"Emergency Pickaxe"#, desc = r#""#, value = "-1061510408")
-    )]
-    ItemEmergencyPickaxe = -1061510408i32,
-    #[strum(
-        serialize = "ItemEmergencyScrewdriver",
-        props(name = r#"Emergency Screwdriver"#, desc = r#""#, value = "266099983")
-    )]
-    ItemEmergencyScrewdriver = 266099983i32,
-    #[strum(
-        serialize = "ItemEmergencySpaceHelmet",
-        props(name = r#"Emergency Space Helmet"#, desc = r#""#, value = "205916793")
-    )]
-    ItemEmergencySpaceHelmet = 205916793i32,
-    #[strum(
-        serialize = "ItemEmergencyToolBelt",
-        props(name = r#"Emergency Tool Belt"#, desc = r#""#, value = "1661941301")
-    )]
-    ItemEmergencyToolBelt = 1661941301i32,
-    #[strum(
-        serialize = "ItemEmergencyWireCutters",
-        props(name = r#"Emergency Wire Cutters"#, desc = r#""#, value = "2102803952")
-    )]
-    ItemEmergencyWireCutters = 2102803952i32,
-    #[strum(
-        serialize = "ItemEmergencyWrench",
-        props(name = r#"Emergency Wrench"#, desc = r#""#, value = "162553030")
-    )]
-    ItemEmergencyWrench = 162553030i32,
-    #[strum(
-        serialize = "ItemEmptyCan",
+        serialize = "StructureWallArchCornerRound",
         props(
-            name = r#"Empty Can"#,
-            desc = r#"Used for making soups when combined with food in the <link=ThingAppliancePackagingMachine><color=green>Basic Packaging Machine</color></link> or <link=ThingStructureAdvancedPackagingMachine><color=green>Advanced Packaging Machine</color></link>. Fairly high in nutrition, canned food does not <link=DecayPage><color=#0080FFFF>decay</color></link>."#,
-            value = "1013818348"
-        )
-    )]
-    ItemEmptyCan = 1013818348i32,
-    #[strum(
-        serialize = "ItemPlantEndothermic_Creative",
-        props(
-            name = r#"Endothermic Plant Creative"#,
+            name = r#"Wall (Arch Corner Round)"#,
             desc = r#""#,
-            value = "-1159179557"
+            value = "1794588890"
         )
     )]
-    ItemPlantEndothermicCreative = -1159179557i32,
+    StructureWallArchCornerRound = 1794588890i32,
     #[strum(
-        serialize = "WeaponPistolEnergy",
-        props(
-            name = r#"Energy Pistol"#,
-            desc = r#"0.Stun
-1.Kill"#,
-            value = "-385323479"
-        )
-    )]
-    WeaponPistolEnergy = -385323479i32,
-    #[strum(
-        serialize = "WeaponRifleEnergy",
-        props(
-            name = r#"Energy Rifle"#,
-            desc = r#"0.Stun
-1.Kill"#,
-            value = "1154745374"
-        )
-    )]
-    WeaponRifleEnergy = 1154745374i32,
-    #[strum(
-        serialize = "StructureEngineMountTypeA1",
-        props(name = r#"Engine Mount (Type A1)"#, desc = r#""#, value = "2035781224")
-    )]
-    StructureEngineMountTypeA1 = 2035781224i32,
-    #[strum(
-        serialize = "EntityChick",
-        props(
-            name = r#"Entity Chick"#,
-            desc = r#"Once a chick is hatched, it gets hungry. It will eat soybeans, corn, and wheat, and lay eggs. Some will be fertilized, producing further chickens. Some will not."#,
-            value = "1730165908"
-        )
-    )]
-    EntityChick = 1730165908i32,
-    #[strum(
-        serialize = "EntityChickenBrown",
-        props(
-            name = r#"Entity Chicken Brown"#,
-            desc = r#"Like so many of its brethren, this is a chicken. A brown one. It will eat soybeans, corn, and wheat, and lay eggs. Some will be fertilized, producing further chickens. Some will not."#,
-            value = "334097180"
-        )
-    )]
-    EntityChickenBrown = 334097180i32,
-    #[strum(
-        serialize = "EntityChickenWhite",
-        props(
-            name = r#"Entity Chicken White"#,
-            desc = r#"It's a chicken, as white as moondust. It will eat soybeans, corn, and wheat, and lay eggs. Some will be fertilized, producing further chickens. Some will not."#,
-            value = "1010807532"
-        )
-    )]
-    EntityChickenWhite = 1010807532i32,
-    #[strum(
-        serialize = "EntityRoosterBlack",
-        props(
-            name = r#"Entity Rooster Black"#,
-            desc = r#"This is a rooster. It is black. There is dignity in this."#,
-            value = "966959649"
-        )
-    )]
-    EntityRoosterBlack = 966959649i32,
-    #[strum(
-        serialize = "EntityRoosterBrown",
-        props(
-            name = r#"Entity Rooster Brown"#,
-            desc = r#"The common brown rooster. Don't let it hear you say that."#,
-            value = "-583103395"
-        )
-    )]
-    EntityRoosterBrown = -583103395i32,
-    #[strum(
-        serialize = "ItemEvaSuit",
-        props(
-            name = r#"Eva Suit"#,
-            desc = r#"The EVA suit is the basic suit <link=Stationeers><color=#0080FFFF>Stationeers</color></link> need to survive in the inhospitable environment of space. For more information on EVA suits, consult the <link=EVAPage><color=#0080FFFF>EVA suit</color></link> guide."#,
-            value = "1677018918"
-        )
-    )]
-    ItemEvaSuit = 1677018918i32,
-    #[strum(
-        serialize = "StructureEvaporationChamber",
-        props(
-            name = r#"Evaporation Chamber"#,
-            desc = r#"A device for safely evaporating liquids into gasses. Liquids and Gasses will both exist safely inside the device. Lowering the pressure target of the in-built back pressure regulator using the setting wheel will change the boiling temperature of liquids inside.
-        The secondary gas input on the left is a heat-exchanger input and allows for heat exchange between the secondary input pipe and the internal atmosphere of the Evaporation Chamber.
-        Paired with <link=ThingStructureCondensationChamber><color=green>Condensation Chamber</color></link> Stationeers can exploit the phase change properties of gases to build a DIY air conditioner."#,
-            value = "-1429782576"
-        )
-    )]
-    StructureEvaporationChamber = -1429782576i32,
-    #[strum(
-        serialize = "StructureExpansionValve",
-        props(
-            name = r#"Expansion Valve"#,
-            desc = r#"Allows for moving liquids from a liquid pipe into a gas pipe. Only allows liquids to pass in one direction. Typically this is done to allow the liquid to evaporate into a gas as part of an airconditioning loop."#,
-            value = "195298587"
-        )
-    )]
-    StructureExpansionValve = 195298587i32,
-    #[strum(
-        serialize = "StructureFairingTypeA1",
-        props(name = r#"Fairing (Type A1)"#, desc = r#""#, value = "1622567418")
-    )]
-    StructureFairingTypeA1 = 1622567418i32,
-    #[strum(
-        serialize = "StructureFairingTypeA2",
-        props(name = r#"Fairing (Type A2)"#, desc = r#""#, value = "-104908736")
-    )]
-    StructureFairingTypeA2 = -104908736i32,
-    #[strum(
-        serialize = "StructureFairingTypeA3",
-        props(name = r#"Fairing (Type A3)"#, desc = r#""#, value = "-1900541738")
-    )]
-    StructureFairingTypeA3 = -1900541738i32,
-    #[strum(
-        serialize = "ItemFern",
-        props(
-            name = r#"Fern"#,
-            desc = r#"There was a time, when Stationeers had to make <link=ThingReagentFenoxitone><color=green>Fenoxitone Powder</color></link> using the <link=ThingApplianceReagentProcessor><color=green>Reagent Processor</color></link>. Recent advances in technology allow you to use equivalent quantities of fern directly in recipes."#,
-            value = "892110467"
-        )
-    )]
-    ItemFern = 892110467i32,
-    #[strum(
-        serialize = "SeedBag_Fern",
-        props(
-            name = r#"Fern Seeds"#,
-            desc = r#"Grow a <link=ThingItemFern><color=green>Fern</color></link>."#,
-            value = "-1990600883"
-        )
-    )]
-    SeedBagFern = -1990600883i32,
-    #[strum(
-        serialize = "Fertilizer",
-        props(
-            name = r#"Fertilizer"#,
-            desc = r#"Fertilizer alters plant growth processes, and is created by the basic composter and the <link=ThingStructureAdvancedComposter><color=green>Advanced Composter</color></link> using <link=OrganicPage><color=#0080FFFF>organic</color></link> matter.
-Fertilizer's affects depend on its ingredients:
-
-- <link=OrganicPage><color=#0080FFFF>Food</color></link> increases PLANT YIELD up to two times
-- <link=ThingDecayedFood><color=green>Decayed Food</color></link> increases plant GROWTH SPEED up to two times
-- <link=ThingItemBiomass><color=green>Biomass</color></link> increases the NUMBER OF GROWTH CYCLES the fertilizer lasts for
-
-The effect of these ingredients depends on their respective proportions in the composter when processing is activated. "#,
-            value = "1517856652"
-        )
-    )]
-    Fertilizer = 1517856652i32,
-    #[strum(
-        serialize = "ItemGasFilterCarbonDioxide",
-        props(
-            name = r#"Filter (Carbon Dioxide)"#,
-            desc = r#"Given humanity's obsession with exhaling <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link>, all <link=Stationeers><color=#0080FFFF>Stationeers</color></link> are issued two basic <link=Sinotai><color=#0080FFFF>Sinotai</color></link> <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> <link=SlotGasFilter><color=orange>Gas Filter</color></link> as part of their standard deployment kit (SDK). These filters allow passage of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> into the suit's waste <link=ThingItemGasCanisterEmpty><color=green>Canister</color></link>, but are also critical components of the <link=ThingDynamicScrubber><color=green>Portable Air Scrubber</color></link> and the <link=ThingStructureFiltration><color=green>Filtration</color></link>. The <link=ThingItemGasFilterCarbonDioxideM><color=green>Medium Filter (Carbon Dioxide)</color></link> and <link=ThingItemGasFilterCarbonDioxideL><color=green>Heavy Filter (Carbon Dioxide)</color></link> are also available."#,
-            value = "1635000764"
-        )
-    )]
-    ItemGasFilterCarbonDioxide = 1635000764i32,
-    #[strum(
-        serialize = "ItemGasFilterNitrogen",
-        props(
-            name = r#"Filter (Nitrogen)"#,
-            desc = r#"Filters are used to capture various gases, which can be disposed of or used elsewhere. <link=GasNitrogen><color=#44AD83>Nitrogen</color></link> is a byproduct of smelting various ores, notably <link=ThingItemNitrice><color=green>Ice (Nitrice)</color></link>, which may be combined with <link=GasOxygen><color=#44AD83>Oxygen</color></link> to make a breathable - and considerably less flammable - atmosphere."#,
-            value = "632853248"
-        )
-    )]
-    ItemGasFilterNitrogen = 632853248i32,
-    #[strum(
-        serialize = "ItemGasFilterNitrousOxide",
-        props(
-            name = r#"Filter (Nitrous Oxide)"#,
-            desc = r#""#,
-            value = "-1247674305"
-        )
-    )]
-    ItemGasFilterNitrousOxide = -1247674305i32,
-    #[strum(
-        serialize = "ItemGasFilterOxygen",
-        props(
-            name = r#"Filter (Oxygen)"#,
-            desc = r#"<link=Sinotai><color=#0080FFFF>Sinotai</color></link> have cornered the market in filter design. Their trademarked templates are simple to print and highly efficient at capturing various gases, which can be disposed of or used elsewhere. <link=GasOxygen><color=#44AD83>Oxygen</color></link> is a common byproduct of smelting various ores, but must be filtered of such impurities as <link=GasNitrogen><color=#44AD83>Nitrogen</color></link> using this filter and various devices, such as the <link=ThingItemDynamicScrubber><color=green>Kit (Portable Scrubber)</color></link>."#,
-            value = "-721824748"
-        )
-    )]
-    ItemGasFilterOxygen = -721824748i32,
-    #[strum(
-        serialize = "ItemGasFilterPollutants",
-        props(
-            name = r#"Filter (Pollutant)"#,
-            desc = r#"Filters are used to capture various gases, such as waste emissions from a <link=ThingStructureFurnace><color=green>Furnace</color></link> or <link=ThingStructureArcFurnace><color=green>Arc Furnace</color></link>. Adding <link=Sinotai><color=#0080FFFF>Sinotai</color></link>-designed <link=GasPollutant><color=#44AD83>Pollutant</color></link> filters to a <link=ThingItemDynamicScrubber><color=green>Kit (Portable Scrubber)</color></link> allows you to isolate this gas, then add it to a pipe network and employ its excellent coolant properties in a <link=ThingStructureWallCooler><color=green>Wall Cooler</color></link>. Try not to inhale."#,
-            value = "1915566057"
-        )
-    )]
-    ItemGasFilterPollutants = 1915566057i32,
-    #[strum(
-        serialize = "ItemGasFilterVolatiles",
-        props(
-            name = r#"Filter (Volatiles)"#,
-            desc = r#"Filters are used to capture various gases, which can be disposed of or used elsewhere. <link=GasVolatiles><color=#44AD83>Volatiles</color></link> are created by exposing <link=ThingItemVolatiles><color=green>Ice (Volatiles)</color></link> to heat. The product can then be collected and combined with <link=GasOxygen><color=#44AD83>Oxygen</color></link> to create fuel, or used within a <link=ThingStructureFurnace><color=green>Furnace</color></link> to smelt ores and create <link=IngotPage><color=#0080FFFF>alloys</color></link>."#,
-            value = "15011598"
-        )
-    )]
-    ItemGasFilterVolatiles = 15011598i32,
-    #[strum(
-        serialize = "ItemGasFilterWater",
-        props(
-            name = r#"Filter (Water)"#,
-            desc = r#"<link=Sinotai><color=#0080FFFF>Sinotai</color></link> filters are used to capture various gases, which can be disposed of, or used elsewhere. <link=GasWater><color=#44AD83>Water</color></link> can be collected by filtering smelted <link=ThingItemIce><color=green>Ice (Water)</color></link>"#,
-            value = "-1993197973"
-        )
-    )]
-    ItemGasFilterWater = -1993197973i32,
-    #[strum(
-        serialize = "StructureFiltration",
-        props(
-            name = r#"Filtration"#,
-            desc = r#"The Filtration Unit is based on a long-standing <link=ExMin><color=#0080FFFF>ExMin</color></link> system, itself based on older designs of uncertain provenance. It is available in the <link=ThingItemKitAtmospherics><color=green>Kit (Atmospherics)</color></link>.
-The device has nonetheless proven indispensable for <link=Stationeers><color=#0080FFFF>Stationeer</color></link> atmospheric systems, as it can filter two <link=GasPage><color=#0080FFFF>gases</color></link> simultaneously from a single pipe network using a dual filter array. The unit has an input, and a filter output as well as an unfiltered outlet for any residual gases.
-"#,
-            value = "-348054045"
-        )
-    )]
-    StructureFiltration = -348054045i32,
-    #[strum(
-        serialize = "FireArmSMG",
-        props(
-            name = r#"Fire Arm SMG"#,
-            desc = r#"0.Single
-1.Auto"#,
-            value = "-86315541"
-        )
-    )]
-    FireArmSmg = -86315541i32,
-    #[strum(
-        serialize = "ItemReusableFireExtinguisher",
-        props(
-            name = r#"Fire Extinguisher (Reusable)"#,
-            desc = r#"Requires a canister filled with any inert liquid to opperate."#,
-            value = "-1773192190"
-        )
-    )]
-    ItemReusableFireExtinguisher = -1773192190i32,
-    #[strum(
-        serialize = "Flag_ODA_10m",
-        props(name = r#"Flag (ODA 10m)"#, desc = r#""#, value = "1845441951")
-    )]
-    FlagOda10M = 1845441951i32,
-    #[strum(
-        serialize = "Flag_ODA_4m",
-        props(name = r#"Flag (ODA 4m)"#, desc = r#""#, value = "1159126354")
-    )]
-    FlagOda4M = 1159126354i32,
-    #[strum(
-        serialize = "Flag_ODA_6m",
-        props(name = r#"Flag (ODA 6m)"#, desc = r#""#, value = "1998634960")
-    )]
-    FlagOda6M = 1998634960i32,
-    #[strum(
-        serialize = "Flag_ODA_8m",
-        props(name = r#"Flag (ODA 8m)"#, desc = r#""#, value = "-375156130")
-    )]
-    FlagOda8M = -375156130i32,
-    #[strum(
-        serialize = "FlareGun",
-        props(name = r#"Flare Gun"#, desc = r#""#, value = "118685786")
-    )]
-    FlareGun = 118685786i32,
-    #[strum(
-        serialize = "StructureFlashingLight",
-        props(
-            name = r#"Flashing Light"#,
-            desc = r#"Few objects or ideas are as clearly and transparently named as the Flashing Light, although fans of scrupulous accuracy have been known to refer to it by its full, official title: 'Default Yellow Flashing Light'."#,
-            value = "-1535893860"
-        )
-    )]
-    StructureFlashingLight = -1535893860i32,
-    #[strum(
-        serialize = "ItemFlashlight",
-        props(
-            name = r#"Flashlight"#,
-            desc = r#"A flashlight with a narrow and wide beam options."#,
-            value = "-838472102"
-        )
-    )]
-    ItemFlashlight = -838472102i32,
-    #[strum(
-        serialize = "ItemFlour",
-        props(
-            name = r#"Flour"#,
-            desc = r#"Pulverized <link=ThingItemWheat><color=green>Wheat</color></link>, a key ingredient in many foods created by the <link=ThingApplianceMicrowave><color=green>Microwave</color></link> and the <link=ThingItemKitAutomatedOven><color=green>Kit (Automated Oven)</color></link>."#,
-            value = "-665995854"
-        )
-    )]
-    ItemFlour = -665995854i32,
-    #[strum(
-        serialize = "ItemFlowerBlue",
-        props(name = r#"Flower (Blue)"#, desc = r#""#, value = "-1573623434")
-    )]
-    ItemFlowerBlue = -1573623434i32,
-    #[strum(
-        serialize = "ItemFlowerGreen",
-        props(name = r#"Flower (Green)"#, desc = r#""#, value = "-1513337058")
-    )]
-    ItemFlowerGreen = -1513337058i32,
-    #[strum(
-        serialize = "ItemFlowerOrange",
-        props(name = r#"Flower (Orange)"#, desc = r#""#, value = "-1411986716")
-    )]
-    ItemFlowerOrange = -1411986716i32,
-    #[strum(
-        serialize = "ItemFlowerRed",
-        props(name = r#"Flower (Red)"#, desc = r#""#, value = "-81376085")
-    )]
-    ItemFlowerRed = -81376085i32,
-    #[strum(
-        serialize = "ItemFlowerYellow",
-        props(name = r#"Flower (Yellow)"#, desc = r#""#, value = "1712822019")
-    )]
-    ItemFlowerYellow = 1712822019i32,
-    #[strum(
-        serialize = "ItemFries",
-        props(name = r#"French Fries"#, desc = r#""#, value = "1371786091")
-    )]
-    ItemFries = 1371786091i32,
-    #[strum(
-        serialize = "StructureFridgeBig",
-        props(
-            name = r#"Fridge (Large)"#,
-            desc = r#"The <link=Xigo><color=#0080FFFF>Xigo</color></link> Koolaid fridge is a self-cooling storage device with 15 slots that preserves food when powered and turned on. While many users have complained about the placement of the power switch, its place in the pantheon of off-world whiteware is unquestioned.
-
-With its own permanent internal atmosphere, the Koolaid fridge slows the decay of <link=OrganicPage><color=#0080FFFF>food</color></link> by maintaining an optimal internal temperature. Its power usage varies on the external temperature against which it must balance its internal temperature. As such, it must shed heat to operate, so the Koolaid fridge DOES NOT work in a vacuum.
-
-Also, don't leave the door open, as it will equalize with the current world temperature. And maybe start to beep.
-
-For more information about food preservation, visit the <link=DecayPage><color=#0080FFFF>food decay</color></link> section of the Stationpedia."#,
-            value = "958476921"
-        )
-    )]
-    StructureFridgeBig = 958476921i32,
-    #[strum(
-        serialize = "StructureFridgeSmall",
-        props(
-            name = r#"Fridge Small"#,
-            desc = r#"Essentially a heavily insulated box that allows users to pipe in any desired atmosphere, the <link=Recurso><color=#0080FFFF>Recurso</color></link> Minibar fridge was a simple solution to the problem of <link=NutritionPage><color=#0080FFFF>food decay</color></link>. It stores a small number of items, at any temperature you can muster.
-
-      For more information about food preservation, visit the <link=DecayPage><color=#0080FFFF>food decay</color></link> section of the Stationpedia."#,
-            value = "751887598"
-        )
-    )]
-    StructureFridgeSmall = 751887598i32,
-    #[strum(
-        serialize = "StructureFurnace",
-        props(
-            name = r#"Furnace"#,
-            desc = r#"The Zhurong furnace employs a high-temperature gas mixture of <link=GasOxygen><color=#44AD83>Oxygen</color></link> and <link=GasVolatiles><color=#44AD83>Volatiles</color></link> to smelt <link=IngotPage><color=#0080FFFF>ingots</color></link> and a range of <link=IngotPage><color=#0080FFFF>alloys</color></link> as raw materials for <link=FabricatorPage><color=#0080FFFF>fabricators</color></link>.
-A basic gas mixture can be achieved by adding <link=ThingItemOxite><color=green>Ice (Oxite)</color></link> and <link=ThingItemVolatiles><color=green>Ice (Volatiles)</color></link> in a 1:2 ratio directly to the furnace, but more complex alloys will require careful management of a dedicated gas mixing network. Exact ingredient ratios must be observed. Likewise, smelting ores at insufficient temperatures will produce <link=ReagentPage><color=#0080FFFF>reagents</color></link>, which must be recycled.
-If liquids are present in the furnace, they will gather there until the furnace is connected to a liquid pipe network."#,
-            value = "1947944864"
-        )
-    )]
-    StructureFurnace = 1947944864i32,
-    #[strum(
-        serialize = "StructureCableFuse100k",
-        props(name = r#"Fuse (100kW)"#, desc = r#""#, value = "281380789")
-    )]
-    StructureCableFuse100K = 281380789i32,
-    #[strum(
-        serialize = "StructureCableFuse1k",
-        props(name = r#"Fuse (1kW)"#, desc = r#""#, value = "-1103727120")
-    )]
-    StructureCableFuse1K = -1103727120i32,
-    #[strum(
-        serialize = "StructureCableFuse50k",
-        props(name = r#"Fuse (50kW)"#, desc = r#""#, value = "-349716617")
-    )]
-    StructureCableFuse50K = -349716617i32,
-    #[strum(
-        serialize = "StructureCableFuse5k",
-        props(name = r#"Fuse (5kW)"#, desc = r#""#, value = "-631590668")
-    )]
-    StructureCableFuse5K = -631590668i32,
-    #[strum(
-        serialize = "StructureFuselageTypeA1",
-        props(name = r#"Fuselage (Type A1)"#, desc = r#""#, value = "1033024712")
-    )]
-    StructureFuselageTypeA1 = 1033024712i32,
-    #[strum(
-        serialize = "StructureFuselageTypeA2",
-        props(name = r#"Fuselage (Type A2)"#, desc = r#""#, value = "-1533287054")
-    )]
-    StructureFuselageTypeA2 = -1533287054i32,
-    #[strum(
-        serialize = "StructureFuselageTypeA4",
-        props(name = r#"Fuselage (Type A4)"#, desc = r#""#, value = "1308115015")
-    )]
-    StructureFuselageTypeA4 = 1308115015i32,
-    #[strum(
-        serialize = "StructureFuselageTypeC5",
-        props(name = r#"Fuselage (Type C5)"#, desc = r#""#, value = "147395155")
-    )]
-    StructureFuselageTypeC5 = 147395155i32,
-    #[strum(
-        serialize = "CartridgeGPS",
-        props(name = r#"GPS"#, desc = r#""#, value = "-1957063345")
-    )]
-    CartridgeGps = -1957063345i32,
-    #[strum(
-        serialize = "ItemGasCanisterNitrousOxide",
-        props(
-            name = r#"Gas Canister (Sleeping)"#,
-            desc = r#""#,
-            value = "-1712153401"
-        )
-    )]
-    ItemGasCanisterNitrousOxide = -1712153401i32,
-    #[strum(
-        serialize = "ItemGasCanisterSmart",
-        props(
-            name = r#"Gas Canister (Smart)"#,
-            desc = r#"0.Mode0
-1.Mode1"#,
-            value = "-668314371"
-        )
-    )]
-    ItemGasCanisterSmart = -668314371i32,
-    #[strum(
-        serialize = "StructureMediumRocketGasFuelTank",
-        props(
-            name = r#"Gas Capsule Tank Medium"#,
-            desc = r#""#,
-            value = "-1093860567"
-        )
-    )]
-    StructureMediumRocketGasFuelTank = -1093860567i32,
-    #[strum(
-        serialize = "StructureCapsuleTankGas",
-        props(
-            name = r#"Gas Capsule Tank Small"#,
-            desc = r#""#,
-            value = "-1385712131"
-        )
-    )]
-    StructureCapsuleTankGas = -1385712131i32,
-    #[strum(
-        serialize = "CircuitboardGasDisplay",
-        props(
-            name = r#"Gas Display"#,
-            desc = r#"Information is power. Place this circuitboard into a <link=ThingStructureConsole><color=green>Console</color></link> to create a display that shows gas pressure or temperature of any connected tank, storage cannister, <link=ThingItemPipeAnalyizer><color=green>Kit (Pipe Analyzer)</color></link> or <link=ThingItemGasSensor><color=green>Kit (Gas Sensor)</color></link>."#,
-            value = "-82343730"
-        )
-    )]
-    CircuitboardGasDisplay = -82343730i32,
-    #[strum(
-        serialize = "StructureGasGenerator",
-        props(name = r#"Gas Fuel Generator"#, desc = r#""#, value = "1165997963")
-    )]
-    StructureGasGenerator = 1165997963i32,
-    #[strum(
-        serialize = "StructureGasMixer",
-        props(
-            name = r#"Gas Mixer"#,
-            desc = r#"Indispensable for producing precise atmospheric ratios, this gas mixer blends two gases in proportions ranging anywhere from 0-100%."#,
-            value = "2104106366"
-        )
-    )]
-    StructureGasMixer = 2104106366i32,
-    #[strum(
-        serialize = "StructureGasSensor",
-        props(
-            name = r#"Gas Sensor"#,
-            desc = r#"Gas sensors are designed to monitor and report basic atmospheric information, including temperature, pressure, and gas ratios. They also make wonderful wedding presents."#,
-            value = "-1252983604"
-        )
-    )]
-    StructureGasSensor = -1252983604i32,
-    #[strum(
-        serialize = "DynamicGasTankAdvanced",
-        props(
-            name = r#"Gas Tank Mk II"#,
-            desc = r#"0.Mode0
-1.Mode1"#,
-            value = "-386375420"
-        )
-    )]
-    DynamicGasTankAdvanced = -386375420i32,
-    #[strum(
-        serialize = "StructureGasTankStorage",
-        props(
-            name = r#"Gas Tank Storage"#,
-            desc = r#"When connected to a pipe network, the tank storage unit allows you to refill a <link=ThingItemGasCanisterEmpty><color=green>Canister</color></link>, as well as read various atmospheric data from the <link=SlotGasCanister><color=orange>Gas Canister</color></link>."#,
-            value = "1632165346"
-        )
-    )]
-    StructureGasTankStorage = 1632165346i32,
-    #[strum(
-        serialize = "StructureSolidFuelGenerator",
-        props(
-            name = r#"Generator (Solid Fuel)"#,
-            desc = r#"The mainstay of power generation for Stationeers, this device provides 20kW of power. Multiple solid resources can be loaded. While operating, the device will output its maximum power regardless of whether you have captured it or not. Watch for blown wires! It will output much more power than your regular <link=ThingItemCableCoil><color=green>Cable Coil</color></link> can handle."#,
-            value = "813146305"
-        )
-    )]
-    StructureSolidFuelGenerator = 813146305i32,
-    #[strum(
-        serialize = "StructureGlassDoor",
-        props(
-            name = r#"Glass Door"#,
-            desc = r#"0.Operate
-1.Logic"#,
-            value = "-324331872"
-        )
-    )]
-    StructureGlassDoor = -324331872i32,
-    #[strum(
-        serialize = "ItemGlassSheets",
-        props(
-            name = r#"Glass Sheets"#,
-            desc = r#"A fundamental construction component, glass sheets are created from <link=ReagentSilicon><color=#B566FF>Silicon</color></link>. Fabricated on the <link=ThingStructureAutolathe><color=green>Autolathe</color></link>, they are used to make {THING:StructureSolarPanel;Solar Panels}, <link=ThingStructureAirlock;Airlocks><color=green><N:EN:StructureAirlock;Airlocks></color></link> and many other structures."#,
-            value = "1588896491"
-        )
-    )]
-    ItemGlassSheets = 1588896491i32,
-    #[strum(
-        serialize = "ItemGlasses",
-        props(name = r#"Glasses"#, desc = r#""#, value = "-1068925231")
-    )]
-    ItemGlasses = -1068925231i32,
-    #[strum(
-        serialize = "CircuitboardGraphDisplay",
-        props(name = r#"Graph Display"#, desc = r#""#, value = "1344368806")
-    )]
-    CircuitboardGraphDisplay = 1344368806i32,
-    #[strum(
-        serialize = "StructureGrowLight",
-        props(
-            name = r#"Grow Light"#,
-            desc = r#"<link=Agrizero><color=#0080FFFF>Agrizero's</color></link> leading hydroponic lighting system, the GrowUp UV light supplements sunshine in low light or sun-distant conditions. The unit adds growability over the space of a grid, so requires proximate placement to work. "#,
-            value = "-1758710260"
-        )
-    )]
-    StructureGrowLight = -1758710260i32,
-    #[strum(
-        serialize = "CartridgeGuide",
-        props(name = r#"Guide"#, desc = r#""#, value = "872720793")
-    )]
-    CartridgeGuide = 872720793i32,
-    #[strum(
-        serialize = "H2Combustor",
-        props(
-            name = r#"H2 Combustor"#,
-            desc = r#"Adapted slightly from its original <link=Recurso><color=#0080FFFF>Recurso</color></link> design, the <link=GasVolatiles><color=#44AD83>Volatiles</color></link> Combustor does exactly what its name suggests - it burns a mixture of volatiles and <link=GasOxygen><color=#44AD83>Oxygen</color></link> to create water. Extremely useful in hot or arid environments, users need to be aware that the combustor outputs considerable waste heat. The device is also less than perfectly efficient, resulting in the autoignition of volatiles in the chamber, and the production of waste gases which must be dealt with."#,
-            value = "1840108251"
-        )
-    )]
-    H2Combustor = 1840108251i32,
-    #[strum(
-        serialize = "ItemHEMDroidRepairKit",
-        props(
-            name = r#"HEMDroid Repair Kit"#,
-            desc = r#"Repairs damaged HEM-Droids to full health."#,
-            value = "470636008"
-        )
-    )]
-    ItemHemDroidRepairKit = 470636008i32,
-    #[strum(
-        serialize = "ItemPlantThermogenic_Genepool1",
-        props(
-            name = r#"Hades Flower (Alpha strain)"#,
-            desc = r#"The <link=Agrizero><color=#0080FFFF>Agrizero's</color></link>-created Hades Flower is the result of as dubious experiment to combine the allure of tropical plants with the comfort and homeliness of a heat pump. The plant breathes a 1:3 mix of <link=GasVolatiles><color=#44AD83>Volatiles</color></link> and <link=GasOxygen><color=#44AD83>Oxygen</color></link>, and exhales heated <link=GasPollutant><color=#44AD83>Pollutant</color></link>."#,
-            value = "-177792789"
-        )
-    )]
-    ItemPlantThermogenicGenepool1 = -177792789i32,
-    #[strum(
-        serialize = "ItemPlantThermogenic_Genepool2",
-        props(
-            name = r#"Hades Flower (Beta strain)"#,
-            desc = r#"The <link=Agrizero><color=#0080FFFF>Agrizero's</color></link>-created Hades Flower is the result of as dubious experiment to combine the allure of tropical plants with the comfort and homeliness of a heat pump. The plant breathes a 1:3 mix of <link=GasVolatiles><color=#44AD83>Volatiles</color></link> and <link=GasOxygen><color=#44AD83>Oxygen</color></link>, and exhales heated <link=GasPollutant><color=#44AD83>Pollutant</color></link>. The beta strain is notably more efficient than the earlier, more experimental alpha variant."#,
-            value = "1819167057"
-        )
-    )]
-    ItemPlantThermogenicGenepool2 = 1819167057i32,
-    #[strum(
-        serialize = "ItemDrill",
-        props(
-            name = r#"Hand Drill"#,
-            desc = r#"The <link=ExMin><color=#0080FFFF>ExMin</color></link> Off-whirled Hand Drill has been a companion to <link=Stationeers><color=#0080FFFF>Stationeers</color></link> for decades. Essential for assembling and deconstructing various items and structures, regardless of gravity, pressure or temperature."#,
-            value = "2009673399"
-        )
-    )]
-    ItemDrill = 2009673399i32,
-    #[strum(
-        serialize = "ItemGrenade",
-        props(
-            name = r#"Hand Grenade"#,
-            desc = r#"Invented by the Romans, who threw Greek Fire at their enemies in ceramic jars, the word 'grenade' is derived from the Old French word for 'pomegranate', as many modern grenades resemble this round, many-seeded fruit. Also like many grenades before it, this one goes boom and breaks stuff."#,
-            value = "1544275894"
-        )
-    )]
-    ItemGrenade = 1544275894i32,
-    #[strum(
-        serialize = "Handgun",
-        props(name = r#"Handgun"#, desc = r#""#, value = "247238062")
-    )]
-    Handgun = 247238062i32,
-    #[strum(
-        serialize = "HandgunMagazine",
-        props(name = r#"Handgun Magazine"#, desc = r#""#, value = "1254383185")
-    )]
-    HandgunMagazine = 1254383185i32,
-    #[strum(
-        serialize = "ItemScanner",
-        props(
-            name = r#"Handheld Scanner"#,
-            desc = r#"A mysterious piece of technology, rumored to have Zrillian origins."#,
-            value = "1661270830"
-        )
-    )]
-    ItemScanner = 1661270830i32,
-    #[strum(
-        serialize = "ItemTablet",
-        props(
-            name = r#"Handheld Tablet"#,
-            desc = r#"The <link=Xigo><color=#0080FFFF>Xigo</color></link> handheld 'Padi' tablet is an all-purpose data platform, provided as standard issue to all <link=Stationeers><color=#0080FFFF>Stationeers</color></link>. A dynamic multi-tool that accepts a range of <link=CartridgePage><color=#0080FFFF>cartridges</color></link>, the Padi becomes an <link=ThingCartridgeAtmosAnalyser><color=green>Atmos Analyzer</color></link> or <link=ThingCartridgeTracker><color=green>Tracker</color></link>, <link=ThingCartridgeMedicalAnalyser><color=green>Medical Analyzer</color></link>, <link=ThingCartridgeOreScanner><color=green>Ore Scanner</color></link>, <link=ThingCartridgeElectronicReader><color=green>eReader</color></link>, and various other functions."#,
-            value = "-229808600"
-        )
-    )]
-    ItemTablet = -229808600i32,
-    #[strum(
-        serialize = "ItemHardMiningBackPack",
-        props(name = r#"Hard Mining Backpack"#, desc = r#""#, value = "900366130")
-    )]
-    ItemHardMiningBackPack = 900366130i32,
-    #[strum(
-        serialize = "ItemHardSuit",
-        props(
-            name = r#"Hardsuit"#,
-            desc = r#"Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>"#,
-            value = "-1758310454"
-        )
-    )]
-    ItemHardSuit = -1758310454i32,
-    #[strum(
-        serialize = "ItemHardBackpack",
-        props(
-            name = r#"Hardsuit Backpack"#,
-            desc = r#"This backpack can be useful when you are working inside and don't need to fly around."#,
-            value = "374891127"
-        )
-    )]
-    ItemHardBackpack = 374891127i32,
-    #[strum(
-        serialize = "ItemHardsuitHelmet",
-        props(
-            name = r#"Hardsuit Helmet"#,
-            desc = r#"The Hardsuit Helmet is similar to the <link=ThingItemSpaceHelmet><color=green>Space Helmet</color></link>, but can withstand higher temperatures and pressures. It's perfect for enduring harsh environments like Venus and Vulcan."#,
-            value = "-84573099"
-        )
-    )]
-    ItemHardsuitHelmet = -84573099i32,
-    #[strum(
-        serialize = "ItemHardJetpack",
-        props(
-            name = r#"Hardsuit Jetpack"#,
-            desc = r#"The <link=Norsec><color=#0080FFFF>Norsec</color></link> jetpack isn't 'technically' a jetpack at all, it's a gas thruster. It can be powered by any gas, so long as the internal pressure of the <link=AtmosphericsPage><color=#0080FFFF>canister</color></link> is higher than the ambient external pressure. If the external pressure is greater, the spacepack will not function. Adjusting the thrust value alters your rate of acceleration, while activating the stablizer causes the spacepack to hover when a given height is reached.
-The hardsuit jetpack is capable of much higher speeds than the <link=ThingItemJetpackBasic><color=green>Jetpack Basic</color></link> - up to 15m/s. Indispensable for building, mining and general movement, it has fourteen storage slots.
-USE: 'J' to activate; 'space' to fly up; 'left ctrl' to descend; and 'WASD' to move."#,
-            value = "-412551656"
-        )
-    )]
-    ItemHardJetpack = -412551656i32,
-    #[strum(
-        serialize = "StructureHarvie",
-        props(
-            name = r#"Harvie"#,
-            desc = r#"Use above a <link=ThingStructureHydroponicsTray><color=green>Hydroponics Tray</color></link> or <link=ThingStructureHydroponicsTrayData><color=green>Hydroponics Device</color></link> to manage the planting and harvest of your crops. It contains a button that will allow you to activate it's modes, or connect it to a logic system to do this for you. The modes indicate current growth status of the plant below. Import is used for planting, and harvested plants are sent to export."#,
-            value = "958056199"
-        )
-    )]
-    StructureHarvie = 958056199i32,
-    #[strum(
-        serialize = "CircuitboardHashDisplay",
-        props(name = r#"Hash Display"#, desc = r#""#, value = "1633074601")
-    )]
-    CircuitboardHashDisplay = 1633074601i32,
-    #[strum(
-        serialize = "ItemHat",
-        props(
-            name = r#"Hat"#,
-            desc = r#"As the name suggests, this is a hat."#,
-            value = "299189339"
-        )
-    )]
-    ItemHat = 299189339i32,
-    #[strum(
-        serialize = "ItemCropHay",
-        props(name = r#"Hay"#, desc = r#""#, value = "215486157")
-    )]
-    ItemCropHay = 215486157i32,
-    #[strum(
-        serialize = "ItemWearLamp",
-        props(name = r#"Headlamp"#, desc = r#""#, value = "-598730959")
-    )]
-    ItemWearLamp = -598730959i32,
-    #[strum(
-        serialize = "StructureHeatExchangerGastoGas",
-        props(
-            name = r#"Heat Exchanger - Gas"#,
-            desc = r#"The original specs for the N Series Flow-P heat exchanger were rumored to have been scrawled on the back of a burger receipt by a bored <link=Sinotai><color=#0080FFFF>Sinotai</color></link> designer riding up the Brazilian space elevator, but that hasn't stopped it becoming one of the most widely-copied heat exchanger designs in the Solar System.
-The 'N Flow-P' has four connections, allowing you to pass two gas networks into the unit, which then works to equalize temperature across the two separate networks.
-As the N Flow-P is a passive system, it equalizes pressure across the entire of each individual network, unless connected to gas management devices like a <link=ThingStructureVolumePump><color=green>Volume Pump</color></link> or a <link=ThingStructureBackPressureRegulator><color=green>Back Pressure Regulator</color></link>."#,
-            value = "21266291"
-        )
-    )]
-    StructureHeatExchangerGastoGas = 21266291i32,
-    #[strum(
-        serialize = "StructureHeatExchangerLiquidtoLiquid",
-        props(
-            name = r#"Heat Exchanger - Liquid"#,
-            desc = r#"The original specs for the N Series Flow-P heat exchanger were rumored to have been scrawled on the back of a burger receipt by a bored <link=Sinotai><color=#0080FFFF>Sinotai</color></link> designer riding up the Brazilian space elevator, but that hasn't stopped it becoming one of the most widely-copied heat exchanger designs in the Solar System.
-The 'N Flow-P' has four connections, allowing you to pass two liquid networks into the unit, which then works to equalize temperature across the two separate networks.
-As the N Flow-P is a passive system, it equalizes pressure across the entire of each individual network, unless connected to liquid management devices like a <link=ThingStructureLiquidVolumePump><color=green>Liquid Volume Pump</color></link> or a <link=ThingStructureBackLiquidPressureRegulator><color=green>Liquid Back Volume Regulator</color></link>.
-"#,
-            value = "-613784254"
-        )
-    )]
-    StructureHeatExchangerLiquidtoLiquid = -613784254i32,
-    #[strum(
-        serialize = "StructureHeatExchangeLiquidtoGas",
-        props(
-            name = r#"Heat Exchanger - Liquid + Gas"#,
-            desc = r#"The original specs for the N Series Flow-P heat exchanger were rumored to have been scrawled on the back of a burger receipt by a bored <link=Sinotai><color=#0080FFFF>Sinotai</color></link> designer riding up the Brazilian space elevator, but that hasn't stopped it becoming one of the most widely-copied heat exchanger designs in the Solar System.
-The 'N Flow-P' has four connections, allowing you to pass separate liquid and gas networks into the unit, which then works to equalize temperature across the two separate networks.
-As the N Flow-P is a passive system, it equalizes pressure across the entire of each individual network, unless connected to devices like a <link=ThingStructureVolumePump><color=green>Volume Pump</color></link> or a <link=ThingStructureBackLiquidPressureRegulator><color=green>Liquid Back Volume Regulator</color></link>."#,
-            value = "944685608"
-        )
-    )]
-    StructureHeatExchangeLiquidtoGas = 944685608i32,
-    #[strum(
-        serialize = "StructureCableCornerH3",
-        props(
-            name = r#"Heavy Cable (3-Way Corner)"#,
-            desc = r#""#,
-            value = "-1843379322"
-        )
-    )]
-    StructureCableCornerH3 = -1843379322i32,
-    #[strum(
-        serialize = "StructureCableJunctionH",
-        props(
-            name = r#"Heavy Cable (3-Way Junction)"#,
-            desc = r#""#,
-            value = "469451637"
-        )
-    )]
-    StructureCableJunctionH = 469451637i32,
-    #[strum(
-        serialize = "StructureCableCornerH4",
-        props(
-            name = r#"Heavy Cable (4-Way Corner)"#,
-            desc = r#""#,
-            value = "205837861"
-        )
-    )]
-    StructureCableCornerH4 = 205837861i32,
-    #[strum(
-        serialize = "StructureCableJunctionH4",
-        props(
-            name = r#"Heavy Cable (4-Way Junction)"#,
-            desc = r#""#,
-            value = "-742234680"
-        )
-    )]
-    StructureCableJunctionH4 = -742234680i32,
-    #[strum(
-        serialize = "StructureCableJunctionH5",
-        props(
-            name = r#"Heavy Cable (5-Way Junction)"#,
-            desc = r#""#,
-            value = "-1530571426"
-        )
-    )]
-    StructureCableJunctionH5 = -1530571426i32,
-    #[strum(
-        serialize = "StructureCableJunctionH6",
-        props(
-            name = r#"Heavy Cable (6-Way Junction)"#,
-            desc = r#""#,
-            value = "1036780772"
-        )
-    )]
-    StructureCableJunctionH6 = 1036780772i32,
-    #[strum(
-        serialize = "StructureCableCornerH",
-        props(name = r#"Heavy Cable (Corner)"#, desc = r#""#, value = "-39359015")
-    )]
-    StructureCableCornerH = -39359015i32,
-    #[strum(
-        serialize = "StructureCableStraightH",
-        props(name = r#"Heavy Cable (Straight)"#, desc = r#""#, value = "-146200530")
-    )]
-    StructureCableStraightH = -146200530i32,
-    #[strum(
-        serialize = "ItemGasFilterCarbonDioxideL",
-        props(
-            name = r#"Heavy Filter (Carbon Dioxide)"#,
-            desc = r#""#,
-            value = "1876847024"
-        )
-    )]
-    ItemGasFilterCarbonDioxideL = 1876847024i32,
-    #[strum(
-        serialize = "ItemGasFilterNitrogenL",
-        props(
-            name = r#"Heavy Filter (Nitrogen)"#,
-            desc = r#""#,
-            value = "-1387439451"
-        )
-    )]
-    ItemGasFilterNitrogenL = -1387439451i32,
-    #[strum(
-        serialize = "ItemGasFilterNitrousOxideL",
-        props(
-            name = r#"Heavy Filter (Nitrous Oxide)"#,
-            desc = r#""#,
-            value = "465267979"
-        )
-    )]
-    ItemGasFilterNitrousOxideL = 465267979i32,
-    #[strum(
-        serialize = "ItemGasFilterOxygenL",
-        props(name = r#"Heavy Filter (Oxygen)"#, desc = r#""#, value = "-1217998945")
-    )]
-    ItemGasFilterOxygenL = -1217998945i32,
-    #[strum(
-        serialize = "ItemGasFilterPollutantsL",
-        props(
-            name = r#"Heavy Filter (Pollutants)"#,
-            desc = r#""#,
-            value = "1959564765"
-        )
-    )]
-    ItemGasFilterPollutantsL = 1959564765i32,
-    #[strum(
-        serialize = "ItemGasFilterVolatilesL",
-        props(
-            name = r#"Heavy Filter (Volatiles)"#,
-            desc = r#""#,
-            value = "1255156286"
-        )
-    )]
-    ItemGasFilterVolatilesL = 1255156286i32,
-    #[strum(
-        serialize = "ItemGasFilterWaterL",
-        props(name = r#"Heavy Filter (Water)"#, desc = r#""#, value = "2004969680")
-    )]
-    ItemGasFilterWaterL = 2004969680i32,
-    #[strum(
-        serialize = "ItemHighVolumeGasCanisterEmpty",
-        props(
-            name = r#"High Volume Gas Canister"#,
-            desc = r#""#,
-            value = "998653377"
-        )
-    )]
-    ItemHighVolumeGasCanisterEmpty = 998653377i32,
-    #[strum(
-        serialize = "ItemHorticultureBelt",
-        props(name = r#"Horticulture Belt"#, desc = r#""#, value = "-1117581553")
-    )]
-    ItemHorticultureBelt = -1117581553i32,
-    #[strum(
-        serialize = "HumanSkull",
-        props(name = r#"Human Skull"#, desc = r#""#, value = "-857713709")
-    )]
-    HumanSkull = -857713709i32,
-    #[strum(
-        serialize = "StructureHydraulicPipeBender",
-        props(
-            name = r#"Hydraulic Pipe Bender"#,
-            desc = r#"A go-to tool for all your atmospheric and plumbing needs, the <link=ExMin><color=#0080FFFF>ExMin</color></link> Atmoprinter will create everything from pipes, pumps and tanks, to vents and filters, ensuring your survival in any environment. Upgrade the Atmoprinter using a <link=ThingPipeBenderMod><color=green>Pipe Bender Mod</color></link> for additional recipes and faster processing speeds."#,
-            value = "-1888248335"
-        )
-    )]
-    StructureHydraulicPipeBender = -1888248335i32,
-    #[strum(
-        serialize = "StructureHydroponicsTrayData",
-        props(
-            name = r#"Hydroponics Device"#,
-            desc = r#"The <link=Agrizero><color=#0080FFFF>Agrizero</color></link> hydroponics device is the ideal vessel for growing a range of <link=OrganicPage><color=#0080FFFF>plantlife</color></link>. It must be supplied with <link=GasWater><color=#44AD83>Water</color></link> using a pipe network, and sufficient light to generate photosynthesis.
-It can be automated using the <link=ThingStructureHarvie><color=green>Harvie</color></link>. Note that unlike the <link=ThingStructureHydroponicsTray><color=green>Hydroponics Tray</color></link>, these cannot be placed consecutively as they are considered devices rather than pure pipes. They do, however, allow data interrogation for logic systems."#,
-            value = "-1841632400"
-        )
-    )]
-    StructureHydroponicsTrayData = -1841632400i32,
-    #[strum(
-        serialize = "StructureHydroponicsStation",
-        props(name = r#"Hydroponics Station"#, desc = r#""#, value = "1441767298")
-    )]
-    StructureHydroponicsStation = 1441767298i32,
-    #[strum(
-        serialize = "StructureHydroponicsTray",
-        props(
-            name = r#"Hydroponics Tray"#,
-            desc = r#"The <link=Agrizero><color=#0080FFFF>Agrizero</color></link> hydroponics tray is the ideal vessel for growing a range of <link=OrganicPage><color=#0080FFFF>plantlife</color></link>. It must be supplied with water using a pipe network, and sufficient light to generate photosynthesis.
-It can be automated using the <link=ThingStructureHarvie><color=green>Harvie</color></link>."#,
-            value = "1464854517"
-        )
-    )]
-    StructureHydroponicsTray = 1464854517i32,
-    #[strum(
-        serialize = "MotherboardProgrammableChip",
-        props(
-            name = r#"IC Editor Motherboard"#,
-            desc = r#"When placed in a <link=ThingStructureComputer><color=green>Computer</color></link>, the IC Editor allows players to write and edit IC code, which can then be uploaded to a <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> if housed in an <link=ThingStructureCircuitHousing><color=green>IC Housing</color></link>."#,
-            value = "-161107071"
-        )
-    )]
-    MotherboardProgrammableChip = -161107071i32,
-    #[strum(
-        serialize = "StructureCircuitHousing",
-        props(name = r#"IC Housing"#, desc = r#""#, value = "-128473777")
-    )]
-    StructureCircuitHousing = -128473777i32,
-    #[strum(
-        serialize = "ItemNitrice",
-        props(
-            name = r#"Ice (Nitrice)"#,
-            desc = r#"Nitrice is the nickname given to solid <link=GasNitrogen><color=#44AD83>Nitrogen</color></link> Ice, and found on many planets and moons in the Solar System. Given the inert nature of the <link=GasNitrogen><color=#44AD83>Nitrogen</color></link> it produces, the ice is useful when making breathable atmospheres with low flammability.
-
-Highly sensitive to temperature, nitrice will begin to melt as soon as it is mined, unless the temperature is below zero, or it is stored in the <link=ThingItemMiningBelt><color=green>Mining Belt</color></link>, <link=ThingItemMiningBeltAdvanced><color=green>Mining Belt MK II</color></link> or devices like the <link=ThingStructureIceCrusher><color=green>Ice Crusher</color></link> or <link=ThingStructureFridgeSmall><color=green>Fridge Small</color></link>."#,
-            value = "-1499471529"
-        )
-    )]
-    ItemNitrice = -1499471529i32,
-    #[strum(
-        serialize = "ItemOxite",
-        props(
-            name = r#"Ice (Oxite)"#,
-            desc = r#"Oxite ice is largely composed of frozen <link=GasOxygen><color=#44AD83>Oxygen</color></link>, and found on many planets in the Solar System. Highly valuable and sought after, not all planets a <link=Stationeers><color=#0080FFFF>Stationeer</color></link> visits will have some.
-
-Highly sensitive to temperature, oxite will begin to melt as soon as it is mined, unless the temperature is below zero, or it is stored in the <link=ThingItemMiningBelt><color=green>Mining Belt</color></link>, <link=ThingItemMiningBeltAdvanced><color=green>Mining Belt MK II</color></link> or devices like the <link=ThingStructureIceCrusher><color=green>Ice Crusher</color></link> or <link=ThingStructureFridgeSmall><color=green>Fridge Small</color></link>. When melting, oxite produces a mixture of <link=GasOxygen><color=#44AD83>Oxygen</color></link> and <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>."#,
-            value = "-1805394113"
-        )
-    )]
-    ItemOxite = -1805394113i32,
-    #[strum(
-        serialize = "ItemVolatiles",
-        props(
-            name = r#"Ice (Volatiles)"#,
-            desc = r#"An extremely reactive ice with numerous hydrocarbons trapped inside. For simplicity's sake, these are often displayed as H2 by devices like the <link=ThingCartridgeAtmosAnalyser><color=green>Atmos Analyzer</color></link>.
-
-<link=GasVolatiles><color=#44AD83>Volatiles</color></link> combust in a 2:1 ratio with <link=GasOxygen><color=#44AD83>Oxygen</color></link>, creating <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> and pollutants. However when catalysed via devices such as the <link=ThingH2Combustor><color=green>H2 Combustor</color></link> in the presence of <link=GasOxygen><color=#44AD83>Oxygen</color></link>, they produce
-        <link=GasSteam><color=#44AD83>Steam</color></link> and heat with a modicum of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> and <link=GasPollutant><color=#44AD83>Pollutant</color></link> due to the autoignition of the volatiles in the chamber. Along with <link=GasOxygen><color=#44AD83>Oxygen</color></link>, volatiles gas is also the major component of fuel for such devices as the <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link>.
-"#,
-            value = "1253102035"
-        )
-    )]
-    ItemVolatiles = 1253102035i32,
-    #[strum(
-        serialize = "ItemIce",
-        props(
-            name = r#"Ice (Water)"#,
-            desc = r#"Water ice can be found on most planets in the Solar System, though not all worlds visited by <link=Stationeers><color=#0080FFFF>Stationeers</color></link> possess this resource. Highly sensitive to temperature, ice will begin to melt as soon as it is mined, unless kept in the <link=ThingItemMiningBelt><color=green>Mining Belt</color></link>. When melting, ice produces a mixture of <link=GasSteam><color=#44AD83>Steam</color></link> and <link=GasNitrogen><color=#44AD83>Nitrogen</color></link> gas."#,
-            value = "1217489948"
-        )
-    )]
-    ItemIce = 1217489948i32,
-    #[strum(
-        serialize = "StructureIceCrusher",
-        props(
-            name = r#"Ice Crusher"#,
-            desc = r#"The <link=Recurso><color=#0080FFFF>Recurso</color></link> KoolAuger converts various ices into their respective <link=GasPage><color=#0080FFFF>gases</color></link> and liquids.
-A remarkably smart and compact sublimation-melting unit, it produces gas or liquid depending on the ice being processed. The upper outlet is gas, the lower for liquid, and while you can attach any pipe you like to either outlet, it will only function if the correct network is attached. It will also only pass gas or liquid into a network if it is powered and turned on.
-If the KoolAuger is full, it will not accept any further ice until the gas or liquid contents is drained. In this state, it will flash a yellow error state on the activation switch."#,
-            value = "443849486"
-        )
-    )]
-    StructureIceCrusher = 443849486i32,
-    #[strum(
-        serialize = "StructureIgniter",
-        props(
-            name = r#"Igniter"#,
-            desc = r#"It gets the party started. Especially if that party is an explosive gas mixture."#,
-            value = "1005491513"
-        )
-    )]
-    StructureIgniter = 1005491513i32,
-    #[strum(
-        serialize = "StructureEmergencyButton",
-        props(
-            name = r#"Important Button"#,
-            desc = r#"Description coming."#,
-            value = "1668452680"
-        )
-    )]
-    StructureEmergencyButton = 1668452680i32,
-    #[strum(
-        serialize = "StructureInLineTankGas1x2",
-        props(
-            name = r#"In-Line Tank Gas"#,
-            desc = r#"A small expansion tank that increases the volume of a pipe network."#,
-            value = "35149429"
-        )
-    )]
-    StructureInLineTankGas1X2 = 35149429i32,
-    #[strum(
-        serialize = "StructureInLineTankLiquid1x2",
-        props(
-            name = r#"In-Line Tank Liquid"#,
-            desc = r#"A small expansion tank that increases the volume of a pipe network."#,
-            value = "-1183969663"
-        )
-    )]
-    StructureInLineTankLiquid1X2 = -1183969663i32,
-    #[strum(
-        serialize = "StructureInLineTankGas1x1",
-        props(
-            name = r#"In-Line Tank Small Gas"#,
-            desc = r#"A small expansion tank that increases the volume of a pipe network."#,
-            value = "-1693382705"
-        )
-    )]
-    StructureInLineTankGas1X1 = -1693382705i32,
-    #[strum(
-        serialize = "StructureInLineTankLiquid1x1",
-        props(
-            name = r#"In-Line Tank Small Liquid"#,
-            desc = r#"A small expansion tank that increases the volume of a pipe network."#,
-            value = "543645499"
-        )
-    )]
-    StructureInLineTankLiquid1X1 = 543645499i32,
-    #[strum(
-        serialize = "ItemAstroloyIngot",
-        props(
-            name = r#"Ingot (Astroloy)"#,
-            desc = r#"Due to the original Stationeer manual collapsing into a singularity, Astroloy recipes have been warped by spacetime contortions. The correct Astroloy recipe, as memorialized for all time in a series of charming plastic icons, is 1.0 Copper, 1.0 Cobalt, and 2.0 Steel."#,
-            value = "412924554"
-        )
-    )]
-    ItemAstroloyIngot = 412924554i32,
-    #[strum(
-        serialize = "ItemConstantanIngot",
-        props(name = r#"Ingot (Constantan)"#, desc = r#""#, value = "1058547521")
-    )]
-    ItemConstantanIngot = 1058547521i32,
-    #[strum(
-        serialize = "ItemCopperIngot",
-        props(
-            name = r#"Ingot (Copper)"#,
-            desc = r#"Copper ingots are created by smelting <link=ThingItemCopperOre><color=green>Ore (Copper)</color></link> in the <link=ThingStructureFurnace><color=green>Furnace</color></link> and <link=ThingStructureArcFurnace><color=green>Arc Furnace</color></link>, and used to create a variety of items."#,
-            value = "-404336834"
-        )
-    )]
-    ItemCopperIngot = -404336834i32,
-    #[strum(
-        serialize = "ItemElectrumIngot",
-        props(name = r#"Ingot (Electrum)"#, desc = r#""#, value = "502280180")
-    )]
-    ItemElectrumIngot = 502280180i32,
-    #[strum(
-        serialize = "ItemGoldIngot",
-        props(
-            name = r#"Ingot (Gold)"#,
-            desc = r#"There is an enduring paradox at the heart of the <link=Stationeers><color=#0080FFFF>Stationeers</color></link> project: An initiative conceived as 'cut-price space exploration' uses <link=ReagentGold><color=#B566FF>Gold</color></link> as a fundamental ingredient in fabricating so much of its equipment and materiel. "#,
-            value = "226410516"
-        )
-    )]
-    ItemGoldIngot = 226410516i32,
-    #[strum(
-        serialize = "ItemHastelloyIngot",
-        props(name = r#"Ingot (Hastelloy)"#, desc = r#""#, value = "1579842814")
-    )]
-    ItemHastelloyIngot = 1579842814i32,
-    #[strum(
-        serialize = "ItemInconelIngot",
-        props(name = r#"Ingot (Inconel)"#, desc = r#""#, value = "-787796599")
-    )]
-    ItemInconelIngot = -787796599i32,
-    #[strum(
-        serialize = "ItemInvarIngot",
-        props(name = r#"Ingot (Invar)"#, desc = r#""#, value = "-297990285")
-    )]
-    ItemInvarIngot = -297990285i32,
-    #[strum(
-        serialize = "ItemIronIngot",
-        props(
-            name = r#"Ingot (Iron)"#,
-            desc = r#"The most basic unit of construction available to <link=Stationeers><color=#0080FFFF>Stationeer</color></link>-kind, iron ingots are created by smelting <link=ThingItemIronOre><color=green>Ore (Iron)</color></link> in the <link=ThingStructureFurnace><color=green>Furnace</color></link> and <link=ThingStructureArcFurnace><color=green>Arc Furnace</color></link>, and used to create a variety of items."#,
-            value = "-1301215609"
-        )
-    )]
-    ItemIronIngot = -1301215609i32,
-    #[strum(
-        serialize = "ItemLeadIngot",
-        props(name = r#"Ingot (Lead)"#, desc = r#""#, value = "2134647745")
-    )]
-    ItemLeadIngot = 2134647745i32,
-    #[strum(
-        serialize = "ItemNickelIngot",
-        props(name = r#"Ingot (Nickel)"#, desc = r#""#, value = "-1406385572")
-    )]
-    ItemNickelIngot = -1406385572i32,
-    #[strum(
-        serialize = "ItemSiliconIngot",
-        props(name = r#"Ingot (Silicon)"#, desc = r#""#, value = "-290196476")
-    )]
-    ItemSiliconIngot = -290196476i32,
-    #[strum(
-        serialize = "ItemSilverIngot",
-        props(name = r#"Ingot (Silver)"#, desc = r#""#, value = "-929742000")
-    )]
-    ItemSilverIngot = -929742000i32,
-    #[strum(
-        serialize = "ItemSolderIngot",
-        props(name = r#"Ingot (Solder)"#, desc = r#""#, value = "-82508479")
-    )]
-    ItemSolderIngot = -82508479i32,
-    #[strum(
-        serialize = "ItemSteelIngot",
-        props(
-            name = r#"Ingot (Steel)"#,
-            desc = r#"Steel ingots are a metal alloy, crafted in a <link=ThingStructureFurnace><color=green>Furnace</color></link> by smelting <link=ThingItemIronOre><color=green>Ore (Iron)</color></link> and <link=ThingItemCoalOre><color=green>Ore (Coal)</color></link> at a ratio of 3:1.
-It may not be elegant, but <link=ThingItemOxite><color=green>Ice (Oxite)</color></link> and <link=ThingItemVolatiles><color=green>Ice (Volatiles)</color></link> can be combined at a ratio of 1:2 in a furnace to create the necessary gas mixture for smelting."#,
-            value = "-654790771"
-        )
-    )]
-    ItemSteelIngot = -654790771i32,
-    #[strum(
-        serialize = "ItemStelliteIngot",
-        props(name = r#"Ingot (Stellite)"#, desc = r#""#, value = "-1897868623")
-    )]
-    ItemStelliteIngot = -1897868623i32,
-    #[strum(
-        serialize = "ItemWaspaloyIngot",
-        props(name = r#"Ingot (Waspaloy)"#, desc = r#""#, value = "156348098")
-    )]
-    ItemWaspaloyIngot = 156348098i32,
-    #[strum(
-        serialize = "StructureInsulatedInLineTankGas1x2",
-        props(
-            name = r#"Insulated In-Line Tank Gas"#,
-            desc = r#""#,
-            value = "-177610944"
-        )
-    )]
-    StructureInsulatedInLineTankGas1X2 = -177610944i32,
-    #[strum(
-        serialize = "StructureInsulatedInLineTankLiquid1x2",
-        props(
-            name = r#"Insulated In-Line Tank Liquid"#,
-            desc = r#""#,
-            value = "1452100517"
-        )
-    )]
-    StructureInsulatedInLineTankLiquid1X2 = 1452100517i32,
-    #[strum(
-        serialize = "StructureInsulatedInLineTankGas1x1",
-        props(
-            name = r#"Insulated In-Line Tank Small Gas"#,
-            desc = r#""#,
-            value = "1818267386"
-        )
-    )]
-    StructureInsulatedInLineTankGas1X1 = 1818267386i32,
-    #[strum(
-        serialize = "StructureInsulatedInLineTankLiquid1x1",
-        props(
-            name = r#"Insulated In-Line Tank Small Liquid"#,
-            desc = r#""#,
-            value = "-813426145"
-        )
-    )]
-    StructureInsulatedInLineTankLiquid1X1 = -813426145i32,
-    #[strum(
-        serialize = "StructureInsulatedPipeLiquidCrossJunction",
-        props(
-            name = r#"Insulated Liquid Pipe (3-Way Junction)"#,
-            desc = r#"Liquid piping with very low temperature loss or gain."#,
-            value = "1926651727"
-        )
-    )]
-    StructureInsulatedPipeLiquidCrossJunction = 1926651727i32,
-    #[strum(
-        serialize = "StructureInsulatedPipeLiquidCrossJunction4",
-        props(
-            name = r#"Insulated Liquid Pipe (4-Way Junction)"#,
-            desc = r#"Liquid piping with very low temperature loss or gain."#,
-            value = "363303270"
-        )
-    )]
-    StructureInsulatedPipeLiquidCrossJunction4 = 363303270i32,
-    #[strum(
-        serialize = "StructureInsulatedPipeLiquidCrossJunction5",
-        props(
-            name = r#"Insulated Liquid Pipe (5-Way Junction)"#,
-            desc = r#"Liquid piping with very low temperature loss or gain."#,
-            value = "1654694384"
-        )
-    )]
-    StructureInsulatedPipeLiquidCrossJunction5 = 1654694384i32,
-    #[strum(
-        serialize = "StructureInsulatedPipeLiquidCrossJunction6",
-        props(
-            name = r#"Insulated Liquid Pipe (6-Way Junction)"#,
-            desc = r#"Liquid piping with very low temperature loss or gain."#,
-            value = "-72748982"
-        )
-    )]
-    StructureInsulatedPipeLiquidCrossJunction6 = -72748982i32,
-    #[strum(
-        serialize = "StructureInsulatedPipeLiquidCorner",
-        props(
-            name = r#"Insulated Liquid Pipe (Corner)"#,
-            desc = r#"Liquid piping with very low temperature loss or gain."#,
-            value = "1713710802"
-        )
-    )]
-    StructureInsulatedPipeLiquidCorner = 1713710802i32,
-    #[strum(
-        serialize = "StructurePipeInsulatedLiquidCrossJunction",
-        props(
-            name = r#"Insulated Liquid Pipe (Cross Junction)"#,
-            desc = r#"Liquid piping with very low temperature loss or gain."#,
-            value = "-2068497073"
-        )
-    )]
-    StructurePipeInsulatedLiquidCrossJunction = -2068497073i32,
-    #[strum(
-        serialize = "StructureInsulatedPipeLiquidStraight",
-        props(
-            name = r#"Insulated Liquid Pipe (Straight)"#,
-            desc = r#"Liquid piping with very low temperature loss or gain."#,
-            value = "295678685"
-        )
-    )]
-    StructureInsulatedPipeLiquidStraight = 295678685i32,
-    #[strum(
-        serialize = "StructureInsulatedPipeLiquidTJunction",
-        props(
-            name = r#"Insulated Liquid Pipe (T Junction)"#,
-            desc = r#"Liquid piping with very low temperature loss or gain."#,
-            value = "-532384855"
-        )
-    )]
-    StructureInsulatedPipeLiquidTJunction = -532384855i32,
-    #[strum(
-        serialize = "StructureLiquidTankBigInsulated",
-        props(
-            name = r#"Insulated Liquid Tank Big"#,
-            desc = r#""#,
-            value = "-1430440215"
-        )
-    )]
-    StructureLiquidTankBigInsulated = -1430440215i32,
-    #[strum(
-        serialize = "StructureLiquidTankSmallInsulated",
-        props(
-            name = r#"Insulated Liquid Tank Small"#,
-            desc = r#""#,
-            value = "608607718"
-        )
-    )]
-    StructureLiquidTankSmallInsulated = 608607718i32,
-    #[strum(
-        serialize = "StructurePassiveVentInsulated",
-        props(name = r#"Insulated Passive Vent"#, desc = r#""#, value = "1363077139")
-    )]
-    StructurePassiveVentInsulated = 1363077139i32,
-    #[strum(
-        serialize = "StructureInsulatedPipeCrossJunction3",
-        props(
-            name = r#"Insulated Pipe (3-Way Junction)"#,
-            desc = r#"Insulated pipes greatly reduce heat loss from gases stored in them."#,
-            value = "1328210035"
-        )
-    )]
-    StructureInsulatedPipeCrossJunction3 = 1328210035i32,
-    #[strum(
-        serialize = "StructureInsulatedPipeCrossJunction4",
-        props(
-            name = r#"Insulated Pipe (4-Way Junction)"#,
-            desc = r#"Insulated pipes greatly reduce heat loss from gases stored in them."#,
-            value = "-783387184"
-        )
-    )]
-    StructureInsulatedPipeCrossJunction4 = -783387184i32,
-    #[strum(
-        serialize = "StructureInsulatedPipeCrossJunction5",
-        props(
-            name = r#"Insulated Pipe (5-Way Junction)"#,
-            desc = r#"Insulated pipes greatly reduce heat loss from gases stored in them."#,
-            value = "-1505147578"
-        )
-    )]
-    StructureInsulatedPipeCrossJunction5 = -1505147578i32,
-    #[strum(
-        serialize = "StructureInsulatedPipeCrossJunction6",
-        props(
-            name = r#"Insulated Pipe (6-Way Junction)"#,
-            desc = r#"Insulated pipes greatly reduce heat loss from gases stored in them."#,
-            value = "1061164284"
-        )
-    )]
-    StructureInsulatedPipeCrossJunction6 = 1061164284i32,
-    #[strum(
-        serialize = "StructureInsulatedPipeCorner",
-        props(
-            name = r#"Insulated Pipe (Corner)"#,
-            desc = r#"Insulated pipes greatly reduce heat loss from gases stored in them."#,
-            value = "-1967711059"
-        )
-    )]
-    StructureInsulatedPipeCorner = -1967711059i32,
-    #[strum(
-        serialize = "StructureInsulatedPipeCrossJunction",
-        props(
-            name = r#"Insulated Pipe (Cross Junction)"#,
-            desc = r#"Insulated pipes greatly reduce heat loss from gases stored in them."#,
-            value = "-92778058"
-        )
-    )]
-    StructureInsulatedPipeCrossJunction = -92778058i32,
-    #[strum(
-        serialize = "StructureInsulatedPipeStraight",
-        props(
-            name = r#"Insulated Pipe (Straight)"#,
-            desc = r#"Insulated pipes greatly reduce heat loss from gases stored in them."#,
-            value = "2134172356"
-        )
-    )]
-    StructureInsulatedPipeStraight = 2134172356i32,
-    #[strum(
-        serialize = "StructureInsulatedPipeTJunction",
-        props(
-            name = r#"Insulated Pipe (T Junction)"#,
-            desc = r#"Insulated pipes greatly reduce heat loss from gases stored in them."#,
-            value = "-2076086215"
-        )
-    )]
-    StructureInsulatedPipeTJunction = -2076086215i32,
-    #[strum(
-        serialize = "StructureInsulatedTankConnector",
-        props(
-            name = r#"Insulated Tank Connector"#,
-            desc = r#""#,
-            value = "-31273349"
-        )
-    )]
-    StructureInsulatedTankConnector = -31273349i32,
-    #[strum(
-        serialize = "StructureInsulatedTankConnectorLiquid",
-        props(
-            name = r#"Insulated Tank Connector Liquid"#,
-            desc = r#""#,
-            value = "-1602030414"
-        )
-    )]
-    StructureInsulatedTankConnectorLiquid = -1602030414i32,
-    #[strum(
-        serialize = "ItemInsulation",
-        props(
-            name = r#"Insulation"#,
-            desc = r#"Mysterious in the extreme, the function of this item is lost to the ages."#,
-            value = "897176943"
-        )
-    )]
-    ItemInsulation = 897176943i32,
-    #[strum(
-        serialize = "ItemIntegratedCircuit10",
-        props(
-            name = r#"Integrated Circuit (IC10)"#,
-            desc = r#""#,
-            value = "-744098481"
-        )
-    )]
-    ItemIntegratedCircuit10 = -744098481i32,
-    #[strum(
-        serialize = "StructureInteriorDoorGlass",
-        props(
-            name = r#"Interior Door Glass"#,
-            desc = r#"0.Operate
-1.Logic"#,
-            value = "-2096421875"
-        )
-    )]
-    StructureInteriorDoorGlass = -2096421875i32,
-    #[strum(
-        serialize = "StructureInteriorDoorPadded",
-        props(
-            name = r#"Interior Door Padded"#,
-            desc = r#"0.Operate
-1.Logic"#,
-            value = "847461335"
-        )
-    )]
-    StructureInteriorDoorPadded = 847461335i32,
-    #[strum(
-        serialize = "StructureInteriorDoorPaddedThin",
-        props(
-            name = r#"Interior Door Padded Thin"#,
-            desc = r#"0.Operate
-1.Logic"#,
-            value = "1981698201"
-        )
-    )]
-    StructureInteriorDoorPaddedThin = 1981698201i32,
-    #[strum(
-        serialize = "StructureInteriorDoorTriangle",
-        props(
-            name = r#"Interior Door Triangle"#,
-            desc = r#"0.Operate
-1.Logic"#,
-            value = "-1182923101"
-        )
-    )]
-    StructureInteriorDoorTriangle = -1182923101i32,
-    #[strum(
-        serialize = "StructureFrameIron",
-        props(name = r#"Iron Frame"#, desc = r#""#, value = "-1240951678")
-    )]
-    StructureFrameIron = -1240951678i32,
-    #[strum(
-        serialize = "ItemIronFrames",
-        props(name = r#"Iron Frames"#, desc = r#""#, value = "1225836666")
-    )]
-    ItemIronFrames = 1225836666i32,
-    #[strum(
-        serialize = "ItemIronSheets",
-        props(name = r#"Iron Sheets"#, desc = r#""#, value = "-487378546")
-    )]
-    ItemIronSheets = -487378546i32,
-    #[strum(
-        serialize = "StructureWallIron",
-        props(name = r#"Iron Wall (Type 1)"#, desc = r#""#, value = "1287324802")
-    )]
-    StructureWallIron = 1287324802i32,
-    #[strum(
-        serialize = "StructureWallIron02",
-        props(name = r#"Iron Wall (Type 2)"#, desc = r#""#, value = "1485834215")
-    )]
-    StructureWallIron02 = 1485834215i32,
-    #[strum(
-        serialize = "StructureWallIron03",
-        props(name = r#"Iron Wall (Type 3)"#, desc = r#""#, value = "798439281")
-    )]
-    StructureWallIron03 = 798439281i32,
-    #[strum(
-        serialize = "StructureWallIron04",
-        props(name = r#"Iron Wall (Type 4)"#, desc = r#""#, value = "-1309433134")
-    )]
-    StructureWallIron04 = -1309433134i32,
-    #[strum(
-        serialize = "StructureCompositeWindowIron",
-        props(name = r#"Iron Window"#, desc = r#""#, value = "-688284639")
-    )]
-    StructureCompositeWindowIron = -688284639i32,
-    #[strum(
-        serialize = "ItemJetpackBasic",
-        props(
-            name = r#"Jetpack Basic"#,
-            desc = r#"The basic <link=CHAC><color=#0080FFFF>CHAC</color></link> jetpack isn't 'technically' a jetpack, it's a gas thruster. It can be powered by any gas, so long as the internal pressure of the <link=AtmosphericsPage><color=#0080FFFF>canister</color></link> is higher than the ambient external pressure. If the external pressure is greater, the spacepack will not function.
-Indispensable for building, mining and general movement, it has ten storage slots and lets <link=Stationeers><color=#0080FFFF>Stationeers</color></link> fly at 3m/s, compared to the more powerful <link=ThingItemHardJetpack><color=green>Hardsuit Jetpack</color></link>. Adjusting the thrust value alters your rate of acceleration, while activating the stabilizer causes the spacepack to hover when a given height is reached.
-USE: 'J' to activate; 'space' to fly up; 'left ctrl' to descend; and 'WASD' to move."#,
-            value = "1969189000"
-        )
-    )]
-    ItemJetpackBasic = 1969189000i32,
-    #[strum(
-        serialize = "UniformOrangeJumpSuit",
-        props(name = r#"Jump Suit (Orange)"#, desc = r#""#, value = "810053150")
-    )]
-    UniformOrangeJumpSuit = 810053150i32,
-    #[strum(
-        serialize = "ItemKitAIMeE",
-        props(name = r#"Kit (AIMeE)"#, desc = r#""#, value = "496830914")
-    )]
-    ItemKitAiMeE = 496830914i32,
-    #[strum(
-        serialize = "ItemKitAccessBridge",
-        props(name = r#"Kit (Access Bridge)"#, desc = r#""#, value = "513258369")
-    )]
-    ItemKitAccessBridge = 513258369i32,
-    #[strum(
-        serialize = "ItemActiveVent",
-        props(
-            name = r#"Kit (Active Vent)"#,
-            desc = r#"When constructed, this kit places an <link=ThingStructureActiveVent><color=green>Active Vent</color></link> on any support structure."#,
-            value = "-842048328"
-        )
-    )]
-    ItemActiveVent = -842048328i32,
-    #[strum(
-        serialize = "ItemKitAdvancedComposter",
-        props(
-            name = r#"Kit (Advanced Composter)"#,
-            desc = r#""#,
-            value = "-1431998347"
-        )
-    )]
-    ItemKitAdvancedComposter = -1431998347i32,
-    #[strum(
-        serialize = "ItemKitAdvancedFurnace",
-        props(name = r#"Kit (Advanced Furnace)"#, desc = r#""#, value = "-616758353")
-    )]
-    ItemKitAdvancedFurnace = -616758353i32,
-    #[strum(
-        serialize = "ItemKitAdvancedPackagingMachine",
-        props(
-            name = r#"Kit (Advanced Packaging Machine)"#,
-            desc = r#""#,
-            value = "-598545233"
-        )
-    )]
-    ItemKitAdvancedPackagingMachine = -598545233i32,
-    #[strum(
-        serialize = "ItemKitAirlock",
-        props(name = r#"Kit (Airlock)"#, desc = r#""#, value = "964043875")
-    )]
-    ItemKitAirlock = 964043875i32,
-    #[strum(
-        serialize = "ItemKitArcFurnace",
-        props(name = r#"Kit (Arc Furnace)"#, desc = r#""#, value = "-98995857")
-    )]
-    ItemKitArcFurnace = -98995857i32,
-    #[strum(
-        serialize = "ItemKitWallArch",
-        props(name = r#"Kit (Arched Wall)"#, desc = r#""#, value = "1625214531")
-    )]
-    ItemKitWallArch = 1625214531i32,
-    #[strum(
-        serialize = "ItemKitAtmospherics",
-        props(name = r#"Kit (Atmospherics)"#, desc = r#""#, value = "1222286371")
-    )]
-    ItemKitAtmospherics = 1222286371i32,
-    #[strum(
-        serialize = "ItemKitAutolathe",
-        props(name = r#"Kit (Autolathe)"#, desc = r#""#, value = "-1753893214")
-    )]
-    ItemKitAutolathe = -1753893214i32,
-    #[strum(
-        serialize = "ItemKitHydroponicAutomated",
-        props(
-            name = r#"Kit (Automated Hydroponics)"#,
-            desc = r#""#,
-            value = "-927931558"
-        )
-    )]
-    ItemKitHydroponicAutomated = -927931558i32,
-    #[strum(
-        serialize = "ItemKitAutomatedOven",
-        props(name = r#"Kit (Automated Oven)"#, desc = r#""#, value = "-1931958659")
-    )]
-    ItemKitAutomatedOven = -1931958659i32,
-    #[strum(
-        serialize = "ItemKitAutoMinerSmall",
-        props(name = r#"Kit (Autominer Small)"#, desc = r#""#, value = "1668815415")
-    )]
-    ItemKitAutoMinerSmall = 1668815415i32,
-    #[strum(
-        serialize = "ItemKitRocketAvionics",
-        props(name = r#"Kit (Avionics)"#, desc = r#""#, value = "1396305045")
-    )]
-    ItemKitRocketAvionics = 1396305045i32,
-    #[strum(
-        serialize = "ItemKitChute",
-        props(name = r#"Kit (Basic Chutes)"#, desc = r#""#, value = "1025254665")
-    )]
-    ItemKitChute = 1025254665i32,
-    #[strum(
-        serialize = "ItemKitBasket",
-        props(name = r#"Kit (Basket)"#, desc = r#""#, value = "148305004")
-    )]
-    ItemKitBasket = 148305004i32,
-    #[strum(
-        serialize = "ItemBatteryCharger",
-        props(
-            name = r#"Kit (Battery Charger)"#,
-            desc = r#"This kit produces a 5-slot <link=ThingItemBatteryCharger><color=green>Kit (Battery Charger)</color></link>."#,
-            value = "-1866880307"
-        )
-    )]
-    ItemBatteryCharger = -1866880307i32,
-    #[strum(
-        serialize = "ItemKitBatteryLarge",
-        props(name = r#"Kit (Battery Large)"#, desc = r#""#, value = "-21225041")
-    )]
-    ItemKitBatteryLarge = -21225041i32,
-    #[strum(
-        serialize = "ItemKitBattery",
-        props(name = r#"Kit (Battery)"#, desc = r#""#, value = "1406656973")
-    )]
-    ItemKitBattery = 1406656973i32,
-    #[strum(
-        serialize = "ItemKitBeacon",
-        props(name = r#"Kit (Beacon)"#, desc = r#""#, value = "249073136")
-    )]
-    ItemKitBeacon = 249073136i32,
-    #[strum(
-        serialize = "ItemKitBeds",
-        props(name = r#"Kit (Beds)"#, desc = r#""#, value = "-1241256797")
-    )]
-    ItemKitBeds = -1241256797i32,
-    #[strum(
-        serialize = "ItemKitBlastDoor",
-        props(name = r#"Kit (Blast Door)"#, desc = r#""#, value = "-1755116240")
-    )]
-    ItemKitBlastDoor = -1755116240i32,
-    #[strum(
-        serialize = "ItemCableAnalyser",
-        props(name = r#"Kit (Cable Analyzer)"#, desc = r#""#, value = "-1792787349")
-    )]
-    ItemCableAnalyser = -1792787349i32,
-    #[strum(
-        serialize = "ItemCableFuse",
-        props(name = r#"Kit (Cable Fuses)"#, desc = r#""#, value = "195442047")
-    )]
-    ItemCableFuse = 195442047i32,
-    #[strum(
-        serialize = "ItemGasTankStorage",
-        props(
-            name = r#"Kit (Canister Storage)"#,
-            desc = r#"This kit produces a <link=ThingItemGasTankStorage><color=green>Kit (Canister Storage)</color></link> for refilling a <link=ThingItemGasCanisterEmpty><color=green>Canister</color></link>."#,
-            value = "-2113012215"
-        )
-    )]
-    ItemGasTankStorage = -2113012215i32,
-    #[strum(
-        serialize = "ItemKitCentrifuge",
-        props(name = r#"Kit (Centrifuge)"#, desc = r#""#, value = "578182956")
-    )]
-    ItemKitCentrifuge = 578182956i32,
-    #[strum(
-        serialize = "ItemKitChairs",
-        props(name = r#"Kit (Chairs)"#, desc = r#""#, value = "-1394008073")
-    )]
-    ItemKitChairs = -1394008073i32,
-    #[strum(
-        serialize = "ItemKitChuteUmbilical",
-        props(name = r#"Kit (Chute Umbilical)"#, desc = r#""#, value = "-876560854")
-    )]
-    ItemKitChuteUmbilical = -876560854i32,
-    #[strum(
-        serialize = "ItemKitCompositeCladding",
-        props(name = r#"Kit (Cladding)"#, desc = r#""#, value = "-1470820996")
-    )]
-    ItemKitCompositeCladding = -1470820996i32,
-    #[strum(
-        serialize = "KitStructureCombustionCentrifuge",
-        props(
-            name = r#"Kit (Combustion Centrifuge)"#,
-            desc = r#""#,
-            value = "231903234"
-        )
-    )]
-    KitStructureCombustionCentrifuge = 231903234i32,
-    #[strum(
-        serialize = "ItemKitComputer",
-        props(name = r#"Kit (Computer)"#, desc = r#""#, value = "1990225489")
-    )]
-    ItemKitComputer = 1990225489i32,
-    #[strum(
-        serialize = "ItemKitConsole",
-        props(name = r#"Kit (Consoles)"#, desc = r#""#, value = "-1241851179")
-    )]
-    ItemKitConsole = -1241851179i32,
-    #[strum(
-        serialize = "ItemKitCrateMount",
-        props(name = r#"Kit (Container Mount)"#, desc = r#""#, value = "-551612946")
-    )]
-    ItemKitCrateMount = -551612946i32,
-    #[strum(
-        serialize = "ItemKitPassthroughHeatExchanger",
-        props(
-            name = r#"Kit (CounterFlow Heat Exchanger)"#,
-            desc = r#""#,
-            value = "636112787"
-        )
-    )]
-    ItemKitPassthroughHeatExchanger = 636112787i32,
-    #[strum(
-        serialize = "ItemKitCrateMkII",
-        props(name = r#"Kit (Crate Mk II)"#, desc = r#""#, value = "-1585956426")
-    )]
-    ItemKitCrateMkIi = -1585956426i32,
-    #[strum(
-        serialize = "ItemKitCrate",
-        props(name = r#"Kit (Crate)"#, desc = r#""#, value = "429365598")
-    )]
-    ItemKitCrate = 429365598i32,
-    #[strum(
-        serialize = "ItemRTG",
-        props(
-            name = r#"Kit (Creative RTG)"#,
-            desc = r#"This kit creates that miracle of modern science, a <link=ThingItemRTG><color=green>Kit (Creative RTG)</color></link>."#,
-            value = "495305053"
-        )
-    )]
-    ItemRtg = 495305053i32,
-    #[strum(
-        serialize = "ItemKitCryoTube",
-        props(name = r#"Kit (Cryo Tube)"#, desc = r#""#, value = "-545234195")
-    )]
-    ItemKitCryoTube = -545234195i32,
-    #[strum(
-        serialize = "ItemKitDeepMiner",
-        props(name = r#"Kit (Deep Miner)"#, desc = r#""#, value = "-1935075707")
-    )]
-    ItemKitDeepMiner = -1935075707i32,
-    #[strum(
-        serialize = "ItemPipeDigitalValve",
-        props(
-            name = r#"Kit (Digital Valve)"#,
-            desc = r#"This kit creates a <link=ThingStructureDigitalValve><color=green>Digital Valve</color></link>."#,
-            value = "-1532448832"
-        )
-    )]
-    ItemPipeDigitalValve = -1532448832i32,
-    #[strum(
-        serialize = "ItemKitDockingPort",
-        props(name = r#"Kit (Docking Port)"#, desc = r#""#, value = "77421200")
-    )]
-    ItemKitDockingPort = 77421200i32,
-    #[strum(
-        serialize = "ItemKitDoor",
-        props(name = r#"Kit (Door)"#, desc = r#""#, value = "168615924")
-    )]
-    ItemKitDoor = 168615924i32,
-    #[strum(
-        serialize = "ItemKitDrinkingFountain",
-        props(
-            name = r#"Kit (Drinking Fountain)"#,
-            desc = r#""#,
-            value = "-1743663875"
-        )
-    )]
-    ItemKitDrinkingFountain = -1743663875i32,
-    #[strum(
-        serialize = "ItemKitElectronicsPrinter",
-        props(
-            name = r#"Kit (Electronics Printer)"#,
-            desc = r#""#,
-            value = "-1181922382"
-        )
-    )]
-    ItemKitElectronicsPrinter = -1181922382i32,
-    #[strum(
-        serialize = "ItemKitElevator",
-        props(name = r#"Kit (Elevator)"#, desc = r#""#, value = "-945806652")
-    )]
-    ItemKitElevator = -945806652i32,
-    #[strum(
-        serialize = "ItemKitEngineLarge",
-        props(name = r#"Kit (Engine Large)"#, desc = r#""#, value = "755302726")
-    )]
-    ItemKitEngineLarge = 755302726i32,
-    #[strum(
-        serialize = "ItemKitEngineMedium",
-        props(name = r#"Kit (Engine Medium)"#, desc = r#""#, value = "1969312177")
-    )]
-    ItemKitEngineMedium = 1969312177i32,
-    #[strum(
-        serialize = "ItemKitEngineSmall",
-        props(name = r#"Kit (Engine Small)"#, desc = r#""#, value = "19645163")
-    )]
-    ItemKitEngineSmall = 19645163i32,
-    #[strum(
-        serialize = "ItemFlashingLight",
-        props(name = r#"Kit (Flashing Light)"#, desc = r#""#, value = "-2107840748")
-    )]
-    ItemFlashingLight = -2107840748i32,
-    #[strum(
-        serialize = "ItemKitWallFlat",
-        props(name = r#"Kit (Flat Wall)"#, desc = r#""#, value = "-846838195")
-    )]
-    ItemKitWallFlat = -846838195i32,
-    #[strum(
-        serialize = "ItemKitCompositeFloorGrating",
-        props(name = r#"Kit (Floor Grating)"#, desc = r#""#, value = "1182412869")
-    )]
-    ItemKitCompositeFloorGrating = 1182412869i32,
-    #[strum(
-        serialize = "ItemKitFridgeBig",
-        props(name = r#"Kit (Fridge Large)"#, desc = r#""#, value = "-1168199498")
-    )]
-    ItemKitFridgeBig = -1168199498i32,
-    #[strum(
-        serialize = "ItemKitFridgeSmall",
-        props(name = r#"Kit (Fridge Small)"#, desc = r#""#, value = "1661226524")
-    )]
-    ItemKitFridgeSmall = 1661226524i32,
-    #[strum(
-        serialize = "ItemKitFurnace",
-        props(name = r#"Kit (Furnace)"#, desc = r#""#, value = "-806743925")
-    )]
-    ItemKitFurnace = -806743925i32,
-    #[strum(
-        serialize = "ItemKitFurniture",
-        props(name = r#"Kit (Furniture)"#, desc = r#""#, value = "1162905029")
-    )]
-    ItemKitFurniture = 1162905029i32,
-    #[strum(
-        serialize = "ItemKitFuselage",
-        props(name = r#"Kit (Fuselage)"#, desc = r#""#, value = "-366262681")
-    )]
-    ItemKitFuselage = -366262681i32,
-    #[strum(
-        serialize = "ItemKitGasGenerator",
-        props(
-            name = r#"Kit (Gas Fuel Generator)"#,
-            desc = r#""#,
-            value = "377745425"
-        )
-    )]
-    ItemKitGasGenerator = 377745425i32,
-    #[strum(
-        serialize = "ItemPipeGasMixer",
-        props(
-            name = r#"Kit (Gas Mixer)"#,
-            desc = r#"This kit creates a <link=ThingStructureGasMixer><color=green>Gas Mixer</color></link>."#,
-            value = "-1134459463"
-        )
-    )]
-    ItemPipeGasMixer = -1134459463i32,
-    #[strum(
-        serialize = "ItemGasSensor",
-        props(name = r#"Kit (Gas Sensor)"#, desc = r#""#, value = "1717593480")
-    )]
-    ItemGasSensor = 1717593480i32,
-    #[strum(
-        serialize = "ItemKitGasUmbilical",
-        props(name = r#"Kit (Gas Umbilical)"#, desc = r#""#, value = "-1867280568")
-    )]
-    ItemKitGasUmbilical = -1867280568i32,
-    #[strum(
-        serialize = "ItemKitWallGeometry",
-        props(name = r#"Kit (Geometric Wall)"#, desc = r#""#, value = "-784733231")
-    )]
-    ItemKitWallGeometry = -784733231i32,
-    #[strum(
-        serialize = "ItemKitGrowLight",
-        props(name = r#"Kit (Grow Light)"#, desc = r#""#, value = "341030083")
-    )]
-    ItemKitGrowLight = 341030083i32,
-    #[strum(
-        serialize = "ItemKitAirlockGate",
-        props(name = r#"Kit (Hangar Door)"#, desc = r#""#, value = "682546947")
-    )]
-    ItemKitAirlockGate = 682546947i32,
-    #[strum(
-        serialize = "ItemKitHarvie",
-        props(name = r#"Kit (Harvie)"#, desc = r#""#, value = "-1022693454")
-    )]
-    ItemKitHarvie = -1022693454i32,
-    #[strum(
-        serialize = "ItemKitHydraulicPipeBender",
-        props(
-            name = r#"Kit (Hydraulic Pipe Bender)"#,
-            desc = r#""#,
-            value = "-2098556089"
-        )
-    )]
-    ItemKitHydraulicPipeBender = -2098556089i32,
-    #[strum(
-        serialize = "ItemKitHydroponicStation",
-        props(
-            name = r#"Kit (Hydroponic Station)"#,
-            desc = r#""#,
-            value = "2057179799"
-        )
-    )]
-    ItemKitHydroponicStation = 2057179799i32,
-    #[strum(
-        serialize = "ItemHydroponicTray",
-        props(
-            name = r#"Kit (Hydroponic Tray)"#,
-            desc = r#"This kits creates a <link=ThingStructureHydroponicsTray><color=green>Hydroponics Tray</color></link> for growing various plants."#,
-            value = "-1193543727"
-        )
-    )]
-    ItemHydroponicTray = -1193543727i32,
-    #[strum(
-        serialize = "ItemKitLogicCircuit",
-        props(name = r#"Kit (IC Housing)"#, desc = r#""#, value = "1512322581")
-    )]
-    ItemKitLogicCircuit = 1512322581i32,
-    #[strum(
-        serialize = "ItemKitIceCrusher",
-        props(name = r#"Kit (Ice Crusher)"#, desc = r#""#, value = "288111533")
-    )]
-    ItemKitIceCrusher = 288111533i32,
-    #[strum(
-        serialize = "ItemIgniter",
-        props(
-            name = r#"Kit (Igniter)"#,
-            desc = r#"This kit creates an <link=ThingItemIgniter><color=green>Kit (Igniter)</color></link> unit."#,
-            value = "890106742"
-        )
-    )]
-    ItemIgniter = 890106742i32,
-    #[strum(
-        serialize = "ItemKitInsulatedLiquidPipe",
-        props(
-            name = r#"Kit (Insulated Liquid Pipe)"#,
-            desc = r#""#,
-            value = "2067655311"
-        )
-    )]
-    ItemKitInsulatedLiquidPipe = 2067655311i32,
-    #[strum(
-        serialize = "ItemKitLiquidTankInsulated",
-        props(
-            name = r#"Kit (Insulated Liquid Tank)"#,
-            desc = r#""#,
-            value = "617773453"
-        )
-    )]
-    ItemKitLiquidTankInsulated = 617773453i32,
-    #[strum(
-        serialize = "ItemPassiveVentInsulated",
-        props(
-            name = r#"Kit (Insulated Passive Vent)"#,
-            desc = r#""#,
-            value = "-1397583760"
-        )
+        serialize = "ItemCoffeeMug",
+        props(name = r#"Coffee Mug"#, desc = r#""#, value = "1800622698")
     )]
-    ItemPassiveVentInsulated = -1397583760i32,
+    ItemCoffeeMug = 1800622698i32,
     #[strum(
-        serialize = "ItemKitInsulatedPipeUtility",
-        props(
-            name = r#"Kit (Insulated Pipe Utility Gas)"#,
-            desc = r#""#,
-            value = "-27284803"
-        )
+        serialize = "StructureAngledBench",
+        props(name = r#"Bench (Angled)"#, desc = r#""#, value = "1811979158")
     )]
-    ItemKitInsulatedPipeUtility = -27284803i32,
+    StructureAngledBench = 1811979158i32,
     #[strum(
-        serialize = "ItemKitInsulatedPipeUtilityLiquid",
+        serialize = "StructurePassiveLiquidDrain",
         props(
-            name = r#"Kit (Insulated Pipe Utility Liquid)"#,
-            desc = r#""#,
-            value = "-1831558953"
+            name = r#"Passive Liquid Drain"#,
+            desc = r#"Moves liquids from a pipe network to the world atmosphere."#,
+            value = "1812364811"
         )
-    )]
-    ItemKitInsulatedPipeUtilityLiquid = -1831558953i32,
-    #[strum(
-        serialize = "ItemKitInsulatedPipe",
-        props(name = r#"Kit (Insulated Pipe)"#, desc = r#""#, value = "452636699")
-    )]
-    ItemKitInsulatedPipe = 452636699i32,
-    #[strum(
-        serialize = "ItemKitInteriorDoors",
-        props(name = r#"Kit (Interior Doors)"#, desc = r#""#, value = "1935945891")
-    )]
-    ItemKitInteriorDoors = 1935945891i32,
-    #[strum(
-        serialize = "ItemKitWallIron",
-        props(name = r#"Kit (Iron Wall)"#, desc = r#""#, value = "-524546923")
-    )]
-    ItemKitWallIron = -524546923i32,
-    #[strum(
-        serialize = "ItemKitLadder",
-        props(name = r#"Kit (Ladder)"#, desc = r#""#, value = "489494578")
     )]
-    ItemKitLadder = 489494578i32,
+    StructurePassiveLiquidDrain = 1812364811i32,
     #[strum(
         serialize = "ItemKitLandingPadAtmos",
         props(
@@ -4451,502 +9253,6 @@ USE: 'J' to activate; 'space' to fly up; 'left ctrl' to descend; and 'WASD' to m
     )]
     ItemKitLandingPadAtmos = 1817007843i32,
     #[strum(
-        serialize = "ItemKitLandingPadBasic",
-        props(name = r#"Kit (Landing Pad Basic)"#, desc = r#""#, value = "293581318")
-    )]
-    ItemKitLandingPadBasic = 293581318i32,
-    #[strum(
-        serialize = "ItemKitLandingPadWaypoint",
-        props(
-            name = r#"Kit (Landing Pad Runway)"#,
-            desc = r#""#,
-            value = "-1267511065"
-        )
-    )]
-    ItemKitLandingPadWaypoint = -1267511065i32,
-    #[strum(
-        serialize = "ItemKitLargeDirectHeatExchanger",
-        props(
-            name = r#"Kit (Large Direct Heat Exchanger)"#,
-            desc = r#""#,
-            value = "450164077"
-        )
-    )]
-    ItemKitLargeDirectHeatExchanger = 450164077i32,
-    #[strum(
-        serialize = "ItemKitLargeExtendableRadiator",
-        props(
-            name = r#"Kit (Large Extendable Radiator)"#,
-            desc = r#""#,
-            value = "847430620"
-        )
-    )]
-    ItemKitLargeExtendableRadiator = 847430620i32,
-    #[strum(
-        serialize = "ItemKitLargeSatelliteDish",
-        props(
-            name = r#"Kit (Large Satellite Dish)"#,
-            desc = r#""#,
-            value = "-2039971217"
-        )
-    )]
-    ItemKitLargeSatelliteDish = -2039971217i32,
-    #[strum(
-        serialize = "ItemKitLaunchMount",
-        props(name = r#"Kit (Launch Mount)"#, desc = r#""#, value = "-1854167549")
-    )]
-    ItemKitLaunchMount = -1854167549i32,
-    #[strum(
-        serialize = "ItemWallLight",
-        props(
-            name = r#"Kit (Lights)"#,
-            desc = r#"This kit creates any one of ten <link=ThingItemWallLight><color=green>Kit (Lights)</color></link> variants."#,
-            value = "1108423476"
-        )
-    )]
-    ItemWallLight = 1108423476i32,
-    #[strum(
-        serialize = "ItemLiquidTankStorage",
-        props(
-            name = r#"Kit (Liquid Canister Storage)"#,
-            desc = r#"This kit produces a <link=ThingItemLiquidTankStorage><color=green>Kit (Liquid Canister Storage)</color></link> for refilling a <link=ThingItemLiquidCanisterEmpty><color=green>Liquid Canister</color></link>."#,
-            value = "2037427578"
-        )
-    )]
-    ItemLiquidTankStorage = 2037427578i32,
-    #[strum(
-        serialize = "ItemWaterPipeDigitalValve",
-        props(
-            name = r#"Kit (Liquid Digital Valve)"#,
-            desc = r#""#,
-            value = "309693520"
-        )
-    )]
-    ItemWaterPipeDigitalValve = 309693520i32,
-    #[strum(
-        serialize = "ItemLiquidDrain",
-        props(name = r#"Kit (Liquid Drain)"#, desc = r#""#, value = "2036225202")
-    )]
-    ItemLiquidDrain = 2036225202i32,
-    #[strum(
-        serialize = "ItemLiquidPipeAnalyzer",
-        props(
-            name = r#"Kit (Liquid Pipe Analyzer)"#,
-            desc = r#""#,
-            value = "226055671"
-        )
-    )]
-    ItemLiquidPipeAnalyzer = 226055671i32,
-    #[strum(
-        serialize = "ItemWaterPipeMeter",
-        props(name = r#"Kit (Liquid Pipe Meter)"#, desc = r#""#, value = "-90898877")
-    )]
-    ItemWaterPipeMeter = -90898877i32,
-    #[strum(
-        serialize = "ItemLiquidPipeValve",
-        props(
-            name = r#"Kit (Liquid Pipe Valve)"#,
-            desc = r#"This kit creates a <link=ThingStructureLiquidValve><color=green>Liquid Valve</color></link>."#,
-            value = "-2126113312"
-        )
-    )]
-    ItemLiquidPipeValve = -2126113312i32,
-    #[strum(
-        serialize = "ItemKitPipeLiquid",
-        props(name = r#"Kit (Liquid Pipe)"#, desc = r#""#, value = "-1166461357")
-    )]
-    ItemKitPipeLiquid = -1166461357i32,
-    #[strum(
-        serialize = "ItemPipeLiquidRadiator",
-        props(
-            name = r#"Kit (Liquid Radiator)"#,
-            desc = r#"This kit creates a <link=ThingStructureLiquidPipeRadiator><color=green>Liquid Pipe Convection Radiator</color></link>."#,
-            value = "-906521320"
-        )
-    )]
-    ItemPipeLiquidRadiator = -906521320i32,
-    #[strum(
-        serialize = "ItemKitLiquidRegulator",
-        props(name = r#"Kit (Liquid Regulator)"#, desc = r#""#, value = "1951126161")
-    )]
-    ItemKitLiquidRegulator = 1951126161i32,
-    #[strum(
-        serialize = "ItemKitLiquidTank",
-        props(name = r#"Kit (Liquid Tank)"#, desc = r#""#, value = "-799849305")
-    )]
-    ItemKitLiquidTank = -799849305i32,
-    #[strum(
-        serialize = "ItemKitLiquidUmbilical",
-        props(name = r#"Kit (Liquid Umbilical)"#, desc = r#""#, value = "1571996765")
-    )]
-    ItemKitLiquidUmbilical = 1571996765i32,
-    #[strum(
-        serialize = "ItemLiquidPipeVolumePump",
-        props(
-            name = r#"Kit (Liquid Volume Pump)"#,
-            desc = r#""#,
-            value = "-2106280569"
-        )
-    )]
-    ItemLiquidPipeVolumePump = -2106280569i32,
-    #[strum(
-        serialize = "ItemWaterWallCooler",
-        props(
-            name = r#"Kit (Liquid Wall Cooler)"#,
-            desc = r#""#,
-            value = "-1721846327"
-        )
-    )]
-    ItemWaterWallCooler = -1721846327i32,
-    #[strum(
-        serialize = "ItemKitLocker",
-        props(name = r#"Kit (Locker)"#, desc = r#""#, value = "882301399")
-    )]
-    ItemKitLocker = 882301399i32,
-    #[strum(
-        serialize = "ItemKitLogicInputOutput",
-        props(name = r#"Kit (Logic I/O)"#, desc = r#""#, value = "1997293610")
-    )]
-    ItemKitLogicInputOutput = 1997293610i32,
-    #[strum(
-        serialize = "ItemKitLogicMemory",
-        props(name = r#"Kit (Logic Memory)"#, desc = r#""#, value = "-2098214189")
-    )]
-    ItemKitLogicMemory = -2098214189i32,
-    #[strum(
-        serialize = "ItemKitLogicProcessor",
-        props(name = r#"Kit (Logic Processor)"#, desc = r#""#, value = "220644373")
-    )]
-    ItemKitLogicProcessor = 220644373i32,
-    #[strum(
-        serialize = "ItemKitLogicSwitch",
-        props(name = r#"Kit (Logic Switch)"#, desc = r#""#, value = "124499454")
-    )]
-    ItemKitLogicSwitch = 124499454i32,
-    #[strum(
-        serialize = "ItemKitLogicTransmitter",
-        props(
-            name = r#"Kit (Logic Transmitter)"#,
-            desc = r#""#,
-            value = "1005397063"
-        )
-    )]
-    ItemKitLogicTransmitter = 1005397063i32,
-    #[strum(
-        serialize = "ItemKitPassiveLargeRadiatorLiquid",
-        props(
-            name = r#"Kit (Medium Radiator Liquid)"#,
-            desc = r#""#,
-            value = "1453961898"
-        )
-    )]
-    ItemKitPassiveLargeRadiatorLiquid = 1453961898i32,
-    #[strum(
-        serialize = "ItemKitPassiveLargeRadiatorGas",
-        props(name = r#"Kit (Medium Radiator)"#, desc = r#""#, value = "-1752768283")
-    )]
-    ItemKitPassiveLargeRadiatorGas = -1752768283i32,
-    #[strum(
-        serialize = "ItemKitSatelliteDish",
-        props(
-            name = r#"Kit (Medium Satellite Dish)"#,
-            desc = r#""#,
-            value = "178422810"
-        )
-    )]
-    ItemKitSatelliteDish = 178422810i32,
-    #[strum(
-        serialize = "ItemKitMotherShipCore",
-        props(name = r#"Kit (Mothership)"#, desc = r#""#, value = "-344968335")
-    )]
-    ItemKitMotherShipCore = -344968335i32,
-    #[strum(
-        serialize = "ItemKitMusicMachines",
-        props(name = r#"Kit (Music Machines)"#, desc = r#""#, value = "-2038889137")
-    )]
-    ItemKitMusicMachines = -2038889137i32,
-    #[strum(
-        serialize = "ItemKitFlagODA",
-        props(name = r#"Kit (ODA Flag)"#, desc = r#""#, value = "1701764190")
-    )]
-    ItemKitFlagOda = 1701764190i32,
-    #[strum(
-        serialize = "ItemKitHorizontalAutoMiner",
-        props(name = r#"Kit (OGRE)"#, desc = r#""#, value = "844391171")
-    )]
-    ItemKitHorizontalAutoMiner = 844391171i32,
-    #[strum(
-        serialize = "ItemKitWallPadded",
-        props(name = r#"Kit (Padded Wall)"#, desc = r#""#, value = "-821868990")
-    )]
-    ItemKitWallPadded = -821868990i32,
-    #[strum(
-        serialize = "ItemKitEvaporationChamber",
-        props(
-            name = r#"Kit (Phase Change Device)"#,
-            desc = r#""#,
-            value = "1587787610"
-        )
-    )]
-    ItemKitEvaporationChamber = 1587787610i32,
-    #[strum(
-        serialize = "ItemPipeAnalyizer",
-        props(
-            name = r#"Kit (Pipe Analyzer)"#,
-            desc = r#"This kit creates a <link=ThingStructurePipeAnalysizer><color=green>Pipe Analyzer</color></link>."#,
-            value = "-767597887"
-        )
-    )]
-    ItemPipeAnalyizer = -767597887i32,
-    #[strum(
-        serialize = "ItemPipeIgniter",
-        props(name = r#"Kit (Pipe Igniter)"#, desc = r#""#, value = "1366030599")
-    )]
-    ItemPipeIgniter = 1366030599i32,
-    #[strum(
-        serialize = "ItemPipeLabel",
-        props(
-            name = r#"Kit (Pipe Label)"#,
-            desc = r#"This kit creates a <link=ThingStructurePipeLabel><color=green>Pipe Label</color></link>."#,
-            value = "391769637"
-        )
-    )]
-    ItemPipeLabel = 391769637i32,
-    #[strum(
-        serialize = "ItemPipeMeter",
-        props(
-            name = r#"Kit (Pipe Meter)"#,
-            desc = r#"This kit creates a <link=ThingStructurePipeMeter><color=green>Pipe Meter</color></link>."#,
-            value = "1207939683"
-        )
-    )]
-    ItemPipeMeter = 1207939683i32,
-    #[strum(
-        serialize = "ItemKitPipeOrgan",
-        props(name = r#"Kit (Pipe Organ)"#, desc = r#""#, value = "-827125300")
-    )]
-    ItemKitPipeOrgan = -827125300i32,
-    #[strum(
-        serialize = "ItemKitPipeRadiatorLiquid",
-        props(
-            name = r#"Kit (Pipe Radiator Liquid)"#,
-            desc = r#""#,
-            value = "-1697302609"
-        )
-    )]
-    ItemKitPipeRadiatorLiquid = -1697302609i32,
-    #[strum(
-        serialize = "ItemKitPipeRadiator",
-        props(name = r#"Kit (Pipe Radiator)"#, desc = r#""#, value = "920411066")
-    )]
-    ItemKitPipeRadiator = 920411066i32,
-    #[strum(
-        serialize = "ItemKitPipeUtility",
-        props(name = r#"Kit (Pipe Utility Gas)"#, desc = r#""#, value = "1934508338")
-    )]
-    ItemKitPipeUtility = 1934508338i32,
-    #[strum(
-        serialize = "ItemKitPipeUtilityLiquid",
-        props(
-            name = r#"Kit (Pipe Utility Liquid)"#,
-            desc = r#""#,
-            value = "595478589"
-        )
-    )]
-    ItemKitPipeUtilityLiquid = 595478589i32,
-    #[strum(
-        serialize = "ItemPipeValve",
-        props(
-            name = r#"Kit (Pipe Valve)"#,
-            desc = r#"This kit creates a <link=ThingStructureValve><color=green>Valve</color></link>."#,
-            value = "799323450"
-        )
-    )]
-    ItemPipeValve = 799323450i32,
-    #[strum(
-        serialize = "ItemKitPipe",
-        props(name = r#"Kit (Pipe)"#, desc = r#""#, value = "-1619793705")
-    )]
-    ItemKitPipe = -1619793705i32,
-    #[strum(
-        serialize = "ItemKitPlanter",
-        props(name = r#"Kit (Planter)"#, desc = r#""#, value = "119096484")
-    )]
-    ItemKitPlanter = 119096484i32,
-    #[strum(
-        serialize = "ItemDynamicAirCon",
-        props(
-            name = r#"Kit (Portable Air Conditioner)"#,
-            desc = r#""#,
-            value = "1072914031"
-        )
-    )]
-    ItemDynamicAirCon = 1072914031i32,
-    #[strum(
-        serialize = "ItemKitDynamicGasTankAdvanced",
-        props(
-            name = r#"Kit (Portable Gas Tank Mk II)"#,
-            desc = r#""#,
-            value = "1533501495"
-        )
-    )]
-    ItemKitDynamicGasTankAdvanced = 1533501495i32,
-    #[strum(
-        serialize = "ItemKitDynamicCanister",
-        props(
-            name = r#"Kit (Portable Gas Tank)"#,
-            desc = r#""#,
-            value = "-1061945368"
-        )
-    )]
-    ItemKitDynamicCanister = -1061945368i32,
-    #[strum(
-        serialize = "ItemKitDynamicGenerator",
-        props(
-            name = r#"Kit (Portable Generator)"#,
-            desc = r#""#,
-            value = "-732720413"
-        )
-    )]
-    ItemKitDynamicGenerator = -732720413i32,
-    #[strum(
-        serialize = "ItemKitDynamicHydroponics",
-        props(
-            name = r#"Kit (Portable Hydroponics)"#,
-            desc = r#""#,
-            value = "-1861154222"
-        )
-    )]
-    ItemKitDynamicHydroponics = -1861154222i32,
-    #[strum(
-        serialize = "ItemKitDynamicMKIILiquidCanister",
-        props(
-            name = r#"Kit (Portable Liquid Tank Mk II)"#,
-            desc = r#""#,
-            value = "-638019974"
-        )
-    )]
-    ItemKitDynamicMkiiLiquidCanister = -638019974i32,
-    #[strum(
-        serialize = "ItemKitDynamicLiquidCanister",
-        props(
-            name = r#"Kit (Portable Liquid Tank)"#,
-            desc = r#""#,
-            value = "375541286"
-        )
-    )]
-    ItemKitDynamicLiquidCanister = 375541286i32,
-    #[strum(
-        serialize = "ItemDynamicScrubber",
-        props(
-            name = r#"Kit (Portable Scrubber)"#,
-            desc = r#""#,
-            value = "-971920158"
-        )
-    )]
-    ItemDynamicScrubber = -971920158i32,
-    #[strum(
-        serialize = "ItemKitPortablesConnector",
-        props(
-            name = r#"Kit (Portables Connector)"#,
-            desc = r#""#,
-            value = "1041148999"
-        )
-    )]
-    ItemKitPortablesConnector = 1041148999i32,
-    #[strum(
-        serialize = "ItemPowerConnector",
-        props(
-            name = r#"Kit (Power Connector)"#,
-            desc = r#"This kit creates a <link=ThingStructurePowerConnector><color=green>Power Connector</color></link>."#,
-            value = "839924019"
-        )
-    )]
-    ItemPowerConnector = 839924019i32,
-    #[strum(
-        serialize = "ItemAreaPowerControl",
-        props(
-            name = r#"Kit (Power Controller)"#,
-            desc = r#"This kit places a <link=ThingStructureAreaPowerControl><color=green>Area Power Control</color></link> (APC) on any support structure. The APC kit has two options, selecting which direction you would like the APC power to flow."#,
-            value = "1757673317"
-        )
-    )]
-    ItemAreaPowerControl = 1757673317i32,
-    #[strum(
-        serialize = "ItemKitPowerTransmitterOmni",
-        props(
-            name = r#"Kit (Power Transmitter Omni)"#,
-            desc = r#""#,
-            value = "-831211676"
-        )
-    )]
-    ItemKitPowerTransmitterOmni = -831211676i32,
-    #[strum(
-        serialize = "ItemKitPowerTransmitter",
-        props(name = r#"Kit (Power Transmitter)"#, desc = r#""#, value = "291368213")
-    )]
-    ItemKitPowerTransmitter = 291368213i32,
-    #[strum(
-        serialize = "ItemKitElectricUmbilical",
-        props(name = r#"Kit (Power Umbilical)"#, desc = r#""#, value = "1603046970")
-    )]
-    ItemKitElectricUmbilical = 1603046970i32,
-    #[strum(
-        serialize = "ItemKitStandardChute",
-        props(name = r#"Kit (Powered Chutes)"#, desc = r#""#, value = "2133035682")
-    )]
-    ItemKitStandardChute = 2133035682i32,
-    #[strum(
-        serialize = "ItemKitPoweredVent",
-        props(name = r#"Kit (Powered Vent)"#, desc = r#""#, value = "2015439334")
-    )]
-    ItemKitPoweredVent = 2015439334i32,
-    #[strum(
-        serialize = "ItemKitPressureFedGasEngine",
-        props(
-            name = r#"Kit (Pressure Fed Gas Engine)"#,
-            desc = r#""#,
-            value = "-121514007"
-        )
-    )]
-    ItemKitPressureFedGasEngine = -121514007i32,
-    #[strum(
-        serialize = "ItemKitPressureFedLiquidEngine",
-        props(
-            name = r#"Kit (Pressure Fed Liquid Engine)"#,
-            desc = r#""#,
-            value = "-99091572"
-        )
-    )]
-    ItemKitPressureFedLiquidEngine = -99091572i32,
-    #[strum(
-        serialize = "ItemKitRegulator",
-        props(
-            name = r#"Kit (Pressure Regulator)"#,
-            desc = r#""#,
-            value = "1181371795"
-        )
-    )]
-    ItemKitRegulator = 1181371795i32,
-    #[strum(
-        serialize = "ItemKitGovernedGasRocketEngine",
-        props(
-            name = r#"Kit (Pumped Gas Rocket Engine)"#,
-            desc = r#""#,
-            value = "206848766"
-        )
-    )]
-    ItemKitGovernedGasRocketEngine = 206848766i32,
-    #[strum(
-        serialize = "ItemKitPumpedLiquidEngine",
-        props(
-            name = r#"Kit (Pumped Liquid Engine)"#,
-            desc = r#""#,
-            value = "1921918951"
-        )
-    )]
-    ItemKitPumpedLiquidEngine = 1921918951i32,
-    #[strum(
         serialize = "ItemRTGSurvival",
         props(
             name = r#"Kit (RTG)"#,
@@ -4956,1093 +9262,23 @@ USE: 'J' to activate; 'space' to fly up; 'left ctrl' to descend; and 'WASD' to m
     )]
     ItemRtgSurvival = 1817645803i32,
     #[strum(
-        serialize = "ItemPipeRadiator",
+        serialize = "StructureInsulatedInLineTankGas1x1",
         props(
-            name = r#"Kit (Radiator)"#,
-            desc = r#"This kit creates a <link=ThingStructurePipeRadiator><color=green>Pipe Convection Radiator</color></link>."#,
-            value = "-1796655088"
-        )
-    )]
-    ItemPipeRadiator = -1796655088i32,
-    #[strum(
-        serialize = "ItemKitRailing",
-        props(name = r#"Kit (Railing)"#, desc = r#""#, value = "750176282")
-    )]
-    ItemKitRailing = 750176282i32,
-    #[strum(
-        serialize = "ItemKitRecycler",
-        props(name = r#"Kit (Recycler)"#, desc = r#""#, value = "849148192")
-    )]
-    ItemKitRecycler = 849148192i32,
-    #[strum(
-        serialize = "ItemKitReinforcedWindows",
-        props(
-            name = r#"Kit (Reinforced Windows)"#,
+            name = r#"Insulated In-Line Tank Small Gas"#,
             desc = r#""#,
-            value = "1459985302"
+            value = "1818267386"
         )
     )]
-    ItemKitReinforcedWindows = 1459985302i32,
+    StructureInsulatedInLineTankGas1X1 = 1818267386i32,
     #[strum(
-        serialize = "ItemKitRespawnPointWallMounted",
-        props(name = r#"Kit (Respawn)"#, desc = r#""#, value = "1574688481")
-    )]
-    ItemKitRespawnPointWallMounted = 1574688481i32,
-    #[strum(
-        serialize = "ItemKitRocketBattery",
-        props(name = r#"Kit (Rocket Battery)"#, desc = r#""#, value = "-314072139")
-    )]
-    ItemKitRocketBattery = -314072139i32,
-    #[strum(
-        serialize = "ItemKitRocketCargoStorage",
-        props(
-            name = r#"Kit (Rocket Cargo Storage)"#,
-            desc = r#""#,
-            value = "479850239"
-        )
-    )]
-    ItemKitRocketCargoStorage = 479850239i32,
-    #[strum(
-        serialize = "ItemKitRocketCelestialTracker",
-        props(
-            name = r#"Kit (Rocket Celestial Tracker)"#,
-            desc = r#""#,
-            value = "-303008602"
-        )
-    )]
-    ItemKitRocketCelestialTracker = -303008602i32,
-    #[strum(
-        serialize = "ItemKitRocketCircuitHousing",
-        props(
-            name = r#"Kit (Rocket Circuit Housing)"#,
-            desc = r#""#,
-            value = "721251202"
-        )
-    )]
-    ItemKitRocketCircuitHousing = 721251202i32,
-    #[strum(
-        serialize = "ItemKitRocketDatalink",
-        props(name = r#"Kit (Rocket Datalink)"#, desc = r#""#, value = "-1256996603")
-    )]
-    ItemKitRocketDatalink = -1256996603i32,
-    #[strum(
-        serialize = "ItemKitRocketGasFuelTank",
-        props(
-            name = r#"Kit (Rocket Gas Fuel Tank)"#,
-            desc = r#""#,
-            value = "-1629347579"
-        )
-    )]
-    ItemKitRocketGasFuelTank = -1629347579i32,
-    #[strum(
-        serialize = "ItemKitLaunchTower",
-        props(
-            name = r#"Kit (Rocket Launch Tower)"#,
-            desc = r#""#,
-            value = "-174523552"
-        )
-    )]
-    ItemKitLaunchTower = -174523552i32,
-    #[strum(
-        serialize = "ItemKitRocketLiquidFuelTank",
-        props(
-            name = r#"Kit (Rocket Liquid Fuel Tank)"#,
-            desc = r#""#,
-            value = "2032027950"
-        )
-    )]
-    ItemKitRocketLiquidFuelTank = 2032027950i32,
-    #[strum(
-        serialize = "ItemKitRocketManufactory",
-        props(
-            name = r#"Kit (Rocket Manufactory)"#,
-            desc = r#""#,
-            value = "-636127860"
-        )
-    )]
-    ItemKitRocketManufactory = -636127860i32,
-    #[strum(
-        serialize = "ItemKitRocketMiner",
-        props(name = r#"Kit (Rocket Miner)"#, desc = r#""#, value = "-867969909")
-    )]
-    ItemKitRocketMiner = -867969909i32,
-    #[strum(
-        serialize = "ItemKitRocketScanner",
-        props(name = r#"Kit (Rocket Scanner)"#, desc = r#""#, value = "1753647154")
-    )]
-    ItemKitRocketScanner = 1753647154i32,
-    #[strum(
-        serialize = "ItemKitRoverFrame",
-        props(name = r#"Kit (Rover Frame)"#, desc = r#""#, value = "1827215803")
-    )]
-    ItemKitRoverFrame = 1827215803i32,
-    #[strum(
-        serialize = "ItemKitRoverMKI",
-        props(name = r#"Kit (Rover Mk I)"#, desc = r#""#, value = "197243872")
-    )]
-    ItemKitRoverMki = 197243872i32,
-    #[strum(
-        serialize = "ItemKitSDBHopper",
-        props(name = r#"Kit (SDB Hopper)"#, desc = r#""#, value = "323957548")
-    )]
-    ItemKitSdbHopper = 323957548i32,
-    #[strum(
-        serialize = "KitSDBSilo",
-        props(
-            name = r#"Kit (SDB Silo)"#,
-            desc = r#"This kit creates a <link=ThingStructureSDBSilo><color=green>SDB Silo</color></link>."#,
-            value = "1932952652"
-        )
-    )]
-    KitSdbSilo = 1932952652i32,
-    #[strum(
-        serialize = "ItemKitSecurityPrinter",
-        props(name = r#"Kit (Security Printer)"#, desc = r#""#, value = "578078533")
-    )]
-    ItemKitSecurityPrinter = 578078533i32,
-    #[strum(
-        serialize = "ItemKitSensor",
-        props(name = r#"Kit (Sensors)"#, desc = r#""#, value = "-1776897113")
-    )]
-    ItemKitSensor = -1776897113i32,
-    #[strum(
-        serialize = "ItemKitShower",
-        props(name = r#"Kit (Shower)"#, desc = r#""#, value = "735858725")
-    )]
-    ItemKitShower = 735858725i32,
-    #[strum(
-        serialize = "ItemKitSign",
-        props(name = r#"Kit (Sign)"#, desc = r#""#, value = "529996327")
-    )]
-    ItemKitSign = 529996327i32,
-    #[strum(
-        serialize = "ItemKitSleeper",
-        props(name = r#"Kit (Sleeper)"#, desc = r#""#, value = "326752036")
-    )]
-    ItemKitSleeper = 326752036i32,
-    #[strum(
-        serialize = "ItemKitSmallDirectHeatExchanger",
-        props(
-            name = r#"Kit (Small Direct Heat Exchanger)"#,
-            desc = r#""#,
-            value = "-1332682164"
-        )
-    )]
-    ItemKitSmallDirectHeatExchanger = -1332682164i32,
-    #[strum(
-        serialize = "ItemFlagSmall",
-        props(name = r#"Kit (Small Flag)"#, desc = r#""#, value = "2011191088")
-    )]
-    ItemFlagSmall = 2011191088i32,
-    #[strum(
-        serialize = "ItemKitSmallSatelliteDish",
-        props(
-            name = r#"Kit (Small Satellite Dish)"#,
-            desc = r#""#,
-            value = "1960952220"
-        )
-    )]
-    ItemKitSmallSatelliteDish = 1960952220i32,
-    #[strum(
-        serialize = "ItemKitSolarPanelBasicReinforced",
-        props(
-            name = r#"Kit (Solar Panel Basic Heavy)"#,
-            desc = r#""#,
-            value = "-528695432"
-        )
-    )]
-    ItemKitSolarPanelBasicReinforced = -528695432i32,
-    #[strum(
-        serialize = "ItemKitSolarPanelBasic",
-        props(name = r#"Kit (Solar Panel Basic)"#, desc = r#""#, value = "844961456")
-    )]
-    ItemKitSolarPanelBasic = 844961456i32,
-    #[strum(
-        serialize = "ItemKitSolarPanelReinforced",
-        props(
-            name = r#"Kit (Solar Panel Heavy)"#,
-            desc = r#""#,
-            value = "-364868685"
-        )
-    )]
-    ItemKitSolarPanelReinforced = -364868685i32,
-    #[strum(
-        serialize = "ItemKitSolarPanel",
-        props(name = r#"Kit (Solar Panel)"#, desc = r#""#, value = "-1924492105")
-    )]
-    ItemKitSolarPanel = -1924492105i32,
-    #[strum(
-        serialize = "ItemKitSolidGenerator",
-        props(name = r#"Kit (Solid Generator)"#, desc = r#""#, value = "1293995736")
-    )]
-    ItemKitSolidGenerator = 1293995736i32,
-    #[strum(
-        serialize = "ItemKitSorter",
-        props(name = r#"Kit (Sorter)"#, desc = r#""#, value = "969522478")
-    )]
-    ItemKitSorter = 969522478i32,
-    #[strum(
-        serialize = "ItemKitSpeaker",
-        props(name = r#"Kit (Speaker)"#, desc = r#""#, value = "-126038526")
-    )]
-    ItemKitSpeaker = -126038526i32,
-    #[strum(
-        serialize = "ItemKitStacker",
-        props(name = r#"Kit (Stacker)"#, desc = r#""#, value = "1013244511")
-    )]
-    ItemKitStacker = 1013244511i32,
-    #[strum(
-        serialize = "ItemKitStairs",
-        props(name = r#"Kit (Stairs)"#, desc = r#""#, value = "170878959")
-    )]
-    ItemKitStairs = 170878959i32,
-    #[strum(
-        serialize = "ItemKitStairwell",
-        props(name = r#"Kit (Stairwell)"#, desc = r#""#, value = "-1868555784")
-    )]
-    ItemKitStairwell = -1868555784i32,
-    #[strum(
-        serialize = "ItemKitStirlingEngine",
-        props(name = r#"Kit (Stirling Engine)"#, desc = r#""#, value = "-1821571150")
-    )]
-    ItemKitStirlingEngine = -1821571150i32,
-    #[strum(
-        serialize = "ItemKitSuitStorage",
-        props(name = r#"Kit (Suit Storage)"#, desc = r#""#, value = "1088892825")
-    )]
-    ItemKitSuitStorage = 1088892825i32,
-    #[strum(
-        serialize = "ItemKitTables",
-        props(name = r#"Kit (Tables)"#, desc = r#""#, value = "-1361598922")
-    )]
-    ItemKitTables = -1361598922i32,
-    #[strum(
-        serialize = "ItemKitTankInsulated",
-        props(name = r#"Kit (Tank Insulated)"#, desc = r#""#, value = "1021053608")
-    )]
-    ItemKitTankInsulated = 1021053608i32,
-    #[strum(
-        serialize = "ItemKitTank",
-        props(name = r#"Kit (Tank)"#, desc = r#""#, value = "771439840")
-    )]
-    ItemKitTank = 771439840i32,
-    #[strum(
-        serialize = "ItemKitGroundTelescope",
-        props(name = r#"Kit (Telescope)"#, desc = r#""#, value = "-2140672772")
-    )]
-    ItemKitGroundTelescope = -2140672772i32,
-    #[strum(
-        serialize = "ItemKitToolManufactory",
-        props(name = r#"Kit (Tool Manufactory)"#, desc = r#""#, value = "529137748")
-    )]
-    ItemKitToolManufactory = 529137748i32,
-    #[strum(
-        serialize = "ItemKitTransformer",
-        props(
-            name = r#"Kit (Transformer Large)"#,
-            desc = r#""#,
-            value = "-453039435"
-        )
-    )]
-    ItemKitTransformer = -453039435i32,
-    #[strum(
-        serialize = "ItemKitRocketTransformerSmall",
-        props(
-            name = r#"Kit (Transformer Small (Rocket))"#,
-            desc = r#""#,
-            value = "-932335800"
-        )
-    )]
-    ItemKitRocketTransformerSmall = -932335800i32,
-    #[strum(
-        serialize = "ItemKitTransformerSmall",
-        props(name = r#"Kit (Transformer Small)"#, desc = r#""#, value = "665194284")
-    )]
-    ItemKitTransformerSmall = 665194284i32,
-    #[strum(
-        serialize = "ItemKitPressurePlate",
-        props(name = r#"Kit (Trigger Plate)"#, desc = r#""#, value = "123504691")
-    )]
-    ItemKitPressurePlate = 123504691i32,
-    #[strum(
-        serialize = "ItemKitTurbineGenerator",
-        props(
-            name = r#"Kit (Turbine Generator)"#,
-            desc = r#""#,
-            value = "-1590715731"
-        )
-    )]
-    ItemKitTurbineGenerator = -1590715731i32,
-    #[strum(
-        serialize = "ItemKitTurboVolumePump",
-        props(
-            name = r#"Kit (Turbo Volume Pump - Gas)"#,
-            desc = r#""#,
-            value = "-1248429712"
-        )
-    )]
-    ItemKitTurboVolumePump = -1248429712i32,
-    #[strum(
-        serialize = "ItemKitLiquidTurboVolumePump",
-        props(
-            name = r#"Kit (Turbo Volume Pump - Liquid)"#,
-            desc = r#""#,
-            value = "-1805020897"
-        )
-    )]
-    ItemKitLiquidTurboVolumePump = -1805020897i32,
-    #[strum(
-        serialize = "ItemKitUprightWindTurbine",
-        props(
-            name = r#"Kit (Upright Wind Turbine)"#,
-            desc = r#""#,
-            value = "-1798044015"
-        )
-    )]
-    ItemKitUprightWindTurbine = -1798044015i32,
-    #[strum(
-        serialize = "ItemKitVendingMachineRefrigerated",
-        props(
-            name = r#"Kit (Vending Machine Refrigerated)"#,
-            desc = r#""#,
-            value = "-1867508561"
-        )
-    )]
-    ItemKitVendingMachineRefrigerated = -1867508561i32,
-    #[strum(
-        serialize = "ItemKitVendingMachine",
-        props(name = r#"Kit (Vending Machine)"#, desc = r#""#, value = "-2038384332")
-    )]
-    ItemKitVendingMachine = -2038384332i32,
-    #[strum(
-        serialize = "ItemPipeVolumePump",
-        props(
-            name = r#"Kit (Volume Pump)"#,
-            desc = r#"This kit creates a <link=ThingStructureVolumePump><color=green>Volume Pump</color></link>."#,
-            value = "-1766301997"
-        )
-    )]
-    ItemPipeVolumePump = -1766301997i32,
-    #[strum(
-        serialize = "ItemWallCooler",
-        props(
-            name = r#"Kit (Wall Cooler)"#,
-            desc = r#"This kit creates a <link=ThingStructureWallCooler><color=green>Wall Cooler</color></link>."#,
-            value = "-1567752627"
-        )
-    )]
-    ItemWallCooler = -1567752627i32,
-    #[strum(
-        serialize = "ItemWallHeater",
-        props(
-            name = r#"Kit (Wall Heater)"#,
-            desc = r#"This kit creates a <link=ThingItemWallHeater><color=green>Kit (Wall Heater)</color></link>."#,
-            value = "1880134612"
-        )
-    )]
-    ItemWallHeater = 1880134612i32,
-    #[strum(
-        serialize = "ItemKitWall",
-        props(name = r#"Kit (Wall)"#, desc = r#""#, value = "-1826855889")
-    )]
-    ItemKitWall = -1826855889i32,
-    #[strum(
-        serialize = "ItemKitWaterBottleFiller",
-        props(
-            name = r#"Kit (Water Bottle Filler)"#,
-            desc = r#""#,
-            value = "159886536"
-        )
-    )]
-    ItemKitWaterBottleFiller = 159886536i32,
-    #[strum(
-        serialize = "ItemKitWaterPurifier",
-        props(name = r#"Kit (Water Purifier)"#, desc = r#""#, value = "611181283")
-    )]
-    ItemKitWaterPurifier = 611181283i32,
-    #[strum(
-        serialize = "ItemKitWeatherStation",
-        props(name = r#"Kit (Weather Station)"#, desc = r#""#, value = "337505889")
-    )]
-    ItemKitWeatherStation = 337505889i32,
-    #[strum(
-        serialize = "ItemKitWindTurbine",
-        props(name = r#"Kit (Wind Turbine)"#, desc = r#""#, value = "-868916503")
-    )]
-    ItemKitWindTurbine = -868916503i32,
-    #[strum(
-        serialize = "ItemKitWindowShutter",
-        props(name = r#"Kit (Window Shutter)"#, desc = r#""#, value = "1779979754")
-    )]
-    ItemKitWindowShutter = 1779979754i32,
-    #[strum(
-        serialize = "ItemKitHeatExchanger",
-        props(name = r#"Kit Heat Exchanger"#, desc = r#""#, value = "-1710540039")
-    )]
-    ItemKitHeatExchanger = -1710540039i32,
-    #[strum(
-        serialize = "ItemKitPictureFrame",
-        props(name = r#"Kit Picture Frame"#, desc = r#""#, value = "-2062364768")
-    )]
-    ItemKitPictureFrame = -2062364768i32,
-    #[strum(
-        serialize = "ItemKitResearchMachine",
-        props(name = r#"Kit Research Machine"#, desc = r#""#, value = "724776762")
-    )]
-    ItemKitResearchMachine = 724776762i32,
-    #[strum(
-        serialize = "KitchenTableShort",
-        props(name = r#"Kitchen Table (Short)"#, desc = r#""#, value = "-1427415566")
-    )]
-    KitchenTableShort = -1427415566i32,
-    #[strum(
-        serialize = "KitchenTableSimpleShort",
-        props(
-            name = r#"Kitchen Table (Simple Short)"#,
-            desc = r#""#,
-            value = "-78099334"
-        )
-    )]
-    KitchenTableSimpleShort = -78099334i32,
-    #[strum(
-        serialize = "KitchenTableSimpleTall",
-        props(
-            name = r#"Kitchen Table (Simple Tall)"#,
-            desc = r#""#,
-            value = "-1068629349"
-        )
-    )]
-    KitchenTableSimpleTall = -1068629349i32,
-    #[strum(
-        serialize = "KitchenTableTall",
-        props(name = r#"Kitchen Table (Tall)"#, desc = r#""#, value = "-1386237782")
-    )]
-    KitchenTableTall = -1386237782i32,
-    #[strum(
-        serialize = "StructureKlaxon",
-        props(
-            name = r#"Klaxon Speaker"#,
-            desc = r#"Klaxons allow you to play over 50 announcements and sounds, depending on your <link=LogicPage><color=#0080FFFF>Logic</color></link> set-up. Set the mode to select the output."#,
-            value = "-828056979"
-        )
-    )]
-    StructureKlaxon = -828056979i32,
-    #[strum(
-        serialize = "StructureDiode",
-        props(name = r#"LED"#, desc = r#""#, value = "1944485013")
-    )]
-    StructureDiode = 1944485013i32,
-    #[strum(
-        serialize = "StructureConsoleLED1x3",
-        props(
-            name = r#"LED Display (Large)"#,
-            desc = r#"0.Default
-1.Percent
-2.Power"#,
-            value = "-1949054743"
-        )
-    )]
-    StructureConsoleLed1X3 = -1949054743i32,
-    #[strum(
-        serialize = "StructureConsoleLED1x2",
-        props(
-            name = r#"LED Display (Medium)"#,
-            desc = r#"0.Default
-1.Percent
-2.Power"#,
-            value = "-53151617"
-        )
-    )]
-    StructureConsoleLed1X2 = -53151617i32,
-    #[strum(
-        serialize = "StructureConsoleLED5",
-        props(
-            name = r#"LED Display (Small)"#,
-            desc = r#"0.Default
-1.Percent
-2.Power"#,
-            value = "-815193061"
-        )
-    )]
-    StructureConsoleLed5 = -815193061i32,
-    #[strum(
-        serialize = "ItemLabeller",
-        props(
-            name = r#"Labeller"#,
-            desc = r#"A labeller lets you set names and values on a variety of devices and structures, including <link=ThingStructureConsole><color=green>Console</color></link> and <link=LogicPage><color=#0080FFFF>Logic</color></link>."#,
-            value = "-743968726"
-        )
-    )]
-    ItemLabeller = -743968726i32,
-    #[strum(
-        serialize = "StructureLadder",
-        props(name = r#"Ladder"#, desc = r#""#, value = "-415420281")
-    )]
-    StructureLadder = -415420281i32,
-    #[strum(
-        serialize = "StructureLadderEnd",
-        props(name = r#"Ladder End"#, desc = r#""#, value = "1541734993")
-    )]
-    StructureLadderEnd = 1541734993i32,
-    #[strum(
-        serialize = "StructurePlatformLadderOpen",
-        props(name = r#"Ladder Platform"#, desc = r#""#, value = "1559586682")
-    )]
-    StructurePlatformLadderOpen = 1559586682i32,
-    #[strum(
-        serialize = "Lander",
-        props(name = r#"Lander"#, desc = r#""#, value = "1605130615")
-    )]
-    Lander = 1605130615i32,
-    #[strum(
-        serialize = "Landingpad_BlankPiece",
-        props(name = r#"Landingpad"#, desc = r#""#, value = "912453390")
-    )]
-    LandingpadBlankPiece = 912453390i32,
-    #[strum(
-        serialize = "Landingpad_2x2CenterPiece01",
-        props(
-            name = r#"Landingpad 2x2 Center Piece"#,
-            desc = r#"Recommended for larger traders. This allows for the creation of 4x4 and 6x6 landing areas with symetrical doors"#,
-            value = "-1295222317"
-        )
-    )]
-    Landingpad2X2CenterPiece01 = -1295222317i32,
-    #[strum(
-        serialize = "Landingpad_CenterPiece01",
+        serialize = "ItemPlantThermogenic_Genepool2",
         props(
-            name = r#"Landingpad Center"#,
-            desc = r#"The target point where the trader shuttle will land. Requires a clear view of the sky."#,
-            value = "1070143159"
+            name = r#"Hades Flower (Beta strain)"#,
+            desc = r#"The <link=Agrizero><color=#0080FFFF>Agrizero's</color></link>-created Hades Flower is the result of as dubious experiment to combine the allure of tropical plants with the comfort and homeliness of a heat pump. The plant breathes a 1:3 mix of <link=GasVolatiles><color=#44AD83>Volatiles</color></link> and <link=GasOxygen><color=#44AD83>Oxygen</color></link>, and exhales heated <link=GasPollutant><color=#44AD83>Pollutant</color></link>. The beta strain is notably more efficient than the earlier, more experimental alpha variant."#,
+            value = "1819167057"
         )
-    )]
-    LandingpadCenterPiece01 = 1070143159i32,
-    #[strum(
-        serialize = "Landingpad_CrossPiece",
-        props(
-            name = r#"Landingpad Cross"#,
-            desc = r#"Extends the size of the landing pad area. A basic trader shuttle requires a 3x3 clear landing area."#,
-            value = "1101296153"
-        )
-    )]
-    LandingpadCrossPiece = 1101296153i32,
-    #[strum(
-        serialize = "Landingpad_DataConnectionPiece",
-        props(
-            name = r#"Landingpad Data And Power"#,
-            desc = r#"Provides power to the landing pad. The data port must be connected to the data port of a computer with a communications motherboard for a trader to be called in to land."#,
-            value = "-2066405918"
-        )
-    )]
-    LandingpadDataConnectionPiece = -2066405918i32,
-    #[strum(
-        serialize = "Landingpad_DiagonalPiece01",
-        props(
-            name = r#"Landingpad Diagonal"#,
-            desc = r#"Extends the size of the landing pad area. A basic trader shuttle requires a 3x3 clear landing area."#,
-            value = "977899131"
-        )
-    )]
-    LandingpadDiagonalPiece01 = 977899131i32,
-    #[strum(
-        serialize = "Landingpad_GasConnectorInwardPiece",
-        props(name = r#"Landingpad Gas Input"#, desc = r#""#, value = "817945707")
-    )]
-    LandingpadGasConnectorInwardPiece = 817945707i32,
-    #[strum(
-        serialize = "Landingpad_GasConnectorOutwardPiece",
-        props(
-            name = r#"Landingpad Gas Output"#,
-            desc = r#"Pumps gas purchased from a trader out of the landing pad. You can increase the landing pad's gas storage capacity by adding more <link=ThingLandingpad_GasCylinderTankPiece><color=green>Landingpad Gas Storage</color></link> to the landing pad."#,
-            value = "-1100218307"
-        )
-    )]
-    LandingpadGasConnectorOutwardPiece = -1100218307i32,
-    #[strum(
-        serialize = "Landingpad_GasCylinderTankPiece",
-        props(
-            name = r#"Landingpad Gas Storage"#,
-            desc = r#"Increases the volume of the landing pads gas storage capacity. This volume is used for buying and selling gas to traders."#,
-            value = "170818567"
-        )
-    )]
-    LandingpadGasCylinderTankPiece = 170818567i32,
-    #[strum(
-        serialize = "Landingpad_LiquidConnectorInwardPiece",
-        props(
-            name = r#"Landingpad Liquid Input"#,
-            desc = r#""#,
-            value = "-1216167727"
-        )
-    )]
-    LandingpadLiquidConnectorInwardPiece = -1216167727i32,
-    #[strum(
-        serialize = "Landingpad_LiquidConnectorOutwardPiece",
-        props(
-            name = r#"Landingpad Liquid Output"#,
-            desc = r#"Pumps liquid purchased from a trader out of the landing pad. You can increase the landing pad's liquid storage capacity by adding more <link=ThingLandingpad_GasCylinderTankPiece><color=green>Landingpad Gas Storage</color></link> to the landing pad."#,
-            value = "-1788929869"
-        )
-    )]
-    LandingpadLiquidConnectorOutwardPiece = -1788929869i32,
-    #[strum(
-        serialize = "Landingpad_StraightPiece01",
-        props(
-            name = r#"Landingpad Straight"#,
-            desc = r#"Extends the size of the landing pad area. A basic trader shuttle requires a 3x3 clear landing area."#,
-            value = "-976273247"
-        )
-    )]
-    LandingpadStraightPiece01 = -976273247i32,
-    #[strum(
-        serialize = "Landingpad_TaxiPieceCorner",
-        props(
-            name = r#"Landingpad Taxi Corner"#,
-            desc = r#""#,
-            value = "-1872345847"
-        )
-    )]
-    LandingpadTaxiPieceCorner = -1872345847i32,
-    #[strum(
-        serialize = "Landingpad_TaxiPieceHold",
-        props(name = r#"Landingpad Taxi Hold"#, desc = r#""#, value = "146051619")
-    )]
-    LandingpadTaxiPieceHold = 146051619i32,
-    #[strum(
-        serialize = "Landingpad_TaxiPieceStraight",
-        props(
-            name = r#"Landingpad Taxi Straight"#,
-            desc = r#""#,
-            value = "-1477941080"
-        )
-    )]
-    LandingpadTaxiPieceStraight = -1477941080i32,
-    #[strum(
-        serialize = "Landingpad_ThreshholdPiece",
-        props(name = r#"Landingpad Threshhold"#, desc = r#""#, value = "-1514298582")
-    )]
-    LandingpadThreshholdPiece = -1514298582i32,
-    #[strum(
-        serialize = "ItemLaptop",
-        props(
-            name = r#"Laptop"#,
-            desc = r#"The Laptop functions as a portable IC editor. To operate the Laptop it must be powered with a battery, have a <link=ThingMotherboardProgrammableChip><color=green>IC Editor Motherboard</color></link> in the motherboard slot, and an <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> in the Programmable Chip Slot.
-
-You must place the laptop down to interact with the onsreen UI.
-
-Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>"#,
-            value = "141535121"
-        )
-    )]
-    ItemLaptop = 141535121i32,
-    #[strum(
-        serialize = "StructureLargeDirectHeatExchangeLiquidtoLiquid",
-        props(
-            name = r#"Large Direct Heat Exchange - Liquid + Liquid"#,
-            desc = r#"Direct Heat Exchangers equalize the temperature of the two input networks."#,
-            value = "792686502"
-        )
-    )]
-    StructureLargeDirectHeatExchangeLiquidtoLiquid = 792686502i32,
-    #[strum(
-        serialize = "StructureLargeDirectHeatExchangeGastoGas",
-        props(
-            name = r#"Large Direct Heat Exchanger - Gas + Gas"#,
-            desc = r#"Direct Heat Exchangers equalize the temperature of the two input networks."#,
-            value = "-1230658883"
-        )
-    )]
-    StructureLargeDirectHeatExchangeGastoGas = -1230658883i32,
-    #[strum(
-        serialize = "StructureLargeDirectHeatExchangeGastoLiquid",
-        props(
-            name = r#"Large Direct Heat Exchanger - Gas + Liquid"#,
-            desc = r#"Direct Heat Exchangers equalize the temperature of the two input networks."#,
-            value = "1412338038"
-        )
-    )]
-    StructureLargeDirectHeatExchangeGastoLiquid = 1412338038i32,
-    #[strum(
-        serialize = "StructureLargeExtendableRadiator",
-        props(
-            name = r#"Large Extendable Radiator"#,
-            desc = r#"Omptimised for radiating heat in vacuum and low pressure environments. If pointed at the sun it will heat its contents rapidly via solar heating. The panels can fold away to stop all heat radiation/solar heating and protect them from storms."#,
-            value = "-566775170"
-        )
-    )]
-    StructureLargeExtendableRadiator = -566775170i32,
-    #[strum(
-        serialize = "StructureLargeHangerDoor",
-        props(
-            name = r#"Large Hangar Door"#,
-            desc = r#"1 x 3 modular door piece for building hangar doors."#,
-            value = "-1351081801"
-        )
-    )]
-    StructureLargeHangerDoor = -1351081801i32,
-    #[strum(
-        serialize = "StructureLargeSatelliteDish",
-        props(
-            name = r#"Large Satellite Dish"#,
-            desc = r#"This large communications unit can be used to communicate with nearby trade vessels.
-
-        When connected to a <link=ThingStructureComputer><color=green>Computer</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic."#,
-            value = "1913391845"
-        )
-    )]
-    StructureLargeSatelliteDish = 1913391845i32,
-    #[strum(
-        serialize = "StructureTankBig",
-        props(name = r#"Large Tank"#, desc = r#""#, value = "-1606848156")
-    )]
-    StructureTankBig = -1606848156i32,
-    #[strum(
-        serialize = "StructureLaunchMount",
-        props(
-            name = r#"Launch Mount"#,
-            desc = r#"The first piece to place whern building a rocket. Rockets can be constructed and/or landed here. Each Launch Mount will be allocated a slot on the Space Map and assigned a Location Code."#,
-            value = "-558953231"
-        )
-    )]
-    StructureLaunchMount = -558953231i32,
-    #[strum(
-        serialize = "StructureRocketTower",
-        props(name = r#"Launch Tower"#, desc = r#""#, value = "-654619479")
-    )]
-    StructureRocketTower = -654619479i32,
-    #[strum(
-        serialize = "StructureLogicSwitch",
-        props(name = r#"Lever"#, desc = r#""#, value = "1220484876")
-    )]
-    StructureLogicSwitch = 1220484876i32,
-    #[strum(
-        serialize = "StructureLightRound",
-        props(
-            name = r#"Light Round"#,
-            desc = r#"Description coming."#,
-            value = "1514476632"
-        )
-    )]
-    StructureLightRound = 1514476632i32,
-    #[strum(
-        serialize = "StructureLightRoundAngled",
-        props(
-            name = r#"Light Round (Angled)"#,
-            desc = r#"Description coming."#,
-            value = "1592905386"
-        )
-    )]
-    StructureLightRoundAngled = 1592905386i32,
-    #[strum(
-        serialize = "StructureLightRoundSmall",
-        props(
-            name = r#"Light Round (Small)"#,
-            desc = r#"Description coming."#,
-            value = "1436121888"
-        )
-    )]
-    StructureLightRoundSmall = 1436121888i32,
-    #[strum(
-        serialize = "ItemLightSword",
-        props(
-            name = r#"Light Sword"#,
-            desc = r#"A charming, if useless, pseudo-weapon. (Creative only.)"#,
-            value = "1949076595"
-        )
-    )]
-    ItemLightSword = 1949076595i32,
-    #[strum(
-        serialize = "StructureBackLiquidPressureRegulator",
-        props(
-            name = r#"Liquid Back Volume Regulator"#,
-            desc = r#"Regulates the volume ratio of liquid in the input Liquid pipe. This is expressed as percentage where 100 is totally full and 0 is empty."#,
-            value = "2099900163"
-        )
-    )]
-    StructureBackLiquidPressureRegulator = 2099900163i32,
-    #[strum(
-        serialize = "ItemLiquidCanisterEmpty",
-        props(name = r#"Liquid Canister"#, desc = r#""#, value = "-185207387")
-    )]
-    ItemLiquidCanisterEmpty = -185207387i32,
-    #[strum(
-        serialize = "ItemLiquidCanisterSmart",
-        props(
-            name = r#"Liquid Canister (Smart)"#,
-            desc = r#"0.Mode0
-1.Mode1"#,
-            value = "777684475"
-        )
-    )]
-    ItemLiquidCanisterSmart = 777684475i32,
-    #[strum(
-        serialize = "ItemGasCanisterWater",
-        props(
-            name = r#"Liquid Canister (Water)"#,
-            desc = r#""#,
-            value = "-1854861891"
-        )
-    )]
-    ItemGasCanisterWater = -1854861891i32,
-    #[strum(
-        serialize = "StructureMediumRocketLiquidFuelTank",
-        props(
-            name = r#"Liquid Capsule Tank Medium"#,
-            desc = r#""#,
-            value = "1143639539"
-        )
-    )]
-    StructureMediumRocketLiquidFuelTank = 1143639539i32,
-    #[strum(
-        serialize = "StructureCapsuleTankLiquid",
-        props(
-            name = r#"Liquid Capsule Tank Small"#,
-            desc = r#""#,
-            value = "1415396263"
-        )
-    )]
-    StructureCapsuleTankLiquid = 1415396263i32,
-    #[strum(
-        serialize = "StructureWaterDigitalValve",
-        props(name = r#"Liquid Digital Valve"#, desc = r#""#, value = "-517628750")
-    )]
-    StructureWaterDigitalValve = -517628750i32,
-    #[strum(
-        serialize = "StructurePipeLiquidCrossJunction3",
-        props(
-            name = r#"Liquid Pipe (3-Way Junction)"#,
-            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeLiquidCrossJunction3><color=green><N:EN:StructureInsulatedPipeLiquidCrossJunction3></color></link> using an <link=ThingItemKitInsulatedLiquidPipe><color=green>Kit (Insulated Liquid Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
-            value = "1628087508"
-        )
-    )]
-    StructurePipeLiquidCrossJunction3 = 1628087508i32,
-    #[strum(
-        serialize = "StructurePipeLiquidCrossJunction4",
-        props(
-            name = r#"Liquid Pipe (4-Way Junction)"#,
-            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeLiquidCrossJunction4><color=green>Insulated Liquid Pipe (4-Way Junction)</color></link> using an <link=ThingItemKitInsulatedLiquidPipe><color=green>Kit (Insulated Liquid Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
-            value = "-9555593"
-        )
-    )]
-    StructurePipeLiquidCrossJunction4 = -9555593i32,
-    #[strum(
-        serialize = "StructurePipeLiquidCrossJunction5",
-        props(
-            name = r#"Liquid Pipe (5-Way Junction)"#,
-            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeLiquidCrossJunction5><color=green>Insulated Liquid Pipe (5-Way Junction)</color></link> using an <link=ThingItemKitInsulatedLiquidPipe><color=green>Kit (Insulated Liquid Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
-            value = "-2006384159"
-        )
-    )]
-    StructurePipeLiquidCrossJunction5 = -2006384159i32,
-    #[strum(
-        serialize = "StructurePipeLiquidCrossJunction6",
-        props(
-            name = r#"Liquid Pipe (6-Way Junction)"#,
-            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeLiquidCrossJunction6><color=green>Insulated Liquid Pipe (6-Way Junction)</color></link> using an <link=ThingItemKitInsulatedLiquidPipe><color=green>Kit (Insulated Liquid Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
-            value = "291524699"
-        )
-    )]
-    StructurePipeLiquidCrossJunction6 = 291524699i32,
-    #[strum(
-        serialize = "StructurePipeLiquidCorner",
-        props(
-            name = r#"Liquid Pipe (Corner)"#,
-            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeLiquidCorner><color=green>Insulated Liquid Pipe (Corner)</color></link> using an <link=ThingItemKitInsulatedLiquidPipe><color=green>Kit (Insulated Liquid Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
-            value = "-1856720921"
-        )
-    )]
-    StructurePipeLiquidCorner = -1856720921i32,
-    #[strum(
-        serialize = "StructurePipeLiquidCrossJunction",
-        props(
-            name = r#"Liquid Pipe (Cross Junction)"#,
-            desc = r#"You can upgrade this pipe to an <link=ThingStructurePipeInsulatedLiquidCrossJunction><color=green>Insulated Liquid Pipe (Cross Junction)</color></link> using an <link=ThingItemKitInsulatedLiquidPipe><color=green>Kit (Insulated Liquid Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
-            value = "1848735691"
-        )
-    )]
-    StructurePipeLiquidCrossJunction = 1848735691i32,
-    #[strum(
-        serialize = "StructurePipeLiquidStraight",
-        props(
-            name = r#"Liquid Pipe (Straight)"#,
-            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeLiquidStraight><color=green>Insulated Liquid Pipe (Straight)</color></link> using an <link=ThingItemKitInsulatedLiquidPipe><color=green>Kit (Insulated Liquid Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
-            value = "667597982"
-        )
-    )]
-    StructurePipeLiquidStraight = 667597982i32,
-    #[strum(
-        serialize = "StructurePipeLiquidTJunction",
-        props(
-            name = r#"Liquid Pipe (T Junction)"#,
-            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeLiquidTJunction><color=green>Insulated Liquid Pipe (T Junction)</color></link> using an <link=ThingItemKitInsulatedLiquidPipe><color=green>Kit (Insulated Liquid Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
-            value = "262616717"
-        )
-    )]
-    StructurePipeLiquidTJunction = 262616717i32,
-    #[strum(
-        serialize = "StructureLiquidPipeAnalyzer",
-        props(name = r#"Liquid Pipe Analyzer"#, desc = r#""#, value = "-2113838091")
-    )]
-    StructureLiquidPipeAnalyzer = -2113838091i32,
-    #[strum(
-        serialize = "StructureLiquidPipeRadiator",
-        props(
-            name = r#"Liquid Pipe Convection Radiator"#,
-            desc = r#"A simple heat exchanger, pipe radiators can be placed on pipes to shed or gain heat, depending on the temperature of the surrounding atmosphere. If the atmosphere is hotter, heat will be added to the liquid within the pipe network, and visa versa if colder. In a vacuum, heat will be radiated.
-The speed of heat gain or loss will depend on the liquid in question. Adding multiple radiators will speed up heat transfer."#,
-            value = "2072805863"
-        )
-    )]
-    StructureLiquidPipeRadiator = 2072805863i32,
-    #[strum(
-        serialize = "StructureWaterPipeMeter",
-        props(name = r#"Liquid Pipe Meter"#, desc = r#""#, value = "433184168")
-    )]
-    StructureWaterPipeMeter = 433184168i32,
-    #[strum(
-        serialize = "StructureLiquidTankBig",
-        props(name = r#"Liquid Tank Big"#, desc = r#""#, value = "1098900430")
-    )]
-    StructureLiquidTankBig = 1098900430i32,
-    #[strum(
-        serialize = "StructureTankConnectorLiquid",
-        props(
-            name = r#"Liquid Tank Connector"#,
-            desc = r#"These basic mounting devices allow you to attach a <link=ThingDynamicLiquidCanisterEmpty><color=green>Portable Liquid Tank</color></link> to a liquid pipe network."#,
-            value = "1331802518"
-        )
-    )]
-    StructureTankConnectorLiquid = 1331802518i32,
-    #[strum(
-        serialize = "StructureLiquidTankSmall",
-        props(name = r#"Liquid Tank Small"#, desc = r#""#, value = "1988118157")
-    )]
-    StructureLiquidTankSmall = 1988118157i32,
-    #[strum(
-        serialize = "StructureLiquidTankStorage",
-        props(
-            name = r#"Liquid Tank Storage"#,
-            desc = r#"When connected to a liquid pipe network, the tank storage unit allows you to refill a <link=ThingItemLiquidCanisterEmpty><color=green>Liquid Canister</color></link>, as well as read various atmospheric data from the <link=SlotGasCanister><color=orange>Gas Canister</color></link>. It will not accept gas canisters."#,
-            value = "1691898022"
-        )
-    )]
-    StructureLiquidTankStorage = 1691898022i32,
-    #[strum(
-        serialize = "StructureLiquidValve",
-        props(name = r#"Liquid Valve"#, desc = r#""#, value = "1849974453")
-    )]
-    StructureLiquidValve = 1849974453i32,
-    #[strum(
-        serialize = "StructureLiquidVolumePump",
-        props(name = r#"Liquid Volume Pump"#, desc = r#""#, value = "-454028979")
-    )]
-    StructureLiquidVolumePump = -454028979i32,
-    #[strum(
-        serialize = "StructureLiquidPressureRegulator",
-        props(
-            name = r#"Liquid Volume Regulator"#,
-            desc = r#"Regulates the volume ratio of liquid in the output Liquid pipe. This is expressed as percentage where 100 is totally full and 0 is empty."#,
-            value = "482248766"
-        )
-    )]
-    StructureLiquidPressureRegulator = 482248766i32,
-    #[strum(
-        serialize = "StructureWaterWallCooler",
-        props(name = r#"Liquid Wall Cooler"#, desc = r#""#, value = "-1369060582")
-    )]
-    StructureWaterWallCooler = -1369060582i32,
-    #[strum(
-        serialize = "StructureStorageLocker",
-        props(name = r#"Locker"#, desc = r#""#, value = "-793623899")
-    )]
-    StructureStorageLocker = -793623899i32,
-    #[strum(
-        serialize = "StructureLockerSmall",
-        props(name = r#"Locker (Small)"#, desc = r#""#, value = "-647164662")
-    )]
-    StructureLockerSmall = -647164662i32,
-    #[strum(
-        serialize = "StructureLogicCompare",
-        props(
-            name = r#"Logic Compare"#,
-            desc = r#"0.Equals
-1.Greater
-2.Less
-3.NotEquals"#,
-            value = "-1489728908"
-        )
-    )]
-    StructureLogicCompare = -1489728908i32,
-    #[strum(
-        serialize = "StructureLogicGate",
-        props(
-            name = r#"Logic Gate"#,
-            desc = r#"A <link=LogicPage><color=#0080FFFF>logic</color></link> device that performs a logical operation on one or more binary inputs that produces a single binary output. An input greater than zero is considered true for operations."#,
-            value = "1942143074"
-        )
-    )]
-    StructureLogicGate = 1942143074i32,
-    #[strum(
-        serialize = "StructureLogicHashGen",
-        props(name = r#"Logic Hash Generator"#, desc = r#""#, value = "2077593121")
-    )]
-    StructureLogicHashGen = 2077593121i32,
-    #[strum(
-        serialize = "StructureLogicMath",
-        props(
-            name = r#"Logic Math"#,
-            desc = r#"0.Add
-1.Subtract
-2.Multiply
-3.Divide
-4.Mod
-5.Atan2
-6.Pow
-7.Log"#,
-            value = "1657691323"
-        )
-    )]
-    StructureLogicMath = 1657691323i32,
-    #[strum(
-        serialize = "StructureLogicMemory",
-        props(name = r#"Logic Memory"#, desc = r#""#, value = "-851746783")
-    )]
-    StructureLogicMemory = -851746783i32,
-    #[strum(
-        serialize = "StructureLogicMinMax",
-        props(
-            name = r#"Logic Min/Max"#,
-            desc = r#"0.Greater
-1.Less"#,
-            value = "929022276"
-        )
-    )]
-    StructureLogicMinMax = 929022276i32,
-    #[strum(
-        serialize = "StructureLogicMirror",
-        props(name = r#"Logic Mirror"#, desc = r#""#, value = "2096189278")
-    )]
-    StructureLogicMirror = 2096189278i32,
-    #[strum(
-        serialize = "MotherboardLogic",
-        props(
-            name = r#"Logic Motherboard"#,
-            desc = r#"Motherboards are connected to <link=ThingStructureComputer><color=green>Computer</color></link>s to perform various technical functions.
-The <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> K-cops logic motherboard allows <link=Stationeers><color=#0080FFFF>Stationeers</color></link> to set variables and actions on specific <link=LogicUnitPage><color=#0080FFFF>logic</color></link>-controlled items."#,
-            value = "502555944"
-        )
-    )]
-    MotherboardLogic = 502555944i32,
-    #[strum(
-        serialize = "StructureLogicReader",
-        props(name = r#"Logic Reader"#, desc = r#""#, value = "-345383640")
-    )]
-    StructureLogicReader = -345383640i32,
-    #[strum(
-        serialize = "StructureLogicRocketDownlink",
-        props(name = r#"Logic Rocket Downlink"#, desc = r#""#, value = "876108549")
     )]
-    StructureLogicRocketDownlink = 876108549i32,
+    ItemPlantThermogenicGenepool2 = 1819167057i32,
     #[strum(
         serialize = "StructureLogicSelect",
         props(
@@ -6056,200 +9292,6 @@ The <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> K-cops logic mo
     )]
     StructureLogicSelect = 1822736084i32,
     #[strum(
-        serialize = "StructureLogicSorter",
-        props(
-            name = r#"Logic Sorter"#,
-            desc = r#"Contains an Internal Memory which is assessed to check whether something should be sorted. When an item is in the <link=SlotImport><color=orange>Import</color></link> Slot, the stack is checked and if result is true the thing is moved to the <link=SlotExport2><color=orange>Export 2</color></link> slot, otherwise it is moved to the <link=SlotExport><color=orange>Export</color></link> slot. The Mode is used in how the stack is assessed, by default the mode is ALL, so every instruction in the stack would need to return true."#,
-            value = "873418029"
-        )
-    )]
-    StructureLogicSorter = 873418029i32,
-    #[strum(
-        serialize = "LogicStepSequencer8",
-        props(
-            name = r#"Logic Step Sequencer"#,
-            desc = r#"The <link=ODA><color=#0080FFFF>ODA</color></link> does not approve of soundtracks or other distractions.
-As such, <link=Stationeers><color=#0080FFFF>Stationeers</color></link> have had to create their own musical accompaniment to the demanding labor of building and maintaining off-world infrastructure.
-Central to this pastime is the step sequencer, which allows Stationeers to sequence short musical patterns or loops.
-
-<size=120%><b>DIY MUSIC - GETTING STARTED</b></size>
-
-1: Connect 8 <link=ThingDeviceStepUnit><color=green>Device Step Unit</color></link>s to your step sequencer via the data port on the left hand side.
-
-2: Label each step unit, then assign step units 1 through 8 on the step sequencer using the screwdriver.
-
-3: Select the output speaker (eg <link=ThingPassiveSpeaker><color=green>Passive Speaker</color></link>) where the sequencer will play the sounds. This needs to be connected to the logic network on the right hand side of the sequencer.
-
-4: Place a <link=ThingStopWatch><color=green>Stop Watch</color></link> and use a <link=ThingStructureLogicReader><color=green>Logic Reader</color></link> and <link=ThingStructureLogicWriter><color=green>Logic Writer</color></link> to write the time to the time variable on the sequencer.
-
-5: Set the BPM on the sequencer using a <link=ThingStructureLogicDial><color=green>Dial</color></link> and a <link=ThingStructureLogicWriter><color=green>Logic Writer</color></link> to write to the sequencer's BPM variable. A higher bpm will play the sequence faster.
-
-6: Insert a sound cartridge of your choosing and select which variant of sound you wish to play by pushing the arrow buttons located above and below the sound cartridge slot.
-
-7: Choose the pitch of the sounds to play by setting the dial on each of your 8 step units to the desired note. With drums, each note is a different drum sounds. You can trial your sounds by pushing the activate button on each step unit (with the sequencer inactive).
-
-8: Get freaky with the <link=ThingDeviceLfoVolume><color=green>Low frequency oscillator</color></link>.
-
-9: Finally, activate the sequencer, Vibeoneer."#,
-            value = "1531272458"
-        )
-    )]
-    LogicStepSequencer8 = 1531272458i32,
-    #[strum(
-        serialize = "StructureLogicTransmitter",
-        props(
-            name = r#"Logic Transmitter"#,
-            desc = r#"Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>"#,
-            value = "-693235651"
-        )
-    )]
-    StructureLogicTransmitter = -693235651i32,
-    #[strum(
-        serialize = "StructureLogicRocketUplink",
-        props(name = r#"Logic Uplink"#, desc = r#""#, value = "546002924")
-    )]
-    StructureLogicRocketUplink = 546002924i32,
-    #[strum(
-        serialize = "StructureLogicWriter",
-        props(name = r#"Logic Writer"#, desc = r#""#, value = "-1326019434")
-    )]
-    StructureLogicWriter = -1326019434i32,
-    #[strum(
-        serialize = "StructureLogicWriterSwitch",
-        props(name = r#"Logic Writer Switch"#, desc = r#""#, value = "-1321250424")
-    )]
-    StructureLogicWriterSwitch = -1321250424i32,
-    #[strum(
-        serialize = "DeviceLfoVolume",
-        props(
-            name = r#"Low frequency oscillator"#,
-            desc = r#"The low frequency oscillator (or LFO) makes everything sound dark, twisted and crunchy by altering the shape of the waves output by a <link=ThingLogicStepSequencer8><color=green>Logic Step Sequencer</color></link>.
-
-To set up an LFO:
-
-1. Place the LFO unit
-2. Set the LFO output to a <link=ThingPassiveSpeaker><color=green>Passive Speaker</color></link>
-2. Set a sequencers' output to LFO - so the sequencer's signal runs through the LFO to a speaker.
-3. Place a <link=ThingStopWatch><color=green>Stop Watch</color></link> or use an existing one, then use a <link=ThingStructureLogicWriter><color=green>Logic Writer</color></link> to write it to the LFO.
-4. Use another logic writer to write the BPM to the LFO.
-5. You are ready. This is the future. You're in space. Make it sound cool.
-
-For more info, check out the <link=MusicPage><color=#0080FFFF>music page</color></link>."#,
-            value = "-1844430312"
-        )
-    )]
-    DeviceLfoVolume = -1844430312i32,
-    #[strum(
-        serialize = "StructureManualHatch",
-        props(
-            name = r#"Manual Hatch"#,
-            desc = r#"Can be welded using a <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link> or <link=ThingItemArcWelder><color=green>Arc Welder</color></link> to lock it in the current state. Use the welder again to unlock."#,
-            value = "-1808154199"
-        )
-    )]
-    StructureManualHatch = -1808154199i32,
-    #[strum(
-        serialize = "ItemMarineBodyArmor",
-        props(name = r#"Marine Armor"#, desc = r#""#, value = "1399098998")
-    )]
-    ItemMarineBodyArmor = 1399098998i32,
-    #[strum(
-        serialize = "ItemMarineHelmet",
-        props(name = r#"Marine Helmet"#, desc = r#""#, value = "1073631646")
-    )]
-    ItemMarineHelmet = 1073631646i32,
-    #[strum(
-        serialize = "UniformMarine",
-        props(name = r#"Marine Uniform"#, desc = r#""#, value = "-48342840")
-    )]
-    UniformMarine = -48342840i32,
-    #[strum(
-        serialize = "StructureLogicMathUnary",
-        props(
-            name = r#"Math Unary"#,
-            desc = r#"0.Ceil
-1.Floor
-2.Abs
-3.Log
-4.Exp
-5.Round
-6.Rand
-7.Sqrt
-8.Sin
-9.Cos
-10.Tan
-11.Asin
-12.Acos
-13.Atan
-14.Not"#,
-            value = "-1160020195"
-        )
-    )]
-    StructureLogicMathUnary = -1160020195i32,
-    #[strum(
-        serialize = "CartridgeMedicalAnalyser",
-        props(
-            name = r#"Medical Analyzer"#,
-            desc = r#"When added to the OreCore <link=ThingItemTablet><color=green>Handheld Tablet</color></link>, <link=Asura><color=#0080FFFF>Asura's</color></link>'s ReadyMed medical analyzer reveals the health, or otherwise, of users various organs. Due to a design flaw, older models were notorious for producing quasar-like levels of x-ray radiation. Recent advances in shielding have more than halved the risk to users."#,
-            value = "-1116110181"
-        )
-    )]
-    CartridgeMedicalAnalyser = -1116110181i32,
-    #[strum(
-        serialize = "StructureMediumConvectionRadiator",
-        props(
-            name = r#"Medium Convection Radiator"#,
-            desc = r#"A stand-alone radiator unit optimized for exchanging heat with its surrounding atmosphere."#,
-            value = "-1918215845"
-        )
-    )]
-    StructureMediumConvectionRadiator = -1918215845i32,
-    #[strum(
-        serialize = "StructurePassiveLargeRadiatorGas",
-        props(
-            name = r#"Medium Convection Radiator"#,
-            desc = r#"Has been replaced by <link=ThingStructureMediumConvectionRadiator><color=green>Medium Convection Radiator</color></link>."#,
-            value = "2066977095"
-        )
-    )]
-    StructurePassiveLargeRadiatorGas = 2066977095i32,
-    #[strum(
-        serialize = "StructureMediumConvectionRadiatorLiquid",
-        props(
-            name = r#"Medium Convection Radiator Liquid"#,
-            desc = r#"A stand-alone liquid radiator unit optimized for exchanging heat with its surrounding atmosphere."#,
-            value = "-1169014183"
-        )
-    )]
-    StructureMediumConvectionRadiatorLiquid = -1169014183i32,
-    #[strum(
-        serialize = "StructurePassiveLargeRadiatorLiquid",
-        props(
-            name = r#"Medium Convection Radiator Liquid"#,
-            desc = r#"Has been replaced by <link=ThingStructureMediumConvectionRadiatorLiquid><color=green>Medium Convection Radiator Liquid</color></link>."#,
-            value = "24786172"
-        )
-    )]
-    StructurePassiveLargeRadiatorLiquid = 24786172i32,
-    #[strum(
-        serialize = "ItemGasFilterCarbonDioxideM",
-        props(
-            name = r#"Medium Filter (Carbon Dioxide)"#,
-            desc = r#""#,
-            value = "416897318"
-        )
-    )]
-    ItemGasFilterCarbonDioxideM = 416897318i32,
-    #[strum(
-        serialize = "ItemGasFilterNitrogenM",
-        props(
-            name = r#"Medium Filter (Nitrogen)"#,
-            desc = r#""#,
-            value = "-632657357"
-        )
-    )]
-    ItemGasFilterNitrogenM = -632657357i32,
-    #[strum(
         serialize = "ItemGasFilterNitrousOxideM",
         props(
             name = r#"Medium Filter (Nitrous Oxide)"#,
@@ -6258,2141 +9300,6 @@ For more info, check out the <link=MusicPage><color=#0080FFFF>music page</color>
         )
     )]
     ItemGasFilterNitrousOxideM = 1824284061i32,
-    #[strum(
-        serialize = "ItemGasFilterOxygenM",
-        props(
-            name = r#"Medium Filter (Oxygen)"#,
-            desc = r#""#,
-            value = "-1067319543"
-        )
-    )]
-    ItemGasFilterOxygenM = -1067319543i32,
-    #[strum(
-        serialize = "ItemGasFilterPollutantsM",
-        props(
-            name = r#"Medium Filter (Pollutants)"#,
-            desc = r#""#,
-            value = "63677771"
-        )
-    )]
-    ItemGasFilterPollutantsM = 63677771i32,
-    #[strum(
-        serialize = "ItemGasFilterVolatilesM",
-        props(
-            name = r#"Medium Filter (Volatiles)"#,
-            desc = r#""#,
-            value = "1037507240"
-        )
-    )]
-    ItemGasFilterVolatilesM = 1037507240i32,
-    #[strum(
-        serialize = "ItemGasFilterWaterM",
-        props(name = r#"Medium Filter (Water)"#, desc = r#""#, value = "8804422")
-    )]
-    ItemGasFilterWaterM = 8804422i32,
-    #[strum(
-        serialize = "StructureMediumHangerDoor",
-        props(
-            name = r#"Medium Hangar Door"#,
-            desc = r#"1 x 2 modular door piece for building hangar doors."#,
-            value = "-566348148"
-        )
-    )]
-    StructureMediumHangerDoor = -566348148i32,
-    #[strum(
-        serialize = "StructureMediumRadiator",
-        props(
-            name = r#"Medium Radiator"#,
-            desc = r#"A stand-alone radiator unit optimized for radiating heat in vacuums."#,
-            value = "-975966237"
-        )
-    )]
-    StructureMediumRadiator = -975966237i32,
-    #[strum(
-        serialize = "StructureMediumRadiatorLiquid",
-        props(
-            name = r#"Medium Radiator Liquid"#,
-            desc = r#"A stand-alone liquid radiator unit optimized for radiating heat in vacuums."#,
-            value = "-1141760613"
-        )
-    )]
-    StructureMediumRadiatorLiquid = -1141760613i32,
-    #[strum(
-        serialize = "StructureSatelliteDish",
-        props(
-            name = r#"Medium Satellite Dish"#,
-            desc = r#"This medium communications unit can be used to communicate with nearby trade vessels.
-
-When connected to a <link=ThingStructureComputer><color=green>Computer</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic."#,
-            value = "439026183"
-        )
-    )]
-    StructureSatelliteDish = 439026183i32,
-    #[strum(
-        serialize = "Meteorite",
-        props(name = r#"Meteorite"#, desc = r#""#, value = "-99064335")
-    )]
-    Meteorite = -99064335i32,
-    #[strum(
-        serialize = "ApplianceMicrowave",
-        props(
-            name = r#"Microwave"#,
-            desc = r#"While countless 'better' ways of cooking <link=FoodPage><color=#0080FFFF>Food</color></link> have been invented in the last few hundred years, few are as durable or easy to fabricate as the OK-Zoomer microwave. Licensed from <link=Xigo><color=#0080FFFF>Xigo</color></link>, the plans are based on a classic model from the mid-21st century, giving it a charmingly retro feel. But don't worry, it oscillates <link=GasWater><color=#44AD83>Water</color></link> molecules more than adequately.
-Just bolt it to a <link=ThingStructureBench><color=green>Powered Bench</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link> to power it, follow the recipe, and you're cooking."#,
-            value = "-1136173965"
-        )
-    )]
-    ApplianceMicrowave = -1136173965i32,
-    #[strum(
-        serialize = "StructurePowerTransmitterReceiver",
-        props(
-            name = r#"Microwave Power Receiver"#,
-            desc = r#"The <link=Norsec><color=#0080FFFF>Norsec</color></link> Wireless Power Transmitter is an uni-directional, A-to-B, far field microwave electrical transmission system.The rotatable base transmitter delivers a narrow, non-lethal microwave beam to a dedicated base receiver.
-The transmitter must be aligned to the base station in order to transmit any power. The brightness of the transmitter's collimator arc provides an indication of transmission intensity. Note that there is an attrition over longer ranges, so the unit requires more power over greater distances to deliver the same output.Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>"#,
-            value = "1195820278"
-        )
-    )]
-    StructurePowerTransmitterReceiver = 1195820278i32,
-    #[strum(
-        serialize = "StructurePowerTransmitter",
-        props(
-            name = r#"Microwave Power Transmitter"#,
-            desc = r#"The <link=Norsec><color=#0080FFFF>Norsec</color></link> Wireless Power Transmitter is an uni-directional, A-to-B, far field microwave electrical transmission system.The rotatable base transmitter delivers a narrow, non-lethal microwave beam to a dedicated base receiver.
-The transmitter must be aligned to the base station in order to transmit any power. The brightness of the transmitter's collimator arc provides an indication of transmission intensity. Note that there is an attrition over longer ranges, so the unit requires more power over greater distances to deliver the same output."#,
-            value = "-65087121"
-        )
-    )]
-    StructurePowerTransmitter = -65087121i32,
-    #[strum(
-        serialize = "ItemMilk",
-        props(
-            name = r#"Milk"#,
-            desc = r#"Full disclosure, it's not actually 'milk', but an <link=Agrizero><color=#0080FFFF>Agrizero-invented</color></link> synthesis of 5ml <link=ThingItemSoyOil><color=green>Soy Oil</color></link> and 5g <link=ThingItemFern><color=green>Fern</color></link>, delicately blended in the <link=ThingApplianceChemistryStation><color=green>Chemistry Station</color></link>. Surprisingly filling, it can be used as an ingredient to cook other <link=FoodPage><color=#0080FFFF>food</color></link> in the <link=ThingApplianceMicrowave><color=green>Microwave</color></link> or <link=ThingStructureAutomatedOven><color=green>Automated Oven</color></link>. Think, <link=ThingItemMuffin><color=green>Muffin</color></link>."#,
-            value = "1327248310"
-        )
-    )]
-    ItemMilk = 1327248310i32,
-    #[strum(
-        serialize = "ItemMiningBackPack",
-        props(name = r#"Mining Backpack"#, desc = r#""#, value = "-1650383245")
-    )]
-    ItemMiningBackPack = -1650383245i32,
-    #[strum(
-        serialize = "ItemMiningBelt",
-        props(
-            name = r#"Mining Belt"#,
-            desc = r#"Originally developed by <link=Recurso><color=#0080FFFF>Recurso Espaciais</color></link> for asteroid mining, the <link=Stationeers><color=#0080FFFF>Stationeer's</color></link> mining belt has room for two <link=ToolPage><color=#0080FFFF>tools</color></link> and eight <link=OrePage><color=#0080FFFF>ore</color></link> stacks. While wearing the belt, <link=OrePage><color=#0080FFFF>ore</color></link> is automatically stored there when mined. Volatile and temperature-dependent remain stable in the environmentally controlled unit."#,
-            value = "-676435305"
-        )
-    )]
-    ItemMiningBelt = -676435305i32,
-    #[strum(
-        serialize = "ItemMiningBeltMKII",
-        props(
-            name = r#"Mining Belt MK II"#,
-            desc = r#"A larger and more capacious mining belt, the Mk II is similar to the <link=ThingItemMiningBelt><color=green>Mining Belt</color></link>, but has 13 slots instead of the basic 8, to increase the length of your mining trips. It also has space for two tools. "#,
-            value = "1470787934"
-        )
-    )]
-    ItemMiningBeltMkii = 1470787934i32,
-    #[strum(
-        serialize = "ItemMiningCharge",
-        props(
-            name = r#"Mining Charge"#,
-            desc = r#"A low cost, high yield explosive with a 10 second timer."#,
-            value = "15829510"
-        )
-    )]
-    ItemMiningCharge = 15829510i32,
-    #[strum(
-        serialize = "ItemMiningDrill",
-        props(
-            name = r#"Mining Drill"#,
-            desc = r#"The handheld 'Topo' tri-cone rotary mining drill was made for one thing: quick digging. Modeled on a classic <link=Recurso><color=#0080FFFF>Recurso</color></link> zero-g design, it functions equally well in vacuum and atmosphere, with cemented carbide bits to increase resilience and bearing life, and reduce spalling. As Jenk Murtons once said, 'The Topo don't stopo.'"#,
-            value = "1055173191"
-        )
-    )]
-    ItemMiningDrill = 1055173191i32,
-    #[strum(
-        serialize = "ItemMiningDrillHeavy",
-        props(
-            name = r#"Mining Drill (Heavy)"#,
-            desc = r#"Sometimes mining trips require something a little bigger to bring home the goods. This scaled up version of the <link=Recurso><color=#0080FFFF>Recurso</color></link> 'Topo' design <link=ThingItemMiningDrill><color=green>Mining Drill</color></link> can literally move mountains. The heavy mining drill will remove more ground and mine <link=OrePage><color=#0080FFFF>ore</color></link> more quickly than the standard mining drill. The heavy mining drill is also resilient to temperature and pressure. So no matter what planet or extreme weather conditions may be present, the Recurso heavy mining drill will get the job done."#,
-            value = "-1663349918"
-        )
-    )]
-    ItemMiningDrillHeavy = -1663349918i32,
-    #[strum(
-        serialize = "ItemRocketMiningDrillHead",
-        props(
-            name = r#"Mining-Drill Head (Basic)"#,
-            desc = r#"Replaceable drill head for <link=ThingStructureRocketMiner><color=green>Rocket Miner</color></link>"#,
-            value = "2109945337"
-        )
-    )]
-    ItemRocketMiningDrillHead = 2109945337i32,
-    #[strum(
-        serialize = "ItemRocketMiningDrillHeadDurable",
-        props(
-            name = r#"Mining-Drill Head (Durable)"#,
-            desc = r#""#,
-            value = "1530764483"
-        )
-    )]
-    ItemRocketMiningDrillHeadDurable = 1530764483i32,
-    #[strum(
-        serialize = "ItemRocketMiningDrillHeadHighSpeedIce",
-        props(
-            name = r#"Mining-Drill Head (High Speed Ice)"#,
-            desc = r#""#,
-            value = "653461728"
-        )
-    )]
-    ItemRocketMiningDrillHeadHighSpeedIce = 653461728i32,
-    #[strum(
-        serialize = "ItemRocketMiningDrillHeadHighSpeedMineral",
-        props(
-            name = r#"Mining-Drill Head (High Speed Mineral)"#,
-            desc = r#""#,
-            value = "1440678625"
-        )
-    )]
-    ItemRocketMiningDrillHeadHighSpeedMineral = 1440678625i32,
-    #[strum(
-        serialize = "ItemRocketMiningDrillHeadIce",
-        props(
-            name = r#"Mining-Drill Head (Ice)"#,
-            desc = r#""#,
-            value = "-380904592"
-        )
-    )]
-    ItemRocketMiningDrillHeadIce = -380904592i32,
-    #[strum(
-        serialize = "ItemRocketMiningDrillHeadLongTerm",
-        props(
-            name = r#"Mining-Drill Head (Long Term)"#,
-            desc = r#""#,
-            value = "-684020753"
-        )
-    )]
-    ItemRocketMiningDrillHeadLongTerm = -684020753i32,
-    #[strum(
-        serialize = "ItemRocketMiningDrillHeadMineral",
-        props(
-            name = r#"Mining-Drill Head (Mineral)"#,
-            desc = r#""#,
-            value = "1083675581"
-        )
-    )]
-    ItemRocketMiningDrillHeadMineral = 1083675581i32,
-    #[strum(
-        serialize = "ItemMKIIAngleGrinder",
-        props(
-            name = r#"Mk II Angle Grinder"#,
-            desc = r#"Angles-be-gone with the trusty angle grinder. The MK II is more resistant to temperature and pressure."#,
-            value = "240174650"
-        )
-    )]
-    ItemMkiiAngleGrinder = 240174650i32,
-    #[strum(
-        serialize = "ItemMKIIArcWelder",
-        props(name = r#"Mk II Arc Welder"#, desc = r#""#, value = "-2061979347")
-    )]
-    ItemMkiiArcWelder = -2061979347i32,
-    #[strum(
-        serialize = "ItemMKIICrowbar",
-        props(
-            name = r#"Mk II Crowbar"#,
-            desc = r#"<link=Recurso><color=#0080FFFF>Recurso's</color></link> entry-level crowbar is useful in a variety of everyday <link=Stationeers><color=#0080FFFF>Stationeer</color></link> settings, from opening <link=ThingStructureAreaPowerControl><color=green>Area Power Control</color></link>s and unpowered <link=ThingStructureAirlock><color=green>Airlock</color></link>s, to splatting pan-dimensional headcrabs, should the need arise. The MK II is more resistant to temperature and pressure."#,
-            value = "1440775434"
-        )
-    )]
-    ItemMkiiCrowbar = 1440775434i32,
-    #[strum(
-        serialize = "ItemMKIIDrill",
-        props(
-            name = r#"Mk II Drill"#,
-            desc = r#"The <link=ExMin><color=#0080FFFF>ExMin</color></link> Off-whirled Hand Drill has been a companion to <link=Stationeers><color=#0080FFFF>Stationeers</color></link> for decades. Essential for assembling and deconstructing various items and structures, regardless of gravity, pressure or temperature."#,
-            value = "324791548"
-        )
-    )]
-    ItemMkiiDrill = 324791548i32,
-    #[strum(
-        serialize = "ItemMKIIDuctTape",
-        props(
-            name = r#"Mk II Duct Tape"#,
-            desc = r#"In the distant past, one of Earth's great champions taught a generation of 'Fix-It People' that duct tape was the answer to any problem. <link=Stationeers><color=#0080FFFF>Stationeers</color></link> have demonstrated that this is truth holds strong, so long as the problem is a damaged <link=ThingItemEvaSuit><color=green>Eva Suit</color></link>, <link=ThingItemJetpackBasic><color=green>Jetpack Basic</color></link>, <link=ThingItemSpaceHelmet><color=green>Space Helmet</color></link>, or even a <link=ThingStructureSolarPanel><color=green>Solar Panel</color></link>.
-To use on yourself: put duct tape in your active hand, hold RIGHT MOUSE BUTTON to automatically repair damage."#,
-            value = "388774906"
-        )
-    )]
-    ItemMkiiDuctTape = 388774906i32,
-    #[strum(
-        serialize = "ItemMKIIMiningDrill",
-        props(
-            name = r#"Mk II Mining Drill"#,
-            desc = r#"The handheld 'Topo' tri-cone rotary mining drill was made for one thing: quick digging. Modeled on a classic <link=Recurso><color=#0080FFFF>Recurso</color></link> zero-g design, it functions equally well in vacuum and atmosphere, with cemented carbide bits to increase resilience and bearing life, and reduce spalling. As Jenk Murtons once said, 'The Topo don't stopo.' The MK II is more resistant to temperature and pressure."#,
-            value = "-1875271296"
-        )
-    )]
-    ItemMkiiMiningDrill = -1875271296i32,
-    #[strum(
-        serialize = "ItemMKIIScrewdriver",
-        props(
-            name = r#"Mk II Screwdriver"#,
-            desc = r#"This standard issue frictional adherence adjustor is a top of the line, bi-rotational model with a columnated uni-grip. It's definitely not just a screwdriver. Use it for construction and deconstruction of certain kits, and setting values on <link=LogicUnitPage><color=#0080FFFF>logic</color></link> units. The MK II is more resistant to temperature and pressure."#,
-            value = "-2015613246"
-        )
-    )]
-    ItemMkiiScrewdriver = -2015613246i32,
-    #[strum(
-        serialize = "ItemMKIIWireCutters",
-        props(
-            name = r#"Mk II Wire Cutters"#,
-            desc = r#"Wirecutters allow you to deconstruct various <link=StructurePage><color=#0080FFFF>structures</color></link>, as well as cross-lay cables when held in your non-active hand, and defuse explosives as needed. Wirecutters are stored in the <link=ThingItemToolBelt><color=green>Tool Belt</color></link>, along with other essential <link=ToolPage><color=#0080FFFF>tools</color></link>."#,
-            value = "-178893251"
-        )
-    )]
-    ItemMkiiWireCutters = -178893251i32,
-    #[strum(
-        serialize = "ItemMKIIWrench",
-        props(
-            name = r#"Mk II Wrench"#,
-            desc = r#"One of humanity's enduring contributions to the cosmos, the wrench represents the essence of our species. A simple, effective and spiritually barren tool, use it to build and deconstruct a variety of <link=StructurePage><color=#0080FFFF>structures</color></link> The MK II is more resistant to temperature and pressure."#,
-            value = "1862001680"
-        )
-    )]
-    ItemMkiiWrench = 1862001680i32,
-    #[strum(
-        serialize = "CircuitboardModeControl",
-        props(
-            name = r#"Mode Control"#,
-            desc = r#"Can't decide which mode you love most? This circuit board allows you to switch any connected device between operation modes."#,
-            value = "-1134148135"
-        )
-    )]
-    CircuitboardModeControl = -1134148135i32,
-    #[strum(
-        serialize = "MothershipCore",
-        props(
-            name = r#"Mothership Core"#,
-            desc = r#"A relic of from an earlier era of space ambition, <link=Sinotai><color=#0080FFFF>Sinotai's</color></link> mothership cores formed the central element of a generation's space-going creations. While Sinotai's pivot to smaller, modular craft upset some purists, motherships continue to be built and maintained by dedicated enthusiasts."#,
-            value = "-1930442922"
-        )
-    )]
-    MothershipCore = -1930442922i32,
-    #[strum(
-        serialize = "StructureMotionSensor",
-        props(
-            name = r#"Motion Sensor"#,
-            desc = r#"Originally developed to monitor dance marathons, the motion sensor can also be connected to <link=LogicPage><color=#0080FFFF>Logic</color></link> systems for security purposes, automatic lighting, doors and various other applications.
-The sensor activates whenever a player enters the grid it is placed on."#,
-            value = "-1713470563"
-        )
-    )]
-    StructureMotionSensor = -1713470563i32,
-    #[strum(
-        serialize = "ItemMuffin",
-        props(
-            name = r#"Muffin"#,
-            desc = r#"A delicious, semi-healthful snack, nothing comforts a <link=Stationeers><color=#0080FFFF>Stationeer</color></link> 800 million kilometers from home like a hand-made muffin."#,
-            value = "-1864982322"
-        )
-    )]
-    ItemMuffin = -1864982322i32,
-    #[strum(
-        serialize = "ItemMushroom",
-        props(
-            name = r#"Mushroom"#,
-            desc = r#"A tasty food item. Unlike normal plants, it consumes <link=GasOxygen><color=#44AD83>Oxygen</color></link> and outputs <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link>. Mushrooms will only mature at a moderate rate in darkness, and prolonged light will kill it."#,
-            value = "2044798572"
-        )
-    )]
-    ItemMushroom = 2044798572i32,
-    #[strum(
-        serialize = "SeedBag_Mushroom",
-        props(
-            name = r#"Mushroom Seeds"#,
-            desc = r#"Grow a <link=ThingItemMushroom><color=green>Mushroom</color></link>."#,
-            value = "311593418"
-        )
-    )]
-    SeedBagMushroom = 311593418i32,
-    #[strum(
-        serialize = "CartridgeNetworkAnalyser",
-        props(
-            name = r#"Network Analyzer"#,
-            desc = r#"A minor masterpiece of micro-electronic engineering, the network analyzer displays the current, voltage and wattage of a cable network, as well as any devices connected to it. Based on a widely-copied <link=Sinotai><color=#0080FFFF>Sinotai</color></link> design, it's used in conjunction with the OreCore <link=ThingItemTablet><color=green>Handheld Tablet</color></link>."#,
-            value = "1606989119"
-        )
-    )]
-    CartridgeNetworkAnalyser = 1606989119i32,
-    #[strum(
-        serialize = "ItemNVG",
-        props(name = r#"Night Vision Goggles"#, desc = r#""#, value = "982514123")
-    )]
-    ItemNvg = 982514123i32,
-    #[strum(
-        serialize = "StructureNitrolyzer",
-        props(
-            name = r#"Nitrolyzer"#,
-            desc = r#"This device is used to create <link=GasNitrousOxide><color=#44AD83>Nitrous Oxide</color></link> from <link=GasOxygen><color=#44AD83>Oxygen</color></link>, <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>, and a large amount of energy. The process does not completely transform all the available gas at once, so the output is a mix of all three gasses, which may need further processing.  More NOS will be created, if the gas inside the machine is close to a 1/1 ratio of Oxygen to Nitrogen.  The second gas input line in optional, and not required if the gas is pre mixed."#,
-            value = "1898243702"
-        )
-    )]
-    StructureNitrolyzer = 1898243702i32,
-    #[strum(
-        serialize = "StructureHorizontalAutoMiner",
-        props(
-            name = r#"OGRE"#,
-            desc = r#"The <link=Recurso><color=#0080FFFF>Recurso</color></link> OGRE (Orthogonal Ground Rotating Excavator) is a base structure with attached mining vehicle, which will mine a horizontal shaft up to X meters long. When full, the mining vehicle will return to the base to empty itself, before returning to dig. If it encounters empty space, it will also return to base and await instruction. The unit will return if deactivated.
-
-The OGRE can be connected to a chute system, and is controllable by a logic network. Note that the OGRE outputs more <link=OrePage><color=#0080FFFF>ore</color></link> than a conventional <link=ThingItemMiningDrill><color=green>Mining Drill</color></link> over the same area, due to more efficient processing.
-
-<size=120%><b>MODES</b></size>
-Idle - 0
-Mining - 1
-Returning - 2
-DepostingOre - 3
-Finished - 4
-"#,
-            value = "1070427573"
-        )
-    )]
-    StructureHorizontalAutoMiner = 1070427573i32,
-    #[strum(
-        serialize = "StructureOccupancySensor",
-        props(
-            name = r#"Occupancy Sensor"#,
-            desc = r#"Will be triggered if there is a player in the same room as the sensor. The quantity variable will show the number of players. You can use configure it to only detect players who hold the correct Access Card using a <link=ThingCartridgeAccessController><color=green>Cartridge (Access Controller)</color></link> in a <link=ThingItemTablet><color=green>Handheld Tablet</color></link>. This sensor only works when placed in a room."#,
-            value = "322782515"
-        )
-    )]
-    StructureOccupancySensor = 322782515i32,
-    #[strum(
-        serialize = "StructurePipeOneWayValve",
-        props(
-            name = r#"One Way Valve (Gas)"#,
-            desc = r#"The one way valve moves gas in one direction only: from input side to output side. It only permits flow if the input pressure is higher than output pressure.
-"#,
-            value = "1580412404"
-        )
-    )]
-    StructurePipeOneWayValve = 1580412404i32,
-    #[strum(
-        serialize = "StructureLiquidPipeOneWayValve",
-        props(
-            name = r#"One Way Valve (Liquid)"#,
-            desc = r#"The one way valve moves liquid in one direction only: from input side to output side. It only permits flow if the input pressure is higher than output pressure.."#,
-            value = "-782453061"
-        )
-    )]
-    StructureLiquidPipeOneWayValve = -782453061i32,
-    #[strum(
-        serialize = "ItemCoalOre",
-        props(
-            name = r#"Ore (Coal)"#,
-            desc = r#"Humanity wouldn't have got to space without humble, combustible coal. Burn it in a <link=ThingSolidFuelGenerator><color=green><N:EN:SolidFuelGenerator></color></link>, smelt it in the <link=ThingStructureFurnace><color=green>Furnace</color></link> to create <link=AlloysPage><color=#0080FFFF>alloys</color></link>, or use it in the <link=ThingApplianceReagentProcessor><color=green>Reagent Processor</color></link> to make  <link=ThingItemSprayCanBlack><color=green>Spray Paint (Black)</color></link>."#,
-            value = "1724793494"
-        )
-    )]
-    ItemCoalOre = 1724793494i32,
-    #[strum(
-        serialize = "ItemCobaltOre",
-        props(
-            name = r#"Ore (Cobalt)"#,
-            desc = r#"Cobalt is a chemical element with the symbol "Co" and is typically found in only small deposits. Cobalt is a rare substance, but used create the <link=ThingItemHealPill><color=green>Heal Pill</color></link> and several  <link=IngotPage><color=#0080FFFF>alloys</color></link>."#,
-            value = "-983091249"
-        )
-    )]
-    ItemCobaltOre = -983091249i32,
-    #[strum(
-        serialize = "ItemCopperOre",
-        props(
-            name = r#"Ore (Copper)"#,
-            desc = r#"Copper is a chemical element with the symbol "Cu". This common and highly conductive material is found on most astronomical bodies and is used in a variety of manufacturing processes including electronic components, alloys, and wires."#,
-            value = "-707307845"
-        )
-    )]
-    ItemCopperOre = -707307845i32,
-    #[strum(
-        serialize = "ItemGoldOre",
-        props(
-            name = r#"Ore (Gold)"#,
-            desc = r#"Surprisingly common throughout the Solar System, <link=ReagentGold><color=#B566FF>Gold</color></link> is thought to originate in the heart of supernovas, gathering as dust in the early stages of solar formation, then incorporating into the slowly accreting planetary bodies. Now a prized element in <link=Stationeers><color=#0080FFFF>Stationeer</color></link> construction, <link=ReagentGold><color=#B566FF>Gold</color></link> is valued not for its beauty, but its reliability: inert, durable, conductive and highly stable, gold's strength is that it does nothing."#,
-            value = "-1348105509"
-        )
-    )]
-    ItemGoldOre = -1348105509i32,
-    #[strum(
-        serialize = "ItemIronOre",
-        props(
-            name = r#"Ore (Iron)"#,
-            desc = r#"Abundant throughout the Solar System, iron is the <link=OrePage><color=#0080FFFF>ore</color></link> most commonly used by <link=Stationeers><color=#0080FFFF>Stationeers</color></link> constructing offworld bases. It can be smelted into both <link=ThingItemIronIngot><color=green>Ingot (Iron)</color></link>s and <link=ThingItemSteelIngot><color=green>Ingot (Steel)</color></link>s."#,
-            value = "1758427767"
-        )
-    )]
-    ItemIronOre = 1758427767i32,
-    #[strum(
-        serialize = "ItemLeadOre",
-        props(
-            name = r#"Ore (Lead)"#,
-            desc = r#"Lead is a chemical element with the symbol "Pb". It is a dense, heavy metal with a low melting point. Lead is a used to make a variety of things such as <link=IngotPage><color=#0080FFFF>alloys</color></link> like <link=ThingItemSolderIngot><color=green>Ingot (Solder)</color></link> and munitions."#,
-            value = "-190236170"
-        )
-    )]
-    ItemLeadOre = -190236170i32,
-    #[strum(
-        serialize = "ItemNickelOre",
-        props(
-            name = r#"Ore (Nickel)"#,
-            desc = r#"Nickel is a chemical element with the symbol "Ni" and is a rare metal commonly used as a plating to prevent corrosion. Sought after by many <link=Stationeers><color=#0080FFFF>Stationeers</color></link>, Nickel is also commonly used to create several <link=IngotPage><color=#0080FFFF>alloys</color></link>."#,
-            value = "1830218956"
-        )
-    )]
-    ItemNickelOre = 1830218956i32,
-    #[strum(
-        serialize = "ItemSiliconOre",
-        props(
-            name = r#"Ore (Silicon)"#,
-            desc = r#"Silicon is a chemical element with the symbol "Si" and is one of the most useful elements to <link=Stationeers><color=#0080FFFF>Stationeers</color></link>. Readily available throughout the universe, silicon is used in a range of <link=IngotPage><color=#0080FFFF>alloys</color></link>, glass, plastics and various electronic components a Stationeer may  need to complete their mission."#,
-            value = "1103972403"
-        )
-    )]
-    ItemSiliconOre = 1103972403i32,
-    #[strum(
-        serialize = "ItemSilverOre",
-        props(
-            name = r#"Ore (Silver)"#,
-            desc = r#"Silver is a chemical element with the symbol "Ag". Valued by many <link=Stationeers><color=#0080FFFF>Stationeers</color></link> for its attractive luster and sheen, it is also used in a variety of <link=ElectronicPage><color=#0080FFFF>electronics</color></link> components and <link=IngotPage><color=#0080FFFF>alloys</color></link>."#,
-            value = "-916518678"
-        )
-    )]
-    ItemSilverOre = -916518678i32,
-    #[strum(
-        serialize = "ItemUraniumOre",
-        props(
-            name = r#"Ore (Uranium)"#,
-            desc = r#"In 1934, Enrico Fermi noticed that bombarding uranium with neutrons produced a burst of beta rays, and a new material. This process was named 'nuclear fission', and resulted in cheap energy, the Cold War, and countless thousand deaths. While reasonably common throughout the Solar System, <link=Stationeers><color=#0080FFFF>Stationeers</color></link> are wary of the material."#,
-            value = "-1516581844"
-        )
-    )]
-    ItemUraniumOre = -1516581844i32,
-    #[strum(
-        serialize = "CartridgeOreScanner",
-        props(
-            name = r#"Ore Scanner"#,
-            desc = r#"When inserted into a <link=ThingItemTablet><color=green>Handheld Tablet</color></link> the scanner will display minerals hidden underground on the tablet."#,
-            value = "-1768732546"
-        )
-    )]
-    CartridgeOreScanner = -1768732546i32,
-    #[strum(
-        serialize = "CartridgeOreScannerColor",
-        props(
-            name = r#"Ore Scanner (Color)"#,
-            desc = r#"When inserted into a <link=ThingItemTablet><color=green>Handheld Tablet</color></link> the scanner will display minerals hidden underground in different colors on the tablet."#,
-            value = "1738236580"
-        )
-    )]
-    CartridgeOreScannerColor = 1738236580i32,
-    #[strum(
-        serialize = "StructureOverheadShortCornerLocker",
-        props(
-            name = r#"Overhead Corner Locker"#,
-            desc = r#""#,
-            value = "-1794932560"
-        )
-    )]
-    StructureOverheadShortCornerLocker = -1794932560i32,
-    #[strum(
-        serialize = "StructureOverheadShortLocker",
-        props(name = r#"Overhead Locker"#, desc = r#""#, value = "1468249454")
-    )]
-    StructureOverheadShortLocker = 1468249454i32,
-    #[strum(
-        serialize = "AppliancePaintMixer",
-        props(name = r#"Paint Mixer"#, desc = r#""#, value = "-1339716113")
-    )]
-    AppliancePaintMixer = -1339716113i32,
-    #[strum(
-        serialize = "StructurePassiveLiquidDrain",
-        props(
-            name = r#"Passive Liquid Drain"#,
-            desc = r#"Moves liquids from a pipe network to the world atmosphere."#,
-            value = "1812364811"
-        )
-    )]
-    StructurePassiveLiquidDrain = 1812364811i32,
-    #[strum(
-        serialize = "StructureFloorDrain",
-        props(
-            name = r#"Passive Liquid Inlet"#,
-            desc = r#"A passive liquid floor inlet that quickly removes liquids in one direction from the world into the connected pipe network. It will equalise gasses with the world atmosphere also."#,
-            value = "1048813293"
-        )
-    )]
-    StructureFloorDrain = 1048813293i32,
-    #[strum(
-        serialize = "PassiveSpeaker",
-        props(name = r#"Passive Speaker"#, desc = r#""#, value = "248893646")
-    )]
-    PassiveSpeaker = 248893646i32,
-    #[strum(
-        serialize = "ItemPassiveVent",
-        props(
-            name = r#"Passive Vent"#,
-            desc = r#"This kit creates a <link=ThingItemPassiveVent><color=green>Passive Vent</color></link> among other variants."#,
-            value = "238631271"
-        )
-    )]
-    ItemPassiveVent = 238631271i32,
-    #[strum(
-        serialize = "StructurePassiveVent",
-        props(
-            name = r#"Passive Vent"#,
-            desc = r#"Passive vents allow gases to move into and out of pipe networks, which are closed systems unless connected to a device or structure. Passive vents are not powered, merely an aperture, essentially turning an enclosed space into part of the pipe network. "#,
-            value = "335498166"
-        )
-    )]
-    StructurePassiveVent = 335498166i32,
-    #[strum(
-        serialize = "ItemPeaceLily",
-        props(
-            name = r#"Peace Lily"#,
-            desc = r#"A fetching lily with greater resistance to cold temperatures."#,
-            value = "2042955224"
-        )
-    )]
-    ItemPeaceLily = 2042955224i32,
-    #[strum(
-        serialize = "ItemPickaxe",
-        props(
-            name = r#"Pickaxe"#,
-            desc = r#"When the sun sets and the <link=ThingItemMiningDrill><color=green>Mining Drill</color></link> runs dead, its batteries drained and your <link=ThingStructureSolarPanel><color=green>Solar Panel</color></link> cold and lifeless, the <link=ThingStructureAutolathe><color=green>Autolathe</color></link> empty, the way forward unclear, one thing holds back the endless night of defeat: the trusty pickaxe."#,
-            value = "-913649823"
-        )
-    )]
-    ItemPickaxe = -913649823i32,
-    #[strum(
-        serialize = "StructurePictureFrameThickLandscapeLarge",
-        props(
-            name = r#"Picture Frame Thick Landscape Large"#,
-            desc = r#""#,
-            value = "-1434523206"
-        )
-    )]
-    StructurePictureFrameThickLandscapeLarge = -1434523206i32,
-    #[strum(
-        serialize = "StructurePictureFrameThickMountLandscapeLarge",
-        props(
-            name = r#"Picture Frame Thick Landscape Large"#,
-            desc = r#""#,
-            value = "950004659"
-        )
-    )]
-    StructurePictureFrameThickMountLandscapeLarge = 950004659i32,
-    #[strum(
-        serialize = "StructurePictureFrameThickLandscapeSmall",
-        props(
-            name = r#"Picture Frame Thick Landscape Small"#,
-            desc = r#""#,
-            value = "-2041566697"
-        )
-    )]
-    StructurePictureFrameThickLandscapeSmall = -2041566697i32,
-    #[strum(
-        serialize = "StructurePictureFrameThickMountLandscapeSmall",
-        props(
-            name = r#"Picture Frame Thick Landscape Small"#,
-            desc = r#""#,
-            value = "347154462"
-        )
-    )]
-    StructurePictureFrameThickMountLandscapeSmall = 347154462i32,
-    #[strum(
-        serialize = "StructurePictureFrameThickMountPortraitLarge",
-        props(
-            name = r#"Picture Frame Thick Mount Portrait Large"#,
-            desc = r#""#,
-            value = "-1459641358"
-        )
-    )]
-    StructurePictureFrameThickMountPortraitLarge = -1459641358i32,
-    #[strum(
-        serialize = "StructurePictureFrameThickMountPortraitSmall",
-        props(
-            name = r#"Picture Frame Thick Mount Portrait Small"#,
-            desc = r#""#,
-            value = "-2066653089"
-        )
-    )]
-    StructurePictureFrameThickMountPortraitSmall = -2066653089i32,
-    #[strum(
-        serialize = "StructurePictureFrameThickPortraitLarge",
-        props(
-            name = r#"Picture Frame Thick Portrait Large"#,
-            desc = r#""#,
-            value = "-1686949570"
-        )
-    )]
-    StructurePictureFrameThickPortraitLarge = -1686949570i32,
-    #[strum(
-        serialize = "StructurePictureFrameThickPortraitSmall",
-        props(
-            name = r#"Picture Frame Thick Portrait Small"#,
-            desc = r#""#,
-            value = "-1218579821"
-        )
-    )]
-    StructurePictureFrameThickPortraitSmall = -1218579821i32,
-    #[strum(
-        serialize = "StructurePictureFrameThinLandscapeLarge",
-        props(
-            name = r#"Picture Frame Thin Landscape Large"#,
-            desc = r#""#,
-            value = "-1418288625"
-        )
-    )]
-    StructurePictureFrameThinLandscapeLarge = -1418288625i32,
-    #[strum(
-        serialize = "StructurePictureFrameThinMountLandscapeLarge",
-        props(
-            name = r#"Picture Frame Thin Landscape Large"#,
-            desc = r#""#,
-            value = "-1146760430"
-        )
-    )]
-    StructurePictureFrameThinMountLandscapeLarge = -1146760430i32,
-    #[strum(
-        serialize = "StructurePictureFrameThinMountLandscapeSmall",
-        props(
-            name = r#"Picture Frame Thin Landscape Small"#,
-            desc = r#""#,
-            value = "-1752493889"
-        )
-    )]
-    StructurePictureFrameThinMountLandscapeSmall = -1752493889i32,
-    #[strum(
-        serialize = "StructurePictureFrameThinLandscapeSmall",
-        props(
-            name = r#"Picture Frame Thin Landscape Small"#,
-            desc = r#""#,
-            value = "-2024250974"
-        )
-    )]
-    StructurePictureFrameThinLandscapeSmall = -2024250974i32,
-    #[strum(
-        serialize = "StructurePictureFrameThinPortraitLarge",
-        props(
-            name = r#"Picture Frame Thin Portrait Large"#,
-            desc = r#""#,
-            value = "1212777087"
-        )
-    )]
-    StructurePictureFrameThinPortraitLarge = 1212777087i32,
-    #[strum(
-        serialize = "StructurePictureFrameThinMountPortraitLarge",
-        props(
-            name = r#"Picture Frame Thin Portrait Large"#,
-            desc = r#""#,
-            value = "1094895077"
-        )
-    )]
-    StructurePictureFrameThinMountPortraitLarge = 1094895077i32,
-    #[strum(
-        serialize = "StructurePictureFrameThinMountPortraitSmall",
-        props(
-            name = r#"Picture Frame Thin Portrait Small"#,
-            desc = r#""#,
-            value = "1835796040"
-        )
-    )]
-    StructurePictureFrameThinMountPortraitSmall = 1835796040i32,
-    #[strum(
-        serialize = "StructurePictureFrameThinPortraitSmall",
-        props(
-            name = r#"Picture Frame Thin Portrait Small"#,
-            desc = r#""#,
-            value = "1684488658"
-        )
-    )]
-    StructurePictureFrameThinPortraitSmall = 1684488658i32,
-    #[strum(
-        serialize = "ItemPillHeal",
-        props(
-            name = r#"Pill (Medical)"#,
-            desc = r#"Three centuries of pharmaceutical technology compressed into one small, easy to ingest pill: the Heal Pill, aka the Proton Pill, aka Mr Happy contains active enzymes, therapeutic proteins, modified microbial strains, and mammalian cell line analogues in a single-dose boost of high purity, efficacy, and potency that potentiates a swift parasympathetic immune response."#,
-            value = "1118069417"
-        )
-    )]
-    ItemPillHeal = 1118069417i32,
-    #[strum(
-        serialize = "ItemPillStun",
-        props(
-            name = r#"Pill (Paralysis)"#,
-            desc = r#"Through rarely publicized, the existence of this pill is an open secret. For use when all else has failed, the Sayonara Suppository immobilizes and rapidly ends the average <link=Stationeers><color=#0080FFFF>Stationeer</color></link>. The delivery mode ensures that if a Stationeer chooses to take this pill, they really have to want it."#,
-            value = "418958601"
-        )
-    )]
-    ItemPillStun = 418958601i32,
-    #[strum(
-        serialize = "StructurePipeCrossJunction3",
-        props(
-            name = r#"Pipe (3-Way Junction)"#,
-            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeCrossJunction3><color=green>Insulated Pipe (3-Way Junction)</color></link> using an <link=ThingItemKitInsulatedPipe><color=green>Kit (Insulated Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
-            value = "2038427184"
-        )
-    )]
-    StructurePipeCrossJunction3 = 2038427184i32,
-    #[strum(
-        serialize = "StructurePipeCrossJunction4",
-        props(
-            name = r#"Pipe (4-Way Junction)"#,
-            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeCrossJunction4><color=green>Insulated Pipe (4-Way Junction)</color></link> using an <link=ThingItemKitInsulatedPipe><color=green>Kit (Insulated Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
-            value = "-417629293"
-        )
-    )]
-    StructurePipeCrossJunction4 = -417629293i32,
-    #[strum(
-        serialize = "StructurePipeCrossJunction5",
-        props(
-            name = r#"Pipe (5-Way Junction)"#,
-            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeCrossJunction5><color=green>Insulated Pipe (5-Way Junction)</color></link> using an <link=ThingItemKitInsulatedPipe><color=green>Kit (Insulated Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
-            value = "-1877193979"
-        )
-    )]
-    StructurePipeCrossJunction5 = -1877193979i32,
-    #[strum(
-        serialize = "StructurePipeCrossJunction6",
-        props(
-            name = r#"Pipe (6-Way Junction)"#,
-            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeCrossJunction6><color=green>Insulated Pipe (6-Way Junction)</color></link> using an <link=ThingItemKitInsulatedPipe><color=green>Kit (Insulated Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
-            value = "152378047"
-        )
-    )]
-    StructurePipeCrossJunction6 = 152378047i32,
-    #[strum(
-        serialize = "StructurePipeCorner",
-        props(
-            name = r#"Pipe (Corner)"#,
-            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeCorner><color=green>Insulated Pipe (Corner)</color></link> using an <link=ThingItemKitInsulatedPipe><color=green>Kit (Insulated Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
-            value = "-1785673561"
-        )
-    )]
-    StructurePipeCorner = -1785673561i32,
-    #[strum(
-        serialize = "StructurePipeCrossJunction",
-        props(
-            name = r#"Pipe (Cross Junction)"#,
-            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeCrossJunction><color=green>Insulated Pipe (Cross Junction)</color></link> using an <link=ThingItemKitInsulatedPipe><color=green>Kit (Insulated Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
-            value = "-1405295588"
-        )
-    )]
-    StructurePipeCrossJunction = -1405295588i32,
-    #[strum(
-        serialize = "StructurePipeStraight",
-        props(
-            name = r#"Pipe (Straight)"#,
-            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeStraight><color=green>Insulated Pipe (Straight)</color></link> using an <link=ThingItemKitInsulatedPipe><color=green>Kit (Insulated Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
-            value = "73728932"
-        )
-    )]
-    StructurePipeStraight = 73728932i32,
-    #[strum(
-        serialize = "StructurePipeTJunction",
-        props(
-            name = r#"Pipe (T Junction)"#,
-            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeTJunction><color=green>Insulated Pipe (T Junction)</color></link> using an <link=ThingItemKitInsulatedPipe><color=green>Kit (Insulated Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
-            value = "-913817472"
-        )
-    )]
-    StructurePipeTJunction = -913817472i32,
-    #[strum(
-        serialize = "StructurePipeAnalysizer",
-        props(
-            name = r#"Pipe Analyzer"#,
-            desc = r#"Allegedly the outcome of a weekend father-daughter electronics project by an overzealous {<link=ExMin><color=#0080FFFF>ExMin</color></link> engineer, the pipe analyzer is essentially a more advanced version of the <link=ThingStructurePipeMeter><color=green>Pipe Meter</color></link>.
-Displaying the internal pressure of pipe networks, it  also reads out temperature and gas contents, and can be connected to a <link=ThingStructureConsole><color=green>Console</color></link> or <link=ThingStructureComputer><color=green>Computer</color></link> via a {<link=LogicPage><color=#0080FFFF>Logic</color></link> system."#,
-            value = "435685051"
-        )
-    )]
-    StructurePipeAnalysizer = 435685051i32,
-    #[strum(
-        serialize = "PipeBenderMod",
-        props(
-            name = r#"Pipe Bender Mod"#,
-            desc = r#"Apply to an <link=ThingStructureHydraulicPipeBender><color=green>Hydraulic Pipe Bender</color></link> with a <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link> or <link=ThingItemArcWelder><color=green>Arc Welder</color></link> to upgrade for increased processing speed and more recipe options."#,
-            value = "443947415"
-        )
-    )]
-    PipeBenderMod = 443947415i32,
-    #[strum(
-        serialize = "StructurePipeRadiator",
-        props(
-            name = r#"Pipe Convection Radiator"#,
-            desc = r#"A simple heat exchanger, pipe radiators can be placed on pipes to shed or gain heat, depending on the temperature of the surrounding atmosphere. If the atmosphere is hotter, heat will be added the gas within the pipe network, and visa versa if colder. In a vacuum, heat will be radiated.
-The speed of heat gain or loss will depend on the gas in question. Adding multiple radiators will speed up heat transfer."#,
-            value = "1696603168"
-        )
-    )]
-    StructurePipeRadiator = 1696603168i32,
-    #[strum(
-        serialize = "StructurePipeCowl",
-        props(name = r#"Pipe Cowl"#, desc = r#""#, value = "465816159")
-    )]
-    StructurePipeCowl = 465816159i32,
-    #[strum(
-        serialize = "ItemPipeCowl",
-        props(
-            name = r#"Pipe Cowl"#,
-            desc = r#"This creates a <link=ThingItemPipeCowl><color=green>Pipe Cowl</color></link> that can be placed on the end of pipes to expose them to the world atmospheres."#,
-            value = "-38898376"
-        )
-    )]
-    ItemPipeCowl = -38898376i32,
-    #[strum(
-        serialize = "StructurePipeHeater",
-        props(
-            name = r#"Pipe Heater (Gas)"#,
-            desc = r#"Adds 1000 joules of heat per tick to the contents of your pipe network."#,
-            value = "-419758574"
-        )
-    )]
-    StructurePipeHeater = -419758574i32,
-    #[strum(
-        serialize = "StructureLiquidPipeHeater",
-        props(
-            name = r#"Pipe Heater (Liquid)"#,
-            desc = r#"Adds 1000 joules of heat per tick to the contents of your pipe network."#,
-            value = "-287495560"
-        )
-    )]
-    StructureLiquidPipeHeater = -287495560i32,
-    #[strum(
-        serialize = "ItemPipeHeater",
-        props(
-            name = r#"Pipe Heater Kit (Gas)"#,
-            desc = r#"Creates a <link=ThingStructurePipeHeater><color=green>Pipe Heater (Gas)</color></link>."#,
-            value = "-1751627006"
-        )
-    )]
-    ItemPipeHeater = -1751627006i32,
-    #[strum(
-        serialize = "ItemLiquidPipeHeater",
-        props(
-            name = r#"Pipe Heater Kit (Liquid)"#,
-            desc = r#"Creates a <link=ThingStructureLiquidPipeHeater><color=green>Pipe Heater (Liquid)</color></link>."#,
-            value = "-248475032"
-        )
-    )]
-    ItemLiquidPipeHeater = -248475032i32,
-    #[strum(
-        serialize = "StructurePipeIgniter",
-        props(
-            name = r#"Pipe Igniter"#,
-            desc = r#"Ignites the atmosphere inside the attached pipe network."#,
-            value = "1286441942"
-        )
-    )]
-    StructurePipeIgniter = 1286441942i32,
-    #[strum(
-        serialize = "StructurePipeLabel",
-        props(
-            name = r#"Pipe Label"#,
-            desc = r#"As its perspicacious name suggests, the pipe label is designed to be attached to a straight stretch of pipe. Users can then label the label with the <link=ThingItemLabeller><color=green>Labeller</color></link>."#,
-            value = "-999721119"
-        )
-    )]
-    StructurePipeLabel = -999721119i32,
-    #[strum(
-        serialize = "StructurePipeMeter",
-        props(
-            name = r#"Pipe Meter"#,
-            desc = r#"While the Stationeers program has, thus far, inspired little in the way of classical poetry, the following haiku was found etched, ironically, on a piece of pipe wreckage found on Vulcan:
-"Humble pipe meter
-speaks the truth, transmits pressure
-within any pipe""#,
-            value = "-1798362329"
-        )
-    )]
-    StructurePipeMeter = -1798362329i32,
-    #[strum(
-        serialize = "StructurePipeOrgan",
-        props(
-            name = r#"Pipe Organ"#,
-            desc = r#"The pipe organ can be attached to one end of a <link=ThingItemPipeValve><color=green>Kit (Pipe Valve)</color></link>. The length of the pipe after the pipe organ changes the pitch of the note it will play when the valve is opened. Use <link=LogicPage><color=#0080FFFF>Logic</color></link> to open and close the valves to create some custom tunes for your base or an audible warning."#,
-            value = "1305252611"
-        )
-    )]
-    StructurePipeOrgan = 1305252611i32,
-    #[strum(
-        serialize = "StructurePipeRadiatorFlat",
-        props(
-            name = r#"Pipe Radiator"#,
-            desc = r#"A pipe mounted radiator optimized for radiating heat in vacuums."#,
-            value = "-399883995"
-        )
-    )]
-    StructurePipeRadiatorFlat = -399883995i32,
-    #[strum(
-        serialize = "StructurePipeRadiatorFlatLiquid",
-        props(
-            name = r#"Pipe Radiator Liquid"#,
-            desc = r#"A liquid pipe mounted radiator optimized for radiating heat in vacuums."#,
-            value = "2024754523"
-        )
-    )]
-    StructurePipeRadiatorFlatLiquid = 2024754523i32,
-    #[strum(
-        serialize = "AppliancePlantGeneticAnalyzer",
-        props(
-            name = r#"Plant Genetic Analyzer"#,
-            desc = r#"The Genetic Analyzer can be used to process samples from the <link=ThingItemPlantSampler><color=green>Plant Sampler</color></link>. Once processed, the genetic information of the sampled plant can be viewed by clicking on the search button.
-
-Individual Gene Value Widgets:
-Most gene values will appear as a sliding bar between a minimum value on the left and a maximum value on the right. The actual value of the gene is in the middle of the bar, in orange.
-
-Multiple Gene Value Widgets:
-For temperature and pressure ranges, four genes appear on the same widget. The orange values underneath the bar are the minimum and maximum thresholds for growth. Outside of this range, the plant will stop growing and eventually die. The blue values underneath the bar are the minimum and maximum thresholds for ideal growth. Inside of this range, the plant will grow at maximum speed. The white values above the bar are the minimum and maximum achievable values for the growth threshold."#,
-            value = "-1303038067"
-        )
-    )]
-    AppliancePlantGeneticAnalyzer = -1303038067i32,
-    #[strum(
-        serialize = "AppliancePlantGeneticSplicer",
-        props(
-            name = r#"Plant Genetic Splicer"#,
-            desc = r#"The Genetic Splicer can be used to copy a single <link=GeneticsPage><color=#0080FFFF>gene</color></link> from one 'source' plant to another 'target' plant of the same type. After copying, the source plant will be destroyed.
-
-To begin splicing, place a plant or seed bag in the left slot (source) and place another plant or seed bag of the same type in the right slot (target). You can select a gene using the arrow buttons. Close the sliding door and press the green activate button. Once splicing has begun, the device will be locked until the process has finished (which will take approximately twenty minutes). If you want to cancel splicing you can power off the bench or detach the appliance as a last resort."#,
-            value = "-1094868323"
-        )
-    )]
-    AppliancePlantGeneticSplicer = -1094868323i32,
-    #[strum(
-        serialize = "AppliancePlantGeneticStabilizer",
-        props(
-            name = r#"Plant Genetic Stabilizer"#,
-            desc = r#"The Genetic Stabilizer can be used to manipulate gene stability on a specific <link=OrganicPage><color=#0080FFFF>Plants</color></link> or <link=OrganicPage><color=#0080FFFF>Seeds</color></link>. It has two modes Stabilize and Destabilize.
-Stabilize: Increases all genes stability by 50%.
-Destabilize: Decreases all gene stability by 10% other than a chosen gene which will received decreased stability by 50%.
-      "#,
-            value = "871432335"
-        )
-    )]
-    AppliancePlantGeneticStabilizer = 871432335i32,
-    #[strum(
-        serialize = "ItemPlantSampler",
-        props(
-            name = r#"Plant Sampler"#,
-            desc = r#"The Plant Sampler allows you to take a <link=GeneticsPage><color=#0080FFFF>gene</color></link> sample of a growing plant. The sampler can then be placed in the <link=ThingAppliancePlantGeneticAnalyzer><color=green>Plant Genetic Analyzer</color></link> to attain and interpret the results."#,
-            value = "173023800"
-        )
-    )]
-    ItemPlantSampler = 173023800i32,
-    #[strum(
-        serialize = "StructurePlanter",
-        props(
-            name = r#"Planter"#,
-            desc = r#"A small planter for decorative or hydroponic purposes. Can be connected to <link=GasWater><color=#44AD83>Water</color></link>, or watered manually using a <link=ThingItemWaterBottle><color=green>Water Bottle</color></link> or <link=ThingItemGasCanisterWater><color=green>Liquid Canister (Water)</color></link>."#,
-            value = "-1125641329"
-        )
-    )]
-    StructurePlanter = -1125641329i32,
-    #[strum(
-        serialize = "ItemPlasticSheets",
-        props(name = r#"Plastic Sheets"#, desc = r#""#, value = "662053345")
-    )]
-    ItemPlasticSheets = 662053345i32,
-    #[strum(
-        serialize = "StructurePlinth",
-        props(name = r#"Plinth"#, desc = r#""#, value = "989835703")
-    )]
-    StructurePlinth = 989835703i32,
-    #[strum(
-        serialize = "ItemMiningDrillPneumatic",
-        props(
-            name = r#"Pneumatic Mining Drill"#,
-            desc = r#"0.Default
-1.Flatten"#,
-            value = "1258187304"
-        )
-    )]
-    ItemMiningDrillPneumatic = 1258187304i32,
-    #[strum(
-        serialize = "DynamicAirConditioner",
-        props(
-            name = r#"Portable Air Conditioner"#,
-            desc = r#"The <link=Sinotai><color=#0080FFFF>Sinotai</color></link>-designed Huxi portable air conditioner cools by drawing heat from the atmosphere and storing it, or adding heat to the atmosphere from its internal tank. With a max internal pressure of 8106kPa, its capacity is relatively limited, physics being clear on this subject. To extend its temperature storage ability, bolt the Huxi to a <link=ThingStructureTankConnector><color=green>Tank Connector</color></link>, then connect it to a pipe network supplying hot or cold <link=GasPage><color=#0080FFFF>gases</color></link>."#,
-            value = "519913639"
-        )
-    )]
-    DynamicAirConditioner = 519913639i32,
-    #[strum(
-        serialize = "DynamicScrubber",
-        props(
-            name = r#"Portable Air Scrubber"#,
-            desc = r#"A portable scrubber does just what it sounds like: removes specific substances from the air. For instance, attaching a <link=ThingItemGasFilterCarbonDioxide><color=green>Filter (Carbon Dioxide)</color></link> will pull <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> from the surrounding atmosphere. Note that the scrubber has room for one battery and two filters, which will double its operating speed. Neat. When it reaches an internal pressure of 8106kPA, an error signal will flash on the switch, indicating it needs to be emptied. Either vent it directly, or attach it to a pipe network via a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
-            value = "755048589"
-        )
-    )]
-    DynamicScrubber = 755048589i32,
-    #[strum(
-        serialize = "PortableComposter",
-        props(
-            name = r#"Portable Composter"#,
-            desc = r#"A simple composting device, the basic composter creates <link=ThingFertilizer><color=green>Fertilizer</color></link> out of organic matter. It accepts <link=OrganicPage><color=#0080FFFF>food</color></link>, <link=ThingDecayedFood><color=green>Decayed Food</color></link> or <link=ThingItemBiomass><color=green>Biomass</color></link>. It requires a full <link=ThingItemLiquidCanisterEmpty><color=green>Liquid Canister</color></link> and a battery to operate, accelerating the natural composting process.
-When processing, it releases nitrogen and volatiles, as well a small amount of heat.
-
-<size=120%><b>Compost composition</b></size>
-Fertilizer is produced at a 1:3 ratio of fertilizer to ingredients. The fertilizer's effects on plants will vary depending on the respective proportions of its ingredients.
-
-- <link=OrganicPage><color=#0080FFFF>food</color></link> increases PLANT YIELD up to two times
-- <link=ThingDecayedFood><color=green>Decayed Food</color></link> increases plant GROWTH SPEED up to two times
-- <link=ThingItemBiomass><color=green>Biomass</color></link> increases the NUMBER OF GROWTH CYCLES the fertilizer lasts for"#,
-            value = "-1958705204"
-        )
-    )]
-    PortableComposter = -1958705204i32,
-    #[strum(
-        serialize = "DynamicGasCanisterEmpty",
-        props(
-            name = r#"Portable Gas Tank"#,
-            desc = r#"Portable gas tanks store gas. To refill one, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or bad things happen. Once it's full, you can refill a <link=ThingItemGasCanisterEmpty><color=green>Canister</color></link> by attaching it to the tank's striped section. Or you could vent the tank's variable flow rate valve into a room and create an atmosphere."#,
-            value = "-1741267161"
-        )
-    )]
-    DynamicGasCanisterEmpty = -1741267161i32,
-    #[strum(
-        serialize = "DynamicGasCanisterAir",
-        props(
-            name = r#"Portable Gas Tank (Air)"#,
-            desc = r#"Portable gas tanks do one thing: store gas. But there's lots you can do with them. To refill the tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or bad things happen. Once it's full, you can refill a <link=ThingItemGasCanisterOxygen><color=green>Canister (Oxygen)</color></link> by attaching it to the tank's striped section. Or you could vent the tank's variable flow rate valve into a room and create an atmosphere. They also attach to rovers and rockets. Alternatively, kick it over and practice barrel rolling. The possibilities are endless."#,
-            value = "-1713611165"
-        )
-    )]
-    DynamicGasCanisterAir = -1713611165i32,
-    #[strum(
-        serialize = "DynamicGasCanisterCarbonDioxide",
-        props(
-            name = r#"Portable Gas Tank (CO2)"#,
-            desc = r#"Portable gas tanks do one thing: store gas. To refill the tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or ... boom. Once it's full, you can refill a <link=ThingItemGasCanisterCarbonDioxide><color=green>Canister (CO2)</color></link> by attaching it to the tank's striped section. Or you could vent the tank's variable flow rate valve into a room and create an atmosphere ... of sorts."#,
-            value = "-322413931"
-        )
-    )]
-    DynamicGasCanisterCarbonDioxide = -322413931i32,
-    #[strum(
-        serialize = "DynamicGasCanisterFuel",
-        props(
-            name = r#"Portable Gas Tank (Fuel)"#,
-            desc = r#"Portable tanks store gas. They're good at it. If you need to refill a tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or things get messy. You can refill a <link=ThingItemGasCanisterFuel><color=green>Canister (Fuel)</color></link> by attaching it to the tank's striped section. Or you could use a <link=ThingItemWrench><color=green>Wrench</color></link> to attach it to a rover or rocket for later. It's really up to you."#,
-            value = "-817051527"
-        )
-    )]
-    DynamicGasCanisterFuel = -817051527i32,
-    #[strum(
-        serialize = "DynamicGasCanisterNitrogen",
-        props(
-            name = r#"Portable Gas Tank (Nitrogen)"#,
-            desc = r#"Portable tanks store gas. If you need to refill a tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or you'll end up with <link=GasNitrogen><color=#44AD83>Nitrogen</color></link> in places you weren't expecting. You can refill a <link=ThingItemGasCanisterNitrogen><color=green>Canister (Nitrogen)</color></link> by attaching it to the tank's striped section. Or you could use a <link=ThingItemWrench><color=green>Wrench</color></link> to attach it to a rover or rocket for later."#,
-            value = "121951301"
-        )
-    )]
-    DynamicGasCanisterNitrogen = 121951301i32,
-    #[strum(
-        serialize = "DynamicGasCanisterNitrousOxide",
-        props(
-            name = r#"Portable Gas Tank (Nitrous Oxide)"#,
-            desc = r#""#,
-            value = "30727200"
-        )
-    )]
-    DynamicGasCanisterNitrousOxide = 30727200i32,
-    #[strum(
-        serialize = "DynamicGasCanisterOxygen",
-        props(
-            name = r#"Portable Gas Tank (Oxygen)"#,
-            desc = r#"Portable tanks store gas. If you need to refill a tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or you'll be picking tank shards out of your face. You can refill a <link=ThingItemGasCanisterOxygen><color=green>Canister (Oxygen)</color></link> by attaching it to the tank's striped section. Or you could vent it into a sealed room to create an atmosphere. Or even paint it pink, call it Steve and fill that sad space in your heart."#,
-            value = "1360925836"
-        )
-    )]
-    DynamicGasCanisterOxygen = 1360925836i32,
-    #[strum(
-        serialize = "DynamicGasCanisterPollutants",
-        props(
-            name = r#"Portable Gas Tank (Pollutants)"#,
-            desc = r#""#,
-            value = "396065382"
-        )
-    )]
-    DynamicGasCanisterPollutants = 396065382i32,
-    #[strum(
-        serialize = "DynamicGasCanisterVolatiles",
-        props(
-            name = r#"Portable Gas Tank (Volatiles)"#,
-            desc = r#"Portable tanks store gas. To refill one, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link>, then connect it to a pipe network. Don't fill it above 10 MPa, unless you're the sort who loves complicated, flammable emergencies. You can refill a <link=ThingItemGasCanisterVolatiles><color=green>Canister (Volatiles)</color></link> by attaching it to the tank's striped section. Or you could use a <link=ThingItemWrench><color=green>Wrench</color></link> to attach to a rocket and show it around the Solar System."#,
-            value = "108086870"
-        )
-    )]
-    DynamicGasCanisterVolatiles = 108086870i32,
-    #[strum(
-        serialize = "DynamicGasTankAdvancedOxygen",
-        props(
-            name = r#"Portable Gas Tank Mk II (Oxygen)"#,
-            desc = r#"0.Mode0
-1.Mode1"#,
-            value = "-1264455519"
-        )
-    )]
-    DynamicGasTankAdvancedOxygen = -1264455519i32,
-    #[strum(
-        serialize = "DynamicGenerator",
-        props(
-            name = r#"Portable Generator"#,
-            desc = r#"Every <link=Stationeers><color=#0080FFFF>Stationeer's</color></link> best friend, the portable generator gets you up and running, fast. Fill it with a <link=ThingItemGasCanisterFuel><color=green>Canister (Fuel)</color></link> to power up and charge a <link=ThingItemBatteryCell><color=green>Battery Cell (Small)</color></link>, or attach it to a <link=ThingStructurePowerConnector><color=green>Power Connector</color></link> to link it into your electrical network. It's pressure driven, so functions more efficiently at lower temperatures, and REALLY efficiently if supercooled. Perfecting your fuel mix also makes a big difference."#,
-            value = "-82087220"
-        )
-    )]
-    DynamicGenerator = -82087220i32,
-    #[strum(
-        serialize = "DynamicHydroponics",
-        props(name = r#"Portable Hydroponics"#, desc = r#""#, value = "587726607")
-    )]
-    DynamicHydroponics = 587726607i32,
-    #[strum(
-        serialize = "DynamicLight",
-        props(
-            name = r#"Portable Light"#,
-            desc = r#"Philippe Starck might not applaud, but this battery-powered light source undarkens the corners when illumination's lacking. Powered by any battery, it's a 'no-frills' <link=Xigo><color=#0080FFFF>Xigo</color></link> design that can be cheaply fabricated with the minimum of fuss. Unless you like fuss. In which case, fuss all you like."#,
-            value = "-21970188"
-        )
-    )]
-    DynamicLight = -21970188i32,
-    #[strum(
-        serialize = "DynamicLiquidCanisterEmpty",
-        props(
-            name = r#"Portable Liquid Tank"#,
-            desc = r#"This portable tank stores liquid, and liquid only. You can bolt one to a <link=ThingItemTankConnectorLiquid><color=green>Kit (Liquid Tank Connector)</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link>, then connect it to a pipe network to refill it. You can refill a <link=ThingItemGasCanisterWater><color=green>Liquid Canister (Water)</color></link> by attaching it to the tank's striped section. Or you could use a <link=ThingItemWrench><color=green>Wrench</color></link> to attach it to a rocket and take it somewhere distant and dry, then feel good about yourself."#,
-            value = "-1939209112"
-        )
-    )]
-    DynamicLiquidCanisterEmpty = -1939209112i32,
-    #[strum(
-        serialize = "DynamicGasCanisterWater",
-        props(
-            name = r#"Portable Liquid Tank (Water)"#,
-            desc = r#"This portable tank stores liquid, and liquid only. You just have to fill it up. To do this, bolt one to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link>, then connect it to <link=ThingStructurePipeLiquidStraight><color=green>Liquid Pipe (Straight)</color></link> to supply liquid to a network.
-Try to keep pressure under 10 MPa, or you'll end up wet, hurt and sorry, without any of the fun.
-You can refill a <link=ThingItemGasCanisterWater><color=green>Liquid Canister (Water)</color></link> by attaching it to the tank's striped section. Or you could use a <link=ThingItemWrench><color=green>Wrench</color></link> to attach it to a rocket and take it somewhere distant and dry, then feel good about yourself."#,
-            value = "197293625"
-        )
-    )]
-    DynamicGasCanisterWater = 197293625i32,
-    #[strum(
-        serialize = "DynamicMKIILiquidCanisterEmpty",
-        props(
-            name = r#"Portable Liquid Tank Mk II"#,
-            desc = r#"An empty, insulated liquid <link=SlotGasCanister><color=orange>Gas Canister</color></link>."#,
-            value = "2130739600"
-        )
-    )]
-    DynamicMkiiLiquidCanisterEmpty = 2130739600i32,
-    #[strum(
-        serialize = "DynamicMKIILiquidCanisterWater",
-        props(
-            name = r#"Portable Liquid Tank Mk II (Water)"#,
-            desc = r#"An insulated version of the <link=ThingDynamicMKIILiquidCanisterWater><color=green>Portable Liquid Tank Mk II (Water)</color></link>, for storing liquids without them gaining or losing temperature."#,
-            value = "-319510386"
-        )
-    )]
-    DynamicMkiiLiquidCanisterWater = -319510386i32,
-    #[strum(
-        serialize = "PortableSolarPanel",
-        props(name = r#"Portable Solar Panel"#, desc = r#""#, value = "2043318949")
-    )]
-    PortableSolarPanel = 2043318949i32,
-    #[strum(
-        serialize = "StructurePortablesConnector",
-        props(name = r#"Portables Connector"#, desc = r#""#, value = "-899013427")
-    )]
-    StructurePortablesConnector = -899013427i32,
-    #[strum(
-        serialize = "ItemPotato",
-        props(
-            name = r#"Potato"#,
-            desc = r#" Potatoes are a simple, fast growing crop that can keep Stationeers alive in emergencies."#,
-            value = "1929046963"
-        )
-    )]
-    ItemPotato = 1929046963i32,
-    #[strum(
-        serialize = "SeedBag_Potato",
-        props(
-            name = r#"Potato Seeds"#,
-            desc = r#"Grow a <link=ThingItemPotato><color=green>Potato</color></link>."#,
-            value = "1005571172"
-        )
-    )]
-    SeedBagPotato = 1005571172i32,
-    #[strum(
-        serialize = "ItemCookedPowderedEggs",
-        props(
-            name = r#"Powdered Eggs"#,
-            desc = r#"A high-nutrient cooked food, which can be canned."#,
-            value = "-1712264413"
-        )
-    )]
-    ItemCookedPowderedEggs = -1712264413i32,
-    #[strum(
-        serialize = "StructurePowerConnector",
-        props(
-            name = r#"Power Connector"#,
-            desc = r#"Attaches a <link=ThingItemKitDynamicGenerator><color=green>Kit (Portable Generator)</color></link> to a power network."#,
-            value = "-782951720"
-        )
-    )]
-    StructurePowerConnector = -782951720i32,
-    #[strum(
-        serialize = "CircuitboardPowerControl",
-        props(
-            name = r#"Power Control"#,
-            desc = r#"Under distant suns and demanding environments, <link=Stationeers><color=#0080FFFF>Stationeer</color></link> systems need to balance reliability, resilience and versatility. The power control board allows remote enabling and disabling of selected devices, disconnecting manual operation.
-
-The circuit board has two modes: 'Link' switches all devices on or off; 'Toggle' switches each device to their alternate state. "#,
-            value = "-1923778429"
-        )
-    )]
-    CircuitboardPowerControl = -1923778429i32,
-    #[strum(
-        serialize = "StructurePowerTransmitterOmni",
-        props(name = r#"Power Transmitter Omni"#, desc = r#""#, value = "-327468845")
-    )]
-    StructurePowerTransmitterOmni = -327468845i32,
-    #[strum(
-        serialize = "StructureBench",
-        props(
-            name = r#"Powered Bench"#,
-            desc = r#"When it's time to sit, nothing supports you like a bench. This bench is powered, so you can use appliances like the <link=ThingApplianceMicrowave><color=green>Microwave</color></link>."#,
-            value = "-2042448192"
-        )
-    )]
-    StructureBench = -2042448192i32,
-    #[strum(
-        serialize = "StructurePoweredVent",
-        props(
-            name = r#"Powered Vent"#,
-            desc = r#"Great for moving large quantities of air into a pipe network. Its primary purpose is for the creation of multi-grid airlocks. It can effeciently pull a vacuum on a small to medium sized room."#,
-            value = "938836756"
-        )
-    )]
-    StructurePoweredVent = 938836756i32,
-    #[strum(
-        serialize = "StructurePoweredVentLarge",
-        props(
-            name = r#"Powered Vent Large"#,
-            desc = r#"For building large scale airlock systems and pressurised hangers, a bigger and bolder version of the <link=ThingStructurePoweredVent><color=green>Powered Vent</color></link> that can effeciently pull a vacuum in large room."#,
-            value = "-785498334"
-        )
-    )]
-    StructurePoweredVentLarge = -785498334i32,
-    #[strum(
-        serialize = "StructurePressurantValve",
-        props(
-            name = r#"Pressurant Valve"#,
-            desc = r#"Pumps gas into a liquid pipe in order to raise the pressure"#,
-            value = "23052817"
-        )
-    )]
-    StructurePressurantValve = 23052817i32,
-    #[strum(
-        serialize = "StructurePressureFedGasEngine",
-        props(
-            name = r#"Pressure Fed Gas Engine"#,
-            desc = r#"Inefficient but very powerful, the Pressure Fed Gas Engine moves gas from each of its two inputs based on the pressure of the input pipes. Control the mixing ratio of fuels by tweaking the input pressures to target a 2:1 mix of <link=GasVolatiles><color=#44AD83>Volatiles</color></link> to <link=GasOxygen><color=#44AD83>Oxygen</color></link> gas. Chilling propellant gasses or using <link=GasNitrousOxide><color=#44AD83>Nitrous Oxide</color></link> as an oxydizer will result in even higher thrust outputs."#,
-            value = "-624011170"
-        )
-    )]
-    StructurePressureFedGasEngine = -624011170i32,
-    #[strum(
-        serialize = "StructurePressureFedLiquidEngine",
-        props(
-            name = r#"Pressure Fed Liquid Engine"#,
-            desc = r#"Highly efficient and powerful, the Pressure Fed Liquid Engine is a challenging engine to run in a stable configuration. Liquid is pulled from the input into the engine based on the input gas pressure. Some gas is also moved in this process so Stationeers will need to devise a system to maintain a high gas pressure in the liquid input pipe. The second liquid pipe connection is an optional heat-exchanger connection which exchanges heat between the pipes contents and the engine bell, the Setting variable drives the effectiveness of the heat-exchanger."#,
-            value = "379750958"
-        )
-    )]
-    StructurePressureFedLiquidEngine = 379750958i32,
-    #[strum(
-        serialize = "StructurePressureRegulator",
-        props(
-            name = r#"Pressure Regulator"#,
-            desc = r#"Controlling the flow of gas between two pipe networks, pressure regulators shift gas until a set pressure on the outlet side is achieved, or the gas supply is exhausted. The back pressure regulator, by contrast, will only operate when pressure on the intake side exceeds the set value. With a max pressure of over 20,000kPa, it requires power to operate."#,
-            value = "209854039"
-        )
-    )]
-    StructurePressureRegulator = 209854039i32,
-    #[strum(
-        serialize = "StructureProximitySensor",
-        props(
-            name = r#"Proximity Sensor"#,
-            desc = r#"Will be triggered if there is a player in the range of the sensor (as defined by the setting dial). The quantity variable will show the number of players. You can configure the sensor to only detect players who hold the correct Access Card using a <link=ThingCartridgeAccessController><color=green>Cartridge (Access Controller)</color></link> in a <link=ThingItemTablet><color=green>Handheld Tablet</color></link>."#,
-            value = "568800213"
-        )
-    )]
-    StructureProximitySensor = 568800213i32,
-    #[strum(
-        serialize = "StructureGovernedGasEngine",
-        props(
-            name = r#"Pumped Gas Engine"#,
-            desc = r#"The most reliable of all the rocket engines, the Pumped Gas Engine runs on a 2:1 mix of <link=GasVolatiles><color=#44AD83>Volatiles</color></link> to <link=GasOxygen><color=#44AD83>Oxygen</color></link> gas."#,
-            value = "-214232602"
-        )
-    )]
-    StructureGovernedGasEngine = -214232602i32,
-    #[strum(
-        serialize = "StructurePumpedLiquidEngine",
-        props(
-            name = r#"Pumped Liquid Engine"#,
-            desc = r#"Liquid propellants bring greater efficiencies with Pumped Liquid Engine. Two inputs are provided so Stationeers can seperate their fuels, the Setting variable controls the mixing ratio of the inputs. The engine is designed to run on <link=GasLiquidVolatiles><color=#44AD83>Liquid Volatiles</color></link> and <link=GasLiquidOxygen><color=#44AD83>Liquid Oxygen</color></link>, some Stationeers have reported excessive thrust values by switching to <link=GasLiquidNitrousOxide><color=#44AD83>Liquid Nitrous Oxide</color></link>"#,
-            value = "-2031440019"
-        )
-    )]
-    StructurePumpedLiquidEngine = -2031440019i32,
-    #[strum(
-        serialize = "ItemPumpkin",
-        props(
-            name = r#"Pumpkin"#,
-            desc = r#"Pumpkins are a perennial plant, with both a long growth time, and a long time between harvests.  Its low requirement for darkness allows for accelerated growing if provided with extra light."#,
-            value = "1277828144"
-        )
-    )]
-    ItemPumpkin = 1277828144i32,
-    #[strum(
-        serialize = "ItemPumpkinPie",
-        props(name = r#"Pumpkin Pie"#, desc = r#""#, value = "62768076")
-    )]
-    ItemPumpkinPie = 62768076i32,
-    #[strum(
-        serialize = "SeedBag_Pumpkin",
-        props(
-            name = r#"Pumpkin Seeds"#,
-            desc = r#"Grow a <link=ThingItemPumpkin><color=green>Pumpkin</color></link>."#,
-            value = "1423199840"
-        )
-    )]
-    SeedBagPumpkin = 1423199840i32,
-    #[strum(
-        serialize = "ItemPumpkinSoup",
-        props(
-            name = r#"Pumpkin Soup"#,
-            desc = r#"Made using <link=ThingItemCookedPumpkin><color=green>Cooked Pumpkin</color></link> and an <link=ThingItemEmptyCan><color=green>Empty Can</color></link> in a <link=ThingAppliancePackagingMachine><color=green>Basic Packaging Machine</color></link> or <link=ThingStructureAdvancedPackagingMachine><color=green>Advanced Packaging Machine</color></link>. Fairly high in nutrition, canned food does not <link=DecayPage><color=#0080FFFF>decay</color></link>"#,
-            value = "1277979876"
-        )
-    )]
-    ItemPumpkinSoup = 1277979876i32,
-    #[strum(
-        serialize = "ItemPureIceCarbonDioxide",
-        props(
-            name = r#"Pure Ice Carbon Dioxide"#,
-            desc = r#"A frozen chunk of pure <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link>"#,
-            value = "-1251009404"
-        )
-    )]
-    ItemPureIceCarbonDioxide = -1251009404i32,
-    #[strum(
-        serialize = "ItemPureIceHydrogen",
-        props(
-            name = r#"Pure Ice Hydrogen"#,
-            desc = r#"A frozen chunk of pure <link=GasHydrogen><color=#44AD83>Hydrogen</color></link>"#,
-            value = "944530361"
-        )
-    )]
-    ItemPureIceHydrogen = 944530361i32,
-    #[strum(
-        serialize = "ItemPureIceLiquidCarbonDioxide",
-        props(
-            name = r#"Pure Ice Liquid Carbon Dioxide"#,
-            desc = r#"A frozen chunk of pure <link=GasLiquidCarbonDioxide><color=#44AD83>Liquid Carbon Dioxide</color></link>"#,
-            value = "-1715945725"
-        )
-    )]
-    ItemPureIceLiquidCarbonDioxide = -1715945725i32,
-    #[strum(
-        serialize = "ItemPureIceLiquidHydrogen",
-        props(
-            name = r#"Pure Ice Liquid Hydrogen"#,
-            desc = r#"A frozen chunk of pure <link=GasLiquidHydrogen><color=#44AD83>Liquid Hydrogen</color></link>"#,
-            value = "-1044933269"
-        )
-    )]
-    ItemPureIceLiquidHydrogen = -1044933269i32,
-    #[strum(
-        serialize = "ItemPureIceLiquidNitrogen",
-        props(
-            name = r#"Pure Ice Liquid Nitrogen"#,
-            desc = r#"A frozen chunk of pure <link=GasLiquidNitrogen><color=#44AD83>Liquid Nitrogen</color></link>"#,
-            value = "1674576569"
-        )
-    )]
-    ItemPureIceLiquidNitrogen = 1674576569i32,
-    #[strum(
-        serialize = "ItemPureIceLiquidNitrous",
-        props(
-            name = r#"Pure Ice Liquid Nitrous"#,
-            desc = r#"A frozen chunk of pure <link=GasLiquidNitrousOxide><color=#44AD83>Liquid Nitrous Oxide</color></link>"#,
-            value = "1428477399"
-        )
-    )]
-    ItemPureIceLiquidNitrous = 1428477399i32,
-    #[strum(
-        serialize = "ItemPureIceLiquidOxygen",
-        props(
-            name = r#"Pure Ice Liquid Oxygen"#,
-            desc = r#"A frozen chunk of pure <link=GasLiquidOxygen><color=#44AD83>Liquid Oxygen</color></link>"#,
-            value = "541621589"
-        )
-    )]
-    ItemPureIceLiquidOxygen = 541621589i32,
-    #[strum(
-        serialize = "ItemPureIceLiquidPollutant",
-        props(
-            name = r#"Pure Ice Liquid Pollutant"#,
-            desc = r#"A frozen chunk of pure <link=GasLiquidPollutant><color=#44AD83>Liquid Pollutant</color></link>"#,
-            value = "-1748926678"
-        )
-    )]
-    ItemPureIceLiquidPollutant = -1748926678i32,
-    #[strum(
-        serialize = "ItemPureIceLiquidVolatiles",
-        props(
-            name = r#"Pure Ice Liquid Volatiles"#,
-            desc = r#"A frozen chunk of pure <link=GasLiquidVolatiles><color=#44AD83>Liquid Volatiles</color></link>"#,
-            value = "-1306628937"
-        )
-    )]
-    ItemPureIceLiquidVolatiles = -1306628937i32,
-    #[strum(
-        serialize = "ItemPureIceNitrogen",
-        props(
-            name = r#"Pure Ice Nitrogen"#,
-            desc = r#"A frozen chunk of pure <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>"#,
-            value = "-1708395413"
-        )
-    )]
-    ItemPureIceNitrogen = -1708395413i32,
-    #[strum(
-        serialize = "ItemPureIceNitrous",
-        props(
-            name = r#"Pure Ice NitrousOxide"#,
-            desc = r#"A frozen chunk of pure <link=GasNitrousOxide><color=#44AD83>Nitrous Oxide</color></link>"#,
-            value = "386754635"
-        )
-    )]
-    ItemPureIceNitrous = 386754635i32,
-    #[strum(
-        serialize = "ItemPureIceOxygen",
-        props(
-            name = r#"Pure Ice Oxygen"#,
-            desc = r#"A frozen chunk of pure <link=GasOxygen><color=#44AD83>Oxygen</color></link>"#,
-            value = "-1150448260"
-        )
-    )]
-    ItemPureIceOxygen = -1150448260i32,
-    #[strum(
-        serialize = "ItemPureIcePollutant",
-        props(
-            name = r#"Pure Ice Pollutant"#,
-            desc = r#"A frozen chunk of pure <link=GasPollutant><color=#44AD83>Pollutant</color></link>"#,
-            value = "-1755356"
-        )
-    )]
-    ItemPureIcePollutant = -1755356i32,
-    #[strum(
-        serialize = "ItemPureIcePollutedWater",
-        props(
-            name = r#"Pure Ice Polluted Water"#,
-            desc = r#"A frozen chunk of <link=GasPollutedWater><color=#44AD83>Polluted Water</color></link>"#,
-            value = "-2073202179"
-        )
-    )]
-    ItemPureIcePollutedWater = -2073202179i32,
-    #[strum(
-        serialize = "ItemPureIceSteam",
-        props(
-            name = r#"Pure Ice Steam"#,
-            desc = r#"A frozen chunk of pure <link=GasSteam><color=#44AD83>Steam</color></link>"#,
-            value = "-874791066"
-        )
-    )]
-    ItemPureIceSteam = -874791066i32,
-    #[strum(
-        serialize = "ItemPureIceVolatiles",
-        props(
-            name = r#"Pure Ice Volatiles"#,
-            desc = r#"A frozen chunk of pure <link=GasVolatiles><color=#44AD83>Volatiles</color></link>"#,
-            value = "-633723719"
-        )
-    )]
-    ItemPureIceVolatiles = -633723719i32,
-    #[strum(
-        serialize = "ItemPureIce",
-        props(
-            name = r#"Pure Ice Water"#,
-            desc = r#"A frozen chunk of pure <link=GasWater><color=#44AD83>Water</color></link>"#,
-            value = "-1616308158"
-        )
-    )]
-    ItemPureIce = -1616308158i32,
-    #[strum(
-        serialize = "StructurePurgeValve",
-        props(
-            name = r#"Purge Valve"#,
-            desc = r#"Allows for removal of pressurant gas and evaporated liquids from a liquid pipe. Similar in function to a <link=ThingStructureBackPressureRegulator><color=green>Back Pressure Regulator</color></link> the <link=ThingStructurePurgeValve><color=green>Purge Valve</color></link> moves gas from the input liquid pipe to the output gas pipe aiming to keep the pressure of the input at the target setting."#,
-            value = "-737232128"
-        )
-    )]
-    StructurePurgeValve = -737232128i32,
-    #[strum(
-        serialize = "RailingElegant01",
-        props(
-            name = r#"Railing Elegant (Type 1)"#,
-            desc = r#""#,
-            value = "399661231"
-        )
-    )]
-    RailingElegant01 = 399661231i32,
-    #[strum(
-        serialize = "RailingElegant02",
-        props(
-            name = r#"Railing Elegant (Type 2)"#,
-            desc = r#""#,
-            value = "-1898247915"
-        )
-    )]
-    RailingElegant02 = -1898247915i32,
-    #[strum(
-        serialize = "StructureRailing",
-        props(
-            name = r#"Railing Industrial (Type 1)"#,
-            desc = r#""Safety third.""#,
-            value = "-1756913871"
-        )
-    )]
-    StructureRailing = -1756913871i32,
-    #[strum(
-        serialize = "RailingIndustrial02",
-        props(
-            name = r#"Railing Industrial (Type 2)"#,
-            desc = r#""#,
-            value = "-2072792175"
-        )
-    )]
-    RailingIndustrial02 = -2072792175i32,
-    #[strum(
-        serialize = "ItemReagentMix",
-        props(
-            name = r#"Reagent Mix"#,
-            desc = r#"Reagent mix is pure potential. A slurry of undifferentiated <link=OrePage><color=#0080FFFF>ores</color></link>, it is output by the <link=ThingStructureRecycler><color=green>Recycler</color></link> and can be fed into the <link=ThingStructureCentrifuge><color=green>Centrifuge</color></link> to separate and recover the individual materials. Reagent mix is also output by the <link=ThingStructureFurnace><color=green>Furnace</color></link> when the current contents are ejected without smelting a specific ingot."#,
-            value = "-1641500434"
-        )
-    )]
-    ItemReagentMix = -1641500434i32,
-    #[strum(
-        serialize = "ApplianceReagentProcessor",
-        props(
-            name = r#"Reagent Processor"#,
-            desc = r#"Sitting somewhere between a high powered juicer and an alchemist's alembic, the <link=Xigo><color=#0080FFFF>Xigo</color></link> reagent processor turns certain raw materials and food items into cooking and crafting ingredients. Indispensible in any space kitchen, just bolt it to the bench, and you're ready to go."#,
-            value = "1260918085"
-        )
-    )]
-    ApplianceReagentProcessor = 1260918085i32,
-    #[strum(
-        serialize = "StructureLogicReagentReader",
-        props(name = r#"Reagent Reader"#, desc = r#""#, value = "-124308857")
-    )]
-    StructureLogicReagentReader = -124308857i32,
-    #[strum(
-        serialize = "StructureRecycler",
-        props(
-            name = r#"Recycler"#,
-            desc = r#"A device for collecting the raw resources while destroying an item. Produces <link=ThingItemReagentMix><color=green>Reagent Mix</color></link> containing packages of reagents. Pass these through the <link=ThingStructureCentrifuge><color=green>Centrifuge</color></link> to gain back the source ores. Plants and organic matter passed through will create Biomass, which when passed through the <link=ThingStructureCentrifuge><color=green>Centrifuge</color></link> will produce <link=ThingItemBiomass><color=green>Biomass</color></link>."#,
-            value = "-1633947337"
-        )
-    )]
-    StructureRecycler = -1633947337i32,
-    #[strum(
-        serialize = "StructureRefrigeratedVendingMachine",
-        props(
-            name = r#"Refrigerated Vending Machine"#,
-            desc = r#"The refrigerated OmniKool vending machine is an advanced version of the standard <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, which maintains an optimum pressure and constant temperature of -130 degrees C, to prevent food spoilage. It can hold up to 100 stacks.
-The OmniKool also has an in-built <link=ThingStructureStacker><color=green>Stacker</color></link>, allowing players to set the stack sizes of any items ADDED to the device. The unit's default stack size is 50.
-NOTE: altering stack sizes DOES NOT update existing stacks within the machine, only those subsequently added. "#,
-            value = "-1577831321"
-        )
-    )]
-    StructureRefrigeratedVendingMachine = -1577831321i32,
-    #[strum(
-        serialize = "StructureReinforcedCompositeWindowSteel",
-        props(
-            name = r#"Reinforced Window (Composite Steel)"#,
-            desc = r#"Enjoy vistas of even the most savage, alien landscapes with these heavy duty window frames, which are resistant to pressure differentials up to 1MPa."#,
-            value = "-816454272"
-        )
-    )]
-    StructureReinforcedCompositeWindowSteel = -816454272i32,
-    #[strum(
-        serialize = "StructureReinforcedCompositeWindow",
-        props(
-            name = r#"Reinforced Window (Composite)"#,
-            desc = r#"Enjoy vistas of even the most savage, alien landscapes with these heavy duty window frames, which are resistant to pressure differentials up to 1MPa."#,
-            value = "2027713511"
-        )
-    )]
-    StructureReinforcedCompositeWindow = 2027713511i32,
-    #[strum(
-        serialize = "StructureReinforcedWallPaddedWindow",
-        props(
-            name = r#"Reinforced Window (Padded)"#,
-            desc = r#"Enjoy vistas of even the most savage, alien landscapes with these heavy duty window frames, which are resistant to pressure differentials up to 1MPa."#,
-            value = "1939061729"
-        )
-    )]
-    StructureReinforcedWallPaddedWindow = 1939061729i32,
-    #[strum(
-        serialize = "StructureReinforcedWallPaddedWindowThin",
-        props(
-            name = r#"Reinforced Window (Thin)"#,
-            desc = r#"Enjoy vistas of even the most savage, alien landscapes with these heavy duty window frames, which are resistant to pressure differentials up to 1MPa."#,
-            value = "158502707"
-        )
-    )]
-    StructureReinforcedWallPaddedWindowThin = 158502707i32,
-    #[strum(
-        serialize = "ItemRemoteDetonator",
-        props(name = r#"Remote Detonator"#, desc = r#""#, value = "678483886")
-    )]
-    ItemRemoteDetonator = 678483886i32,
-    #[strum(
-        serialize = "ItemExplosive",
-        props(name = r#"Remote Explosive"#, desc = r#""#, value = "235361649")
-    )]
-    ItemExplosive = 235361649i32,
-    #[strum(
-        serialize = "ItemResearchCapsule",
-        props(name = r#"Research Capsule Blue"#, desc = r#""#, value = "819096942")
-    )]
-    ItemResearchCapsule = 819096942i32,
-    #[strum(
-        serialize = "ItemResearchCapsuleGreen",
-        props(
-            name = r#"Research Capsule Green"#,
-            desc = r#""#,
-            value = "-1352732550"
-        )
-    )]
-    ItemResearchCapsuleGreen = -1352732550i32,
-    #[strum(
-        serialize = "ItemResearchCapsuleRed",
-        props(name = r#"Research Capsule Red"#, desc = r#""#, value = "954947943")
-    )]
-    ItemResearchCapsuleRed = 954947943i32,
-    #[strum(
-        serialize = "ItemResearchCapsuleYellow",
-        props(name = r#"Research Capsule Yellow"#, desc = r#""#, value = "750952701")
-    )]
-    ItemResearchCapsuleYellow = 750952701i32,
-    #[strum(
-        serialize = "StructureResearchMachine",
-        props(name = r#"Research Machine"#, desc = r#""#, value = "-796627526")
-    )]
-    StructureResearchMachine = -796627526i32,
-    #[strum(
-        serialize = "RespawnPoint",
-        props(
-            name = r#"Respawn Point"#,
-            desc = r#"Place a respawn point to set a player entry point to your base when loading in, or returning from the dead."#,
-            value = "-788672929"
-        )
-    )]
-    RespawnPoint = -788672929i32,
-    #[strum(
-        serialize = "RespawnPointWallMounted",
-        props(
-            name = r#"Respawn Point (Mounted)"#,
-            desc = r#""#,
-            value = "-491247370"
-        )
-    )]
-    RespawnPointWallMounted = -491247370i32,
-    #[strum(
-        serialize = "ItemRice",
-        props(
-            name = r#"Rice"#,
-            desc = r#"Rice grows at a moderate rate as long as its supplied with plenty of water.  Being more dependant on water, rice plants can easily die during periods of drought."#,
-            value = "658916791"
-        )
-    )]
-    ItemRice = 658916791i32,
-    #[strum(
-        serialize = "SeedBag_Rice",
-        props(
-            name = r#"Rice Seeds"#,
-            desc = r#"Grow some <link=ThingItemRice><color=green>Rice</color></link>."#,
-            value = "-1691151239"
-        )
-    )]
-    SeedBagRice = -1691151239i32,
-    #[strum(
-        serialize = "ItemRoadFlare",
-        props(
-            name = r#"Road Flare"#,
-            desc = r#"Designed to burn anywhere in the Solar System, the EZC magnesium fusee supplies its own oxygen to fuel combustion, and dispel the eternal night of space."#,
-            value = "871811564"
-        )
-    )]
-    ItemRoadFlare = 871811564i32,
-    #[strum(
-        serialize = "StructureRocketAvionics",
-        props(name = r#"Rocket Avionics"#, desc = r#""#, value = "808389066")
-    )]
-    StructureRocketAvionics = 808389066i32,
-    #[strum(
-        serialize = "StructureRocketCelestialTracker",
-        props(
-            name = r#"Rocket Celestial Tracker"#,
-            desc = r#"The Celestial Tracker can be placed in Rockets and when turned on will provide data that can be used to orientate devices such as the <link=ThingStructureGroundBasedTelescope><color=green>Telescope</color></link>. The Horizontal and Vertical output is localized to the orientation of the tracker. You can calibrate your alignment by comparing the result for the primary body with the output from the <link=ThingStructureDaylightSensor><color=green>Daylight Sensor</color></link>. Full functionality will only be available in orbit, but you can configure using the primary body. For aligning with the telescope, have the face plate facing up and the cables facing in the same direction as for the telescope and the output values will be aligned."#,
-            value = "997453927"
-        )
-    )]
-    StructureRocketCelestialTracker = 997453927i32,
-    #[strum(
-        serialize = "StructureRocketCircuitHousing",
-        props(name = r#"Rocket Circuit Housing"#, desc = r#""#, value = "150135861")
-    )]
-    StructureRocketCircuitHousing = 150135861i32,
-    #[strum(
-        serialize = "MotherboardRockets",
-        props(
-            name = r#"Rocket Control Motherboard"#,
-            desc = r#""#,
-            value = "-806986392"
-        )
-    )]
-    MotherboardRockets = -806986392i32,
-    #[strum(
-        serialize = "StructureRocketEngineTiny",
-        props(name = r#"Rocket Engine (Tiny)"#, desc = r#""#, value = "178472613")
-    )]
-    StructureRocketEngineTiny = 178472613i32,
-    #[strum(
-        serialize = "StructureRocketManufactory",
-        props(name = r#"Rocket Manufactory"#, desc = r#""#, value = "1781051034")
-    )]
-    StructureRocketManufactory = 1781051034i32,
-    #[strum(
-        serialize = "StructureRocketMiner",
-        props(
-            name = r#"Rocket Miner"#,
-            desc = r#"Gathers available resources at the rocket's current space location."#,
-            value = "-2087223687"
-        )
-    )]
-    StructureRocketMiner = -2087223687i32,
-    #[strum(
-        serialize = "StructureRocketScanner",
-        props(name = r#"Rocket Scanner"#, desc = r#""#, value = "2014252591")
-    )]
-    StructureRocketScanner = 2014252591i32,
-    #[strum(
-        serialize = "ItemRocketScanningHead",
-        props(name = r#"Rocket Scanner Head"#, desc = r#""#, value = "-1198702771")
-    )]
-    ItemRocketScanningHead = -1198702771i32,
-    #[strum(
-        serialize = "RoverCargo",
-        props(
-            name = r#"Rover (Cargo)"#,
-            desc = r#"Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>"#,
-            value = "350726273"
-        )
-    )]
-    RoverCargo = 350726273i32,
-    #[strum(
-        serialize = "StructureRover",
-        props(name = r#"Rover Frame"#, desc = r#""#, value = "806513938")
-    )]
-    StructureRover = 806513938i32,
-    #[strum(
-        serialize = "Rover_MkI_build_states",
-        props(name = r#"Rover MKI"#, desc = r#""#, value = "861674123")
-    )]
-    RoverMkIBuildStates = 861674123i32,
-    #[strum(
-        serialize = "Rover_MkI",
-        props(
-            name = r#"Rover MkI"#,
-            desc = r#"A distant cousin of the jeep, the Mk I {<link=Sinotai><color=#0080FFFF>Sinotai</color></link> electric rover is one of the most simple and durable light vehicles in the known universe. Able to carry two passengers and cargo such as the <link=ThingDynamicGasCanisterAir><color=green>Portable Gas Tank (Air)</color></link> or <link=ThingCrate><color=green><N:EN:Crate></color></link>, it is powered by up to three batteries, accepting everything including <link=ThingItemBatteryCellNuclear><color=green>Battery Cell (Nuclear)</color></link>.
-A quad-array of hub-mounted electric engines propels the reinforced aluminium frame over most terrain and modest obstacles. While the Mk I is designed for stability in low-horizontality circumstances, if it rolls, try using your <link=ThingItemCrowbar><color=green>Crowbar</color></link> to put it right way up.Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>"#,
-            value = "-2049946335"
-        )
-    )]
-    RoverMkI = -2049946335i32,
-    #[strum(
-        serialize = "StructureSDBHopper",
-        props(name = r#"SDB Hopper"#, desc = r#""#, value = "-1875856925")
-    )]
-    StructureSdbHopper = -1875856925i32,
-    #[strum(
-        serialize = "StructureSDBHopperAdvanced",
-        props(name = r#"SDB Hopper Advanced"#, desc = r#""#, value = "467225612")
-    )]
-    StructureSdbHopperAdvanced = 467225612i32,
-    #[strum(
-        serialize = "StructureSDBSilo",
-        props(
-            name = r#"SDB Silo"#,
-            desc = r#"The majestic silo holds large quantities of almost anything. While it is doing that, it cannot be deconstructed. Note also, that any food you put into a silo is likely to <link=DecayPage><color=#0080FFFF>decay</color></link> extremely rapidly. The silo can hold up to 600 stacks."#,
-            value = "1155865682"
-        )
-    )]
-    StructureSdbSilo = 1155865682i32,
-    #[strum(
-        serialize = "SMGMagazine",
-        props(name = r#"SMG Magazine"#, desc = r#""#, value = "-256607540")
-    )]
-    SmgMagazine = -256607540i32,
-    #[strum(
-        serialize = "ItemScrewdriver",
-        props(
-            name = r#"Screwdriver"#,
-            desc = r#"This standard issue frictional adherence adjustor is a top of the line, bi-rotational model with a columnated uni-grip. It's definitely not just a screwdriver. Use it for construction and deconstruction of certain kits, and setting values on <link=LogicUnitPage><color=#0080FFFF>logic</color></link> units."#,
-            value = "687940869"
-        )
-    )]
-    ItemScrewdriver = 687940869i32,
-    #[strum(
-        serialize = "ItemSecurityCamera",
-        props(
-            name = r#"Security Camera"#,
-            desc = r#"Security cameras can be paired with a <link=ThingStructureMotionSensor><color=green>Motion Sensor</color></link>, then connected to a <link=ThingStructureConsole><color=green>Console</color></link> fitted with a <link=ThingCircuitboardCameraDisplay><color=green>Camera Display</color></link> for that 'always watched' feeling."#,
-            value = "-1981101032"
-        )
-    )]
-    ItemSecurityCamera = -1981101032i32,
-    #[strum(
-        serialize = "StructureSecurityPrinter",
-        props(
-            name = r#"Security Printer"#,
-            desc = r#"Any <link=Stationeer><color=#0080FFFF>Stationeer</color></link> concerned about security needs the <link=Harkwell><color=#0080FFFF>Harkwell-designed</color></link> Vigilant-E security printer. Use the Vigilant-E to create a <link=ThingCartridgeAccessController><color=green>Cartridge (Access Controller)</color></link>, in order to restrict access to different parts of your base via keycards like the <link=ThingAccessCardBlue><color=green>Access Card (Blue)</color></link>. The printer also makes a variety of weapons and ammunitions to defend your base against any hostile, aggressive or just slightly rude entites you encounter as you explore the Solar System.
-"#,
-            value = "-641491515"
-        )
-    )]
-    StructureSecurityPrinter = -641491515i32,
-    #[strum(
-        serialize = "ItemSensorLenses",
-        props(
-            name = r#"Sensor Lenses"#,
-            desc = r#"These <link=Norsec><color=#0080FFFF>Norsec</color></link> glasses might not be the most fashionable thing, but when a <link=ThingItemSensorProcessingUnitOreScanner><color=green>Sensor Processing Unit (Ore Scanner)</color></link> is inserted, Stationeers can use these handy glasses to x-ray the ground and find ores that are hidden beneath the surface."#,
-            value = "-1176140051"
-        )
-    )]
-    ItemSensorLenses = -1176140051i32,
-    #[strum(
-        serialize = "ItemSensorProcessingUnitCelestialScanner",
-        props(
-            name = r#"Sensor Processing Unit (Celestial Scanner)"#,
-            desc = r#""#,
-            value = "-1154200014"
-        )
-    )]
-    ItemSensorProcessingUnitCelestialScanner = -1154200014i32,
-    #[strum(
-        serialize = "ItemSensorProcessingUnitOreScanner",
-        props(
-            name = r#"Sensor Processing Unit (Ore Scanner)"#,
-            desc = r#"The Sensor Processing unit can be inserted into <link=ThingItemSensorLenses><color=green>Sensor Lenses</color></link> to reveal underground minerals in a HUD."#,
-            value = "-1219128491"
-        )
-    )]
-    ItemSensorProcessingUnitOreScanner = -1219128491i32,
-    #[strum(
-        serialize = "ItemSensorProcessingUnitMesonScanner",
-        props(
-            name = r#"Sensor Processing Unit (T-Ray Scanner)"#,
-            desc = r#"The T-Ray Scanner Sensor Processing Unit can be inserted into the <link=ThingItemSensorLenses><color=green>Sensor Lenses</color></link> to show an overlay of pipes and cables. This can be useful when building behind walls or other structures."#,
-            value = "-1730464583"
-        )
-    )]
-    ItemSensorProcessingUnitMesonScanner = -1730464583i32,
-    #[strum(
-        serialize = "StructureShelf",
-        props(name = r#"Shelf"#, desc = r#""#, value = "1172114950")
-    )]
-    StructureShelf = 1172114950i32,
-    #[strum(
-        serialize = "StructureShelfMedium",
-        props(
-            name = r#"Shelf Medium"#,
-            desc = r#"A shelf for putting things on, so you can see them."#,
-            value = "182006674"
-        )
-    )]
-    StructureShelfMedium = 182006674i32,
-    #[strum(
-        serialize = "CircuitboardShipDisplay",
-        props(
-            name = r#"Ship Display"#,
-            desc = r#"When the original <link=Stationeers><color=#0080FFFF>Stationeer</color></link> Handbook collapsed under its own weight into a singularity, certain information was irretrievably lost. Amongst this mysterious corpus of knowledge is the exact purpose of the ship display board."#,
-            value = "-2044446819"
-        )
-    )]
-    CircuitboardShipDisplay = -2044446819i32,
-    #[strum(
-        serialize = "StructureShortCornerLocker",
-        props(name = r#"Short Corner Locker"#, desc = r#""#, value = "1330754486")
-    )]
-    StructureShortCornerLocker = 1330754486i32,
-    #[strum(
-        serialize = "StructureShortLocker",
-        props(name = r#"Short Locker"#, desc = r#""#, value = "-554553467")
-    )]
-    StructureShortLocker = -554553467i32,
-    #[strum(
-        serialize = "StructureShower",
-        props(name = r#"Shower"#, desc = r#""#, value = "-775128944")
-    )]
-    StructureShower = -775128944i32,
-    #[strum(
-        serialize = "StructureShowerPowered",
-        props(name = r#"Shower (Powered)"#, desc = r#""#, value = "-1081797501")
-    )]
-    StructureShowerPowered = -1081797501i32,
-    #[strum(
-        serialize = "StructureSign1x1",
-        props(name = r#"Sign 1x1"#, desc = r#""#, value = "879058460")
-    )]
-    StructureSign1X1 = 879058460i32,
-    #[strum(
-        serialize = "StructureSign2x1",
-        props(name = r#"Sign 2x1"#, desc = r#""#, value = "908320837")
-    )]
-    StructureSign2X1 = 908320837i32,
-    #[strum(
-        serialize = "StructureSingleBed",
-        props(
-            name = r#"Single Bed"#,
-            desc = r#"Description coming."#,
-            value = "-492611"
-        )
-    )]
-    StructureSingleBed = -492611i32,
-    #[strum(
-        serialize = "DynamicSkeleton",
-        props(name = r#"Skeleton"#, desc = r#""#, value = "106953348")
-    )]
-    DynamicSkeleton = 106953348i32,
-    #[strum(
-        serialize = "StructureSleeper",
-        props(name = r#"Sleeper"#, desc = r#""#, value = "-1467449329")
-    )]
-    StructureSleeper = -1467449329i32,
-    #[strum(
-        serialize = "StructureSleeperLeft",
-        props(
-            name = r#"Sleeper Left"#,
-            desc = r#"A horizontal variant of the sleeper. Will keep players hydrated and fed while they are logged out - as long as a breathable atmosphere is provided."#,
-            value = "1213495833"
-        )
-    )]
-    StructureSleeperLeft = 1213495833i32,
-    #[strum(
-        serialize = "StructureSleeperRight",
-        props(
-            name = r#"Sleeper Right"#,
-            desc = r#"A horizontal variant of the sleeper. Will keep players hydrated and fed while they are logged out - as long as a breathable atmosphere is provided."#,
-            value = "-1812330717"
-        )
-    )]
-    StructureSleeperRight = -1812330717i32,
-    #[strum(
-        serialize = "StructureSleeperVertical",
-        props(
-            name = r#"Sleeper Vertical"#,
-            desc = r#"The vertical variant of the sleeper. Will keep players hydrated and fed while they are logged out - as long as a breathable atmosphere is provided."#,
-            value = "-1300059018"
-        )
-    )]
-    StructureSleeperVertical = -1300059018i32,
-    #[strum(
-        serialize = "StructureLogicSlotReader",
-        props(name = r#"Slot Reader"#, desc = r#""#, value = "-767867194")
-    )]
-    StructureLogicSlotReader = -767867194i32,
-    #[strum(
-        serialize = "StructureSmallTableBacklessDouble",
-        props(
-            name = r#"Small (Table Backless Double)"#,
-            desc = r#""#,
-            value = "-1633000411"
-        )
-    )]
-    StructureSmallTableBacklessDouble = -1633000411i32,
-    #[strum(
-        serialize = "StructureSmallTableBacklessSingle",
-        props(
-            name = r#"Small (Table Backless Single)"#,
-            desc = r#""#,
-            value = "-1897221677"
-        )
-    )]
-    StructureSmallTableBacklessSingle = -1897221677i32,
-    #[strum(
-        serialize = "StructureSmallTableDinnerSingle",
-        props(
-            name = r#"Small (Table Dinner Single)"#,
-            desc = r#""#,
-            value = "1260651529"
-        )
-    )]
-    StructureSmallTableDinnerSingle = 1260651529i32,
-    #[strum(
-        serialize = "StructureSmallTableRectangleDouble",
-        props(
-            name = r#"Small (Table Rectangle Double)"#,
-            desc = r#""#,
-            value = "-660451023"
-        )
-    )]
-    StructureSmallTableRectangleDouble = -660451023i32,
-    #[strum(
-        serialize = "StructureSmallTableRectangleSingle",
-        props(
-            name = r#"Small (Table Rectangle Single)"#,
-            desc = r#""#,
-            value = "-924678969"
-        )
-    )]
-    StructureSmallTableRectangleSingle = -924678969i32,
-    #[strum(
-        serialize = "StructureSmallTableThickDouble",
-        props(
-            name = r#"Small (Table Thick Double)"#,
-            desc = r#""#,
-            value = "-19246131"
-        )
-    )]
-    StructureSmallTableThickDouble = -19246131i32,
-    #[strum(
-        serialize = "StructureSmallDirectHeatExchangeGastoGas",
-        props(
-            name = r#"Small Direct Heat Exchanger - Gas + Gas"#,
-            desc = r#"Direct Heat Exchangers equalize the temperature of the two input networks."#,
-            value = "1310303582"
-        )
-    )]
-    StructureSmallDirectHeatExchangeGastoGas = 1310303582i32,
     #[strum(
         serialize = "StructureSmallDirectHeatExchangeLiquidtoGas",
         props(
@@ -8403,1362 +9310,42 @@ A quad-array of hub-mounted electric engines propels the reinforced aluminium fr
     )]
     StructureSmallDirectHeatExchangeLiquidtoGas = 1825212016i32,
     #[strum(
-        serialize = "StructureSmallDirectHeatExchangeLiquidtoLiquid",
+        serialize = "ItemKitRoverFrame",
+        props(name = r#"Kit (Rover Frame)"#, desc = r#""#, value = "1827215803")
+    )]
+    ItemKitRoverFrame = 1827215803i32,
+    #[strum(
+        serialize = "ItemNickelOre",
         props(
-            name = r#"Small Direct Heat Exchanger - Liquid + Liquid"#,
-            desc = r#"Direct Heat Exchangers equalize the temperature of the two input networks."#,
-            value = "-507770416"
+            name = r#"Ore (Nickel)"#,
+            desc = r#"Nickel is a chemical element with the symbol "Ni" and is a rare metal commonly used as a plating to prevent corrosion. Sought after by many <link=Stationeers><color=#0080FFFF>Stationeers</color></link>, Nickel is also commonly used to create several <link=IngotPage><color=#0080FFFF>alloys</color></link>."#,
+            value = "1830218956"
         )
     )]
-    StructureSmallDirectHeatExchangeLiquidtoLiquid = -507770416i32,
+    ItemNickelOre = 1830218956i32,
     #[strum(
-        serialize = "StructureFlagSmall",
-        props(name = r#"Small Flag"#, desc = r#""#, value = "-1529819532")
-    )]
-    StructureFlagSmall = -1529819532i32,
-    #[strum(
-        serialize = "StructureAirlockGate",
+        serialize = "StructurePictureFrameThinMountPortraitSmall",
         props(
-            name = r#"Small Hangar Door"#,
-            desc = r#"1 x 1 modular door piece for building hangar doors."#,
-            value = "1736080881"
-        )
-    )]
-    StructureAirlockGate = 1736080881i32,
-    #[strum(
-        serialize = "StructureSmallSatelliteDish",
-        props(
-            name = r#"Small Satellite Dish"#,
-            desc = r#"This small communications unit can be used to communicate with nearby trade vessels.
-
-        When connected to a <link=ThingStructureComputer><color=green>Computer</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic."#,
-            value = "-2138748650"
-        )
-    )]
-    StructureSmallSatelliteDish = -2138748650i32,
-    #[strum(
-        serialize = "StructureSmallTableThickSingle",
-        props(
-            name = r#"Small Table (Thick Single)"#,
+            name = r#"Picture Frame Thin Portrait Small"#,
             desc = r#""#,
-            value = "-291862981"
+            value = "1835796040"
         )
     )]
-    StructureSmallTableThickSingle = -291862981i32,
+    StructurePictureFrameThinMountPortraitSmall = 1835796040i32,
     #[strum(
-        serialize = "StructureTankSmall",
-        props(name = r#"Small Tank"#, desc = r#""#, value = "1013514688")
-    )]
-    StructureTankSmall = 1013514688i32,
-    #[strum(
-        serialize = "StructureTankSmallAir",
-        props(name = r#"Small Tank (Air)"#, desc = r#""#, value = "955744474")
-    )]
-    StructureTankSmallAir = 955744474i32,
-    #[strum(
-        serialize = "StructureTankSmallFuel",
-        props(name = r#"Small Tank (Fuel)"#, desc = r#""#, value = "2102454415")
-    )]
-    StructureTankSmallFuel = 2102454415i32,
-    #[strum(
-        serialize = "CircuitboardSolarControl",
-        props(
-            name = r#"Solar Control"#,
-            desc = r#"Adding a solar control board to a <link=ThingStructureConsole><color=green>Console</color></link> lets you manually control the horizontal and vertical angles of any connected <link=ThingStructureSolarPanel><color=green>Solar Panel</color></link>."#,
-            value = "2020180320"
-        )
-    )]
-    CircuitboardSolarControl = 2020180320i32,
-    #[strum(
-        serialize = "StructureSolarPanel",
-        props(
-            name = r#"Solar Panel"#,
-            desc = r#"<link=Sinotai><color=#0080FFFF>Sinotai's</color></link> standard solar panels are used for generating power from sunlight. They can be connected to <link=LogicPage><color=#0080FFFF>Logic</color></link> systems, in order to track sunlight, but their reduced during storms and when damaged. You can repair these using some trusty <link=ThingItemDuctTape><color=green>Duct Tape</color></link>."#,
-            value = "-2045627372"
-        )
-    )]
-    StructureSolarPanel = -2045627372i32,
-    #[strum(
-        serialize = "StructureSolarPanel45",
-        props(
-            name = r#"Solar Panel (Angled)"#,
-            desc = r#"<link=Sinotai><color=#0080FFFF>Sinotai</color></link> basic solar panels generate power from sunlight, sitting at 45 degrees to the ground. Their efficiency is reduced during storms and when damaged. You can repair these using some trusty <link=ThingItemDuctTape><color=green>Duct Tape</color></link>."#,
-            value = "-1554349863"
-        )
-    )]
-    StructureSolarPanel45 = -1554349863i32,
-    #[strum(
-        serialize = "StructureSolarPanelDual",
-        props(
-            name = r#"Solar Panel (Dual)"#,
-            desc = r#"<link=Sinotai><color=#0080FFFF>Sinotai</color></link> dual solar panels are used for generating power from sunlight, with dedicated data and power ports. They can be connected to {<link=LogicPage><color=#0080FFFF>Logic</color></link> systems, in order to track sunlight, but their efficiency is reduced during storms and when damaged. You can repair these using some trusty <link=ThingItemDuctTape><color=green>Duct Tape</color></link>."#,
-            value = "-539224550"
-        )
-    )]
-    StructureSolarPanelDual = -539224550i32,
-    #[strum(
-        serialize = "StructureSolarPanelFlat",
-        props(
-            name = r#"Solar Panel (Flat)"#,
-            desc = r#"<link=Sinotai><color=#0080FFFF>Sinotai</color></link> basic solar panels generate power from sunlight. They lie flat to the ground, and their efficiency is reduced during storms and when damaged. You can repair these using some trusty <link=ThingItemDuctTape><color=green>Duct Tape</color></link>."#,
-            value = "1968102968"
-        )
-    )]
-    StructureSolarPanelFlat = 1968102968i32,
-    #[strum(
-        serialize = "StructureSolarPanel45Reinforced",
-        props(
-            name = r#"Solar Panel (Heavy Angled)"#,
-            desc = r#"This solar panel is resistant to storm damage."#,
-            value = "930865127"
-        )
-    )]
-    StructureSolarPanel45Reinforced = 930865127i32,
-    #[strum(
-        serialize = "StructureSolarPanelDualReinforced",
-        props(
-            name = r#"Solar Panel (Heavy Dual)"#,
-            desc = r#"This solar panel is resistant to storm damage."#,
-            value = "-1545574413"
-        )
-    )]
-    StructureSolarPanelDualReinforced = -1545574413i32,
-    #[strum(
-        serialize = "StructureSolarPanelFlatReinforced",
-        props(
-            name = r#"Solar Panel (Heavy Flat)"#,
-            desc = r#"This solar panel is resistant to storm damage."#,
-            value = "1697196770"
-        )
-    )]
-    StructureSolarPanelFlatReinforced = 1697196770i32,
-    #[strum(
-        serialize = "StructureSolarPanelReinforced",
-        props(
-            name = r#"Solar Panel (Heavy)"#,
-            desc = r#"This solar panel is resistant to storm damage."#,
-            value = "-934345724"
-        )
-    )]
-    StructureSolarPanelReinforced = -934345724i32,
-    #[strum(
-        serialize = "ItemSolidFuel",
-        props(
-            name = r#"Solid Fuel (Hydrocarbon)"#,
-            desc = r#""#,
-            value = "-365253871"
-        )
-    )]
-    ItemSolidFuel = -365253871i32,
-    #[strum(
-        serialize = "StructureSorter",
-        props(
-            name = r#"Sorter"#,
-            desc = r#"No amount of automation is complete without some way of moving different items to different parts of a system. The <link=Xigo><color=#0080FFFF>Xigo</color></link> A2B sorter can be programmed via a computer with a <link=ThingMotherboardSorter><color=green>Sorter Motherboard</color></link> to direct various items into different chute networks. Filtered items are always passed out the righthand side of the sorter, while non filtered items continue straight through."#,
-            value = "-1009150565"
-        )
-    )]
-    StructureSorter = -1009150565i32,
-    #[strum(
-        serialize = "MotherboardSorter",
-        props(
-            name = r#"Sorter Motherboard"#,
-            desc = r#"Motherboards are connected to <link=ThingStructureComputer><color=green>Computer</color></link>s to perform various technical functions.
-The <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> K-cops 10-10 sorter motherboard permits <link=Stationeers><color=#0080FFFF>Stationeers</color></link> to control which items a <link=ThingStructureSorter><color=green>Sorter</color></link> does, and does not, permit to pass."#,
-            value = "-1908268220"
-        )
-    )]
-    MotherboardSorter = -1908268220i32,
-    #[strum(
-        serialize = "ItemSoundCartridgeBass",
-        props(name = r#"Sound Cartridge Bass"#, desc = r#""#, value = "-1883441704")
-    )]
-    ItemSoundCartridgeBass = -1883441704i32,
-    #[strum(
-        serialize = "ItemSoundCartridgeDrums",
-        props(name = r#"Sound Cartridge Drums"#, desc = r#""#, value = "-1901500508")
-    )]
-    ItemSoundCartridgeDrums = -1901500508i32,
-    #[strum(
-        serialize = "ItemSoundCartridgeLeads",
-        props(name = r#"Sound Cartridge Leads"#, desc = r#""#, value = "-1174735962")
-    )]
-    ItemSoundCartridgeLeads = -1174735962i32,
-    #[strum(
-        serialize = "ItemSoundCartridgeSynth",
-        props(name = r#"Sound Cartridge Synth"#, desc = r#""#, value = "-1971419310")
-    )]
-    ItemSoundCartridgeSynth = -1971419310i32,
-    #[strum(
-        serialize = "ItemSoyOil",
-        props(name = r#"Soy Oil"#, desc = r#""#, value = "1387403148")
-    )]
-    ItemSoyOil = 1387403148i32,
-    #[strum(
-        serialize = "ItemSoybean",
-        props(
-            name = r#"Soybean"#,
-            desc = r#" Soybeans grow at a moderate rate, but require atmospheric <link=GasNitrogen><color=#44AD83>Nitrogen</color></link> to grow.  Its main use is to create <link=ThingItemSoyOil><color=green>Soy Oil</color></link>"#,
-            value = "1924673028"
-        )
-    )]
-    ItemSoybean = 1924673028i32,
-    #[strum(
-        serialize = "SeedBag_Soybean",
-        props(
-            name = r#"Soybean Seeds"#,
-            desc = r#"Grow some <link=ThingItemSoybean><color=green>Soybean</color></link>."#,
-            value = "1783004244"
-        )
-    )]
-    SeedBagSoybean = 1783004244i32,
-    #[strum(
-        serialize = "ItemSpaceCleaner",
-        props(
-            name = r#"Space Cleaner"#,
-            desc = r#"There was a time when humanity really wanted to keep space clean. That time has passed."#,
-            value = "-1737666461"
-        )
-    )]
-    ItemSpaceCleaner = -1737666461i32,
-    #[strum(
-        serialize = "ItemSpaceHelmet",
-        props(
-            name = r#"Space Helmet"#,
-            desc = r#"The basic space helmet insulates <link=Stationeers><color=#0080FFFF>Stationeers</color></link> against everything from hard vacuum to weird cooking smells. Providing a pressure-controlled, breathable atmosphere, it comes with a built-in light powered by your <link=ThingItemEvaSuit><color=green>Eva Suit</color></link> <link=ThingItemBatteryCell><color=green>Battery Cell (Small)</color></link>.
-It also incorporates a lock/unlock feature to avoid accidental opening, as well as a flush function to expel and replace the internal atmosphere. If damaged, use <link=ThingItemDuctTape><color=green>Duct Tape</color></link> to fix it, or paint it any color you like using the <link=ThingAppliancePaintMixer><color=green>Paint Mixer</color></link>."#,
-            value = "714830451"
-        )
-    )]
-    ItemSpaceHelmet = 714830451i32,
-    #[strum(
-        serialize = "ItemSpaceIce",
-        props(name = r#"Space Ice"#, desc = r#""#, value = "675686937")
-    )]
-    ItemSpaceIce = 675686937i32,
-    #[strum(
-        serialize = "SpaceShuttle",
-        props(
-            name = r#"Space Shuttle"#,
-            desc = r#"An antiquated <link=Sinotai><color=#0080FFFF>Sinotai</color></link> transport craft, long since decommissioned."#,
-            value = "-1991297271"
-        )
-    )]
-    SpaceShuttle = -1991297271i32,
-    #[strum(
-        serialize = "ItemSpacepack",
-        props(
-            name = r#"Spacepack"#,
-            desc = r#"The basic <link=CHAC><color=#0080FFFF>CHAC</color></link> spacepack isn't 'technically' a jetpack, it's a gas thruster. It can be powered by any gas, so long as the internal pressure of the <link=AtmosphericsPage><color=#0080FFFF>canister</color></link> is higher than the ambient external pressure. If the external pressure is greater, the spacepack will not function.
-Indispensable for building, mining and general movement, it has ten storage slots and lets <link=Stationeers><color=#0080FFFF>Stationeers</color></link> fly at 3m/s, compared to the more powerful <link=ThingItemJetpackBasic><color=green>Jetpack Basic</color></link> or <link=ThingItemHardJetpack><color=green>Hardsuit Jetpack</color></link>. Adjusting the thrust value alters your rate of acceleration, while activating the stablizer causes the spacepack to hover when a given height is reached.
-USE: 'J' to activate; 'space' to fly up; 'left ctrl' to descend; and 'WASD' to move."#,
-            value = "-1260618380"
-        )
-    )]
-    ItemSpacepack = -1260618380i32,
-    #[strum(
-        serialize = "ItemSprayGun",
-        props(
-            name = r#"Spray Gun"#,
-            desc = r#"Use with Spray cans in the <link=SlotSprayCan><color=orange>Spray Can</color></link> to paint structures, cables and pipes. Much more efficient and faster than doing it with individual spray cans."#,
-            value = "1289723966"
-        )
-    )]
-    ItemSprayGun = 1289723966i32,
-    #[strum(
-        serialize = "ItemSprayCanBlack",
-        props(
-            name = r#"Spray Paint (Black)"#,
-            desc = r#"Go classic, clandestine or just plain Gothic with black paint, which can be applied to most items. Each can has 20 uses."#,
-            value = "-688107795"
-        )
-    )]
-    ItemSprayCanBlack = -688107795i32,
-    #[strum(
-        serialize = "ItemSprayCanBlue",
-        props(
-            name = r#"Spray Paint (Blue)"#,
-            desc = r#"What kind of a color is blue? The kind of of color that says, 'Hey, what about me?'"#,
-            value = "-498464883"
-        )
-    )]
-    ItemSprayCanBlue = -498464883i32,
-    #[strum(
-        serialize = "ItemSprayCanBrown",
-        props(
-            name = r#"Spray Paint (Brown)"#,
-            desc = r#"In more artistic <link=Stationeers><color=#0080FFFF>Stationeers</color></link> circles, the absence of brown is often lamented, but seldom changed."#,
-            value = "845176977"
-        )
-    )]
-    ItemSprayCanBrown = 845176977i32,
-    #[strum(
-        serialize = "ItemSprayCanGreen",
-        props(
-            name = r#"Spray Paint (Green)"#,
-            desc = r#"Green is the color of life, and longing. Paradoxically, it's also the color of envy, and tolerance. It denotes sickness, youth, and wealth. But really, it's just what light does at around 500 billionths of a meter."#,
-            value = "-1880941852"
-        )
-    )]
-    ItemSprayCanGreen = -1880941852i32,
-    #[strum(
-        serialize = "ItemSprayCanGrey",
-        props(
-            name = r#"Spray Paint (Grey)"#,
-            desc = r#"Arguably the most popular color in the universe, grey was invented so designers had something to do."#,
-            value = "-1645266981"
-        )
-    )]
-    ItemSprayCanGrey = -1645266981i32,
-    #[strum(
-        serialize = "ItemSprayCanKhaki",
-        props(
-            name = r#"Spray Paint (Khaki)"#,
-            desc = r#"Not so much a single color, as a category of boredom, khaki is the pigmentation equivalent of a mild depressive episode."#,
-            value = "1918456047"
-        )
-    )]
-    ItemSprayCanKhaki = 1918456047i32,
-    #[strum(
-        serialize = "ItemSprayCanOrange",
-        props(
-            name = r#"Spray Paint (Orange)"#,
-            desc = r#"Orange is fun, but also suggestive of hazards. Sitting proudly in the middle of the visual spectrum, it has nothing to prove."#,
-            value = "-158007629"
-        )
-    )]
-    ItemSprayCanOrange = -158007629i32,
-    #[strum(
-        serialize = "ItemSprayCanPink",
-        props(
-            name = r#"Spray Paint (Pink)"#,
-            desc = r#"With the invention of enduring chemical dyes, the 20th century bestowed associations with innocence and tenderness upon this pale tint of red. Yet classically, it was the color of seduction and eroticism. Things change."#,
-            value = "1344257263"
-        )
-    )]
-    ItemSprayCanPink = 1344257263i32,
-    #[strum(
-        serialize = "ItemSprayCanPurple",
-        props(
-            name = r#"Spray Paint (Purple)"#,
-            desc = r#"Purple is a curious color. You need to be careful with purple. It can be very good, or go horribly, horribly wrong."#,
-            value = "30686509"
-        )
-    )]
-    ItemSprayCanPurple = 30686509i32,
-    #[strum(
-        serialize = "ItemSprayCanRed",
-        props(
-            name = r#"Spray Paint (Red)"#,
-            desc = r#"The king of colors, red is perhaps the defining tone of the universe. Linked to blood, royalty, fire and damnation, it is the chromatic expression of power."#,
-            value = "1514393921"
-        )
-    )]
-    ItemSprayCanRed = 1514393921i32,
-    #[strum(
-        serialize = "ItemSprayCanWhite",
-        props(
-            name = r#"Spray Paint (White)"#,
-            desc = r#"White looks clean, sharp and nice. But <link=Stationeers><color=#0080FFFF>Stationeering</color></link> can be a dirty job. White tends to scuff."#,
-            value = "498481505"
-        )
-    )]
-    ItemSprayCanWhite = 498481505i32,
-    #[strum(
-        serialize = "ItemSprayCanYellow",
-        props(
-            name = r#"Spray Paint (Yellow)"#,
-            desc = r#"A caricature of light itself, yellow lacks the self-confidence of red, or the swagger of purple. It's less fun than orange, but less emotionally limp than khaki. It's hard to know when yellow is appropriate, but it persists as a primary color regardless. Suggesting that yellow gonna yellow, no matter what anyone thinks."#,
-            value = "995468116"
-        )
-    )]
-    ItemSprayCanYellow = 995468116i32,
-    #[strum(
-        serialize = "StructureStackerReverse",
-        props(
-            name = r#"Stacker"#,
-            desc = r#"A stacker is an important part of any automated chute network. The <link=Xigo><color=#0080FFFF>Xigo</color></link> ProKompile can be set manually or via logic, to make sure items passing through the stacker are maximized for your storage needs. The reversed stacker has power and data on the opposite side.
-The ProKompile can stack a wide variety of things such as <link=IngotPage><color=#0080FFFF>ingots</color></link>, as well as splitting stacks into appropriate sizes as needed."#,
-            value = "1585641623"
-        )
-    )]
-    StructureStackerReverse = 1585641623i32,
-    #[strum(
-        serialize = "StructureStacker",
-        props(
-            name = r#"Stacker"#,
-            desc = r#"A stacker is an important part of any automated chute network. The <link=Xigo><color=#0080FFFF>Xigo</color></link> ProKompile can be set manually or via logic, to make sure items passing through the stacker are maximized for your storage needs.
-The ProKompile can stack a wide variety of things such as <link=IngotPage><color=#0080FFFF>ingots</color></link>, as well as splitting stacks into appropriate sizes as needed."#,
-            value = "-2020231820"
-        )
-    )]
-    StructureStacker = -2020231820i32,
-    #[strum(
-        serialize = "StructureStairs4x2",
-        props(name = r#"Stairs"#, desc = r#""#, value = "1405018945")
-    )]
-    StructureStairs4X2 = 1405018945i32,
-    #[strum(
-        serialize = "StructureStairs4x2RailL",
-        props(name = r#"Stairs with Rail (Left)"#, desc = r#""#, value = "155214029")
-    )]
-    StructureStairs4X2RailL = 155214029i32,
-    #[strum(
-        serialize = "StructureStairs4x2RailR",
-        props(
-            name = r#"Stairs with Rail (Right)"#,
-            desc = r#""#,
-            value = "-212902482"
-        )
-    )]
-    StructureStairs4X2RailR = -212902482i32,
-    #[strum(
-        serialize = "StructureStairs4x2Rails",
-        props(name = r#"Stairs with Rails"#, desc = r#""#, value = "-1088008720")
-    )]
-    StructureStairs4X2Rails = -1088008720i32,
-    #[strum(
-        serialize = "StructureStairwellBackLeft",
-        props(name = r#"Stairwell (Back Left)"#, desc = r#""#, value = "505924160")
-    )]
-    StructureStairwellBackLeft = 505924160i32,
-    #[strum(
-        serialize = "StructureStairwellBackPassthrough",
-        props(
-            name = r#"Stairwell (Back Passthrough)"#,
-            desc = r#""#,
-            value = "-862048392"
-        )
-    )]
-    StructureStairwellBackPassthrough = -862048392i32,
-    #[strum(
-        serialize = "StructureStairwellBackRight",
-        props(
-            name = r#"Stairwell (Back Right)"#,
-            desc = r#""#,
-            value = "-2128896573"
-        )
-    )]
-    StructureStairwellBackRight = -2128896573i32,
-    #[strum(
-        serialize = "StructureStairwellFrontLeft",
-        props(name = r#"Stairwell (Front Left)"#, desc = r#""#, value = "-37454456")
-    )]
-    StructureStairwellFrontLeft = -37454456i32,
-    #[strum(
-        serialize = "StructureStairwellFrontPassthrough",
-        props(
-            name = r#"Stairwell (Front Passthrough)"#,
-            desc = r#""#,
-            value = "-1625452928"
-        )
-    )]
-    StructureStairwellFrontPassthrough = -1625452928i32,
-    #[strum(
-        serialize = "StructureStairwellFrontRight",
-        props(name = r#"Stairwell (Front Right)"#, desc = r#""#, value = "340210934")
-    )]
-    StructureStairwellFrontRight = 340210934i32,
-    #[strum(
-        serialize = "StructureStairwellNoDoors",
-        props(name = r#"Stairwell (No Doors)"#, desc = r#""#, value = "2049879875")
-    )]
-    StructureStairwellNoDoors = 2049879875i32,
-    #[strum(
-        serialize = "StructureBattery",
-        props(
-            name = r#"Station Battery"#,
-            desc = r#"Providing large-scale, reliable power storage, the <link=Sinotai><color=#0080FFFF>Sinotai</color></link> 'Dianzi' station battery is the heart of most <link=Stationeers><color=#0080FFFF>Stationeer</color></link> bases.
-There are a variety of cautions to the design of electrical systems using batteries, and every experienced Stationeer has a story to tell, hence the Stationeer adage: 'Dianzi cooks, but it also frys.'
-<size=120%><b>POWER OUTPUT</b></size>
-Able to store up to 3600000W of power, there are no practical limits to its throughput, hence it is wise to use <link=ThingItemCableCoilHeavy><color=green>Cable Coil (Heavy)</color></link>. Seasoned electrical engineers will also laugh in the face of those who fail to separate out their power generation networks using an <link=ThingStructureAreaPowerControl><color=green>Area Power Control</color></link> and <link=ThingStructureTransformer><color=green>Transformer (Large)</color></link>."#,
-            value = "-400115994"
-        )
-    )]
-    StructureBattery = -400115994i32,
-    #[strum(
-        serialize = "StructureBatteryLarge",
-        props(
-            name = r#"Station Battery (Large)"#,
-            desc = r#"Providing even better large-scale, reliable power storage than the {THING;StructureBattery}, the <link=Sinotai><color=#0080FFFF>Sinotai</color></link> 'Da Dianchi' large station battery is the heart of most <link=Stationeers><color=#0080FFFF>Stationeer</color></link> bases.
-There are a variety of cautions to the design of electrical systems using batteries, and every experienced Stationeer has a story to tell, hence the Stationeer adage: 'Dianzi cooks, but it also frys.'
-<size=120%><b>POWER OUTPUT</b></size>
-Able to store up to 9000001 watts of power, there are no practical limits to its throughput, hence it is wise to use <link=ThingItemCableCoilHeavy><color=green>Cable Coil (Heavy)</color></link>. Seasoned electrical engineers will also laugh in the face of those who fail to separate out their power generation networks using an <link=ThingStructureAreaPowerControl><color=green>Area Power Control</color></link> and <link=ThingStructureTransformer><color=green>Transformer (Large)</color></link>. "#,
-            value = "-1388288459"
-        )
-    )]
-    StructureBatteryLarge = -1388288459i32,
-    #[strum(
-        serialize = "StructureFrame",
-        props(
-            name = r#"Steel Frame"#,
-            desc = r#"More durable than the <link=ThingStructureFrameIron><color=green>Iron Frame</color></link>, steel frames also have several variations for more complex constructions, such as the <link=ThingStructureFrameCorner><color=green>Steel Frame (Corner)</color></link> and <link=ThingStructureFrameCornerCut><color=green>Steel Frame (Corner Cut)</color></link>. Like iron frames, they are placed then completed by welding <link=ThingItemSteelSheets><color=green>Steel Sheets</color></link> to the open framework."#,
-            value = "1432512808"
-        )
-    )]
-    StructureFrame = 1432512808i32,
-    #[strum(
-        serialize = "StructureFrameCornerCut",
-        props(
-            name = r#"Steel Frame (Corner Cut)"#,
-            desc = r#"0.Mode0
-1.Mode1"#,
-            value = "271315669"
-        )
-    )]
-    StructureFrameCornerCut = 271315669i32,
-    #[strum(
-        serialize = "StructureFrameCorner",
-        props(
-            name = r#"Steel Frame (Corner)"#,
-            desc = r#"More durable than the <link=ThingStructureFrameIron><color=green>Iron Frame</color></link>, steel frames also offer several variations for more complex lattice constructions.
-With a little patience and maneuvering, the corner frame's Gothic-inspired silhouette allows the creation of ogival arches and even more ambitious architecture, although they are not airtight and cannot be built on."#,
-            value = "-2112390778"
-        )
-    )]
-    StructureFrameCorner = -2112390778i32,
-    #[strum(
-        serialize = "StructureFrameSide",
-        props(
-            name = r#"Steel Frame (Side)"#,
-            desc = r#"More durable than the <link=ThingStructureFrameIron><color=green>Iron Frame</color></link>, steel frames also provide variations for more ornate constructions."#,
-            value = "-302420053"
-        )
-    )]
-    StructureFrameSide = -302420053i32,
-    #[strum(
-        serialize = "ItemSteelFrames",
-        props(
-            name = r#"Steel Frames"#,
-            desc = r#"An advanced and stronger version of <link=ThingItemIronFrames><color=green>Iron Frames</color></link>, steel frames are placed by right-clicking. To complete construction, use <link=ThingItemSteelSheets><color=green>Steel Sheets</color></link> and a <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link> in your active hand."#,
-            value = "-1448105779"
-        )
-    )]
-    ItemSteelFrames = -1448105779i32,
-    #[strum(
-        serialize = "ItemSteelSheets",
-        props(
-            name = r#"Steel Sheets"#,
-            desc = r#"An advanced building material, <link=ThingItemSteelIngot><color=green>Ingot (Steel)</color></link> sheets are used when constructing a <link=ThingStructureFrame><color=green>Steel Frame</color></link> and several other <link=StructuresPage><color=#0080FFFF>wall</color></link> types."#,
-            value = "38555961"
-        )
-    )]
-    ItemSteelSheets = 38555961i32,
-    #[strum(
-        serialize = "ItemStelliteGlassSheets",
-        props(
-            name = r#"Stellite Glass Sheets"#,
-            desc = r#"A stronger glass substitute."#,
-            value = "-2038663432"
-        )
-    )]
-    ItemStelliteGlassSheets = -2038663432i32,
-    #[strum(
-        serialize = "StructureStirlingEngine",
-        props(
-            name = r#"Stirling Engine"#,
-            desc = r#"Harnessing an ancient thermal exploit, the <link=Recurso><color=#0080FFFF>Recurso</color></link> 'Libra' Stirling Engine generates power via the expansion and contraction of a working gas to drive pistons operating an electrical generator.
-
-When high pressure hot gas is supplied into the input pipe, this gas will heat the hot side of the unit, then pass into the output pipe. The cooler side uses the room's ambient atmosphere, which must be kept at a lower temperature and pressure in order to create a differential. Add a working gas by inserting a <link=SlotGasCanister><color=orange>Gas Canister</color></link>. The unit must be deactivated when adding or removing canisters, or the working gas may leak into the surrounding atmosphere.
-
-Gases with a low molecular mass make the most efficient working gases. Increasing the moles of working gas can result in a greater potential power output. However, overpressuring the unit may have ... sub-optimal results."#,
-            value = "-260316435"
-        )
-    )]
-    StructureStirlingEngine = -260316435i32,
-    #[strum(
-        serialize = "StopWatch",
-        props(name = r#"Stop Watch"#, desc = r#""#, value = "-1527229051")
-    )]
-    StopWatch = -1527229051i32,
-    #[strum(
-        serialize = "StructureSuitStorage",
-        props(
-            name = r#"Suit Storage"#,
-            desc = r#"As tidy as it is useful, the suit storage rack holds an <link=ThingItemEvaSuit><color=green>Eva Suit</color></link>, <link=ThingItemSpaceHelmet><color=green>Space Helmet</color></link> and a <link=ThingItemJetpackBasic><color=green>Jetpack Basic</color></link>.
-When powered and connected to <link=ThingOxygen><color=green><N:EN:Oxygen></color></link> and <link=ThingPropellant><color=green><N:EN:Propellant></color></link>, it will recharge the suit's batteries, refill the <link=ThingItemGasCanisterOxygen><color=green>Canister (Oxygen)</color></link> and your <link=ThingItemGasFilterNitrogen><color=green>Filter (Nitrogen)</color></link> <link=SlotGasCanister><color=orange>Gas Canister</color></link>. The wastetank will be pumped out to the pipe connected to the waste outlet.
-All the rack's pipes must be connected or the unit will show an error state, but it will still charge the battery."#,
-            value = "255034731"
-        )
-    )]
-    StructureSuitStorage = 255034731i32,
-    #[strum(
-        serialize = "StructureLogicSwitch2",
-        props(name = r#"Switch"#, desc = r#""#, value = "321604921")
-    )]
-    StructureLogicSwitch2 = 321604921i32,
-    #[strum(
-        serialize = "ItemPlantSwitchGrass",
-        props(name = r#"Switch Grass"#, desc = r#""#, value = "-532672323")
-    )]
-    ItemPlantSwitchGrass = -532672323i32,
-    #[strum(
-        serialize = "SeedBag_Switchgrass",
-        props(name = r#"Switchgrass Seed"#, desc = r#""#, value = "488360169")
-    )]
-    SeedBagSwitchgrass = 488360169i32,
-    #[strum(
-        serialize = "ApplianceTabletDock",
-        props(name = r#"Tablet Dock"#, desc = r#""#, value = "1853941363")
-    )]
-    ApplianceTabletDock = 1853941363i32,
-    #[strum(
-        serialize = "StructureTankBigInsulated",
-        props(name = r#"Tank Big (Insulated)"#, desc = r#""#, value = "1280378227")
-    )]
-    StructureTankBigInsulated = 1280378227i32,
-    #[strum(
-        serialize = "StructureTankConnector",
-        props(
-            name = r#"Tank Connector"#,
-            desc = r#"Tank connectors are basic mounting devices that allow you to attach a <link=ThingDynamicGasCanisterEmpty><color=green>Portable Gas Tank</color></link> to a gas pipe network."#,
-            value = "-1276379454"
-        )
-    )]
-    StructureTankConnector = -1276379454i32,
-    #[strum(
-        serialize = "StructureTankSmallInsulated",
-        props(name = r#"Tank Small (Insulated)"#, desc = r#""#, value = "272136332")
-    )]
-    StructureTankSmallInsulated = 272136332i32,
-    #[strum(
-        serialize = "StructureGroundBasedTelescope",
-        props(
-            name = r#"Telescope"#,
-            desc = r#"A telescope that can be oriented to observe Celestial Bodies. When within full alignment will show orbital information for that celestial object. Atmospheric conditions may disrupt the ability to observe some objects at some times of day. To collect Horizontal and Vertical values you can use a <link=ThingStructureRocketCelestialTracker><color=green>Rocket Celestial Tracker</color></link> while it is in orbit, or a <link=ThingStructureDaylightSensor><color=green>Daylight Sensor</color></link> for primary body data."#,
-            value = "-619745681"
-        )
-    )]
-    StructureGroundBasedTelescope = -619745681i32,
-    #[strum(
-        serialize = "ItemTerrainManipulator",
-        props(
-            name = r#"Terrain Manipulator"#,
-            desc = r#"0.Mode0
-1.Mode1"#,
-            value = "111280987"
-        )
-    )]
-    ItemTerrainManipulator = 111280987i32,
-    #[strum(
-        serialize = "ItemPlantThermogenic_Creative",
-        props(
-            name = r#"Thermogenic Plant Creative"#,
-            desc = r#""#,
-            value = "-1208890208"
-        )
-    )]
-    ItemPlantThermogenicCreative = -1208890208i32,
-    #[strum(
-        serialize = "ItemTomato",
-        props(
-            name = r#"Tomato"#,
-            desc = r#"Tomato plants are perennial, and will produce multiple harvests without needing to be replanted. Once the plant is mature, it will fruit at a moderate pace."#,
-            value = "-998592080"
-        )
-    )]
-    ItemTomato = -998592080i32,
-    #[strum(
-        serialize = "SeedBag_Tomato",
-        props(
-            name = r#"Tomato Seeds"#,
-            desc = r#"Grow a <link=ThingItemTomato><color=green>Tomato</color></link>."#,
-            value = "-1922066841"
-        )
-    )]
-    SeedBagTomato = -1922066841i32,
-    #[strum(
-        serialize = "ItemTomatoSoup",
-        props(
-            name = r#"Tomato Soup"#,
-            desc = r#"Made using <link=ThingItemCookedTomato><color=green>Cooked Tomato</color></link>s and an <link=ThingItemEmptyCan><color=green>Empty Can</color></link> in a <link=ThingAppliancePackagingMachine><color=green>Basic Packaging Machine</color></link> or <link=ThingStructureAdvancedPackagingMachine><color=green>Advanced Packaging Machine</color></link>."#,
-            value = "688734890"
-        )
-    )]
-    ItemTomatoSoup = 688734890i32,
-    #[strum(
-        serialize = "ItemToolBelt",
-        props(
-            name = r#"Tool Belt"#,
-            desc = r#"If there's one piece of equipment that embodies <link=Stationeers><color=#0080FFFF>Stationeer</color></link> life above all else, it's the humble toolbelt (Editor's note: a recent <link=ODA><color=#0080FFFF>ODA</color></link> survey of iconic Stationeer equipment also rated the smoking, toxic ruins of an over-pressurized <link=ThingStructureFurnace><color=green>Furnace</color></link> lying amid the charred remains of your latest base very highly).
-Designed to meet the most strict-ish ODA safety standards, the toolbelt's eight slots hold one thing: tools, and <link=ThingItemCableCoil><color=green>Cable Coil</color></link>. Not to be confused with the <link=ThingItemMiningBelt><color=green>Mining Belt</color></link>."#,
-            value = "-355127880"
-        )
-    )]
-    ItemToolBelt = -355127880i32,
-    #[strum(
-        serialize = "ItemMkIIToolbelt",
-        props(
-            name = r#"Tool Belt MK II"#,
-            desc = r#"A large, ten-slot tool belt with two extra generic slots for carrying whatever takes your fancy."#,
-            value = "1467558064"
-        )
-    )]
-    ItemMkIiToolbelt = 1467558064i32,
-    #[strum(
-        serialize = "StructureToolManufactory",
-        props(
-            name = r#"Tool Manufactory"#,
-            desc = r#"No mission can be completed without the proper tools. The <link=Norsec><color=#0080FFFF>Norsec</color></link> ThuulDek manufactory can fabricate almost any tool or hand-held device a <link=Stationeer><color=#0080FFFF>Stationeer</color></link> may need to complete their mission, as well as a variety of delightful paints.
-Upgrade the device using a <link=ThingToolPrinterMod><color=green>Tool Printer Mod</color></link> for additional recipes and faster processing speeds."#,
-            value = "-465741100"
-        )
-    )]
-    StructureToolManufactory = -465741100i32,
-    #[strum(
-        serialize = "ToolPrinterMod",
-        props(
-            name = r#"Tool Printer Mod"#,
-            desc = r#"Apply to an <link=ThingStructureToolManufactory><color=green>Tool Manufactory</color></link> with a <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link> or <link=ThingItemArcWelder><color=green>Arc Welder</color></link> to upgrade for increased processing speed and more recipe options."#,
-            value = "1700018136"
-        )
-    )]
-    ToolPrinterMod = 1700018136i32,
-    #[strum(
-        serialize = "WeaponTorpedo",
-        props(name = r#"Torpedo"#, desc = r#""#, value = "-1102977898")
-    )]
-    WeaponTorpedo = -1102977898i32,
-    #[strum(
-        serialize = "StructureTorpedoRack",
-        props(name = r#"Torpedo Rack"#, desc = r#""#, value = "1473807953")
-    )]
-    StructureTorpedoRack = 1473807953i32,
-    #[strum(
-        serialize = "ToyLuna",
-        props(name = r#"Toy Luna"#, desc = r#""#, value = "94730034")
-    )]
-    ToyLuna = 94730034i32,
-    #[strum(
-        serialize = "CartridgeTracker",
-        props(name = r#"Tracker"#, desc = r#""#, value = "81488783")
-    )]
-    CartridgeTracker = 81488783i32,
-    #[strum(
-        serialize = "ItemBeacon",
-        props(name = r#"Tracking Beacon"#, desc = r#""#, value = "-869869491")
-    )]
-    ItemBeacon = -869869491i32,
-    #[strum(
-        serialize = "StructureTraderWaypoint",
-        props(name = r#"Trader Waypoint"#, desc = r#""#, value = "1570931620")
-    )]
-    StructureTraderWaypoint = 1570931620i32,
-    #[strum(
-        serialize = "StructureTransformer",
-        props(
-            name = r#"Transformer (Large)"#,
-            desc = r#"The large <link=Norsec><color=#0080FFFF>Norsec</color></link> transformer is a critical component of extended <link=ElectronicPage><color=#0080FFFF>electrical</color></link> networks, controlling the maximum power that will flow down a cable. To prevent overloading, output can be set from 0 to 50,000W.
-Note that transformers operate as data isolators, preventing data flowing into any network beyond it."#,
-            value = "-1423212473"
-        )
-    )]
-    StructureTransformer = -1423212473i32,
-    #[strum(
-        serialize = "StructureTransformerMedium",
-        props(
-            name = r#"Transformer (Medium)"#,
-            desc = r#"Transformers control the maximum power that will flow down a sub-network of cables, to prevent overloading <link=ElectronicPage><color=#0080FFFF>electrical</color></link> systems.
-Medium transformers are used in larger setups where more than 5000W is required, with output that can be set to a maximum of 25000W.
-Note that transformers also operate as data isolators, preventing data flowing into any network beyond it."#,
-            value = "-1065725831"
-        )
-    )]
-    StructureTransformerMedium = -1065725831i32,
-    #[strum(
-        serialize = "StructureTransformerSmall",
-        props(
-            name = r#"Transformer (Small)"#,
-            desc = r#"Transformers control the maximum power that will flow down a cable subnetwork, to prevent overloading <link=ElectronicPage><color=#0080FFFF>electrical</color></link> systems. Output on small transformers can be set from 0 to 5000W.
-Note that transformers operate as data isolators, preventing data flowing into any network beyond it."#,
-            value = "-890946730"
-        )
-    )]
-    StructureTransformerSmall = -890946730i32,
-    #[strum(
-        serialize = "StructureTransformerMediumReversed",
-        props(
-            name = r#"Transformer Reversed (Medium)"#,
-            desc = r#"Transformers control the maximum power that will flow down a sub-network of cables, to prevent overloading <link=ElectronicPage><color=#0080FFFF>electrical</color></link> systems.
-Medium transformers are used in larger setups where more than 5000W is required, with output that can be set to a maximum of 25000W.
-Note that transformers also operate as data isolators, preventing data flowing into any network beyond it."#,
-            value = "833912764"
-        )
-    )]
-    StructureTransformerMediumReversed = 833912764i32,
-    #[strum(
-        serialize = "StructureTransformerSmallReversed",
-        props(
-            name = r#"Transformer Reversed (Small)"#,
-            desc = r#"Transformers control the maximum power that will flow down a cable subnetwork, to prevent overloading <link=ElectronicPage><color=#0080FFFF>electrical</color></link> systems. Output on small transformers can be set from 0 to 5000W.
-Note that transformers operate as data isolators, preventing data flowing into any network beyond it."#,
-            value = "1054059374"
-        )
-    )]
-    StructureTransformerSmallReversed = 1054059374i32,
-    #[strum(
-        serialize = "StructureRocketTransformerSmall",
-        props(
-            name = r#"Transformer Small (Rocket)"#,
-            desc = r#""#,
-            value = "518925193"
-        )
-    )]
-    StructureRocketTransformerSmall = 518925193i32,
-    #[strum(
-        serialize = "StructurePressurePlateLarge",
-        props(name = r#"Trigger Plate (Large)"#, desc = r#""#, value = "-2008706143")
-    )]
-    StructurePressurePlateLarge = -2008706143i32,
-    #[strum(
-        serialize = "StructurePressurePlateMedium",
-        props(name = r#"Trigger Plate (Medium)"#, desc = r#""#, value = "1269458680")
-    )]
-    StructurePressurePlateMedium = 1269458680i32,
-    #[strum(
-        serialize = "StructurePressurePlateSmall",
-        props(name = r#"Trigger Plate (Small)"#, desc = r#""#, value = "-1536471028")
-    )]
-    StructurePressurePlateSmall = -1536471028i32,
-    #[strum(
-        serialize = "ItemTropicalPlant",
-        props(
-            name = r#"Tropical Lily"#,
-            desc = r#"An anthurium, evolved in the jungles of South America, which will tolerate higher temperatures than most plants."#,
-            value = "-800947386"
-        )
-    )]
-    ItemTropicalPlant = -800947386i32,
-    #[strum(
-        serialize = "StructureTurbineGenerator",
-        props(name = r#"Turbine Generator"#, desc = r#""#, value = "1282191063")
-    )]
-    StructureTurbineGenerator = 1282191063i32,
-    #[strum(
-        serialize = "StructureTurboVolumePump",
-        props(
-            name = r#"Turbo Volume Pump (Gas)"#,
-            desc = r#"Shifts 10 times more gas than a basic <link=ThingStructureVolumePump><color=green>Volume Pump</color></link>, with a mode that can be set to flow in either direction."#,
-            value = "1310794736"
-        )
-    )]
-    StructureTurboVolumePump = 1310794736i32,
-    #[strum(
-        serialize = "StructureLiquidTurboVolumePump",
-        props(
-            name = r#"Turbo Volume Pump (Liquid)"#,
-            desc = r#"Shifts 10 times more liquid than a basic <link=ThingStructureVolumePump><color=green>Volume Pump</color></link>, with a mode that can be set to flow in either direction."#,
-            value = "-1051805505"
-        )
-    )]
-    StructureLiquidTurboVolumePump = -1051805505i32,
-    #[strum(
-        serialize = "StructureChuteUmbilicalMale",
-        props(
-            name = r#"Umbilical (Chute)"#,
-            desc = r#"0.Left
-1.Center
-2.Right"#,
-            value = "-958884053"
-        )
-    )]
-    StructureChuteUmbilicalMale = -958884053i32,
-    #[strum(
-        serialize = "StructureGasUmbilicalMale",
-        props(
-            name = r#"Umbilical (Gas)"#,
-            desc = r#"0.Left
-1.Center
-2.Right"#,
-            value = "-1814939203"
-        )
-    )]
-    StructureGasUmbilicalMale = -1814939203i32,
-    #[strum(
-        serialize = "StructureLiquidUmbilicalMale",
-        props(
-            name = r#"Umbilical (Liquid)"#,
-            desc = r#"0.Left
-1.Center
-2.Right"#,
-            value = "-1798420047"
-        )
-    )]
-    StructureLiquidUmbilicalMale = -1798420047i32,
-    #[strum(
-        serialize = "StructurePowerUmbilicalMale",
-        props(
-            name = r#"Umbilical (Power)"#,
-            desc = r#"0.Left
-1.Center
-2.Right"#,
-            value = "1529453938"
-        )
-    )]
-    StructurePowerUmbilicalMale = 1529453938i32,
-    #[strum(
-        serialize = "StructureChuteUmbilicalFemale",
-        props(
-            name = r#"Umbilical Socket (Chute)"#,
-            desc = r#""#,
-            value = "-1918892177"
-        )
-    )]
-    StructureChuteUmbilicalFemale = -1918892177i32,
-    #[strum(
-        serialize = "StructureGasUmbilicalFemale",
-        props(
-            name = r#"Umbilical Socket (Gas)"#,
-            desc = r#""#,
-            value = "-1680477930"
-        )
-    )]
-    StructureGasUmbilicalFemale = -1680477930i32,
-    #[strum(
-        serialize = "StructureLiquidUmbilicalFemale",
-        props(
-            name = r#"Umbilical Socket (Liquid)"#,
-            desc = r#""#,
-            value = "1734723642"
-        )
-    )]
-    StructureLiquidUmbilicalFemale = 1734723642i32,
-    #[strum(
-        serialize = "StructurePowerUmbilicalFemale",
-        props(
-            name = r#"Umbilical Socket (Power)"#,
-            desc = r#""#,
-            value = "101488029"
-        )
-    )]
-    StructurePowerUmbilicalFemale = 101488029i32,
-    #[strum(
-        serialize = "StructureChuteUmbilicalFemaleSide",
-        props(
-            name = r#"Umbilical Socket Angle (Chute)"#,
-            desc = r#""#,
-            value = "-659093969"
-        )
-    )]
-    StructureChuteUmbilicalFemaleSide = -659093969i32,
-    #[strum(
-        serialize = "StructureGasUmbilicalFemaleSide",
-        props(
-            name = r#"Umbilical Socket Angle (Gas)"#,
-            desc = r#""#,
-            value = "-648683847"
-        )
-    )]
-    StructureGasUmbilicalFemaleSide = -648683847i32,
-    #[strum(
-        serialize = "StructureLiquidUmbilicalFemaleSide",
-        props(
-            name = r#"Umbilical Socket Angle (Liquid)"#,
-            desc = r#""#,
-            value = "1220870319"
-        )
-    )]
-    StructureLiquidUmbilicalFemaleSide = 1220870319i32,
-    #[strum(
-        serialize = "StructurePowerUmbilicalFemaleSide",
-        props(
-            name = r#"Umbilical Socket Angle (Power)"#,
-            desc = r#""#,
-            value = "1922506192"
-        )
-    )]
-    StructurePowerUmbilicalFemaleSide = 1922506192i32,
-    #[strum(
-        serialize = "UniformCommander",
-        props(name = r#"Uniform Commander"#, desc = r#""#, value = "-2083426457")
-    )]
-    UniformCommander = -2083426457i32,
-    #[strum(
-        serialize = "StructureUnloader",
-        props(
-            name = r#"Unloader"#,
-            desc = r#"The <link=Xigo><color=#0080FFFF>Xigo</color></link> Re:Gurge is a handy unit for unloading any items inserted into it, and feeding them into a chute network. For instance, if you add a full <link=ThingItemMiningBelt><color=green>Mining Belt</color></link>, the Re:Gurge will empty a mining belt of its contents, insert them into the chute network, then insert the mining belt itself. A <link=ThingStructureSorter><color=green>Sorter</color></link> is recommended to reclaim the mining belt.
-
-Output = 0 exporting the main item
-Output = 1 exporting items inside and eventually the main item."#,
-            value = "750118160"
-        )
-    )]
-    StructureUnloader = 750118160i32,
-    #[strum(
-        serialize = "StructureUprightWindTurbine",
-        props(
-            name = r#"Upright Wind Turbine"#,
-            desc = r#"Norsec's basic wind turbine is an easily fabricated, rapidly deployed design that is strong enough to withstand the worst that environments can throw at it.
-While the wind turbine is optimized to produce power even on low atmosphere worlds (up to 200W), it performs best in denser environments. Output varies with wind speed, and during storms, may increase dramatically (up to 800W), so be careful to design your power networks with that in mind."#,
-            value = "1622183451"
-        )
-    )]
-    StructureUprightWindTurbine = 1622183451i32,
-    #[strum(
-        serialize = "StructureValve",
-        props(name = r#"Valve"#, desc = r#""#, value = "-692036078")
-    )]
-    StructureValve = -692036078i32,
-    #[strum(
-        serialize = "StructureVendingMachine",
-        props(
-            name = r#"Vending Machine"#,
-            desc = r#"The <link=Xigo><color=#0080FFFF>Xigo-designed</color></link> 'Slot Mate' vending machine allows storage of almost any item, while also operating as a distribution point for working with <link=TradingPage><color=#0080FFFF>Traders</color></link>. You cannot trade without a vending machine, or its more advanced equivalent, the <link=ThingStructureRefrigeratedVendingMachine><color=green>Refrigerated Vending Machine</color></link>. Each vending machine can hold up to 100 stacks."#,
-            value = "-443130773"
-        )
-    )]
-    StructureVendingMachine = -443130773i32,
-    #[strum(
-        serialize = "StructureVolumePump",
-        props(
-            name = r#"Volume Pump"#,
-            desc = r#"The volume pump pumps pumpable gases. It also separates out pipe networks into separate networks."#,
-            value = "-321403609"
-        )
-    )]
-    StructureVolumePump = -321403609i32,
-    #[strum(
-        serialize = "StructureWallArchArrow",
-        props(name = r#"Wall (Arch Arrow)"#, desc = r#""#, value = "1649708822")
-    )]
-    StructureWallArchArrow = 1649708822i32,
-    #[strum(
-        serialize = "StructureWallArchCornerRound",
-        props(
-            name = r#"Wall (Arch Corner Round)"#,
-            desc = r#""#,
-            value = "1794588890"
-        )
-    )]
-    StructureWallArchCornerRound = 1794588890i32,
-    #[strum(
-        serialize = "StructureWallArchCornerSquare",
-        props(
-            name = r#"Wall (Arch Corner Square)"#,
-            desc = r#""#,
-            value = "-1963016580"
-        )
-    )]
-    StructureWallArchCornerSquare = -1963016580i32,
-    #[strum(
-        serialize = "StructureWallArchCornerTriangle",
-        props(
-            name = r#"Wall (Arch Corner Triangle)"#,
-            desc = r#""#,
-            value = "1281911841"
-        )
-    )]
-    StructureWallArchCornerTriangle = 1281911841i32,
-    #[strum(
-        serialize = "StructureWallArchPlating",
-        props(name = r#"Wall (Arch Plating)"#, desc = r#""#, value = "1182510648")
-    )]
-    StructureWallArchPlating = 1182510648i32,
-    #[strum(
-        serialize = "StructureWallArchTwoTone",
-        props(name = r#"Wall (Arch Two Tone)"#, desc = r#""#, value = "782529714")
-    )]
-    StructureWallArchTwoTone = 782529714i32,
-    #[strum(
-        serialize = "StructureWallArch",
-        props(name = r#"Wall (Arch)"#, desc = r#""#, value = "-858143148")
-    )]
-    StructureWallArch = -858143148i32,
-    #[strum(
-        serialize = "StructureWallFlatCornerRound",
-        props(
-            name = r#"Wall (Flat Corner Round)"#,
-            desc = r#""#,
-            value = "898708250"
-        )
-    )]
-    StructureWallFlatCornerRound = 898708250i32,
-    #[strum(
-        serialize = "StructureWallFlatCornerSquare",
-        props(
-            name = r#"Wall (Flat Corner Square)"#,
-            desc = r#""#,
-            value = "298130111"
-        )
-    )]
-    StructureWallFlatCornerSquare = 298130111i32,
-    #[strum(
-        serialize = "StructureWallFlatCornerTriangleFlat",
-        props(
-            name = r#"Wall (Flat Corner Triangle Flat)"#,
-            desc = r#""#,
-            value = "-1161662836"
-        )
-    )]
-    StructureWallFlatCornerTriangleFlat = -1161662836i32,
-    #[strum(
-        serialize = "StructureWallFlatCornerTriangle",
-        props(
-            name = r#"Wall (Flat Corner Triangle)"#,
-            desc = r#""#,
-            value = "2097419366"
-        )
-    )]
-    StructureWallFlatCornerTriangle = 2097419366i32,
-    #[strum(
-        serialize = "StructureWallFlat",
-        props(name = r#"Wall (Flat)"#, desc = r#""#, value = "1635864154")
-    )]
-    StructureWallFlat = 1635864154i32,
-    #[strum(
-        serialize = "StructureWallGeometryCorner",
-        props(name = r#"Wall (Geometry Corner)"#, desc = r#""#, value = "1979212240")
-    )]
-    StructureWallGeometryCorner = 1979212240i32,
-    #[strum(
-        serialize = "StructureWallGeometryStreight",
-        props(
-            name = r#"Wall (Geometry Straight)"#,
-            desc = r#""#,
-            value = "1049735537"
-        )
-    )]
-    StructureWallGeometryStreight = 1049735537i32,
-    #[strum(
-        serialize = "StructureWallGeometryTMirrored",
-        props(
-            name = r#"Wall (Geometry T Mirrored)"#,
-            desc = r#""#,
-            value = "-1427845483"
-        )
-    )]
-    StructureWallGeometryTMirrored = -1427845483i32,
-    #[strum(
-        serialize = "StructureWallGeometryT",
-        props(name = r#"Wall (Geometry T)"#, desc = r#""#, value = "1602758612")
-    )]
-    StructureWallGeometryT = 1602758612i32,
-    #[strum(
-        serialize = "StructureWallLargePanelArrow",
-        props(
-            name = r#"Wall (Large Panel Arrow)"#,
-            desc = r#""#,
-            value = "-776581573"
-        )
-    )]
-    StructureWallLargePanelArrow = -776581573i32,
-    #[strum(
-        serialize = "StructureWallLargePanel",
-        props(name = r#"Wall (Large Panel)"#, desc = r#""#, value = "1492930217")
-    )]
-    StructureWallLargePanel = 1492930217i32,
-    #[strum(
-        serialize = "StructureWallPaddedArchCorner",
-        props(
-            name = r#"Wall (Padded Arch Corner)"#,
-            desc = r#""#,
-            value = "-1126688298"
-        )
-    )]
-    StructureWallPaddedArchCorner = -1126688298i32,
-    #[strum(
-        serialize = "StructureWallPaddedArchLightFittingTop",
-        props(
-            name = r#"Wall (Padded Arch Light Fitting Top)"#,
-            desc = r#""#,
-            value = "1171987947"
-        )
-    )]
-    StructureWallPaddedArchLightFittingTop = 1171987947i32,
-    #[strum(
-        serialize = "StructureWallPaddedArchLightsFittings",
-        props(
-            name = r#"Wall (Padded Arch Lights Fittings)"#,
-            desc = r#""#,
-            value = "-1546743960"
-        )
-    )]
-    StructureWallPaddedArchLightsFittings = -1546743960i32,
-    #[strum(
-        serialize = "StructureWallPaddedArch",
-        props(name = r#"Wall (Padded Arch)"#, desc = r#""#, value = "1590330637")
-    )]
-    StructureWallPaddedArch = 1590330637i32,
-    #[strum(
-        serialize = "StructureWallPaddedCornerThin",
-        props(
-            name = r#"Wall (Padded Corner Thin)"#,
-            desc = r#""#,
-            value = "1183203913"
-        )
-    )]
-    StructureWallPaddedCornerThin = 1183203913i32,
-    #[strum(
-        serialize = "StructureWallPaddedCorner",
-        props(name = r#"Wall (Padded Corner)"#, desc = r#""#, value = "-155945899")
-    )]
-    StructureWallPaddedCorner = -155945899i32,
-    #[strum(
-        serialize = "StructureWallPaddedNoBorderCorner",
-        props(
-            name = r#"Wall (Padded No Border Corner)"#,
-            desc = r#""#,
-            value = "179694804"
-        )
-    )]
-    StructureWallPaddedNoBorderCorner = 179694804i32,
-    #[strum(
-        serialize = "StructureWallPaddedNoBorder",
-        props(name = r#"Wall (Padded No Border)"#, desc = r#""#, value = "8846501")
-    )]
-    StructureWallPaddedNoBorder = 8846501i32,
-    #[strum(
-        serialize = "StructureWallPaddedThinNoBorderCorner",
-        props(
-            name = r#"Wall (Padded Thin No Border Corner)"#,
-            desc = r#""#,
-            value = "1769527556"
-        )
-    )]
-    StructureWallPaddedThinNoBorderCorner = 1769527556i32,
-    #[strum(
-        serialize = "StructureWallPaddedThinNoBorder",
-        props(
-            name = r#"Wall (Padded Thin No Border)"#,
-            desc = r#""#,
-            value = "-1611559100"
-        )
-    )]
-    StructureWallPaddedThinNoBorder = -1611559100i32,
-    #[strum(
-        serialize = "StructureWallPaddedWindowThin",
-        props(
-            name = r#"Wall (Padded Window Thin)"#,
-            desc = r#""#,
-            value = "-37302931"
-        )
-    )]
-    StructureWallPaddedWindowThin = -37302931i32,
-    #[strum(
-        serialize = "StructureWallPaddedWindow",
-        props(name = r#"Wall (Padded Window)"#, desc = r#""#, value = "2087628940")
-    )]
-    StructureWallPaddedWindow = 2087628940i32,
-    #[strum(
-        serialize = "StructureWallPaddingArchVent",
-        props(
-            name = r#"Wall (Padding Arch Vent)"#,
-            desc = r#""#,
-            value = "-1243329828"
-        )
-    )]
-    StructureWallPaddingArchVent = -1243329828i32,
-    #[strum(
-        serialize = "StructureWallPaddingLightFitting",
-        props(
-            name = r#"Wall (Padding Light Fitting)"#,
-            desc = r#""#,
-            value = "2024882687"
-        )
-    )]
-    StructureWallPaddingLightFitting = 2024882687i32,
-    #[strum(
-        serialize = "StructureWallPaddingThin",
-        props(name = r#"Wall (Padding Thin)"#, desc = r#""#, value = "-1102403554")
-    )]
-    StructureWallPaddingThin = -1102403554i32,
-    #[strum(
-        serialize = "StructureWallPadding",
-        props(name = r#"Wall (Padding)"#, desc = r#""#, value = "635995024")
-    )]
-    StructureWallPadding = 635995024i32,
-    #[strum(
-        serialize = "StructureWallPlating",
-        props(name = r#"Wall (Plating)"#, desc = r#""#, value = "26167457")
-    )]
-    StructureWallPlating = 26167457i32,
-    #[strum(
-        serialize = "StructureWallSmallPanelsAndHatch",
-        props(
-            name = r#"Wall (Small Panels And Hatch)"#,
-            desc = r#""#,
-            value = "619828719"
-        )
-    )]
-    StructureWallSmallPanelsAndHatch = 619828719i32,
-    #[strum(
-        serialize = "StructureWallSmallPanelsArrow",
-        props(
-            name = r#"Wall (Small Panels Arrow)"#,
-            desc = r#""#,
-            value = "-639306697"
-        )
-    )]
-    StructureWallSmallPanelsArrow = -639306697i32,
-    #[strum(
-        serialize = "StructureWallSmallPanelsMonoChrome",
-        props(
-            name = r#"Wall (Small Panels Mono Chrome)"#,
-            desc = r#""#,
-            value = "386820253"
-        )
-    )]
-    StructureWallSmallPanelsMonoChrome = 386820253i32,
-    #[strum(
-        serialize = "StructureWallSmallPanelsOpen",
-        props(
-            name = r#"Wall (Small Panels Open)"#,
-            desc = r#""#,
-            value = "-1407480603"
-        )
-    )]
-    StructureWallSmallPanelsOpen = -1407480603i32,
-    #[strum(
-        serialize = "StructureWallSmallPanelsTwoTone",
-        props(
-            name = r#"Wall (Small Panels Two Tone)"#,
-            desc = r#""#,
-            value = "1709994581"
-        )
-    )]
-    StructureWallSmallPanelsTwoTone = 1709994581i32,
-    #[strum(
-        serialize = "StructureWallCooler",
-        props(
-            name = r#"Wall Cooler"#,
-            desc = r#"The <link=Xigo><color=#0080FFFF>Xigo</color></link> Freezy Boi wall cooler complements the wall heater, which can only raise the temperature. The wall cooler functions by drawing heat from the surrounding atmosphere and adding that heat into its pipe network.
-In order to run the wall cooler properly, you will need to connect pipes to the wall cooler and fill the connected pipe network with any type of gas. The gas's heat capacity and volume will determine how fast it reacts to temperature changes.
-
-<size=120%><b>EFFICIENCY</b></size>
-The higher the difference in temperature between the gas stored in the pipes and the room, the less efficient the wall cooler will be. So to keep the wall cooler running at an acceptable efficiency you will need to get rid of the heat that accumulates in the pipes connected to it. A common practice would be to run the pipes to the outside and use radiators on the outside section of the pipes to get rid of the heat.
-The less efficient the wall cooler, the less power it consumes. It will consume 1010W at max efficiency. The wall cooler can be controlled by logic chips to run when the temperature hits a certain degree.
-<size=120%><b>ERRORS</b></size>
-If the wall cooler is flashing an error then it is missing one of the following:
-
-- Pipe connection to the wall cooler.
-- Gas in the connected pipes, or pressure is too low.
-- Atmosphere in the surrounding environment or pressure is too low.
-
-For more information about how to control temperatures, consult the <link=TemperatureControlPage><color=#0080FFFF>temperature control</color></link> Guides page."#,
-            value = "-739292323"
-        )
-    )]
-    StructureWallCooler = -739292323i32,
-    #[strum(
-        serialize = "StructureWallHeater",
+        serialize = "H2Combustor",
         props(
-            name = r#"Wall Heater"#,
-            desc = r#"The <link=Xigo><color=#0080FFFF>Xigo</color></link> wall heater is a simple device that can be installed on a wall or frame and connected to power. When switched on, it will start heating the surrounding environment. It consumes 1010W of power and can be controlled by logic chips to run when the temperature hits a certain level."#,
-            value = "24258244"
+            name = r#"H2 Combustor"#,
+            desc = r#"Adapted slightly from its original <link=Recurso><color=#0080FFFF>Recurso</color></link> design, the <link=GasVolatiles><color=#44AD83>Volatiles</color></link> Combustor does exactly what its name suggests - it burns a mixture of volatiles and <link=GasOxygen><color=#44AD83>Oxygen</color></link> to create water. Extremely useful in hot or arid environments, users need to be aware that the combustor outputs considerable waste heat. The device is also less than perfectly efficient, resulting in the autoignition of volatiles in the chamber, and the production of waste gases which must be dealt with."#,
+            value = "1840108251"
         )
-    )]
-    StructureWallHeater = 24258244i32,
-    #[strum(
-        serialize = "StructureWallLight",
-        props(name = r#"Wall Light"#, desc = r#""#, value = "-1860064656")
     )]
-    StructureWallLight = -1860064656i32,
+    H2Combustor = 1840108251i32,
     #[strum(
-        serialize = "StructureWallLightBattery",
-        props(name = r#"Wall Light (Battery)"#, desc = r#""#, value = "-1306415132")
+        serialize = "Flag_ODA_10m",
+        props(name = r#"Flag (ODA 10m)"#, desc = r#""#, value = "1845441951")
     )]
-    StructureWallLightBattery = -1306415132i32,
+    FlagOda10M = 1845441951i32,
     #[strum(
         serialize = "StructureLightLongAngled",
         props(
@@ -9769,71 +9356,375 @@ For more information about how to control temperatures, consult the <link=Temper
     )]
     StructureLightLongAngled = 1847265835i32,
     #[strum(
-        serialize = "StructureLightLongWide",
-        props(name = r#"Wall Light (Long Wide)"#, desc = r#""#, value = "555215790")
-    )]
-    StructureLightLongWide = 555215790i32,
-    #[strum(
-        serialize = "StructureLightLong",
-        props(name = r#"Wall Light (Long)"#, desc = r#""#, value = "797794350")
-    )]
-    StructureLightLong = 797794350i32,
-    #[strum(
-        serialize = "StructureWallVent",
+        serialize = "StructurePipeLiquidCrossJunction",
         props(
-            name = r#"Wall Vent"#,
-            desc = r#"Used to mix atmospheres passively between two walls."#,
-            value = "-1177469307"
+            name = r#"Liquid Pipe (Cross Junction)"#,
+            desc = r#"You can upgrade this pipe to an <link=ThingStructurePipeInsulatedLiquidCrossJunction><color=green>Insulated Liquid Pipe (Cross Junction)</color></link> using an <link=ThingItemKitInsulatedLiquidPipe><color=green>Kit (Insulated Liquid Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
+            value = "1848735691"
         )
     )]
-    StructureWallVent = -1177469307i32,
+    StructurePipeLiquidCrossJunction = 1848735691i32,
     #[strum(
-        serialize = "ItemWaterBottle",
+        serialize = "ItemCookedPumpkin",
         props(
-            name = r#"Water Bottle"#,
-            desc = r#"Delicious and pure H20, refined from local sources as varied as Venusian ice and trans-Solar comets. Empty bottles can be refilled using the <link=ThingStructureWaterBottleFiller><color=green>Water Bottle Filler</color></link>."#,
-            value = "107741229"
+            name = r#"Cooked Pumpkin"#,
+            desc = r#"A high-nutrient cooked food, which can be canned."#,
+            value = "1849281546"
         )
     )]
-    ItemWaterBottle = 107741229i32,
+    ItemCookedPumpkin = 1849281546i32,
     #[strum(
-        serialize = "StructureWaterBottleFiller",
-        props(name = r#"Water Bottle Filler"#, desc = r#""#, value = "-1178961954")
+        serialize = "StructureLiquidValve",
+        props(name = r#"Liquid Valve"#, desc = r#""#, value = "1849974453")
     )]
-    StructureWaterBottleFiller = -1178961954i32,
+    StructureLiquidValve = 1849974453i32,
     #[strum(
-        serialize = "StructureWaterBottleFillerBottom",
+        serialize = "ApplianceTabletDock",
+        props(name = r#"Tablet Dock"#, desc = r#""#, value = "1853941363")
+    )]
+    ApplianceTabletDock = 1853941363i32,
+    #[strum(
+        serialize = "StructureCableJunction6HBurnt",
         props(
-            name = r#"Water Bottle Filler Bottom"#,
+            name = r#"Burnt Cable (6-Way Junction)"#,
             desc = r#""#,
-            value = "1433754995"
+            value = "1854404029"
         )
     )]
-    StructureWaterBottleFillerBottom = 1433754995i32,
+    StructureCableJunction6HBurnt = 1854404029i32,
     #[strum(
-        serialize = "StructureWaterPurifier",
+        serialize = "ItemMKIIWrench",
         props(
-            name = r#"Water Purifier"#,
-            desc = r#"Cleans <link=GasPollutedWater><color=#44AD83>Polluted Water</color></link> and outputs <link=GasWater><color=#44AD83>Water</color></link>. The purification process requires <link=ThingItemCharcoal><color=green>Charcoal</color></link> which can be added to the machine via the import bin. The procesing throughput can be improved by increasing the gas pressure of the input pipe relative to the gas pressure of the output pipe."#,
-            value = "887383294"
+            name = r#"Mk II Wrench"#,
+            desc = r#"One of humanity's enduring contributions to the cosmos, the wrench represents the essence of our species. A simple, effective and spiritually barren tool, use it to build and deconstruct a variety of <link=StructurePage><color=#0080FFFF>structures</color></link> The MK II is more resistant to temperature and pressure."#,
+            value = "1862001680"
         )
     )]
-    StructureWaterPurifier = 887383294i32,
+    ItemMkiiWrench = 1862001680i32,
     #[strum(
-        serialize = "StructureWaterBottleFillerPowered",
-        props(name = r#"Waterbottle Filler"#, desc = r#""#, value = "-756587791")
+        serialize = "ItemAdhesiveInsulation",
+        props(name = r#"Adhesive Insulation"#, desc = r#""#, value = "1871048978")
     )]
-    StructureWaterBottleFillerPowered = -756587791i32,
+    ItemAdhesiveInsulation = 1871048978i32,
+    #[strum(
+        serialize = "ItemGasFilterCarbonDioxideL",
+        props(
+            name = r#"Heavy Filter (Carbon Dioxide)"#,
+            desc = r#""#,
+            value = "1876847024"
+        )
+    )]
+    ItemGasFilterCarbonDioxideL = 1876847024i32,
+    #[strum(
+        serialize = "ItemWallHeater",
+        props(
+            name = r#"Kit (Wall Heater)"#,
+            desc = r#"This kit creates a <link=ThingItemWallHeater><color=green>Kit (Wall Heater)</color></link>."#,
+            value = "1880134612"
+        )
+    )]
+    ItemWallHeater = 1880134612i32,
+    #[strum(
+        serialize = "StructureNitrolyzer",
+        props(
+            name = r#"Nitrolyzer"#,
+            desc = r#"This device is used to create <link=GasNitrousOxide><color=#44AD83>Nitrous Oxide</color></link> from <link=GasOxygen><color=#44AD83>Oxygen</color></link>, <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>, and a large amount of energy. The process does not completely transform all the available gas at once, so the output is a mix of all three gasses, which may need further processing.  More NOS will be created, if the gas inside the machine is close to a 1/1 ratio of Oxygen to Nitrogen.  The second gas input line in optional, and not required if the gas is pre mixed."#,
+            value = "1898243702"
+        )
+    )]
+    StructureNitrolyzer = 1898243702i32,
+    #[strum(
+        serialize = "StructureLargeSatelliteDish",
+        props(
+            name = r#"Large Satellite Dish"#,
+            desc = r#"This large communications unit can be used to communicate with nearby trade vessels.
+
+        When connected to a <link=ThingStructureComputer><color=green>Computer</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic."#,
+            value = "1913391845"
+        )
+    )]
+    StructureLargeSatelliteDish = 1913391845i32,
+    #[strum(
+        serialize = "ItemGasFilterPollutants",
+        props(
+            name = r#"Filter (Pollutant)"#,
+            desc = r#"Filters are used to capture various gases, such as waste emissions from a <link=ThingStructureFurnace><color=green>Furnace</color></link> or <link=ThingStructureArcFurnace><color=green>Arc Furnace</color></link>. Adding <link=Sinotai><color=#0080FFFF>Sinotai</color></link>-designed <link=GasPollutant><color=#44AD83>Pollutant</color></link> filters to a <link=ThingItemDynamicScrubber><color=green>Kit (Portable Scrubber)</color></link> allows you to isolate this gas, then add it to a pipe network and employ its excellent coolant properties in a <link=ThingStructureWallCooler><color=green>Wall Cooler</color></link>. Try not to inhale."#,
+            value = "1915566057"
+        )
+    )]
+    ItemGasFilterPollutants = 1915566057i32,
+    #[strum(
+        serialize = "ItemSprayCanKhaki",
+        props(
+            name = r#"Spray Paint (Khaki)"#,
+            desc = r#"Not so much a single color, as a category of boredom, khaki is the pigmentation equivalent of a mild depressive episode."#,
+            value = "1918456047"
+        )
+    )]
+    ItemSprayCanKhaki = 1918456047i32,
+    #[strum(
+        serialize = "ItemKitPumpedLiquidEngine",
+        props(
+            name = r#"Kit (Pumped Liquid Engine)"#,
+            desc = r#""#,
+            value = "1921918951"
+        )
+    )]
+    ItemKitPumpedLiquidEngine = 1921918951i32,
+    #[strum(
+        serialize = "StructurePowerUmbilicalFemaleSide",
+        props(
+            name = r#"Umbilical Socket Angle (Power)"#,
+            desc = r#""#,
+            value = "1922506192"
+        )
+    )]
+    StructurePowerUmbilicalFemaleSide = 1922506192i32,
+    #[strum(
+        serialize = "ItemSoybean",
+        props(
+            name = r#"Soybean"#,
+            desc = r#" Soybeans grow at a moderate rate, but require atmospheric <link=GasNitrogen><color=#44AD83>Nitrogen</color></link> to grow.  Its main use is to create <link=ThingItemSoyOil><color=green>Soy Oil</color></link>"#,
+            value = "1924673028"
+        )
+    )]
+    ItemSoybean = 1924673028i32,
+    #[strum(
+        serialize = "StructureInsulatedPipeLiquidCrossJunction",
+        props(
+            name = r#"Insulated Liquid Pipe (3-Way Junction)"#,
+            desc = r#"Liquid piping with very low temperature loss or gain."#,
+            value = "1926651727"
+        )
+    )]
+    StructureInsulatedPipeLiquidCrossJunction = 1926651727i32,
+    #[strum(
+        serialize = "ItemWreckageTurbineGenerator3",
+        props(
+            name = r#"Wreckage Turbine Generator"#,
+            desc = r#""#,
+            value = "1927790321"
+        )
+    )]
+    ItemWreckageTurbineGenerator3 = 1927790321i32,
+    #[strum(
+        serialize = "StructurePassthroughHeatExchangerGasToLiquid",
+        props(
+            name = r#"CounterFlow Heat Exchanger - Gas + Liquid"#,
+            desc = r#"Exchange heat from one pipe network to another. By drawing down the pressure of the outputs with a pump or regulator and regulating input pressures, the temperatures of two counterflowing networks can be effectively exchanged.
+        Balancing the throughput of both inputs is key to creating a good exhange of temperatures."#,
+            value = "1928991265"
+        )
+    )]
+    StructurePassthroughHeatExchangerGasToLiquid = 1928991265i32,
+    #[strum(
+        serialize = "ItemPotato",
+        props(
+            name = r#"Potato"#,
+            desc = r#" Potatoes are a simple, fast growing crop that can keep Stationeers alive in emergencies."#,
+            value = "1929046963"
+        )
+    )]
+    ItemPotato = 1929046963i32,
+    #[strum(
+        serialize = "StructureCableCornerHBurnt",
+        props(name = r#"Burnt Cable (Corner)"#, desc = r#""#, value = "1931412811")
+    )]
+    StructureCableCornerHBurnt = 1931412811i32,
+    #[strum(
+        serialize = "KitSDBSilo",
+        props(
+            name = r#"Kit (SDB Silo)"#,
+            desc = r#"This kit creates a <link=ThingStructureSDBSilo><color=green>SDB Silo</color></link>."#,
+            value = "1932952652"
+        )
+    )]
+    KitSdbSilo = 1932952652i32,
+    #[strum(
+        serialize = "ItemKitPipeUtility",
+        props(name = r#"Kit (Pipe Utility Gas)"#, desc = r#""#, value = "1934508338")
+    )]
+    ItemKitPipeUtility = 1934508338i32,
+    #[strum(
+        serialize = "ItemKitInteriorDoors",
+        props(name = r#"Kit (Interior Doors)"#, desc = r#""#, value = "1935945891")
+    )]
+    ItemKitInteriorDoors = 1935945891i32,
+    #[strum(
+        serialize = "StructureCryoTube",
+        props(
+            name = r#"CryoTube"#,
+            desc = r#"The exact operation of the Longsleep cryotube remains a commercial secret, with <link=Norsec><color=#0080FFFF>Norsec</color></link> merely licensing the design. Able to regenerate organ damage when supplied with power and an atmosphere, the Longsleep is a minor miracle of modern medical technology."#,
+            value = "1938254586"
+        )
+    )]
+    StructureCryoTube = 1938254586i32,
+    #[strum(
+        serialize = "StructureReinforcedWallPaddedWindow",
+        props(
+            name = r#"Reinforced Window (Padded)"#,
+            desc = r#"Enjoy vistas of even the most savage, alien landscapes with these heavy duty window frames, which are resistant to pressure differentials up to 1MPa."#,
+            value = "1939061729"
+        )
+    )]
+    StructureReinforcedWallPaddedWindow = 1939061729i32,
+    #[strum(
+        serialize = "DynamicCrate",
+        props(
+            name = r#"Dynamic Crate"#,
+            desc = r#"The humble dynamic crate has become a symbol of <link=Stationeers><color=#0080FFFF>Stationeer</color></link> invention and independence. With twelve slots and handles at either end for ease of carriage, it's both standard issue and critical kit for cadets and Commanders alike."#,
+            value = "1941079206"
+        )
+    )]
+    DynamicCrate = 1941079206i32,
+    #[strum(
+        serialize = "StructureLogicGate",
+        props(
+            name = r#"Logic Gate"#,
+            desc = r#"A <link=LogicPage><color=#0080FFFF>logic</color></link> device that performs a logical operation on one or more binary inputs that produces a single binary output. An input greater than zero is considered true for operations."#,
+            value = "1942143074"
+        )
+    )]
+    StructureLogicGate = 1942143074i32,
+    #[strum(
+        serialize = "StructureDiode",
+        props(name = r#"LED"#, desc = r#""#, value = "1944485013")
+    )]
+    StructureDiode = 1944485013i32,
+    #[strum(
+        serialize = "StructureChairBacklessDouble",
+        props(
+            name = r#"Chair (Backless Double)"#,
+            desc = r#""#,
+            value = "1944858936"
+        )
+    )]
+    StructureChairBacklessDouble = 1944858936i32,
+    #[strum(
+        serialize = "StructureBatteryCharger",
+        props(
+            name = r#"Battery Cell Charger"#,
+            desc = r#"The 5-slot <link=Xigo><color=#0080FFFF>Xigo</color></link> battery charger fits the <link=ThingItemBatteryCell><color=green>Battery Cell (Small)</color></link>, <link=ThingItemBatteryCellLarge><color=green>Battery Cell (Large)</color></link> and <link=ThingItemBatteryCellNuclear><color=green>Battery Cell (Nuclear)</color></link>, providing up to 500W to any connected cell. Note: the older design means this device has minor power draw (10W) even when not charging."#,
+            value = "1945930022"
+        )
+    )]
+    StructureBatteryCharger = 1945930022i32,
+    #[strum(
+        serialize = "StructureFurnace",
+        props(
+            name = r#"Furnace"#,
+            desc = r#"The Zhurong furnace employs a high-temperature gas mixture of <link=GasOxygen><color=#44AD83>Oxygen</color></link> and <link=GasVolatiles><color=#44AD83>Volatiles</color></link> to smelt <link=IngotPage><color=#0080FFFF>ingots</color></link> and a range of <link=IngotPage><color=#0080FFFF>alloys</color></link> as raw materials for <link=FabricatorPage><color=#0080FFFF>fabricators</color></link>.
+A basic gas mixture can be achieved by adding <link=ThingItemOxite><color=green>Ice (Oxite)</color></link> and <link=ThingItemVolatiles><color=green>Ice (Volatiles)</color></link> in a 1:2 ratio directly to the furnace, but more complex alloys will require careful management of a dedicated gas mixing network. Exact ingredient ratios must be observed. Likewise, smelting ores at insufficient temperatures will produce <link=ReagentPage><color=#0080FFFF>reagents</color></link>, which must be recycled.
+If liquids are present in the furnace, they will gather there until the furnace is connected to a liquid pipe network."#,
+            value = "1947944864"
+        )
+    )]
+    StructureFurnace = 1947944864i32,
+    #[strum(
+        serialize = "ItemLightSword",
+        props(
+            name = r#"Light Sword"#,
+            desc = r#"A charming, if useless, pseudo-weapon. (Creative only.)"#,
+            value = "1949076595"
+        )
+    )]
+    ItemLightSword = 1949076595i32,
+    #[strum(
+        serialize = "ItemKitLiquidRegulator",
+        props(name = r#"Kit (Liquid Regulator)"#, desc = r#""#, value = "1951126161")
+    )]
+    ItemKitLiquidRegulator = 1951126161i32,
+    #[strum(
+        serialize = "StructureCompositeCladdingRoundedCorner",
+        props(
+            name = r#"Composite Cladding (Rounded Corner)"#,
+            desc = r#""#,
+            value = "1951525046"
+        )
+    )]
+    StructureCompositeCladdingRoundedCorner = 1951525046i32,
+    #[strum(
+        serialize = "ItemGasFilterPollutantsL",
+        props(
+            name = r#"Heavy Filter (Pollutants)"#,
+            desc = r#""#,
+            value = "1959564765"
+        )
+    )]
+    ItemGasFilterPollutantsL = 1959564765i32,
+    #[strum(
+        serialize = "ItemKitSmallSatelliteDish",
+        props(
+            name = r#"Kit (Small Satellite Dish)"#,
+            desc = r#""#,
+            value = "1960952220"
+        )
+    )]
+    ItemKitSmallSatelliteDish = 1960952220i32,
+    #[strum(
+        serialize = "StructureSolarPanelFlat",
+        props(
+            name = r#"Solar Panel (Flat)"#,
+            desc = r#"<link=Sinotai><color=#0080FFFF>Sinotai</color></link> basic solar panels generate power from sunlight. They lie flat to the ground, and their efficiency is reduced during storms and when damaged. You can repair these using some trusty <link=ThingItemDuctTape><color=green>Duct Tape</color></link>."#,
+            value = "1968102968"
+        )
+    )]
+    StructureSolarPanelFlat = 1968102968i32,
+    #[strum(
+        serialize = "StructureDrinkingFountain",
+        props(
+            name = r#"<N:EN:StructureDrinkingFountain>"#,
+            desc = r#"<N:EN:StructureDrinkingFountain>"#,
+            value = "1968371847"
+        )
+    )]
+    StructureDrinkingFountain = 1968371847i32,
+    #[strum(
+        serialize = "ItemJetpackBasic",
+        props(
+            name = r#"Jetpack Basic"#,
+            desc = r#"The basic <link=CHAC><color=#0080FFFF>CHAC</color></link> jetpack isn't 'technically' a jetpack, it's a gas thruster. It can be powered by any gas, so long as the internal pressure of the <link=AtmosphericsPage><color=#0080FFFF>canister</color></link> is higher than the ambient external pressure. If the external pressure is greater, the spacepack will not function.
+Indispensable for building, mining and general movement, it has ten storage slots and lets <link=Stationeers><color=#0080FFFF>Stationeers</color></link> fly at 3m/s, compared to the more powerful <link=ThingItemHardJetpack><color=green>Hardsuit Jetpack</color></link>. Adjusting the thrust value alters your rate of acceleration, while activating the stabilizer causes the spacepack to hover when a given height is reached.
+USE: 'J' to activate; 'space' to fly up; 'left ctrl' to descend; and 'WASD' to move."#,
+            value = "1969189000"
+        )
+    )]
+    ItemJetpackBasic = 1969189000i32,
+    #[strum(
+        serialize = "ItemKitEngineMedium",
+        props(name = r#"Kit (Engine Medium)"#, desc = r#""#, value = "1969312177")
+    )]
+    ItemKitEngineMedium = 1969312177i32,
+    #[strum(
+        serialize = "StructureWallGeometryCorner",
+        props(name = r#"Wall (Geometry Corner)"#, desc = r#""#, value = "1979212240")
+    )]
+    StructureWallGeometryCorner = 1979212240i32,
+    #[strum(
+        serialize = "StructureInteriorDoorPaddedThin",
+        props(
+            name = r#"Interior Door Padded Thin"#,
+            desc = r#"0.Operate
+1.Logic"#,
+            value = "1981698201"
+        )
+    )]
+    StructureInteriorDoorPaddedThin = 1981698201i32,
     #[strum(
         serialize = "StructureWaterBottleFillerPoweredBottom",
         props(name = r#"Waterbottle Filler"#, desc = r#""#, value = "1986658780")
     )]
     StructureWaterBottleFillerPoweredBottom = 1986658780i32,
     #[strum(
-        serialize = "WeaponEnergy",
-        props(name = r#"Weapon Energy"#, desc = r#""#, value = "789494694")
+        serialize = "StructureLiquidTankSmall",
+        props(name = r#"Liquid Tank Small"#, desc = r#""#, value = "1988118157")
     )]
-    WeaponEnergy = 789494694i32,
+    StructureLiquidTankSmall = 1988118157i32,
+    #[strum(
+        serialize = "ItemKitComputer",
+        props(name = r#"Kit (Computer)"#, desc = r#""#, value = "1990225489")
+    )]
+    ItemKitComputer = 1990225489i32,
     #[strum(
         serialize = "StructureWeatherStation",
         props(
@@ -9846,258 +9737,367 @@ For more information about how to control temperatures, consult the <link=Temper
     )]
     StructureWeatherStation = 1997212478i32,
     #[strum(
-        serialize = "ItemWeldingTorch",
-        props(
-            name = r#"Welding Torch"#,
-            desc = r#"Stored in the standard issue <link=Stationeers><color=#0080FFFF>Stationeers</color></link> <link=ThingItemToolBelt><color=green>Tool Belt</color></link>, the Arlite welding torch is used to construct a range of essential structures.
-An upgraded version of the classic 'Zairo' model first manufactured by <link=ExMin><color=#0080FFFF>ExMin</color></link> for modular space habitat assembly, the Arlite is powered by a single <link=ThingItemGasCanisterFuel><color=green>Canister (Fuel)</color></link> and designed to function equally well in deep space and deep gravity wells."#,
-            value = "-2066892079"
-        )
+        serialize = "ItemKitLogicInputOutput",
+        props(name = r#"Kit (Logic I/O)"#, desc = r#""#, value = "1997293610")
     )]
-    ItemWeldingTorch = -2066892079i32,
+    ItemKitLogicInputOutput = 1997293610i32,
     #[strum(
-        serialize = "ItemWheat",
+        serialize = "StructureCompositeCladdingPanel",
         props(
-            name = r#"Wheat"#,
-            desc = r#"A classical symbol of growth and new life, wheat takes a moderate time to grow. Its main use is to create <link=ReagentPage><color=#0080FFFF>flour</color></link> using the <link=ThingApplianceReagentProcessor><color=green>Reagent Processor</color></link>."#,
-            value = "-1057658015"
+            name = r#"Composite Cladding (Panel)"#,
+            desc = r#""#,
+            value = "1997436771"
         )
     )]
-    ItemWheat = -1057658015i32,
+    StructureCompositeCladdingPanel = 1997436771i32,
     #[strum(
-        serialize = "SeedBag_Wheet",
-        props(
-            name = r#"Wheat Seeds"#,
-            desc = r#"Grow some <link=ThingItemWheat><color=green>Wheat</color></link>."#,
-            value = "-654756733"
-        )
+        serialize = "StructureElevatorShaftIndustrial",
+        props(name = r#"Elevator Shaft"#, desc = r#""#, value = "1998354978")
     )]
-    SeedBagWheet = -654756733i32,
+    StructureElevatorShaftIndustrial = 1998354978i32,
     #[strum(
-        serialize = "StructureWindTurbine",
+        serialize = "ReagentColorRed",
+        props(name = r#"Color Dye (Red)"#, desc = r#""#, value = "1998377961")
+    )]
+    ReagentColorRed = 1998377961i32,
+    #[strum(
+        serialize = "Flag_ODA_6m",
+        props(name = r#"Flag (ODA 6m)"#, desc = r#""#, value = "1998634960")
+    )]
+    FlagOda6M = 1998634960i32,
+    #[strum(
+        serialize = "StructureAreaPowerControl",
         props(
-            name = r#"Wind Turbine"#,
-            desc = r#"The Stationeers wind turbine was first designed by Norsec atmospheric engineers, looking to create a wind-driven power generation system that would operate even on exceedingly low atmosphere worlds. The ultra-light blades respond to exceedingly low atmospheric densities, while being strong enough to function even under huge strain in much more demanding environments.
-While the wind turbine is optimized to produce power (up to 500W) even on low atmosphere worlds, it performs best in denser environments. Output varies with wind speed and, during storms, may increase dramatically (up to 10,000W), so be careful to design your power networks with that in mind."#,
-            value = "-2082355173"
+            name = r#"Area Power Control"#,
+            desc = r#"An Area Power Control (APC) has three main functions: 
+Its primary purpose is to regulate power flow, ensuring uninterrupted performance from devices and machinery, especially those with a fluctuating draw. 
+APCs also create sub-networks, as no devices on the far side of an APC are visible on the main network.
+Lastly, an APC charges batteries, which can provide backup power to the sub-network in the case of an outage. Note that an APC requires a battery to stabilize power draw. It also has two variants, each allowing power to flow in one direction only."#,
+            value = "1999523701"
         )
     )]
-    StructureWindTurbine = -2082355173i32,
+    StructureAreaPowerControl = 1999523701i32,
+    #[strum(
+        serialize = "ItemGasFilterWaterL",
+        props(name = r#"Heavy Filter (Water)"#, desc = r#""#, value = "2004969680")
+    )]
+    ItemGasFilterWaterL = 2004969680i32,
+    #[strum(
+        serialize = "ItemDrill",
+        props(
+            name = r#"Hand Drill"#,
+            desc = r#"The <link=ExMin><color=#0080FFFF>ExMin</color></link> Off-whirled Hand Drill has been a companion to <link=Stationeers><color=#0080FFFF>Stationeers</color></link> for decades. Essential for assembling and deconstructing various items and structures, regardless of gravity, pressure or temperature."#,
+            value = "2009673399"
+        )
+    )]
+    ItemDrill = 2009673399i32,
+    #[strum(
+        serialize = "ItemFlagSmall",
+        props(name = r#"Kit (Small Flag)"#, desc = r#""#, value = "2011191088")
+    )]
+    ItemFlagSmall = 2011191088i32,
+    #[strum(
+        serialize = "ItemCookedRice",
+        props(
+            name = r#"Cooked Rice"#,
+            desc = r#"A high-nutrient cooked food, which can be canned."#,
+            value = "2013539020"
+        )
+    )]
+    ItemCookedRice = 2013539020i32,
+    #[strum(
+        serialize = "StructureRocketScanner",
+        props(name = r#"Rocket Scanner"#, desc = r#""#, value = "2014252591")
+    )]
+    StructureRocketScanner = 2014252591i32,
+    #[strum(
+        serialize = "ItemKitPoweredVent",
+        props(name = r#"Kit (Powered Vent)"#, desc = r#""#, value = "2015439334")
+    )]
+    ItemKitPoweredVent = 2015439334i32,
+    #[strum(
+        serialize = "CircuitboardSolarControl",
+        props(
+            name = r#"Solar Control"#,
+            desc = r#"Adding a solar control board to a <link=ThingStructureConsole><color=green>Console</color></link> lets you manually control the horizontal and vertical angles of any connected <link=ThingStructureSolarPanel><color=green>Solar Panel</color></link>."#,
+            value = "2020180320"
+        )
+    )]
+    CircuitboardSolarControl = 2020180320i32,
+    #[strum(
+        serialize = "StructurePipeRadiatorFlatLiquid",
+        props(
+            name = r#"Pipe Radiator Liquid"#,
+            desc = r#"A liquid pipe mounted radiator optimized for radiating heat in vacuums."#,
+            value = "2024754523"
+        )
+    )]
+    StructurePipeRadiatorFlatLiquid = 2024754523i32,
+    #[strum(
+        serialize = "StructureWallPaddingLightFitting",
+        props(
+            name = r#"Wall (Padding Light Fitting)"#,
+            desc = r#""#,
+            value = "2024882687"
+        )
+    )]
+    StructureWallPaddingLightFitting = 2024882687i32,
+    #[strum(
+        serialize = "StructureReinforcedCompositeWindow",
+        props(
+            name = r#"Reinforced Window (Composite)"#,
+            desc = r#"Enjoy vistas of even the most savage, alien landscapes with these heavy duty window frames, which are resistant to pressure differentials up to 1MPa."#,
+            value = "2027713511"
+        )
+    )]
+    StructureReinforcedCompositeWindow = 2027713511i32,
+    #[strum(
+        serialize = "ItemKitRocketLiquidFuelTank",
+        props(
+            name = r#"Kit (Rocket Liquid Fuel Tank)"#,
+            desc = r#""#,
+            value = "2032027950"
+        )
+    )]
+    ItemKitRocketLiquidFuelTank = 2032027950i32,
+    #[strum(
+        serialize = "StructureEngineMountTypeA1",
+        props(name = r#"Engine Mount (Type A1)"#, desc = r#""#, value = "2035781224")
+    )]
+    StructureEngineMountTypeA1 = 2035781224i32,
+    #[strum(
+        serialize = "ItemLiquidDrain",
+        props(name = r#"Kit (Liquid Drain)"#, desc = r#""#, value = "2036225202")
+    )]
+    ItemLiquidDrain = 2036225202i32,
+    #[strum(
+        serialize = "ItemLiquidTankStorage",
+        props(
+            name = r#"Kit (Liquid Canister Storage)"#,
+            desc = r#"This kit produces a <link=ThingItemLiquidTankStorage><color=green>Kit (Liquid Canister Storage)</color></link> for refilling a <link=ThingItemLiquidCanisterEmpty><color=green>Liquid Canister</color></link>."#,
+            value = "2037427578"
+        )
+    )]
+    ItemLiquidTankStorage = 2037427578i32,
+    #[strum(
+        serialize = "StructurePipeCrossJunction3",
+        props(
+            name = r#"Pipe (3-Way Junction)"#,
+            desc = r#"You can upgrade this pipe to an <link=ThingStructureInsulatedPipeCrossJunction3><color=green>Insulated Pipe (3-Way Junction)</color></link> using an <link=ThingItemKitInsulatedPipe><color=green>Kit (Insulated Pipe)</color></link> and a <link=ThingItemWrench><color=green>Wrench</color></link>."#,
+            value = "2038427184"
+        )
+    )]
+    StructurePipeCrossJunction3 = 2038427184i32,
+    #[strum(
+        serialize = "ItemPeaceLily",
+        props(
+            name = r#"Peace Lily"#,
+            desc = r#"A fetching lily with greater resistance to cold temperatures."#,
+            value = "2042955224"
+        )
+    )]
+    ItemPeaceLily = 2042955224i32,
+    #[strum(
+        serialize = "PortableSolarPanel",
+        props(name = r#"Portable Solar Panel"#, desc = r#""#, value = "2043318949")
+    )]
+    PortableSolarPanel = 2043318949i32,
+    #[strum(
+        serialize = "ItemMushroom",
+        props(
+            name = r#"Mushroom"#,
+            desc = r#"A tasty food item. Unlike normal plants, it consumes <link=GasOxygen><color=#44AD83>Oxygen</color></link> and outputs <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link>. Mushrooms will only mature at a moderate rate in darkness, and prolonged light will kill it."#,
+            value = "2044798572"
+        )
+    )]
+    ItemMushroom = 2044798572i32,
+    #[strum(
+        serialize = "StructureStairwellNoDoors",
+        props(name = r#"Stairwell (No Doors)"#, desc = r#""#, value = "2049879875")
+    )]
+    StructureStairwellNoDoors = 2049879875i32,
     #[strum(
         serialize = "StructureWindowShutter",
         props(
             name = r#"Window Shutter"#,
-            desc = r#"For those special, private moments, a window that can be closed to prying eyes.
-
+            desc = r#"For those special, private moments, a window that can be closed to prying eyes. 
+      
 When closed, has the heat transfer characteristics of a basic wall. Requires power, and can be connected to logic systems."#,
             value = "2056377335"
         )
     )]
     StructureWindowShutter = 2056377335i32,
     #[strum(
-        serialize = "ItemPlantEndothermic_Genepool1",
+        serialize = "ItemKitHydroponicStation",
         props(
-            name = r#"Winterspawn (Alpha variant)"#,
-            desc = r#"<link=Agrizero><color=#0080FFFF>Agrizero's</color></link> Winterspawn atmospheric bio-processor is a recent addition to their catalog of genespliced environmental decorations. Using ambient heat to split <link=GasWater><color=#44AD83>Water</color></link> into <link=GasVolatiles><color=#44AD83>Volatiles</color></link> and <link=GasOxygen><color=#44AD83>Oxygen</color></link>, the Winterspawn cools its surroundings, when supplied with sufficient <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>. The alpha variant has a peak cooling and electrolysis capacity of 90Watts and is most efficient operating in air temperatures of 0 to 40 Degrees Celsius."#,
-            value = "851290561"
-        )
-    )]
-    ItemPlantEndothermicGenepool1 = 851290561i32,
-    #[strum(
-        serialize = "ItemPlantEndothermic_Genepool2",
-        props(
-            name = r#"Winterspawn (Beta variant)"#,
-            desc = r#"<link=Agrizero><color=#0080FFFF>Agrizero's</color></link> Winterspawn atmospheric bio-processor is a recent addition to their catalog of genespliced environmental decorations. Using ambient heat to split <link=GasWater><color=#44AD83>Water</color></link> into <link=GasVolatiles><color=#44AD83>Volatiles</color></link> and <link=GasOxygen><color=#44AD83>Oxygen</color></link>, the Winterspawn cools its surroundings when supplied with sufficient <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>. The beta variant has a peak cooling and electrolysis capacity of 150Watts and is most efficient operating in air temperatures of 14 to 24 Degrees Celsius."#,
-            value = "-1414203269"
-        )
-    )]
-    ItemPlantEndothermicGenepool2 = -1414203269i32,
-    #[strum(
-        serialize = "ItemWireCutters",
-        props(
-            name = r#"Wire Cutters"#,
-            desc = r#"Wirecutters allow you to deconstruct various <link=StructurePage><color=#0080FFFF>structures</color></link>, as well as cross-lay cables when held in your non-active hand, and defuse explosives as needed. Wirecutters are stored in the <link=ThingItemToolBelt><color=green>Tool Belt</color></link>, along with other essential <link=ToolPage><color=#0080FFFF>tools</color></link>."#,
-            value = "1535854074"
-        )
-    )]
-    ItemWireCutters = 1535854074i32,
-    #[strum(
-        serialize = "ItemWirelessBatteryCellExtraLarge",
-        props(
-            name = r#"Wireless Battery Cell Extra Large"#,
-            desc = r#"0.Empty
-1.Critical
-2.VeryLow
-3.Low
-4.Medium
-5.High
-6.Full"#,
-            value = "-504717121"
-        )
-    )]
-    ItemWirelessBatteryCellExtraLarge = -504717121i32,
-    #[strum(
-        serialize = "ItemWreckageAirConditioner2",
-        props(
-            name = r#"Wreckage Air Conditioner"#,
+            name = r#"Kit (Hydroponic Station)"#,
             desc = r#""#,
-            value = "169888054"
+            value = "2057179799"
         )
     )]
-    ItemWreckageAirConditioner2 = 169888054i32,
+    ItemKitHydroponicStation = 2057179799i32,
     #[strum(
-        serialize = "ItemWreckageAirConditioner1",
+        serialize = "ItemCableCoilHeavy",
         props(
-            name = r#"Wreckage Air Conditioner"#,
+            name = r#"Cable Coil (Heavy)"#,
+            desc = r#"Use heavy cable coil for power systems with large draws. Unlike <link=ThingStructureCableCoil><color=green><N:EN:StructureCableCoil></color></link>, which can only safely conduct 5kW, heavy cables can transmit up to 100kW."#,
+            value = "2060134443"
+        )
+    )]
+    ItemCableCoilHeavy = 2060134443i32,
+    #[strum(
+        serialize = "StructureElevatorLevelIndustrial",
+        props(name = r#"Elevator Level"#, desc = r#""#, value = "2060648791")
+    )]
+    StructureElevatorLevelIndustrial = 2060648791i32,
+    #[strum(
+        serialize = "StructurePassiveLargeRadiatorGas",
+        props(
+            name = r#"Medium Convection Radiator"#,
+            desc = r#"Has been replaced by <link=ThingStructureMediumConvectionRadiator><color=green>Medium Convection Radiator</color></link>."#,
+            value = "2066977095"
+        )
+    )]
+    StructurePassiveLargeRadiatorGas = 2066977095i32,
+    #[strum(
+        serialize = "ItemKitInsulatedLiquidPipe",
+        props(
+            name = r#"Kit (Insulated Liquid Pipe)"#,
             desc = r#""#,
-            value = "-1826023284"
+            value = "2067655311"
         )
     )]
-    ItemWreckageAirConditioner1 = -1826023284i32,
+    ItemKitInsulatedLiquidPipe = 2067655311i32,
     #[strum(
-        serialize = "ItemWreckageHydroponicsTray1",
+        serialize = "StructureLiquidPipeRadiator",
         props(
-            name = r#"Wreckage Hydroponics Tray"#,
+            name = r#"Liquid Pipe Convection Radiator"#,
+            desc = r#"A simple heat exchanger, pipe radiators can be placed on pipes to shed or gain heat, depending on the temperature of the surrounding atmosphere. If the atmosphere is hotter, heat will be added to the liquid within the pipe network, and visa versa if colder. In a vacuum, heat will be radiated. 
+The speed of heat gain or loss will depend on the liquid in question. Adding multiple radiators will speed up heat transfer."#,
+            value = "2072805863"
+        )
+    )]
+    StructureLiquidPipeRadiator = 2072805863i32,
+    #[strum(
+        serialize = "StructureLogicHashGen",
+        props(name = r#"Logic Hash Generator"#, desc = r#""#, value = "2077593121")
+    )]
+    StructureLogicHashGen = 2077593121i32,
+    #[strum(
+        serialize = "AccessCardWhite",
+        props(name = r#"Access Card (White)"#, desc = r#""#, value = "2079959157")
+    )]
+    AccessCardWhite = 2079959157i32,
+    #[strum(
+        serialize = "StructureCableStraightHBurnt",
+        props(name = r#"Burnt Cable (Straight)"#, desc = r#""#, value = "2085762089")
+    )]
+    StructureCableStraightHBurnt = 2085762089i32,
+    #[strum(
+        serialize = "StructureWallPaddedWindow",
+        props(name = r#"Wall (Padded Window)"#, desc = r#""#, value = "2087628940")
+    )]
+    StructureWallPaddedWindow = 2087628940i32,
+    #[strum(
+        serialize = "StructureLogicMirror",
+        props(name = r#"Logic Mirror"#, desc = r#""#, value = "2096189278")
+    )]
+    StructureLogicMirror = 2096189278i32,
+    #[strum(
+        serialize = "StructureWallFlatCornerTriangle",
+        props(
+            name = r#"Wall (Flat Corner Triangle)"#,
             desc = r#""#,
-            value = "-310178617"
+            value = "2097419366"
         )
     )]
-    ItemWreckageHydroponicsTray1 = -310178617i32,
+    StructureWallFlatCornerTriangle = 2097419366i32,
     #[strum(
-        serialize = "ItemWreckageLargeExtendableRadiator01",
+        serialize = "StructureBackLiquidPressureRegulator",
         props(
-            name = r#"Wreckage Large Extendable Radiator"#,
+            name = r#"Liquid Back Volume Regulator"#,
+            desc = r#"Regulates the volume ratio of liquid in the input Liquid pipe. This is expressed as percentage where 100 is totally full and 0 is empty."#,
+            value = "2099900163"
+        )
+    )]
+    StructureBackLiquidPressureRegulator = 2099900163i32,
+    #[strum(
+        serialize = "StructureTankSmallFuel",
+        props(name = r#"Small Tank (Fuel)"#, desc = r#""#, value = "2102454415")
+    )]
+    StructureTankSmallFuel = 2102454415i32,
+    #[strum(
+        serialize = "ItemEmergencyWireCutters",
+        props(name = r#"Emergency Wire Cutters"#, desc = r#""#, value = "2102803952")
+    )]
+    ItemEmergencyWireCutters = 2102803952i32,
+    #[strum(
+        serialize = "StructureGasMixer",
+        props(
+            name = r#"Gas Mixer"#,
+            desc = r#"Indispensable for producing precise atmospheric ratios, this gas mixer blends two gases in proportions ranging anywhere from 0-100%."#,
+            value = "2104106366"
+        )
+    )]
+    StructureGasMixer = 2104106366i32,
+    #[strum(
+        serialize = "StructureCompositeFloorGratingOpen",
+        props(
+            name = r#"Composite Floor Grating Open"#,
             desc = r#""#,
-            value = "-997763"
+            value = "2109695912"
         )
     )]
-    ItemWreckageLargeExtendableRadiator01 = -997763i32,
+    StructureCompositeFloorGratingOpen = 2109695912i32,
     #[strum(
-        serialize = "ItemWreckageStructureRTG1",
-        props(name = r#"Wreckage Structure RTG"#, desc = r#""#, value = "391453348")
-    )]
-    ItemWreckageStructureRtg1 = 391453348i32,
-    #[strum(
-        serialize = "ItemWreckageStructureWeatherStation003",
+        serialize = "ItemRocketMiningDrillHead",
         props(
-            name = r#"Wreckage Structure Weather Station"#,
-            desc = r#""#,
-            value = "542009679"
+            name = r#"Mining-Drill Head (Basic)"#,
+            desc = r#"Replaceable drill head for <link=ThingStructureRocketMiner><color=green>Rocket Miner</color></link>"#,
+            value = "2109945337"
         )
     )]
-    ItemWreckageStructureWeatherStation003 = 542009679i32,
+    ItemRocketMiningDrillHead = 2109945337i32,
     #[strum(
-        serialize = "ItemWreckageStructureWeatherStation002",
+        serialize = "DynamicMKIILiquidCanisterEmpty",
         props(
-            name = r#"Wreckage Structure Weather Station"#,
-            desc = r#""#,
-            value = "1464424921"
+            name = r#"Portable Liquid Tank Mk II"#,
+            desc = r#"An empty, insulated liquid <link=SlotGasCanister><color=orange>Gas Canister</color></link>."#,
+            value = "2130739600"
         )
     )]
-    ItemWreckageStructureWeatherStation002 = 1464424921i32,
+    DynamicMkiiLiquidCanisterEmpty = 2130739600i32,
     #[strum(
-        serialize = "ItemWreckageStructureWeatherStation005",
+        serialize = "ItemSpaceOre",
         props(
-            name = r#"Wreckage Structure Weather Station"#,
-            desc = r#""#,
-            value = "-919745414"
+            name = r#"Dirty Ore"#,
+            desc = r#"Ore mined from asteroids via the <link=ThingStructureRocketMiner><color=green>Rocket Miner</color></link> which then must be processed in the <link=ThingStructureCentrifuge><color=green>Centrifuge</color></link>, or <link=ThingStructureCombustionCentrifuge><color=green>Combustion Centrifuge</color></link> to produce smeltable ores."#,
+            value = "2131916219"
         )
     )]
-    ItemWreckageStructureWeatherStation005 = -919745414i32,
+    ItemSpaceOre = 2131916219i32,
     #[strum(
-        serialize = "ItemWreckageStructureWeatherStation007",
+        serialize = "ItemKitStandardChute",
+        props(name = r#"Kit (Powered Chutes)"#, desc = r#""#, value = "2133035682")
+    )]
+    ItemKitStandardChute = 2133035682i32,
+    #[strum(
+        serialize = "StructureInsulatedPipeStraight",
         props(
-            name = r#"Wreckage Structure Weather Station"#,
-            desc = r#""#,
-            value = "656649558"
+            name = r#"Insulated Pipe (Straight)"#,
+            desc = r#"Insulated pipes greatly reduce heat loss from gases stored in them."#,
+            value = "2134172356"
         )
     )]
-    ItemWreckageStructureWeatherStation007 = 656649558i32,
+    StructureInsulatedPipeStraight = 2134172356i32,
     #[strum(
-        serialize = "ItemWreckageStructureWeatherStation001",
-        props(
-            name = r#"Wreckage Structure Weather Station"#,
-            desc = r#""#,
-            value = "-834664349"
-        )
+        serialize = "ItemLeadIngot",
+        props(name = r#"Ingot (Lead)"#, desc = r#""#, value = "2134647745")
     )]
-    ItemWreckageStructureWeatherStation001 = -834664349i32,
+    ItemLeadIngot = 2134647745i32,
     #[strum(
-        serialize = "ItemWreckageStructureWeatherStation006",
-        props(
-            name = r#"Wreckage Structure Weather Station"#,
-            desc = r#""#,
-            value = "1344576960"
-        )
+        serialize = "ItemGasCanisterNitrogen",
+        props(name = r#"Canister (Nitrogen)"#, desc = r#""#, value = "2145068424")
     )]
-    ItemWreckageStructureWeatherStation006 = 1344576960i32,
-    #[strum(
-        serialize = "ItemWreckageStructureWeatherStation004",
-        props(
-            name = r#"Wreckage Structure Weather Station"#,
-            desc = r#""#,
-            value = "-1104478996"
-        )
-    )]
-    ItemWreckageStructureWeatherStation004 = -1104478996i32,
-    #[strum(
-        serialize = "ItemWreckageStructureWeatherStation008",
-        props(
-            name = r#"Wreckage Structure Weather Station"#,
-            desc = r#""#,
-            value = "-1214467897"
-        )
-    )]
-    ItemWreckageStructureWeatherStation008 = -1214467897i32,
-    #[strum(
-        serialize = "ItemWreckageTurbineGenerator1",
-        props(
-            name = r#"Wreckage Turbine Generator"#,
-            desc = r#""#,
-            value = "-1662394403"
-        )
-    )]
-    ItemWreckageTurbineGenerator1 = -1662394403i32,
-    #[strum(
-        serialize = "ItemWreckageTurbineGenerator2",
-        props(
-            name = r#"Wreckage Turbine Generator"#,
-            desc = r#""#,
-            value = "98602599"
-        )
-    )]
-    ItemWreckageTurbineGenerator2 = 98602599i32,
-    #[strum(
-        serialize = "ItemWreckageTurbineGenerator3",
-        props(
-            name = r#"Wreckage Turbine Generator"#,
-            desc = r#""#,
-            value = "1927790321"
-        )
-    )]
-    ItemWreckageTurbineGenerator3 = 1927790321i32,
-    #[strum(
-        serialize = "ItemWreckageWallCooler1",
-        props(name = r#"Wreckage Wall Cooler"#, desc = r#""#, value = "-1682930158")
-    )]
-    ItemWreckageWallCooler1 = -1682930158i32,
-    #[strum(
-        serialize = "ItemWreckageWallCooler2",
-        props(name = r#"Wreckage Wall Cooler"#, desc = r#""#, value = "45733800")
-    )]
-    ItemWreckageWallCooler2 = 45733800i32,
-    #[strum(
-        serialize = "ItemWrench",
-        props(
-            name = r#"Wrench"#,
-            desc = r#"One of humanity's enduring contributions to the cosmos, the wrench represents the essence of our species. A simple, effective and spiritually barren tool, use it to build and deconstruct a variety of <link=StructurePage><color=#0080FFFF>structures</color></link>"#,
-            value = "-1886261558"
-        )
-    )]
-    ItemWrench = -1886261558i32,
-    #[strum(
-        serialize = "CartridgeElectronicReader",
-        props(name = r#"eReader"#, desc = r#""#, value = "-1462180176")
-    )]
-    CartridgeElectronicReader = -1462180176i32,
+    ItemGasCanisterNitrogen = 2145068424i32,
 }

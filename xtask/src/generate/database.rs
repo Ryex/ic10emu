@@ -496,8 +496,16 @@ impl From<&stationpedia::Item> for ItemInfo {
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 #[serde(rename_all = "camelCase")]
+pub struct ConnectionInfo {
+    pub typ: String,
+    pub role: String,
+}
+
+#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+#[serde(rename_all = "camelCase")]
 pub struct DeviceInfo {
-    pub connection_list: Vec<(String, String)>,
+    pub connection_list: Vec<ConnectionInfo>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub device_pins_length: Option<i64>,
     pub has_activate_state: bool,
@@ -513,7 +521,14 @@ pub struct DeviceInfo {
 impl From<&stationpedia::Device> for DeviceInfo {
     fn from(value: &stationpedia::Device) -> Self {
         DeviceInfo {
-            connection_list: value.connection_list.clone(),
+            connection_list: value
+                .connection_list
+                .iter()
+                .map(|(typ, role)| ConnectionInfo {
+                    typ: typ.to_string(),
+                    role: role.to_string(),
+                })
+                .collect(),
             device_pins_length: value.devices_length,
             has_activate_state: value.has_activate_state,
             has_atmosphere: value.has_atmosphere,

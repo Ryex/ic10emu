@@ -25,7 +25,19 @@ pub enum Connection {
 }
 
 #[derive(
-    Debug, Default, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, EnumIter, AsRefStr,
+    Debug,
+    Default,
+    Clone,
+    Copy,
+    PartialEq,
+    PartialOrd,
+    Eq,
+    Ord,
+    Hash,
+    Serialize,
+    Deserialize,
+    EnumIter,
+    AsRefStr,
 )]
 pub enum ConnectionType {
     Pipe,
@@ -43,7 +55,19 @@ pub enum ConnectionType {
 }
 
 #[derive(
-    Debug, Default, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, EnumIter, AsRefStr,
+    Debug,
+    Default,
+    Clone,
+    Copy,
+    PartialEq,
+    PartialOrd,
+    Eq,
+    Ord,
+    Hash,
+    Serialize,
+    Deserialize,
+    EnumIter,
+    AsRefStr,
 )]
 pub enum ConnectionRole {
     Input,

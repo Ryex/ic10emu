@@ -157,7 +157,7 @@ pub enum ICError {
     #[error("unknown logic type '{0}'")]
     UnknownLogicType(f64),
     #[error("unknown slot logic type '{0}'")]
-    UnknownSlotLogicType(f64),
+    UnknownLogicSlotType(f64),
     #[error("unknown batch mode '{0}'")]
     UnknownBatchMode(f64),
     #[error("unknown reagent mode '{0}'")]

@@ -1,11 +1,11 @@
-export type FieldType = "Read" | "Write" | "ReadWrite";
+export type MemoryAccess = "Read" | "Write" | "ReadWrite";
 
 export interface LogicField {
-  field_type: FieldType;
+  field_type: MemoryAccess;
   value: number;
 }
 export type LogicFields = Map<LogicType, LogicField>;
-export type SlotLogicFields = Map<SlotLogicType, LogicField>;
+export type SlotLogicFields = Map<LogicSlotType, LogicField>;
 
 export type Reagents = Map<string, Map<number, number>>;
 
@@ -39,7 +39,7 @@ export type DeviceSpec = {
   readonly connection: number | undefined;
 };
 export type OperandLogicType = { readonly LogicType: string };
-export type OperandSlotLogicType = { readonly SlotLogicType: string };
+export type OperandLogicSlotType = { readonly LogicSlotType: string };
 export type OperandBatchMode = { readonly BatchMode: string };
 export type OperandReagentMode = { readonly ReagentMode: string };
 export type Identifier = { readonly Identifier: { name: string } };
@@ -65,7 +65,7 @@ export type Operand =
   | DeviceSpec
   | NumberOperand
   | OperandLogicType
-  | OperandSlotLogicType
+  | OperandLogicSlotType
   | OperandBatchMode
   | OperandReagentMode
   | Identifier;
@@ -109,13 +109,13 @@ export interface DeviceRef {
   readonly program?: Program;
   getSlotFields(slot: number): SlotLogicFields;
   setField(field: LogicType, value: number, force: boolean): void;
-  setSlotField(slot: number, field: SlotLogicType, value: number, force: boolean): void;
-  getSlotField(slot: number, field: SlotLogicType): number;
+  setSlotField(slot: number, field: LogicSlotType, value: number, force: boolean): void;
+  getSlotField(slot: number, field: LogicSlotType): number;
 }
 
 export interface SlotOccupantTemplate {
   id?: number;
-  fields: { [key in SlotLogicType]?: LogicField };
+  fields: { [key in LogicSlotType]?: LogicField };
 }
 
 export interface SlotTemplate {

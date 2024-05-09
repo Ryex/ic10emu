@@ -326,7 +326,7 @@ pub fn write_enum_listing<T: std::io::Write>(
 
 struct ReprEnumVariant<P>
 where
-    P: Display + FromStr,
+    P: Display + FromStr + Ord,
 {
     pub value: P,
     pub deprecated: bool,
@@ -353,19 +353,30 @@ fn write_repr_enum<'a, T: std::io::Write, I, P>(
     use_phf: bool,
 ) -> color_eyre::Result<()>
 where
-    P: Display + FromStr + 'a,
+    P: Display + FromStr + Ord + 'a,
     I: IntoIterator<Item = &'a (String, ReprEnumVariant<P>)>,
 {
     let additional_strum = if use_phf { "#[strum(use_phf)]\n" } else { "" };
     let repr = std::any::type_name::<P>();
+    let mut sorted: Vec<_> = variants.into_iter().collect::<Vec<_>>();
+    sorted.sort_by_key(|(_, variant)| &variant.value);
+    let default_derive = if sorted
+        .iter()
+        .find(|(name, _)| name == "None" || name == "Default")
+        .is_some()
+    {
+        "Default, "
+    } else {
+        ""
+    };
     write!(
         writer,
-         "#[derive(Debug, Display, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, EnumString, AsRefStr, EnumProperty, EnumIter, FromRepr, Serialize, Deserialize)]\n\
+         "#[derive(Debug, {default_derive}Display, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, EnumString, AsRefStr, EnumProperty, EnumIter, FromRepr, Serialize, Deserialize)]\n\
          {additional_strum}\
          #[repr({repr})]\n\
          pub enum {name} {{\n"
     )?;
-    for (name, variant) in variants {
+    for (name, variant) in sorted {
         let variant_name = name.replace('.', "").to_case(Case::Pascal);
         let serialize = vec![name.clone()];
         let serialize_str = serialize
@@ -387,9 +398,14 @@ where
         } else {
             "".to_owned()
         };
+        let default = if variant_name == "None" || variant_name == "Default" {
+            "#[default]"
+        } else {
+            ""
+        };
         writeln!(
             writer,
-            "    #[strum({serialize_str}{props_str})] {variant_name} = {val}{repr},"
+            "    #[strum({serialize_str}{props_str})]{default} {variant_name} = {val}{repr},"
         )?;
     }
     writeln!(writer, "}}")?;

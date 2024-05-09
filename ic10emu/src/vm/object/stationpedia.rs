@@ -1,7 +1,7 @@
 use std::str::FromStr;
 
 use crate::vm::enums::prefabs::StationpediaPrefab;
-use crate::vm::object::BoxedObject;
+use crate::vm::object::VMObject;
 
 #[allow(unused)]
 pub enum PrefabTemplate {
@@ -10,7 +10,7 @@ pub enum PrefabTemplate {
 }
 
 #[allow(unused)]
-pub fn object_from_prefab_template(template: &PrefabTemplate) -> Option<BoxedObject> {
+pub fn object_from_prefab_template(template: &PrefabTemplate) -> Option<VMObject> {
     let prefab = match template {
         PrefabTemplate::Hash(hash) => StationpediaPrefab::from_repr(*hash),
         PrefabTemplate::Name(name) => StationpediaPrefab::from_str(name).ok(),
@@ -22,5 +22,3 @@ pub fn object_from_prefab_template(template: &PrefabTemplate) -> Option<BoxedObj
         _ => None,
     }
 }
-
-pub mod generic;

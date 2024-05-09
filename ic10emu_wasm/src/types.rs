@@ -27,7 +27,7 @@ pub struct SlotOccupant {
     pub quantity: u32,
     pub max_quantity: u32,
     pub damage: f64,
-    pub fields: BTreeMap<ic10emu::grammar::SlotLogicType, ic10emu::device::LogicField>,
+    pub fields: BTreeMap<ic10emu::grammar::LogicSlotType, ic10emu::device::LogicField>,
 }
 
 impl From<&ic10emu::device::SlotOccupant> for SlotOccupant {
@@ -49,7 +49,7 @@ impl From<&ic10emu::device::SlotOccupant> for SlotOccupant {
 pub struct Slot {
     pub typ: ic10emu::device::SlotType,
     pub occupant: Option<SlotOccupant>,
-    pub fields: BTreeMap<ic10emu::grammar::SlotLogicType, ic10emu::device::LogicField>,
+    pub fields: BTreeMap<ic10emu::grammar::LogicSlotType, ic10emu::device::LogicField>,
 }
 
 impl From<&ic10emu::device::Slot> for Slot {

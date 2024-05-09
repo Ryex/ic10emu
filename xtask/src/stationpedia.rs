@@ -38,14 +38,12 @@ pub struct Reagent {
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
 pub struct Command {
     pub desc: String,
     pub example: String,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
 pub struct Page {
     #[serde(rename = "ConnectionInsert")]
     pub connection_insert: Vec<ConnectionInsert>,
@@ -92,7 +90,6 @@ pub struct Page {
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
 pub struct Constructs {
     #[serde(rename = "NameOfThing")]
     pub name_of_thing: String,
@@ -103,7 +100,6 @@ pub struct Constructs {
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
 pub struct Structure {
     #[serde(rename = "SmallGrid")]
     pub small_grid: bool,
@@ -115,7 +111,6 @@ pub struct Structure {
 pub struct BuildStates(pub Vec<BuildState>);
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
 pub struct BuildState {
     #[serde(rename = "Tool")]
     pub tool: Option<Vec<Tool>>,
@@ -137,7 +132,6 @@ pub enum MachineTier {
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
 pub struct Tool {
     #[serde(rename = "IsTool", default)]
     pub is_tool: bool,
@@ -149,7 +143,6 @@ pub struct Tool {
 
 #[serde_as]
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
 pub struct SlotInsert {
     #[serde(rename = "SlotIndex")]
     #[serde_as(as = "DisplayFromStr")]
@@ -161,7 +154,6 @@ pub struct SlotInsert {
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
 pub struct LogicInsert {
     #[serde(rename = "LogicAccessTypes")]
     pub logic_access_types: String,
@@ -170,7 +162,6 @@ pub struct LogicInsert {
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
 pub struct LogicSlotInsert {
     #[serde(rename = "LogicAccessTypes")]
     pub logic_access_types: String,
@@ -180,7 +171,6 @@ pub struct LogicSlotInsert {
 
 #[serde_as]
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
 pub struct ModeInsert {
     #[serde(rename = "LogicAccessTypes")]
     #[serde_as(as = "DisplayFromStr")]
@@ -190,7 +180,6 @@ pub struct ModeInsert {
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
 pub struct ConnectionInsert {
     #[serde(rename = "LogicAccessTypes")]
     pub logic_access_types: String,
@@ -199,7 +188,6 @@ pub struct ConnectionInsert {
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
 pub struct LogicInfo {
     #[serde(rename = "LogicSlotTypes")]
     pub logic_slot_types: BTreeMap<u32, LogicSlotTypes>,
@@ -220,7 +208,6 @@ pub struct LogicTypes {
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
 pub struct Memory {
     #[serde(rename = "Instructions")]
     pub instructions: Option<BTreeMap<String, Instruction>>,
@@ -233,7 +220,6 @@ pub struct Memory {
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
 pub struct Instruction {
     #[serde(rename = "Description")]
     pub description: String,
@@ -244,7 +230,6 @@ pub struct Instruction {
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
 pub struct Item {
     #[serde(rename = "Consumable")]
     pub consumable: Option<bool>,
@@ -287,7 +272,6 @@ pub struct Recipe {
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
 pub struct RecipeTemperature {
     #[serde(rename = "Start")]
     pub start: f64,
@@ -298,7 +282,6 @@ pub struct RecipeTemperature {
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
 pub struct RecipePressure {
     #[serde(rename = "Start")]
     pub start: f64,

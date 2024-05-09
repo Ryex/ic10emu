@@ -4,7 +4,7 @@ mod types;
 
 use ic10emu::{
     device::{Device, DeviceTemplate, SlotOccupantTemplate},
-    grammar::{LogicType, SlotLogicType},
+    grammar::{LogicSlotType, LogicType},
     vm::{FrozenVM, VMError, VM},
 };
 use serde_derive::{Deserialize, Serialize};
@@ -308,7 +308,7 @@ impl DeviceRef {
         value: f64,
         force: bool,
     ) -> Result<(), JsError> {
-        let logic_typ = SlotLogicType::from_str(field)?;
+        let logic_typ = LogicSlotType::from_str(field)?;
         let mut device_ref = self.device.borrow_mut();
         device_ref.set_slot_field(slot, logic_typ, value, &self.vm.borrow(), force)?;
         Ok(())
@@ -316,7 +316,7 @@ impl DeviceRef {
 
     #[wasm_bindgen(js_name = "getSlotField", skip_typescript)]
     pub fn get_slot_field(&self, slot: f64, field: &str) -> Result<f64, JsError> {
-        let logic_typ = SlotLogicType::from_str(field)?;
+        let logic_typ = LogicSlotType::from_str(field)?;
         let device_ref = self.device.borrow_mut();
         Ok(device_ref.get_slot_field(slot, logic_typ, &self.vm.borrow())?)
     }

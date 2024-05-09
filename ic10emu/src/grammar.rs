@@ -35,7 +35,7 @@ impl TryFrom<f64> for LogicSlotType {
         if let Some(slt) = LogicSlotType::iter().find(|lt| *lt as u8 as f64 == value) {
             Ok(slt)
         } else {
-            Err(ICError::UnknownSlotLogicType(value))
+            Err(ICError::UnknownLogicSlotType(value))
         }
     }
 }
@@ -1106,7 +1106,7 @@ mod tests {
             assert_eq!(lt as u16, value.unwrap().parse::<u16>().unwrap());
         }
         for slt in LogicSlotType::iter() {
-            println!("testing SlotLogicType.{slt}");
+            println!("testing LogicSlotType.{slt}");
             let value = slt.get_str("value");
             assert!(value.is_some());
             assert!(value.unwrap().parse::<u8>().is_ok());

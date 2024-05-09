@@ -1,9 +1,9 @@
 import {
   LogicType,
-  SlotLogicType,
+  LogicSlotType,
   SortingClass,
   SlotType,
-  FieldType,
+  MemoryAccess,
   ReagentMode,
   BatchMode,
   ConnectionType,
@@ -54,8 +54,8 @@ export interface DeviceDBEntry {
   title: string;
   desc: string;
   slots?: { name: string; typ: SlotType }[];
-  logic?: { [key in LogicType]?: FieldType };
-  slotlogic?: { [key: number]: {[key in SlotLogicType]?: FieldType }  };
+  logic?: { [key in LogicType]?: MemoryAccess };
+  slotlogic?: { [key: number]: {[key in LogicSlotType]?: MemoryAccess }  };
   modes?: { [key: number]: string };
   conn?: { [key: number]: DeviceDBConnection }
   item?: DeviceDBItem;

@@ -3,7 +3,7 @@ import {
   DeviceTemplate,
   FrozenVM,
   LogicType,
-  SlotLogicType,
+  LogicSlotType,
   SlotOccupantTemplate,
   Slots,
   VMRef,
@@ -365,7 +365,7 @@ class VirtualMachine extends EventTarget {
   setDeviceSlotField(
     id: number,
     slot: number,
-    field: SlotLogicType,
+    field: LogicSlotType,
     val: number,
     force?: boolean,
   ): boolean {

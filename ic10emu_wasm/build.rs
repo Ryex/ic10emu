@@ -25,12 +25,12 @@ fn main() {
     ts_types.push_str(&lt_tstype);
 
     let slt_tsunion: String = Itertools::intersperse(
-        ic10emu::grammar::generated::SlotLogicType::iter()
+        ic10emu::grammar::generated::LogicSlotType::iter()
             .map(|slt| format!("\"{}\"", slt.as_ref())),
         "\n  | ".to_owned(),
     )
     .collect();
-    let slt_tstype = format!("\nexport type SlotLogicType = {};", slt_tsunion);
+    let slt_tstype = format!("\nexport type LogicSlotType = {};", slt_tsunion);
     ts_types.push_str(&slt_tstype);
 
     let bm_tsunion: String = Itertools::intersperse(

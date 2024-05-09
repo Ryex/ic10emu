@@ -2,8 +2,9 @@ use crate::{
     errors::ICError,
     interpreter::ICState,
     network::{CableConnectionType, Connection},
-    vm::enums::script_enums::{
-        LogicReagentMode as ReagentMode, LogicSlotType as SlotLogicType, LogicType,
+    vm::enums::{
+        script_enums::{LogicReagentMode as ReagentMode, LogicSlotType, LogicType},
+        basic_enums::{Class as SlotClass, SortingClass},
     },
     vm::VM,
 };
@@ -12,10 +13,9 @@ use std::{collections::BTreeMap, ops::Deref};
 use itertools::Itertools;
 
 use serde_derive::{Deserialize, Serialize};
-use strum_macros::{AsRefStr, EnumIter, EnumString};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
-pub enum FieldType {
+pub enum MemoryAccess {
     Read,
     Write,
     ReadWrite,
@@ -23,7 +23,7 @@ pub enum FieldType {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct LogicField {
-    pub field_type: FieldType,
+    pub field_type: MemoryAccess,
     pub value: f64,
 }
 
@@ -35,7 +35,7 @@ pub struct SlotOccupant {
     pub max_quantity: u32,
     pub sorting_class: SortingClass,
     pub damage: f64,
-    fields: BTreeMap<SlotLogicType, LogicField>,
+    fields: BTreeMap<LogicSlotType, LogicField>,
 }
 
 impl SlotOccupant {
@@ -47,24 +47,25 @@ impl SlotOccupant {
         SlotOccupant {
             id: template.id.unwrap_or_else(id_fn),
             prefab_hash: fields
-                .remove(&SlotLogicType::PrefabHash)
+                .remove(&LogicSlotType::PrefabHash)
                 .map(|field| field.value as i32)
                 .unwrap_or(0),
             quantity: fields
-                .remove(&SlotLogicType::Quantity)
+                .remove(&LogicSlotType::Quantity)
                 .map(|field| field.value as u32)
                 .unwrap_or(1),
             max_quantity: fields
-                .remove(&SlotLogicType::MaxQuantity)
+                .remove(&LogicSlotType::MaxQuantity)
                 .map(|field| field.value as u32)
                 .unwrap_or(1),
             damage: fields
-                .remove(&SlotLogicType::Damage)
+                .remove(&LogicSlotType::Damage)
                 .map(|field| field.value)
                 .unwrap_or(0.0),
             sorting_class: fields
-                .remove(&SlotLogicType::SortingClass)
-                .map(|field| (field.value as u32).into())
+                .remove(&LogicSlotType::SortingClass)
+                .map(|field| SortingClass::from_repr(field.value as u8))
+                .flatten()
                 .unwrap_or(SortingClass::Default),
             fields,
         }
@@ -74,7 +75,7 @@ impl SlotOccupant {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SlotOccupantTemplate {
     pub id: Option<u32>,
-    pub fields: BTreeMap<SlotLogicType, LogicField>,
+    pub fields: BTreeMap<LogicSlotType, LogicField>,
 }
 
 impl SlotOccupant {
@@ -109,65 +110,65 @@ impl SlotOccupant {
     }
 
     /// chainable constructor
-    pub fn with_fields(mut self, fields: BTreeMap<SlotLogicType, LogicField>) -> Self {
+    pub fn with_fields(mut self, fields: BTreeMap<LogicSlotType, LogicField>) -> Self {
         self.fields.extend(fields);
         self
     }
 
     /// chainable constructor
-    pub fn get_fields(&self) -> BTreeMap<SlotLogicType, LogicField> {
+    pub fn get_fields(&self) -> BTreeMap<LogicSlotType, LogicField> {
         let mut copy = self.fields.clone();
         copy.insert(
-            SlotLogicType::PrefabHash,
+            LogicSlotType::PrefabHash,
             LogicField {
-                field_type: FieldType::Read,
+                field_type: MemoryAccess::Read,
                 value: self.prefab_hash as f64,
             },
         );
         copy.insert(
-            SlotLogicType::SortingClass,
+            LogicSlotType::SortingClass,
             LogicField {
-                field_type: FieldType::Read,
+                field_type: MemoryAccess::Read,
                 value: self.sorting_class as u32 as f64,
             },
         );
         copy.insert(
-            SlotLogicType::Quantity,
+            LogicSlotType::Quantity,
             LogicField {
-                field_type: FieldType::Read,
+                field_type: MemoryAccess::Read,
                 value: self.quantity as f64,
             },
         );
         copy.insert(
-            SlotLogicType::MaxQuantity,
+            LogicSlotType::MaxQuantity,
             LogicField {
-                field_type: FieldType::Read,
+                field_type: MemoryAccess::Read,
                 value: self.max_quantity as f64,
             },
         );
         copy.insert(
-            SlotLogicType::Damage,
+            LogicSlotType::Damage,
             LogicField {
-                field_type: FieldType::Read,
+                field_type: MemoryAccess::Read,
                 value: self.damage,
             },
         );
         copy
     }
 
-    pub fn set_field(&mut self, typ: SlotLogicType, val: f64, force: bool) -> Result<(), ICError> {
-        if (typ == SlotLogicType::Quantity) && force {
+    pub fn set_field(&mut self, typ: LogicSlotType, val: f64, force: bool) -> Result<(), ICError> {
+        if (typ == LogicSlotType::Quantity) && force {
             self.quantity = val as u32;
             Ok(())
-        } else if (typ == SlotLogicType::MaxQuantity) && force {
+        } else if (typ == LogicSlotType::MaxQuantity) && force {
             self.max_quantity = val as u32;
             Ok(())
-        } else if (typ == SlotLogicType::Damage) && force {
+        } else if (typ == LogicSlotType::Damage) && force {
             self.damage = val;
             Ok(())
         } else if let Some(logic) = self.fields.get_mut(&typ) {
             match logic.field_type {
-                FieldType::ReadWrite | FieldType::Write => {
+                MemoryAccess::ReadWrite | MemoryAccess::Write => {
                     logic.value = val;
                     Ok(())
                 }
@@ -184,7 +185,7 @@ impl SlotOccupant {
             self.fields.insert(
                 typ,
                 LogicField {
-                    field_type: FieldType::ReadWrite,
+                    field_type: MemoryAccess::ReadWrite,
                     value: val,
                 },
             );
@@ -194,17 +195,23 @@ impl SlotOccupant {
         }
     }
 
-    pub fn can_logic_read(&self, field: SlotLogicType) -> bool {
+    pub fn can_logic_read(&self, field: LogicSlotType) -> bool {
         if let Some(logic) = self.fields.get(&field) {
-            matches!(logic.field_type, FieldType::Read | FieldType::ReadWrite)
+            matches!(
+                logic.field_type,
+                MemoryAccess::Read | MemoryAccess::ReadWrite
+            )
         } else {
             false
         }
     }
 
-    pub fn can_logic_write(&self, field: SlotLogicType) -> bool {
+    pub fn can_logic_write(&self, field: LogicSlotType) -> bool {
         if let Some(logic) = self.fields.get(&field) {
-            matches!(logic.field_type, FieldType::Write | FieldType::ReadWrite)
+            matches!(
+                logic.field_type,
+                MemoryAccess::Write | MemoryAccess::ReadWrite
+            )
         } else {
             false
         }
@@ -213,47 +220,47 @@ impl SlotOccupant {
 
 #[derive(Debug, Default, Clone, Serialize, Deserialize)]
 pub struct Slot {
-    pub typ: SlotType,
+    pub typ: SlotClass,
     pub occupant: Option<SlotOccupant>,
 }
 
 #[derive(Debug, Default, Clone, Serialize, Deserialize)]
 pub struct SlotTemplate {
-    pub typ: SlotType,
+    pub typ: SlotClass,
     pub occupant: Option<SlotOccupantTemplate>,
 }
 
 impl Slot {
-    pub fn new(typ: SlotType) -> Self {
+    pub fn new(typ: SlotClass) -> Self {
         Slot {
             typ,
             occupant: None,
         }
     }
-    pub fn with_occupant(typ: SlotType, occupant: SlotOccupant) -> Self {
+    pub fn with_occupant(typ: SlotClass, occupant: SlotOccupant) -> Self {
         Slot {
             typ,
             occupant: Some(occupant),
         }
     }
 
-    pub fn get_fields(&self) -> BTreeMap<SlotLogicType, LogicField> {
+    pub fn get_fields(&self) -> BTreeMap<LogicSlotType, LogicField> {
         let mut copy = self
             .occupant
             .as_ref()
             .map(|occupant| occupant.get_fields())
             .unwrap_or_default();
         copy.insert(
-            SlotLogicType::Occupied,
+            LogicSlotType::Occupied,
             LogicField {
-                field_type: FieldType::Read,
+                field_type: MemoryAccess::Read,
                 value: if self.occupant.is_some() { 1.0 } else { 0.0 },
             },
         );
         copy.insert(
-            SlotLogicType::OccupantHash,
+            LogicSlotType::OccupantHash,
             LogicField {
-                field_type: FieldType::Read,
+                field_type: MemoryAccess::Read,
                 value: self
                     .occupant
                     .as_ref()
@@ -262,9 +269,9 @@ impl Slot {
             },
         );
         copy.insert(
-            SlotLogicType::Quantity,
+            LogicSlotType::Quantity,
             LogicField {
-                field_type: FieldType::Read,
+                field_type: MemoryAccess::Read,
                 value: self
                     .occupant
                     .as_ref()
@@ -273,9 +280,9 @@ impl Slot {
             },
         );
         copy.insert(
-            SlotLogicType::Damage,
+            LogicSlotType::Damage,
             LogicField {
-                field_type: FieldType::Read,
+                field_type: MemoryAccess::Read,
                 value: self
                     .occupant
                     .as_ref()
@@ -284,16 +291,16 @@ impl Slot {
             },
         );
         copy.insert(
-            SlotLogicType::Class,
+            LogicSlotType::Class,
             LogicField {
-                field_type: FieldType::Read,
+                field_type: MemoryAccess::Read,
                 value: self.typ as u32 as f64,
             },
         );
         copy.insert(
-            SlotLogicType::MaxQuantity,
+            LogicSlotType::MaxQuantity,
             LogicField {
-                field_type: FieldType::Read,
+                field_type: MemoryAccess::Read,
                 value: self
                     .occupant
                     .as_ref()
@@ -302,9 +309,9 @@ impl Slot {
             },
         );
         copy.insert(
-            SlotLogicType::PrefabHash,
+            LogicSlotType::PrefabHash,
             LogicField {
-                field_type: FieldType::Read,
+                field_type: MemoryAccess::Read,
                 value: self
                     .occupant
                     .as_ref()
@@ -313,9 +320,9 @@ impl Slot {
             },
         );
         copy.insert(
-            SlotLogicType::SortingClass,
+            LogicSlotType::SortingClass,
             LogicField {
-                field_type: FieldType::Read,
+                field_type: MemoryAccess::Read,
                 value: self
                     .occupant
                     .as_ref()
@@ -324,9 +331,9 @@ impl Slot {
             },
         );
         copy.insert(
-            SlotLogicType::ReferenceId,
+            LogicSlotType::ReferenceId,
             LogicField {
-                field_type: FieldType::Read,
+                field_type: MemoryAccess::Read,
                 value: self
                     .occupant
                     .as_ref()
@@ -337,34 +344,34 @@ impl Slot {
         copy
     }
 
-    pub fn get_field(&self, field: SlotLogicType) -> f64 {
+    pub fn get_field(&self, field: LogicSlotType) -> f64 {
         let fields = self.get_fields();
         fields
             .get(&field)
             .map(|field| match field.field_type {
-                FieldType::Read | FieldType::ReadWrite => field.value,
+                MemoryAccess::Read | MemoryAccess::ReadWrite => field.value,
                 _ => 0.0,
             })
             .unwrap_or(0.0)
     }
 
-    pub fn can_logic_read(&self, field: SlotLogicType) -> bool {
+    pub fn can_logic_read(&self, field: LogicSlotType) -> bool {
         match field {
-            SlotLogicType::Pressure | SlotLogicType::Temperature | SlotLogicType::Volume => {
+            LogicSlotType::Pressure | LogicSlotType::Temperature | LogicSlotType::Volume => {
                 matches!(
                     self.typ,
-                    SlotType::GasCanister | SlotType::LiquidCanister | SlotType::LiquidBottle
+                    SlotClass::GasCanister | SlotClass::LiquidCanister | SlotClass::LiquidBottle
                 )
             }
-            SlotLogicType::Charge | SlotLogicType::ChargeRatio => {
-                matches!(self.typ, SlotType::Battery)
+            LogicSlotType::Charge | LogicSlotType::ChargeRatio => {
+                matches!(self.typ, SlotClass::Battery)
             }
-            SlotLogicType::Open => matches!(
+            LogicSlotType::Open => matches!(
                 self.typ,
-                SlotType::Helmet | SlotType::Tool | SlotType::Appliance
+                SlotClass::Helmet | SlotClass::Tool | SlotClass::Appliance
             ),
-            SlotLogicType::Lock => matches!(self.typ, SlotType::Helmet),
-            SlotLogicType::FilterType => matches!(self.typ, SlotType::GasFilter),
+            LogicSlotType::Lock => matches!(self.typ, SlotClass::Helmet),
+            LogicSlotType::FilterType => matches!(self.typ, SlotClass::GasFilter),
             _ => {
                 if let Some(occupant) = self.occupant.as_ref() {
                     occupant.can_logic_read(field)
@@ -375,20 +382,20 @@ impl Slot {
         }
     }
 
-    pub fn can_logic_write(&self, field: SlotLogicType) -> bool {
+    pub fn can_logic_write(&self, field: LogicSlotType) -> bool {
         match field {
-            SlotLogicType::Open => matches!(
+            LogicSlotType::Open => matches!(
                 self.typ,
-                SlotType::Helmet
-                    | SlotType::GasCanister
-                    | SlotType::LiquidCanister
-                    | SlotType::LiquidBottle
+                SlotClass::Helmet
+                    | SlotClass::GasCanister
+                    | SlotClass::LiquidCanister
+                    | SlotClass::LiquidBottle
             ),
-            SlotLogicType::On => matches!(
+            LogicSlotType::On => matches!(
                 self.typ,
-                SlotType::Helmet | SlotType::Tool | SlotType::Appliance
+                SlotClass::Helmet | SlotClass::Tool | SlotClass::Appliance
             ),
-            SlotLogicType::Lock => matches!(self.typ, SlotType::Helmet),
+            LogicSlotType::Lock => matches!(self.typ, SlotClass::Helmet),
             _ => {
                 if let Some(occupant) = self.occupant.as_ref() {
                     occupant.can_logic_write(field)
@@ -399,15 +406,15 @@ impl Slot {
         }
     }
 
-    pub fn set_field(&mut self, typ: SlotLogicType, val: f64, force: bool) -> Result<(), ICError> {
+    pub fn set_field(&mut self, typ: LogicSlotType, val: f64, force: bool) -> Result<(), ICError> {
         if matches!(
             typ,
-            SlotLogicType::Occupied
-                | SlotLogicType::OccupantHash
-                | SlotLogicType::Class
-                | SlotLogicType::PrefabHash
-                | SlotLogicType::SortingClass
-                | SlotLogicType::ReferenceId
+            LogicSlotType::Occupied
+                | LogicSlotType::OccupantHash
+                | LogicSlotType::Class
+                | LogicSlotType::PrefabHash
+                | LogicSlotType::SortingClass
+                | LogicSlotType::ReferenceId
         ) {
             return Err(ICError::ReadOnlyField(typ.to_string()));
         }
@@ -417,114 +424,6 @@ impl Slot {
             Err(ICError::SlotNotOccupied)
         }
     }
-}
-
-#[derive(
-    Debug,
-    Default,
-    Clone,
-    Copy,
-    PartialEq,
-    Eq,
-    Hash,
-    strum_macros::Display,
-    EnumString,
-    EnumIter,
-    AsRefStr,
-    Serialize,
-    Deserialize,
-)]
-#[strum(serialize_all = "PascalCase")]
-pub enum SortingClass {
-    #[default]
-    Default = 0,
-    Kits = 1,
-    Tools = 2,
-    Resources,
-    Food = 4,
-    Clothing,
-    Appliances,
-    Atmospherics,
-    Storage = 8,
-    Ores,
-    Ices,
-}
-
-impl From<u32> for SortingClass {
-    fn from(value: u32) -> Self {
-        match value {
-            1 => Self::Kits,
-            2 => Self::Tools,
-            3 => Self::Resources,
-            4 => Self::Food,
-            5 => Self::Clothing,
-            6 => Self::Appliances,
-            7 => Self::Atmospherics,
-            8 => Self::Storage,
-            9 => Self::Ores,
-            10 => Self::Ices,
-            _ => Self::Default,
-        }
-    }
-}
-
-#[derive(
-    Debug,
-    Default,
-    Clone,
-    Copy,
-    PartialEq,
-    Eq,
-    Hash,
-    strum_macros::Display,
-    EnumString,
-    EnumIter,
-    AsRefStr,
-    Serialize,
-    Deserialize,
-)]
-#[strum(serialize_all = "PascalCase")]
-pub enum SlotType {
-    Helmet = 1,
-    Suit = 2,
-    Back,
-    GasFilter = 4,
-    GasCanister,
-    MotherBoard,
-    Circuitboard,
-    DataDisk = 8,
-    Organ,
-    Ore,
-    Plant,
-    Uniform,
-    Entity,
-    Battery,
-    Egg,
-    Belt = 16,
-    Tool,
-    Appliance,
-    Ingot,
-    Torpedo,
-    Cartridge,
-    AccessCard,
-    Magazine,
-    Circuit = 24,
-    Bottle,
-    ProgrammableChip,
-    Glasses,
-    CreditCard,
-    DirtCanister,
-    SensorProcessingUnit,
-    LiquidCanister,
-    LiquidBottle = 32,
-    Wreckage,
-    SoundCartridge,
-    DrillHead,
-    ScanningHead,
-    Flare,
-    Blocked,
-    #[default]
-    None = 0,
 }
 
 #[derive(Debug, Default, Clone, Serialize, Deserialize)]
@@ -591,28 +490,28 @@ impl Device {
             (
                 LogicType::Setting,
                 LogicField {
-                    field_type: FieldType::ReadWrite,
+                    field_type: MemoryAccess::ReadWrite,
                     value: 0.0,
                 },
             ),
             (
                 LogicType::RequiredPower,
                 LogicField {
-                    field_type: FieldType::Read,
+                    field_type: MemoryAccess::Read,
                     value: 0.0,
                 },
             ),
             (
                 LogicType::PrefabHash,
                 LogicField {
-                    field_type: FieldType::Read,
+                    field_type: MemoryAccess::Read,
                     value: -128473777.0,
                 },
             ),
         ]);
         let occupant = SlotOccupant::new(ic, -744098481);
         device.slots.push(Slot::with_occupant(
-            SlotType::ProgrammableChip,
+            SlotClass::ProgrammableChip,
             // -744098481 = ItemIntegratedCircuit10
             occupant,
         ));
@@ -627,14 +526,14 @@ impl Device {
             copy.insert(
                 LogicType::LineNumber,
                 LogicField {
-                    field_type: FieldType::ReadWrite,
+                    field_type: MemoryAccess::ReadWrite,
                     value: ic.ip() as f64,
                 },
             );
             copy.insert(
                 LogicType::Error,
                 LogicField {
-                    field_type: FieldType::Read,
+                    field_type: MemoryAccess::Read,
                     value: match *ic.state.borrow() {
                         ICState::Error(_) => 1.0,
                         _ => 0.0,
@@ -646,7 +545,7 @@ impl Device {
             copy.insert(
                 LogicType::Power,
                 LogicField {
-                    field_type: FieldType::Read,
+                    field_type: MemoryAccess::Read,
                     value: if self.has_power_connection() {
                         1.0
                     } else {
@@ -658,7 +557,7 @@ impl Device {
         copy.insert(
             LogicType::ReferenceId,
             LogicField {
-                field_type: FieldType::Read,
+                field_type: MemoryAccess::Read,
                 value: self.id as f64,
             },
         );
@@ -692,7 +591,10 @@ impl Device {
             LogicType::Power if self.has_power_state() => true,
             _ => {
                 if let Some(logic) = self.fields.get(&field) {
-                    matches!(logic.field_type, FieldType::Read | FieldType::ReadWrite)
+                    matches!(
+                        logic.field_type,
+                        MemoryAccess::Read | MemoryAccess::ReadWrite
+                    )
                 } else {
                     false
                 }
@@ -706,7 +608,10 @@ impl Device {
             LogicType::LineNumber if self.ic.is_some() => true,
             _ => {
                 if let Some(logic) = self.fields.get(&field) {
-                    matches!(logic.field_type, FieldType::Write | FieldType::ReadWrite)
+                    matches!(
+                        logic.field_type,
+                        MemoryAccess::Write | MemoryAccess::ReadWrite
+                    )
                 } else {
                     false
                 }
@@ -714,7 +619,7 @@ impl Device {
         }
     }
 
-    pub fn can_slot_logic_read(&self, field: SlotLogicType, slot: usize) -> bool {
+    pub fn can_slot_logic_read(&self, field: LogicSlotType, slot: usize) -> bool {
         if self.slots.is_empty() {
             return false;
         }
@@ -724,7 +629,7 @@ impl Device {
         slot.can_logic_read(field)
     }
 
-    pub fn can_slot_logic_write(&self, field: SlotLogicType, slot: usize) -> bool {
+    pub fn can_slot_logic_write(&self, field: LogicSlotType, slot: usize) -> bool {
         if self.slots.is_empty() {
             return false;
         }
@@ -743,7 +648,8 @@ impl Device {
                 .borrow();
             Ok(ic.ip() as f64)
         } else if let Some(field) = self.get_fields(vm).get(&typ) {
-            if field.field_type == FieldType::Read || field.field_type == FieldType::ReadWrite {
+            if field.field_type == MemoryAccess::Read || field.field_type == MemoryAccess::ReadWrite
+            {
                 Ok(field.value)
             } else {
                 Err(ICError::WriteOnlyField(typ.to_string()))
@@ -774,8 +680,8 @@ impl Device {
             ic.set_ip(val as u32);
             Ok(())
         } else if let Some(field) = self.fields.get_mut(&typ) {
-            if field.field_type == FieldType::Write
-                || field.field_type == FieldType::ReadWrite
+            if field.field_type == MemoryAccess::Write
+                || field.field_type == MemoryAccess::ReadWrite
                 || force
             {
                 field.value = val;
@@ -787,7 +693,7 @@ impl Device {
             self.fields.insert(
                 typ,
                 LogicField {
-                    field_type: FieldType::ReadWrite,
+                    field_type: MemoryAccess::ReadWrite,
                     value: val,
                 },
             );
@@ -797,15 +703,15 @@ impl Device {
         }
     }
 
-    pub fn get_slot_field(&self, index: f64, typ: SlotLogicType, vm: &VM) -> Result<f64, ICError> {
+    pub fn get_slot_field(&self, index: f64, typ: LogicSlotType, vm: &VM) -> Result<f64, ICError> {
         let slot = self
             .slots
             .get(index as usize)
             .ok_or(ICError::SlotIndexOutOfRange(index))?;
-        if slot.typ == SlotType::ProgrammableChip
+        if slot.typ == SlotClass::ProgrammableChip
             && slot.occupant.is_some()
             && self.ic.is_some()
-            && typ == SlotLogicType::LineNumber
+            && typ == LogicSlotType::LineNumber
         {
             let ic = vm
                 .ics
@@ -822,22 +728,22 @@ impl Device {
         &self,
         index: f64,
         vm: &VM,
-    ) -> Result<BTreeMap<SlotLogicType, LogicField>, ICError> {
+    ) -> Result<BTreeMap<LogicSlotType, LogicField>, ICError> {
         let slot = self
             .slots
             .get(index as usize)
             .ok_or(ICError::SlotIndexOutOfRange(index))?;
         let mut fields = slot.get_fields();
-        if slot.typ == SlotType::ProgrammableChip && slot.occupant.is_some() && self.ic.is_some() {
+        if slot.typ == SlotClass::ProgrammableChip && slot.occupant.is_some() && self.ic.is_some() {
             let ic = vm
                 .ics
                 .get(&self.ic.unwrap())
                 .ok_or_else(|| ICError::UnknownDeviceID(self.ic.unwrap() as f64))?
                 .borrow();
             fields.insert(
-                SlotLogicType::LineNumber,
+                LogicSlotType::LineNumber,
                 LogicField {
-                    field_type: FieldType::ReadWrite,
+                    field_type: MemoryAccess::ReadWrite,
                     value: ic.ip() as f64,
                 },
             );
@@ -848,7 +754,7 @@ impl Device {
     pub fn set_slot_field(
         &mut self,
         index: f64,
-        typ: SlotLogicType,
+        typ: LogicSlotType,
         val: f64,
         _vm: &VM,
         force: bool,
@@ -945,7 +851,7 @@ impl Device {
         let ic = slots
             .iter()
             .find_map(|slot| {
-                if slot.typ == SlotType::ProgrammableChip && slot.occupant.is_some() {
+                if slot.typ == SlotClass::ProgrammableChip && slot.occupant.is_some() {
                     Some(slot.occupant.clone()).flatten()
                 } else {
                     None

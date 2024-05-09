@@ -8,7 +8,7 @@ import {
   parseNumber,
 } from "utils";
 import {
-  SlotLogicType,
+  LogicSlotType,
   SlotType,
 } from "ic10emu_wasm";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
@@ -265,7 +265,7 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
 
   _handleChangeSlotField(e: CustomEvent) {
     const input = e.target as SlInput;
-    const field = input.getAttribute("key")! as SlotLogicType;
+    const field = input.getAttribute("key")! as LogicSlotType;
     let val = parseNumber(input.value);
     if (field === "Quantity") {
       const slot = this.slots[this.slotIndex];

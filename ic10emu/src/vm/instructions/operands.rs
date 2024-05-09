@@ -1,8 +1,7 @@
 use crate::errors::ICError;
 use crate::interpreter;
 use crate::vm::enums::script_enums::{
-    LogicBatchMethod as BatchMode, LogicReagentMode as ReagentMode, LogicSlotType as SlotLogicType,
-    LogicType,
+    LogicBatchMethod as BatchMode, LogicReagentMode as ReagentMode, LogicSlotType, LogicType,
 };
 use crate::vm::instructions::enums::InstructionOp;
 use serde_derive::{Deserialize, Serialize};
@@ -49,7 +48,7 @@ pub enum Operand {
     Number(Number),
     Type {
         logic_type: Option<LogicType>,
-        slot_logic_type: Option<SlotLogicType>,
+        slot_logic_type: Option<LogicSlotType>,
         batch_mode: Option<BatchMode>,
         reagent_mode: Option<ReagentMode>,
         identifier: Identifier,
@@ -243,13 +242,13 @@ impl Operand {
         ic: &interpreter::IC,
         inst: InstructionOp,
         index: u32,
-    ) -> Result<SlotLogicType, ICError> {
+    ) -> Result<LogicSlotType, ICError> {
         match &self {
             Operand::Type {
                 slot_logic_type: Some(slt),
                 ..
             } => Ok(*slt),
-            _ => SlotLogicType::try_from(self.as_value(ic, inst, index)?),
+            _ => LogicSlotType::try_from(self.as_value(ic, inst, index)?),
         }
     }
 

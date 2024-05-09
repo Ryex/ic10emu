@@ -39,6 +39,7 @@ pub enum AirConditioningMode {
 }
 #[derive(
     Debug,
+    Default,
     Display,
     Clone,
     Copy,
@@ -58,14 +59,15 @@ pub enum AirConditioningMode {
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum AirControlMode {
-    #[strum(serialize = "Draught", props(docs = r#""#, value = "4"))]
-    Draught = 4u8,
     #[strum(serialize = "None", props(docs = r#""#, value = "0"))]
+    #[default]
     None = 0u8,
     #[strum(serialize = "Offline", props(docs = r#""#, value = "1"))]
     Offline = 1u8,
     #[strum(serialize = "Pressure", props(docs = r#""#, value = "2"))]
     Pressure = 2u8,
+    #[strum(serialize = "Draught", props(docs = r#""#, value = "4"))]
+    Draught = 4u8,
 }
 #[derive(
     Debug,
@@ -88,33 +90,34 @@ pub enum AirControlMode {
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum ColorType {
-    #[strum(serialize = "Black", props(docs = r#""#, value = "7"))]
-    Black = 7u8,
     #[strum(serialize = "Blue", props(docs = r#""#, value = "0"))]
     Blue = 0u8,
-    #[strum(serialize = "Brown", props(docs = r#""#, value = "8"))]
-    Brown = 8u8,
     #[strum(serialize = "Gray", props(docs = r#""#, value = "1"))]
     Gray = 1u8,
     #[strum(serialize = "Green", props(docs = r#""#, value = "2"))]
     Green = 2u8,
-    #[strum(serialize = "Khaki", props(docs = r#""#, value = "9"))]
-    Khaki = 9u8,
     #[strum(serialize = "Orange", props(docs = r#""#, value = "3"))]
     Orange = 3u8,
+    #[strum(serialize = "Red", props(docs = r#""#, value = "4"))]
+    Red = 4u8,
+    #[strum(serialize = "Yellow", props(docs = r#""#, value = "5"))]
+    Yellow = 5u8,
+    #[strum(serialize = "White", props(docs = r#""#, value = "6"))]
+    White = 6u8,
+    #[strum(serialize = "Black", props(docs = r#""#, value = "7"))]
+    Black = 7u8,
+    #[strum(serialize = "Brown", props(docs = r#""#, value = "8"))]
+    Brown = 8u8,
+    #[strum(serialize = "Khaki", props(docs = r#""#, value = "9"))]
+    Khaki = 9u8,
     #[strum(serialize = "Pink", props(docs = r#""#, value = "10"))]
     Pink = 10u8,
     #[strum(serialize = "Purple", props(docs = r#""#, value = "11"))]
     Purple = 11u8,
-    #[strum(serialize = "Red", props(docs = r#""#, value = "4"))]
-    Red = 4u8,
-    #[strum(serialize = "White", props(docs = r#""#, value = "6"))]
-    White = 6u8,
-    #[strum(serialize = "Yellow", props(docs = r#""#, value = "5"))]
-    Yellow = 5u8,
 }
 #[derive(
     Debug,
+    Default,
     Display,
     Clone,
     Copy,
@@ -135,6 +138,7 @@ pub enum ColorType {
 #[repr(u8)]
 pub enum DaylightSensorMode {
     #[strum(serialize = "Default", props(docs = r#""#, value = "0"))]
+    #[default]
     Default = 0u8,
     #[strum(serialize = "Horizontal", props(docs = r#""#, value = "1"))]
     Horizontal = 1u8,
@@ -162,12 +166,12 @@ pub enum DaylightSensorMode {
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum ElevatorMode {
-    #[strum(serialize = "Downward", props(docs = r#""#, value = "2"))]
-    Downward = 2u8,
     #[strum(serialize = "Stationary", props(docs = r#""#, value = "0"))]
     Stationary = 0u8,
     #[strum(serialize = "Upward", props(docs = r#""#, value = "1"))]
     Upward = 1u8,
+    #[strum(serialize = "Downward", props(docs = r#""#, value = "2"))]
+    Downward = 2u8,
 }
 #[derive(
     Debug,
@@ -194,10 +198,10 @@ pub enum EntityState {
     Alive = 0u8,
     #[strum(serialize = "Dead", props(docs = r#""#, value = "1"))]
     Dead = 1u8,
-    #[strum(serialize = "Decay", props(docs = r#""#, value = "3"))]
-    Decay = 3u8,
     #[strum(serialize = "Unconscious", props(docs = r#""#, value = "2"))]
     Unconscious = 2u8,
+    #[strum(serialize = "Decay", props(docs = r#""#, value = "3"))]
+    Decay = 3u8,
 }
 #[derive(
     Debug,
@@ -220,45 +224,46 @@ pub enum EntityState {
 #[strum(use_phf)]
 #[repr(u32)]
 pub enum GasType {
-    #[strum(serialize = "CarbonDioxide", props(docs = r#""#, value = "4"))]
-    CarbonDioxide = 4u32,
-    #[strum(serialize = "Hydrogen", props(docs = r#""#, value = "16384"))]
-    Hydrogen = 16384u32,
-    #[strum(serialize = "LiquidCarbonDioxide", props(docs = r#""#, value = "2048"))]
-    LiquidCarbonDioxide = 2048u32,
-    #[strum(serialize = "LiquidHydrogen", props(docs = r#""#, value = "32768"))]
-    LiquidHydrogen = 32768u32,
-    #[strum(serialize = "LiquidNitrogen", props(docs = r#""#, value = "128"))]
-    LiquidNitrogen = 128u32,
-    #[strum(serialize = "LiquidNitrousOxide", props(docs = r#""#, value = "8192"))]
-    LiquidNitrousOxide = 8192u32,
-    #[strum(serialize = "LiquidOxygen", props(docs = r#""#, value = "256"))]
-    LiquidOxygen = 256u32,
-    #[strum(serialize = "LiquidPollutant", props(docs = r#""#, value = "4096"))]
-    LiquidPollutant = 4096u32,
-    #[strum(serialize = "LiquidVolatiles", props(docs = r#""#, value = "512"))]
-    LiquidVolatiles = 512u32,
-    #[strum(serialize = "Nitrogen", props(docs = r#""#, value = "2"))]
-    Nitrogen = 2u32,
-    #[strum(serialize = "NitrousOxide", props(docs = r#""#, value = "64"))]
-    NitrousOxide = 64u32,
-    #[strum(serialize = "Oxygen", props(docs = r#""#, value = "1"))]
-    Oxygen = 1u32,
-    #[strum(serialize = "Pollutant", props(docs = r#""#, value = "16"))]
-    Pollutant = 16u32,
-    #[strum(serialize = "PollutedWater", props(docs = r#""#, value = "65536"))]
-    PollutedWater = 65536u32,
-    #[strum(serialize = "Steam", props(docs = r#""#, value = "1024"))]
-    Steam = 1024u32,
     #[strum(serialize = "Undefined", props(docs = r#""#, value = "0"))]
     Undefined = 0u32,
+    #[strum(serialize = "Oxygen", props(docs = r#""#, value = "1"))]
+    Oxygen = 1u32,
+    #[strum(serialize = "Nitrogen", props(docs = r#""#, value = "2"))]
+    Nitrogen = 2u32,
+    #[strum(serialize = "CarbonDioxide", props(docs = r#""#, value = "4"))]
+    CarbonDioxide = 4u32,
     #[strum(serialize = "Volatiles", props(docs = r#""#, value = "8"))]
     Volatiles = 8u32,
+    #[strum(serialize = "Pollutant", props(docs = r#""#, value = "16"))]
+    Pollutant = 16u32,
     #[strum(serialize = "Water", props(docs = r#""#, value = "32"))]
     Water = 32u32,
+    #[strum(serialize = "NitrousOxide", props(docs = r#""#, value = "64"))]
+    NitrousOxide = 64u32,
+    #[strum(serialize = "LiquidNitrogen", props(docs = r#""#, value = "128"))]
+    LiquidNitrogen = 128u32,
+    #[strum(serialize = "LiquidOxygen", props(docs = r#""#, value = "256"))]
+    LiquidOxygen = 256u32,
+    #[strum(serialize = "LiquidVolatiles", props(docs = r#""#, value = "512"))]
+    LiquidVolatiles = 512u32,
+    #[strum(serialize = "Steam", props(docs = r#""#, value = "1024"))]
+    Steam = 1024u32,
+    #[strum(serialize = "LiquidCarbonDioxide", props(docs = r#""#, value = "2048"))]
+    LiquidCarbonDioxide = 2048u32,
+    #[strum(serialize = "LiquidPollutant", props(docs = r#""#, value = "4096"))]
+    LiquidPollutant = 4096u32,
+    #[strum(serialize = "LiquidNitrousOxide", props(docs = r#""#, value = "8192"))]
+    LiquidNitrousOxide = 8192u32,
+    #[strum(serialize = "Hydrogen", props(docs = r#""#, value = "16384"))]
+    Hydrogen = 16384u32,
+    #[strum(serialize = "LiquidHydrogen", props(docs = r#""#, value = "32768"))]
+    LiquidHydrogen = 32768u32,
+    #[strum(serialize = "PollutedWater", props(docs = r#""#, value = "65536"))]
+    PollutedWater = 65536u32,
 }
 #[derive(
     Debug,
+    Default,
     Display,
     Clone,
     Copy,
@@ -278,21 +283,23 @@ pub enum GasType {
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum RocketMode {
-    #[strum(serialize = "Chart", props(docs = r#""#, value = "5"))]
-    Chart = 5u8,
-    #[strum(serialize = "Discover", props(docs = r#""#, value = "4"))]
-    Discover = 4u8,
     #[strum(serialize = "Invalid", props(docs = r#""#, value = "0"))]
     Invalid = 0u8,
+    #[strum(serialize = "None", props(docs = r#""#, value = "1"))]
+    #[default]
+    None = 1u8,
     #[strum(serialize = "Mine", props(docs = r#""#, value = "2"))]
     Mine = 2u8,
-    #[strum(serialize = "None", props(docs = r#""#, value = "1"))]
-    None = 1u8,
     #[strum(serialize = "Survey", props(docs = r#""#, value = "3"))]
     Survey = 3u8,
+    #[strum(serialize = "Discover", props(docs = r#""#, value = "4"))]
+    Discover = 4u8,
+    #[strum(serialize = "Chart", props(docs = r#""#, value = "5"))]
+    Chart = 5u8,
 }
 #[derive(
     Debug,
+    Default,
     Display,
     Clone,
     Copy,
@@ -312,6 +319,78 @@ pub enum RocketMode {
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum LogicSlotType {
+    #[strum(serialize = "None", props(docs = r#"No description"#, value = "0"))]
+    #[default]
+    None = 0u8,
+    #[strum(
+        serialize = "Occupied",
+        props(
+            docs = r#"returns 0 when slot is not occupied, 1 when it is"#,
+            value = "1"
+        )
+    )]
+    Occupied = 1u8,
+    #[strum(
+        serialize = "OccupantHash",
+        props(
+            docs = r#"returns the has of the current occupant, the unique identifier of the thing"#,
+            value = "2"
+        )
+    )]
+    OccupantHash = 2u8,
+    #[strum(
+        serialize = "Quantity",
+        props(
+            docs = r#"returns the current quantity, such as stack size, of the item in the slot"#,
+            value = "3"
+        )
+    )]
+    Quantity = 3u8,
+    #[strum(
+        serialize = "Damage",
+        props(
+            docs = r#"returns the damage state of the item in the slot"#,
+            value = "4"
+        )
+    )]
+    Damage = 4u8,
+    #[strum(
+        serialize = "Efficiency",
+        props(
+            docs = r#"returns the growth efficiency of the plant in the slot"#,
+            value = "5"
+        )
+    )]
+    Efficiency = 5u8,
+    #[strum(
+        serialize = "Health",
+        props(docs = r#"returns the health of the plant in the slot"#, value = "6")
+    )]
+    Health = 6u8,
+    #[strum(
+        serialize = "Growth",
+        props(
+            docs = r#"returns the current growth state of the plant in the slot"#,
+            value = "7"
+        )
+    )]
+    Growth = 7u8,
+    #[strum(
+        serialize = "Pressure",
+        props(
+            docs = r#"returns pressure of the slot occupants internal atmosphere"#,
+            value = "8"
+        )
+    )]
+    Pressure = 8u8,
+    #[strum(
+        serialize = "Temperature",
+        props(
+            docs = r#"returns temperature of the slot occupants internal atmosphere"#,
+            value = "9"
+        )
+    )]
+    Temperature = 9u8,
     #[strum(
         serialize = "Charge",
         props(
@@ -337,112 +416,13 @@ pub enum LogicSlotType {
     )]
     Class = 12u8,
     #[strum(
-        serialize = "Damage",
+        serialize = "PressureWaste",
         props(
-            docs = r#"returns the damage state of the item in the slot"#,
-            value = "4"
+            docs = r#"returns pressure in the waste tank of the jetpack in this slot"#,
+            value = "13"
         )
     )]
-    Damage = 4u8,
-    #[strum(
-        serialize = "Efficiency",
-        props(
-            docs = r#"returns the growth efficiency of the plant in the slot"#,
-            value = "5"
-        )
-    )]
-    Efficiency = 5u8,
-    #[strum(
-        serialize = "FilterType",
-        props(docs = r#"No description available"#, value = "25")
-    )]
-    FilterType = 25u8,
-    #[strum(
-        serialize = "Growth",
-        props(
-            docs = r#"returns the current growth state of the plant in the slot"#,
-            value = "7"
-        )
-    )]
-    Growth = 7u8,
-    #[strum(
-        serialize = "Health",
-        props(docs = r#"returns the health of the plant in the slot"#, value = "6")
-    )]
-    Health = 6u8,
-    #[strum(
-        serialize = "LineNumber",
-        props(
-            docs = r#"The line number of current execution for an integrated circuit running on this device. While this number can be written, use with caution"#,
-            value = "19"
-        )
-    )]
-    LineNumber = 19u8,
-    #[strum(
-        serialize = "Lock",
-        props(docs = r#"No description available"#, value = "23")
-    )]
-    Lock = 23u8,
-    #[strum(
-        serialize = "Mature",
-        props(
-            docs = r#"returns 1 if the plant in this slot is mature, 0 when it isn't"#,
-            value = "16"
-        )
-    )]
-    Mature = 16u8,
-    #[strum(
-        serialize = "MaxQuantity",
-        props(
-            docs = r#"returns the max stack size of the item in the slot"#,
-            value = "15"
-        )
-    )]
-    MaxQuantity = 15u8,
-    #[strum(serialize = "None", props(docs = r#"No description"#, value = "0"))]
-    None = 0u8,
-    #[strum(
-        serialize = "OccupantHash",
-        props(
-            docs = r#"returns the has of the current occupant, the unique identifier of the thing"#,
-            value = "2"
-        )
-    )]
-    OccupantHash = 2u8,
-    #[strum(
-        serialize = "Occupied",
-        props(
-            docs = r#"returns 0 when slot is not occupied, 1 when it is"#,
-            value = "1"
-        )
-    )]
-    Occupied = 1u8,
-    #[strum(
-        serialize = "On",
-        props(docs = r#"No description available"#, value = "22")
-    )]
-    On = 22u8,
-    #[strum(
-        serialize = "Open",
-        props(docs = r#"No description available"#, value = "21")
-    )]
-    Open = 21u8,
-    #[strum(
-        serialize = "PrefabHash",
-        props(
-            docs = r#"returns the hash of the structure in the slot"#,
-            value = "17"
-        )
-    )]
-    PrefabHash = 17u8,
-    #[strum(
-        serialize = "Pressure",
-        props(
-            docs = r#"returns pressure of the slot occupants internal atmosphere"#,
-            value = "8"
-        )
-    )]
-    Pressure = 8u8,
+    PressureWaste = 13u8,
     #[strum(
         serialize = "PressureAir",
         props(
@@ -452,26 +432,29 @@ pub enum LogicSlotType {
     )]
     PressureAir = 14u8,
     #[strum(
-        serialize = "PressureWaste",
+        serialize = "MaxQuantity",
         props(
-            docs = r#"returns pressure in the waste tank of the jetpack in this slot"#,
-            value = "13"
+            docs = r#"returns the max stack size of the item in the slot"#,
+            value = "15"
         )
     )]
-    PressureWaste = 13u8,
+    MaxQuantity = 15u8,
     #[strum(
-        serialize = "Quantity",
+        serialize = "Mature",
         props(
-            docs = r#"returns the current quantity, such as stack size, of the item in the slot"#,
-            value = "3"
+            docs = r#"returns 1 if the plant in this slot is mature, 0 when it isn't"#,
+            value = "16"
         )
     )]
-    Quantity = 3u8,
+    Mature = 16u8,
     #[strum(
-        serialize = "ReferenceId",
-        props(docs = r#"Unique Reference Identifier for this object"#, value = "26")
+        serialize = "PrefabHash",
+        props(
+            docs = r#"returns the hash of the structure in the slot"#,
+            value = "17"
+        )
     )]
-    ReferenceId = 26u8,
+    PrefabHash = 17u8,
     #[strum(
         serialize = "Seeding",
         props(
@@ -481,26 +464,52 @@ pub enum LogicSlotType {
     )]
     Seeding = 18u8,
     #[strum(
-        serialize = "SortingClass",
-        props(docs = r#"No description available"#, value = "24")
-    )]
-    SortingClass = 24u8,
-    #[strum(
-        serialize = "Temperature",
+        serialize = "LineNumber",
         props(
-            docs = r#"returns temperature of the slot occupants internal atmosphere"#,
-            value = "9"
+            docs = r#"The line number of current execution for an integrated circuit running on this device. While this number can be written, use with caution"#,
+            value = "19"
         )
     )]
-    Temperature = 9u8,
+    LineNumber = 19u8,
     #[strum(
         serialize = "Volume",
         props(docs = r#"No description available"#, value = "20")
     )]
     Volume = 20u8,
+    #[strum(
+        serialize = "Open",
+        props(docs = r#"No description available"#, value = "21")
+    )]
+    Open = 21u8,
+    #[strum(
+        serialize = "On",
+        props(docs = r#"No description available"#, value = "22")
+    )]
+    On = 22u8,
+    #[strum(
+        serialize = "Lock",
+        props(docs = r#"No description available"#, value = "23")
+    )]
+    Lock = 23u8,
+    #[strum(
+        serialize = "SortingClass",
+        props(docs = r#"No description available"#, value = "24")
+    )]
+    SortingClass = 24u8,
+    #[strum(
+        serialize = "FilterType",
+        props(docs = r#"No description available"#, value = "25")
+    )]
+    FilterType = 25u8,
+    #[strum(
+        serialize = "ReferenceId",
+        props(docs = r#"Unique Reference Identifier for this object"#, value = "26")
+    )]
+    ReferenceId = 26u8,
 }
 #[derive(
     Debug,
+    Default,
     Display,
     Clone,
     Copy,
@@ -521,13 +530,57 @@ pub enum LogicSlotType {
 #[repr(u16)]
 pub enum LogicType {
     #[strum(
-        serialize = "Acceleration",
+        serialize = "None",
+        props(deprecated = "true", docs = r#"No description"#, value = "0")
+    )]
+    #[default]
+    None = 0u16,
+    #[strum(
+        serialize = "Power",
         props(
-            docs = r#"Change in velocity. Rockets that are deccelerating when landing will show this as negative value."#,
-            value = "216"
+            docs = r#"Can be read to return if the device is correctly powered or not, set via the power system, return 1 if powered and 0 if not"#,
+            value = "1"
         )
     )]
-    Acceleration = 216u16,
+    Power = 1u16,
+    #[strum(
+        serialize = "Open",
+        props(docs = r#"1 if device is open, otherwise 0"#, value = "2")
+    )]
+    Open = 2u16,
+    #[strum(
+        serialize = "Mode",
+        props(
+            docs = r#"Integer for mode state, different devices will have different mode states available to them"#,
+            value = "3"
+        )
+    )]
+    Mode = 3u16,
+    #[strum(
+        serialize = "Error",
+        props(docs = r#"1 if device is in error state, otherwise 0"#, value = "4")
+    )]
+    Error = 4u16,
+    #[strum(
+        serialize = "Pressure",
+        props(docs = r#"The current pressure reading of the device"#, value = "5")
+    )]
+    Pressure = 5u16,
+    #[strum(
+        serialize = "Temperature",
+        props(docs = r#"The current temperature reading of the device"#, value = "6")
+    )]
+    Temperature = 6u16,
+    #[strum(
+        serialize = "PressureExternal",
+        props(docs = r#"Setting for external pressure safety, in KPa"#, value = "7")
+    )]
+    PressureExternal = 7u16,
+    #[strum(
+        serialize = "PressureInternal",
+        props(docs = r#"Setting for internal pressure safety, in KPa"#, value = "8")
+    )]
+    PressureInternal = 8u16,
     #[strum(
         serialize = "Activate",
         props(
@@ -537,6 +590,431 @@ pub enum LogicType {
     )]
     Activate = 9u16,
     #[strum(
+        serialize = "Lock",
+        props(
+            docs = r#"1 if device is locked, otherwise 0, can be set in most devices and prevents the user from access the values"#,
+            value = "10"
+        )
+    )]
+    Lock = 10u16,
+    #[strum(
+        serialize = "Charge",
+        props(docs = r#"The current charge the device has"#, value = "11")
+    )]
+    Charge = 11u16,
+    #[strum(
+        serialize = "Setting",
+        props(
+            docs = r#"A variable setting that can be read or written, depending on the device"#,
+            value = "12"
+        )
+    )]
+    Setting = 12u16,
+    #[strum(
+        serialize = "Reagents",
+        props(
+            docs = r#"Total number of reagents recorded by the device"#,
+            value = "13"
+        )
+    )]
+    Reagents = 13u16,
+    #[strum(
+        serialize = "RatioOxygen",
+        props(docs = r#"The ratio of oxygen in device atmosphere"#, value = "14")
+    )]
+    RatioOxygen = 14u16,
+    #[strum(
+        serialize = "RatioCarbonDioxide",
+        props(
+            docs = r#"The ratio of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> in device atmosphere"#,
+            value = "15"
+        )
+    )]
+    RatioCarbonDioxide = 15u16,
+    #[strum(
+        serialize = "RatioNitrogen",
+        props(docs = r#"The ratio of nitrogen in device atmosphere"#, value = "16")
+    )]
+    RatioNitrogen = 16u16,
+    #[strum(
+        serialize = "RatioPollutant",
+        props(docs = r#"The ratio of pollutant in device atmosphere"#, value = "17")
+    )]
+    RatioPollutant = 17u16,
+    #[strum(
+        serialize = "RatioVolatiles",
+        props(docs = r#"The ratio of volatiles in device atmosphere"#, value = "18")
+    )]
+    RatioVolatiles = 18u16,
+    #[strum(
+        serialize = "RatioWater",
+        props(docs = r#"The ratio of water in device atmosphere"#, value = "19")
+    )]
+    RatioWater = 19u16,
+    #[strum(
+        serialize = "Horizontal",
+        props(docs = r#"Horizontal setting of the device"#, value = "20")
+    )]
+    Horizontal = 20u16,
+    #[strum(
+        serialize = "Vertical",
+        props(docs = r#"Vertical setting of the device"#, value = "21")
+    )]
+    Vertical = 21u16,
+    #[strum(
+        serialize = "SolarAngle",
+        props(docs = r#"Solar angle of the device"#, value = "22")
+    )]
+    SolarAngle = 22u16,
+    #[strum(
+        serialize = "Maximum",
+        props(docs = r#"Maximum setting of the device"#, value = "23")
+    )]
+    Maximum = 23u16,
+    #[strum(
+        serialize = "Ratio",
+        props(
+            docs = r#"Context specific value depending on device, 0 to 1 based ratio"#,
+            value = "24"
+        )
+    )]
+    Ratio = 24u16,
+    #[strum(
+        serialize = "PowerPotential",
+        props(
+            docs = r#"How much energy the device or network potentially provides"#,
+            value = "25"
+        )
+    )]
+    PowerPotential = 25u16,
+    #[strum(
+        serialize = "PowerActual",
+        props(
+            docs = r#"How much energy the device or network is actually using"#,
+            value = "26"
+        )
+    )]
+    PowerActual = 26u16,
+    #[strum(
+        serialize = "Quantity",
+        props(docs = r#"Total quantity on the device"#, value = "27")
+    )]
+    Quantity = 27u16,
+    #[strum(
+        serialize = "On",
+        props(
+            docs = r#"The current state of the device, 0 for off, 1 for on"#,
+            value = "28"
+        )
+    )]
+    On = 28u16,
+    #[strum(
+        serialize = "ImportQuantity",
+        props(
+            deprecated = "true",
+            docs = r#"Total quantity of items imported by the device"#,
+            value = "29"
+        )
+    )]
+    ImportQuantity = 29u16,
+    #[strum(
+        serialize = "ImportSlotOccupant",
+        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "30")
+    )]
+    ImportSlotOccupant = 30u16,
+    #[strum(
+        serialize = "ExportQuantity",
+        props(
+            deprecated = "true",
+            docs = r#"Total quantity of items exported by the device"#,
+            value = "31"
+        )
+    )]
+    ExportQuantity = 31u16,
+    #[strum(
+        serialize = "ExportSlotOccupant",
+        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "32")
+    )]
+    ExportSlotOccupant = 32u16,
+    #[strum(
+        serialize = "RequiredPower",
+        props(
+            docs = r#"Idle operating power quantity, does not necessarily include extra demand power"#,
+            value = "33"
+        )
+    )]
+    RequiredPower = 33u16,
+    #[strum(
+        serialize = "HorizontalRatio",
+        props(docs = r#"Radio of horizontal setting for device"#, value = "34")
+    )]
+    HorizontalRatio = 34u16,
+    #[strum(
+        serialize = "VerticalRatio",
+        props(docs = r#"Radio of vertical setting for device"#, value = "35")
+    )]
+    VerticalRatio = 35u16,
+    #[strum(
+        serialize = "PowerRequired",
+        props(
+            docs = r#"Power requested from the device and/or network"#,
+            value = "36"
+        )
+    )]
+    PowerRequired = 36u16,
+    #[strum(
+        serialize = "Idle",
+        props(
+            docs = r#"Returns 1 if the device is currently idle, otherwise 0"#,
+            value = "37"
+        )
+    )]
+    Idle = 37u16,
+    #[strum(
+        serialize = "Color",
+        props(
+            docs = r#"
+        Whether driven by concerns for clarity, safety or simple aesthetics, <link=Stationeers><color=#0080FFFF>Stationeers</color></link> have access to a small rainbow of colors for their constructions. These are the color setting for devices, represented as an integer.
+
+0: Blue
+1: Grey
+2: Green
+3: Orange
+4: Red
+5: Yellow
+6: White
+7: Black
+8: Brown
+9: Khaki
+10: Pink
+11: Purple
+
+        It is an unwavering universal law that anything higher than 11 will be purple. The <link=ODA><color=#0080FFFF>ODA</color></link> is powerless to change this. Similarly, anything lower than 0 will be Blue.
+      "#,
+            value = "38"
+        )
+    )]
+    Color = 38u16,
+    #[strum(
+        serialize = "ElevatorSpeed",
+        props(docs = r#"Current speed of the elevator"#, value = "39")
+    )]
+    ElevatorSpeed = 39u16,
+    #[strum(
+        serialize = "ElevatorLevel",
+        props(docs = r#"Level the elevator is currently at"#, value = "40")
+    )]
+    ElevatorLevel = 40u16,
+    #[strum(
+        serialize = "RecipeHash",
+        props(
+            docs = r#"Current hash of the recipe the device is set to produce"#,
+            value = "41"
+        )
+    )]
+    RecipeHash = 41u16,
+    #[strum(
+        serialize = "ExportSlotHash",
+        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "42")
+    )]
+    ExportSlotHash = 42u16,
+    #[strum(
+        serialize = "ImportSlotHash",
+        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "43")
+    )]
+    ImportSlotHash = 43u16,
+    #[strum(
+        serialize = "PlantHealth1",
+        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "44")
+    )]
+    PlantHealth1 = 44u16,
+    #[strum(
+        serialize = "PlantHealth2",
+        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "45")
+    )]
+    PlantHealth2 = 45u16,
+    #[strum(
+        serialize = "PlantHealth3",
+        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "46")
+    )]
+    PlantHealth3 = 46u16,
+    #[strum(
+        serialize = "PlantHealth4",
+        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "47")
+    )]
+    PlantHealth4 = 47u16,
+    #[strum(
+        serialize = "PlantGrowth1",
+        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "48")
+    )]
+    PlantGrowth1 = 48u16,
+    #[strum(
+        serialize = "PlantGrowth2",
+        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "49")
+    )]
+    PlantGrowth2 = 49u16,
+    #[strum(
+        serialize = "PlantGrowth3",
+        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "50")
+    )]
+    PlantGrowth3 = 50u16,
+    #[strum(
+        serialize = "PlantGrowth4",
+        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "51")
+    )]
+    PlantGrowth4 = 51u16,
+    #[strum(
+        serialize = "PlantEfficiency1",
+        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "52")
+    )]
+    PlantEfficiency1 = 52u16,
+    #[strum(
+        serialize = "PlantEfficiency2",
+        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "53")
+    )]
+    PlantEfficiency2 = 53u16,
+    #[strum(
+        serialize = "PlantEfficiency3",
+        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "54")
+    )]
+    PlantEfficiency3 = 54u16,
+    #[strum(
+        serialize = "PlantEfficiency4",
+        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "55")
+    )]
+    PlantEfficiency4 = 55u16,
+    #[strum(
+        serialize = "PlantHash1",
+        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "56")
+    )]
+    PlantHash1 = 56u16,
+    #[strum(
+        serialize = "PlantHash2",
+        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "57")
+    )]
+    PlantHash2 = 57u16,
+    #[strum(
+        serialize = "PlantHash3",
+        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "58")
+    )]
+    PlantHash3 = 58u16,
+    #[strum(
+        serialize = "PlantHash4",
+        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "59")
+    )]
+    PlantHash4 = 59u16,
+    #[strum(
+        serialize = "RequestHash",
+        props(
+            docs = r#"When set to the unique identifier, requests an item of the provided type from the device"#,
+            value = "60"
+        )
+    )]
+    RequestHash = 60u16,
+    #[strum(
+        serialize = "CompletionRatio",
+        props(
+            docs = r#"How complete the current production is for this device, between 0 and 1"#,
+            value = "61"
+        )
+    )]
+    CompletionRatio = 61u16,
+    #[strum(
+        serialize = "ClearMemory",
+        props(
+            docs = r#"When set to 1, clears the counter memory (e.g. ExportCount). Will set itself back to 0 when actioned"#,
+            value = "62"
+        )
+    )]
+    ClearMemory = 62u16,
+    #[strum(
+        serialize = "ExportCount",
+        props(
+            docs = r#"How many items exported since last ClearMemory"#,
+            value = "63"
+        )
+    )]
+    ExportCount = 63u16,
+    #[strum(
+        serialize = "ImportCount",
+        props(
+            docs = r#"How many items imported since last ClearMemory"#,
+            value = "64"
+        )
+    )]
+    ImportCount = 64u16,
+    #[strum(
+        serialize = "PowerGeneration",
+        props(docs = r#"Returns how much power is being generated"#, value = "65")
+    )]
+    PowerGeneration = 65u16,
+    #[strum(
+        serialize = "TotalMoles",
+        props(docs = r#"Returns the total moles of the device"#, value = "66")
+    )]
+    TotalMoles = 66u16,
+    #[strum(
+        serialize = "Volume",
+        props(docs = r#"Returns the device atmosphere volume"#, value = "67")
+    )]
+    Volume = 67u16,
+    #[strum(
+        serialize = "Plant",
+        props(
+            docs = r#"Performs the planting action for any plant based machinery"#,
+            value = "68"
+        )
+    )]
+    Plant = 68u16,
+    #[strum(
+        serialize = "Harvest",
+        props(
+            docs = r#"Performs the harvesting action for any plant based machinery"#,
+            value = "69"
+        )
+    )]
+    Harvest = 69u16,
+    #[strum(
+        serialize = "Output",
+        props(
+            docs = r#"The output operation for a sort handling device, such as a stacker or sorter, when in logic mode the device will only action one repetition when set zero or above and then back to -1 and await further instructions"#,
+            value = "70"
+        )
+    )]
+    Output = 70u16,
+    #[strum(
+        serialize = "PressureSetting",
+        props(
+            docs = r#"The current setting for the internal pressure of the object (e.g. the Hardsuit Air release), in KPa"#,
+            value = "71"
+        )
+    )]
+    PressureSetting = 71u16,
+    #[strum(
+        serialize = "TemperatureSetting",
+        props(
+            docs = r#"The current setting for the internal temperature of the object (e.g. the Hardsuit A/C)"#,
+            value = "72"
+        )
+    )]
+    TemperatureSetting = 72u16,
+    #[strum(
+        serialize = "TemperatureExternal",
+        props(
+            docs = r#"The temperature of the outside of the device, usually the world atmosphere surrounding it"#,
+            value = "73"
+        )
+    )]
+    TemperatureExternal = 73u16,
+    #[strum(
+        serialize = "Filtration",
+        props(
+            docs = r#"The current state of the filtration system, for example Filtration = 1 for a Hardsuit sets filtration to On"#,
+            value = "74"
+        )
+    )]
+    Filtration = 74u16,
+    #[strum(
         serialize = "AirRelease",
         props(
             docs = r#"The current state of the air release system, for example AirRelease = 1 for a Hardsuit sets Air Release to On"#,
@@ -545,71 +1023,679 @@ pub enum LogicType {
     )]
     AirRelease = 75u16,
     #[strum(
-        serialize = "AlignmentError",
+        serialize = "PositionX",
         props(
-            docs = r#"The angular discrepancy between the telescope's current orientation and the target. Indicates how 'off target' the telescope is. Returns NaN when no target."#,
-            value = "243"
+            docs = r#"The current position in X dimension in world coordinates"#,
+            value = "76"
         )
     )]
-    AlignmentError = 243u16,
+    PositionX = 76u16,
     #[strum(
-        serialize = "Apex",
+        serialize = "PositionY",
         props(
-            docs = r#"The lowest altitude that the rocket will reach before it starts travelling upwards again."#,
-            value = "238"
+            docs = r#"The current position in Y dimension in world coordinates"#,
+            value = "77"
         )
     )]
-    Apex = 238u16,
+    PositionY = 77u16,
     #[strum(
-        serialize = "AutoLand",
+        serialize = "PositionZ",
         props(
-            docs = r#"Engages the automatic landing algorithm. The rocket will automatically throttle and turn on and off its engines to achieve a smooth landing."#,
-            value = "226"
+            docs = r#"The current position in Z dimension in world coordinates"#,
+            value = "78"
         )
     )]
-    AutoLand = 226u16,
+    PositionZ = 78u16,
     #[strum(
-        serialize = "AutoShutOff",
-        props(
-            docs = r#"Turns off all devices in the rocket upon reaching destination"#,
-            value = "218"
-        )
+        serialize = "VelocityMagnitude",
+        props(docs = r#"The current magnitude of the velocity vector"#, value = "79")
     )]
-    AutoShutOff = 218u16,
+    VelocityMagnitude = 79u16,
     #[strum(
-        serialize = "BestContactFilter",
+        serialize = "VelocityRelativeX",
         props(
-            docs = r#"Filters the satellite's auto selection of targets to a single reference ID."#,
-            value = "267"
+            docs = r#"The current velocity X relative to the forward vector of this"#,
+            value = "80"
         )
     )]
-    BestContactFilter = 267u16,
+    VelocityRelativeX = 80u16,
+    #[strum(
+        serialize = "VelocityRelativeY",
+        props(
+            docs = r#"The current velocity Y relative to the forward vector of this"#,
+            value = "81"
+        )
+    )]
+    VelocityRelativeY = 81u16,
+    #[strum(
+        serialize = "VelocityRelativeZ",
+        props(
+            docs = r#"The current velocity Z relative to the forward vector of this"#,
+            value = "82"
+        )
+    )]
+    VelocityRelativeZ = 82u16,
+    #[strum(
+        serialize = "RatioNitrousOxide",
+        props(
+            docs = r#"The ratio of <link=GasNitrousOxide><color=#44AD83>Nitrous Oxide</color></link> in device atmosphere"#,
+            value = "83"
+        )
+    )]
+    RatioNitrousOxide = 83u16,
+    #[strum(
+        serialize = "PrefabHash",
+        props(docs = r#"The hash of the structure"#, value = "84")
+    )]
+    PrefabHash = 84u16,
+    #[strum(
+        serialize = "ForceWrite",
+        props(docs = r#"Forces Logic Writer devices to rewrite value"#, value = "85")
+    )]
+    ForceWrite = 85u16,
+    #[strum(
+        serialize = "SignalStrength",
+        props(
+            docs = r#"Returns the degree offset of the strongest contact"#,
+            value = "86"
+        )
+    )]
+    SignalStrength = 86u16,
+    #[strum(
+        serialize = "SignalID",
+        props(
+            docs = r#"Returns the contact ID of the strongest signal from this Satellite"#,
+            value = "87"
+        )
+    )]
+    SignalId = 87u16,
+    #[strum(
+        serialize = "TargetX",
+        props(
+            docs = r#"The target position in X dimension in world coordinates"#,
+            value = "88"
+        )
+    )]
+    TargetX = 88u16,
+    #[strum(
+        serialize = "TargetY",
+        props(
+            docs = r#"The target position in Y dimension in world coordinates"#,
+            value = "89"
+        )
+    )]
+    TargetY = 89u16,
+    #[strum(
+        serialize = "TargetZ",
+        props(
+            docs = r#"The target position in Z dimension in world coordinates"#,
+            value = "90"
+        )
+    )]
+    TargetZ = 90u16,
+    #[strum(
+        serialize = "SettingInput",
+        props(docs = r#"<A:EN:-1139210406>"#, value = "91")
+    )]
+    SettingInput = 91u16,
+    #[strum(
+        serialize = "SettingOutput",
+        props(docs = r#"<A:EN:1605622326>"#, value = "92")
+    )]
+    SettingOutput = 92u16,
+    #[strum(
+        serialize = "CurrentResearchPodType",
+        props(docs = r#"<A:EN:1890273128>"#, value = "93")
+    )]
+    CurrentResearchPodType = 93u16,
+    #[strum(
+        serialize = "ManualResearchRequiredPod",
+        props(
+            docs = r#"Sets the pod type to search for a certain pod when breaking down a pods."#,
+            value = "94"
+        )
+    )]
+    ManualResearchRequiredPod = 94u16,
+    #[strum(
+        serialize = "MineablesInVicinity",
+        props(
+            docs = r#"Returns the amount of potential mineables within an extended area around AIMEe."#,
+            value = "95"
+        )
+    )]
+    MineablesInVicinity = 95u16,
+    #[strum(
+        serialize = "MineablesInQueue",
+        props(
+            docs = r#"Returns the amount of mineables AIMEe has queued up to mine."#,
+            value = "96"
+        )
+    )]
+    MineablesInQueue = 96u16,
+    #[strum(
+        serialize = "NextWeatherEventTime",
+        props(
+            docs = r#"Returns in seconds when the next weather event is inbound."#,
+            value = "97"
+        )
+    )]
+    NextWeatherEventTime = 97u16,
+    #[strum(
+        serialize = "Combustion",
+        props(
+            docs = r#"The assess atmosphere is on fire. Returns 1 if atmosphere is on fire, 0 if not."#,
+            value = "98"
+        )
+    )]
+    Combustion = 98u16,
+    #[strum(
+        serialize = "Fuel",
+        props(
+            docs = r#"Gets the cost of fuel to return the rocket to your current world."#,
+            value = "99"
+        )
+    )]
+    Fuel = 99u16,
+    #[strum(
+        serialize = "ReturnFuelCost",
+        props(
+            docs = r#"Gets the fuel remaining in your rocket's fuel tank."#,
+            value = "100"
+        )
+    )]
+    ReturnFuelCost = 100u16,
+    #[strum(
+        serialize = "CollectableGoods",
+        props(
+            docs = r#"Gets the cost of fuel to return the rocket to your current world."#,
+            value = "101"
+        )
+    )]
+    CollectableGoods = 101u16,
+    #[strum(serialize = "Time", props(docs = r#"Time"#, value = "102"))]
+    Time = 102u16,
     #[strum(serialize = "Bpm", props(docs = r#"Bpm"#, value = "103"))]
     Bpm = 103u16,
     #[strum(
-        serialize = "BurnTimeRemaining",
+        serialize = "EnvironmentEfficiency",
         props(
-            docs = r#"Estimated time in seconds until fuel is depleted. Calculated based on current fuel usage."#,
-            value = "225"
+            docs = r#"The Environment Efficiency reported by the machine, as a float between 0 and 1"#,
+            value = "104"
         )
     )]
-    BurnTimeRemaining = 225u16,
+    EnvironmentEfficiency = 104u16,
     #[strum(
-        serialize = "CelestialHash",
+        serialize = "WorkingGasEfficiency",
         props(
-            docs = r#"The current hash of the targeted celestial object."#,
-            value = "242"
+            docs = r#"The Working Gas Efficiency reported by the machine, as a float between 0 and 1"#,
+            value = "105"
         )
     )]
-    CelestialHash = 242u16,
+    WorkingGasEfficiency = 105u16,
     #[strum(
-        serialize = "CelestialParentHash",
+        serialize = "PressureInput",
         props(
-            docs = r#"The hash for the name of the parent the celestial is orbiting, 0 if there is no parent celestial."#,
-            value = "250"
+            docs = r#"The current pressure reading of the device's Input Network"#,
+            value = "106"
         )
     )]
-    CelestialParentHash = 250u16,
+    PressureInput = 106u16,
+    #[strum(
+        serialize = "TemperatureInput",
+        props(
+            docs = r#"The current temperature reading of the device's Input Network"#,
+            value = "107"
+        )
+    )]
+    TemperatureInput = 107u16,
+    #[strum(
+        serialize = "RatioOxygenInput",
+        props(
+            docs = r#"The ratio of oxygen in device's input network"#,
+            value = "108"
+        )
+    )]
+    RatioOxygenInput = 108u16,
+    #[strum(
+        serialize = "RatioCarbonDioxideInput",
+        props(
+            docs = r#"The ratio of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> in device's input network"#,
+            value = "109"
+        )
+    )]
+    RatioCarbonDioxideInput = 109u16,
+    #[strum(
+        serialize = "RatioNitrogenInput",
+        props(
+            docs = r#"The ratio of nitrogen in device's input network"#,
+            value = "110"
+        )
+    )]
+    RatioNitrogenInput = 110u16,
+    #[strum(
+        serialize = "RatioPollutantInput",
+        props(
+            docs = r#"The ratio of pollutant in device's input network"#,
+            value = "111"
+        )
+    )]
+    RatioPollutantInput = 111u16,
+    #[strum(
+        serialize = "RatioVolatilesInput",
+        props(
+            docs = r#"The ratio of volatiles in device's input network"#,
+            value = "112"
+        )
+    )]
+    RatioVolatilesInput = 112u16,
+    #[strum(
+        serialize = "RatioWaterInput",
+        props(
+            docs = r#"The ratio of water in device's input network"#,
+            value = "113"
+        )
+    )]
+    RatioWaterInput = 113u16,
+    #[strum(
+        serialize = "RatioNitrousOxideInput",
+        props(
+            docs = r#"The ratio of <link=GasNitrousOxide><color=#44AD83>Nitrous Oxide</color></link> in device's input network"#,
+            value = "114"
+        )
+    )]
+    RatioNitrousOxideInput = 114u16,
+    #[strum(
+        serialize = "TotalMolesInput",
+        props(
+            docs = r#"Returns the total moles of the device's Input Network"#,
+            value = "115"
+        )
+    )]
+    TotalMolesInput = 115u16,
+    #[strum(
+        serialize = "PressureInput2",
+        props(
+            docs = r#"The current pressure reading of the device's Input2 Network"#,
+            value = "116"
+        )
+    )]
+    PressureInput2 = 116u16,
+    #[strum(
+        serialize = "TemperatureInput2",
+        props(
+            docs = r#"The current temperature reading of the device's Input2 Network"#,
+            value = "117"
+        )
+    )]
+    TemperatureInput2 = 117u16,
+    #[strum(
+        serialize = "RatioOxygenInput2",
+        props(
+            docs = r#"The ratio of oxygen in device's Input2 network"#,
+            value = "118"
+        )
+    )]
+    RatioOxygenInput2 = 118u16,
+    #[strum(
+        serialize = "RatioCarbonDioxideInput2",
+        props(
+            docs = r#"The ratio of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> in device's Input2 network"#,
+            value = "119"
+        )
+    )]
+    RatioCarbonDioxideInput2 = 119u16,
+    #[strum(
+        serialize = "RatioNitrogenInput2",
+        props(
+            docs = r#"The ratio of nitrogen in device's Input2 network"#,
+            value = "120"
+        )
+    )]
+    RatioNitrogenInput2 = 120u16,
+    #[strum(
+        serialize = "RatioPollutantInput2",
+        props(
+            docs = r#"The ratio of pollutant in device's Input2 network"#,
+            value = "121"
+        )
+    )]
+    RatioPollutantInput2 = 121u16,
+    #[strum(
+        serialize = "RatioVolatilesInput2",
+        props(
+            docs = r#"The ratio of volatiles in device's Input2 network"#,
+            value = "122"
+        )
+    )]
+    RatioVolatilesInput2 = 122u16,
+    #[strum(
+        serialize = "RatioWaterInput2",
+        props(
+            docs = r#"The ratio of water in device's Input2 network"#,
+            value = "123"
+        )
+    )]
+    RatioWaterInput2 = 123u16,
+    #[strum(
+        serialize = "RatioNitrousOxideInput2",
+        props(
+            docs = r#"The ratio of <link=GasNitrousOxide><color=#44AD83>Nitrous Oxide</color></link> in device's Input2 network"#,
+            value = "124"
+        )
+    )]
+    RatioNitrousOxideInput2 = 124u16,
+    #[strum(
+        serialize = "TotalMolesInput2",
+        props(
+            docs = r#"Returns the total moles of the device's Input2 Network"#,
+            value = "125"
+        )
+    )]
+    TotalMolesInput2 = 125u16,
+    #[strum(
+        serialize = "PressureOutput",
+        props(
+            docs = r#"The current pressure reading of the device's Output Network"#,
+            value = "126"
+        )
+    )]
+    PressureOutput = 126u16,
+    #[strum(
+        serialize = "TemperatureOutput",
+        props(
+            docs = r#"The current temperature reading of the device's Output Network"#,
+            value = "127"
+        )
+    )]
+    TemperatureOutput = 127u16,
+    #[strum(
+        serialize = "RatioOxygenOutput",
+        props(
+            docs = r#"The ratio of oxygen in device's Output network"#,
+            value = "128"
+        )
+    )]
+    RatioOxygenOutput = 128u16,
+    #[strum(
+        serialize = "RatioCarbonDioxideOutput",
+        props(
+            docs = r#"The ratio of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> in device's Output network"#,
+            value = "129"
+        )
+    )]
+    RatioCarbonDioxideOutput = 129u16,
+    #[strum(
+        serialize = "RatioNitrogenOutput",
+        props(
+            docs = r#"The ratio of nitrogen in device's Output network"#,
+            value = "130"
+        )
+    )]
+    RatioNitrogenOutput = 130u16,
+    #[strum(
+        serialize = "RatioPollutantOutput",
+        props(
+            docs = r#"The ratio of pollutant in device's Output network"#,
+            value = "131"
+        )
+    )]
+    RatioPollutantOutput = 131u16,
+    #[strum(
+        serialize = "RatioVolatilesOutput",
+        props(
+            docs = r#"The ratio of volatiles in device's Output network"#,
+            value = "132"
+        )
+    )]
+    RatioVolatilesOutput = 132u16,
+    #[strum(
+        serialize = "RatioWaterOutput",
+        props(
+            docs = r#"The ratio of water in device's Output network"#,
+            value = "133"
+        )
+    )]
+    RatioWaterOutput = 133u16,
+    #[strum(
+        serialize = "RatioNitrousOxideOutput",
+        props(
+            docs = r#"The ratio of <link=GasNitrousOxide><color=#44AD83>Nitrous Oxide</color></link> in device's Output network"#,
+            value = "134"
+        )
+    )]
+    RatioNitrousOxideOutput = 134u16,
+    #[strum(
+        serialize = "TotalMolesOutput",
+        props(
+            docs = r#"Returns the total moles of the device's Output Network"#,
+            value = "135"
+        )
+    )]
+    TotalMolesOutput = 135u16,
+    #[strum(
+        serialize = "PressureOutput2",
+        props(
+            docs = r#"The current pressure reading of the device's Output2 Network"#,
+            value = "136"
+        )
+    )]
+    PressureOutput2 = 136u16,
+    #[strum(
+        serialize = "TemperatureOutput2",
+        props(
+            docs = r#"The current temperature reading of the device's Output2 Network"#,
+            value = "137"
+        )
+    )]
+    TemperatureOutput2 = 137u16,
+    #[strum(
+        serialize = "RatioOxygenOutput2",
+        props(
+            docs = r#"The ratio of oxygen in device's Output2 network"#,
+            value = "138"
+        )
+    )]
+    RatioOxygenOutput2 = 138u16,
+    #[strum(
+        serialize = "RatioCarbonDioxideOutput2",
+        props(
+            docs = r#"The ratio of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> in device's Output2 network"#,
+            value = "139"
+        )
+    )]
+    RatioCarbonDioxideOutput2 = 139u16,
+    #[strum(
+        serialize = "RatioNitrogenOutput2",
+        props(
+            docs = r#"The ratio of nitrogen in device's Output2 network"#,
+            value = "140"
+        )
+    )]
+    RatioNitrogenOutput2 = 140u16,
+    #[strum(
+        serialize = "RatioPollutantOutput2",
+        props(
+            docs = r#"The ratio of pollutant in device's Output2 network"#,
+            value = "141"
+        )
+    )]
+    RatioPollutantOutput2 = 141u16,
+    #[strum(
+        serialize = "RatioVolatilesOutput2",
+        props(
+            docs = r#"The ratio of volatiles in device's Output2 network"#,
+            value = "142"
+        )
+    )]
+    RatioVolatilesOutput2 = 142u16,
+    #[strum(
+        serialize = "RatioWaterOutput2",
+        props(
+            docs = r#"The ratio of water in device's Output2 network"#,
+            value = "143"
+        )
+    )]
+    RatioWaterOutput2 = 143u16,
+    #[strum(
+        serialize = "RatioNitrousOxideOutput2",
+        props(
+            docs = r#"The ratio of <link=GasNitrousOxide><color=#44AD83>Nitrous Oxide</color></link> in device's Output2 network"#,
+            value = "144"
+        )
+    )]
+    RatioNitrousOxideOutput2 = 144u16,
+    #[strum(
+        serialize = "TotalMolesOutput2",
+        props(
+            docs = r#"Returns the total moles of the device's Output2 Network"#,
+            value = "145"
+        )
+    )]
+    TotalMolesOutput2 = 145u16,
+    #[strum(
+        serialize = "CombustionInput",
+        props(
+            docs = r#"The assess atmosphere is on fire. Returns 1 if device's input network is on fire, 0 if not."#,
+            value = "146"
+        )
+    )]
+    CombustionInput = 146u16,
+    #[strum(
+        serialize = "CombustionInput2",
+        props(
+            docs = r#"The assess atmosphere is on fire. Returns 1 if device's Input2 network is on fire, 0 if not."#,
+            value = "147"
+        )
+    )]
+    CombustionInput2 = 147u16,
+    #[strum(
+        serialize = "CombustionOutput",
+        props(
+            docs = r#"The assess atmosphere is on fire. Returns 1 if device's Output network is on fire, 0 if not."#,
+            value = "148"
+        )
+    )]
+    CombustionOutput = 148u16,
+    #[strum(
+        serialize = "CombustionOutput2",
+        props(
+            docs = r#"The assess atmosphere is on fire. Returns 1 if device's Output2 network is on fire, 0 if not."#,
+            value = "149"
+        )
+    )]
+    CombustionOutput2 = 149u16,
+    #[strum(
+        serialize = "OperationalTemperatureEfficiency",
+        props(
+            docs = r#"How the input pipe's temperature effects the machines efficiency"#,
+            value = "150"
+        )
+    )]
+    OperationalTemperatureEfficiency = 150u16,
+    #[strum(
+        serialize = "TemperatureDifferentialEfficiency",
+        props(
+            docs = r#"How the difference between the input pipe and waste pipe temperatures effect the machines efficiency"#,
+            value = "151"
+        )
+    )]
+    TemperatureDifferentialEfficiency = 151u16,
+    #[strum(
+        serialize = "PressureEfficiency",
+        props(
+            docs = r#"How the pressure of the input pipe and waste pipe effect the machines efficiency"#,
+            value = "152"
+        )
+    )]
+    PressureEfficiency = 152u16,
+    #[strum(
+        serialize = "CombustionLimiter",
+        props(
+            docs = r#"Retards the rate of combustion inside the machine (range: 0-100), with 0 being the slowest rate of combustion and 100 being the fastest"#,
+            value = "153"
+        )
+    )]
+    CombustionLimiter = 153u16,
+    #[strum(
+        serialize = "Throttle",
+        props(
+            docs = r#"Increases the rate at which the machine works (range: 0-100)"#,
+            value = "154"
+        )
+    )]
+    Throttle = 154u16,
+    #[strum(
+        serialize = "Rpm",
+        props(
+            docs = r#"The number of revolutions per minute that the device's spinning mechanism is doing"#,
+            value = "155"
+        )
+    )]
+    Rpm = 155u16,
+    #[strum(
+        serialize = "Stress",
+        props(
+            docs = r#"Machines get stressed when working hard. When Stress reaches 100 the machine will automatically shut down"#,
+            value = "156"
+        )
+    )]
+    Stress = 156u16,
+    #[strum(
+        serialize = "InterrogationProgress",
+        props(
+            docs = r#"Progress of this sattellite dish's interrogation of its current target, as a ratio from 0-1"#,
+            value = "157"
+        )
+    )]
+    InterrogationProgress = 157u16,
+    #[strum(
+        serialize = "TargetPadIndex",
+        props(
+            docs = r#"The index of the trader landing pad on this devices data network that it will try to call a trader in to land"#,
+            value = "158"
+        )
+    )]
+    TargetPadIndex = 158u16,
+    #[strum(
+        serialize = "SizeX",
+        props(
+            docs = r#"Size on the X (right) axis of the object in largeGrids (a largeGrid is 2meters)"#,
+            value = "160"
+        )
+    )]
+    SizeX = 160u16,
+    #[strum(
+        serialize = "SizeY",
+        props(
+            docs = r#"Size on the Y(Up) axis of the object in largeGrids (a largeGrid is 2meters)"#,
+            value = "161"
+        )
+    )]
+    SizeY = 161u16,
+    #[strum(
+        serialize = "SizeZ",
+        props(
+            docs = r#"Size on the Z(Forward) axis of the object in largeGrids (a largeGrid is 2meters)"#,
+            value = "162"
+        )
+    )]
+    SizeZ = 162u16,
+    #[strum(
+        serialize = "MinimumWattsToContact",
+        props(
+            docs = r#"Minimum required amount of watts from the dish hitting the target trader contact to start interrogating the contact"#,
+            value = "163"
+        )
+    )]
+    MinimumWattsToContact = 163u16,
+    #[strum(
+        serialize = "WattsReachingContact",
+        props(
+            docs = r#"The amount of watts actually hitting the contact. This is effected by the power of the dish and how far off-axis the dish is from the contact vector"#,
+            value = "164"
+        )
+    )]
+    WattsReachingContact = 164u16,
     #[strum(
         serialize = "Channel0",
         props(
@@ -675,284 +1761,13 @@ pub enum LogicType {
     )]
     Channel7 = 172u16,
     #[strum(
-        serialize = "Charge",
-        props(docs = r#"The current charge the device has"#, value = "11")
-    )]
-    Charge = 11u16,
-    #[strum(
-        serialize = "Chart",
+        serialize = "LineNumber",
         props(
-            docs = r#"Progress status of Chart scan at the rocket's target Space Map Location. Returns a clamped normalised value. If Chart scan is not available returns -1."#,
-            value = "256"
+            docs = r#"The line number of current execution for an integrated circuit running on this device. While this number can be written, use with caution"#,
+            value = "173"
         )
     )]
-    Chart = 256u16,
-    #[strum(
-        serialize = "ChartedNavPoints",
-        props(
-            docs = r#"The number of charted NavPoints at the rocket's target Space Map Location."#,
-            value = "259"
-        )
-    )]
-    ChartedNavPoints = 259u16,
-    #[strum(
-        serialize = "ClearMemory",
-        props(
-            docs = r#"When set to 1, clears the counter memory (e.g. ExportCount). Will set itself back to 0 when actioned"#,
-            value = "62"
-        )
-    )]
-    ClearMemory = 62u16,
-    #[strum(
-        serialize = "CollectableGoods",
-        props(
-            docs = r#"Gets the cost of fuel to return the rocket to your current world."#,
-            value = "101"
-        )
-    )]
-    CollectableGoods = 101u16,
-    #[strum(
-        serialize = "Color",
-        props(
-            docs = r#"
-        Whether driven by concerns for clarity, safety or simple aesthetics, <link=Stationeers><color=#0080FFFF>Stationeers</color></link> have access to a small rainbow of colors for their constructions. These are the color setting for devices, represented as an integer.
-
-0: Blue
-1: Grey
-2: Green
-3: Orange
-4: Red
-5: Yellow
-6: White
-7: Black
-8: Brown
-9: Khaki
-10: Pink
-11: Purple
-
-        It is an unwavering universal law that anything higher than 11 will be purple. The <link=ODA><color=#0080FFFF>ODA</color></link> is powerless to change this. Similarly, anything lower than 0 will be Blue.
-      "#,
-            value = "38"
-        )
-    )]
-    Color = 38u16,
-    #[strum(
-        serialize = "Combustion",
-        props(
-            docs = r#"The assess atmosphere is on fire. Returns 1 if atmosphere is on fire, 0 if not."#,
-            value = "98"
-        )
-    )]
-    Combustion = 98u16,
-    #[strum(
-        serialize = "CombustionInput",
-        props(
-            docs = r#"The assess atmosphere is on fire. Returns 1 if device's input network is on fire, 0 if not."#,
-            value = "146"
-        )
-    )]
-    CombustionInput = 146u16,
-    #[strum(
-        serialize = "CombustionInput2",
-        props(
-            docs = r#"The assess atmosphere is on fire. Returns 1 if device's Input2 network is on fire, 0 if not."#,
-            value = "147"
-        )
-    )]
-    CombustionInput2 = 147u16,
-    #[strum(
-        serialize = "CombustionLimiter",
-        props(
-            docs = r#"Retards the rate of combustion inside the machine (range: 0-100), with 0 being the slowest rate of combustion and 100 being the fastest"#,
-            value = "153"
-        )
-    )]
-    CombustionLimiter = 153u16,
-    #[strum(
-        serialize = "CombustionOutput",
-        props(
-            docs = r#"The assess atmosphere is on fire. Returns 1 if device's Output network is on fire, 0 if not."#,
-            value = "148"
-        )
-    )]
-    CombustionOutput = 148u16,
-    #[strum(
-        serialize = "CombustionOutput2",
-        props(
-            docs = r#"The assess atmosphere is on fire. Returns 1 if device's Output2 network is on fire, 0 if not."#,
-            value = "149"
-        )
-    )]
-    CombustionOutput2 = 149u16,
-    #[strum(
-        serialize = "CompletionRatio",
-        props(
-            docs = r#"How complete the current production is for this device, between 0 and 1"#,
-            value = "61"
-        )
-    )]
-    CompletionRatio = 61u16,
-    #[strum(
-        serialize = "ContactTypeId",
-        props(docs = r#"The type id of the contact."#, value = "198")
-    )]
-    ContactTypeId = 198u16,
-    #[strum(
-        serialize = "CurrentCode",
-        props(
-            docs = r#"The Space Map Address of the rockets current Space Map Location"#,
-            value = "261"
-        )
-    )]
-    CurrentCode = 261u16,
-    #[strum(
-        serialize = "CurrentResearchPodType",
-        props(docs = r#"<A:EN:1890273128>"#, value = "93")
-    )]
-    CurrentResearchPodType = 93u16,
-    #[strum(
-        serialize = "Density",
-        props(
-            docs = r#"The density of the rocket's target site's mine-able deposit."#,
-            value = "262"
-        )
-    )]
-    Density = 262u16,
-    #[strum(
-        serialize = "DestinationCode",
-        props(
-            docs = r#"The Space Map Address of the rockets target Space Map Location"#,
-            value = "215"
-        )
-    )]
-    DestinationCode = 215u16,
-    #[strum(
-        serialize = "Discover",
-        props(
-            docs = r#"Progress status of Discovery scan at the rocket's target Space Map Location. Returns a clamped normalised value. If Discovery scan is not available returns -1."#,
-            value = "255"
-        )
-    )]
-    Discover = 255u16,
-    #[strum(
-        serialize = "DistanceAu",
-        props(
-            docs = r#"The current distance to the celestial object, measured in astronomical units."#,
-            value = "244"
-        )
-    )]
-    DistanceAu = 244u16,
-    #[strum(
-        serialize = "DistanceKm",
-        props(
-            docs = r#"The current distance to the celestial object, measured in kilometers."#,
-            value = "249"
-        )
-    )]
-    DistanceKm = 249u16,
-    #[strum(
-        serialize = "DrillCondition",
-        props(
-            docs = r#"The current condition of the drill head in this devices drill slot. Expressed as a ratio between 0 and 1."#,
-            value = "240"
-        )
-    )]
-    DrillCondition = 240u16,
-    #[strum(
-        serialize = "DryMass",
-        props(
-            docs = r#"The Mass in kilograms of the rocket excluding fuel. The more massive the rocket the more fuel will be required to move to a new location in space."#,
-            value = "220"
-        )
-    )]
-    DryMass = 220u16,
-    #[strum(
-        serialize = "Eccentricity",
-        props(
-            docs = r#"A measure of how elliptical (oval) an orbit is. Ranges from 0 (a perfect circle) to 1 (a parabolic trajectory)."#,
-            value = "247"
-        )
-    )]
-    Eccentricity = 247u16,
-    #[strum(
-        serialize = "ElevatorLevel",
-        props(docs = r#"Level the elevator is currently at"#, value = "40")
-    )]
-    ElevatorLevel = 40u16,
-    #[strum(
-        serialize = "ElevatorSpeed",
-        props(docs = r#"Current speed of the elevator"#, value = "39")
-    )]
-    ElevatorSpeed = 39u16,
-    #[strum(
-        serialize = "EntityState",
-        props(
-            docs = r#"The current entity state, such as whether it is dead, unconscious or alive, expressed as a state integer."#,
-            value = "239"
-        )
-    )]
-    EntityState = 239u16,
-    #[strum(
-        serialize = "EnvironmentEfficiency",
-        props(
-            docs = r#"The Environment Efficiency reported by the machine, as a float between 0 and 1"#,
-            value = "104"
-        )
-    )]
-    EnvironmentEfficiency = 104u16,
-    #[strum(
-        serialize = "Error",
-        props(docs = r#"1 if device is in error state, otherwise 0"#, value = "4")
-    )]
-    Error = 4u16,
-    #[strum(
-        serialize = "ExhaustVelocity",
-        props(docs = r#"The velocity of the exhaust gas in m/s"#, value = "235")
-    )]
-    ExhaustVelocity = 235u16,
-    #[strum(
-        serialize = "ExportCount",
-        props(
-            docs = r#"How many items exported since last ClearMemory"#,
-            value = "63"
-        )
-    )]
-    ExportCount = 63u16,
-    #[strum(
-        serialize = "ExportQuantity",
-        props(
-            deprecated = "true",
-            docs = r#"Total quantity of items exported by the device"#,
-            value = "31"
-        )
-    )]
-    ExportQuantity = 31u16,
-    #[strum(
-        serialize = "ExportSlotHash",
-        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "42")
-    )]
-    ExportSlotHash = 42u16,
-    #[strum(
-        serialize = "ExportSlotOccupant",
-        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "32")
-    )]
-    ExportSlotOccupant = 32u16,
-    #[strum(
-        serialize = "Filtration",
-        props(
-            docs = r#"The current state of the filtration system, for example Filtration = 1 for a Hardsuit sets filtration to On"#,
-            value = "74"
-        )
-    )]
-    Filtration = 74u16,
-    #[strum(
-        serialize = "FlightControlRule",
-        props(
-            docs = r#"Flight control rule of rocket. None = 0, No AutoPilot. Normal = 1, Target Decent Apex of 60m. Alternate = 2, Velocity to High - Full throttle. Alternate2 = 3, Target an appropriate decent velocity as velocity is too low. FinalApproach = 4, Descend towards launch mount in a controlled manner."#,
-            value = "236"
-        )
-    )]
-    FlightControlRule = 236u16,
+    LineNumber = 173u16,
     #[strum(
         serialize = "Flush",
         props(
@@ -962,601 +1777,15 @@ pub enum LogicType {
     )]
     Flush = 174u16,
     #[strum(
-        serialize = "ForceWrite",
-        props(docs = r#"Forces Logic Writer devices to rewrite value"#, value = "85")
+        serialize = "SoundAlert",
+        props(docs = r#"Plays a sound alert on the devices speaker"#, value = "175")
     )]
-    ForceWrite = 85u16,
+    SoundAlert = 175u16,
     #[strum(
-        serialize = "ForwardX",
-        props(
-            docs = r#"The direction the entity is facing expressed as a normalized vector"#,
-            value = "227"
-        )
+        serialize = "SolarIrradiance",
+        props(docs = r#"<A:EN:-1627927313>"#, value = "176")
     )]
-    ForwardX = 227u16,
-    #[strum(
-        serialize = "ForwardY",
-        props(
-            docs = r#"The direction the entity is facing expressed as a normalized vector"#,
-            value = "228"
-        )
-    )]
-    ForwardY = 228u16,
-    #[strum(
-        serialize = "ForwardZ",
-        props(
-            docs = r#"The direction the entity is facing expressed as a normalized vector"#,
-            value = "229"
-        )
-    )]
-    ForwardZ = 229u16,
-    #[strum(
-        serialize = "Fuel",
-        props(
-            docs = r#"Gets the cost of fuel to return the rocket to your current world."#,
-            value = "99"
-        )
-    )]
-    Fuel = 99u16,
-    #[strum(
-        serialize = "Harvest",
-        props(
-            docs = r#"Performs the harvesting action for any plant based machinery"#,
-            value = "69"
-        )
-    )]
-    Harvest = 69u16,
-    #[strum(
-        serialize = "Horizontal",
-        props(docs = r#"Horizontal setting of the device"#, value = "20")
-    )]
-    Horizontal = 20u16,
-    #[strum(
-        serialize = "HorizontalRatio",
-        props(docs = r#"Radio of horizontal setting for device"#, value = "34")
-    )]
-    HorizontalRatio = 34u16,
-    #[strum(
-        serialize = "Idle",
-        props(
-            docs = r#"Returns 1 if the device is currently idle, otherwise 0"#,
-            value = "37"
-        )
-    )]
-    Idle = 37u16,
-    #[strum(
-        serialize = "ImportCount",
-        props(
-            docs = r#"How many items imported since last ClearMemory"#,
-            value = "64"
-        )
-    )]
-    ImportCount = 64u16,
-    #[strum(
-        serialize = "ImportQuantity",
-        props(
-            deprecated = "true",
-            docs = r#"Total quantity of items imported by the device"#,
-            value = "29"
-        )
-    )]
-    ImportQuantity = 29u16,
-    #[strum(
-        serialize = "ImportSlotHash",
-        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "43")
-    )]
-    ImportSlotHash = 43u16,
-    #[strum(
-        serialize = "ImportSlotOccupant",
-        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "30")
-    )]
-    ImportSlotOccupant = 30u16,
-    #[strum(
-        serialize = "Inclination",
-        props(
-            docs = r#"The tilt of an orbit's plane relative to the equatorial plane, measured in degrees. Defines the orbital plane's angle."#,
-            value = "246"
-        )
-    )]
-    Inclination = 246u16,
-    #[strum(
-        serialize = "Index",
-        props(docs = r#"The current index for the device."#, value = "241")
-    )]
-    Index = 241u16,
-    #[strum(
-        serialize = "InterrogationProgress",
-        props(
-            docs = r#"Progress of this sattellite dish's interrogation of its current target, as a ratio from 0-1"#,
-            value = "157"
-        )
-    )]
-    InterrogationProgress = 157u16,
-    #[strum(
-        serialize = "LineNumber",
-        props(
-            docs = r#"The line number of current execution for an integrated circuit running on this device. While this number can be written, use with caution"#,
-            value = "173"
-        )
-    )]
-    LineNumber = 173u16,
-    #[strum(
-        serialize = "Lock",
-        props(
-            docs = r#"1 if device is locked, otherwise 0, can be set in most devices and prevents the user from access the values"#,
-            value = "10"
-        )
-    )]
-    Lock = 10u16,
-    #[strum(
-        serialize = "ManualResearchRequiredPod",
-        props(
-            docs = r#"Sets the pod type to search for a certain pod when breaking down a pods."#,
-            value = "94"
-        )
-    )]
-    ManualResearchRequiredPod = 94u16,
-    #[strum(
-        serialize = "Mass",
-        props(
-            docs = r#"The total Mass of the rocket in kilograms including fuel and cargo. The more massive the rocket the more fuel will be required to move to a new location in space."#,
-            value = "219"
-        )
-    )]
-    Mass = 219u16,
-    #[strum(
-        serialize = "Maximum",
-        props(docs = r#"Maximum setting of the device"#, value = "23")
-    )]
-    Maximum = 23u16,
-    #[strum(
-        serialize = "MineablesInQueue",
-        props(
-            docs = r#"Returns the amount of mineables AIMEe has queued up to mine."#,
-            value = "96"
-        )
-    )]
-    MineablesInQueue = 96u16,
-    #[strum(
-        serialize = "MineablesInVicinity",
-        props(
-            docs = r#"Returns the amount of potential mineables within an extended area around AIMEe."#,
-            value = "95"
-        )
-    )]
-    MineablesInVicinity = 95u16,
-    #[strum(
-        serialize = "MinedQuantity",
-        props(
-            docs = r#"The total number of resources that have been mined at the rocket's target Space Map Site."#,
-            value = "266"
-        )
-    )]
-    MinedQuantity = 266u16,
-    #[strum(
-        serialize = "MinimumWattsToContact",
-        props(
-            docs = r#"Minimum required amount of watts from the dish hitting the target trader contact to start interrogating the contact"#,
-            value = "163"
-        )
-    )]
-    MinimumWattsToContact = 163u16,
-    #[strum(
-        serialize = "Mode",
-        props(
-            docs = r#"Integer for mode state, different devices will have different mode states available to them"#,
-            value = "3"
-        )
-    )]
-    Mode = 3u16,
-    #[strum(
-        serialize = "NavPoints",
-        props(
-            docs = r#"The number of NavPoints at the rocket's target Space Map Location."#,
-            value = "258"
-        )
-    )]
-    NavPoints = 258u16,
-    #[strum(
-        serialize = "NextWeatherEventTime",
-        props(
-            docs = r#"Returns in seconds when the next weather event is inbound."#,
-            value = "97"
-        )
-    )]
-    NextWeatherEventTime = 97u16,
-    #[strum(
-        serialize = "None",
-        props(deprecated = "true", docs = r#"No description"#, value = "0")
-    )]
-    None = 0u16,
-    #[strum(
-        serialize = "On",
-        props(
-            docs = r#"The current state of the device, 0 for off, 1 for on"#,
-            value = "28"
-        )
-    )]
-    On = 28u16,
-    #[strum(
-        serialize = "Open",
-        props(docs = r#"1 if device is open, otherwise 0"#, value = "2")
-    )]
-    Open = 2u16,
-    #[strum(
-        serialize = "OperationalTemperatureEfficiency",
-        props(
-            docs = r#"How the input pipe's temperature effects the machines efficiency"#,
-            value = "150"
-        )
-    )]
-    OperationalTemperatureEfficiency = 150u16,
-    #[strum(
-        serialize = "OrbitPeriod",
-        props(
-            docs = r#"The time it takes for an object to complete one full orbit around another object, measured in days. Indicates the duration of the orbital cycle."#,
-            value = "245"
-        )
-    )]
-    OrbitPeriod = 245u16,
-    #[strum(
-        serialize = "Orientation",
-        props(
-            docs = r#"The orientation of the entity in degrees in a plane relative towards the north origin"#,
-            value = "230"
-        )
-    )]
-    Orientation = 230u16,
-    #[strum(
-        serialize = "Output",
-        props(
-            docs = r#"The output operation for a sort handling device, such as a stacker or sorter, when in logic mode the device will only action one repetition when set zero or above and then back to -1 and await further instructions"#,
-            value = "70"
-        )
-    )]
-    Output = 70u16,
-    #[strum(
-        serialize = "PassedMoles",
-        props(
-            docs = r#"The number of moles that passed through this device on the previous simulation tick"#,
-            value = "234"
-        )
-    )]
-    PassedMoles = 234u16,
-    #[strum(
-        serialize = "Plant",
-        props(
-            docs = r#"Performs the planting action for any plant based machinery"#,
-            value = "68"
-        )
-    )]
-    Plant = 68u16,
-    #[strum(
-        serialize = "PlantEfficiency1",
-        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "52")
-    )]
-    PlantEfficiency1 = 52u16,
-    #[strum(
-        serialize = "PlantEfficiency2",
-        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "53")
-    )]
-    PlantEfficiency2 = 53u16,
-    #[strum(
-        serialize = "PlantEfficiency3",
-        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "54")
-    )]
-    PlantEfficiency3 = 54u16,
-    #[strum(
-        serialize = "PlantEfficiency4",
-        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "55")
-    )]
-    PlantEfficiency4 = 55u16,
-    #[strum(
-        serialize = "PlantGrowth1",
-        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "48")
-    )]
-    PlantGrowth1 = 48u16,
-    #[strum(
-        serialize = "PlantGrowth2",
-        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "49")
-    )]
-    PlantGrowth2 = 49u16,
-    #[strum(
-        serialize = "PlantGrowth3",
-        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "50")
-    )]
-    PlantGrowth3 = 50u16,
-    #[strum(
-        serialize = "PlantGrowth4",
-        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "51")
-    )]
-    PlantGrowth4 = 51u16,
-    #[strum(
-        serialize = "PlantHash1",
-        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "56")
-    )]
-    PlantHash1 = 56u16,
-    #[strum(
-        serialize = "PlantHash2",
-        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "57")
-    )]
-    PlantHash2 = 57u16,
-    #[strum(
-        serialize = "PlantHash3",
-        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "58")
-    )]
-    PlantHash3 = 58u16,
-    #[strum(
-        serialize = "PlantHash4",
-        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "59")
-    )]
-    PlantHash4 = 59u16,
-    #[strum(
-        serialize = "PlantHealth1",
-        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "44")
-    )]
-    PlantHealth1 = 44u16,
-    #[strum(
-        serialize = "PlantHealth2",
-        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "45")
-    )]
-    PlantHealth2 = 45u16,
-    #[strum(
-        serialize = "PlantHealth3",
-        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "46")
-    )]
-    PlantHealth3 = 46u16,
-    #[strum(
-        serialize = "PlantHealth4",
-        props(deprecated = "true", docs = r#"DEPRECATED"#, value = "47")
-    )]
-    PlantHealth4 = 47u16,
-    #[strum(
-        serialize = "PositionX",
-        props(
-            docs = r#"The current position in X dimension in world coordinates"#,
-            value = "76"
-        )
-    )]
-    PositionX = 76u16,
-    #[strum(
-        serialize = "PositionY",
-        props(
-            docs = r#"The current position in Y dimension in world coordinates"#,
-            value = "77"
-        )
-    )]
-    PositionY = 77u16,
-    #[strum(
-        serialize = "PositionZ",
-        props(
-            docs = r#"The current position in Z dimension in world coordinates"#,
-            value = "78"
-        )
-    )]
-    PositionZ = 78u16,
-    #[strum(
-        serialize = "Power",
-        props(
-            docs = r#"Can be read to return if the device is correctly powered or not, set via the power system, return 1 if powered and 0 if not"#,
-            value = "1"
-        )
-    )]
-    Power = 1u16,
-    #[strum(
-        serialize = "PowerActual",
-        props(
-            docs = r#"How much energy the device or network is actually using"#,
-            value = "26"
-        )
-    )]
-    PowerActual = 26u16,
-    #[strum(
-        serialize = "PowerGeneration",
-        props(docs = r#"Returns how much power is being generated"#, value = "65")
-    )]
-    PowerGeneration = 65u16,
-    #[strum(
-        serialize = "PowerPotential",
-        props(
-            docs = r#"How much energy the device or network potentially provides"#,
-            value = "25"
-        )
-    )]
-    PowerPotential = 25u16,
-    #[strum(
-        serialize = "PowerRequired",
-        props(
-            docs = r#"Power requested from the device and/or network"#,
-            value = "36"
-        )
-    )]
-    PowerRequired = 36u16,
-    #[strum(
-        serialize = "PrefabHash",
-        props(docs = r#"The hash of the structure"#, value = "84")
-    )]
-    PrefabHash = 84u16,
-    #[strum(
-        serialize = "Pressure",
-        props(docs = r#"The current pressure reading of the device"#, value = "5")
-    )]
-    Pressure = 5u16,
-    #[strum(
-        serialize = "PressureEfficiency",
-        props(
-            docs = r#"How the pressure of the input pipe and waste pipe effect the machines efficiency"#,
-            value = "152"
-        )
-    )]
-    PressureEfficiency = 152u16,
-    #[strum(
-        serialize = "PressureExternal",
-        props(docs = r#"Setting for external pressure safety, in KPa"#, value = "7")
-    )]
-    PressureExternal = 7u16,
-    #[strum(
-        serialize = "PressureInput",
-        props(
-            docs = r#"The current pressure reading of the device's Input Network"#,
-            value = "106"
-        )
-    )]
-    PressureInput = 106u16,
-    #[strum(
-        serialize = "PressureInput2",
-        props(
-            docs = r#"The current pressure reading of the device's Input2 Network"#,
-            value = "116"
-        )
-    )]
-    PressureInput2 = 116u16,
-    #[strum(
-        serialize = "PressureInternal",
-        props(docs = r#"Setting for internal pressure safety, in KPa"#, value = "8")
-    )]
-    PressureInternal = 8u16,
-    #[strum(
-        serialize = "PressureOutput",
-        props(
-            docs = r#"The current pressure reading of the device's Output Network"#,
-            value = "126"
-        )
-    )]
-    PressureOutput = 126u16,
-    #[strum(
-        serialize = "PressureOutput2",
-        props(
-            docs = r#"The current pressure reading of the device's Output2 Network"#,
-            value = "136"
-        )
-    )]
-    PressureOutput2 = 136u16,
-    #[strum(
-        serialize = "PressureSetting",
-        props(
-            docs = r#"The current setting for the internal pressure of the object (e.g. the Hardsuit Air release), in KPa"#,
-            value = "71"
-        )
-    )]
-    PressureSetting = 71u16,
-    #[strum(
-        serialize = "Progress",
-        props(
-            docs = r#"Progress of the rocket to the next node on the map expressed as a value between 0-1."#,
-            value = "214"
-        )
-    )]
-    Progress = 214u16,
-    #[strum(
-        serialize = "Quantity",
-        props(docs = r#"Total quantity on the device"#, value = "27")
-    )]
-    Quantity = 27u16,
-    #[strum(
-        serialize = "Ratio",
-        props(
-            docs = r#"Context specific value depending on device, 0 to 1 based ratio"#,
-            value = "24"
-        )
-    )]
-    Ratio = 24u16,
-    #[strum(
-        serialize = "RatioCarbonDioxide",
-        props(
-            docs = r#"The ratio of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> in device atmosphere"#,
-            value = "15"
-        )
-    )]
-    RatioCarbonDioxide = 15u16,
-    #[strum(
-        serialize = "RatioCarbonDioxideInput",
-        props(
-            docs = r#"The ratio of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> in device's input network"#,
-            value = "109"
-        )
-    )]
-    RatioCarbonDioxideInput = 109u16,
-    #[strum(
-        serialize = "RatioCarbonDioxideInput2",
-        props(
-            docs = r#"The ratio of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> in device's Input2 network"#,
-            value = "119"
-        )
-    )]
-    RatioCarbonDioxideInput2 = 119u16,
-    #[strum(
-        serialize = "RatioCarbonDioxideOutput",
-        props(
-            docs = r#"The ratio of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> in device's Output network"#,
-            value = "129"
-        )
-    )]
-    RatioCarbonDioxideOutput = 129u16,
-    #[strum(
-        serialize = "RatioCarbonDioxideOutput2",
-        props(
-            docs = r#"The ratio of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> in device's Output2 network"#,
-            value = "139"
-        )
-    )]
-    RatioCarbonDioxideOutput2 = 139u16,
-    #[strum(
-        serialize = "RatioHydrogen",
-        props(
-            docs = r#"The ratio of <link=GasHydrogen><color=#44AD83>Hydrogen</color></link> in device's Atmopshere"#,
-            value = "252"
-        )
-    )]
-    RatioHydrogen = 252u16,
-    #[strum(
-        serialize = "RatioLiquidCarbonDioxide",
-        props(
-            docs = r#"The ratio of <link=GasLiquidCarbonDioxide><color=#44AD83>Liquid Carbon Dioxide</color></link> in device's Atmosphere"#,
-            value = "199"
-        )
-    )]
-    RatioLiquidCarbonDioxide = 199u16,
-    #[strum(
-        serialize = "RatioLiquidCarbonDioxideInput",
-        props(
-            docs = r#"The ratio of <link=GasLiquidCarbonDioxide><color=#44AD83>Liquid Carbon Dioxide</color></link> in device's Input Atmosphere"#,
-            value = "200"
-        )
-    )]
-    RatioLiquidCarbonDioxideInput = 200u16,
-    #[strum(
-        serialize = "RatioLiquidCarbonDioxideInput2",
-        props(
-            docs = r#"The ratio of <link=GasLiquidCarbonDioxide><color=#44AD83>Liquid Carbon Dioxide</color></link> in device's Input2 Atmosphere"#,
-            value = "201"
-        )
-    )]
-    RatioLiquidCarbonDioxideInput2 = 201u16,
-    #[strum(
-        serialize = "RatioLiquidCarbonDioxideOutput",
-        props(
-            docs = r#"The ratio of <link=GasLiquidCarbonDioxide><color=#44AD83>Liquid Carbon Dioxide</color></link> in device's device's Output Atmosphere"#,
-            value = "202"
-        )
-    )]
-    RatioLiquidCarbonDioxideOutput = 202u16,
-    #[strum(
-        serialize = "RatioLiquidCarbonDioxideOutput2",
-        props(
-            docs = r#"The ratio of <link=GasLiquidCarbonDioxide><color=#44AD83>Liquid Carbon Dioxide</color></link> in device's Output2 Atmopshere"#,
-            value = "203"
-        )
-    )]
-    RatioLiquidCarbonDioxideOutput2 = 203u16,
-    #[strum(
-        serialize = "RatioLiquidHydrogen",
-        props(
-            docs = r#"The ratio of <link=GasLiquidHydrogen><color=#44AD83>Liquid Hydrogen</color></link> in device's Atmopshere"#,
-            value = "253"
-        )
-    )]
-    RatioLiquidHydrogen = 253u16,
+    SolarIrradiance = 176u16,
     #[strum(
         serialize = "RatioLiquidNitrogen",
         props(
@@ -1598,45 +1827,13 @@ pub enum LogicType {
     )]
     RatioLiquidNitrogenOutput2 = 181u16,
     #[strum(
-        serialize = "RatioLiquidNitrousOxide",
+        serialize = "VolumeOfLiquid",
         props(
-            docs = r#"The ratio of <link=GasLiquidNitrousOxide><color=#44AD83>Liquid Nitrous Oxide</color></link> in device's Atmosphere"#,
-            value = "209"
+            docs = r#"The total volume of all liquids in Liters in the atmosphere"#,
+            value = "182"
         )
     )]
-    RatioLiquidNitrousOxide = 209u16,
-    #[strum(
-        serialize = "RatioLiquidNitrousOxideInput",
-        props(
-            docs = r#"The ratio of <link=GasLiquidNitrousOxide><color=#44AD83>Liquid Nitrous Oxide</color></link> in device's Input Atmosphere"#,
-            value = "210"
-        )
-    )]
-    RatioLiquidNitrousOxideInput = 210u16,
-    #[strum(
-        serialize = "RatioLiquidNitrousOxideInput2",
-        props(
-            docs = r#"The ratio of <link=GasLiquidNitrousOxide><color=#44AD83>Liquid Nitrous Oxide</color></link> in device's Input2 Atmosphere"#,
-            value = "211"
-        )
-    )]
-    RatioLiquidNitrousOxideInput2 = 211u16,
-    #[strum(
-        serialize = "RatioLiquidNitrousOxideOutput",
-        props(
-            docs = r#"The ratio of <link=GasLiquidNitrousOxide><color=#44AD83>Liquid Nitrous Oxide</color></link> in device's device's Output Atmosphere"#,
-            value = "212"
-        )
-    )]
-    RatioLiquidNitrousOxideOutput = 212u16,
-    #[strum(
-        serialize = "RatioLiquidNitrousOxideOutput2",
-        props(
-            docs = r#"The ratio of <link=GasLiquidNitrousOxide><color=#44AD83>Liquid Nitrous Oxide</color></link> in device's Output2 Atmopshere"#,
-            value = "213"
-        )
-    )]
-    RatioLiquidNitrousOxideOutput2 = 213u16,
+    VolumeOfLiquid = 182u16,
     #[strum(
         serialize = "RatioLiquidOxygen",
         props(
@@ -1678,46 +1875,6 @@ pub enum LogicType {
     )]
     RatioLiquidOxygenOutput2 = 187u16,
     #[strum(
-        serialize = "RatioLiquidPollutant",
-        props(
-            docs = r#"The ratio of <link=GasLiquidPollutant><color=#44AD83>Liquid Pollutant</color></link> in device's Atmosphere"#,
-            value = "204"
-        )
-    )]
-    RatioLiquidPollutant = 204u16,
-    #[strum(
-        serialize = "RatioLiquidPollutantInput",
-        props(
-            docs = r#"The ratio of <link=GasLiquidPollutant><color=#44AD83>Liquid Pollutant</color></link> in device's Input Atmosphere"#,
-            value = "205"
-        )
-    )]
-    RatioLiquidPollutantInput = 205u16,
-    #[strum(
-        serialize = "RatioLiquidPollutantInput2",
-        props(
-            docs = r#"The ratio of <link=GasLiquidPollutant><color=#44AD83>Liquid Pollutant</color></link> in device's Input2 Atmosphere"#,
-            value = "206"
-        )
-    )]
-    RatioLiquidPollutantInput2 = 206u16,
-    #[strum(
-        serialize = "RatioLiquidPollutantOutput",
-        props(
-            docs = r#"The ratio of <link=GasLiquidPollutant><color=#44AD83>Liquid Pollutant</color></link> in device's device's Output Atmosphere"#,
-            value = "207"
-        )
-    )]
-    RatioLiquidPollutantOutput = 207u16,
-    #[strum(
-        serialize = "RatioLiquidPollutantOutput2",
-        props(
-            docs = r#"The ratio of <link=GasLiquidPollutant><color=#44AD83>Liquid Pollutant</color></link> in device's Output2 Atmopshere"#,
-            value = "208"
-        )
-    )]
-    RatioLiquidPollutantOutput2 = 208u16,
-    #[strum(
         serialize = "RatioLiquidVolatiles",
         props(
             docs = r#"The ratio of <link=GasLiquidVolatiles><color=#44AD83>Liquid Volatiles</color></link> in device's Atmosphere"#,
@@ -1757,165 +1914,6 @@ pub enum LogicType {
         )
     )]
     RatioLiquidVolatilesOutput2 = 192u16,
-    #[strum(
-        serialize = "RatioNitrogen",
-        props(docs = r#"The ratio of nitrogen in device atmosphere"#, value = "16")
-    )]
-    RatioNitrogen = 16u16,
-    #[strum(
-        serialize = "RatioNitrogenInput",
-        props(
-            docs = r#"The ratio of nitrogen in device's input network"#,
-            value = "110"
-        )
-    )]
-    RatioNitrogenInput = 110u16,
-    #[strum(
-        serialize = "RatioNitrogenInput2",
-        props(
-            docs = r#"The ratio of nitrogen in device's Input2 network"#,
-            value = "120"
-        )
-    )]
-    RatioNitrogenInput2 = 120u16,
-    #[strum(
-        serialize = "RatioNitrogenOutput",
-        props(
-            docs = r#"The ratio of nitrogen in device's Output network"#,
-            value = "130"
-        )
-    )]
-    RatioNitrogenOutput = 130u16,
-    #[strum(
-        serialize = "RatioNitrogenOutput2",
-        props(
-            docs = r#"The ratio of nitrogen in device's Output2 network"#,
-            value = "140"
-        )
-    )]
-    RatioNitrogenOutput2 = 140u16,
-    #[strum(
-        serialize = "RatioNitrousOxide",
-        props(
-            docs = r#"The ratio of <link=GasNitrousOxide><color=#44AD83>Nitrous Oxide</color></link> in device atmosphere"#,
-            value = "83"
-        )
-    )]
-    RatioNitrousOxide = 83u16,
-    #[strum(
-        serialize = "RatioNitrousOxideInput",
-        props(
-            docs = r#"The ratio of <link=GasNitrousOxide><color=#44AD83>Nitrous Oxide</color></link> in device's input network"#,
-            value = "114"
-        )
-    )]
-    RatioNitrousOxideInput = 114u16,
-    #[strum(
-        serialize = "RatioNitrousOxideInput2",
-        props(
-            docs = r#"The ratio of <link=GasNitrousOxide><color=#44AD83>Nitrous Oxide</color></link> in device's Input2 network"#,
-            value = "124"
-        )
-    )]
-    RatioNitrousOxideInput2 = 124u16,
-    #[strum(
-        serialize = "RatioNitrousOxideOutput",
-        props(
-            docs = r#"The ratio of <link=GasNitrousOxide><color=#44AD83>Nitrous Oxide</color></link> in device's Output network"#,
-            value = "134"
-        )
-    )]
-    RatioNitrousOxideOutput = 134u16,
-    #[strum(
-        serialize = "RatioNitrousOxideOutput2",
-        props(
-            docs = r#"The ratio of <link=GasNitrousOxide><color=#44AD83>Nitrous Oxide</color></link> in device's Output2 network"#,
-            value = "144"
-        )
-    )]
-    RatioNitrousOxideOutput2 = 144u16,
-    #[strum(
-        serialize = "RatioOxygen",
-        props(docs = r#"The ratio of oxygen in device atmosphere"#, value = "14")
-    )]
-    RatioOxygen = 14u16,
-    #[strum(
-        serialize = "RatioOxygenInput",
-        props(
-            docs = r#"The ratio of oxygen in device's input network"#,
-            value = "108"
-        )
-    )]
-    RatioOxygenInput = 108u16,
-    #[strum(
-        serialize = "RatioOxygenInput2",
-        props(
-            docs = r#"The ratio of oxygen in device's Input2 network"#,
-            value = "118"
-        )
-    )]
-    RatioOxygenInput2 = 118u16,
-    #[strum(
-        serialize = "RatioOxygenOutput",
-        props(
-            docs = r#"The ratio of oxygen in device's Output network"#,
-            value = "128"
-        )
-    )]
-    RatioOxygenOutput = 128u16,
-    #[strum(
-        serialize = "RatioOxygenOutput2",
-        props(
-            docs = r#"The ratio of oxygen in device's Output2 network"#,
-            value = "138"
-        )
-    )]
-    RatioOxygenOutput2 = 138u16,
-    #[strum(
-        serialize = "RatioPollutant",
-        props(docs = r#"The ratio of pollutant in device atmosphere"#, value = "17")
-    )]
-    RatioPollutant = 17u16,
-    #[strum(
-        serialize = "RatioPollutantInput",
-        props(
-            docs = r#"The ratio of pollutant in device's input network"#,
-            value = "111"
-        )
-    )]
-    RatioPollutantInput = 111u16,
-    #[strum(
-        serialize = "RatioPollutantInput2",
-        props(
-            docs = r#"The ratio of pollutant in device's Input2 network"#,
-            value = "121"
-        )
-    )]
-    RatioPollutantInput2 = 121u16,
-    #[strum(
-        serialize = "RatioPollutantOutput",
-        props(
-            docs = r#"The ratio of pollutant in device's Output network"#,
-            value = "131"
-        )
-    )]
-    RatioPollutantOutput = 131u16,
-    #[strum(
-        serialize = "RatioPollutantOutput2",
-        props(
-            docs = r#"The ratio of pollutant in device's Output2 network"#,
-            value = "141"
-        )
-    )]
-    RatioPollutantOutput2 = 141u16,
-    #[strum(
-        serialize = "RatioPollutedWater",
-        props(
-            docs = r#"The ratio of polluted water in device atmosphere"#,
-            value = "254"
-        )
-    )]
-    RatioPollutedWater = 254u16,
     #[strum(
         serialize = "RatioSteam",
         props(
@@ -1957,362 +1955,183 @@ pub enum LogicType {
     )]
     RatioSteamOutput2 = 197u16,
     #[strum(
-        serialize = "RatioVolatiles",
-        props(docs = r#"The ratio of volatiles in device atmosphere"#, value = "18")
+        serialize = "ContactTypeId",
+        props(docs = r#"The type id of the contact."#, value = "198")
     )]
-    RatioVolatiles = 18u16,
+    ContactTypeId = 198u16,
     #[strum(
-        serialize = "RatioVolatilesInput",
+        serialize = "RatioLiquidCarbonDioxide",
         props(
-            docs = r#"The ratio of volatiles in device's input network"#,
-            value = "112"
+            docs = r#"The ratio of <link=GasLiquidCarbonDioxide><color=#44AD83>Liquid Carbon Dioxide</color></link> in device's Atmosphere"#,
+            value = "199"
         )
     )]
-    RatioVolatilesInput = 112u16,
+    RatioLiquidCarbonDioxide = 199u16,
     #[strum(
-        serialize = "RatioVolatilesInput2",
+        serialize = "RatioLiquidCarbonDioxideInput",
         props(
-            docs = r#"The ratio of volatiles in device's Input2 network"#,
-            value = "122"
+            docs = r#"The ratio of <link=GasLiquidCarbonDioxide><color=#44AD83>Liquid Carbon Dioxide</color></link> in device's Input Atmosphere"#,
+            value = "200"
         )
     )]
-    RatioVolatilesInput2 = 122u16,
+    RatioLiquidCarbonDioxideInput = 200u16,
     #[strum(
-        serialize = "RatioVolatilesOutput",
+        serialize = "RatioLiquidCarbonDioxideInput2",
         props(
-            docs = r#"The ratio of volatiles in device's Output network"#,
-            value = "132"
+            docs = r#"The ratio of <link=GasLiquidCarbonDioxide><color=#44AD83>Liquid Carbon Dioxide</color></link> in device's Input2 Atmosphere"#,
+            value = "201"
         )
     )]
-    RatioVolatilesOutput = 132u16,
+    RatioLiquidCarbonDioxideInput2 = 201u16,
     #[strum(
-        serialize = "RatioVolatilesOutput2",
+        serialize = "RatioLiquidCarbonDioxideOutput",
         props(
-            docs = r#"The ratio of volatiles in device's Output2 network"#,
-            value = "142"
+            docs = r#"The ratio of <link=GasLiquidCarbonDioxide><color=#44AD83>Liquid Carbon Dioxide</color></link> in device's device's Output Atmosphere"#,
+            value = "202"
         )
     )]
-    RatioVolatilesOutput2 = 142u16,
+    RatioLiquidCarbonDioxideOutput = 202u16,
     #[strum(
-        serialize = "RatioWater",
-        props(docs = r#"The ratio of water in device atmosphere"#, value = "19")
-    )]
-    RatioWater = 19u16,
-    #[strum(
-        serialize = "RatioWaterInput",
+        serialize = "RatioLiquidCarbonDioxideOutput2",
         props(
-            docs = r#"The ratio of water in device's input network"#,
-            value = "113"
+            docs = r#"The ratio of <link=GasLiquidCarbonDioxide><color=#44AD83>Liquid Carbon Dioxide</color></link> in device's Output2 Atmopshere"#,
+            value = "203"
         )
     )]
-    RatioWaterInput = 113u16,
+    RatioLiquidCarbonDioxideOutput2 = 203u16,
     #[strum(
-        serialize = "RatioWaterInput2",
+        serialize = "RatioLiquidPollutant",
         props(
-            docs = r#"The ratio of water in device's Input2 network"#,
-            value = "123"
+            docs = r#"The ratio of <link=GasLiquidPollutant><color=#44AD83>Liquid Pollutant</color></link> in device's Atmosphere"#,
+            value = "204"
         )
     )]
-    RatioWaterInput2 = 123u16,
+    RatioLiquidPollutant = 204u16,
     #[strum(
-        serialize = "RatioWaterOutput",
+        serialize = "RatioLiquidPollutantInput",
         props(
-            docs = r#"The ratio of water in device's Output network"#,
-            value = "133"
+            docs = r#"The ratio of <link=GasLiquidPollutant><color=#44AD83>Liquid Pollutant</color></link> in device's Input Atmosphere"#,
+            value = "205"
         )
     )]
-    RatioWaterOutput = 133u16,
+    RatioLiquidPollutantInput = 205u16,
     #[strum(
-        serialize = "RatioWaterOutput2",
+        serialize = "RatioLiquidPollutantInput2",
         props(
-            docs = r#"The ratio of water in device's Output2 network"#,
-            value = "143"
+            docs = r#"The ratio of <link=GasLiquidPollutant><color=#44AD83>Liquid Pollutant</color></link> in device's Input2 Atmosphere"#,
+            value = "206"
         )
     )]
-    RatioWaterOutput2 = 143u16,
+    RatioLiquidPollutantInput2 = 206u16,
     #[strum(
-        serialize = "ReEntryAltitude",
+        serialize = "RatioLiquidPollutantOutput",
         props(
-            docs = r#"The altitude that the rocket will begin its decent to the pad. Must be between 25km and 120km"#,
-            value = "237"
+            docs = r#"The ratio of <link=GasLiquidPollutant><color=#44AD83>Liquid Pollutant</color></link> in device's device's Output Atmosphere"#,
+            value = "207"
         )
     )]
-    ReEntryAltitude = 237u16,
+    RatioLiquidPollutantOutput = 207u16,
     #[strum(
-        serialize = "Reagents",
+        serialize = "RatioLiquidPollutantOutput2",
         props(
-            docs = r#"Total number of reagents recorded by the device"#,
-            value = "13"
+            docs = r#"The ratio of <link=GasLiquidPollutant><color=#44AD83>Liquid Pollutant</color></link> in device's Output2 Atmopshere"#,
+            value = "208"
         )
     )]
-    Reagents = 13u16,
+    RatioLiquidPollutantOutput2 = 208u16,
     #[strum(
-        serialize = "RecipeHash",
+        serialize = "RatioLiquidNitrousOxide",
         props(
-            docs = r#"Current hash of the recipe the device is set to produce"#,
-            value = "41"
+            docs = r#"The ratio of <link=GasLiquidNitrousOxide><color=#44AD83>Liquid Nitrous Oxide</color></link> in device's Atmosphere"#,
+            value = "209"
         )
     )]
-    RecipeHash = 41u16,
+    RatioLiquidNitrousOxide = 209u16,
+    #[strum(
+        serialize = "RatioLiquidNitrousOxideInput",
+        props(
+            docs = r#"The ratio of <link=GasLiquidNitrousOxide><color=#44AD83>Liquid Nitrous Oxide</color></link> in device's Input Atmosphere"#,
+            value = "210"
+        )
+    )]
+    RatioLiquidNitrousOxideInput = 210u16,
+    #[strum(
+        serialize = "RatioLiquidNitrousOxideInput2",
+        props(
+            docs = r#"The ratio of <link=GasLiquidNitrousOxide><color=#44AD83>Liquid Nitrous Oxide</color></link> in device's Input2 Atmosphere"#,
+            value = "211"
+        )
+    )]
+    RatioLiquidNitrousOxideInput2 = 211u16,
+    #[strum(
+        serialize = "RatioLiquidNitrousOxideOutput",
+        props(
+            docs = r#"The ratio of <link=GasLiquidNitrousOxide><color=#44AD83>Liquid Nitrous Oxide</color></link> in device's device's Output Atmosphere"#,
+            value = "212"
+        )
+    )]
+    RatioLiquidNitrousOxideOutput = 212u16,
+    #[strum(
+        serialize = "RatioLiquidNitrousOxideOutput2",
+        props(
+            docs = r#"The ratio of <link=GasLiquidNitrousOxide><color=#44AD83>Liquid Nitrous Oxide</color></link> in device's Output2 Atmopshere"#,
+            value = "213"
+        )
+    )]
+    RatioLiquidNitrousOxideOutput2 = 213u16,
+    #[strum(
+        serialize = "Progress",
+        props(
+            docs = r#"Progress of the rocket to the next node on the map expressed as a value between 0-1."#,
+            value = "214"
+        )
+    )]
+    Progress = 214u16,
+    #[strum(
+        serialize = "DestinationCode",
+        props(
+            docs = r#"The Space Map Address of the rockets target Space Map Location"#,
+            value = "215"
+        )
+    )]
+    DestinationCode = 215u16,
+    #[strum(
+        serialize = "Acceleration",
+        props(
+            docs = r#"Change in velocity. Rockets that are deccelerating when landing will show this as negative value."#,
+            value = "216"
+        )
+    )]
+    Acceleration = 216u16,
     #[strum(
         serialize = "ReferenceId",
         props(docs = r#"Unique Reference Identifier for this object"#, value = "217")
     )]
     ReferenceId = 217u16,
     #[strum(
-        serialize = "RequestHash",
+        serialize = "AutoShutOff",
         props(
-            docs = r#"When set to the unique identifier, requests an item of the provided type from the device"#,
-            value = "60"
+            docs = r#"Turns off all devices in the rocket upon reaching destination"#,
+            value = "218"
         )
     )]
-    RequestHash = 60u16,
+    AutoShutOff = 218u16,
     #[strum(
-        serialize = "RequiredPower",
+        serialize = "Mass",
         props(
-            docs = r#"Idle operating power quantity, does not necessarily include extra demand power"#,
-            value = "33"
+            docs = r#"The total Mass of the rocket in kilograms including fuel and cargo. The more massive the rocket the more fuel will be required to move to a new location in space."#,
+            value = "219"
         )
     )]
-    RequiredPower = 33u16,
+    Mass = 219u16,
     #[strum(
-        serialize = "ReturnFuelCost",
+        serialize = "DryMass",
         props(
-            docs = r#"Gets the fuel remaining in your rocket's fuel tank."#,
-            value = "100"
+            docs = r#"The Mass in kilograms of the rocket excluding fuel. The more massive the rocket the more fuel will be required to move to a new location in space."#,
+            value = "220"
         )
     )]
-    ReturnFuelCost = 100u16,
-    #[strum(
-        serialize = "Richness",
-        props(
-            docs = r#"The richness of the rocket's target site's mine-able deposit."#,
-            value = "263"
-        )
-    )]
-    Richness = 263u16,
-    #[strum(
-        serialize = "Rpm",
-        props(
-            docs = r#"The number of revolutions per minute that the device's spinning mechanism is doing"#,
-            value = "155"
-        )
-    )]
-    Rpm = 155u16,
-    #[strum(
-        serialize = "SemiMajorAxis",
-        props(
-            docs = r#"The longest radius of an elliptical orbit in astronomical units, measuring half the major axis. Determines the size of the orbit."#,
-            value = "248"
-        )
-    )]
-    SemiMajorAxis = 248u16,
-    #[strum(
-        serialize = "Setting",
-        props(
-            docs = r#"A variable setting that can be read or written, depending on the device"#,
-            value = "12"
-        )
-    )]
-    Setting = 12u16,
-    #[strum(
-        serialize = "SettingInput",
-        props(docs = r#"<A:EN:-1139210406>"#, value = "91")
-    )]
-    SettingInput = 91u16,
-    #[strum(
-        serialize = "SettingOutput",
-        props(docs = r#"<A:EN:1605622326>"#, value = "92")
-    )]
-    SettingOutput = 92u16,
-    #[strum(
-        serialize = "SignalID",
-        props(
-            docs = r#"Returns the contact ID of the strongest signal from this Satellite"#,
-            value = "87"
-        )
-    )]
-    SignalId = 87u16,
-    #[strum(
-        serialize = "SignalStrength",
-        props(
-            docs = r#"Returns the degree offset of the strongest contact"#,
-            value = "86"
-        )
-    )]
-    SignalStrength = 86u16,
-    #[strum(
-        serialize = "Sites",
-        props(
-            docs = r#"The number of Sites that have been discovered at the rockets target Space Map location."#,
-            value = "260"
-        )
-    )]
-    Sites = 260u16,
-    #[strum(
-        serialize = "Size",
-        props(
-            docs = r#"The size of the rocket's target site's mine-able deposit."#,
-            value = "264"
-        )
-    )]
-    Size = 264u16,
-    #[strum(
-        serialize = "SizeX",
-        props(
-            docs = r#"Size on the X (right) axis of the object in largeGrids (a largeGrid is 2meters)"#,
-            value = "160"
-        )
-    )]
-    SizeX = 160u16,
-    #[strum(
-        serialize = "SizeY",
-        props(
-            docs = r#"Size on the Y(Up) axis of the object in largeGrids (a largeGrid is 2meters)"#,
-            value = "161"
-        )
-    )]
-    SizeY = 161u16,
-    #[strum(
-        serialize = "SizeZ",
-        props(
-            docs = r#"Size on the Z(Forward) axis of the object in largeGrids (a largeGrid is 2meters)"#,
-            value = "162"
-        )
-    )]
-    SizeZ = 162u16,
-    #[strum(
-        serialize = "SolarAngle",
-        props(docs = r#"Solar angle of the device"#, value = "22")
-    )]
-    SolarAngle = 22u16,
-    #[strum(
-        serialize = "SolarIrradiance",
-        props(docs = r#"<A:EN:-1627927313>"#, value = "176")
-    )]
-    SolarIrradiance = 176u16,
-    #[strum(
-        serialize = "SoundAlert",
-        props(docs = r#"Plays a sound alert on the devices speaker"#, value = "175")
-    )]
-    SoundAlert = 175u16,
-    #[strum(
-        serialize = "Stress",
-        props(
-            docs = r#"Machines get stressed when working hard. When Stress reaches 100 the machine will automatically shut down"#,
-            value = "156"
-        )
-    )]
-    Stress = 156u16,
-    #[strum(
-        serialize = "Survey",
-        props(
-            docs = r#"Progress status of Survey scan at the rocket's target Space Map Location. Returns a normalised value where 100% surveyed is equal to 1. If Survey scan is not available returns -1."#,
-            value = "257"
-        )
-    )]
-    Survey = 257u16,
-    #[strum(
-        serialize = "TargetPadIndex",
-        props(
-            docs = r#"The index of the trader landing pad on this devices data network that it will try to call a trader in to land"#,
-            value = "158"
-        )
-    )]
-    TargetPadIndex = 158u16,
-    #[strum(
-        serialize = "TargetX",
-        props(
-            docs = r#"The target position in X dimension in world coordinates"#,
-            value = "88"
-        )
-    )]
-    TargetX = 88u16,
-    #[strum(
-        serialize = "TargetY",
-        props(
-            docs = r#"The target position in Y dimension in world coordinates"#,
-            value = "89"
-        )
-    )]
-    TargetY = 89u16,
-    #[strum(
-        serialize = "TargetZ",
-        props(
-            docs = r#"The target position in Z dimension in world coordinates"#,
-            value = "90"
-        )
-    )]
-    TargetZ = 90u16,
-    #[strum(
-        serialize = "Temperature",
-        props(docs = r#"The current temperature reading of the device"#, value = "6")
-    )]
-    Temperature = 6u16,
-    #[strum(
-        serialize = "TemperatureDifferentialEfficiency",
-        props(
-            docs = r#"How the difference between the input pipe and waste pipe temperatures effect the machines efficiency"#,
-            value = "151"
-        )
-    )]
-    TemperatureDifferentialEfficiency = 151u16,
-    #[strum(
-        serialize = "TemperatureExternal",
-        props(
-            docs = r#"The temperature of the outside of the device, usually the world atmosphere surrounding it"#,
-            value = "73"
-        )
-    )]
-    TemperatureExternal = 73u16,
-    #[strum(
-        serialize = "TemperatureInput",
-        props(
-            docs = r#"The current temperature reading of the device's Input Network"#,
-            value = "107"
-        )
-    )]
-    TemperatureInput = 107u16,
-    #[strum(
-        serialize = "TemperatureInput2",
-        props(
-            docs = r#"The current temperature reading of the device's Input2 Network"#,
-            value = "117"
-        )
-    )]
-    TemperatureInput2 = 117u16,
-    #[strum(
-        serialize = "TemperatureOutput",
-        props(
-            docs = r#"The current temperature reading of the device's Output Network"#,
-            value = "127"
-        )
-    )]
-    TemperatureOutput = 127u16,
-    #[strum(
-        serialize = "TemperatureOutput2",
-        props(
-            docs = r#"The current temperature reading of the device's Output2 Network"#,
-            value = "137"
-        )
-    )]
-    TemperatureOutput2 = 137u16,
-    #[strum(
-        serialize = "TemperatureSetting",
-        props(
-            docs = r#"The current setting for the internal temperature of the object (e.g. the Hardsuit A/C)"#,
-            value = "72"
-        )
-    )]
-    TemperatureSetting = 72u16,
-    #[strum(
-        serialize = "Throttle",
-        props(
-            docs = r#"Increases the rate at which the machine works (range: 0-100)"#,
-            value = "154"
-        )
-    )]
-    Throttle = 154u16,
+    DryMass = 220u16,
     #[strum(
         serialize = "Thrust",
         props(
@@ -2322,6 +2141,14 @@ pub enum LogicType {
     )]
     Thrust = 221u16,
     #[strum(
+        serialize = "Weight",
+        props(
+            docs = r#"Weight of Rocket in Newtons (Including fuel and cargo). Weight is effected by local body gravity."#,
+            value = "222"
+        )
+    )]
+    Weight = 222u16,
+    #[strum(
         serialize = "ThrustToWeight",
         props(
             docs = r#"Ratio of thrust to weight of rocket. Weight is effected by local body gravity. A rocket with a low thrust to weight will expend more fuel during launch and landing."#,
@@ -2329,8 +2156,6 @@ pub enum LogicType {
         )
     )]
     ThrustToWeight = 223u16,
-    #[strum(serialize = "Time", props(docs = r#"Time"#, value = "102"))]
-    Time = 102u16,
     #[strum(
         serialize = "TimeToDestination",
         props(
@@ -2340,87 +2165,53 @@ pub enum LogicType {
     )]
     TimeToDestination = 224u16,
     #[strum(
-        serialize = "TotalMoles",
-        props(docs = r#"Returns the total moles of the device"#, value = "66")
-    )]
-    TotalMoles = 66u16,
-    #[strum(
-        serialize = "TotalMolesInput",
+        serialize = "BurnTimeRemaining",
         props(
-            docs = r#"Returns the total moles of the device's Input Network"#,
-            value = "115"
+            docs = r#"Estimated time in seconds until fuel is depleted. Calculated based on current fuel usage."#,
+            value = "225"
         )
     )]
-    TotalMolesInput = 115u16,
+    BurnTimeRemaining = 225u16,
     #[strum(
-        serialize = "TotalMolesInput2",
+        serialize = "AutoLand",
         props(
-            docs = r#"Returns the total moles of the device's Input2 Network"#,
-            value = "125"
+            docs = r#"Engages the automatic landing algorithm. The rocket will automatically throttle and turn on and off its engines to achieve a smooth landing."#,
+            value = "226"
         )
     )]
-    TotalMolesInput2 = 125u16,
+    AutoLand = 226u16,
     #[strum(
-        serialize = "TotalMolesOutput",
+        serialize = "ForwardX",
         props(
-            docs = r#"Returns the total moles of the device's Output Network"#,
-            value = "135"
+            docs = r#"The direction the entity is facing expressed as a normalized vector"#,
+            value = "227"
         )
     )]
-    TotalMolesOutput = 135u16,
+    ForwardX = 227u16,
     #[strum(
-        serialize = "TotalMolesOutput2",
+        serialize = "ForwardY",
         props(
-            docs = r#"Returns the total moles of the device's Output2 Network"#,
-            value = "145"
+            docs = r#"The direction the entity is facing expressed as a normalized vector"#,
+            value = "228"
         )
     )]
-    TotalMolesOutput2 = 145u16,
+    ForwardY = 228u16,
     #[strum(
-        serialize = "TotalQuantity",
+        serialize = "ForwardZ",
         props(
-            docs = r#"The estimated total quantity of resources available to mine at the rocket's target Space Map Site."#,
-            value = "265"
+            docs = r#"The direction the entity is facing expressed as a normalized vector"#,
+            value = "229"
         )
     )]
-    TotalQuantity = 265u16,
+    ForwardZ = 229u16,
     #[strum(
-        serialize = "TrueAnomaly",
+        serialize = "Orientation",
         props(
-            docs = r#"An angular parameter that defines the position of a body moving along a Keplerian orbit. It is the angle between the direction of periapsis and the current position of the body, as seen from the main focus of the ellipse (the point around which the object orbits)."#,
-            value = "251"
+            docs = r#"The orientation of the entity in degrees in a plane relative towards the north origin"#,
+            value = "230"
         )
     )]
-    TrueAnomaly = 251u16,
-    #[strum(
-        serialize = "VelocityMagnitude",
-        props(docs = r#"The current magnitude of the velocity vector"#, value = "79")
-    )]
-    VelocityMagnitude = 79u16,
-    #[strum(
-        serialize = "VelocityRelativeX",
-        props(
-            docs = r#"The current velocity X relative to the forward vector of this"#,
-            value = "80"
-        )
-    )]
-    VelocityRelativeX = 80u16,
-    #[strum(
-        serialize = "VelocityRelativeY",
-        props(
-            docs = r#"The current velocity Y relative to the forward vector of this"#,
-            value = "81"
-        )
-    )]
-    VelocityRelativeY = 81u16,
-    #[strum(
-        serialize = "VelocityRelativeZ",
-        props(
-            docs = r#"The current velocity Z relative to the forward vector of this"#,
-            value = "82"
-        )
-    )]
-    VelocityRelativeZ = 82u16,
+    Orientation = 230u16,
     #[strum(
         serialize = "VelocityX",
         props(
@@ -2446,52 +2237,271 @@ pub enum LogicType {
     )]
     VelocityZ = 233u16,
     #[strum(
-        serialize = "Vertical",
-        props(docs = r#"Vertical setting of the device"#, value = "21")
-    )]
-    Vertical = 21u16,
-    #[strum(
-        serialize = "VerticalRatio",
-        props(docs = r#"Radio of vertical setting for device"#, value = "35")
-    )]
-    VerticalRatio = 35u16,
-    #[strum(
-        serialize = "Volume",
-        props(docs = r#"Returns the device atmosphere volume"#, value = "67")
-    )]
-    Volume = 67u16,
-    #[strum(
-        serialize = "VolumeOfLiquid",
+        serialize = "PassedMoles",
         props(
-            docs = r#"The total volume of all liquids in Liters in the atmosphere"#,
-            value = "182"
+            docs = r#"The number of moles that passed through this device on the previous simulation tick"#,
+            value = "234"
         )
     )]
-    VolumeOfLiquid = 182u16,
+    PassedMoles = 234u16,
     #[strum(
-        serialize = "WattsReachingContact",
+        serialize = "ExhaustVelocity",
+        props(docs = r#"The velocity of the exhaust gas in m/s"#, value = "235")
+    )]
+    ExhaustVelocity = 235u16,
+    #[strum(
+        serialize = "FlightControlRule",
         props(
-            docs = r#"The amount of watts actually hitting the contact. This is effected by the power of the dish and how far off-axis the dish is from the contact vector"#,
-            value = "164"
+            docs = r#"Flight control rule of rocket. None = 0, No AutoPilot. Normal = 1, Target Decent Apex of 60m. Alternate = 2, Velocity to High - Full throttle. Alternate2 = 3, Target an appropriate decent velocity as velocity is too low. FinalApproach = 4, Descend towards launch mount in a controlled manner."#,
+            value = "236"
         )
     )]
-    WattsReachingContact = 164u16,
+    FlightControlRule = 236u16,
     #[strum(
-        serialize = "Weight",
+        serialize = "ReEntryAltitude",
         props(
-            docs = r#"Weight of Rocket in Newtons (Including fuel and cargo). Weight is effected by local body gravity."#,
-            value = "222"
+            docs = r#"The altitude that the rocket will begin its decent to the pad. Must be between 25km and 120km"#,
+            value = "237"
         )
     )]
-    Weight = 222u16,
+    ReEntryAltitude = 237u16,
     #[strum(
-        serialize = "WorkingGasEfficiency",
+        serialize = "Apex",
         props(
-            docs = r#"The Working Gas Efficiency reported by the machine, as a float between 0 and 1"#,
-            value = "105"
+            docs = r#"The lowest altitude that the rocket will reach before it starts travelling upwards again."#,
+            value = "238"
         )
     )]
-    WorkingGasEfficiency = 105u16,
+    Apex = 238u16,
+    #[strum(
+        serialize = "EntityState",
+        props(
+            docs = r#"The current entity state, such as whether it is dead, unconscious or alive, expressed as a state integer."#,
+            value = "239"
+        )
+    )]
+    EntityState = 239u16,
+    #[strum(
+        serialize = "DrillCondition",
+        props(
+            docs = r#"The current condition of the drill head in this devices drill slot. Expressed as a ratio between 0 and 1."#,
+            value = "240"
+        )
+    )]
+    DrillCondition = 240u16,
+    #[strum(
+        serialize = "Index",
+        props(docs = r#"The current index for the device."#, value = "241")
+    )]
+    Index = 241u16,
+    #[strum(
+        serialize = "CelestialHash",
+        props(
+            docs = r#"The current hash of the targeted celestial object."#,
+            value = "242"
+        )
+    )]
+    CelestialHash = 242u16,
+    #[strum(
+        serialize = "AlignmentError",
+        props(
+            docs = r#"The angular discrepancy between the telescope's current orientation and the target. Indicates how 'off target' the telescope is. Returns NaN when no target."#,
+            value = "243"
+        )
+    )]
+    AlignmentError = 243u16,
+    #[strum(
+        serialize = "DistanceAu",
+        props(
+            docs = r#"The current distance to the celestial object, measured in astronomical units."#,
+            value = "244"
+        )
+    )]
+    DistanceAu = 244u16,
+    #[strum(
+        serialize = "OrbitPeriod",
+        props(
+            docs = r#"The time it takes for an object to complete one full orbit around another object, measured in days. Indicates the duration of the orbital cycle."#,
+            value = "245"
+        )
+    )]
+    OrbitPeriod = 245u16,
+    #[strum(
+        serialize = "Inclination",
+        props(
+            docs = r#"The tilt of an orbit's plane relative to the equatorial plane, measured in degrees. Defines the orbital plane's angle."#,
+            value = "246"
+        )
+    )]
+    Inclination = 246u16,
+    #[strum(
+        serialize = "Eccentricity",
+        props(
+            docs = r#"A measure of how elliptical (oval) an orbit is. Ranges from 0 (a perfect circle) to 1 (a parabolic trajectory)."#,
+            value = "247"
+        )
+    )]
+    Eccentricity = 247u16,
+    #[strum(
+        serialize = "SemiMajorAxis",
+        props(
+            docs = r#"The longest radius of an elliptical orbit in astronomical units, measuring half the major axis. Determines the size of the orbit."#,
+            value = "248"
+        )
+    )]
+    SemiMajorAxis = 248u16,
+    #[strum(
+        serialize = "DistanceKm",
+        props(
+            docs = r#"The current distance to the celestial object, measured in kilometers."#,
+            value = "249"
+        )
+    )]
+    DistanceKm = 249u16,
+    #[strum(
+        serialize = "CelestialParentHash",
+        props(
+            docs = r#"The hash for the name of the parent the celestial is orbiting, 0 if there is no parent celestial."#,
+            value = "250"
+        )
+    )]
+    CelestialParentHash = 250u16,
+    #[strum(
+        serialize = "TrueAnomaly",
+        props(
+            docs = r#"An angular parameter that defines the position of a body moving along a Keplerian orbit. It is the angle between the direction of periapsis and the current position of the body, as seen from the main focus of the ellipse (the point around which the object orbits)."#,
+            value = "251"
+        )
+    )]
+    TrueAnomaly = 251u16,
+    #[strum(
+        serialize = "RatioHydrogen",
+        props(
+            docs = r#"The ratio of <link=GasHydrogen><color=#44AD83>Hydrogen</color></link> in device's Atmopshere"#,
+            value = "252"
+        )
+    )]
+    RatioHydrogen = 252u16,
+    #[strum(
+        serialize = "RatioLiquidHydrogen",
+        props(
+            docs = r#"The ratio of <link=GasLiquidHydrogen><color=#44AD83>Liquid Hydrogen</color></link> in device's Atmopshere"#,
+            value = "253"
+        )
+    )]
+    RatioLiquidHydrogen = 253u16,
+    #[strum(
+        serialize = "RatioPollutedWater",
+        props(
+            docs = r#"The ratio of polluted water in device atmosphere"#,
+            value = "254"
+        )
+    )]
+    RatioPollutedWater = 254u16,
+    #[strum(
+        serialize = "Discover",
+        props(
+            docs = r#"Progress status of Discovery scan at the rocket's target Space Map Location. Returns a clamped normalised value. If Discovery scan is not available returns -1."#,
+            value = "255"
+        )
+    )]
+    Discover = 255u16,
+    #[strum(
+        serialize = "Chart",
+        props(
+            docs = r#"Progress status of Chart scan at the rocket's target Space Map Location. Returns a clamped normalised value. If Chart scan is not available returns -1."#,
+            value = "256"
+        )
+    )]
+    Chart = 256u16,
+    #[strum(
+        serialize = "Survey",
+        props(
+            docs = r#"Progress status of Survey scan at the rocket's target Space Map Location. Returns a normalised value where 100% surveyed is equal to 1. If Survey scan is not available returns -1."#,
+            value = "257"
+        )
+    )]
+    Survey = 257u16,
+    #[strum(
+        serialize = "NavPoints",
+        props(
+            docs = r#"The number of NavPoints at the rocket's target Space Map Location."#,
+            value = "258"
+        )
+    )]
+    NavPoints = 258u16,
+    #[strum(
+        serialize = "ChartedNavPoints",
+        props(
+            docs = r#"The number of charted NavPoints at the rocket's target Space Map Location."#,
+            value = "259"
+        )
+    )]
+    ChartedNavPoints = 259u16,
+    #[strum(
+        serialize = "Sites",
+        props(
+            docs = r#"The number of Sites that have been discovered at the rockets target Space Map location."#,
+            value = "260"
+        )
+    )]
+    Sites = 260u16,
+    #[strum(
+        serialize = "CurrentCode",
+        props(
+            docs = r#"The Space Map Address of the rockets current Space Map Location"#,
+            value = "261"
+        )
+    )]
+    CurrentCode = 261u16,
+    #[strum(
+        serialize = "Density",
+        props(
+            docs = r#"The density of the rocket's target site's mine-able deposit."#,
+            value = "262"
+        )
+    )]
+    Density = 262u16,
+    #[strum(
+        serialize = "Richness",
+        props(
+            docs = r#"The richness of the rocket's target site's mine-able deposit."#,
+            value = "263"
+        )
+    )]
+    Richness = 263u16,
+    #[strum(
+        serialize = "Size",
+        props(
+            docs = r#"The size of the rocket's target site's mine-able deposit."#,
+            value = "264"
+        )
+    )]
+    Size = 264u16,
+    #[strum(
+        serialize = "TotalQuantity",
+        props(
+            docs = r#"The estimated total quantity of resources available to mine at the rocket's target Space Map Site."#,
+            value = "265"
+        )
+    )]
+    TotalQuantity = 265u16,
+    #[strum(
+        serialize = "MinedQuantity",
+        props(
+            docs = r#"The total number of resources that have been mined at the rocket's target Space Map Site."#,
+            value = "266"
+        )
+    )]
+    MinedQuantity = 266u16,
+    #[strum(
+        serialize = "BestContactFilter",
+        props(
+            docs = r#"Filters the satellite's auto selection of targets to a single reference ID."#,
+            value = "267"
+        )
+    )]
+    BestContactFilter = 267u16,
 }
 #[derive(
     Debug,
@@ -2514,19 +2524,20 @@ pub enum LogicType {
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum PowerMode {
-    #[strum(serialize = "Charged", props(docs = r#""#, value = "4"))]
-    Charged = 4u8,
-    #[strum(serialize = "Charging", props(docs = r#""#, value = "3"))]
-    Charging = 3u8,
+    #[strum(serialize = "Idle", props(docs = r#""#, value = "0"))]
+    Idle = 0u8,
     #[strum(serialize = "Discharged", props(docs = r#""#, value = "1"))]
     Discharged = 1u8,
     #[strum(serialize = "Discharging", props(docs = r#""#, value = "2"))]
     Discharging = 2u8,
-    #[strum(serialize = "Idle", props(docs = r#""#, value = "0"))]
-    Idle = 0u8,
+    #[strum(serialize = "Charging", props(docs = r#""#, value = "3"))]
+    Charging = 3u8,
+    #[strum(serialize = "Charged", props(docs = r#""#, value = "4"))]
+    Charged = 4u8,
 }
 #[derive(
     Debug,
+    Default,
     Display,
     Clone,
     Copy,
@@ -2546,19 +2557,21 @@ pub enum PowerMode {
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum ReEntryProfile {
+    #[strum(serialize = "None", props(docs = r#""#, value = "0"))]
+    #[default]
+    None = 0u8,
+    #[strum(serialize = "Optimal", props(docs = r#""#, value = "1"))]
+    Optimal = 1u8,
+    #[strum(serialize = "Medium", props(docs = r#""#, value = "2"))]
+    Medium = 2u8,
     #[strum(serialize = "High", props(docs = r#""#, value = "3"))]
     High = 3u8,
     #[strum(serialize = "Max", props(docs = r#""#, value = "4"))]
     Max = 4u8,
-    #[strum(serialize = "Medium", props(docs = r#""#, value = "2"))]
-    Medium = 2u8,
-    #[strum(serialize = "None", props(docs = r#""#, value = "0"))]
-    None = 0u8,
-    #[strum(serialize = "Optimal", props(docs = r#""#, value = "1"))]
-    Optimal = 1u8,
 }
 #[derive(
     Debug,
+    Default,
     Display,
     Clone,
     Copy,
@@ -2578,23 +2591,25 @@ pub enum ReEntryProfile {
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum RobotMode {
+    #[strum(serialize = "None", props(docs = r#""#, value = "0"))]
+    #[default]
+    None = 0u8,
     #[strum(serialize = "Follow", props(docs = r#""#, value = "1"))]
     Follow = 1u8,
     #[strum(serialize = "MoveToTarget", props(docs = r#""#, value = "2"))]
     MoveToTarget = 2u8,
-    #[strum(serialize = "None", props(docs = r#""#, value = "0"))]
-    None = 0u8,
-    #[strum(serialize = "PathToTarget", props(docs = r#""#, value = "5"))]
-    PathToTarget = 5u8,
     #[strum(serialize = "Roam", props(docs = r#""#, value = "3"))]
     Roam = 3u8,
-    #[strum(serialize = "StorageFull", props(docs = r#""#, value = "6"))]
-    StorageFull = 6u8,
     #[strum(serialize = "Unload", props(docs = r#""#, value = "4"))]
     Unload = 4u8,
+    #[strum(serialize = "PathToTarget", props(docs = r#""#, value = "5"))]
+    PathToTarget = 5u8,
+    #[strum(serialize = "StorageFull", props(docs = r#""#, value = "6"))]
+    StorageFull = 6u8,
 }
 #[derive(
     Debug,
+    Default,
     Display,
     Clone,
     Copy,
@@ -2614,89 +2629,91 @@ pub enum RobotMode {
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum Class {
-    #[strum(serialize = "AccessCard", props(docs = r#""#, value = "22"))]
-    AccessCard = 22u8,
-    #[strum(serialize = "Appliance", props(docs = r#""#, value = "18"))]
-    Appliance = 18u8,
-    #[strum(serialize = "Back", props(docs = r#""#, value = "3"))]
-    Back = 3u8,
-    #[strum(serialize = "Battery", props(docs = r#""#, value = "14"))]
-    Battery = 14u8,
-    #[strum(serialize = "Belt", props(docs = r#""#, value = "16"))]
-    Belt = 16u8,
-    #[strum(serialize = "Blocked", props(docs = r#""#, value = "38"))]
-    Blocked = 38u8,
-    #[strum(serialize = "Bottle", props(docs = r#""#, value = "25"))]
-    Bottle = 25u8,
-    #[strum(serialize = "Cartridge", props(docs = r#""#, value = "21"))]
-    Cartridge = 21u8,
-    #[strum(serialize = "Circuit", props(docs = r#""#, value = "24"))]
-    Circuit = 24u8,
-    #[strum(serialize = "Circuitboard", props(docs = r#""#, value = "7"))]
-    Circuitboard = 7u8,
-    #[strum(serialize = "CreditCard", props(docs = r#""#, value = "28"))]
-    CreditCard = 28u8,
-    #[strum(serialize = "DataDisk", props(docs = r#""#, value = "8"))]
-    DataDisk = 8u8,
-    #[strum(serialize = "DirtCanister", props(docs = r#""#, value = "29"))]
-    DirtCanister = 29u8,
-    #[strum(serialize = "DrillHead", props(docs = r#""#, value = "35"))]
-    DrillHead = 35u8,
-    #[strum(serialize = "Egg", props(docs = r#""#, value = "15"))]
-    Egg = 15u8,
-    #[strum(serialize = "Entity", props(docs = r#""#, value = "13"))]
-    Entity = 13u8,
-    #[strum(serialize = "Flare", props(docs = r#""#, value = "37"))]
-    Flare = 37u8,
-    #[strum(serialize = "GasCanister", props(docs = r#""#, value = "5"))]
-    GasCanister = 5u8,
-    #[strum(serialize = "GasFilter", props(docs = r#""#, value = "4"))]
-    GasFilter = 4u8,
-    #[strum(serialize = "Glasses", props(docs = r#""#, value = "27"))]
-    Glasses = 27u8,
+    #[strum(serialize = "None", props(docs = r#""#, value = "0"))]
+    #[default]
+    None = 0u8,
     #[strum(serialize = "Helmet", props(docs = r#""#, value = "1"))]
     Helmet = 1u8,
-    #[strum(serialize = "Ingot", props(docs = r#""#, value = "19"))]
-    Ingot = 19u8,
-    #[strum(serialize = "LiquidBottle", props(docs = r#""#, value = "32"))]
-    LiquidBottle = 32u8,
-    #[strum(serialize = "LiquidCanister", props(docs = r#""#, value = "31"))]
-    LiquidCanister = 31u8,
-    #[strum(serialize = "Magazine", props(docs = r#""#, value = "23"))]
-    Magazine = 23u8,
-    #[strum(serialize = "Motherboard", props(docs = r#""#, value = "6"))]
-    Motherboard = 6u8,
-    #[strum(serialize = "None", props(docs = r#""#, value = "0"))]
-    None = 0u8,
-    #[strum(serialize = "Ore", props(docs = r#""#, value = "10"))]
-    Ore = 10u8,
-    #[strum(serialize = "Organ", props(docs = r#""#, value = "9"))]
-    Organ = 9u8,
-    #[strum(serialize = "Plant", props(docs = r#""#, value = "11"))]
-    Plant = 11u8,
-    #[strum(serialize = "ProgrammableChip", props(docs = r#""#, value = "26"))]
-    ProgrammableChip = 26u8,
-    #[strum(serialize = "ScanningHead", props(docs = r#""#, value = "36"))]
-    ScanningHead = 36u8,
-    #[strum(serialize = "SensorProcessingUnit", props(docs = r#""#, value = "30"))]
-    SensorProcessingUnit = 30u8,
-    #[strum(serialize = "SoundCartridge", props(docs = r#""#, value = "34"))]
-    SoundCartridge = 34u8,
     #[strum(serialize = "Suit", props(docs = r#""#, value = "2"))]
     Suit = 2u8,
-    #[strum(serialize = "SuitMod", props(docs = r#""#, value = "39"))]
-    SuitMod = 39u8,
-    #[strum(serialize = "Tool", props(docs = r#""#, value = "17"))]
-    Tool = 17u8,
-    #[strum(serialize = "Torpedo", props(docs = r#""#, value = "20"))]
-    Torpedo = 20u8,
+    #[strum(serialize = "Back", props(docs = r#""#, value = "3"))]
+    Back = 3u8,
+    #[strum(serialize = "GasFilter", props(docs = r#""#, value = "4"))]
+    GasFilter = 4u8,
+    #[strum(serialize = "GasCanister", props(docs = r#""#, value = "5"))]
+    GasCanister = 5u8,
+    #[strum(serialize = "Motherboard", props(docs = r#""#, value = "6"))]
+    Motherboard = 6u8,
+    #[strum(serialize = "Circuitboard", props(docs = r#""#, value = "7"))]
+    Circuitboard = 7u8,
+    #[strum(serialize = "DataDisk", props(docs = r#""#, value = "8"))]
+    DataDisk = 8u8,
+    #[strum(serialize = "Organ", props(docs = r#""#, value = "9"))]
+    Organ = 9u8,
+    #[strum(serialize = "Ore", props(docs = r#""#, value = "10"))]
+    Ore = 10u8,
+    #[strum(serialize = "Plant", props(docs = r#""#, value = "11"))]
+    Plant = 11u8,
     #[strum(serialize = "Uniform", props(docs = r#""#, value = "12"))]
     Uniform = 12u8,
+    #[strum(serialize = "Entity", props(docs = r#""#, value = "13"))]
+    Entity = 13u8,
+    #[strum(serialize = "Battery", props(docs = r#""#, value = "14"))]
+    Battery = 14u8,
+    #[strum(serialize = "Egg", props(docs = r#""#, value = "15"))]
+    Egg = 15u8,
+    #[strum(serialize = "Belt", props(docs = r#""#, value = "16"))]
+    Belt = 16u8,
+    #[strum(serialize = "Tool", props(docs = r#""#, value = "17"))]
+    Tool = 17u8,
+    #[strum(serialize = "Appliance", props(docs = r#""#, value = "18"))]
+    Appliance = 18u8,
+    #[strum(serialize = "Ingot", props(docs = r#""#, value = "19"))]
+    Ingot = 19u8,
+    #[strum(serialize = "Torpedo", props(docs = r#""#, value = "20"))]
+    Torpedo = 20u8,
+    #[strum(serialize = "Cartridge", props(docs = r#""#, value = "21"))]
+    Cartridge = 21u8,
+    #[strum(serialize = "AccessCard", props(docs = r#""#, value = "22"))]
+    AccessCard = 22u8,
+    #[strum(serialize = "Magazine", props(docs = r#""#, value = "23"))]
+    Magazine = 23u8,
+    #[strum(serialize = "Circuit", props(docs = r#""#, value = "24"))]
+    Circuit = 24u8,
+    #[strum(serialize = "Bottle", props(docs = r#""#, value = "25"))]
+    Bottle = 25u8,
+    #[strum(serialize = "ProgrammableChip", props(docs = r#""#, value = "26"))]
+    ProgrammableChip = 26u8,
+    #[strum(serialize = "Glasses", props(docs = r#""#, value = "27"))]
+    Glasses = 27u8,
+    #[strum(serialize = "CreditCard", props(docs = r#""#, value = "28"))]
+    CreditCard = 28u8,
+    #[strum(serialize = "DirtCanister", props(docs = r#""#, value = "29"))]
+    DirtCanister = 29u8,
+    #[strum(serialize = "SensorProcessingUnit", props(docs = r#""#, value = "30"))]
+    SensorProcessingUnit = 30u8,
+    #[strum(serialize = "LiquidCanister", props(docs = r#""#, value = "31"))]
+    LiquidCanister = 31u8,
+    #[strum(serialize = "LiquidBottle", props(docs = r#""#, value = "32"))]
+    LiquidBottle = 32u8,
     #[strum(serialize = "Wreckage", props(docs = r#""#, value = "33"))]
     Wreckage = 33u8,
+    #[strum(serialize = "SoundCartridge", props(docs = r#""#, value = "34"))]
+    SoundCartridge = 34u8,
+    #[strum(serialize = "DrillHead", props(docs = r#""#, value = "35"))]
+    DrillHead = 35u8,
+    #[strum(serialize = "ScanningHead", props(docs = r#""#, value = "36"))]
+    ScanningHead = 36u8,
+    #[strum(serialize = "Flare", props(docs = r#""#, value = "37"))]
+    Flare = 37u8,
+    #[strum(serialize = "Blocked", props(docs = r#""#, value = "38"))]
+    Blocked = 38u8,
+    #[strum(serialize = "SuitMod", props(docs = r#""#, value = "39"))]
+    SuitMod = 39u8,
 }
 #[derive(
     Debug,
+    Default,
     Display,
     Clone,
     Copy,
@@ -2716,6 +2733,9 @@ pub enum Class {
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum SorterInstruction {
+    #[strum(serialize = "None", props(docs = r#""#, value = "0"))]
+    #[default]
+    None = 0u8,
     #[strum(serialize = "FilterPrefabHashEquals", props(docs = r#""#, value = "1"))]
     FilterPrefabHashEquals = 1u8,
     #[strum(
@@ -2723,25 +2743,24 @@ pub enum SorterInstruction {
         props(docs = r#""#, value = "2")
     )]
     FilterPrefabHashNotEquals = 2u8,
-    #[strum(serialize = "FilterQuantityCompare", props(docs = r#""#, value = "5"))]
-    FilterQuantityCompare = 5u8,
-    #[strum(serialize = "FilterSlotTypeCompare", props(docs = r#""#, value = "4"))]
-    FilterSlotTypeCompare = 4u8,
     #[strum(
         serialize = "FilterSortingClassCompare",
         props(docs = r#""#, value = "3")
     )]
     FilterSortingClassCompare = 3u8,
+    #[strum(serialize = "FilterSlotTypeCompare", props(docs = r#""#, value = "4"))]
+    FilterSlotTypeCompare = 4u8,
+    #[strum(serialize = "FilterQuantityCompare", props(docs = r#""#, value = "5"))]
+    FilterQuantityCompare = 5u8,
     #[strum(
         serialize = "LimitNextExecutionByCount",
         props(docs = r#""#, value = "6")
     )]
     LimitNextExecutionByCount = 6u8,
-    #[strum(serialize = "None", props(docs = r#""#, value = "0"))]
-    None = 0u8,
 }
 #[derive(
     Debug,
+    Default,
     Display,
     Clone,
     Copy,
@@ -2761,31 +2780,33 @@ pub enum SorterInstruction {
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum SortingClass {
+    #[strum(serialize = "Default", props(docs = r#""#, value = "0"))]
+    #[default]
+    Default = 0u8,
+    #[strum(serialize = "Kits", props(docs = r#""#, value = "1"))]
+    Kits = 1u8,
+    #[strum(serialize = "Tools", props(docs = r#""#, value = "2"))]
+    Tools = 2u8,
+    #[strum(serialize = "Resources", props(docs = r#""#, value = "3"))]
+    Resources = 3u8,
+    #[strum(serialize = "Food", props(docs = r#""#, value = "4"))]
+    Food = 4u8,
+    #[strum(serialize = "Clothing", props(docs = r#""#, value = "5"))]
+    Clothing = 5u8,
     #[strum(serialize = "Appliances", props(docs = r#""#, value = "6"))]
     Appliances = 6u8,
     #[strum(serialize = "Atmospherics", props(docs = r#""#, value = "7"))]
     Atmospherics = 7u8,
-    #[strum(serialize = "Clothing", props(docs = r#""#, value = "5"))]
-    Clothing = 5u8,
-    #[strum(serialize = "Default", props(docs = r#""#, value = "0"))]
-    Default = 0u8,
-    #[strum(serialize = "Food", props(docs = r#""#, value = "4"))]
-    Food = 4u8,
-    #[strum(serialize = "Ices", props(docs = r#""#, value = "10"))]
-    Ices = 10u8,
-    #[strum(serialize = "Kits", props(docs = r#""#, value = "1"))]
-    Kits = 1u8,
-    #[strum(serialize = "Ores", props(docs = r#""#, value = "9"))]
-    Ores = 9u8,
-    #[strum(serialize = "Resources", props(docs = r#""#, value = "3"))]
-    Resources = 3u8,
     #[strum(serialize = "Storage", props(docs = r#""#, value = "8"))]
     Storage = 8u8,
-    #[strum(serialize = "Tools", props(docs = r#""#, value = "2"))]
-    Tools = 2u8,
+    #[strum(serialize = "Ores", props(docs = r#""#, value = "9"))]
+    Ores = 9u8,
+    #[strum(serialize = "Ices", props(docs = r#""#, value = "10"))]
+    Ices = 10u8,
 }
 #[derive(
     Debug,
+    Default,
     Display,
     Clone,
     Copy,
@@ -2805,16 +2826,9 @@ pub enum SortingClass {
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum SoundAlert {
-    #[strum(serialize = "AirlockCycling", props(docs = r#""#, value = "22"))]
-    AirlockCycling = 22u8,
-    #[strum(serialize = "Alarm1", props(docs = r#""#, value = "45"))]
-    Alarm1 = 45u8,
-    #[strum(serialize = "Alarm10", props(docs = r#""#, value = "12"))]
-    Alarm10 = 12u8,
-    #[strum(serialize = "Alarm11", props(docs = r#""#, value = "13"))]
-    Alarm11 = 13u8,
-    #[strum(serialize = "Alarm12", props(docs = r#""#, value = "14"))]
-    Alarm12 = 14u8,
+    #[strum(serialize = "None", props(docs = r#""#, value = "0"))]
+    #[default]
+    None = 0u8,
     #[strum(serialize = "Alarm2", props(docs = r#""#, value = "1"))]
     Alarm2 = 1u8,
     #[strum(serialize = "Alarm3", props(docs = r#""#, value = "2"))]
@@ -2827,76 +2841,84 @@ pub enum SoundAlert {
     Alarm6 = 5u8,
     #[strum(serialize = "Alarm7", props(docs = r#""#, value = "6"))]
     Alarm7 = 6u8,
-    #[strum(serialize = "Alarm8", props(docs = r#""#, value = "10"))]
-    Alarm8 = 10u8,
-    #[strum(serialize = "Alarm9", props(docs = r#""#, value = "11"))]
-    Alarm9 = 11u8,
-    #[strum(serialize = "Alert", props(docs = r#""#, value = "17"))]
-    Alert = 17u8,
-    #[strum(serialize = "Danger", props(docs = r#""#, value = "15"))]
-    Danger = 15u8,
-    #[strum(serialize = "Depressurising", props(docs = r#""#, value = "20"))]
-    Depressurising = 20u8,
-    #[strum(serialize = "FireFireFire", props(docs = r#""#, value = "28"))]
-    FireFireFire = 28u8,
-    #[strum(serialize = "Five", props(docs = r#""#, value = "33"))]
-    Five = 33u8,
-    #[strum(serialize = "Floor", props(docs = r#""#, value = "34"))]
-    Floor = 34u8,
-    #[strum(serialize = "Four", props(docs = r#""#, value = "32"))]
-    Four = 32u8,
-    #[strum(serialize = "HaltWhoGoesThere", props(docs = r#""#, value = "27"))]
-    HaltWhoGoesThere = 27u8,
-    #[strum(serialize = "HighCarbonDioxide", props(docs = r#""#, value = "44"))]
-    HighCarbonDioxide = 44u8,
-    #[strum(serialize = "IntruderAlert", props(docs = r#""#, value = "19"))]
-    IntruderAlert = 19u8,
-    #[strum(serialize = "LiftOff", props(docs = r#""#, value = "36"))]
-    LiftOff = 36u8,
-    #[strum(serialize = "MalfunctionDetected", props(docs = r#""#, value = "26"))]
-    MalfunctionDetected = 26u8,
     #[strum(serialize = "Music1", props(docs = r#""#, value = "7"))]
     Music1 = 7u8,
     #[strum(serialize = "Music2", props(docs = r#""#, value = "8"))]
     Music2 = 8u8,
     #[strum(serialize = "Music3", props(docs = r#""#, value = "9"))]
     Music3 = 9u8,
-    #[strum(serialize = "None", props(docs = r#""#, value = "0"))]
-    None = 0u8,
-    #[strum(serialize = "One", props(docs = r#""#, value = "29"))]
-    One = 29u8,
-    #[strum(serialize = "PollutantsDetected", props(docs = r#""#, value = "43"))]
-    PollutantsDetected = 43u8,
-    #[strum(serialize = "PowerLow", props(docs = r#""#, value = "23"))]
-    PowerLow = 23u8,
-    #[strum(serialize = "PressureHigh", props(docs = r#""#, value = "39"))]
-    PressureHigh = 39u8,
-    #[strum(serialize = "PressureLow", props(docs = r#""#, value = "40"))]
-    PressureLow = 40u8,
-    #[strum(serialize = "Pressurising", props(docs = r#""#, value = "21"))]
-    Pressurising = 21u8,
-    #[strum(serialize = "RocketLaunching", props(docs = r#""#, value = "35"))]
-    RocketLaunching = 35u8,
+    #[strum(serialize = "Alarm8", props(docs = r#""#, value = "10"))]
+    Alarm8 = 10u8,
+    #[strum(serialize = "Alarm9", props(docs = r#""#, value = "11"))]
+    Alarm9 = 11u8,
+    #[strum(serialize = "Alarm10", props(docs = r#""#, value = "12"))]
+    Alarm10 = 12u8,
+    #[strum(serialize = "Alarm11", props(docs = r#""#, value = "13"))]
+    Alarm11 = 13u8,
+    #[strum(serialize = "Alarm12", props(docs = r#""#, value = "14"))]
+    Alarm12 = 14u8,
+    #[strum(serialize = "Danger", props(docs = r#""#, value = "15"))]
+    Danger = 15u8,
+    #[strum(serialize = "Warning", props(docs = r#""#, value = "16"))]
+    Warning = 16u8,
+    #[strum(serialize = "Alert", props(docs = r#""#, value = "17"))]
+    Alert = 17u8,
     #[strum(serialize = "StormIncoming", props(docs = r#""#, value = "18"))]
     StormIncoming = 18u8,
+    #[strum(serialize = "IntruderAlert", props(docs = r#""#, value = "19"))]
+    IntruderAlert = 19u8,
+    #[strum(serialize = "Depressurising", props(docs = r#""#, value = "20"))]
+    Depressurising = 20u8,
+    #[strum(serialize = "Pressurising", props(docs = r#""#, value = "21"))]
+    Pressurising = 21u8,
+    #[strum(serialize = "AirlockCycling", props(docs = r#""#, value = "22"))]
+    AirlockCycling = 22u8,
+    #[strum(serialize = "PowerLow", props(docs = r#""#, value = "23"))]
+    PowerLow = 23u8,
     #[strum(serialize = "SystemFailure", props(docs = r#""#, value = "24"))]
     SystemFailure = 24u8,
-    #[strum(serialize = "TemperatureHigh", props(docs = r#""#, value = "41"))]
-    TemperatureHigh = 41u8,
-    #[strum(serialize = "TemperatureLow", props(docs = r#""#, value = "42"))]
-    TemperatureLow = 42u8,
+    #[strum(serialize = "Welcome", props(docs = r#""#, value = "25"))]
+    Welcome = 25u8,
+    #[strum(serialize = "MalfunctionDetected", props(docs = r#""#, value = "26"))]
+    MalfunctionDetected = 26u8,
+    #[strum(serialize = "HaltWhoGoesThere", props(docs = r#""#, value = "27"))]
+    HaltWhoGoesThere = 27u8,
+    #[strum(serialize = "FireFireFire", props(docs = r#""#, value = "28"))]
+    FireFireFire = 28u8,
+    #[strum(serialize = "One", props(docs = r#""#, value = "29"))]
+    One = 29u8,
+    #[strum(serialize = "Two", props(docs = r#""#, value = "30"))]
+    Two = 30u8,
     #[strum(serialize = "Three", props(docs = r#""#, value = "31"))]
     Three = 31u8,
+    #[strum(serialize = "Four", props(docs = r#""#, value = "32"))]
+    Four = 32u8,
+    #[strum(serialize = "Five", props(docs = r#""#, value = "33"))]
+    Five = 33u8,
+    #[strum(serialize = "Floor", props(docs = r#""#, value = "34"))]
+    Floor = 34u8,
+    #[strum(serialize = "RocketLaunching", props(docs = r#""#, value = "35"))]
+    RocketLaunching = 35u8,
+    #[strum(serialize = "LiftOff", props(docs = r#""#, value = "36"))]
+    LiftOff = 36u8,
     #[strum(serialize = "TraderIncoming", props(docs = r#""#, value = "37"))]
     TraderIncoming = 37u8,
     #[strum(serialize = "TraderLanded", props(docs = r#""#, value = "38"))]
     TraderLanded = 38u8,
-    #[strum(serialize = "Two", props(docs = r#""#, value = "30"))]
-    Two = 30u8,
-    #[strum(serialize = "Warning", props(docs = r#""#, value = "16"))]
-    Warning = 16u8,
-    #[strum(serialize = "Welcome", props(docs = r#""#, value = "25"))]
-    Welcome = 25u8,
+    #[strum(serialize = "PressureHigh", props(docs = r#""#, value = "39"))]
+    PressureHigh = 39u8,
+    #[strum(serialize = "PressureLow", props(docs = r#""#, value = "40"))]
+    PressureLow = 40u8,
+    #[strum(serialize = "TemperatureHigh", props(docs = r#""#, value = "41"))]
+    TemperatureHigh = 41u8,
+    #[strum(serialize = "TemperatureLow", props(docs = r#""#, value = "42"))]
+    TemperatureLow = 42u8,
+    #[strum(serialize = "PollutantsDetected", props(docs = r#""#, value = "43"))]
+    PollutantsDetected = 43u8,
+    #[strum(serialize = "HighCarbonDioxide", props(docs = r#""#, value = "44"))]
+    HighCarbonDioxide = 44u8,
+    #[strum(serialize = "Alarm1", props(docs = r#""#, value = "45"))]
+    Alarm1 = 45u8,
 }
 #[derive(
     Debug,
@@ -2919,10 +2941,10 @@ pub enum SoundAlert {
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum LogicTransmitterMode {
-    #[strum(serialize = "Active", props(docs = r#""#, value = "1"))]
-    Active = 1u8,
     #[strum(serialize = "Passive", props(docs = r#""#, value = "0"))]
     Passive = 0u8,
+    #[strum(serialize = "Active", props(docs = r#""#, value = "1"))]
+    Active = 1u8,
 }
 #[derive(
     Debug,
@@ -2945,10 +2967,10 @@ pub enum LogicTransmitterMode {
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum VentDirection {
-    #[strum(serialize = "Inward", props(docs = r#""#, value = "1"))]
-    Inward = 1u8,
     #[strum(serialize = "Outward", props(docs = r#""#, value = "0"))]
     Outward = 0u8,
+    #[strum(serialize = "Inward", props(docs = r#""#, value = "1"))]
+    Inward = 1u8,
 }
 #[derive(
     Debug,

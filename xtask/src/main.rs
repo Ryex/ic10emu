@@ -216,7 +216,7 @@ fn main() -> color_eyre::Result<()> {
             {
                 generate::generate(&path, &workspace)?;
             } else {
-                return Err(Error::BadStationeresPath(path).into());
+                return Err(Error::BadStationeersPath(path).into());
             }
         }
     }

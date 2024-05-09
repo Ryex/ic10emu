@@ -2193,4 +2193,5 @@ dependencies = [
  "serde_with",
  "textwrap",
  "thiserror",
+ "tracing",
 ]

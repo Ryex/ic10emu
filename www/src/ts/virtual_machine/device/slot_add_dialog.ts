@@ -8,7 +8,7 @@ import SlDialog from "@shoelace-style/shoelace/dist/components/dialog/dialog.com
 import { VMDeviceCard } from "./card";
 import { when } from "lit/directives/when.js";
 import uFuzzy from "@leeoniya/ufuzzy";
-import { LogicField, SlotLogicType, SlotOccupantTemplate } from "ic10emu_wasm";
+import { LogicField, LogicSlotType, SlotOccupantTemplate } from "ic10emu_wasm";
 
 @customElement("vm-slot-add-dialog")
 export class VMSlotAddDialog extends VMDeviceDBMixin(BaseElement) {
@@ -169,10 +169,10 @@ export class VMSlotAddDialog extends VMDeviceDBMixin(BaseElement) {
     const dbDevice = this.deviceDB.db[device.prefabName]
     const sorting = this.deviceDB.enums["SortingClass"][entry.item.sorting ?? "Default"] ?? 0;
     console.log("using entry", dbDevice);
-    const fields: { [key in SlotLogicType]?: LogicField } = Object.fromEntries(
+    const fields: { [key in LogicSlotType]?: LogicField } = Object.fromEntries(
       Object.entries(dbDevice.slotlogic[this.slotIndex] ?? {})
         .map(([slt_s, field_type]) => {
-          let slt = slt_s as SlotLogicType;
+          let slt = slt_s as LogicSlotType;
           let value = 0.0
           if (slt === "FilterType") {
             value = this.deviceDB.enums["GasType"][entry.item.filtertype]

@@ -16,11 +16,13 @@ use itertools::Itertools;
 use time::format_description;
 
 use crate::{
-    device::SlotType,
     errors::{ICError, LineError},
     grammar,
     vm::{
-        enums::script_enums::{LogicSlotType as SlotLogicType, LogicType},
+        enums::{
+            basic_enums::Class as SlotClass,
+            script_enums::{LogicSlotType, LogicType},
+        },
         instructions::{
             enums::InstructionOp,
             operands::{DeviceSpec, Operand, RegisterSpec},
@@ -400,16 +402,16 @@ impl IC {
         }
     }
 
-    pub fn propgate_line_number(&self, vm: &VM) {
+    pub fn propagate_line_number(&self, vm: &VM) {
         if let Some(device) = vm.devices.get(&self.device) {
             let mut device_ref = device.borrow_mut();
             let _ = device_ref.set_field(LogicType::LineNumber, self.ip.get() as f64, vm, true);
             if let Some(slot) = device_ref
                 .slots
                 .iter_mut()
-                .find(|slot| slot.typ == SlotType::ProgrammableChip)
+                .find(|slot| slot.typ == SlotClass::ProgrammableChip)
             {
-                let _ = slot.set_field(SlotLogicType::LineNumber, self.ip.get() as f64, true);
+                let _ = slot.set_field(LogicSlotType::LineNumber, self.ip.get() as f64, true);
             }
         }
     }
@@ -2327,7 +2329,7 @@ impl IC {
                             return Err(DeviceNotSet);
                         };
                         let slt = slt.as_slot_logic_type(this, inst, 4)?;
-                        if slt == SlotLogicType::LineNumber && this.device == device_id {
+                        if slt == LogicSlotType::LineNumber && this.device == device_id {
                             // HACK: we can't use device.get_slot_field as that will try to reborrow our
                             // ic which will panic
                             this.set_register(indirection, target, this.ip() as f64)?;
@@ -2449,7 +2451,7 @@ impl IC {
         if result.is_ok() || advance_ip_on_err {
             self.ic.set(self.ic.get() + 1);
             self.set_ip(next_ip);
-            self.propgate_line_number(vm);
+            self.propagate_line_number(vm);
         }
         result
     }
