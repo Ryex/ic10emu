@@ -5,7 +5,7 @@ use crate::vm::enums::script_enums::{
     LogicType,
 };
 use crate::vm::instructions::enums::InstructionOp;
-use serde::{Deserialize, Serialize};
+use serde_derive::{Deserialize, Serialize};
 use strum::EnumProperty;
 
 #[derive(PartialEq, Eq, Debug, Clone, Copy, Serialize, Deserialize)]

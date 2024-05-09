@@ -38,7 +38,7 @@ fn write_instructions_enum<T: std::io::Write>(
     writer: &mut T,
     instructions: &BTreeMap<String, stationpedia::Command>,
 ) -> color_eyre::Result<()> {
-    println!("Writing instruction Listings ...");
+    eprintln!("Writing instruction Listings ...");
 
     let mut instructions = instructions.clone();
     for (_, ref mut info) in instructions.iter_mut() {
@@ -47,7 +47,7 @@ fn write_instructions_enum<T: std::io::Write>(
 
     write!(
         writer,
-        "use serde::{{Deserialize, Serialize}};\n\
+        "use serde_derive::{{Deserialize, Serialize}};\n\
          use strum::{{\n    \
               Display, EnumIter, EnumProperty, EnumString, FromRepr,\n\
          }};\n

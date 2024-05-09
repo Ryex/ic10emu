@@ -1,6 +1,6 @@
 use std::{collections::HashSet, ops::Deref};
 
-use serde::{Deserialize, Serialize};
+use serde_derive::{Deserialize, Serialize};
 use strum_macros::{AsRefStr, EnumIter};
 use thiserror::Error;
 

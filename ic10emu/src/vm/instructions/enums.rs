@@ -9,7 +9,7 @@
 //
 // =================================================
 
-use serde::{Deserialize, Serialize};
+use serde_derive::{Deserialize, Serialize};
 use strum::{Display, EnumIter, EnumProperty, EnumString, FromRepr};
 
 use crate::vm::object::traits::Programmable;

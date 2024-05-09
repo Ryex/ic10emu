@@ -9,7 +9,7 @@
 //
 // =================================================
 
-use serde::{Deserialize, Serialize};
+use serde_derive::{Deserialize, Serialize};
 use strum::{AsRefStr, Display, EnumIter, EnumProperty, EnumString, FromRepr};
 #[derive(
     Debug,
@@ -90,8 +90,8 @@ pub enum StationpediaPrefab {
         serialize = "Robot",
         props(
             name = r#"AIMeE Bot"#,
-            desc = r#"Designed by - presumably drunk - <link=Norsec><color=#0080FFFF>Norsec</color></link> roboticists, AIMeE (or Automated Independent Mechanical Entity) can be a <link=Stationeers><color=#0080FFFF>Stationeer's</color></link> best friend, or tiresome nemesis, or both several times in the same day. 
-      
+            desc = r#"Designed by - presumably drunk - <link=Norsec><color=#0080FFFF>Norsec</color></link> roboticists, AIMeE (or Automated Independent Mechanical Entity) can be a <link=Stationeers><color=#0080FFFF>Stationeer's</color></link> best friend, or tiresome nemesis, or both several times in the same day.
+
 Intended to unearth and retrieve ores automatically, the unit requires basic programming knowledge to operate, and <link=ThingMotherboardProgrammableChip><color=green>IC Editor Motherboard</color></link>.
 
 AIMEe has 7 modes:
@@ -209,7 +209,7 @@ RobotMode.None = 6 = Automatic assigned state, shows when storage slots are full
         props(
             name = r#"Advanced Composter"#,
             desc = r#"The advanced composter creates <link=ThingFertilizer><color=green>Fertilizer</color></link> out of organic matter. It accepts <link=OrganicPage><color=#0080FFFF>food</color></link>, <link=ThingDecayedFood><color=green>Decayed Food</color></link> or <link=ThingItemBiomass><color=green>Biomass</color></link>. It requires <link=GasWater><color=#44AD83>Water</color></link> and power to operate, accelerating the natural composting process.
-When processing, it releases nitrogen and volatiles, as well a small amount of heat. 
+When processing, it releases nitrogen and volatiles, as well a small amount of heat.
 
 <size=120%><b>Compost composition</b></size>
 Fertilizer is produced at a 1:3 ratio of fertilizer to ingredients. The fertilizer's effects on plants will vary depending on the respective proportions of its ingredients.
@@ -245,7 +245,7 @@ Fertilizer is produced at a 1:3 ratio of fertilizer to ingredients. The fertiliz
         props(
             name = r#"Advanced Tablet"#,
             desc = r#"The advanced <link=Xigo><color=#0080FFFF>Xigo</color></link> Padi 2 tablet is an improved version of the basic <link=ThingItemTablet><color=green>Handheld Tablet</color></link>, boasting two <link=CartridgePage><color=#0080FFFF>cartridge</color></link> slots. The Padi 2 accepts <link=ThingCartridgeAtmosAnalyser><color=green>Atmos Analyzer</color></link>, <link=ThingCartridgeTracker><color=green>Tracker</color></link>, <link=ThingCartridgeMedicalAnalyser><color=green>Medical Analyzer</color></link>, <link=ThingCartridgeOreScanner><color=green>Ore Scanner</color></link>, <link=ThingCartridgeElectronicReader><color=green>eReader</color></link>, and various other cartridges.
-	  
+
 	  With a <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> in the <link=SlotProgrammableChip><color=orange>Programmable Chip</color></link>, you can access variable slots on the carrying human using the device numbers (d0, d1, etc...), so long as the item can be access via logic, such as the <link=ThingItemHardSuit><color=green>Hardsuit</color></link>.Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>"#,
             value = "1722785341"
         )
@@ -256,13 +256,13 @@ Fertilizer is produced at a 1:3 ratio of fertilizer to ingredients. The fertiliz
         props(
             name = r#"Air Conditioner"#,
             desc = r#"Built using the <link=ThingItemKitAtmospherics><color=green>Kit (Atmospherics)</color></link>, the <link=ExMin><color=#0080FFFF>ExMin-designed</color></link> air conditioner is used to raise or lower input gas temperature.
-	  
+
 The unit has three pipe connections: input, output, and waste. Gas fed into the input will be heated or cooled to reach the target temperature, while the opposite will happen to gas on the waste network.
 
 Multiple Efficiency Multipliers can effect the amount of energy the Air Conditioner uses, and these can be view on the unit's green Information Panel. As the temperature difference between input and waste increases, the Temperature Differential Efficiency Multiplier will decrease. If input or waste temperature is extremely hot or cold, the Operational Temperature Efficiency will decrease. If the input or waste pipe has approach low pressures, the Pressure Efficiency will decrease.
 
-<link=ThingStructurePipeRadiator><color=green>Pipe Convection Radiator</color></link>s may be useful in bringing extreme pipe temperatures back towards normal world temperatures. 
-  
+<link=ThingStructurePipeRadiator><color=green>Pipe Convection Radiator</color></link>s may be useful in bringing extreme pipe temperatures back towards normal world temperatures.
+
 For more information on using the air conditioner, consult the <link=TemperatureControlPage><color=#0080FFFF>temperature control</color></link> Guides page."#,
             value = "-2087593337"
         )
@@ -281,7 +281,7 @@ For more information on using the air conditioner, consult the <link=Temperature
         serialize = "CircuitboardAirlockControl",
         props(
             name = r#"Airlock"#,
-            desc = r#"Rumored to have been first sketched on a <link=Norsec><color=#0080FFFF>Norsec</color></link> toilet wall by a disgruntled engineer, the Exgress airlock control circuit board’s versatility and ease of fabrication has made it the <link=Stationeers><color=#0080FFFF>Stationeers</color></link> control system of choice for <link=ThingStructureAirlock><color=green>Airlock</color></link> cycling protocols. 
+            desc = r#"Rumored to have been first sketched on a <link=Norsec><color=#0080FFFF>Norsec</color></link> toilet wall by a disgruntled engineer, the Exgress airlock control circuit board’s versatility and ease of fabrication has made it the <link=Stationeers><color=#0080FFFF>Stationeers</color></link> control system of choice for <link=ThingStructureAirlock><color=green>Airlock</color></link> cycling protocols.
 
 To enter setup mode, insert the board into a <link=ThingStructureConsole><color=green>Console</color></link> along with a data disk. In this mode, you can see all data-accessible objects currently connected to the <link=ThingStructureConsole><color=green>Console</color></link>. Doors, lights, gas sensors and slave consoles can be selected (highlighted green), and will be controlled once the data disk is removed."#,
             value = "912176135"
@@ -354,7 +354,7 @@ To enter setup mode, insert the board into a <link=ThingStructureConsole><color=
             name = r#"Arc Furnace"#,
             desc = r#"The simplest smelting system available to the average <link=Stationeers><color=#0080FFFF>Stationeer</color></link>, <link=Recurso><color=#0080FFFF>Recurso's</color></link> arc furnace was forged itself in the depths of the Solar System to help explorational geologists determine the purity of potential asteroidal mining targets.
 Co-opted by the <link=ODA><color=#0080FFFF>ODA</color></link>, it now provides Stationeers with a way to produce pure ingots of various resources.
-The smelting process also releases a range of by product <link=GasPage><color=#0080FFFF>gases</color></link>, principally <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>, <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link>, <link=GasVolatiles><color=#44AD83>Volatiles</color></link> and <link=GasOxygen><color=#44AD83>Oxygen</color></link> in differing ratios. These can be recaptured from the atmosphere by filtering, but also make the arc furnace a risk in closed environments. 
+The smelting process also releases a range of by product <link=GasPage><color=#0080FFFF>gases</color></link>, principally <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>, <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link>, <link=GasVolatiles><color=#44AD83>Volatiles</color></link> and <link=GasOxygen><color=#44AD83>Oxygen</color></link> in differing ratios. These can be recaptured from the atmosphere by filtering, but also make the arc furnace a risk in closed environments.
 Unlike the more advanced <link=ThingStructureFurnace><color=green>Furnace</color></link>, the arc furnace cannot create <link=IngotPage><color=#0080FFFF>alloys</color></link>."#,
             value = "-247344692"
         )
@@ -369,9 +369,9 @@ Unlike the more advanced <link=ThingStructureFurnace><color=green>Furnace</color
         serialize = "StructureAreaPowerControlReversed",
         props(
             name = r#"Area Power Control"#,
-            desc = r#"An Area Power Control (APC) has three main functions. 
-Its primary purpose is to regulate power flow, ensuring uninterrupted performance from devices and machinery, especially those with a fluctuating draw. 
-APCs also create sub-networks, as no devices on the far side of an APC are visible on the main network. 
+            desc = r#"An Area Power Control (APC) has three main functions.
+Its primary purpose is to regulate power flow, ensuring uninterrupted performance from devices and machinery, especially those with a fluctuating draw.
+APCs also create sub-networks, as no devices on the far side of an APC are visible on the main network.
 Lastly, an APC charges batteries, which can provide backup power to the sub-network in the case of an outage. Note that an APC requires a battery to stabilize power draw. It also has two variants, each allowing power to flow in one direction only."#,
             value = "-1032513487"
         )
@@ -381,8 +381,8 @@ Lastly, an APC charges batteries, which can provide backup power to the sub-netw
         serialize = "StructureAreaPowerControl",
         props(
             name = r#"Area Power Control"#,
-            desc = r#"An Area Power Control (APC) has three main functions: 
-Its primary purpose is to regulate power flow, ensuring uninterrupted performance from devices and machinery, especially those with a fluctuating draw. 
+            desc = r#"An Area Power Control (APC) has three main functions:
+Its primary purpose is to regulate power flow, ensuring uninterrupted performance from devices and machinery, especially those with a fluctuating draw.
 APCs also create sub-networks, as no devices on the far side of an APC are visible on the main network.
 Lastly, an APC charges batteries, which can provide backup power to the sub-network in the case of an outage. Note that an APC requires a battery to stabilize power draw. It also has two variants, each allowing power to flow in one direction only."#,
             value = "1999523701"
@@ -541,7 +541,7 @@ Note: the Cannifier will flash an error on its activation switch if you attempt 
             desc = r#"First mass-produced by <link=Xigo><color=#0080FFFF>Xigo</color></link> in 2155 on the basis of a unattributed prototype, the classic silicon anode solid-state design extends its optimum temperature range.
 
 <size=120%><b>POWER OUTPUT</b></size>
-The large power cell can discharge 288kW of power. 
+The large power cell can discharge 288kW of power.
 "#,
             value = "-459827268"
         )
@@ -904,7 +904,7 @@ Normal coil has a maximum wattage of 5kW. For higher-current applications, use <
         serialize = "ItemCableCoil",
         props(
             name = r#"Cable Coil"#,
-            desc = r#"Bodily metaphors are tired and anthropocentric, but it was Frida Stuppen, the first <link=ODA><color=#0080FFFF>ODA</color></link> Administrator, who said, 'Let the cabling be as the nerve and the vessel, transmitting power and data alike through systems we forge among the stars.' Later commentators suggested that she was simply putting a romantic gloss on a piece of dubious economy. Whatever the case, standard cabling is where any <link=Stationeers><color=#0080FFFF>Stationeer's</color></link> network begins. 
+            desc = r#"Bodily metaphors are tired and anthropocentric, but it was Frida Stuppen, the first <link=ODA><color=#0080FFFF>ODA</color></link> Administrator, who said, 'Let the cabling be as the nerve and the vessel, transmitting power and data alike through systems we forge among the stars.' Later commentators suggested that she was simply putting a romantic gloss on a piece of dubious economy. Whatever the case, standard cabling is where any <link=Stationeers><color=#0080FFFF>Stationeer's</color></link> network begins.
 Normal coil has a maximum wattage of 5kW. For higher-current applications, use <link=ThingItemCableCoilHeavy><color=green>Cable Coil (Heavy)</color></link>."#,
             value = "-466050668"
         )
@@ -1127,9 +1127,9 @@ Be there, even when you're not."#,
         serialize = "StructureCentrifuge",
         props(
             name = r#"Centrifuge"#,
-            desc = r#"If a <link=ThingStructureRecycler><color=green>Recycler</color></link> or unbalanced <link=ThingStructureFurnace><color=green>Furnace</color></link> outputs <link=ReagentPage><color=#0080FFFF>reagent</color></link> mixture rather than the desired <link=IngotPage><color=#0080FFFF>ingots</color></link>, a centrifuge allows you to reclaim the raw <link=OrePage><color=#0080FFFF>ore</color></link>. 
-        It also refines <link=ThingItemDirtyOre><color=green>Dirty Ore</color></link> produced from the <link=ThingStructureDeepMiner><color=green>Deep Miner</color></link> and <link=ThingItemSpaceOre><color=green>Dirty Ore</color></link> produced from the <link=ThingStructureRocketMiner><color=green>Rocket Miner</color></link>. 
-        Its bigger brother <link=ThingStructureCombustionCentrifuge><color=green>Combustion Centrifuge</color></link> can be used to process items significantly faster. Items processed by the centrifuge will be de-gassed. 
+            desc = r#"If a <link=ThingStructureRecycler><color=green>Recycler</color></link> or unbalanced <link=ThingStructureFurnace><color=green>Furnace</color></link> outputs <link=ReagentPage><color=#0080FFFF>reagent</color></link> mixture rather than the desired <link=IngotPage><color=#0080FFFF>ingots</color></link>, a centrifuge allows you to reclaim the raw <link=OrePage><color=#0080FFFF>ore</color></link>.
+        It also refines <link=ThingItemDirtyOre><color=green>Dirty Ore</color></link> produced from the <link=ThingStructureDeepMiner><color=green>Deep Miner</color></link> and <link=ThingItemSpaceOre><color=green>Dirty Ore</color></link> produced from the <link=ThingStructureRocketMiner><color=green>Rocket Miner</color></link>.
+        Its bigger brother <link=ThingStructureCombustionCentrifuge><color=green>Combustion Centrifuge</color></link> can be used to process items significantly faster. Items processed by the centrifuge will be de-gassed.
         If openned while powered on, the centrifuge will enter an errored state and reduce its rpm to 0 and then export any items."#,
             value = "690945935"
         )
@@ -1451,9 +1451,9 @@ The chute outlet is an aperture for exiting items from <link=ImportExportPage><c
         props(
             name = r#"Combustion Centrifuge"#,
             desc = r#"The Combustion Centrifuge is a gas powered version of the <link=ThingStructureCentrifuge><color=green>Centrifuge</color></link>. If a <link=ThingStructureRecycler><color=green>Recycler</color></link> or unbalanced <link=ThingStructureFurnace><color=green>Furnace</color></link> outputs <link=ReagentPage><color=#0080FFFF>reagent</color></link> mixture rather than the desired <link=IngotPage><color=#0080FFFF>ingots</color></link>, a centrifuge allows you to reclaim the raw <link=OrePage><color=#0080FFFF>ore</color></link>.
-        It also refines <link=ThingItemDirtyOre><color=green>Dirty Ore</color></link> produced from the <link=ThingStructureDeepMiner><color=green>Deep Miner</color></link> and <link=ThingItemSpaceOre><color=green>Dirty Ore</color></link> produced from the <link=ThingStructureRocketMiner><color=green>Rocket Miner</color></link>. A combustible fuel mix should be supplied to the gas input, and waste gasses should be vented from the output. 
-        The machine's RPMs must be controlled via the throttle and combustion limiter levers. If the Combustion Centrifuge gains, or loses, RPMs too fast it will experience stress, and eventually grind to a halt.  Higher RPMs directly result in faster processing speeds. 
-        The throttle lever controls the amount of fuel being pulled into the machine, increasing the temperature inside the engine, and leading to an increase in RPM. The limiter lever influences the speed of the combustion, and how much uncombusted gas is in the exhaust. 
+        It also refines <link=ThingItemDirtyOre><color=green>Dirty Ore</color></link> produced from the <link=ThingStructureDeepMiner><color=green>Deep Miner</color></link> and <link=ThingItemSpaceOre><color=green>Dirty Ore</color></link> produced from the <link=ThingStructureRocketMiner><color=green>Rocket Miner</color></link>. A combustible fuel mix should be supplied to the gas input, and waste gasses should be vented from the output.
+        The machine's RPMs must be controlled via the throttle and combustion limiter levers. If the Combustion Centrifuge gains, or loses, RPMs too fast it will experience stress, and eventually grind to a halt.  Higher RPMs directly result in faster processing speeds.
+        The throttle lever controls the amount of fuel being pulled into the machine, increasing the temperature inside the engine, and leading to an increase in RPM. The limiter lever influences the speed of the combustion, and how much uncombusted gas is in the exhaust.
         Ejecting ore from the Combustion Centrifuge while it is at high RPMs will result in additional stress build up.  If turned off while not stressed, the machine will automatically start to brake, and reduce RPMs in a controlled manner.
 	  "#,
             value = "1238905683"
@@ -2047,7 +2047,7 @@ A completed console displays all devices connected to the current power network.
 
 - FOOD TYPE - Each <link=OrganicPage><color=#0080FFFF>food</color></link> type has its own decay properties. <link=ThingItemTomatoSoup><color=green>Tomato Soup</color></link> lasts a lot longer than a <link=ThingItemTomato><color=green>Tomato</color></link>, for instance.
 
-- PRESSURE - Food decays faster when the pressure drops below 1 atmosphere (101kPa). Decay happens exponentially more quickly as the atmosphere approaches a perfect vacuum. There is no effect from higher pressures. 
+- PRESSURE - Food decays faster when the pressure drops below 1 atmosphere (101kPa). Decay happens exponentially more quickly as the atmosphere approaches a perfect vacuum. There is no effect from higher pressures.
 
 - ATMOSPHERE - Different gases can slow and accelerate the decay process. The process will take account of respective gas ratios in mixed atmospheres in calculating the decay modifier. The following rates apply across all foods:
 
@@ -2169,7 +2169,7 @@ A completed console displays all devices connected to the current power network.
 88.E5
 89.F5
 90.F#5
-91.G5 
+91.G5
 92.G#5
 93.A5
 94.A#5
@@ -2560,7 +2560,7 @@ To use on yourself: put duct tape in your active hand, hold RIGHT MOUSE BUTTON t
         props(
             name = r#"Evaporation Chamber"#,
             desc = r#"A device for safely evaporating liquids into gasses. Liquids and Gasses will both exist safely inside the device. Lowering the pressure target of the in-built back pressure regulator using the setting wheel will change the boiling temperature of liquids inside.
-        The secondary gas input on the left is a heat-exchanger input and allows for heat exchange between the secondary input pipe and the internal atmosphere of the Evaporation Chamber. 
+        The secondary gas input on the left is a heat-exchanger input and allows for heat exchange between the secondary input pipe and the internal atmosphere of the Evaporation Chamber.
         Paired with <link=ThingStructureCondensationChamber><color=green>Condensation Chamber</color></link> Stationeers can exploit the phase change properties of gases to build a DIY air conditioner."#,
             value = "-1429782576"
         )
@@ -2804,9 +2804,9 @@ The device has nonetheless proven indispensable for <link=Stationeers><color=#00
         props(
             name = r#"Fridge (Large)"#,
             desc = r#"The <link=Xigo><color=#0080FFFF>Xigo</color></link> Koolaid fridge is a self-cooling storage device with 15 slots that preserves food when powered and turned on. While many users have complained about the placement of the power switch, its place in the pantheon of off-world whiteware is unquestioned.
-      
+
 With its own permanent internal atmosphere, the Koolaid fridge slows the decay of <link=OrganicPage><color=#0080FFFF>food</color></link> by maintaining an optimal internal temperature. Its power usage varies on the external temperature against which it must balance its internal temperature. As such, it must shed heat to operate, so the Koolaid fridge DOES NOT work in a vacuum.
-      
+
 Also, don't leave the door open, as it will equalize with the current world temperature. And maybe start to beep.
 
 For more information about food preservation, visit the <link=DecayPage><color=#0080FFFF>food decay</color></link> section of the Stationpedia."#,
@@ -2819,7 +2819,7 @@ For more information about food preservation, visit the <link=DecayPage><color=#
         props(
             name = r#"Fridge Small"#,
             desc = r#"Essentially a heavily insulated box that allows users to pipe in any desired atmosphere, the <link=Recurso><color=#0080FFFF>Recurso</color></link> Minibar fridge was a simple solution to the problem of <link=NutritionPage><color=#0080FFFF>food decay</color></link>. It stores a small number of items, at any temperature you can muster.
-      
+
       For more information about food preservation, visit the <link=DecayPage><color=#0080FFFF>food decay</color></link> section of the Stationpedia."#,
             value = "751887598"
         )
@@ -3364,7 +3364,7 @@ As the N Flow-P is a passive system, it equalizes pressure across the entire of 
         serialize = "StructureHydroponicsTrayData",
         props(
             name = r#"Hydroponics Device"#,
-            desc = r#"The <link=Agrizero><color=#0080FFFF>Agrizero</color></link> hydroponics device is the ideal vessel for growing a range of <link=OrganicPage><color=#0080FFFF>plantlife</color></link>. It must be supplied with <link=GasWater><color=#44AD83>Water</color></link> using a pipe network, and sufficient light to generate photosynthesis. 
+            desc = r#"The <link=Agrizero><color=#0080FFFF>Agrizero</color></link> hydroponics device is the ideal vessel for growing a range of <link=OrganicPage><color=#0080FFFF>plantlife</color></link>. It must be supplied with <link=GasWater><color=#44AD83>Water</color></link> using a pipe network, and sufficient light to generate photosynthesis.
 It can be automated using the <link=ThingStructureHarvie><color=green>Harvie</color></link>. Note that unlike the <link=ThingStructureHydroponicsTray><color=green>Hydroponics Tray</color></link>, these cannot be placed consecutively as they are considered devices rather than pure pipes. They do, however, allow data interrogation for logic systems."#,
             value = "-1841632400"
         )
@@ -3379,7 +3379,7 @@ It can be automated using the <link=ThingStructureHarvie><color=green>Harvie</co
         serialize = "StructureHydroponicsTray",
         props(
             name = r#"Hydroponics Tray"#,
-            desc = r#"The <link=Agrizero><color=#0080FFFF>Agrizero</color></link> hydroponics tray is the ideal vessel for growing a range of <link=OrganicPage><color=#0080FFFF>plantlife</color></link>. It must be supplied with water using a pipe network, and sufficient light to generate photosynthesis. 
+            desc = r#"The <link=Agrizero><color=#0080FFFF>Agrizero</color></link> hydroponics tray is the ideal vessel for growing a range of <link=OrganicPage><color=#0080FFFF>plantlife</color></link>. It must be supplied with water using a pipe network, and sufficient light to generate photosynthesis.
 It can be automated using the <link=ThingStructureHarvie><color=green>Harvie</color></link>."#,
             value = "1464854517"
         )
@@ -3414,7 +3414,7 @@ Highly sensitive to temperature, nitrice will begin to melt as soon as it is min
         serialize = "ItemOxite",
         props(
             name = r#"Ice (Oxite)"#,
-            desc = r#"Oxite ice is largely composed of frozen <link=GasOxygen><color=#44AD83>Oxygen</color></link>, and found on many planets in the Solar System. Highly valuable and sought after, not all planets a <link=Stationeers><color=#0080FFFF>Stationeer</color></link> visits will have some. 
+            desc = r#"Oxite ice is largely composed of frozen <link=GasOxygen><color=#44AD83>Oxygen</color></link>, and found on many planets in the Solar System. Highly valuable and sought after, not all planets a <link=Stationeers><color=#0080FFFF>Stationeer</color></link> visits will have some.
 
 Highly sensitive to temperature, oxite will begin to melt as soon as it is mined, unless the temperature is below zero, or it is stored in the <link=ThingItemMiningBelt><color=green>Mining Belt</color></link>, <link=ThingItemMiningBeltAdvanced><color=green>Mining Belt MK II</color></link> or devices like the <link=ThingStructureIceCrusher><color=green>Ice Crusher</color></link> or <link=ThingStructureFridgeSmall><color=green>Fridge Small</color></link>. When melting, oxite produces a mixture of <link=GasOxygen><color=#44AD83>Oxygen</color></link> and <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>."#,
             value = "-1805394113"
@@ -3426,7 +3426,7 @@ Highly sensitive to temperature, oxite will begin to melt as soon as it is mined
         props(
             name = r#"Ice (Volatiles)"#,
             desc = r#"An extremely reactive ice with numerous hydrocarbons trapped inside. For simplicity's sake, these are often displayed as H2 by devices like the <link=ThingCartridgeAtmosAnalyser><color=green>Atmos Analyzer</color></link>.
-      
+
 <link=GasVolatiles><color=#44AD83>Volatiles</color></link> combust in a 2:1 ratio with <link=GasOxygen><color=#44AD83>Oxygen</color></link>, creating <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> and pollutants. However when catalysed via devices such as the <link=ThingH2Combustor><color=green>H2 Combustor</color></link> in the presence of <link=GasOxygen><color=#44AD83>Oxygen</color></link>, they produce
         <link=GasSteam><color=#44AD83>Steam</color></link> and heat with a modicum of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> and <link=GasPollutant><color=#44AD83>Pollutant</color></link> due to the autoignition of the volatiles in the chamber. Along with <link=GasOxygen><color=#44AD83>Oxygen</color></link>, volatiles gas is also the major component of fuel for such devices as the <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link>.
 "#,
@@ -5629,7 +5629,7 @@ USE: 'J' to activate; 'space' to fly up; 'left ctrl' to descend; and 'WASD' to m
             desc = r#"The Laptop functions as a portable IC editor. To operate the Laptop it must be powered with a battery, have a <link=ThingMotherboardProgrammableChip><color=green>IC Editor Motherboard</color></link> in the motherboard slot, and an <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> in the Programmable Chip Slot.
 
 You must place the laptop down to interact with the onsreen UI.
-        
+
 Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>"#,
             value = "141535121"
         )
@@ -5888,7 +5888,7 @@ Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Tra
         serialize = "StructureLiquidPipeRadiator",
         props(
             name = r#"Liquid Pipe Convection Radiator"#,
-            desc = r#"A simple heat exchanger, pipe radiators can be placed on pipes to shed or gain heat, depending on the temperature of the surrounding atmosphere. If the atmosphere is hotter, heat will be added to the liquid within the pipe network, and visa versa if colder. In a vacuum, heat will be radiated. 
+            desc = r#"A simple heat exchanger, pipe radiators can be placed on pipes to shed or gain heat, depending on the temperature of the surrounding atmosphere. If the atmosphere is hotter, heat will be added to the liquid within the pipe network, and visa versa if colder. In a vacuum, heat will be radiated.
 The speed of heat gain or loss will depend on the liquid in question. Adding multiple radiators will speed up heat transfer."#,
             value = "2072805863"
         )
@@ -6070,7 +6070,7 @@ The <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> K-cops logic mo
             name = r#"Logic Step Sequencer"#,
             desc = r#"The <link=ODA><color=#0080FFFF>ODA</color></link> does not approve of soundtracks or other distractions.
 As such, <link=Stationeers><color=#0080FFFF>Stationeers</color></link> have had to create their own musical accompaniment to the demanding labor of building and maintaining off-world infrastructure.
-Central to this pastime is the step sequencer, which allows Stationeers to sequence short musical patterns or loops. 
+Central to this pastime is the step sequencer, which allows Stationeers to sequence short musical patterns or loops.
 
 <size=120%><b>DIY MUSIC - GETTING STARTED</b></size>
 
@@ -6082,7 +6082,7 @@ Central to this pastime is the step sequencer, which allows Stationeers to seque
 
 4: Place a <link=ThingStopWatch><color=green>Stop Watch</color></link> and use a <link=ThingStructureLogicReader><color=green>Logic Reader</color></link> and <link=ThingStructureLogicWriter><color=green>Logic Writer</color></link> to write the time to the time variable on the sequencer.
 
-5: Set the BPM on the sequencer using a <link=ThingStructureLogicDial><color=green>Dial</color></link> and a <link=ThingStructureLogicWriter><color=green>Logic Writer</color></link> to write to the sequencer's BPM variable. A higher bpm will play the sequence faster. 
+5: Set the BPM on the sequencer using a <link=ThingStructureLogicDial><color=green>Dial</color></link> and a <link=ThingStructureLogicWriter><color=green>Logic Writer</color></link> to write to the sequencer's BPM variable. A higher bpm will play the sequence faster.
 
 6: Insert a sound cartridge of your choosing and select which variant of sound you wish to play by pushing the arrow buttons located above and below the sound cartridge slot.
 
@@ -6124,7 +6124,7 @@ Central to this pastime is the step sequencer, which allows Stationeers to seque
         props(
             name = r#"Low frequency oscillator"#,
             desc = r#"The low frequency oscillator (or LFO) makes everything sound dark, twisted and crunchy by altering the shape of the waves output by a <link=ThingLogicStepSequencer8><color=green>Logic Step Sequencer</color></link>.
-      
+
 To set up an LFO:
 
 1. Place the LFO unit
@@ -6322,7 +6322,7 @@ For more info, check out the <link=MusicPage><color=#0080FFFF>music page</color>
         props(
             name = r#"Medium Satellite Dish"#,
             desc = r#"This medium communications unit can be used to communicate with nearby trade vessels.
-      
+
 When connected to a <link=ThingStructureComputer><color=green>Computer</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic."#,
             value = "439026183"
         )
@@ -6337,7 +6337,7 @@ When connected to a <link=ThingStructureComputer><color=green>Computer</color></
         serialize = "ApplianceMicrowave",
         props(
             name = r#"Microwave"#,
-            desc = r#"While countless 'better' ways of cooking <link=FoodPage><color=#0080FFFF>Food</color></link> have been invented in the last few hundred years, few are as durable or easy to fabricate as the OK-Zoomer microwave. Licensed from <link=Xigo><color=#0080FFFF>Xigo</color></link>, the plans are based on a classic model from the mid-21st century, giving it a charmingly retro feel. But don't worry, it oscillates <link=GasWater><color=#44AD83>Water</color></link> molecules more than adequately. 
+            desc = r#"While countless 'better' ways of cooking <link=FoodPage><color=#0080FFFF>Food</color></link> have been invented in the last few hundred years, few are as durable or easy to fabricate as the OK-Zoomer microwave. Licensed from <link=Xigo><color=#0080FFFF>Xigo</color></link>, the plans are based on a classic model from the mid-21st century, giving it a charmingly retro feel. But don't worry, it oscillates <link=GasWater><color=#44AD83>Water</color></link> molecules more than adequately.
 Just bolt it to a <link=ThingStructureBench><color=green>Powered Bench</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link> to power it, follow the recipe, and you're cooking."#,
             value = "-1136173965"
         )
@@ -6646,7 +6646,7 @@ The sensor activates whenever a player enters the grid it is placed on."#,
         props(
             name = r#"OGRE"#,
             desc = r#"The <link=Recurso><color=#0080FFFF>Recurso</color></link> OGRE (Orthogonal Ground Rotating Excavator) is a base structure with attached mining vehicle, which will mine a horizontal shaft up to X meters long. When full, the mining vehicle will return to the base to empty itself, before returning to dig. If it encounters empty space, it will also return to base and await instruction. The unit will return if deactivated.
-      
+
 The OGRE can be connected to a chute system, and is controllable by a logic network. Note that the OGRE outputs more <link=OrePage><color=#0080FFFF>ore</color></link> than a conventional <link=ThingItemMiningDrill><color=green>Mining Drill</color></link> over the same area, due to more efficient processing.
 
 <size=120%><b>MODES</b></size>
@@ -7131,7 +7131,7 @@ Displaying the internal pressure of pipe networks, it  also reads out temperatur
         serialize = "StructurePipeRadiator",
         props(
             name = r#"Pipe Convection Radiator"#,
-            desc = r#"A simple heat exchanger, pipe radiators can be placed on pipes to shed or gain heat, depending on the temperature of the surrounding atmosphere. If the atmosphere is hotter, heat will be added the gas within the pipe network, and visa versa if colder. In a vacuum, heat will be radiated. 
+            desc = r#"A simple heat exchanger, pipe radiators can be placed on pipes to shed or gain heat, depending on the temperature of the surrounding atmosphere. If the atmosphere is hotter, heat will be added the gas within the pipe network, and visa versa if colder. In a vacuum, heat will be radiated.
 The speed of heat gain or loss will depend on the gas in question. Adding multiple radiators will speed up heat transfer."#,
             value = "1696603168"
         )
@@ -7250,10 +7250,10 @@ within any pipe""#,
             name = r#"Plant Genetic Analyzer"#,
             desc = r#"The Genetic Analyzer can be used to process samples from the <link=ThingItemPlantSampler><color=green>Plant Sampler</color></link>. Once processed, the genetic information of the sampled plant can be viewed by clicking on the search button.
 
-Individual Gene Value Widgets: 
+Individual Gene Value Widgets:
 Most gene values will appear as a sliding bar between a minimum value on the left and a maximum value on the right. The actual value of the gene is in the middle of the bar, in orange.
 
-Multiple Gene Value Widgets: 
+Multiple Gene Value Widgets:
 For temperature and pressure ranges, four genes appear on the same widget. The orange values underneath the bar are the minimum and maximum thresholds for growth. Outside of this range, the plant will stop growing and eventually die. The blue values underneath the bar are the minimum and maximum thresholds for ideal growth. Inside of this range, the plant will grow at maximum speed. The white values above the bar are the minimum and maximum achievable values for the growth threshold."#,
             value = "-1303038067"
         )
@@ -7264,7 +7264,7 @@ For temperature and pressure ranges, four genes appear on the same widget. The o
         props(
             name = r#"Plant Genetic Splicer"#,
             desc = r#"The Genetic Splicer can be used to copy a single <link=GeneticsPage><color=#0080FFFF>gene</color></link> from one 'source' plant to another 'target' plant of the same type. After copying, the source plant will be destroyed.
-        
+
 To begin splicing, place a plant or seed bag in the left slot (source) and place another plant or seed bag of the same type in the right slot (target). You can select a gene using the arrow buttons. Close the sliding door and press the green activate button. Once splicing has begun, the device will be locked until the process has finished (which will take approximately twenty minutes). If you want to cancel splicing you can power off the bench or detach the appliance as a last resort."#,
             value = "-1094868323"
         )
@@ -7482,7 +7482,7 @@ Fertilizer is produced at a 1:3 ratio of fertilizer to ingredients. The fertiliz
         serialize = "DynamicGasCanisterWater",
         props(
             name = r#"Portable Liquid Tank (Water)"#,
-            desc = r#"This portable tank stores liquid, and liquid only. You just have to fill it up. To do this, bolt one to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link>, then connect it to <link=ThingStructurePipeLiquidStraight><color=green>Liquid Pipe (Straight)</color></link> to supply liquid to a network. 
+            desc = r#"This portable tank stores liquid, and liquid only. You just have to fill it up. To do this, bolt one to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link>, then connect it to <link=ThingStructurePipeLiquidStraight><color=green>Liquid Pipe (Straight)</color></link> to supply liquid to a network.
 Try to keep pressure under 10 MPa, or you'll end up wet, hurt and sorry, without any of the fun.
 You can refill a <link=ThingItemGasCanisterWater><color=green>Liquid Canister (Water)</color></link> by attaching it to the tank's striped section. Or you could use a <link=ThingItemWrench><color=green>Wrench</color></link> to attach it to a rocket and take it somewhere distant and dry, then feel good about yourself."#,
             value = "197293625"
@@ -7557,8 +7557,8 @@ You can refill a <link=ThingItemGasCanisterWater><color=green>Liquid Canister (W
         serialize = "CircuitboardPowerControl",
         props(
             name = r#"Power Control"#,
-            desc = r#"Under distant suns and demanding environments, <link=Stationeers><color=#0080FFFF>Stationeer</color></link> systems need to balance reliability, resilience and versatility. The power control board allows remote enabling and disabling of selected devices, disconnecting manual operation. 
-      
+            desc = r#"Under distant suns and demanding environments, <link=Stationeers><color=#0080FFFF>Stationeer</color></link> systems need to balance reliability, resilience and versatility. The power control board allows remote enabling and disabling of selected devices, disconnecting manual operation.
+
 The circuit board has two modes: 'Link' switches all devices on or off; 'Toggle' switches each device to their alternate state. "#,
             value = "-1923778429"
         )
@@ -8868,8 +8868,8 @@ The ProKompile can stack a wide variety of things such as <link=IngotPage><color
         serialize = "StructureBattery",
         props(
             name = r#"Station Battery"#,
-            desc = r#"Providing large-scale, reliable power storage, the <link=Sinotai><color=#0080FFFF>Sinotai</color></link> 'Dianzi' station battery is the heart of most <link=Stationeers><color=#0080FFFF>Stationeer</color></link> bases. 
-There are a variety of cautions to the design of electrical systems using batteries, and every experienced Stationeer has a story to tell, hence the Stationeer adage: 'Dianzi cooks, but it also frys.' 
+            desc = r#"Providing large-scale, reliable power storage, the <link=Sinotai><color=#0080FFFF>Sinotai</color></link> 'Dianzi' station battery is the heart of most <link=Stationeers><color=#0080FFFF>Stationeer</color></link> bases.
+There are a variety of cautions to the design of electrical systems using batteries, and every experienced Stationeer has a story to tell, hence the Stationeer adage: 'Dianzi cooks, but it also frys.'
 <size=120%><b>POWER OUTPUT</b></size>
 Able to store up to 3600000W of power, there are no practical limits to its throughput, hence it is wise to use <link=ThingItemCableCoilHeavy><color=green>Cable Coil (Heavy)</color></link>. Seasoned electrical engineers will also laugh in the face of those who fail to separate out their power generation networks using an <link=ThingStructureAreaPowerControl><color=green>Area Power Control</color></link> and <link=ThingStructureTransformer><color=green>Transformer (Large)</color></link>."#,
             value = "-400115994"
@@ -8880,8 +8880,8 @@ Able to store up to 3600000W of power, there are no practical limits to its thro
         serialize = "StructureBatteryLarge",
         props(
             name = r#"Station Battery (Large)"#,
-            desc = r#"Providing even better large-scale, reliable power storage than the {THING;StructureBattery}, the <link=Sinotai><color=#0080FFFF>Sinotai</color></link> 'Da Dianchi' large station battery is the heart of most <link=Stationeers><color=#0080FFFF>Stationeer</color></link> bases. 
-There are a variety of cautions to the design of electrical systems using batteries, and every experienced Stationeer has a story to tell, hence the Stationeer adage: 'Dianzi cooks, but it also frys.' 
+            desc = r#"Providing even better large-scale, reliable power storage than the {THING;StructureBattery}, the <link=Sinotai><color=#0080FFFF>Sinotai</color></link> 'Da Dianchi' large station battery is the heart of most <link=Stationeers><color=#0080FFFF>Stationeer</color></link> bases.
+There are a variety of cautions to the design of electrical systems using batteries, and every experienced Stationeer has a story to tell, hence the Stationeer adage: 'Dianzi cooks, but it also frys.'
 <size=120%><b>POWER OUTPUT</b></size>
 Able to store up to 9000001 watts of power, there are no practical limits to its throughput, hence it is wise to use <link=ThingItemCableCoilHeavy><color=green>Cable Coil (Heavy)</color></link>. Seasoned electrical engineers will also laugh in the face of those who fail to separate out their power generation networks using an <link=ThingStructureAreaPowerControl><color=green>Area Power Control</color></link> and <link=ThingStructureTransformer><color=green>Transformer (Large)</color></link>. "#,
             value = "-1388288459"
@@ -8911,7 +8911,7 @@ Able to store up to 9000001 watts of power, there are no practical limits to its
         serialize = "StructureFrameCorner",
         props(
             name = r#"Steel Frame (Corner)"#,
-            desc = r#"More durable than the <link=ThingStructureFrameIron><color=green>Iron Frame</color></link>, steel frames also offer several variations for more complex lattice constructions. 
+            desc = r#"More durable than the <link=ThingStructureFrameIron><color=green>Iron Frame</color></link>, steel frames also offer several variations for more complex lattice constructions.
 With a little patience and maneuvering, the corner frame's Gothic-inspired silhouette allows the creation of ogival arches and even more ambitious architecture, although they are not airtight and cannot be built on."#,
             value = "-2112390778"
         )
@@ -8958,9 +8958,9 @@ With a little patience and maneuvering, the corner frame's Gothic-inspired silho
         props(
             name = r#"Stirling Engine"#,
             desc = r#"Harnessing an ancient thermal exploit, the <link=Recurso><color=#0080FFFF>Recurso</color></link> 'Libra' Stirling Engine generates power via the expansion and contraction of a working gas to drive pistons operating an electrical generator.
-      
+
 When high pressure hot gas is supplied into the input pipe, this gas will heat the hot side of the unit, then pass into the output pipe. The cooler side uses the room's ambient atmosphere, which must be kept at a lower temperature and pressure in order to create a differential. Add a working gas by inserting a <link=SlotGasCanister><color=orange>Gas Canister</color></link>. The unit must be deactivated when adding or removing canisters, or the working gas may leak into the surrounding atmosphere.
- 
+
 Gases with a low molecular mass make the most efficient working gases. Increasing the moles of working gas can result in a greater potential power output. However, overpressuring the unit may have ... sub-optimal results."#,
             value = "-260316435"
         )
@@ -9148,7 +9148,7 @@ Upgrade the device using a <link=ThingToolPrinterMod><color=green>Tool Printer M
         serialize = "StructureTransformer",
         props(
             name = r#"Transformer (Large)"#,
-            desc = r#"The large <link=Norsec><color=#0080FFFF>Norsec</color></link> transformer is a critical component of extended <link=ElectronicPage><color=#0080FFFF>electrical</color></link> networks, controlling the maximum power that will flow down a cable. To prevent overloading, output can be set from 0 to 50,000W. 
+            desc = r#"The large <link=Norsec><color=#0080FFFF>Norsec</color></link> transformer is a critical component of extended <link=ElectronicPage><color=#0080FFFF>electrical</color></link> networks, controlling the maximum power that will flow down a cable. To prevent overloading, output can be set from 0 to 50,000W.
 Note that transformers operate as data isolators, preventing data flowing into any network beyond it."#,
             value = "-1423212473"
         )
@@ -9158,7 +9158,7 @@ Note that transformers operate as data isolators, preventing data flowing into a
         serialize = "StructureTransformerMedium",
         props(
             name = r#"Transformer (Medium)"#,
-            desc = r#"Transformers control the maximum power that will flow down a sub-network of cables, to prevent overloading <link=ElectronicPage><color=#0080FFFF>electrical</color></link> systems. 
+            desc = r#"Transformers control the maximum power that will flow down a sub-network of cables, to prevent overloading <link=ElectronicPage><color=#0080FFFF>electrical</color></link> systems.
 Medium transformers are used in larger setups where more than 5000W is required, with output that can be set to a maximum of 25000W.
 Note that transformers also operate as data isolators, preventing data flowing into any network beyond it."#,
             value = "-1065725831"
@@ -9179,7 +9179,7 @@ Note that transformers operate as data isolators, preventing data flowing into a
         serialize = "StructureTransformerMediumReversed",
         props(
             name = r#"Transformer Reversed (Medium)"#,
-            desc = r#"Transformers control the maximum power that will flow down a sub-network of cables, to prevent overloading <link=ElectronicPage><color=#0080FFFF>electrical</color></link> systems. 
+            desc = r#"Transformers control the maximum power that will flow down a sub-network of cables, to prevent overloading <link=ElectronicPage><color=#0080FFFF>electrical</color></link> systems.
 Medium transformers are used in larger setups where more than 5000W is required, with output that can be set to a maximum of 25000W.
 Note that transformers also operate as data isolators, preventing data flowing into any network beyond it."#,
             value = "833912764"
@@ -9389,7 +9389,7 @@ Output = 1 exporting items inside and eventually the main item."#,
         serialize = "StructureUprightWindTurbine",
         props(
             name = r#"Upright Wind Turbine"#,
-            desc = r#"Norsec's basic wind turbine is an easily fabricated, rapidly deployed design that is strong enough to withstand the worst that environments can throw at it. 
+            desc = r#"Norsec's basic wind turbine is an easily fabricated, rapidly deployed design that is strong enough to withstand the worst that environments can throw at it.
 While the wind turbine is optimized to produce power even on low atmosphere worlds (up to 200W), it performs best in denser environments. Output varies with wind speed, and during storms, may increase dramatically (up to 800W), so be careful to design your power networks with that in mind."#,
             value = "1622183451"
         )
@@ -9887,8 +9887,8 @@ While the wind turbine is optimized to produce power (up to 500W) even on low at
         serialize = "StructureWindowShutter",
         props(
             name = r#"Window Shutter"#,
-            desc = r#"For those special, private moments, a window that can be closed to prying eyes. 
-      
+            desc = r#"For those special, private moments, a window that can be closed to prying eyes.
+
 When closed, has the heat transfer characteristics of a basic wall. Requires power, and can be connected to logic systems."#,
             value = "2056377335"
         )

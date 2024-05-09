@@ -7,7 +7,7 @@ use ic10emu::{
     grammar::{LogicType, SlotLogicType},
     vm::{FrozenVM, VMError, VM},
 };
-use serde::{Deserialize, Serialize};
+use serde_derive::{Deserialize, Serialize};
 use types::{Registers, Stack};
 
 use std::{cell::RefCell, rc::Rc, str::FromStr};

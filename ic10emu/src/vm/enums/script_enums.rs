@@ -9,7 +9,7 @@
 //
 // =================================================
 
-use serde::{Deserialize, Serialize};
+use serde_derive::{Deserialize, Serialize};
 use strum::{AsRefStr, Display, EnumIter, EnumProperty, EnumString, FromRepr};
 #[derive(
     Debug,

@@ -70,7 +70,7 @@ enum Error {
     #[error("failed to run command `{0}`")]
     Command(String, #[source] std::io::Error),
     #[error("can not find `Stationpedia.json` and/or `Enums.json` at `{0}`")]
-    BadStationeresPath(std::path::PathBuf),
+    BadStationeersPath(std::path::PathBuf),
 }
 
 impl std::fmt::Debug for Error {

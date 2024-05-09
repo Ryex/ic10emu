@@ -1,5 +1,5 @@
 use macro_rules_attribute::derive;
-use serde::{Deserialize, Serialize};
+use serde_derive::{Deserialize, Serialize};
 
 pub mod errors;
 pub mod macros;
@@ -49,6 +49,6 @@ pub struct LogicField {
 #[derive(Debug, Default, Clone, Serialize, Deserialize)]
 pub struct Slot {
     pub typ: SlotType,
-    pub enabeled_logic: Vec<SlotLogicType>,
+    pub enabled_logic: Vec<SlotLogicType>,
     pub occupant: Option<ObjectID>,
 }

@@ -11,7 +11,7 @@ use std::{collections::BTreeMap, ops::Deref};
 
 use itertools::Itertools;
 
-use serde::{Deserialize, Serialize};
+use serde_derive::{Deserialize, Serialize};
 use strum_macros::{AsRefStr, EnumIter, EnumString};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]

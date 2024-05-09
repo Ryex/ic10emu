@@ -3,7 +3,7 @@
 use std::collections::BTreeMap;
 
 use itertools::Itertools;
-use serde::{Deserialize, Serialize};
+use serde_derive::{Deserialize, Serialize};
 use serde_with::serde_as;
 use tsify::Tsify;
 use wasm_bindgen::prelude::*;

@@ -4,7 +4,7 @@ pub mod traits;
 
 use enums::InstructionOp;
 use operands::Operand;
-use serde::{Deserialize, Serialize};
+use serde_derive::{Deserialize, Serialize};
 
 use phf::phf_map;
 

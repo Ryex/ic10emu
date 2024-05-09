@@ -45,7 +45,7 @@ pub fn generate(
 
     eprintln!("Formatting generated files...");
     for file in &generated_files {
-        prepend_genereated_comment(file)?;
+        prepend_generated_comment(file)?;
     }
     let mut cmd = Command::new("cargo");
     cmd.current_dir(workspace);
@@ -71,7 +71,7 @@ pub fn parse_json<'a, T: serde::Deserialize<'a>>(
     })
 }
 
-fn prepend_genereated_comment(file_path: &std::path::Path) -> color_eyre::Result<()> {
+fn prepend_generated_comment(file_path: &std::path::Path) -> color_eyre::Result<()> {
     use std::io::Write;
     let tmp_path = file_path.with_extension("rs.tmp");
     {

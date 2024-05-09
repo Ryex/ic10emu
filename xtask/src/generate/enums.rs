@@ -338,7 +338,7 @@ fn write_repr_enum_use_header<T: std::io::Write>(
 ) -> color_eyre::Result<()> {
     write!(
         writer,
-        "use serde::{{Deserialize, Serialize}};\n\
+        "use serde_derive::{{Deserialize, Serialize}};\n\
           use strum::{{\n    \
               AsRefStr, Display, EnumIter, EnumProperty, EnumString, FromRepr,\n\
           }};\n"

@@ -160,7 +160,7 @@ impl<T: GWLogicable + Object> Logicable for T {
     }
     fn can_slot_logic_read(&self, slt: SlotLogicType, index: usize) -> bool {
         self.get_slot(index)
-            .map(|slot| slot.enabeled_logic.contains(&slt))
+            .map(|slot| slot.enabled_logic.contains(&slt))
             .unwrap_or(false)
     }
     fn get_slot_logic(
@@ -172,7 +172,7 @@ impl<T: GWLogicable + Object> Logicable for T {
         self.get_slot(index)
             .ok_or_else(|| LogicError::SlotIndexOutOfRange(index, self.slots().len()))
             .and_then(|slot| {
-                if slot.enabeled_logic.contains(&slt) {
+                if slot.enabled_logic.contains(&slt) {
                     match slot.occupant {
                         Some(_id) => {
                             // FIXME: impliment by accessing VM to get occupant

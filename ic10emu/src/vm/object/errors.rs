@@ -1,4 +1,4 @@
-use serde::{Deserialize, Serialize};
+use serde_derive::{Deserialize, Serialize};
 use thiserror::Error;
 
 use crate::vm::enums::script_enums::{LogicSlotType as SlotLogicType, LogicType};

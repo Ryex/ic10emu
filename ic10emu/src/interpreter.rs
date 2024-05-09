@@ -1,5 +1,5 @@
 use core::f64;
-use serde::{Deserialize, Serialize};
+use serde_derive::{Deserialize, Serialize};
 use std::{
     cell::{Cell, RefCell},
     ops::Deref,
@@ -201,7 +201,7 @@ impl Program {
     }
 
     pub fn from_code_with_invalid(code: &str) -> Self {
-        let parse_tree = grammar::parse_with_invlaid(code);
+        let parse_tree = grammar::parse_with_invalid(code);
         let mut labels_set = HashSet::new();
         let mut labels = BTreeMap::new();
         let mut errors = Vec::new();

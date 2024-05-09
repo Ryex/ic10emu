@@ -55,7 +55,6 @@ pub struct Page {
     pub description: String,
     #[serde(rename = "Device")]
     pub device: Option<Device>,
-    /// the item , if none then deprecated
     #[serde(rename = "Item")]
     pub item: Option<Item>,
     #[serde(rename = "Structure")]

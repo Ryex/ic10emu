@@ -14,7 +14,7 @@ pub fn generate_database(
 ) -> color_eyre::Result<()> {
     let templates = generate_templates(stationpedia)?;
 
-    println!("Writing prefab database ...");
+    eprintln!("Writing prefab database ...");
 
     let prefabs: BTreeMap<String, ObjectTemplate> = templates
         .into_iter()

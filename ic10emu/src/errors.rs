@@ -1,5 +1,5 @@
 use crate::vm::instructions::enums::InstructionOp;
-use serde::{Deserialize, Serialize};
+use serde_derive::{Deserialize, Serialize};
 use std::error::Error as StdError;
 use std::fmt::Display;
 use thiserror::Error;

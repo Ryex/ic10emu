@@ -70,7 +70,7 @@ pub fn parse(code: &str) -> Result<Vec<Line>, ParseError> {
 }
 
 /// Like `parse` but can return Code::Invalid for some lines
-pub fn parse_with_invlaid(code: &str) -> Vec<Line> {
+pub fn parse_with_invalid(code: &str) -> Vec<Line> {
     code.lines()
         .enumerate()
         .map(|(n, l)| Line::from_str_with_invalid(n, l))
