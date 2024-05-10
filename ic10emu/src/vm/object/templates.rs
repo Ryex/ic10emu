@@ -2,14 +2,26 @@ use std::collections::BTreeMap;
 
 use crate::{
     network::{ConnectionRole, ConnectionType},
-    vm::enums::{
-        basic_enums::{Class as SlotClass, GasType, SortingClass},
-        script_enums::{LogicSlotType, LogicType},
+    vm::{
+        enums::{
+            basic_enums::{Class as SlotClass, GasType, SortingClass},
+            script_enums::{LogicSlotType, LogicType},
+        },
+        object::{
+            generic::structs::{
+                Generic, GenericItem, GenericItemLogicable,
+                GenericItemLogicableMemoryReadWriteable, GenericItemLogicableMemoryReadable,
+                GenericItemStorage, GenericLogicable, GenericLogicableDevice,
+                GenericLogicableDeviceMemoryReadWriteable, GenericLogicableDeviceMemoryReadable,
+                GenericStorage,
+            },
+            LogicField, Name, Slot,
+        },
     },
 };
 use serde_derive::{Deserialize, Serialize};
 
-use super::{MemoryAccess, ObjectID};
+use super::{stationpedia, MemoryAccess, ObjectID, VMObject};
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -26,7 +38,7 @@ pub enum ObjectTemplate {
 }
 
 impl ObjectTemplate {
-    fn prefab(&self) -> &PrefabInfo {
+    pub fn prefab(&self) -> &PrefabInfo {
         use ObjectTemplate::*;
         match self {
             Structure(s) => &s.prefab,
@@ -38,6 +50,354 @@ impl ObjectTemplate {
             ItemSlots(i) => &i.prefab,
             ItemLogic(i) => &i.prefab,
             ItemLogicMemory(i) => &i.prefab,
+        }
+    }
+
+    fn build(&self, id: ObjectID) -> VMObject {
+        if let Some(obj) = stationpedia::object_from_prefab_template(&self, id) {
+            obj
+        } else {
+            self.build_generic(id)
+        }
+    }
+
+    fn build_generic(&self, id: ObjectID) -> VMObject {
+        use ObjectTemplate::*;
+        match self {
+            Structure(s) => VMObject::new(Generic {
+                id,
+                prefab: Name::from_prefab_name(&s.prefab.prefab_name),
+                name: Name::new(&s.prefab.name),
+            }),
+            StructureSlots(s) => VMObject::new(GenericStorage {
+                id,
+                prefab: Name::from_prefab_name(&s.prefab.prefab_name),
+                name: Name::new(&s.prefab.name),
+                slots: s
+                    .slots
+                    .iter()
+                    .enumerate()
+                    .map(|(index, info)| Slot {
+                        parent: id,
+                        index,
+                        name: info.name.clone(),
+                        typ: info.typ,
+                        enabled_logic: Vec::new(),
+                        occupant: None,
+                    })
+                    .collect(),
+            }),
+            StructureLogic(s) => VMObject::new(GenericLogicable {
+                id,
+                prefab: Name::from_prefab_name(&s.prefab.prefab_name),
+                name: Name::new(&s.prefab.name),
+                fields: s
+                    .logic
+                    .logic_types
+                    .types
+                    .iter()
+                    .map(|(key, access)| {
+                        (
+                            *key,
+                            LogicField {
+                                field_type: *access,
+                                value: 0.0,
+                            },
+                        )
+                    })
+                    .collect(),
+                slots: s
+                    .slots
+                    .iter()
+                    .enumerate()
+                    .map(|(index, info)| Slot {
+                        parent: id,
+                        index,
+                        name: info.name.clone(),
+                        typ: info.typ,
+                        enabled_logic: s
+                            .logic
+                            .logic_slot_types
+                            .get(&(index as u32))
+                            .map(|s_info| s_info.slot_types.keys().copied().collect::<Vec<_>>())
+                            .unwrap_or_else(|| Vec::new()),
+                        occupant: None,
+                    })
+                    .collect(),
+            }),
+            StructureLogicDevice(s) => VMObject::new(GenericLogicableDevice {
+                id,
+                prefab: Name::from_prefab_name(&s.prefab.prefab_name),
+                name: Name::new(&s.prefab.name),
+                fields: s
+                    .logic
+                    .logic_types
+                    .types
+                    .iter()
+                    .map(|(key, access)| {
+                        (
+                            *key,
+                            LogicField {
+                                field_type: *access,
+                                value: 0.0,
+                            },
+                        )
+                    })
+                    .collect(),
+                slots: s
+                    .slots
+                    .iter()
+                    .enumerate()
+                    .map(|(index, info)| Slot {
+                        parent: id,
+                        index,
+                        name: info.name.clone(),
+                        typ: info.typ,
+                        enabled_logic: s
+                            .logic
+                            .logic_slot_types
+                            .get(&(index as u32))
+                            .map(|s_info| s_info.slot_types.keys().copied().collect::<Vec<_>>())
+                            .unwrap_or_else(|| Vec::new()),
+                        occupant: None,
+                    })
+                    .collect(),
+            }),
+            StructureLogicDeviceMemory(s)
+                if matches!(s.memory.memory_access, MemoryAccess::Read) =>
+            {
+                VMObject::new(GenericLogicableDeviceMemoryReadable {
+                    id,
+                    prefab: Name::from_prefab_name(&s.prefab.prefab_name),
+                    name: Name::new(&s.prefab.name),
+                    fields: s
+                        .logic
+                        .logic_types
+                        .types
+                        .iter()
+                        .map(|(key, access)| {
+                            (
+                                *key,
+                                LogicField {
+                                    field_type: *access,
+                                    value: 0.0,
+                                },
+                            )
+                        })
+                        .collect(),
+                    slots: s
+                        .slots
+                        .iter()
+                        .enumerate()
+                        .map(|(index, info)| Slot {
+                            parent: id,
+                            index,
+                            name: info.name.clone(),
+                            typ: info.typ,
+                            enabled_logic: s
+                                .logic
+                                .logic_slot_types
+                                .get(&(index as u32))
+                                .map(|s_info| s_info.slot_types.keys().copied().collect::<Vec<_>>())
+                                .unwrap_or_else(|| Vec::new()),
+                            occupant: None,
+                        })
+                        .collect(),
+                    memory: vec![0.0; s.memory.memory_size as usize],
+                })
+            }
+            StructureLogicDeviceMemory(s) => {
+                VMObject::new(GenericLogicableDeviceMemoryReadWriteable {
+                    id,
+                    prefab: Name::from_prefab_name(&s.prefab.prefab_name),
+                    name: Name::new(&s.prefab.name),
+                    fields: s
+                        .logic
+                        .logic_types
+                        .types
+                        .iter()
+                        .map(|(key, access)| {
+                            (
+                                *key,
+                                LogicField {
+                                    field_type: *access,
+                                    value: 0.0,
+                                },
+                            )
+                        })
+                        .collect(),
+                    slots: s
+                        .slots
+                        .iter()
+                        .enumerate()
+                        .map(|(index, info)| Slot {
+                            parent: id,
+                            index,
+                            name: info.name.clone(),
+                            typ: info.typ,
+                            enabled_logic: s
+                                .logic
+                                .logic_slot_types
+                                .get(&(index as u32))
+                                .map(|s_info| s_info.slot_types.keys().copied().collect::<Vec<_>>())
+                                .unwrap_or_else(|| Vec::new()),
+                            occupant: None,
+                        })
+                        .collect(),
+                    memory: vec![0.0; s.memory.memory_size as usize],
+                })
+            }
+            Item(i) => VMObject::new(GenericItem {
+                id,
+                prefab: Name::from_prefab_name(&i.prefab.prefab_name),
+                name: Name::new(&i.prefab.name),
+                item_info: i.item.clone(),
+                parent_slot: None,
+            }),
+            ItemSlots(i) => VMObject::new(GenericItemStorage {
+                id,
+                prefab: Name::from_prefab_name(&i.prefab.prefab_name),
+                name: Name::new(&i.prefab.name),
+                item_info: i.item.clone(),
+                parent_slot: None,
+                slots: i
+                    .slots
+                    .iter()
+                    .enumerate()
+                    .map(|(index, info)| Slot {
+                        parent: id,
+                        index,
+                        name: info.name.clone(),
+                        typ: info.typ,
+                        enabled_logic: Vec::new(),
+                        occupant: None,
+                    })
+                    .collect(),
+            }),
+            ItemLogic(i) => VMObject::new(GenericItemLogicable {
+                id,
+                prefab: Name::from_prefab_name(&i.prefab.prefab_name),
+                name: Name::new(&i.prefab.name),
+                item_info: i.item.clone(),
+                parent_slot: None,
+                fields: i
+                    .logic
+                    .logic_types
+                    .types
+                    .iter()
+                    .map(|(key, access)| {
+                        (
+                            *key,
+                            LogicField {
+                                field_type: *access,
+                                value: 0.0,
+                            },
+                        )
+                    })
+                    .collect(),
+                slots: i
+                    .slots
+                    .iter()
+                    .enumerate()
+                    .map(|(index, info)| Slot {
+                        parent: id,
+                        index,
+                        name: info.name.clone(),
+                        typ: info.typ,
+                        enabled_logic: i
+                            .logic
+                            .logic_slot_types
+                            .get(&(index as u32))
+                            .map(|s_info| s_info.slot_types.keys().copied().collect::<Vec<_>>())
+                            .unwrap_or_else(|| Vec::new()),
+                        occupant: None,
+                    })
+                    .collect(),
+            }),
+            ItemLogicMemory(i) if matches!(i.memory.memory_access, MemoryAccess::Read) => {
+                VMObject::new(GenericItemLogicableMemoryReadable {
+                    id,
+                    prefab: Name::from_prefab_name(&i.prefab.prefab_name),
+                    name: Name::new(&i.prefab.name),
+                    item_info: i.item.clone(),
+                    parent_slot: None,
+                    fields: i
+                        .logic
+                        .logic_types
+                        .types
+                        .iter()
+                        .map(|(key, access)| {
+                            (
+                                *key,
+                                LogicField {
+                                    field_type: *access,
+                                    value: 0.0,
+                                },
+                            )
+                        })
+                        .collect(),
+                    slots: i
+                        .slots
+                        .iter()
+                        .enumerate()
+                        .map(|(index, info)| Slot {
+                            parent: id,
+                            index,
+                            name: info.name.clone(),
+                            typ: info.typ,
+                            enabled_logic: i
+                                .logic
+                                .logic_slot_types
+                                .get(&(index as u32))
+                                .map(|s_info| s_info.slot_types.keys().copied().collect::<Vec<_>>())
+                                .unwrap_or_else(|| Vec::new()),
+                            occupant: None,
+                        })
+                        .collect(),
+                    memory: vec![0.0; i.memory.memory_size as usize],
+                })
+            }
+            ItemLogicMemory(i) => VMObject::new(GenericItemLogicableMemoryReadWriteable {
+                id,
+                prefab: Name::from_prefab_name(&i.prefab.prefab_name),
+                name: Name::new(&i.prefab.name),
+                item_info: i.item.clone(),
+                parent_slot: None,
+                fields: i
+                    .logic
+                    .logic_types
+                    .types
+                    .iter()
+                    .map(|(key, access)| {
+                        (
+                            *key,
+                            LogicField {
+                                field_type: *access,
+                                value: 0.0,
+                            },
+                        )
+                    })
+                    .collect(),
+                slots: i
+                    .slots
+                    .iter()
+                    .enumerate()
+                    .map(|(index, info)| Slot {
+                        parent: id,
+                        index,
+                        name: info.name.clone(),
+                        typ: info.typ,
+                        enabled_logic: i
+                            .logic
+                            .logic_slot_types
+                            .get(&(index as u32))
+                            .map(|s_info| s_info.slot_types.keys().copied().collect::<Vec<_>>())
+                            .unwrap_or_else(|| Vec::new()),
+                        occupant: None,
+                    })
+                    .collect(),
+                memory: vec![0.0; i.memory.memory_size as usize],
+            }),
         }
     }
 }
@@ -62,7 +422,7 @@ pub struct ObjectInfo {
 #[serde(rename_all = "camelCase")]
 pub struct SlotInfo {
     pub name: String,
-    pub typ: String,
+    pub typ: SlotClass,
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
@@ -96,7 +456,7 @@ pub struct ItemInfo {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub filter_type: Option<GasType>,
     pub ingredient: bool,
-    pub max_quantity: f64,
+    pub max_quantity: u32,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reagents: Option<BTreeMap<String, f64>>,
     pub slot_class: SlotClass,
@@ -270,7 +630,6 @@ mod tests {
     struct Database {
         pub prefabs: BTreeMap<String, ObjectTemplate>,
     }
-
 
     #[test]
     fn all_database_prefabs_parse() -> color_eyre::Result<()> {

@@ -7,6 +7,8 @@ use crate::vm::instructions::enums::InstructionOp;
 use serde_derive::{Deserialize, Serialize};
 use strum::EnumProperty;
 
+use super::traits::IntegratedCircuit;
+
 #[derive(PartialEq, Eq, Debug, Clone, Copy, Serialize, Deserialize)]
 pub enum Device {
     Db,
@@ -57,9 +59,9 @@ pub enum Operand {
 }
 
 impl Operand {
-    pub fn as_value(
+    pub fn as_value<IC: IntegratedCircuit>(
         &self,
-        ic: &interpreter::IC,
+        ic: &IC,
         inst: InstructionOp,
         index: u32,
     ) -> Result<f64, ICError> {
@@ -121,9 +123,9 @@ impl Operand {
         }
     }
 
-    pub fn as_value_i64(
+    pub fn as_value_i64<IC: IntegratedCircuit>(
         &self,
-        ic: &interpreter::IC,
+        ic: &IC,
         signed: bool,
         inst: InstructionOp,
         index: u32,
@@ -142,9 +144,9 @@ impl Operand {
             }
         }
     }
-    pub fn as_value_i32(
+    pub fn as_value_i32<IC: IntegratedCircuit>(
         &self,
-        ic: &interpreter::IC,
+        ic: &IC,
         signed: bool,
         inst: InstructionOp,
         index: u32,
@@ -153,9 +155,9 @@ impl Operand {
             Self::Number(num) => Ok(num.value_i64(signed) as i32),
             _ => {
                 let val = self.as_value(ic, inst, index)?;
-                if val < -2147483648.0 {
+                if val < i32::MIN as f64 {
                     Err(ICError::ShiftUnderflowI32)
-                } else if val <= 2147483647.0 {
+                } else if val <= i32::MAX as f64 {
                     Ok(val as i32)
                 } else {
                     Err(ICError::ShiftOverflowI32)
@@ -164,9 +166,9 @@ impl Operand {
         }
     }
 
-    pub fn as_register(
+    pub fn as_register<IC: IntegratedCircuit>(
         &self,
-        ic: &interpreter::IC,
+        ic: &IC,
         inst: InstructionOp,
         index: u32,
     ) -> Result<RegisterSpec, ICError> {
@@ -181,9 +183,9 @@ impl Operand {
         }
     }
 
-    pub fn as_device(
+    pub fn as_device<IC: IntegratedCircuit>(
         &self,
-        ic: &interpreter::IC,
+        ic: &IC,
         inst: InstructionOp,
         index: u32,
     ) -> Result<(Option<u32>, Option<usize>), ICError> {
@@ -222,9 +224,9 @@ impl Operand {
         }
     }
 
-    pub fn as_logic_type(
+    pub fn as_logic_type<IC: IntegratedCircuit>(
         &self,
-        ic: &interpreter::IC,
+        ic: &IC,
         inst: InstructionOp,
         index: u32,
     ) -> Result<LogicType, ICError> {
@@ -237,9 +239,9 @@ impl Operand {
         }
     }
 
-    pub fn as_slot_logic_type(
+    pub fn as_slot_logic_type<IC: IntegratedCircuit>(
         &self,
-        ic: &interpreter::IC,
+        ic: &IC,
         inst: InstructionOp,
         index: u32,
     ) -> Result<LogicSlotType, ICError> {
@@ -252,9 +254,9 @@ impl Operand {
         }
     }
 
-    pub fn as_batch_mode(
+    pub fn as_batch_mode<IC: IntegratedCircuit>(
         &self,
-        ic: &interpreter::IC,
+        ic: &IC,
         inst: InstructionOp,
         index: u32,
     ) -> Result<BatchMode, ICError> {
@@ -267,9 +269,9 @@ impl Operand {
         }
     }
 
-    pub fn as_reagent_mode(
+    pub fn as_reagent_mode<IC: IntegratedCircuit>(
         &self,
-        ic: &interpreter::IC,
+        ic: &IC,
         inst: InstructionOp,
         index: u32,
     ) -> Result<ReagentMode, ICError> {
@@ -282,7 +284,7 @@ impl Operand {
         }
     }
 
-    pub fn translate_alias(&self, ic: &interpreter::IC) -> Self {
+    pub fn translate_alias<IC: IntegratedCircuit>(&self, ic: &IC) -> Self {
         match &self {
             Operand::Identifier(id) | Operand::Type { identifier: id, .. } => {
                 if let Some(alias) = ic.aliases.borrow().get(&id.name) {

@@ -1,4 +1,4 @@
-use std::{cell::RefCell, ops::Deref, rc::Rc};
+use std::{cell::RefCell, ops::Deref, rc::Rc, str::FromStr};
 
 use macro_rules_attribute::derive;
 use serde_derive::{Deserialize, Serialize};
@@ -13,6 +13,8 @@ pub mod traits;
 use traits::*;
 
 use crate::vm::enums::{basic_enums::Class as SlotClass, script_enums::LogicSlotType};
+
+use super::enums::prefabs::StationpediaPrefab;
 
 pub type ObjectID = u32;
 pub type BoxedObject = Rc<RefCell<dyn Object<ID = ObjectID>>>;
@@ -51,6 +53,24 @@ impl Name {
             hash: const_crc32::crc32(name.as_bytes()) as i32,
         }
     }
+    pub fn from_prefab_name(name: &str) -> Self {
+        Name {
+            value: name.to_string(),
+            hash: StationpediaPrefab::from_str(name)
+                .map(|prefab| prefab as i32)
+                .unwrap_or_else(|_| const_crc32::crc32(name.as_bytes()) as i32),
+        }
+    }
+    pub fn from_prefab_hash(hash: i32) -> Option<Self> {
+        if let Some(prefab) = StationpediaPrefab::from_repr(hash) {
+            Some(Name {
+                value: prefab.to_string(),
+                hash: hash,
+            })
+        } else {
+            None
+        }
+    }
     pub fn set(&mut self, name: &str) {
         self.value = name.to_owned();
         self.hash = const_crc32::crc32(name.as_bytes()) as i32;
@@ -72,6 +92,9 @@ pub struct LogicField {
 
 #[derive(Debug, Default, Clone, Serialize, Deserialize)]
 pub struct Slot {
+    pub parent: ObjectID,
+    pub index: usize,
+    pub name: String,
     pub typ: SlotClass,
     pub enabled_logic: Vec<LogicSlotType>,
     pub occupant: Option<ObjectID>,

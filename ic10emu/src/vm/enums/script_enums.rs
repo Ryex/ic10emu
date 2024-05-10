@@ -2276,4 +2276,12 @@ pub enum LogicType {
         )
     )]
     BestContactFilter = 267u16,
+    #[strum(
+        serialize = "NameHash",
+        props(
+            docs = r#"Provides the hash value for the name of the object as a 32 bit integer."#,
+            value = "268"
+        )
+    )]
+    NameHash = 268u16,
 }

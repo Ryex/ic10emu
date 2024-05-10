@@ -3,8 +3,8 @@ use crate::{
     interpreter::ICState,
     network::{CableConnectionType, Connection},
     vm::enums::{
-        script_enums::{LogicReagentMode as ReagentMode, LogicSlotType, LogicType},
         basic_enums::{Class as SlotClass, SortingClass},
+        script_enums::{LogicReagentMode as ReagentMode, LogicSlotType, LogicType},
     },
     vm::VM,
 };

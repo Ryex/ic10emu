@@ -721,7 +721,7 @@ mod tests {
 
     static INIT: std::sync::Once = std::sync::Once::new();
 
-    fn setup()  {
+    fn setup() {
         INIT.call_once(|| {
             let _ = color_eyre::install();
         })

@@ -459,6 +459,7 @@ impl IC {
                 Nop => Ok(()),
                 Hcf => Ok(()),   // TODO
                 Clr => Ok(()),   // TODO
+                Clrd => Ok(()),  // TODO
                 Label => Ok(()), // NOP
                 Sleep => match &operands[..] {
                     [a] => {
@@ -2515,7 +2516,7 @@ mod tests {
 
     static INIT: std::sync::Once = std::sync::Once::new();
 
-    fn setup()  {
+    fn setup() {
         INIT.call_once(|| {
             let _ = color_eyre::install();
         })

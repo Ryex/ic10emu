@@ -710,6 +710,11 @@ The <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> K-cops 10-10 so
     )]
     ItemWrench = -1886261558i32,
     #[strum(
+        serialize = "SeedBag_SugarCane",
+        props(name = r#"Sugarcane Seeds"#, desc = r#""#, value = "-1884103228")
+    )]
+    SeedBagSugarCane = -1884103228i32,
+    #[strum(
         serialize = "ItemSoundCartridgeBass",
         props(name = r#"Sound Cartridge Bass"#, desc = r#""#, value = "-1883441704")
     )]
@@ -1987,15 +1992,6 @@ Able to store up to 9000001 watts of power, there are no practical limits to its
     )]
     ItemKitTables = -1361598922i32,
     #[strum(
-        serialize = "ItemResearchCapsuleGreen",
-        props(
-            name = r#"Research Capsule Green"#,
-            desc = r#""#,
-            value = "-1352732550"
-        )
-    )]
-    ItemResearchCapsuleGreen = -1352732550i32,
-    #[strum(
         serialize = "StructureLargeHangerDoor",
         props(
             name = r#"Large Hangar Door"#,
@@ -2041,6 +2037,11 @@ Able to store up to 9000001 watts of power, there are no practical limits to its
         )
     )]
     StructureChuteDigitalValveRight = -1337091041i32,
+    #[strum(
+        serialize = "ItemSugarCane",
+        props(name = r#"Sugarcane"#, desc = r#""#, value = "-1335056202")
+    )]
+    ItemSugarCane = -1335056202i32,
     #[strum(
         serialize = "ItemKitSmallDirectHeatExchanger",
         props(
@@ -2635,6 +2636,11 @@ Just bolt it to a <link=ThingStructureBench><color=green>Powered Bench</color></
         )
     )]
     StructureCompositeFloorGrating3 = -1113471627i32,
+    #[strum(
+        serialize = "ItemPlainCake",
+        props(name = r#"Cake"#, desc = r#""#, value = "-1108244510")
+    )]
+    ItemPlainCake = -1108244510i32,
     #[strum(
         serialize = "ItemWreckageStructureWeatherStation004",
         props(
@@ -3293,11 +3299,6 @@ Like most <link=Recurso><color=#0080FFFF>Recurso</color></link>-designed systems
         props(name = r#"Kit (Liquid Tank)"#, desc = r#""#, value = "-799849305")
     )]
     ItemKitLiquidTank = -799849305i32,
-    #[strum(
-        serialize = "StructureResearchMachine",
-        props(name = r#"Research Machine"#, desc = r#""#, value = "-796627526")
-    )]
-    StructureResearchMachine = -796627526i32,
     #[strum(
         serialize = "StructureCompositeDoor",
         props(
@@ -4448,6 +4449,11 @@ Be there, even when you're not."#,
         )
     )]
     StructureLiquidPipeHeater = -287495560i32,
+    #[strum(
+        serialize = "ItemChocolateCake",
+        props(name = r#"Chocolate Cake"#, desc = r#""#, value = "-261575861")
+    )]
+    ItemChocolateCake = -261575861i32,
     #[strum(
         serialize = "StructureStirlingEngine",
         props(
@@ -5600,6 +5606,11 @@ You can refill a <link=ThingItemGasCanisterWater><color=green>Liquid Canister (W
     )]
     KitStructureCombustionCentrifuge = 231903234i32,
     #[strum(
+        serialize = "ItemChocolateBar",
+        props(name = r#"Chocolate Bar"#, desc = r#""#, value = "234601764")
+    )]
+    ItemChocolateBar = 234601764i32,
+    #[strum(
         serialize = "ItemExplosive",
         props(name = r#"Remote Explosive"#, desc = r#""#, value = "235361649")
     )]
@@ -6209,6 +6220,11 @@ Fertilizer is produced at a 1:3 ratio of fertilizer to ingredients. The fertiliz
     )]
     ItemKitInsulatedPipe = 452636699i32,
     #[strum(
+        serialize = "ItemCocoaPowder",
+        props(name = r#"Cocoa Powder"#, desc = r#""#, value = "457286516")
+    )]
+    ItemCocoaPowder = 457286516i32,
+    #[strum(
         serialize = "AccessCardPurple",
         props(name = r#"Access Card (Purple)"#, desc = r#""#, value = "459843265")
     )]
@@ -6632,6 +6648,11 @@ Normal coil has a maximum wattage of 5kW. For higher-current applications, use <
     )]
     ItemRemoteDetonator = 678483886i32,
     #[strum(
+        serialize = "ItemCocoaTree",
+        props(name = r#"Cocoa"#, desc = r#""#, value = "680051921")
+    )]
+    ItemCocoaTree = 680051921i32,
+    #[strum(
         serialize = "ItemKitAirlockGate",
         props(name = r#"Kit (Hangar Door)"#, desc = r#""#, value = "682546947")
     )]
@@ -6743,11 +6764,6 @@ Output = 1 exporting items inside and eventually the main item."#,
         props(name = r#"Kit (Railing)"#, desc = r#""#, value = "750176282")
     )]
     ItemKitRailing = 750176282i32,
-    #[strum(
-        serialize = "ItemResearchCapsuleYellow",
-        props(name = r#"Research Capsule Yellow"#, desc = r#""#, value = "750952701")
-    )]
-    ItemResearchCapsuleYellow = 750952701i32,
     #[strum(
         serialize = "StructureFridgeSmall",
         props(
@@ -6880,11 +6896,6 @@ A completed console displays all devices connected to the current power network.
     )]
     LandingpadGasConnectorInwardPiece = 817945707i32,
     #[strum(
-        serialize = "ItemResearchCapsule",
-        props(name = r#"Research Capsule Blue"#, desc = r#""#, value = "819096942")
-    )]
-    ItemResearchCapsule = 819096942i32,
-    #[strum(
         serialize = "StructureElevatorShaft",
         props(name = r#"Elevator Shaft (Cabled)"#, desc = r#""#, value = "826144419")
     )]
@@ -6993,6 +7004,11 @@ Note that transformers also operate as data isolators, preventing data flowing i
         )
     )]
     ItemCrowbar = 856108234i32,
+    #[strum(
+        serialize = "ItemChocolateCerealBar",
+        props(name = r#"Chocolate Cereal Bar"#, desc = r#""#, value = "860793245")
+    )]
+    ItemChocolateCerealBar = 860793245i32,
     #[strum(
         serialize = "Rover_MkI_build_states",
         props(name = r#"Rover MKI"#, desc = r#""#, value = "861674123")
@@ -7218,11 +7234,6 @@ As the N Flow-P is a passive system, it equalizes pressure across the entire of 
         )
     )]
     StructurePictureFrameThickMountLandscapeLarge = 950004659i32,
-    #[strum(
-        serialize = "ItemResearchCapsuleRed",
-        props(name = r#"Research Capsule Red"#, desc = r#""#, value = "954947943")
-    )]
-    ItemResearchCapsuleRed = 954947943i32,
     #[strum(
         serialize = "StructureTankSmallAir",
         props(name = r#"Small Tank (Air)"#, desc = r#""#, value = "955744474")
@@ -7643,6 +7654,11 @@ Normal coil has a maximum wattage of 5kW. For higher-current applications, use <
         )
     )]
     ItemPillHeal = 1118069417i32,
+    #[strum(
+        serialize = "SeedBag_Cocoa",
+        props(name = r#"Cocoa Seeds"#, desc = r#""#, value = "1139887531")
+    )]
+    SeedBagCocoa = 1139887531i32,
     #[strum(
         serialize = "StructureMediumRocketLiquidFuelTank",
         props(
@@ -8663,6 +8679,11 @@ The ProKompile can stack a wide variety of things such as <link=IngotPage><color
         props(name = r#"Kit (Power Umbilical)"#, desc = r#""#, value = "1603046970")
     )]
     ItemKitElectricUmbilical = 1603046970i32,
+    #[strum(
+        serialize = "ItemJetpackTurbine",
+        props(name = r#"Turbine Jetpack"#, desc = r#""#, value = "1604261183")
+    )]
+    ItemJetpackTurbine = 1604261183i32,
     #[strum(
         serialize = "Lander",
         props(name = r#"Lander"#, desc = r#""#, value = "1605130615")
@@ -10058,6 +10079,11 @@ The speed of heat gain or loss will depend on the liquid in question. Adding mul
         )
     )]
     ItemRocketMiningDrillHead = 2109945337i32,
+    #[strum(
+        serialize = "ItemSugar",
+        props(name = r#"Sugar"#, desc = r#""#, value = "2111910840")
+    )]
+    ItemSugar = 2111910840i32,
     #[strum(
         serialize = "DynamicMKIILiquidCanisterEmpty",
         props(

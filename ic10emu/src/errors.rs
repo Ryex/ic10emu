@@ -101,7 +101,7 @@ pub enum ICError {
     #[error("duplicate label {0}")]
     DuplicateLabel(String),
     #[error("instruction pointer out of range: '{0}'")]
-    InstructionPointerOutOfRange(u32),
+    InstructionPointerOutOfRange(usize),
     #[error("register pointer out of range: '{0}'")]
     RegisterIndexOutOfRange(f64),
     #[error("device pointer out of range: '{0}'")]

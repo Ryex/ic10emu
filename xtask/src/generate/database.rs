@@ -469,7 +469,7 @@ pub struct ItemInfo {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub filter_type: Option<String>,
     pub ingredient: bool,
-    pub max_quantity: f64,
+    pub max_quantity: u32,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reagents: Option<BTreeMap<String, f64>>,
     pub slot_class: String,
@@ -482,7 +482,7 @@ impl From<&stationpedia::Item> for ItemInfo {
             consumable: item.consumable.unwrap_or(false),
             filter_type: item.filter_type.clone(),
             ingredient: item.ingredient.unwrap_or(false),
-            max_quantity: item.max_quantity.unwrap_or(1.0),
+            max_quantity: item.max_quantity.unwrap_or(1.0) as u32,
             reagents: item
                 .reagents
                 .as_ref()

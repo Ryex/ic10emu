@@ -13,19 +13,27 @@ use crate::errors::ICError;
 use crate::vm::object::traits::{Logicable, MemoryWritable, SourceCode};
 use std::collections::BTreeMap;
 pub trait IntegratedCircuit: Logicable + MemoryWritable + SourceCode {
-    fn get_instruciton_pointer(&self) -> usize;
-    fn set_next_instruction(&mut self, next_instruction: usize);
+    fn get_instruction_pointer(&self) -> f64;
+    fn set_next_instruction(&mut self, next_instruction: f64);
+    fn set_next_instruction_relative(&mut self, offset: f64) {
+        self.set_next_instruction(self.get_instruction_pointer() + offset);
+    }
     fn reset(&mut self);
     fn get_real_target(&self, indirection: u32, target: u32) -> Result<f64, ICError>;
     fn get_register(&self, indirection: u32, target: u32) -> Result<f64, ICError>;
     fn set_register(&mut self, indirection: u32, target: u32, val: f64) -> Result<f64, ICError>;
     fn set_return_address(&mut self, addr: f64);
+    fn al(&mut self) {
+        self.set_return_address(self.get_instruction_pointer() + 1.0);
+    }
     fn push_stack(&mut self, val: f64) -> Result<f64, ICError>;
     fn pop_stack(&mut self) -> Result<f64, ICError>;
     fn peek_stack(&self) -> Result<f64, ICError>;
+    fn get_stack(&self, addr: f64) -> Result<f64, ICError>;
+    fn put_stack(&self, addr: f64, val: f64) -> Result<f64, ICError>;
     fn get_aliases(&self) -> &BTreeMap<String, crate::vm::instructions::operands::Operand>;
     fn get_defines(&self) -> &BTreeMap<String, f64>;
-    fn get_lables(&self) -> &BTreeMap<String, u32>;
+    fn get_labels(&self) -> &BTreeMap<String, u32>;
 }
 pub trait AbsInstruction: IntegratedCircuit {
     /// abs r? a(r?|num)
@@ -60,7 +68,7 @@ pub trait AliasInstruction: IntegratedCircuit {
     fn execute_alias(
         &mut self,
         vm: &crate::vm::VM,
-        str: &crate::vm::instructions::operands::Operand,
+        string: &crate::vm::instructions::operands::Operand,
         r: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
 }
@@ -659,6 +667,14 @@ pub trait ClrInstruction: IntegratedCircuit {
         d: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
 }
+pub trait ClrdInstruction: IntegratedCircuit {
+    /// clrd id(r?|num)
+    fn execute_clrd(
+        &mut self,
+        vm: &crate::vm::VM,
+        id: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError>;
+}
 pub trait CosInstruction: IntegratedCircuit {
     /// cos r? a(r?|num)
     fn execute_cos(
@@ -673,7 +689,7 @@ pub trait DefineInstruction: IntegratedCircuit {
     fn execute_define(
         &mut self,
         vm: &crate::vm::VM,
-        str: &crate::vm::instructions::operands::Operand,
+        string: &crate::vm::instructions::operands::Operand,
         num: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
 }
@@ -769,7 +785,7 @@ pub trait LabelInstruction: IntegratedCircuit {
         &mut self,
         vm: &crate::vm::VM,
         d: &crate::vm::instructions::operands::Operand,
-        str: &crate::vm::instructions::operands::Operand,
+        string: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait LbInstruction: IntegratedCircuit {
@@ -1450,6 +1466,7 @@ pub trait ICInstructable:
     + BrnezInstruction
     + CeilInstruction
     + ClrInstruction
+    + ClrdInstruction
     + CosInstruction
     + DefineInstruction
     + DivInstruction
@@ -1595,6 +1612,7 @@ impl<T> ICInstructable for T where
         + BrnezInstruction
         + CeilInstruction
         + ClrInstruction
+        + ClrdInstruction
         + CosInstruction
         + DefineInstruction
         + DivInstruction

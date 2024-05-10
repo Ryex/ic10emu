@@ -1,3 +1,22 @@
+macro_rules! GWStorage {
+    (
+        $( #[$attr:meta] )*
+        $viz:vis struct $struct:ident {
+            $($body:tt)*
+        }
+    ) => {
+        impl GWStorage for $struct {
+            fn slots(&self) -> &Vec<Slot> {
+                &self.slots
+            }
+            fn slots_mut(&mut self) -> &mut Vec<Slot> {
+                &mut self.slots
+            }
+        }
+    };
+}
+pub(crate) use GWStorage;
+
 macro_rules! GWLogicable {
     (
         $( #[$attr:meta] )*
@@ -6,20 +25,11 @@ macro_rules! GWLogicable {
         }
     ) => {
         impl GWLogicable for $struct {
-            fn name(&self) -> &Option<Name> {
-                &self.name
-            }
             fn fields(&self) -> &BTreeMap<LogicType, LogicField> {
                 &self.fields
             }
             fn fields_mut(&mut self) -> &mut BTreeMap<LogicType, LogicField> {
                 &mut self.fields
-            }
-            fn slots(&self) -> &Vec<Slot> {
-                &self.slots
-            }
-            fn slots_mut(&mut self) -> &mut Vec<Slot> {
-                &mut self.slots
             }
         }
     };
@@ -73,3 +83,22 @@ macro_rules! GWDevice {
     };
 }
 pub(crate) use GWDevice;
+
+macro_rules! GWItem {
+    (
+        $( #[$attr:meta] )*
+        $viz:vis struct $struct:ident {
+            $($body:tt)*
+        }
+    ) => {
+        impl GWItem for $struct {
+            fn item_info(&self) -> &ItemInfo {
+                &self.item_info
+            }
+            fn parent_slot(&self) -> Option<ParentSlotInfo> {
+                self.parent_slot
+            }
+        }
+    };
+}
+pub(crate) use GWItem;

@@ -282,42 +282,6 @@ pub enum GasType {
 )]
 #[strum(use_phf)]
 #[repr(u8)]
-pub enum RocketMode {
-    #[strum(serialize = "Invalid", props(docs = r#""#, value = "0"))]
-    Invalid = 0u8,
-    #[strum(serialize = "None", props(docs = r#""#, value = "1"))]
-    #[default]
-    None = 1u8,
-    #[strum(serialize = "Mine", props(docs = r#""#, value = "2"))]
-    Mine = 2u8,
-    #[strum(serialize = "Survey", props(docs = r#""#, value = "3"))]
-    Survey = 3u8,
-    #[strum(serialize = "Discover", props(docs = r#""#, value = "4"))]
-    Discover = 4u8,
-    #[strum(serialize = "Chart", props(docs = r#""#, value = "5"))]
-    Chart = 5u8,
-}
-#[derive(
-    Debug,
-    Default,
-    Display,
-    Clone,
-    Copy,
-    PartialEq,
-    Eq,
-    PartialOrd,
-    Ord,
-    Hash,
-    EnumString,
-    AsRefStr,
-    EnumProperty,
-    EnumIter,
-    FromRepr,
-    Serialize,
-    Deserialize,
-)]
-#[strum(use_phf)]
-#[repr(u8)]
 pub enum LogicSlotType {
     #[strum(serialize = "None", props(docs = r#"No description"#, value = "0"))]
     #[default]
@@ -2502,6 +2466,14 @@ pub enum LogicType {
         )
     )]
     BestContactFilter = 267u16,
+    #[strum(
+        serialize = "NameHash",
+        props(
+            docs = r#"Provides the hash value for the name of the object as a 32 bit integer."#,
+            value = "268"
+        )
+    )]
+    NameHash = 268u16,
 }
 #[derive(
     Debug,
@@ -2534,6 +2506,50 @@ pub enum PowerMode {
     Charging = 3u8,
     #[strum(serialize = "Charged", props(docs = r#""#, value = "4"))]
     Charged = 4u8,
+}
+#[derive(
+    Debug,
+    Default,
+    Display,
+    Clone,
+    Copy,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    EnumString,
+    AsRefStr,
+    EnumProperty,
+    EnumIter,
+    FromRepr,
+    Serialize,
+    Deserialize,
+)]
+#[strum(use_phf)]
+#[repr(u8)]
+pub enum PrinterInstruction {
+    #[strum(serialize = "None", props(docs = r#""#, value = "0"))]
+    #[default]
+    None = 0u8,
+    #[strum(serialize = "StackPointer", props(docs = r#""#, value = "1"))]
+    StackPointer = 1u8,
+    #[strum(serialize = "ExecuteRecipe", props(docs = r#""#, value = "2"))]
+    ExecuteRecipe = 2u8,
+    #[strum(serialize = "WaitUntilNextValid", props(docs = r#""#, value = "3"))]
+    WaitUntilNextValid = 3u8,
+    #[strum(serialize = "JumpIfNextInvalid", props(docs = r#""#, value = "4"))]
+    JumpIfNextInvalid = 4u8,
+    #[strum(serialize = "JumpToAddress", props(docs = r#""#, value = "5"))]
+    JumpToAddress = 5u8,
+    #[strum(serialize = "DeviceSetLock", props(docs = r#""#, value = "6"))]
+    DeviceSetLock = 6u8,
+    #[strum(serialize = "EjectReagent", props(docs = r#""#, value = "7"))]
+    EjectReagent = 7u8,
+    #[strum(serialize = "EjectAllReagents", props(docs = r#""#, value = "8"))]
+    EjectAllReagents = 8u8,
+    #[strum(serialize = "MissingRecipeReagent", props(docs = r#""#, value = "9"))]
+    MissingRecipeReagent = 9u8,
 }
 #[derive(
     Debug,
@@ -2606,6 +2622,42 @@ pub enum RobotMode {
     PathToTarget = 5u8,
     #[strum(serialize = "StorageFull", props(docs = r#""#, value = "6"))]
     StorageFull = 6u8,
+}
+#[derive(
+    Debug,
+    Default,
+    Display,
+    Clone,
+    Copy,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    EnumString,
+    AsRefStr,
+    EnumProperty,
+    EnumIter,
+    FromRepr,
+    Serialize,
+    Deserialize,
+)]
+#[strum(use_phf)]
+#[repr(u8)]
+pub enum RocketMode {
+    #[strum(serialize = "Invalid", props(docs = r#""#, value = "0"))]
+    Invalid = 0u8,
+    #[strum(serialize = "None", props(docs = r#""#, value = "1"))]
+    #[default]
+    None = 1u8,
+    #[strum(serialize = "Mine", props(docs = r#""#, value = "2"))]
+    Mine = 2u8,
+    #[strum(serialize = "Survey", props(docs = r#""#, value = "3"))]
+    Survey = 3u8,
+    #[strum(serialize = "Discover", props(docs = r#""#, value = "4"))]
+    Discover = 4u8,
+    #[strum(serialize = "Chart", props(docs = r#""#, value = "5"))]
+    Chart = 5u8,
 }
 #[derive(
     Debug,
@@ -3010,12 +3062,13 @@ pub enum BasicEnum {
     ElevatorMode(ElevatorMode),
     EntityState(EntityState),
     GasType(GasType),
-    GasTypeRocketMode(RocketMode),
     LogicSlotType(LogicSlotType),
     LogicType(LogicType),
     PowerMode(PowerMode),
+    PrinterInstruction(PrinterInstruction),
     ReEntryProfile(ReEntryProfile),
     RobotMode(RobotMode),
+    RocketMode(RocketMode),
     SlotClass(Class),
     SorterInstruction(SorterInstruction),
     SortingClass(SortingClass),
@@ -3034,12 +3087,13 @@ impl BasicEnum {
             Self::ElevatorMode(enm) => *enm as u32,
             Self::EntityState(enm) => *enm as u32,
             Self::GasType(enm) => *enm as u32,
-            Self::GasTypeRocketMode(enm) => *enm as u32,
             Self::LogicSlotType(enm) => *enm as u32,
             Self::LogicType(enm) => *enm as u32,
             Self::PowerMode(enm) => *enm as u32,
+            Self::PrinterInstruction(enm) => *enm as u32,
             Self::ReEntryProfile(enm) => *enm as u32,
             Self::RobotMode(enm) => *enm as u32,
+            Self::RocketMode(enm) => *enm as u32,
             Self::SlotClass(enm) => *enm as u32,
             Self::SorterInstruction(enm) => *enm as u32,
             Self::SortingClass(enm) => *enm as u32,
@@ -3058,12 +3112,13 @@ impl BasicEnum {
             Self::ElevatorMode(enm) => enm.get_str(prop),
             Self::EntityState(enm) => enm.get_str(prop),
             Self::GasType(enm) => enm.get_str(prop),
-            Self::GasTypeRocketMode(enm) => enm.get_str(prop),
             Self::LogicSlotType(enm) => enm.get_str(prop),
             Self::LogicType(enm) => enm.get_str(prop),
             Self::PowerMode(enm) => enm.get_str(prop),
+            Self::PrinterInstruction(enm) => enm.get_str(prop),
             Self::ReEntryProfile(enm) => enm.get_str(prop),
             Self::RobotMode(enm) => enm.get_str(prop),
+            Self::RocketMode(enm) => enm.get_str(prop),
             Self::SlotClass(enm) => enm.get_str(prop),
             Self::SorterInstruction(enm) => enm.get_str(prop),
             Self::SortingClass(enm) => enm.get_str(prop),
@@ -3083,12 +3138,13 @@ impl BasicEnum {
             .chain(ElevatorMode::iter().map(|enm| Self::ElevatorMode(enm)))
             .chain(EntityState::iter().map(|enm| Self::EntityState(enm)))
             .chain(GasType::iter().map(|enm| Self::GasType(enm)))
-            .chain(RocketMode::iter().map(|enm| Self::GasTypeRocketMode(enm)))
             .chain(LogicSlotType::iter().map(|enm| Self::LogicSlotType(enm)))
             .chain(LogicType::iter().map(|enm| Self::LogicType(enm)))
             .chain(PowerMode::iter().map(|enm| Self::PowerMode(enm)))
+            .chain(PrinterInstruction::iter().map(|enm| Self::PrinterInstruction(enm)))
             .chain(ReEntryProfile::iter().map(|enm| Self::ReEntryProfile(enm)))
             .chain(RobotMode::iter().map(|enm| Self::RobotMode(enm)))
+            .chain(RocketMode::iter().map(|enm| Self::RocketMode(enm)))
             .chain(Class::iter().map(|enm| Self::SlotClass(enm)))
             .chain(SorterInstruction::iter().map(|enm| Self::SorterInstruction(enm)))
             .chain(SortingClass::iter().map(|enm| Self::SortingClass(enm)))
@@ -3155,12 +3211,6 @@ impl std::str::FromStr for BasicEnum {
             "gastype.undefined" => Ok(Self::GasType(GasType::Undefined)),
             "gastype.volatiles" => Ok(Self::GasType(GasType::Volatiles)),
             "gastype.water" => Ok(Self::GasType(GasType::Water)),
-            "gastype_rocketmode.chart" => Ok(Self::GasTypeRocketMode(RocketMode::Chart)),
-            "gastype_rocketmode.discover" => Ok(Self::GasTypeRocketMode(RocketMode::Discover)),
-            "gastype_rocketmode.invalid" => Ok(Self::GasTypeRocketMode(RocketMode::Invalid)),
-            "gastype_rocketmode.mine" => Ok(Self::GasTypeRocketMode(RocketMode::Mine)),
-            "gastype_rocketmode.none" => Ok(Self::GasTypeRocketMode(RocketMode::None)),
-            "gastype_rocketmode.survey" => Ok(Self::GasTypeRocketMode(RocketMode::Survey)),
             "logicslottype.charge" => Ok(Self::LogicSlotType(LogicSlotType::Charge)),
             "logicslottype.chargeratio" => Ok(Self::LogicSlotType(LogicSlotType::ChargeRatio)),
             "logicslottype.class" => Ok(Self::LogicSlotType(LogicSlotType::Class)),
@@ -3281,6 +3331,7 @@ impl std::str::FromStr for BasicEnum {
                 Ok(Self::LogicType(LogicType::MinimumWattsToContact))
             }
             "logictype.mode" => Ok(Self::LogicType(LogicType::Mode)),
+            "logictype.namehash" => Ok(Self::LogicType(LogicType::NameHash)),
             "logictype.navpoints" => Ok(Self::LogicType(LogicType::NavPoints)),
             "logictype.nextweathereventtime" => {
                 Ok(Self::LogicType(LogicType::NextWeatherEventTime))
@@ -3566,6 +3617,34 @@ impl std::str::FromStr for BasicEnum {
             "powermode.discharged" => Ok(Self::PowerMode(PowerMode::Discharged)),
             "powermode.discharging" => Ok(Self::PowerMode(PowerMode::Discharging)),
             "powermode.idle" => Ok(Self::PowerMode(PowerMode::Idle)),
+            "printerinstruction.devicesetlock" => {
+                Ok(Self::PrinterInstruction(PrinterInstruction::DeviceSetLock))
+            }
+            "printerinstruction.ejectallreagents" => Ok(Self::PrinterInstruction(
+                PrinterInstruction::EjectAllReagents,
+            )),
+            "printerinstruction.ejectreagent" => {
+                Ok(Self::PrinterInstruction(PrinterInstruction::EjectReagent))
+            }
+            "printerinstruction.executerecipe" => {
+                Ok(Self::PrinterInstruction(PrinterInstruction::ExecuteRecipe))
+            }
+            "printerinstruction.jumpifnextinvalid" => Ok(Self::PrinterInstruction(
+                PrinterInstruction::JumpIfNextInvalid,
+            )),
+            "printerinstruction.jumptoaddress" => {
+                Ok(Self::PrinterInstruction(PrinterInstruction::JumpToAddress))
+            }
+            "printerinstruction.missingrecipereagent" => Ok(Self::PrinterInstruction(
+                PrinterInstruction::MissingRecipeReagent,
+            )),
+            "printerinstruction.none" => Ok(Self::PrinterInstruction(PrinterInstruction::None)),
+            "printerinstruction.stackpointer" => {
+                Ok(Self::PrinterInstruction(PrinterInstruction::StackPointer))
+            }
+            "printerinstruction.waituntilnextvalid" => Ok(Self::PrinterInstruction(
+                PrinterInstruction::WaitUntilNextValid,
+            )),
             "reentryprofile.high" => Ok(Self::ReEntryProfile(ReEntryProfile::High)),
             "reentryprofile.max" => Ok(Self::ReEntryProfile(ReEntryProfile::Max)),
             "reentryprofile.medium" => Ok(Self::ReEntryProfile(ReEntryProfile::Medium)),
@@ -3578,6 +3657,12 @@ impl std::str::FromStr for BasicEnum {
             "robotmode.roam" => Ok(Self::RobotMode(RobotMode::Roam)),
             "robotmode.storagefull" => Ok(Self::RobotMode(RobotMode::StorageFull)),
             "robotmode.unload" => Ok(Self::RobotMode(RobotMode::Unload)),
+            "rocketmode.chart" => Ok(Self::RocketMode(RocketMode::Chart)),
+            "rocketmode.discover" => Ok(Self::RocketMode(RocketMode::Discover)),
+            "rocketmode.invalid" => Ok(Self::RocketMode(RocketMode::Invalid)),
+            "rocketmode.mine" => Ok(Self::RocketMode(RocketMode::Mine)),
+            "rocketmode.none" => Ok(Self::RocketMode(RocketMode::None)),
+            "rocketmode.survey" => Ok(Self::RocketMode(RocketMode::Survey)),
             "slotclass.accesscard" => Ok(Self::SlotClass(Class::AccessCard)),
             "slotclass.appliance" => Ok(Self::SlotClass(Class::Appliance)),
             "slotclass.back" => Ok(Self::SlotClass(Class::Back)),
@@ -3721,12 +3806,13 @@ impl std::fmt::Display for BasicEnum {
             Self::ElevatorMode(enm) => write!(f, "ElevatorMode.{}", enm),
             Self::EntityState(enm) => write!(f, "EntityState.{}", enm),
             Self::GasType(enm) => write!(f, "GasType.{}", enm),
-            Self::GasTypeRocketMode(enm) => write!(f, "GasType_RocketMode.{}", enm),
             Self::LogicSlotType(enm) => write!(f, "LogicSlotType.{}", enm),
             Self::LogicType(enm) => write!(f, "LogicType.{}", enm),
             Self::PowerMode(enm) => write!(f, "PowerMode.{}", enm),
+            Self::PrinterInstruction(enm) => write!(f, "PrinterInstruction.{}", enm),
             Self::ReEntryProfile(enm) => write!(f, "ReEntryProfile.{}", enm),
             Self::RobotMode(enm) => write!(f, "RobotMode.{}", enm),
+            Self::RocketMode(enm) => write!(f, "RocketMode.{}", enm),
             Self::SlotClass(enm) => write!(f, "SlotClass.{}", enm),
             Self::SorterInstruction(enm) => write!(f, "SorterInstruction.{}", enm),
             Self::SortingClass(enm) => write!(f, "SortingClass.{}", enm),

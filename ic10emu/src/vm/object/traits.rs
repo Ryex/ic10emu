@@ -1,7 +1,12 @@
+use serde_derive::{Deserialize, Serialize};
+
 use crate::{
     errors::ICError,
     vm::{
-        enums::script_enums::{LogicSlotType, LogicType},
+        enums::{
+            basic_enums::{Class as SlotClass, GasType, SortingClass},
+            script_enums::{LogicSlotType, LogicType},
+        },
         instructions::Instruction,
         object::{
             errors::{LogicError, MemoryError},
@@ -12,7 +17,13 @@ use crate::{
     },
 };
 
-use std::fmt::Debug;
+use std::{collections::BTreeMap, fmt::Debug};
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
+pub struct ParentSlotInfo {
+    pub parent: ObjectID,
+    pub slot: usize,
+}
 
 tag_object_traits! {
     #![object_trait(Object: Debug)]
@@ -27,7 +38,13 @@ tag_object_traits! {
         fn clear_memory(&mut self) -> Result<(), MemoryError>;
     }
 
-    pub trait Logicable {
+    pub trait Storage {
+        fn slots_count(&self) -> usize;
+        fn get_slot(&self, index: usize) -> Option<&Slot>;
+        fn get_slot_mut(&mut self, index: usize) -> Option<&mut Slot>;
+    }
+
+    pub trait Logicable: Storage {
         fn prefab_hash(&self) -> i32;
         /// returns 0 if not set
         fn name_hash(&self) -> i32;
@@ -38,9 +55,6 @@ tag_object_traits! {
         fn set_logic(&mut self, lt: LogicType, value: f64, force: bool) -> Result<(), LogicError>;
         fn get_logic(&self, lt: LogicType) -> Result<f64, LogicError>;
 
-        fn slots_count(&self) -> usize;
-        fn get_slot(&self, index: usize) -> Option<&Slot>;
-        fn get_slot_mut(&mut self, index: usize) -> Option<&mut Slot>;
         fn can_slot_logic_read(&self, slt: LogicSlotType, index: usize) -> bool;
         fn get_slot_logic(&self, slt: LogicSlotType, index: usize, vm: &VM) -> Result<f64, LogicError>;
     }
@@ -83,7 +97,16 @@ tag_object_traits! {
 
     }
 
-
+    pub trait Item {
+        fn consumable(&self) -> bool;
+        fn filter_type(&self) -> Option<GasType>;
+        fn ingredient(&self) -> bool;
+        fn max_quantity(&self) -> u32;
+        fn reagents(&self) -> Option<&BTreeMap<String, f64>>;
+        fn slot_class(&self) -> SlotClass;
+        fn sorting_class(&self) -> SortingClass;
+        fn parent_slot(&self) -> Option<ParentSlotInfo>;
+    }
 
 }
 

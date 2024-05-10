@@ -430,6 +430,12 @@ pub enum InstructionOp {
     ))]
     Clr,
     #[strum(props(
+        example = "clrd id(r?|num)",
+        desc = "Seeks directly for the provided device id and clears the stack memory of that device",
+        operands = "1"
+    ))]
+    Clrd,
+    #[strum(props(
         example = "cos r? a(r?|num)",
         desc = "Returns the cosine of the specified angle (radians)",
         operands = "2"
@@ -970,6 +976,7 @@ impl InstructionOp {
             Self::Brnez => ic.execute_brnez(vm, &operands[0], &operands[1]),
             Self::Ceil => ic.execute_ceil(vm, &operands[0], &operands[1]),
             Self::Clr => ic.execute_clr(vm, &operands[0]),
+            Self::Clrd => ic.execute_clrd(vm, &operands[0]),
             Self::Cos => ic.execute_cos(vm, &operands[0], &operands[1]),
             Self::Define => ic.execute_define(vm, &operands[0], &operands[1]),
             Self::Div => ic.execute_div(vm, &operands[0], &operands[1], &operands[2]),

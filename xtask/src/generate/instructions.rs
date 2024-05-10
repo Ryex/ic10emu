@@ -138,9 +138,13 @@ fn write_instruction_trait<T: std::io::Write>(
     let operands = operand_names(&info.example)
         .iter()
         .map(|name| {
+            let mut n: &str = name;
+            if n == "str" {
+                n = "string";
+            }
             format!(
                 "{}: &crate::vm::instructions::operands::Operand",
-                name.to_case(Case::Snake)
+                n.to_case(Case::Snake)
             )
         })
         .collect::<Vec<_>>()
@@ -176,19 +180,27 @@ fn write_instruction_interface_trait<T: std::io::Write>(writer: &mut T) -> color
         use crate::vm::object::traits::{{Logicable, MemoryWritable, SourceCode}};\n\
         use crate::errors::ICError; \n\
         pub trait IntegratedCircuit: Logicable + MemoryWritable + SourceCode {{\n    \
-            fn get_instruciton_pointer(&self) -> usize;\n    \
-            fn set_next_instruction(&mut self, next_instruction: usize);\n    \
+            fn get_instruction_pointer(&self) -> f64;\n    \
+            fn set_next_instruction(&mut self, next_instruction: f64);\n    \
+            fn set_next_instruction_relative(&mut self, offset: f64) {{\n        \
+                self.set_next_instruction(self.get_instruction_pointer() + offset);\n    \
+            }}\n    \
             fn reset(&mut self);\n    \
             fn get_real_target(&self, indirection: u32, target: u32) -> Result<f64, ICError>;\n    \
             fn get_register(&self, indirection: u32, target: u32) -> Result<f64, ICError>;\n    \
             fn set_register(&mut self, indirection: u32, target: u32, val: f64) -> Result<f64, ICError>;\n    \
             fn set_return_address(&mut self, addr: f64);\n    \
+            fn al(&mut self) {{\n        \
+                self.set_return_address(self.get_instruction_pointer() + 1.0);\n    \
+            }}\n    \
             fn push_stack(&mut self, val: f64) -> Result<f64, ICError>;\n    \
             fn pop_stack(&mut self) -> Result<f64, ICError>;\n    \
             fn peek_stack(&self) -> Result<f64, ICError>;\n    \
+            fn get_stack(&self, addr: f64) -> Result<f64, ICError>;\n    \
+            fn put_stack(&self, addr: f64, val: f64) -> Result<f64, ICError>;\n    \
             fn get_aliases(&self) -> &BTreeMap<String, crate::vm::instructions::operands::Operand>;\n    \
             fn get_defines(&self) -> &BTreeMap<String, f64>;\n    \
-            fn get_lables(&self) -> &BTreeMap<String, u32>;\n\
+            fn get_labels(&self) -> &BTreeMap<String, u32>;\n\
         }}\n\
         "
     )?;
