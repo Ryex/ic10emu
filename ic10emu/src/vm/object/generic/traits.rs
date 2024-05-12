@@ -1,16 +1,13 @@
-use crate::vm::{
+use crate::{network::Connection, vm::{
     enums::{
         basic_enums::{Class as SlotClass, GasType, SortingClass},
         script_enums::{LogicSlotType, LogicType},
     },
     object::{
-        errors::{LogicError, MemoryError},
-        templates::ItemInfo,
-        traits::*,
-        LogicField, MemoryAccess, Slot,
+        errors::{LogicError, MemoryError}, templates::{DeviceInfo, ItemInfo}, traits::*, LogicField, MemoryAccess, ObjectID, Slot
     },
     VM,
-};
+}};
 use std::{collections::BTreeMap, usize};
 use strum::IntoEnumIterator;
 
@@ -166,9 +163,46 @@ impl<T: GWMemoryWritable + MemoryReadable + Object> MemoryWritable for T {
     }
 }
 
-pub trait GWDevice: Logicable {}
+pub trait GWDevice: Logicable {
+    fn device_info(&self) -> &DeviceInfo;
+    fn device_connections(&self) -> &[Connection];
+    fn device_connections_mut(&mut self) -> &mut [Connection];
+    fn device_pins(&self) -> Option<&[Option<ObjectID>]>;
+    fn device_pins_mut(&mut self) -> Option<&mut [Option<ObjectID>]>;
+}
 
-impl<T: GWDevice + Object> Device for T {}
+impl<T: GWDevice + Object> Device for T {
+    fn connection_list(&self) ->  &[crate::network::Connection] {
+        self.device_connections()
+    }
+    fn connection_list_mut(&mut self) ->  &mut[Connection] {
+        self.device_connections_mut()
+    }
+    fn device_pins(&self) -> Option<&[Option<ObjectID>]> {
+        self.device_pins()
+    }
+    fn device_pins_mut(&self) -> Option<&mut[Option<ObjectID>]> {
+        self.device_pins_mut()
+    }
+    fn has_reagents(&self) -> bool {
+        self.device_info().has_reagents
+    }
+    fn has_lock_state(&self) -> bool {
+        self.device_info().has_lock_state
+    }
+    fn has_mode_state(&self) -> bool {
+        self.device_info().has_mode_state
+    }
+    fn has_open_state(&self) -> bool {
+        self.device_info().has_open_state
+    }
+    fn has_on_off_state(&self) -> bool {
+        self.device_info().has_on_off_state
+    }
+    fn has_activate_state(&self) -> bool {
+        self.device_info().has_activate_state
+    }
+}
 
 pub trait GWItem {
     fn item_info(&self) -> &ItemInfo;

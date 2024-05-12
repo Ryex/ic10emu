@@ -1,5 +1,5 @@
 macro_rules! object_trait {
-    (@intf {$trait_name:ident $trt:path}) => {
+    (@intf {$trait_name:ident $trt:ident}) => {
         paste::paste! {
         #[allow(missing_docs, unused)]
         pub type [<$trt Ref>]<'a, T> = &'a dyn $trt<ID = <T as $trait_name>::ID>;
@@ -7,7 +7,7 @@ macro_rules! object_trait {
         pub type [<$trt RefMut>]<'a, T> = &'a mut dyn $trt<ID = <T as $trait_name>::ID>;
         }
     };
-    (@body $trait_name:ident $($trt:path),*) => {
+    (@body $trait_name:ident { $($trt:ident),* }; ) => {
         type ID;
         fn id(&self) -> &Self::ID;
         fn prefab(&self) -> &crate::vm::object::Name;
@@ -19,27 +19,30 @@ macro_rules! object_trait {
 
         fn as_object_mut(&mut self) -> &mut dyn $trait_name<ID = Self::ID>;
 
-
-        paste::paste!{$(
+        $(
+        paste::paste! {
         #[inline(always)]
         fn [<as_ $trt:snake>](&self) -> Option<[<$trt Ref>]<Self>> {
             None
         }
 
         #[inline(always)]
-        fn [<as_ $trt:snake _mut>](&mut self) -> Option<[<$trt RefMut>]<Self>> {
+        fn [<as_mut_ $trt:snake>](&mut self) -> Option<[<$trt RefMut>]<Self>> {
             None
         }
-        )*}
+        }
+        )*
     };
-    ( $trait_name:ident $(: $($bound:tt)* )? {$($trt:path),*}) => {
+    ( $trait_name:ident $(: $($bound:tt)* )? {$($trt:ident),*}) => {
         $(
             $crate::vm::object::macros::object_trait!{@intf {$trait_name $trt}}
         )*
 
+
+        #[doc = concat!("Generated with: ", stringify!($($trt),*))]
         pub trait $trait_name $(: $($bound)* )? {
 
-            $crate::vm::object::macros::object_trait!{@body $trait_name $($trt),*}
+            $crate::vm::object::macros::object_trait!{@body $trait_name {$($trt),*}; }
         }
     };
 }
@@ -91,7 +94,7 @@ macro_rules! ObjectInterface {
             }
 
             #[inline(always)]
-            fn [<as_ $trt:snake _mut>](&mut self) -> Option<[<$trt RefMut>]<Self>> {
+            fn [<as_mut_ $trt:snake>](&mut self) -> Option<[<$trt RefMut>]<Self>> {
                 Some(self)
             }
             )*}
@@ -508,25 +511,30 @@ macro_rules! tag_object_traits {
     {
         @tag
         tag=$trt_name:ident $(: $($obj_bound:tt)* )?;
-        acc={ $($tagged_trt:ident,)* }
+        acc={ $($tagged_trt:ident,)* };
         $(#[$attr:meta])*
-        $viz:vis trait $trt:ident $(: $($trt_bound:path)* )? {
+        $viz:vis trait $trt:ident $(: $trt_bound_first:tt $(+ $trt_bound_others:tt)* )? {
             $($tbody:tt)*
         }
         $($used:tt)*
     } => {
         #[doc = concat!("Autotagged with ", stringify!($trt_name))]
         $(#[$attr])*
-        $viz trait $trt : $($($trt_bound)* +)? $trt_name {
+        $viz trait $trt : $( $trt_bound_first $(+ $trt_bound_others)* +)? $trt_name {
             $($tbody)*
         }
 
-        $crate::vm::object::macros::tag_object_traits!{ @tag tag=$trt_name $(: $($obj_bound)* )?; acc={ $trt, $($tagged_trt,)* } $($used)* }
+        $crate::vm::object::macros::tag_object_traits!{
+            @tag
+            tag=$trt_name $(: $($obj_bound)* )?;
+            acc={ $trt, $($tagged_trt,)* };
+            $($used)*
+        }
     };
     {
         @tag
         tag=$trt_name:ident $(: $($obj_bound:tt)* )?;
-        acc={ $($tagged_trt:ident,)* }
+        acc={ $($tagged_trt:ident,)* };
         impl $name:ident for $trt:path {
             $($body:tt)*
         }
@@ -536,12 +544,17 @@ macro_rules! tag_object_traits {
         impl $name for $trt {
             $($body)*
         }
-        $crate::vm::object::macros::tag_object_traits!{ @tag tag=$trt_name $(: $($obj_bound)* )?; acc={ $($tagged_trt,)* } $($used)* }
+        $crate::vm::object::macros::tag_object_traits!{
+            @tag
+            tag=$trt_name $(: $($obj_bound)* )?;
+            acc={ $($tagged_trt,)* };
+            $($used)*
+        }
     };
     {
         @tag
         tag=$trt_name:ident $(: $($obj_bound:tt)* )?;
-        acc={ $($tagged_trt:ident,)* }
+        acc={ $($tagged_trt:ident,)* };
     } => {
 
         // end tagged traits {$trt_name}
@@ -549,7 +562,7 @@ macro_rules! tag_object_traits {
         $crate::vm::object::macros::object_trait!($trt_name $(: $($obj_bound)* )? { $($tagged_trt),* });
     };
     { #![object_trait($trt_name:ident $(: $($bound:tt)* )? )] $($tree:tt)* } => {
-        $crate::vm::object::macros::tag_object_traits!{ @tag tag=$trt_name; acc={} $($tree)* }
+        $crate::vm::object::macros::tag_object_traits!{ @tag tag=$trt_name; acc={}; $($tree)* }
     };
 }
 

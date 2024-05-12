@@ -107,7 +107,7 @@ impl DeviceRef {
         self.device.borrow().ic.as_ref().and_then(|ic| {
             self.vm
                 .borrow()
-                .ics
+                .ic_holders
                 .get(ic)
                 .map(|ic| ic.as_ref().borrow().ip())
         })
@@ -118,7 +118,7 @@ impl DeviceRef {
         self.device.borrow().ic.as_ref().and_then(|ic| {
             self.vm
                 .borrow()
-                .ics
+                .ic_holders
                 .get(ic)
                 .map(|ic| ic.as_ref().borrow().ic.get())
         })
@@ -129,7 +129,7 @@ impl DeviceRef {
         self.device.borrow().ic.as_ref().and_then(|ic| {
             self.vm
                 .borrow()
-                .ics
+                .ic_holders
                 .get(ic)
                 .map(|ic| Stack(*ic.as_ref().borrow().stack.borrow()))
         })
@@ -140,7 +140,7 @@ impl DeviceRef {
         self.device.borrow().ic.as_ref().and_then(|ic| {
             self.vm
                 .borrow()
-                .ics
+                .ic_holders
                 .get(ic)
                 .map(|ic| Registers(*ic.as_ref().borrow().registers.borrow()))
         })
@@ -151,7 +151,7 @@ impl DeviceRef {
         let aliases = &self.device.borrow().ic.as_ref().and_then(|ic| {
             self.vm
                 .borrow()
-                .ics
+                .ic_holders
                 .get(ic)
                 .map(|ic| ic.as_ref().borrow().aliases.borrow().clone())
         });
@@ -163,7 +163,7 @@ impl DeviceRef {
         let defines = &self.device.borrow().ic.as_ref().and_then(|ic| {
             self.vm
                 .borrow()
-                .ics
+                .ic_holders
                 .get(ic)
                 .map(|ic| ic.as_ref().borrow().defines.borrow().clone())
         });
@@ -175,7 +175,7 @@ impl DeviceRef {
         let pins = &self.device.borrow().ic.as_ref().and_then(|ic| {
             self.vm
                 .borrow()
-                .ics
+                .ic_holders
                 .get(ic)
                 .map(|ic| *ic.as_ref().borrow().pins.borrow())
         });
@@ -191,7 +191,7 @@ impl DeviceRef {
             .and_then(|ic| {
                 self.vm
                     .borrow()
-                    .ics
+                    .ic_holders
                     .get(ic)
                     .map(|ic| ic.borrow().state.clone())
             })
@@ -203,7 +203,7 @@ impl DeviceRef {
         let prog = &self.device.borrow().ic.as_ref().and_then(|ic| {
             self.vm
                 .borrow()
-                .ics
+                .ic_holders
                 .get(ic)
                 .map(|ic| ic.borrow().program.borrow().clone())
         });
@@ -215,7 +215,7 @@ impl DeviceRef {
         self.device.borrow().ic.as_ref().and_then(|ic| {
             self.vm
                 .borrow()
-                .ics
+                .ic_holders
                 .get(ic)
                 .map(|ic| ic.borrow().code.borrow().clone())
         })
@@ -263,7 +263,7 @@ impl DeviceRef {
             .ok_or(VMError::NoIC(self.device.borrow().id))?;
         let vm_borrow = self.vm.borrow();
         let ic = vm_borrow
-            .ics
+            .ic_holders
             .get(&ic_id)
             .ok_or(VMError::NoIC(self.device.borrow().id))?;
         let result = ic.borrow_mut().set_register(0, index, val)?;
@@ -280,7 +280,7 @@ impl DeviceRef {
             .ok_or(VMError::NoIC(self.device.borrow().id))?;
         let vm_borrow = self.vm.borrow();
         let ic = vm_borrow
-            .ics
+            .ic_holders
             .get(&ic_id)
             .ok_or(VMError::NoIC(self.device.borrow().id))?;
         let result = ic.borrow_mut().poke(address, val)?;
@@ -370,7 +370,7 @@ impl VMRef {
 
     #[wasm_bindgen(js_name = "addDevice")]
     pub fn add_device(&self, network: Option<u32>) -> Result<u32, JsError> {
-        Ok(self.vm.borrow_mut().add_device(network)?)
+        Ok(self.vm.borrow_mut().add_object(network)?)
     }
 
     #[wasm_bindgen(js_name = "addDeviceFromTemplate", skip_typescript)]
@@ -385,7 +385,7 @@ impl VMRef {
 
     #[wasm_bindgen(js_name = "getDevice")]
     pub fn get_device(&self, id: u32) -> Option<DeviceRef> {
-        let device = self.vm.borrow().get_device(id);
+        let device = self.vm.borrow().get_object(id);
         device.map(|d| DeviceRef::from_device(d.clone(), self.vm.clone()))
     }
 
@@ -418,7 +418,7 @@ impl VMRef {
 
     #[wasm_bindgen(getter, js_name = "defaultNetwork")]
     pub fn default_network(&self) -> u32 {
-        self.vm.borrow().default_network
+        self.vm.borrow().default_network_key
     }
 
     #[wasm_bindgen(getter)]
@@ -433,7 +433,7 @@ impl VMRef {
 
     #[wasm_bindgen(getter)]
     pub fn ics(&self) -> Vec<u32> {
-        self.vm.borrow().ics.keys().copied().collect_vec()
+        self.vm.borrow().ic_holders.keys().copied().collect_vec()
     }
 
     #[wasm_bindgen(getter, js_name = "lastOperationModified")]
@@ -479,7 +479,7 @@ impl VMRef {
 
     #[wasm_bindgen(js_name = "removeDevice")]
     pub fn remove_device(&self, id: u32) -> Result<(), JsError> {
-        Ok(self.vm.borrow_mut().remove_device(id)?)
+        Ok(self.vm.borrow_mut().remove_object(id)?)
     }
 
     #[wasm_bindgen(js_name = "setSlotOccupant", skip_typescript)]

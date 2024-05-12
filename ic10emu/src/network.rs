@@ -1,10 +1,14 @@
 use std::{collections::HashSet, ops::Deref};
 
+use crate::vm::{
+    enums::script_enums::LogicType,
+    object::{errors::LogicError, macros::ObjectInterface, traits::*, Name, ObjectID},
+};
+use itertools::Itertools;
+use macro_rules_attribute::derive;
 use serde_derive::{Deserialize, Serialize};
 use strum_macros::{AsRefStr, EnumIter};
 use thiserror::Error;
-
-use itertools::Itertools;
 
 #[derive(Debug, Default, Clone, Copy, Serialize, Deserialize)]
 pub enum CableConnectionType {
@@ -107,12 +111,169 @@ impl Connection {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Network {
-    pub id: u32,
-    pub devices: HashSet<u32>,
-    pub power_only: HashSet<u32>,
+#[derive(ObjectInterface!, Debug, Serialize, Deserialize)]
+#[custom(implements(Object { Storage, Logicable, Network}))]
+pub struct CableNetwork {
+    #[custom(object_id)]
+    pub id: ObjectID,
+    #[custom(object_prefab)]
+    /// required by object interface but atm unused by network
+    pub prefab: Name,
+    #[custom(object_name)]
+    /// required by object interface but atm unused by network
+    pub name: Name,
+    /// data enabled objects (must be devices)
+    pub devices: HashSet<ObjectID>,
+    /// power only connections
+    pub power_only: HashSet<ObjectID>,
+    /// channel data
     pub channels: [f64; 8],
+}
+
+impl Storage for CableNetwork {
+    fn slots_count(&self) -> usize {
+        0
+    }
+    fn get_slot(&self, index: usize) -> Option<&crate::vm::object::Slot> {
+        None
+    }
+    fn get_slot_mut(&mut self, index: usize) -> Option<&mut crate::vm::object::Slot> {
+        None
+    }
+}
+
+impl Logicable for CableNetwork {
+    fn prefab_hash(&self) -> i32 {
+        0
+    }
+    fn name_hash(&self) -> i32 {
+        0
+    }
+    fn is_logic_readable(&self) -> bool {
+        true
+    }
+    fn is_logic_writeable(&self) -> bool {
+        true
+    }
+    fn can_logic_read(&self, lt: LogicType) -> bool {
+        use LogicType::*;
+        match lt {
+            Channel0 | Channel1 | Channel2 | Channel3 | Channel4 | Channel5 | Channel6
+            | Channel7 => true,
+            _ => false,
+        }
+    }
+    fn can_logic_write(&self, lt: LogicType) -> bool {
+        use LogicType::*;
+        match lt {
+            Channel0 | Channel1 | Channel2 | Channel3 | Channel4 | Channel5 | Channel6
+            | Channel7 => true,
+            _ => false,
+        }
+    }
+    fn get_logic(&self, lt: LogicType) -> Result<f64, crate::vm::object::errors::LogicError> {
+        use LogicType::*;
+        let index: usize = match lt {
+            Channel0 => 0,
+            Channel1 => 1,
+            Channel2 => 2,
+            Channel3 => 3,
+            Channel4 => 4,
+            Channel5 => 5,
+            Channel6 => 6,
+            Channel7 => 7,
+            _ => return Err(LogicError::CantRead(lt)),
+        };
+        Ok(self.channels[index])
+    }
+    fn set_logic(&mut self, lt: LogicType, value: f64, force: bool) -> Result<(), LogicError> {
+        use LogicType::*;
+        let index: usize = match lt {
+            Channel0 => 0,
+            Channel1 => 1,
+            Channel2 => 2,
+            Channel3 => 3,
+            Channel4 => 4,
+            Channel5 => 5,
+            Channel6 => 6,
+            Channel7 => 7,
+            _ => return Err(LogicError::CantWrite(lt)),
+        };
+        self.channels[index] = value;
+        Ok(())
+    }
+    fn can_slot_logic_read(
+        &self,
+        slt: crate::vm::enums::script_enums::LogicSlotType,
+        index: usize,
+    ) -> bool {
+        false
+    }
+    fn get_slot_logic(
+        &self,
+        slt: crate::vm::enums::script_enums::LogicSlotType,
+        index: usize,
+        vm: &crate::vm::VM,
+    ) -> Result<f64, LogicError> {
+        Err(LogicError::CantSlotRead(slt, index))
+    }
+}
+
+impl Network for CableNetwork {
+    fn contains(&self, id: &ObjectID) -> bool {
+        self.devices.contains(id) || self.power_only.contains(id)
+    }
+
+    fn contains_all(&self, ids: &[ObjectID]) -> bool {
+        ids.iter().all(|id| self.contains(id))
+    }
+
+    fn contains_data(&self, id: &ObjectID) -> bool {
+        self.devices.contains(id)
+    }
+
+    fn contains_all_data(&self, ids: &[ObjectID]) -> bool {
+        ids.iter().all(|id| self.contains_data(id))
+    }
+
+    fn contains_power(&self, id: &ObjectID) -> bool {
+        self.power_only.contains(id)
+    }
+
+    fn contains_all_power(&self, ids: &[ObjectID]) -> bool {
+        ids.iter().all(|id| self.contains_power(id))
+    }
+
+    fn data_visible(&self, source: &ObjectID) -> Vec<ObjectID> {
+        if self.contains_data(source) {
+            self.devices
+                .iter()
+                .filter(|id| id != &source)
+                .copied()
+                .collect_vec()
+        } else {
+            Vec::new()
+        }
+    }
+
+    fn add_data(&mut self, id: ObjectID) -> bool {
+        self.devices.insert(id)
+    }
+
+    fn add_power(&mut self, id: ObjectID) -> bool {
+        self.power_only.insert(id)
+    }
+
+    fn remove_all(&mut self, id: ObjectID) -> bool {
+        self.devices.remove(&id) || self.power_only.remove(&id)
+    }
+    fn remove_data(&mut self, id: ObjectID) -> bool {
+        self.devices.remove(&id)
+    }
+
+    fn remove_power(&mut self, id: ObjectID) -> bool {
+        self.devices.remove(&id)
+    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -125,7 +286,7 @@ pub struct FrozenNetwork {
 
 impl<T> From<T> for FrozenNetwork
 where
-    T: Deref<Target = Network>,
+    T: Deref<Target = CableNetwork>,
 {
     fn from(value: T) -> Self {
         FrozenNetwork {
@@ -137,10 +298,12 @@ where
     }
 }
 
-impl From<FrozenNetwork> for Network {
+impl From<FrozenNetwork> for CableNetwork {
     fn from(value: FrozenNetwork) -> Self {
-        Network {
+        CableNetwork {
             id: value.id,
+            prefab: Name::new(""),
+            name: Name::new(""),
             devices: value.devices.into_iter().collect(),
             power_only: value.power_only.into_iter().collect(),
             channels: value.channels,
@@ -154,69 +317,16 @@ pub enum NetworkError {
     ChannelIndexOutOfRange,
 }
 
-impl Network {
+impl CableNetwork {
     pub fn new(id: u32) -> Self {
-        Network {
+        CableNetwork {
             id,
+            prefab: Name::new(""),
+            name: Name::new(""),
             devices: HashSet::new(),
             power_only: HashSet::new(),
             channels: [f64::NAN; 8],
         }
-    }
-
-    pub fn contains(&self, id: &u32) -> bool {
-        self.devices.contains(id) || self.power_only.contains(id)
-    }
-
-    pub fn contains_all(&self, ids: &[u32]) -> bool {
-        ids.iter().all(|id| self.contains(id))
-    }
-
-    pub fn contains_data(&self, id: &u32) -> bool {
-        self.devices.contains(id)
-    }
-
-    pub fn contains_all_data(&self, ids: &[u32]) -> bool {
-        ids.iter().all(|id| self.contains_data(id))
-    }
-
-    pub fn contains_power(&self, id: &u32) -> bool {
-        self.power_only.contains(id)
-    }
-
-    pub fn contains_all_power(&self, ids: &[u32]) -> bool {
-        ids.iter().all(|id| self.contains_power(id))
-    }
-
-    pub fn data_visible(&self, source: &u32) -> Vec<u32> {
-        if self.contains_data(source) {
-            self.devices
-                .iter()
-                .filter(|id| id != &source)
-                .copied()
-                .collect_vec()
-        } else {
-            Vec::new()
-        }
-    }
-
-    pub fn add_data(&mut self, id: u32) -> bool {
-        self.devices.insert(id)
-    }
-
-    pub fn add_power(&mut self, id: u32) -> bool {
-        self.power_only.insert(id)
-    }
-
-    pub fn remove_all(&mut self, id: u32) -> bool {
-        self.devices.remove(&id) || self.power_only.remove(&id)
-    }
-    pub fn remove_data(&mut self, id: u32) -> bool {
-        self.devices.remove(&id)
-    }
-
-    pub fn remove_power(&mut self, id: u32) -> bool {
-        self.devices.remove(&id)
     }
 
     pub fn set_channel(&mut self, chan: usize, val: f64) -> Result<f64, NetworkError> {

@@ -1,13 +1,14 @@
 use crate::errors::ICError;
 use crate::interpreter;
-use crate::vm::enums::script_enums::{
-    LogicBatchMethod as BatchMode, LogicReagentMode as ReagentMode, LogicSlotType, LogicType,
+use crate::vm::{
+    enums::script_enums::{
+        LogicBatchMethod as BatchMode, LogicReagentMode as ReagentMode, LogicSlotType, LogicType,
+    },
+    instructions::enums::InstructionOp,
+    object::traits::IntegratedCircuit,
 };
-use crate::vm::instructions::enums::InstructionOp;
 use serde_derive::{Deserialize, Serialize};
 use strum::EnumProperty;
-
-use super::traits::IntegratedCircuit;
 
 #[derive(PartialEq, Eq, Debug, Clone, Copy, Serialize, Deserialize)]
 pub enum Device {
@@ -191,28 +192,14 @@ impl Operand {
     ) -> Result<(Option<u32>, Option<usize>), ICError> {
         match self.translate_alias(ic) {
             Operand::DeviceSpec(DeviceSpec { device, connection }) => match device {
-                Device::Db => Ok((Some(ic.device), connection)),
-                Device::Numbered(p) => {
-                    let dp = ic
-                        .pins
-                        .borrow()
-                        .get(p as usize)
-                        .ok_or(ICError::DeviceIndexOutOfRange(p as f64))
-                        .copied()?;
-                    Ok((dp, connection))
-                }
+                Device::Db => Ok((Some(0), connection)),
+                Device::Numbered(p) => Ok((Some(p), connection)),
                 Device::Indirect {
                     indirection,
                     target,
                 } => {
                     let val = ic.get_register(indirection, target)?;
-                    let dp = ic
-                        .pins
-                        .borrow()
-                        .get(val as usize)
-                        .ok_or(ICError::DeviceIndexOutOfRange(val))
-                        .copied()?;
-                    Ok((dp, connection))
+                    Ok((Some(val as u32), connection))
                 }
             },
             Operand::Identifier(id) => Err(ICError::UnknownIdentifier(id.name.to_string())),
@@ -287,11 +274,11 @@ impl Operand {
     pub fn translate_alias<IC: IntegratedCircuit>(&self, ic: &IC) -> Self {
         match &self {
             Operand::Identifier(id) | Operand::Type { identifier: id, .. } => {
-                if let Some(alias) = ic.aliases.borrow().get(&id.name) {
+                if let Some(alias) = ic.get_aliases().get(&id.name) {
                     alias.clone()
-                } else if let Some(define) = ic.defines.borrow().get(&id.name) {
+                } else if let Some(define) = ic.get_defines().get(&id.name) {
                     Operand::Number(Number::Float(*define))
-                } else if let Some(label) = ic.program.borrow().labels.get(&id.name) {
+                } else if let Some(label) = ic.get_labels().get(&id.name) {
                     Operand::Number(Number::Float(*label as f64))
                 } else {
                     self.clone()

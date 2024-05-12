@@ -3,7 +3,7 @@ use thiserror::Error;
 
 use crate::vm::enums::script_enums::{LogicSlotType, LogicType};
 
-#[derive(Error, Debug, Serialize, Deserialize)]
+#[derive(Error, Debug, Clone, Serialize, Deserialize)]
 pub enum LogicError {
     #[error("can't read LogicType {0}")]
     CantRead(LogicType),
@@ -17,7 +17,7 @@ pub enum LogicError {
     SlotIndexOutOfRange(usize, usize),
 }
 
-#[derive(Error, Debug, Serialize, Deserialize)]
+#[derive(Error, Debug, Clone, Serialize, Deserialize)]
 pub enum MemoryError {
     #[error("stack underflow: {0} < range [0..{1})")]
     StackUnderflow(i32, usize),

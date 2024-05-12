@@ -79,7 +79,23 @@ macro_rules! GWDevice {
             $($body:tt)*
         }
     ) => {
-        impl GWDevice for $struct {}
+        impl GWDevice for $struct {
+            fn device_info(&self) -> &DeviceInfo {
+                &self.device_info
+            }
+            fn device_connections(&self) -> &[Connection] {
+                self.connections.as_slice()
+            }
+            fn device_connections_mut(&mut self) -> &mut [Connection] {
+                self.connections.as_mut_slice()
+            }
+            fn device_pins(&self) -> Option<&[Option<ObjectID>]> {
+                self.pins.as_ref().map(|pins| pins.as_slice())
+            }
+            fn device_pins_mut(&mut self) -> Option<&mut [Option<ObjectID>]> {
+                self.pins.as_mut().map(|pins| pins.as_mut_slice())
+            }
+        }
     };
 }
 pub(crate) use GWDevice;

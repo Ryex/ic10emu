@@ -1,4 +1,4 @@
-use std::{cell::RefCell, ops::Deref, rc::Rc, str::FromStr};
+use std::{cell::RefCell, ops::{Deref, DerefMut}, rc::Rc, str::FromStr};
 
 use macro_rules_attribute::derive;
 use serde_derive::{Deserialize, Serialize};
@@ -19,6 +19,7 @@ use super::enums::prefabs::StationpediaPrefab;
 pub type ObjectID = u32;
 pub type BoxedObject = Rc<RefCell<dyn Object<ID = ObjectID>>>;
 
+#[derive(Debug, Clone)]
 pub struct VMObject(BoxedObject);
 
 impl Deref for VMObject {
@@ -27,6 +28,14 @@ impl Deref for VMObject {
     #[inline(always)]
     fn deref(&self) -> &Self::Target {
         &self.0
+    }
+}
+
+impl DerefMut for VMObject {
+
+    #[inline(always)]
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
     }
 }
 
@@ -65,7 +74,7 @@ impl Name {
         if let Some(prefab) = StationpediaPrefab::from_repr(hash) {
             Some(Name {
                 value: prefab.to_string(),
-                hash: hash,
+                hash,
             })
         } else {
             None

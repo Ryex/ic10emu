@@ -268,6 +268,12 @@ impl SourceCode for ItemIntegratedCircuit10 {
 }
 
 impl IntegratedCircuit for ItemIntegratedCircuit10 {
+    fn get_circuit_holder(&self, vm: &VM) -> Option<CircuitHolderRef> {
+        // FIXME: implement correctly
+        self.parent_slot().map(|parent_slot| {
+            parent_slot.parent
+        })
+    }
     fn get_instruction_pointer(&self) -> f64 {
         self.ip as f64
     }
@@ -950,6 +956,364 @@ impl BrgtzInstruction for ItemIntegratedCircuit10 {
     }
 }
 
+impl BgeInstruction for ItemIntegratedCircuit10 {
+    /// bge a(r?|num) b(r?|num) c(r?|num)
+    fn execute_bge(
+        &mut self,
+        vm: &VM,
+        a: &Operand,
+        b: &Operand,
+        c: &Operand,
+    ) -> Result<(), ICError> {
+        let a = a.as_value(self, InstructionOp::Bge, 1)?;
+        let b = b.as_value(self, InstructionOp::Bge, 2)?;
+        let c = c.as_value(self, InstructionOp::Bge, 3)?;
+        if a >= b {
+            self.set_next_instruction(c);
+        }
+        Ok(())
+    }
+}
+
+impl BgealInstruction for ItemIntegratedCircuit10 {
+    /// bgeal a(r?|num) b(r?|num) c(r?|num)
+    fn execute_bgeal(
+        &mut self,
+        vm: &VM,
+        a: &Operand,
+        b: &Operand,
+        c: &Operand,
+    ) -> Result<(), ICError> {
+        let a = a.as_value(self, InstructionOp::Bgeal, 1)?;
+        let b = b.as_value(self, InstructionOp::Bgeal, 2)?;
+        let c = c.as_value(self, InstructionOp::Bgeal, 3)?;
+        if a >= b {
+            self.set_next_instruction(c);
+            self.al();
+        }
+        Ok(())
+    }
+}
+
+impl BrgeInstruction for ItemIntegratedCircuit10 {
+    /// brge a(r?|num) b(r?|num) c(r?|num)
+    fn execute_brge(
+        &mut self,
+        vm: &VM,
+        a: &Operand,
+        b: &Operand,
+        c: &Operand,
+    ) -> Result<(), ICError> {
+        let a = a.as_value(self, InstructionOp::Brge, 1)?;
+        let b = b.as_value(self, InstructionOp::Brge, 2)?;
+        let c = c.as_value(self, InstructionOp::Brge, 3)?;
+        if a >= b {
+            self.set_next_instruction_relative(c);
+        }
+        Ok(())
+    }
+}
+
+impl BgezInstruction for ItemIntegratedCircuit10 {
+    /// bgez a(r?|num) b(r?|num)
+    fn execute_bgez(&mut self, vm: &VM, a: &Operand, b: &Operand) -> Result<(), ICError> {
+        let a = a.as_value(self, InstructionOp::Bgez, 1)?;
+        let b = b.as_value(self, InstructionOp::Bgez, 2)?;
+        if a >= 0.0 {
+            self.set_next_instruction(b);
+        }
+        Ok(())
+    }
+}
+
+impl BgezalInstruction for ItemIntegratedCircuit10 {
+    /// bgezal a(r?|num) b(r?|num)
+    fn execute_bgezal(&mut self, vm: &VM, a: &Operand, b: &Operand) -> Result<(), ICError> {
+        let a = a.as_value(self, InstructionOp::Bgeal, 1)?;
+        let b = b.as_value(self, InstructionOp::Bgeal, 2)?;
+        if a >= 0.0 {
+            self.set_next_instruction(b);
+            self.al();
+        }
+        Ok(())
+    }
+}
+
+impl BrgezInstruction for ItemIntegratedCircuit10 {
+    /// brgez a(r?|num) b(r?|num)
+    fn execute_brgez(&mut self, vm: &VM, a: &Operand, b: &Operand) -> Result<(), ICError> {
+        let a = a.as_value(self, InstructionOp::Brgez, 1)?;
+        let b = b.as_value(self, InstructionOp::Brgez, 2)?;
+        if a >= 0.0 {
+            self.set_next_instruction_relative(b);
+        }
+        Ok(())
+    }
+}
+
+impl BapInstruction for ItemIntegratedCircuit10 {
+    /// bap a(r?|num) b(r?|num) c(r?|num) d(r?|num)
+    fn execute_bap(
+        &mut self,
+        vm: &VM,
+        a: &Operand,
+        b: &Operand,
+        c: &Operand,
+        d: &Operand,
+    ) -> Result<(), ICError> {
+        let a = a.as_value(self, InstructionOp::Bap, 1)?;
+        let b = b.as_value(self, InstructionOp::Bap, 2)?;
+        let c = c.as_value(self, InstructionOp::Bap, 3)?;
+        let d = d.as_value(self, InstructionOp::Bap, 4)?;
+        if f64::abs(a - b) <= f64::max(c * f64::max(a.abs(), b.abs()), f64::EPSILON * 8.0) {
+            self.set_next_instruction(d);
+        }
+        Ok(())
+    }
+}
+
+impl BapalInstruction for ItemIntegratedCircuit10 {
+    /// bapal a(r?|num) b(r?|num) c(r?|num) d(r?|num)
+    fn execute_bapal(
+        &mut self,
+        vm: &VM,
+        a: &Operand,
+        b: &Operand,
+        c: &Operand,
+        d: &Operand,
+    ) -> Result<(), ICError> {
+        let a = a.as_value(self, InstructionOp::Bapal, 1)?;
+        let b = b.as_value(self, InstructionOp::Bapal, 2)?;
+        let c = c.as_value(self, InstructionOp::Bapal, 3)?;
+        let d = d.as_value(self, InstructionOp::Bapal, 4)?;
+        if f64::abs(a - b) <= f64::max(c * f64::max(a.abs(), b.abs()), f64::EPSILON * 8.0) {
+            self.set_next_instruction(d);
+            self.al();
+        }
+        Ok(())
+    }
+}
+
+impl BrapInstruction for ItemIntegratedCircuit10 {
+    /// brap a(r?|num) b(r?|num) c(r?|num) d(r?|num)
+    fn execute_brap(
+        &mut self,
+        vm: &VM,
+        a: &Operand,
+        b: &Operand,
+        c: &Operand,
+        d: &Operand,
+    ) -> Result<(), ICError> {
+        let a = a.as_value(self, InstructionOp::Brap, 1)?;
+        let b = b.as_value(self, InstructionOp::Brap, 2)?;
+        let c = c.as_value(self, InstructionOp::Brap, 3)?;
+        let d = d.as_value(self, InstructionOp::Brap, 4)?;
+        if f64::abs(a - b) <= f64::max(c * f64::max(a.abs(), b.abs()), f64::EPSILON * 8.0) {
+            self.set_next_instruction_relative(d);
+        }
+        Ok(())
+    }
+}
+
+impl BapzInstruction for ItemIntegratedCircuit10 {
+    /// bapz a(r?|num) b(r?|num) c(r?|num)
+    fn execute_bapz(
+        &mut self,
+        vm: &VM,
+        a: &Operand,
+        b: &Operand,
+        c: &Operand,
+    ) -> Result<(), ICError> {
+        let a = a.as_value(self, InstructionOp::Bapz, 1)?;
+        let b = b.as_value(self, InstructionOp::Bapz, 2)?;
+        let c = c.as_value(self, InstructionOp::Bapz, 3)?;
+        if a.abs() <= f64::max(b * a.abs(), f64::EPSILON * 8.0) {
+        } else {
+            self.set_next_instruction(c);
+        }
+        Ok(())
+    }
+}
+
+impl BapzalInstruction for ItemIntegratedCircuit10 {
+    /// bapzal a(r?|num) b(r?|num) c(r?|num)
+    fn execute_bapzal(
+        &mut self,
+        vm: &VM,
+        a: &Operand,
+        b: &Operand,
+        c: &Operand,
+    ) -> Result<(), ICError> {
+        let a = a.as_value(self, InstructionOp::Bapzal, 1)?;
+        let b = b.as_value(self, InstructionOp::Bapzal, 2)?;
+        let c = c.as_value(self, InstructionOp::Bapzal, 3)?;
+        if a.abs() <= f64::max(b * a.abs(), f64::EPSILON * 8.0) {
+        } else {
+            self.set_next_instruction(c);
+            self.al();
+        }
+        Ok(())
+    }
+}
+
+impl BrapzInstruction for ItemIntegratedCircuit10 {
+    /// brapz a(r?|num) b(r?|num) c(r?|num)
+    fn execute_brapz(
+        &mut self,
+        vm: &VM,
+        a: &Operand,
+        b: &Operand,
+        c: &Operand,
+    ) -> Result<(), ICError> {
+        let a = a.as_value(self, InstructionOp::Brapz, 1)?;
+        let b = b.as_value(self, InstructionOp::Brapz, 2)?;
+        let c = c.as_value(self, InstructionOp::Brapz, 3)?;
+        if a.abs() <= f64::max(b * a.abs(), f64::EPSILON * 8.0) {
+        } else {
+            self.set_next_instruction_relative(c);
+        }
+        Ok(())
+    }
+}
+
+impl BnaInstruction for ItemIntegratedCircuit10 {
+    /// bna a(r?|num) b(r?|num) c(r?|num) d(r?|num)
+    fn execute_bna(
+        &mut self,
+        vm: &VM,
+        a: &Operand,
+        b: &Operand,
+        c: &Operand,
+        d: &Operand,
+    ) -> Result<(), ICError> {
+        let a = a.as_value(self, InstructionOp::Bna, 1)?;
+        let b = b.as_value(self, InstructionOp::Bna, 2)?;
+        let c = c.as_value(self, InstructionOp::Bna, 3)?;
+        let d = d.as_value(self, InstructionOp::Bna, 4)?;
+        if f64::abs(a - b) > f64::max(c * f64::max(a.abs(), b.abs()), f64::EPSILON * 8.0) {
+            self.set_next_instruction(d);
+        }
+        Ok(())
+    }
+}
+impl BnaalInstruction for ItemIntegratedCircuit10 {
+    /// bnaal a(r?|num) b(r?|num) c(r?|num) d(r?|num)
+    fn execute_bnaal(
+        &mut self,
+        vm: &VM,
+        a: &Operand,
+        b: &Operand,
+        c: &Operand,
+        d: &Operand,
+    ) -> Result<(), ICError> {
+        let a = a.as_value(self, InstructionOp::Bnaal, 1)?;
+        let b = b.as_value(self, InstructionOp::Bnaal, 2)?;
+        let c = c.as_value(self, InstructionOp::Bnaal, 3)?;
+        let d = d.as_value(self, InstructionOp::Bnaal, 4)?;
+        if f64::abs(a - b) > f64::max(c * f64::max(a.abs(), b.abs()), f64::EPSILON * 8.0) {
+            self.set_next_instruction(d);
+            self.al();
+        }
+        Ok(())
+    }
+}
+impl BrnaInstruction for ItemIntegratedCircuit10 {
+    /// brna a(r?|num) b(r?|num) c(r?|num) d(r?|num)
+    fn execute_brna(
+        &mut self,
+        vm: &VM,
+        a: &Operand,
+        b: &Operand,
+        c: &Operand,
+        d: &Operand,
+    ) -> Result<(), ICError> {
+        let a = a.as_value(self, InstructionOp::Brna, 1)?;
+        let b = b.as_value(self, InstructionOp::Brna, 2)?;
+        let c = c.as_value(self, InstructionOp::Brna, 3)?;
+        let d = d.as_value(self, InstructionOp::Brna, 4)?;
+        if f64::abs(a - b) > f64::max(c * f64::max(a.abs(), b.abs()), f64::EPSILON * 8.0) {
+            self.set_next_instruction_relative(d);
+        }
+        Ok(())
+    }
+}
+
+impl BnazInstruction for ItemIntegratedCircuit10 {
+    /// bnaz a(r?|num) b(r?|num) c(r?|num)
+    fn execute_bnaz(
+        &mut self,
+        vm: &VM,
+        a: &Operand,
+        b: &Operand,
+        c: &Operand,
+    ) -> Result<(), ICError> {
+        let a = a.as_value(self, InstructionOp::Bnaz, 1)?;
+        let b = b.as_value(self, InstructionOp::Bnaz, 2)?;
+        let c = c.as_value(self, InstructionOp::Bnaz, 3)?;
+        if a.abs() > f64::max(b * a.abs(), f64::EPSILON * 8.0) {
+            self.set_next_instruction(c);
+        }
+        Ok(())
+    }
+}
+impl BnazalInstruction for ItemIntegratedCircuit10 {
+    /// bnazal a(r?|num) b(r?|num) c(r?|num)
+    fn execute_bnazal(
+        &mut self,
+        vm: &VM,
+        a: &Operand,
+        b: &Operand,
+        c: &Operand,
+    ) -> Result<(), ICError> {
+        let a = a.as_value(self, InstructionOp::Bnazal, 1)?;
+        let b = b.as_value(self, InstructionOp::Bnazal, 2)?;
+        let c = c.as_value(self, InstructionOp::Bnazal, 3)?;
+        if a.abs() > f64::max(b * a.abs(), f64::EPSILON * 8.0) {
+            self.set_next_instruction(c);
+            self.al();
+        }
+        Ok(())
+    }
+}
+impl BrnazInstruction for ItemIntegratedCircuit10 {
+    /// brnaz a(r?|num) b(r?|num) c(r?|num)
+    fn execute_brnaz(
+        &mut self,
+        vm: &VM,
+        a: &Operand,
+        b: &Operand,
+        c: &Operand,
+    ) -> Result<(), ICError> {
+        let a = a.as_value(self, InstructionOp::Brnaz, 1)?;
+        let b = b.as_value(self, InstructionOp::Brnaz, 2)?;
+        let c = c.as_value(self, InstructionOp::Brnaz, 3)?;
+        if a.abs() > f64::max(b * a.abs(), f64::EPSILON * 8.0) {
+            self.set_next_instruction_relative(c);
+        }
+        Ok(())
+    }
+}
+impl BdseInstruction for ItemIntegratedCircuit10 {
+    /// bdse d? a(r?|num)
+    fn execute_bdse(&mut self, vm: &VM, d: &Operand, a: &Operand) -> Result<(), ICError> {
+        let (device, _connection) = d.as_device(self, InstructionOp::Bdse, 1)?;
+        let a = a.as_value(self, InstructionOp::Bdse, 2)?;
+        if device.is_some() {
+            // FIXME: collect device and get logicable
+            self.set_next_instruction(a);
+        }
+        Ok(())
+    }
+}
+impl BdsealInstruction for ItemIntegratedCircuit10 {
+    /// bdseal d? a(r?|num)
+    fn execute_bdseal(&mut self, vm: &VM, d: &Operand, a: &Operand) -> Result<(), ICError>;
+}
+impl BrdseInstruction for ItemIntegratedCircuit10 {
+    /// brdse d? a(r?|num)
+    fn execute_brdse(&mut self, vm: &VM, d: &Operand, a: &Operand) -> Result<(), ICError>;
+}
+
 impl AbsInstruction for ItemIntegratedCircuit10 {
     /// abs r? a(r?|num)
     fn execute_abs(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
@@ -997,48 +1361,6 @@ impl Atan2Instruction for ItemIntegratedCircuit10 {
         b: &Operand,
     ) -> Result<(), ICError>;
 }
-impl BapInstruction for ItemIntegratedCircuit10 {
-    /// bap a(r?|num) b(r?|num) c(r?|num) d(r?|num)
-    fn execute_bap(
-        &mut self,
-        vm: &VM,
-        a: &Operand,
-        b: &Operand,
-        c: &Operand,
-        d: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl BapalInstruction for ItemIntegratedCircuit10 {
-    /// bapal a(r?|num) b(r?|num) c(r?|num) d(r?|num)
-    fn execute_bapal(
-        &mut self,
-        vm: &VM,
-        a: &Operand,
-        b: &Operand,
-        c: &Operand,
-        d: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl BapzInstruction for ItemIntegratedCircuit10 {
-    /// bapz a(r?|num) b(r?|num) c(r?|num)
-    fn execute_bapz(
-        &mut self,
-        vm: &VM,
-        a: &Operand,
-        b: &Operand,
-        c: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl BapzalInstruction for ItemIntegratedCircuit10 {
-    /// bapzal a(r?|num) b(r?|num) c(r?|num)
-    fn execute_bapzal(
-        &mut self,
-        vm: &VM,
-        a: &Operand,
-        b: &Operand,
-        c: &Operand,
-    ) -> Result<(), ICError>;
-}
 impl BdnsInstruction for ItemIntegratedCircuit10 {
     /// bdns d? a(r?|num)
     fn execute_bdns(&mut self, vm: &VM, d: &Operand, a: &Operand) -> Result<(), ICError>;
@@ -1047,155 +1369,17 @@ impl BdnsalInstruction for ItemIntegratedCircuit10 {
     /// bdnsal d? a(r?|num)
     fn execute_bdnsal(&mut self, vm: &VM, d: &Operand, a: &Operand) -> Result<(), ICError>;
 }
-impl BdseInstruction for ItemIntegratedCircuit10 {
-    /// bdse d? a(r?|num)
-    fn execute_bdse(&mut self, vm: &VM, d: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl BdsealInstruction for ItemIntegratedCircuit10 {
-    /// bdseal d? a(r?|num)
-    fn execute_bdseal(&mut self, vm: &VM, d: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl BgeInstruction for ItemIntegratedCircuit10 {
-    /// bge a(r?|num) b(r?|num) c(r?|num)
-    fn execute_bge(
-        &mut self,
-        vm: &VM,
-        a: &Operand,
-        b: &Operand,
-        c: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl BgealInstruction for ItemIntegratedCircuit10 {
-    /// bgeal a(r?|num) b(r?|num) c(r?|num)
-    fn execute_bgeal(
-        &mut self,
-        vm: &VM,
-        a: &Operand,
-        b: &Operand,
-        c: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl BgezInstruction for ItemIntegratedCircuit10 {
-    /// bgez a(r?|num) b(r?|num)
-    fn execute_bgez(&mut self, vm: &VM, a: &Operand, b: &Operand) -> Result<(), ICError>;
-}
-impl BgezalInstruction for ItemIntegratedCircuit10 {
-    /// bgezal a(r?|num) b(r?|num)
-    fn execute_bgezal(&mut self, vm: &VM, a: &Operand, b: &Operand) -> Result<(), ICError>;
-}
-impl BnaInstruction for ItemIntegratedCircuit10 {
-    /// bna a(r?|num) b(r?|num) c(r?|num) d(r?|num)
-    fn execute_bna(
-        &mut self,
-        vm: &VM,
-        a: &Operand,
-        b: &Operand,
-        c: &Operand,
-        d: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl BnaalInstruction for ItemIntegratedCircuit10 {
-    /// bnaal a(r?|num) b(r?|num) c(r?|num) d(r?|num)
-    fn execute_bnaal(
-        &mut self,
-        vm: &VM,
-        a: &Operand,
-        b: &Operand,
-        c: &Operand,
-        d: &Operand,
-    ) -> Result<(), ICError>;
-}
 impl BnanInstruction for ItemIntegratedCircuit10 {
     /// bnan a(r?|num) b(r?|num)
     fn execute_bnan(&mut self, vm: &VM, a: &Operand, b: &Operand) -> Result<(), ICError>;
-}
-impl BnazInstruction for ItemIntegratedCircuit10 {
-    /// bnaz a(r?|num) b(r?|num) c(r?|num)
-    fn execute_bnaz(
-        &mut self,
-        vm: &VM,
-        a: &Operand,
-        b: &Operand,
-        c: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl BnazalInstruction for ItemIntegratedCircuit10 {
-    /// bnazal a(r?|num) b(r?|num) c(r?|num)
-    fn execute_bnazal(
-        &mut self,
-        vm: &VM,
-        a: &Operand,
-        b: &Operand,
-        c: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl BrapInstruction for ItemIntegratedCircuit10 {
-    /// brap a(r?|num) b(r?|num) c(r?|num) d(r?|num)
-    fn execute_brap(
-        &mut self,
-        vm: &VM,
-        a: &Operand,
-        b: &Operand,
-        c: &Operand,
-        d: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl BrapzInstruction for ItemIntegratedCircuit10 {
-    /// brapz a(r?|num) b(r?|num) c(r?|num)
-    fn execute_brapz(
-        &mut self,
-        vm: &VM,
-        a: &Operand,
-        b: &Operand,
-        c: &Operand,
-    ) -> Result<(), ICError>;
 }
 impl BrdnsInstruction for ItemIntegratedCircuit10 {
     /// brdns d? a(r?|num)
     fn execute_brdns(&mut self, vm: &VM, d: &Operand, a: &Operand) -> Result<(), ICError>;
 }
-impl BrdseInstruction for ItemIntegratedCircuit10 {
-    /// brdse d? a(r?|num)
-    fn execute_brdse(&mut self, vm: &VM, d: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl BrgeInstruction for ItemIntegratedCircuit10 {
-    /// brge a(r?|num) b(r?|num) c(r?|num)
-    fn execute_brge(
-        &mut self,
-        vm: &VM,
-        a: &Operand,
-        b: &Operand,
-        c: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl BrgezInstruction for ItemIntegratedCircuit10 {
-    /// brgez a(r?|num) b(r?|num)
-    fn execute_brgez(&mut self, vm: &VM, a: &Operand, b: &Operand) -> Result<(), ICError>;
-}
-impl BrnaInstruction for ItemIntegratedCircuit10 {
-    /// brna a(r?|num) b(r?|num) c(r?|num) d(r?|num)
-    fn execute_brna(
-        &mut self,
-        vm: &VM,
-        a: &Operand,
-        b: &Operand,
-        c: &Operand,
-        d: &Operand,
-    ) -> Result<(), ICError>;
-}
 impl BrnanInstruction for ItemIntegratedCircuit10 {
     /// brnan a(r?|num) b(r?|num)
     fn execute_brnan(&mut self, vm: &VM, a: &Operand, b: &Operand) -> Result<(), ICError>;
-}
-impl BrnazInstruction for ItemIntegratedCircuit10 {
-    /// brnaz a(r?|num) b(r?|num) c(r?|num)
-    fn execute_brnaz(
-        &mut self,
-        vm: &VM,
-        a: &Operand,
-        b: &Operand,
-        c: &Operand,
-    ) -> Result<(), ICError>;
 }
 impl CeilInstruction for ItemIntegratedCircuit10 {
     /// ceil r? a(r?|num)

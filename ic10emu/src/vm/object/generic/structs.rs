@@ -1,11 +1,11 @@
 use super::{macros::*, traits::*};
 
-use crate::vm::{
+use crate::{network::Connection, vm::{
     enums::script_enums::LogicType,
     object::{
-        macros::ObjectInterface, templates::ItemInfo, traits::*, LogicField, Name, ObjectID, Slot,
+        macros::ObjectInterface, templates::{DeviceInfo, ItemInfo}, traits::*, LogicField, Name, ObjectID, Slot,
     },
-};
+}};
 use macro_rules_attribute::derive;
 use std::collections::BTreeMap;
 
@@ -56,6 +56,9 @@ pub struct GenericLogicableDevice {
     pub name: Name,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub slots: Vec<Slot>,
+    pub device_info: DeviceInfo,
+    pub connections: Vec<Connection>,
+    pub pins: Option<Vec<Option<ObjectID>>>,
 }
 
 #[derive(ObjectInterface!, GWStorage!, GWLogicable!, GWDevice!, GWMemoryReadable!, GWMemoryWritable!)]
@@ -69,6 +72,9 @@ pub struct GenericLogicableDeviceMemoryReadable {
     pub name: Name,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub slots: Vec<Slot>,
+    pub device_info: DeviceInfo,
+    pub connections: Vec<Connection>,
+    pub pins: Option<Vec<Option<ObjectID>>>,
     pub memory: Vec<f64>,
 }
 
@@ -83,6 +89,9 @@ pub struct GenericLogicableDeviceMemoryReadWriteable {
     pub name: Name,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub slots: Vec<Slot>,
+    pub device_info: DeviceInfo,
+    pub connections: Vec<Connection>,
+    pub pins: Option<Vec<Option<ObjectID>>>,
     pub memory: Vec<f64>,
 }
 

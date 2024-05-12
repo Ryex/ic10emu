@@ -2030,7 +2030,7 @@ impl IC {
                                         if ic_id == &this.id {
                                             this.peek_addr(addr)
                                         } else {
-                                            let ic = vm.ics.get(ic_id).unwrap().borrow();
+                                            let ic = vm.ic_holders.get(ic_id).unwrap().borrow();
                                             ic.peek_addr(addr)
                                         }
                                     }?;
@@ -2063,7 +2063,7 @@ impl IC {
                                         if ic_id == &this.id {
                                             this.peek_addr(addr)
                                         } else {
-                                            let ic = vm.ics.get(ic_id).unwrap().borrow();
+                                            let ic = vm.ic_holders.get(ic_id).unwrap().borrow();
                                             ic.peek_addr(addr)
                                         }
                                     }?;
@@ -2092,7 +2092,7 @@ impl IC {
                                     if ic_id == &this.id {
                                         this.poke(addr, val)?;
                                     } else {
-                                        let ic = vm.ics.get(ic_id).unwrap().borrow();
+                                        let ic = vm.ic_holders.get(ic_id).unwrap().borrow();
                                         ic.poke(addr, val)?;
                                     }
                                     vm.set_modified(device_id);
@@ -2120,7 +2120,7 @@ impl IC {
                                     if ic_id == &this.id {
                                         this.poke(addr, val)?;
                                     } else {
-                                        let ic = vm.ics.get(ic_id).unwrap().borrow();
+                                        let ic = vm.ic_holders.get(ic_id).unwrap().borrow();
                                         ic.poke(addr, val)?;
                                     }
                                     vm.set_modified(device_id as u32);
@@ -2532,7 +2532,7 @@ mod tests {
             let device_ref = device.borrow();
             device_ref.ic.unwrap()
         };
-        let ic_chip = vm.ics.get(&ic_id).unwrap().borrow();
+        let ic_chip = vm.ic_holders.get(&ic_id).unwrap().borrow();
         vm.set_code(
             ic,
             r#"lb r0 HASH("ItemActiveVent") On Sum
@@ -2561,7 +2561,7 @@ mod tests {
             let device_ref = device.borrow();
             device_ref.ic.unwrap()
         };
-        let ic_chip = vm.ics.get(&ic_id).unwrap().borrow();
+        let ic_chip = vm.ic_holders.get(&ic_id).unwrap().borrow();
         vm.set_code(
             ic,
             r#"push 100

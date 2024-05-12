@@ -9,32 +9,7 @@
 //
 // =================================================
 
-use crate::errors::ICError;
-use crate::vm::object::traits::{Logicable, MemoryWritable, SourceCode};
-use std::collections::BTreeMap;
-pub trait IntegratedCircuit: Logicable + MemoryWritable + SourceCode {
-    fn get_instruction_pointer(&self) -> f64;
-    fn set_next_instruction(&mut self, next_instruction: f64);
-    fn set_next_instruction_relative(&mut self, offset: f64) {
-        self.set_next_instruction(self.get_instruction_pointer() + offset);
-    }
-    fn reset(&mut self);
-    fn get_real_target(&self, indirection: u32, target: u32) -> Result<f64, ICError>;
-    fn get_register(&self, indirection: u32, target: u32) -> Result<f64, ICError>;
-    fn set_register(&mut self, indirection: u32, target: u32, val: f64) -> Result<f64, ICError>;
-    fn set_return_address(&mut self, addr: f64);
-    fn al(&mut self) {
-        self.set_return_address(self.get_instruction_pointer() + 1.0);
-    }
-    fn push_stack(&mut self, val: f64) -> Result<f64, ICError>;
-    fn pop_stack(&mut self) -> Result<f64, ICError>;
-    fn peek_stack(&self) -> Result<f64, ICError>;
-    fn get_stack(&self, addr: f64) -> Result<f64, ICError>;
-    fn put_stack(&self, addr: f64, val: f64) -> Result<f64, ICError>;
-    fn get_aliases(&self) -> &BTreeMap<String, crate::vm::instructions::operands::Operand>;
-    fn get_defines(&self) -> &BTreeMap<String, f64>;
-    fn get_labels(&self) -> &BTreeMap<String, u32>;
-}
+use crate::vm::object::traits::IntegratedCircuit;
 pub trait AbsInstruction: IntegratedCircuit {
     /// abs r? a(r?|num)
     fn execute_abs(

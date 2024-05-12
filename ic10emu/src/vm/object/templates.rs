@@ -53,11 +53,140 @@ impl ObjectTemplate {
         }
     }
 
-    fn build(&self, id: ObjectID) -> VMObject {
+    pub fn object(&self) -> Option<&ObjectInfo> {
+        use ObjectTemplate::*;
+        match self {
+            Structure(s) => s.object.as_ref(),
+            StructureSlots(s) => s.object.as_ref(),
+            StructureLogic(s) => s.object.as_ref(),
+            StructureLogicDevice(s) => s.object.as_ref(),
+            StructureLogicDeviceMemory(s) => s.object.as_ref(),
+            Item(i) => i.object.as_ref(),
+            ItemSlots(i) => i.object.as_ref(),
+            ItemLogic(i) => i.object.as_ref(),
+            ItemLogicMemory(i) => i.object.as_ref(),
+        }
+    }
+
+    pub fn build(&self, id: ObjectID) -> VMObject {
         if let Some(obj) = stationpedia::object_from_prefab_template(&self, id) {
             obj
         } else {
             self.build_generic(id)
+        }
+    }
+
+    pub fn connected_networks(&self) -> Vec<ObjectID> {
+        use ObjectTemplate::*;
+        match self {
+            StructureLogicDevice(s) => s
+                .device
+                .connection_list
+                .iter()
+                .filter_map(|conn| conn.network.as_ref())
+                .copied()
+                .collect(),
+            StructureLogicDeviceMemory(s) => s
+                .device
+                .connection_list
+                .iter()
+                .filter_map(|conn| conn.network.as_ref())
+                .copied()
+                .collect(),
+            _ => vec![],
+        }
+    }
+
+    pub fn contained_object_ids(&self) -> Vec<ObjectID> {
+        use ObjectTemplate::*;
+        match self {
+            StructureSlots(s) => s
+                .slots
+                .iter()
+                .filter_map(|info| {
+                    info.occupant
+                        .as_ref()
+                        .map(|obj| obj.object().map(|obj_info| obj_info.id).flatten())
+                })
+                .flatten()
+                .collect(),
+            StructureLogic(s) => s
+                .slots
+                .iter()
+                .filter_map(|info| {
+                    info.occupant
+                        .as_ref()
+                        .map(|obj| obj.object().map(|obj_info| obj_info.id).flatten())
+                })
+                .flatten()
+                .collect(),
+            StructureLogicDevice(s) => s
+                .slots
+                .iter()
+                .filter_map(|info| {
+                    info.occupant
+                        .as_ref()
+                        .map(|obj| obj.object().map(|obj_info| obj_info.id).flatten())
+                })
+                .flatten()
+                .collect(),
+            StructureLogicDeviceMemory(s) => s
+                .slots
+                .iter()
+                .filter_map(|info| {
+                    info.occupant
+                        .as_ref()
+                        .map(|obj| obj.object().map(|obj_info| obj_info.id).flatten())
+                })
+                .flatten()
+                .collect(),
+            ItemSlots(i) => i
+                .slots
+                .iter()
+                .filter_map(|info| {
+                    info.occupant
+                        .as_ref()
+                        .map(|obj| obj.object().map(|obj_info| obj_info.id).flatten())
+                })
+                .flatten()
+                .collect(),
+            ItemLogic(i) => i
+                .slots
+                .iter()
+                .filter_map(|info| {
+                    info.occupant
+                        .as_ref()
+                        .map(|obj| obj.object().map(|obj_info| obj_info.id).flatten())
+                })
+                .flatten()
+                .collect(),
+            ItemLogicMemory(i) => i
+                .slots
+                .iter()
+                .filter_map(|info| {
+                    info.occupant
+                        .as_ref()
+                        .map(|obj| obj.object().map(|obj_info| obj_info.id).flatten())
+                })
+                .flatten()
+                .collect(),
+            _ => vec![],
+        }
+    }
+
+    pub fn templates_from_slots(&self) -> Vec<Option<ObjectTemplate>> {
+        use ObjectTemplate::*;
+        match self {
+            StructureSlots(s) => s.slots.iter().map(|info| info.occupant.clone()).collect(),
+            StructureLogic(s) => s.slots.iter().map(|info| info.occupant.clone()).collect(),
+            StructureLogicDevice(s) => s.slots.iter().map(|info| info.occupant.clone()).collect(),
+            StructureLogicDeviceMemory(s) => {
+                s.slots.iter().map(|info| info.occupant.clone()).collect()
+            }
+            ItemSlots(i) => i.slots.iter().map(|info| info.occupant.clone()).collect(),
+            ItemLogic(i) => i.slots.iter().map(|info| info.occupant.clone()).collect(),
+            ItemLogicMemory(i) => i.slots.iter().map(|info| info.occupant.clone()).collect(),
+            _ => vec![],
         }
     }
 
@@ -411,18 +540,20 @@ pub struct PrefabInfo {
     pub name: String,
 }
 
-#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ObjectInfo {
     pub name: Option<String>,
     pub id: Option<ObjectID>,
 }
 
-#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SlotInfo {
     pub name: String,
     pub typ: SlotClass,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub occupant: Option<ObjectTemplate>,
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
@@ -437,13 +568,15 @@ pub struct LogicTypes {
     pub types: BTreeMap<LogicType, MemoryAccess>,
 }
 
-#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct LogicInfo {
     pub logic_slot_types: BTreeMap<u32, LogicSlotTypes>,
     pub logic_types: LogicTypes,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub modes: Option<BTreeMap<u32, String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub logic_values: Option<BTreeMap<LogicType, f64>>,
     pub transmission_receiver: bool,
     pub wireless_logic: bool,
     pub circuit_holder: bool,
@@ -468,6 +601,8 @@ pub struct ItemInfo {
 pub struct ConnectionInfo {
     pub typ: ConnectionType,
     pub role: ConnectionRole,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub network: Option<ObjectID>,
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
@@ -476,6 +611,8 @@ pub struct DeviceInfo {
     pub connection_list: Vec<ConnectionInfo>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub device_pins_length: Option<i64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub device_pins: Option<Vec<Option<ObjectID>>>,
     pub has_activate_state: bool,
     pub has_atmosphere: bool,
     pub has_color_state: bool,

@@ -1,4 +1,4 @@
-use crate::vm::instructions::enums::InstructionOp;
+use crate::vm::{instructions::enums::InstructionOp, object::{errors::{LogicError, MemoryError}, ObjectID}};
 use serde_derive::{Deserialize, Serialize};
 use std::error::Error as StdError;
 use std::fmt::Display;
@@ -17,7 +17,7 @@ pub enum VMError {
     #[error("ic encountered an error: {0}")]
     LineError(#[from] LineError),
     #[error("invalid network id {0}")]
-    InvalidNetwork(u32),
+    InvalidNetwork(ObjectID),
     #[error("device {0} not visible to device {1} (not on the same networks)")]
     DeviceNotVisible(u32, u32),
     #[error("a device with id {0} already exists")]
@@ -26,6 +26,12 @@ pub enum VMError {
     IdsInUse(Vec<u32>),
     #[error("atempt to use a set of id's with duplicates: id(s) {0:?} exsist more than once")]
     DuplicateIds(Vec<u32>),
+    #[error("object {0} is not a device")]
+    NotADevice(ObjectID),
+    #[error("device object {0} has no pins")]
+    NoDevicePins(ObjectID),
+    #[error("object {0} has no slots")]
+    NotStorage(ObjectID),
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -98,6 +104,10 @@ impl ParseError {
 pub enum ICError {
     #[error("error compiling code: {0}")]
     ParseError(#[from] ParseError),
+    #[error("{0}")]
+    LogicError(#[from] LogicError),
+    #[error("{0}")]
+    MemoryError(#[from] MemoryError),
     #[error("duplicate label {0}")]
     DuplicateLabel(String),
     #[error("instruction pointer out of range: '{0}'")]
@@ -138,10 +148,6 @@ pub enum ICError {
     ShiftUnderflowI32,
     #[error("shift overflow i32(signed int)")]
     ShiftOverflowI32,
-    #[error("stack underflow")]
-    StackUnderflow,
-    #[error("stack overflow")]
-    StackOverflow,
     #[error("duplicate define '{0}'")]
     DuplicateDefine(String),
     #[error("read only field '{0}'")]
