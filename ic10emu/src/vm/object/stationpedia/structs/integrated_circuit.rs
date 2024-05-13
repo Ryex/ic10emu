@@ -200,8 +200,11 @@ impl Item for ItemIntegratedCircuit10 {
     fn sorting_class(&self) -> SortingClass {
         SortingClass::Default
     }
-    fn parent_slot(&self) -> Option<ParentSlotInfo> {
+    fn get_parent_slot(&self) -> Option<ParentSlotInfo> {
         self.parent_slot
+    }
+    fn set_parent_slot(&mut self, info: Option<ParentSlotInfo>) {
+        self.parent_slot = info;
     }
 }
 
@@ -270,9 +273,7 @@ impl SourceCode for ItemIntegratedCircuit10 {
 impl IntegratedCircuit for ItemIntegratedCircuit10 {
     fn get_circuit_holder(&self, vm: &VM) -> Option<CircuitHolderRef> {
         // FIXME: implement correctly
-        self.parent_slot().map(|parent_slot| {
-            parent_slot.parent
-        })
+        self.get_parent_slot().map(|parent_slot| parent_slot.parent)
     }
     fn get_instruction_pointer(&self) -> f64 {
         self.ip as f64

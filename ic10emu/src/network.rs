@@ -2,7 +2,7 @@ use std::{collections::HashSet, ops::Deref};
 
 use crate::vm::{
     enums::script_enums::LogicType,
-    object::{errors::LogicError, macros::ObjectInterface, traits::*, Name, ObjectID},
+    object::{errors::LogicError, macros::ObjectInterface, templates::ConnectionInfo, traits::*, Name, ObjectID},
 };
 use itertools::Itertools;
 use macro_rules_attribute::derive;
@@ -23,9 +23,28 @@ pub enum Connection {
     CableNetwork {
         net: Option<u32>,
         typ: CableConnectionType,
+        role: ConnectionRole,
+    },
+    Chute {
+        role: ConnectionRole,
+    },
+    Pipe {
+        role: ConnectionRole,
+    },
+    Elevator {
+        role: ConnectionRole,
+    },
+    LandingPad {
+        role: ConnectionRole,
+    },
+    LaunchPad {
+        role: ConnectionRole,
+    },
+    PipeLiquid {
+        role: ConnectionRole,
     },
     #[default]
-    Other,
+    None,
 }
 
 #[derive(
@@ -86,27 +105,45 @@ pub enum ConnectionRole {
 
 impl Connection {
     #[allow(dead_code)]
-    fn from(typ: ConnectionType, _role: ConnectionRole) -> Self {
+    pub fn from_info(typ: ConnectionType, role: ConnectionRole) -> Self {
         match typ {
-            ConnectionType::None
-            | ConnectionType::Chute
-            | ConnectionType::Pipe
-            | ConnectionType::Elevator
-            | ConnectionType::LandingPad
-            | ConnectionType::LaunchPad
-            | ConnectionType::PipeLiquid => Self::Other,
+            ConnectionType::None => Self::None,
             ConnectionType::Data => Self::CableNetwork {
                 net: None,
                 typ: CableConnectionType::Data,
+                role,
             },
             ConnectionType::Power => Self::CableNetwork {
                 net: None,
                 typ: CableConnectionType::Power,
+                role,
             },
             ConnectionType::PowerAndData => Self::CableNetwork {
                 net: None,
                 typ: CableConnectionType::PowerAndData,
+                role,
             },
+            ConnectionType::Chute => Self::Chute { role },
+            ConnectionType::Pipe => Self::Pipe { role },
+            ConnectionType::Elevator => Self::Elevator { role },
+            ConnectionType::LandingPad => Self::LandingPad { role },
+            ConnectionType::LaunchPad => Self::LaunchPad { role },
+            ConnectionType::PipeLiquid => Self::PipeLiquid { role },
+        }
+    }
+
+    pub fn to_info(&self) -> ConnectionInfo {
+        match self {
+            Self::None => ConnectionInfo { typ:ConnectionType::None, role: ConnectionRole::None, network: None  },
+            Self::CableNetwork { net, typ: CableConnectionType::Data, role } => ConnectionInfo { typ: ConnectionType::Data, role, network: net },
+            Self::CableNetwork { net, typ: CableConnectionType::Power, role } => ConnectionInfo { typ: ConnectionType::Power, role, network: net },
+            Self::CableNetwork { net, typ: CableConnectionType::PowerAndData, role } => ConnectionInfo { typ: ConnectionType::PowerAndData, role, network: net },
+            Self::Chute { role } => ConnectionInfo { typ: ConnectionType::Chute, role, network: None },
+            Self::Pipe { role } => ConnectionInfo { typ: ConnectionType::Pipe, role, network: None },
+            Self::PipeLiquid { role } => ConnectionInfo { typ: ConnectionType::PipeLiquid, role, network: None },
+            Self::Elevator { role } => ConnectionInfo { typ: ConnectionType::Elevator, role, network: None },
+            Self::LandingPad { role } => ConnectionInfo { typ: ConnectionType::LandingPad, role, network: None },
+            Self::LaunchPad { role } => ConnectionInfo { typ: ConnectionType::LaunchPad, role, network: None },
         }
     }
 }
@@ -139,6 +176,12 @@ impl Storage for CableNetwork {
     }
     fn get_slot_mut(&mut self, index: usize) -> Option<&mut crate::vm::object::Slot> {
         None
+    }
+    fn get_slots(&self) ->  &[crate::vm::object::Slot] {
+        &vec![]
+    }
+    fn get_slots_mut(&mut self) ->  &mut[crate::vm::object::Slot] {
+        &mut vec![]
     }
 }
 
@@ -205,17 +248,24 @@ impl Logicable for CableNetwork {
     fn can_slot_logic_read(
         &self,
         slt: crate::vm::enums::script_enums::LogicSlotType,
-        index: usize,
+        index: f64,
     ) -> bool {
         false
     }
     fn get_slot_logic(
         &self,
         slt: crate::vm::enums::script_enums::LogicSlotType,
-        index: usize,
+        index: f64,
         vm: &crate::vm::VM,
     ) -> Result<f64, LogicError> {
-        Err(LogicError::CantSlotRead(slt, index))
+        Err(LogicError::CantSlotRead(slt, index as usize))
+    }
+    fn valid_logic_types(&self) -> Vec<LogicType> {
+        use LogicType::*;
+        vec![Channel0, Channel1, Channel2, Channel3, Channel4, Channel5, Channel6, Channel7]
+    }
+    fn known_modes(&self) -> Option<Vec<(u32,String)>> {
+        None
     }
 }
 

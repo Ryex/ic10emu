@@ -522,7 +522,7 @@ impl Device {
     pub fn get_fields(&self, vm: &VM) -> BTreeMap<LogicType, LogicField> {
         let mut copy = self.fields.clone();
         if let Some(ic_id) = &self.ic {
-            let ic = vm.ic_holders.get(ic_id).expect("our own ic to exist").borrow();
+            let ic = vm.circuit_holders.get(ic_id).expect("our own ic to exist").borrow();
             copy.insert(
                 LogicType::LineNumber,
                 LogicField {
@@ -642,7 +642,7 @@ impl Device {
     pub fn get_field(&self, typ: LogicType, vm: &VM) -> Result<f64, ICError> {
         if typ == LogicType::LineNumber && self.ic.is_some() {
             let ic = vm
-                .ic_holders
+                .circuit_holders
                 .get(&self.ic.unwrap())
                 .ok_or_else(|| ICError::UnknownDeviceID(self.ic.unwrap() as f64))?
                 .borrow();
@@ -673,7 +673,7 @@ impl Device {
             Err(ICError::ReadOnlyField(typ.to_string()))
         } else if typ == LogicType::LineNumber && self.ic.is_some() {
             let ic = vm
-                .ic_holders
+                .circuit_holders
                 .get(&self.ic.unwrap())
                 .ok_or_else(|| ICError::UnknownDeviceID(self.ic.unwrap() as f64))?
                 .borrow();
@@ -714,7 +714,7 @@ impl Device {
             && typ == LogicSlotType::LineNumber
         {
             let ic = vm
-                .ic_holders
+                .circuit_holders
                 .get(&self.ic.unwrap())
                 .ok_or_else(|| ICError::UnknownDeviceID(self.ic.unwrap() as f64))?
                 .borrow();
@@ -736,7 +736,7 @@ impl Device {
         let mut fields = slot.get_fields();
         if slot.typ == SlotClass::ProgrammableChip && slot.occupant.is_some() && self.ic.is_some() {
             let ic = vm
-                .ic_holders
+                .circuit_holders
                 .get(&self.ic.unwrap())
                 .ok_or_else(|| ICError::UnknownDeviceID(self.ic.unwrap() as f64))?
                 .borrow();

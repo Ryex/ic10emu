@@ -1,15 +1,31 @@
-use crate::{network::Connection, vm::{
-    enums::{
-        basic_enums::{Class as SlotClass, GasType, SortingClass},
-        script_enums::{LogicSlotType, LogicType},
+use crate::{
+    network::Connection,
+    vm::{
+        enums::{
+            basic_enums::{Class as SlotClass, GasType, SortingClass},
+            script_enums::{LogicSlotType, LogicType},
+        },
+        object::{
+            errors::{LogicError, MemoryError},
+            templates::{DeviceInfo, ItemInfo},
+            traits::*,
+            LogicField, MemoryAccess, ObjectID, Slot,
+        },
+        VM,
     },
-    object::{
-        errors::{LogicError, MemoryError}, templates::{DeviceInfo, ItemInfo}, traits::*, LogicField, MemoryAccess, ObjectID, Slot
-    },
-    VM,
-}};
+};
 use std::{collections::BTreeMap, usize};
 use strum::IntoEnumIterator;
+
+pub trait GWStructure {
+    fn small_grid(&self) -> bool;
+}
+
+impl<T: GWStructure> Structure for T {
+    fn is_small_grid(&self) -> bool {
+        self.small_grid()
+    }
+}
 
 pub trait GWStorage {
     fn slots(&self) -> &Vec<Slot>;
@@ -26,19 +42,26 @@ impl<T: GWStorage + Object> Storage for T {
     fn get_slot_mut(&mut self, index: usize) -> Option<&mut Slot> {
         self.slots_mut().get_mut(index)
     }
+    fn get_slots(&self) -> &[Slot] {
+        self.slots()
+    }
+    fn get_slots_mut(&mut self) -> &mut [Slot] {
+        self.slots_mut()
+    }
 }
 
 pub trait GWLogicable: Storage {
     fn fields(&self) -> &BTreeMap<LogicType, LogicField>;
     fn fields_mut(&mut self) -> &mut BTreeMap<LogicType, LogicField>;
+    fn modes(&self) -> Option<&BTreeMap<u32, String>>;
 }
 
 impl<T: GWLogicable + Object> Logicable for T {
     fn prefab_hash(&self) -> i32 {
-        self.prefab().hash
+        self.get_prefab().hash
     }
     fn name_hash(&self) -> i32 {
-        self.name().hash
+        self.get_name().hash
     }
     fn is_logic_readable(&self) -> bool {
         LogicType::iter().any(|lt| self.can_logic_read(lt))
@@ -93,21 +116,23 @@ impl<T: GWLogicable + Object> Logicable for T {
                 _ => Err(LogicError::CantWrite(lt)),
             })
     }
-    fn can_slot_logic_read(&self, slt: LogicSlotType, index: usize) -> bool {
-        self.get_slot(index)
-            .map(|slot| slot.enabled_logic.contains(&slt))
-            .unwrap_or(false)
+    fn can_slot_logic_read(&self, slt: LogicSlotType, index: f64) -> bool {
+        if index < 0.0 {
+            false
+        } else {
+            self.get_slot(index as usize)
+                .map(|slot| slot.readable_logic.contains(&slt))
+                .unwrap_or(false)
+        }
     }
-    fn get_slot_logic(
-        &self,
-        slt: LogicSlotType,
-        index: usize,
-        _vm: &VM,
-    ) -> Result<f64, LogicError> {
-        self.get_slot(index)
+    fn get_slot_logic(&self, slt: LogicSlotType, index: f64, _vm: &VM) -> Result<f64, LogicError> {
+        if index < 0.0 {
+            return Err(LogicError::SlotIndexOutOfRange(index, self.slots_count()));
+        }
+        self.get_slot(index as usize)
             .ok_or_else(|| LogicError::SlotIndexOutOfRange(index, self.slots_count()))
             .and_then(|slot| {
-                if slot.enabled_logic.contains(&slt) {
+                if slot.readable_logic.contains(&slt) {
                     match slot.occupant {
                         Some(_id) => {
                             // FIXME: impliment by accessing VM to get occupant
@@ -119,6 +144,12 @@ impl<T: GWLogicable + Object> Logicable for T {
                     Err(LogicError::CantSlotRead(slt, index))
                 }
             })
+    }
+    fn valid_logic_types(&self) -> Vec<LogicType> {
+        self.fields().keys().copied().collect()
+    }
+    fn known_modes(&self) -> Option<Vec<(u32,String)>> {
+        self.modes().map(|modes| modes.iter().collect())
     }
 }
 
@@ -139,6 +170,9 @@ impl<T: GWMemoryReadable + Object> MemoryReadable for T {
         } else {
             Ok(self.memory()[index as usize])
         }
+    }
+    fn get_memory_slice(&self) ->  &[f64] {
+        self.memory()
     }
 }
 
@@ -163,7 +197,7 @@ impl<T: GWMemoryWritable + MemoryReadable + Object> MemoryWritable for T {
     }
 }
 
-pub trait GWDevice: Logicable {
+pub trait GWDevice: GWLogicable + Logicable {
     fn device_info(&self) -> &DeviceInfo;
     fn device_connections(&self) -> &[Connection];
     fn device_connections_mut(&mut self) -> &mut [Connection];
@@ -172,16 +206,52 @@ pub trait GWDevice: Logicable {
 }
 
 impl<T: GWDevice + Object> Device for T {
-    fn connection_list(&self) ->  &[crate::network::Connection] {
+    fn can_slot_logic_write(&self, slt: LogicSlotType, index: f64) -> bool {
+        if index < 0.0 {
+            return false;
+        } else {
+            self.get_slot(index as usize)
+                .map(|slot| slot.writeable_logic.contains(&slt))
+                .unwrap_or(false)
+        }
+    }
+    fn set_slot_logic(
+        &mut self,
+        slt: LogicSlotType,
+        index: f64,
+        value: f64,
+        vm: &VM,
+        force: bool,
+    ) -> Result<(), LogicError> {
+        if index < 0.0 {
+            return Err(LogicError::SlotIndexOutOfRange(index, self.slots_count()));
+        }
+        self.get_slot_mut(index as usize)
+            .ok_or_else(|| LogicError::SlotIndexOutOfRange(index, self.slots_count()))
+            .and_then(|slot| {
+                if slot.writeable_logic.contains(&slt) {
+                    match slot.occupant {
+                        Some(_id) => {
+                            // FIXME: impliment by accessing VM to get occupant
+                            Ok(())
+                        }
+                        None => Ok(()),
+                    }
+                } else {
+                    Err(LogicError::CantSlotWrite(slt, index))
+                }
+            })
+    }
+    fn connection_list(&self) -> &[crate::network::Connection] {
         self.device_connections()
     }
-    fn connection_list_mut(&mut self) ->  &mut[Connection] {
+    fn connection_list_mut(&mut self) -> &mut [Connection] {
         self.device_connections_mut()
     }
     fn device_pins(&self) -> Option<&[Option<ObjectID>]> {
         self.device_pins()
     }
-    fn device_pins_mut(&self) -> Option<&mut[Option<ObjectID>]> {
+    fn device_pins_mut(&self) -> Option<&mut [Option<ObjectID>]> {
         self.device_pins_mut()
     }
     fn has_reagents(&self) -> bool {
@@ -199,14 +269,21 @@ impl<T: GWDevice + Object> Device for T {
     fn has_on_off_state(&self) -> bool {
         self.device_info().has_on_off_state
     }
+    fn has_color_state(&self) -> bool {
+        self.device_info().has_color_state
+    }
     fn has_activate_state(&self) -> bool {
         self.device_info().has_activate_state
+    }
+    fn has_atmosphere(&self) -> bool {
+        self.device_info().has_atmosphere
     }
 }
 
 pub trait GWItem {
     fn item_info(&self) -> &ItemInfo;
     fn parent_slot(&self) -> Option<ParentSlotInfo>;
+    fn set_parent_slot(&mut self, info: Option<ParentSlotInfo>);
 }
 
 impl<T: GWItem + Object> Item for T {
@@ -231,8 +308,11 @@ impl<T: GWItem + Object> Item for T {
     fn sorting_class(&self) -> SortingClass {
         self.item_info().sorting_class
     }
-    fn parent_slot(&self) -> Option<ParentSlotInfo> {
+    fn get_parent_slot(&self) -> Option<ParentSlotInfo> {
         self.parent_slot()
+    }
+    fn set_parent_slot(&mut self, info: Option<ParentSlotInfo>) {
+        self.set_parent_slot(info);
     }
 }
 

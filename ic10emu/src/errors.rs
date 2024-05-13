@@ -32,6 +32,17 @@ pub enum VMError {
     NoDevicePins(ObjectID),
     #[error("object {0} has no slots")]
     NotStorage(ObjectID),
+    #[error("object {0} is not an item")]
+    NotAnItem(ObjectID),
+    #[error("object {0} is not programmable")]
+    NotProgrammable(ObjectID),
+}
+
+
+#[derive(Error, Debug, Serialize, Deserialize)]
+pub enum TemplateError {
+    #[error("")]
+    NonConformingObject(ObjectID)
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

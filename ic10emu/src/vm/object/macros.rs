@@ -8,30 +8,51 @@ macro_rules! object_trait {
         }
     };
     (@body $trait_name:ident { $($trt:ident),* }; ) => {
-        type ID;
-        fn id(&self) -> &Self::ID;
-        fn prefab(&self) -> &crate::vm::object::Name;
-        fn name(&self) -> &crate::vm::object::Name;
-
+        type ID: std::cmp::Ord + std::cmp::Eq + std::hash::Hash;
+        fn get_id(&self) -> &Self::ID;
+        fn set_id(&mut self, id: Self::ID);
+        fn get_prefab(&self) -> &crate::vm::object::Name;
+        fn get_mut_prefab(&mut self) -> &mut crate::vm::object::Name;
+        fn get_name(&self) -> &crate::vm::object::Name;
+        fn get_mut_name(&mut self) -> &mut crate::vm::object::Name;
         fn type_name(&self) -> &str;
-
         fn as_object(&self) -> &dyn $trait_name<ID = Self::ID>;
+        fn as_mut_object(&mut self) -> &mut dyn $trait_name<ID = Self::ID>;
 
-        fn as_object_mut(&mut self) -> &mut dyn $trait_name<ID = Self::ID>;
-
-        $(
         paste::paste! {
-        #[inline(always)]
-        fn [<as_ $trt:snake>](&self) -> Option<[<$trt Ref>]<Self>> {
-            None
-        }
+            $(
+                #[inline(always)]
+                fn [<as_ $trt:snake>](&self) -> Option<[<$trt Ref>]<Self>> {
+                    None
+                }
 
-        #[inline(always)]
-        fn [<as_mut_ $trt:snake>](&mut self) -> Option<[<$trt RefMut>]<Self>> {
-            None
+                #[inline(always)]
+                fn [<as_mut_ $trt:snake>](&mut self) -> Option<[<$trt RefMut>]<Self>> {
+                    None
+                }
+            )*
         }
+    };
+    (@intf_struct $trait_name:ident { $($trt:ident),* };) => {
+        paste::paste! {
+            pub struct [<$trait_name Interfaces>]<'a, T: $trait_name> {
+                $(
+                    pub [<$trt:snake>]: Option<[<$trt Ref>]<'a, T>>,
+                )*
+            }
+
+            impl<'a, T: $trait_name> [<$trait_name Interfaces>]<'a, T> {
+
+                pub fn [<from_ $trait_name:snake>](obj: &'a dyn $trait_name<ID = T::ID>) -> [<$trait_name Interfaces>]<'a, T> {
+                    [<$trait_name Interfaces>] {
+                        $(
+                            [<$trt:snake>]: obj.[<as_ $trt:snake>](),
+                        )*
+                    }
+                }
+            }
+
         }
-        )*
     };
     ( $trait_name:ident $(: $($bound:tt)* )? {$($trt:ident),*}) => {
         $(
@@ -44,6 +65,8 @@ macro_rules! object_trait {
 
             $crate::vm::object::macros::object_trait!{@body $trait_name {$($trt),*}; }
         }
+
+        $crate::vm::object::macros::object_trait!{@intf_struct $trait_name {$($trt),*}; }
     };
 }
 
@@ -61,16 +84,28 @@ macro_rules! ObjectInterface {
         impl $trait_name for $struct {
             type ID = $id_typ;
 
-            fn id(&self) -> &Self::ID {
+            fn get_id(&self) -> &Self::ID {
                 &self.$id_field
             }
 
-            fn prefab(&self) -> &$prefab_typ {
+            fn set_id(&mut self, id: Self::ID) {
+                self.$id_field = id;
+            }
+
+            fn get_prefab(&self) -> &$prefab_typ {
                 &self.$prefab_field
             }
 
-            fn name(&self) -> &$name_typ {
+            fn get_mut_prefab(&mut self) -> &mut $prefab_typ {
+                &mut self.$prefab_field
+            }
+
+            fn get_name(&self) -> &$name_typ {
                 &self.$name_field
+            }
+
+            fn get_mut_name(&mut self) -> &mut $name_typ {
+                &mut self.$name_field
             }
 
             fn type_name(&self) -> &str {
@@ -83,7 +118,7 @@ macro_rules! ObjectInterface {
             }
 
             #[inline(always)]
-            fn as_object_mut(&mut self) -> &mut dyn $trait_name<ID = Self::ID> {
+            fn as_mut_object(&mut self) -> &mut dyn $trait_name<ID = Self::ID> {
                 self
             }
 
@@ -527,7 +562,7 @@ macro_rules! tag_object_traits {
         $crate::vm::object::macros::tag_object_traits!{
             @tag
             tag=$trt_name $(: $($obj_bound)* )?;
-            acc={ $trt, $($tagged_trt,)* };
+            acc={ $($tagged_trt,)* $trt, };
             $($used)*
         }
     };

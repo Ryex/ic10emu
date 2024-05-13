@@ -10,7 +10,7 @@ pub mod stationpedia;
 pub mod templates;
 pub mod traits;
 
-use traits::*;
+use traits::Object;
 
 use crate::vm::enums::{basic_enums::Class as SlotClass, script_enums::LogicSlotType};
 
@@ -105,6 +105,7 @@ pub struct Slot {
     pub index: usize,
     pub name: String,
     pub typ: SlotClass,
-    pub enabled_logic: Vec<LogicSlotType>,
+    pub readable_logic: Vec<LogicSlotType>,
+    pub writeable_logic: Vec<LogicSlotType>,
     pub occupant: Option<ObjectID>,
 }

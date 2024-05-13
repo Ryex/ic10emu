@@ -8,13 +8,13 @@ pub enum LogicError {
     #[error("can't read LogicType {0}")]
     CantRead(LogicType),
     #[error("can't read slot {1} LogicSlotType {0}")]
-    CantSlotRead(LogicSlotType, usize),
+    CantSlotRead(LogicSlotType, f64),
     #[error("can't write LogicType {0}")]
     CantWrite(LogicType),
     #[error("can't write slot {1} LogicSlotType {0}")]
-    CantSlotWrite(LogicSlotType, usize),
+    CantSlotWrite(LogicSlotType, f64),
     #[error("slot id {0} is out of range 0..{1}")]
-    SlotIndexOutOfRange(usize, usize),
+    SlotIndexOutOfRange(f64, usize),
 }
 
 #[derive(Error, Debug, Clone, Serialize, Deserialize)]

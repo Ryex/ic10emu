@@ -1,3 +1,19 @@
+macro_rules! GWStructure {
+    (
+        $( #[$attr:meta] )*
+        $viz:vis struct $struct:ident {
+            $($body:tt)*
+        }
+    ) => {
+        impl GWStructure for $struct {
+            fn small_grid(&self) -> bool {
+                self.small_grid
+            }
+        }
+    };
+}
+pub(crate) use GWStructure;
+
 macro_rules! GWStorage {
     (
         $( #[$attr:meta] )*
@@ -30,6 +46,9 @@ macro_rules! GWLogicable {
             }
             fn fields_mut(&mut self) -> &mut BTreeMap<LogicType, LogicField> {
                 &mut self.fields
+            }
+            fn modes(&self) -> Option<&BTreeMap<u32, String>> {
+                self.modes.as_ref()
             }
         }
     };
@@ -113,6 +132,9 @@ macro_rules! GWItem {
             }
             fn parent_slot(&self) -> Option<ParentSlotInfo> {
                 self.parent_slot
+            }
+            fn set_parent_slot(&mut self, info: Option<ParentSlotInfo>) {
+                self.parent_slot = info;
             }
         }
     };

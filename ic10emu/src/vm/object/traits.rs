@@ -1,9 +1,7 @@
 use serde_derive::{Deserialize, Serialize};
 
 use crate::{
-    errors::ICError,
-    network::Connection,
-    vm::{
+    errors::ICError, interpreter::ICState, network::Connection, vm::{
         enums::{
             basic_enums::{Class as SlotClass, GasType, SortingClass},
             script_enums::{LogicSlotType, LogicType},
@@ -15,7 +13,7 @@ use crate::{
             ObjectID, Slot,
         },
         VM,
-    },
+    }
 };
 use std::{collections::BTreeMap, fmt::Debug};
 
@@ -28,20 +26,27 @@ pub struct ParentSlotInfo {
 tag_object_traits! {
     #![object_trait(Object: Debug)]
 
-    pub trait MemoryReadable {
-        fn memory_size(&self) -> usize;
-        fn get_memory(&self, index: i32) -> Result<f64, MemoryError>;
-    }
-
-    pub trait MemoryWritable: MemoryReadable {
-        fn set_memory(&mut self, index: i32, val: f64) -> Result<(), MemoryError>;
-        fn clear_memory(&mut self) -> Result<(), MemoryError>;
+    pub trait Structure {
+        fn is_small_grid(&self) -> bool;
     }
 
     pub trait Storage {
         fn slots_count(&self) -> usize;
         fn get_slot(&self, index: usize) -> Option<&Slot>;
         fn get_slot_mut(&mut self, index: usize) -> Option<&mut Slot>;
+        fn get_slots(&self) -> &[Slot];
+        fn get_slots_mut(&mut self) -> &mut [Slot];
+    }
+
+    pub trait MemoryReadable {
+        fn memory_size(&self) -> usize;
+        fn get_memory(&self, index: i32) -> Result<f64, MemoryError>;
+        fn get_memory_slice(&self) -> &[f64];
+    }
+
+    pub trait MemoryWritable: MemoryReadable {
+        fn set_memory(&mut self, index: i32, val: f64) -> Result<(), MemoryError>;
+        fn clear_memory(&mut self) -> Result<(), MemoryError>;
     }
 
     pub trait Logicable: Storage {
@@ -54,9 +59,10 @@ tag_object_traits! {
         fn can_logic_write(&self, lt: LogicType) -> bool;
         fn set_logic(&mut self, lt: LogicType, value: f64, force: bool) -> Result<(), LogicError>;
         fn get_logic(&self, lt: LogicType) -> Result<f64, LogicError>;
-
         fn can_slot_logic_read(&self, slt: LogicSlotType, index: f64) -> bool;
         fn get_slot_logic(&self, slt: LogicSlotType, index: f64, vm: &VM) -> Result<f64, LogicError>;
+        fn valid_logic_types(&self) -> Vec<LogicType>;
+        fn known_modes(&self) -> Option<Vec<(u32, String)>>;
     }
 
     pub trait SourceCode {
@@ -88,7 +94,8 @@ tag_object_traits! {
         fn reagents(&self) -> Option<&BTreeMap<String, f64>>;
         fn slot_class(&self) -> SlotClass;
         fn sorting_class(&self) -> SortingClass;
-        fn parent_slot(&self) -> Option<ParentSlotInfo>;
+        fn get_parent_slot(&self) -> Option<ParentSlotInfo>;
+        fn set_parent_slot(&mut self, info: Option<ParentSlotInfo>);
     }
 
     pub trait IntegratedCircuit: Logicable + MemoryWritable + SourceCode + Item {
@@ -114,12 +121,14 @@ tag_object_traits! {
         fn get_aliases(&self) -> &BTreeMap<String, crate::vm::instructions::operands::Operand>;
         fn get_defines(&self) -> &BTreeMap<String, f64>;
         fn get_labels(&self) -> &BTreeMap<String, u32>;
+        fn get_state(&self) -> ICState;
+        fn set_state(&mut self, state: ICState);
     }
 
     pub trait Programmable: ICInstructable {
         fn get_source_code(&self) -> String;
         fn set_source_code(&self, code: String);
-        fn step(&mut self) -> Result<(), crate::errors::ICError>;
+        fn step(&mut self, vm: &VM, advance_ip_on_err: bool) -> Result<(), crate::errors::ICError>;
     }
 
     pub trait Instructable: MemoryWritable {
@@ -131,6 +140,7 @@ tag_object_traits! {
     }
 
     pub trait Device: Logicable {
+        fn can_slot_logic_write(&self, slt: LogicSlotType, index: f64) -> bool;
         fn set_slot_logic(
             &mut self,
             slt: LogicSlotType,
@@ -144,6 +154,8 @@ tag_object_traits! {
         fn device_pins(&self) -> Option<&[Option<ObjectID>]>;
         fn device_pins_mut(&self) -> Option<&mut [Option<ObjectID>]>;
         fn has_activate_state(&self) -> bool;
+        fn has_atmosphere(&self) -> bool;
+        fn has_color_state(&self) -> bool;
         fn has_lock_state(&self) -> bool;
         fn has_mode_state(&self) -> bool;
         fn has_on_off_state(&self) -> bool;
@@ -182,7 +194,7 @@ impl<T: Debug> Debug for dyn Object<ID = T> {
         write!(
             f,
             "Object: (ID = {:?}, Type = {})",
-            self.id(),
+            self.get_id(),
             self.type_name()
         )
     }

@@ -9,8 +9,8 @@ use crate::{network::Connection, vm::{
 use macro_rules_attribute::derive;
 use std::collections::BTreeMap;
 
-#[derive(ObjectInterface!)]
-#[custom(implements(Object { }))]
+#[derive(ObjectInterface!, GWStructure!)]
+#[custom(implements(Object { Structure }))]
 pub struct Generic {
     #[custom(object_id)]
     pub id: ObjectID,
@@ -18,10 +18,11 @@ pub struct Generic {
     pub prefab: Name,
     #[custom(object_name)]
     pub name: Name,
+    pub small_grid: bool,
 }
 
-#[derive(ObjectInterface!, GWStorage!)]
-#[custom(implements(Object { Storage }))]
+#[derive(ObjectInterface!, GWStructure!, GWStorage!)]
+#[custom(implements(Object { Structure, Storage }))]
 pub struct GenericStorage {
     #[custom(object_id)]
     pub id: ObjectID,
@@ -29,11 +30,12 @@ pub struct GenericStorage {
     pub prefab: Name,
     #[custom(object_name)]
     pub name: Name,
+    pub small_grid: bool,
     pub slots: Vec<Slot>,
 }
 
-#[derive(ObjectInterface!, GWStorage!, GWLogicable!)]
-#[custom(implements(Object { Storage, Logicable }))]
+#[derive(ObjectInterface!, GWStructure!, GWStorage!, GWLogicable!)]
+#[custom(implements(Object { Structure, Storage, Logicable }))]
 pub struct GenericLogicable {
     #[custom(object_id)]
     pub id: ObjectID,
@@ -41,12 +43,14 @@ pub struct GenericLogicable {
     pub prefab: Name,
     #[custom(object_name)]
     pub name: Name,
-    pub fields: BTreeMap<LogicType, LogicField>,
+    pub small_grid: bool,
     pub slots: Vec<Slot>,
+    pub fields: BTreeMap<LogicType, LogicField>,
+    pub modes: Option<BTreeMap<u32, String>>,
 }
 
-#[derive(ObjectInterface!, GWStorage!, GWLogicable!, GWDevice!)]
-#[custom(implements(Object { Storage, Logicable, Device }))]
+#[derive(ObjectInterface!, GWStructure!, GWStorage!, GWLogicable!, GWDevice!)]
+#[custom(implements(Object { Structure, Storage, Logicable, Device }))]
 pub struct GenericLogicableDevice {
     #[custom(object_id)]
     pub id: ObjectID,
@@ -54,15 +58,17 @@ pub struct GenericLogicableDevice {
     pub prefab: Name,
     #[custom(object_name)]
     pub name: Name,
-    pub fields: BTreeMap<LogicType, LogicField>,
+    pub small_grid: bool,
     pub slots: Vec<Slot>,
+    pub fields: BTreeMap<LogicType, LogicField>,
+    pub modes: Option<BTreeMap<u32, String>>,
     pub device_info: DeviceInfo,
     pub connections: Vec<Connection>,
     pub pins: Option<Vec<Option<ObjectID>>>,
 }
 
-#[derive(ObjectInterface!, GWStorage!, GWLogicable!, GWDevice!, GWMemoryReadable!, GWMemoryWritable!)]
-#[custom(implements(Object { Storage, Logicable, Device, MemoryReadable }))]
+#[derive(ObjectInterface!, GWStructure!, GWStorage!, GWLogicable!, GWDevice!, GWMemoryReadable!, GWMemoryWritable!)]
+#[custom(implements(Object { Structure, Storage, Logicable, Device, MemoryReadable }))]
 pub struct GenericLogicableDeviceMemoryReadable {
     #[custom(object_id)]
     pub id: ObjectID,
@@ -70,16 +76,18 @@ pub struct GenericLogicableDeviceMemoryReadable {
     pub prefab: Name,
     #[custom(object_name)]
     pub name: Name,
-    pub fields: BTreeMap<LogicType, LogicField>,
+    pub small_grid: bool
     pub slots: Vec<Slot>,
+    pub fields: BTreeMap<LogicType, LogicField>,
+    pub modes: Option<BTreeMap<u32, String>>,
     pub device_info: DeviceInfo,
     pub connections: Vec<Connection>,
     pub pins: Option<Vec<Option<ObjectID>>>,
     pub memory: Vec<f64>,
 }
 
-#[derive(ObjectInterface!, GWStorage!, GWLogicable!, GWDevice!, GWMemoryReadable!, GWMemoryWritable!)]
-#[custom(implements(Object { Storage, Logicable, Device, MemoryReadable, MemoryWritable }))]
+#[derive(ObjectInterface!, GWStructure!, GWStorage!, GWLogicable!, GWDevice!, GWMemoryReadable!, GWMemoryWritable!)]
+#[custom(implements(Object { Structure, Storage, Logicable, Device, MemoryReadable, MemoryWritable }))]
 pub struct GenericLogicableDeviceMemoryReadWriteable {
     #[custom(object_id)]
     pub id: ObjectID,
@@ -87,8 +95,10 @@ pub struct GenericLogicableDeviceMemoryReadWriteable {
     pub prefab: Name,
     #[custom(object_name)]
     pub name: Name,
-    pub fields: BTreeMap<LogicType, LogicField>,
+    pub small_grid: bool,
     pub slots: Vec<Slot>,
+    pub fields: BTreeMap<LogicType, LogicField>,
+    pub modes: Option<BTreeMap<u32, String>>,
     pub device_info: DeviceInfo,
     pub connections: Vec<Connection>,
     pub pins: Option<Vec<Option<ObjectID>>>,
@@ -133,8 +143,9 @@ pub struct GenericItemLogicable {
     pub name: Name,
     pub item_info: ItemInfo,
     pub parent_slot: Option<ParentSlotInfo>,
-    pub fields: BTreeMap<LogicType, LogicField>,
     pub slots: Vec<Slot>,
+    pub fields: BTreeMap<LogicType, LogicField>,
+    pub modes: Option<BTreeMap<u32, String>>,
 }
 
 #[derive(ObjectInterface!, GWItem!, GWStorage!, GWLogicable!, GWMemoryReadable! )]
@@ -148,8 +159,9 @@ pub struct GenericItemLogicableMemoryReadable {
     pub name: Name,
     pub item_info: ItemInfo,
     pub parent_slot: Option<ParentSlotInfo>,
-    pub fields: BTreeMap<LogicType, LogicField>,
     pub slots: Vec<Slot>,
+    pub fields: BTreeMap<LogicType, LogicField>,
+    pub modes: Option<BTreeMap<u32, String>>,
     pub memory: Vec<f64>,
 }
 
@@ -164,7 +176,8 @@ pub struct GenericItemLogicableMemoryReadWriteable {
     pub name: Name,
     pub item_info: ItemInfo,
     pub parent_slot: Option<ParentSlotInfo>,
-    pub fields: BTreeMap<LogicType, LogicField>,
     pub slots: Vec<Slot>,
+    pub fields: BTreeMap<LogicType, LogicField>,
+    pub modes: Option<BTreeMap<u32, String>>,
     pub memory: Vec<f64>,
 }

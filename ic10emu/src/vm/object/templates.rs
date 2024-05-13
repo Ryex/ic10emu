@@ -1,10 +1,12 @@
 use std::collections::BTreeMap;
 
 use crate::{
-    network::{ConnectionRole, ConnectionType},
+    errors::TemplateError,
+    network::{Connection, ConnectionRole, ConnectionType},
     vm::{
         enums::{
             basic_enums::{Class as SlotClass, GasType, SortingClass},
+            prefabs::StationpediaPrefab,
             script_enums::{LogicSlotType, LogicType},
         },
         object::{
@@ -15,11 +17,13 @@ use crate::{
                 GenericLogicableDeviceMemoryReadWriteable, GenericLogicableDeviceMemoryReadable,
                 GenericStorage,
             },
+            traits::*,
             LogicField, Name, Slot,
         },
     },
 };
 use serde_derive::{Deserialize, Serialize};
+use strum::IntoEnumIterator;
 
 use super::{stationpedia, MemoryAccess, ObjectID, VMObject};
 
@@ -38,7 +42,7 @@ pub enum ObjectTemplate {
 }
 
 impl ObjectTemplate {
-    pub fn prefab(&self) -> &PrefabInfo {
+    pub fn prefab_info(&self) -> &PrefabInfo {
         use ObjectTemplate::*;
         match self {
             Structure(s) => &s.prefab,
@@ -53,7 +57,7 @@ impl ObjectTemplate {
         }
     }
 
-    pub fn object(&self) -> Option<&ObjectInfo> {
+    pub fn object_info(&self) -> Option<&ObjectInfo> {
         use ObjectTemplate::*;
         match self {
             Structure(s) => s.object.as_ref(),
@@ -106,7 +110,7 @@ impl ObjectTemplate {
                 .filter_map(|info| {
                     info.occupant
                         .as_ref()
-                        .map(|obj| obj.object().map(|obj_info| obj_info.id).flatten())
+                        .map(|obj| obj.object_info().map(|obj_info| obj_info.id).flatten())
                 })
                 .flatten()
                 .collect(),
@@ -116,7 +120,7 @@ impl ObjectTemplate {
                 .filter_map(|info| {
                     info.occupant
                         .as_ref()
-                        .map(|obj| obj.object().map(|obj_info| obj_info.id).flatten())
+                        .map(|obj| obj.object_info().map(|obj_info| obj_info.id).flatten())
                 })
                 .flatten()
                 .collect(),
@@ -126,7 +130,7 @@ impl ObjectTemplate {
                 .filter_map(|info| {
                     info.occupant
                         .as_ref()
-                        .map(|obj| obj.object().map(|obj_info| obj_info.id).flatten())
+                        .map(|obj| obj.object_info().map(|obj_info| obj_info.id).flatten())
                 })
                 .flatten()
                 .collect(),
@@ -136,7 +140,7 @@ impl ObjectTemplate {
                 .filter_map(|info| {
                     info.occupant
                         .as_ref()
-                        .map(|obj| obj.object().map(|obj_info| obj_info.id).flatten())
+                        .map(|obj| obj.object_info().map(|obj_info| obj_info.id).flatten())
                 })
                 .flatten()
                 .collect(),
@@ -146,7 +150,7 @@ impl ObjectTemplate {
                 .filter_map(|info| {
                     info.occupant
                         .as_ref()
-                        .map(|obj| obj.object().map(|obj_info| obj_info.id).flatten())
+                        .map(|obj| obj.object_info().map(|obj_info| obj_info.id).flatten())
                 })
                 .flatten()
                 .collect(),
@@ -156,7 +160,7 @@ impl ObjectTemplate {
                 .filter_map(|info| {
                     info.occupant
                         .as_ref()
-                        .map(|obj| obj.object().map(|obj_info| obj_info.id).flatten())
+                        .map(|obj| obj.object_info().map(|obj_info| obj_info.id).flatten())
                 })
                 .flatten()
                 .collect(),
@@ -166,7 +170,7 @@ impl ObjectTemplate {
                 .filter_map(|info| {
                     info.occupant
                         .as_ref()
-                        .map(|obj| obj.object().map(|obj_info| obj_info.id).flatten())
+                        .map(|obj| obj.object_info().map(|obj_info| obj_info.id).flatten())
                 })
                 .flatten()
                 .collect(),
@@ -197,11 +201,13 @@ impl ObjectTemplate {
                 id,
                 prefab: Name::from_prefab_name(&s.prefab.prefab_name),
                 name: Name::new(&s.prefab.name),
+                small_grid: s.structure.small_grid,
             }),
             StructureSlots(s) => VMObject::new(GenericStorage {
                 id,
                 prefab: Name::from_prefab_name(&s.prefab.prefab_name),
                 name: Name::new(&s.prefab.name),
+                small_grid: s.structure.small_grid,
                 slots: s
                     .slots
                     .iter()
@@ -211,7 +217,8 @@ impl ObjectTemplate {
                         index,
                         name: info.name.clone(),
                         typ: info.typ,
-                        enabled_logic: Vec::new(),
+                        readable_logic: Vec::new(),
+                        writeable_logic: Vec::new(),
                         occupant: None,
                     })
                     .collect(),
@@ -220,6 +227,51 @@ impl ObjectTemplate {
                 id,
                 prefab: Name::from_prefab_name(&s.prefab.prefab_name),
                 name: Name::new(&s.prefab.name),
+                small_grid: s.structure.small_grid,
+                slots: s
+                    .slots
+                    .iter()
+                    .enumerate()
+                    .map(|(index, info)| Slot {
+                        parent: id,
+                        index,
+                        name: info.name.clone(),
+                        typ: info.typ,
+                        readable_logic: s
+                            .logic
+                            .logic_slot_types
+                            .get(&(index as u32))
+                            .map(|s_info| {
+                                s_info
+                                    .slot_types
+                                    .iter()
+                                    .filter_map(|(key, access)| match access {
+                                        MemoryAccess::Read | MemoryAccess::ReadWrite => Some(key),
+                                        _ => None,
+                                    })
+                                    .copied()
+                                    .collect::<Vec<_>>()
+                            })
+                            .unwrap_or_else(|| Vec::new()),
+                        writeable_logic: s
+                            .logic
+                            .logic_slot_types
+                            .get(&(index as u32))
+                            .map(|s_info| {
+                                s_info
+                                    .slot_types
+                                    .iter()
+                                    .filter_map(|(key, access)| match access {
+                                        MemoryAccess::Write | MemoryAccess::ReadWrite => Some(key),
+                                        _ => None,
+                                    })
+                                    .copied()
+                                    .collect::<Vec<_>>()
+                            })
+                            .unwrap_or_else(|| Vec::new()),
+                        occupant: None,
+                    })
+                    .collect(),
                 fields: s
                     .logic
                     .logic_types
@@ -235,29 +287,57 @@ impl ObjectTemplate {
                         )
                     })
                     .collect(),
-                slots: s
-                    .slots
-                    .iter()
-                    .enumerate()
-                    .map(|(index, info)| Slot {
-                        parent: id,
-                        index,
-                        name: info.name.clone(),
-                        typ: info.typ,
-                        enabled_logic: s
-                            .logic
-                            .logic_slot_types
-                            .get(&(index as u32))
-                            .map(|s_info| s_info.slot_types.keys().copied().collect::<Vec<_>>())
-                            .unwrap_or_else(|| Vec::new()),
-                        occupant: None,
-                    })
-                    .collect(),
+                modes: s.logic.modes.clone(),
             }),
             StructureLogicDevice(s) => VMObject::new(GenericLogicableDevice {
                 id,
                 prefab: Name::from_prefab_name(&s.prefab.prefab_name),
                 name: Name::new(&s.prefab.name),
+                small_grid: s.structure.small_grid,
+                slots: s
+                    .slots
+                    .iter()
+                    .enumerate()
+                    .map(|(index, info)| Slot {
+                        parent: id,
+                        index,
+                        name: info.name.clone(),
+                        typ: info.typ,
+                        readable_logic: s
+                            .logic
+                            .logic_slot_types
+                            .get(&(index as u32))
+                            .map(|s_info| {
+                                s_info
+                                    .slot_types
+                                    .iter()
+                                    .filter_map(|(key, access)| match access {
+                                        MemoryAccess::Read | MemoryAccess::ReadWrite => Some(key),
+                                        _ => None,
+                                    })
+                                    .copied()
+                                    .collect::<Vec<_>>()
+                            })
+                            .unwrap_or_else(|| Vec::new()),
+                        writeable_logic: s
+                            .logic
+                            .logic_slot_types
+                            .get(&(index as u32))
+                            .map(|s_info| {
+                                s_info
+                                    .slot_types
+                                    .iter()
+                                    .filter_map(|(key, access)| match access {
+                                        MemoryAccess::Write | MemoryAccess::ReadWrite => Some(key),
+                                        _ => None,
+                                    })
+                                    .copied()
+                                    .collect::<Vec<_>>()
+                            })
+                            .unwrap_or_else(|| Vec::new()),
+                        occupant: None,
+                    })
+                    .collect(),
                 fields: s
                     .logic
                     .logic_types
@@ -273,24 +353,18 @@ impl ObjectTemplate {
                         )
                     })
                     .collect(),
-                slots: s
-                    .slots
+                modes: s.logic.modes.clone(),
+                connections: s
+                    .device
+                    .connection_list
                     .iter()
-                    .enumerate()
-                    .map(|(index, info)| Slot {
-                        parent: id,
-                        index,
-                        name: info.name.clone(),
-                        typ: info.typ,
-                        enabled_logic: s
-                            .logic
-                            .logic_slot_types
-                            .get(&(index as u32))
-                            .map(|s_info| s_info.slot_types.keys().copied().collect::<Vec<_>>())
-                            .unwrap_or_else(|| Vec::new()),
-                        occupant: None,
-                    })
+                    .map(|conn_info| Connection::from_info(conn_info.typ, conn_info.role))
                     .collect(),
+                pins: s
+                    .device
+                    .device_pins_length
+                    .map(|pins_len| vec![None; pins_len]),
+                device_info: s.device.clone(),
             }),
             StructureLogicDeviceMemory(s)
                 if matches!(s.memory.memory_access, MemoryAccess::Read) =>
@@ -299,6 +373,55 @@ impl ObjectTemplate {
                     id,
                     prefab: Name::from_prefab_name(&s.prefab.prefab_name),
                     name: Name::new(&s.prefab.name),
+                    small_grid: s.structure.small_grid,
+                    slots: s
+                        .slots
+                        .iter()
+                        .enumerate()
+                        .map(|(index, info)| Slot {
+                            parent: id,
+                            index,
+                            name: info.name.clone(),
+                            typ: info.typ,
+                            readable_logic: s
+                                .logic
+                                .logic_slot_types
+                                .get(&(index as u32))
+                                .map(|s_info| {
+                                    s_info
+                                        .slot_types
+                                        .iter()
+                                        .filter_map(|(key, access)| match access {
+                                            MemoryAccess::Read | MemoryAccess::ReadWrite => {
+                                                Some(key)
+                                            }
+                                            _ => None,
+                                        })
+                                        .copied()
+                                        .collect::<Vec<_>>()
+                                })
+                                .unwrap_or_else(|| Vec::new()),
+                            writeable_logic: s
+                                .logic
+                                .logic_slot_types
+                                .get(&(index as u32))
+                                .map(|s_info| {
+                                    s_info
+                                        .slot_types
+                                        .iter()
+                                        .filter_map(|(key, access)| match access {
+                                            MemoryAccess::Write | MemoryAccess::ReadWrite => {
+                                                Some(key)
+                                            }
+                                            _ => None,
+                                        })
+                                        .copied()
+                                        .collect::<Vec<_>>()
+                                })
+                                .unwrap_or_else(|| Vec::new()),
+                            occupant: None,
+                        })
+                        .collect(),
                     fields: s
                         .logic
                         .logic_types
@@ -314,24 +437,18 @@ impl ObjectTemplate {
                             )
                         })
                         .collect(),
-                    slots: s
-                        .slots
+                    modes: s.logic.modes.clone(),
+                    connections: s
+                        .device
+                        .connection_list
                         .iter()
-                        .enumerate()
-                        .map(|(index, info)| Slot {
-                            parent: id,
-                            index,
-                            name: info.name.clone(),
-                            typ: info.typ,
-                            enabled_logic: s
-                                .logic
-                                .logic_slot_types
-                                .get(&(index as u32))
-                                .map(|s_info| s_info.slot_types.keys().copied().collect::<Vec<_>>())
-                                .unwrap_or_else(|| Vec::new()),
-                            occupant: None,
-                        })
+                        .map(|conn_info| Connection::from_info(conn_info.typ, conn_info.role))
                         .collect(),
+                    pins: s
+                        .device
+                        .device_pins_length
+                        .map(|pins_len| vec![None; pins_len]),
+                    device_info: s.device.clone(),
                     memory: vec![0.0; s.memory.memory_size as usize],
                 })
             }
@@ -340,6 +457,55 @@ impl ObjectTemplate {
                     id,
                     prefab: Name::from_prefab_name(&s.prefab.prefab_name),
                     name: Name::new(&s.prefab.name),
+                    small_grid: s.structure.small_grid,
+                    slots: s
+                        .slots
+                        .iter()
+                        .enumerate()
+                        .map(|(index, info)| Slot {
+                            parent: id,
+                            index,
+                            name: info.name.clone(),
+                            typ: info.typ,
+                            readable_logic: s
+                                .logic
+                                .logic_slot_types
+                                .get(&(index as u32))
+                                .map(|s_info| {
+                                    s_info
+                                        .slot_types
+                                        .iter()
+                                        .filter_map(|(key, access)| match access {
+                                            MemoryAccess::Read | MemoryAccess::ReadWrite => {
+                                                Some(key)
+                                            }
+                                            _ => None,
+                                        })
+                                        .copied()
+                                        .collect::<Vec<_>>()
+                                })
+                                .unwrap_or_else(|| Vec::new()),
+                            writeable_logic: s
+                                .logic
+                                .logic_slot_types
+                                .get(&(index as u32))
+                                .map(|s_info| {
+                                    s_info
+                                        .slot_types
+                                        .iter()
+                                        .filter_map(|(key, access)| match access {
+                                            MemoryAccess::Write | MemoryAccess::ReadWrite => {
+                                                Some(key)
+                                            }
+                                            _ => None,
+                                        })
+                                        .copied()
+                                        .collect::<Vec<_>>()
+                                })
+                                .unwrap_or_else(|| Vec::new()),
+                            occupant: None,
+                        })
+                        .collect(),
                     fields: s
                         .logic
                         .logic_types
@@ -355,24 +521,18 @@ impl ObjectTemplate {
                             )
                         })
                         .collect(),
-                    slots: s
-                        .slots
+                    modes: s.logic.modes.clone(),
+                    connections: s
+                        .device
+                        .connection_list
                         .iter()
-                        .enumerate()
-                        .map(|(index, info)| Slot {
-                            parent: id,
-                            index,
-                            name: info.name.clone(),
-                            typ: info.typ,
-                            enabled_logic: s
-                                .logic
-                                .logic_slot_types
-                                .get(&(index as u32))
-                                .map(|s_info| s_info.slot_types.keys().copied().collect::<Vec<_>>())
-                                .unwrap_or_else(|| Vec::new()),
-                            occupant: None,
-                        })
+                        .map(|conn_info| Connection::from_info(conn_info.typ, conn_info.role))
                         .collect(),
+                    pins: s
+                        .device
+                        .device_pins_length
+                        .map(|pins_len| vec![None; pins_len]),
+                    device_info: s.device.clone(),
                     memory: vec![0.0; s.memory.memory_size as usize],
                 })
             }
@@ -398,7 +558,8 @@ impl ObjectTemplate {
                         index,
                         name: info.name.clone(),
                         typ: info.typ,
-                        enabled_logic: Vec::new(),
+                        readable_logic: Vec::new(),
+                        writeable_logic: Vec::new(),
                         occupant: None,
                     })
                     .collect(),
@@ -409,6 +570,50 @@ impl ObjectTemplate {
                 name: Name::new(&i.prefab.name),
                 item_info: i.item.clone(),
                 parent_slot: None,
+                slots: i
+                    .slots
+                    .iter()
+                    .enumerate()
+                    .map(|(index, info)| Slot {
+                        parent: id,
+                        index,
+                        name: info.name.clone(),
+                        typ: info.typ,
+                        readable_logic: i
+                            .logic
+                            .logic_slot_types
+                            .get(&(index as u32))
+                            .map(|s_info| {
+                                s_info
+                                    .slot_types
+                                    .iter()
+                                    .filter_map(|(key, access)| match access {
+                                        MemoryAccess::Read | MemoryAccess::ReadWrite => Some(key),
+                                        _ => None,
+                                    })
+                                    .copied()
+                                    .collect::<Vec<_>>()
+                            })
+                            .unwrap_or_else(|| Vec::new()),
+                        writeable_logic: i
+                            .logic
+                            .logic_slot_types
+                            .get(&(index as u32))
+                            .map(|s_info| {
+                                s_info
+                                    .slot_types
+                                    .iter()
+                                    .filter_map(|(key, access)| match access {
+                                        MemoryAccess::Write | MemoryAccess::ReadWrite => Some(key),
+                                        _ => None,
+                                    })
+                                    .copied()
+                                    .collect::<Vec<_>>()
+                            })
+                            .unwrap_or_else(|| Vec::new()),
+                        occupant: None,
+                    })
+                    .collect(),
                 fields: i
                     .logic
                     .logic_types
@@ -424,24 +629,7 @@ impl ObjectTemplate {
                         )
                     })
                     .collect(),
-                slots: i
-                    .slots
-                    .iter()
-                    .enumerate()
-                    .map(|(index, info)| Slot {
-                        parent: id,
-                        index,
-                        name: info.name.clone(),
-                        typ: info.typ,
-                        enabled_logic: i
-                            .logic
-                            .logic_slot_types
-                            .get(&(index as u32))
-                            .map(|s_info| s_info.slot_types.keys().copied().collect::<Vec<_>>())
-                            .unwrap_or_else(|| Vec::new()),
-                        occupant: None,
-                    })
-                    .collect(),
+                modes: i.logic.modes.clone(),
             }),
             ItemLogicMemory(i) if matches!(i.memory.memory_access, MemoryAccess::Read) => {
                 VMObject::new(GenericItemLogicableMemoryReadable {
@@ -450,6 +638,54 @@ impl ObjectTemplate {
                     name: Name::new(&i.prefab.name),
                     item_info: i.item.clone(),
                     parent_slot: None,
+                    slots: i
+                        .slots
+                        .iter()
+                        .enumerate()
+                        .map(|(index, info)| Slot {
+                            parent: id,
+                            index,
+                            name: info.name.clone(),
+                            typ: info.typ,
+                            readable_logic: i
+                                .logic
+                                .logic_slot_types
+                                .get(&(index as u32))
+                                .map(|s_info| {
+                                    s_info
+                                        .slot_types
+                                        .iter()
+                                        .filter_map(|(key, access)| match access {
+                                            MemoryAccess::Read | MemoryAccess::ReadWrite => {
+                                                Some(key)
+                                            }
+                                            _ => None,
+                                        })
+                                        .copied()
+                                        .collect::<Vec<_>>()
+                                })
+                                .unwrap_or_else(|| Vec::new()),
+                            writeable_logic: i
+                                .logic
+                                .logic_slot_types
+                                .get(&(index as u32))
+                                .map(|s_info| {
+                                    s_info
+                                        .slot_types
+                                        .iter()
+                                        .filter_map(|(key, access)| match access {
+                                            MemoryAccess::Write | MemoryAccess::ReadWrite => {
+                                                Some(key)
+                                            }
+                                            _ => None,
+                                        })
+                                        .copied()
+                                        .collect::<Vec<_>>()
+                                })
+                                .unwrap_or_else(|| Vec::new()),
+                            occupant: None,
+                        })
+                        .collect(),
                     fields: i
                         .logic
                         .logic_types
@@ -465,24 +701,7 @@ impl ObjectTemplate {
                             )
                         })
                         .collect(),
-                    slots: i
-                        .slots
-                        .iter()
-                        .enumerate()
-                        .map(|(index, info)| Slot {
-                            parent: id,
-                            index,
-                            name: info.name.clone(),
-                            typ: info.typ,
-                            enabled_logic: i
-                                .logic
-                                .logic_slot_types
-                                .get(&(index as u32))
-                                .map(|s_info| s_info.slot_types.keys().copied().collect::<Vec<_>>())
-                                .unwrap_or_else(|| Vec::new()),
-                            occupant: None,
-                        })
-                        .collect(),
+                    modes: i.logic.modes.clone(),
                     memory: vec![0.0; i.memory.memory_size as usize],
                 })
             }
@@ -492,6 +711,50 @@ impl ObjectTemplate {
                 name: Name::new(&i.prefab.name),
                 item_info: i.item.clone(),
                 parent_slot: None,
+                slots: i
+                    .slots
+                    .iter()
+                    .enumerate()
+                    .map(|(index, info)| Slot {
+                        parent: id,
+                        index,
+                        name: info.name.clone(),
+                        typ: info.typ,
+                        readable_logic: i
+                            .logic
+                            .logic_slot_types
+                            .get(&(index as u32))
+                            .map(|s_info| {
+                                s_info
+                                    .slot_types
+                                    .iter()
+                                    .filter_map(|(key, access)| match access {
+                                        MemoryAccess::Read | MemoryAccess::ReadWrite => Some(key),
+                                        _ => None,
+                                    })
+                                    .copied()
+                                    .collect::<Vec<_>>()
+                            })
+                            .unwrap_or_else(|| Vec::new()),
+                        writeable_logic: i
+                            .logic
+                            .logic_slot_types
+                            .get(&(index as u32))
+                            .map(|s_info| {
+                                s_info
+                                    .slot_types
+                                    .iter()
+                                    .filter_map(|(key, access)| match access {
+                                        MemoryAccess::Write | MemoryAccess::ReadWrite => Some(key),
+                                        _ => None,
+                                    })
+                                    .copied()
+                                    .collect::<Vec<_>>()
+                            })
+                            .unwrap_or_else(|| Vec::new()),
+                        occupant: None,
+                    })
+                    .collect(),
                 fields: i
                     .logic
                     .logic_types
@@ -507,26 +770,688 @@ impl ObjectTemplate {
                         )
                     })
                     .collect(),
-                slots: i
-                    .slots
-                    .iter()
-                    .enumerate()
-                    .map(|(index, info)| Slot {
-                        parent: id,
-                        index,
-                        name: info.name.clone(),
-                        typ: info.typ,
-                        enabled_logic: i
-                            .logic
-                            .logic_slot_types
-                            .get(&(index as u32))
-                            .map(|s_info| s_info.slot_types.keys().copied().collect::<Vec<_>>())
-                            .unwrap_or_else(|| Vec::new()),
-                        occupant: None,
-                    })
-                    .collect(),
+                modes: i.logic.modes.clone(),
                 memory: vec![0.0; i.memory.memory_size as usize],
             }),
+        }
+    }
+
+    pub fn freeze_object(obj: &VMObject) -> Result<Self, TemplateError> {
+        let obj_ref = obj.borrow();
+        let interfaces = ObjectInterfaces::from_object(&*obj_ref);
+        match interfaces {
+            ObjectInterfaces {
+                structure: Some(stru),
+                storage: None,
+                memory_readable: None,
+                memory_writable: None,
+                logicable: None,
+                source_code: None,
+                circuit_holder: None,
+                item: None,
+                integrated_circuit: None,
+                programmable: None,
+                instructable: None,
+                logic_stack: None,
+                device: None,
+                wireless_transmit: None,
+                wireless_receive: None,
+                network: None,
+            } => {
+                let prefab_lookup = StationpediaPrefab::from_repr(obj_ref.get_prefab().hash);
+                // completely generic structure? not sure how this got created but it technically
+                // valid in the data model
+                Ok(ObjectTemplate::Structure(StructureTemplate {
+                    object: Some(ObjectInfo {
+                        name: Some(obj_ref.get_name().value()),
+                        id: Some(*obj_ref.get_id()),
+                    }),
+                    prefab: PrefabInfo {
+                        prefab_name: obj_ref.get_prefab().value,
+                        prefab_hash: obj_ref.get_prefab().hash,
+                        name: prefab_lookup
+                            .map(|prefab| prefab.get_str("name"))
+                            .flatten()
+                            .unwrap_or("")
+                            .to_string(),
+                        desc: prefab_lookup
+                            .map(|prefab| prefab.get_str("desc"))
+                            .flatten()
+                            .unwrap_or("")
+                            .to_string(),
+                    },
+                    structure: StructureInfo {
+                        small_grid: stru.is_small_grid(),
+                    },
+                }))
+            }
+            ObjectInterfaces {
+                structure: Some(stru),
+                storage: Some(storage),
+                memory_readable: None,
+                memory_writable: None,
+                logicable: None,
+                source_code: None,
+                circuit_holder: None,
+                item: None,
+                integrated_circuit: None,
+                programmable: None,
+                instructable: None,
+                logic_stack: None,
+                device: None,
+                wireless_transmit: None,
+                wireless_receive: None,
+                network: None,
+            } => {
+                let prefab_lookup = StationpediaPrefab::from_repr(obj_ref.get_prefab().hash);
+                Ok(ObjectTemplate::StructureSlots(StructureSlotsTemplate {
+                    object: Some(ObjectInfo {
+                        name: Some(obj_ref.get_name().value()),
+                        id: Some(*obj_ref.get_id()),
+                    }),
+                    prefab: PrefabInfo {
+                        prefab_name: obj_ref.get_prefab().value,
+                        prefab_hash: obj_ref.get_prefab().hash,
+                        name: prefab_lookup
+                            .map(|prefab| prefab.get_str("name"))
+                            .flatten()
+                            .unwrap_or("")
+                            .to_string(),
+                        desc: prefab_lookup
+                            .map(|prefab| prefab.get_str("desc"))
+                            .flatten()
+                            .unwrap_or("")
+                            .to_string(),
+                    },
+                    structure: StructureInfo {
+                        small_grid: stru.is_small_grid(),
+                    },
+                    slots: storage
+                        .get_slots()
+                        .iter()
+                        .map(|slot| {
+                            Ok(SlotInfo {
+                                name: slot.name.clone(),
+                                typ: slot.typ,
+                                occupant: slot
+                                    .occupant
+                                    .map(|occupant| ObjectTemplate::freeze_object(occupant))
+                                    .map_or(Ok(None), |v| v.map(Some))?,
+                            })
+                        })
+                        .collect::<Result<Vec<_>, _>>()?,
+                }))
+            }
+            ObjectInterfaces {
+                structure: Some(stru),
+                storage: Some(storage),
+                memory_readable: None,
+                memory_writable: None,
+                logicable: Some(logic),
+                source_code: None,
+                circuit_holder: None,
+                item: None,
+                integrated_circuit: None,
+                programmable: None,
+                instructable: None,
+                logic_stack: None,
+                device: None,
+                wireless_transmit: None,
+                wireless_receive: None,
+                network: None,
+            } => {
+                let prefab_lookup = StationpediaPrefab::from_repr(obj_ref.get_prefab().hash);
+                Ok(ObjectTemplate::StructureLogic(StructureLogicTemplate {
+                    object: Some(ObjectInfo {
+                        name: Some(obj_ref.get_name().value()),
+                        id: Some(*obj_ref.get_id()),
+                    }),
+                    prefab: PrefabInfo {
+                        prefab_name: obj_ref.get_prefab().value,
+                        prefab_hash: obj_ref.get_prefab().hash,
+                        name: prefab_lookup
+                            .map(|prefab| prefab.get_str("name"))
+                            .flatten()
+                            .unwrap_or("")
+                            .to_string(),
+                        desc: prefab_lookup
+                            .map(|prefab| prefab.get_str("desc"))
+                            .flatten()
+                            .unwrap_or("")
+                            .to_string(),
+                    },
+                    structure: StructureInfo {
+                        small_grid: stru.is_small_grid(),
+                    },
+                    slots: storage
+                        .get_slots()
+                        .iter()
+                        .map(|slot| {
+                            Ok(SlotInfo {
+                                name: slot.name.clone(),
+                                typ: slot.typ,
+                                occupant: slot
+                                    .occupant
+                                    .map(|occupant| ObjectTemplate::freeze_object(occupant))
+                                    .map_or(Ok(None), |v| v.map(Some))?,
+                            })
+                        })
+                        .collect::<Result<Vec<_>, _>>()?,
+                    logic: LogicInfo {
+                        logic_slot_types: storage
+                            .get_slots()
+                            .iter()
+                            .enumerate()
+                            .map(|(index, slot)| {
+                                (
+                                    index as u32,
+                                    LogicSlotTypes {
+                                        slot_types: LogicSlotType::iter()
+                                            .filter_map(|slt| {
+                                                let readable = slot.readable_logic.contains(&slt);
+                                                let writeable = slot.writeable_logic.contains(&slt);
+                                                if readable && writeable {
+                                                    Some((slt, MemoryAccess::ReadWrite))
+                                                } else if readable {
+                                                    Some((slt, MemoryAccess::Read))
+                                                } else if writeable {
+                                                    Some((slt, MemoryAccess::Write))
+                                                } else {
+                                                    None
+                                                }
+                                            })
+                                            .collect(),
+                                    },
+                                )
+                            })
+                            .collect(),
+                        logic_types: LogicTypes {
+                            types: logic
+                                .valid_logic_types()
+                                .iter()
+                                .filter_map(|lt| {
+                                    let readable = logic.can_logic_read(lt);
+                                    let writeable = logic.can_logic_write(lt);
+                                    if readable && writeable {
+                                        Some((lt, MemoryAccess::ReadWrite))
+                                    } else if readable {
+                                        Some((lt, MemoryAccess::Read))
+                                    } else if writeable {
+                                        Some((lt, MemoryAccess::Write))
+                                    } else {
+                                        None
+                                    }
+                                })
+                                .collect(),
+                        },
+                        modes: logic.known_modes().map(|modes| modes.iter().collect()),
+                        logic_values: logic
+                            .valid_logic_types()
+                            .iter()
+                            .filter_map(|lt| logic.get_logic(lt).ok()),
+                        transmission_receiver: false,
+                        wireless_logic: false,
+                        circuit_holder: false,
+                    },
+                }))
+            }
+            ObjectInterfaces {
+                structure: Some(stru),
+                storage: Some(storage),
+                memory_readable: None,
+                memory_writable: None,
+                logicable: Some(logic),
+                source_code: None,
+                circuit_holder: None,
+                item: None,
+                integrated_circuit: None,
+                programmable: None,
+                instructable: None,
+                logic_stack: None,
+                device: Some(device),
+                wireless_transmit: None,
+                wireless_receive: None,
+                network: None,
+            } => {
+                let prefab_lookup = StationpediaPrefab::from_repr(obj_ref.get_prefab().hash);
+                Ok(ObjectTemplate::StructureLogicDevice(
+                    StructureLogicDeviceTemplate {
+                        object: Some(ObjectInfo {
+                            name: Some(obj_ref.get_name().value()),
+                            id: Some(*obj_ref.get_id()),
+                        }),
+                        prefab: PrefabInfo {
+                            prefab_name: obj_ref.get_prefab().value,
+                            prefab_hash: obj_ref.get_prefab().hash,
+                            name: prefab_lookup
+                                .map(|prefab| prefab.get_str("name"))
+                                .flatten()
+                                .unwrap_or("")
+                                .to_string(),
+                            desc: prefab_lookup
+                                .map(|prefab| prefab.get_str("desc"))
+                                .flatten()
+                                .unwrap_or("")
+                                .to_string(),
+                        },
+                        structure: StructureInfo {
+                            small_grid: stru.is_small_grid(),
+                        },
+                        slots: storage
+                            .get_slots()
+                            .iter()
+                            .map(|slot| {
+                                Ok(SlotInfo {
+                                    name: slot.name.clone(),
+                                    typ: slot.typ,
+                                    occupant: slot
+                                        .occupant
+                                        .map(|occupant| ObjectTemplate::freeze_object(occupant))
+                                        .map_or(Ok(None), |v| v.map(Some))?,
+                                })
+                            })
+                            .collect::<Result<Vec<_>, _>>()?,
+                        logic: LogicInfo {
+                            logic_slot_types: storage
+                                .get_slots()
+                                .iter()
+                                .enumerate()
+                                .map(|(index, slot)| {
+                                    (
+                                        index as u32,
+                                        LogicSlotTypes {
+                                            slot_types: LogicSlotType::iter()
+                                                .filter_map(|slt| {
+                                                    let readable =
+                                                        slot.readable_logic.contains(&slt);
+                                                    let writeable =
+                                                        slot.writeable_logic.contains(&slt);
+                                                    if readable && writeable {
+                                                        Some((slt, MemoryAccess::ReadWrite))
+                                                    } else if readable {
+                                                        Some((slt, MemoryAccess::Read))
+                                                    } else if writeable {
+                                                        Some((slt, MemoryAccess::Write))
+                                                    } else {
+                                                        None
+                                                    }
+                                                })
+                                                .collect(),
+                                        },
+                                    )
+                                })
+                                .collect(),
+                            logic_types: LogicTypes {
+                                types: logic
+                                    .valid_logic_types()
+                                    .iter()
+                                    .filter_map(|lt| {
+                                        let readable = logic.can_logic_read(lt);
+                                        let writeable = logic.can_logic_write(lt);
+                                        if readable && writeable {
+                                            Some((lt, MemoryAccess::ReadWrite))
+                                        } else if readable {
+                                            Some((lt, MemoryAccess::Read))
+                                        } else if writeable {
+                                            Some((lt, MemoryAccess::Write))
+                                        } else {
+                                            None
+                                        }
+                                    })
+                                    .collect(),
+                            },
+                            modes: logic.known_modes().map(|modes| modes.iter().collect()),
+                            logic_values: logic
+                                .valid_logic_types()
+                                .iter()
+                                .filter_map(|lt| logic.get_logic(lt).ok()),
+                            transmission_receiver: false,
+                            wireless_logic: false,
+                            circuit_holder: false,
+                        },
+                        device: DeviceInfo {
+                            connection_list: device
+                                .connection_list()
+                                .iter()
+                                .map(|conn| conn.to_info()),
+                            device_pins_length: device.device_pins().map(|pins| pins.len()),
+                            device_pins: device.device_pins().map(|pins| pins.iter().collect()),
+                            has_reagents: device.has_reagents(),
+                            has_lock_state: device.has_lock_state(),
+                            has_mode_state: device.has_mode_state(),
+                            has_open_state: device.has_mode_state(),
+                            has_on_off_state: device.has_on_off_state(),
+                            has_color_state: device.has_color_state(),
+                            has_atmosphere: device.has_atmosphere(),
+                            has_activate_state: device.has_activate_state(),
+                        },
+                    },
+                ))
+            }
+            ObjectInterfaces {
+                structure: Some(stru),
+                storage: Some(storage),
+                memory_readable: Some(mem_r),
+                memory_writable: mem_w,
+                logicable: Some(logic),
+                source_code: None,
+                circuit_holder: None,
+                item: None,
+                integrated_circuit: None,
+                programmable: None,
+                instructable: inst,
+                logic_stack: None,
+                device: Some(device),
+                wireless_transmit: None,
+                wireless_receive: None,
+                network: None,
+            } => {
+                let prefab_lookup = StationpediaPrefab::from_repr(obj_ref.get_prefab().hash);
+                Ok(ObjectTemplate::StructureLogicDeviceMemory(
+                    StructureLogicDeviceMemoryTemplate {
+                        object: Some(ObjectInfo {
+                            name: Some(obj_ref.get_name().value()),
+                            id: Some(*obj_ref.get_id()),
+                        }),
+                        prefab: PrefabInfo {
+                            prefab_name: obj_ref.get_prefab().value,
+                            prefab_hash: obj_ref.get_prefab().hash,
+                            name: prefab_lookup
+                                .map(|prefab| prefab.get_str("name"))
+                                .flatten()
+                                .unwrap_or("")
+                                .to_string(),
+                            desc: prefab_lookup
+                                .map(|prefab| prefab.get_str("desc"))
+                                .flatten()
+                                .unwrap_or("")
+                                .to_string(),
+                        },
+                        structure: StructureInfo {
+                            small_grid: stru.is_small_grid(),
+                        },
+                        slots: storage
+                            .get_slots()
+                            .iter()
+                            .map(|slot| {
+                                Ok(SlotInfo {
+                                    name: slot.name.clone(),
+                                    typ: slot.typ,
+                                    occupant: slot
+                                        .occupant
+                                        .map(|occupant| ObjectTemplate::freeze_object(occupant))
+                                        .map_or(Ok(None), |v| v.map(Some))?,
+                                })
+                            })
+                            .collect::<Result<Vec<_>, _>>()?,
+                        logic: LogicInfo {
+                            logic_slot_types: storage
+                                .get_slots()
+                                .iter()
+                                .enumerate()
+                                .map(|(index, slot)| {
+                                    (
+                                        index as u32,
+                                        LogicSlotTypes {
+                                            slot_types: LogicSlotType::iter()
+                                                .filter_map(|slt| {
+                                                    let readable =
+                                                        slot.readable_logic.contains(&slt);
+                                                    let writeable =
+                                                        slot.writeable_logic.contains(&slt);
+                                                    if readable && writeable {
+                                                        Some((slt, MemoryAccess::ReadWrite))
+                                                    } else if readable {
+                                                        Some((slt, MemoryAccess::Read))
+                                                    } else if writeable {
+                                                        Some((slt, MemoryAccess::Write))
+                                                    } else {
+                                                        None
+                                                    }
+                                                })
+                                                .collect(),
+                                        },
+                                    )
+                                })
+                                .collect(),
+                            logic_types: LogicTypes {
+                                types: logic
+                                    .valid_logic_types()
+                                    .iter()
+                                    .filter_map(|lt| {
+                                        let readable = logic.can_logic_read(lt);
+                                        let writeable = logic.can_logic_write(lt);
+                                        if readable && writeable {
+                                            Some((lt, MemoryAccess::ReadWrite))
+                                        } else if readable {
+                                            Some((lt, MemoryAccess::Read))
+                                        } else if writeable {
+                                            Some((lt, MemoryAccess::Write))
+                                        } else {
+                                            None
+                                        }
+                                    })
+                                    .collect(),
+                            },
+                            modes: logic.known_modes().map(|modes| modes.iter().collect()),
+                            logic_values: logic
+                                .valid_logic_types()
+                                .iter()
+                                .filter_map(|lt| logic.get_logic(lt).ok()),
+                            transmission_receiver: false,
+                            wireless_logic: false,
+                            circuit_holder: false,
+                        },
+                        device: DeviceInfo {
+                            connection_list: device
+                                .connection_list()
+                                .iter()
+                                .map(|conn| conn.to_info()),
+                            device_pins_length: device.device_pins().map(|pins| pins.len()),
+                            device_pins: device.device_pins().map(|pins| pins.iter().collect()),
+                            has_reagents: device.has_reagents(),
+                            has_lock_state: device.has_lock_state(),
+                            has_mode_state: device.has_mode_state(),
+                            has_open_state: device.has_mode_state(),
+                            has_on_off_state: device.has_on_off_state(),
+                            has_color_state: device.has_color_state(),
+                            has_atmosphere: device.has_atmosphere(),
+                            has_activate_state: device.has_activate_state(),
+                        },
+                        memory: MemoryInfo {
+                            instructions: None, // TODO: map info from `Instructable` trait
+                            memory_access: if mem_w.is_some() {
+                                MemoryAccess::ReadWrite
+                            } else {
+                                MemoryAccess::Read
+                            },
+                            memory_size: mem_r.memory_size(),
+                            values: Some(mem_r.get_memory_slice().iter().collect()),
+                        },
+                    },
+                ))
+            }
+
+            //  Item Objects
+            ObjectInterfaces {
+                structure: None,
+                storage: None,
+                memory_readable: None,
+                memory_writable: None,
+                logicable: None,
+                source_code: None,
+                circuit_holder: None,
+                item: Some(item),
+                integrated_circuit: None,
+                programmable: None,
+                instructable: None,
+                logic_stack: None,
+                device: None,
+                wireless_transmit: None,
+                wireless_receive: None,
+                network: None,
+            } => {
+                let prefab_lookup = StationpediaPrefab::from_repr(obj_ref.get_prefab().hash);
+                Ok(ObjectTemplate::Item(ItemTemplate {
+                    object: Some(ObjectInfo {
+                        name: Some(obj_ref.get_name().value()),
+                        id: Some(*obj_ref.get_id()),
+                    }),
+                    prefab: PrefabInfo {
+                        prefab_name: obj_ref.get_prefab().value,
+                        prefab_hash: obj_ref.get_prefab().hash,
+                        name: prefab_lookup
+                            .map(|prefab| prefab.get_str("name"))
+                            .flatten()
+                            .unwrap_or("")
+                            .to_string(),
+                        desc: prefab_lookup
+                            .map(|prefab| prefab.get_str("desc"))
+                            .flatten()
+                            .unwrap_or("")
+                            .to_string(),
+                    },
+                    item: ItemInfo {
+                        consumable: item.consumable(),
+                        filter_type: item.filter_type(),
+                        ingredient: item.ingredient(),
+                        max_quantity: item.max_quantity(),
+                        reagents: item.reagents(),
+                        slot_class: item.slot_class(),
+                        sorting_class: item.sorting_class(),
+                    },
+                }))
+            }
+            ObjectInterfaces {
+                structure: None,
+                storage: Some(storage),
+                memory_readable: None,
+                memory_writable: None,
+                logicable: None,
+                source_code: None,
+                circuit_holder: None,
+                item: Some(item),
+                integrated_circuit: None,
+                programmable: None,
+                instructable: None,
+                logic_stack: None,
+                device: None,
+                wireless_transmit: None,
+                wireless_receive: None,
+                network: None,
+            } => {
+                let prefab_lookup = StationpediaPrefab::from_repr(obj_ref.get_prefab().hash);
+                Ok(ObjectTemplate::ItemSlots(ItemSlotsTemplate {
+                    object: Some(ObjectInfo {
+                        name: Some(obj_ref.get_name().value()),
+                        id: Some(*obj_ref.get_id()),
+                    }),
+                    prefab: PrefabInfo {
+                        prefab_name: obj_ref.get_prefab().value,
+                        prefab_hash: obj_ref.get_prefab().hash,
+                        name: prefab_lookup
+                            .map(|prefab| prefab.get_str("name"))
+                            .flatten()
+                            .unwrap_or("")
+                            .to_string(),
+                        desc: prefab_lookup
+                            .map(|prefab| prefab.get_str("desc"))
+                            .flatten()
+                            .unwrap_or("")
+                            .to_string(),
+                    },
+                    item: ItemInfo {
+                        consumable: item.consumable(),
+                        filter_type: item.filter_type(),
+                        ingredient: item.ingredient(),
+                        max_quantity: item.max_quantity(),
+                        reagents: item.reagents(),
+                        slot_class: item.slot_class(),
+                        sorting_class: item.sorting_class(),
+                    },
+                    slots: storage
+                        .get_slots()
+                        .iter()
+                        .map(|slot| {
+                            Ok(SlotInfo {
+                                name: slot.name.clone(),
+                                typ: slot.typ,
+                                occupant: slot
+                                    .occupant
+                                    .map(|occupant| ObjectTemplate::freeze_object(occupant))
+                                    .map_or(Ok(None), |v| v.map(Some))?,
+                            })
+                        })
+                        .collect::<Result<Vec<_>, _>>()?,
+                }))
+            }
+
+            ObjectInterfaces {
+                structure: None,
+                storage: Some(storage),
+                memory_readable: None,
+                memory_writable: None,
+                logicable: Some(logic),
+                source_code: None,
+                circuit_holder: None,
+                item: Some(item),
+                integrated_circuit: None,
+                programmable: None,
+                instructable: None,
+                logic_stack: None,
+                device: None,
+                wireless_transmit: wt,
+                wireless_receive: wr,
+                network: None,
+            } => {
+                let prefab_lookup = StationpediaPrefab::from_repr(obj_ref.get_prefab().hash);
+                Ok(ObjectTemplate::ItemLogic(ItemLogicTemplate {
+                    object: Some(ObjectInfo {
+                        name: Some(obj_ref.get_name().value()),
+                        id: Some(*obj_ref.get_id()),
+                    }),
+                    prefab: PrefabInfo {
+                        prefab_name: obj_ref.get_prefab().value,
+                        prefab_hash: obj_ref.get_prefab().hash,
+                        name: prefab_lookup
+                            .map(|prefab| prefab.get_str("name"))
+                            .flatten()
+                            .unwrap_or("")
+                            .to_string(),
+                        desc: prefab_lookup
+                            .map(|prefab| prefab.get_str("desc"))
+                            .flatten()
+                            .unwrap_or("")
+                            .to_string(),
+                    },
+                    item: ItemInfo {
+                        consumable: item.consumable(),
+                        filter_type: item.filter_type(),
+                        ingredient: item.ingredient(),
+                        max_quantity: item.max_quantity(),
+                        reagents: item.reagents(),
+                        slot_class: item.slot_class(),
+                        sorting_class: item.sorting_class(),
+                    },
+                    slots: storage
+                        .get_slots()
+                        .iter()
+                        .map(|slot| {
+                            Ok(SlotInfo {
+                                name: slot.name.clone(),
+                                typ: slot.typ,
+                                occupant: slot
+                                    .occupant
+                                    .map(|occupant| ObjectTemplate::freeze_object(occupant))
+                                    .map_or(Ok(None), |v| v.map(Some))?,
+                            })
+                        })
+                        .collect::<Result<Vec<_>, _>>()?,
+                }))
+            }
+            _ => {
+                Err(TemplateError::NonConformingObject(obj_ref.get_id()))
+            }
         }
     }
 }
@@ -610,7 +1535,7 @@ pub struct ConnectionInfo {
 pub struct DeviceInfo {
     pub connection_list: Vec<ConnectionInfo>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub device_pins_length: Option<i64>,
+    pub device_pins_length: Option<usize>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub device_pins: Option<Vec<Option<ObjectID>>>,
     pub has_activate_state: bool,
@@ -643,7 +1568,9 @@ pub struct MemoryInfo {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub instructions: Option<BTreeMap<String, Instruction>>,
     pub memory_access: MemoryAccess,
-    pub memory_size: i64,
+    pub memory_size: usize,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub values: Option<Vec<f64>>,
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
