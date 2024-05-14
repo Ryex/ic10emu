@@ -75,14 +75,14 @@ tag_object_traits! {
     pub trait CircuitHolder: Logicable + Storage {
         fn clear_error(&mut self);
         fn set_error(&mut self, state: i32);
-        fn get_logicable_from_index(&self, device: usize, vm: &VM) -> Option<LogicableRef<Self>>;
-        fn get_logicable_from_index_mut(&self, device: usize, vm: &VM) -> Option<LogicableRefMut<Self>>;
-        fn get_logicable_from_id(&self, device: ObjectID, vm: &VM) -> Option<LogicableRef<Self>>;
-        fn get_logicable_from_id_mut(&self, device: ObjectID, vm: &VM) -> Option<LogicableRefMut<Self>>;
+        fn get_logicable_from_index(&self, device: usize, vm: &VM) -> Option<LogicableRef>;
+        fn get_logicable_from_index_mut(&self, device: usize, vm: &VM) -> Option<LogicableRefMut>;
+        fn get_logicable_from_id(&self, device: ObjectID, vm: &VM) -> Option<LogicableRef>;
+        fn get_logicable_from_id_mut(&self, device: ObjectID, vm: &VM) -> Option<LogicableRefMut>;
         fn get_source_code(&self) -> String;
         fn set_source_code(&self, code: String);
-        fn get_batch(&self) -> Vec<LogicableRef<Self>>;
-        fn get_batch_mut(&self) -> Vec<LogicableRefMut<Self>>;
+        fn get_batch(&self) -> Vec<LogicableRef>;
+        fn get_batch_mut(&self) -> Vec<LogicableRefMut>;
         fn get_ic(&self) -> Option<ObjectID>;
     }
 
@@ -99,7 +99,7 @@ tag_object_traits! {
     }
 
     pub trait IntegratedCircuit: Logicable + MemoryWritable + SourceCode + Item {
-        fn get_circuit_holder(&self, vm: &VM) -> Option<CircuitHolderRef<Self>>;
+        fn get_circuit_holder(&self, vm: &VM) -> Option<CircuitHolderRef>;
         fn get_instruction_pointer(&self) -> f64;
         fn set_next_instruction(&mut self, next_instruction: f64);
         fn set_next_instruction_relative(&mut self, offset: f64) {
@@ -189,7 +189,7 @@ tag_object_traits! {
 
 }
 
-impl<T: Debug> Debug for dyn Object<ID = T> {
+impl Debug for dyn Object {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,

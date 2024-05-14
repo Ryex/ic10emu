@@ -41,8 +41,10 @@ pub enum VMError {
 
 #[derive(Error, Debug, Serialize, Deserialize)]
 pub enum TemplateError {
-    #[error("")]
-    NonConformingObject(ObjectID)
+    #[error("object id {0} has a non conforming set of interfaces")]
+    NonConformingObject(ObjectID),
+    #[error("ObjectID {0} is missing fomr the VM")]
+    MissingVMObject(ObjectID),
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

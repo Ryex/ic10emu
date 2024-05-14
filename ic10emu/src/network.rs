@@ -105,21 +105,21 @@ pub enum ConnectionRole {
 
 impl Connection {
     #[allow(dead_code)]
-    pub fn from_info(typ: ConnectionType, role: ConnectionRole) -> Self {
+    pub fn from_info(typ: ConnectionType, role: ConnectionRole, net: Option<ObjectID>) -> Self {
         match typ {
             ConnectionType::None => Self::None,
             ConnectionType::Data => Self::CableNetwork {
-                net: None,
+                net,
                 typ: CableConnectionType::Data,
                 role,
             },
             ConnectionType::Power => Self::CableNetwork {
-                net: None,
+                net,
                 typ: CableConnectionType::Power,
                 role,
             },
             ConnectionType::PowerAndData => Self::CableNetwork {
-                net: None,
+                net,
                 typ: CableConnectionType::PowerAndData,
                 role,
             },

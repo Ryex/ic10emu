@@ -1,4 +1,9 @@
-use std::{cell::RefCell, ops::{Deref, DerefMut}, rc::Rc, str::FromStr};
+use std::{
+    cell::RefCell,
+    ops::{Deref, DerefMut},
+    rc::Rc,
+    str::FromStr,
+};
 
 use macro_rules_attribute::derive;
 use serde_derive::{Deserialize, Serialize};
@@ -12,39 +17,55 @@ pub mod traits;
 
 use traits::Object;
 
-use crate::vm::enums::{basic_enums::Class as SlotClass, script_enums::LogicSlotType};
+use crate::vm::{
+    enums::{basic_enums::Class as SlotClass, script_enums::LogicSlotType},
+    VM,
+};
 
 use super::enums::prefabs::StationpediaPrefab;
 
 pub type ObjectID = u32;
-pub type BoxedObject = Rc<RefCell<dyn Object<ID = ObjectID>>>;
+pub type BoxedObject = Rc<RefCell<dyn Object>>;
 
 #[derive(Debug, Clone)]
-pub struct VMObject(BoxedObject);
+pub struct VMObject {
+    obj: BoxedObject,
+    vm: Rc<VM>,
+}
 
 impl Deref for VMObject {
     type Target = BoxedObject;
 
     #[inline(always)]
     fn deref(&self) -> &Self::Target {
-        &self.0
+        &self.obj
     }
 }
 
 impl DerefMut for VMObject {
-
     #[inline(always)]
     fn deref_mut(&mut self) -> &mut Self::Target {
-        &mut self.0
+        &mut self.obj
     }
 }
 
 impl VMObject {
-    pub fn new<T>(val: T) -> Self
+    pub fn new<T>(val: T, vm: Rc<VM>) -> Self
     where
-        T: Object<ID = ObjectID> + 'static,
+        T: Object + 'static,
     {
-        VMObject(Rc::new(RefCell::new(val)))
+        VMObject {
+            obj: Rc::new(RefCell::new(val)),
+            vm,
+        }
+    }
+
+    pub fn set_vm(&mut self, vm: Rc<VM>) {
+        self.vm = vm;
+    }
+
+    pub fn get_vm(&self) -> &Rc<VM> {
+        &self.vm
     }
 }
 

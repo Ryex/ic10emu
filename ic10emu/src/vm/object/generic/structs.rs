@@ -76,7 +76,7 @@ pub struct GenericLogicableDeviceMemoryReadable {
     pub prefab: Name,
     #[custom(object_name)]
     pub name: Name,
-    pub small_grid: bool
+    pub small_grid: bool,
     pub slots: Vec<Slot>,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub modes: Option<BTreeMap<u32, String>>,

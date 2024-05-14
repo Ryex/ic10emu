@@ -21,7 +21,7 @@ pub trait GWStructure {
     fn small_grid(&self) -> bool;
 }
 
-impl<T: GWStructure> Structure for T {
+impl<T: GWStructure + Object> Structure for T {
     fn is_small_grid(&self) -> bool {
         self.small_grid()
     }

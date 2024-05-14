@@ -218,6 +218,12 @@ impl Storage for ItemIntegratedCircuit10 {
     fn get_slot_mut(&mut self, index: usize) -> Option<&mut Slot> {
         None
     }
+    fn get_slots(&self) ->  &[Slot] {
+        &[]
+    }
+    fn get_slots_mut(&mut self) ->  &mut[Slot] {
+        &mut []
+    }
 }
 
 impl MemoryReadable for ItemIntegratedCircuit10 {
@@ -232,6 +238,9 @@ impl MemoryReadable for ItemIntegratedCircuit10 {
         } else {
             Ok(self.memory[index as usize])
         }
+    }
+    fn get_memory_slice(&self) ->  &[f64] {
+        &self.memory
     }
 }
 
@@ -280,6 +289,9 @@ impl IntegratedCircuit for ItemIntegratedCircuit10 {
     }
     fn set_next_instruction(&mut self, next_instruction: f64) {
         self.next_ip = next_instruction as usize;
+    }
+    fn set_next_instruction_relative(&mut self, offset: f64) {
+        self.next_ip = (self.ip as f64 + offset) as usize
     }
     fn reset(&mut self) {
         self.ip = 0;
@@ -386,6 +398,12 @@ impl IntegratedCircuit for ItemIntegratedCircuit10 {
     }
     fn get_labels(&self) -> &BTreeMap<String, u32> {
         &self.program.labels
+    }
+    fn get_state(&self) -> crate::interpreter::ICState {
+        self.state
+    }
+    fn set_state(&mut self, state: crate::interpreter::ICState) {
+        self.state = state;
     }
 }
 
@@ -1306,642 +1324,644 @@ impl BdseInstruction for ItemIntegratedCircuit10 {
         Ok(())
     }
 }
-impl BdsealInstruction for ItemIntegratedCircuit10 {
-    /// bdseal d? a(r?|num)
-    fn execute_bdseal(&mut self, vm: &VM, d: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl BrdseInstruction for ItemIntegratedCircuit10 {
-    /// brdse d? a(r?|num)
-    fn execute_brdse(&mut self, vm: &VM, d: &Operand, a: &Operand) -> Result<(), ICError>;
-}
 
-impl AbsInstruction for ItemIntegratedCircuit10 {
-    /// abs r? a(r?|num)
-    fn execute_abs(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
 
-impl AcosInstruction for ItemIntegratedCircuit10 {
-    /// acos r? a(r?|num)
-    fn execute_acos(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl AddInstruction for ItemIntegratedCircuit10 {
-    /// add r? a(r?|num) b(r?|num)
-    fn execute_add(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl AndInstruction for ItemIntegratedCircuit10 {
-    /// and r? a(r?|num) b(r?|num)
-    fn execute_and(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl AsinInstruction for ItemIntegratedCircuit10 {
-    /// asin r? a(r?|num)
-    fn execute_asin(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl AtanInstruction for ItemIntegratedCircuit10 {
-    /// atan r? a(r?|num)
-    fn execute_atan(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl Atan2Instruction for ItemIntegratedCircuit10 {
-    /// atan2 r? a(r?|num) b(r?|num)
-    fn execute_atan2(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl BdnsInstruction for ItemIntegratedCircuit10 {
-    /// bdns d? a(r?|num)
-    fn execute_bdns(&mut self, vm: &VM, d: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl BdnsalInstruction for ItemIntegratedCircuit10 {
-    /// bdnsal d? a(r?|num)
-    fn execute_bdnsal(&mut self, vm: &VM, d: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl BnanInstruction for ItemIntegratedCircuit10 {
-    /// bnan a(r?|num) b(r?|num)
-    fn execute_bnan(&mut self, vm: &VM, a: &Operand, b: &Operand) -> Result<(), ICError>;
-}
-impl BrdnsInstruction for ItemIntegratedCircuit10 {
-    /// brdns d? a(r?|num)
-    fn execute_brdns(&mut self, vm: &VM, d: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl BrnanInstruction for ItemIntegratedCircuit10 {
-    /// brnan a(r?|num) b(r?|num)
-    fn execute_brnan(&mut self, vm: &VM, a: &Operand, b: &Operand) -> Result<(), ICError>;
-}
-impl CeilInstruction for ItemIntegratedCircuit10 {
-    /// ceil r? a(r?|num)
-    fn execute_ceil(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl ClrInstruction for ItemIntegratedCircuit10 {
-    /// clr d?
-    fn execute_clr(&mut self, vm: &VM, d: &Operand) -> Result<(), ICError>;
-}
-impl ClrdInstruction for ItemIntegratedCircuit10 {
-    /// clrd id(r?|num)
-    fn execute_clrd(&mut self, vm: &VM, id: &Operand) -> Result<(), ICError>;
-}
-impl CosInstruction for ItemIntegratedCircuit10 {
-    /// cos r? a(r?|num)
-    fn execute_cos(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl DivInstruction for ItemIntegratedCircuit10 {
-    /// div r? a(r?|num) b(r?|num)
-    fn execute_div(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl ExpInstruction for ItemIntegratedCircuit10 {
-    /// exp r? a(r?|num)
-    fn execute_exp(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl FloorInstruction for ItemIntegratedCircuit10 {
-    /// floor r? a(r?|num)
-    fn execute_floor(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl GetInstruction for ItemIntegratedCircuit10 {
-    /// get r? d? address(r?|num)
-    fn execute_get(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        d: &Operand,
-        address: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl GetdInstruction for ItemIntegratedCircuit10 {
-    /// getd r? id(r?|num) address(r?|num)
-    fn execute_getd(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        id: &Operand,
-        address: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl HcfInstruction for ItemIntegratedCircuit10 {
-    /// hcf
-    fn execute_hcf(&mut self, vm: &VM) -> Result<(), ICError>;
-}
-impl JInstruction for ItemIntegratedCircuit10 {
-    /// j int
-    fn execute_j(&mut self, vm: &VM, int: &Operand) -> Result<(), ICError>;
-}
-impl JalInstruction for ItemIntegratedCircuit10 {
-    /// jal int
-    fn execute_jal(&mut self, vm: &VM, int: &Operand) -> Result<(), ICError>;
-}
-impl JrInstruction for ItemIntegratedCircuit10 {
-    /// jr int
-    fn execute_jr(&mut self, vm: &VM, int: &Operand) -> Result<(), ICError>;
-}
-impl LInstruction for ItemIntegratedCircuit10 {
-    /// l r? d? logicType
-    fn execute_l(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        d: &Operand,
-        logic_type: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl LabelInstruction for ItemIntegratedCircuit10 {
-    /// label d? str
-    fn execute_label(&mut self, vm: &VM, d: &Operand, str: &Operand) -> Result<(), ICError>;
-}
-impl LbInstruction for ItemIntegratedCircuit10 {
-    /// lb r? deviceHash logicType batchMode
-    fn execute_lb(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        device_hash: &Operand,
-        logic_type: &Operand,
-        batch_mode: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl LbnInstruction for ItemIntegratedCircuit10 {
-    /// lbn r? deviceHash nameHash logicType batchMode
-    fn execute_lbn(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        device_hash: &Operand,
-        name_hash: &Operand,
-        logic_type: &Operand,
-        batch_mode: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl LbnsInstruction for ItemIntegratedCircuit10 {
-    /// lbns r? deviceHash nameHash slotIndex logicSlotType batchMode
-    fn execute_lbns(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        device_hash: &Operand,
-        name_hash: &Operand,
-        slot_index: &Operand,
-        logic_slot_type: &Operand,
-        batch_mode: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl LbsInstruction for ItemIntegratedCircuit10 {
-    /// lbs r? deviceHash slotIndex logicSlotType batchMode
-    fn execute_lbs(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        device_hash: &Operand,
-        slot_index: &Operand,
-        logic_slot_type: &Operand,
-        batch_mode: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl LdInstruction for ItemIntegratedCircuit10 {
-    /// ld r? id(r?|num) logicType
-    fn execute_ld(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        id: &Operand,
-        logic_type: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl LogInstruction for ItemIntegratedCircuit10 {
-    /// log r? a(r?|num)
-    fn execute_log(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl LrInstruction for ItemIntegratedCircuit10 {
-    /// lr r? d? reagentMode int
-    fn execute_lr(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        d: &Operand,
-        reagent_mode: &Operand,
-        int: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl LsInstruction for ItemIntegratedCircuit10 {
-    /// ls r? d? slotIndex logicSlotType
-    fn execute_ls(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        d: &Operand,
-        slot_index: &Operand,
-        logic_slot_type: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl MaxInstruction for ItemIntegratedCircuit10 {
-    /// max r? a(r?|num) b(r?|num)
-    fn execute_max(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl MinInstruction for ItemIntegratedCircuit10 {
-    /// min r? a(r?|num) b(r?|num)
-    fn execute_min(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl ModInstruction for ItemIntegratedCircuit10 {
-    /// mod r? a(r?|num) b(r?|num)
-    fn execute_mod(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl MulInstruction for ItemIntegratedCircuit10 {
-    /// mul r? a(r?|num) b(r?|num)
-    fn execute_mul(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl NorInstruction for ItemIntegratedCircuit10 {
-    /// nor r? a(r?|num) b(r?|num)
-    fn execute_nor(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl NotInstruction for ItemIntegratedCircuit10 {
-    /// not r? a(r?|num)
-    fn execute_not(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl OrInstruction for ItemIntegratedCircuit10 {
-    /// or r? a(r?|num) b(r?|num)
-    fn execute_or(&mut self, vm: &VM, r: &Operand, a: &Operand, b: &Operand)
-        -> Result<(), ICError>;
-}
-impl PeekInstruction for ItemIntegratedCircuit10 {
-    /// peek r?
-    fn execute_peek(&mut self, vm: &VM, r: &Operand) -> Result<(), ICError>;
-}
-impl PokeInstruction for ItemIntegratedCircuit10 {
-    /// poke address(r?|num) value(r?|num)
-    fn execute_poke(&mut self, vm: &VM, address: &Operand, value: &Operand) -> Result<(), ICError>;
-}
-impl PopInstruction for ItemIntegratedCircuit10 {
-    /// pop r?
-    fn execute_pop(&mut self, vm: &VM, r: &Operand) -> Result<(), ICError>;
-}
-impl PushInstruction for ItemIntegratedCircuit10 {
-    /// push a(r?|num)
-    fn execute_push(&mut self, vm: &VM, a: &Operand) -> Result<(), ICError>;
-}
-impl PutInstruction for ItemIntegratedCircuit10 {
-    /// put d? address(r?|num) value(r?|num)
-    fn execute_put(
-        &mut self,
-        vm: &VM,
-        d: &Operand,
-        address: &Operand,
-        value: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl PutdInstruction for ItemIntegratedCircuit10 {
-    /// putd id(r?|num) address(r?|num) value(r?|num)
-    fn execute_putd(
-        &mut self,
-        vm: &VM,
-        id: &Operand,
-        address: &Operand,
-        value: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl RandInstruction for ItemIntegratedCircuit10 {
-    /// rand r?
-    fn execute_rand(&mut self, vm: &VM, r: &Operand) -> Result<(), ICError>;
-}
-impl RoundInstruction for ItemIntegratedCircuit10 {
-    /// round r? a(r?|num)
-    fn execute_round(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl SInstruction for ItemIntegratedCircuit10 {
-    /// s d? logicType r?
-    fn execute_s(
-        &mut self,
-        vm: &VM,
-        d: &Operand,
-        logic_type: &Operand,
-        r: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl SapInstruction for ItemIntegratedCircuit10 {
-    /// sap r? a(r?|num) b(r?|num) c(r?|num)
-    fn execute_sap(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-        c: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl SapzInstruction for ItemIntegratedCircuit10 {
-    /// sapz r? a(r?|num) b(r?|num)
-    fn execute_sapz(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl SbInstruction for ItemIntegratedCircuit10 {
-    /// sb deviceHash logicType r?
-    fn execute_sb(
-        &mut self,
-        vm: &VM,
-        device_hash: &Operand,
-        logic_type: &Operand,
-        r: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl SbnInstruction for ItemIntegratedCircuit10 {
-    /// sbn deviceHash nameHash logicType r?
-    fn execute_sbn(
-        &mut self,
-        vm: &VM,
-        device_hash: &Operand,
-        name_hash: &Operand,
-        logic_type: &Operand,
-        r: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl SbsInstruction for ItemIntegratedCircuit10 {
-    /// sbs deviceHash slotIndex logicSlotType r?
-    fn execute_sbs(
-        &mut self,
-        vm: &VM,
-        device_hash: &Operand,
-        slot_index: &Operand,
-        logic_slot_type: &Operand,
-        r: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl SdInstruction for ItemIntegratedCircuit10 {
-    /// sd id(r?|num) logicType r?
-    fn execute_sd(
-        &mut self,
-        vm: &VM,
-        id: &Operand,
-        logic_type: &Operand,
-        r: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl SdnsInstruction for ItemIntegratedCircuit10 {
-    /// sdns r? d?
-    fn execute_sdns(&mut self, vm: &VM, r: &Operand, d: &Operand) -> Result<(), ICError>;
-}
-impl SdseInstruction for ItemIntegratedCircuit10 {
-    /// sdse r? d?
-    fn execute_sdse(&mut self, vm: &VM, r: &Operand, d: &Operand) -> Result<(), ICError>;
-}
-impl SelectInstruction for ItemIntegratedCircuit10 {
-    /// select r? a(r?|num) b(r?|num) c(r?|num)
-    fn execute_select(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-        c: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl SeqInstruction for ItemIntegratedCircuit10 {
-    /// seq r? a(r?|num) b(r?|num)
-    fn execute_seq(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl SeqzInstruction for ItemIntegratedCircuit10 {
-    /// seqz r? a(r?|num)
-    fn execute_seqz(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl SgeInstruction for ItemIntegratedCircuit10 {
-    /// sge r? a(r?|num) b(r?|num)
-    fn execute_sge(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl SgezInstruction for ItemIntegratedCircuit10 {
-    /// sgez r? a(r?|num)
-    fn execute_sgez(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl SgtInstruction for ItemIntegratedCircuit10 {
-    /// sgt r? a(r?|num) b(r?|num)
-    fn execute_sgt(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl SgtzInstruction for ItemIntegratedCircuit10 {
-    /// sgtz r? a(r?|num)
-    fn execute_sgtz(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl SinInstruction for ItemIntegratedCircuit10 {
-    /// sin r? a(r?|num)
-    fn execute_sin(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl SlaInstruction for ItemIntegratedCircuit10 {
-    /// sla r? a(r?|num) b(r?|num)
-    fn execute_sla(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl SleInstruction for ItemIntegratedCircuit10 {
-    /// sle r? a(r?|num) b(r?|num)
-    fn execute_sle(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl SlezInstruction for ItemIntegratedCircuit10 {
-    /// slez r? a(r?|num)
-    fn execute_slez(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl SllInstruction for ItemIntegratedCircuit10 {
-    /// sll r? a(r?|num) b(r?|num)
-    fn execute_sll(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl SltInstruction for ItemIntegratedCircuit10 {
-    /// slt r? a(r?|num) b(r?|num)
-    fn execute_slt(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl SltzInstruction for ItemIntegratedCircuit10 {
-    /// sltz r? a(r?|num)
-    fn execute_sltz(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl SnaInstruction for ItemIntegratedCircuit10 {
-    /// sna r? a(r?|num) b(r?|num) c(r?|num)
-    fn execute_sna(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-        c: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl SnanInstruction for ItemIntegratedCircuit10 {
-    /// snan r? a(r?|num)
-    fn execute_snan(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl SnanzInstruction for ItemIntegratedCircuit10 {
-    /// snanz r? a(r?|num)
-    fn execute_snanz(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl SnazInstruction for ItemIntegratedCircuit10 {
-    /// snaz r? a(r?|num) b(r?|num)
-    fn execute_snaz(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl SneInstruction for ItemIntegratedCircuit10 {
-    /// sne r? a(r?|num) b(r?|num)
-    fn execute_sne(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl SnezInstruction for ItemIntegratedCircuit10 {
-    /// snez r? a(r?|num)
-    fn execute_snez(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl SqrtInstruction for ItemIntegratedCircuit10 {
-    /// sqrt r? a(r?|num)
-    fn execute_sqrt(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl SraInstruction for ItemIntegratedCircuit10 {
-    /// sra r? a(r?|num) b(r?|num)
-    fn execute_sra(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl SrlInstruction for ItemIntegratedCircuit10 {
-    /// srl r? a(r?|num) b(r?|num)
-    fn execute_srl(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl SsInstruction for ItemIntegratedCircuit10 {
-    /// ss d? slotIndex logicSlotType r?
-    fn execute_ss(
-        &mut self,
-        vm: &VM,
-        d: &Operand,
-        slot_index: &Operand,
-        logic_slot_type: &Operand,
-        r: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl SubInstruction for ItemIntegratedCircuit10 {
-    /// sub r? a(r?|num) b(r?|num)
-    fn execute_sub(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
-impl TanInstruction for ItemIntegratedCircuit10 {
-    /// tan r? a(r?|num)
-    fn execute_tan(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl TruncInstruction for ItemIntegratedCircuit10 {
-    /// trunc r? a(r?|num)
-    fn execute_trunc(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
-}
-impl XorInstruction for ItemIntegratedCircuit10 {
-    /// xor r? a(r?|num) b(r?|num)
-    fn execute_xor(
-        &mut self,
-        vm: &VM,
-        r: &Operand,
-        a: &Operand,
-        b: &Operand,
-    ) -> Result<(), ICError>;
-}
+// impl BdsealInstruction for ItemIntegratedCircuit10 {
+//     /// bdseal d? a(r?|num)
+//     fn execute_bdseal(&mut self, vm: &VM, d: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl BrdseInstruction for ItemIntegratedCircuit10 {
+//     /// brdse d? a(r?|num)
+//     fn execute_brdse(&mut self, vm: &VM, d: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+//
+// impl AbsInstruction for ItemIntegratedCircuit10 {
+//     /// abs r? a(r?|num)
+//     fn execute_abs(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+//
+// impl AcosInstruction for ItemIntegratedCircuit10 {
+//     /// acos r? a(r?|num)
+//     fn execute_acos(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl AddInstruction for ItemIntegratedCircuit10 {
+//     /// add r? a(r?|num) b(r?|num)
+//     fn execute_add(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl AndInstruction for ItemIntegratedCircuit10 {
+//     /// and r? a(r?|num) b(r?|num)
+//     fn execute_and(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl AsinInstruction for ItemIntegratedCircuit10 {
+//     /// asin r? a(r?|num)
+//     fn execute_asin(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl AtanInstruction for ItemIntegratedCircuit10 {
+//     /// atan r? a(r?|num)
+//     fn execute_atan(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl Atan2Instruction for ItemIntegratedCircuit10 {
+//     /// atan2 r? a(r?|num) b(r?|num)
+//     fn execute_atan2(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl BdnsInstruction for ItemIntegratedCircuit10 {
+//     /// bdns d? a(r?|num)
+//     fn execute_bdns(&mut self, vm: &VM, d: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl BdnsalInstruction for ItemIntegratedCircuit10 {
+//     /// bdnsal d? a(r?|num)
+//     fn execute_bdnsal(&mut self, vm: &VM, d: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl BnanInstruction for ItemIntegratedCircuit10 {
+//     /// bnan a(r?|num) b(r?|num)
+//     fn execute_bnan(&mut self, vm: &VM, a: &Operand, b: &Operand) -> Result<(), ICError>;
+// }
+// impl BrdnsInstruction for ItemIntegratedCircuit10 {
+//     /// brdns d? a(r?|num)
+//     fn execute_brdns(&mut self, vm: &VM, d: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl BrnanInstruction for ItemIntegratedCircuit10 {
+//     /// brnan a(r?|num) b(r?|num)
+//     fn execute_brnan(&mut self, vm: &VM, a: &Operand, b: &Operand) -> Result<(), ICError>;
+// }
+// impl CeilInstruction for ItemIntegratedCircuit10 {
+//     /// ceil r? a(r?|num)
+//     fn execute_ceil(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl ClrInstruction for ItemIntegratedCircuit10 {
+//     /// clr d?
+//     fn execute_clr(&mut self, vm: &VM, d: &Operand) -> Result<(), ICError>;
+// }
+// impl ClrdInstruction for ItemIntegratedCircuit10 {
+//     /// clrd id(r?|num)
+//     fn execute_clrd(&mut self, vm: &VM, id: &Operand) -> Result<(), ICError>;
+// }
+// impl CosInstruction for ItemIntegratedCircuit10 {
+//     /// cos r? a(r?|num)
+//     fn execute_cos(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl DivInstruction for ItemIntegratedCircuit10 {
+//     /// div r? a(r?|num) b(r?|num)
+//     fn execute_div(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl ExpInstruction for ItemIntegratedCircuit10 {
+//     /// exp r? a(r?|num)
+//     fn execute_exp(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl FloorInstruction for ItemIntegratedCircuit10 {
+//     /// floor r? a(r?|num)
+//     fn execute_floor(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl GetInstruction for ItemIntegratedCircuit10 {
+//     /// get r? d? address(r?|num)
+//     fn execute_get(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         d: &Operand,
+//         address: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl GetdInstruction for ItemIntegratedCircuit10 {
+//     /// getd r? id(r?|num) address(r?|num)
+//     fn execute_getd(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         id: &Operand,
+//         address: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl HcfInstruction for ItemIntegratedCircuit10 {
+//     /// hcf
+//     fn execute_hcf(&mut self, vm: &VM) -> Result<(), ICError>;
+// }
+// impl JInstruction for ItemIntegratedCircuit10 {
+//     /// j int
+//     fn execute_j(&mut self, vm: &VM, int: &Operand) -> Result<(), ICError>;
+// }
+// impl JalInstruction for ItemIntegratedCircuit10 {
+//     /// jal int
+//     fn execute_jal(&mut self, vm: &VM, int: &Operand) -> Result<(), ICError>;
+// }
+// impl JrInstruction for ItemIntegratedCircuit10 {
+//     /// jr int
+//     fn execute_jr(&mut self, vm: &VM, int: &Operand) -> Result<(), ICError>;
+// }
+// impl LInstruction for ItemIntegratedCircuit10 {
+//     /// l r? d? logicType
+//     fn execute_l(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         d: &Operand,
+//         logic_type: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl LabelInstruction for ItemIntegratedCircuit10 {
+//     /// label d? str
+//     fn execute_label(&mut self, vm: &VM, d: &Operand, str: &Operand) -> Result<(), ICError>;
+// }
+// impl LbInstruction for ItemIntegratedCircuit10 {
+//     /// lb r? deviceHash logicType batchMode
+//     fn execute_lb(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         device_hash: &Operand,
+//         logic_type: &Operand,
+//         batch_mode: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl LbnInstruction for ItemIntegratedCircuit10 {
+//     /// lbn r? deviceHash nameHash logicType batchMode
+//     fn execute_lbn(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         device_hash: &Operand,
+//         name_hash: &Operand,
+//         logic_type: &Operand,
+//         batch_mode: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl LbnsInstruction for ItemIntegratedCircuit10 {
+//     /// lbns r? deviceHash nameHash slotIndex logicSlotType batchMode
+//     fn execute_lbns(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         device_hash: &Operand,
+//         name_hash: &Operand,
+//         slot_index: &Operand,
+//         logic_slot_type: &Operand,
+//         batch_mode: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl LbsInstruction for ItemIntegratedCircuit10 {
+//     /// lbs r? deviceHash slotIndex logicSlotType batchMode
+//     fn execute_lbs(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         device_hash: &Operand,
+//         slot_index: &Operand,
+//         logic_slot_type: &Operand,
+//         batch_mode: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl LdInstruction for ItemIntegratedCircuit10 {
+//     /// ld r? id(r?|num) logicType
+//     fn execute_ld(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         id: &Operand,
+//         logic_type: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl LogInstruction for ItemIntegratedCircuit10 {
+//     /// log r? a(r?|num)
+//     fn execute_log(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl LrInstruction for ItemIntegratedCircuit10 {
+//     /// lr r? d? reagentMode int
+//     fn execute_lr(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         d: &Operand,
+//         reagent_mode: &Operand,
+//         int: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl LsInstruction for ItemIntegratedCircuit10 {
+//     /// ls r? d? slotIndex logicSlotType
+//     fn execute_ls(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         d: &Operand,
+//         slot_index: &Operand,
+//         logic_slot_type: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl MaxInstruction for ItemIntegratedCircuit10 {
+//     /// max r? a(r?|num) b(r?|num)
+//     fn execute_max(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl MinInstruction for ItemIntegratedCircuit10 {
+//     /// min r? a(r?|num) b(r?|num)
+//     fn execute_min(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl ModInstruction for ItemIntegratedCircuit10 {
+//     /// mod r? a(r?|num) b(r?|num)
+//     fn execute_mod(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl MulInstruction for ItemIntegratedCircuit10 {
+//     /// mul r? a(r?|num) b(r?|num)
+//     fn execute_mul(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl NorInstruction for ItemIntegratedCircuit10 {
+//     /// nor r? a(r?|num) b(r?|num)
+//     fn execute_nor(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl NotInstruction for ItemIntegratedCircuit10 {
+//     /// not r? a(r?|num)
+//     fn execute_not(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl OrInstruction for ItemIntegratedCircuit10 {
+//     /// or r? a(r?|num) b(r?|num)
+//     fn execute_or(&mut self, vm: &VM, r: &Operand, a: &Operand, b: &Operand)
+//         -> Result<(), ICError>;
+// }
+// impl PeekInstruction for ItemIntegratedCircuit10 {
+//     /// peek r?
+//     fn execute_peek(&mut self, vm: &VM, r: &Operand) -> Result<(), ICError>;
+// }
+// impl PokeInstruction for ItemIntegratedCircuit10 {
+//     /// poke address(r?|num) value(r?|num)
+//     fn execute_poke(&mut self, vm: &VM, address: &Operand, value: &Operand) -> Result<(), ICError>;
+// }
+// impl PopInstruction for ItemIntegratedCircuit10 {
+//     /// pop r?
+//     fn execute_pop(&mut self, vm: &VM, r: &Operand) -> Result<(), ICError>;
+// }
+// impl PushInstruction for ItemIntegratedCircuit10 {
+//     /// push a(r?|num)
+//     fn execute_push(&mut self, vm: &VM, a: &Operand) -> Result<(), ICError>;
+// }
+// impl PutInstruction for ItemIntegratedCircuit10 {
+//     /// put d? address(r?|num) value(r?|num)
+//     fn execute_put(
+//         &mut self,
+//         vm: &VM,
+//         d: &Operand,
+//         address: &Operand,
+//         value: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl PutdInstruction for ItemIntegratedCircuit10 {
+//     /// putd id(r?|num) address(r?|num) value(r?|num)
+//     fn execute_putd(
+//         &mut self,
+//         vm: &VM,
+//         id: &Operand,
+//         address: &Operand,
+//         value: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl RandInstruction for ItemIntegratedCircuit10 {
+//     /// rand r?
+//     fn execute_rand(&mut self, vm: &VM, r: &Operand) -> Result<(), ICError>;
+// }
+// impl RoundInstruction for ItemIntegratedCircuit10 {
+//     /// round r? a(r?|num)
+//     fn execute_round(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl SInstruction for ItemIntegratedCircuit10 {
+//     /// s d? logicType r?
+//     fn execute_s(
+//         &mut self,
+//         vm: &VM,
+//         d: &Operand,
+//         logic_type: &Operand,
+//         r: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl SapInstruction for ItemIntegratedCircuit10 {
+//     /// sap r? a(r?|num) b(r?|num) c(r?|num)
+//     fn execute_sap(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//         c: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl SapzInstruction for ItemIntegratedCircuit10 {
+//     /// sapz r? a(r?|num) b(r?|num)
+//     fn execute_sapz(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl SbInstruction for ItemIntegratedCircuit10 {
+//     /// sb deviceHash logicType r?
+//     fn execute_sb(
+//         &mut self,
+//         vm: &VM,
+//         device_hash: &Operand,
+//         logic_type: &Operand,
+//         r: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl SbnInstruction for ItemIntegratedCircuit10 {
+//     /// sbn deviceHash nameHash logicType r?
+//     fn execute_sbn(
+//         &mut self,
+//         vm: &VM,
+//         device_hash: &Operand,
+//         name_hash: &Operand,
+//         logic_type: &Operand,
+//         r: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl SbsInstruction for ItemIntegratedCircuit10 {
+//     /// sbs deviceHash slotIndex logicSlotType r?
+//     fn execute_sbs(
+//         &mut self,
+//         vm: &VM,
+//         device_hash: &Operand,
+//         slot_index: &Operand,
+//         logic_slot_type: &Operand,
+//         r: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl SdInstruction for ItemIntegratedCircuit10 {
+//     /// sd id(r?|num) logicType r?
+//     fn execute_sd(
+//         &mut self,
+//         vm: &VM,
+//         id: &Operand,
+//         logic_type: &Operand,
+//         r: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl SdnsInstruction for ItemIntegratedCircuit10 {
+//     /// sdns r? d?
+//     fn execute_sdns(&mut self, vm: &VM, r: &Operand, d: &Operand) -> Result<(), ICError>;
+// }
+// impl SdseInstruction for ItemIntegratedCircuit10 {
+//     /// sdse r? d?
+//     fn execute_sdse(&mut self, vm: &VM, r: &Operand, d: &Operand) -> Result<(), ICError>;
+// }
+// impl SelectInstruction for ItemIntegratedCircuit10 {
+//     /// select r? a(r?|num) b(r?|num) c(r?|num)
+//     fn execute_select(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//         c: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl SeqInstruction for ItemIntegratedCircuit10 {
+//     /// seq r? a(r?|num) b(r?|num)
+//     fn execute_seq(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl SeqzInstruction for ItemIntegratedCircuit10 {
+//     /// seqz r? a(r?|num)
+//     fn execute_seqz(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl SgeInstruction for ItemIntegratedCircuit10 {
+//     /// sge r? a(r?|num) b(r?|num)
+//     fn execute_sge(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl SgezInstruction for ItemIntegratedCircuit10 {
+//     /// sgez r? a(r?|num)
+//     fn execute_sgez(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl SgtInstruction for ItemIntegratedCircuit10 {
+//     /// sgt r? a(r?|num) b(r?|num)
+//     fn execute_sgt(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl SgtzInstruction for ItemIntegratedCircuit10 {
+//     /// sgtz r? a(r?|num)
+//     fn execute_sgtz(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl SinInstruction for ItemIntegratedCircuit10 {
+//     /// sin r? a(r?|num)
+//     fn execute_sin(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl SlaInstruction for ItemIntegratedCircuit10 {
+//     /// sla r? a(r?|num) b(r?|num)
+//     fn execute_sla(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl SleInstruction for ItemIntegratedCircuit10 {
+//     /// sle r? a(r?|num) b(r?|num)
+//     fn execute_sle(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl SlezInstruction for ItemIntegratedCircuit10 {
+//     /// slez r? a(r?|num)
+//     fn execute_slez(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl SllInstruction for ItemIntegratedCircuit10 {
+//     /// sll r? a(r?|num) b(r?|num)
+//     fn execute_sll(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl SltInstruction for ItemIntegratedCircuit10 {
+//     /// slt r? a(r?|num) b(r?|num)
+//     fn execute_slt(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl SltzInstruction for ItemIntegratedCircuit10 {
+//     /// sltz r? a(r?|num)
+//     fn execute_sltz(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl SnaInstruction for ItemIntegratedCircuit10 {
+//     /// sna r? a(r?|num) b(r?|num) c(r?|num)
+//     fn execute_sna(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//         c: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl SnanInstruction for ItemIntegratedCircuit10 {
+//     /// snan r? a(r?|num)
+//     fn execute_snan(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl SnanzInstruction for ItemIntegratedCircuit10 {
+//     /// snanz r? a(r?|num)
+//     fn execute_snanz(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl SnazInstruction for ItemIntegratedCircuit10 {
+//     /// snaz r? a(r?|num) b(r?|num)
+//     fn execute_snaz(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl SneInstruction for ItemIntegratedCircuit10 {
+//     /// sne r? a(r?|num) b(r?|num)
+//     fn execute_sne(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl SnezInstruction for ItemIntegratedCircuit10 {
+//     /// snez r? a(r?|num)
+//     fn execute_snez(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl SqrtInstruction for ItemIntegratedCircuit10 {
+//     /// sqrt r? a(r?|num)
+//     fn execute_sqrt(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl SraInstruction for ItemIntegratedCircuit10 {
+//     /// sra r? a(r?|num) b(r?|num)
+//     fn execute_sra(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl SrlInstruction for ItemIntegratedCircuit10 {
+//     /// srl r? a(r?|num) b(r?|num)
+//     fn execute_srl(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl SsInstruction for ItemIntegratedCircuit10 {
+//     /// ss d? slotIndex logicSlotType r?
+//     fn execute_ss(
+//         &mut self,
+//         vm: &VM,
+//         d: &Operand,
+//         slot_index: &Operand,
+//         logic_slot_type: &Operand,
+//         r: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl SubInstruction for ItemIntegratedCircuit10 {
+//     /// sub r? a(r?|num) b(r?|num)
+//     fn execute_sub(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }
+// impl TanInstruction for ItemIntegratedCircuit10 {
+//     /// tan r? a(r?|num)
+//     fn execute_tan(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl TruncInstruction for ItemIntegratedCircuit10 {
+//     /// trunc r? a(r?|num)
+//     fn execute_trunc(&mut self, vm: &VM, r: &Operand, a: &Operand) -> Result<(), ICError>;
+// }
+// impl XorInstruction for ItemIntegratedCircuit10 {
+//     /// xor r? a(r?|num) b(r?|num)
+//     fn execute_xor(
+//         &mut self,
+//         vm: &VM,
+//         r: &Operand,
+//         a: &Operand,
+//         b: &Operand,
+//     ) -> Result<(), ICError>;
+// }

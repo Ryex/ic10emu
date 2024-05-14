@@ -1,33 +1,32 @@
 macro_rules! object_trait {
-    (@intf {$trait_name:ident $trt:ident}) => {
+    (@intf {$trt:ident}) => {
         paste::paste! {
         #[allow(missing_docs, unused)]
-        pub type [<$trt Ref>]<'a, T> = &'a dyn $trt<ID = <T as $trait_name>::ID>;
+        pub type [<$trt Ref>]<'a> = &'a dyn $trt;
         #[allow(missing_docs, unused)]
-        pub type [<$trt RefMut>]<'a, T> = &'a mut dyn $trt<ID = <T as $trait_name>::ID>;
+        pub type [<$trt RefMut>]<'a> = &'a mut dyn $trt;
         }
     };
     (@body $trait_name:ident { $($trt:ident),* }; ) => {
-        type ID: std::cmp::Ord + std::cmp::Eq + std::hash::Hash;
-        fn get_id(&self) -> &Self::ID;
-        fn set_id(&mut self, id: Self::ID);
+        fn get_id(&self) -> crate::vm::object::ObjectID;
+        fn set_id(&mut self, id: crate::vm::object::ObjectID);
         fn get_prefab(&self) -> &crate::vm::object::Name;
         fn get_mut_prefab(&mut self) -> &mut crate::vm::object::Name;
         fn get_name(&self) -> &crate::vm::object::Name;
         fn get_mut_name(&mut self) -> &mut crate::vm::object::Name;
         fn type_name(&self) -> &str;
-        fn as_object(&self) -> &dyn $trait_name<ID = Self::ID>;
-        fn as_mut_object(&mut self) -> &mut dyn $trait_name<ID = Self::ID>;
+        fn as_object(&self) -> &dyn $trait_name;
+        fn as_mut_object(&mut self) -> &mut dyn $trait_name;
 
         paste::paste! {
             $(
                 #[inline(always)]
-                fn [<as_ $trt:snake>](&self) -> Option<[<$trt Ref>]<Self>> {
+                fn [<as_ $trt:snake>](&self) -> Option<[<$trt Ref>]> {
                     None
                 }
 
                 #[inline(always)]
-                fn [<as_mut_ $trt:snake>](&mut self) -> Option<[<$trt RefMut>]<Self>> {
+                fn [<as_mut_ $trt:snake>](&mut self) -> Option<[<$trt RefMut>]> {
                     None
                 }
             )*
@@ -35,15 +34,15 @@ macro_rules! object_trait {
     };
     (@intf_struct $trait_name:ident { $($trt:ident),* };) => {
         paste::paste! {
-            pub struct [<$trait_name Interfaces>]<'a, T: $trait_name> {
+            pub struct [<$trait_name Interfaces>]<'a> {
                 $(
-                    pub [<$trt:snake>]: Option<[<$trt Ref>]<'a, T>>,
+                    pub [<$trt:snake>]: Option<[<$trt Ref>]<'a>>,
                 )*
             }
 
-            impl<'a, T: $trait_name> [<$trait_name Interfaces>]<'a, T> {
+            impl<'a> [<$trait_name Interfaces>]<'a> {
 
-                pub fn [<from_ $trait_name:snake>](obj: &'a dyn $trait_name<ID = T::ID>) -> [<$trait_name Interfaces>]<'a, T> {
+                pub fn [<from_ $trait_name:snake>](obj: &'a dyn $trait_name) -> [<$trait_name Interfaces>]<'a> {
                     [<$trait_name Interfaces>] {
                         $(
                             [<$trt:snake>]: obj.[<as_ $trt:snake>](),
@@ -56,7 +55,7 @@ macro_rules! object_trait {
     };
     ( $trait_name:ident $(: $($bound:tt)* )? {$($trt:ident),*}) => {
         $(
-            $crate::vm::object::macros::object_trait!{@intf {$trait_name $trt}}
+            $crate::vm::object::macros::object_trait!{@intf {$trt}}
         )*
 
 
@@ -82,13 +81,12 @@ macro_rules! ObjectInterface {
         @name $name_field:ident: $name_typ:ty;
     } => {
         impl $trait_name for $struct {
-            type ID = $id_typ;
 
-            fn get_id(&self) -> &Self::ID {
-                &self.$id_field
+            fn get_id(&self) -> crate::vm::object::ObjectID {
+                self.$id_field
             }
 
-            fn set_id(&mut self, id: Self::ID) {
+            fn set_id(&mut self, id: crate::vm::object::ObjectID) {
                 self.$id_field = id;
             }
 
@@ -113,23 +111,23 @@ macro_rules! ObjectInterface {
             }
 
             #[inline(always)]
-            fn as_object(&self) -> &dyn $trait_name<ID = Self::ID> {
+            fn as_object(&self) -> &dyn $trait_name {
                 self
             }
 
             #[inline(always)]
-            fn as_mut_object(&mut self) -> &mut dyn $trait_name<ID = Self::ID> {
+            fn as_mut_object(&mut self) -> &mut dyn $trait_name {
                 self
             }
 
             paste::paste!{$(
             #[inline(always)]
-            fn [<as_ $trt:snake>](&self) -> Option<[<$trt Ref>]<Self>> {
+            fn [<as_ $trt:snake>](&self) -> Option<[<$trt Ref>]> {
                 Some(self)
             }
 
             #[inline(always)]
-            fn [<as_mut_ $trt:snake>](&mut self) -> Option<[<$trt RefMut>]<Self>> {
+            fn [<as_mut_ $trt:snake>](&mut self) -> Option<[<$trt RefMut>]> {
                 Some(self)
             }
             )*}
