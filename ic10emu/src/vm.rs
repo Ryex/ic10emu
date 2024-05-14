@@ -4,16 +4,12 @@ pub mod object;
 
 use crate::{
     device::Device,
-    errors::{ICError, VMError},
+    errors::{ICError, TemplateError, VMError},
     interpreter::ICState,
-    network::{CableConnectionType, CableNetwork, Connection, ConnectionRole, FrozenNetwork},
+    network::{CableConnectionType, CableNetwork, Connection, ConnectionRole, FrozenCableNetwork},
     vm::{
         enums::script_enums::{LogicBatchMethod, LogicSlotType, LogicType},
-        object::{
-            templates::ObjectTemplate,
-            traits::ParentSlotInfo,
-            ObjectID, VMObject,
-        },
+        object::{templates::ObjectTemplate, traits::ParentSlotInfo, ObjectID, VMObject},
     },
 };
 use std::{
@@ -44,7 +40,7 @@ pub struct VM {
 
 #[derive(Debug, Default)]
 pub struct VMTransactionNetwork {
-    pub objects: Vec<ObjectID>,
+    pub devices: Vec<ObjectID>,
     pub power_only: Vec<ObjectID>,
 }
 
@@ -85,7 +81,9 @@ impl VM {
         });
 
         let default_network = VMObject::new(CableNetwork::new(default_network_key), vm.clone());
-        vm.networks.borrow_mut().insert(default_network_key, default_network);
+        vm.networks
+            .borrow_mut()
+            .insert(default_network_key, default_network);
 
         vm
     }
@@ -125,7 +123,7 @@ impl VM {
                 .borrow_mut()
                 .as_mut_network()
                 .expect(&format!("non network network: {net_id}"));
-            for id in trans_net.objects {
+            for id in trans_net.devices {
                 net.add_data(id);
             }
             for id in trans_net.power_only {
@@ -138,9 +136,10 @@ impl VM {
 
     pub fn add_network(self: &Rc<Self>) -> u32 {
         let next_id = self.network_id_space.borrow_mut().next();
-        self.networks
-            .borrow_mut()
-            .insert(next_id, VMObject::new(CableNetwork::new(next_id), self.clone()));
+        self.networks.borrow_mut().insert(
+            next_id,
+            VMObject::new(CableNetwork::new(next_id), self.clone()),
+        );
         next_id
     }
 
@@ -248,7 +247,11 @@ impl VM {
         self.operation_modified.borrow().clone()
     }
 
-    pub fn step_programmable(self: &Rc<Self>, id: u32, advance_ip_on_err: bool) -> Result<(), VMError> {
+    pub fn step_programmable(
+        self: &Rc<Self>,
+        id: u32,
+        advance_ip_on_err: bool,
+    ) -> Result<(), VMError> {
         let programmable = self
             .objects
             .borrow()
@@ -264,7 +267,11 @@ impl VM {
     }
 
     /// returns true if executed 128 lines, false if returned early.
-    pub fn run_programmable(self: &Rc<Self>, id: u32, ignore_errors: bool) -> Result<bool, VMError> {
+    pub fn run_programmable(
+        self: &Rc<Self>,
+        id: u32,
+        ignore_errors: bool,
+    ) -> Result<bool, VMError> {
         let programmable = self
             .objects
             .borrow()
@@ -338,7 +345,11 @@ impl VM {
             .into_iter()
     }
 
-    pub fn get_device_same_network(self: &Rc<Self>, source: ObjectID, other: ObjectID) -> Option<VMObject> {
+    pub fn get_device_same_network(
+        self: &Rc<Self>,
+        source: ObjectID,
+        other: ObjectID,
+    ) -> Option<VMObject> {
         if self.devices_on_same_network(&[source, other]) {
             self.get_object(other)
         } else {
@@ -347,7 +358,11 @@ impl VM {
     }
 
     pub fn get_network_channel(self: &Rc<Self>, id: u32, channel: usize) -> Result<f64, ICError> {
-        let network = self.networks.borrow().get(&id).ok_or(ICError::BadNetworkId(id))?;
+        let network = self
+            .networks
+            .borrow()
+            .get(&id)
+            .ok_or(ICError::BadNetworkId(id))?;
         if !(0..8).contains(&channel) {
             Err(ICError::ChannelIndexOutOfRange(channel))
         } else {
@@ -368,7 +383,11 @@ impl VM {
         channel: usize,
         val: f64,
     ) -> Result<(), ICError> {
-        let network = self.networks.borrow().get(&(id)).ok_or(ICError::BadNetworkId(id))?;
+        let network = self
+            .networks
+            .borrow()
+            .get(&(id))
+            .ok_or(ICError::BadNetworkId(id))?;
         if !(0..8).contains(&channel) {
             Err(ICError::ChannelIndexOutOfRange(channel))
         } else {
@@ -399,7 +418,8 @@ impl VM {
 
     /// return a vector with the device ids the source id can see via it's connected networks
     pub fn visible_devices(self: &Rc<Self>, source: ObjectID) -> Vec<ObjectID> {
-        self.networks.borrow()
+        self.networks
+            .borrow()
             .values()
             .filter_map(|net| {
                 let net_ref = net.borrow().as_network().expect("non-network network");
@@ -412,7 +432,12 @@ impl VM {
             .concat()
     }
 
-    pub fn set_pin(self: &Rc<Self>, id: u32, pin: usize, val: Option<ObjectID>) -> Result<bool, VMError> {
+    pub fn set_pin(
+        self: &Rc<Self>,
+        id: u32,
+        pin: usize,
+        val: Option<ObjectID>,
+    ) -> Result<bool, VMError> {
         let Some(obj) = self.objects.borrow().get(&id) else {
             return Err(VMError::UnknownId(id));
         };
@@ -811,74 +836,117 @@ impl VM {
         Ok(last)
     }
 
-    pub fn save_vm_state(self: &Rc<Self>) -> FrozenVM {
-        FrozenVM {
-            ics: self
-                .circuit_holders
-                .values()
-                .map(|ic| ic.borrow().into())
-                .collect(),
-            devices: self
-                .devices
-                .values()
-                .map(|device| device.borrow().into())
-                .collect(),
+    pub fn save_vm_state(self: &Rc<Self>) -> Result<FrozenVM, TemplateError> {
+        Ok(FrozenVM {
+            objects: self
+                .objects
+                .borrow()
+                .iter()
+                .filter_map(|(obj_id, obj)| {
+                    if obj
+                        .borrow()
+                        .as_item()
+                        .is_some_and(|item| item.get_parent_slot().is_some())
+                    {
+                        None
+                    } else {
+                        Some(ObjectTemplate::freeze_object(obj, self))
+                    }
+                })
+                .collect::<Result<Vec<_>, _>>()?,
             networks: self
                 .networks
+                .borrow()
                 .values()
-                .map(|network| network.borrow().into())
+                .map(|network| {
+                    network
+                        .borrow()
+                        .as_network()
+                        .expect("non-network network")
+                        .into()
+                })
                 .collect(),
-            default_network: self.default_network_key,
-        }
+            default_network_key: *self.default_network_key.borrow(),
+            circuit_holders: self.circuit_holders.borrow().clone(),
+            program_holders: self.program_holders.borrow().clone(),
+            wireless_transmitters: self.wireless_transmitters.borrow().clone(),
+            wireless_receivers: self.wireless_receivers.borrow().clone(),
+        })
     }
 
     pub fn restore_vm_state(self: &Rc<Self>, state: FrozenVM) -> Result<(), VMError> {
-        self.circuit_holders.clear();
-        self.devices.clear();
-        self.networks.clear();
-        self.id_space.reset();
-        self.network_id_space.reset();
-
-        // ic ids sould be in slot occupants, don't duplicate
-        let to_use_ids = state
-            .devices
-            .iter()
-            .map(|template| {
-                let mut ids = template
-                    .slots
-                    .iter()
-                    .filter_map(|slot| slot.occupant.as_ref().and_then(|occupant| occupant.id))
-                    .collect_vec();
-                if let Some(id) = template.id {
-                    ids.push(id);
-                }
-                ids
-            })
-            .concat();
-        self.id_space.use_ids(&to_use_ids)?;
-
-        self.network_id_space
+        let mut transaction_network_id_space = IdSpace::new();
+        transaction_network_id_space
             .use_ids(&state.networks.iter().map(|net| net.id).collect_vec())?;
-
-        self.circuit_holders = state
-            .ics
-            .into_iter()
-            .map(|ic| (ic.id, Rc::new(RefCell::new(ic.into()))))
-            .collect();
-        self.devices = state
-            .devices
-            .into_iter()
-            .map(|template| {
-                let device = Device::from_template(template, || self.id_space.next());
-                (device.id, Rc::new(RefCell::new(device)))
-            })
-            .collect();
-        self.networks = state
+        let transaction_networks: BTreeMap<ObjectID, VMObject> = state
             .networks
             .into_iter()
-            .map(|network| (network.id, Rc::new(RefCell::new(network.into()))))
+            .map(|network| {
+                (
+                    network.id,
+                    VMObject::new(
+                        std::convert::Into::<CableNetwork>::into(network),
+                        self.clone(),
+                    ),
+                )
+            })
             .collect();
-        self.default_network_key = state.default_network;
+        let mut transaction = VMTransaction::from_scratch_with_networks(
+            self,
+            &transaction_networks,
+            state.default_network_key,
+        );
+        for template in state.objects {
+            let _ = transaction.add_device_from_template(template)?;
+        }
+
+        self.circuit_holders.borrow_mut().clear();
+        self.program_holders.borrow_mut().clear();
+        self.objects.borrow_mut().clear();
+        self.networks.borrow_mut().clear();
+        self.wireless_transmitters.borrow_mut().clear();
+        self.wireless_receivers.borrow_mut().clear();
+        self.id_space.borrow_mut().reset();
+        self.network_id_space.borrow_mut().reset();
+
+        self.network_id_space.replace(transaction_network_id_space);
+        self.networks.replace(transaction_networks);
+
+        let transaction_ids = transaction.id_space.in_use_ids();
+        self.id_space.borrow_mut().use_ids(&transaction_ids)?;
+
+        self.circuit_holders
+            .borrow_mut()
+            .extend(transaction.circuit_holders);
+        self.program_holders
+            .borrow_mut()
+            .extend(transaction.program_holders);
+        self.wireless_transmitters
+            .borrow_mut()
+            .extend(transaction.wireless_transmitters);
+        self.wireless_receivers
+            .borrow_mut()
+            .extend(transaction.wireless_receivers);
+
+        for (net_id, trans_net) in transaction.networks.into_iter() {
+            let net = self
+                .networks
+                .borrow()
+                .get(&net_id)
+                .expect(&format!(
+                    "desync between vm and transaction networks: {net_id}"
+                ))
+                .borrow_mut()
+                .as_mut_network()
+                .expect(&format!("non network network: {net_id}"));
+            for id in trans_net.devices {
+                net.add_data(id);
+            }
+            for id in trans_net.power_only {
+                net.add_power(id);
+            }
+        }
+
         Ok(())
     }
 }
@@ -899,7 +967,28 @@ impl VMTransaction {
                 .keys()
                 .map(|net_id| (*net_id, VMTransactionNetwork::default()))
                 .collect(),
-            vm: vm.clone()
+            vm: vm.clone(),
+        }
+    }
+
+    pub fn from_scratch_with_networks(
+        vm: &Rc<VM>,
+        networks: &BTreeMap<ObjectID, VMObject>,
+        default: ObjectID,
+    ) -> Self {
+        VMTransaction {
+            objects: BTreeMap::new(),
+            circuit_holders: Vec::new(),
+            program_holders: Vec::new(),
+            default_network_key: default,
+            wireless_transmitters: Vec::new(),
+            wireless_receivers: Vec::new(),
+            id_space: IdSpace::new(),
+            networks: networks
+                .keys()
+                .map(|net_id| (*net_id, VMTransactionNetwork::default()))
+                .collect(),
+            vm: vm.clone(),
         }
     }
 
@@ -959,7 +1048,7 @@ impl VMTransaction {
                     if let Some(net) = self.networks.get_mut(&net_id) {
                         match typ {
                             CableConnectionType::Power => net.power_only.push(obj_id),
-                            _ => net.objects.push(obj_id),
+                            _ => net.devices.push(obj_id),
                         }
                     } else {
                         return Err(VMError::InvalidNetwork(*net_id));
@@ -1090,13 +1179,7 @@ pub struct FrozenVM {
     pub circuit_holders: Vec<ObjectID>,
     pub program_holders: Vec<ObjectID>,
     pub default_network_key: ObjectID,
-    pub networks: Vec<FrozenNetwork>,
+    pub networks: Vec<FrozenCableNetwork>,
     pub wireless_transmitters: Vec<ObjectID>,
     pub wireless_receivers: Vec<ObjectID>,
-}
-
-impl FrozenVM {
-    pub fn from_vm(vm: &VM) -> Self {
-        let objects = vm.objects.iter().map();
-    }
 }

@@ -25,7 +25,7 @@ pub enum CableConnectionType {
 #[derive(Debug, Default, Clone, Copy, Serialize, Deserialize)]
 pub enum Connection {
     CableNetwork {
-        net: Option<u32>,
+        net: Option<ObjectID>,
         typ: CableConnectionType,
         role: ConnectionRole,
     },
@@ -385,22 +385,34 @@ impl Network for CableNetwork {
     fn remove_power(&mut self, id: ObjectID) -> bool {
         self.devices.remove(&id)
     }
+
+    fn get_devices(&self) -> Vec<ObjectID> {
+       self.devices.iter().copied().collect_vec()
+    }
+
+    fn get_power_only(&self) -> Vec<ObjectID> {
+        self.power_only.iter().copied().collect_vec()
+    }
+
+    fn get_channel_data(&self) ->  &[f64; 8] {
+        &self.channels
+    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct FrozenNetwork {
-    pub id: u32,
+pub struct FrozenCableNetwork {
+    pub id: ObjectID,
     pub devices: Vec<u32>,
     pub power_only: Vec<u32>,
     pub channels: [f64; 8],
 }
 
-impl<T> From<T> for FrozenNetwork
+impl<T> From<T> for FrozenCableNetwork
 where
     T: Deref<Target = CableNetwork>,
 {
     fn from(value: T) -> Self {
-        FrozenNetwork {
+        FrozenCableNetwork {
             id: value.id,
             devices: value.devices.iter().copied().collect_vec(),
             power_only: value.power_only.iter().copied().collect_vec(),
@@ -409,8 +421,20 @@ where
     }
 }
 
-impl From<FrozenNetwork> for CableNetwork {
-    fn from(value: FrozenNetwork) -> Self {
+impl From<NetworkRef<'_>> for FrozenCableNetwork {
+    fn from(value: NetworkRef) -> Self {
+        FrozenCableNetwork {
+            id: value.get_id(),
+            devices: value.get_devices(),
+            power_only: value.get_power_only(),
+            channels: *value.get_channel_data(),
+        }
+
+    }
+}
+
+impl From<FrozenCableNetwork> for CableNetwork {
+    fn from(value: FrozenCableNetwork) -> Self {
         CableNetwork {
             id: value.id,
             prefab: Name::new(""),

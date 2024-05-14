@@ -184,6 +184,9 @@ tag_object_traits! {
         fn remove_all(&mut self, id: ObjectID) -> bool;
         fn remove_data(&mut self, id: ObjectID) -> bool;
         fn remove_power(&mut self, id: ObjectID) -> bool;
+        fn get_devices(&self) -> Vec<ObjectID>;
+        fn get_power_only(&self) -> Vec<ObjectID>;
+        fn get_channel_data(&self) -> &[f64; 8];
     }
 
 
