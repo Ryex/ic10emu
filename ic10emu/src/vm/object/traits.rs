@@ -15,7 +15,7 @@ use crate::{
         VM,
     }
 };
-use std::{collections::BTreeMap, fmt::Debug};
+use std::{collections::BTreeMap, fmt::Debug, rc::Rc};
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
 pub struct ParentSlotInfo {
@@ -99,7 +99,7 @@ tag_object_traits! {
     }
 
     pub trait IntegratedCircuit: Logicable + MemoryWritable + SourceCode + Item {
-        fn get_circuit_holder(&self, vm: &VM) -> Option<CircuitHolderRef>;
+        fn get_circuit_holder(&self, vm: &Rc<VM>) -> Option<CircuitHolderRef>;
         fn get_instruction_pointer(&self) -> f64;
         fn set_next_instruction(&mut self, next_instruction: f64);
         fn set_next_instruction_relative(&mut self, offset: f64) {

@@ -203,6 +203,7 @@ impl ObjectTemplate {
                     id,
                     prefab: Name::from_prefab_name(&s.prefab.prefab_name),
                     name: Name::new(&s.prefab.name),
+                    vm: None,
                     small_grid: s.structure.small_grid,
                 },
                 vm.clone(),
@@ -212,6 +213,7 @@ impl ObjectTemplate {
                     id,
                     prefab: Name::from_prefab_name(&s.prefab.prefab_name),
                     name: Name::new(&s.prefab.name),
+                    vm: None,
                     small_grid: s.structure.small_grid,
                     slots: s
                         .slots
@@ -235,6 +237,7 @@ impl ObjectTemplate {
                     id,
                     prefab: Name::from_prefab_name(&s.prefab.prefab_name),
                     name: Name::new(&s.prefab.name),
+                    vm: None,
                     small_grid: s.structure.small_grid,
                     slots: s
                         .slots
@@ -314,6 +317,7 @@ impl ObjectTemplate {
                     id,
                     prefab: Name::from_prefab_name(&s.prefab.prefab_name),
                     name: Name::new(&s.prefab.name),
+                    vm: None,
                     small_grid: s.structure.small_grid,
                     slots: s
                         .slots
@@ -414,6 +418,7 @@ impl ObjectTemplate {
                         id,
                         prefab: Name::from_prefab_name(&s.prefab.prefab_name),
                         name: Name::new(&s.prefab.name),
+                        vm: None,
                         small_grid: s.structure.small_grid,
                         slots: s
                             .slots
@@ -521,6 +526,7 @@ impl ObjectTemplate {
                     id,
                     prefab: Name::from_prefab_name(&s.prefab.prefab_name),
                     name: Name::new(&s.prefab.name),
+                    vm: None,
                     small_grid: s.structure.small_grid,
                     slots: s
                         .slots
@@ -623,6 +629,7 @@ impl ObjectTemplate {
                     id,
                     prefab: Name::from_prefab_name(&i.prefab.prefab_name),
                     name: Name::new(&i.prefab.name),
+                    vm: None,
                     item_info: i.item.clone(),
                     parent_slot: None,
                 },
@@ -633,6 +640,7 @@ impl ObjectTemplate {
                     id,
                     prefab: Name::from_prefab_name(&i.prefab.prefab_name),
                     name: Name::new(&i.prefab.name),
+                    vm: None,
                     item_info: i.item.clone(),
                     parent_slot: None,
                     slots: i
@@ -657,6 +665,7 @@ impl ObjectTemplate {
                     id,
                     prefab: Name::from_prefab_name(&i.prefab.prefab_name),
                     name: Name::new(&i.prefab.name),
+                    vm: None,
                     item_info: i.item.clone(),
                     parent_slot: None,
                     slots: i
@@ -738,6 +747,7 @@ impl ObjectTemplate {
                         id,
                         prefab: Name::from_prefab_name(&i.prefab.prefab_name),
                         name: Name::new(&i.prefab.name),
+                        vm: None,
                         item_info: i.item.clone(),
                         parent_slot: None,
                         slots: i
@@ -824,6 +834,7 @@ impl ObjectTemplate {
                     id,
                     prefab: Name::from_prefab_name(&i.prefab.prefab_name),
                     name: Name::new(&i.prefab.name),
+                    vm: None,
                     item_info: i.item.clone(),
                     parent_slot: None,
                     slots: i
@@ -1308,7 +1319,7 @@ impl From<LogicableRef<'_>> for LogicInfo {
                     .iter()
                     .filter_map(|lt| match logic.get_logic(*lt) {
                         Ok(val) => Some((*lt, val)),
-                        _ => None
+                        _ => None,
                     })
                     .collect(),
             ),
@@ -1377,9 +1388,15 @@ pub struct DeviceInfo {
 impl From<DeviceRef<'_>> for DeviceInfo {
     fn from(device: DeviceRef) -> Self {
         DeviceInfo {
-            connection_list: device.connection_list().iter().map(|conn| conn.to_info()).collect(),
+            connection_list: device
+                .connection_list()
+                .iter()
+                .map(|conn| conn.to_info())
+                .collect(),
             device_pins_length: device.device_pins().map(|pins| pins.len()),
-            device_pins: device.device_pins().map(|pins| pins.iter().copied().collect()),
+            device_pins: device
+                .device_pins()
+                .map(|pins| pins.iter().copied().collect()),
             has_reagents: device.has_reagents(),
             has_lock_state: device.has_lock_state(),
             has_mode_state: device.has_mode_state(),

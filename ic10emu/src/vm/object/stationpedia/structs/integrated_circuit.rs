@@ -1,10 +1,11 @@
 use crate::{
     errors::{ICError, LineError},
     grammar,
+    interpreter::ICState,
     vm::{
         enums::{
             basic_enums::{Class as SlotClass, GasType, SortingClass},
-            script_enums::LogicType,
+            script_enums::{LogicSlotType, LogicType},
         },
         instructions::{
             enums::InstructionOp,
@@ -13,11 +14,10 @@ use crate::{
             Instruction,
         },
         object::{
-            errors::MemoryError,
-            generic::{macros::GWLogicable, traits::GWLogicable},
+            errors::{LogicError, MemoryError},
             macros::ObjectInterface,
             traits::*,
-            LogicField, Name, ObjectID, Slot,
+            LogicField, MemoryAccess, Name, ObjectID, Slot,
         },
         VM,
     },
@@ -25,7 +25,10 @@ use crate::{
 use itertools::Itertools;
 use macro_rules_attribute::derive;
 use serde_derive::{Deserialize, Serialize};
-use std::collections::{BTreeMap, HashSet};
+use std::{
+    collections::{BTreeMap, HashSet},
+    rc::Rc,
+};
 use ICError::*;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -139,20 +142,10 @@ impl Program {
     }
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub enum ICState {
-    Start,
-    Running,
-    Yield,
-    Sleep(time::OffsetDateTime, f64),
-    HasCaughtFire,
-    Error(LineError),
-}
-
 static RETURN_ADDRESS_INDEX: usize = 17;
 static STACK_POINTER_INDEX: usize = 16;
 
-#[derive(ObjectInterface!, GWLogicable!)]
+#[derive(ObjectInterface!)]
 #[custom(implements(Object { Item, Storage, Logicable, MemoryReadable, MemoryWritable }))]
 pub struct ItemIntegratedCircuit10 {
     #[custom(object_id)]
@@ -161,6 +154,8 @@ pub struct ItemIntegratedCircuit10 {
     pub prefab: Name,
     #[custom(object_name)]
     pub name: Name,
+    #[custom(object_vm_ref)]
+    pub vm: Option<Rc<VM>>,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub memory: [f64; 512],
     pub parent_slot: Option<ParentSlotInfo>,
@@ -218,11 +213,84 @@ impl Storage for ItemIntegratedCircuit10 {
     fn get_slot_mut(&mut self, index: usize) -> Option<&mut Slot> {
         None
     }
-    fn get_slots(&self) ->  &[Slot] {
+    fn get_slots(&self) -> &[Slot] {
         &[]
     }
-    fn get_slots_mut(&mut self) ->  &mut[Slot] {
+    fn get_slots_mut(&mut self) -> &mut [Slot] {
         &mut []
+    }
+}
+impl Logicable for ItemIntegratedCircuit10 {
+    fn prefab_hash(&self) -> i32 {
+        self.get_prefab().hash
+    }
+    fn name_hash(&self) -> i32 {
+        self.get_name().hash
+    }
+    fn is_logic_readable(&self) -> bool {
+        true
+    }
+    fn is_logic_writeable(&self) -> bool {
+        true
+    }
+    fn can_logic_read(&self, lt: LogicType) -> bool {
+        self.fields
+            .get(&lt)
+            .map(|field| {
+                matches!(
+                    field.field_type,
+                    MemoryAccess::Read | MemoryAccess::ReadWrite
+                )
+            })
+            .unwrap_or(false)
+    }
+    fn can_logic_write(&self, lt: LogicType) -> bool {
+        self.fields
+            .get(&lt)
+            .map(|field| {
+                matches!(
+                    field.field_type,
+                    MemoryAccess::Write | MemoryAccess::ReadWrite
+                )
+            })
+            .unwrap_or(false)
+    }
+    fn get_logic(&self, lt: LogicType) -> Result<f64, LogicError> {
+        self.fields
+            .get(&lt)
+            .and_then(|field| match field.field_type {
+                MemoryAccess::Read | MemoryAccess::ReadWrite => Some(field.value),
+                _ => None,
+            })
+            .ok_or(LogicError::CantRead(lt))
+    }
+    fn set_logic(&mut self, lt: LogicType, value: f64, force: bool) -> Result<(), LogicError> {
+        self.fields
+            .get_mut(&lt)
+            .ok_or(LogicError::CantWrite(lt))
+            .and_then(|field| match field.field_type {
+                MemoryAccess::Write | MemoryAccess::ReadWrite => {
+                    field.value = value;
+                    Ok(())
+                }
+                _ if force => {
+                    field.value = value;
+                    Ok(())
+                }
+                _ => Err(LogicError::CantWrite(lt)),
+            })
+    }
+    fn can_slot_logic_read(&self, slt: LogicSlotType, index: f64) -> bool {
+        false
+    }
+    fn get_slot_logic(&self, slt: LogicSlotType, index: f64, _vm: &VM) -> Result<f64, LogicError> {
+        return Err(LogicError::SlotIndexOutOfRange(index, self.slots_count()));
+    }
+    fn valid_logic_types(&self) -> Vec<LogicType> {
+        self.fields.keys().copied().collect()
+    }
+    fn known_modes(&self) -> Option<Vec<(u32, String)>> {
+        None
     }
 }
 
@@ -239,7 +307,7 @@ impl MemoryReadable for ItemIntegratedCircuit10 {
             Ok(self.memory[index as usize])
         }
     }
-    fn get_memory_slice(&self) ->  &[f64] {
+    fn get_memory_slice(&self) -> &[f64] {
         &self.memory
     }
 }
@@ -280,9 +348,14 @@ impl SourceCode for ItemIntegratedCircuit10 {
 }
 
 impl IntegratedCircuit for ItemIntegratedCircuit10 {
-    fn get_circuit_holder(&self, vm: &VM) -> Option<CircuitHolderRef> {
-        // FIXME: implement correctly
-        self.get_parent_slot().map(|parent_slot| parent_slot.parent)
+    fn get_circuit_holder(&self, vm: &Rc<VM>) -> Option<CircuitHolderRef> {
+        self.get_parent_slot()
+            .map(|parent_slot| {
+                vm.get_object(parent_slot.parent)
+                    .map(|obj| obj.borrow().as_circuit_holder())
+                    .flatten()
+            })
+            .flatten()
     }
     fn get_instruction_pointer(&self) -> f64 {
         self.ip as f64
@@ -338,9 +411,9 @@ impl IntegratedCircuit for ItemIntegratedCircuit10 {
     fn push_stack(&mut self, val: f64) -> Result<f64, ICError> {
         let sp = (self.registers[STACK_POINTER_INDEX].round()) as i32;
         if sp < 0 {
-            Err(ICError::StackUnderflow)
+            Err(MemoryError::StackUnderflow(sp, self.memory.len()).into())
         } else if sp as usize >= self.memory.len() {
-            Err(ICError::StackOverflow)
+            Err(MemoryError::StackOverflow(sp, self.memory.len()).into())
         } else {
             let last = self.memory[sp as usize];
             self.memory[sp as usize] = val;
@@ -352,9 +425,9 @@ impl IntegratedCircuit for ItemIntegratedCircuit10 {
         self.registers[STACK_POINTER_INDEX] -= 1.0;
         let sp = (self.registers[STACK_POINTER_INDEX].round()) as i32;
         if sp < 0 {
-            Err(ICError::StackUnderflow)
+            Err(MemoryError::StackUnderflow(sp, self.memory.len()).into())
         } else if sp as usize >= self.memory.len() {
-            Err(ICError::StackOverflow)
+            Err(MemoryError::StackOverflow(sp, self.memory.len()).into())
         } else {
             let last = self.memory[sp as usize];
             Ok(last)
@@ -363,9 +436,9 @@ impl IntegratedCircuit for ItemIntegratedCircuit10 {
     fn peek_stack(&self) -> Result<f64, ICError> {
         let sp = (self.registers[STACK_POINTER_INDEX] - 1.0).round() as i32;
         if sp < 0 {
-            Err(ICError::StackUnderflow)
+            Err(MemoryError::StackUnderflow(sp, self.memory.len()).into())
         } else if sp as usize >= self.memory.len() {
-            Err(ICError::StackOverflow)
+            Err(MemoryError::StackOverflow(sp, self.memory.len()).into())
         } else {
             let last = self.memory[sp as usize];
             Ok(last)
@@ -1324,7 +1397,6 @@ impl BdseInstruction for ItemIntegratedCircuit10 {
         Ok(())
     }
 }
-
 
 // impl BdsealInstruction for ItemIntegratedCircuit10 {
 //     /// bdseal d? a(r?|num)

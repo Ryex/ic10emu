@@ -1,8 +1,12 @@
-use std::{collections::HashSet, ops::Deref};
+use std::{collections::HashSet, ops::Deref, rc::Rc};
 
 use crate::vm::{
     enums::script_enums::LogicType,
-    object::{errors::LogicError, macros::ObjectInterface, templates::ConnectionInfo, traits::*, Name, ObjectID},
+    object::{
+        errors::LogicError, macros::ObjectInterface, templates::ConnectionInfo, traits::*, Name,
+        ObjectID,
+    },
+    VM,
 };
 use itertools::Itertools;
 use macro_rules_attribute::derive;
@@ -134,16 +138,68 @@ impl Connection {
 
     pub fn to_info(&self) -> ConnectionInfo {
         match self {
-            Self::None => ConnectionInfo { typ:ConnectionType::None, role: ConnectionRole::None, network: None  },
-            Self::CableNetwork { net, typ: CableConnectionType::Data, role } => ConnectionInfo { typ: ConnectionType::Data, role, network: net },
-            Self::CableNetwork { net, typ: CableConnectionType::Power, role } => ConnectionInfo { typ: ConnectionType::Power, role, network: net },
-            Self::CableNetwork { net, typ: CableConnectionType::PowerAndData, role } => ConnectionInfo { typ: ConnectionType::PowerAndData, role, network: net },
-            Self::Chute { role } => ConnectionInfo { typ: ConnectionType::Chute, role, network: None },
-            Self::Pipe { role } => ConnectionInfo { typ: ConnectionType::Pipe, role, network: None },
-            Self::PipeLiquid { role } => ConnectionInfo { typ: ConnectionType::PipeLiquid, role, network: None },
-            Self::Elevator { role } => ConnectionInfo { typ: ConnectionType::Elevator, role, network: None },
-            Self::LandingPad { role } => ConnectionInfo { typ: ConnectionType::LandingPad, role, network: None },
-            Self::LaunchPad { role } => ConnectionInfo { typ: ConnectionType::LaunchPad, role, network: None },
+            Self::None => ConnectionInfo {
+                typ: ConnectionType::None,
+                role: ConnectionRole::None,
+                network: None,
+            },
+            Self::CableNetwork {
+                net,
+                typ: CableConnectionType::Data,
+                role,
+            } => ConnectionInfo {
+                typ: ConnectionType::Data,
+                role: *role,
+                network: *net,
+            },
+            Self::CableNetwork {
+                net,
+                typ: CableConnectionType::Power,
+                role,
+            } => ConnectionInfo {
+                typ: ConnectionType::Power,
+                role: *role,
+                network: *net,
+            },
+            Self::CableNetwork {
+                net,
+                typ: CableConnectionType::PowerAndData,
+                role,
+            } => ConnectionInfo {
+                typ: ConnectionType::PowerAndData,
+                role: *role,
+                network: *net,
+            },
+            Self::Chute { role } => ConnectionInfo {
+                typ: ConnectionType::Chute,
+                role: *role,
+                network: None,
+            },
+            Self::Pipe { role } => ConnectionInfo {
+                typ: ConnectionType::Pipe,
+                role: *role,
+                network: None,
+            },
+            Self::PipeLiquid { role } => ConnectionInfo {
+                typ: ConnectionType::PipeLiquid,
+                role: *role,
+                network: None,
+            },
+            Self::Elevator { role } => ConnectionInfo {
+                typ: ConnectionType::Elevator,
+                role: *role,
+                network: None,
+            },
+            Self::LandingPad { role } => ConnectionInfo {
+                typ: ConnectionType::LandingPad,
+                role: *role,
+                network: None,
+            },
+            Self::LaunchPad { role } => ConnectionInfo {
+                typ: ConnectionType::LaunchPad,
+                role: *role,
+                network: None,
+            },
         }
     }
 }
@@ -159,6 +215,9 @@ pub struct CableNetwork {
     #[custom(object_name)]
     /// required by object interface but atm unused by network
     pub name: Name,
+    #[custom(object_vm_ref)]
+    #[serde(skip)]
+    pub vm: Option<Rc<VM>>,
     /// data enabled objects (must be devices)
     pub devices: HashSet<ObjectID>,
     /// power only connections
@@ -177,10 +236,10 @@ impl Storage for CableNetwork {
     fn get_slot_mut(&mut self, index: usize) -> Option<&mut crate::vm::object::Slot> {
         None
     }
-    fn get_slots(&self) ->  &[crate::vm::object::Slot] {
+    fn get_slots(&self) -> &[crate::vm::object::Slot] {
         &vec![]
     }
-    fn get_slots_mut(&mut self) ->  &mut[crate::vm::object::Slot] {
+    fn get_slots_mut(&mut self) -> &mut [crate::vm::object::Slot] {
         &mut vec![]
     }
 }
@@ -258,13 +317,15 @@ impl Logicable for CableNetwork {
         index: f64,
         vm: &crate::vm::VM,
     ) -> Result<f64, LogicError> {
-        Err(LogicError::CantSlotRead(slt, index as usize))
+        Err(LogicError::CantSlotRead(slt, index))
     }
     fn valid_logic_types(&self) -> Vec<LogicType> {
         use LogicType::*;
-        vec![Channel0, Channel1, Channel2, Channel3, Channel4, Channel5, Channel6, Channel7]
+        vec![
+            Channel0, Channel1, Channel2, Channel3, Channel4, Channel5, Channel6, Channel7,
+        ]
     }
-    fn known_modes(&self) -> Option<Vec<(u32,String)>> {
+    fn known_modes(&self) -> Option<Vec<(u32, String)>> {
         None
     }
 }
@@ -354,6 +415,7 @@ impl From<FrozenNetwork> for CableNetwork {
             id: value.id,
             prefab: Name::new(""),
             name: Name::new(""),
+            vm: None,
             devices: value.devices.into_iter().collect(),
             power_only: value.power_only.into_iter().collect(),
             channels: value.channels,
@@ -373,6 +435,7 @@ impl CableNetwork {
             id,
             prefab: Name::new(""),
             name: Name::new(""),
+            vm: None,
             devices: HashSet::new(),
             power_only: HashSet::new(),
             channels: [f64::NAN; 8],

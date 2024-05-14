@@ -28,24 +28,21 @@ pub type ObjectID = u32;
 pub type BoxedObject = Rc<RefCell<dyn Object>>;
 
 #[derive(Debug, Clone)]
-pub struct VMObject {
-    obj: BoxedObject,
-    vm: Rc<VM>,
-}
+pub struct VMObject(BoxedObject);
 
 impl Deref for VMObject {
     type Target = BoxedObject;
 
     #[inline(always)]
     fn deref(&self) -> &Self::Target {
-        &self.obj
+        &self.0
     }
 }
 
 impl DerefMut for VMObject {
     #[inline(always)]
     fn deref_mut(&mut self) -> &mut Self::Target {
-        &mut self.obj
+        &mut self.0
     }
 }
 
@@ -54,18 +51,21 @@ impl VMObject {
     where
         T: Object + 'static,
     {
-        VMObject {
-            obj: Rc::new(RefCell::new(val)),
-            vm,
-        }
+        let mut obj = VMObject(Rc::new(RefCell::new(val)));
+        obj.set_vm(vm);
+        obj
     }
 
     pub fn set_vm(&mut self, vm: Rc<VM>) {
-        self.vm = vm;
+        self.borrow_mut().set_vm(vm);
     }
 
-    pub fn get_vm(&self) -> &Rc<VM> {
-        &self.vm
+    pub fn get_vm(&self) -> Rc<VM> {
+        self
+            .borrow()
+            .get_vm()
+            .expect("VMObject with no VM?")
+            .clone()
     }
 }
 

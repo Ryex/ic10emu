@@ -47,7 +47,7 @@ macro_rules! GWLogicable {
             fn fields_mut(&mut self) -> &mut BTreeMap<LogicType, LogicField> {
                 &mut self.fields
             }
-            fn modes(&self) -> Option<&BTreeMap<u32, String>> {
+            fn known_modes(&self) -> Option<&BTreeMap<u32, String>> {
                 self.modes.as_ref()
             }
         }

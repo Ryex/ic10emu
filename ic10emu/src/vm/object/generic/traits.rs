@@ -53,7 +53,7 @@ impl<T: GWStorage + Object> Storage for T {
 pub trait GWLogicable: Storage {
     fn fields(&self) -> &BTreeMap<LogicType, LogicField>;
     fn fields_mut(&mut self) -> &mut BTreeMap<LogicType, LogicField>;
-    fn modes(&self) -> Option<&BTreeMap<u32, String>>;
+    fn known_modes(&self) -> Option<&BTreeMap<u32, String>>;
 }
 
 impl<T: GWLogicable + Object> Logicable for T {
@@ -148,8 +148,13 @@ impl<T: GWLogicable + Object> Logicable for T {
     fn valid_logic_types(&self) -> Vec<LogicType> {
         self.fields().keys().copied().collect()
     }
-    fn known_modes(&self) -> Option<Vec<(u32,String)>> {
-        self.modes().map(|modes| modes.iter().collect())
+    fn known_modes(&self) -> Option<Vec<(u32, String)>> {
+        self.known_modes().map(|modes| {
+            modes
+                .iter()
+                .map(|(mode, name)| (*mode, name.clone()))
+                .collect()
+        })
     }
 }
 
@@ -171,7 +176,7 @@ impl<T: GWMemoryReadable + Object> MemoryReadable for T {
             Ok(self.memory()[index as usize])
         }
     }
-    fn get_memory_slice(&self) ->  &[f64] {
+    fn get_memory_slice(&self) -> &[f64] {
         self.memory()
     }
 }
