@@ -73,7 +73,7 @@ impl ObjectTemplate {
         }
     }
 
-    pub fn build(&self, id: ObjectID, vm: &Rc<VM>) -> VMObject {
+    pub fn build(&self, id: ObjectID, vm: Rc<VM>) -> VMObject {
         if let Some(obj) = stationpedia::object_from_prefab_template(&self, id, vm) {
             obj
         } else {
@@ -195,7 +195,7 @@ impl ObjectTemplate {
         }
     }
 
-    fn build_generic(&self, id: ObjectID, vm: &Rc<VM>) -> VMObject {
+    fn build_generic(&self, id: ObjectID, vm: Rc<VM>) -> VMObject {
         use ObjectTemplate::*;
         match self {
             Structure(s) => VMObject::new(

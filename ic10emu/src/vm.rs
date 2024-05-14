@@ -11,7 +11,7 @@ use crate::{
         enums::script_enums::{LogicBatchMethod, LogicSlotType, LogicType},
         object::{
             templates::ObjectTemplate,
-            traits::{Object, ParentSlotInfo},
+            traits::ParentSlotInfo,
             ObjectID, VMObject,
         },
     },
@@ -43,7 +43,7 @@ pub struct VM {
 }
 
 #[derive(Debug, Default)]
-pub struct VMTransationNetwork {
+pub struct VMTransactionNetwork {
     pub objects: Vec<ObjectID>,
     pub power_only: Vec<ObjectID>,
 }
@@ -51,7 +51,7 @@ pub struct VMTransationNetwork {
 #[derive(Debug)]
 /// used as a temp structure to add objects in case
 /// there are errors on nested templates
-pub struct VMTransation {
+pub struct VMTransaction {
     pub objects: BTreeMap<ObjectID, VMObject>,
     pub circuit_holders: Vec<ObjectID>,
     pub program_holders: Vec<ObjectID>,
@@ -59,7 +59,7 @@ pub struct VMTransation {
     pub wireless_transmitters: Vec<ObjectID>,
     pub wireless_receivers: Vec<ObjectID>,
     pub id_space: IdSpace,
-    pub networks: BTreeMap<ObjectID, VMTransationNetwork>,
+    pub networks: BTreeMap<ObjectID, VMTransactionNetwork>,
     vm: Rc<VM>,
 }
 
@@ -94,12 +94,12 @@ impl VM {
         self: &Rc<Self>,
         template: ObjectTemplate,
     ) -> Result<u32, VMError> {
-        let mut transaction = VMTransation::new(self);
+        let mut transaction = VMTransaction::new(self);
 
         let obj_id = transaction.add_device_from_template(template)?;
 
-        let transation_ids = transaction.id_space.in_use_ids();
-        self.id_space.borrow_mut().use_new_ids(&transation_ids);
+        let transaction_ids = transaction.id_space.in_use_ids();
+        self.id_space.borrow_mut().use_new_ids(&transaction_ids);
 
         self.objects.borrow_mut().extend(transaction.objects);
         self.wireless_transmitters
@@ -120,7 +120,7 @@ impl VM {
                 .borrow()
                 .get(&net_id)
                 .expect(&format!(
-                    "desync between vm and transation networks: {net_id}"
+                    "desync between vm and transaction networks: {net_id}"
                 ))
                 .borrow_mut()
                 .as_mut_network()
@@ -883,9 +883,9 @@ impl VM {
     }
 }
 
-impl VMTransation {
+impl VMTransaction {
     pub fn new(vm: &Rc<VM>) -> Self {
-        VMTransation {
+        VMTransaction {
             objects: BTreeMap::new(),
             circuit_holders: Vec::new(),
             program_holders: Vec::new(),
@@ -897,7 +897,7 @@ impl VMTransation {
                 .networks
                 .borrow()
                 .keys()
-                .map(|net_id| (*net_id, VMTransationNetwork::default()))
+                .map(|net_id| (*net_id, VMTransactionNetwork::default()))
                 .collect(),
             vm: vm.clone()
         }
@@ -920,7 +920,7 @@ impl VMTransation {
             self.id_space.next()
         };
 
-        let obj = template.build(obj_id, self.vm);
+        let obj = template.build(obj_id, self.vm.clone());
 
         if let Some(storage) = obj.borrow_mut().as_mut_storage() {
             for (slot_index, occupant_template) in
@@ -962,7 +962,7 @@ impl VMTransation {
                             _ => net.objects.push(obj_id),
                         }
                     } else {
-                        return Err(VMError::InvalidNetwork(net_id));
+                        return Err(VMError::InvalidNetwork(*net_id));
                     }
                 }
             }
