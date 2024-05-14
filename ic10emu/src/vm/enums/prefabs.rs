@@ -8680,11 +8680,6 @@ The ProKompile can stack a wide variety of things such as <link=IngotPage><color
     )]
     ItemKitElectricUmbilical = 1603046970i32,
     #[strum(
-        serialize = "ItemJetpackTurbine",
-        props(name = r#"Turbine Jetpack"#, desc = r#""#, value = "1604261183")
-    )]
-    ItemJetpackTurbine = 1604261183i32,
-    #[strum(
         serialize = "Lander",
         props(name = r#"Lander"#, desc = r#""#, value = "1605130615")
     )]

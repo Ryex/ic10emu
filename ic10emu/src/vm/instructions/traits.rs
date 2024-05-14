@@ -14,7 +14,6 @@ pub trait AbsInstruction: IntegratedCircuit {
     /// abs r? a(r?|num)
     fn execute_abs(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -23,7 +22,6 @@ pub trait AcosInstruction: IntegratedCircuit {
     /// acos r? a(r?|num)
     fn execute_acos(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -32,7 +30,6 @@ pub trait AddInstruction: IntegratedCircuit {
     /// add r? a(r?|num) b(r?|num)
     fn execute_add(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -42,7 +39,6 @@ pub trait AliasInstruction: IntegratedCircuit {
     /// alias str r?|d?
     fn execute_alias(
         &mut self,
-        vm: &crate::vm::VM,
         string: &crate::vm::instructions::operands::Operand,
         r: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -51,7 +47,6 @@ pub trait AndInstruction: IntegratedCircuit {
     /// and r? a(r?|num) b(r?|num)
     fn execute_and(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -61,7 +56,6 @@ pub trait AsinInstruction: IntegratedCircuit {
     /// asin r? a(r?|num)
     fn execute_asin(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -70,7 +64,6 @@ pub trait AtanInstruction: IntegratedCircuit {
     /// atan r? a(r?|num)
     fn execute_atan(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -79,7 +72,6 @@ pub trait Atan2Instruction: IntegratedCircuit {
     /// atan2 r? a(r?|num) b(r?|num)
     fn execute_atan2(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -89,7 +81,6 @@ pub trait BapInstruction: IntegratedCircuit {
     /// bap a(r?|num) b(r?|num) c(r?|num) d(r?|num)
     fn execute_bap(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -100,7 +91,6 @@ pub trait BapalInstruction: IntegratedCircuit {
     /// bapal a(r?|num) b(r?|num) c(r?|num) d(r?|num)
     fn execute_bapal(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -111,7 +101,6 @@ pub trait BapzInstruction: IntegratedCircuit {
     /// bapz a(r?|num) b(r?|num) c(r?|num)
     fn execute_bapz(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -121,7 +110,6 @@ pub trait BapzalInstruction: IntegratedCircuit {
     /// bapzal a(r?|num) b(r?|num) c(r?|num)
     fn execute_bapzal(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -131,7 +119,6 @@ pub trait BdnsInstruction: IntegratedCircuit {
     /// bdns d? a(r?|num)
     fn execute_bdns(
         &mut self,
-        vm: &crate::vm::VM,
         d: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -140,7 +127,6 @@ pub trait BdnsalInstruction: IntegratedCircuit {
     /// bdnsal d? a(r?|num)
     fn execute_bdnsal(
         &mut self,
-        vm: &crate::vm::VM,
         d: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -149,7 +135,6 @@ pub trait BdseInstruction: IntegratedCircuit {
     /// bdse d? a(r?|num)
     fn execute_bdse(
         &mut self,
-        vm: &crate::vm::VM,
         d: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -158,7 +143,6 @@ pub trait BdsealInstruction: IntegratedCircuit {
     /// bdseal d? a(r?|num)
     fn execute_bdseal(
         &mut self,
-        vm: &crate::vm::VM,
         d: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -167,7 +151,6 @@ pub trait BeqInstruction: IntegratedCircuit {
     /// beq a(r?|num) b(r?|num) c(r?|num)
     fn execute_beq(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -177,7 +160,6 @@ pub trait BeqalInstruction: IntegratedCircuit {
     /// beqal a(r?|num) b(r?|num) c(r?|num)
     fn execute_beqal(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -187,7 +169,6 @@ pub trait BeqzInstruction: IntegratedCircuit {
     /// beqz a(r?|num) b(r?|num)
     fn execute_beqz(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -196,7 +177,6 @@ pub trait BeqzalInstruction: IntegratedCircuit {
     /// beqzal a(r?|num) b(r?|num)
     fn execute_beqzal(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -205,7 +185,6 @@ pub trait BgeInstruction: IntegratedCircuit {
     /// bge a(r?|num) b(r?|num) c(r?|num)
     fn execute_bge(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -215,7 +194,6 @@ pub trait BgealInstruction: IntegratedCircuit {
     /// bgeal a(r?|num) b(r?|num) c(r?|num)
     fn execute_bgeal(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -225,7 +203,6 @@ pub trait BgezInstruction: IntegratedCircuit {
     /// bgez a(r?|num) b(r?|num)
     fn execute_bgez(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -234,7 +211,6 @@ pub trait BgezalInstruction: IntegratedCircuit {
     /// bgezal a(r?|num) b(r?|num)
     fn execute_bgezal(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -243,7 +219,6 @@ pub trait BgtInstruction: IntegratedCircuit {
     /// bgt a(r?|num) b(r?|num) c(r?|num)
     fn execute_bgt(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -253,7 +228,6 @@ pub trait BgtalInstruction: IntegratedCircuit {
     /// bgtal a(r?|num) b(r?|num) c(r?|num)
     fn execute_bgtal(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -263,7 +237,6 @@ pub trait BgtzInstruction: IntegratedCircuit {
     /// bgtz a(r?|num) b(r?|num)
     fn execute_bgtz(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -272,7 +245,6 @@ pub trait BgtzalInstruction: IntegratedCircuit {
     /// bgtzal a(r?|num) b(r?|num)
     fn execute_bgtzal(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -281,7 +253,6 @@ pub trait BleInstruction: IntegratedCircuit {
     /// ble a(r?|num) b(r?|num) c(r?|num)
     fn execute_ble(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -291,7 +262,6 @@ pub trait BlealInstruction: IntegratedCircuit {
     /// bleal a(r?|num) b(r?|num) c(r?|num)
     fn execute_bleal(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -301,7 +271,6 @@ pub trait BlezInstruction: IntegratedCircuit {
     /// blez a(r?|num) b(r?|num)
     fn execute_blez(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -310,7 +279,6 @@ pub trait BlezalInstruction: IntegratedCircuit {
     /// blezal a(r?|num) b(r?|num)
     fn execute_blezal(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -319,7 +287,6 @@ pub trait BltInstruction: IntegratedCircuit {
     /// blt a(r?|num) b(r?|num) c(r?|num)
     fn execute_blt(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -329,7 +296,6 @@ pub trait BltalInstruction: IntegratedCircuit {
     /// bltal a(r?|num) b(r?|num) c(r?|num)
     fn execute_bltal(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -339,7 +305,6 @@ pub trait BltzInstruction: IntegratedCircuit {
     /// bltz a(r?|num) b(r?|num)
     fn execute_bltz(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -348,7 +313,6 @@ pub trait BltzalInstruction: IntegratedCircuit {
     /// bltzal a(r?|num) b(r?|num)
     fn execute_bltzal(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -357,7 +321,6 @@ pub trait BnaInstruction: IntegratedCircuit {
     /// bna a(r?|num) b(r?|num) c(r?|num) d(r?|num)
     fn execute_bna(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -368,7 +331,6 @@ pub trait BnaalInstruction: IntegratedCircuit {
     /// bnaal a(r?|num) b(r?|num) c(r?|num) d(r?|num)
     fn execute_bnaal(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -379,7 +341,6 @@ pub trait BnanInstruction: IntegratedCircuit {
     /// bnan a(r?|num) b(r?|num)
     fn execute_bnan(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -388,7 +349,6 @@ pub trait BnazInstruction: IntegratedCircuit {
     /// bnaz a(r?|num) b(r?|num) c(r?|num)
     fn execute_bnaz(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -398,7 +358,6 @@ pub trait BnazalInstruction: IntegratedCircuit {
     /// bnazal a(r?|num) b(r?|num) c(r?|num)
     fn execute_bnazal(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -408,7 +367,6 @@ pub trait BneInstruction: IntegratedCircuit {
     /// bne a(r?|num) b(r?|num) c(r?|num)
     fn execute_bne(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -418,7 +376,6 @@ pub trait BnealInstruction: IntegratedCircuit {
     /// bneal a(r?|num) b(r?|num) c(r?|num)
     fn execute_bneal(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -428,7 +385,6 @@ pub trait BnezInstruction: IntegratedCircuit {
     /// bnez a(r?|num) b(r?|num)
     fn execute_bnez(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -437,7 +393,6 @@ pub trait BnezalInstruction: IntegratedCircuit {
     /// bnezal a(r?|num) b(r?|num)
     fn execute_bnezal(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -446,7 +401,6 @@ pub trait BrapInstruction: IntegratedCircuit {
     /// brap a(r?|num) b(r?|num) c(r?|num) d(r?|num)
     fn execute_brap(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -457,7 +411,6 @@ pub trait BrapzInstruction: IntegratedCircuit {
     /// brapz a(r?|num) b(r?|num) c(r?|num)
     fn execute_brapz(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -467,7 +420,6 @@ pub trait BrdnsInstruction: IntegratedCircuit {
     /// brdns d? a(r?|num)
     fn execute_brdns(
         &mut self,
-        vm: &crate::vm::VM,
         d: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -476,7 +428,6 @@ pub trait BrdseInstruction: IntegratedCircuit {
     /// brdse d? a(r?|num)
     fn execute_brdse(
         &mut self,
-        vm: &crate::vm::VM,
         d: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -485,7 +436,6 @@ pub trait BreqInstruction: IntegratedCircuit {
     /// breq a(r?|num) b(r?|num) c(r?|num)
     fn execute_breq(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -495,7 +445,6 @@ pub trait BreqzInstruction: IntegratedCircuit {
     /// breqz a(r?|num) b(r?|num)
     fn execute_breqz(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -504,7 +453,6 @@ pub trait BrgeInstruction: IntegratedCircuit {
     /// brge a(r?|num) b(r?|num) c(r?|num)
     fn execute_brge(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -514,7 +462,6 @@ pub trait BrgezInstruction: IntegratedCircuit {
     /// brgez a(r?|num) b(r?|num)
     fn execute_brgez(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -523,7 +470,6 @@ pub trait BrgtInstruction: IntegratedCircuit {
     /// brgt a(r?|num) b(r?|num) c(r?|num)
     fn execute_brgt(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -533,7 +479,6 @@ pub trait BrgtzInstruction: IntegratedCircuit {
     /// brgtz a(r?|num) b(r?|num)
     fn execute_brgtz(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -542,7 +487,6 @@ pub trait BrleInstruction: IntegratedCircuit {
     /// brle a(r?|num) b(r?|num) c(r?|num)
     fn execute_brle(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -552,7 +496,6 @@ pub trait BrlezInstruction: IntegratedCircuit {
     /// brlez a(r?|num) b(r?|num)
     fn execute_brlez(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -561,7 +504,6 @@ pub trait BrltInstruction: IntegratedCircuit {
     /// brlt a(r?|num) b(r?|num) c(r?|num)
     fn execute_brlt(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -571,7 +513,6 @@ pub trait BrltzInstruction: IntegratedCircuit {
     /// brltz a(r?|num) b(r?|num)
     fn execute_brltz(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -580,7 +521,6 @@ pub trait BrnaInstruction: IntegratedCircuit {
     /// brna a(r?|num) b(r?|num) c(r?|num) d(r?|num)
     fn execute_brna(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -591,7 +531,6 @@ pub trait BrnanInstruction: IntegratedCircuit {
     /// brnan a(r?|num) b(r?|num)
     fn execute_brnan(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -600,7 +539,6 @@ pub trait BrnazInstruction: IntegratedCircuit {
     /// brnaz a(r?|num) b(r?|num) c(r?|num)
     fn execute_brnaz(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -610,7 +548,6 @@ pub trait BrneInstruction: IntegratedCircuit {
     /// brne a(r?|num) b(r?|num) c(r?|num)
     fn execute_brne(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
@@ -620,7 +557,6 @@ pub trait BrnezInstruction: IntegratedCircuit {
     /// brnez a(r?|num) b(r?|num)
     fn execute_brnez(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -629,7 +565,6 @@ pub trait CeilInstruction: IntegratedCircuit {
     /// ceil r? a(r?|num)
     fn execute_ceil(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -638,7 +573,6 @@ pub trait ClrInstruction: IntegratedCircuit {
     /// clr d?
     fn execute_clr(
         &mut self,
-        vm: &crate::vm::VM,
         d: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
 }
@@ -646,7 +580,6 @@ pub trait ClrdInstruction: IntegratedCircuit {
     /// clrd id(r?|num)
     fn execute_clrd(
         &mut self,
-        vm: &crate::vm::VM,
         id: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
 }
@@ -654,7 +587,6 @@ pub trait CosInstruction: IntegratedCircuit {
     /// cos r? a(r?|num)
     fn execute_cos(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -663,7 +595,6 @@ pub trait DefineInstruction: IntegratedCircuit {
     /// define str num
     fn execute_define(
         &mut self,
-        vm: &crate::vm::VM,
         string: &crate::vm::instructions::operands::Operand,
         num: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -672,7 +603,6 @@ pub trait DivInstruction: IntegratedCircuit {
     /// div r? a(r?|num) b(r?|num)
     fn execute_div(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -682,7 +612,6 @@ pub trait ExpInstruction: IntegratedCircuit {
     /// exp r? a(r?|num)
     fn execute_exp(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -691,7 +620,6 @@ pub trait FloorInstruction: IntegratedCircuit {
     /// floor r? a(r?|num)
     fn execute_floor(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -700,7 +628,6 @@ pub trait GetInstruction: IntegratedCircuit {
     /// get r? d? address(r?|num)
     fn execute_get(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         d: &crate::vm::instructions::operands::Operand,
         address: &crate::vm::instructions::operands::Operand,
@@ -710,7 +637,6 @@ pub trait GetdInstruction: IntegratedCircuit {
     /// getd r? id(r?|num) address(r?|num)
     fn execute_getd(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         id: &crate::vm::instructions::operands::Operand,
         address: &crate::vm::instructions::operands::Operand,
@@ -718,13 +644,12 @@ pub trait GetdInstruction: IntegratedCircuit {
 }
 pub trait HcfInstruction: IntegratedCircuit {
     /// hcf
-    fn execute_hcf(&mut self, vm: &crate::vm::VM) -> Result<(), crate::errors::ICError>;
+    fn execute_hcf(&mut self) -> Result<(), crate::errors::ICError>;
 }
 pub trait JInstruction: IntegratedCircuit {
     /// j int
     fn execute_j(
         &mut self,
-        vm: &crate::vm::VM,
         int: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
 }
@@ -732,7 +657,6 @@ pub trait JalInstruction: IntegratedCircuit {
     /// jal int
     fn execute_jal(
         &mut self,
-        vm: &crate::vm::VM,
         int: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
 }
@@ -740,7 +664,6 @@ pub trait JrInstruction: IntegratedCircuit {
     /// jr int
     fn execute_jr(
         &mut self,
-        vm: &crate::vm::VM,
         int: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
 }
@@ -748,7 +671,6 @@ pub trait LInstruction: IntegratedCircuit {
     /// l r? d? logicType
     fn execute_l(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         d: &crate::vm::instructions::operands::Operand,
         logic_type: &crate::vm::instructions::operands::Operand,
@@ -758,7 +680,6 @@ pub trait LabelInstruction: IntegratedCircuit {
     /// label d? str
     fn execute_label(
         &mut self,
-        vm: &crate::vm::VM,
         d: &crate::vm::instructions::operands::Operand,
         string: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -767,7 +688,6 @@ pub trait LbInstruction: IntegratedCircuit {
     /// lb r? deviceHash logicType batchMode
     fn execute_lb(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         device_hash: &crate::vm::instructions::operands::Operand,
         logic_type: &crate::vm::instructions::operands::Operand,
@@ -778,7 +698,6 @@ pub trait LbnInstruction: IntegratedCircuit {
     /// lbn r? deviceHash nameHash logicType batchMode
     fn execute_lbn(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         device_hash: &crate::vm::instructions::operands::Operand,
         name_hash: &crate::vm::instructions::operands::Operand,
@@ -790,7 +709,6 @@ pub trait LbnsInstruction: IntegratedCircuit {
     /// lbns r? deviceHash nameHash slotIndex logicSlotType batchMode
     fn execute_lbns(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         device_hash: &crate::vm::instructions::operands::Operand,
         name_hash: &crate::vm::instructions::operands::Operand,
@@ -803,7 +721,6 @@ pub trait LbsInstruction: IntegratedCircuit {
     /// lbs r? deviceHash slotIndex logicSlotType batchMode
     fn execute_lbs(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         device_hash: &crate::vm::instructions::operands::Operand,
         slot_index: &crate::vm::instructions::operands::Operand,
@@ -815,7 +732,6 @@ pub trait LdInstruction: IntegratedCircuit {
     /// ld r? id(r?|num) logicType
     fn execute_ld(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         id: &crate::vm::instructions::operands::Operand,
         logic_type: &crate::vm::instructions::operands::Operand,
@@ -825,7 +741,6 @@ pub trait LogInstruction: IntegratedCircuit {
     /// log r? a(r?|num)
     fn execute_log(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -834,7 +749,6 @@ pub trait LrInstruction: IntegratedCircuit {
     /// lr r? d? reagentMode int
     fn execute_lr(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         d: &crate::vm::instructions::operands::Operand,
         reagent_mode: &crate::vm::instructions::operands::Operand,
@@ -845,7 +759,6 @@ pub trait LsInstruction: IntegratedCircuit {
     /// ls r? d? slotIndex logicSlotType
     fn execute_ls(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         d: &crate::vm::instructions::operands::Operand,
         slot_index: &crate::vm::instructions::operands::Operand,
@@ -856,7 +769,6 @@ pub trait MaxInstruction: IntegratedCircuit {
     /// max r? a(r?|num) b(r?|num)
     fn execute_max(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -866,7 +778,6 @@ pub trait MinInstruction: IntegratedCircuit {
     /// min r? a(r?|num) b(r?|num)
     fn execute_min(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -876,7 +787,6 @@ pub trait ModInstruction: IntegratedCircuit {
     /// mod r? a(r?|num) b(r?|num)
     fn execute_mod(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -886,7 +796,6 @@ pub trait MoveInstruction: IntegratedCircuit {
     /// move r? a(r?|num)
     fn execute_move(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -895,7 +804,6 @@ pub trait MulInstruction: IntegratedCircuit {
     /// mul r? a(r?|num) b(r?|num)
     fn execute_mul(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -905,7 +813,6 @@ pub trait NorInstruction: IntegratedCircuit {
     /// nor r? a(r?|num) b(r?|num)
     fn execute_nor(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -915,7 +822,6 @@ pub trait NotInstruction: IntegratedCircuit {
     /// not r? a(r?|num)
     fn execute_not(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -924,7 +830,6 @@ pub trait OrInstruction: IntegratedCircuit {
     /// or r? a(r?|num) b(r?|num)
     fn execute_or(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -934,7 +839,6 @@ pub trait PeekInstruction: IntegratedCircuit {
     /// peek r?
     fn execute_peek(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
 }
@@ -942,7 +846,6 @@ pub trait PokeInstruction: IntegratedCircuit {
     /// poke address(r?|num) value(r?|num)
     fn execute_poke(
         &mut self,
-        vm: &crate::vm::VM,
         address: &crate::vm::instructions::operands::Operand,
         value: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -951,7 +854,6 @@ pub trait PopInstruction: IntegratedCircuit {
     /// pop r?
     fn execute_pop(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
 }
@@ -959,7 +861,6 @@ pub trait PushInstruction: IntegratedCircuit {
     /// push a(r?|num)
     fn execute_push(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
 }
@@ -967,7 +868,6 @@ pub trait PutInstruction: IntegratedCircuit {
     /// put d? address(r?|num) value(r?|num)
     fn execute_put(
         &mut self,
-        vm: &crate::vm::VM,
         d: &crate::vm::instructions::operands::Operand,
         address: &crate::vm::instructions::operands::Operand,
         value: &crate::vm::instructions::operands::Operand,
@@ -977,7 +877,6 @@ pub trait PutdInstruction: IntegratedCircuit {
     /// putd id(r?|num) address(r?|num) value(r?|num)
     fn execute_putd(
         &mut self,
-        vm: &crate::vm::VM,
         id: &crate::vm::instructions::operands::Operand,
         address: &crate::vm::instructions::operands::Operand,
         value: &crate::vm::instructions::operands::Operand,
@@ -987,7 +886,6 @@ pub trait RandInstruction: IntegratedCircuit {
     /// rand r?
     fn execute_rand(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
 }
@@ -995,7 +893,6 @@ pub trait RoundInstruction: IntegratedCircuit {
     /// round r? a(r?|num)
     fn execute_round(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -1004,7 +901,6 @@ pub trait SInstruction: IntegratedCircuit {
     /// s d? logicType r?
     fn execute_s(
         &mut self,
-        vm: &crate::vm::VM,
         d: &crate::vm::instructions::operands::Operand,
         logic_type: &crate::vm::instructions::operands::Operand,
         r: &crate::vm::instructions::operands::Operand,
@@ -1014,7 +910,6 @@ pub trait SapInstruction: IntegratedCircuit {
     /// sap r? a(r?|num) b(r?|num) c(r?|num)
     fn execute_sap(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -1025,7 +920,6 @@ pub trait SapzInstruction: IntegratedCircuit {
     /// sapz r? a(r?|num) b(r?|num)
     fn execute_sapz(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -1035,7 +929,6 @@ pub trait SbInstruction: IntegratedCircuit {
     /// sb deviceHash logicType r?
     fn execute_sb(
         &mut self,
-        vm: &crate::vm::VM,
         device_hash: &crate::vm::instructions::operands::Operand,
         logic_type: &crate::vm::instructions::operands::Operand,
         r: &crate::vm::instructions::operands::Operand,
@@ -1045,7 +938,6 @@ pub trait SbnInstruction: IntegratedCircuit {
     /// sbn deviceHash nameHash logicType r?
     fn execute_sbn(
         &mut self,
-        vm: &crate::vm::VM,
         device_hash: &crate::vm::instructions::operands::Operand,
         name_hash: &crate::vm::instructions::operands::Operand,
         logic_type: &crate::vm::instructions::operands::Operand,
@@ -1056,7 +948,6 @@ pub trait SbsInstruction: IntegratedCircuit {
     /// sbs deviceHash slotIndex logicSlotType r?
     fn execute_sbs(
         &mut self,
-        vm: &crate::vm::VM,
         device_hash: &crate::vm::instructions::operands::Operand,
         slot_index: &crate::vm::instructions::operands::Operand,
         logic_slot_type: &crate::vm::instructions::operands::Operand,
@@ -1067,7 +958,6 @@ pub trait SdInstruction: IntegratedCircuit {
     /// sd id(r?|num) logicType r?
     fn execute_sd(
         &mut self,
-        vm: &crate::vm::VM,
         id: &crate::vm::instructions::operands::Operand,
         logic_type: &crate::vm::instructions::operands::Operand,
         r: &crate::vm::instructions::operands::Operand,
@@ -1077,7 +967,6 @@ pub trait SdnsInstruction: IntegratedCircuit {
     /// sdns r? d?
     fn execute_sdns(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         d: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -1086,7 +975,6 @@ pub trait SdseInstruction: IntegratedCircuit {
     /// sdse r? d?
     fn execute_sdse(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         d: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -1095,7 +983,6 @@ pub trait SelectInstruction: IntegratedCircuit {
     /// select r? a(r?|num) b(r?|num) c(r?|num)
     fn execute_select(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -1106,7 +993,6 @@ pub trait SeqInstruction: IntegratedCircuit {
     /// seq r? a(r?|num) b(r?|num)
     fn execute_seq(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -1116,7 +1002,6 @@ pub trait SeqzInstruction: IntegratedCircuit {
     /// seqz r? a(r?|num)
     fn execute_seqz(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -1125,7 +1010,6 @@ pub trait SgeInstruction: IntegratedCircuit {
     /// sge r? a(r?|num) b(r?|num)
     fn execute_sge(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -1135,7 +1019,6 @@ pub trait SgezInstruction: IntegratedCircuit {
     /// sgez r? a(r?|num)
     fn execute_sgez(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -1144,7 +1027,6 @@ pub trait SgtInstruction: IntegratedCircuit {
     /// sgt r? a(r?|num) b(r?|num)
     fn execute_sgt(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -1154,7 +1036,6 @@ pub trait SgtzInstruction: IntegratedCircuit {
     /// sgtz r? a(r?|num)
     fn execute_sgtz(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -1163,7 +1044,6 @@ pub trait SinInstruction: IntegratedCircuit {
     /// sin r? a(r?|num)
     fn execute_sin(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -1172,7 +1052,6 @@ pub trait SlaInstruction: IntegratedCircuit {
     /// sla r? a(r?|num) b(r?|num)
     fn execute_sla(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -1182,7 +1061,6 @@ pub trait SleInstruction: IntegratedCircuit {
     /// sle r? a(r?|num) b(r?|num)
     fn execute_sle(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -1192,7 +1070,6 @@ pub trait SleepInstruction: IntegratedCircuit {
     /// sleep a(r?|num)
     fn execute_sleep(
         &mut self,
-        vm: &crate::vm::VM,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
 }
@@ -1200,7 +1077,6 @@ pub trait SlezInstruction: IntegratedCircuit {
     /// slez r? a(r?|num)
     fn execute_slez(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -1209,7 +1085,6 @@ pub trait SllInstruction: IntegratedCircuit {
     /// sll r? a(r?|num) b(r?|num)
     fn execute_sll(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -1219,7 +1094,6 @@ pub trait SltInstruction: IntegratedCircuit {
     /// slt r? a(r?|num) b(r?|num)
     fn execute_slt(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -1229,7 +1103,6 @@ pub trait SltzInstruction: IntegratedCircuit {
     /// sltz r? a(r?|num)
     fn execute_sltz(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -1238,7 +1111,6 @@ pub trait SnaInstruction: IntegratedCircuit {
     /// sna r? a(r?|num) b(r?|num) c(r?|num)
     fn execute_sna(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -1249,7 +1121,6 @@ pub trait SnanInstruction: IntegratedCircuit {
     /// snan r? a(r?|num)
     fn execute_snan(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -1258,7 +1129,6 @@ pub trait SnanzInstruction: IntegratedCircuit {
     /// snanz r? a(r?|num)
     fn execute_snanz(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -1267,7 +1137,6 @@ pub trait SnazInstruction: IntegratedCircuit {
     /// snaz r? a(r?|num) b(r?|num)
     fn execute_snaz(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -1277,7 +1146,6 @@ pub trait SneInstruction: IntegratedCircuit {
     /// sne r? a(r?|num) b(r?|num)
     fn execute_sne(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -1287,7 +1155,6 @@ pub trait SnezInstruction: IntegratedCircuit {
     /// snez r? a(r?|num)
     fn execute_snez(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -1296,7 +1163,6 @@ pub trait SqrtInstruction: IntegratedCircuit {
     /// sqrt r? a(r?|num)
     fn execute_sqrt(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -1305,7 +1171,6 @@ pub trait SraInstruction: IntegratedCircuit {
     /// sra r? a(r?|num) b(r?|num)
     fn execute_sra(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -1315,7 +1180,6 @@ pub trait SrlInstruction: IntegratedCircuit {
     /// srl r? a(r?|num) b(r?|num)
     fn execute_srl(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -1325,7 +1189,6 @@ pub trait SsInstruction: IntegratedCircuit {
     /// ss d? slotIndex logicSlotType r?
     fn execute_ss(
         &mut self,
-        vm: &crate::vm::VM,
         d: &crate::vm::instructions::operands::Operand,
         slot_index: &crate::vm::instructions::operands::Operand,
         logic_slot_type: &crate::vm::instructions::operands::Operand,
@@ -1336,7 +1199,6 @@ pub trait SubInstruction: IntegratedCircuit {
     /// sub r? a(r?|num) b(r?|num)
     fn execute_sub(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -1346,7 +1208,6 @@ pub trait TanInstruction: IntegratedCircuit {
     /// tan r? a(r?|num)
     fn execute_tan(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -1355,7 +1216,6 @@ pub trait TruncInstruction: IntegratedCircuit {
     /// trunc r? a(r?|num)
     fn execute_trunc(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError>;
@@ -1364,7 +1224,6 @@ pub trait XorInstruction: IntegratedCircuit {
     /// xor r? a(r?|num) b(r?|num)
     fn execute_xor(
         &mut self,
-        vm: &crate::vm::VM,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
@@ -1372,7 +1231,7 @@ pub trait XorInstruction: IntegratedCircuit {
 }
 pub trait YieldInstruction: IntegratedCircuit {
     /// yield
-    fn execute_yield(&mut self, vm: &crate::vm::VM) -> Result<(), crate::errors::ICError>;
+    fn execute_yield(&mut self) -> Result<(), crate::errors::ICError>;
 }
 pub trait ICInstructable:
     AbsInstruction

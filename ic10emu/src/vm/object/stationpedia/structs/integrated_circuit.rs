@@ -155,7 +155,7 @@ pub struct ItemIntegratedCircuit10 {
     #[custom(object_name)]
     pub name: Name,
     #[custom(object_vm_ref)]
-    pub vm: Option<Rc<VM>>,
+    pub vm: Rc<VM>,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub memory: [f64; 512],
     pub parent_slot: Option<ParentSlotInfo>,
@@ -1388,9 +1388,9 @@ impl BrnazInstruction for ItemIntegratedCircuit10 {
 impl BdseInstruction for ItemIntegratedCircuit10 {
     /// bdse d? a(r?|num)
     fn execute_bdse(&mut self, vm: &VM, d: &Operand, a: &Operand) -> Result<(), ICError> {
-        let (device, _connection) = d.as_device(self, InstructionOp::Bdse, 1)?;
+        let (device_id, _connection) = d.as_device(self, InstructionOp::Bdse, 1)?;
         let a = a.as_value(self, InstructionOp::Bdse, 2)?;
-        if device.is_some() {
+        if let Some(device_id) = device_id {
             // FIXME: collect device and get logicable
             self.set_next_instruction(a);
         }

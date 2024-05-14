@@ -3,7 +3,6 @@ pub mod instructions;
 pub mod object;
 
 use crate::{
-    device::Device,
     errors::{ICError, TemplateError, VMError},
     interpreter::ICState,
     network::{CableConnectionType, CableNetwork, Connection, ConnectionRole, FrozenCableNetwork},
@@ -80,7 +79,7 @@ impl VM {
             operation_modified: RefCell::new(Vec::new()),
         });
 
-        let default_network = VMObject::new(CableNetwork::new(default_network_key), vm.clone());
+        let default_network = VMObject::new(CableNetwork::new(default_network_key, vm.clone()));
         vm.networks
             .borrow_mut()
             .insert(default_network_key, default_network);
@@ -138,7 +137,7 @@ impl VM {
         let next_id = self.network_id_space.borrow_mut().next();
         self.networks.borrow_mut().insert(
             next_id,
-            VMObject::new(CableNetwork::new(next_id), self.clone()),
+            VMObject::new(CableNetwork::new(next_id, self.clone())),
         );
         next_id
     }
@@ -884,10 +883,7 @@ impl VM {
             .map(|network| {
                 (
                     network.id,
-                    VMObject::new(
-                        std::convert::Into::<CableNetwork>::into(network),
-                        self.clone(),
-                    ),
+                    VMObject::new(CableNetwork::from_frozen(network, self.clone())),
                 )
             })
             .collect();
@@ -1009,7 +1005,7 @@ impl VMTransaction {
             self.id_space.next()
         };
 
-        let obj = template.build(obj_id, self.vm.clone());
+        let obj = template.build(obj_id, &self.vm);
 
         if let Some(storage) = obj.borrow_mut().as_mut_storage() {
             for (slot_index, occupant_template) in

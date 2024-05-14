@@ -204,7 +204,7 @@ impl Connection {
     }
 }
 
-#[derive(ObjectInterface!, Debug, Serialize, Deserialize)]
+#[derive(ObjectInterface!, Debug)]
 #[custom(implements(Object { Storage, Logicable, Network}))]
 pub struct CableNetwork {
     #[custom(object_id)]
@@ -216,8 +216,7 @@ pub struct CableNetwork {
     /// required by object interface but atm unused by network
     pub name: Name,
     #[custom(object_vm_ref)]
-    #[serde(skip)]
-    pub vm: Option<Rc<VM>>,
+    pub vm: Rc<VM>,
     /// data enabled objects (must be devices)
     pub devices: HashSet<ObjectID>,
     /// power only connections
@@ -387,14 +386,14 @@ impl Network for CableNetwork {
     }
 
     fn get_devices(&self) -> Vec<ObjectID> {
-       self.devices.iter().copied().collect_vec()
+        self.devices.iter().copied().collect_vec()
     }
 
     fn get_power_only(&self) -> Vec<ObjectID> {
         self.power_only.iter().copied().collect_vec()
     }
 
-    fn get_channel_data(&self) ->  &[f64; 8] {
+    fn get_channel_data(&self) -> &[f64; 8] {
         &self.channels
     }
 }
@@ -429,21 +428,6 @@ impl From<NetworkRef<'_>> for FrozenCableNetwork {
             power_only: value.get_power_only(),
             channels: *value.get_channel_data(),
         }
-
-    }
-}
-
-impl From<FrozenCableNetwork> for CableNetwork {
-    fn from(value: FrozenCableNetwork) -> Self {
-        CableNetwork {
-            id: value.id,
-            prefab: Name::new(""),
-            name: Name::new(""),
-            vm: None,
-            devices: value.devices.into_iter().collect(),
-            power_only: value.power_only.into_iter().collect(),
-            channels: value.channels,
-        }
     }
 }
 
@@ -454,15 +438,26 @@ pub enum NetworkError {
 }
 
 impl CableNetwork {
-    pub fn new(id: u32) -> Self {
+    pub fn new(id: u32, vm: Rc<VM>) -> Self {
         CableNetwork {
             id,
             prefab: Name::new(""),
             name: Name::new(""),
-            vm: None,
+            vm,
             devices: HashSet::new(),
             power_only: HashSet::new(),
             channels: [f64::NAN; 8],
+        }
+    }
+    pub fn from_frozen(value: FrozenCableNetwork, vm: Rc<VM>) -> Self {
+        CableNetwork {
+            id: value.id,
+            prefab: Name::new(""),
+            name: Name::new(""),
+            vm,
+            devices: value.devices.into_iter().collect(),
+            power_only: value.power_only.into_iter().collect(),
+            channels: value.channels,
         }
     }
 

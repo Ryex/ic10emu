@@ -1,4 +1,10 @@
-use crate::vm::{instructions::enums::InstructionOp, object::{errors::{LogicError, MemoryError}, ObjectID}};
+use crate::vm::{
+    instructions::enums::InstructionOp,
+    object::{
+        errors::{LogicError, MemoryError},
+        ObjectID,
+    },
+};
 use serde_derive::{Deserialize, Serialize};
 use std::error::Error as StdError;
 use std::fmt::Display;
@@ -37,7 +43,6 @@ pub enum VMError {
     #[error("object {0} is not programmable")]
     NotProgrammable(ObjectID),
 }
-
 
 #[derive(Error, Debug, Serialize, Deserialize)]
 pub enum TemplateError {

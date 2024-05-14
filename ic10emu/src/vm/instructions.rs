@@ -24,4 +24,3 @@ pub static CONSTANTS_LOOKUP: phf::Map<&'static str, f64> = phf_map! {
     "pinf" => f64::INFINITY,
     "pi" => 3.141592653589793f64,
 };
-

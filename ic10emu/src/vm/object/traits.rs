@@ -1,7 +1,10 @@
 use serde_derive::{Deserialize, Serialize};
 
 use crate::{
-    errors::ICError, interpreter::ICState, network::Connection, vm::{
+    errors::ICError,
+    interpreter::ICState,
+    network::Connection,
+    vm::{
         enums::{
             basic_enums::{Class as SlotClass, GasType, SortingClass},
             script_enums::{LogicSlotType, LogicType},
@@ -13,7 +16,7 @@ use crate::{
             ObjectID, Slot,
         },
         VM,
-    }
+    },
 };
 use std::{collections::BTreeMap, fmt::Debug, rc::Rc};
 

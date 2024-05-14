@@ -90,7 +90,6 @@ fn write_instructions_enum<T: std::io::Write>(
             pub fn execute<T>(\n        \
                 &self,\n        \
                 ic: &mut T,\n        \
-                vm: &crate::vm::VM,\n        \
                 operands: &[crate::vm::instructions::operands::Operand],\n        \
             ) -> Result<(), crate::errors::ICError>\n    \
             where\n    \
@@ -114,7 +113,7 @@ fn write_instructions_enum<T: std::io::Write>(
         let trait_name = name.to_case(Case::Pascal);
         writeln!(
             writer,
-            "            Self::{trait_name} => ic.execute_{name}(vm, {operands}),",
+            "            Self::{trait_name} => ic.execute_{name}({operands}),",
         )?;
     }
 
@@ -154,7 +153,7 @@ fn write_instruction_trait<T: std::io::Write>(
         writer,
         "pub trait {trait_name}: IntegratedCircuit {{\n    \
             /// {example} \n    \
-            fn execute_{name}(&mut self, vm: &crate::vm::VM, {operands}) -> Result<(), crate::errors::ICError>;\n\
+            fn execute_{name}(&mut self, {operands}) -> Result<(), crate::errors::ICError>;\n\
         }}"
     )?;
     Ok(())

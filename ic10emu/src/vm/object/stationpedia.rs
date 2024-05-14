@@ -1,7 +1,7 @@
 use std::rc::Rc;
 
-use crate::vm::{enums::prefabs::StationpediaPrefab, VM};
 use crate::vm::object::VMObject;
+use crate::vm::{enums::prefabs::StationpediaPrefab, VM};
 
 use super::templates::ObjectTemplate;
 use super::ObjectID;
@@ -9,7 +9,11 @@ use super::ObjectID;
 pub mod structs;
 
 #[allow(unused)]
-pub fn object_from_prefab_template(template: &ObjectTemplate, id: ObjectID, vm: Rc<VM>) -> Option<VMObject> {
+pub fn object_from_prefab_template(
+    template: &ObjectTemplate,
+    id: ObjectID,
+    vm: &Rc<VM>,
+) -> Option<VMObject> {
     let prefab = StationpediaPrefab::from_repr(template.prefab_info().prefab_hash);
     match prefab {
         // Some(StationpediaPrefab::ItemIntegratedCircuit10) => {

@@ -21,6 +21,12 @@ pub fn generate_enums(
         std::fs::create_dir(&enums_path)?;
     }
 
+    let basic_enum_names = enums
+        .basic_enums
+        .values()
+        .map(|enm| enm.enum_name.clone())
+        .collect::<Vec<_>>();
+
     let mut writer =
         std::io::BufWriter::new(std::fs::File::create(enums_path.join("script_enums.rs"))?);
     write_repr_enum_use_header(&mut writer)?;
@@ -31,7 +37,20 @@ pub fn generate_enums(
     let mut writer =
         std::io::BufWriter::new(std::fs::File::create(enums_path.join("basic_enums.rs"))?);
     write_repr_enum_use_header(&mut writer)?;
+    let script_enums_in_basic = enums
+        .script_enums
+        .values()
+        .filter(|enm| basic_enum_names.contains(&enm.enum_name))
+        .collect::<Vec<_>>();
+    let script_enums_in_basic_names = script_enums_in_basic
+        .iter()
+        .map(|enm| enm.enum_name.as_str())
+        .collect::<Vec<_>>();
+    write_repr_basic_use_header(&mut writer, script_enums_in_basic.as_slice())?;
     for enm in enums.basic_enums.values() {
+        if script_enums_in_basic_names.contains(&enm.enum_name.as_str()) {
+            continue;
+        }
         write_enum_listing(&mut writer, enm)?;
     }
     write_enum_aggragate_mod(&mut writer, &enums.basic_enums)?;
@@ -346,6 +365,22 @@ fn write_repr_enum_use_header<T: std::io::Write>(
     Ok(())
 }
 
+fn write_repr_basic_use_header<T: std::io::Write>(
+    writer: &mut BufWriter<T>,
+    script_enums: &[&crate::enums::EnumListing],
+) -> color_eyre::Result<()> {
+    write!(
+        writer,
+        "use crate::vm::enums::script_enums::{{ {} }};",
+        script_enums
+            .iter()
+            .map(|enm| enm.enum_name.to_case(Case::Pascal))
+            .collect::<Vec<_>>()
+            .join(", ")
+    )?;
+    Ok(())
+}
+
 fn write_repr_enum<'a, T: std::io::Write, I, P>(
     writer: &mut BufWriter<T>,
     name: &str,
@@ -362,8 +397,7 @@ where
     sorted.sort_by_key(|(_, variant)| &variant.value);
     let default_derive = if sorted
         .iter()
-        .find(|(name, _)| name == "None" || name == "Default")
-        .is_some()
+        .any(|(name, _)| name == "None" || name == "Default")
     {
         "Default, "
     } else {

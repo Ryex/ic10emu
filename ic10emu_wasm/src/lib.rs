@@ -433,7 +433,12 @@ impl VMRef {
 
     #[wasm_bindgen(getter)]
     pub fn ics(&self) -> Vec<u32> {
-        self.vm.borrow().circuit_holders.keys().copied().collect_vec()
+        self.vm
+            .borrow()
+            .circuit_holders
+            .keys()
+            .copied()
+            .collect_vec()
     }
 
     #[wasm_bindgen(getter, js_name = "lastOperationModified")]

@@ -1,11 +1,18 @@
 use super::{macros::*, traits::*};
 
-use crate::{network::Connection, vm::{
-    enums::script_enums::LogicType,
-    object::{
-        macros::ObjectInterface, templates::{DeviceInfo, ItemInfo}, traits::*, LogicField, Name, ObjectID, Slot,
-    }, VM,
-}};
+use crate::{
+    network::Connection,
+    vm::{
+        enums::script_enums::LogicType,
+        object::{
+            macros::ObjectInterface,
+            templates::{DeviceInfo, ItemInfo},
+            traits::*,
+            LogicField, Name, ObjectID, Slot,
+        },
+        VM,
+    },
+};
 use macro_rules_attribute::derive;
 use std::{collections::BTreeMap, rc::Rc};
 
@@ -19,7 +26,7 @@ pub struct Generic {
     #[custom(object_name)]
     pub name: Name,
     #[custom(object_vm_ref)]
-    pub vm: Option<Rc<VM>>,
+    pub vm: Rc<VM>,
     pub small_grid: bool,
 }
 
@@ -33,7 +40,7 @@ pub struct GenericStorage {
     #[custom(object_name)]
     pub name: Name,
     #[custom(object_vm_ref)]
-    pub vm: Option<Rc<VM>>,
+    pub vm: Rc<VM>,
     pub small_grid: bool,
     pub slots: Vec<Slot>,
 }
@@ -48,7 +55,7 @@ pub struct GenericLogicable {
     #[custom(object_name)]
     pub name: Name,
     #[custom(object_vm_ref)]
-    pub vm: Option<Rc<VM>>,
+    pub vm: Rc<VM>,
     pub small_grid: bool,
     pub slots: Vec<Slot>,
     pub fields: BTreeMap<LogicType, LogicField>,
@@ -65,7 +72,7 @@ pub struct GenericLogicableDevice {
     #[custom(object_name)]
     pub name: Name,
     #[custom(object_vm_ref)]
-    pub vm: Option<Rc<VM>>,
+    pub vm: Rc<VM>,
     pub small_grid: bool,
     pub slots: Vec<Slot>,
     pub fields: BTreeMap<LogicType, LogicField>,
@@ -85,7 +92,7 @@ pub struct GenericLogicableDeviceMemoryReadable {
     #[custom(object_name)]
     pub name: Name,
     #[custom(object_vm_ref)]
-    pub vm: Option<Rc<VM>>,
+    pub vm: Rc<VM>,
     pub small_grid: bool,
     pub slots: Vec<Slot>,
     pub fields: BTreeMap<LogicType, LogicField>,
@@ -106,7 +113,7 @@ pub struct GenericLogicableDeviceMemoryReadWriteable {
     #[custom(object_name)]
     pub name: Name,
     #[custom(object_vm_ref)]
-    pub vm: Option<Rc<VM>>,
+    pub vm: Rc<VM>,
     pub small_grid: bool,
     pub slots: Vec<Slot>,
     pub fields: BTreeMap<LogicType, LogicField>,
@@ -127,7 +134,7 @@ pub struct GenericItem {
     #[custom(object_name)]
     pub name: Name,
     #[custom(object_vm_ref)]
-    pub vm: Option<Rc<VM>>,
+    pub vm: Rc<VM>,
     pub item_info: ItemInfo,
     pub parent_slot: Option<ParentSlotInfo>,
 }
@@ -142,7 +149,7 @@ pub struct GenericItemStorage {
     #[custom(object_name)]
     pub name: Name,
     #[custom(object_vm_ref)]
-    pub vm: Option<Rc<VM>>,
+    pub vm: Rc<VM>,
     pub item_info: ItemInfo,
     pub parent_slot: Option<ParentSlotInfo>,
     pub slots: Vec<Slot>,
@@ -158,7 +165,7 @@ pub struct GenericItemLogicable {
     #[custom(object_name)]
     pub name: Name,
     #[custom(object_vm_ref)]
-    pub vm: Option<Rc<VM>>,
+    pub vm: Rc<VM>,
     pub item_info: ItemInfo,
     pub parent_slot: Option<ParentSlotInfo>,
     pub slots: Vec<Slot>,
@@ -176,7 +183,7 @@ pub struct GenericItemLogicableMemoryReadable {
     #[custom(object_name)]
     pub name: Name,
     #[custom(object_vm_ref)]
-    pub vm: Option<Rc<VM>>,
+    pub vm: Rc<VM>,
     pub item_info: ItemInfo,
     pub parent_slot: Option<ParentSlotInfo>,
     pub slots: Vec<Slot>,
@@ -195,7 +202,7 @@ pub struct GenericItemLogicableMemoryReadWriteable {
     #[custom(object_name)]
     pub name: Name,
     #[custom(object_vm_ref)]
-    pub vm: Option<Rc<VM>>,
+    pub vm: Rc<VM>,
     pub item_info: ItemInfo,
     pub parent_slot: Option<ParentSlotInfo>,
     pub slots: Vec<Slot>,

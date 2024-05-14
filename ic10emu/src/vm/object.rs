@@ -47,13 +47,11 @@ impl DerefMut for VMObject {
 }
 
 impl VMObject {
-    pub fn new<T>(val: T, vm: Rc<VM>) -> Self
+    pub fn new<T>(val: T) -> Self
     where
         T: Object + 'static,
     {
-        let mut obj = VMObject(Rc::new(RefCell::new(val)));
-        obj.set_vm(vm);
-        obj
+        VMObject(Rc::new(RefCell::new(val)))
     }
 
     pub fn set_vm(&mut self, vm: Rc<VM>) {
@@ -61,11 +59,7 @@ impl VMObject {
     }
 
     pub fn get_vm(&self) -> Rc<VM> {
-        self
-            .borrow()
-            .get_vm()
-            .expect("VMObject with no VM?")
-            .clone()
+        self.borrow().get_vm().clone()
     }
 }
 

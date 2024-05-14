@@ -522,7 +522,11 @@ impl Device {
     pub fn get_fields(&self, vm: &VM) -> BTreeMap<LogicType, LogicField> {
         let mut copy = self.fields.clone();
         if let Some(ic_id) = &self.ic {
-            let ic = vm.circuit_holders.get(ic_id).expect("our own ic to exist").borrow();
+            let ic = vm
+                .circuit_holders
+                .get(ic_id)
+                .expect("our own ic to exist")
+                .borrow();
             copy.insert(
                 LogicType::LineNumber,
                 LogicField {

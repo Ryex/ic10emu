@@ -14,7 +14,7 @@ macro_rules! object_trait {
         fn get_mut_prefab(&mut self) -> &mut crate::vm::object::Name;
         fn get_name(&self) -> &crate::vm::object::Name;
         fn get_mut_name(&mut self) -> &mut crate::vm::object::Name;
-        fn get_vm(&self) -> Option<&std::rc::Rc<crate::vm::VM>>;
+        fn get_vm(&self) -> &std::rc::Rc<crate::vm::VM>;
         fn set_vm(&mut self, vm: std::rc::Rc<crate::vm::VM>);
         fn type_name(&self) -> &str;
         fn as_object(&self) -> &dyn $trait_name;
@@ -82,7 +82,7 @@ pub(crate) use object_trait;
 ///
 ///   - `id` must be `crate::vm::object::ObjectID`
 ///   - `prefab` and `name` must be `crate::vm::object::Name`
-///   - `vm_ref` must be `Option<std::rc::Rc<crate::vm::VM>>`
+///   - `vm_ref` must be `std::rc::Rc<crate::vm::VM>`
 macro_rules! ObjectInterface {
     {
         @body_final
@@ -119,12 +119,12 @@ macro_rules! ObjectInterface {
                 &mut self.$name_field
             }
 
-            fn get_vm(&self) -> Option<&std::rc::Rc<crate::vm::VM>> {
-                self.$vm_ref_field.as_ref()
+            fn get_vm(&self) -> &std::rc::Rc<crate::vm::VM> {
+                &self.$vm_ref_field
             }
 
             fn set_vm(&mut self, vm: std::rc::Rc<crate::vm::VM>) {
-                self.$vm_ref_field = Some(vm);
+                self.$vm_ref_field = vm;
             }
 
             fn type_name(&self) -> &str {

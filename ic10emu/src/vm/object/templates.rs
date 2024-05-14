@@ -73,11 +73,11 @@ impl ObjectTemplate {
         }
     }
 
-    pub fn build(&self, id: ObjectID, vm: Rc<VM>) -> VMObject {
+    pub fn build(&self, id: ObjectID, vm: &Rc<VM>) -> VMObject {
         if let Some(obj) = stationpedia::object_from_prefab_template(&self, id, vm) {
             obj
         } else {
-            self.build_generic(id, vm)
+            self.build_generic(id, vm.clone())
         }
     }
 
@@ -198,335 +198,206 @@ impl ObjectTemplate {
     fn build_generic(&self, id: ObjectID, vm: Rc<VM>) -> VMObject {
         use ObjectTemplate::*;
         match self {
-            Structure(s) => VMObject::new(
-                Generic {
-                    id,
-                    prefab: Name::from_prefab_name(&s.prefab.prefab_name),
-                    name: Name::new(&s.prefab.name),
-                    vm: None,
-                    small_grid: s.structure.small_grid,
-                },
-                vm.clone(),
-            ),
-            StructureSlots(s) => VMObject::new(
-                GenericStorage {
-                    id,
-                    prefab: Name::from_prefab_name(&s.prefab.prefab_name),
-                    name: Name::new(&s.prefab.name),
-                    vm: None,
-                    small_grid: s.structure.small_grid,
-                    slots: s
-                        .slots
-                        .iter()
-                        .enumerate()
-                        .map(|(index, info)| Slot {
-                            parent: id,
-                            index,
-                            name: info.name.clone(),
-                            typ: info.typ,
-                            readable_logic: Vec::new(),
-                            writeable_logic: Vec::new(),
-                            occupant: None,
-                        })
-                        .collect(),
-                },
-                vm.clone(),
-            ),
-            StructureLogic(s) => VMObject::new(
-                GenericLogicable {
-                    id,
-                    prefab: Name::from_prefab_name(&s.prefab.prefab_name),
-                    name: Name::new(&s.prefab.name),
-                    vm: None,
-                    small_grid: s.structure.small_grid,
-                    slots: s
-                        .slots
-                        .iter()
-                        .enumerate()
-                        .map(|(index, info)| Slot {
-                            parent: id,
-                            index,
-                            name: info.name.clone(),
-                            typ: info.typ,
-                            readable_logic: s
-                                .logic
-                                .logic_slot_types
-                                .get(&(index as u32))
-                                .map(|s_info| {
-                                    s_info
-                                        .slot_types
-                                        .iter()
-                                        .filter_map(|(key, access)| match access {
-                                            MemoryAccess::Read | MemoryAccess::ReadWrite => {
-                                                Some(key)
-                                            }
-                                            _ => None,
-                                        })
-                                        .copied()
-                                        .collect::<Vec<_>>()
-                                })
-                                .unwrap_or_else(|| Vec::new()),
-                            writeable_logic: s
-                                .logic
-                                .logic_slot_types
-                                .get(&(index as u32))
-                                .map(|s_info| {
-                                    s_info
-                                        .slot_types
-                                        .iter()
-                                        .filter_map(|(key, access)| match access {
-                                            MemoryAccess::Write | MemoryAccess::ReadWrite => {
-                                                Some(key)
-                                            }
-                                            _ => None,
-                                        })
-                                        .copied()
-                                        .collect::<Vec<_>>()
-                                })
-                                .unwrap_or_else(|| Vec::new()),
-                            occupant: None,
-                        })
-                        .collect(),
-                    fields: s
-                        .logic
-                        .logic_types
-                        .types
-                        .iter()
-                        .map(|(key, access)| {
-                            (
-                                *key,
-                                LogicField {
-                                    field_type: *access,
-                                    value: s
-                                        .logic
-                                        .logic_values
-                                        .map(|values| values.get(key))
-                                        .flatten()
-                                        .copied()
-                                        .unwrap_or(0.0),
-                                },
-                            )
-                        })
-                        .collect(),
-                    modes: s.logic.modes.clone(),
-                },
-                vm.clone(),
-            ),
-            StructureLogicDevice(s) => VMObject::new(
-                GenericLogicableDevice {
-                    id,
-                    prefab: Name::from_prefab_name(&s.prefab.prefab_name),
-                    name: Name::new(&s.prefab.name),
-                    vm: None,
-                    small_grid: s.structure.small_grid,
-                    slots: s
-                        .slots
-                        .iter()
-                        .enumerate()
-                        .map(|(index, info)| Slot {
-                            parent: id,
-                            index,
-                            name: info.name.clone(),
-                            typ: info.typ,
-                            readable_logic: s
-                                .logic
-                                .logic_slot_types
-                                .get(&(index as u32))
-                                .map(|s_info| {
-                                    s_info
-                                        .slot_types
-                                        .iter()
-                                        .filter_map(|(key, access)| match access {
-                                            MemoryAccess::Read | MemoryAccess::ReadWrite => {
-                                                Some(key)
-                                            }
-                                            _ => None,
-                                        })
-                                        .copied()
-                                        .collect::<Vec<_>>()
-                                })
-                                .unwrap_or_else(|| Vec::new()),
-                            writeable_logic: s
-                                .logic
-                                .logic_slot_types
-                                .get(&(index as u32))
-                                .map(|s_info| {
-                                    s_info
-                                        .slot_types
-                                        .iter()
-                                        .filter_map(|(key, access)| match access {
-                                            MemoryAccess::Write | MemoryAccess::ReadWrite => {
-                                                Some(key)
-                                            }
-                                            _ => None,
-                                        })
-                                        .copied()
-                                        .collect::<Vec<_>>()
-                                })
-                                .unwrap_or_else(|| Vec::new()),
-                            occupant: None,
-                        })
-                        .collect(),
-                    fields: s
-                        .logic
-                        .logic_types
-                        .types
-                        .iter()
-                        .map(|(key, access)| {
-                            (
-                                *key,
-                                LogicField {
-                                    field_type: *access,
-                                    value: s
-                                        .logic
-                                        .logic_values
-                                        .map(|values| values.get(key))
-                                        .flatten()
-                                        .copied()
-                                        .unwrap_or(0.0),
-                                },
-                            )
-                        })
-                        .collect(),
-                    modes: s.logic.modes.clone(),
-                    connections: s
-                        .device
-                        .connection_list
-                        .iter()
-                        .map(|conn_info| {
-                            Connection::from_info(conn_info.typ, conn_info.role, conn_info.network)
-                        })
-                        .collect(),
-                    pins: s
-                        .device
-                        .device_pins
-                        .map(|pins| Some(pins.clone()))
-                        .unwrap_or_else(|| {
-                            s.device
-                                .device_pins_length
-                                .map(|pins_len| vec![None; pins_len])
-                        }),
-                    device_info: s.device.clone(),
-                },
-                vm.clone(),
-            ),
+            Structure(s) => VMObject::new(Generic {
+                id,
+                prefab: Name::from_prefab_name(&s.prefab.prefab_name),
+                name: Name::new(&s.prefab.name),
+                vm,
+                small_grid: s.structure.small_grid,
+            }),
+            StructureSlots(s) => VMObject::new(GenericStorage {
+                id,
+                prefab: Name::from_prefab_name(&s.prefab.prefab_name),
+                name: Name::new(&s.prefab.name),
+                vm,
+                small_grid: s.structure.small_grid,
+                slots: s
+                    .slots
+                    .iter()
+                    .enumerate()
+                    .map(|(index, info)| Slot {
+                        parent: id,
+                        index,
+                        name: info.name.clone(),
+                        typ: info.typ,
+                        readable_logic: Vec::new(),
+                        writeable_logic: Vec::new(),
+                        occupant: None,
+                    })
+                    .collect(),
+            }),
+            StructureLogic(s) => VMObject::new(GenericLogicable {
+                id,
+                prefab: Name::from_prefab_name(&s.prefab.prefab_name),
+                name: Name::new(&s.prefab.name),
+                vm,
+                small_grid: s.structure.small_grid,
+                slots: s
+                    .slots
+                    .iter()
+                    .enumerate()
+                    .map(|(index, info)| Slot {
+                        parent: id,
+                        index,
+                        name: info.name.clone(),
+                        typ: info.typ,
+                        readable_logic: s
+                            .logic
+                            .logic_slot_types
+                            .get(&(index as u32))
+                            .map(|s_info| {
+                                s_info
+                                    .slot_types
+                                    .iter()
+                                    .filter_map(|(key, access)| match access {
+                                        MemoryAccess::Read | MemoryAccess::ReadWrite => Some(key),
+                                        _ => None,
+                                    })
+                                    .copied()
+                                    .collect::<Vec<_>>()
+                            })
+                            .unwrap_or_else(|| Vec::new()),
+                        writeable_logic: s
+                            .logic
+                            .logic_slot_types
+                            .get(&(index as u32))
+                            .map(|s_info| {
+                                s_info
+                                    .slot_types
+                                    .iter()
+                                    .filter_map(|(key, access)| match access {
+                                        MemoryAccess::Write | MemoryAccess::ReadWrite => Some(key),
+                                        _ => None,
+                                    })
+                                    .copied()
+                                    .collect::<Vec<_>>()
+                            })
+                            .unwrap_or_else(|| Vec::new()),
+                        occupant: None,
+                    })
+                    .collect(),
+                fields: s
+                    .logic
+                    .logic_types
+                    .types
+                    .iter()
+                    .map(|(key, access)| {
+                        (
+                            *key,
+                            LogicField {
+                                field_type: *access,
+                                value: s
+                                    .logic
+                                    .logic_values
+                                    .map(|values| values.get(key))
+                                    .flatten()
+                                    .copied()
+                                    .unwrap_or(0.0),
+                            },
+                        )
+                    })
+                    .collect(),
+                modes: s.logic.modes.clone(),
+            }),
+            StructureLogicDevice(s) => VMObject::new(GenericLogicableDevice {
+                id,
+                prefab: Name::from_prefab_name(&s.prefab.prefab_name),
+                name: Name::new(&s.prefab.name),
+                vm,
+                small_grid: s.structure.small_grid,
+                slots: s
+                    .slots
+                    .iter()
+                    .enumerate()
+                    .map(|(index, info)| Slot {
+                        parent: id,
+                        index,
+                        name: info.name.clone(),
+                        typ: info.typ,
+                        readable_logic: s
+                            .logic
+                            .logic_slot_types
+                            .get(&(index as u32))
+                            .map(|s_info| {
+                                s_info
+                                    .slot_types
+                                    .iter()
+                                    .filter_map(|(key, access)| match access {
+                                        MemoryAccess::Read | MemoryAccess::ReadWrite => Some(key),
+                                        _ => None,
+                                    })
+                                    .copied()
+                                    .collect::<Vec<_>>()
+                            })
+                            .unwrap_or_else(|| Vec::new()),
+                        writeable_logic: s
+                            .logic
+                            .logic_slot_types
+                            .get(&(index as u32))
+                            .map(|s_info| {
+                                s_info
+                                    .slot_types
+                                    .iter()
+                                    .filter_map(|(key, access)| match access {
+                                        MemoryAccess::Write | MemoryAccess::ReadWrite => Some(key),
+                                        _ => None,
+                                    })
+                                    .copied()
+                                    .collect::<Vec<_>>()
+                            })
+                            .unwrap_or_else(|| Vec::new()),
+                        occupant: None,
+                    })
+                    .collect(),
+                fields: s
+                    .logic
+                    .logic_types
+                    .types
+                    .iter()
+                    .map(|(key, access)| {
+                        (
+                            *key,
+                            LogicField {
+                                field_type: *access,
+                                value: s
+                                    .logic
+                                    .logic_values
+                                    .map(|values| values.get(key))
+                                    .flatten()
+                                    .copied()
+                                    .unwrap_or(0.0),
+                            },
+                        )
+                    })
+                    .collect(),
+                modes: s.logic.modes.clone(),
+                connections: s
+                    .device
+                    .connection_list
+                    .iter()
+                    .map(|conn_info| {
+                        Connection::from_info(conn_info.typ, conn_info.role, conn_info.network)
+                    })
+                    .collect(),
+                pins: s
+                    .device
+                    .device_pins
+                    .map(|pins| Some(pins.clone()))
+                    .unwrap_or_else(|| {
+                        s.device
+                            .device_pins_length
+                            .map(|pins_len| vec![None; pins_len])
+                    }),
+                device_info: s.device.clone(),
+            }),
             StructureLogicDeviceMemory(s)
                 if matches!(s.memory.memory_access, MemoryAccess::Read) =>
             {
-                VMObject::new(
-                    GenericLogicableDeviceMemoryReadable {
-                        id,
-                        prefab: Name::from_prefab_name(&s.prefab.prefab_name),
-                        name: Name::new(&s.prefab.name),
-                        vm: None,
-                        small_grid: s.structure.small_grid,
-                        slots: s
-                            .slots
-                            .iter()
-                            .enumerate()
-                            .map(|(index, info)| Slot {
-                                parent: id,
-                                index,
-                                name: info.name.clone(),
-                                typ: info.typ,
-                                readable_logic: s
-                                    .logic
-                                    .logic_slot_types
-                                    .get(&(index as u32))
-                                    .map(|s_info| {
-                                        s_info
-                                            .slot_types
-                                            .iter()
-                                            .filter_map(|(key, access)| match access {
-                                                MemoryAccess::Read | MemoryAccess::ReadWrite => {
-                                                    Some(key)
-                                                }
-                                                _ => None,
-                                            })
-                                            .copied()
-                                            .collect::<Vec<_>>()
-                                    })
-                                    .unwrap_or_else(|| Vec::new()),
-                                writeable_logic: s
-                                    .logic
-                                    .logic_slot_types
-                                    .get(&(index as u32))
-                                    .map(|s_info| {
-                                        s_info
-                                            .slot_types
-                                            .iter()
-                                            .filter_map(|(key, access)| match access {
-                                                MemoryAccess::Write | MemoryAccess::ReadWrite => {
-                                                    Some(key)
-                                                }
-                                                _ => None,
-                                            })
-                                            .copied()
-                                            .collect::<Vec<_>>()
-                                    })
-                                    .unwrap_or_else(|| Vec::new()),
-                                occupant: None,
-                            })
-                            .collect(),
-                        fields: s
-                            .logic
-                            .logic_types
-                            .types
-                            .iter()
-                            .map(|(key, access)| {
-                                (
-                                    *key,
-                                    LogicField {
-                                        field_type: *access,
-                                        value: s
-                                            .logic
-                                            .logic_values
-                                            .map(|values| values.get(key))
-                                            .flatten()
-                                            .copied()
-                                            .unwrap_or(0.0),
-                                    },
-                                )
-                            })
-                            .collect(),
-                        modes: s.logic.modes.clone(),
-                        connections: s
-                            .device
-                            .connection_list
-                            .iter()
-                            .map(|conn_info| {
-                                Connection::from_info(
-                                    conn_info.typ,
-                                    conn_info.role,
-                                    conn_info.network,
-                                )
-                            })
-                            .collect(),
-                        pins: s
-                            .device
-                            .device_pins
-                            .map(|pins| Some(pins.clone()))
-                            .unwrap_or_else(|| {
-                                s.device
-                                    .device_pins_length
-                                    .map(|pins_len| vec![None; pins_len])
-                            }),
-                        device_info: s.device.clone(),
-                        memory: s
-                            .memory
-                            .values
-                            .clone()
-                            .unwrap_or_else(|| vec![0.0; s.memory.memory_size as usize]),
-                    },
-                    vm.clone(),
-                )
-            }
-            StructureLogicDeviceMemory(s) => VMObject::new(
-                GenericLogicableDeviceMemoryReadWriteable {
+                VMObject::new(GenericLogicableDeviceMemoryReadable {
                     id,
                     prefab: Name::from_prefab_name(&s.prefab.prefab_name),
                     name: Name::new(&s.prefab.name),
-                    vm: None,
+                    vm,
                     small_grid: s.structure.small_grid,
                     slots: s
                         .slots
@@ -621,29 +492,16 @@ impl ObjectTemplate {
                         .values
                         .clone()
                         .unwrap_or_else(|| vec![0.0; s.memory.memory_size as usize]),
-                },
-                vm.clone(),
-            ),
-            Item(i) => VMObject::new(
-                GenericItem {
+                })
+            }
+            StructureLogicDeviceMemory(s) => {
+                VMObject::new(GenericLogicableDeviceMemoryReadWriteable {
                     id,
-                    prefab: Name::from_prefab_name(&i.prefab.prefab_name),
-                    name: Name::new(&i.prefab.name),
-                    vm: None,
-                    item_info: i.item.clone(),
-                    parent_slot: None,
-                },
-                vm.clone(),
-            ),
-            ItemSlots(i) => VMObject::new(
-                GenericItemStorage {
-                    id,
-                    prefab: Name::from_prefab_name(&i.prefab.prefab_name),
-                    name: Name::new(&i.prefab.name),
-                    vm: None,
-                    item_info: i.item.clone(),
-                    parent_slot: None,
-                    slots: i
+                    prefab: Name::from_prefab_name(&s.prefab.prefab_name),
+                    name: Name::new(&s.prefab.name),
+                    vm,
+                    small_grid: s.structure.small_grid,
+                    slots: s
                         .slots
                         .iter()
                         .enumerate()
@@ -652,32 +510,7 @@ impl ObjectTemplate {
                             index,
                             name: info.name.clone(),
                             typ: info.typ,
-                            readable_logic: Vec::new(),
-                            writeable_logic: Vec::new(),
-                            occupant: None,
-                        })
-                        .collect(),
-                },
-                vm.clone(),
-            ),
-            ItemLogic(i) => VMObject::new(
-                GenericItemLogicable {
-                    id,
-                    prefab: Name::from_prefab_name(&i.prefab.prefab_name),
-                    name: Name::new(&i.prefab.name),
-                    vm: None,
-                    item_info: i.item.clone(),
-                    parent_slot: None,
-                    slots: i
-                        .slots
-                        .iter()
-                        .enumerate()
-                        .map(|(index, info)| Slot {
-                            parent: id,
-                            index,
-                            name: info.name.clone(),
-                            typ: info.typ,
-                            readable_logic: i
+                            readable_logic: s
                                 .logic
                                 .logic_slot_types
                                 .get(&(index as u32))
@@ -695,7 +528,7 @@ impl ObjectTemplate {
                                         .collect::<Vec<_>>()
                                 })
                                 .unwrap_or_else(|| Vec::new()),
-                            writeable_logic: i
+                            writeable_logic: s
                                 .logic
                                 .logic_slot_types
                                 .get(&(index as u32))
@@ -716,7 +549,7 @@ impl ObjectTemplate {
                             occupant: None,
                         })
                         .collect(),
-                    fields: i
+                    fields: s
                         .logic
                         .logic_types
                         .types
@@ -726,7 +559,7 @@ impl ObjectTemplate {
                                 *key,
                                 LogicField {
                                     field_type: *access,
-                                    value: i
+                                    value: s
                                         .logic
                                         .logic_values
                                         .map(|values| values.get(key))
@@ -737,104 +570,142 @@ impl ObjectTemplate {
                             )
                         })
                         .collect(),
-                    modes: i.logic.modes.clone(),
-                },
-                vm.clone(),
-            ),
-            ItemLogicMemory(i) if matches!(i.memory.memory_access, MemoryAccess::Read) => {
-                VMObject::new(
-                    GenericItemLogicableMemoryReadable {
-                        id,
-                        prefab: Name::from_prefab_name(&i.prefab.prefab_name),
-                        name: Name::new(&i.prefab.name),
-                        vm: None,
-                        item_info: i.item.clone(),
-                        parent_slot: None,
-                        slots: i
-                            .slots
-                            .iter()
-                            .enumerate()
-                            .map(|(index, info)| Slot {
-                                parent: id,
-                                index,
-                                name: info.name.clone(),
-                                typ: info.typ,
-                                readable_logic: i
-                                    .logic
-                                    .logic_slot_types
-                                    .get(&(index as u32))
-                                    .map(|s_info| {
-                                        s_info
-                                            .slot_types
-                                            .iter()
-                                            .filter_map(|(key, access)| match access {
-                                                MemoryAccess::Read | MemoryAccess::ReadWrite => {
-                                                    Some(key)
-                                                }
-                                                _ => None,
-                                            })
-                                            .copied()
-                                            .collect::<Vec<_>>()
-                                    })
-                                    .unwrap_or_else(|| Vec::new()),
-                                writeable_logic: i
-                                    .logic
-                                    .logic_slot_types
-                                    .get(&(index as u32))
-                                    .map(|s_info| {
-                                        s_info
-                                            .slot_types
-                                            .iter()
-                                            .filter_map(|(key, access)| match access {
-                                                MemoryAccess::Write | MemoryAccess::ReadWrite => {
-                                                    Some(key)
-                                                }
-                                                _ => None,
-                                            })
-                                            .copied()
-                                            .collect::<Vec<_>>()
-                                    })
-                                    .unwrap_or_else(|| Vec::new()),
-                                occupant: None,
-                            })
-                            .collect(),
-                        fields: i
-                            .logic
-                            .logic_types
-                            .types
-                            .iter()
-                            .map(|(key, access)| {
-                                (
-                                    *key,
-                                    LogicField {
-                                        field_type: *access,
-                                        value: i
-                                            .logic
-                                            .logic_values
-                                            .map(|values| values.get(key))
-                                            .flatten()
-                                            .copied()
-                                            .unwrap_or(0.0),
-                                    },
-                                )
-                            })
-                            .collect(),
-                        modes: i.logic.modes.clone(),
-                        memory: i
-                            .memory
-                            .values
-                            .clone()
-                            .unwrap_or_else(|| vec![0.0; i.memory.memory_size as usize]),
-                    },
-                    vm.clone(),
-                )
+                    modes: s.logic.modes.clone(),
+                    connections: s
+                        .device
+                        .connection_list
+                        .iter()
+                        .map(|conn_info| {
+                            Connection::from_info(conn_info.typ, conn_info.role, conn_info.network)
+                        })
+                        .collect(),
+                    pins: s
+                        .device
+                        .device_pins
+                        .map(|pins| Some(pins.clone()))
+                        .unwrap_or_else(|| {
+                            s.device
+                                .device_pins_length
+                                .map(|pins_len| vec![None; pins_len])
+                        }),
+                    device_info: s.device.clone(),
+                    memory: s
+                        .memory
+                        .values
+                        .clone()
+                        .unwrap_or_else(|| vec![0.0; s.memory.memory_size as usize]),
+                })
             }
-            ItemLogicMemory(i) => VMObject::new(
-                GenericItemLogicableMemoryReadWriteable {
+            Item(i) => VMObject::new(GenericItem {
+                id,
+                prefab: Name::from_prefab_name(&i.prefab.prefab_name),
+                name: Name::new(&i.prefab.name),
+                vm,
+                item_info: i.item.clone(),
+                parent_slot: None,
+            }),
+            ItemSlots(i) => VMObject::new(GenericItemStorage {
+                id,
+                prefab: Name::from_prefab_name(&i.prefab.prefab_name),
+                name: Name::new(&i.prefab.name),
+                vm,
+                item_info: i.item.clone(),
+                parent_slot: None,
+                slots: i
+                    .slots
+                    .iter()
+                    .enumerate()
+                    .map(|(index, info)| Slot {
+                        parent: id,
+                        index,
+                        name: info.name.clone(),
+                        typ: info.typ,
+                        readable_logic: Vec::new(),
+                        writeable_logic: Vec::new(),
+                        occupant: None,
+                    })
+                    .collect(),
+            }),
+            ItemLogic(i) => VMObject::new(GenericItemLogicable {
+                id,
+                prefab: Name::from_prefab_name(&i.prefab.prefab_name),
+                name: Name::new(&i.prefab.name),
+                vm,
+                item_info: i.item.clone(),
+                parent_slot: None,
+                slots: i
+                    .slots
+                    .iter()
+                    .enumerate()
+                    .map(|(index, info)| Slot {
+                        parent: id,
+                        index,
+                        name: info.name.clone(),
+                        typ: info.typ,
+                        readable_logic: i
+                            .logic
+                            .logic_slot_types
+                            .get(&(index as u32))
+                            .map(|s_info| {
+                                s_info
+                                    .slot_types
+                                    .iter()
+                                    .filter_map(|(key, access)| match access {
+                                        MemoryAccess::Read | MemoryAccess::ReadWrite => Some(key),
+                                        _ => None,
+                                    })
+                                    .copied()
+                                    .collect::<Vec<_>>()
+                            })
+                            .unwrap_or_else(|| Vec::new()),
+                        writeable_logic: i
+                            .logic
+                            .logic_slot_types
+                            .get(&(index as u32))
+                            .map(|s_info| {
+                                s_info
+                                    .slot_types
+                                    .iter()
+                                    .filter_map(|(key, access)| match access {
+                                        MemoryAccess::Write | MemoryAccess::ReadWrite => Some(key),
+                                        _ => None,
+                                    })
+                                    .copied()
+                                    .collect::<Vec<_>>()
+                            })
+                            .unwrap_or_else(|| Vec::new()),
+                        occupant: None,
+                    })
+                    .collect(),
+                fields: i
+                    .logic
+                    .logic_types
+                    .types
+                    .iter()
+                    .map(|(key, access)| {
+                        (
+                            *key,
+                            LogicField {
+                                field_type: *access,
+                                value: i
+                                    .logic
+                                    .logic_values
+                                    .map(|values| values.get(key))
+                                    .flatten()
+                                    .copied()
+                                    .unwrap_or(0.0),
+                            },
+                        )
+                    })
+                    .collect(),
+                modes: i.logic.modes.clone(),
+            }),
+            ItemLogicMemory(i) if matches!(i.memory.memory_access, MemoryAccess::Read) => {
+                VMObject::new(GenericItemLogicableMemoryReadable {
                     id,
                     prefab: Name::from_prefab_name(&i.prefab.prefab_name),
                     name: Name::new(&i.prefab.name),
-                    vm: None,
+                    vm,
                     item_info: i.item.clone(),
                     parent_slot: None,
                     slots: i
@@ -912,9 +783,87 @@ impl ObjectTemplate {
                         .values
                         .clone()
                         .unwrap_or_else(|| vec![0.0; i.memory.memory_size as usize]),
-                },
-                vm.clone(),
-            ),
+                })
+            }
+            ItemLogicMemory(i) => VMObject::new(GenericItemLogicableMemoryReadWriteable {
+                id,
+                prefab: Name::from_prefab_name(&i.prefab.prefab_name),
+                name: Name::new(&i.prefab.name),
+                vm,
+                item_info: i.item.clone(),
+                parent_slot: None,
+                slots: i
+                    .slots
+                    .iter()
+                    .enumerate()
+                    .map(|(index, info)| Slot {
+                        parent: id,
+                        index,
+                        name: info.name.clone(),
+                        typ: info.typ,
+                        readable_logic: i
+                            .logic
+                            .logic_slot_types
+                            .get(&(index as u32))
+                            .map(|s_info| {
+                                s_info
+                                    .slot_types
+                                    .iter()
+                                    .filter_map(|(key, access)| match access {
+                                        MemoryAccess::Read | MemoryAccess::ReadWrite => Some(key),
+                                        _ => None,
+                                    })
+                                    .copied()
+                                    .collect::<Vec<_>>()
+                            })
+                            .unwrap_or_else(|| Vec::new()),
+                        writeable_logic: i
+                            .logic
+                            .logic_slot_types
+                            .get(&(index as u32))
+                            .map(|s_info| {
+                                s_info
+                                    .slot_types
+                                    .iter()
+                                    .filter_map(|(key, access)| match access {
+                                        MemoryAccess::Write | MemoryAccess::ReadWrite => Some(key),
+                                        _ => None,
+                                    })
+                                    .copied()
+                                    .collect::<Vec<_>>()
+                            })
+                            .unwrap_or_else(|| Vec::new()),
+                        occupant: None,
+                    })
+                    .collect(),
+                fields: i
+                    .logic
+                    .logic_types
+                    .types
+                    .iter()
+                    .map(|(key, access)| {
+                        (
+                            *key,
+                            LogicField {
+                                field_type: *access,
+                                value: i
+                                    .logic
+                                    .logic_values
+                                    .map(|values| values.get(key))
+                                    .flatten()
+                                    .copied()
+                                    .unwrap_or(0.0),
+                            },
+                        )
+                    })
+                    .collect(),
+                modes: i.logic.modes.clone(),
+                memory: i
+                    .memory
+                    .values
+                    .clone()
+                    .unwrap_or_else(|| vec![0.0; i.memory.memory_size as usize]),
+            }),
         }
     }
 

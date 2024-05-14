@@ -246,9 +246,9 @@ impl Program {
         }
     }
 
-    pub fn get_line(&self, line: u32) -> Result<&Instruction, ICError> {
+    pub fn get_line(&self, line: usize) -> Result<&Instruction, ICError> {
         self.instructions
-            .get(line as usize)
+            .get(line)
             .ok_or(ICError::InstructionPointerOutOfRange(line))
     }
 }
@@ -2030,7 +2030,8 @@ impl IC {
                                         if ic_id == &this.id {
                                             this.peek_addr(addr)
                                         } else {
-                                            let ic = vm.circuit_holders.get(ic_id).unwrap().borrow();
+                                            let ic =
+                                                vm.circuit_holders.get(ic_id).unwrap().borrow();
                                             ic.peek_addr(addr)
                                         }
                                     }?;
@@ -2063,7 +2064,8 @@ impl IC {
                                         if ic_id == &this.id {
                                             this.peek_addr(addr)
                                         } else {
-                                            let ic = vm.circuit_holders.get(ic_id).unwrap().borrow();
+                                            let ic =
+                                                vm.circuit_holders.get(ic_id).unwrap().borrow();
                                             ic.peek_addr(addr)
                                         }
                                     }?;
