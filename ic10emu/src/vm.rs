@@ -265,7 +265,7 @@ impl VM {
             .ok_or(VMError::NotProgrammable(id))?;
         self.operation_modified.borrow_mut().clear();
         self.set_modified(id);
-        programmable.step(self, advance_ip_on_err)?;
+        programmable.step(advance_ip_on_err)?;
         Ok(())
     }
 
@@ -286,7 +286,7 @@ impl VM {
         self.operation_modified.borrow_mut().clear();
         self.set_modified(id);
         for _i in 0..128 {
-            if let Err(err) = programmable.step(self, ignore_errors) {
+            if let Err(err) = programmable.step( ignore_errors) {
                 if !ignore_errors {
                     return Err(err.into());
                 }
@@ -629,7 +629,7 @@ impl VM {
                     .borrow_mut()
                     .as_mut_device()
                     .expect("batch iter yielded non device")
-                    .set_slot_logic(typ, index, val, self, write_readonly)
+                    .set_slot_logic(typ, index, val,  write_readonly)
                     .map_err(Into::into)
             })
             .try_collect()
@@ -718,7 +718,7 @@ impl VM {
                     .borrow()
                     .as_device()
                     .expect("batch iter yielded non device")
-                    .get_slot_logic(typ, index, self)
+                    .get_slot_logic(typ, index)
                     .map_err(Into::into)
             })
             .filter_ok(|val| !val.is_nan())
@@ -741,7 +741,7 @@ impl VM {
                     .borrow()
                     .as_device()
                     .expect("batch iter yielded non device")
-                    .get_slot_logic(typ, index, self)
+                    .get_slot_logic(typ, index)
                     .map_err(Into::into)
             })
             .filter_ok(|val| !val.is_nan())

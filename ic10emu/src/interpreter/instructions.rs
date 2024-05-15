@@ -2,6 +2,7 @@ use crate::{
     errors::ICError,
     interpreter::{i64_to_f64, ICState},
     vm::{
+        enums::script_enums::LogicReagentMode,
         instructions::{
             operands::{InstOperand, RegisterSpec},
             traits::*,
@@ -1967,15 +1968,14 @@ impl<T: IC10Marker> GetInstruction for T {
         } = r.as_register(self)?;
         let address = address.as_value(self)?;
         let (device, connection) = d.as_device(self)?;
-        let Some(logicable) = self
+        let logicable = self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
-            .get_logicable_from_index(device, connection) else {
-            return Err(ICError::DeviceNotSet);
-        };
-        let Some(memory) = logicable.as_memory_readable() else {
-            return Err(MemoryError::NotReadable.into());
-        };
+            .get_logicable_from_index(device, connection)
+            .ok_or(ICError::DeviceNotSet)?;
+        let memory = logicable
+            .as_memory_readable()
+            .ok_or(MemoryError::NotReadable)?;
         self.set_register(indirection, target, memory.get_memory(address as i32)?)?;
         Ok(())
     }
@@ -1995,15 +1995,14 @@ impl<T: IC10Marker> GetdInstruction for T {
         } = r.as_register(self)?;
         let id = id.as_value(self)?;
         let address = address.as_value(self)?;
-        let Some(logicable) = self
+        let logicable = self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
-            .get_logicable_from_id(id as ObjectID, None) else {
-            return Err(ICError::UnknownDeviceId(id));
-        };
-        let Some(memory) = logicable.as_memory_readable() else {
-            return Err(MemoryError::NotReadable.into());
-        };
+            .get_logicable_from_id(id as ObjectID, None)
+            .ok_or(ICError::DeviceNotSet)?;
+        let memory = logicable
+            .as_memory_readable()
+            .ok_or(MemoryError::NotReadable)?;
         self.set_register(indirection, target, memory.get_memory(address as i32)?)?;
         Ok(())
     }
@@ -2020,15 +2019,14 @@ impl<T: IC10Marker> PutInstruction for T {
         let (device, connection) = d.as_device(self)?;
         let address = address.as_value(self)?;
         let value = value.as_value(self)?;
-        let Some(logicable) = self
+        let logicable = self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
-            .get_logicable_from_index_mut(device, connection) else {
-            return Err(ICError::DeviceNotSet);
-        };
-        let Some(memory) = logicable.as_memory_writable() else {
-            return Err(MemoryError::NotWriteable.into());
-        };
+            .get_logicable_from_index_mut(device, connection)
+            .ok_or(ICError::DeviceNotSet)?;
+        let memory = logicable
+            .as_memory_writable()
+            .ok_or(MemoryError::NotWriteable)?;
         memory.set_memory(address as i32, value)?;
         Ok(())
     }
@@ -2045,15 +2043,14 @@ impl<T: IC10Marker> PutdInstruction for T {
         let id = id.as_value(self)?;
         let address = address.as_value(self)?;
         let value = value.as_value(self)?;
-        let Some(logicable) = self
+        let logicable = self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
-            .get_logicable_from_id_mut(id as ObjectID, None) else {
-            return Err(ICError::DeviceNotSet);
-        };
-        let Some(memory) = logicable.as_memory_writable() else {
-            return Err(MemoryError::NotWriteable.into());
-        };
+            .get_logicable_from_id_mut(id as ObjectID, None)
+            .ok_or(ICError::DeviceNotSet)?;
+        let memory = logicable
+            .as_memory_writable()
+            .ok_or(MemoryError::NotWriteable)?;
         memory.set_memory(address as i32, value)?;
         Ok(())
     }
@@ -2061,202 +2058,463 @@ impl<T: IC10Marker> PutdInstruction for T {
 
 impl<T: IC10Marker> ClrInstruction for T {
     /// clr d?
-    fn execute_inner(&mut self,  d: &InstOperand) -> Result<(), ICError> {
+    fn execute_inner(&mut self, d: &InstOperand) -> Result<(), ICError> {
         let (device, connection) = d.as_device(self)?;
-        let Some(logicable) = self
+        let logicable = self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
-            .get_logicable_from_index_mut(device, connection) else {
-            return Err(ICError::DeviceNotSet);
-        };
-        let Some(memory) = logicable.as_memory_writable() else {
-            return Err(MemoryError::NotWriteable.into());
-        };
+            .get_logicable_from_index_mut(device, connection)
+            .ok_or(ICError::DeviceNotSet)?;
+        let memory = logicable
+            .as_memory_writable()
+            .ok_or(MemoryError::NotWriteable)?;
         memory.clear_memory()?;
         Ok(())
     }
 }
 impl<T: IC10Marker> ClrdInstruction for T {
     /// clrd id(r?|num)
-    fn execute_inner(&mut self,  id: &InstOperand) -> Result<(), ICError> {
+    fn execute_inner(&mut self, id: &InstOperand) -> Result<(), ICError> {
         let id = id.as_value(self)?;
-        let Some(logicable) = self
+        let logicable = self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
-            .get_logicable_from_id_mut(id as ObjectID, None) else {
-            return Err(ICError::DeviceNotSet);
-        };
-        let Some(memory) = logicable.as_memory_writable() else {
-            return Err(MemoryError::NotWriteable.into());
-        };
+            .get_logicable_from_id_mut(id as ObjectID, None)
+            .ok_or(ICError::DeviceNotSet)?;
+        let memory = logicable
+            .as_memory_writable()
+            .ok_or(MemoryError::NotWriteable)?;
         memory.clear_memory()?;
         Ok(())
     }
 }
 
-// impl<T: IC10Marker> HcfInstruction for T {
-//     /// hcf
-//     fn execute_inner(&mut self, vm: &VM) -> Result<(), ICError>;
-// }
-// impl<T: IC10Marker> LInstruction for T {
-//     /// l r? d? logicType
-//     fn execute_inner(
-//         &mut self,
-//
-//         r: &InstOperand,
-//         d: &InstOperand,
-//         logic_type: &InstOperand,
-//     ) -> Result<(), ICError>;
-// }
-// impl<T: IC10Marker> LabelInstruction for T {
-//     /// label d? str
-//     fn execute_inner(&mut self,  d: &InstOperand, str: &InstOperand) -> Result<(), ICError>;
-// }
-// impl<T: IC10Marker> LbInstruction for T {
-//     /// lb r? deviceHash logicType batchMode
-//     fn execute_inner(
-//         &mut self,
-//
-//         r: &InstOperand,
-//         device_hash: &InstOperand,
-//         logic_type: &InstOperand,
-//         batch_mode: &InstOperand,
-//     ) -> Result<(), ICError>;
-// }
-// impl<T: IC10Marker> LbnInstruction for T {
-//     /// lbn r? deviceHash nameHash logicType batchMode
-//     fn execute_inner(
-//         &mut self,
-//
-//         r: &InstOperand,
-//         device_hash: &InstOperand,
-//         name_hash: &InstOperand,
-//         logic_type: &InstOperand,
-//         batch_mode: &InstOperand,
-//     ) -> Result<(), ICError>;
-// }
-// impl<T: IC10Marker> LbnsInstruction for T {
-//     /// lbns r? deviceHash nameHash slotIndex logicSlotType batchMode
-//     fn execute_inner(
-//         &mut self,
-//
-//         r: &InstOperand,
-//         device_hash: &InstOperand,
-//         name_hash: &InstOperand,
-//         slot_index: &InstOperand,
-//         logic_slot_type: &InstOperand,
-//         batch_mode: &InstOperand,
-//     ) -> Result<(), ICError>;
-// }
-// impl<T: IC10Marker> LbsInstruction for T {
-//     /// lbs r? deviceHash slotIndex logicSlotType batchMode
-//     fn execute_inner(
-//         &mut self,
-//
-//         r: &InstOperand,
-//         device_hash: &InstOperand,
-//         slot_index: &InstOperand,
-//         logic_slot_type: &InstOperand,
-//         batch_mode: &InstOperand,
-//     ) -> Result<(), ICError>;
-// }
-// impl<T: IC10Marker> LdInstruction for T {
-//     /// ld r? id(r?|num) logicType
-//     fn execute_inner(
-//         &mut self,
-//
-//         r: &InstOperand,
-//         id: &InstOperand,
-//         logic_type: &InstOperand,
-//     ) -> Result<(), ICError>;
-// }
-// impl<T: IC10Marker> LogInstruction for T {
-//     /// log r? a(r?|num)
-//     fn execute_inner(&mut self,  r: &InstOperand, a: &InstOperand) -> Result<(), ICError>;
-// }
-// impl<T: IC10Marker> LrInstruction for T {
-//     /// lr r? d? reagentMode int
-//     fn execute_inner(
-//         &mut self,
-//
-//         r: &InstOperand,
-//         d: &InstOperand,
-//         reagent_mode: &InstOperand,
-//         int: &InstOperand,
-//     ) -> Result<(), ICError>;
-// }
-// impl<T: IC10Marker> LsInstruction for T {
-//     /// ls r? d? slotIndex logicSlotType
-//     fn execute_inner(
-//         &mut self,
-//
-//         r: &InstOperand,
-//         d: &InstOperand,
-//         slot_index: &InstOperand,
-//         logic_slot_type: &InstOperand,
-//     ) -> Result<(), ICError>;
-// }
-// impl<T: IC10Marker> SInstruction for T {
-//     /// s d? logicType r?
-//     fn execute_inner(
-//         &mut self,
-//
-//         d: &InstOperand,
-//         logic_type: &InstOperand,
-//         r: &InstOperand,
-//     ) -> Result<(), ICError>;
-// }
-// impl<T: IC10Marker> SbInstruction for T {
-//     /// sb deviceHash logicType r?
-//     fn execute_inner(
-//         &mut self,
-//
-//         device_hash: &InstOperand,
-//         logic_type: &InstOperand,
-//         r: &InstOperand,
-//     ) -> Result<(), ICError>;
-// }
-// impl<T: IC10Marker> SbnInstruction for T {
-//     /// sbn deviceHash nameHash logicType r?
-//     fn execute_inner(
-//         &mut self,
-//
-//         device_hash: &InstOperand,
-//         name_hash: &InstOperand,
-//         logic_type: &InstOperand,
-//         r: &InstOperand,
-//     ) -> Result<(), ICError>;
-// }
-// impl<T: IC10Marker> SbsInstruction for T {
-//     /// sbs deviceHash slotIndex logicSlotType r?
-//     fn execute_inner(
-//         &mut self,
-//
-//         device_hash: &InstOperand,
-//         slot_index: &InstOperand,
-//         logic_slot_type: &InstOperand,
-//         r: &InstOperand,
-//     ) -> Result<(), ICError>;
-// }
-// impl<T: IC10Marker> SdInstruction for T {
-//     /// sd id(r?|num) logicType r?
-//     fn execute_inner(
-//         &mut self,
-//
-//         id: &InstOperand,
-//         logic_type: &InstOperand,
-//         r: &InstOperand,
-//     ) -> Result<(), ICError>;
-// }
-// impl<T: IC10Marker> SsInstruction for T {
-//     /// ss d? slotIndex logicSlotType r?
-//     fn execute_inner(
-//         &mut self,
-//
-//         d: &InstOperand,
-//         slot_index: &InstOperand,
-//         logic_slot_type: &InstOperand,
-//         r: &InstOperand,
-//     ) -> Result<(), ICError>;
-// }
-//
+impl<T: IC10Marker> SInstruction for T {
+    /// s d? logicType r?
+    fn execute_inner(
+        &mut self,
+        d: &InstOperand,
+        logic_type: &InstOperand,
+        r: &InstOperand,
+    ) -> Result<(), ICError> {
+        let (device, connection) = d.as_device(self)?;
+        let logic_type = logic_type.as_logic_type(self)?;
+        let val = r.as_value(self)?;
+        let logicable = self
+            .get_circuit_holder()
+            .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .get_logicable_from_index_mut(device, connection)
+            .ok_or(ICError::DeviceNotSet)?;
+        logicable.set_logic(logic_type, val, false)?;
+        Ok(())
+    }
+}
+
+impl<T: IC10Marker> SdInstruction for T {
+    /// sd id(r?|num) logicType r?
+    fn execute_inner(
+        &mut self,
+        id: &InstOperand,
+        logic_type: &InstOperand,
+        r: &InstOperand,
+    ) -> Result<(), ICError> {
+        let id = id.as_value(self)?;
+        let logic_type = logic_type.as_logic_type(self)?;
+        let val = r.as_value(self)?;
+        let logicable = self
+            .get_circuit_holder()
+            .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .get_logicable_from_id_mut(id as ObjectID, None)
+            .ok_or(ICError::DeviceNotSet)?;
+        logicable.set_logic(logic_type, val, false)?;
+        Ok(())
+    }
+}
+
+impl<T: IC10Marker> SsInstruction for T {
+    /// ss d? slotIndex logicSlotType r?
+    fn execute_inner(
+        &mut self,
+        d: &InstOperand,
+        slot_index: &InstOperand,
+        logic_slot_type: &InstOperand,
+        r: &InstOperand,
+    ) -> Result<(), ICError> {
+        let (device, connection) = d.as_device(self)?;
+        let slot_index = slot_index.as_value(self)?;
+        let logic_slot_type = logic_slot_type.as_slot_logic_type(self)?;
+        let val = r.as_value(self)?;
+        let logicable = self
+            .get_circuit_holder()
+            .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .get_logicable_from_index_mut(device, connection)
+            .ok_or(ICError::DeviceNotSet)?;
+        let device = logicable
+            .as_mut_device()
+            .ok_or(ICError::NotSlotWriteable(logicable.get_id()))?;
+        device.set_slot_logic(logic_slot_type, slot_index, val, false)?;
+        Ok(())
+    }
+}
+
+impl<T: IC10Marker> SbInstruction for T {
+    /// sb deviceHash logicType r?
+    fn execute_inner(
+        &mut self,
+
+        device_hash: &InstOperand,
+        logic_type: &InstOperand,
+        r: &InstOperand,
+    ) -> Result<(), ICError> {
+        let prefab = device_hash.as_value(self)?;
+        let logic_type = logic_type.as_logic_type(self)?;
+        let val = r.as_value(self)?;
+        self.get_vm()
+            .set_batch_device_field(self.get_id(), prefab, logic_type, val, false)?;
+        Ok(())
+    }
+}
+
+impl<T: IC10Marker> SbsInstruction for T {
+    /// sbs deviceHash slotIndex logicSlotType r?
+    fn execute_inner(
+        &mut self,
+
+        device_hash: &InstOperand,
+        slot_index: &InstOperand,
+        logic_slot_type: &InstOperand,
+        r: &InstOperand,
+    ) -> Result<(), ICError> {
+        let prefab = device_hash.as_value(self)?;
+        let slot_index = slot_index.as_value(self)?;
+        let logic_slot_type = logic_slot_type.as_slot_logic_type(self)?;
+        let val = r.as_value(self)?;
+        self.get_vm().set_batch_device_slot_field(
+            self.get_id(),
+            prefab,
+            slot_index,
+            logic_slot_type,
+            val,
+            false,
+        )?;
+        Ok(())
+    }
+}
+
+impl<T: IC10Marker> SbnInstruction for T {
+    /// sbn deviceHash nameHash logicType r?
+    fn execute_inner(
+        &mut self,
+
+        device_hash: &InstOperand,
+        name_hash: &InstOperand,
+        logic_type: &InstOperand,
+        r: &InstOperand,
+    ) -> Result<(), ICError> {
+        let prefab = device_hash.as_value(self)?;
+        let name = name_hash.as_value(self)?;
+        let logic_type = logic_type.as_logic_type(self)?;
+        let val = r.as_value(self)?;
+        self.get_vm().set_batch_name_device_field(
+            self.get_id(),
+            prefab,
+            name,
+            logic_type,
+            val,
+            false,
+        )?;
+        Ok(())
+    }
+}
+
+impl<T: IC10Marker> LInstruction for T {
+    /// l r? d? logicType
+    fn execute_inner(
+        &mut self,
+
+        r: &InstOperand,
+        d: &InstOperand,
+        logic_type: &InstOperand,
+    ) -> Result<(), ICError> {
+        let RegisterSpec {
+            indirection,
+            target,
+        } = r.as_register(self)?;
+        let (device, connection) = d.as_device(self)?;
+        let logic_type = logic_type.as_logic_type(self)?;
+        let logicable = self
+            .get_circuit_holder()
+            .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .get_logicable_from_index(device, connection)
+            .ok_or(ICError::DeviceNotSet)?;
+        self.set_register(indirection, target, logicable.get_logic(logic_type)?)?;
+        Ok(())
+    }
+}
+
+impl<T: IC10Marker> LdInstruction for T {
+    /// ld r? id(r?|num) logicType
+    fn execute_inner(
+        &mut self,
+        r: &InstOperand,
+        id: &InstOperand,
+        logic_type: &InstOperand,
+    ) -> Result<(), ICError> {
+        let RegisterSpec {
+            indirection,
+            target,
+        } = r.as_register(self)?;
+        let id = id.as_value(self)?;
+        let logic_type = logic_type.as_logic_type(self)?;
+        let logicable = self
+            .get_circuit_holder()
+            .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .get_logicable_from_id(id as ObjectID, None)
+            .ok_or(ICError::DeviceNotSet)?;
+        self.set_register(indirection, target, logicable.get_logic(logic_type)?)?;
+        Ok(())
+    }
+}
+
+impl<T: IC10Marker> LsInstruction for T {
+    /// ls r? d? slotIndex logicSlotType
+    fn execute_inner(
+        &mut self,
+        r: &InstOperand,
+        d: &InstOperand,
+        slot_index: &InstOperand,
+        logic_slot_type: &InstOperand,
+    ) -> Result<(), ICError> {
+        let RegisterSpec {
+            indirection,
+            target,
+        } = r.as_register(self)?;
+        let (device, connection) = d.as_device(self)?;
+        let slot_index = slot_index.as_value(self)?;
+        let logic_slot_type = logic_slot_type.as_slot_logic_type(self)?;
+        let logicable = self
+            .get_circuit_holder()
+            .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .get_logicable_from_index(device, connection)
+            .ok_or(ICError::DeviceNotSet)?;
+        self.set_register(
+            indirection,
+            target,
+            logicable.get_slot_logic(logic_slot_type, slot_index)?,
+        )?;
+        Ok(())
+    }
+}
+
+impl<T: IC10Marker> LrInstruction for T {
+    /// lr r? d? reagentMode int
+    fn execute_inner(
+        &mut self,
+        r: &InstOperand,
+        d: &InstOperand,
+        reagent_mode: &InstOperand,
+        int: &InstOperand,
+    ) -> Result<(), ICError> {
+        let RegisterSpec {
+            indirection,
+            target,
+        } = r.as_register(self)?;
+        let (device, connection) = d.as_device(self)?;
+        let reagent_mode = reagent_mode.as_reagent_mode(self)?;
+        let int = int.as_value(self)?;
+        let logicable = self
+            .get_circuit_holder()
+            .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .get_logicable_from_index(device, connection)
+            .ok_or(ICError::DeviceNotSet)?;
+
+        let result = match reagent_mode {
+            LogicReagentMode::Contents => {
+                let device = logicable
+                    .as_device()
+                    .ok_or(ICError::NotReagentReadable(logicable.get_id()))?;
+                device
+                    .get_reagents()
+                    .iter()
+                    .find(|(hash, _)| *hash as f64 == int)
+                    .map(|(_, quantity)| *quantity)
+                    .unwrap_or(0.0)
+            }
+            LogicReagentMode::TotalContents => {
+                let device = logicable
+                    .as_device()
+                    .ok_or(ICError::NotReagentReadable(logicable.get_id()))?;
+                device
+                    .get_reagents()
+                    .iter()
+                    .map(|(_, quantity)| quantity)
+                    .sum()
+            }
+            LogicReagentMode::Required => {
+                let reagent_interface = logicable
+                    .as_reagent_interface()
+                    .ok_or(ICError::NotReagentReadable(logicable.get_id()))?;
+                reagent_interface
+                    .get_current_required()
+                    .iter()
+                    .find(|(hash, _)| *hash as f64 == int)
+                    .map(|(_, quantity)| *quantity)
+                    .unwrap_or(0.0)
+            }
+            LogicReagentMode::Recipe => {
+                let reagent_interface = logicable
+                    .as_reagent_interface()
+                    .ok_or(ICError::NotReagentReadable(logicable.get_id()))?;
+                reagent_interface
+                    .get_current_recipie()
+                    .iter()
+                    .find(|(hash, _)| *hash as f64 == int)
+                    .map(|(_, quantity)| *quantity)
+                    .unwrap_or(0.0)
+            }
+        };
+
+        self.set_register(indirection, target, result)?;
+        Ok(())
+    }
+}
+
+impl<T: IC10Marker> LbInstruction for T {
+    /// lb r? deviceHash logicType batchMode
+    fn execute_inner(
+        &mut self,
+        r: &InstOperand,
+        device_hash: &InstOperand,
+        logic_type: &InstOperand,
+        batch_mode: &InstOperand,
+    ) -> Result<(), ICError> {
+        let RegisterSpec {
+            indirection,
+            target,
+        } = r.as_register(self)?;
+
+        let prefab = device_hash.as_value(self)?;
+        let logic_type = logic_type.as_logic_type(self)?;
+        let batch_mode = batch_mode.as_batch_mode(self)?;
+        let val =
+            self.get_vm()
+                .get_batch_device_field(self.get_id(), prefab, logic_type, batch_mode)?;
+        self.set_register(indirection, target, val)?;
+        Ok(())
+    }
+}
+
+impl<T: IC10Marker> LbnInstruction for T {
+    /// lbn r? deviceHash nameHash logicType batchMode
+    fn execute_inner(
+        &mut self,
+
+        r: &InstOperand,
+        device_hash: &InstOperand,
+        name_hash: &InstOperand,
+        logic_type: &InstOperand,
+        batch_mode: &InstOperand,
+    ) -> Result<(), ICError> {
+        let RegisterSpec {
+            indirection,
+            target,
+        } = r.as_register(self)?;
+        let prefab = device_hash.as_value(self)?;
+        let name = name_hash.as_value(self)?;
+        let logic_type = logic_type.as_logic_type(self)?;
+        let batch_mode = batch_mode.as_batch_mode(self)?;
+        let val = self.get_vm().get_batch_name_device_field(
+            self.get_id(),
+            prefab,
+            name,
+            logic_type,
+            batch_mode,
+        )?;
+        self.set_register(indirection, target, val)?;
+        Ok(())
+    }
+}
+
+impl<T: IC10Marker> LbnsInstruction for T {
+    /// lbns r? deviceHash nameHash slotIndex logicSlotType batchMode
+    fn execute_inner(
+        &mut self,
+
+        r: &InstOperand,
+        device_hash: &InstOperand,
+        name_hash: &InstOperand,
+        slot_index: &InstOperand,
+        logic_slot_type: &InstOperand,
+        batch_mode: &InstOperand,
+    ) -> Result<(), ICError> {
+        let RegisterSpec {
+            indirection,
+            target,
+        } = r.as_register(self)?;
+        let prefab = device_hash.as_value(self)?;
+        let name = name_hash.as_value(self)?;
+        let slot_index = slot_index.as_value(self)?;
+        let logic_slot_type = logic_slot_type.as_slot_logic_type(self)?;
+        let batch_mode = batch_mode.as_batch_mode(self)?;
+        let val = self.get_vm().get_batch_name_device_slot_field(
+            self.get_id(),
+            prefab,
+            name,
+            slot_index,
+            logic_slot_type,
+            batch_mode,
+        )?;
+        self.set_register(indirection, target, val)?;
+        Ok(())
+    }
+}
+
+impl<T: IC10Marker> LbsInstruction for T {
+    /// lbs r? deviceHash slotIndex logicSlotType batchMode
+    fn execute_inner(
+        &mut self,
+
+        r: &InstOperand,
+        device_hash: &InstOperand,
+        slot_index: &InstOperand,
+        logic_slot_type: &InstOperand,
+        batch_mode: &InstOperand,
+    ) -> Result<(), ICError> {
+        let RegisterSpec {
+            indirection,
+            target,
+        } = r.as_register(self)?;
+        let prefab = device_hash.as_value(self)?;
+        let slot_index = slot_index.as_value(self)?;
+        let logic_slot_type = logic_slot_type.as_slot_logic_type(self)?;
+        let batch_mode = batch_mode.as_batch_mode(self)?;
+        let val = self.get_vm().get_batch_device_slot_field(
+            self.get_id(),
+            prefab,
+            slot_index,
+            logic_slot_type,
+            batch_mode,
+        )?;
+        self.set_register(indirection, target, val)?;
+        Ok(())
+    }
+}
+
+impl<T: IC10Marker> HcfInstruction for T {
+    /// hcf
+    fn execute_inner(&mut self) -> Result<(), ICError> {
+        self.get_circuit_holder()
+            .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .hault_and_catch_fire();
+        self.set_state(ICState::HasCaughtFire);
+        Ok(())
+    }
+}
+
+impl<T: IC10Marker> LabelInstruction for T {
+    /// label d? str
+    fn execute_inner(&mut self, d: &InstOperand, str: &InstOperand) -> Result<(), ICError> {
+        // No op, handled by program compilation, should never be called?
+        Ok(())
+    }
+}

@@ -1,18 +1,12 @@
 use crate::{
-    errors::{ICError, LineError},
-    grammar,
-    interpreter::{ICState, instructions::IC10Marker},
+    errors::ICError,
+    interpreter::{instructions::IC10Marker, ICState, Program},
     vm::{
         enums::{
             basic_enums::{Class as SlotClass, GasType, SortingClass},
             script_enums::{LogicSlotType, LogicType},
         },
-        instructions::{
-            enums::InstructionOp,
-            operands::{DeviceSpec, Operand, RegisterSpec},
-            traits::*,
-            Instruction,
-        },
+        instructions::{operands::Operand, Instruction},
         object::{
             errors::{LogicError, MemoryError},
             macros::ObjectInterface,
@@ -22,124 +16,8 @@ use crate::{
         VM,
     },
 };
-use itertools::Itertools;
 use macro_rules_attribute::derive;
-use serde_derive::{Deserialize, Serialize};
-use std::{
-    collections::{BTreeMap, HashSet},
-    rc::Rc,
-};
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Program {
-    pub instructions: Vec<Instruction>,
-    pub errors: Vec<ICError>,
-    pub labels: BTreeMap<String, u32>,
-}
-
-impl Default for Program {
-    fn default() -> Self {
-        Program::new()
-    }
-}
-
-impl Program {
-    pub fn new() -> Self {
-        Program {
-            instructions: Vec::new(),
-            errors: Vec::new(),
-            labels: BTreeMap::new(),
-        }
-    }
-
-    pub fn try_from_code(code: &str) -> Result<Self, ICError> {
-        let parse_tree = grammar::parse(code)?;
-        let mut labels_set = HashSet::new();
-        let mut labels = BTreeMap::new();
-        let errors = Vec::new();
-        let instructions = parse_tree
-            .into_iter()
-            .enumerate()
-            .map(|(line_number, line)| match line.code {
-                None => Ok(Instruction {
-                    instruction: InstructionOp::Nop,
-                    operands: vec![],
-                }),
-                Some(code) => match code {
-                    grammar::Code::Label(label) => {
-                        if labels_set.contains(&label.id.name) {
-                            Err(ICError::DuplicateLabel(label.id.name))
-                        } else {
-                            labels_set.insert(label.id.name.clone());
-                            labels.insert(label.id.name, line_number as u32);
-                            Ok(Instruction {
-                                instruction: InstructionOp::Nop,
-                                operands: vec![],
-                            })
-                        }
-                    }
-                    grammar::Code::Instruction(instruction) => Ok(instruction),
-                    grammar::Code::Invalid(err) => Err(err.into()),
-                },
-            })
-            .try_collect()?;
-        Ok(Program {
-            instructions,
-            errors,
-            labels,
-        })
-    }
-
-    pub fn from_code_with_invalid(code: &str) -> Self {
-        let parse_tree = grammar::parse_with_invalid(code);
-        let mut labels_set = HashSet::new();
-        let mut labels = BTreeMap::new();
-        let mut errors = Vec::new();
-        let instructions = parse_tree
-            .into_iter()
-            .enumerate()
-            .map(|(line_number, line)| match line.code {
-                None => Instruction {
-                    instruction: InstructionOp::Nop,
-                    operands: vec![],
-                },
-                Some(code) => match code {
-                    grammar::Code::Label(label) => {
-                        if labels_set.contains(&label.id.name) {
-                            errors.push(ICError::DuplicateLabel(label.id.name));
-                        } else {
-                            labels_set.insert(label.id.name.clone());
-                            labels.insert(label.id.name, line_number as u32);
-                        }
-                        Instruction {
-                            instruction: InstructionOp::Nop,
-                            operands: vec![],
-                        }
-                    }
-                    grammar::Code::Instruction(instruction) => instruction,
-                    grammar::Code::Invalid(err) => {
-                        errors.push(err.into());
-                        Instruction {
-                            instruction: InstructionOp::Nop,
-                            operands: vec![],
-                        }
-                    }
-                },
-            })
-            .collect_vec();
-        Program {
-            instructions,
-            errors,
-            labels,
-        }
-    }
-
-    pub fn get_line(&self, line: usize) -> Result<&Instruction, ICError> {
-        self.instructions
-            .get(line)
-            .ok_or(ICError::InstructionPointerOutOfRange(line))
-    }
-}
+use std::{collections::BTreeMap, rc::Rc};
 
 static RETURN_ADDRESS_INDEX: usize = 17;
 static STACK_POINTER_INDEX: usize = 16;
@@ -219,6 +97,7 @@ impl Storage for ItemIntegratedCircuit10 {
         &mut []
     }
 }
+
 impl Logicable for ItemIntegratedCircuit10 {
     fn prefab_hash(&self) -> i32 {
         self.get_prefab().hash
@@ -487,3 +366,46 @@ impl IntegratedCircuit for ItemIntegratedCircuit10 {
 }
 
 impl IC10Marker for ItemIntegratedCircuit10 {}
+
+impl Programmable for ItemIntegratedCircuit10 {
+    fn step(&mut self, advance_ip_on_err: bool) -> Result<(), crate::errors::ICError> {
+        if matches!(&self.state, ICState::HasCaughtFire | ICState::Error(_)) {
+            return Ok(());
+        }
+        if let ICState::Sleep(then, sleep_for) = &self.state {
+            if let Some(duration) = time::Duration::checked_seconds_f64(*sleep_for) {
+                if let Some(sleep_till) = then.checked_add(duration) {
+                    if sleep_till
+                        <= time::OffsetDateTime::now_local()
+                            .unwrap_or_else(|_| time::OffsetDateTime::now_utc())
+                    {
+                        return Ok(());
+                    }
+                    // else sleep duration ended, continue
+                } else {
+                    return Err(ICError::SleepAddtionError(duration, *then));
+                }
+            } else {
+                return Err(ICError::SleepDurationError(*sleep_for));
+            }
+        }
+        if self.ip >= self.program.len() || self.program.len() == 0 {
+            self.state = ICState::Ended;
+            return Ok(());
+        }
+        self.next_ip = self.ip + 1;
+        self.state = ICState::Running;
+        let line = self.program.get_line(self.ip)?;
+        let operands = &line.operands;
+        let instruction = line.instruction;
+        instruction.execute(self, operands)?;
+        self.ip = self.next_ip;
+        if self.ip >= self.program.len() {
+            self.state = ICState::Ended;
+        }
+        self.get_circuit_holder()
+            .ok_or(ICError::NoCircuitHolder(self.id))?
+            .set_logic(LogicType::LineNumber, self.ip as f64, true)?;
+        Ok(())
+    }
+}

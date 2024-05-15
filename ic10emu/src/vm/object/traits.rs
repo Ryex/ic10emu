@@ -104,6 +104,7 @@ tag_object_traits! {
         fn get_batch(&self) -> Vec<LogicableRef>;
         fn get_batch_mut(&self) -> Vec<LogicableRefMut>;
         fn get_ic(&self) -> Option<ObjectID>;
+        fn hault_and_catch_fire(&mut self);
     }
 
     pub trait Item {
@@ -148,8 +149,6 @@ tag_object_traits! {
     }
 
     pub trait Programmable: ICInstructable {
-        fn get_source_code(&self) -> String;
-        fn set_source_code(&self, code: String);
         fn step(&mut self, advance_ip_on_err: bool) -> Result<(), crate::errors::ICError>;
     }
 
@@ -182,7 +181,22 @@ tag_object_traits! {
         fn has_on_off_state(&self) -> bool;
         fn has_open_state(&self) -> bool;
         fn has_reagents(&self) -> bool;
+        /// return vector of (reagent_hash, quantity) pairs
+        fn get_reagents(&self) -> Vec<(i32, f64)>;
+        /// overwrite present reagents
+        fn set_reagents(&mut self, reagents: &[(i32, f64)]);
+        /// adds the reagents to contents
+        fn add_reagents(&mut self, reagents: &[(i32, f64)]);
     }
+
+    pub trait ReagentInterface: Device {
+        /// reagents required by current recipe
+        fn get_current_recipie(&self) -> Vec<(i32, f64)>;
+        /// reagents required to complete current recipe
+        fn get_current_required(&self) -> Vec<(i32, f64)>;
+    }
+
+    pub trait Fabricator: ReagentInterface {}
 
     pub trait WirelessTransmit: Logicable {}
 
