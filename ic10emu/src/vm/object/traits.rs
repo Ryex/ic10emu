@@ -15,10 +15,9 @@ use crate::{
             macros::tag_object_traits,
             ObjectID, Slot,
         },
-        VM,
     },
 };
-use std::{collections::BTreeMap, fmt::Debug, rc::Rc};
+use std::{collections::BTreeMap, fmt::Debug};
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
 pub struct ParentSlotInfo {
@@ -63,7 +62,7 @@ tag_object_traits! {
         fn set_logic(&mut self, lt: LogicType, value: f64, force: bool) -> Result<(), LogicError>;
         fn get_logic(&self, lt: LogicType) -> Result<f64, LogicError>;
         fn can_slot_logic_read(&self, slt: LogicSlotType, index: f64) -> bool;
-        fn get_slot_logic(&self, slt: LogicSlotType, index: f64, vm: &VM) -> Result<f64, LogicError>;
+        fn get_slot_logic(&self, slt: LogicSlotType, index: f64) -> Result<f64, LogicError>;
         fn valid_logic_types(&self) -> Vec<LogicType>;
         fn known_modes(&self) -> Option<Vec<(u32, String)>>;
     }
@@ -78,10 +77,28 @@ tag_object_traits! {
     pub trait CircuitHolder: Logicable + Storage {
         fn clear_error(&mut self);
         fn set_error(&mut self, state: i32);
-        fn get_logicable_from_index(&self, device: usize, vm: &VM) -> Option<LogicableRef>;
-        fn get_logicable_from_index_mut(&self, device: usize, vm: &VM) -> Option<LogicableRefMut>;
-        fn get_logicable_from_id(&self, device: ObjectID, vm: &VM) -> Option<LogicableRef>;
-        fn get_logicable_from_id_mut(&self, device: ObjectID, vm: &VM) -> Option<LogicableRefMut>;
+        /// i32::MAX is db
+        fn get_logicable_from_index(
+            &self,
+            device: i32,
+            connection: Option<usize>,
+        ) -> Option<LogicableRef>;
+        /// i32::MAX is db
+        fn get_logicable_from_index_mut(
+            &self,
+            device: i32,
+            connection: Option<usize>,
+        ) -> Option<LogicableRefMut>;
+        fn get_logicable_from_id(
+            &self,
+            device: ObjectID,
+            connection: Option<usize>,
+        ) -> Option<LogicableRef>;
+        fn get_logicable_from_id_mut(
+            &self,
+            device: ObjectID,
+            connection: Option<usize>,
+        ) -> Option<LogicableRefMut>;
         fn get_source_code(&self) -> String;
         fn set_source_code(&self, code: String);
         fn get_batch(&self) -> Vec<LogicableRef>;
@@ -102,7 +119,7 @@ tag_object_traits! {
     }
 
     pub trait IntegratedCircuit: Logicable + MemoryWritable + SourceCode + Item {
-        fn get_circuit_holder(&self, vm: &Rc<VM>) -> Option<CircuitHolderRef>;
+        fn get_circuit_holder(&self) -> Option<CircuitHolderRef>;
         fn get_instruction_pointer(&self) -> f64;
         fn set_next_instruction(&mut self, next_instruction: f64);
         fn set_next_instruction_relative(&mut self, offset: f64) {
@@ -122,7 +139,9 @@ tag_object_traits! {
         fn get_stack(&self, addr: f64) -> Result<f64, ICError>;
         fn put_stack(&self, addr: f64, val: f64) -> Result<f64, ICError>;
         fn get_aliases(&self) -> &BTreeMap<String, crate::vm::instructions::operands::Operand>;
+        fn get_aliases_mut(&mut self) -> &mut BTreeMap<String, crate::vm::instructions::operands::Operand>;
         fn get_defines(&self) -> &BTreeMap<String, f64>;
+        fn get_defines_mut(&mut self) -> &mut BTreeMap<String, f64>;
         fn get_labels(&self) -> &BTreeMap<String, u32>;
         fn get_state(&self) -> ICState;
         fn set_state(&mut self, state: ICState);
@@ -131,7 +150,7 @@ tag_object_traits! {
     pub trait Programmable: ICInstructable {
         fn get_source_code(&self) -> String;
         fn set_source_code(&self, code: String);
-        fn step(&mut self, vm: &VM, advance_ip_on_err: bool) -> Result<(), crate::errors::ICError>;
+        fn step(&mut self, advance_ip_on_err: bool) -> Result<(), crate::errors::ICError>;
     }
 
     pub trait Instructable: MemoryWritable {
@@ -149,8 +168,7 @@ tag_object_traits! {
             slt: LogicSlotType,
             index: f64,
             value: f64,
-            vm: &VM,
-            force: bool
+            force: bool,
         ) -> Result<(), LogicError>;
         fn connection_list(&self) -> &[Connection];
         fn connection_list_mut(&mut self) -> &mut [Connection];
@@ -166,13 +184,9 @@ tag_object_traits! {
         fn has_reagents(&self) -> bool;
     }
 
-    pub trait WirelessTransmit: Logicable {
+    pub trait WirelessTransmit: Logicable {}
 
-    }
-
-    pub trait WirelessReceive: Logicable {
-
-    }
+    pub trait WirelessReceive: Logicable {}
 
     pub trait Network: Logicable {
         fn contains(&self, id: &ObjectID) -> bool;
@@ -191,7 +205,6 @@ tag_object_traits! {
         fn get_power_only(&self) -> Vec<ObjectID>;
         fn get_channel_data(&self) -> &[f64; 8];
     }
-
 
 }
 

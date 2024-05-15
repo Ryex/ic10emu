@@ -133,7 +133,8 @@ fn write_instruction_trait<T: std::io::Write>(
     instruction: (&str, &stationpedia::Command),
 ) -> color_eyre::Result<()> {
     let (name, info) = instruction;
-    let trait_name = format!("{}Instruction", name.to_case(Case::Pascal));
+    let op_name = name.to_case(Case::Pascal);
+    let trait_name = format!("{op_name}Instruction");
     let operands = operand_names(&info.example)
         .iter()
         .map(|name| {
@@ -148,12 +149,45 @@ fn write_instruction_trait<T: std::io::Write>(
         })
         .collect::<Vec<_>>()
         .join(", ");
+    let operands_inner = operand_names(&info.example)
+        .iter()
+        .map(|name| {
+            let mut n: &str = name;
+            if n == "str" {
+                n = "string";
+            }
+            format!(
+                "{}: &crate::vm::instructions::operands::InstOperand",
+                n.to_case(Case::Snake)
+            )
+        })
+        .collect::<Vec<_>>()
+        .join(", ");
+    let operand_call = operand_names(&info.example)
+        .iter()
+        .enumerate()
+        .map(|(index, name)| {
+            let mut n: &str = name;
+            if n == "str" {
+                n = "string";
+            }
+            format!(
+                "&crate::vm::instructions::operands::InstOperand::new({}, InstructionOp::{op_name}, {index})",
+                n.to_case(Case::Snake)
+            )
+        })
+        .collect::<Vec<_>>()
+        .join(", ");
     let example = utils::strip_color(&info.example);
     write!(
         writer,
         "pub trait {trait_name}: IntegratedCircuit {{\n    \
             /// {example} \n    \
-            fn execute_{name}(&mut self, {operands}) -> Result<(), crate::errors::ICError>;\n\
+            fn execute_{name}(&mut self, {operands}) -> Result<(), crate::errors::ICError> {{\n        \
+                {trait_name}::execute_inner(self, {operand_call})\n    \
+            }}\n    \
+            /// {example} \n    \
+            fn execute_inner(&mut self, {operands_inner}) -> Result<(), crate::errors::ICError>;\n\
         }}"
     )?;
     Ok(())
@@ -176,6 +210,7 @@ fn write_instruction_trait_use<T: std::io::Write>(writer: &mut T) -> color_eyre:
         writer,
         "\
         use crate::vm::object::traits::IntegratedCircuit;\n\
+        use crate::vm::instructions::enums::InstructionOp;\n\
         "
     )?;
     Ok(())

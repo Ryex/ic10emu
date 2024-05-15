@@ -59,13 +59,55 @@ pub enum Operand {
     Identifier(Identifier),
 }
 
-impl Operand {
-    pub fn as_value<IC: IntegratedCircuit>(
-        &self,
-        ic: &IC,
-        inst: InstructionOp,
-        index: u32,
-    ) -> Result<f64, ICError> {
+pub struct InstOperand {
+    pub operand: Operand,
+    pub inst: InstructionOp,
+    pub index: usize,
+}
+
+impl InstOperand {
+    pub fn new(operand: &Operand, inst: InstructionOp, index: usize) -> Self {
+        InstOperand {
+            operand: operand.clone(),
+            inst,
+            index,
+        }
+    }
+
+    pub fn as_ident(&self) -> Result<Identifier, ICError> {
+        let &Operand::Identifier(ident) = &self.operand else {
+            return Err(ICError::IncorrectOperandType {
+                inst: self.inst,
+                index: self.index,
+                desired: "Name".to_owned(),
+            });
+        };
+        Ok(ident)
+    }
+
+    pub fn as_number(&self) -> Result<Number, ICError> {
+        let &Operand::Number(num) = &self.operand else {
+            return Err(ICError::IncorrectOperandType {
+                inst: self.inst,
+                index: self.index,
+                desired: "Number".to_owned(),
+            });
+        };
+        Ok(num)
+    }
+
+    pub fn as_aliasable(&self) -> Result<Operand, ICError> {
+        match &self.operand {
+            Operand::RegisterSpec { .. } | Operand::DeviceSpec { .. } => Ok(self.operand.clone()),
+            _ => Err(ICError::IncorrectOperandType {
+                inst: self.inst,
+                index: self.index,
+                desired: "Device Or Register".to_owned(),
+            }),
+        }
+    }
+
+    pub fn as_value<IC: IntegratedCircuit>(&self, ic: &IC) -> Result<f64, ICError> {
         match self.translate_alias(ic) {
             Operand::RegisterSpec(RegisterSpec {
                 indirection,
@@ -117,8 +159,8 @@ impl Operand {
             }
             Operand::Identifier(id) => Err(ICError::UnknownIdentifier(id.name.to_string())),
             Operand::DeviceSpec { .. } => Err(ICError::IncorrectOperandType {
-                inst,
-                index,
+                inst: self.inst,
+                index: self.index,
                 desired: "Value".to_owned(),
             }),
         }
@@ -128,16 +170,14 @@ impl Operand {
         &self,
         ic: &IC,
         signed: bool,
-        inst: InstructionOp,
-        index: u32,
     ) -> Result<i64, ICError> {
-        match self {
-            Self::Number(num) => Ok(num.value_i64(signed)),
+        match &self.operand {
+            Operand::Number(num) => Ok(num.value_i64(signed)),
             _ => {
-                let val = self.as_value(ic, inst, index)?;
-                if val < -9.223_372_036_854_776E18 {
+                let val = self.as_value(ic)?;
+                if val < i64::MIN as f64 {
                     Err(ICError::ShiftUnderflowI64)
-                } else if val <= 9.223_372_036_854_776E18 {
+                } else if val <= i64::MAX as f64 {
                     Ok(interpreter::f64_to_i64(val, signed))
                 } else {
                     Err(ICError::ShiftOverflowI64)
@@ -149,13 +189,11 @@ impl Operand {
         &self,
         ic: &IC,
         signed: bool,
-        inst: InstructionOp,
-        index: u32,
     ) -> Result<i32, ICError> {
-        match self {
-            Self::Number(num) => Ok(num.value_i64(signed) as i32),
+        match &self.operand {
+            Operand::Number(num) => Ok(num.value_i64(signed) as i32),
             _ => {
-                let val = self.as_value(ic, inst, index)?;
+                let val = self.as_value(ic)?;
                 if val < i32::MIN as f64 {
                     Err(ICError::ShiftUnderflowI32)
                 } else if val <= i32::MAX as f64 {
@@ -167,112 +205,89 @@ impl Operand {
         }
     }
 
-    pub fn as_register<IC: IntegratedCircuit>(
-        &self,
-        ic: &IC,
-        inst: InstructionOp,
-        index: u32,
-    ) -> Result<RegisterSpec, ICError> {
+    pub fn as_register<IC: IntegratedCircuit>(&self, ic: &IC) -> Result<RegisterSpec, ICError> {
         match self.translate_alias(ic) {
             Operand::RegisterSpec(reg) => Ok(reg),
             Operand::Identifier(id) => Err(ICError::UnknownIdentifier(id.name.to_string())),
             _ => Err(ICError::IncorrectOperandType {
-                inst,
-                index,
+                inst: self.inst,
+                index: self.index,
                 desired: "Register".to_owned(),
             }),
         }
     }
 
+    /// interpret the operand as a device index, i32::MAX is db
     pub fn as_device<IC: IntegratedCircuit>(
         &self,
         ic: &IC,
-        inst: InstructionOp,
-        index: u32,
-    ) -> Result<(Option<u32>, Option<usize>), ICError> {
+    ) -> Result<(i32, Option<usize>), ICError> {
         match self.translate_alias(ic) {
             Operand::DeviceSpec(DeviceSpec { device, connection }) => match device {
-                Device::Db => Ok((Some(0), connection)),
-                Device::Numbered(p) => Ok((Some(p), connection)),
+                Device::Db => Ok((i32::MAX, connection)),
+                Device::Numbered(p) => Ok((p as i32, connection)),
                 Device::Indirect {
                     indirection,
                     target,
                 } => {
                     let val = ic.get_register(indirection, target)?;
-                    Ok((Some(val as u32), connection))
+                    Ok((val as i32, connection))
                 }
             },
             Operand::Identifier(id) => Err(ICError::UnknownIdentifier(id.name.to_string())),
             _ => Err(ICError::IncorrectOperandType {
-                inst,
-                index,
+                inst: self.inst,
+                index: self.index,
                 desired: "Value".to_owned(),
             }),
         }
     }
 
-    pub fn as_logic_type<IC: IntegratedCircuit>(
-        &self,
-        ic: &IC,
-        inst: InstructionOp,
-        index: u32,
-    ) -> Result<LogicType, ICError> {
-        match &self {
+    pub fn as_logic_type<IC: IntegratedCircuit>(&self, ic: &IC) -> Result<LogicType, ICError> {
+        match &self.operand {
             Operand::Type {
                 logic_type: Some(lt),
                 ..
             } => Ok(*lt),
-            _ => LogicType::try_from(self.as_value(ic, inst, index)?),
+            _ => LogicType::try_from(self.as_value(ic)?),
         }
     }
 
     pub fn as_slot_logic_type<IC: IntegratedCircuit>(
         &self,
         ic: &IC,
-        inst: InstructionOp,
-        index: u32,
     ) -> Result<LogicSlotType, ICError> {
-        match &self {
+        match &self.operand {
             Operand::Type {
                 slot_logic_type: Some(slt),
                 ..
             } => Ok(*slt),
-            _ => LogicSlotType::try_from(self.as_value(ic, inst, index)?),
+            _ => LogicSlotType::try_from(self.as_value(ic)?),
         }
     }
 
-    pub fn as_batch_mode<IC: IntegratedCircuit>(
-        &self,
-        ic: &IC,
-        inst: InstructionOp,
-        index: u32,
-    ) -> Result<BatchMode, ICError> {
-        match &self {
+    pub fn as_batch_mode<IC: IntegratedCircuit>(&self, ic: &IC) -> Result<BatchMode, ICError> {
+        match &self.operand {
             Operand::Type {
                 batch_mode: Some(bm),
                 ..
             } => Ok(*bm),
-            _ => BatchMode::try_from(self.as_value(ic, inst, index)?),
+            _ => BatchMode::try_from(self.as_value(ic)?),
         }
     }
 
-    pub fn as_reagent_mode<IC: IntegratedCircuit>(
-        &self,
-        ic: &IC,
-        inst: InstructionOp,
-        index: u32,
-    ) -> Result<ReagentMode, ICError> {
-        match &self {
+    pub fn as_reagent_mode<IC: IntegratedCircuit>(&self, ic: &IC) -> Result<ReagentMode, ICError> {
+        match &self.operand {
             Operand::Type {
                 reagent_mode: Some(rm),
                 ..
             } => Ok(*rm),
-            _ => ReagentMode::try_from(self.as_value(ic, inst, index)?),
+            _ => ReagentMode::try_from(self.as_value(ic)?),
         }
     }
 
-    pub fn translate_alias<IC: IntegratedCircuit>(&self, ic: &IC) -> Self {
-        match &self {
+    pub fn translate_alias<IC: IntegratedCircuit>(&self, ic: &IC) -> Operand {
+        match self.operand {
             Operand::Identifier(id) | Operand::Type { identifier: id, .. } => {
                 if let Some(alias) = ic.get_aliases().get(&id.name) {
                     alias.clone()
@@ -281,7 +296,7 @@ impl Operand {
                 } else if let Some(label) = ic.get_labels().get(&id.name) {
                     Operand::Number(Number::Float(*label as f64))
                 } else {
-                    self.clone()
+                    self.operand.clone()
                 }
             }
             _ => self.clone(),

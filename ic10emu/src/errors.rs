@@ -151,7 +151,7 @@ pub enum ICError {
     #[error("incorrect operand type for instruction `{inst}` operand {index}, not a {desired} ")]
     IncorrectOperandType {
         inst: InstructionOp,
-        index: u32,
+        index: usize,
         desired: String,
     },
     #[error("unknown identifier {0}")]
@@ -206,6 +206,8 @@ pub enum ICError {
     NoGeneratedValue(String),
     #[error("generated Enum {0}'s value does not parse as {1} . Report this error.")]
     BadGeneratedValueParse(String, String),
+    #[error("IC with id {0} is not sloted into a circuit holder")]
+    NoCircuitHolder(ObjectID),
 }
 
 impl ICError {

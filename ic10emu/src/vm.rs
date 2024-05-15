@@ -87,6 +87,10 @@ impl VM {
         vm
     }
 
+    pub fn random_f64(&self) -> f64 {
+        self.random.borrow_mut().next_f64()
+    }
+
     pub fn add_device_from_template(
         self: &Rc<Self>,
         template: ObjectTemplate,

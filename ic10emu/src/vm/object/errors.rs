@@ -23,6 +23,8 @@ pub enum MemoryError {
     StackUnderflow(i32, usize),
     #[error("stack overflow: {0} > range [0..{1})")]
     StackOverflow(i32, usize),
-    #[error("memory unit not present")]
-    NotPresent,
+    #[error("memory not readable")]
+    NotReadable,
+    #[error("memory not writeable")]
+    NotWriteable,
 }

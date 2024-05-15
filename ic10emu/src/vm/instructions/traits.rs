@@ -9,6 +9,7 @@
 //
 // =================================================
 
+use crate::vm::instructions::enums::InstructionOp;
 use crate::vm::object::traits::IntegratedCircuit;
 pub trait AbsInstruction: IntegratedCircuit {
     /// abs r? a(r?|num)
@@ -16,6 +17,18 @@ pub trait AbsInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        AbsInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Abs, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Abs, 1),
+        )
+    }
+    /// abs r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait AcosInstruction: IntegratedCircuit {
@@ -24,6 +37,18 @@ pub trait AcosInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        AcosInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Acos, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Acos, 1),
+        )
+    }
+    /// acos r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait AddInstruction: IntegratedCircuit {
@@ -33,6 +58,20 @@ pub trait AddInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        AddInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Add, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Add, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Add, 2),
+        )
+    }
+    /// add r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait AliasInstruction: IntegratedCircuit {
@@ -41,6 +80,18 @@ pub trait AliasInstruction: IntegratedCircuit {
         &mut self,
         string: &crate::vm::instructions::operands::Operand,
         r: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        AliasInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(string, InstructionOp::Alias, 0),
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Alias, 1),
+        )
+    }
+    /// alias str r?|d?
+    fn execute_inner(
+        &mut self,
+        string: &crate::vm::instructions::operands::InstOperand,
+        r: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait AndInstruction: IntegratedCircuit {
@@ -50,6 +101,20 @@ pub trait AndInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        AndInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::And, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::And, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::And, 2),
+        )
+    }
+    /// and r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait AsinInstruction: IntegratedCircuit {
@@ -58,6 +123,18 @@ pub trait AsinInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        AsinInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Asin, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Asin, 1),
+        )
+    }
+    /// asin r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait AtanInstruction: IntegratedCircuit {
@@ -66,6 +143,18 @@ pub trait AtanInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        AtanInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Atan, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Atan, 1),
+        )
+    }
+    /// atan r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait Atan2Instruction: IntegratedCircuit {
@@ -75,6 +164,20 @@ pub trait Atan2Instruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        Atan2Instruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Atan2, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Atan2, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Atan2, 2),
+        )
+    }
+    /// atan2 r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BapInstruction: IntegratedCircuit {
@@ -85,6 +188,22 @@ pub trait BapInstruction: IntegratedCircuit {
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
         d: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BapInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bap, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bap, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Bap, 2),
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::Bap, 3),
+        )
+    }
+    /// bap a(r?|num) b(r?|num) c(r?|num) d(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
+        d: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BapalInstruction: IntegratedCircuit {
@@ -95,6 +214,22 @@ pub trait BapalInstruction: IntegratedCircuit {
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
         d: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BapalInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bapal, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bapal, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Bapal, 2),
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::Bapal, 3),
+        )
+    }
+    /// bapal a(r?|num) b(r?|num) c(r?|num) d(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
+        d: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BapzInstruction: IntegratedCircuit {
@@ -104,6 +239,20 @@ pub trait BapzInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BapzInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bapz, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bapz, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Bapz, 2),
+        )
+    }
+    /// bapz a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BapzalInstruction: IntegratedCircuit {
@@ -113,6 +262,20 @@ pub trait BapzalInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BapzalInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bapzal, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bapzal, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Bapzal, 2),
+        )
+    }
+    /// bapzal a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BdnsInstruction: IntegratedCircuit {
@@ -121,6 +284,18 @@ pub trait BdnsInstruction: IntegratedCircuit {
         &mut self,
         d: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BdnsInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::Bdns, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bdns, 1),
+        )
+    }
+    /// bdns d? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        d: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BdnsalInstruction: IntegratedCircuit {
@@ -129,6 +304,18 @@ pub trait BdnsalInstruction: IntegratedCircuit {
         &mut self,
         d: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BdnsalInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::Bdnsal, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bdnsal, 1),
+        )
+    }
+    /// bdnsal d? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        d: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BdseInstruction: IntegratedCircuit {
@@ -137,6 +324,18 @@ pub trait BdseInstruction: IntegratedCircuit {
         &mut self,
         d: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BdseInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::Bdse, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bdse, 1),
+        )
+    }
+    /// bdse d? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        d: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BdsealInstruction: IntegratedCircuit {
@@ -145,6 +344,18 @@ pub trait BdsealInstruction: IntegratedCircuit {
         &mut self,
         d: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BdsealInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::Bdseal, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bdseal, 1),
+        )
+    }
+    /// bdseal d? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        d: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BeqInstruction: IntegratedCircuit {
@@ -154,6 +365,20 @@ pub trait BeqInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BeqInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Beq, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Beq, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Beq, 2),
+        )
+    }
+    /// beq a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BeqalInstruction: IntegratedCircuit {
@@ -163,6 +388,20 @@ pub trait BeqalInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BeqalInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Beqal, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Beqal, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Beqal, 2),
+        )
+    }
+    /// beqal a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BeqzInstruction: IntegratedCircuit {
@@ -171,6 +410,18 @@ pub trait BeqzInstruction: IntegratedCircuit {
         &mut self,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BeqzInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Beqz, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Beqz, 1),
+        )
+    }
+    /// beqz a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BeqzalInstruction: IntegratedCircuit {
@@ -179,6 +430,18 @@ pub trait BeqzalInstruction: IntegratedCircuit {
         &mut self,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BeqzalInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Beqzal, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Beqzal, 1),
+        )
+    }
+    /// beqzal a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BgeInstruction: IntegratedCircuit {
@@ -188,6 +451,20 @@ pub trait BgeInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BgeInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bge, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bge, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Bge, 2),
+        )
+    }
+    /// bge a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BgealInstruction: IntegratedCircuit {
@@ -197,6 +474,20 @@ pub trait BgealInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BgealInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bgeal, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bgeal, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Bgeal, 2),
+        )
+    }
+    /// bgeal a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BgezInstruction: IntegratedCircuit {
@@ -205,6 +496,18 @@ pub trait BgezInstruction: IntegratedCircuit {
         &mut self,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BgezInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bgez, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bgez, 1),
+        )
+    }
+    /// bgez a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BgezalInstruction: IntegratedCircuit {
@@ -213,6 +516,18 @@ pub trait BgezalInstruction: IntegratedCircuit {
         &mut self,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BgezalInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bgezal, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bgezal, 1),
+        )
+    }
+    /// bgezal a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BgtInstruction: IntegratedCircuit {
@@ -222,6 +537,20 @@ pub trait BgtInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BgtInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bgt, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bgt, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Bgt, 2),
+        )
+    }
+    /// bgt a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BgtalInstruction: IntegratedCircuit {
@@ -231,6 +560,20 @@ pub trait BgtalInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BgtalInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bgtal, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bgtal, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Bgtal, 2),
+        )
+    }
+    /// bgtal a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BgtzInstruction: IntegratedCircuit {
@@ -239,6 +582,18 @@ pub trait BgtzInstruction: IntegratedCircuit {
         &mut self,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BgtzInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bgtz, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bgtz, 1),
+        )
+    }
+    /// bgtz a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BgtzalInstruction: IntegratedCircuit {
@@ -247,6 +602,18 @@ pub trait BgtzalInstruction: IntegratedCircuit {
         &mut self,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BgtzalInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bgtzal, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bgtzal, 1),
+        )
+    }
+    /// bgtzal a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BleInstruction: IntegratedCircuit {
@@ -256,6 +623,20 @@ pub trait BleInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BleInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Ble, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Ble, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Ble, 2),
+        )
+    }
+    /// ble a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BlealInstruction: IntegratedCircuit {
@@ -265,6 +646,20 @@ pub trait BlealInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BlealInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bleal, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bleal, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Bleal, 2),
+        )
+    }
+    /// bleal a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BlezInstruction: IntegratedCircuit {
@@ -273,6 +668,18 @@ pub trait BlezInstruction: IntegratedCircuit {
         &mut self,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BlezInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Blez, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Blez, 1),
+        )
+    }
+    /// blez a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BlezalInstruction: IntegratedCircuit {
@@ -281,6 +688,18 @@ pub trait BlezalInstruction: IntegratedCircuit {
         &mut self,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BlezalInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Blezal, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Blezal, 1),
+        )
+    }
+    /// blezal a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BltInstruction: IntegratedCircuit {
@@ -290,6 +709,20 @@ pub trait BltInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BltInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Blt, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Blt, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Blt, 2),
+        )
+    }
+    /// blt a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BltalInstruction: IntegratedCircuit {
@@ -299,6 +732,20 @@ pub trait BltalInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BltalInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bltal, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bltal, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Bltal, 2),
+        )
+    }
+    /// bltal a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BltzInstruction: IntegratedCircuit {
@@ -307,6 +754,18 @@ pub trait BltzInstruction: IntegratedCircuit {
         &mut self,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BltzInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bltz, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bltz, 1),
+        )
+    }
+    /// bltz a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BltzalInstruction: IntegratedCircuit {
@@ -315,6 +774,18 @@ pub trait BltzalInstruction: IntegratedCircuit {
         &mut self,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BltzalInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bltzal, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bltzal, 1),
+        )
+    }
+    /// bltzal a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BnaInstruction: IntegratedCircuit {
@@ -325,6 +796,22 @@ pub trait BnaInstruction: IntegratedCircuit {
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
         d: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BnaInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bna, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bna, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Bna, 2),
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::Bna, 3),
+        )
+    }
+    /// bna a(r?|num) b(r?|num) c(r?|num) d(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
+        d: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BnaalInstruction: IntegratedCircuit {
@@ -335,6 +822,22 @@ pub trait BnaalInstruction: IntegratedCircuit {
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
         d: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BnaalInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bnaal, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bnaal, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Bnaal, 2),
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::Bnaal, 3),
+        )
+    }
+    /// bnaal a(r?|num) b(r?|num) c(r?|num) d(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
+        d: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BnanInstruction: IntegratedCircuit {
@@ -343,6 +846,18 @@ pub trait BnanInstruction: IntegratedCircuit {
         &mut self,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BnanInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bnan, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bnan, 1),
+        )
+    }
+    /// bnan a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BnazInstruction: IntegratedCircuit {
@@ -352,6 +867,20 @@ pub trait BnazInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BnazInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bnaz, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bnaz, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Bnaz, 2),
+        )
+    }
+    /// bnaz a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BnazalInstruction: IntegratedCircuit {
@@ -361,6 +890,20 @@ pub trait BnazalInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BnazalInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bnazal, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bnazal, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Bnazal, 2),
+        )
+    }
+    /// bnazal a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BneInstruction: IntegratedCircuit {
@@ -370,6 +913,20 @@ pub trait BneInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BneInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bne, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bne, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Bne, 2),
+        )
+    }
+    /// bne a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BnealInstruction: IntegratedCircuit {
@@ -379,6 +936,20 @@ pub trait BnealInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BnealInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bneal, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bneal, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Bneal, 2),
+        )
+    }
+    /// bneal a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BnezInstruction: IntegratedCircuit {
@@ -387,6 +958,18 @@ pub trait BnezInstruction: IntegratedCircuit {
         &mut self,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BnezInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bnez, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bnez, 1),
+        )
+    }
+    /// bnez a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BnezalInstruction: IntegratedCircuit {
@@ -395,6 +978,18 @@ pub trait BnezalInstruction: IntegratedCircuit {
         &mut self,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BnezalInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Bnezal, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Bnezal, 1),
+        )
+    }
+    /// bnezal a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BrapInstruction: IntegratedCircuit {
@@ -405,6 +1000,22 @@ pub trait BrapInstruction: IntegratedCircuit {
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
         d: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BrapInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Brap, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Brap, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Brap, 2),
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::Brap, 3),
+        )
+    }
+    /// brap a(r?|num) b(r?|num) c(r?|num) d(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
+        d: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BrapzInstruction: IntegratedCircuit {
@@ -414,6 +1025,20 @@ pub trait BrapzInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BrapzInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Brapz, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Brapz, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Brapz, 2),
+        )
+    }
+    /// brapz a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BrdnsInstruction: IntegratedCircuit {
@@ -422,6 +1047,18 @@ pub trait BrdnsInstruction: IntegratedCircuit {
         &mut self,
         d: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BrdnsInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::Brdns, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Brdns, 1),
+        )
+    }
+    /// brdns d? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        d: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BrdseInstruction: IntegratedCircuit {
@@ -430,6 +1067,18 @@ pub trait BrdseInstruction: IntegratedCircuit {
         &mut self,
         d: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BrdseInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::Brdse, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Brdse, 1),
+        )
+    }
+    /// brdse d? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        d: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BreqInstruction: IntegratedCircuit {
@@ -439,6 +1088,20 @@ pub trait BreqInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BreqInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Breq, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Breq, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Breq, 2),
+        )
+    }
+    /// breq a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BreqzInstruction: IntegratedCircuit {
@@ -447,6 +1110,18 @@ pub trait BreqzInstruction: IntegratedCircuit {
         &mut self,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BreqzInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Breqz, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Breqz, 1),
+        )
+    }
+    /// breqz a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BrgeInstruction: IntegratedCircuit {
@@ -456,6 +1131,20 @@ pub trait BrgeInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BrgeInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Brge, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Brge, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Brge, 2),
+        )
+    }
+    /// brge a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BrgezInstruction: IntegratedCircuit {
@@ -464,6 +1153,18 @@ pub trait BrgezInstruction: IntegratedCircuit {
         &mut self,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BrgezInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Brgez, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Brgez, 1),
+        )
+    }
+    /// brgez a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BrgtInstruction: IntegratedCircuit {
@@ -473,6 +1174,20 @@ pub trait BrgtInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BrgtInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Brgt, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Brgt, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Brgt, 2),
+        )
+    }
+    /// brgt a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BrgtzInstruction: IntegratedCircuit {
@@ -481,6 +1196,18 @@ pub trait BrgtzInstruction: IntegratedCircuit {
         &mut self,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BrgtzInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Brgtz, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Brgtz, 1),
+        )
+    }
+    /// brgtz a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BrleInstruction: IntegratedCircuit {
@@ -490,6 +1217,20 @@ pub trait BrleInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BrleInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Brle, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Brle, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Brle, 2),
+        )
+    }
+    /// brle a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BrlezInstruction: IntegratedCircuit {
@@ -498,6 +1239,18 @@ pub trait BrlezInstruction: IntegratedCircuit {
         &mut self,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BrlezInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Brlez, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Brlez, 1),
+        )
+    }
+    /// brlez a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BrltInstruction: IntegratedCircuit {
@@ -507,6 +1260,20 @@ pub trait BrltInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BrltInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Brlt, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Brlt, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Brlt, 2),
+        )
+    }
+    /// brlt a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BrltzInstruction: IntegratedCircuit {
@@ -515,6 +1282,18 @@ pub trait BrltzInstruction: IntegratedCircuit {
         &mut self,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BrltzInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Brltz, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Brltz, 1),
+        )
+    }
+    /// brltz a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BrnaInstruction: IntegratedCircuit {
@@ -525,6 +1304,22 @@ pub trait BrnaInstruction: IntegratedCircuit {
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
         d: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BrnaInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Brna, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Brna, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Brna, 2),
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::Brna, 3),
+        )
+    }
+    /// brna a(r?|num) b(r?|num) c(r?|num) d(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
+        d: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BrnanInstruction: IntegratedCircuit {
@@ -533,6 +1328,18 @@ pub trait BrnanInstruction: IntegratedCircuit {
         &mut self,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BrnanInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Brnan, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Brnan, 1),
+        )
+    }
+    /// brnan a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BrnazInstruction: IntegratedCircuit {
@@ -542,6 +1349,20 @@ pub trait BrnazInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BrnazInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Brnaz, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Brnaz, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Brnaz, 2),
+        )
+    }
+    /// brnaz a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BrneInstruction: IntegratedCircuit {
@@ -551,6 +1372,20 @@ pub trait BrneInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BrneInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Brne, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Brne, 1),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Brne, 2),
+        )
+    }
+    /// brne a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BrnezInstruction: IntegratedCircuit {
@@ -559,6 +1394,18 @@ pub trait BrnezInstruction: IntegratedCircuit {
         &mut self,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BrnezInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Brnez, 0),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Brnez, 1),
+        )
+    }
+    /// brnez a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait CeilInstruction: IntegratedCircuit {
@@ -567,6 +1414,18 @@ pub trait CeilInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        CeilInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Ceil, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Ceil, 1),
+        )
+    }
+    /// ceil r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait ClrInstruction: IntegratedCircuit {
@@ -574,6 +1433,16 @@ pub trait ClrInstruction: IntegratedCircuit {
     fn execute_clr(
         &mut self,
         d: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        ClrInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::Clr, 0),
+        )
+    }
+    /// clr d?
+    fn execute_inner(
+        &mut self,
+        d: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait ClrdInstruction: IntegratedCircuit {
@@ -581,6 +1450,16 @@ pub trait ClrdInstruction: IntegratedCircuit {
     fn execute_clrd(
         &mut self,
         id: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        ClrdInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(id, InstructionOp::Clrd, 0),
+        )
+    }
+    /// clrd id(r?|num)
+    fn execute_inner(
+        &mut self,
+        id: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait CosInstruction: IntegratedCircuit {
@@ -589,6 +1468,18 @@ pub trait CosInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        CosInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Cos, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Cos, 1),
+        )
+    }
+    /// cos r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait DefineInstruction: IntegratedCircuit {
@@ -597,6 +1488,18 @@ pub trait DefineInstruction: IntegratedCircuit {
         &mut self,
         string: &crate::vm::instructions::operands::Operand,
         num: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        DefineInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(string, InstructionOp::Define, 0),
+            &crate::vm::instructions::operands::InstOperand::new(num, InstructionOp::Define, 1),
+        )
+    }
+    /// define str num
+    fn execute_inner(
+        &mut self,
+        string: &crate::vm::instructions::operands::InstOperand,
+        num: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait DivInstruction: IntegratedCircuit {
@@ -606,6 +1509,20 @@ pub trait DivInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        DivInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Div, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Div, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Div, 2),
+        )
+    }
+    /// div r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait ExpInstruction: IntegratedCircuit {
@@ -614,6 +1531,18 @@ pub trait ExpInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        ExpInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Exp, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Exp, 1),
+        )
+    }
+    /// exp r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait FloorInstruction: IntegratedCircuit {
@@ -622,6 +1551,18 @@ pub trait FloorInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        FloorInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Floor, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Floor, 1),
+        )
+    }
+    /// floor r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait GetInstruction: IntegratedCircuit {
@@ -631,6 +1572,20 @@ pub trait GetInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         d: &crate::vm::instructions::operands::Operand,
         address: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        GetInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Get, 0),
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::Get, 1),
+            &crate::vm::instructions::operands::InstOperand::new(address, InstructionOp::Get, 2),
+        )
+    }
+    /// get r? d? address(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        d: &crate::vm::instructions::operands::InstOperand,
+        address: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait GetdInstruction: IntegratedCircuit {
@@ -640,17 +1595,45 @@ pub trait GetdInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         id: &crate::vm::instructions::operands::Operand,
         address: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        GetdInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Getd, 0),
+            &crate::vm::instructions::operands::InstOperand::new(id, InstructionOp::Getd, 1),
+            &crate::vm::instructions::operands::InstOperand::new(address, InstructionOp::Getd, 2),
+        )
+    }
+    /// getd r? id(r?|num) address(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        id: &crate::vm::instructions::operands::InstOperand,
+        address: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait HcfInstruction: IntegratedCircuit {
     /// hcf
-    fn execute_hcf(&mut self) -> Result<(), crate::errors::ICError>;
+    fn execute_hcf(&mut self) -> Result<(), crate::errors::ICError> {
+        HcfInstruction::execute_inner(self)
+    }
+    /// hcf
+    fn execute_inner(&mut self) -> Result<(), crate::errors::ICError>;
 }
 pub trait JInstruction: IntegratedCircuit {
     /// j int
     fn execute_j(
         &mut self,
         int: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        JInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(int, InstructionOp::J, 0),
+        )
+    }
+    /// j int
+    fn execute_inner(
+        &mut self,
+        int: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait JalInstruction: IntegratedCircuit {
@@ -658,6 +1641,16 @@ pub trait JalInstruction: IntegratedCircuit {
     fn execute_jal(
         &mut self,
         int: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        JalInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(int, InstructionOp::Jal, 0),
+        )
+    }
+    /// jal int
+    fn execute_inner(
+        &mut self,
+        int: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait JrInstruction: IntegratedCircuit {
@@ -665,6 +1658,16 @@ pub trait JrInstruction: IntegratedCircuit {
     fn execute_jr(
         &mut self,
         int: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        JrInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(int, InstructionOp::Jr, 0),
+        )
+    }
+    /// jr int
+    fn execute_inner(
+        &mut self,
+        int: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait LInstruction: IntegratedCircuit {
@@ -674,6 +1677,20 @@ pub trait LInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         d: &crate::vm::instructions::operands::Operand,
         logic_type: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        LInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::L, 0),
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::L, 1),
+            &crate::vm::instructions::operands::InstOperand::new(logic_type, InstructionOp::L, 2),
+        )
+    }
+    /// l r? d? logicType
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        d: &crate::vm::instructions::operands::InstOperand,
+        logic_type: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait LabelInstruction: IntegratedCircuit {
@@ -682,6 +1699,18 @@ pub trait LabelInstruction: IntegratedCircuit {
         &mut self,
         d: &crate::vm::instructions::operands::Operand,
         string: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        LabelInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::Label, 0),
+            &crate::vm::instructions::operands::InstOperand::new(string, InstructionOp::Label, 1),
+        )
+    }
+    /// label d? str
+    fn execute_inner(
+        &mut self,
+        d: &crate::vm::instructions::operands::InstOperand,
+        string: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait LbInstruction: IntegratedCircuit {
@@ -692,6 +1721,22 @@ pub trait LbInstruction: IntegratedCircuit {
         device_hash: &crate::vm::instructions::operands::Operand,
         logic_type: &crate::vm::instructions::operands::Operand,
         batch_mode: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        LbInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Lb, 0),
+            &crate::vm::instructions::operands::InstOperand::new(device_hash, InstructionOp::Lb, 1),
+            &crate::vm::instructions::operands::InstOperand::new(logic_type, InstructionOp::Lb, 2),
+            &crate::vm::instructions::operands::InstOperand::new(batch_mode, InstructionOp::Lb, 3),
+        )
+    }
+    /// lb r? deviceHash logicType batchMode
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        device_hash: &crate::vm::instructions::operands::InstOperand,
+        logic_type: &crate::vm::instructions::operands::InstOperand,
+        batch_mode: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait LbnInstruction: IntegratedCircuit {
@@ -703,6 +1748,28 @@ pub trait LbnInstruction: IntegratedCircuit {
         name_hash: &crate::vm::instructions::operands::Operand,
         logic_type: &crate::vm::instructions::operands::Operand,
         batch_mode: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        LbnInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Lbn, 0),
+            &crate::vm::instructions::operands::InstOperand::new(
+                device_hash,
+                InstructionOp::Lbn,
+                1,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(name_hash, InstructionOp::Lbn, 2),
+            &crate::vm::instructions::operands::InstOperand::new(logic_type, InstructionOp::Lbn, 3),
+            &crate::vm::instructions::operands::InstOperand::new(batch_mode, InstructionOp::Lbn, 4),
+        )
+    }
+    /// lbn r? deviceHash nameHash logicType batchMode
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        device_hash: &crate::vm::instructions::operands::InstOperand,
+        name_hash: &crate::vm::instructions::operands::InstOperand,
+        logic_type: &crate::vm::instructions::operands::InstOperand,
+        batch_mode: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait LbnsInstruction: IntegratedCircuit {
@@ -715,6 +1782,42 @@ pub trait LbnsInstruction: IntegratedCircuit {
         slot_index: &crate::vm::instructions::operands::Operand,
         logic_slot_type: &crate::vm::instructions::operands::Operand,
         batch_mode: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        LbnsInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Lbns, 0),
+            &crate::vm::instructions::operands::InstOperand::new(
+                device_hash,
+                InstructionOp::Lbns,
+                1,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(name_hash, InstructionOp::Lbns, 2),
+            &crate::vm::instructions::operands::InstOperand::new(
+                slot_index,
+                InstructionOp::Lbns,
+                3,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(
+                logic_slot_type,
+                InstructionOp::Lbns,
+                4,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(
+                batch_mode,
+                InstructionOp::Lbns,
+                5,
+            ),
+        )
+    }
+    /// lbns r? deviceHash nameHash slotIndex logicSlotType batchMode
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        device_hash: &crate::vm::instructions::operands::InstOperand,
+        name_hash: &crate::vm::instructions::operands::InstOperand,
+        slot_index: &crate::vm::instructions::operands::InstOperand,
+        logic_slot_type: &crate::vm::instructions::operands::InstOperand,
+        batch_mode: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait LbsInstruction: IntegratedCircuit {
@@ -726,6 +1829,32 @@ pub trait LbsInstruction: IntegratedCircuit {
         slot_index: &crate::vm::instructions::operands::Operand,
         logic_slot_type: &crate::vm::instructions::operands::Operand,
         batch_mode: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        LbsInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Lbs, 0),
+            &crate::vm::instructions::operands::InstOperand::new(
+                device_hash,
+                InstructionOp::Lbs,
+                1,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(slot_index, InstructionOp::Lbs, 2),
+            &crate::vm::instructions::operands::InstOperand::new(
+                logic_slot_type,
+                InstructionOp::Lbs,
+                3,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(batch_mode, InstructionOp::Lbs, 4),
+        )
+    }
+    /// lbs r? deviceHash slotIndex logicSlotType batchMode
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        device_hash: &crate::vm::instructions::operands::InstOperand,
+        slot_index: &crate::vm::instructions::operands::InstOperand,
+        logic_slot_type: &crate::vm::instructions::operands::InstOperand,
+        batch_mode: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait LdInstruction: IntegratedCircuit {
@@ -735,6 +1864,20 @@ pub trait LdInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         id: &crate::vm::instructions::operands::Operand,
         logic_type: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        LdInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Ld, 0),
+            &crate::vm::instructions::operands::InstOperand::new(id, InstructionOp::Ld, 1),
+            &crate::vm::instructions::operands::InstOperand::new(logic_type, InstructionOp::Ld, 2),
+        )
+    }
+    /// ld r? id(r?|num) logicType
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        id: &crate::vm::instructions::operands::InstOperand,
+        logic_type: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait LogInstruction: IntegratedCircuit {
@@ -743,6 +1886,18 @@ pub trait LogInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        LogInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Log, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Log, 1),
+        )
+    }
+    /// log r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait LrInstruction: IntegratedCircuit {
@@ -753,6 +1908,26 @@ pub trait LrInstruction: IntegratedCircuit {
         d: &crate::vm::instructions::operands::Operand,
         reagent_mode: &crate::vm::instructions::operands::Operand,
         int: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        LrInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Lr, 0),
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::Lr, 1),
+            &crate::vm::instructions::operands::InstOperand::new(
+                reagent_mode,
+                InstructionOp::Lr,
+                2,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(int, InstructionOp::Lr, 3),
+        )
+    }
+    /// lr r? d? reagentMode int
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        d: &crate::vm::instructions::operands::InstOperand,
+        reagent_mode: &crate::vm::instructions::operands::InstOperand,
+        int: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait LsInstruction: IntegratedCircuit {
@@ -763,6 +1938,26 @@ pub trait LsInstruction: IntegratedCircuit {
         d: &crate::vm::instructions::operands::Operand,
         slot_index: &crate::vm::instructions::operands::Operand,
         logic_slot_type: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        LsInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Ls, 0),
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::Ls, 1),
+            &crate::vm::instructions::operands::InstOperand::new(slot_index, InstructionOp::Ls, 2),
+            &crate::vm::instructions::operands::InstOperand::new(
+                logic_slot_type,
+                InstructionOp::Ls,
+                3,
+            ),
+        )
+    }
+    /// ls r? d? slotIndex logicSlotType
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        d: &crate::vm::instructions::operands::InstOperand,
+        slot_index: &crate::vm::instructions::operands::InstOperand,
+        logic_slot_type: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait MaxInstruction: IntegratedCircuit {
@@ -772,6 +1967,20 @@ pub trait MaxInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        MaxInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Max, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Max, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Max, 2),
+        )
+    }
+    /// max r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait MinInstruction: IntegratedCircuit {
@@ -781,6 +1990,20 @@ pub trait MinInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        MinInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Min, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Min, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Min, 2),
+        )
+    }
+    /// min r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait ModInstruction: IntegratedCircuit {
@@ -790,6 +2013,20 @@ pub trait ModInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        ModInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Mod, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Mod, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Mod, 2),
+        )
+    }
+    /// mod r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait MoveInstruction: IntegratedCircuit {
@@ -798,6 +2035,18 @@ pub trait MoveInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        MoveInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Move, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Move, 1),
+        )
+    }
+    /// move r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait MulInstruction: IntegratedCircuit {
@@ -807,6 +2056,20 @@ pub trait MulInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        MulInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Mul, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Mul, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Mul, 2),
+        )
+    }
+    /// mul r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait NorInstruction: IntegratedCircuit {
@@ -816,6 +2079,20 @@ pub trait NorInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        NorInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Nor, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Nor, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Nor, 2),
+        )
+    }
+    /// nor r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait NotInstruction: IntegratedCircuit {
@@ -824,6 +2101,18 @@ pub trait NotInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        NotInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Not, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Not, 1),
+        )
+    }
+    /// not r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait OrInstruction: IntegratedCircuit {
@@ -833,6 +2122,20 @@ pub trait OrInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        OrInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Or, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Or, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Or, 2),
+        )
+    }
+    /// or r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait PeekInstruction: IntegratedCircuit {
@@ -840,6 +2143,16 @@ pub trait PeekInstruction: IntegratedCircuit {
     fn execute_peek(
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        PeekInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Peek, 0),
+        )
+    }
+    /// peek r?
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait PokeInstruction: IntegratedCircuit {
@@ -848,6 +2161,18 @@ pub trait PokeInstruction: IntegratedCircuit {
         &mut self,
         address: &crate::vm::instructions::operands::Operand,
         value: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        PokeInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(address, InstructionOp::Poke, 0),
+            &crate::vm::instructions::operands::InstOperand::new(value, InstructionOp::Poke, 1),
+        )
+    }
+    /// poke address(r?|num) value(r?|num)
+    fn execute_inner(
+        &mut self,
+        address: &crate::vm::instructions::operands::InstOperand,
+        value: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait PopInstruction: IntegratedCircuit {
@@ -855,6 +2180,16 @@ pub trait PopInstruction: IntegratedCircuit {
     fn execute_pop(
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        PopInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Pop, 0),
+        )
+    }
+    /// pop r?
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait PushInstruction: IntegratedCircuit {
@@ -862,6 +2197,16 @@ pub trait PushInstruction: IntegratedCircuit {
     fn execute_push(
         &mut self,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        PushInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Push, 0),
+        )
+    }
+    /// push a(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait PutInstruction: IntegratedCircuit {
@@ -871,6 +2216,20 @@ pub trait PutInstruction: IntegratedCircuit {
         d: &crate::vm::instructions::operands::Operand,
         address: &crate::vm::instructions::operands::Operand,
         value: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        PutInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::Put, 0),
+            &crate::vm::instructions::operands::InstOperand::new(address, InstructionOp::Put, 1),
+            &crate::vm::instructions::operands::InstOperand::new(value, InstructionOp::Put, 2),
+        )
+    }
+    /// put d? address(r?|num) value(r?|num)
+    fn execute_inner(
+        &mut self,
+        d: &crate::vm::instructions::operands::InstOperand,
+        address: &crate::vm::instructions::operands::InstOperand,
+        value: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait PutdInstruction: IntegratedCircuit {
@@ -880,6 +2239,20 @@ pub trait PutdInstruction: IntegratedCircuit {
         id: &crate::vm::instructions::operands::Operand,
         address: &crate::vm::instructions::operands::Operand,
         value: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        PutdInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(id, InstructionOp::Putd, 0),
+            &crate::vm::instructions::operands::InstOperand::new(address, InstructionOp::Putd, 1),
+            &crate::vm::instructions::operands::InstOperand::new(value, InstructionOp::Putd, 2),
+        )
+    }
+    /// putd id(r?|num) address(r?|num) value(r?|num)
+    fn execute_inner(
+        &mut self,
+        id: &crate::vm::instructions::operands::InstOperand,
+        address: &crate::vm::instructions::operands::InstOperand,
+        value: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait RandInstruction: IntegratedCircuit {
@@ -887,6 +2260,16 @@ pub trait RandInstruction: IntegratedCircuit {
     fn execute_rand(
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        RandInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Rand, 0),
+        )
+    }
+    /// rand r?
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait RoundInstruction: IntegratedCircuit {
@@ -895,6 +2278,18 @@ pub trait RoundInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        RoundInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Round, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Round, 1),
+        )
+    }
+    /// round r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SInstruction: IntegratedCircuit {
@@ -904,6 +2299,20 @@ pub trait SInstruction: IntegratedCircuit {
         d: &crate::vm::instructions::operands::Operand,
         logic_type: &crate::vm::instructions::operands::Operand,
         r: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::S, 0),
+            &crate::vm::instructions::operands::InstOperand::new(logic_type, InstructionOp::S, 1),
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::S, 2),
+        )
+    }
+    /// s d? logicType r?
+    fn execute_inner(
+        &mut self,
+        d: &crate::vm::instructions::operands::InstOperand,
+        logic_type: &crate::vm::instructions::operands::InstOperand,
+        r: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SapInstruction: IntegratedCircuit {
@@ -914,6 +2323,22 @@ pub trait SapInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SapInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Sap, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Sap, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Sap, 2),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Sap, 3),
+        )
+    }
+    /// sap r? a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SapzInstruction: IntegratedCircuit {
@@ -923,6 +2348,20 @@ pub trait SapzInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SapzInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Sapz, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Sapz, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Sapz, 2),
+        )
+    }
+    /// sapz r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SbInstruction: IntegratedCircuit {
@@ -932,6 +2371,20 @@ pub trait SbInstruction: IntegratedCircuit {
         device_hash: &crate::vm::instructions::operands::Operand,
         logic_type: &crate::vm::instructions::operands::Operand,
         r: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SbInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(device_hash, InstructionOp::Sb, 0),
+            &crate::vm::instructions::operands::InstOperand::new(logic_type, InstructionOp::Sb, 1),
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Sb, 2),
+        )
+    }
+    /// sb deviceHash logicType r?
+    fn execute_inner(
+        &mut self,
+        device_hash: &crate::vm::instructions::operands::InstOperand,
+        logic_type: &crate::vm::instructions::operands::InstOperand,
+        r: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SbnInstruction: IntegratedCircuit {
@@ -942,6 +2395,26 @@ pub trait SbnInstruction: IntegratedCircuit {
         name_hash: &crate::vm::instructions::operands::Operand,
         logic_type: &crate::vm::instructions::operands::Operand,
         r: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SbnInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(
+                device_hash,
+                InstructionOp::Sbn,
+                0,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(name_hash, InstructionOp::Sbn, 1),
+            &crate::vm::instructions::operands::InstOperand::new(logic_type, InstructionOp::Sbn, 2),
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Sbn, 3),
+        )
+    }
+    /// sbn deviceHash nameHash logicType r?
+    fn execute_inner(
+        &mut self,
+        device_hash: &crate::vm::instructions::operands::InstOperand,
+        name_hash: &crate::vm::instructions::operands::InstOperand,
+        logic_type: &crate::vm::instructions::operands::InstOperand,
+        r: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SbsInstruction: IntegratedCircuit {
@@ -952,6 +2425,30 @@ pub trait SbsInstruction: IntegratedCircuit {
         slot_index: &crate::vm::instructions::operands::Operand,
         logic_slot_type: &crate::vm::instructions::operands::Operand,
         r: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SbsInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(
+                device_hash,
+                InstructionOp::Sbs,
+                0,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(slot_index, InstructionOp::Sbs, 1),
+            &crate::vm::instructions::operands::InstOperand::new(
+                logic_slot_type,
+                InstructionOp::Sbs,
+                2,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Sbs, 3),
+        )
+    }
+    /// sbs deviceHash slotIndex logicSlotType r?
+    fn execute_inner(
+        &mut self,
+        device_hash: &crate::vm::instructions::operands::InstOperand,
+        slot_index: &crate::vm::instructions::operands::InstOperand,
+        logic_slot_type: &crate::vm::instructions::operands::InstOperand,
+        r: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SdInstruction: IntegratedCircuit {
@@ -961,6 +2458,20 @@ pub trait SdInstruction: IntegratedCircuit {
         id: &crate::vm::instructions::operands::Operand,
         logic_type: &crate::vm::instructions::operands::Operand,
         r: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SdInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(id, InstructionOp::Sd, 0),
+            &crate::vm::instructions::operands::InstOperand::new(logic_type, InstructionOp::Sd, 1),
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Sd, 2),
+        )
+    }
+    /// sd id(r?|num) logicType r?
+    fn execute_inner(
+        &mut self,
+        id: &crate::vm::instructions::operands::InstOperand,
+        logic_type: &crate::vm::instructions::operands::InstOperand,
+        r: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SdnsInstruction: IntegratedCircuit {
@@ -969,6 +2480,18 @@ pub trait SdnsInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         d: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SdnsInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Sdns, 0),
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::Sdns, 1),
+        )
+    }
+    /// sdns r? d?
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        d: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SdseInstruction: IntegratedCircuit {
@@ -977,6 +2500,18 @@ pub trait SdseInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         d: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SdseInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Sdse, 0),
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::Sdse, 1),
+        )
+    }
+    /// sdse r? d?
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        d: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SelectInstruction: IntegratedCircuit {
@@ -987,6 +2522,22 @@ pub trait SelectInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SelectInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Select, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Select, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Select, 2),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Select, 3),
+        )
+    }
+    /// select r? a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SeqInstruction: IntegratedCircuit {
@@ -996,6 +2547,20 @@ pub trait SeqInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SeqInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Seq, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Seq, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Seq, 2),
+        )
+    }
+    /// seq r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SeqzInstruction: IntegratedCircuit {
@@ -1004,6 +2569,18 @@ pub trait SeqzInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SeqzInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Seqz, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Seqz, 1),
+        )
+    }
+    /// seqz r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SgeInstruction: IntegratedCircuit {
@@ -1013,6 +2590,20 @@ pub trait SgeInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SgeInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Sge, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Sge, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Sge, 2),
+        )
+    }
+    /// sge r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SgezInstruction: IntegratedCircuit {
@@ -1021,6 +2612,18 @@ pub trait SgezInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SgezInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Sgez, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Sgez, 1),
+        )
+    }
+    /// sgez r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SgtInstruction: IntegratedCircuit {
@@ -1030,6 +2633,20 @@ pub trait SgtInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SgtInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Sgt, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Sgt, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Sgt, 2),
+        )
+    }
+    /// sgt r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SgtzInstruction: IntegratedCircuit {
@@ -1038,6 +2655,18 @@ pub trait SgtzInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SgtzInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Sgtz, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Sgtz, 1),
+        )
+    }
+    /// sgtz r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SinInstruction: IntegratedCircuit {
@@ -1046,6 +2675,18 @@ pub trait SinInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SinInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Sin, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Sin, 1),
+        )
+    }
+    /// sin r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SlaInstruction: IntegratedCircuit {
@@ -1055,6 +2696,20 @@ pub trait SlaInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SlaInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Sla, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Sla, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Sla, 2),
+        )
+    }
+    /// sla r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SleInstruction: IntegratedCircuit {
@@ -1064,6 +2719,20 @@ pub trait SleInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SleInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Sle, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Sle, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Sle, 2),
+        )
+    }
+    /// sle r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SleepInstruction: IntegratedCircuit {
@@ -1071,6 +2740,16 @@ pub trait SleepInstruction: IntegratedCircuit {
     fn execute_sleep(
         &mut self,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SleepInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Sleep, 0),
+        )
+    }
+    /// sleep a(r?|num)
+    fn execute_inner(
+        &mut self,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SlezInstruction: IntegratedCircuit {
@@ -1079,6 +2758,18 @@ pub trait SlezInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SlezInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Slez, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Slez, 1),
+        )
+    }
+    /// slez r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SllInstruction: IntegratedCircuit {
@@ -1088,6 +2779,20 @@ pub trait SllInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SllInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Sll, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Sll, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Sll, 2),
+        )
+    }
+    /// sll r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SltInstruction: IntegratedCircuit {
@@ -1097,6 +2802,20 @@ pub trait SltInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SltInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Slt, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Slt, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Slt, 2),
+        )
+    }
+    /// slt r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SltzInstruction: IntegratedCircuit {
@@ -1105,6 +2824,18 @@ pub trait SltzInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SltzInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Sltz, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Sltz, 1),
+        )
+    }
+    /// sltz r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SnaInstruction: IntegratedCircuit {
@@ -1115,6 +2846,22 @@ pub trait SnaInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
         c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SnaInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Sna, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Sna, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Sna, 2),
+            &crate::vm::instructions::operands::InstOperand::new(c, InstructionOp::Sna, 3),
+        )
+    }
+    /// sna r? a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SnanInstruction: IntegratedCircuit {
@@ -1123,6 +2870,18 @@ pub trait SnanInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SnanInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Snan, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Snan, 1),
+        )
+    }
+    /// snan r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SnanzInstruction: IntegratedCircuit {
@@ -1131,6 +2890,18 @@ pub trait SnanzInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SnanzInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Snanz, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Snanz, 1),
+        )
+    }
+    /// snanz r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SnazInstruction: IntegratedCircuit {
@@ -1140,6 +2911,20 @@ pub trait SnazInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SnazInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Snaz, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Snaz, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Snaz, 2),
+        )
+    }
+    /// snaz r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SneInstruction: IntegratedCircuit {
@@ -1149,6 +2934,20 @@ pub trait SneInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SneInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Sne, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Sne, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Sne, 2),
+        )
+    }
+    /// sne r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SnezInstruction: IntegratedCircuit {
@@ -1157,6 +2956,18 @@ pub trait SnezInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SnezInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Snez, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Snez, 1),
+        )
+    }
+    /// snez r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SqrtInstruction: IntegratedCircuit {
@@ -1165,6 +2976,18 @@ pub trait SqrtInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SqrtInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Sqrt, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Sqrt, 1),
+        )
+    }
+    /// sqrt r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SraInstruction: IntegratedCircuit {
@@ -1174,6 +2997,20 @@ pub trait SraInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SraInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Sra, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Sra, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Sra, 2),
+        )
+    }
+    /// sra r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SrlInstruction: IntegratedCircuit {
@@ -1183,6 +3020,20 @@ pub trait SrlInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SrlInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Srl, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Srl, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Srl, 2),
+        )
+    }
+    /// srl r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SsInstruction: IntegratedCircuit {
@@ -1193,6 +3044,26 @@ pub trait SsInstruction: IntegratedCircuit {
         slot_index: &crate::vm::instructions::operands::Operand,
         logic_slot_type: &crate::vm::instructions::operands::Operand,
         r: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SsInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(d, InstructionOp::Ss, 0),
+            &crate::vm::instructions::operands::InstOperand::new(slot_index, InstructionOp::Ss, 1),
+            &crate::vm::instructions::operands::InstOperand::new(
+                logic_slot_type,
+                InstructionOp::Ss,
+                2,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Ss, 3),
+        )
+    }
+    /// ss d? slotIndex logicSlotType r?
+    fn execute_inner(
+        &mut self,
+        d: &crate::vm::instructions::operands::InstOperand,
+        slot_index: &crate::vm::instructions::operands::InstOperand,
+        logic_slot_type: &crate::vm::instructions::operands::InstOperand,
+        r: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SubInstruction: IntegratedCircuit {
@@ -1202,6 +3073,20 @@ pub trait SubInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        SubInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Sub, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Sub, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Sub, 2),
+        )
+    }
+    /// sub r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait TanInstruction: IntegratedCircuit {
@@ -1210,6 +3095,18 @@ pub trait TanInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        TanInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Tan, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Tan, 1),
+        )
+    }
+    /// tan r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait TruncInstruction: IntegratedCircuit {
@@ -1218,6 +3115,18 @@ pub trait TruncInstruction: IntegratedCircuit {
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        TruncInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Trunc, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Trunc, 1),
+        )
+    }
+    /// trunc r? a(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait XorInstruction: IntegratedCircuit {
@@ -1227,11 +3136,29 @@ pub trait XorInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
         b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        XorInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(r, InstructionOp::Xor, 0),
+            &crate::vm::instructions::operands::InstOperand::new(a, InstructionOp::Xor, 1),
+            &crate::vm::instructions::operands::InstOperand::new(b, InstructionOp::Xor, 2),
+        )
+    }
+    /// xor r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait YieldInstruction: IntegratedCircuit {
     /// yield
-    fn execute_yield(&mut self) -> Result<(), crate::errors::ICError>;
+    fn execute_yield(&mut self) -> Result<(), crate::errors::ICError> {
+        YieldInstruction::execute_inner(self)
+    }
+    /// yield
+    fn execute_inner(&mut self) -> Result<(), crate::errors::ICError>;
 }
 pub trait ICInstructable:
     AbsInstruction
