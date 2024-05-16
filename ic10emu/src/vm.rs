@@ -65,7 +65,7 @@ impl VM {
         let default_network_key = network_id_space.next();
         let networks = BTreeMap::new();
 
-        let mut vm = Rc::new(VM {
+        let vm = Rc::new(VM {
             objects: RefCell::new(BTreeMap::new()),
             circuit_holders: RefCell::new(Vec::new()),
             program_holders: RefCell::new(Vec::new()),
@@ -120,17 +120,19 @@ impl VM {
                 .networks
                 .borrow()
                 .get(&net_id)
+                .cloned()
                 .expect(&format!(
                     "desync between vm and transaction networks: {net_id}"
-                ))
-                .borrow_mut()
+                ));
+            let mut net_ref = net.borrow_mut();
+            let net_interface = net_ref
                 .as_mut_network()
                 .expect(&format!("non network network: {net_id}"));
             for id in trans_net.devices {
-                net.add_data(id);
+                net_interface.add_data(id);
             }
             for id in trans_net.power_only {
-                net.add_power(id);
+                net_interface.add_power(id);
             }
         }
 
@@ -173,11 +175,9 @@ impl VM {
         obj.borrow_mut().set_id(new_id);
         self.objects.borrow_mut().insert(new_id, obj);
 
-        self.objects
-            .borrow_mut()
-            .iter_mut()
-            .filter_map(|(_obj_id, obj)| obj.borrow_mut().as_mut_device())
-            .for_each(|device| {
+        for obj in self.objects.borrow().values() {
+            let mut obj_ref = obj.borrow_mut();
+            if let Some(device) = obj_ref.as_mut_device() {
                 device.get_slots_mut().iter_mut().for_each(|slot| {
                     if slot.parent == old_id {
                         slot.parent = new_id;
@@ -189,7 +189,8 @@ impl VM {
                         slot.occupant = Some(new_id);
                     }
                 });
-            });
+            }
+        }
 
         self.circuit_holders.borrow_mut().iter_mut().for_each(|id| {
             if *id == old_id {
@@ -202,15 +203,13 @@ impl VM {
             }
         });
         self.networks.borrow().iter().for_each(|(_net_id, net)| {
-            let net_ref = net
-                .borrow_mut()
-                .as_mut_network()
-                .expect("non-network network");
-            if net_ref.remove_data(old_id) {
-                net_ref.add_data(new_id);
+            let mut net_ref = net.borrow_mut();
+            let net_interface = net_ref.as_mut_network().expect("non-network network");
+            if net_interface.remove_data(old_id) {
+                net_interface.add_data(new_id);
             }
-            if net_ref.remove_power(old_id) {
-                net_ref.add_power(new_id);
+            if net_interface.remove_power(old_id) {
+                net_interface.add_power(new_id);
             }
         });
         self.id_space.borrow_mut().free_id(old_id);
@@ -219,12 +218,14 @@ impl VM {
 
     /// Set program code if it's valid
     pub fn set_code(self: &Rc<Self>, id: u32, code: &str) -> Result<bool, VMError> {
-        let programmable = self
+        let obj = self
             .objects
             .borrow()
             .get(&id)
-            .ok_or(VMError::UnknownId(id))?
-            .borrow_mut()
+            .cloned()
+            .ok_or(VMError::UnknownId(id))?;
+        let mut obj_ref = obj.borrow_mut();
+        let programmable = obj_ref
             .as_mut_programmable()
             .ok_or(VMError::NotProgrammable(id))?;
         programmable.set_source_code(code)?;
@@ -233,12 +234,14 @@ impl VM {
 
     /// Set program code and translate invalid lines to Nop, collecting errors
     pub fn set_code_invalid(self: &Rc<Self>, id: u32, code: &str) -> Result<bool, VMError> {
-        let programmable = self
+        let obj = self
             .objects
             .borrow()
             .get(&id)
-            .ok_or(VMError::UnknownId(id))?
-            .borrow_mut()
+            .cloned()
+            .ok_or(VMError::UnknownId(id))?;
+        let mut obj_ref = obj.borrow_mut();
+        let programmable = obj_ref
             .as_mut_programmable()
             .ok_or(VMError::NotProgrammable(id))?;
         programmable.set_source_code_with_invalid(code);
@@ -255,12 +258,14 @@ impl VM {
         id: u32,
         advance_ip_on_err: bool,
     ) -> Result<(), VMError> {
-        let programmable = self
+        let obj = self
             .objects
             .borrow()
             .get(&id)
-            .ok_or(VMError::UnknownId(id))?
-            .borrow_mut()
+            .cloned()
+            .ok_or(VMError::UnknownId(id))?;
+        let mut obj_ref = obj.borrow_mut();
+        let programmable = obj_ref
             .as_mut_programmable()
             .ok_or(VMError::NotProgrammable(id))?;
         self.operation_modified.borrow_mut().clear();
@@ -275,18 +280,20 @@ impl VM {
         id: u32,
         ignore_errors: bool,
     ) -> Result<bool, VMError> {
-        let programmable = self
+        let obj = self
             .objects
             .borrow()
             .get(&id)
-            .ok_or(VMError::UnknownId(id))?
-            .borrow_mut()
+            .cloned()
+            .ok_or(VMError::UnknownId(id))?;
+        let mut obj_ref = obj.borrow_mut();
+        let programmable = obj_ref
             .as_mut_programmable()
             .ok_or(VMError::NotProgrammable(id))?;
         self.operation_modified.borrow_mut().clear();
         self.set_modified(id);
         for _i in 0..128 {
-            if let Err(err) = programmable.step( ignore_errors) {
+            if let Err(err) = programmable.step(ignore_errors) {
                 if !ignore_errors {
                     return Err(err.into());
                 }
@@ -308,12 +315,14 @@ impl VM {
     }
 
     pub fn reset_programmable(self: &Rc<Self>, id: ObjectID) -> Result<bool, VMError> {
-        let programmable = self
+        let obj = self
             .objects
             .borrow()
             .get(&id)
-            .ok_or(VMError::UnknownId(id))?
-            .borrow_mut()
+            .cloned()
+            .ok_or(VMError::UnknownId(id))?;
+        let mut obj_ref = obj.borrow_mut();
+        let programmable = obj_ref
             .as_mut_programmable()
             .ok_or(VMError::NotProgrammable(id))?;
         programmable.reset();
@@ -365,14 +374,15 @@ impl VM {
             .networks
             .borrow()
             .get(&id)
+            .cloned()
             .ok_or(ICError::BadNetworkId(id))?;
         if !(0..8).contains(&channel) {
             Err(ICError::ChannelIndexOutOfRange(channel))
         } else {
             let channel_lt = LogicType::from_repr((LogicType::Channel0 as usize + channel) as u16)
                 .expect("channel logictype repr out of range");
-            let val = network
-                .borrow_mut()
+            let net_ref = network.borrow();
+            let val = net_ref
                 .as_network()
                 .expect("non-network network")
                 .get_logic(channel_lt)?;
@@ -390,6 +400,7 @@ impl VM {
             .networks
             .borrow()
             .get(&(id))
+            .cloned()
             .ok_or(ICError::BadNetworkId(id))?;
         if !(0..8).contains(&channel) {
             Err(ICError::ChannelIndexOutOfRange(channel))
@@ -425,9 +436,10 @@ impl VM {
             .borrow()
             .values()
             .filter_map(|net| {
-                let net_ref = net.borrow().as_network().expect("non-network network");
-                if net_ref.contains_data(&source) {
-                    Some(net_ref.data_visible(&source))
+                let net_ref = net.borrow();
+                let net_interface = net_ref.as_network().expect("non-network network");
+                if net_interface.contains_data(&source) {
+                    Some(net_interface.data_visible(&source))
                 } else {
                     None
                 }
@@ -441,7 +453,7 @@ impl VM {
         pin: usize,
         val: Option<ObjectID>,
     ) -> Result<bool, VMError> {
-        let Some(obj) = self.objects.borrow().get(&id) else {
+        let Some(obj) = self.objects.borrow().get(&id).cloned() else {
             return Err(VMError::UnknownId(id));
         };
         if let Some(other_device) = val {
@@ -452,7 +464,8 @@ impl VM {
                 return Err(VMError::DeviceNotVisible(other_device, id));
             }
         }
-        let Some(device) = obj.borrow_mut().as_mut_device() else {
+        let mut obj_ref = obj.borrow_mut();
+        let Some(device) = obj_ref.as_mut_device() else {
             return Err(VMError::NotADevice(id));
         };
         let Some(pins) = device.device_pins_mut() else {
@@ -472,10 +485,11 @@ impl VM {
         connection: usize,
         target_net: Option<ObjectID>,
     ) -> Result<bool, VMError> {
-        let Some(obj) = self.objects.borrow().get(&id) else {
+        let Some(obj) = self.objects.borrow().get(&id).cloned() else {
             return Err(VMError::UnknownId(id));
         };
-        let Some(device) = obj.borrow_mut().as_mut_device() else {
+        let mut obj_ref = obj.borrow_mut();
+        let Some(device) = obj_ref.as_mut_device() else {
             return Err(VMError::NotADevice(id));
         };
         let connections = device.connection_list_mut();
@@ -567,10 +581,11 @@ impl VM {
         network_id: ObjectID,
     ) -> Result<bool, VMError> {
         if let Some(network) = self.networks.borrow().get(&network_id) {
-            let Some(obj) = self.objects.borrow().get(&id) else {
+            let Some(obj) = self.objects.borrow().get(&id).cloned() else {
                 return Err(VMError::UnknownId(id));
             };
-            let Some(device) = obj.borrow_mut().as_mut_device() else {
+            let mut obj_ref = obj.borrow_mut();
+            let Some(device) = obj_ref.as_mut_device() else {
                 return Err(VMError::NotADevice(id));
             };
 
@@ -629,7 +644,7 @@ impl VM {
                     .borrow_mut()
                     .as_mut_device()
                     .expect("batch iter yielded non device")
-                    .set_slot_logic(typ, index, val,  write_readonly)
+                    .set_slot_logic(typ, index, val, write_readonly)
                     .map_err(Into::into)
             })
             .try_collect()
@@ -785,35 +800,44 @@ impl VM {
         target: Option<ObjectID>,
         quantity: u32,
     ) -> Result<Option<ObjectID>, VMError> {
-        let Some(obj) = self.objects.borrow().get(&id) else {
+        let Some(obj) = self.objects.borrow().get(&id).cloned() else {
             return Err(VMError::UnknownId(id));
         };
-        let Some(storage) = obj.borrow_mut().as_mut_storage() else {
+        let mut obj_ref = obj.borrow_mut();
+        let Some(storage) = obj_ref.as_mut_storage() else {
             return Err(VMError::NotStorage(id));
         };
         let slot = storage
             .get_slot_mut(index)
             .ok_or(ICError::SlotIndexOutOfRange(index as f64))?;
         if let Some(target) = target {
-            let Some(item_obj) = self.objects.borrow().get(&target) else {
-                return Err(VMError::UnknownId(id));
-            };
-            let Some(item) = item_obj.borrow_mut().as_mut_item() else {
-                return Err(VMError::NotAnItem(target));
-            };
-            if let Some(parent_slot_info) = item.get_parent_slot() {
-                self.remove_slot_occupant(parent_slot_info.parent, parent_slot_info.slot)?;
+            if slot.occupant.is_some_and(|occupant| occupant == target) {
+                slot.quantity = quantity;
+                Ok(None)
+            } else {
+                let Some(item_obj) = self.objects.borrow().get(&target).cloned() else {
+                    return Err(VMError::UnknownId(id));
+                };
+                let mut item_obj_ref = item_obj.borrow_mut();
+                let Some(item) = item_obj_ref.as_mut_item() else {
+                    return Err(VMError::NotAnItem(target));
+                };
+                if let Some(parent_slot_info) = item.get_parent_slot() {
+                    self.remove_slot_occupant(parent_slot_info.parent, parent_slot_info.slot)?;
+                }
+                item.set_parent_slot(Some(ParentSlotInfo {
+                    parent: id,
+                    slot: index,
+                }));
+                let last = slot.occupant;
+                slot.occupant = Some(target);
+                slot.quantity = quantity;
+                Ok(last)
             }
-            item.set_parent_slot(Some(ParentSlotInfo {
-                parent: id,
-                slot: index,
-            }));
-            let last = slot.occupant;
-            slot.occupant = Some(target);
-            Ok(last)
         } else {
             let last = slot.occupant;
             slot.occupant = None;
+            slot.quantity = 0;
             Ok(last)
         }
     }
@@ -824,10 +848,11 @@ impl VM {
         id: ObjectID,
         index: usize,
     ) -> Result<Option<ObjectID>, VMError> {
-        let Some(obj) = self.objects.borrow().get(&id) else {
+        let Some(obj) = self.objects.borrow().get(&id).cloned() else {
             return Err(VMError::UnknownId(id));
         };
-        let Some(storage) = obj.borrow_mut().as_mut_storage() else {
+        let mut obj_ref = obj.borrow_mut();
+        let Some(storage) = obj_ref.as_mut_storage() else {
             return Err(VMError::NotStorage(id));
         };
         let slot = storage
@@ -845,7 +870,7 @@ impl VM {
                 .objects
                 .borrow()
                 .iter()
-                .filter_map(|(obj_id, obj)| {
+                .filter_map(|(_obj_id, obj)| {
                     if obj
                         .borrow()
                         .as_item()
@@ -929,21 +954,19 @@ impl VM {
             .extend(transaction.wireless_receivers);
 
         for (net_id, trans_net) in transaction.networks.into_iter() {
-            let net = self
-                .networks
-                .borrow()
-                .get(&net_id)
-                .expect(&format!(
-                    "desync between vm and transaction networks: {net_id}"
-                ))
-                .borrow_mut()
+            let networks_ref = self.networks.borrow();
+            let net = networks_ref.get(&net_id).expect(&format!(
+                "desync between vm and transaction networks: {net_id}"
+            ));
+            let mut net_ref = net.borrow_mut();
+            let net_interface = net_ref
                 .as_mut_network()
                 .expect(&format!("non network network: {net_id}"));
             for id in trans_net.devices {
-                net.add_data(id);
+                net_interface.add_data(id);
             }
             for id in trans_net.power_only {
-                net.add_power(id);
+                net_interface.add_power(id);
             }
         }
 
@@ -1025,16 +1048,16 @@ impl VMTransaction {
             }
         }
 
-        if let Some(w_logicable) = obj.borrow().as_wireless_transmit() {
+        if let Some(_w_logicable) = obj.borrow().as_wireless_transmit() {
             self.wireless_transmitters.push(obj_id);
         }
-        if let Some(r_logicable) = obj.borrow().as_wireless_receive() {
+        if let Some(_r_logicable) = obj.borrow().as_wireless_receive() {
             self.wireless_receivers.push(obj_id);
         }
-        if let Some(circuit_holder) = obj.borrow().as_circuit_holder() {
+        if let Some(_circuit_holder) = obj.borrow().as_circuit_holder() {
             self.circuit_holders.push(obj_id);
         }
-        if let Some(programmable) = obj.borrow().as_programmable() {
+        if let Some(_programmable) = obj.borrow().as_programmable() {
             self.program_holders.push(obj_id);
         }
         if let Some(device) = obj.borrow_mut().as_mut_device() {

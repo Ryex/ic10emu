@@ -1,4 +1,3 @@
-pub mod device;
 pub mod errors;
 pub mod grammar;
 pub mod interpreter;

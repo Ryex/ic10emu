@@ -7,7 +7,11 @@ use crate::{
             operands::{InstOperand, RegisterSpec},
             traits::*,
         },
-        object::{errors::MemoryError, traits::*, ObjectID},
+        object::{
+            errors::{LogicError, MemoryError},
+            traits::*,
+            ObjectID,
+        },
     },
 };
 pub trait IC10Marker: IntegratedCircuit {}
@@ -862,6 +866,9 @@ impl<T: IC10Marker> BdseInstruction for T {
         if self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .borrow()
+            .as_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.get_id()))?
             .get_logicable_from_index(device, connection)
             .is_some()
         {
@@ -879,6 +886,9 @@ impl<T: IC10Marker> BdsealInstruction for T {
         if self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .borrow()
+            .as_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.get_id()))?
             .get_logicable_from_index(device, connection)
             .is_some()
         {
@@ -897,6 +907,9 @@ impl<T: IC10Marker> BrdseInstruction for T {
         if self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .borrow()
+            .as_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.get_id()))?
             .get_logicable_from_index(device, connection)
             .is_some()
         {
@@ -914,6 +927,9 @@ impl<T: IC10Marker> BdnsInstruction for T {
         if self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .borrow()
+            .as_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.get_id()))?
             .get_logicable_from_index(device, connection)
             .is_none()
         {
@@ -931,6 +947,9 @@ impl<T: IC10Marker> BdnsalInstruction for T {
         if self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .borrow()
+            .as_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.get_id()))?
             .get_logicable_from_index(device, connection)
             .is_none()
         {
@@ -949,6 +968,9 @@ impl<T: IC10Marker> BrdnsInstruction for T {
         if self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .borrow()
+            .as_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.get_id()))?
             .get_logicable_from_index(device, connection)
             .is_none()
         {
@@ -1319,15 +1341,14 @@ impl<T: IC10Marker> SdseInstruction for T {
             target,
         } = r.as_register(self)?;
         let (device, connection) = d.as_device(self)?;
-        let logicable = self
+        let obj = self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .borrow()
+            .as_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.get_id()))?
             .get_logicable_from_index(device, connection);
-        self.set_register(
-            indirection,
-            target,
-            if logicable.is_some() { 1.0 } else { 0.0 },
-        )?;
+        self.set_register(indirection, target, if obj.is_some() { 1.0 } else { 0.0 })?;
         Ok(())
     }
 }
@@ -1339,15 +1360,14 @@ impl<T: IC10Marker> SdnsInstruction for T {
             target,
         } = r.as_register(self)?;
         let (device, connection) = d.as_device(self)?;
-        let logicable = self
+        let obj = self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .borrow()
+            .as_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.get_id()))?
             .get_logicable_from_index(device, connection);
-        self.set_register(
-            indirection,
-            target,
-            if logicable.is_none() { 1.0 } else { 0.0 },
-        )?;
+        self.set_register(indirection, target, if obj.is_none() { 1.0 } else { 0.0 })?;
         Ok(())
     }
 }
@@ -1968,12 +1988,16 @@ impl<T: IC10Marker> GetInstruction for T {
         } = r.as_register(self)?;
         let address = address.as_value(self)?;
         let (device, connection) = d.as_device(self)?;
-        let logicable = self
+        let obj = self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .borrow()
+            .as_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.get_id()))?
             .get_logicable_from_index(device, connection)
             .ok_or(ICError::DeviceNotSet)?;
-        let memory = logicable
+        let obj_ref = obj.borrow();
+        let memory = obj_ref
             .as_memory_readable()
             .ok_or(MemoryError::NotReadable)?;
         self.set_register(indirection, target, memory.get_memory(address as i32)?)?;
@@ -1995,12 +2019,16 @@ impl<T: IC10Marker> GetdInstruction for T {
         } = r.as_register(self)?;
         let id = id.as_value(self)?;
         let address = address.as_value(self)?;
-        let logicable = self
+        let obj = self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .borrow()
+            .as_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.get_id()))?
             .get_logicable_from_id(id as ObjectID, None)
             .ok_or(ICError::DeviceNotSet)?;
-        let memory = logicable
+        let obj_ref = obj.borrow();
+        let memory = obj_ref
             .as_memory_readable()
             .ok_or(MemoryError::NotReadable)?;
         self.set_register(indirection, target, memory.get_memory(address as i32)?)?;
@@ -2019,13 +2047,17 @@ impl<T: IC10Marker> PutInstruction for T {
         let (device, connection) = d.as_device(self)?;
         let address = address.as_value(self)?;
         let value = value.as_value(self)?;
-        let logicable = self
+        let obj = self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
-            .get_logicable_from_index_mut(device, connection)
+            .borrow()
+            .as_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.get_id()))?
+            .get_logicable_from_index(device, connection)
             .ok_or(ICError::DeviceNotSet)?;
-        let memory = logicable
-            .as_memory_writable()
+        let mut obj_ref = obj.borrow_mut();
+        let memory = obj_ref
+            .as_mut_memory_writable()
             .ok_or(MemoryError::NotWriteable)?;
         memory.set_memory(address as i32, value)?;
         Ok(())
@@ -2043,13 +2075,17 @@ impl<T: IC10Marker> PutdInstruction for T {
         let id = id.as_value(self)?;
         let address = address.as_value(self)?;
         let value = value.as_value(self)?;
-        let logicable = self
+        let obj = self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
-            .get_logicable_from_id_mut(id as ObjectID, None)
+            .borrow()
+            .as_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.get_id()))?
+            .get_logicable_from_id(id as ObjectID, None)
             .ok_or(ICError::DeviceNotSet)?;
-        let memory = logicable
-            .as_memory_writable()
+        let mut obj_ref = obj.borrow_mut();
+        let memory = obj_ref
+            .as_mut_memory_writable()
             .ok_or(MemoryError::NotWriteable)?;
         memory.set_memory(address as i32, value)?;
         Ok(())
@@ -2060,13 +2096,17 @@ impl<T: IC10Marker> ClrInstruction for T {
     /// clr d?
     fn execute_inner(&mut self, d: &InstOperand) -> Result<(), ICError> {
         let (device, connection) = d.as_device(self)?;
-        let logicable = self
+        let obj = self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
-            .get_logicable_from_index_mut(device, connection)
+            .borrow()
+            .as_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.get_id()))?
+            .get_logicable_from_index(device, connection)
             .ok_or(ICError::DeviceNotSet)?;
-        let memory = logicable
-            .as_memory_writable()
+        let mut obj_ref = obj.borrow_mut();
+        let memory = obj_ref
+            .as_mut_memory_writable()
             .ok_or(MemoryError::NotWriteable)?;
         memory.clear_memory()?;
         Ok(())
@@ -2076,13 +2116,17 @@ impl<T: IC10Marker> ClrdInstruction for T {
     /// clrd id(r?|num)
     fn execute_inner(&mut self, id: &InstOperand) -> Result<(), ICError> {
         let id = id.as_value(self)?;
-        let logicable = self
+        let obj = self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
-            .get_logicable_from_id_mut(id as ObjectID, None)
+            .borrow()
+            .as_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.get_id()))?
+            .get_logicable_from_id(id as ObjectID, None)
             .ok_or(ICError::DeviceNotSet)?;
-        let memory = logicable
-            .as_memory_writable()
+        let mut obj_ref = obj.borrow_mut();
+        let memory = obj_ref
+            .as_mut_memory_writable()
             .ok_or(MemoryError::NotWriteable)?;
         memory.clear_memory()?;
         Ok(())
@@ -2100,11 +2144,22 @@ impl<T: IC10Marker> SInstruction for T {
         let (device, connection) = d.as_device(self)?;
         let logic_type = logic_type.as_logic_type(self)?;
         let val = r.as_value(self)?;
-        let logicable = self
+        let obj = self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
-            .get_logicable_from_index_mut(device, connection)
+            .borrow()
+            .as_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.get_id()))?
+            .get_logicable_from_index(device, connection)
             .ok_or(ICError::DeviceNotSet)?;
+        let mut obj_ref = obj.borrow_mut();
+        let device_id = obj_ref.get_id();
+        let logicable = obj_ref
+            .as_mut_logicable()
+            .ok_or(ICError::NotLogicable(device_id))?;
+        if !logicable.can_logic_write(logic_type) {
+            return Err(LogicError::CantWrite(logic_type).into());
+        }
         logicable.set_logic(logic_type, val, false)?;
         Ok(())
     }
@@ -2121,11 +2176,22 @@ impl<T: IC10Marker> SdInstruction for T {
         let id = id.as_value(self)?;
         let logic_type = logic_type.as_logic_type(self)?;
         let val = r.as_value(self)?;
-        let logicable = self
+        let obj = self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
-            .get_logicable_from_id_mut(id as ObjectID, None)
+            .borrow()
+            .as_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.get_id()))?
+            .get_logicable_from_id(id as ObjectID, None)
             .ok_or(ICError::DeviceNotSet)?;
+        let mut obj_ref = obj.borrow_mut();
+        let device_id = obj_ref.get_id();
+        let logicable = obj_ref
+            .as_mut_logicable()
+            .ok_or(ICError::NotLogicable(device_id))?;
+        if !logicable.can_logic_write(logic_type) {
+            return Err(LogicError::CantWrite(logic_type).into());
+        }
         logicable.set_logic(logic_type, val, false)?;
         Ok(())
     }
@@ -2144,14 +2210,26 @@ impl<T: IC10Marker> SsInstruction for T {
         let slot_index = slot_index.as_value(self)?;
         let logic_slot_type = logic_slot_type.as_slot_logic_type(self)?;
         let val = r.as_value(self)?;
-        let logicable = self
+        let obj = self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
-            .get_logicable_from_index_mut(device, connection)
+            .borrow()
+            .as_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.get_id()))?
+            .get_logicable_from_index(device, connection)
             .ok_or(ICError::DeviceNotSet)?;
+        let mut obj_ref = obj.borrow_mut();
+        let device_id = obj_ref.get_id();
+        let logicable = obj_ref
+            .as_mut_logicable()
+            .ok_or(ICError::NotLogicable(device_id))?;
+        let device_id = logicable.get_id();
         let device = logicable
             .as_mut_device()
-            .ok_or(ICError::NotSlotWriteable(logicable.get_id()))?;
+            .ok_or(ICError::NotSlotWriteable(device_id))?;
+        if !device.can_slot_logic_write(logic_slot_type, slot_index) {
+            return Err(LogicError::CantSlotWrite(logic_slot_type, slot_index).into());
+        }
         device.set_slot_logic(logic_slot_type, slot_index, val, false)?;
         Ok(())
     }
@@ -2242,11 +2320,21 @@ impl<T: IC10Marker> LInstruction for T {
         } = r.as_register(self)?;
         let (device, connection) = d.as_device(self)?;
         let logic_type = logic_type.as_logic_type(self)?;
-        let logicable = self
+        let obj = self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .borrow()
+            .as_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.get_id()))?
             .get_logicable_from_index(device, connection)
             .ok_or(ICError::DeviceNotSet)?;
+        let obj_ref = obj.borrow();
+        let logicable = obj_ref
+            .as_logicable()
+            .ok_or(ICError::NotLogicable(obj_ref.get_id()))?;
+        if !logicable.can_logic_read(logic_type) {
+            return Err(LogicError::CantRead(logic_type).into());
+        }
         self.set_register(indirection, target, logicable.get_logic(logic_type)?)?;
         Ok(())
     }
@@ -2266,11 +2354,21 @@ impl<T: IC10Marker> LdInstruction for T {
         } = r.as_register(self)?;
         let id = id.as_value(self)?;
         let logic_type = logic_type.as_logic_type(self)?;
-        let logicable = self
+        let obj = self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .borrow()
+            .as_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.get_id()))?
             .get_logicable_from_id(id as ObjectID, None)
             .ok_or(ICError::DeviceNotSet)?;
+        let obj_ref = obj.borrow();
+        let logicable = obj_ref
+            .as_logicable()
+            .ok_or(ICError::NotLogicable(obj_ref.get_id()))?;
+        if !logicable.can_logic_read(logic_type) {
+            return Err(LogicError::CantRead(logic_type).into());
+        }
         self.set_register(indirection, target, logicable.get_logic(logic_type)?)?;
         Ok(())
     }
@@ -2292,11 +2390,21 @@ impl<T: IC10Marker> LsInstruction for T {
         let (device, connection) = d.as_device(self)?;
         let slot_index = slot_index.as_value(self)?;
         let logic_slot_type = logic_slot_type.as_slot_logic_type(self)?;
-        let logicable = self
+        let obj = self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .borrow()
+            .as_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.get_id()))?
             .get_logicable_from_index(device, connection)
             .ok_or(ICError::DeviceNotSet)?;
+        let obj_ref = obj.borrow();
+        let logicable = obj_ref
+            .as_logicable()
+            .ok_or(ICError::NotLogicable(obj_ref.get_id()))?;
+        if !logicable.can_slot_logic_read(logic_slot_type, slot_index) {
+            return Err(LogicError::CantSlotRead(logic_slot_type, slot_index).into());
+        }
         self.set_register(
             indirection,
             target,
@@ -2322,11 +2430,18 @@ impl<T: IC10Marker> LrInstruction for T {
         let (device, connection) = d.as_device(self)?;
         let reagent_mode = reagent_mode.as_reagent_mode(self)?;
         let int = int.as_value(self)?;
-        let logicable = self
+        let obj = self
             .get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .borrow()
+            .as_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.get_id()))?
             .get_logicable_from_index(device, connection)
             .ok_or(ICError::DeviceNotSet)?;
+        let obj_ref = obj.borrow();
+        let logicable = obj_ref
+            .as_logicable()
+            .ok_or(ICError::NotLogicable(obj_ref.get_id()))?;
 
         let result = match reagent_mode {
             LogicReagentMode::Contents => {
@@ -2505,6 +2620,9 @@ impl<T: IC10Marker> HcfInstruction for T {
     fn execute_inner(&mut self) -> Result<(), ICError> {
         self.get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.get_id()))?
+            .borrow_mut()
+            .as_mut_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.get_id()))?
             .hault_and_catch_fire();
         self.set_state(ICState::HasCaughtFire);
         Ok(())
@@ -2513,7 +2631,7 @@ impl<T: IC10Marker> HcfInstruction for T {
 
 impl<T: IC10Marker> LabelInstruction for T {
     /// label d? str
-    fn execute_inner(&mut self, d: &InstOperand, str: &InstOperand) -> Result<(), ICError> {
+    fn execute_inner(&mut self, _d: &InstOperand, _str: &InstOperand) -> Result<(), ICError> {
         // No op, handled by program compilation, should never be called?
         Ok(())
     }

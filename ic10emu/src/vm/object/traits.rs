@@ -11,9 +11,7 @@ use crate::{
         },
         instructions::{traits::ICInstructable, Instruction},
         object::{
-            errors::{LogicError, MemoryError},
-            macros::tag_object_traits,
-            ObjectID, Slot,
+            errors::{LogicError, MemoryError}, macros::tag_object_traits, ObjectID, Slot, VMObject
         },
     },
 };
@@ -82,27 +80,15 @@ tag_object_traits! {
             &self,
             device: i32,
             connection: Option<usize>,
-        ) -> Option<LogicableRef>;
+        ) -> Option<VMObject>;
         /// i32::MAX is db
-        fn get_logicable_from_index_mut(
-            &self,
-            device: i32,
-            connection: Option<usize>,
-        ) -> Option<LogicableRefMut>;
         fn get_logicable_from_id(
             &self,
             device: ObjectID,
             connection: Option<usize>,
-        ) -> Option<LogicableRef>;
-        fn get_logicable_from_id_mut(
-            &self,
-            device: ObjectID,
-            connection: Option<usize>,
-        ) -> Option<LogicableRefMut>;
+        ) -> Option<VMObject>;
         fn get_source_code(&self) -> String;
         fn set_source_code(&self, code: String);
-        fn get_batch(&self) -> Vec<LogicableRef>;
-        fn get_batch_mut(&self) -> Vec<LogicableRefMut>;
         fn get_ic(&self) -> Option<ObjectID>;
         fn hault_and_catch_fire(&mut self);
     }
@@ -117,10 +103,25 @@ tag_object_traits! {
         fn sorting_class(&self) -> SortingClass;
         fn get_parent_slot(&self) -> Option<ParentSlotInfo>;
         fn set_parent_slot(&mut self, info: Option<ParentSlotInfo>);
+        fn get_damage(&self) -> f32;
+        fn set_damage(&mut self, damage: f32);
+    }
+
+    pub trait Plant {
+        fn get_efficiency(&self) -> f64;
+        fn get_health(&self) -> f64;
+        fn get_growth(&self) -> f64;
+        fn is_mature(&self) -> bool;
+        fn is_seeding(&self) -> bool;
+    }
+
+    pub trait Suit {
+        fn pressure_waste(&self) -> f64;
+        fn pressure_air(&self) -> f64;
     }
 
     pub trait IntegratedCircuit: Logicable + MemoryWritable + SourceCode + Item {
-        fn get_circuit_holder(&self) -> Option<CircuitHolderRef>;
+        fn get_circuit_holder(&self) -> Option<VMObject>;
         fn get_instruction_pointer(&self) -> f64;
         fn set_next_instruction(&mut self, next_instruction: f64);
         fn set_next_instruction_relative(&mut self, offset: f64) {
@@ -138,7 +139,7 @@ tag_object_traits! {
         fn pop_stack(&mut self) -> Result<f64, ICError>;
         fn peek_stack(&self) -> Result<f64, ICError>;
         fn get_stack(&self, addr: f64) -> Result<f64, ICError>;
-        fn put_stack(&self, addr: f64, val: f64) -> Result<f64, ICError>;
+        fn put_stack(&mut self, addr: f64, val: f64) -> Result<f64, ICError>;
         fn get_aliases(&self) -> &BTreeMap<String, crate::vm::instructions::operands::Operand>;
         fn get_aliases_mut(&mut self) -> &mut BTreeMap<String, crate::vm::instructions::operands::Operand>;
         fn get_defines(&self) -> &BTreeMap<String, f64>;
@@ -150,6 +151,21 @@ tag_object_traits! {
 
     pub trait Programmable: ICInstructable {
         fn step(&mut self, advance_ip_on_err: bool) -> Result<(), crate::errors::ICError>;
+    }
+
+    pub trait Chargeable {
+        fn get_charge(&self) -> f32;
+        fn set_charge(&mut self, charge: f32);
+        fn get_max_charge(&self) -> f32;
+        fn get_charge_ratio(&self) -> f32 {
+            self.get_charge() / self.get_max_charge()
+        }
+        fn get_charge_delta(&self) -> f32 {
+            self.get_charge() - self.get_max_charge()
+        }
+        fn is_empty(&self) -> bool {
+            self.get_charge() == 0.0
+        }
     }
 
     pub trait Instructable: MemoryWritable {
@@ -172,7 +188,7 @@ tag_object_traits! {
         fn connection_list(&self) -> &[Connection];
         fn connection_list_mut(&mut self) -> &mut [Connection];
         fn device_pins(&self) -> Option<&[Option<ObjectID>]>;
-        fn device_pins_mut(&self) -> Option<&mut [Option<ObjectID>]>;
+        fn device_pins_mut(&mut self) -> Option<&mut [Option<ObjectID>]>;
         fn has_activate_state(&self) -> bool;
         fn has_atmosphere(&self) -> bool;
         fn has_color_state(&self) -> bool;

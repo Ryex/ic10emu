@@ -75,25 +75,25 @@ impl InstOperand {
     }
 
     pub fn as_ident(&self) -> Result<Identifier, ICError> {
-        let &Operand::Identifier(ident) = &self.operand else {
+        let Operand::Identifier(ident) = &self.operand else {
             return Err(ICError::IncorrectOperandType {
                 inst: self.inst,
                 index: self.index,
                 desired: "Name".to_owned(),
             });
         };
-        Ok(ident)
+        Ok(ident.clone())
     }
 
     pub fn as_number(&self) -> Result<Number, ICError> {
-        let &Operand::Number(num) = &self.operand else {
+        let Operand::Number(num) = &self.operand else {
             return Err(ICError::IncorrectOperandType {
                 inst: self.inst,
                 index: self.index,
                 desired: "Number".to_owned(),
             });
         };
-        Ok(num)
+        Ok(num.clone())
     }
 
     pub fn as_aliasable(&self) -> Result<Operand, ICError> {
@@ -287,7 +287,7 @@ impl InstOperand {
     }
 
     pub fn translate_alias<IC: IntegratedCircuit>(&self, ic: &IC) -> Operand {
-        match self.operand {
+        match &self.operand {
             Operand::Identifier(id) | Operand::Type { identifier: id, .. } => {
                 if let Some(alias) = ic.get_aliases().get(&id.name) {
                     alias.clone()
@@ -299,7 +299,7 @@ impl InstOperand {
                     self.operand.clone()
                 }
             }
-            _ => self.clone(),
+            _ => self.operand.clone(),
         }
     }
 }

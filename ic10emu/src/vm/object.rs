@@ -123,4 +123,5 @@ pub struct Slot {
     pub readable_logic: Vec<LogicSlotType>,
     pub writeable_logic: Vec<LogicSlotType>,
     pub occupant: Option<ObjectID>,
+    pub quantity: u32,
 }

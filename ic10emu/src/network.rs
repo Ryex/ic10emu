@@ -229,17 +229,17 @@ impl Storage for CableNetwork {
     fn slots_count(&self) -> usize {
         0
     }
-    fn get_slot(&self, index: usize) -> Option<&crate::vm::object::Slot> {
+    fn get_slot(&self, _index: usize) -> Option<&crate::vm::object::Slot> {
         None
     }
-    fn get_slot_mut(&mut self, index: usize) -> Option<&mut crate::vm::object::Slot> {
+    fn get_slot_mut(&mut self, _index: usize) -> Option<&mut crate::vm::object::Slot> {
         None
     }
     fn get_slots(&self) -> &[crate::vm::object::Slot] {
-        &vec![]
+        &[]
     }
     fn get_slots_mut(&mut self) -> &mut [crate::vm::object::Slot] {
-        &mut vec![]
+        &mut []
     }
 }
 
@@ -287,7 +287,7 @@ impl Logicable for CableNetwork {
         };
         Ok(self.channels[index])
     }
-    fn set_logic(&mut self, lt: LogicType, value: f64, force: bool) -> Result<(), LogicError> {
+    fn set_logic(&mut self, lt: LogicType, value: f64, _force: bool) -> Result<(), LogicError> {
         use LogicType::*;
         let index: usize = match lt {
             Channel0 => 0,
@@ -305,8 +305,8 @@ impl Logicable for CableNetwork {
     }
     fn can_slot_logic_read(
         &self,
-        slt: crate::vm::enums::script_enums::LogicSlotType,
-        index: f64,
+        _slt: crate::vm::enums::script_enums::LogicSlotType,
+        _index: f64,
     ) -> bool {
         false
     }
@@ -314,7 +314,6 @@ impl Logicable for CableNetwork {
         &self,
         slt: crate::vm::enums::script_enums::LogicSlotType,
         index: f64,
-        vm: &crate::vm::VM,
     ) -> Result<f64, LogicError> {
         Err(LogicError::CantSlotRead(slt, index))
     }

@@ -11,7 +11,7 @@ use crate::{
             errors::{LogicError, MemoryError},
             macros::ObjectInterface,
             traits::*,
-            LogicField, MemoryAccess, Name, ObjectID, Slot,
+            LogicField, MemoryAccess, Name, ObjectID, Slot, VMObject,
         },
         VM,
     },
@@ -48,6 +48,7 @@ pub struct ItemIntegratedCircuit10 {
     pub state: ICState,
     pub code: String,
     pub program: Program,
+    pub damage: f32,
 }
 
 impl Item for ItemIntegratedCircuit10 {
@@ -78,16 +79,22 @@ impl Item for ItemIntegratedCircuit10 {
     fn set_parent_slot(&mut self, info: Option<ParentSlotInfo>) {
         self.parent_slot = info;
     }
+    fn get_damage(&self) -> f32 {
+        self.damage
+    }
+    fn set_damage(&mut self, damage: f32) {
+        self.damage = damage;
+    }
 }
 
 impl Storage for ItemIntegratedCircuit10 {
     fn slots_count(&self) -> usize {
         0
     }
-    fn get_slot(&self, index: usize) -> Option<&Slot> {
+    fn get_slot(&self, _index: usize) -> Option<&Slot> {
         None
     }
-    fn get_slot_mut(&mut self, index: usize) -> Option<&mut Slot> {
+    fn get_slot_mut(&mut self, _index: usize) -> Option<&mut Slot> {
         None
     }
     fn get_slots(&self) -> &[Slot] {
@@ -158,10 +165,10 @@ impl Logicable for ItemIntegratedCircuit10 {
                 _ => Err(LogicError::CantWrite(lt)),
             })
     }
-    fn can_slot_logic_read(&self, slt: LogicSlotType, index: f64) -> bool {
+    fn can_slot_logic_read(&self, _slt: LogicSlotType,_indexx: f64) -> bool {
         false
     }
-    fn get_slot_logic(&self, slt: LogicSlotType, index: f64) -> Result<f64, LogicError> {
+    fn get_slot_logic(&self, _slt: LogicSlotType, index: f64) -> Result<f64, LogicError> {
         return Err(LogicError::SlotIndexOutOfRange(index, self.slots_count()));
     }
     fn valid_logic_types(&self) -> Vec<LogicType> {
@@ -226,14 +233,9 @@ impl SourceCode for ItemIntegratedCircuit10 {
 }
 
 impl IntegratedCircuit for ItemIntegratedCircuit10 {
-    fn get_circuit_holder(&self) -> Option<CircuitHolderRef> {
+    fn get_circuit_holder(&self) -> Option<VMObject> {
         self.get_parent_slot()
-            .map(|parent_slot| {
-                self.get_vm()
-                    .get_object(parent_slot.parent)
-                    .map(|obj| obj.borrow().as_circuit_holder())
-                    .flatten()
-            })
+            .map(|parent_slot| self.get_vm().get_object(parent_slot.parent))
             .flatten()
     }
     fn get_instruction_pointer(&self) -> f64 {
@@ -332,7 +334,7 @@ impl IntegratedCircuit for ItemIntegratedCircuit10 {
             Ok(val)
         }
     }
-    fn put_stack(&self, addr: f64, val: f64) -> Result<f64, ICError> {
+    fn put_stack(&mut self, addr: f64, val: f64) -> Result<f64, ICError> {
         let sp = addr.round() as i32;
         if !(0..(self.memory.len() as i32)).contains(&sp) {
             Err(ICError::StackIndexOutOfRange(addr))
@@ -358,7 +360,7 @@ impl IntegratedCircuit for ItemIntegratedCircuit10 {
         &self.program.labels
     }
     fn get_state(&self) -> crate::interpreter::ICState {
-        self.state
+        self.state.clone()
     }
     fn set_state(&mut self, state: crate::interpreter::ICState) {
         self.state = state;
@@ -369,7 +371,10 @@ impl IC10Marker for ItemIntegratedCircuit10 {}
 
 impl Programmable for ItemIntegratedCircuit10 {
     fn step(&mut self, advance_ip_on_err: bool) -> Result<(), crate::errors::ICError> {
-        if matches!(&self.state, ICState::HasCaughtFire | ICState::Error(_)) {
+        if matches!(&self.state, ICState::HasCaughtFire ) {
+            return Ok(());
+        }
+        if matches!(&self.state, ICState::Error(_)) && !advance_ip_on_err {
             return Ok(());
         }
         if let ICState::Sleep(then, sleep_for) = &self.state {
@@ -395,7 +400,7 @@ impl Programmable for ItemIntegratedCircuit10 {
         }
         self.next_ip = self.ip + 1;
         self.state = ICState::Running;
-        let line = self.program.get_line(self.ip)?;
+        let line = self.program.get_line(self.ip)?.clone();
         let operands = &line.operands;
         let instruction = line.instruction;
         instruction.execute(self, operands)?;
@@ -405,6 +410,9 @@ impl Programmable for ItemIntegratedCircuit10 {
         }
         self.get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.id))?
+            .borrow_mut()
+            .as_mut_logicable()
+            .ok_or(ICError::CircuitHolderNotLogicable(self.id))?
             .set_logic(LogicType::LineNumber, self.ip as f64, true)?;
         Ok(())
     }

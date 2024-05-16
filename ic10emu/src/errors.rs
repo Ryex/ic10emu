@@ -208,10 +208,14 @@ pub enum ICError {
     BadGeneratedValueParse(String, String),
     #[error("IC with id {0} is not sloted into a circuit holder")]
     NoCircuitHolder(ObjectID),
+    #[error("IC with id {0} is sloted into a circuit holder with no logic interface?")]
+    CircuitHolderNotLogicable(ObjectID),
     #[error("object {0} is not slot writeable")]
     NotSlotWriteable(ObjectID),
     #[error("object {0} does not use reagents ")]
     NotReagentReadable(ObjectID),
+    #[error("object {0} is not slot logicable")]
+    NotLogicable(ObjectID),
     #[error("{0} is not a valid number of sleep seconds")]
     SleepDurationError(f64),
     #[error("{0} can not be added to {1} ")]

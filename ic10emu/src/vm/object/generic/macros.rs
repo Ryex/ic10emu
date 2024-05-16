@@ -102,17 +102,23 @@ macro_rules! GWDevice {
             fn device_info(&self) -> &DeviceInfo {
                 &self.device_info
             }
-            fn device_connections(&self) -> &[Connection] {
+            fn connections(&self) -> &[Connection] {
                 self.connections.as_slice()
             }
-            fn device_connections_mut(&mut self) -> &mut [Connection] {
+            fn connections_mut(&mut self) -> &mut [Connection] {
                 self.connections.as_mut_slice()
             }
-            fn device_pins(&self) -> Option<&[Option<ObjectID>]> {
+            fn pins(&self) -> Option<&[Option<ObjectID>]> {
                 self.pins.as_ref().map(|pins| pins.as_slice())
             }
-            fn device_pins_mut(&mut self) -> Option<&mut [Option<ObjectID>]> {
+            fn pins_mut(&mut self) -> Option<&mut [Option<ObjectID>]> {
                 self.pins.as_mut().map(|pins| pins.as_mut_slice())
+            }
+            fn reagents(&self) -> Option<&BTreeMap<i32, f64>> {
+                self.reagents.as_ref()
+            }
+            fn reagents_mut(&mut self) -> &mut Option<BTreeMap<i32, f64>> {
+                &mut self.reagents
             }
         }
     };
@@ -135,6 +141,12 @@ macro_rules! GWItem {
             }
             fn set_parent_slot(&mut self, info: Option<ParentSlotInfo>) {
                 self.parent_slot = info;
+            }
+            fn damage(&self) -> &Option<f32> {
+                &self.damage
+            }
+            fn damage_mut(&mut self) -> &mut Option<f32> {
+                &mut self.damage
             }
         }
     };

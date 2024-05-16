@@ -223,6 +223,7 @@ impl ObjectTemplate {
                         readable_logic: Vec::new(),
                         writeable_logic: Vec::new(),
                         occupant: None,
+                        quantity: info.quantity.unwrap_or(0),
                     })
                     .collect(),
             }),
@@ -274,6 +275,7 @@ impl ObjectTemplate {
                             })
                             .unwrap_or_else(|| Vec::new()),
                         occupant: None,
+                        quantity: info.quantity.unwrap_or(0),
                     })
                     .collect(),
                 fields: s
@@ -289,6 +291,7 @@ impl ObjectTemplate {
                                 value: s
                                     .logic
                                     .logic_values
+                                    .as_ref()
                                     .map(|values| values.get(key))
                                     .flatten()
                                     .copied()
@@ -347,6 +350,7 @@ impl ObjectTemplate {
                             })
                             .unwrap_or_else(|| Vec::new()),
                         occupant: None,
+                        quantity: info.quantity.unwrap_or(0),
                     })
                     .collect(),
                 fields: s
@@ -362,6 +366,7 @@ impl ObjectTemplate {
                                 value: s
                                     .logic
                                     .logic_values
+                                    .as_ref()
                                     .map(|values| values.get(key))
                                     .flatten()
                                     .copied()
@@ -382,6 +387,7 @@ impl ObjectTemplate {
                 pins: s
                     .device
                     .device_pins
+                    .as_ref()
                     .map(|pins| Some(pins.clone()))
                     .unwrap_or_else(|| {
                         s.device
@@ -389,6 +395,7 @@ impl ObjectTemplate {
                             .map(|pins_len| vec![None; pins_len])
                     }),
                 device_info: s.device.clone(),
+                reagents: s.device.reagents.clone(),
             }),
             StructureLogicDeviceMemory(s)
                 if matches!(s.memory.memory_access, MemoryAccess::Read) =>
@@ -445,6 +452,7 @@ impl ObjectTemplate {
                                 })
                                 .unwrap_or_else(|| Vec::new()),
                             occupant: None,
+                            quantity: info.quantity.unwrap_or(0),
                         })
                         .collect(),
                     fields: s
@@ -460,6 +468,7 @@ impl ObjectTemplate {
                                     value: s
                                         .logic
                                         .logic_values
+                                        .as_ref()
                                         .map(|values| values.get(key))
                                         .flatten()
                                         .copied()
@@ -480,6 +489,7 @@ impl ObjectTemplate {
                     pins: s
                         .device
                         .device_pins
+                        .as_ref()
                         .map(|pins| Some(pins.clone()))
                         .unwrap_or_else(|| {
                             s.device
@@ -487,6 +497,7 @@ impl ObjectTemplate {
                                 .map(|pins_len| vec![None; pins_len])
                         }),
                     device_info: s.device.clone(),
+                    reagents: s.device.reagents.clone(),
                     memory: s
                         .memory
                         .values
@@ -547,6 +558,7 @@ impl ObjectTemplate {
                                 })
                                 .unwrap_or_else(|| Vec::new()),
                             occupant: None,
+                            quantity: info.quantity.unwrap_or(0),
                         })
                         .collect(),
                     fields: s
@@ -562,6 +574,7 @@ impl ObjectTemplate {
                                     value: s
                                         .logic
                                         .logic_values
+                                        .as_ref()
                                         .map(|values| values.get(key))
                                         .flatten()
                                         .copied()
@@ -582,6 +595,7 @@ impl ObjectTemplate {
                     pins: s
                         .device
                         .device_pins
+                        .as_ref()
                         .map(|pins| Some(pins.clone()))
                         .unwrap_or_else(|| {
                             s.device
@@ -589,6 +603,7 @@ impl ObjectTemplate {
                                 .map(|pins_len| vec![None; pins_len])
                         }),
                     device_info: s.device.clone(),
+                    reagents: s.device.reagents.clone(),
                     memory: s
                         .memory
                         .values
@@ -603,6 +618,7 @@ impl ObjectTemplate {
                 vm,
                 item_info: i.item.clone(),
                 parent_slot: None,
+                damage: i.item.damage,
             }),
             ItemSlots(i) => VMObject::new(GenericItemStorage {
                 id,
@@ -611,6 +627,7 @@ impl ObjectTemplate {
                 vm,
                 item_info: i.item.clone(),
                 parent_slot: None,
+                damage: i.item.damage,
                 slots: i
                     .slots
                     .iter()
@@ -623,6 +640,7 @@ impl ObjectTemplate {
                         readable_logic: Vec::new(),
                         writeable_logic: Vec::new(),
                         occupant: None,
+                        quantity: info.quantity.unwrap_or(0),
                     })
                     .collect(),
             }),
@@ -633,6 +651,7 @@ impl ObjectTemplate {
                 vm,
                 item_info: i.item.clone(),
                 parent_slot: None,
+                damage: i.item.damage,
                 slots: i
                     .slots
                     .iter()
@@ -675,6 +694,7 @@ impl ObjectTemplate {
                             })
                             .unwrap_or_else(|| Vec::new()),
                         occupant: None,
+                        quantity: info.quantity.unwrap_or(0),
                     })
                     .collect(),
                 fields: i
@@ -690,6 +710,7 @@ impl ObjectTemplate {
                                 value: i
                                     .logic
                                     .logic_values
+                                    .as_ref()
                                     .map(|values| values.get(key))
                                     .flatten()
                                     .copied()
@@ -708,6 +729,7 @@ impl ObjectTemplate {
                     vm,
                     item_info: i.item.clone(),
                     parent_slot: None,
+                    damage: i.item.damage,
                     slots: i
                         .slots
                         .iter()
@@ -754,6 +776,7 @@ impl ObjectTemplate {
                                 })
                                 .unwrap_or_else(|| Vec::new()),
                             occupant: None,
+                            quantity: info.quantity.unwrap_or(0),
                         })
                         .collect(),
                     fields: i
@@ -769,6 +792,7 @@ impl ObjectTemplate {
                                     value: i
                                         .logic
                                         .logic_values
+                                        .as_ref()
                                         .map(|values| values.get(key))
                                         .flatten()
                                         .copied()
@@ -792,6 +816,7 @@ impl ObjectTemplate {
                 vm,
                 item_info: i.item.clone(),
                 parent_slot: None,
+                damage: i.item.damage,
                 slots: i
                     .slots
                     .iter()
@@ -834,6 +859,7 @@ impl ObjectTemplate {
                             })
                             .unwrap_or_else(|| Vec::new()),
                         occupant: None,
+                        quantity: info.quantity.unwrap_or(0),
                     })
                     .collect(),
                 fields: i
@@ -849,6 +875,7 @@ impl ObjectTemplate {
                                 value: i
                                     .logic
                                     .logic_values
+                                    .as_ref()
                                     .map(|values| values.get(key))
                                     .flatten()
                                     .copied()
@@ -888,6 +915,11 @@ impl ObjectTemplate {
                 wireless_transmit: None,
                 wireless_receive: None,
                 network: None,
+                plant: None,
+                suit: None,
+                chargeable: None,
+                reagent_interface: None,
+                fabricator: None,
             } => {
                 // completely generic structure? not sure how this got created but it technically
                 // valid in the data model
@@ -914,6 +946,11 @@ impl ObjectTemplate {
                 wireless_transmit: None,
                 wireless_receive: None,
                 network: None,
+                plant: None,
+                suit: None,
+                chargeable: None,
+                reagent_interface: None,
+                fabricator: None,
             } => Ok(ObjectTemplate::StructureSlots(StructureSlotsTemplate {
                 object: Some(obj.into()),
                 prefab: obj.into(),
@@ -937,6 +974,11 @@ impl ObjectTemplate {
                 wireless_transmit: _wt,
                 wireless_receive: _wr,
                 network: None,
+                plant: None,
+                suit: None,
+                chargeable: None,
+                reagent_interface: None,
+                fabricator: None,
             } => Ok(ObjectTemplate::StructureLogic(StructureLogicTemplate {
                 object: Some(obj.into()),
                 prefab: obj.into(),
@@ -961,6 +1003,11 @@ impl ObjectTemplate {
                 wireless_transmit: _wt,
                 wireless_receive: _wr,
                 network: None,
+                plant: None,
+                suit: None,
+                chargeable: None,
+                reagent_interface: None,
+                fabricator: None,
             } => Ok(ObjectTemplate::StructureLogicDevice(
                 StructureLogicDeviceTemplate {
                     object: Some(obj.into()),
@@ -988,6 +1035,11 @@ impl ObjectTemplate {
                 wireless_transmit: _wt,
                 wireless_receive: _wr,
                 network: None,
+                plant: None,
+                suit: None,
+                chargeable: None,
+                reagent_interface: None,
+                fabricator: None,
             } => Ok(ObjectTemplate::StructureLogicDeviceMemory(
                 StructureLogicDeviceMemoryTemplate {
                     object: Some(obj.into()),
@@ -1018,6 +1070,11 @@ impl ObjectTemplate {
                 wireless_transmit: None,
                 wireless_receive: None,
                 network: None,
+                plant: None,
+                suit: None,
+                chargeable: None,
+                reagent_interface: None,
+                fabricator: None,
             } => Ok(ObjectTemplate::Item(ItemTemplate {
                 object: Some(obj.into()),
                 prefab: obj.into(),
@@ -1040,6 +1097,11 @@ impl ObjectTemplate {
                 wireless_transmit: None,
                 wireless_receive: None,
                 network: None,
+                plant: None,
+                suit: None,
+                chargeable: None,
+                reagent_interface: None,
+                fabricator: None,
             } => Ok(ObjectTemplate::ItemSlots(ItemSlotsTemplate {
                 object: Some(obj.into()),
                 prefab: obj.into(),
@@ -1063,6 +1125,11 @@ impl ObjectTemplate {
                 wireless_transmit: _wt,
                 wireless_receive: _wr,
                 network: None,
+                plant: None,
+                suit: None,
+                chargeable: None,
+                reagent_interface: None,
+                fabricator: None,
             } => Ok(ObjectTemplate::ItemLogic(ItemLogicTemplate {
                 object: Some(obj.into()),
                 prefab: obj.into(),
@@ -1087,6 +1154,11 @@ impl ObjectTemplate {
                 wireless_transmit: _wt,
                 wireless_receive: _wr,
                 network: None,
+                plant: None,
+                suit: None,
+                chargeable: None,
+                reagent_interface: None,
+                fabricator: None,
             } => Ok(ObjectTemplate::ItemLogicMemory(ItemLogicMemoryTemplate {
                 object: Some(obj.into()),
                 prefab: obj.into(),
@@ -1117,6 +1189,11 @@ fn freeze_storage(storage: StorageRef<'_>, vm: &Rc<VM>) -> Result<Vec<SlotInfo>,
                         ObjectTemplate::freeze_object(&occupant, vm)
                     })
                     .map_or(Ok(None), |v| v.map(Some))?,
+                quantity: if slot.quantity == 0 {
+                    None
+                } else {
+                    Some(slot.quantity)
+                },
             })
         })
         .collect::<Result<Vec<_>, _>>()?;
@@ -1134,7 +1211,8 @@ pub struct PrefabInfo {
 
 impl From<&VMObject> for PrefabInfo {
     fn from(obj: &VMObject) -> Self {
-        let obj_prefab = obj.borrow().get_prefab();
+        let obj_ref = obj.borrow();
+        let obj_prefab = obj_ref.get_prefab();
         let prefab_lookup = StationpediaPrefab::from_repr(obj_prefab.hash);
         PrefabInfo {
             prefab_name: obj_prefab.value.clone(),
@@ -1177,6 +1255,8 @@ pub struct SlotInfo {
     pub typ: SlotClass,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub occupant: Option<ObjectTemplate>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub quantity: Option<u32>,
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
@@ -1291,6 +1371,8 @@ pub struct ItemInfo {
     pub reagents: Option<BTreeMap<String, f64>>,
     pub slot_class: SlotClass,
     pub sorting_class: SortingClass,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub damage: Option<f32>,
 }
 
 impl From<ItemRef<'_>> for ItemInfo {
@@ -1303,6 +1385,11 @@ impl From<ItemRef<'_>> for ItemInfo {
             reagents: item.reagents().cloned(),
             slot_class: item.slot_class(),
             sorting_class: item.sorting_class(),
+            damage: if item.get_damage() == 0.0 {
+                None
+            } else {
+                Some(item.get_damage())
+            },
         }
     }
 }
@@ -1316,7 +1403,7 @@ pub struct ConnectionInfo {
     pub network: Option<ObjectID>,
 }
 
-#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct DeviceInfo {
     pub connection_list: Vec<ConnectionInfo>,
@@ -1332,10 +1419,13 @@ pub struct DeviceInfo {
     pub has_on_off_state: bool,
     pub has_open_state: bool,
     pub has_reagents: bool,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub reagents: Option<BTreeMap<i32, f64>>,
 }
 
 impl From<DeviceRef<'_>> for DeviceInfo {
     fn from(device: DeviceRef) -> Self {
+        let reagents: BTreeMap<i32, f64> = device.get_reagents().iter().copied().collect();
         DeviceInfo {
             connection_list: device
                 .connection_list()
@@ -1354,6 +1444,11 @@ impl From<DeviceRef<'_>> for DeviceInfo {
             has_color_state: device.has_color_state(),
             has_atmosphere: device.has_atmosphere(),
             has_activate_state: device.has_activate_state(),
+            reagents: if reagents.is_empty() {
+                None
+            } else {
+                Some(reagents)
+            },
         }
     }
 }

@@ -11,7 +11,6 @@ use crate::{
             traits::*,
             LogicField, MemoryAccess, ObjectID, Slot,
         },
-        VM,
     },
 };
 use std::{collections::BTreeMap, usize};
@@ -120,28 +119,165 @@ impl<T: GWLogicable + Object> Logicable for T {
         if index < 0.0 {
             false
         } else {
+            use LogicSlotType::*;
+            if matches!(
+                slt,
+                Occupied
+                    | OccupantHash
+                    | Quantity
+                    | Class
+                    | MaxQuantity
+                    | PrefabHash
+                    | SortingClass
+                    | ReferenceId
+            ) {
+                return true;
+            }
             self.get_slot(index as usize)
                 .map(|slot| slot.readable_logic.contains(&slt))
                 .unwrap_or(false)
         }
     }
-    fn get_slot_logic(&self, slt: LogicSlotType, index: f64, _vm: &VM) -> Result<f64, LogicError> {
+    fn get_slot_logic(&self, slt: LogicSlotType, index: f64) -> Result<f64, LogicError> {
         if index < 0.0 {
             return Err(LogicError::SlotIndexOutOfRange(index, self.slots_count()));
         }
         self.get_slot(index as usize)
             .ok_or_else(|| LogicError::SlotIndexOutOfRange(index, self.slots_count()))
             .and_then(|slot| {
-                if slot.readable_logic.contains(&slt) {
-                    match slot.occupant {
-                        Some(_id) => {
-                            // FIXME: impliment by accessing VM to get occupant
+                use LogicSlotType::*;
+                let occupant = slot.occupant.and_then(|id| self.get_vm().get_object(id));
+                match slt {
+                    Occupied => {
+                        if slot.occupant.is_some() {
+                            Ok(1.0)
+                        } else {
                             Ok(0.0)
                         }
-                        None => Ok(0.0),
                     }
-                } else {
-                    Err(LogicError::CantSlotRead(slt, index))
+                    Quantity => {
+                        if slot.occupant.is_some() {
+                            Ok(slot.quantity as f64)
+                        } else {
+                            Ok(0.0)
+                        }
+                    }
+                    Class => {
+                        if slot.occupant.is_some() {
+                            Ok(slot.typ as i32 as f64)
+                        } else {
+                            Ok(0.0)
+                        }
+                    }
+                    OccupantHash | PrefabHash => {
+                        if let Some(occupant) = occupant {
+                            Ok(occupant.borrow().get_prefab().hash as f64)
+                        } else {
+                            Ok(0.0)
+                        }
+                    }
+                    MaxQuantity => {
+                        if let Some(occupant) = occupant {
+                            Ok(occupant
+                                .borrow()
+                                .as_item()
+                                .map(|item| item.max_quantity() as f64)
+                                .ok_or(LogicError::CantSlotRead(slt, index))?)
+                        } else {
+                            Ok(0.0)
+                        }
+                    }
+                    SortingClass => {
+                        if let Some(occupant) = occupant {
+                            Ok(occupant
+                                .borrow()
+                                .as_item()
+                                .map(|item| item.sorting_class() as i32 as f64)
+                                .ok_or(LogicError::CantSlotRead(slt, index))?)
+                        } else {
+                            Ok(0.0)
+                        }
+                    }
+                    ReferenceId => {
+                        if let Some(occupant) = occupant {
+                            Ok(occupant.borrow().get_id() as f64)
+                        } else {
+                            Ok(0.0)
+                        }
+                    }
+                    slt => {
+                        if slot.readable_logic.contains(&slt) {
+                            if let Some(occupant) = occupant {
+                                let occupant_ref = occupant.borrow();
+                                let logicable = occupant_ref
+                                    .as_logicable()
+                                    .ok_or(LogicError::CantSlotRead(slt, index))?;
+
+                                match slt {
+                                    Occupied | Quantity | Class | OccupantHash | PrefabHash
+                                    | MaxQuantity | SortingClass | ReferenceId => Ok(0.0), // covered above
+                                    LineNumber => logicable.get_logic(LogicType::LineNumber),
+
+                                    Charge => logicable.get_logic(LogicType::Charge),
+                                    ChargeRatio => logicable
+                                        .as_chargeable()
+                                        .map(|chargeable| chargeable.get_charge() as f64)
+                                        .ok_or(LogicError::CantSlotRead(slt, index)),
+                                    Open => logicable.get_logic(LogicType::Open),
+                                    On => logicable.get_logic(LogicType::Open),
+                                    Lock => logicable.get_logic(LogicType::Lock),
+                                    FilterType => Ok(logicable
+                                        .as_item()
+                                        .and_then(|item| item.filter_type())
+                                        .ok_or(LogicError::CantSlotRead(slt, index))?
+                                        as i32
+                                        as f64),
+                                    Damage => logicable
+                                        .as_item()
+                                        .map(|item| item.get_damage() as f64)
+                                        .ok_or(LogicError::CantSlotRead(slt, index)),
+                                    Volume => logicable.get_logic(LogicType::Volume),
+                                    Pressure => logicable.get_logic(LogicType::Pressure),
+                                    PressureAir => logicable
+                                        .as_suit()
+                                        .map(|suit| suit.pressure_air())
+                                        .ok_or(LogicError::CantSlotRead(slt, index)),
+                                    PressureWaste => logicable
+                                        .as_suit()
+                                        .map(|suit| suit.pressure_waste())
+                                        .ok_or(LogicError::CantSlotRead(slt, index)),
+                                    Temperature => logicable.get_logic(LogicType::Temperature),
+                                    Seeding => logicable
+                                        .as_plant()
+                                        .map(|plant| plant.is_seeding() as i32 as f64)
+                                        .ok_or(LogicError::CantSlotRead(slt, index)),
+                                    Mature => logicable
+                                        .as_plant()
+                                        .map(|plant| plant.is_mature() as i32 as f64)
+                                        .ok_or(LogicError::CantSlotRead(slt, index)),
+                                    Growth => logicable
+                                        .as_plant()
+                                        .map(|plant| plant.get_growth())
+                                        .ok_or(LogicError::CantSlotRead(slt, index)),
+                                    Health => logicable
+                                        .as_plant()
+                                        .map(|plant| plant.get_health())
+                                        .ok_or(LogicError::CantSlotRead(slt, index)),
+                                    Efficiency => logicable
+                                        .as_plant()
+                                        .map(|plant| plant.get_health())
+                                        .ok_or(LogicError::CantSlotRead(slt, index)),
+
+                                    // defaults
+                                    None => Ok(0.0),
+                                }
+                            } else {
+                                Ok(0.0)
+                            }
+                        } else {
+                            Err(LogicError::CantSlotRead(slt, index))
+                        }
+                    }
                 }
             })
     }
@@ -204,16 +340,18 @@ impl<T: GWMemoryWritable + MemoryReadable + Object> MemoryWritable for T {
 
 pub trait GWDevice: GWLogicable + Logicable {
     fn device_info(&self) -> &DeviceInfo;
-    fn device_connections(&self) -> &[Connection];
-    fn device_connections_mut(&mut self) -> &mut [Connection];
-    fn device_pins(&self) -> Option<&[Option<ObjectID>]>;
-    fn device_pins_mut(&mut self) -> Option<&mut [Option<ObjectID>]>;
+    fn connections(&self) -> &[Connection];
+    fn connections_mut(&mut self) -> &mut [Connection];
+    fn pins(&self) -> Option<&[Option<ObjectID>]>;
+    fn pins_mut(&mut self) -> Option<&mut [Option<ObjectID>]>;
+    fn reagents(&self) -> Option<&BTreeMap<i32, f64>>;
+    fn reagents_mut(&mut self) -> &mut Option<BTreeMap<i32, f64>>;
 }
 
-impl<T: GWDevice + Object> Device for T {
+impl<T: GWDevice + GWStorage + Object> Device for T {
     fn can_slot_logic_write(&self, slt: LogicSlotType, index: f64) -> bool {
         if index < 0.0 {
-            return false;
+            false
         } else {
             self.get_slot(index as usize)
                 .map(|slot| slot.writeable_logic.contains(&slt))
@@ -225,22 +363,47 @@ impl<T: GWDevice + Object> Device for T {
         slt: LogicSlotType,
         index: f64,
         value: f64,
-        vm: &VM,
         force: bool,
     ) -> Result<(), LogicError> {
+        let slots_count = self.slots_count();
         if index < 0.0 {
-            return Err(LogicError::SlotIndexOutOfRange(index, self.slots_count()));
+            return Err(LogicError::SlotIndexOutOfRange(index, slots_count));
         }
+        use LogicSlotType::*;
+        let vm = self.get_vm().clone();
+
         self.get_slot_mut(index as usize)
-            .ok_or_else(|| LogicError::SlotIndexOutOfRange(index, self.slots_count()))
+            .ok_or(LogicError::SlotIndexOutOfRange(index, slots_count))
             .and_then(|slot| {
+                // special case, update slot quantity if >= 1
+                if slt == Quantity && force && value >= 1.0 {
+                    slot.quantity = value as u32;
+                    return Ok(());
+                }
                 if slot.writeable_logic.contains(&slt) {
-                    match slot.occupant {
-                        Some(_id) => {
-                            // FIXME: impliment by accessing VM to get occupant
-                            Ok(())
+                    let occupant = slot.occupant.and_then(|id| vm.get_object(id));
+                    if let Some(occupant) = occupant {
+                        let mut occupant_ref = occupant.borrow_mut();
+                        let logicable = occupant_ref
+                            .as_mut_logicable()
+                            .ok_or(LogicError::CantSlotWrite(slt, index))?;
+                        match slt {
+                            Open => logicable.set_logic(LogicType::Open, value, force),
+                            On => logicable.set_logic(LogicType::On, value, force),
+                            Lock => logicable.set_logic(LogicType::On, value, force),
+                            // no other values are known to be writeable
+                            Damage if force => {
+                                logicable
+                                    .as_mut_item()
+                                    .map(|item| item.set_damage(value as f32))
+                                    .ok_or(LogicError::CantSlotWrite(slt, index))?;
+                                Ok(())
+                            }
+
+                            _ => Ok(()),
                         }
-                        None => Ok(()),
+                    } else {
+                        Ok(())
                     }
                 } else {
                     Err(LogicError::CantSlotWrite(slt, index))
@@ -248,16 +411,16 @@ impl<T: GWDevice + Object> Device for T {
             })
     }
     fn connection_list(&self) -> &[crate::network::Connection] {
-        self.device_connections()
+        self.connections()
     }
     fn connection_list_mut(&mut self) -> &mut [Connection] {
-        self.device_connections_mut()
+        self.connections_mut()
     }
     fn device_pins(&self) -> Option<&[Option<ObjectID>]> {
-        self.device_pins()
+        self.pins()
     }
-    fn device_pins_mut(&self) -> Option<&mut [Option<ObjectID>]> {
-        self.device_pins_mut()
+    fn device_pins_mut(&mut self) -> Option<&mut [Option<ObjectID>]> {
+        self.pins_mut()
     }
     fn has_reagents(&self) -> bool {
         self.device_info().has_reagents
@@ -283,12 +446,36 @@ impl<T: GWDevice + Object> Device for T {
     fn has_atmosphere(&self) -> bool {
         self.device_info().has_atmosphere
     }
+    fn get_reagents(&self) -> Vec<(i32, f64)> {
+        self.reagents()
+            .map(|reagents| {
+                reagents
+                    .iter()
+                    .map(|(hash, quant)| (*hash, *quant))
+                    .collect()
+            })
+            .unwrap_or_default()
+    }
+    fn set_reagents(&mut self, reagents: &[(i32, f64)]) {
+        let reagents_ref = self.reagents_mut();
+        *reagents_ref = Some(reagents.iter().copied().collect());
+    }
+    fn add_reagents(&mut self, reagents: &[(i32, f64)]) {
+        let reagents_ref = self.reagents_mut();
+        if let Some(ref mut reagents_ref) = reagents_ref {
+            reagents_ref.extend(reagents.iter().map(|(hash, quant)| (hash, quant)));
+        } else {
+            *reagents_ref = Some(reagents.iter().copied().collect());
+        }
+    }
 }
 
 pub trait GWItem {
     fn item_info(&self) -> &ItemInfo;
     fn parent_slot(&self) -> Option<ParentSlotInfo>;
     fn set_parent_slot(&mut self, info: Option<ParentSlotInfo>);
+    fn damage(&self) -> &Option<f32>;
+    fn damage_mut(&mut self) -> &mut Option<f32>;
 }
 
 impl<T: GWItem + Object> Item for T {
@@ -318,6 +505,12 @@ impl<T: GWItem + Object> Item for T {
     }
     fn set_parent_slot(&mut self, info: Option<ParentSlotInfo>) {
         self.set_parent_slot(info);
+    }
+    fn get_damage(&self) -> f32 {
+        self.damage().unwrap_or(0.0)
+    }
+    fn set_damage(&mut self, damage: f32) {
+        self.damage_mut().replace(damage);
     }
 }
 

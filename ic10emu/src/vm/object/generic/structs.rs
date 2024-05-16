@@ -80,6 +80,7 @@ pub struct GenericLogicableDevice {
     pub device_info: DeviceInfo,
     pub connections: Vec<Connection>,
     pub pins: Option<Vec<Option<ObjectID>>>,
+    pub reagents: Option<BTreeMap<i32, f64>>,
 }
 
 #[derive(ObjectInterface!, GWStructure!, GWStorage!, GWLogicable!, GWDevice!, GWMemoryReadable!, GWMemoryWritable!)]
@@ -100,6 +101,7 @@ pub struct GenericLogicableDeviceMemoryReadable {
     pub device_info: DeviceInfo,
     pub connections: Vec<Connection>,
     pub pins: Option<Vec<Option<ObjectID>>>,
+    pub reagents: Option<BTreeMap<i32, f64>>,
     pub memory: Vec<f64>,
 }
 
@@ -121,6 +123,7 @@ pub struct GenericLogicableDeviceMemoryReadWriteable {
     pub device_info: DeviceInfo,
     pub connections: Vec<Connection>,
     pub pins: Option<Vec<Option<ObjectID>>>,
+    pub reagents: Option<BTreeMap<i32, f64>>,
     pub memory: Vec<f64>,
 }
 
@@ -137,6 +140,7 @@ pub struct GenericItem {
     pub vm: Rc<VM>,
     pub item_info: ItemInfo,
     pub parent_slot: Option<ParentSlotInfo>,
+    pub damage: Option<f32>,
 }
 
 #[derive(ObjectInterface!, GWItem!, GWStorage! )]
@@ -152,6 +156,7 @@ pub struct GenericItemStorage {
     pub vm: Rc<VM>,
     pub item_info: ItemInfo,
     pub parent_slot: Option<ParentSlotInfo>,
+    pub damage: Option<f32>,
     pub slots: Vec<Slot>,
 }
 
@@ -168,6 +173,7 @@ pub struct GenericItemLogicable {
     pub vm: Rc<VM>,
     pub item_info: ItemInfo,
     pub parent_slot: Option<ParentSlotInfo>,
+    pub damage: Option<f32>,
     pub slots: Vec<Slot>,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub modes: Option<BTreeMap<u32, String>>,
@@ -186,6 +192,7 @@ pub struct GenericItemLogicableMemoryReadable {
     pub vm: Rc<VM>,
     pub item_info: ItemInfo,
     pub parent_slot: Option<ParentSlotInfo>,
+    pub damage: Option<f32>,
     pub slots: Vec<Slot>,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub modes: Option<BTreeMap<u32, String>>,
@@ -205,6 +212,7 @@ pub struct GenericItemLogicableMemoryReadWriteable {
     pub vm: Rc<VM>,
     pub item_info: ItemInfo,
     pub parent_slot: Option<ParentSlotInfo>,
+    pub damage: Option<f32>,
     pub slots: Vec<Slot>,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub modes: Option<BTreeMap<u32, String>>,
