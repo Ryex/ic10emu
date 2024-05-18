@@ -97,11 +97,11 @@ impl Storage for ItemIntegratedCircuit10 {
     fn get_slot_mut(&mut self, _index: usize) -> Option<&mut Slot> {
         None
     }
-    fn get_slots(&self) -> &[Slot] {
-        &[]
+    fn get_slots(&self) -> Vec<&Slot> {
+        vec![]
     }
-    fn get_slots_mut(&mut self) -> &mut [Slot] {
-        &mut []
+    fn get_slots_mut(&mut self) -> Vec<&mut Slot> {
+        vec![]
     }
 }
 
@@ -165,11 +165,11 @@ impl Logicable for ItemIntegratedCircuit10 {
                 _ => Err(LogicError::CantWrite(lt)),
             })
     }
-    fn can_slot_logic_read(&self, _slt: LogicSlotType,_indexx: f64) -> bool {
+    fn can_slot_logic_read(&self, _slt: LogicSlotType, _indexx: f64) -> bool {
         false
     }
     fn get_slot_logic(&self, _slt: LogicSlotType, index: f64) -> Result<f64, LogicError> {
-        return Err(LogicError::SlotIndexOutOfRange(index, self.slots_count()));
+        Err(LogicError::SlotIndexOutOfRange(index, self.slots_count()))
     }
     fn valid_logic_types(&self) -> Vec<LogicType> {
         self.fields.keys().copied().collect()
@@ -235,8 +235,7 @@ impl SourceCode for ItemIntegratedCircuit10 {
 impl IntegratedCircuit for ItemIntegratedCircuit10 {
     fn get_circuit_holder(&self) -> Option<VMObject> {
         self.get_parent_slot()
-            .map(|parent_slot| self.get_vm().get_object(parent_slot.parent))
-            .flatten()
+            .and_then(|parent_slot| self.get_vm().get_object(parent_slot.parent))
     }
     fn get_instruction_pointer(&self) -> f64 {
         self.ip as f64
@@ -371,7 +370,7 @@ impl IC10Marker for ItemIntegratedCircuit10 {}
 
 impl Programmable for ItemIntegratedCircuit10 {
     fn step(&mut self, advance_ip_on_err: bool) -> Result<(), crate::errors::ICError> {
-        if matches!(&self.state, ICState::HasCaughtFire ) {
+        if matches!(&self.state, ICState::HasCaughtFire) {
             return Ok(());
         }
         if matches!(&self.state, ICState::Error(_)) && !advance_ip_on_err {
@@ -394,7 +393,7 @@ impl Programmable for ItemIntegratedCircuit10 {
                 return Err(ICError::SleepDurationError(*sleep_for));
             }
         }
-        if self.ip >= self.program.len() || self.program.len() == 0 {
+        if self.ip >= self.program.len() || self.program.is_empty() {
             self.state = ICState::Ended;
             return Ok(());
         }
@@ -403,17 +402,34 @@ impl Programmable for ItemIntegratedCircuit10 {
         let line = self.program.get_line(self.ip)?.clone();
         let operands = &line.operands;
         let instruction = line.instruction;
-        instruction.execute(self, operands)?;
-        self.ip = self.next_ip;
-        if self.ip >= self.program.len() {
-            self.state = ICState::Ended;
+        let result = instruction.execute(self, operands);
+
+        let was_error = if let Err(_err) = result {
+            self.get_circuit_holder()
+                .ok_or(ICError::NoCircuitHolder(self.id))?
+                .borrow_mut()
+                .as_mut_circuit_holder()
+                .ok_or(ICError::CircuitHolderNotLogicable(self.id))?
+                .set_error(1);
+            true
+        } else {
+            false
+        };
+
+        if !was_error || advance_ip_on_err {
+            self.ip = self.next_ip;
+            if self.ip >= self.program.len() {
+                self.state = ICState::Ended;
+            }
         }
+
         self.get_circuit_holder()
             .ok_or(ICError::NoCircuitHolder(self.id))?
             .borrow_mut()
             .as_mut_logicable()
             .ok_or(ICError::CircuitHolderNotLogicable(self.id))?
             .set_logic(LogicType::LineNumber, self.ip as f64, true)?;
+
         Ok(())
     }
 }

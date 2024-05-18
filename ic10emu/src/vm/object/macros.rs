@@ -8,7 +8,7 @@ macro_rules! object_trait {
         }
     };
     (@body $trait_name:ident { $($trt:ident),* }; ) => {
-        fn get_id(&self) -> crate::vm::object::ObjectID;
+        fn get_id(&self) -> &crate::vm::object::ObjectID;
         fn set_id(&mut self, id: crate::vm::object::ObjectID);
         fn get_prefab(&self) -> &crate::vm::object::Name;
         fn get_mut_prefab(&mut self) -> &mut crate::vm::object::Name;
@@ -49,6 +49,74 @@ macro_rules! object_trait {
                         $(
                             [<$trt:snake>]: obj.[<as_ $trt:snake>](),
                         )*
+                    }
+                }
+            }
+
+            pub enum [<$trait_name Ref>]<'a> {
+                DynRef(&'a dyn $trait_name),
+                VMObject(crate::vm::object::VMObject),
+            }
+
+            impl<'a> [<$trait_name Ref>]<'a> {
+                pub fn from_ref(reference: &'a dyn $trait_name) -> Self {
+                    Self::DynRef(reference)
+                }
+                pub fn from_vm_object(obj: crate::vm::object::VMObject) -> Self {
+                    Self::VMObject(obj)
+                }
+                pub fn get_id(&self) -> u32 {
+                    match self {
+                        Self::DynRef(reference) => *reference.get_id(),
+                        Self::VMObject(obj) => *obj.borrow().get_id(),
+
+                    }
+                }
+                /// call func on the dyn refrence or a borrow of the vm object
+                pub fn map<F, R>(&self, mut func: F ) -> R
+                    where
+                        F: std::ops::FnMut(& dyn $trait_name) -> R
+                {
+                    match self {
+                        Self::DynRef(reference) => func(*reference),
+                        Self::VMObject(obj) => {
+                            let obj_ref = obj.borrow();
+                            func(&*obj_ref)
+                        }
+                    }
+                }
+            }
+
+            pub enum [<$trait_name RefMut>]<'a> {
+                DynRef(&'a mut dyn $trait_name),
+                VMObject(crate::vm::object::VMObject),
+            }
+
+            impl<'a> [<$trait_name RefMut>]<'a> {
+                pub fn from_ref(reference: &'a mut dyn $trait_name) -> Self {
+                    Self::DynRef(reference)
+                }
+                pub fn from_vm_object(obj: crate::vm::object::VMObject) -> Self {
+                    Self::VMObject(obj)
+                }
+                pub fn get_id(&self) -> u32 {
+                    match self {
+                        Self::DynRef(refrence) => *refrence.get_id(),
+                        Self::VMObject(obj) => *obj.borrow().get_id(),
+
+                    }
+                }
+                /// call func on the dyn refrence or a borrow of the vm object
+                pub fn map<F, R>(&mut self, mut func: F ) -> R
+                    where
+                        F: std::ops::FnMut(&mut dyn $trait_name) -> R
+                {
+                    match self {
+                        Self::DynRef(reference) => func(*reference),
+                        Self::VMObject(obj) => {
+                            let mut obj_ref = obj.borrow_mut();
+                            func(&mut *obj_ref)
+                        }
                     }
                 }
             }
@@ -95,8 +163,8 @@ macro_rules! ObjectInterface {
     } => {
         impl $trait_name for $struct {
 
-            fn get_id(&self) -> crate::vm::object::ObjectID {
-                self.$id_field
+            fn get_id(&self) -> &crate::vm::object::ObjectID {
+                &self.$id_field
             }
 
             fn set_id(&mut self, id: crate::vm::object::ObjectID) {

@@ -235,11 +235,11 @@ impl Storage for CableNetwork {
     fn get_slot_mut(&mut self, _index: usize) -> Option<&mut crate::vm::object::Slot> {
         None
     }
-    fn get_slots(&self) -> &[crate::vm::object::Slot] {
-        &[]
+    fn get_slots(&self) -> Vec<&crate::vm::object::Slot> {
+        vec![]
     }
-    fn get_slots_mut(&mut self) -> &mut [crate::vm::object::Slot] {
-        &mut []
+    fn get_slots_mut(&mut self) -> Vec<&mut crate::vm::object::Slot> {
+        vec![]
     }
 }
 
@@ -422,7 +422,7 @@ where
 impl From<NetworkRef<'_>> for FrozenCableNetwork {
     fn from(value: NetworkRef) -> Self {
         FrozenCableNetwork {
-            id: value.get_id(),
+            id: *value.get_id(),
             devices: value.get_devices(),
             power_only: value.get_power_only(),
             channels: *value.get_channel_data(),

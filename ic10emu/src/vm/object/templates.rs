@@ -1167,7 +1167,7 @@ impl ObjectTemplate {
                 logic: logic.into(),
                 memory: mem_r.into(),
             })),
-            _ => Err(TemplateError::NonConformingObject(obj_ref.get_id())),
+            _ => Err(TemplateError::NonConformingObject(*obj_ref.get_id())),
         }
     }
 }
@@ -1243,7 +1243,7 @@ impl From<&VMObject> for ObjectInfo {
         let obj_ref = obj.borrow();
         ObjectInfo {
             name: Some(obj_ref.get_name().value.clone()),
-            id: Some(obj_ref.get_id()),
+            id: Some(*obj_ref.get_id()),
         }
     }
 }

@@ -617,7 +617,7 @@ impl VM {
     ) -> Result<(), ICError> {
         self.batch_device(source, prefab, None)
             .map(|device| {
-                self.set_modified(device.borrow().get_id());
+                self.set_modified(*device.borrow().get_id());
                 device
                     .borrow_mut()
                     .as_mut_device()
@@ -639,7 +639,7 @@ impl VM {
     ) -> Result<(), ICError> {
         self.batch_device(source, prefab, None)
             .map(|device| {
-                self.set_modified(device.borrow().get_id());
+                self.set_modified(*device.borrow().get_id());
                 device
                     .borrow_mut()
                     .as_mut_device()
@@ -661,7 +661,7 @@ impl VM {
     ) -> Result<(), ICError> {
         self.batch_device(source, prefab, Some(name))
             .map(|device| {
-                self.set_modified(device.borrow().get_id());
+                self.set_modified(*device.borrow().get_id());
                 device
                     .borrow_mut()
                     .as_mut_device()

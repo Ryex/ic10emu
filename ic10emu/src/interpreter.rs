@@ -77,6 +77,11 @@ impl Program {
         self.instructions.len()
     }
 
+    #[must_use]
+    pub fn is_empty(&self) -> bool {
+        self.len() == 0
+    }
+
     pub fn try_from_code(code: &str) -> Result<Self, ICError> {
         let parse_tree = grammar::parse(code)?;
         let mut labels_set = HashSet::new();

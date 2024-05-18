@@ -41,11 +41,11 @@ impl<T: GWStorage + Object> Storage for T {
     fn get_slot_mut(&mut self, index: usize) -> Option<&mut Slot> {
         self.slots_mut().get_mut(index)
     }
-    fn get_slots(&self) -> &[Slot] {
-        self.slots()
+    fn get_slots(&self) -> Vec<&Slot> {
+        self.slots().iter().collect()
     }
-    fn get_slots_mut(&mut self) -> &mut [Slot] {
-        self.slots_mut()
+    fn get_slots_mut(&mut self) -> Vec<&mut Slot> {
+        self.slots_mut().iter_mut().collect()
     }
 }
 
@@ -63,57 +63,77 @@ impl<T: GWLogicable + Object> Logicable for T {
         self.get_name().hash
     }
     fn is_logic_readable(&self) -> bool {
-        LogicType::iter().any(|lt| self.can_logic_read(lt))
+        true
     }
     fn is_logic_writeable(&self) -> bool {
         LogicType::iter().any(|lt| self.can_logic_write(lt))
     }
     fn can_logic_read(&self, lt: LogicType) -> bool {
-        self.fields()
-            .get(&lt)
-            .map(|field| {
-                matches!(
-                    field.field_type,
-                    MemoryAccess::Read | MemoryAccess::ReadWrite
-                )
-            })
-            .unwrap_or(false)
+        match lt {
+            LogicType::PrefabHash | LogicType::NameHash | LogicType::ReferenceId => true,
+            _ => self
+                .fields()
+                .get(&lt)
+                .map(|field| {
+                    matches!(
+                        field.field_type,
+                        MemoryAccess::Read | MemoryAccess::ReadWrite
+                    )
+                })
+                .unwrap_or(false),
+        }
     }
     fn can_logic_write(&self, lt: LogicType) -> bool {
-        self.fields()
-            .get(&lt)
-            .map(|field| {
-                matches!(
-                    field.field_type,
-                    MemoryAccess::Write | MemoryAccess::ReadWrite
-                )
-            })
-            .unwrap_or(false)
+        match lt {
+            LogicType::PrefabHash | LogicType::NameHash | LogicType::ReferenceId => false,
+            _ => self
+                .fields()
+                .get(&lt)
+                .map(|field| {
+                    matches!(
+                        field.field_type,
+                        MemoryAccess::Write | MemoryAccess::ReadWrite
+                    )
+                })
+                .unwrap_or(false),
+        }
     }
     fn get_logic(&self, lt: LogicType) -> Result<f64, LogicError> {
-        self.fields()
-            .get(&lt)
-            .and_then(|field| match field.field_type {
-                MemoryAccess::Read | MemoryAccess::ReadWrite => Some(field.value),
-                _ => None,
-            })
-            .ok_or(LogicError::CantRead(lt))
+        match lt {
+            LogicType::PrefabHash => Ok(self.get_prefab().hash as f64),
+            LogicType::NameHash => Ok(self.get_name().hash as f64),
+            LogicType::ReferenceId => Ok(*self.get_id() as f64),
+            _ => self
+                .fields()
+                .get(&lt)
+                .and_then(|field| match field.field_type {
+                    MemoryAccess::Read | MemoryAccess::ReadWrite => Some(field.value),
+                    _ => None,
+                })
+                .ok_or(LogicError::CantRead(lt)),
+        }
     }
     fn set_logic(&mut self, lt: LogicType, value: f64, force: bool) -> Result<(), LogicError> {
-        self.fields_mut()
-            .get_mut(&lt)
-            .ok_or(LogicError::CantWrite(lt))
-            .and_then(|field| match field.field_type {
-                MemoryAccess::Write | MemoryAccess::ReadWrite => {
-                    field.value = value;
-                    Ok(())
-                }
-                _ if force => {
-                    field.value = value;
-                    Ok(())
-                }
-                _ => Err(LogicError::CantWrite(lt)),
-            })
+        match lt {
+            LogicType::PrefabHash | LogicType::NameHash | LogicType::ReferenceId => {
+                Err(LogicError::CantWrite(lt))
+            }
+            _ => self
+                .fields_mut()
+                .get_mut(&lt)
+                .ok_or(LogicError::CantWrite(lt))
+                .and_then(|field| match field.field_type {
+                    MemoryAccess::Write | MemoryAccess::ReadWrite => {
+                        field.value = value;
+                        Ok(())
+                    }
+                    _ if force => {
+                        field.value = value;
+                        Ok(())
+                    }
+                    _ => Err(LogicError::CantWrite(lt)),
+                }),
+        }
     }
     fn can_slot_logic_read(&self, slt: LogicSlotType, index: f64) -> bool {
         if index < 0.0 {
@@ -200,7 +220,7 @@ impl<T: GWLogicable + Object> Logicable for T {
                     }
                     ReferenceId => {
                         if let Some(occupant) = occupant {
-                            Ok(occupant.borrow().get_id() as f64)
+                            Ok(*occupant.borrow().get_id() as f64)
                         } else {
                             Ok(0.0)
                         }

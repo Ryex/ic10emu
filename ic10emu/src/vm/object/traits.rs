@@ -22,7 +22,6 @@ pub struct ParentSlotInfo {
     pub parent: ObjectID,
     pub slot: usize,
 }
-
 tag_object_traits! {
     #![object_trait(Object: Debug)]
 
@@ -34,8 +33,8 @@ tag_object_traits! {
         fn slots_count(&self) -> usize;
         fn get_slot(&self, index: usize) -> Option<&Slot>;
         fn get_slot_mut(&mut self, index: usize) -> Option<&mut Slot>;
-        fn get_slots(&self) -> &[Slot];
-        fn get_slots_mut(&mut self) -> &mut [Slot];
+        fn get_slots(&self) -> Vec<&Slot>;
+        fn get_slots_mut(&mut self) -> Vec<&mut Slot>;
     }
 
     pub trait MemoryReadable {
@@ -80,16 +79,25 @@ tag_object_traits! {
             &self,
             device: i32,
             connection: Option<usize>,
-        ) -> Option<VMObject>;
+        ) -> Option<ObjectRef>;
         /// i32::MAX is db
+        fn get_logicable_from_index_mut(
+            &mut self,
+            device: i32,
+            connection: Option<usize>,
+        ) -> Option<ObjectRefMut>;
         fn get_logicable_from_id(
             &self,
             device: ObjectID,
             connection: Option<usize>,
-        ) -> Option<VMObject>;
-        fn get_source_code(&self) -> String;
-        fn set_source_code(&self, code: String);
-        fn get_ic(&self) -> Option<ObjectID>;
+        ) -> Option<ObjectRef>;
+        fn get_logicable_from_id_mut(
+            &mut self,
+            device: ObjectID,
+            connection: Option<usize>,
+        ) -> Option<ObjectRefMut>;
+        fn get_ic(&self) -> Option<VMObject>;
+        fn get_ic_mut(&self) -> Option<VMObject>;
         fn hault_and_catch_fire(&mut self);
     }
 
