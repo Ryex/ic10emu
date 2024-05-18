@@ -86,14 +86,10 @@ impl Name {
         }
     }
     pub fn from_prefab_hash(hash: i32) -> Option<Self> {
-        if let Some(prefab) = StationpediaPrefab::from_repr(hash) {
-            Some(Name {
-                value: prefab.to_string(),
-                hash,
-            })
-        } else {
-            None
-        }
+        StationpediaPrefab::from_repr(hash).map(|prefab| Name {
+            value: prefab.to_string(),
+            hash,
+        })
     }
     pub fn set(&mut self, name: &str) {
         self.value = name.to_owned();

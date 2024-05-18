@@ -258,19 +258,17 @@ impl Logicable for CableNetwork {
     }
     fn can_logic_read(&self, lt: LogicType) -> bool {
         use LogicType::*;
-        match lt {
-            Channel0 | Channel1 | Channel2 | Channel3 | Channel4 | Channel5 | Channel6
-            | Channel7 => true,
-            _ => false,
-        }
+        matches!(
+            lt,
+            Channel0 | Channel1 | Channel2 | Channel3 | Channel4 | Channel5 | Channel6 | Channel7
+        )
     }
     fn can_logic_write(&self, lt: LogicType) -> bool {
         use LogicType::*;
-        match lt {
-            Channel0 | Channel1 | Channel2 | Channel3 | Channel4 | Channel5 | Channel6
-            | Channel7 => true,
-            _ => false,
-        }
+        matches!(
+            lt,
+            Channel0 | Channel1 | Channel2 | Channel3 | Channel4 | Channel5 | Channel6 | Channel7
+        )
     }
     fn get_logic(&self, lt: LogicType) -> Result<f64, crate::vm::object::errors::LogicError> {
         use LogicType::*;

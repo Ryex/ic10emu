@@ -140,9 +140,9 @@ fn write_enum_aggragate_mod<T: std::io::Write>(
             .to_case(Case::Pascal);
             let enum_name = listing.enum_name.to_case(Case::Pascal);
             if index == 0 {
-                format!("{enum_name}::iter().map(|enm| Self::{variant_name}(enm))")
+                format!("{enum_name}::iter().map(Self::{variant_name})")
             } else {
-                format!(".chain({enum_name}::iter().map(|enm| Self::{variant_name}(enm)))")
+                format!(".chain({enum_name}::iter().map(Self::{variant_name}))")
             }
         })
         .collect::<Vec<_>>()

@@ -43,10 +43,11 @@ pub struct VMTransactionNetwork {
     pub power_only: Vec<ObjectID>,
 }
 
+#[allow(dead_code)]
 #[derive(Debug)]
 /// used as a temp structure to add objects in case
 /// there are errors on nested templates
-pub struct VMTransaction {
+struct VMTransaction {
     pub objects: BTreeMap<ObjectID, VMObject>,
     pub circuit_holders: Vec<ObjectID>,
     pub program_holders: Vec<ObjectID>,
@@ -121,13 +122,11 @@ impl VM {
                 .borrow()
                 .get(&net_id)
                 .cloned()
-                .expect(&format!(
-                    "desync between vm and transaction networks: {net_id}"
-                ));
+                .unwrap_or_else(|| panic!("desync between vm and transaction networks: {net_id}"));
             let mut net_ref = net.borrow_mut();
             let net_interface = net_ref
                 .as_mut_network()
-                .expect(&format!("non network network: {net_id}"));
+                .unwrap_or_else(|| panic!("non network network: {net_id}"));
             for id in trans_net.devices {
                 net_interface.add_data(id);
             }
@@ -772,7 +771,7 @@ impl VM {
         if let Some(device) = obj.borrow().as_device() {
             for conn in device.connection_list().iter() {
                 if let Connection::CableNetwork { net: Some(net), .. } = conn {
-                    if let Some(network) = self.networks.borrow().get(&net) {
+                    if let Some(network) = self.networks.borrow().get(net) {
                         network
                             .borrow_mut()
                             .as_mut_network()
@@ -781,7 +780,7 @@ impl VM {
                     }
                 }
             }
-            if let Some(_) = device.as_circuit_holder() {
+            if device.as_circuit_holder().is_some() {
                 self.circuit_holders.borrow_mut().retain(|a| *a != id);
             }
         }
@@ -955,13 +954,13 @@ impl VM {
 
         for (net_id, trans_net) in transaction.networks.into_iter() {
             let networks_ref = self.networks.borrow();
-            let net = networks_ref.get(&net_id).expect(&format!(
-                "desync between vm and transaction networks: {net_id}"
-            ));
+            let net = networks_ref
+                .get(&net_id)
+                .unwrap_or_else(|| panic!("desync between vm and transaction networks: {net_id}"));
             let mut net_ref = net.borrow_mut();
             let net_interface = net_ref
                 .as_mut_network()
-                .expect(&format!("non network network: {net_id}"));
+                .unwrap_or_else(|| panic!("non network network: {net_id}"));
             for id in trans_net.devices {
                 net_interface.add_data(id);
             }
@@ -1025,7 +1024,7 @@ impl VMTransaction {
             }
         }
 
-        let obj_id = if let Some(obj_id) = template.object_info().map(|info| info.id).flatten() {
+        let obj_id = if let Some(obj_id) = template.object_info().and_then(|info| info.id) {
             self.id_space.use_id(obj_id)?;
             obj_id
         } else {
@@ -1042,7 +1041,7 @@ impl VMTransaction {
                     let occupant_id = self.add_device_from_template(occupant_template)?;
                     storage
                         .get_slot_mut(slot_index)
-                        .expect(&format!("object storage slots out of sync with template which built it: {slot_index}"))
+                        .unwrap_or_else(|| panic!("object storage slots out of sync with template which built it: {slot_index}"))
                         .occupant = Some(occupant_id);
                 }
             }
@@ -1068,7 +1067,7 @@ impl VMTransaction {
                     role: ConnectionRole::None,
                 } = conn
                 {
-                    if let Some(net) = self.networks.get_mut(&net_id) {
+                    if let Some(net) = self.networks.get_mut(net_id) {
                         match typ {
                             CableConnectionType::Power => net.power_only.push(obj_id),
                             _ => net.devices.push(obj_id),

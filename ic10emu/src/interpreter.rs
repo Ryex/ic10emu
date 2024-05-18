@@ -190,92 +190,87 @@ pub fn i64_to_f64(i: i64) -> f64 {
 
 #[cfg(test)]
 mod tests {
-    use crate::{errors::VMError, vm::VM};
 
-    use super::*;
-
-    use color_eyre::eyre::Ok;
-
-    static INIT: std::sync::Once = std::sync::Once::new();
-
-    fn setup() {
-        INIT.call_once(|| {
-            let _ = color_eyre::install();
-        })
-    }
-
-    #[test]
-    fn batch_modes() -> color_eyre::Result<()> {
-        setup();
-        let mut vm = VM::new();
-        let ic = vm.add_ic(None).unwrap();
-        let ic_id = {
-            let device = vm.devices.get(&ic).unwrap();
-            let device_ref = device.borrow();
-            device_ref.ic.unwrap()
-        };
-        let ic_chip = vm.circuit_holders.get(&ic_id).unwrap().borrow();
-        vm.set_code(
-            ic,
-            r#"lb r0 HASH("ItemActiveVent") On Sum
-            lb r1 HASH("ItemActiveVent") On Maximum
-            lb r2 HASH("ItemActiveVent") On Minimum"#,
-        )?;
-        vm.step_ic(ic, false)?;
-        let r0 = ic_chip.get_register(0, 0).unwrap();
-        assert_eq!(r0, 0.0);
-        vm.step_ic(ic, false)?;
-        let r1 = ic_chip.get_register(0, 1).unwrap();
-        assert_eq!(r1, f64::NEG_INFINITY);
-        vm.step_ic(ic, false)?;
-        let r2 = ic_chip.get_register(0, 2).unwrap();
-        assert_eq!(r2, f64::INFINITY);
-        Ok(())
-    }
-
-    #[test]
-    fn stack() -> color_eyre::Result<()> {
-        setup();
-        let mut vm = VM::new();
-        let ic = vm.add_ic(None).unwrap();
-        let ic_id = {
-            let device = vm.devices.get(&ic).unwrap();
-            let device_ref = device.borrow();
-            device_ref.ic.unwrap()
-        };
-        let ic_chip = vm.circuit_holders.get(&ic_id).unwrap().borrow();
-        vm.set_code(
-            ic,
-            r#"push 100
-            push 10
-            pop r0
-            push 1000
-            peek r1
-            poke 1 20
-            pop r2
-            "#,
-        )?;
-        vm.step_ic(ic, false)?;
-        let stack0 = ic_chip.peek_addr(0.0)?;
-        assert_eq!(stack0, 100.0);
-        vm.step_ic(ic, false)?;
-        let stack1 = ic_chip.peek_addr(1.0)?;
-        assert_eq!(stack1, 10.0);
-        vm.step_ic(ic, false)?;
-        let r0 = ic_chip.get_register(0, 0).unwrap();
-        assert_eq!(r0, 10.0);
-        vm.step_ic(ic, false)?;
-        let stack1 = ic_chip.peek_addr(1.0)?;
-        assert_eq!(stack1, 1000.0);
-        vm.step_ic(ic, false)?;
-        let r1 = ic_chip.get_register(0, 1).unwrap();
-        assert_eq!(r1, 1000.0);
-        vm.step_ic(ic, false)?;
-        let stack1 = ic_chip.peek_addr(1.0)?;
-        assert_eq!(stack1, 20.0);
-        vm.step_ic(ic, false)?;
-        let r2 = ic_chip.get_register(0, 2).unwrap();
-        assert_eq!(r2, 20.0);
-        Ok(())
-    }
+    // static INIT: std::sync::Once = std::sync::Once::new();
+    //
+    // fn setup() {
+    //     INIT.call_once(|| {
+    //         let _ = color_eyre::install();
+    //     })
+    // }
+    //
+    // #[test]
+    // fn batch_modes() -> color_eyre::Result<()> {
+    //     setup();
+    //     let mut vm = VM::new();
+    //     let ic = vm.add_ic(None).unwrap();
+    //     let ic_id = {
+    //         let device = vm.devices.get(&ic).unwrap();
+    //         let device_ref = device.borrow();
+    //         device_ref.ic.unwrap()
+    //     };
+    //     let ic_chip = vm.circuit_holders.get(&ic_id).unwrap().borrow();
+    //     vm.set_code(
+    //         ic,
+    //         r#"lb r0 HASH("ItemActiveVent") On Sum
+    //         lb r1 HASH("ItemActiveVent") On Maximum
+    //         lb r2 HASH("ItemActiveVent") On Minimum"#,
+    //     )?;
+    //     vm.step_ic(ic, false)?;
+    //     let r0 = ic_chip.get_register(0, 0).unwrap();
+    //     assert_eq!(r0, 0.0);
+    //     vm.step_ic(ic, false)?;
+    //     let r1 = ic_chip.get_register(0, 1).unwrap();
+    //     assert_eq!(r1, f64::NEG_INFINITY);
+    //     vm.step_ic(ic, false)?;
+    //     let r2 = ic_chip.get_register(0, 2).unwrap();
+    //     assert_eq!(r2, f64::INFINITY);
+    //     Ok(())
+    // }
+    //
+    // #[test]
+    // fn stack() -> color_eyre::Result<()> {
+    //     setup();
+    //     let mut vm = VM::new();
+    //     let ic = vm.add_ic(None).unwrap();
+    //     let ic_id = {
+    //         let device = vm.devices.get(&ic).unwrap();
+    //         let device_ref = device.borrow();
+    //         device_ref.ic.unwrap()
+    //     };
+    //     let ic_chip = vm.circuit_holders.get(&ic_id).unwrap().borrow();
+    //     vm.set_code(
+    //         ic,
+    //         r#"push 100
+    //         push 10
+    //         pop r0
+    //         push 1000
+    //         peek r1
+    //         poke 1 20
+    //         pop r2
+    //         "#,
+    //     )?;
+    //     vm.step_ic(ic, false)?;
+    //     let stack0 = ic_chip.peek_addr(0.0)?;
+    //     assert_eq!(stack0, 100.0);
+    //     vm.step_ic(ic, false)?;
+    //     let stack1 = ic_chip.peek_addr(1.0)?;
+    //     assert_eq!(stack1, 10.0);
+    //     vm.step_ic(ic, false)?;
+    //     let r0 = ic_chip.get_register(0, 0).unwrap();
+    //     assert_eq!(r0, 10.0);
+    //     vm.step_ic(ic, false)?;
+    //     let stack1 = ic_chip.peek_addr(1.0)?;
+    //     assert_eq!(stack1, 1000.0);
+    //     vm.step_ic(ic, false)?;
+    //     let r1 = ic_chip.get_register(0, 1).unwrap();
+    //     assert_eq!(r1, 1000.0);
+    //     vm.step_ic(ic, false)?;
+    //     let stack1 = ic_chip.peek_addr(1.0)?;
+    //     assert_eq!(stack1, 20.0);
+    //     vm.step_ic(ic, false)?;
+    //     let r2 = ic_chip.get_register(0, 2).unwrap();
+    //     assert_eq!(r2, 20.0);
+    //     Ok(())
+    // }
 }

@@ -138,8 +138,18 @@ impl Logicable for StructureCircuitHousing {
     }
     fn can_logic_read(&self, lt: LogicType) -> bool {
         use LogicType::*;
-        matches!(lt, Error | LineNumber | NameHash | On | Power | PrefabHash | ReferenceId
-            | RequiredPower | Setting)
+        matches!(
+            lt,
+            Error
+                | LineNumber
+                | NameHash
+                | On
+                | Power
+                | PrefabHash
+                | ReferenceId
+                | RequiredPower
+                | Setting
+        )
     }
     fn can_logic_write(&self, lt: LogicType) -> bool {
         use LogicType::*;
@@ -152,18 +162,13 @@ impl Logicable for StructureCircuitHousing {
             LogicType::ReferenceId => Ok(*self.get_id() as f64),
             LogicType::Error => Ok(self.error as f64),
             LogicType::LineNumber => {
-                let result = self
-                    .slot
-                    .occupant
-                    .and_then(|id| {
-                        self.vm
-                            .get_object(id)
-                            .and_then(|obj| {
-                                obj.borrow()
-                                    .as_logicable()
-                                    .map(|logicable| logicable.get_logic(LogicType::LineNumber))
-                            })
-                    });
+                let result = self.slot.occupant.and_then(|id| {
+                    self.vm.get_object(id).and_then(|obj| {
+                        obj.borrow()
+                            .as_logicable()
+                            .map(|logicable| logicable.get_logic(LogicType::LineNumber))
+                    })
+                });
                 result.unwrap_or(Ok(0.0))
             }
             LogicType::On => Ok(self.on as i32 as f64),
@@ -203,13 +208,11 @@ impl Logicable for StructureCircuitHousing {
                 .slot
                 .occupant
                 .and_then(|id| {
-                    self.vm
-                        .get_object(id)
-                        .and_then(|obj| {
-                            obj.borrow_mut().as_mut_logicable().map(|logicable| {
-                                logicable.set_logic(LogicType::LineNumber, value, force)
-                            })
+                    self.vm.get_object(id).and_then(|obj| {
+                        obj.borrow_mut().as_mut_logicable().map(|logicable| {
+                            logicable.set_logic(LogicType::LineNumber, value, force)
                         })
+                    })
                 })
                 .unwrap_or(Err(LogicError::CantWrite(lt))),
             LogicType::On => {
@@ -326,9 +329,7 @@ impl CircuitHolder for StructureCircuitHousing {
             if let Some(connection) = connection {
                 self.connections.get(connection).and_then(|conn| {
                     if let Connection::CableNetwork { net: Some(net), .. } = conn {
-                        self.vm
-                            .get_network(*net)
-                            .map(ObjectRef::from_vm_object)
+                        self.vm.get_network(*net).map(ObjectRef::from_vm_object)
                     } else {
                         None
                     }
@@ -341,10 +342,7 @@ impl CircuitHolder for StructureCircuitHousing {
                 return None;
             }
             self.pins.get(device as usize).and_then(|pin| {
-                pin.and_then(|id| {
-                    self.vm
-                        .get_object(id).map(ObjectRef::from_vm_object)
-                })
+                pin.and_then(|id| self.vm.get_object(id).map(ObjectRef::from_vm_object))
             })
         }
     }
@@ -359,9 +357,7 @@ impl CircuitHolder for StructureCircuitHousing {
             if let Some(connection) = connection {
                 self.connections.get(connection).and_then(|conn| {
                     if let Connection::CableNetwork { net: Some(net), .. } = conn {
-                        self.vm
-                            .get_network(*net)
-                            .map(ObjectRefMut::from_vm_object)
+                        self.vm.get_network(*net).map(ObjectRefMut::from_vm_object)
                     } else {
                         None
                     }
@@ -374,10 +370,7 @@ impl CircuitHolder for StructureCircuitHousing {
                 return None;
             }
             self.pins.get(device as usize).and_then(|pin| {
-                pin.and_then(|id| {
-                    self.vm
-                        .get_object(id).map(ObjectRefMut::from_vm_object)
-                })
+                pin.and_then(|id| self.vm.get_object(id).map(ObjectRefMut::from_vm_object))
             })
         }
     }
@@ -393,8 +386,7 @@ impl CircuitHolder for StructureCircuitHousing {
         if device == self.id {
             return Some(ObjectRef::from_ref(self.as_object()));
         }
-        self.vm
-            .get_object(device).map(ObjectRef::from_vm_object)
+        self.vm.get_object(device).map(ObjectRef::from_vm_object)
     }
 
     fn get_logicable_from_id_mut(
@@ -408,8 +400,7 @@ impl CircuitHolder for StructureCircuitHousing {
         if device == self.id {
             return Some(ObjectRefMut::from_ref(self.as_mut_object()));
         }
-        self.vm
-            .get_object(device).map(ObjectRefMut::from_vm_object)
+        self.vm.get_object(device).map(ObjectRefMut::from_vm_object)
     }
 
     fn get_ic(&self) -> Option<VMObject> {

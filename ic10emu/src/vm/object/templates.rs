@@ -74,7 +74,7 @@ impl ObjectTemplate {
     }
 
     pub fn build(&self, id: ObjectID, vm: &Rc<VM>) -> VMObject {
-        if let Some(obj) = stationpedia::object_from_prefab_template(&self, id, vm) {
+        if let Some(obj) = stationpedia::object_from_prefab_template(self, id, vm) {
             obj
         } else {
             self.build_generic(id, vm.clone())
@@ -111,7 +111,7 @@ impl ObjectTemplate {
                 .filter_map(|info| {
                     info.occupant
                         .as_ref()
-                        .map(|obj| obj.object_info().map(|obj_info| obj_info.id).flatten())
+                        .map(|obj| obj.object_info().and_then(|obj_info| obj_info.id))
                 })
                 .flatten()
                 .collect(),
@@ -121,7 +121,7 @@ impl ObjectTemplate {
                 .filter_map(|info| {
                     info.occupant
                         .as_ref()
-                        .map(|obj| obj.object_info().map(|obj_info| obj_info.id).flatten())
+                        .map(|obj| obj.object_info().and_then(|obj_info| obj_info.id))
                 })
                 .flatten()
                 .collect(),
@@ -131,7 +131,7 @@ impl ObjectTemplate {
                 .filter_map(|info| {
                     info.occupant
                         .as_ref()
-                        .map(|obj| obj.object_info().map(|obj_info| obj_info.id).flatten())
+                        .map(|obj| obj.object_info().and_then(|obj_info| obj_info.id))
                 })
                 .flatten()
                 .collect(),
@@ -141,7 +141,7 @@ impl ObjectTemplate {
                 .filter_map(|info| {
                     info.occupant
                         .as_ref()
-                        .map(|obj| obj.object_info().map(|obj_info| obj_info.id).flatten())
+                        .map(|obj| obj.object_info().and_then(|obj_info| obj_info.id))
                 })
                 .flatten()
                 .collect(),
@@ -151,7 +151,7 @@ impl ObjectTemplate {
                 .filter_map(|info| {
                     info.occupant
                         .as_ref()
-                        .map(|obj| obj.object_info().map(|obj_info| obj_info.id).flatten())
+                        .map(|obj| obj.object_info().and_then(|obj_info| obj_info.id))
                 })
                 .flatten()
                 .collect(),
@@ -161,7 +161,7 @@ impl ObjectTemplate {
                 .filter_map(|info| {
                     info.occupant
                         .as_ref()
-                        .map(|obj| obj.object_info().map(|obj_info| obj_info.id).flatten())
+                        .map(|obj| obj.object_info().and_then(|obj_info| obj_info.id))
                 })
                 .flatten()
                 .collect(),
@@ -171,7 +171,7 @@ impl ObjectTemplate {
                 .filter_map(|info| {
                     info.occupant
                         .as_ref()
-                        .map(|obj| obj.object_info().map(|obj_info| obj_info.id).flatten())
+                        .map(|obj| obj.object_info().and_then(|obj_info| obj_info.id))
                 })
                 .flatten()
                 .collect(),
@@ -257,7 +257,7 @@ impl ObjectTemplate {
                                     .copied()
                                     .collect::<Vec<_>>()
                             })
-                            .unwrap_or_else(|| Vec::new()),
+                            .unwrap_or_else(Vec::new),
                         writeable_logic: s
                             .logic
                             .logic_slot_types
@@ -273,7 +273,7 @@ impl ObjectTemplate {
                                     .copied()
                                     .collect::<Vec<_>>()
                             })
-                            .unwrap_or_else(|| Vec::new()),
+                            .unwrap_or_else(Vec::new),
                         occupant: None,
                         quantity: info.quantity.unwrap_or(0),
                     })
@@ -292,8 +292,7 @@ impl ObjectTemplate {
                                     .logic
                                     .logic_values
                                     .as_ref()
-                                    .map(|values| values.get(key))
-                                    .flatten()
+                                    .and_then(|values| values.get(key))
                                     .copied()
                                     .unwrap_or(0.0),
                             },
@@ -332,7 +331,7 @@ impl ObjectTemplate {
                                     .copied()
                                     .collect::<Vec<_>>()
                             })
-                            .unwrap_or_else(|| Vec::new()),
+                            .unwrap_or_else(Vec::new),
                         writeable_logic: s
                             .logic
                             .logic_slot_types
@@ -348,7 +347,7 @@ impl ObjectTemplate {
                                     .copied()
                                     .collect::<Vec<_>>()
                             })
-                            .unwrap_or_else(|| Vec::new()),
+                            .unwrap_or_else(Vec::new),
                         occupant: None,
                         quantity: info.quantity.unwrap_or(0),
                     })
@@ -367,8 +366,7 @@ impl ObjectTemplate {
                                     .logic
                                     .logic_values
                                     .as_ref()
-                                    .map(|values| values.get(key))
-                                    .flatten()
+                                    .and_then(|values| values.get(key))
                                     .copied()
                                     .unwrap_or(0.0),
                             },
@@ -432,7 +430,7 @@ impl ObjectTemplate {
                                         .copied()
                                         .collect::<Vec<_>>()
                                 })
-                                .unwrap_or_else(|| Vec::new()),
+                                .unwrap_or_else(Vec::new),
                             writeable_logic: s
                                 .logic
                                 .logic_slot_types
@@ -450,7 +448,7 @@ impl ObjectTemplate {
                                         .copied()
                                         .collect::<Vec<_>>()
                                 })
-                                .unwrap_or_else(|| Vec::new()),
+                                .unwrap_or_else(Vec::new),
                             occupant: None,
                             quantity: info.quantity.unwrap_or(0),
                         })
@@ -469,8 +467,7 @@ impl ObjectTemplate {
                                         .logic
                                         .logic_values
                                         .as_ref()
-                                        .map(|values| values.get(key))
-                                        .flatten()
+                                        .and_then(|values| values.get(key))
                                         .copied()
                                         .unwrap_or(0.0),
                                 },
@@ -502,7 +499,7 @@ impl ObjectTemplate {
                         .memory
                         .values
                         .clone()
-                        .unwrap_or_else(|| vec![0.0; s.memory.memory_size as usize]),
+                        .unwrap_or_else(|| vec![0.0; s.memory.memory_size]),
                 })
             }
             StructureLogicDeviceMemory(s) => {
@@ -538,7 +535,7 @@ impl ObjectTemplate {
                                         .copied()
                                         .collect::<Vec<_>>()
                                 })
-                                .unwrap_or_else(|| Vec::new()),
+                                .unwrap_or_else(Vec::new),
                             writeable_logic: s
                                 .logic
                                 .logic_slot_types
@@ -556,7 +553,7 @@ impl ObjectTemplate {
                                         .copied()
                                         .collect::<Vec<_>>()
                                 })
-                                .unwrap_or_else(|| Vec::new()),
+                                .unwrap_or_else(Vec::new),
                             occupant: None,
                             quantity: info.quantity.unwrap_or(0),
                         })
@@ -575,8 +572,7 @@ impl ObjectTemplate {
                                         .logic
                                         .logic_values
                                         .as_ref()
-                                        .map(|values| values.get(key))
-                                        .flatten()
+                                        .and_then(|values| values.get(key))
                                         .copied()
                                         .unwrap_or(0.0),
                                 },
@@ -608,7 +604,7 @@ impl ObjectTemplate {
                         .memory
                         .values
                         .clone()
-                        .unwrap_or_else(|| vec![0.0; s.memory.memory_size as usize]),
+                        .unwrap_or_else(|| vec![0.0; s.memory.memory_size]),
                 })
             }
             Item(i) => VMObject::new(GenericItem {
@@ -676,7 +672,7 @@ impl ObjectTemplate {
                                     .copied()
                                     .collect::<Vec<_>>()
                             })
-                            .unwrap_or_else(|| Vec::new()),
+                            .unwrap_or_else(Vec::new),
                         writeable_logic: i
                             .logic
                             .logic_slot_types
@@ -692,7 +688,7 @@ impl ObjectTemplate {
                                     .copied()
                                     .collect::<Vec<_>>()
                             })
-                            .unwrap_or_else(|| Vec::new()),
+                            .unwrap_or_else(Vec::new),
                         occupant: None,
                         quantity: info.quantity.unwrap_or(0),
                     })
@@ -711,8 +707,7 @@ impl ObjectTemplate {
                                     .logic
                                     .logic_values
                                     .as_ref()
-                                    .map(|values| values.get(key))
-                                    .flatten()
+                                    .and_then(|values| values.get(key))
                                     .copied()
                                     .unwrap_or(0.0),
                             },
@@ -756,7 +751,7 @@ impl ObjectTemplate {
                                         .copied()
                                         .collect::<Vec<_>>()
                                 })
-                                .unwrap_or_else(|| Vec::new()),
+                                .unwrap_or_else(Vec::new),
                             writeable_logic: i
                                 .logic
                                 .logic_slot_types
@@ -774,7 +769,7 @@ impl ObjectTemplate {
                                         .copied()
                                         .collect::<Vec<_>>()
                                 })
-                                .unwrap_or_else(|| Vec::new()),
+                                .unwrap_or_else(Vec::new),
                             occupant: None,
                             quantity: info.quantity.unwrap_or(0),
                         })
@@ -793,8 +788,7 @@ impl ObjectTemplate {
                                         .logic
                                         .logic_values
                                         .as_ref()
-                                        .map(|values| values.get(key))
-                                        .flatten()
+                                        .and_then(|values| values.get(key))
                                         .copied()
                                         .unwrap_or(0.0),
                                 },
@@ -806,7 +800,7 @@ impl ObjectTemplate {
                         .memory
                         .values
                         .clone()
-                        .unwrap_or_else(|| vec![0.0; i.memory.memory_size as usize]),
+                        .unwrap_or_else(|| vec![0.0; i.memory.memory_size]),
                 })
             }
             ItemLogicMemory(i) => VMObject::new(GenericItemLogicableMemoryReadWriteable {
@@ -841,7 +835,7 @@ impl ObjectTemplate {
                                     .copied()
                                     .collect::<Vec<_>>()
                             })
-                            .unwrap_or_else(|| Vec::new()),
+                            .unwrap_or_else(Vec::new),
                         writeable_logic: i
                             .logic
                             .logic_slot_types
@@ -857,7 +851,7 @@ impl ObjectTemplate {
                                     .copied()
                                     .collect::<Vec<_>>()
                             })
-                            .unwrap_or_else(|| Vec::new()),
+                            .unwrap_or_else(Vec::new),
                         occupant: None,
                         quantity: info.quantity.unwrap_or(0),
                     })
@@ -876,8 +870,7 @@ impl ObjectTemplate {
                                     .logic
                                     .logic_values
                                     .as_ref()
-                                    .map(|values| values.get(key))
-                                    .flatten()
+                                    .and_then(|values| values.get(key))
                                     .copied()
                                     .unwrap_or(0.0),
                             },
@@ -889,7 +882,7 @@ impl ObjectTemplate {
                     .memory
                     .values
                     .clone()
-                    .unwrap_or_else(|| vec![0.0; i.memory.memory_size as usize]),
+                    .unwrap_or_else(|| vec![0.0; i.memory.memory_size]),
             }),
         }
     }
@@ -1218,13 +1211,11 @@ impl From<&VMObject> for PrefabInfo {
             prefab_name: obj_prefab.value.clone(),
             prefab_hash: obj_prefab.hash,
             name: prefab_lookup
-                .map(|prefab| prefab.get_str("name"))
-                .flatten()
+                .and_then(|prefab| prefab.get_str("name"))
                 .unwrap_or("")
                 .to_string(),
             desc: prefab_lookup
-                .map(|prefab| prefab.get_str("desc"))
-                .flatten()
+                .and_then(|prefab| prefab.get_str("desc"))
                 .unwrap_or("")
                 .to_string(),
         }
@@ -1433,9 +1424,7 @@ impl From<DeviceRef<'_>> for DeviceInfo {
                 .map(|conn| conn.to_info())
                 .collect(),
             device_pins_length: device.device_pins().map(|pins| pins.len()),
-            device_pins: device
-                .device_pins()
-                .map(|pins| pins.iter().copied().collect()),
+            device_pins: device.device_pins().map(|pins| pins.to_vec()),
             has_reagents: device.has_reagents(),
             has_lock_state: device.has_lock_state(),
             has_mode_state: device.has_mode_state(),
@@ -1497,7 +1486,7 @@ impl From<MemoryReadableRef<'_>> for MemoryInfo {
                 MemoryAccess::Read
             },
             memory_size: mem_r.memory_size(),
-            values: Some(mem_r.get_memory_slice().iter().copied().collect()),
+            values: Some(mem_r.get_memory_slice().to_vec()),
         }
     }
 }
@@ -1619,6 +1608,7 @@ mod tests {
         })
     }
 
+    #[allow(dead_code)]
     #[derive(Debug, Deserialize)]
     struct Database {
         pub prefabs: BTreeMap<String, ObjectTemplate>,
@@ -1631,7 +1621,7 @@ mod tests {
         d = d.parent().unwrap().join("data").join("database.json");
         println!("loading database from {}", d.display());
 
-        let database: Database = serde_json::from_reader(BufReader::new(File::open(d)?))?;
+        let _database: Database = serde_json::from_reader(BufReader::new(File::open(d)?))?;
 
         Ok(())
     }

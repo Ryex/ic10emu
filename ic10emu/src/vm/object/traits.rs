@@ -11,7 +11,9 @@ use crate::{
         },
         instructions::{traits::ICInstructable, Instruction},
         object::{
-            errors::{LogicError, MemoryError}, macros::tag_object_traits, ObjectID, Slot, VMObject
+            errors::{LogicError, MemoryError},
+            macros::tag_object_traits,
+            ObjectID, Slot, VMObject,
         },
     },
 };
