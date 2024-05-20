@@ -1,5 +1,10 @@
-use std::{collections::BTreeMap, io::Write};
+use std::{
+    collections::BTreeMap,
+    io::{BufWriter, Write},
+    path::PathBuf,
+};
 
+use quote::quote;
 use serde_derive::{Deserialize, Serialize};
 
 use crate::{
@@ -7,11 +12,18 @@ use crate::{
     stationpedia::{self, Page, Stationpedia},
 };
 
+use stationeers_data::templates::{
+    ConnectionInfo, DeviceInfo, Instruction, ItemInfo, ItemLogicMemoryTemplate, ItemLogicTemplate,
+    ItemSlotsTemplate, ItemTemplate, LogicInfo, MemoryInfo, ObjectTemplate, PrefabInfo, SlotInfo,
+    StructureInfo, StructureLogicDeviceMemoryTemplate, StructureLogicDeviceTemplate,
+    StructureLogicTemplate, StructureSlotsTemplate, StructureTemplate,
+};
+
 pub fn generate_database(
     stationpedia: &stationpedia::Stationpedia,
     enums: &enums::Enums,
     workspace: &std::path::Path,
-) -> color_eyre::Result<()> {
+) -> color_eyre::Result<Vec<PathBuf>> {
     let templates = generate_templates(stationpedia)?;
 
     eprintln!("Writing prefab database ...");
@@ -104,6 +116,58 @@ pub fn generate_database(
     let mut database_file = std::io::BufWriter::new(std::fs::File::create(database_path)?);
     serde_json::to_writer(&mut database_file, &db)?;
     database_file.flush()?;
+
+    let prefab_map_path = workspace
+        .join("stationeers_data")
+        .join("src")
+        .join("database")
+        .join("prefab_map.rs");
+    let mut prefab_map_file = std::io::BufWriter::new(std::fs::File::create(&prefab_map_path)?);
+    write_prefab_map(&mut prefab_map_file, &db.prefabs)?;
+
+    Ok(vec![prefab_map_path])
+}
+
+fn write_prefab_map<T: std::io::Write>(
+    writer: &mut BufWriter<T>,
+    prefabs: &BTreeMap<String, ObjectTemplate>,
+) -> color_eyre::Result<()> {
+    write!(
+        writer,
+        "{}",
+        quote! {
+            use crate::enums::script_enums::*;
+            use crate::enums::basic_enums::*;
+            use crate::enums::{MemoryAccess, ConnectionType, ConnectionRole};
+            use crate::templates::*;
+        }
+    )?;
+    let entries = prefabs
+        .values()
+        .map(|prefab| {
+            let hash = prefab.prefab().prefab_hash;
+            let obj = syn::parse_str::<syn::Expr>(&uneval::to_string(prefab)?)?;
+            let entry = quote! {
+                (
+                    #hash,
+                    #obj.into(),
+                )
+            };
+            Ok(entry)
+        })
+        .collect::<Result<Vec<_>, color_eyre::Report>>()?;
+    write!(
+        writer,
+        "{}",
+        quote! {
+            pub fn build_prefab_database() -> std::collections::BTreeMap<i32, crate::templates::ObjectTemplate> {
+                #[allow(clippy::unreadable_literal)]
+                std::collections::BTreeMap::from([
+                    #(#entries),*
+                ])
+            }
+        },
+    )?;
     Ok(())
 }
 
@@ -360,7 +424,10 @@ fn slot_inserts_to_info(slots: &[stationpedia::SlotInsert]) -> Vec<SlotInfo> {
     tmp.iter()
         .map(|slot| SlotInfo {
             name: slot.slot_name.clone(),
-            typ: slot.slot_type.clone(),
+            typ: slot
+                .slot_type
+                .parse()
+                .unwrap_or_else(|err| panic!("faild to parse slot class: {err}")),
         })
         .collect()
 }
@@ -386,73 +453,45 @@ pub struct ObjectDatabase {
     pub logicable_items: Vec<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum ObjectTemplate {
-    Structure(StructureTemplate),
-    StructureSlots(StructureSlotsTemplate),
-    StructureLogic(StructureLogicTemplate),
-    StructureLogicDevice(StructureLogicDeviceTemplate),
-    StructureLogicDeviceMemory(StructureLogicDeviceMemoryTemplate),
-    Item(ItemTemplate),
-    ItemSlots(ItemSlotsTemplate),
-    ItemLogic(ItemLogicTemplate),
-    ItemLogicMemory(ItemLogicMemoryTemplate),
-}
-
-impl ObjectTemplate {
-    fn prefab(&self) -> &PrefabInfo {
-        use ObjectTemplate::*;
-        match self {
-            Structure(s) => &s.prefab,
-            StructureSlots(s) => &s.prefab,
-            StructureLogic(s) => &s.prefab,
-            StructureLogicDevice(s) => &s.prefab,
-            StructureLogicDeviceMemory(s) => &s.prefab,
-            Item(i) => &i.prefab,
-            ItemSlots(i) => &i.prefab,
-            ItemLogic(i) => &i.prefab,
-            ItemLogicMemory(i) => &i.prefab,
-        }
-    }
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-#[serde(rename_all = "camelCase")]
-pub struct PrefabInfo {
-    pub prefab_name: String,
-    pub prefab_hash: i32,
-    pub desc: String,
-    pub name: String,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-#[serde(rename_all = "camelCase")]
-pub struct SlotInfo {
-    pub name: String,
-    pub typ: String,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-#[serde(rename_all = "camelCase")]
-pub struct LogicInfo {
-    pub logic_slot_types: BTreeMap<u32, stationpedia::LogicSlotTypes>,
-    pub logic_types: stationpedia::LogicTypes,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub modes: Option<BTreeMap<u32, String>>,
-    pub transmission_receiver: bool,
-    pub wireless_logic: bool,
-    pub circuit_holder: bool,
-}
-
 impl From<&stationpedia::LogicInfo> for LogicInfo {
     fn from(value: &stationpedia::LogicInfo) -> Self {
         LogicInfo {
-            logic_slot_types: value.logic_slot_types.clone(),
-            logic_types: value.logic_types.clone(),
+            logic_slot_types: value
+                .logic_slot_types
+                .iter()
+                .map(|(index, slt_map)| {
+                    (
+                        *index,
+                        slt_map
+                            .slot_types
+                            .iter()
+                            .map(|(key, val)| {
+                                (
+                                    key.parse().unwrap_or_else(|err| {
+                                        panic!("failed to parse logic slot type: {err}")
+                                    }),
+                                    val.parse().unwrap_or_else(|err| {
+                                        panic!("failed to parse memory access: {err}")
+                                    }),
+                                )
+                            })
+                            .collect(),
+                    )
+                })
+                .collect(),
+            logic_types: value
+                .logic_types
+                .types
+                .iter()
+                .map(|(key, val)| {
+                    (
+                        key.parse()
+                            .unwrap_or_else(|err| panic!("failed to parse logic type: {err}")),
+                        val.parse()
+                            .unwrap_or_else(|err| panic!("failed to parse memory access: {err}")),
+                    )
+                })
+                .collect(),
             modes: None,
             transmission_receiver: false,
             wireless_logic: false,
@@ -461,61 +500,30 @@ impl From<&stationpedia::LogicInfo> for LogicInfo {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-#[serde(rename_all = "camelCase")]
-pub struct ItemInfo {
-    pub consumable: bool,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub filter_type: Option<String>,
-    pub ingredient: bool,
-    pub max_quantity: u32,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub reagents: Option<BTreeMap<String, f64>>,
-    pub slot_class: String,
-    pub sorting_class: String,
-}
-
 impl From<&stationpedia::Item> for ItemInfo {
     fn from(item: &stationpedia::Item) -> Self {
         ItemInfo {
             consumable: item.consumable.unwrap_or(false),
-            filter_type: item.filter_type.clone(),
+            filter_type: item.filter_type.as_ref().map(|typ| {
+                typ.parse()
+                    .unwrap_or_else(|err| panic!("failed to parse filter type: {err}"))
+            }),
             ingredient: item.ingredient.unwrap_or(false),
             max_quantity: item.max_quantity.unwrap_or(1.0) as u32,
             reagents: item
                 .reagents
                 .as_ref()
                 .map(|map| map.iter().map(|(key, val)| (key.clone(), *val)).collect()),
-            slot_class: item.slot_class.clone(),
-            sorting_class: item.sorting_class.clone(),
+            slot_class: item
+                .slot_class
+                .parse()
+                .unwrap_or_else(|err| panic!("failed to parse slot class: {err}")),
+            sorting_class: item
+                .sorting_class
+                .parse()
+                .unwrap_or_else(|err| panic!("failed to parse sorting class: {err}")),
         }
     }
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-#[serde(rename_all = "camelCase")]
-pub struct ConnectionInfo {
-    pub typ: String,
-    pub role: String,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-#[serde(rename_all = "camelCase")]
-pub struct DeviceInfo {
-    pub connection_list: Vec<ConnectionInfo>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub device_pins_length: Option<i64>,
-    pub has_activate_state: bool,
-    pub has_atmosphere: bool,
-    pub has_color_state: bool,
-    pub has_lock_state: bool,
-    pub has_mode_state: bool,
-    pub has_on_off_state: bool,
-    pub has_open_state: bool,
-    pub has_reagents: bool,
 }
 
 impl From<&stationpedia::Device> for DeviceInfo {
@@ -525,8 +533,12 @@ impl From<&stationpedia::Device> for DeviceInfo {
                 .connection_list
                 .iter()
                 .map(|(typ, role)| ConnectionInfo {
-                    typ: typ.to_string(),
-                    role: role.to_string(),
+                    typ: typ
+                        .parse()
+                        .unwrap_or_else(|err| panic!("failed to parse connection type: {err}")),
+                    role: role
+                        .parse()
+                        .unwrap_or_else(|err| panic!("failed to parse connection role: {err}")),
                 })
                 .collect(),
             device_pins_length: value.devices_length,
@@ -542,27 +554,12 @@ impl From<&stationpedia::Device> for DeviceInfo {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-#[serde(rename_all = "camelCase")]
-pub struct StructureInfo {
-    pub small_grid: bool,
-}
-
 impl From<&stationpedia::Structure> for StructureInfo {
     fn from(value: &stationpedia::Structure) -> Self {
         StructureInfo {
             small_grid: value.small_grid,
         }
     }
-}
-#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-#[serde(rename_all = "camelCase")]
-pub struct Instruction {
-    pub description: String,
-    pub typ: String,
-    pub value: i64,
 }
 
 impl From<&stationpedia::Instruction> for Instruction {
@@ -575,16 +572,6 @@ impl From<&stationpedia::Instruction> for Instruction {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-#[serde(rename_all = "camelCase")]
-pub struct MemoryInfo {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub instructions: Option<BTreeMap<String, Instruction>>,
-    pub memory_access: String,
-    pub memory_size: i64,
-}
-
 impl From<&stationpedia::Memory> for MemoryInfo {
     fn from(value: &stationpedia::Memory) -> Self {
         MemoryInfo {
@@ -594,96 +581,11 @@ impl From<&stationpedia::Memory> for MemoryInfo {
                     .map(|(key, value)| (key.clone(), value.into()))
                     .collect()
             }),
-            memory_access: value.memory_access.clone(),
+            memory_access: value
+                .memory_access
+                .parse()
+                .unwrap_or_else(|err| panic!("failed to parse memory access: {err}")),
             memory_size: value.memory_size,
         }
     }
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-#[serde(rename_all = "camelCase")]
-pub struct StructureTemplate {
-    pub prefab: PrefabInfo,
-    pub structure: StructureInfo,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-#[serde(rename_all = "camelCase")]
-pub struct StructureSlotsTemplate {
-    pub prefab: PrefabInfo,
-    pub structure: StructureInfo,
-    pub slots: Vec<SlotInfo>,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-#[serde(rename_all = "camelCase")]
-pub struct StructureLogicTemplate {
-    pub prefab: PrefabInfo,
-    pub structure: StructureInfo,
-    pub logic: LogicInfo,
-    pub slots: Vec<SlotInfo>,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-#[serde(rename_all = "camelCase")]
-pub struct StructureLogicDeviceTemplate {
-    pub prefab: PrefabInfo,
-    pub structure: StructureInfo,
-    pub logic: LogicInfo,
-    pub slots: Vec<SlotInfo>,
-    pub device: DeviceInfo,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-#[serde(rename_all = "camelCase")]
-pub struct StructureLogicDeviceMemoryTemplate {
-    pub prefab: PrefabInfo,
-    pub structure: StructureInfo,
-    pub logic: LogicInfo,
-    pub slots: Vec<SlotInfo>,
-    pub device: DeviceInfo,
-    pub memory: MemoryInfo,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-#[serde(rename_all = "camelCase")]
-pub struct ItemTemplate {
-    pub prefab: PrefabInfo,
-    pub item: ItemInfo,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-#[serde(rename_all = "camelCase")]
-pub struct ItemSlotsTemplate {
-    pub prefab: PrefabInfo,
-    pub item: ItemInfo,
-    pub slots: Vec<SlotInfo>,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-#[serde(rename_all = "camelCase")]
-pub struct ItemLogicTemplate {
-    pub prefab: PrefabInfo,
-    pub item: ItemInfo,
-    pub logic: LogicInfo,
-    pub slots: Vec<SlotInfo>,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-#[serde(rename_all = "camelCase")]
-pub struct ItemLogicMemoryTemplate {
-    pub prefab: PrefabInfo,
-    pub item: ItemInfo,
-    pub logic: LogicInfo,
-    pub slots: Vec<SlotInfo>,
-    pub memory: MemoryInfo,
 }

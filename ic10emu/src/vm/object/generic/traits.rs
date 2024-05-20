@@ -1,17 +1,18 @@
 use crate::{
     network::Connection,
-    vm::{
-        enums::{
-            basic_enums::{Class as SlotClass, GasType, SortingClass},
-            script_enums::{LogicSlotType, LogicType},
-        },
-        object::{
-            errors::{LogicError, MemoryError},
-            templates::{DeviceInfo, ItemInfo},
-            traits::*,
-            LogicField, MemoryAccess, ObjectID, Slot,
-        },
+    vm::object::{
+        errors::{LogicError, MemoryError},
+        traits::*,
+        LogicField, MemoryAccess, ObjectID, Slot,
     },
+};
+
+use stationeers_data::{
+    enums::{
+        basic_enums::{Class as SlotClass, GasType, SortingClass},
+        script_enums::{LogicSlotType, LogicType},
+    },
+    templates::{DeviceInfo, ItemInfo},
 };
 use std::{collections::BTreeMap, usize};
 use strum::IntoEnumIterator;

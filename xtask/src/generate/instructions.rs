@@ -1,4 +1,6 @@
 use convert_case::{Case, Casing};
+use proc_macro2::{Ident, Span};
+use quote::quote;
 use std::{collections::BTreeMap, path::PathBuf};
 
 use crate::{generate::utils, stationpedia};
@@ -47,82 +49,93 @@ fn write_instructions_enum<T: std::io::Write>(
 
     write!(
         writer,
-        "use serde_derive::{{Deserialize, Serialize}};\n\
-         use strum::{{\n    \
-              Display, EnumIter, EnumProperty, EnumString, FromRepr,\n\
-         }};\n
-         use crate::vm::object::traits::Programmable;\n\
-        "
+        "{}",
+        quote::quote! {
+            use serde_derive::{Deserialize, Serialize};
+            use strum::{
+                 Display, EnumIter, EnumProperty, EnumString, FromRepr,
+            };
+            use crate::vm::object::traits::Programmable;
+        }
     )?;
+
+    let inst_variants = instructions
+        .iter()
+        .map(|(name, info)| {
+            let example = &info.example;
+            let desc = &info.desc;
+            let op_count = count_operands(&info.example).to_string();
+            let props =
+                quote::quote! { props( example = #example, desc = #desc, operands = #op_count ) };
+            let name = Ident::new(&name.to_case(Case::Pascal), Span::call_site());
+            quote::quote! {
+                #[strum(#props)] #name,
+            }
+        })
+        .collect::<Vec<_>>();
 
     write!(
         writer,
-        "#[derive(Debug, Display, PartialEq, Eq, PartialOrd, Ord, Clone, Copy, Serialize, Deserialize)]\n\
-         #[derive(EnumIter, EnumString, EnumProperty, FromRepr)]\n\
-         #[strum(use_phf, serialize_all = \"lowercase\")]\n\
-         #[serde(rename_all = \"lowercase\")]\n\
-         pub enum InstructionOp {{\n\
-        "
+        "{}",
+        quote::quote! {#[derive(Debug, Display, PartialEq, Eq, PartialOrd, Ord, Clone, Copy, Serialize, Deserialize)]
+             #[derive(EnumIter, EnumString, EnumProperty, FromRepr)]
+             #[strum(use_phf, serialize_all = "lowercase")]
+             #[serde(rename_all = "lowercase")]
+             pub enum InstructionOp {
+                    Nop,
+                    #(#inst_variants)*
+
+            }
+        }
     )?;
-    writeln!(writer, "    Nop,")?;
-    for (name, info) in &instructions {
-        let props_str = format!(
-            "props( example = \"{}\", desc = \"{}\", operands = \"{}\" )",
-            &info.example,
-            &info.desc,
-            count_operands(&info.example)
-        );
-        writeln!(
-            writer,
-            "    #[strum({props_str})] {},",
-            name.to_case(Case::Pascal)
-        )?;
-    }
-    writeln!(writer, "}}")?;
+
+    let exec_arms = instructions
+        .iter()
+        .map(|(name, info)| {
+            let num_operands = count_operands(&info.example);
+            let operands = (0..num_operands)
+                .map(|i| quote! {&operands[#i]})
+                .collect::<Vec<_>>();
+
+            let trait_name = Ident::new(&name.to_case(Case::Pascal), Span::call_site());
+            let fn_name = Ident::new(&format!("execute_{name}"), Span::call_site());
+            quote! {
+                Self::#trait_name => ic.#fn_name(#(#operands),*),
+            }
+        })
+        .collect::<Vec<_>>();
 
     write!(
         writer,
-        "impl InstructionOp {{\n    \
-            pub fn num_operands(&self) -> usize {{\n        \
-                self.get_str(\"operands\").expect(\"instruction without operand property\").parse::<usize>().expect(\"invalid instruction operand property\")\n    \
-            }}\n\
-            \n    \
-            pub fn execute<T>(\n        \
-                &self,\n        \
-                ic: &mut T,\n        \
-                operands: &[crate::vm::instructions::operands::Operand],\n        \
-            ) -> Result<(), crate::errors::ICError>\n    \
-            where\n    \
-                T: Programmable,\n\
-            {{\n        \
-                let num_operands = self.num_operands();\n        \
-                if operands.len() != num_operands {{\n            \
-                    return Err(crate::errors::ICError::mismatch_operands(operands.len(), num_operands as u32));\n        \
-                }}\n        \
-                match self {{\n            \
-                    Self::Nop => Ok(()),\n            \
-        "
-    )?;
+        "{}",
+        quote! {
+            impl InstructionOp {
+                pub fn num_operands(&self) -> usize {
+                    self.get_str("operands")
+                        .expect("instruction without operand property")
+                        .parse::<usize>()
+                        .expect("invalid instruction operand property")
+                }
 
-    for (name, info) in instructions {
-        let num_operands = count_operands(&info.example);
-        let operands = (0..num_operands)
-            .map(|i| format!("&operands[{}]", i))
-            .collect::<Vec<_>>()
-            .join(", ");
-        let trait_name = name.to_case(Case::Pascal);
-        writeln!(
-            writer,
-            "            Self::{trait_name} => ic.execute_{name}({operands}),",
-        )?;
-    }
-
-    write!(
-        writer,
-        "       }}\
-            }}\n\
-        }}
-        "
+                pub fn execute<T>(
+                    &self,
+                    ic: &mut T,
+                    operands: &[crate::vm::instructions::operands::Operand],
+                ) -> Result<(), crate::errors::ICError>
+                where
+                    T: Programmable,
+                {
+                    let num_operands = self.num_operands();
+                    if operands.len() != num_operands {
+                        return Err(crate::errors::ICError::mismatch_operands(operands.len(), num_operands as u32));
+                    }
+                    match self {
+                        Self::Nop => Ok(()),
+                        #(#exec_arms)*
+                    }
+                }
+            }
+        }
     )?;
 
     Ok(())
@@ -134,7 +147,8 @@ fn write_instruction_trait<T: std::io::Write>(
 ) -> color_eyre::Result<()> {
     let (name, info) = instruction;
     let op_name = name.to_case(Case::Pascal);
-    let trait_name = format!("{op_name}Instruction");
+    let trait_name = Ident::new(&format!("{op_name}Instruction"), Span::call_site());
+    let op_ident = Ident::new(&op_name, Span::call_site());
     let operands = operand_names(&info.example)
         .iter()
         .map(|name| {
@@ -142,13 +156,13 @@ fn write_instruction_trait<T: std::io::Write>(
             if n == "str" {
                 n = "string";
             }
-            format!(
-                "{}: &crate::vm::instructions::operands::Operand",
-                n.to_case(Case::Snake)
-            )
+            let n = Ident::new(&n.to_case(Case::Snake), Span::call_site());
+            quote! {
+                #n: &crate::vm::instructions::operands::Operand
+            }
         })
-        .collect::<Vec<_>>()
-        .join(", ");
+        .collect::<Vec<_>>();
+
     let operands_inner = operand_names(&info.example)
         .iter()
         .map(|name| {
@@ -156,13 +170,13 @@ fn write_instruction_trait<T: std::io::Write>(
             if n == "str" {
                 n = "string";
             }
-            format!(
-                "{}: &crate::vm::instructions::operands::InstOperand",
-                n.to_case(Case::Snake)
-            )
+            let n = Ident::new(&n.to_case(Case::Snake), Span::call_site());
+            quote! {
+                #n: &crate::vm::instructions::operands::InstOperand
+            }
         })
-        .collect::<Vec<_>>()
-        .join(", ");
+        .collect::<Vec<_>>();
+
     let operand_call = operand_names(&info.example)
         .iter()
         .enumerate()
@@ -171,24 +185,27 @@ fn write_instruction_trait<T: std::io::Write>(
             if n == "str" {
                 n = "string";
             }
-            format!(
-                "&crate::vm::instructions::operands::InstOperand::new({}, InstructionOp::{op_name}, {index})",
-                n.to_case(Case::Snake)
-            )
+            let n = Ident::new(&n.to_case(Case::Snake), Span::call_site());
+            quote!{
+                &crate::vm::instructions::operands::InstOperand::new(#n, InstructionOp::#op_ident, #index)
+            }
         })
-        .collect::<Vec<_>>()
-        .join(", ");
+        .collect::<Vec<_>>();
     let example = utils::strip_color(&info.example);
+    let fn_name = Ident::new(&format!("execute_{name}"), Span::call_site());
     write!(
         writer,
-        "pub trait {trait_name}: IntegratedCircuit {{\n    \
-            /// {example} \n    \
-            fn execute_{name}(&mut self, {operands}) -> Result<(), crate::errors::ICError> {{\n        \
-                {trait_name}::execute_inner(self, {operand_call})\n    \
-            }}\n    \
-            /// {example} \n    \
-            fn execute_inner(&mut self, {operands_inner}) -> Result<(), crate::errors::ICError>;\n\
-        }}"
+        "{}",
+        quote! {
+            pub trait #trait_name: IntegratedCircuit {
+                #[doc = #example]
+                fn #fn_name(&mut self, #(#operands),*) -> Result<(), crate::errors::ICError> {
+                    #trait_name::execute_inner(self, #(#operand_call),*)
+                }
+                #[doc = #example]
+                fn execute_inner(&mut self, #(#operands_inner),*) -> Result<(), crate::errors::ICError>;
+            }
+        }
     )?;
     Ok(())
 }
@@ -208,10 +225,11 @@ fn operand_names(example: &str) -> Vec<String> {
 fn write_instruction_trait_use<T: std::io::Write>(writer: &mut T) -> color_eyre::Result<()> {
     write!(
         writer,
-        "\
-        use crate::vm::object::traits::IntegratedCircuit;\n\
-        use crate::vm::instructions::enums::InstructionOp;\n\
-        "
+        "{}",
+        quote! {
+            use crate::vm::object::traits::IntegratedCircuit;
+            use crate::vm::instructions::enums::InstructionOp;
+        }
     )?;
     Ok(())
 }
@@ -222,15 +240,20 @@ fn write_instruction_super_trait<T: std::io::Write>(
 ) -> color_eyre::Result<()> {
     let traits = instructions
         .keys()
-        .map(|name| format!("{}Instruction", name.to_case(Case::Pascal)))
-        .collect::<Vec<_>>()
-        .join(" + ");
+        .map(|name| {
+            Ident::new(
+                &format!("{}Instruction", name.to_case(Case::Pascal)),
+                Span::call_site(),
+            )
+        })
+        .collect::<Vec<_>>();
     write!(
         writer,
-        "\
-        pub trait ICInstructable: {traits} {{}}\n\
-        impl <T> ICInstructable for T where T: {traits} {{}}
-        "
+        "{}",
+        quote! {
+            pub trait ICInstructable: #(#traits +)* {}
+            impl <T> ICInstructable for T where T: #(#traits )+* {}
+        }
     )?;
     Ok(())
 }

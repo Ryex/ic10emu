@@ -2,10 +2,6 @@ use crate::{
     errors::ICError,
     interpreter::{instructions::IC10Marker, ICState, Program},
     vm::{
-        enums::{
-            basic_enums::{Class as SlotClass, GasType, SortingClass},
-            script_enums::{LogicSlotType, LogicType},
-        },
         instructions::{operands::Operand, Instruction},
         object::{
             errors::{LogicError, MemoryError},
@@ -17,6 +13,10 @@ use crate::{
     },
 };
 use macro_rules_attribute::derive;
+use stationeers_data::enums::{
+    basic_enums::{Class as SlotClass, GasType, SortingClass},
+    script_enums::{LogicSlotType, LogicType},
+};
 use std::{collections::BTreeMap, rc::Rc};
 
 static RETURN_ADDRESS_INDEX: usize = 17;

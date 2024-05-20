@@ -5,10 +5,6 @@ use crate::{
     interpreter::ICState,
     network::Connection,
     vm::{
-        enums::{
-            basic_enums::{Class as SlotClass, GasType, SortingClass},
-            script_enums::{LogicSlotType, LogicType},
-        },
         instructions::{traits::ICInstructable, Instruction},
         object::{
             errors::{LogicError, MemoryError},
@@ -16,6 +12,10 @@ use crate::{
             ObjectID, Slot, VMObject,
         },
     },
+};
+use stationeers_data::enums::{
+    basic_enums::{Class as SlotClass, GasType, SortingClass},
+    script_enums::{LogicSlotType, LogicType},
 };
 use std::{collections::BTreeMap, fmt::Debug};
 

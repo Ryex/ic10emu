@@ -2,13 +2,8 @@ use std::{collections::BTreeMap, rc::Rc};
 
 use crate::{
     errors::TemplateError,
-    network::{Connection, ConnectionRole, ConnectionType},
+    network::Connection,
     vm::{
-        enums::{
-            basic_enums::{Class as SlotClass, GasType, SortingClass},
-            prefabs::StationpediaPrefab,
-            script_enums::{LogicSlotType, LogicType},
-        },
         object::{
             generic::structs::{
                 Generic, GenericItem, GenericItemLogicable,
@@ -24,56 +19,48 @@ use crate::{
     },
 };
 use serde_derive::{Deserialize, Serialize};
+use stationeers_data::{
+    enums::{
+        basic_enums::{Class as SlotClass, GasType, SortingClass},
+        prefabs::StationpediaPrefab,
+        script_enums::{LogicSlotType, LogicType},
+        ConnectionRole, ConnectionType,
+    },
+    templates::*,
+};
 use strum::{EnumProperty, IntoEnumIterator};
 
 use super::{stationpedia, MemoryAccess, ObjectID, VMObject};
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum ObjectTemplate {
-    Structure(StructureTemplate),
-    StructureSlots(StructureSlotsTemplate),
-    StructureLogic(StructureLogicTemplate),
-    StructureLogicDevice(StructureLogicDeviceTemplate),
-    StructureLogicDeviceMemory(StructureLogicDeviceMemoryTemplate),
-    Item(ItemTemplate),
-    ItemSlots(ItemSlotsTemplate),
-    ItemLogic(ItemLogicTemplate),
-    ItemLogicMemory(ItemLogicMemoryTemplate),
+#[serde(rename_all = "camelCase")]
+pub struct ObjectInfo {
+    pub name: Option<String>,
+    pub id: Option<ObjectID>,
 }
 
-impl ObjectTemplate {
-    pub fn prefab_info(&self) -> &PrefabInfo {
-        use ObjectTemplate::*;
-        match self {
-            Structure(s) => &s.prefab,
-            StructureSlots(s) => &s.prefab,
-            StructureLogic(s) => &s.prefab,
-            StructureLogicDevice(s) => &s.prefab,
-            StructureLogicDeviceMemory(s) => &s.prefab,
-            Item(i) => &i.prefab,
-            ItemSlots(i) => &i.prefab,
-            ItemLogic(i) => &i.prefab,
-            ItemLogicMemory(i) => &i.prefab,
+impl From<&VMObject> for ObjectInfo {
+    fn from(obj: &VMObject) -> Self {
+        let obj_ref = obj.borrow();
+        ObjectInfo {
+            name: Some(obj_ref.get_name().value.clone()),
+            id: Some(*obj_ref.get_id()),
         }
     }
+}
 
-    pub fn object_info(&self) -> Option<&ObjectInfo> {
-        use ObjectTemplate::*;
-        match self {
-            Structure(s) => s.object.as_ref(),
-            StructureSlots(s) => s.object.as_ref(),
-            StructureLogic(s) => s.object.as_ref(),
-            StructureLogicDevice(s) => s.object.as_ref(),
-            StructureLogicDeviceMemory(s) => s.object.as_ref(),
-            Item(i) => i.object.as_ref(),
-            ItemSlots(i) => i.object.as_ref(),
-            ItemLogic(i) => i.object.as_ref(),
-            ItemLogicMemory(i) => i.object.as_ref(),
-        }
-    }
+pub struct FrozenObjectTemplate {
+    obj_info: ObjectInfo,
+    template: ObjectTemplate,
+}
 
-    pub fn build(&self, id: ObjectID, vm: &Rc<VM>) -> VMObject {
+pub struct FrozenObject {
+    obj_info: ObjectInfo,
+    template: Option<ObjectTemplate>,
+}
+
+impl FrozenObjectTemplate {
+    pub fn build_vm_obj(&self, id: ObjectID, vm: &Rc<VM>) -> VMObject {
         if let Some(obj) = stationpedia::object_from_prefab_template(self, id, vm) {
             obj
         } else {
@@ -83,7 +70,7 @@ impl ObjectTemplate {
 
     pub fn connected_networks(&self) -> Vec<ObjectID> {
         use ObjectTemplate::*;
-        match self {
+        match self.template {
             StructureLogicDevice(s) => s
                 .device
                 .connection_list
@@ -104,7 +91,7 @@ impl ObjectTemplate {
 
     pub fn contained_object_ids(&self) -> Vec<ObjectID> {
         use ObjectTemplate::*;
-        match self {
+        match self.template {
             StructureSlots(s) => s
                 .slots
                 .iter()
@@ -181,7 +168,7 @@ impl ObjectTemplate {
 
     pub fn templates_from_slots(&self) -> Vec<Option<ObjectTemplate>> {
         use ObjectTemplate::*;
-        match self {
+        match self.template {
             StructureSlots(s) => s.slots.iter().map(|info| info.occupant.clone()).collect(),
             StructureLogic(s) => s.slots.iter().map(|info| info.occupant.clone()).collect(),
             StructureLogicDevice(s) => s.slots.iter().map(|info| info.occupant.clone()).collect(),
@@ -197,7 +184,7 @@ impl ObjectTemplate {
 
     fn build_generic(&self, id: ObjectID, vm: Rc<VM>) -> VMObject {
         use ObjectTemplate::*;
-        match self {
+        match self.template {
             Structure(s) => VMObject::new(Generic {
                 id,
                 prefab: Name::from_prefab_name(&s.prefab.prefab_name),
@@ -1193,15 +1180,6 @@ fn freeze_storage(storage: StorageRef<'_>, vm: &Rc<VM>) -> Result<Vec<SlotInfo>,
     Ok(slots)
 }
 
-#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct PrefabInfo {
-    pub prefab_name: String,
-    pub prefab_hash: i32,
-    pub desc: String,
-    pub name: String,
-}
-
 impl From<&VMObject> for PrefabInfo {
     fn from(obj: &VMObject) -> Self {
         let obj_ref = obj.borrow();
@@ -1221,61 +1199,6 @@ impl From<&VMObject> for PrefabInfo {
         }
     }
 }
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct ObjectInfo {
-    pub name: Option<String>,
-    pub id: Option<ObjectID>,
-}
-
-impl From<&VMObject> for ObjectInfo {
-    fn from(obj: &VMObject) -> Self {
-        let obj_ref = obj.borrow();
-        ObjectInfo {
-            name: Some(obj_ref.get_name().value.clone()),
-            id: Some(*obj_ref.get_id()),
-        }
-    }
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct SlotInfo {
-    pub name: String,
-    pub typ: SlotClass,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub occupant: Option<ObjectTemplate>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub quantity: Option<u32>,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-pub struct LogicSlotTypes {
-    #[serde(flatten)]
-    pub slot_types: BTreeMap<LogicSlotType, MemoryAccess>,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-pub struct LogicTypes {
-    #[serde(flatten)]
-    pub types: BTreeMap<LogicType, MemoryAccess>,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct LogicInfo {
-    pub logic_slot_types: BTreeMap<u32, LogicSlotTypes>,
-    pub logic_types: LogicTypes,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub modes: Option<BTreeMap<u32, String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub logic_values: Option<BTreeMap<LogicType, f64>>,
-    pub transmission_receiver: bool,
-    pub wireless_logic: bool,
-    pub circuit_holder: bool,
-}
-
 impl From<LogicableRef<'_>> for LogicInfo {
     fn from(logic: LogicableRef) -> Self {
         // Logicable: Storage -> !None
@@ -1350,22 +1273,6 @@ impl From<LogicableRef<'_>> for LogicInfo {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct ItemInfo {
-    pub consumable: bool,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub filter_type: Option<GasType>,
-    pub ingredient: bool,
-    pub max_quantity: u32,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub reagents: Option<BTreeMap<String, f64>>,
-    pub slot_class: SlotClass,
-    pub sorting_class: SortingClass,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub damage: Option<f32>,
-}
-
 impl From<ItemRef<'_>> for ItemInfo {
     fn from(item: ItemRef<'_>) -> Self {
         ItemInfo {
@@ -1383,35 +1290,6 @@ impl From<ItemRef<'_>> for ItemInfo {
             },
         }
     }
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct ConnectionInfo {
-    pub typ: ConnectionType,
-    pub role: ConnectionRole,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub network: Option<ObjectID>,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct DeviceInfo {
-    pub connection_list: Vec<ConnectionInfo>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub device_pins_length: Option<usize>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub device_pins: Option<Vec<Option<ObjectID>>>,
-    pub has_activate_state: bool,
-    pub has_atmosphere: bool,
-    pub has_color_state: bool,
-    pub has_lock_state: bool,
-    pub has_mode_state: bool,
-    pub has_on_off_state: bool,
-    pub has_open_state: bool,
-    pub has_reagents: bool,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub reagents: Option<BTreeMap<i32, f64>>,
 }
 
 impl From<DeviceRef<'_>> for DeviceInfo {
@@ -1442,12 +1320,6 @@ impl From<DeviceRef<'_>> for DeviceInfo {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct StructureInfo {
-    pub small_grid: bool,
-}
-
 impl From<StructureRef<'_>> for StructureInfo {
     fn from(value: StructureRef) -> Self {
         StructureInfo {
@@ -1455,26 +1327,6 @@ impl From<StructureRef<'_>> for StructureInfo {
         }
     }
 }
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Instruction {
-    pub description: String,
-    pub typ: String,
-    pub value: i64,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct MemoryInfo {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub instructions: Option<BTreeMap<String, Instruction>>,
-    pub memory_access: MemoryAccess,
-    pub memory_size: usize,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub values: Option<Vec<f64>>,
-}
-
 impl From<MemoryReadableRef<'_>> for MemoryInfo {
     fn from(mem_r: MemoryReadableRef<'_>) -> Self {
         let mem_w = mem_r.as_memory_writable();
@@ -1489,103 +1341,6 @@ impl From<MemoryReadableRef<'_>> for MemoryInfo {
             values: Some(mem_r.get_memory_slice().to_vec()),
         }
     }
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct StructureTemplate {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub object: Option<ObjectInfo>,
-    pub prefab: PrefabInfo,
-    pub structure: StructureInfo,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct StructureSlotsTemplate {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub object: Option<ObjectInfo>,
-    pub prefab: PrefabInfo,
-    pub structure: StructureInfo,
-    pub slots: Vec<SlotInfo>,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct StructureLogicTemplate {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub object: Option<ObjectInfo>,
-    pub prefab: PrefabInfo,
-    pub structure: StructureInfo,
-    pub logic: LogicInfo,
-    pub slots: Vec<SlotInfo>,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct StructureLogicDeviceTemplate {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub object: Option<ObjectInfo>,
-    pub prefab: PrefabInfo,
-    pub structure: StructureInfo,
-    pub logic: LogicInfo,
-    pub slots: Vec<SlotInfo>,
-    pub device: DeviceInfo,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct StructureLogicDeviceMemoryTemplate {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub object: Option<ObjectInfo>,
-    pub prefab: PrefabInfo,
-    pub structure: StructureInfo,
-    pub logic: LogicInfo,
-    pub slots: Vec<SlotInfo>,
-    pub device: DeviceInfo,
-    pub memory: MemoryInfo,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct ItemTemplate {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub object: Option<ObjectInfo>,
-    pub prefab: PrefabInfo,
-    pub item: ItemInfo,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct ItemSlotsTemplate {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub object: Option<ObjectInfo>,
-    pub prefab: PrefabInfo,
-    pub item: ItemInfo,
-    pub slots: Vec<SlotInfo>,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct ItemLogicTemplate {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub object: Option<ObjectInfo>,
-    pub prefab: PrefabInfo,
-    pub item: ItemInfo,
-    pub logic: LogicInfo,
-    pub slots: Vec<SlotInfo>,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct ItemLogicMemoryTemplate {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub object: Option<ObjectInfo>,
-    pub prefab: PrefabInfo,
-    pub item: ItemInfo,
-    pub logic: LogicInfo,
-    pub slots: Vec<SlotInfo>,
-    pub memory: MemoryInfo,
 }
 
 #[cfg(test)]

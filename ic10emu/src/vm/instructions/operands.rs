@@ -1,13 +1,10 @@
 use crate::errors::ICError;
 use crate::interpreter;
-use crate::vm::{
-    enums::script_enums::{
-        LogicBatchMethod as BatchMode, LogicReagentMode as ReagentMode, LogicSlotType, LogicType,
-    },
-    instructions::enums::InstructionOp,
-    object::traits::IntegratedCircuit,
-};
+use crate::vm::{instructions::enums::InstructionOp, object::traits::IntegratedCircuit};
 use serde_derive::{Deserialize, Serialize};
+use stationeers_data::enums::script_enums::{
+    LogicBatchMethod as BatchMode, LogicReagentMode as ReagentMode, LogicSlotType, LogicType,
+};
 use strum::EnumProperty;
 
 #[derive(PartialEq, Eq, Debug, Clone, Copy, Serialize, Deserialize)]
@@ -249,7 +246,10 @@ impl InstOperand {
                 logic_type: Some(lt),
                 ..
             } => Ok(*lt),
-            _ => LogicType::try_from(self.as_value(ic)?),
+            _ => {
+                let val = self.as_value(ic)?;
+                LogicType::try_from(val).map_err(|| ICError::UnknownLogicType(val))
+            }
         }
     }
 
@@ -262,7 +262,10 @@ impl InstOperand {
                 slot_logic_type: Some(slt),
                 ..
             } => Ok(*slt),
-            _ => LogicSlotType::try_from(self.as_value(ic)?),
+            _ => {
+                let val = self.as_value(ic)?;
+                LogicSlotType::try_from(val).map_err(|| ICError::UnknownLogicSlotType(val))
+            }
         }
     }
 
@@ -272,7 +275,10 @@ impl InstOperand {
                 batch_mode: Some(bm),
                 ..
             } => Ok(*bm),
-            _ => BatchMode::try_from(self.as_value(ic)?),
+            _ => {
+                let val = self.as_value(ic)?;
+                BatchMode::try_from(val).map_err(|| ICError::UnknownBatchMode(val))
+            }
         }
     }
 
@@ -282,7 +288,10 @@ impl InstOperand {
                 reagent_mode: Some(rm),
                 ..
             } => Ok(*rm),
-            _ => ReagentMode::try_from(self.as_value(ic)?),
+            _ => {
+                let val = self.as_value(ic)?;
+                ReagentMode::try_from(val).map_err(|| ICError::UnknownReagentMode(val))
+            }
         }
     }
 

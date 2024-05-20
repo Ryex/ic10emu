@@ -1,11 +1,6 @@
 use crate::{
-    network::{CableConnectionType, Connection, ConnectionRole},
+    network::{CableConnectionType, Connection},
     vm::{
-        enums::{
-            basic_enums::Class as SlotClass,
-            prefabs::StationpediaPrefab,
-            script_enums::{LogicSlotType, LogicType},
-        },
         object::{
             errors::LogicError, macros::ObjectInterface, traits::*, Name, ObjectID, Slot, VMObject,
         },
@@ -13,6 +8,12 @@ use crate::{
     },
 };
 use macro_rules_attribute::derive;
+use stationeers_data::enums::{
+    basic_enums::Class as SlotClass,
+    prefabs::StationpediaPrefab,
+    script_enums::{LogicSlotType, LogicType},
+    ConnectionRole,
+};
 use std::rc::Rc;
 use strum::EnumProperty;
 

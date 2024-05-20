@@ -214,7 +214,7 @@ pub struct Memory {
     #[serde(rename = "MemoryAccess")]
     pub memory_access: String,
     #[serde(rename = "MemorySize")]
-    pub memory_size: i64,
+    pub memory_size: u32,
     #[serde(rename = "MemorySizeReadable")]
     pub memory_size_readable: String,
 }
@@ -308,7 +308,7 @@ pub struct Device {
     #[serde(rename = "ConnectionList")]
     pub connection_list: Vec<(String, String)>,
     #[serde(rename = "DevicesLength")]
-    pub devices_length: Option<i64>,
+    pub devices_length: Option<u32>,
     #[serde(rename = "HasActivateState")]
     pub has_activate_state: bool,
     #[serde(rename = "HasAtmosphere")]

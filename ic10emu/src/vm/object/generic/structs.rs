@@ -3,17 +3,15 @@ use super::{macros::*, traits::*};
 use crate::{
     network::Connection,
     vm::{
-        enums::script_enums::LogicType,
-        object::{
-            macros::ObjectInterface,
-            templates::{DeviceInfo, ItemInfo},
-            traits::*,
-            LogicField, Name, ObjectID, Slot,
-        },
+        object::{macros::ObjectInterface, traits::*, LogicField, Name, ObjectID, Slot},
         VM,
     },
 };
 use macro_rules_attribute::derive;
+use stationeers_data::{
+    enums::script_enums::LogicType,
+    templates::{DeviceInfo, ItemInfo},
+};
 use std::{collections::BTreeMap, rc::Rc};
 
 #[derive(ObjectInterface!, GWStructure!)]

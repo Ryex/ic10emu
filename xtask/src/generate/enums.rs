@@ -6,17 +6,17 @@ use std::{
     path::PathBuf,
     str::FromStr,
 };
+
+use proc_macro2::{Ident, Span, TokenStream};
+use quote::quote;
+
 pub fn generate_enums(
     stationpedia: &crate::stationpedia::Stationpedia,
     enums: &crate::enums::Enums,
     workspace: &std::path::Path,
 ) -> color_eyre::Result<Vec<PathBuf>> {
     println!("Writing Enum Listings ...");
-    let enums_path = workspace
-        .join("ic10emu")
-        .join("src")
-        .join("vm")
-        .join("enums");
+    let enums_path = workspace.join("stationeers_data").join("src").join("enums");
     if !enums_path.exists() {
         std::fs::create_dir(&enums_path)?;
     }
@@ -81,172 +81,136 @@ pub fn generate_enums(
     ])
 }
 
+#[allow(clippy::type_complexity)]
 fn write_enum_aggragate_mod<T: std::io::Write>(
     writer: &mut BufWriter<T>,
     enums: &BTreeMap<String, crate::enums::EnumListing>,
 ) -> color_eyre::Result<()> {
-    let variant_lines = enums
-        .iter()
-        .map(|(name, listing)| {
-            let name = if name.is_empty() || name == "_unnamed" {
-                "Unnamed"
-            } else {
-                name
-            };
-            format!(
-                "    {}({}),",
-                name.to_case(Case::Pascal),
-                listing.enum_name.to_case(Case::Pascal)
-            )
-        })
-        .collect::<Vec<_>>()
-        .join("\n");
-    let value_arms = enums
-        .keys()
-        .map(|name| {
-            let variant_name = (if name.is_empty() || name == "_unnamed" {
-                "Unnamed"
-            } else {
-                name
-            })
-            .to_case(Case::Pascal);
-            format!("            Self::{variant_name}(enm) => *enm as u32,",)
-        })
-        .collect::<Vec<_>>()
-        .join("\n");
-
-    let get_str_arms = enums
-        .keys()
-        .map(|name| {
-            let variant_name = (if name.is_empty() || name == "_unnamed" {
-                "Unnamed"
-            } else {
-                name
-            })
-            .to_case(Case::Pascal);
-            format!("            Self::{variant_name}(enm) => enm.get_str(prop),",)
-        })
-        .collect::<Vec<_>>()
-        .join("\n");
-    let iter_chain = enums
+    let (
+        (variant_lines, value_arms),
+        (
+            (get_str_arms, iter_chain),
+            (from_str_arms_iter, display_arms)
+        )
+    ): (
+        (Vec<_>, Vec<_>),
+        ((Vec<_>, Vec<_>), (Vec<_>, Vec<_>)),
+    ) = enums
         .iter()
         .enumerate()
         .map(|(index, (name, listing))| {
-            let variant_name = (if name.is_empty() || name == "_unnamed" {
+            let variant_name: TokenStream = if name.is_empty() || name == "_unnamed" {
                 "Unnamed"
             } else {
                 name
-            })
-            .to_case(Case::Pascal);
-            let enum_name = listing.enum_name.to_case(Case::Pascal);
-            if index == 0 {
-                format!("{enum_name}::iter().map(Self::{variant_name})")
-            } else {
-                format!(".chain({enum_name}::iter().map(Self::{variant_name}))")
             }
-        })
-        .collect::<Vec<_>>()
-        .join("\n");
-    write!(
-        writer,
-        "pub enum BasicEnum {{\n\
-            {variant_lines}
-        }}\n\
-        impl BasicEnum {{\n    \
-            pub fn get_value(&self) -> u32 {{\n        \
-                match self {{\n            \
-                    {value_arms}\n        \
-                }}\n    \
-            }}\n\
-            pub fn get_str(&self, prop: &str) -> Option<&'static str> {{\n        \
-                match self {{\n            \
-                    {get_str_arms}\n        \
-                }}\n    \
-            }}\n\
-            pub fn iter() -> impl std::iter::Iterator<Item = Self>  {{\n        \
-                use strum::IntoEnumIterator;\n        \
-                {iter_chain}\n    \
-            }}
-        }}\n\
-        "
-    )?;
-    let arms = enums
-        .iter()
-        .flat_map(|(name, listing)| {
-            let variant_name = (if name.is_empty() || name == "_unnamed" {
-                "Unnamed"
-            } else {
-                name
-            })
-            .to_case(Case::Pascal);
-            let name = if name == "_unnamed" {
-                "".to_string()
-            } else {
-                name.clone()
-            };
-            let enum_name = listing.enum_name.to_case(Case::Pascal);
-            listing.values.keys().map(move |variant| {
-                let sep = if name.is_empty() { "" } else { "." };
-                let pat = format!("{name}{sep}{variant}").to_lowercase();
-                let variant = variant.to_case(Case::Pascal);
-                format!("\"{pat}\" => Ok(Self::{variant_name}({enum_name}::{variant})),")
-            })
-        })
-        .collect::<Vec<_>>()
-        .join("\n            ");
-    write!(
-        writer,
-        "\
-        impl std::str::FromStr for BasicEnum {{\n    \
-            type Err = crate::errors::ParseError;\n    \
-            fn from_str(s: &str) -> Result<Self, Self::Err> {{\n        \
-                let end = s.len();\n        \
-                match s.to_lowercase().as_str() {{\n            \
-                    {arms}\n            \
-                    _ => Err(crate::errors::ParseError{{ line: 0, start: 0, end, msg: format!(\"Unknown enum '{{}}'\", s) }})\n        \
-                }}\n    \
-            }}\n\
-        }}\
-        "
-    )?;
-    let display_arms = enums
-        .keys()
-        .map(|name| {
-            let variant_name = (if name.is_empty() || name == "_unnamed" {
-                "Unnamed"
-            } else {
-                name
-            })
-            .to_case(Case::Pascal);
-            let name = if name == "_unnamed" {
-                "".to_string()
-            } else {
-                name.clone()
-            };
-            let sep = if name.is_empty() || name == "_unnamed" {
+            .to_case(Case::Pascal)
+            .parse()
+            .unwrap();
+            let fromstr_variant_name = variant_name.clone();
+            let enum_name: TokenStream = listing.enum_name.to_case(Case::Pascal).parse().unwrap();
+            let display_sep = if name.is_empty() || name == "_unnamed" {
                 ""
             } else {
                 "."
             };
-            let pat = format!("{name}{sep}{{}}");
-            format!("            Self::{variant_name}(enm) => write!(f, \"{pat}\", enm),",)
+            let display_pat = format!("{name}{display_sep}{{}}");
+            let name: TokenStream = if name == "_unnamed" {
+                "".to_string()
+            } else {
+                name.clone()
+            }
+            .parse()
+            .unwrap();
+            (
+                (
+                    quote! {
+                        #variant_name(#enum_name),
+                    },
+                    quote! {
+                        Self::#variant_name(enm) => *enm as u32,
+                    },
+                ),
+                (
+                    (
+                        quote! {
+                            Self::#variant_name(enm) => enm.get_str(prop),
+                        },
+                        if index == 0 {
+                            quote! {
+                                #enum_name::iter().map(Self::#variant_name)
+                            }
+                        } else {
+                            quote! {
+                                .chain(#enum_name::iter().map(Self::#variant_name))
+                            }
+                        },
+                    ),
+                    (
+                        listing.values.keys().map(move |variant| {
+                            let sep = if name.is_empty() { "" } else { "." };
+                            let fromstr_pat = format!("{name}{sep}{variant}").to_lowercase();
+                            let variant: TokenStream = variant.to_case(Case::Pascal).parse().unwrap();
+                            quote! {
+                                #fromstr_pat => Ok(Self::#fromstr_variant_name(#enum_name::#variant)),
+                            }
+                        }),
+                        quote! {
+                            Self::#variant_name(enm) => write!(f, #display_pat, enm),
+                        },
+                    ),
+                ),
+            )
         })
-        .collect::<Vec<_>>()
-        .join("\n            ");
-    write!(
-        writer,
-        "\
-        impl std::fmt::Display for BasicEnum {{\n    \
-            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {{\n        \
-                match self {{\n            \
-                    {display_arms}\n            \
-                }}\n    \
-            }}\n\
-        }}\
-        "
-    )?;
+        .unzip();
+
+    let from_str_arms = from_str_arms_iter.into_iter().flatten().collect::<Vec<_>>();
+
+    let tokens = quote! {
+        pub enum BasicEnum {
+            #(#variant_lines)*
+        }
+
+        impl BasicEnum {
+            pub fn get_value(&self) -> u32 {
+                match self {
+                    #(#value_arms)*
+                }
+            }
+            pub fn get_str(&self, prop: &str) -> Option<&'static str> {
+                match self {
+                    #(#get_str_arms)*
+                }
+            }
+            pub fn iter() -> impl std::iter::Iterator<Item = Self> {
+                use strum::IntoEnumIterator;
+                #(#iter_chain)*
+            }
+        }
+
+        impl std::str::FromStr for BasicEnum {
+            type Err = super::ParseError;
+            fn from_str(s: &str) -> Result<Self, Self::Err> {
+                match s.to_lowercase().as_str() {
+                    #(#from_str_arms)*
+                    _ => Err(super::ParseError { enm: s.to_string() })
+                }
+            }
+        }
+
+        impl std::fmt::Display for BasicEnum {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                match self {
+                    #(#display_arms)*
+                }
+            }
+        }
+
+    };
+    write!(writer, "{tokens}",)?;
     Ok(())
 }
+
 pub fn write_enum_listing<T: std::io::Write>(
     writer: &mut BufWriter<T>,
     enm: &crate::enums::EnumListing,
@@ -357,10 +321,13 @@ fn write_repr_enum_use_header<T: std::io::Write>(
 ) -> color_eyre::Result<()> {
     write!(
         writer,
-        "use serde_derive::{{Deserialize, Serialize}};\n\
-          use strum::{{\n    \
-              AsRefStr, Display, EnumIter, EnumProperty, EnumString, FromRepr,\n\
-          }};\n"
+        "{}",
+        quote! {
+            use serde_derive::{{Deserialize, Serialize}};
+            use strum::{
+                AsRefStr, Display, EnumIter, EnumProperty, EnumString, FromRepr,
+            };
+        }
     )?;
     Ok(())
 }
@@ -369,14 +336,15 @@ fn write_repr_basic_use_header<T: std::io::Write>(
     writer: &mut BufWriter<T>,
     script_enums: &[&crate::enums::EnumListing],
 ) -> color_eyre::Result<()> {
+    let enums = script_enums
+        .iter()
+        .map(|enm| Ident::new(&enm.enum_name.to_case(Case::Pascal), Span::call_site()))
+        .collect::<Vec<_>>();
+
     write!(
         writer,
-        "use crate::vm::enums::script_enums::{{ {} }};",
-        script_enums
-            .iter()
-            .map(|enm| enm.enum_name.to_case(Case::Pascal))
-            .collect::<Vec<_>>()
-            .join(", ")
+        "{}",
+        quote! {use super::script_enums::{ #(#enums),*};},
     )?;
     Ok(())
 }
@@ -388,60 +356,104 @@ fn write_repr_enum<'a, T: std::io::Write, I, P>(
     use_phf: bool,
 ) -> color_eyre::Result<()>
 where
-    P: Display + FromStr + Ord + 'a,
+    P: Display + FromStr + num::integer::Integer + num::cast::AsPrimitive<i64> + 'a,
     I: IntoIterator<Item = &'a (String, ReprEnumVariant<P>)>,
 {
-    let additional_strum = if use_phf { "#[strum(use_phf)]\n" } else { "" };
-    let repr = std::any::type_name::<P>();
+    let additional_strum = if use_phf {
+        quote! {#[strum(use_phf)]}
+    } else {
+        TokenStream::new()
+    };
+    let repr = Ident::new(std::any::type_name::<P>(), Span::call_site());
     let mut sorted: Vec<_> = variants.into_iter().collect::<Vec<_>>();
     sorted.sort_by_key(|(_, variant)| &variant.value);
-    let default_derive = if sorted
+    let mut derives = [
+        "Debug",
+        "Display",
+        "Clone",
+        "Copy",
+        "PartialEq",
+        "Eq",
+        "PartialOrd",
+        "Ord",
+        "Hash",
+        "EnumString",
+        "AsRefStr",
+        "EnumProperty",
+        "EnumIter",
+        "FromRepr",
+        "Serialize",
+        "Deserialize",
+    ]
+    .into_iter()
+    .map(|d| Ident::new(d, Span::call_site()))
+    .collect::<Vec<_>>();
+    if sorted
         .iter()
         .any(|(name, _)| name == "None" || name == "Default")
     {
-        "Default, "
-    } else {
-        ""
-    };
+        derives.insert(0, Ident::new("Default", Span::call_site()));
+    }
+
+    let variants = sorted
+        .iter()
+        .map(|(name, variant)| {
+            let variant_name = Ident::new(
+                &name.replace('.', "").to_case(Case::Pascal),
+                Span::call_site(),
+            );
+            let mut props = Vec::new();
+            if variant.deprecated {
+                props.push(quote! {deprecated = "true"});
+            }
+            for (prop_name, prop_val) in &variant.props {
+                let prop_name = Ident::new(prop_name, Span::call_site());
+                let val_string = prop_val.to_string();
+                props.push(quote! { #prop_name = #val_string });
+            }
+            let val: TokenStream = format!("{}{repr}", variant.value).parse().unwrap();
+            let val_string = variant.value.as_().to_string();
+            props.push(quote! {value = #val_string });
+            let default = if variant_name == "None" || variant_name == "Default" {
+                quote! {#[default]}
+            } else {
+                TokenStream::new()
+            };
+            quote! {
+                #[strum(serialize = #name)]
+                #[strum(props(#(#props),*))]
+                #default
+                #variant_name = #val,
+            }
+        })
+        .collect::<Vec<_>>();
+    let name = Ident::new(name, Span::call_site());
+
     write!(
         writer,
-         "#[derive(Debug, {default_derive}Display, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, EnumString, AsRefStr, EnumProperty, EnumIter, FromRepr, Serialize, Deserialize)]\n\
-         {additional_strum}\
-         #[repr({repr})]\n\
-         pub enum {name} {{\n"
+        "{}",
+        quote! {
+            #[derive(#(#derives),*)]
+            #additional_strum
+            #[repr(#repr)]
+            pub enum #name {
+                #(#variants)*
+            }
+
+            impl TryFrom<f64> for #name {
+                type Error = super::ParseError;
+                fn try_from(value: f64) -> Result<Self, <#name as TryFrom<f64>>::Error> {
+                    use strum::IntoEnumIterator;
+                    if let Some(enm) = #name::iter().find(|enm| (f64::from(*enm as #repr) - value).abs() < f64::EPSILON ) {
+                        Ok(enm)
+                    } else {
+                        Err(super::ParseError {
+                            enm: value.to_string()
+                        })
+                    }
+                }
+            }
+        }
     )?;
-    for (name, variant) in sorted {
-        let variant_name = name.replace('.', "").to_case(Case::Pascal);
-        let serialize = vec![name.clone()];
-        let serialize_str = serialize
-            .into_iter()
-            .map(|s| format!("serialize = \"{s}\""))
-            .collect::<Vec<String>>()
-            .join(", ");
-        let mut props = Vec::new();
-        if variant.deprecated {
-            props.push("deprecated = \"true\"".to_owned());
-        }
-        for (prop_name, prop_val) in &variant.props {
-            props.push(format!("{prop_name} = r#\"{prop_val}\"#"));
-        }
-        let val = &variant.value;
-        props.push(format!("value = \"{val}\""));
-        let props_str = if !props.is_empty() {
-            format!(", props( {} )", props.join(", "))
-        } else {
-            "".to_owned()
-        };
-        let default = if variant_name == "None" || variant_name == "Default" {
-            "#[default]"
-        } else {
-            ""
-        };
-        writeln!(
-            writer,
-            "    #[strum({serialize_str}{props_str})]{default} {variant_name} = {val}{repr},"
-        )?;
-    }
-    writeln!(writer, "}}")?;
     Ok(())
 }

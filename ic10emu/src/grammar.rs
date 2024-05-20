@@ -2,65 +2,19 @@ use crate::{
     errors::{ICError, ParseError},
     interpreter,
     tokens::{SplitConsecutiveIndicesExt, SplitConsecutiveWithIndices},
-    vm::{
-        enums::{
-            basic_enums::BasicEnum,
-            script_enums::{LogicBatchMethod, LogicReagentMode, LogicSlotType, LogicType},
-        },
-        instructions::{
-            enums::InstructionOp,
-            operands::{Device, DeviceSpec, Identifier, Number, Operand, RegisterSpec},
-            Instruction, CONSTANTS_LOOKUP,
-        },
+    vm::instructions::{
+        enums::InstructionOp,
+        operands::{Device, DeviceSpec, Identifier, Number, Operand, RegisterSpec},
+        Instruction, CONSTANTS_LOOKUP,
     },
 };
 use itertools::Itertools;
+use stationeers_data::enums::{
+    basic_enums::BasicEnum,
+    script_enums::{LogicBatchMethod, LogicReagentMode, LogicSlotType, LogicType},
+};
 use std::{fmt::Display, str::FromStr};
 use strum::IntoEnumIterator;
-
-impl TryFrom<f64> for LogicType {
-    type Error = ICError;
-    fn try_from(value: f64) -> Result<Self, <LogicType as TryFrom<f64>>::Error> {
-        if let Some(lt) = LogicType::iter().find(|lt| *lt as u16 as f64 == value) {
-            Ok(lt)
-        } else {
-            Err(ICError::UnknownLogicType(value))
-        }
-    }
-}
-
-impl TryFrom<f64> for LogicSlotType {
-    type Error = ICError;
-    fn try_from(value: f64) -> Result<Self, <LogicSlotType as TryFrom<f64>>::Error> {
-        if let Some(slt) = LogicSlotType::iter().find(|lt| *lt as u8 as f64 == value) {
-            Ok(slt)
-        } else {
-            Err(ICError::UnknownLogicSlotType(value))
-        }
-    }
-}
-
-impl TryFrom<f64> for LogicBatchMethod {
-    type Error = ICError;
-    fn try_from(value: f64) -> Result<Self, <LogicBatchMethod as TryFrom<f64>>::Error> {
-        if let Some(bm) = LogicBatchMethod::iter().find(|lt| *lt as u8 as f64 == value) {
-            Ok(bm)
-        } else {
-            Err(ICError::UnknownBatchMode(value))
-        }
-    }
-}
-
-impl TryFrom<f64> for LogicReagentMode {
-    type Error = ICError;
-    fn try_from(value: f64) -> Result<Self, <LogicReagentMode as TryFrom<f64>>::Error> {
-        if let Some(rm) = LogicReagentMode::iter().find(|lt| *lt as u8 as f64 == value) {
-            Ok(rm)
-        } else {
-            Err(ICError::UnknownReagentMode(value))
-        }
-    }
-}
 
 pub fn parse(code: &str) -> Result<Vec<Line>, ParseError> {
     code.lines()

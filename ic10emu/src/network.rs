@@ -51,61 +51,6 @@ pub enum Connection {
     None,
 }
 
-#[derive(
-    Debug,
-    Default,
-    Clone,
-    Copy,
-    PartialEq,
-    PartialOrd,
-    Eq,
-    Ord,
-    Hash,
-    Serialize,
-    Deserialize,
-    EnumIter,
-    AsRefStr,
-)]
-pub enum ConnectionType {
-    Pipe,
-    Power,
-    Data,
-    Chute,
-    Elevator,
-    PipeLiquid,
-    LandingPad,
-    LaunchPad,
-    PowerAndData,
-    #[serde(other)]
-    #[default]
-    None,
-}
-
-#[derive(
-    Debug,
-    Default,
-    Clone,
-    Copy,
-    PartialEq,
-    PartialOrd,
-    Eq,
-    Ord,
-    Hash,
-    Serialize,
-    Deserialize,
-    EnumIter,
-    AsRefStr,
-)]
-pub enum ConnectionRole {
-    Input,
-    Input2,
-    Output,
-    Output2,
-    Waste,
-    #[serde(other)]
-    #[default]
-    None,
-}
 
 impl Connection {
     #[allow(dead_code)]

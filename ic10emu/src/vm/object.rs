@@ -2,7 +2,6 @@ use std::{
     cell::RefCell,
     ops::{Deref, DerefMut},
     rc::Rc,
-    str::FromStr,
 };
 
 use macro_rules_attribute::derive;
@@ -17,12 +16,12 @@ pub mod traits;
 
 use traits::Object;
 
-use crate::vm::{
-    enums::{basic_enums::Class as SlotClass, script_enums::LogicSlotType},
-    VM,
-};
+use crate::vm::VM;
 
-use super::enums::prefabs::StationpediaPrefab;
+use stationeers_data::enums::{
+    basic_enums::Class as SlotClass, prefabs::StationpediaPrefab, script_enums::LogicSlotType,
+    MemoryAccess,
+};
 
 pub type ObjectID = u32;
 pub type BoxedObject = Rc<RefCell<dyn Object>>;
@@ -95,13 +94,6 @@ impl Name {
         self.value = name.to_owned();
         self.hash = const_crc32::crc32(name.as_bytes()) as i32;
     }
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
-pub enum MemoryAccess {
-    Read,
-    Write,
-    ReadWrite,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

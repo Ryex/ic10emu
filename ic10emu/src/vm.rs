@@ -1,15 +1,18 @@
-pub mod enums;
 pub mod instructions;
 pub mod object;
 
 use crate::{
     errors::{ICError, TemplateError, VMError},
     interpreter::ICState,
-    network::{CableConnectionType, CableNetwork, Connection, ConnectionRole, FrozenCableNetwork},
-    vm::{
-        enums::script_enums::{LogicBatchMethod, LogicSlotType, LogicType},
-        object::{templates::ObjectTemplate, traits::ParentSlotInfo, ObjectID, VMObject},
+    network::{CableConnectionType, CableNetwork, Connection, FrozenCableNetwork},
+    vm::object::{traits::ParentSlotInfo, ObjectID, VMObject},
+};
+use stationeers_data::{
+    enums::{
+        script_enums::{LogicBatchMethod, LogicSlotType, LogicType},
+        ConnectionRole,
     },
+    templates::ObjectTemplate,
 };
 use std::{
     cell::RefCell,
@@ -690,7 +693,7 @@ impl VM {
             })
             .filter_ok(|val| !val.is_nan())
             .collect::<Result<Vec<_>, ICError>>()?;
-        Ok(mode.apply(&samples))
+        Ok(LogicBatchMethodWrapper(mode).apply(&samples))
     }
 
     pub fn get_batch_name_device_field(
@@ -713,7 +716,7 @@ impl VM {
             })
             .filter_ok(|val| !val.is_nan())
             .collect::<Result<Vec<_>, ICError>>()?;
-        Ok(mode.apply(&samples))
+        Ok(LogicBatchMethodWrapper(mode).apply(&samples))
     }
 
     pub fn get_batch_name_device_slot_field(
@@ -737,7 +740,7 @@ impl VM {
             })
             .filter_ok(|val| !val.is_nan())
             .collect::<Result<Vec<_>, ICError>>()?;
-        Ok(mode.apply(&samples))
+        Ok(LogicBatchMethodWrapper(mode).apply(&samples))
     }
 
     pub fn get_batch_device_slot_field(
@@ -760,7 +763,7 @@ impl VM {
             })
             .filter_ok(|val| !val.is_nan())
             .collect::<Result<Vec<_>, ICError>>()?;
-        Ok(mode.apply(&samples))
+        Ok(LogicBatchMethodWrapper(mode).apply(&samples))
     }
 
     pub fn remove_object(self: &Rc<Self>, id: ObjectID) -> Result<(), VMError> {
@@ -771,7 +774,7 @@ impl VM {
         if let Some(device) = obj.borrow().as_device() {
             for conn in device.connection_list().iter() {
                 if let Connection::CableNetwork { net: Some(net), .. } = conn {
-                    if let Some(network) = self.networks.borrow().get(net) {
+                    if let Some(network) = self.networks.borrow().get(&net) {
                         network
                             .borrow_mut()
                             .as_mut_network()
@@ -1067,7 +1070,7 @@ impl VMTransaction {
                     role: ConnectionRole::None,
                 } = conn
                 {
-                    if let Some(net) = self.networks.get_mut(net_id) {
+                    if let Some(net) = self.networks.get_mut(&net_id) {
                         match typ {
                             CableConnectionType::Power => net.power_only.push(obj_id),
                             _ => net.devices.push(obj_id),
@@ -1085,9 +1088,11 @@ impl VMTransaction {
     }
 }
 
-impl LogicBatchMethod {
+pub struct LogicBatchMethodWrapper(LogicBatchMethod);
+
+impl LogicBatchMethodWrapper {
     pub fn apply(&self, samples: &[f64]) -> f64 {
-        match self {
+        match self.0 {
             LogicBatchMethod::Sum => samples.iter().sum(),
             // Both c-charp and rust return NaN for 0.0/0.0 so we're good here
             LogicBatchMethod::Average => {

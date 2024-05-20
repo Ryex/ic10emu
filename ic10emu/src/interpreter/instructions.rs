@@ -2,7 +2,6 @@ use crate::{
     errors::ICError,
     interpreter::{i64_to_f64, ICState},
     vm::{
-        enums::script_enums::LogicReagentMode,
         instructions::{
             operands::{InstOperand, RegisterSpec},
             traits::*,
@@ -14,6 +13,7 @@ use crate::{
         },
     },
 };
+use stationeers_data::enums::script_enums::LogicReagentMode;
 pub trait IC10Marker: IntegratedCircuit {}
 
 impl<T: IC10Marker> SleepInstruction for T {

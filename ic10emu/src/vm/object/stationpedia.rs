@@ -1,9 +1,10 @@
 use std::rc::Rc;
 
-use crate::vm::object::VMObject;
-use crate::vm::{enums::prefabs::StationpediaPrefab, VM};
+use stationeers_data::{enums::prefabs::StationpediaPrefab, templates::ObjectTemplate};
 
-use super::templates::ObjectTemplate;
+use crate::vm::object::VMObject;
+use crate::vm::VM;
+
 use super::ObjectID;
 
 pub mod structs;

@@ -4,6 +4,7 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
+stationeers_data = { path = "../stationeers_data" }
 clap = { version = "4.5.4", features = ["derive", "env"] }
 color-eyre = "0.6.3"
 convert_case = "0.6.0"
@@ -11,15 +12,21 @@ indexmap = { version = "2.2.6", features = ["serde"] }
 # onig = "6.4.0"
 phf_codegen = "0.11.2"
 regex = "1.10.4"
-serde = "1.0.200"
-serde_derive = "1.0.200"
+serde = "1.0.202"
+serde_derive = "1.0.202"
 serde_ignored = "0.1.10"
-serde_json = "1.0.116"
+serde_json = "1.0.117"
 serde_path_to_error = "0.1.16"
 serde_with = "3.8.1"
 textwrap = { version = "0.16.1", default-features = false }
-thiserror = "1.0.58"
+thiserror = "1.0.61"
 
 onig = { git = "https://github.com/rust-onig/rust-onig", revision = "fa90c0e97e90a056af89f183b23cd417b59ee6a2" }
 tracing = "0.1.40"
-
+quote = "1.0.36"
+prettyplease = "0.2.20"
+syn = "2.0.64"
+proc-macro2 = "1.0.82"
+num-integer = "0.1.46"
+num = "0.4.3"
+uneval = "0.2.4"
