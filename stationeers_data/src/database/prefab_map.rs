@@ -26,6 +26,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::AccessCard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -47,6 +49,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::AccessCard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -68,6 +72,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::AccessCard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -89,6 +95,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::AccessCard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -110,6 +118,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::AccessCard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -131,6 +141,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::AccessCard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -152,6 +164,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::AccessCard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -173,6 +187,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::AccessCard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -194,6 +210,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::AccessCard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -215,6 +233,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::AccessCard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -236,6 +256,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::AccessCard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -257,12 +279,14 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::AccessCard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
         (
             1365789392i32,
-            ItemSlotsTemplate {
+            ItemConsumerTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "ApplianceChemistryStation".into(),
                     prefab_hash: 1365789392i32,
@@ -278,9 +302,21 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Appliance,
                     sorting_class: SortingClass::Appliances,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Output".into(), typ : Class::None }]
                     .into_iter()
                     .collect(),
+                consumer_info: ConsumerInfo {
+                    consumed_resouces: vec![
+                        "ItemCharcoal".into(), "ItemCobaltOre".into(), "ItemFern".into(),
+                        "ItemSilverIngot".into(), "ItemSilverOre".into(), "ItemSoyOil"
+                        .into()
+                    ]
+                        .into_iter()
+                        .collect(),
+                    processed_reagents: vec![].into_iter().collect(),
+                },
             }
                 .into(),
         ),
@@ -302,6 +338,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Appliance,
                     sorting_class: SortingClass::Appliances,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -323,12 +361,14 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Appliance,
                     sorting_class: SortingClass::Appliances,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
         (
             -1136173965i32,
-            ItemSlotsTemplate {
+            ItemConsumerTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "ApplianceMicrowave".into(),
                     prefab_hash: -1136173965i32,
@@ -345,15 +385,30 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Appliance,
                     sorting_class: SortingClass::Appliances,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Output".into(), typ : Class::None }]
                     .into_iter()
                     .collect(),
+                consumer_info: ConsumerInfo {
+                    consumed_resouces: vec![
+                        "ItemCorn".into(), "ItemEgg".into(), "ItemFertilizedEgg".into(),
+                        "ItemFlour".into(), "ItemMilk".into(), "ItemMushroom".into(),
+                        "ItemPotato".into(), "ItemPumpkin".into(), "ItemRice".into(),
+                        "ItemSoybean".into(), "ItemSoyOil".into(), "ItemTomato".into(),
+                        "ItemSugarCane".into(), "ItemCocoaTree".into(), "ItemCocoaPowder"
+                        .into(), "ItemSugar".into()
+                    ]
+                        .into_iter()
+                        .collect(),
+                    processed_reagents: vec![].into_iter().collect(),
+                },
             }
                 .into(),
         ),
         (
             -749191906i32,
-            ItemSlotsTemplate {
+            ItemConsumerTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "AppliancePackagingMachine".into(),
                     prefab_hash: -749191906i32,
@@ -370,15 +425,30 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Appliance,
                     sorting_class: SortingClass::Appliances,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Export".into(), typ : Class::None }]
                     .into_iter()
                     .collect(),
+                consumer_info: ConsumerInfo {
+                    consumed_resouces: vec![
+                        "ItemCookedCondensedMilk".into(), "ItemCookedCorn".into(),
+                        "ItemCookedMushroom".into(), "ItemCookedPowderedEggs".into(),
+                        "ItemCookedPumpkin".into(), "ItemCookedRice".into(),
+                        "ItemCookedSoybean".into(), "ItemCookedTomato".into(),
+                        "ItemEmptyCan".into(), "ItemMilk".into(), "ItemPotatoBaked"
+                        .into(), "ItemSoyOil".into()
+                    ]
+                        .into_iter()
+                        .collect(),
+                    processed_reagents: vec![].into_iter().collect(),
+                },
             }
                 .into(),
         ),
         (
             -1339716113i32,
-            ItemSlotsTemplate {
+            ItemConsumerTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "AppliancePaintMixer".into(),
                     prefab_hash: -1339716113i32,
@@ -394,9 +464,21 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Appliance,
                     sorting_class: SortingClass::Appliances,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Output".into(), typ : Class::Bottle }]
                     .into_iter()
                     .collect(),
+                consumer_info: ConsumerInfo {
+                    consumed_resouces: vec![
+                        "ItemSoyOil".into(), "ReagentColorBlue".into(),
+                        "ReagentColorGreen".into(), "ReagentColorOrange".into(),
+                        "ReagentColorRed".into(), "ReagentColorYellow".into()
+                    ]
+                        .into_iter()
+                        .collect(),
+                    processed_reagents: vec![].into_iter().collect(),
+                },
             }
                 .into(),
         ),
@@ -419,6 +501,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Appliance,
                     sorting_class: SortingClass::Appliances,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Input".into(), typ : Class::Tool }]
                     .into_iter()
                     .collect(),
@@ -444,6 +528,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Appliance,
                     sorting_class: SortingClass::Appliances,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Source Plant".into(), typ : Class::Plant },
                     SlotInfo { name : "Target Plant".into(), typ : Class::Plant }
@@ -472,6 +558,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Appliance,
                     sorting_class: SortingClass::Appliances,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Plant".into(), typ : Class::Plant }]
                     .into_iter()
                     .collect(),
@@ -480,7 +568,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
         ),
         (
             1260918085i32,
-            ItemSlotsTemplate {
+            ItemConsumerTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "ApplianceReagentProcessor".into(),
                     prefab_hash: 1260918085i32,
@@ -497,12 +585,25 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Appliance,
                     sorting_class: SortingClass::Appliances,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Input".into(), typ : Class::None }, SlotInfo {
                     name : "Output".into(), typ : Class::None }
                 ]
                     .into_iter()
                     .collect(),
+                consumer_info: ConsumerInfo {
+                    consumed_resouces: vec![
+                        "ItemWheat".into(), "ItemSugarCane".into(), "ItemCocoaTree"
+                        .into(), "ItemSoybean".into(), "ItemFlowerBlue".into(),
+                        "ItemFlowerGreen".into(), "ItemFlowerOrange".into(),
+                        "ItemFlowerRed".into(), "ItemFlowerYellow".into()
+                    ]
+                        .into_iter()
+                        .collect(),
+                    processed_reagents: vec![].into_iter().collect(),
+                },
             }
                 .into(),
         ),
@@ -525,6 +626,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Appliance,
                     sorting_class: SortingClass::Appliances,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Plant".into(), typ : Class::Plant }, SlotInfo {
                     name : "Plant".into(), typ : Class::Plant }, SlotInfo { name :
@@ -561,6 +664,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Appliance,
                     sorting_class: SortingClass::Appliances,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "<N:EN:Tablet>".into(), typ : Class::Tool }
                 ]
@@ -588,6 +693,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -610,6 +717,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Battery,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -654,6 +763,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Battery,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -697,6 +808,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Storage,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "".into(), typ : Class::None }, SlotInfo { name :
                     "".into(), typ : Class::None }, SlotInfo { name : "".into(), typ :
@@ -727,6 +840,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Cartridge,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -749,6 +864,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Cartridge,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -770,6 +887,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Cartridge,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -791,6 +910,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Cartridge,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -812,6 +933,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Cartridge,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -833,6 +956,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Cartridge,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -855,6 +980,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Cartridge,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -877,6 +1004,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Cartridge,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -899,6 +1028,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Cartridge,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -921,6 +1052,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Cartridge,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -942,6 +1075,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Cartridge,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -963,6 +1098,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Cartridge,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -984,6 +1121,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Circuitboard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -1006,6 +1145,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Circuitboard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -1028,6 +1169,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Circuitboard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -1050,6 +1193,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Circuitboard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -1072,6 +1217,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Circuitboard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -1094,6 +1241,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Circuitboard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -1115,6 +1264,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Circuitboard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -1136,6 +1287,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Circuitboard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -1158,6 +1311,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Circuitboard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -1180,6 +1335,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Circuitboard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -1202,6 +1359,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Circuitboard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -1224,6 +1383,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Circuitboard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -1237,6 +1398,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Roll Cover".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -1295,6 +1458,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Storage,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "".into(), typ : Class::None }, SlotInfo { name :
                     "".into(), typ : Class::None }, SlotInfo { name : "".into(), typ :
@@ -1329,6 +1494,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -1343,6 +1510,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Low frequency oscillator".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -1403,6 +1572,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Device Step Unit".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -1519,6 +1690,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Battery".into(), typ : Class::Battery }]
                     .into_iter()
                     .collect(),
@@ -1544,6 +1720,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Storage,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "".into(), typ : Class::None }, SlotInfo { name :
                     "".into(), typ : Class::None }, SlotInfo { name : "".into(), typ :
@@ -1577,6 +1755,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -1630,6 +1810,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.025f32,
+                    radiation_factor: 0.025f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Gas Canister".into(), typ : Class::None }]
                     .into_iter()
                     .collect(),
@@ -1655,6 +1840,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.025f32,
+                    radiation_factor: 0.025f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Gas Canister".into(), typ : Class::None }]
                     .into_iter()
                     .collect(),
@@ -1680,6 +1870,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.025f32,
+                    radiation_factor: 0.025f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Gas Canister".into(), typ : Class::None }]
                     .into_iter()
                     .collect(),
@@ -1705,6 +1900,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.025f32,
+                    radiation_factor: 0.025f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Gas Canister".into(), typ : Class::None }]
                     .into_iter()
                     .collect(),
@@ -1730,6 +1930,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.025f32,
+                    radiation_factor: 0.025f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Gas Canister".into(), typ : Class::None }]
                     .into_iter()
                     .collect(),
@@ -1754,6 +1959,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.025f32,
+                    radiation_factor: 0.025f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Gas Canister".into(), typ : Class::None }]
                     .into_iter()
                     .collect(),
@@ -1779,6 +1989,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.025f32,
+                    radiation_factor: 0.025f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Gas Canister".into(), typ : Class::None }]
                     .into_iter()
                     .collect(),
@@ -1803,6 +2018,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.025f32,
+                    radiation_factor: 0.025f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Gas Canister".into(), typ : Class::None }]
                     .into_iter()
                     .collect(),
@@ -1827,6 +2047,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.025f32,
+                    radiation_factor: 0.025f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Gas Canister".into(), typ : Class::None }]
                     .into_iter()
                     .collect(),
@@ -1852,6 +2077,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.025f32,
+                    radiation_factor: 0.025f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Gas Canister".into(), typ : Class::None }]
                     .into_iter()
                     .collect(),
@@ -1877,6 +2107,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.025f32,
+                    radiation_factor: 0.025f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Gas Canister".into(), typ : Class::LiquidCanister
                     }
@@ -1904,6 +2139,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Gas Canister".into(), typ : Class::None }]
                     .into_iter()
                     .collect(),
@@ -1928,6 +2168,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Gas Canister".into(), typ : Class::None }]
                     .into_iter()
                     .collect(),
@@ -1953,6 +2198,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Gas Canister".into(), typ : Class::GasCanister },
                     SlotInfo { name : "Battery".into(), typ : Class::Battery }
@@ -1980,6 +2230,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.05f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Plant".into(), typ : Class::Plant }, SlotInfo {
                     name : "Plant".into(), typ : Class::Plant }, SlotInfo { name :
@@ -2015,6 +2270,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -2069,6 +2326,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.025f32,
+                    radiation_factor: 0.025f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Liquid Canister".into(), typ :
                     Class::LiquidCanister }
@@ -2097,6 +2359,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Liquid Canister".into(), typ :
                     Class::LiquidCanister }
@@ -2125,6 +2392,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Liquid Canister".into(), typ :
                     Class::LiquidCanister }
@@ -2153,6 +2425,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Battery".into(), typ : Class::Battery }, SlotInfo
                     { name : "Gas Filter".into(), typ : Class::GasFilter }, SlotInfo {
@@ -2181,6 +2458,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -2203,6 +2482,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -2224,6 +2505,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -2246,6 +2529,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Brain".into(), typ : Class::Organ }]
                     .into_iter()
                     .collect(),
@@ -2271,6 +2559,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Brain".into(), typ : Class::Organ }]
                     .into_iter()
                     .collect(),
@@ -2296,6 +2589,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Brain".into(), typ : Class::Organ }]
                     .into_iter()
                     .collect(),
@@ -2321,6 +2619,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Brain".into(), typ : Class::Organ }]
                     .into_iter()
                     .collect(),
@@ -2346,6 +2649,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Brain".into(), typ : Class::Organ }]
                     .into_iter()
                     .collect(),
@@ -2371,6 +2679,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -2392,6 +2702,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "".into(), typ : Class::Magazine }]
                     .into_iter()
                     .collect(),
@@ -2408,6 +2720,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Flag (ODA 10m)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -2421,6 +2735,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Flag (ODA 4m)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -2434,6 +2750,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Flag (ODA 6m)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -2447,6 +2765,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Flag (ODA 8m)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -2468,6 +2788,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Magazine".into(), typ : Class::Flare }, SlotInfo {
                     name : "<N:EN:Chamber>".into(), typ : Class::Blocked }
@@ -2479,7 +2801,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
         ),
         (
             1840108251i32,
-            StructureLogicDeviceTemplate {
+            StructureCircuitHolderTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "H2Combustor".into(),
                     prefab_hash: 1840108251i32,
@@ -2488,6 +2810,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "H2 Combustor".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
                         .into_iter()
@@ -2621,6 +2948,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Magazine".into(), typ : Class::Magazine }]
                     .into_iter()
                     .collect(),
@@ -2645,6 +2974,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Magazine,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -2666,6 +2997,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -2687,6 +3020,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Circuitboard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -2709,6 +3044,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -2730,12 +3067,14 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
         (
             1722785341i32,
-            ItemLogicTemplate {
+            ItemCircuitHolderTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "ItemAdvancedTablet".into(),
                     prefab_hash: 1722785341i32,
@@ -2752,6 +3091,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -2836,6 +3177,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -2857,6 +3200,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -2878,6 +3223,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -2929,6 +3276,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -2981,6 +3330,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3005,6 +3356,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ingot,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3026,6 +3379,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3047,6 +3402,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3068,6 +3425,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3089,6 +3448,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3111,6 +3472,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Battery,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -3155,6 +3518,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Battery,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -3199,6 +3564,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Battery,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -3243,6 +3610,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3264,6 +3633,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3285,6 +3656,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -3337,6 +3710,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3358,6 +3733,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3379,6 +3756,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3401,6 +3780,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3423,6 +3804,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3444,6 +3827,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3466,6 +3851,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3488,6 +3875,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3510,6 +3899,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3532,6 +3923,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3554,6 +3947,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3576,6 +3971,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3598,6 +3995,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ores,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3620,6 +4019,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3642,6 +4043,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3664,6 +4067,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3686,6 +4091,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3707,6 +4114,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3728,6 +4137,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3749,6 +4160,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3770,6 +4183,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3794,6 +4209,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ores,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3816,6 +4233,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ores,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3837,6 +4256,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3858,6 +4279,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3879,6 +4302,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3902,6 +4327,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ingot,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3923,6 +4350,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3944,6 +4373,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3967,6 +4398,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -3988,6 +4421,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4009,6 +4444,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4030,6 +4467,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4051,6 +4490,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4072,6 +4513,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4094,6 +4537,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ingot,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4116,6 +4561,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ores,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4138,6 +4585,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4160,6 +4609,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4181,6 +4632,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::CreditCard,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4202,6 +4655,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4224,6 +4679,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4245,6 +4702,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::DataDisk,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4267,6 +4726,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4289,6 +4750,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Ores,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4311,6 +4774,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4333,6 +4798,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -4385,6 +4852,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4406,6 +4875,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4427,6 +4898,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4448,6 +4921,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Storage,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "".into(), typ : Class::Egg }, SlotInfo { name : ""
                     .into(), typ : Class::Egg }, SlotInfo { name : "".into(), typ :
@@ -4478,6 +4953,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4501,6 +4978,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ingot,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4522,6 +5001,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -4573,6 +5054,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -4624,6 +5107,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4645,6 +5130,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -4680,7 +5167,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
         ),
         (
             1791306431i32,
-            ItemSlotsTemplate {
+            ItemSuitTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "ItemEmergencyEvaSuit".into(),
                     prefab_hash: 1791306431i32,
@@ -4696,6 +5183,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Suit,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.2f32,
+                    radiation_factor: 0.2f32,
+                }),
+                internal_atmo_info: Some(InternalAtmoInfo { volume: 10f32 }),
                 slots: vec![
                     SlotInfo { name : "Air Tank".into(), typ : Class::GasCanister },
                     SlotInfo { name : "Waste Tank".into(), typ : Class::GasCanister },
@@ -4706,6 +5198,10 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 ]
                     .into_iter()
                     .collect(),
+                suit_info: SuitInfo {
+                    hygine_reduction_multiplier: 1f32,
+                    waste_max_pressure: 4053f32,
+                },
             }
                 .into(),
         ),
@@ -4727,6 +5223,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4748,6 +5246,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4769,6 +5269,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Helmet,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: Some(InternalAtmoInfo { volume: 3f32 }),
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -4828,6 +5333,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Belt,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Tool".into(), typ : Class::Tool }, SlotInfo { name
                     : "Tool".into(), typ : Class::Tool }, SlotInfo { name : "Tool"
@@ -4860,6 +5367,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4881,6 +5390,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4903,12 +5414,14 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
         (
             1677018918i32,
-            ItemSlotsTemplate {
+            ItemSuitTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "ItemEvaSuit".into(),
                     prefab_hash: 1677018918i32,
@@ -4925,6 +5438,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Suit,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.2f32,
+                    radiation_factor: 0.2f32,
+                }),
+                internal_atmo_info: Some(InternalAtmoInfo { volume: 10f32 }),
                 slots: vec![
                     SlotInfo { name : "Air Tank".into(), typ : Class::GasCanister },
                     SlotInfo { name : "Waste Tank".into(), typ : Class::GasCanister },
@@ -4935,6 +5453,10 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 ]
                     .into_iter()
                     .collect(),
+                suit_info: SuitInfo {
+                    hygine_reduction_multiplier: 1f32,
+                    waste_max_pressure: 4053f32,
+                },
             }
                 .into(),
         ),
@@ -4956,6 +5478,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -4980,6 +5504,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5002,6 +5528,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Egg,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5024,6 +5552,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5045,6 +5575,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5066,6 +5598,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5087,6 +5621,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -5144,6 +5680,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5165,6 +5703,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5186,6 +5726,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5207,6 +5749,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5228,6 +5772,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5249,6 +5795,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5270,6 +5818,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5291,6 +5841,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5312,6 +5864,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasCanister,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.05f32,
+                }),
+                internal_atmo_info: Some(InternalAtmoInfo { volume: 64f32 }),
             }
                 .into(),
         ),
@@ -5333,6 +5890,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasCanister,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.05f32,
+                }),
+                internal_atmo_info: Some(InternalAtmoInfo { volume: 64f32 }),
             }
                 .into(),
         ),
@@ -5354,6 +5916,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasCanister,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.05f32,
+                }),
+                internal_atmo_info: Some(InternalAtmoInfo { volume: 64f32 }),
             }
                 .into(),
         ),
@@ -5375,6 +5942,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasCanister,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.05f32,
+                }),
+                internal_atmo_info: Some(InternalAtmoInfo { volume: 64f32 }),
             }
                 .into(),
         ),
@@ -5396,6 +5968,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasCanister,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.05f32,
+                }),
+                internal_atmo_info: Some(InternalAtmoInfo { volume: 64f32 }),
             }
                 .into(),
         ),
@@ -5417,6 +5994,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasCanister,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.05f32,
+                }),
+                internal_atmo_info: Some(InternalAtmoInfo { volume: 64f32 }),
             }
                 .into(),
         ),
@@ -5438,6 +6020,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasCanister,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.05f32,
+                }),
+                internal_atmo_info: Some(InternalAtmoInfo { volume: 64f32 }),
             }
                 .into(),
         ),
@@ -5459,6 +6046,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasCanister,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: Some(InternalAtmoInfo { volume: 64f32 }),
             }
                 .into(),
         ),
@@ -5480,6 +6072,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasCanister,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.05f32,
+                }),
+                internal_atmo_info: Some(InternalAtmoInfo { volume: 64f32 }),
             }
                 .into(),
         ),
@@ -5501,6 +6098,13 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::LiquidCanister,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.05f32,
+                }),
+                internal_atmo_info: Some(InternalAtmoInfo {
+                    volume: 12.1f32,
+                }),
             }
                 .into(),
         ),
@@ -5523,6 +6127,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5545,6 +6151,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5566,6 +6174,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5587,6 +6197,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5609,6 +6221,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5631,6 +6245,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5652,6 +6268,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5673,6 +6291,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5694,6 +6314,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5716,6 +6338,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5737,6 +6361,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5758,6 +6384,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5780,6 +6408,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5802,6 +6432,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5823,6 +6455,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5844,6 +6478,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5866,6 +6502,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5888,6 +6526,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5909,6 +6549,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5930,6 +6572,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5952,6 +6596,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5974,6 +6620,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -5995,6 +6643,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -6016,6 +6666,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -6038,6 +6690,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -6060,6 +6714,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -6081,6 +6737,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -6102,6 +6760,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasFilter,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -6123,6 +6783,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -6145,6 +6807,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -6167,6 +6831,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -6188,6 +6854,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Glasses,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -6210,6 +6878,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ingot,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -6232,6 +6902,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ores,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -6254,6 +6926,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -6275,6 +6949,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -6297,6 +6973,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Back,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -6430,6 +7108,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Back,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -6592,6 +7272,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Back,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Ore".into(), typ : Class::Ore }, SlotInfo { name :
                     "Ore".into(), typ : Class::Ore }, SlotInfo { name : "Ore".into(), typ
@@ -6622,7 +7304,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
         ),
         (
             -1758310454i32,
-            ItemLogicMemoryTemplate {
+            ItemSuitCircuitHolderTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "ItemHardSuit".into(),
                     prefab_hash: -1758310454i32,
@@ -6639,6 +7321,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Suit,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.05f32,
+                }),
+                internal_atmo_info: Some(InternalAtmoInfo { volume: 10f32 }),
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -6781,6 +7468,10 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 ]
                     .into_iter()
                     .collect(),
+                suit_info: SuitInfo {
+                    hygine_reduction_multiplier: 1.5f32,
+                    waste_max_pressure: 4053f32,
+                },
                 memory: MemoryInfo {
                     instructions: None,
                     memory_access: MemoryAccess::ReadWrite,
@@ -6808,6 +7499,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Helmet,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: Some(InternalAtmoInfo { volume: 3f32 }),
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -6869,6 +7565,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ingot,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -6890,6 +7588,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Helmet,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -6911,6 +7611,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::GasCanister,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.05f32,
+                }),
+                internal_atmo_info: Some(InternalAtmoInfo { volume: 83f32 }),
             }
                 .into(),
         ),
@@ -6932,6 +7637,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Belt,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Tool".into(), typ : Class::Tool }, SlotInfo { name
                     : "Tool".into(), typ : Class::Tool }, SlotInfo { name : "Plant"
@@ -6967,6 +7674,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -6989,6 +7698,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ices,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7011,6 +7722,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7032,6 +7745,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ingot,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7054,6 +7769,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7075,6 +7792,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::ProgrammableChip,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -7115,6 +7834,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ingot,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7136,6 +7857,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7158,6 +7881,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ingot,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7180,6 +7905,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ores,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7201,6 +7928,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7223,6 +7952,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Back,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -7346,6 +8077,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7367,6 +8100,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7388,6 +8123,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7409,6 +8146,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7430,6 +8169,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7451,6 +8192,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7472,6 +8215,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7493,6 +8238,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7514,6 +8261,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7535,6 +8284,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7556,6 +8307,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7577,6 +8330,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7598,6 +8353,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7619,6 +8376,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7640,6 +8399,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7661,6 +8422,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7682,6 +8445,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7703,6 +8468,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7724,6 +8491,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7745,6 +8514,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7766,6 +8537,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7787,6 +8560,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7808,6 +8583,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7829,6 +8606,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7850,6 +8629,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7871,6 +8652,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7892,6 +8675,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7913,6 +8698,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7934,6 +8721,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7955,6 +8744,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7976,6 +8767,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -7997,6 +8790,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8018,6 +8813,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8039,6 +8836,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8060,6 +8859,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8081,6 +8882,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8102,6 +8905,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8123,6 +8928,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8144,6 +8951,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8165,6 +8974,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8186,6 +8997,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8207,6 +9020,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8228,6 +9043,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8249,6 +9066,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8270,6 +9089,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8291,6 +9112,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8312,6 +9135,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8333,6 +9158,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8354,6 +9181,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8375,6 +9204,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8396,6 +9227,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8417,6 +9250,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8438,6 +9273,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8459,6 +9296,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8480,6 +9319,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8501,6 +9342,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8522,6 +9365,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8543,6 +9388,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8564,6 +9411,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8585,6 +9434,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8606,6 +9457,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8627,6 +9480,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8648,6 +9503,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8669,6 +9526,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8690,6 +9549,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8711,6 +9572,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8732,6 +9595,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8753,6 +9618,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8774,6 +9641,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8795,6 +9664,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8816,6 +9687,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8837,6 +9710,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8858,6 +9733,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8879,6 +9756,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8900,6 +9779,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8921,6 +9802,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8942,6 +9825,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8963,6 +9848,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -8984,6 +9871,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9005,6 +9894,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9026,6 +9917,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9047,6 +9940,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9068,6 +9963,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9089,6 +9986,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9110,6 +10009,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9131,6 +10032,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9152,6 +10055,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9173,6 +10078,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9194,6 +10101,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9215,6 +10124,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9236,6 +10147,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9257,6 +10170,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9278,6 +10193,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9299,6 +10216,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9320,6 +10239,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9341,6 +10262,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9362,6 +10285,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9383,6 +10308,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9404,6 +10331,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9425,6 +10354,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9446,6 +10377,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9467,6 +10400,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9488,6 +10423,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9509,6 +10446,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9530,6 +10469,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9551,6 +10492,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9572,6 +10515,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9593,6 +10538,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9614,6 +10561,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9635,6 +10584,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9656,6 +10607,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9677,6 +10630,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9698,6 +10653,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9719,6 +10676,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9740,6 +10699,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9761,6 +10722,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9782,6 +10745,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9803,6 +10768,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9824,6 +10791,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9845,6 +10814,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9866,6 +10837,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9887,6 +10860,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9908,6 +10883,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9929,6 +10906,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9950,6 +10929,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9971,6 +10952,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -9992,6 +10975,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10013,6 +10998,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10034,6 +11021,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10055,6 +11044,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10076,6 +11067,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10097,6 +11090,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10118,6 +11113,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10139,6 +11136,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10160,6 +11159,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10181,6 +11182,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10202,6 +11205,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10223,6 +11228,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10244,6 +11251,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10265,6 +11274,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10286,6 +11297,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10307,6 +11320,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10328,6 +11343,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10349,6 +11366,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10370,6 +11389,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10391,6 +11412,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10412,6 +11435,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10433,6 +11458,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10454,6 +11481,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10475,6 +11504,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10496,6 +11527,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10517,6 +11550,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10538,6 +11573,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10559,6 +11596,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10580,6 +11619,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10601,6 +11642,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10622,6 +11665,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10643,6 +11688,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10664,6 +11711,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10685,6 +11734,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10706,6 +11757,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10727,6 +11780,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10748,6 +11803,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10769,6 +11826,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10790,6 +11849,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10811,6 +11872,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10832,6 +11895,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10853,6 +11918,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10874,6 +11941,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10895,6 +11964,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10916,6 +11987,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10937,6 +12010,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10958,6 +12033,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -10979,6 +12056,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -11000,6 +12079,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -11021,6 +12102,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -11042,6 +12125,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -11064,6 +12149,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -11099,7 +12186,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
         ),
         (
             141535121i32,
-            ItemLogicTemplate {
+            ItemCircuitHolderTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "ItemLaptop".into(),
                     prefab_hash: 141535121i32,
@@ -11116,6 +12203,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -11191,6 +12280,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ingot,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -11213,6 +12304,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ores,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -11235,6 +12328,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -11256,6 +12351,13 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::LiquidCanister,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.05f32,
+                }),
+                internal_atmo_info: Some(InternalAtmoInfo {
+                    volume: 12.1f32,
+                }),
             }
                 .into(),
         ),
@@ -11277,6 +12379,13 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::LiquidCanister,
                     sorting_class: SortingClass::Atmospherics,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: Some(InternalAtmoInfo {
+                    volume: 18.1f32,
+                }),
             }
                 .into(),
         ),
@@ -11298,6 +12407,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -11319,6 +12430,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -11341,6 +12454,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -11363,6 +12478,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -11384,6 +12501,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -11406,6 +12525,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -11428,6 +12549,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -11479,6 +12602,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -11531,6 +12656,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -11553,6 +12680,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -11605,6 +12734,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -11627,6 +12758,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -11685,6 +12818,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -11707,6 +12842,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -11729,6 +12866,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -11750,6 +12889,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Suit,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "".into(), typ : Class::None }, SlotInfo { name :
                     "".into(), typ : Class::None }, SlotInfo { name : "".into(), typ :
@@ -11778,6 +12919,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Helmet,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Battery".into(), typ : Class::Battery }]
                     .into_iter()
                     .collect(),
@@ -11803,6 +12946,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -11824,6 +12969,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Back,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Ore".into(), typ : Class::Ore }, SlotInfo { name :
                     "Ore".into(), typ : Class::Ore }, SlotInfo { name : "Ore".into(), typ
@@ -11868,6 +13015,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Belt,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Tool".into(), typ : Class::Tool }, SlotInfo { name
                     : "Tool".into(), typ : Class::Tool }, SlotInfo { name : "Ore".into(),
@@ -11902,6 +13051,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Belt,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -12059,6 +13210,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12081,6 +13234,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -12139,6 +13294,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -12196,6 +13353,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Gas Canister".into(), typ : Class::GasCanister }
                 ]
@@ -12223,6 +13382,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Belt,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -12357,6 +13518,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12381,6 +13544,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12402,6 +13567,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Glasses,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -12454,6 +13621,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ingot,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12476,6 +13645,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ores,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12498,6 +13669,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ices,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12520,6 +13693,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ices,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12542,6 +13717,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12563,6 +13740,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12585,6 +13764,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12607,6 +13788,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12629,6 +13812,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12651,6 +13836,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12673,6 +13860,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12695,6 +13884,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12717,6 +13908,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12739,6 +13932,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12761,6 +13956,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12782,6 +13979,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12804,6 +14003,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12826,6 +14027,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12848,6 +14051,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12870,6 +14075,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12892,6 +14099,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12914,6 +14123,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12935,6 +14146,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12956,6 +14169,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -12978,6 +14193,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13000,6 +14217,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13022,6 +14241,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -13079,6 +14300,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13100,6 +14323,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13122,6 +14347,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13144,6 +14371,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13165,6 +14394,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13187,6 +14418,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13208,6 +14441,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13230,6 +14465,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13252,6 +14489,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13273,6 +14512,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13295,6 +14536,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13317,6 +14560,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ices,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13339,6 +14584,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ices,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13361,6 +14608,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ices,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13383,6 +14632,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ices,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13405,6 +14656,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ices,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13427,6 +14680,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ices,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13449,6 +14704,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ices,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13471,6 +14728,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ices,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13493,6 +14752,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ices,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13515,6 +14776,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ices,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13537,6 +14800,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ices,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13559,6 +14824,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ices,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13581,6 +14848,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ices,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13603,6 +14872,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ices,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13625,6 +14896,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ices,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13647,6 +14920,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ices,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13669,6 +14944,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ices,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13691,6 +14968,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13713,6 +14992,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13735,6 +15016,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ores,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13756,6 +15039,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -13808,6 +15093,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Liquid  Canister".into(), typ :
                     Class::LiquidCanister }
@@ -13836,6 +15123,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13858,6 +15147,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Flare,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13880,6 +15171,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::DrillHead,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13901,6 +15194,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::DrillHead,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13922,6 +15217,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::DrillHead,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13943,6 +15240,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::DrillHead,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13964,6 +15263,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::DrillHead,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -13985,6 +15286,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::DrillHead,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14006,6 +15309,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::DrillHead,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14027,6 +15332,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::ScanningHead,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14049,6 +15356,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14071,6 +15380,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14093,6 +15404,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14115,6 +15428,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Glasses,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -14177,6 +15492,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::SensorProcessingUnit,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14199,6 +15516,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::SensorProcessingUnit,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14221,6 +15540,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::SensorProcessingUnit,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14242,6 +15563,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ingot,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14264,6 +15587,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ores,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14285,6 +15610,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ingot,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14307,6 +15634,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ores,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14328,6 +15657,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ingot,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14351,6 +15682,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14372,6 +15705,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::SoundCartridge,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14393,6 +15728,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::SoundCartridge,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14414,6 +15751,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::SoundCartridge,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14435,6 +15774,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::SoundCartridge,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14456,6 +15797,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14478,6 +15821,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14500,6 +15845,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14522,6 +15869,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Helmet,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: Some(InternalAtmoInfo { volume: 3f32 }),
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -14581,6 +15933,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ores,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14603,6 +15957,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ores,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14625,6 +15981,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Back,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -14749,6 +16107,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Bottle,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14771,6 +16131,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Bottle,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14793,6 +16155,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Bottle,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14815,6 +16179,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Bottle,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14837,6 +16203,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Bottle,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14859,6 +16227,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Bottle,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14881,6 +16251,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Bottle,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14903,6 +16275,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Bottle,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14925,6 +16299,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Bottle,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14947,6 +16323,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Bottle,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14969,6 +16347,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Bottle,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -14991,6 +16371,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Bottle,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15013,6 +16395,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "Spray Can".into(), typ : Class::Bottle }]
                     .into_iter()
                     .collect(),
@@ -15038,6 +16422,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15060,6 +16446,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ingot,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15082,6 +16470,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15103,6 +16493,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15126,6 +16518,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ingot,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15147,6 +16541,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15168,6 +16564,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15190,6 +16588,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::SuitMod,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15212,6 +16612,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -15273,6 +16675,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -15341,6 +16745,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15363,6 +16769,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15385,6 +16793,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Belt,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Tool".into(), typ : Class::Tool }, SlotInfo { name
                     : "Tool".into(), typ : Class::Tool }, SlotInfo { name : "Tool"
@@ -15418,6 +16828,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15440,6 +16852,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ores,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15462,6 +16876,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ore,
                     sorting_class: SortingClass::Ices,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15484,6 +16900,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15506,6 +16924,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15528,6 +16948,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15551,6 +16973,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Ingot,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15573,6 +16997,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::LiquidBottle,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15594,6 +17020,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15615,6 +17043,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15636,6 +17066,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15657,6 +17089,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Helmet,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -15709,6 +17143,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.5f32,
+                    radiation_factor: 0.5f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Gas Canister".into(), typ : Class::GasCanister }
                 ]
@@ -15736,6 +17175,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15758,6 +17199,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15780,6 +17223,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Battery,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -15823,6 +17268,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Wreckage,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15844,6 +17291,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Wreckage,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15865,6 +17314,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Wreckage,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15886,6 +17337,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Wreckage,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15907,6 +17360,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Wreckage,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15928,6 +17383,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Wreckage,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15949,6 +17406,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Wreckage,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15970,6 +17429,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Wreckage,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -15991,6 +17452,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Wreckage,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16012,6 +17475,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Wreckage,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16033,6 +17498,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Wreckage,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16054,6 +17521,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Wreckage,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16075,6 +17544,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Wreckage,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16096,6 +17567,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Wreckage,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16117,6 +17590,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Wreckage,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16138,6 +17613,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Wreckage,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16159,6 +17636,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Wreckage,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16180,6 +17659,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Wreckage,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16202,6 +17683,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Tool,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16224,6 +17707,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16245,6 +17730,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Kits,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16258,6 +17745,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Kitchen Table (Short)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16271,6 +17760,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Kitchen Table (Simple Short)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16284,6 +17775,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Kitchen Table (Simple Tall)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16297,6 +17790,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Kitchen Table (Tall)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16318,6 +17813,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "".into(), typ : Class::None }, SlotInfo { name :
                     "".into(), typ : Class::None }, SlotInfo { name : "".into(), typ :
@@ -16343,6 +17840,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Landingpad 2x2 Center Piece".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![].into_iter().collect(),
@@ -16365,6 +17864,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Landingpad".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16379,6 +17880,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Landingpad Center".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![].into_iter().collect(),
@@ -16410,6 +17913,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Landingpad Cross".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16424,6 +17929,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Landingpad Data And Power".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -16511,6 +18018,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Landingpad Diagonal".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16524,6 +18033,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Landingpad Gas Input".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -16602,6 +18113,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Landingpad Gas Output".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -16680,6 +18193,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Landingpad Gas Storage".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16693,6 +18208,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Landingpad Liquid Input".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -16771,6 +18288,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Landingpad Liquid Output".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -16849,6 +18368,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Landingpad Straight".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16862,6 +18383,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Landingpad Taxi Corner".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16875,6 +18398,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Landingpad Taxi Hold".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16888,6 +18413,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Landingpad Taxi Straight".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -16901,6 +18428,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Landingpad Threshhold".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -16953,6 +18482,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Logic Step Sequencer".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -17040,6 +18571,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -17061,6 +18594,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -17083,6 +18618,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Motherboard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -17105,6 +18642,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Motherboard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -17126,6 +18665,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Motherboard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -17148,6 +18689,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Motherboard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -17169,6 +18712,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Motherboard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -17191,6 +18736,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Motherboard,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -17213,6 +18760,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -17234,6 +18783,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Brain".into(), typ : Class::Organ }, SlotInfo {
                     name : "Lungs".into(), typ : Class::Organ }
@@ -17261,6 +18815,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Brain".into(), typ : Class::Organ }, SlotInfo {
                     name : "Lungs".into(), typ : Class::Organ }
@@ -17280,6 +18839,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Passive Speaker".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -17336,6 +18897,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -17358,6 +18921,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "".into(), typ : Class::None }, SlotInfo { name :
                     "".into(), typ : Class::None }, SlotInfo { name : "".into(), typ :
@@ -17387,6 +18952,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -17429,6 +18996,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Railing Elegant (Type 1)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -17442,6 +19011,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Railing Elegant (Type 2)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -17455,6 +19026,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Railing Industrial (Type 2)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -17478,6 +19051,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -17501,6 +19076,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -17524,6 +19101,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -17547,6 +19126,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -17570,6 +19151,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Resources,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -17584,6 +19167,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Respawn Point".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -17597,12 +19182,14 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Respawn Point (Mounted)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
         (
             434786784i32,
-            ItemLogicTemplate {
+            ItemCircuitHolderTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "Robot".into(),
                     prefab_hash: 434786784i32,
@@ -17619,6 +19206,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -17772,6 +19361,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.01f32,
+                    radiation_factor: 0.01f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -17980,6 +19574,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -18129,6 +19728,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Rover MKI".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -18150,6 +19751,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Magazine,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -18171,6 +19774,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -18193,6 +19798,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -18215,6 +19822,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -18237,6 +19846,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -18259,6 +19870,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -18281,6 +19894,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -18303,6 +19918,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -18325,6 +19942,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -18346,6 +19965,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -18367,6 +19988,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -18389,6 +20012,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -18411,6 +20036,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Plant,
                     sorting_class: SortingClass::Food,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -18433,6 +20060,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Captain\'s Seat".into(), typ : Class::Entity },
                     SlotInfo { name : "Passenger Seat Left".into(), typ : Class::Entity
@@ -18454,6 +20083,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Stop Watch".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -18504,6 +20135,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Access Bridge".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -18556,6 +20189,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Active Vent".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -18632,6 +20267,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Advanced Composter".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -18711,6 +20348,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Advanced Furnace".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -18807,7 +20449,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
         ),
         (
             -463037670i32,
-            StructureLogicDeviceMemoryTemplate {
+            StructureLogicDeviceConsumerMemoryTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "StructureAdvancedPackagingMachine".into(),
                     prefab_hash: -463037670i32,
@@ -18816,6 +20458,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Advanced Packaging Machine".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -18873,6 +20517,19 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     has_open_state: true,
                     has_reagents: true,
                 },
+                consumer_info: ConsumerInfo {
+                    consumed_resouces: vec![
+                        "ItemCookedCondensedMilk".into(), "ItemCookedCorn".into(),
+                        "ItemCookedMushroom".into(), "ItemCookedPowderedEggs".into(),
+                        "ItemCookedPumpkin".into(), "ItemCookedRice".into(),
+                        "ItemCookedSoybean".into(), "ItemCookedTomato".into(),
+                        "ItemEmptyCan".into(), "ItemMilk".into(), "ItemPotatoBaked"
+                        .into(), "ItemSoyOil".into()
+                    ]
+                        .into_iter()
+                        .collect(),
+                    processed_reagents: vec![].into_iter().collect(),
+                },
                 memory: MemoryInfo {
                     instructions: Some(
                         vec![
@@ -18915,7 +20572,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
         ),
         (
             -2087593337i32,
-            StructureLogicDeviceTemplate {
+            StructureCircuitHolderTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "StructureAirConditioner".into(),
                     prefab_hash: -2087593337i32,
@@ -18924,6 +20581,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Air Conditioner".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
                         .into_iter()
@@ -19053,6 +20715,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Airlock".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -19110,6 +20774,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Small Hangar Door".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -19167,6 +20833,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Bench (Angled)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -19223,6 +20891,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Arc Furnace".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -19310,6 +20980,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Area Power Control".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -19403,6 +21075,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Area Power Control".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -19496,6 +21170,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Autominer (Small)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -19554,7 +21230,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
         ),
         (
             336213101i32,
-            StructureLogicDeviceMemoryTemplate {
+            StructureLogicDeviceConsumerMemoryTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "StructureAutolathe".into(),
                     prefab_hash: 336213101i32,
@@ -19563,6 +21239,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Autolathe".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -19620,6 +21298,22 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     has_open_state: true,
                     has_reagents: true,
                 },
+                consumer_info: ConsumerInfo {
+                    consumed_resouces: vec![
+                        "ItemAstroloyIngot".into(), "ItemConstantanIngot".into(),
+                        "ItemCopperIngot".into(), "ItemElectrumIngot".into(),
+                        "ItemGoldIngot".into(), "ItemHastelloyIngot".into(),
+                        "ItemInconelIngot".into(), "ItemInvarIngot".into(),
+                        "ItemIronIngot".into(), "ItemLeadIngot".into(), "ItemNickelIngot"
+                        .into(), "ItemSiliconIngot".into(), "ItemSilverIngot".into(),
+                        "ItemSolderIngot".into(), "ItemSolidFuel".into(),
+                        "ItemSteelIngot".into(), "ItemStelliteIngot".into(),
+                        "ItemWaspaloyIngot".into(), "ItemWasteIngot".into()
+                    ]
+                        .into_iter()
+                        .collect(),
+                    processed_reagents: vec![].into_iter().collect(),
+                },
                 memory: MemoryInfo {
                     instructions: Some(
                         vec![
@@ -19662,7 +21356,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
         ),
         (
             -1672404896i32,
-            StructureLogicDeviceMemoryTemplate {
+            StructureLogicDeviceConsumerMemoryTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "StructureAutomatedOven".into(),
                     prefab_hash: -1672404896i32,
@@ -19670,6 +21364,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Automated Oven".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -19727,6 +21423,19 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     has_open_state: true,
                     has_reagents: true,
                 },
+                consumer_info: ConsumerInfo {
+                    consumed_resouces: vec![
+                        "ItemCorn".into(), "ItemEgg".into(), "ItemFertilizedEgg".into(),
+                        "ItemFlour".into(), "ItemMilk".into(), "ItemMushroom".into(),
+                        "ItemPotato".into(), "ItemPumpkin".into(), "ItemRice".into(),
+                        "ItemSoybean".into(), "ItemSoyOil".into(), "ItemTomato".into(),
+                        "ItemSugarCane".into(), "ItemCocoaTree".into(), "ItemCocoaPowder"
+                        .into(), "ItemSugar".into()
+                    ]
+                        .into_iter()
+                        .collect(),
+                    processed_reagents: vec![].into_iter().collect(),
+                },
                 memory: MemoryInfo {
                     instructions: Some(
                         vec![
@@ -19778,6 +21487,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Back Volume Regulator".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -19833,6 +21544,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Back Pressure Regulator".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -19887,6 +21600,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Basket Hoop".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -19938,6 +21653,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Station Battery".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -20002,6 +21719,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Battery Cell Charger".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -20119,6 +21838,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Battery Charger Small".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -20200,6 +21921,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Station Battery (Large)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -20264,6 +21987,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Battery (Medium)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -20327,6 +22052,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Auxiliary Rocket Battery ".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -20389,6 +22116,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Beacon".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -20441,6 +22170,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Powered Bench".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -20519,6 +22250,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Bench (Counter Style)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -20597,6 +22330,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Bench (High Tech Style)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -20675,6 +22410,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Bench (Frame Style)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -20753,6 +22490,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Bench (Workbench Style)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -20832,6 +22571,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Blast Door".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -20889,6 +22630,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Block Bed".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -20953,6 +22696,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Blocker".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -20966,6 +22711,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Cable Analyzer".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -21015,6 +22762,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Cable (Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21029,6 +22778,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Cable (3-Way Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21042,6 +22793,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Burnt Cable (3-Way Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21055,6 +22808,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "<N:EN:StructureCableCorner3HBurnt>".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21068,6 +22823,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Cable (4-Way Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21081,6 +22838,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Burnt Cable (4-Way Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21094,6 +22853,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Burnt Heavy Cable (4-Way Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21107,6 +22868,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Burnt Cable (Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21120,6 +22883,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Heavy Cable (Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21133,6 +22898,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Heavy Cable (3-Way Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21146,6 +22913,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Heavy Cable (4-Way Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21159,6 +22928,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Burnt Cable (Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21172,6 +22943,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Fuse (100kW)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -21212,6 +22985,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Fuse (1kW)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -21252,6 +23027,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Fuse (50kW)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -21292,6 +23069,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Fuse (5kW)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -21333,6 +23112,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Cable (Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21347,6 +23128,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Cable (4-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21360,6 +23143,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Burnt Cable (4-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21373,6 +23158,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Burnt Cable (4-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21386,6 +23173,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Cable (5-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21399,6 +23188,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Burnt Cable (5-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21413,6 +23204,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Cable (6-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21426,6 +23219,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Burnt Cable (6-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21439,6 +23234,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Burnt Cable (6-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21452,6 +23249,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Burnt Cable (Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21465,6 +23264,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Heavy Cable (3-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21478,6 +23279,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Heavy Cable (4-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21491,6 +23294,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Heavy Cable (5-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21504,6 +23309,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Burnt Heavy Cable (5-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21517,6 +23324,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Heavy Cable (6-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21530,6 +23339,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Burnt Cable (Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21544,6 +23355,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Cable (Straight)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21557,6 +23370,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Burnt Cable (Straight)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21570,6 +23385,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Heavy Cable (Straight)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21583,6 +23400,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Burnt Cable (Straight)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -21597,6 +23416,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Camera".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -21647,6 +23468,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Gas Capsule Tank Small".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.002f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -21717,6 +23543,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Capsule Tank Small".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.002f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -21787,6 +23618,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Cargo Storage (Medium)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -22006,6 +23839,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Cargo Storage (Small)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -22584,6 +24419,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Centrifuge".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -22651,6 +24488,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chair".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -22706,6 +24545,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chair (Backless Double)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -22761,6 +24602,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chair (Backless Single)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -22816,6 +24659,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chair (Booth Corner Left)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -22871,6 +24716,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chair (Booth Middle)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -22926,6 +24773,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chair (Rectangle Double)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -22981,6 +24830,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chair (Rectangle Single)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -23036,6 +24887,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chair (Thick Double)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -23091,6 +24944,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chair (Thick Single)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -23147,6 +25002,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chute Bin".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -23213,6 +25070,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chute (Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Transport Slot".into(), typ : Class::None }
                 ]
@@ -23232,6 +25091,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chute Digital Flip Flop Splitter Left".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -23309,6 +25170,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chute Digital Flip Flop Splitter Right".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -23386,6 +25249,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chute Digital Valve Left".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -23458,6 +25323,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chute Digital Valve Right".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -23529,6 +25396,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chute Flip Flop Splitter".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Transport Slot".into(), typ : Class::None }
                 ]
@@ -23548,6 +25417,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chute Inlet".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -23613,6 +25484,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chute (Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Transport Slot".into(), typ : Class::None }
                 ]
@@ -23632,6 +25505,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chute Outlet".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -23698,6 +25573,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chute Overflow".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Transport Slot".into(), typ : Class::None }
                 ]
@@ -23717,6 +25594,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chute (Straight)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Transport Slot".into(), typ : Class::None }
                 ]
@@ -23735,6 +25614,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Umbilical Socket (Chute)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -23797,6 +25678,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Umbilical Socket Angle (Chute)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -23859,6 +25742,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Umbilical (Chute)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -23935,6 +25820,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chute Valve".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Transport Slot".into(), typ : Class::None }
                 ]
@@ -23954,6 +25841,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Chute (Window)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Transport Slot".into(), typ : Class::None }
                 ]
@@ -23964,7 +25853,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
         ),
         (
             -128473777i32,
-            StructureLogicDeviceMemoryTemplate {
+            StructureCircuitHolderTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "StructureCircuitHousing".into(),
                     prefab_hash: -128473777i32,
@@ -23972,6 +25861,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "IC Housing".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -24029,17 +25920,12 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     has_open_state: false,
                     has_reagents: false,
                 },
-                memory: MemoryInfo {
-                    instructions: None,
-                    memory_access: MemoryAccess::ReadWrite,
-                    memory_size: 0u32,
-                },
             }
                 .into(),
         ),
         (
             1238905683i32,
-            StructureLogicDeviceTemplate {
+            StructureCircuitHolderTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "StructureCombustionCentrifuge".into(),
                     prefab_hash: 1238905683i32,
@@ -24048,6 +25934,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Combustion Centrifuge".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.001f32,
+                    radiation_factor: 0.001f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -24179,6 +26070,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Cladding (Angled)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24192,6 +26085,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Cladding (Angled Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24205,6 +26100,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Cladding (Angled Corner Inner)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24219,6 +26116,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Cladding (Angled Corner Inner Long)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24233,6 +26132,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Cladding (Angled Corner Inner Long L)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24247,6 +26148,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Cladding (Angled Corner Inner Long R)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24260,6 +26163,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Cladding (Long Angled Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24273,6 +26178,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Cladding (Long Angled Mirrored Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24286,6 +26193,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Cladding (Long Angled)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24299,6 +26208,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Cladding (Cylindrical)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24312,6 +26223,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Cladding (Cylindrical Panel)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24325,6 +26238,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Cladding (Panel)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24338,6 +26253,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Cladding (Rounded)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24351,6 +26268,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Cladding (Rounded Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24364,6 +26283,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Cladding (Rounded Corner Inner)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24377,6 +26298,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Cladding (Spherical)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24390,6 +26313,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Cladding (Spherical Cap)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24403,6 +26328,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Cladding (Spherical Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24417,6 +26344,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Door".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -24475,6 +26404,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Floor Grating".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24488,6 +26419,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Floor Grating  (Type 2)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24501,6 +26434,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Floor Grating  (Type 3)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24514,6 +26449,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Floor Grating  (Type 4)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24527,6 +26464,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Floor Grating Open".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24540,6 +26479,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Floor Grating Open Rotated".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24554,6 +26495,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Wall (Type 1)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24567,6 +26510,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Wall (Type 2)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24580,6 +26525,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Wall (Type 3)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24593,6 +26540,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Wall (Type 4)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24607,6 +26556,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Composite Window".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24620,6 +26571,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Iron Window".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -24634,6 +26587,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Computer".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -24696,6 +26651,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Condensation Chamber".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.001f32,
+                    radiation_factor: 0.000050000002f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -24775,6 +26735,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Condensation Valve".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -24825,6 +26787,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Console".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -24885,6 +26849,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Console Dual".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -24945,6 +26911,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "LED Display (Medium)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -25002,6 +26970,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "LED Display (Large)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -25059,6 +27029,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "LED Display (Small)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -25117,6 +27089,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Console Monitor".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -25177,6 +27151,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Control Chair".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -25276,6 +27255,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Corner Locker".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -25383,6 +27364,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Container Mount".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Container Slot".into(), typ : Class::None }
                 ]
@@ -25402,6 +27385,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "CryoTube".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -25477,6 +27465,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Cryo Tube Horizontal".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.005f32,
+                    radiation_factor: 0.005f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
                         .into_iter()
@@ -25541,6 +27534,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Cryo Tube Vertical".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.005f32,
+                    radiation_factor: 0.005f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
                         .into_iter()
@@ -25605,6 +27603,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Daylight Sensor".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -25663,6 +27663,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Deep Miner".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
                         .into_iter()
@@ -25725,6 +27727,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Digital Valve".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -25779,6 +27783,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "LED".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -25828,6 +27834,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Diode Slide".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -25877,6 +27885,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Dock (Port Side)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -25929,6 +27939,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "<N:EN:StructureDrinkingFountain>".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -25970,7 +27982,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
         ),
         (
             -1668992663i32,
-            StructureLogicDeviceTemplate {
+            StructureCircuitHolderTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "StructureElectrolyzer".into(),
                     prefab_hash: -1668992663i32,
@@ -25979,6 +27991,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Electrolyzer".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
                         .into_iter()
@@ -26096,7 +28113,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
         ),
         (
             1307165496i32,
-            StructureLogicDeviceMemoryTemplate {
+            StructureLogicDeviceConsumerMemoryTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "StructureElectronicsPrinter".into(),
                     prefab_hash: 1307165496i32,
@@ -26105,6 +28122,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Electronics Printer".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -26162,6 +28181,22 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     has_open_state: true,
                     has_reagents: true,
                 },
+                consumer_info: ConsumerInfo {
+                    consumed_resouces: vec![
+                        "ItemAstroloyIngot".into(), "ItemConstantanIngot".into(),
+                        "ItemCopperIngot".into(), "ItemElectrumIngot".into(),
+                        "ItemGoldIngot".into(), "ItemHastelloyIngot".into(),
+                        "ItemInconelIngot".into(), "ItemInvarIngot".into(),
+                        "ItemIronIngot".into(), "ItemLeadIngot".into(), "ItemNickelIngot"
+                        .into(), "ItemSiliconIngot".into(), "ItemSilverIngot".into(),
+                        "ItemSolderIngot".into(), "ItemSolidFuel".into(),
+                        "ItemSteelIngot".into(), "ItemStelliteIngot".into(),
+                        "ItemWaspaloyIngot".into(), "ItemWasteIngot".into()
+                    ]
+                        .into_iter()
+                        .collect(),
+                    processed_reagents: vec![].into_iter().collect(),
+                },
                 memory: MemoryInfo {
                     instructions: Some(
                         vec![
@@ -26212,6 +28247,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Elevator Level (Cabled)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -26268,6 +28305,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Elevator Level".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -26321,6 +28360,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Elevator Shaft (Cabled)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -26374,6 +28415,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Elevator Shaft".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -26422,6 +28465,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Important Button".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -26474,6 +28519,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Engine Mount (Type A1)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -26488,6 +28535,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Evaporation Chamber".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.001f32,
+                    radiation_factor: 0.000050000002f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -26567,6 +28619,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Expansion Valve".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -26616,6 +28670,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Fairing (Type A1)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -26629,6 +28685,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Fairing (Type A2)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -26642,12 +28700,14 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Fairing (Type A3)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
         (
             -348054045i32,
-            StructureLogicDeviceTemplate {
+            StructureCircuitHolderTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "StructureFiltration".into(),
                     prefab_hash: -348054045i32,
@@ -26656,6 +28716,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Filtration".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -26785,6 +28847,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Small Flag".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -26799,6 +28863,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Flashing Light".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -26847,6 +28913,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Bench (Flat)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -26903,6 +28971,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Passive Liquid Inlet".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -26917,6 +28990,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Steel Frame".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -26931,6 +29006,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Steel Frame (Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -26944,6 +29021,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Steel Frame (Corner Cut)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -26957,6 +29036,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Iron Frame".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -26971,6 +29052,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Steel Frame (Side)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -26985,6 +29068,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Fridge (Large)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -27213,6 +29301,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Fridge Small".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -27309,6 +29402,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Furnace".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -27406,6 +29504,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Fuselage (Type A1)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -27419,6 +29519,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Fuselage (Type A2)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -27432,6 +29534,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Fuselage (Type A4)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -27445,6 +29549,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Fuselage (Type C5)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -27458,6 +29564,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Gas Fuel Generator".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.01f32,
+                    radiation_factor: 0.01f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -27535,6 +29646,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Gas Mixer".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -27591,6 +29704,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Gas Sensor".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -27657,6 +29772,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Gas Tank Storage".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -27734,6 +29851,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Umbilical Socket (Gas)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -27781,6 +29900,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Umbilical Socket Angle (Gas)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -27828,6 +29949,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Umbilical (Gas)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -27889,6 +30012,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Glass Door".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -27947,6 +30072,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pumped Gas Engine".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -28019,6 +30146,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Telescope".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -28085,6 +30214,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Grow Light".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -28135,6 +30266,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Harvie".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -28238,6 +30371,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Heat Exchanger - Liquid + Gas".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -28290,6 +30425,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Heat Exchanger - Gas".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -28342,6 +30479,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Heat Exchanger - Liquid".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -28394,6 +30533,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "OGRE".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -28457,7 +30598,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
         ),
         (
             -1888248335i32,
-            StructureLogicDeviceMemoryTemplate {
+            StructureLogicDeviceConsumerMemoryTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "StructureHydraulicPipeBender".into(),
                     prefab_hash: -1888248335i32,
@@ -28466,6 +30607,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Hydraulic Pipe Bender".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -28523,6 +30666,22 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     has_open_state: true,
                     has_reagents: true,
                 },
+                consumer_info: ConsumerInfo {
+                    consumed_resouces: vec![
+                        "ItemAstroloyIngot".into(), "ItemConstantanIngot".into(),
+                        "ItemCopperIngot".into(), "ItemElectrumIngot".into(),
+                        "ItemGoldIngot".into(), "ItemHastelloyIngot".into(),
+                        "ItemInconelIngot".into(), "ItemInvarIngot".into(),
+                        "ItemIronIngot".into(), "ItemLeadIngot".into(), "ItemNickelIngot"
+                        .into(), "ItemSiliconIngot".into(), "ItemSilverIngot".into(),
+                        "ItemSolderIngot".into(), "ItemSolidFuel".into(),
+                        "ItemSteelIngot".into(), "ItemStelliteIngot".into(),
+                        "ItemWaspaloyIngot".into(), "ItemWasteIngot".into()
+                    ]
+                        .into_iter()
+                        .collect(),
+                    processed_reagents: vec![].into_iter().collect(),
+                },
                 memory: MemoryInfo {
                     instructions: Some(
                         vec![
@@ -28573,6 +30732,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Hydroponics Station".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -28766,6 +30930,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Hydroponics Tray".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Plant".into(), typ : Class::Plant }, SlotInfo {
                     name : "Fertiliser".into(), typ : Class::Plant }
@@ -28786,6 +30955,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Hydroponics Device".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -28888,6 +31062,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Ice Crusher".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
                         .into_iter()
@@ -28954,6 +31133,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Igniter".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -29000,6 +31181,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "In-Line Tank Small Gas".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29014,6 +31200,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "In-Line Tank Gas".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29028,6 +31219,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "In-Line Tank Small Liquid".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29042,6 +31238,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "In-Line Tank Liquid".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29055,6 +31256,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated In-Line Tank Small Gas".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29068,6 +31274,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated In-Line Tank Gas".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29081,6 +31292,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated In-Line Tank Small Liquid".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29094,6 +31310,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated In-Line Tank Liquid".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29108,6 +31329,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated Pipe (Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29122,6 +31348,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated Pipe (Cross Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29136,6 +31367,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated Pipe (3-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29150,6 +31386,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated Pipe (4-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29164,6 +31405,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated Pipe (5-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29178,6 +31424,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated Pipe (6-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29191,6 +31442,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated Liquid Pipe (Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29204,6 +31460,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated Liquid Pipe (3-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29217,6 +31478,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated Liquid Pipe (4-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29230,6 +31496,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated Liquid Pipe (5-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29243,6 +31514,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated Liquid Pipe (6-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29256,6 +31532,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated Liquid Pipe (Straight)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29269,6 +31550,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated Liquid Pipe (T Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29283,6 +31569,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated Pipe (Straight)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29297,6 +31588,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated Pipe (T Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29310,6 +31606,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated Tank Connector".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "".into(), typ : Class::None }]
                     .into_iter()
                     .collect(),
@@ -29326,6 +31627,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated Tank Connector Liquid".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Portable Slot".into(), typ : Class::None }
                 ]
@@ -29344,6 +31650,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Interior Door Glass".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -29395,6 +31703,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Interior Door Padded".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -29446,6 +31756,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Interior Door Padded Thin".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -29497,6 +31809,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Interior Door Triangle".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -29549,6 +31863,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Klaxon Speaker".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -29628,6 +31944,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Ladder".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29641,6 +31959,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Ladder End".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29655,6 +31975,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Large Direct Heat Exchanger - Gas + Gas".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -29704,6 +32026,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Large Direct Heat Exchanger - Gas + Liquid".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -29753,6 +32077,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Large Direct Heat Exchange - Liquid + Liquid".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -29802,6 +32128,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Large Extendable Radiator".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.02f32,
+                    radiation_factor: 2f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -29855,6 +32186,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Large Hangar Door".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -29913,6 +32246,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Large Satellite Dish".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -29978,6 +32313,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Launch Mount".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -29991,6 +32328,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall Light (Long)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -30039,6 +32378,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall Light (Long Angled)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -30087,6 +32428,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall Light (Long Wide)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -30135,6 +32478,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Light Round".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -30183,6 +32528,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Light Round (Angled)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -30231,6 +32578,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Light Round (Small)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -30280,6 +32629,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Active Liquid Outlet".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -30334,6 +32685,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Pipe Analyzer".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -30405,6 +32758,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pipe Heater (Liquid)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -30456,6 +32811,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "One Way Valve (Liquid)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -30505,6 +32862,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Pipe Convection Radiator".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 1f32,
+                    radiation_factor: 0.75f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -30546,6 +32908,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Volume Regulator".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -30600,6 +32964,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Tank Big".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.002f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -30670,6 +33039,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated Liquid Tank Big".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -30740,6 +33114,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Tank Small".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.002f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -30810,6 +33189,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated Liquid Tank Small".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -30881,6 +33265,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Tank Storage".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -30960,6 +33346,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Turbo Volume Pump (Liquid)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -31020,6 +33408,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Umbilical Socket (Liquid)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -31067,6 +33457,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Umbilical Socket Angle (Liquid)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -31114,6 +33506,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Umbilical (Liquid)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -31175,6 +33569,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Valve".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -31224,6 +33620,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Volume Pump".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -31278,6 +33676,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Locker (Small)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -31365,6 +33765,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Batch Reader".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -31417,6 +33819,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Batch Slot Reader".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -31469,6 +33873,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Batch Writer".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -31521,6 +33927,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Button".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -31569,6 +33977,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Logic Compare".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -31629,6 +34039,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Dial".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -31677,6 +34089,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Logic Gate".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -31738,6 +34152,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Logic Hash Generator".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -31785,6 +34201,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Logic Math".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -31848,6 +34266,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Math Unary".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -31911,6 +34331,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Logic Memory".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -31958,6 +34380,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Logic Min/Max".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -32015,6 +34439,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Logic Mirror".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![].into_iter().collect(),
@@ -32057,6 +34483,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Logic Reader".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -32109,6 +34537,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Reagent Reader".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -32161,6 +34591,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Logic Rocket Downlink".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -32208,6 +34640,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Logic Uplink".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -32257,6 +34691,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Logic Select".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -32317,6 +34753,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Slot Reader".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -32370,6 +34808,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Logic Sorter".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -32511,6 +34951,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Lever".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -32559,6 +35001,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Switch".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -32608,6 +35052,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Logic Transmitter".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![].into_iter().collect(),
@@ -32655,6 +35101,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Logic Writer".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -32707,6 +35155,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Logic Writer Switch".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -32761,6 +35211,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Manual Hatch".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -32813,6 +35265,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Medium Convection Radiator".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 1.25f32,
+                    radiation_factor: 0.4f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -32862,6 +35319,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Medium Convection Radiator Liquid".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 1.25f32,
+                    radiation_factor: 0.4f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -32910,6 +35372,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Medium Hangar Door".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -32968,6 +35432,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Medium Radiator".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.2f32,
+                    radiation_factor: 4f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -33017,6 +35486,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Medium Radiator Liquid".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.2f32,
+                    radiation_factor: 4f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -33065,6 +35539,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Gas Capsule Tank Medium".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.002f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -33135,6 +35614,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Capsule Tank Medium".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.002f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -33206,6 +35690,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Motion Sensor".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -33245,7 +35731,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
         ),
         (
             1898243702i32,
-            StructureLogicDeviceTemplate {
+            StructureCircuitHolderTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "StructureNitrolyzer".into(),
                     prefab_hash: 1898243702i32,
@@ -33254,6 +35740,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Nitrolyzer".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -33411,6 +35902,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Occupancy Sensor".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -33457,6 +35950,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Overhead Corner Locker".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -33525,6 +36020,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Overhead Locker".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -33672,6 +36169,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Medium Convection Radiator".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 1f32,
+                    radiation_factor: 0.4f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -33721,6 +36223,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Medium Convection Radiator Liquid".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 1f32,
+                    radiation_factor: 0.4f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -33770,6 +36277,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Passive Liquid Drain".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -33811,6 +36320,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Passive Vent".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -33824,6 +36338,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated Passive Vent".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -33838,6 +36357,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "CounterFlow Heat Exchanger - Gas + Gas".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -33890,6 +36411,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "CounterFlow Heat Exchanger - Gas + Liquid".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -33943,6 +36466,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "CounterFlow Heat Exchanger - Liquid + Liquid".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -33994,6 +36519,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Picture Frame Thick Landscape Large".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34007,6 +36534,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Picture Frame Thick Landscape Small".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34020,6 +36549,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Picture Frame Thick Landscape Large".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34033,6 +36564,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Picture Frame Thick Landscape Small".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34046,6 +36579,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Picture Frame Thick Mount Portrait Large".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34059,6 +36594,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Picture Frame Thick Mount Portrait Small".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34072,6 +36609,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Picture Frame Thick Portrait Large".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34085,6 +36624,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Picture Frame Thick Portrait Small".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34098,6 +36639,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Picture Frame Thin Landscape Large".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34111,6 +36654,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Picture Frame Thin Landscape Small".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34124,6 +36669,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Picture Frame Thin Landscape Large".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34137,6 +36684,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Picture Frame Thin Landscape Small".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34150,6 +36699,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Picture Frame Thin Portrait Large".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34163,6 +36714,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Picture Frame Thin Portrait Small".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34176,6 +36729,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Picture Frame Thin Portrait Large".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34189,6 +36744,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Picture Frame Thin Portrait Small".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34203,6 +36760,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pipe Analyzer".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -34274,6 +36833,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pipe (Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34287,6 +36851,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pipe Cowl".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34301,6 +36870,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pipe (Cross Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34315,6 +36889,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pipe (3-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34329,6 +36908,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pipe (4-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34343,6 +36927,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pipe (5-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34357,6 +36946,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pipe (6-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34371,6 +36965,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pipe Heater (Gas)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -34422,6 +37018,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pipe Igniter".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -34470,6 +37068,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Insulated Liquid Pipe (Cross Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34484,6 +37087,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pipe Label".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -34525,6 +37130,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Pipe (Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34539,6 +37149,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Pipe (Cross Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34553,6 +37168,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Pipe (3-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34567,6 +37187,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Pipe (4-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34581,6 +37206,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Pipe (5-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34595,6 +37225,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Pipe (6-Way Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34609,6 +37244,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Pipe (Straight)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34623,6 +37263,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Pipe (T Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34637,6 +37282,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pipe Meter".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -34678,6 +37325,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "One Way Valve (Gas)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -34727,6 +37376,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pipe Organ".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34741,6 +37395,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pipe Convection Radiator".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 1f32,
+                    radiation_factor: 0.75f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -34782,6 +37441,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pipe Radiator".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.2f32,
+                    radiation_factor: 3f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -34823,6 +37487,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pipe Radiator Liquid".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.2f32,
+                    radiation_factor: 3f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -34864,6 +37533,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pipe (Straight)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34878,6 +37552,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pipe (T Junction)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34892,6 +37571,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Planter".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Plant".into(), typ : Class::Plant }, SlotInfo {
                     name : "Plant".into(), typ : Class::Plant }
@@ -34911,6 +37595,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Ladder Platform".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -34924,6 +37610,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Plinth".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "".into(), typ : Class::None }]
                     .into_iter()
                     .collect(),
@@ -34940,6 +37628,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Portables Connector".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -35005,6 +37695,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Power Connector".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -35069,6 +37761,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Microwave Power Transmitter".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -35130,6 +37824,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Power Transmitter Omni".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -35180,6 +37876,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Microwave Power Receiver".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -35241,6 +37939,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Umbilical Socket (Power)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -35286,6 +37986,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Umbilical Socket Angle (Power)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -35331,6 +38033,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Umbilical (Power)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -35390,6 +38094,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Powered Vent".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -35448,6 +38154,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Powered Vent Large".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -35506,6 +38214,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pressurant Valve".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -35561,6 +38271,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pressure Fed Gas Engine".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -35635,6 +38347,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pressure Fed Liquid Engine".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -35711,6 +38425,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Trigger Plate (Large)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -35757,6 +38473,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Trigger Plate (Medium)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -35803,6 +38521,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Trigger Plate (Small)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -35850,6 +38570,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pressure Regulator".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -35905,6 +38627,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Proximity Sensor".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -35953,6 +38677,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Pumped Liquid Engine".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -36030,6 +38756,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Purge Valve".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -36084,6 +38812,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Railing Industrial (Type 1)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -36098,6 +38828,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Recycler".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -36183,6 +38915,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Refrigerated Vending Machine".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -36426,6 +39163,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Reinforced Window (Composite)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -36440,6 +39179,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Reinforced Window (Composite Steel)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -36454,6 +39195,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Reinforced Window (Padded)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -36468,6 +39211,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Reinforced Window (Thin)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -36481,6 +39226,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Rocket Avionics".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -36582,6 +39329,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Rocket Celestial Tracker".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -36637,7 +39386,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
         ),
         (
             150135861i32,
-            StructureLogicDeviceMemoryTemplate {
+            StructureCircuitHolderTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "StructureRocketCircuitHousing".into(),
                     prefab_hash: 150135861i32,
@@ -36645,6 +39394,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Rocket Circuit Housing".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -36701,11 +39452,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     has_open_state: false,
                     has_reagents: false,
                 },
-                memory: MemoryInfo {
-                    instructions: None,
-                    memory_access: MemoryAccess::ReadWrite,
-                    memory_size: 0u32,
-                },
             }
                 .into(),
         ),
@@ -36719,6 +39465,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Rocket Engine (Tiny)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -36783,7 +39534,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
         ),
         (
             1781051034i32,
-            StructureLogicDeviceMemoryTemplate {
+            StructureLogicDeviceConsumerMemoryTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "StructureRocketManufactory".into(),
                     prefab_hash: 1781051034i32,
@@ -36791,6 +39542,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Rocket Manufactory".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -36848,6 +39601,22 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     has_open_state: true,
                     has_reagents: true,
                 },
+                consumer_info: ConsumerInfo {
+                    consumed_resouces: vec![
+                        "ItemAstroloyIngot".into(), "ItemConstantanIngot".into(),
+                        "ItemCopperIngot".into(), "ItemElectrumIngot".into(),
+                        "ItemGoldIngot".into(), "ItemHastelloyIngot".into(),
+                        "ItemInconelIngot".into(), "ItemInvarIngot".into(),
+                        "ItemIronIngot".into(), "ItemLeadIngot".into(), "ItemNickelIngot"
+                        .into(), "ItemSiliconIngot".into(), "ItemSilverIngot".into(),
+                        "ItemSolderIngot".into(), "ItemSolidFuel".into(),
+                        "ItemSteelIngot".into(), "ItemStelliteIngot".into(),
+                        "ItemWaspaloyIngot".into(), "ItemWasteIngot".into()
+                    ]
+                        .into_iter()
+                        .collect(),
+                    processed_reagents: vec![].into_iter().collect(),
+                },
                 memory: MemoryInfo {
                     instructions: Some(
                         vec![
@@ -36899,6 +39668,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Rocket Miner".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -36963,6 +39734,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Rocket Scanner".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
                         .into_iter()
@@ -37019,6 +39792,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Launch Tower".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -37032,6 +39807,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Transformer Small (Rocket)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -37086,6 +39863,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Rover Frame".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -37099,6 +39878,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "SDB Hopper".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
                         .into_iter()
@@ -37152,6 +39933,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "SDB Hopper Advanced".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
                         .into_iter()
@@ -37208,6 +39991,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "SDB Silo".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -37282,6 +40067,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Medium Satellite Dish".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -37338,7 +40125,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
         ),
         (
             -641491515i32,
-            StructureLogicDeviceMemoryTemplate {
+            StructureLogicDeviceConsumerMemoryTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "StructureSecurityPrinter".into(),
                     prefab_hash: -641491515i32,
@@ -37347,6 +40134,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Security Printer".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -37404,6 +40193,22 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     has_open_state: true,
                     has_reagents: true,
                 },
+                consumer_info: ConsumerInfo {
+                    consumed_resouces: vec![
+                        "ItemAstroloyIngot".into(), "ItemConstantanIngot".into(),
+                        "ItemCopperIngot".into(), "ItemElectrumIngot".into(),
+                        "ItemGoldIngot".into(), "ItemHastelloyIngot".into(),
+                        "ItemInconelIngot".into(), "ItemInvarIngot".into(),
+                        "ItemIronIngot".into(), "ItemLeadIngot".into(), "ItemNickelIngot"
+                        .into(), "ItemSiliconIngot".into(), "ItemSilverIngot".into(),
+                        "ItemSolderIngot".into(), "ItemSolidFuel".into(),
+                        "ItemSteelIngot".into(), "ItemStelliteIngot".into(),
+                        "ItemWaspaloyIngot".into(), "ItemWasteIngot".into()
+                    ]
+                        .into_iter()
+                        .collect(),
+                    processed_reagents: vec![].into_iter().collect(),
+                },
                 memory: MemoryInfo {
                     instructions: Some(
                         vec![
@@ -37454,6 +40259,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Shelf".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "".into(), typ : Class::None }, SlotInfo { name :
                     "".into(), typ : Class::None }, SlotInfo { name : "".into(), typ :
@@ -37475,6 +40282,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Shelf Medium".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -37670,6 +40479,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Short Corner Locker".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -37738,6 +40549,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Short Locker".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -37884,6 +40697,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Shower".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -37934,6 +40749,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Shower (Powered)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -37987,6 +40804,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Sign 1x1".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -38027,6 +40846,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Sign 2x1".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -38067,6 +40888,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Single Bed".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -38122,6 +40945,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Sleeper".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -38195,6 +41023,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Sleeper Left".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
                         .into_iter()
@@ -38265,6 +41098,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Sleeper Right".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
                         .into_iter()
@@ -38335,6 +41173,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Sleeper Vertical".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.1f32,
+                    radiation_factor: 0.1f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
                         .into_iter()
@@ -38405,6 +41248,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Droid Sleeper Vertical".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
                         .into_iter()
@@ -38461,6 +41306,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Small Direct Heat Exchanger - Gas + Gas".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -38510,6 +41357,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Small Direct Heat Exchanger - Liquid + Gas ".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -38559,6 +41408,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Small Direct Heat Exchanger - Liquid + Liquid".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -38608,6 +41459,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Small Satellite Dish".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -38672,6 +41525,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Small (Table Backless Double)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -38685,6 +41540,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Small (Table Backless Single)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -38698,6 +41555,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Small (Table Dinner Single)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -38711,6 +41570,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Small (Table Rectangle Double)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -38724,6 +41585,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Small (Table Rectangle Single)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -38737,6 +41600,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Small (Table Thick Double)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -38750,6 +41615,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Small Table (Thick Single)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -38764,6 +41631,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Solar Panel".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -38814,6 +41683,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Solar Panel (Angled)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -38863,6 +41734,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Solar Panel (Heavy Angled)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -38913,6 +41786,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Solar Panel (Dual)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -38963,6 +41838,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Solar Panel (Heavy Dual)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -39014,6 +41891,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Solar Panel (Flat)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -39063,6 +41942,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Solar Panel (Heavy Flat)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -39112,6 +41993,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Solar Panel (Heavy)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -39153,7 +42036,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
         ),
         (
             813146305i32,
-            StructureLogicDeviceTemplate {
+            StructureLogicDeviceConsumerTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "StructureSolidFuelGenerator".into(),
                     prefab_hash: 813146305i32,
@@ -39162,6 +42045,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Generator (Solid Fuel)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -39222,6 +42107,15 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     has_open_state: false,
                     has_reagents: false,
                 },
+                consumer_info: ConsumerInfo {
+                    consumed_resouces: vec![
+                        "ItemCharcoal".into(), "ItemCoalOre".into(), "ItemSolidFuel"
+                        .into()
+                    ]
+                        .into_iter()
+                        .collect(),
+                    processed_reagents: vec![].into_iter().collect(),
+                },
             }
                 .into(),
         ),
@@ -39236,6 +42130,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Sorter".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -39348,6 +42244,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Stacker".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -39448,6 +42346,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Stacker".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -39547,6 +42447,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Stairs".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -39560,6 +42462,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Stairs with Rail (Left)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -39573,6 +42477,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Stairs with Rail (Right)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -39586,6 +42492,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Stairs with Rails".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -39599,6 +42507,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Stairwell (Back Left)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -39612,6 +42522,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Stairwell (Back Passthrough)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -39625,6 +42537,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Stairwell (Back Right)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -39638,6 +42552,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Stairwell (Front Left)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -39651,6 +42567,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Stairwell (Front Passthrough)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -39664,6 +42582,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Stairwell (Front Right)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -39677,6 +42597,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Stairwell (No Doors)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -39691,6 +42613,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Stirling Engine".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.15f32,
+                    radiation_factor: 0.15f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
                         .into_iter()
@@ -39776,6 +42703,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Locker".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -40118,6 +43047,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Suit Storage".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -40226,6 +43157,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Large Tank".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.002f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -40297,6 +43233,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Tank Big (Insulated)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -40369,6 +43310,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Tank Connector".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![SlotInfo { name : "".into(), typ : Class::None }]
                     .into_iter()
                     .collect(),
@@ -40386,6 +43332,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Tank Connector".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.010000001f32,
+                    radiation_factor: 0.0005f32,
+                }),
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Portable Slot".into(), typ : Class::None }
                 ]
@@ -40404,6 +43355,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Small Tank".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.002f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -40475,6 +43431,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Small Tank (Air)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.002f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -40546,6 +43507,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Small Tank (Fuel)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0.05f32,
+                    radiation_factor: 0.002f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -40617,6 +43583,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Tank Small (Insulated)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: Some(ThermalInfo {
+                    convection_factor: 0f32,
+                    radiation_factor: 0f32,
+                }),
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -40680,7 +43651,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
         ),
         (
             -465741100i32,
-            StructureLogicDeviceMemoryTemplate {
+            StructureLogicDeviceConsumerMemoryTemplate {
                 prefab: PrefabInfo {
                     prefab_name: "StructureToolManufactory".into(),
                     prefab_hash: -465741100i32,
@@ -40689,6 +43660,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Tool Manufactory".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -40746,6 +43719,22 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     has_open_state: true,
                     has_reagents: true,
                 },
+                consumer_info: ConsumerInfo {
+                    consumed_resouces: vec![
+                        "ItemAstroloyIngot".into(), "ItemConstantanIngot".into(),
+                        "ItemCopperIngot".into(), "ItemElectrumIngot".into(),
+                        "ItemGoldIngot".into(), "ItemHastelloyIngot".into(),
+                        "ItemInconelIngot".into(), "ItemInvarIngot".into(),
+                        "ItemIronIngot".into(), "ItemLeadIngot".into(), "ItemNickelIngot"
+                        .into(), "ItemSiliconIngot".into(), "ItemSilverIngot".into(),
+                        "ItemSolderIngot".into(), "ItemSolidFuel".into(),
+                        "ItemSteelIngot".into(), "ItemStelliteIngot".into(),
+                        "ItemWaspaloyIngot".into(), "ItemWasteIngot".into()
+                    ]
+                        .into_iter()
+                        .collect(),
+                    processed_reagents: vec![].into_iter().collect(),
+                },
                 memory: MemoryInfo {
                     instructions: Some(
                         vec![
@@ -40796,6 +43785,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Torpedo Rack".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "Torpedo".into(), typ : Class::Torpedo }, SlotInfo
                     { name : "Torpedo".into(), typ : Class::Torpedo }, SlotInfo { name :
@@ -40821,6 +43812,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Trader Waypoint".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -40870,6 +43863,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Transformer (Large)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -40925,6 +43920,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Transformer (Medium)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -40978,6 +43975,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Transformer Reversed (Medium)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -41031,6 +44030,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Transformer (Small)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -41084,6 +44085,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Transformer Reversed (Small)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -41136,6 +44139,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Turbine Generator".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -41184,6 +44189,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Turbo Volume Pump (Gas)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -41245,6 +44252,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Unloader".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -41333,6 +44342,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Upright Wind Turbine".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -41379,6 +44390,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Valve".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -41429,6 +44442,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Vending Machine".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
@@ -41651,6 +44666,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Volume Pump".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -41705,6 +44722,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Arch)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -41718,6 +44737,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Arch Arrow)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -41731,6 +44752,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Arch Corner Round)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -41744,6 +44767,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Arch Corner Square)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -41757,6 +44782,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Arch Corner Triangle)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -41770,6 +44797,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Arch Plating)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -41783,6 +44812,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Arch Two Tone)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -41797,6 +44828,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall Cooler".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -41864,6 +44897,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Flat)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -41877,6 +44912,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Flat Corner Round)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -41890,6 +44927,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Flat Corner Square)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -41903,6 +44942,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Flat Corner Triangle)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -41916,6 +44957,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Flat Corner Triangle Flat)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -41929,6 +44972,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Geometry Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -41942,6 +44987,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Geometry Straight)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -41955,6 +45002,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Geometry T)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -41968,6 +45017,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Geometry T Mirrored)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -41982,6 +45033,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall Heater".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -42046,6 +45099,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Iron Wall (Type 1)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42059,6 +45114,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Iron Wall (Type 2)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42072,6 +45129,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Iron Wall (Type 3)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42085,6 +45144,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Iron Wall (Type 4)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42098,6 +45159,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Large Panel)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42111,6 +45174,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Large Panel Arrow)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42124,6 +45189,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall Light".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -42172,6 +45239,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall Light (Battery)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -42237,6 +45306,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Padded Arch)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42250,6 +45321,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Padded Arch Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42263,6 +45336,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Padded Arch Light Fitting Top)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42276,6 +45351,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Padded Arch Lights Fittings)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42289,6 +45366,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Padded Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42302,6 +45381,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Padded Corner Thin)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42315,6 +45396,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Padded No Border)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42328,6 +45411,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Padded No Border Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42341,6 +45426,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Padded Thin No Border)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42354,6 +45441,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Padded Thin No Border Corner)".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42367,6 +45456,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Padded Window)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42380,6 +45471,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Padded Window Thin)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42393,6 +45486,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Padding)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42406,6 +45501,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Padding Arch Vent)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42419,6 +45516,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Padding Light Fitting)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42432,6 +45531,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Padding Thin)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42445,6 +45546,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Plating)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42458,6 +45561,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Small Panels And Hatch)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42471,6 +45576,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Small Panels Arrow)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42484,6 +45591,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Small Panels Mono Chrome)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42497,6 +45606,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Small Panels Open)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42510,6 +45621,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall (Small Panels Two Tone)".into(),
                 },
                 structure: StructureInfo { small_grid: false },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42523,6 +45636,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wall Vent".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -42536,6 +45651,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Water Bottle Filler".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -42617,6 +45734,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Water Bottle Filler Bottom".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -42698,6 +45817,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Waterbottle Filler".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -42783,6 +45904,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Waterbottle Filler".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -42868,6 +45991,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Digital Valve".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -42922,6 +46047,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Pipe Meter".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -42963,6 +46090,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Water Purifier".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
                         .into_iter()
@@ -43024,6 +46153,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Liquid Wall Cooler".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -43091,6 +46222,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Weather Station".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -43151,6 +46284,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Wind Turbine".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -43199,6 +46334,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     name: "Window Shutter".into(),
                 },
                 structure: StructureInfo { small_grid: true },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![].into_iter().collect(),
                     logic_types: vec![
@@ -43264,6 +46401,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -43285,6 +46424,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),
@@ -43306,6 +46447,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Uniform,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "".into(), typ : Class::None }, SlotInfo { name :
                     "".into(), typ : Class::None }, SlotInfo { name : "Access Card"
@@ -43336,6 +46479,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Uniform,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "".into(), typ : Class::None }, SlotInfo { name :
                     "".into(), typ : Class::None }, SlotInfo { name : "Access Card"
@@ -43365,6 +46510,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Uniform,
                     sorting_class: SortingClass::Clothing,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 slots: vec![
                     SlotInfo { name : "".into(), typ : Class::None }, SlotInfo { name :
                     "".into(), typ : Class::None }, SlotInfo { name : "Access Card"
@@ -43394,6 +46541,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -43444,6 +46593,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -43502,6 +46653,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::None,
                     sorting_class: SortingClass::Tools,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
                 logic: LogicInfo {
                     logic_slot_types: vec![
                         (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
@@ -43560,6 +46713,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     slot_class: Class::Torpedo,
                     sorting_class: SortingClass::Default,
                 },
+                thermal_info: None,
+                internal_atmo_info: None,
             }
                 .into(),
         ),

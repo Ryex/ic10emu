@@ -77,16 +77,26 @@ pub struct Page {
     pub slot_inserts: Vec<SlotInsert>,
     #[serde(rename = "Title")]
     pub title: String,
-    #[serde(rename = "TransmissionReceiver")]
-    pub transmission_receiver: Option<bool>,
-    #[serde(rename = "WirelessLogic")]
-    pub wireless_logic: Option<bool>,
-    #[serde(rename = "CircuitHolder")]
-    pub circuit_holder: Option<bool>,
+    #[serde(rename = "TransmissionReceiver", default)]
+    pub transmission_receiver: bool,
+    #[serde(rename = "WirelessLogic", default)]
+    pub wireless_logic: bool,
+    #[serde(rename = "CircuitHolder", default)]
+    pub circuit_holder: bool,
     #[serde(rename = "BasePowerDraw")]
     pub base_power_draw: Option<String>,
     #[serde(rename = "MaxPressure")]
     pub max_pressure: Option<String>,
+    #[serde(rename = "SourceCode", default)]
+    pub source_code: bool,
+    #[serde(rename = "Chargeable")]
+    pub chargeable: Option<Chargable>,
+    #[serde(rename = "ResourceConsumer")]
+    pub resource_consumer: Option<ResourceConsumer>,
+    #[serde(rename = "InternalAtmosphere")]
+    pub internal_atmosphere: Option<InternalAtmosphereInfo>,
+    #[serde(rename = "Thermal")]
+    pub thermal: Option<ThermalInfo>,
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
@@ -231,14 +241,14 @@ pub struct Instruction {
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Item {
-    #[serde(rename = "Consumable")]
-    pub consumable: Option<bool>,
+    #[serde(rename = "Consumable", default)]
+    pub consumable: bool,
     #[serde(rename = "FilterType")]
     pub filter_type: Option<String>,
-    #[serde(rename = "Ingredient")]
-    pub ingredient: Option<bool>,
+    #[serde(rename = "Ingredient", default)]
+    pub ingredient: bool,
     #[serde(rename = "MaxQuantity")]
-    pub max_quantity: Option<f64>,
+    pub max_quantity: Option<f32>,
     #[serde(rename = "Reagents")]
     pub reagents: Option<indexmap::IndexMap<String, f64>>,
     #[serde(rename = "SlotClass")]
@@ -247,6 +257,18 @@ pub struct Item {
     pub sorting_class: String,
     #[serde(rename = "Recipes", default)]
     pub recipes: Vec<Recipe>,
+    #[serde(rename = "Wearable", default)]
+    pub wearable: bool,
+    #[serde(rename = "Suit", default)]
+    pub suit: Option<SuitInfo>,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct SuitInfo {
+    #[serde(rename = "HygineReductionMultiplier")]
+    pub hygine_reduction_multiplier: f32,
+    #[serde(rename = "WasteMaxPressure")]
+    pub waste_max_pressure: f32,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -303,7 +325,7 @@ pub struct RecipeGasMix {
     pub reagents: BTreeMap<String, f64>,
 }
 
-#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Device {
     #[serde(rename = "ConnectionList")]
     pub connection_list: Vec<(String, String)>,
@@ -325,4 +347,44 @@ pub struct Device {
     pub has_open_state: bool,
     #[serde(rename = "HasReagents")]
     pub has_reagents: bool,
+    #[serde(rename = "Fabricator")]
+    pub fabricator: Option<Fabricator>,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct Fabricator {
+    #[serde(rename = "Tier")]
+    tier: u32,
+    #[serde(rename = "TierName")]
+    pub tier_name: String,
+    #[serde(rename = "Recipes", default)]
+    pub recipes: indexmap::IndexMap<String, Recipe>,
+}
+
+#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
+pub struct Chargable {
+    #[serde(rename = "PowerMaximum")]
+    pub power_maximum: f32,
+}
+
+#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
+pub struct ResourceConsumer {
+    #[serde(rename = "ConsumedResources", default)]
+    pub consumed_resources: Vec<String>,
+    #[serde(rename = " ProcessedReagents", default)]
+    pub processed_reagents: Vec<i32>,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct InternalAtmosphereInfo {
+    #[serde(rename = "Volume")]
+    pub volume: f32,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct ThermalInfo {
+    #[serde(rename = "Convection")]
+    pub convection: f32,
+    #[serde(rename = "Radiation")]
+    pub radiation: f32,
 }

@@ -1,3 +1,5 @@
+#![allow(clippy::module_name_repetitions, clippy::enum_glob_use)]
+
 use std::{
     collections::BTreeMap,
     io::{BufWriter, Write},
@@ -9,22 +11,30 @@ use serde_derive::{Deserialize, Serialize};
 
 use crate::{
     enums,
-    stationpedia::{self, Page, Stationpedia},
+    stationpedia::{self, Memory, Page, Stationpedia},
 };
 
-use stationeers_data::templates::{
-    ConnectionInfo, DeviceInfo, Instruction, ItemInfo, ItemLogicMemoryTemplate, ItemLogicTemplate,
-    ItemSlotsTemplate, ItemTemplate, LogicInfo, MemoryInfo, ObjectTemplate, PrefabInfo, SlotInfo,
-    StructureInfo, StructureLogicDeviceMemoryTemplate, StructureLogicDeviceTemplate,
-    StructureLogicTemplate, StructureSlotsTemplate, StructureTemplate,
+use stationeers_data::{
+    enums::MemoryAccess,
+    templates::{
+        ConnectionInfo, ConsumerInfo, DeviceInfo, Instruction, InternalAtmoInfo,
+        ItemCircuitHolderTemplate, ItemConsumerTemplate, ItemInfo, ItemLogicMemoryTemplate,
+        ItemLogicTemplate, ItemSlotsTemplate, ItemSuitCircuitHolderTemplate, ItemSuitLogicTemplate,
+        ItemSuitTemplate, ItemTemplate, LogicInfo, MemoryInfo, ObjectTemplate, PrefabInfo,
+        SlotInfo, StructureCircuitHolderTemplate, StructureInfo,
+        StructureLogicDeviceConsumerMemoryTemplate, StructureLogicDeviceConsumerTemplate,
+        StructureLogicDeviceMemoryTemplate, StructureLogicDeviceTemplate, StructureLogicTemplate,
+        StructureSlotsTemplate, StructureTemplate, SuitInfo, ThermalInfo,
+    },
 };
 
+#[allow(clippy::too_many_lines)]
 pub fn generate_database(
     stationpedia: &stationpedia::Stationpedia,
     enums: &enums::Enums,
     workspace: &std::path::Path,
 ) -> color_eyre::Result<Vec<PathBuf>> {
-    let templates = generate_templates(stationpedia)?;
+    let templates = generate_templates(stationpedia);
 
     eprintln!("Writing prefab database ...");
 
@@ -46,8 +56,19 @@ pub fn generate_database(
                 | StructureSlots(_)
                 | StructureLogic(_)
                 | StructureLogicDevice(_)
-                | StructureLogicDeviceMemory(_) => Some(val.prefab().prefab_name.clone()),
-                Item(_) | ItemSlots(_) | ItemLogic(_) | ItemLogicMemory(_) => None,
+                | StructureCircuitHolder(_)
+                | StructureLogicDeviceConsumer(_)
+                | StructureLogicDeviceMemory(_)
+                | StructureLogicDeviceConsumerMemory(_) => Some(val.prefab().prefab_name.clone()),
+                Item(_)
+                | ItemSlots(_)
+                | ItemConsumer(_)
+                | ItemLogic(_)
+                | ItemCircuitHolder(_)
+                | ItemLogicMemory(_)
+                | ItemSuit(_)
+                | ItemSuitLogic(_)
+                | ItemSuitCircuitHolder(_) => None,
             }
         })
         .collect();
@@ -60,10 +81,19 @@ pub fn generate_database(
                 | StructureSlots(_)
                 | StructureLogic(_)
                 | StructureLogicDevice(_)
-                | StructureLogicDeviceMemory(_) => None,
-                Item(_) | ItemSlots(_) | ItemLogic(_) | ItemLogicMemory(_) => {
-                    Some(val.prefab().prefab_name.clone())
-                }
+                | StructureCircuitHolder(_)
+                | StructureLogicDeviceConsumer(_)
+                | StructureLogicDeviceMemory(_)
+                | StructureLogicDeviceConsumerMemory(_) => None,
+                Item(_)
+                | ItemSlots(_)
+                | ItemConsumer(_)
+                | ItemLogic(_)
+                | ItemCircuitHolder(_)
+                | ItemLogicMemory(_)
+                | ItemSuit(_)
+                | ItemSuitLogic(_)
+                | ItemSuitCircuitHolder(_) => Some(val.prefab().prefab_name.clone()),
             }
         })
         .collect();
@@ -76,10 +106,19 @@ pub fn generate_database(
                 | StructureSlots(_)
                 | StructureLogic(_)
                 | StructureLogicDevice(_)
+                | StructureCircuitHolder(_)
+                | StructureLogicDeviceConsumer(_)
                 | StructureLogicDeviceMemory(_)
+                | StructureLogicDeviceConsumerMemory(_)
                 | Item(_)
-                | ItemSlots(_) => None,
-                ItemLogic(_) | ItemLogicMemory(_) => Some(val.prefab().prefab_name.clone()),
+                | ItemSlots(_)
+                | ItemSuit(_)
+                | ItemConsumer(_) => None,
+                ItemLogic(_)
+                | ItemCircuitHolder(_)
+                | ItemLogicMemory(_)
+                | ItemSuitLogic(_)
+                | ItemSuitCircuitHolder(_) => Some(val.prefab().prefab_name.clone()),
             }
         })
         .collect();
@@ -89,11 +128,47 @@ pub fn generate_database(
         .filter_map(|(_, val)| {
             use ObjectTemplate::*;
             match val {
-                Structure(_) | StructureSlots(_) | StructureLogic(_) | Item(_) | ItemSlots(_)
-                | ItemLogic(_) | ItemLogicMemory(_) => None,
-                StructureLogicDevice(_) | StructureLogicDeviceMemory(_) => {
+                Structure(_)
+                | StructureSlots(_)
+                | StructureLogic(_)
+                | Item(_)
+                | ItemSlots(_)
+                | ItemConsumer(_)
+                | ItemLogic(_)
+                | ItemCircuitHolder(_)
+                | ItemLogicMemory(_)
+                | ItemSuit(_)
+                | ItemSuitLogic(_)
+                | ItemSuitCircuitHolder(_) => None,
+                StructureLogicDevice(_)
+                | StructureCircuitHolder(_)
+                | StructureLogicDeviceMemory(_)
+                | StructureLogicDeviceConsumer(_)
+                | StructureLogicDeviceConsumerMemory(_) => Some(val.prefab().prefab_name.clone()),
+            }
+        })
+        .collect();
+    let suits = prefabs
+        .iter()
+        .filter_map(|(_, val)| {
+            use ObjectTemplate::*;
+            match val {
+                ItemSuitCircuitHolder(_) | ItemSuitLogic(_) | ItemSuit(_) => {
                     Some(val.prefab().prefab_name.clone())
                 }
+                _ => None,
+            }
+        })
+        .collect();
+    let circuit_holders = prefabs
+        .iter()
+        .filter_map(|(_, val)| {
+            use ObjectTemplate::*;
+            match val {
+                ItemSuitCircuitHolder(_) | ItemCircuitHolder(_) | StructureCircuitHolder(_) => {
+                    Some(val.prefab().prefab_name.clone())
+                }
+                _ => None,
             }
         })
         .collect();
@@ -106,6 +181,8 @@ pub fn generate_database(
         devices,
         items,
         logicable_items,
+        suits,
+        circuit_holders,
     };
 
     let data_path = workspace.join("data");
@@ -114,7 +191,7 @@ pub fn generate_database(
     }
     let database_path = data_path.join("database.json");
     let mut database_file = std::io::BufWriter::new(std::fs::File::create(database_path)?);
-    serde_json::to_writer(&mut database_file, &db)?;
+    serde_json::to_writer_pretty(&mut database_file, &db)?;
     database_file.flush()?;
 
     let prefab_map_path = workspace
@@ -171,10 +248,11 @@ fn write_prefab_map<T: std::io::Write>(
     Ok(())
 }
 
-fn generate_templates(pedia: &Stationpedia) -> color_eyre::Result<Vec<ObjectTemplate>> {
+#[allow(clippy::too_many_lines)]
+fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
     println!("Generating templates ...");
     let mut templates: Vec<ObjectTemplate> = Vec::new();
-    for page in pedia.pages.iter() {
+    for page in &pedia.pages {
         let prefab = PrefabInfo {
             prefab_name: page.prefab_name.clone(),
             prefab_hash: page.prefab_hash,
@@ -192,14 +270,19 @@ fn generate_templates(pedia: &Stationpedia) -> color_eyre::Result<Vec<ObjectTemp
                 slot_inserts,
                 memory: None,
                 device: None,
-                transmission_receiver: None,
-                wireless_logic: None,
-                circuit_holder: None,
+                transmission_receiver: false,
+                wireless_logic: false,
+                circuit_holder: false,
+                resource_consumer: None,
+                internal_atmosphere,
+                thermal,
                 ..
-            } if slot_inserts.is_empty() => {
+            } if slot_inserts.is_empty() && item.suit.is_none() => {
                 templates.push(ObjectTemplate::Item(ItemTemplate {
                     prefab,
                     item: item.into(),
+                    thermal_info: thermal.as_ref().map(Into::into),
+                    internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
                 }));
             }
             Page {
@@ -209,14 +292,132 @@ fn generate_templates(pedia: &Stationpedia) -> color_eyre::Result<Vec<ObjectTemp
                 slot_inserts,
                 memory: None,
                 device: None,
-                transmission_receiver: None,
-                wireless_logic: None,
-                circuit_holder: None,
+                transmission_receiver: false,
+                wireless_logic: false,
+                circuit_holder: false,
+                resource_consumer: None,
+                internal_atmosphere,
+                thermal,
                 ..
-            } => {
+            } if item.suit.is_none() => {
                 templates.push(ObjectTemplate::ItemSlots(ItemSlotsTemplate {
                     prefab,
                     item: item.into(),
+                    thermal_info: thermal.as_ref().map(Into::into),
+                    internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
+                    slots: slot_inserts_to_info(slot_inserts),
+                }));
+            }
+            Page {
+                item: Some(item),
+                structure: None,
+                logic_info: None,
+                slot_inserts,
+                memory: None,
+                device: None,
+                transmission_receiver: false,
+                wireless_logic: false,
+                circuit_holder: false,
+                resource_consumer: Some(consumer),
+                internal_atmosphere,
+                thermal,
+                ..
+            } if item.suit.is_none() => {
+                templates.push(ObjectTemplate::ItemConsumer(ItemConsumerTemplate {
+                    prefab,
+                    item: item.into(),
+                    thermal_info: thermal.as_ref().map(Into::into),
+                    internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
+                    slots: slot_inserts_to_info(slot_inserts),
+                    consumer_info: consumer.into(),
+                }));
+            }
+            Page {
+                item: Some(item),
+                structure: None,
+                logic_info: None,
+                slot_inserts,
+                memory: None,
+                device: None,
+                transmission_receiver: false,
+                wireless_logic: false,
+                circuit_holder: false,
+                resource_consumer: None,
+                internal_atmosphere,
+                thermal,
+                ..
+            } if item.suit.is_some() => {
+                templates.push(ObjectTemplate::ItemSuit(ItemSuitTemplate {
+                    prefab,
+                    item: item.into(),
+                    thermal_info: thermal.as_ref().map(Into::into),
+                    internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
+                    slots: slot_inserts_to_info(slot_inserts),
+                    suit_info: item.suit.as_ref().unwrap().into(),
+                }));
+            }
+            Page {
+                item: Some(item),
+                structure: None,
+                logic_info: Some(logic),
+                slot_inserts,
+                memory: None,
+                device: None,
+                transmission_receiver,
+                wireless_logic,
+                circuit_holder: false,
+                resource_consumer: None,
+                internal_atmosphere,
+                thermal,
+                ..
+            } if item.suit.is_some() => {
+                let mut logic: LogicInfo = logic.into();
+                if !page.mode_insert.is_empty() {
+                    logic.modes = Some(mode_inserts_to_info(&page.mode_insert));
+                }
+                logic.transmission_receiver = *transmission_receiver;
+                logic.wireless_logic = *wireless_logic;
+                logic.circuit_holder = false;
+
+                templates.push(ObjectTemplate::ItemSuitLogic(ItemSuitLogicTemplate {
+                    prefab,
+                    item: item.into(),
+                    thermal_info: thermal.as_ref().map(Into::into),
+                    internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
+                    logic,
+                    slots: slot_inserts_to_info(slot_inserts),
+                    suit_info: item.suit.as_ref().unwrap().into(),
+                }));
+            }
+            Page {
+                item: Some(item),
+                structure: None,
+                logic_info: Some(logic),
+                slot_inserts,
+                memory: None,
+                device: None,
+                transmission_receiver,
+                wireless_logic,
+                circuit_holder: false,
+                resource_consumer: None,
+                internal_atmosphere,
+                thermal,
+                ..
+            } if item.suit.is_none() => {
+                let mut logic: LogicInfo = logic.into();
+                if !page.mode_insert.is_empty() {
+                    logic.modes = Some(mode_inserts_to_info(&page.mode_insert));
+                }
+                logic.transmission_receiver = *transmission_receiver;
+                logic.wireless_logic = *wireless_logic;
+                logic.circuit_holder = false;
+
+                templates.push(ObjectTemplate::ItemLogic(ItemLogicTemplate {
+                    prefab,
+                    item: item.into(),
+                    thermal_info: thermal.as_ref().map(Into::into),
+                    internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
+                    logic,
                     slots: slot_inserts_to_info(slot_inserts),
                 }));
             }
@@ -229,23 +430,30 @@ fn generate_templates(pedia: &Stationpedia) -> color_eyre::Result<Vec<ObjectTemp
                 device: None,
                 transmission_receiver,
                 wireless_logic,
-                circuit_holder,
+                circuit_holder: true,
+                resource_consumer: None,
+                internal_atmosphere,
+                thermal,
                 ..
-            } => {
+            } if item.suit.is_none() => {
                 let mut logic: LogicInfo = logic.into();
                 if !page.mode_insert.is_empty() {
                     logic.modes = Some(mode_inserts_to_info(&page.mode_insert));
                 }
-                logic.transmission_receiver = transmission_receiver.unwrap_or(false);
-                logic.wireless_logic = wireless_logic.unwrap_or(false);
-                logic.circuit_holder = circuit_holder.unwrap_or(false);
+                logic.transmission_receiver = *transmission_receiver;
+                logic.wireless_logic = *wireless_logic;
+                logic.circuit_holder = true;
 
-                templates.push(ObjectTemplate::ItemLogic(ItemLogicTemplate {
-                    prefab,
-                    item: item.into(),
-                    logic,
-                    slots: slot_inserts_to_info(slot_inserts),
-                }));
+                templates.push(ObjectTemplate::ItemCircuitHolder(
+                    ItemCircuitHolderTemplate {
+                        prefab,
+                        item: item.into(),
+                        thermal_info: thermal.as_ref().map(Into::into),
+                        internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
+                        logic,
+                        slots: slot_inserts_to_info(slot_inserts),
+                    },
+                ));
             }
             Page {
                 item: Some(item),
@@ -256,20 +464,61 @@ fn generate_templates(pedia: &Stationpedia) -> color_eyre::Result<Vec<ObjectTemp
                 device: None,
                 transmission_receiver,
                 wireless_logic,
-                circuit_holder,
+                circuit_holder: true,
+                resource_consumer: None,
+                internal_atmosphere,
+                thermal,
                 ..
-            } => {
+            } if item.suit.is_some() => {
                 let mut logic: LogicInfo = logic.into();
                 if !page.mode_insert.is_empty() {
                     logic.modes = Some(mode_inserts_to_info(&page.mode_insert));
                 }
-                logic.transmission_receiver = transmission_receiver.unwrap_or(false);
-                logic.wireless_logic = wireless_logic.unwrap_or(false);
-                logic.circuit_holder = circuit_holder.unwrap_or(false);
+                logic.transmission_receiver = *transmission_receiver;
+                logic.wireless_logic = *wireless_logic;
+                logic.circuit_holder = true;
+
+                templates.push(ObjectTemplate::ItemSuitCircuitHolder(
+                    ItemSuitCircuitHolderTemplate {
+                        prefab,
+                        item: item.into(),
+                        thermal_info: thermal.as_ref().map(Into::into),
+                        internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
+                        logic,
+                        slots: slot_inserts_to_info(slot_inserts),
+                        suit_info: item.suit.as_ref().unwrap().into(),
+                        memory: memory.into(),
+                    },
+                ));
+            }
+            Page {
+                item: Some(item),
+                structure: None,
+                logic_info: Some(logic),
+                slot_inserts,
+                memory: Some(memory),
+                device: None,
+                transmission_receiver,
+                wireless_logic,
+                circuit_holder: false,
+                resource_consumer: None,
+                internal_atmosphere,
+                thermal,
+                ..
+            } if item.suit.is_none() => {
+                let mut logic: LogicInfo = logic.into();
+                if !page.mode_insert.is_empty() {
+                    logic.modes = Some(mode_inserts_to_info(&page.mode_insert));
+                }
+                logic.transmission_receiver = *transmission_receiver;
+                logic.wireless_logic = *wireless_logic;
+                logic.circuit_holder = false;
 
                 templates.push(ObjectTemplate::ItemLogicMemory(ItemLogicMemoryTemplate {
                     prefab,
                     item: item.into(),
+                    thermal_info: thermal.as_ref().map(Into::into),
+                    internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
                     logic,
                     slots: slot_inserts_to_info(slot_inserts),
                     memory: memory.into(),
@@ -282,14 +531,19 @@ fn generate_templates(pedia: &Stationpedia) -> color_eyre::Result<Vec<ObjectTemp
                 logic_info: None,
                 memory: None,
                 device: None,
-                transmission_receiver: None,
-                wireless_logic: None,
-                circuit_holder: None,
+                transmission_receiver: false,
+                wireless_logic: false,
+                circuit_holder: false,
+                resource_consumer: None,
+                internal_atmosphere,
+                thermal,
                 ..
             } if slot_inserts.is_empty() => {
                 templates.push(ObjectTemplate::Structure(StructureTemplate {
                     prefab,
                     structure: structure.into(),
+                    thermal_info: thermal.as_ref().map(Into::into),
+                    internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
                 }));
                 // println!("Structure")
             }
@@ -300,14 +554,19 @@ fn generate_templates(pedia: &Stationpedia) -> color_eyre::Result<Vec<ObjectTemp
                 logic_info: None,
                 memory: None,
                 device: None,
-                transmission_receiver: None,
-                wireless_logic: None,
-                circuit_holder: None,
+                transmission_receiver: false,
+                wireless_logic: false,
+                circuit_holder: false,
+                resource_consumer: None,
+                internal_atmosphere,
+                thermal,
                 ..
             } => {
                 templates.push(ObjectTemplate::StructureSlots(StructureSlotsTemplate {
                     prefab,
                     structure: structure.into(),
+                    thermal_info: thermal.as_ref().map(Into::into),
+                    internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
                     slots: slot_inserts_to_info(slot_inserts),
                 }));
                 // println!("Structure")
@@ -321,20 +580,25 @@ fn generate_templates(pedia: &Stationpedia) -> color_eyre::Result<Vec<ObjectTemp
                 device: None,
                 transmission_receiver,
                 wireless_logic,
-                circuit_holder,
+                circuit_holder: false,
+                resource_consumer: None,
+                internal_atmosphere,
+                thermal,
                 ..
             } => {
                 let mut logic: LogicInfo = logic.into();
                 if !page.mode_insert.is_empty() {
                     logic.modes = Some(mode_inserts_to_info(&page.mode_insert));
                 }
-                logic.transmission_receiver = transmission_receiver.unwrap_or(false);
-                logic.wireless_logic = wireless_logic.unwrap_or(false);
-                logic.circuit_holder = circuit_holder.unwrap_or(false);
+                logic.transmission_receiver = *transmission_receiver;
+                logic.wireless_logic = *wireless_logic;
+                logic.circuit_holder = false;
 
                 templates.push(ObjectTemplate::StructureLogic(StructureLogicTemplate {
                     prefab,
                     structure: structure.into(),
+                    thermal_info: thermal.as_ref().map(Into::into),
+                    internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
                     logic,
                     slots: slot_inserts_to_info(slot_inserts),
                 }));
@@ -349,24 +613,110 @@ fn generate_templates(pedia: &Stationpedia) -> color_eyre::Result<Vec<ObjectTemp
                 device: Some(device),
                 transmission_receiver,
                 wireless_logic,
-                circuit_holder,
+                circuit_holder: false,
+                resource_consumer: None,
+                internal_atmosphere,
+                thermal,
                 ..
             } => {
                 let mut logic: LogicInfo = logic.into();
                 if !page.mode_insert.is_empty() {
                     logic.modes = Some(mode_inserts_to_info(&page.mode_insert));
                 }
-                logic.transmission_receiver = transmission_receiver.unwrap_or(false);
-                logic.wireless_logic = wireless_logic.unwrap_or(false);
-                logic.circuit_holder = circuit_holder.unwrap_or(false);
+                logic.transmission_receiver = *transmission_receiver;
+                logic.wireless_logic = *wireless_logic;
+                logic.circuit_holder = false;
 
                 templates.push(ObjectTemplate::StructureLogicDevice(
                     StructureLogicDeviceTemplate {
                         prefab,
                         structure: structure.into(),
+                        thermal_info: thermal.as_ref().map(Into::into),
+                        internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
                         logic,
                         slots: slot_inserts_to_info(slot_inserts),
                         device: device.into(),
+                    },
+                ));
+                // println!("Structure")
+            }
+            Page {
+                item: None,
+                structure: Some(structure),
+                logic_info: Some(logic),
+                slot_inserts,
+                // NOTE: at the time of writing StructureCircuitHolder structure has a read write 0b memory, useless
+                // other holders have no memory
+                memory:
+                    Some(Memory {
+                        instructions: None,
+                        memory_size: 0,
+                        ..
+                    })
+                    | None,
+                device: Some(device),
+                transmission_receiver,
+                wireless_logic,
+                circuit_holder: true,
+                resource_consumer: None,
+                internal_atmosphere,
+                thermal,
+                ..
+            } => {
+                let mut logic: LogicInfo = logic.into();
+                if !page.mode_insert.is_empty() {
+                    logic.modes = Some(mode_inserts_to_info(&page.mode_insert));
+                }
+                logic.transmission_receiver = *transmission_receiver;
+                logic.wireless_logic = *wireless_logic;
+                logic.circuit_holder = true;
+
+                templates.push(ObjectTemplate::StructureCircuitHolder(
+                    StructureCircuitHolderTemplate {
+                        prefab,
+                        structure: structure.into(),
+                        thermal_info: thermal.as_ref().map(Into::into),
+                        internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
+                        logic,
+                        slots: slot_inserts_to_info(slot_inserts),
+                        device: device.into(),
+                    },
+                ));
+                // println!("Structure")
+            }
+            Page {
+                item: None,
+                structure: Some(structure),
+                logic_info: Some(logic),
+                slot_inserts,
+                memory: None,
+                device: Some(device),
+                transmission_receiver,
+                wireless_logic,
+                circuit_holder: false,
+                resource_consumer: Some(consumer),
+                internal_atmosphere,
+                thermal,
+                ..
+            } => {
+                let mut logic: LogicInfo = logic.into();
+                if !page.mode_insert.is_empty() {
+                    logic.modes = Some(mode_inserts_to_info(&page.mode_insert));
+                }
+                logic.transmission_receiver = *transmission_receiver;
+                logic.wireless_logic = *wireless_logic;
+                logic.circuit_holder = false;
+
+                templates.push(ObjectTemplate::StructureLogicDeviceConsumer(
+                    StructureLogicDeviceConsumerTemplate {
+                        prefab,
+                        structure: structure.into(),
+                        thermal_info: thermal.as_ref().map(Into::into),
+                        internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
+                        logic,
+                        slots: slot_inserts_to_info(slot_inserts),
+                        device: device.into(),
+                        consumer_info: consumer.into(),
                     },
                 ));
                 // println!("Structure")
@@ -380,20 +730,25 @@ fn generate_templates(pedia: &Stationpedia) -> color_eyre::Result<Vec<ObjectTemp
                 device: Some(device),
                 transmission_receiver,
                 wireless_logic,
-                circuit_holder,
+                circuit_holder: false,
+                resource_consumer: None,
+                internal_atmosphere,
+                thermal,
                 ..
             } => {
                 let mut logic: LogicInfo = logic.into();
                 if !page.mode_insert.is_empty() {
                     logic.modes = Some(mode_inserts_to_info(&page.mode_insert));
                 }
-                logic.transmission_receiver = transmission_receiver.unwrap_or(false);
-                logic.wireless_logic = wireless_logic.unwrap_or(false);
-                logic.circuit_holder = circuit_holder.unwrap_or(false);
+                logic.transmission_receiver = *transmission_receiver;
+                logic.wireless_logic = *wireless_logic;
+                logic.circuit_holder = false;
                 templates.push(ObjectTemplate::StructureLogicDeviceMemory(
                     StructureLogicDeviceMemoryTemplate {
                         prefab,
                         structure: structure.into(),
+                        thermal_info: thermal.as_ref().map(Into::into),
+                        internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
                         logic,
                         slots: slot_inserts_to_info(slot_inserts),
                         device: device.into(),
@@ -402,20 +757,74 @@ fn generate_templates(pedia: &Stationpedia) -> color_eyre::Result<Vec<ObjectTemp
                 ));
                 // println!("Structure")
             }
+            Page {
+                item: None,
+                structure: Some(structure),
+                logic_info: Some(logic),
+                slot_inserts,
+                memory: Some(memory),
+                device: Some(device),
+                transmission_receiver,
+                wireless_logic,
+                circuit_holder: false,
+                resource_consumer: Some(consumer),
+                internal_atmosphere,
+                thermal,
+                ..
+            } => {
+                let mut logic: LogicInfo = logic.into();
+                if !page.mode_insert.is_empty() {
+                    logic.modes = Some(mode_inserts_to_info(&page.mode_insert));
+                }
+                logic.transmission_receiver = *transmission_receiver;
+                logic.wireless_logic = *wireless_logic;
+                logic.circuit_holder = false;
+                templates.push(ObjectTemplate::StructureLogicDeviceConsumerMemory(
+                    StructureLogicDeviceConsumerMemoryTemplate {
+                        prefab,
+                        structure: structure.into(),
+                        thermal_info: thermal.as_ref().map(Into::into),
+                        internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
+                        logic,
+                        slots: slot_inserts_to_info(slot_inserts),
+                        device: device.into(),
+                        consumer_info: consumer.into(),
+                        memory: memory.into(),
+                    },
+                ));
+                // println!("Structure")
+            }
             _ => panic!(
-                    "Non conforming: {:?} \n\titem: {:?}\n\tstructure: {:?}\n\tlogic_info: {:?}\n\tslot_inserts: {:?}\n\tslot_logic: {:?}\n\tmemory: {:?}\n\tdevice: {:?}",
-                    page.key,
-                    page.item,
-                    page.structure,
-                    page.logic_info,
-                    page.slot_inserts,
-                    page.logic_slot_insert,
-                    page.memory,
-                    page.device,
-                ),
+                "\
+                    Non conforming: {:?} \n\t\
+                        item: {:?}\n\t\
+                        structure: {:?}\n\t\
+                        logic_info: {:?}\n\t\
+                        slot_inserts: {:?}\n\t\
+                        slot_logic: {:?}\n\t\
+                        memory: {:?}\n\t\
+                        circuit_holder: {:?}\n\t\
+                        device: {:?}\n\t\
+                        resource_consumer: {:?}\n\t\
+                        internal_atmosphere: {:?}\n\t\
+                        thermal: {:?}\n\t\
+                    ",
+                page.key,
+                page.item,
+                page.structure,
+                page.logic_info,
+                page.slot_inserts,
+                page.logic_slot_insert,
+                page.memory,
+                page.circuit_holder,
+                page.device,
+                page.resource_consumer,
+                page.internal_atmosphere,
+                page.thermal,
+            ),
         }
     }
-    Ok(templates)
+    templates
 }
 
 fn slot_inserts_to_info(slots: &[stationpedia::SlotInsert]) -> Vec<SlotInfo> {
@@ -451,6 +860,34 @@ pub struct ObjectDatabase {
     pub devices: Vec<String>,
     pub items: Vec<String>,
     pub logicable_items: Vec<String>,
+    pub suits: Vec<String>,
+    pub circuit_holders: Vec<String>,
+}
+
+impl From<&stationpedia::SuitInfo> for SuitInfo {
+    fn from(value: &stationpedia::SuitInfo) -> Self {
+        SuitInfo {
+            hygine_reduction_multiplier: value.hygine_reduction_multiplier,
+            waste_max_pressure: value.waste_max_pressure,
+        }
+    }
+}
+
+impl From<&stationpedia::ThermalInfo> for ThermalInfo {
+    fn from(value: &stationpedia::ThermalInfo) -> Self {
+        ThermalInfo {
+            convection_factor: value.convection,
+            radiation_factor: value.radiation,
+        }
+    }
+}
+
+impl From<&stationpedia::InternalAtmosphereInfo> for InternalAtmoInfo {
+    fn from(value: &stationpedia::InternalAtmosphereInfo) -> Self {
+        InternalAtmoInfo {
+            volume: value.volume,
+        }
+    }
 }
 
 impl From<&stationpedia::LogicInfo> for LogicInfo {
@@ -503,12 +940,13 @@ impl From<&stationpedia::LogicInfo> for LogicInfo {
 impl From<&stationpedia::Item> for ItemInfo {
     fn from(item: &stationpedia::Item) -> Self {
         ItemInfo {
-            consumable: item.consumable.unwrap_or(false),
+            consumable: item.consumable,
             filter_type: item.filter_type.as_ref().map(|typ| {
                 typ.parse()
                     .unwrap_or_else(|err| panic!("failed to parse filter type: {err}"))
             }),
-            ingredient: item.ingredient.unwrap_or(false),
+            ingredient: item.ingredient,
+            #[allow(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
             max_quantity: item.max_quantity.unwrap_or(1.0) as u32,
             reagents: item
                 .reagents
@@ -586,6 +1024,15 @@ impl From<&stationpedia::Memory> for MemoryInfo {
                 .parse()
                 .unwrap_or_else(|err| panic!("failed to parse memory access: {err}")),
             memory_size: value.memory_size,
+        }
+    }
+}
+
+impl From<&stationpedia::ResourceConsumer> for ConsumerInfo {
+    fn from(value: &stationpedia::ResourceConsumer) -> Self {
+        ConsumerInfo {
+            consumed_resouces: value.consumed_resources.clone(),
+            processed_reagents: value.processed_reagents.clone(),
         }
     }
 }
