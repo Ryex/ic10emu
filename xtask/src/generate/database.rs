@@ -189,10 +189,26 @@ pub fn generate_database(
     if !data_path.exists() {
         std::fs::create_dir(&data_path)?;
     }
-    let database_path = data_path.join("database.json");
-    let mut database_file = std::io::BufWriter::new(std::fs::File::create(database_path)?);
-    serde_json::to_writer_pretty(&mut database_file, &db)?;
-    database_file.flush()?;
+    {
+        let database_path = data_path.join("database.json");
+        let mut database_file = std::io::BufWriter::new(std::fs::File::create(database_path)?);
+        let json = serde_json::to_string_pretty(&db)?;
+        // this may seem anathema but I don't want to write a separate struct set to skip Nones
+        // the current set can't skip Nones to be uneval compatible
+        // we are pretty printing and I know the keys are well formed and that all nulls are from a
+        // None so a regex to replace them is easy and sound
+        //
+        // remove preceding comma if it exists, leave trailing comma intact if it exists, capture
+        // repeating groups of null fields
+        //
+        // https://regex101.com/r/V2tXIa/1
+        //
+        let null_matcher = regex::Regex::new(r#"(?:(?:,\n)\s*"\w+":\snull)+(,?)"#)
+            .unwrap();
+        let json = null_matcher.replace_all(&json, "$1");
+        write!(&mut database_file, "{json}")?;
+        database_file.flush()?;
+    }
 
     let prefab_map_path = workspace
         .join("stationeers_data")
