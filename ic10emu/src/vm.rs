@@ -5,11 +5,15 @@ use crate::{
     errors::{ICError, TemplateError, VMError},
     interpreter::ICState,
     network::{CableConnectionType, CableNetwork, Connection, FrozenCableNetwork},
-    vm::object::{traits::ParentSlotInfo, ObjectID, VMObject},
+    vm::object::{
+        templates::{FrozenObject, Prefab},
+        traits::ParentSlotInfo,
+        ObjectID, SlotOccupantInfo, VMObject,
+    },
 };
 use stationeers_data::{
     enums::{
-        script_enums::{LogicBatchMethod, LogicSlotType, LogicType},
+        script::{LogicBatchMethod, LogicSlotType, LogicType},
         ConnectionRole,
     },
     templates::ObjectTemplate,
@@ -38,6 +42,7 @@ pub struct VM {
 
     /// list of object id's touched on the last operation
     operation_modified: RefCell<Vec<ObjectID>>,
+    template_database: Option<BTreeMap<i32, ObjectTemplate>>,
 }
 
 #[derive(Debug, Default)]
@@ -59,6 +64,7 @@ struct VMTransaction {
     pub wireless_receivers: Vec<ObjectID>,
     pub id_space: IdSpace,
     pub networks: BTreeMap<ObjectID, VMTransactionNetwork>,
+    object_parents: BTreeMap<ObjectID, (u32, ObjectID)>,
     vm: Rc<VM>,
 }
 
@@ -81,6 +87,7 @@ impl VM {
             network_id_space: RefCell::new(network_id_space),
             random: Rc::new(RefCell::new(crate::rand_mscorlib::Random::new())),
             operation_modified: RefCell::new(Vec::new()),
+            template_database: stationeers_data::build_prefab_database(),
         });
 
         let default_network = VMObject::new(CableNetwork::new(default_network_key, vm.clone()));
@@ -95,13 +102,84 @@ impl VM {
         self.random.borrow_mut().next_f64()
     }
 
-    pub fn add_device_from_template(
+    pub fn import_template_database(
+        &mut self,
+        db: impl IntoIterator<Item = (i32, ObjectTemplate)>,
+    ) {
+        self.template_database.replace(db.into_iter().collect());
+    }
+
+    pub fn get_template(&self, prefab: Prefab) -> Option<ObjectTemplate> {
+        let hash = match prefab {
+            Prefab::Hash(hash) => hash,
+            Prefab::Name(name) => const_crc32::crc32(name.as_bytes()) as i32,
+        };
+        self.template_database
+            .as_ref()
+            .and_then(|db| db.get(&hash).cloned())
+    }
+
+    pub fn add_devices_frozen(
         self: &Rc<Self>,
-        template: ObjectTemplate,
-    ) -> Result<u32, VMError> {
+        frozen_devices: impl IntoIterator<Item = FrozenObject>,
+    ) -> Result<Vec<ObjectID>, VMError> {
         let mut transaction = VMTransaction::new(self);
 
-        let obj_id = transaction.add_device_from_template(template)?;
+        let mut obj_ids = Vec::new();
+        for frozen in frozen_devices {
+            let obj_id = transaction.add_device_from_frozen(frozen)?;
+            obj_ids.push(obj_id)
+        }
+
+        transaction.finialize()?;
+
+        let transaction_ids = transaction.id_space.in_use_ids();
+        self.id_space.borrow_mut().use_new_ids(&transaction_ids);
+
+        self.objects.borrow_mut().extend(transaction.objects);
+        self.wireless_transmitters
+            .borrow_mut()
+            .extend(transaction.wireless_transmitters);
+        self.wireless_receivers
+            .borrow_mut()
+            .extend(transaction.wireless_receivers);
+        self.circuit_holders
+            .borrow_mut()
+            .extend(transaction.circuit_holders);
+        self.program_holders
+            .borrow_mut()
+            .extend(transaction.program_holders);
+        for (net_id, trans_net) in transaction.networks.into_iter() {
+            let net = self
+                .networks
+                .borrow()
+                .get(&net_id)
+                .cloned()
+                .unwrap_or_else(|| panic!("desync between vm and transaction networks: {net_id}"));
+            let mut net_ref = net.borrow_mut();
+            let net_interface = net_ref
+                .as_mut_network()
+                .unwrap_or_else(|| panic!("non network network: {net_id}"));
+            for id in trans_net.devices {
+                net_interface.add_data(id);
+            }
+            for id in trans_net.power_only {
+                net_interface.add_power(id);
+            }
+        }
+
+        Ok(obj_ids)
+    }
+
+    pub fn add_device_from_frozen(
+        self: &Rc<Self>,
+        frozen: FrozenObject,
+    ) -> Result<ObjectID, VMError> {
+        let mut transaction = VMTransaction::new(self);
+
+        let obj_id = transaction.add_device_from_frozen(frozen)?;
+
+        transaction.finialize()?;
 
         let transaction_ids = transaction.id_space.in_use_ids();
         self.id_space.borrow_mut().use_new_ids(&transaction_ids);
@@ -184,11 +262,11 @@ impl VM {
                     if slot.parent == old_id {
                         slot.parent = new_id;
                     }
-                    if slot
-                        .occupant
-                        .is_some_and(|occupant_id| occupant_id == old_id)
-                    {
-                        slot.occupant = Some(new_id);
+                    match slot.occupant.as_mut() {
+                        Some(info) if info.id == old_id => {
+                            info.id = new_id;
+                        }
+                        _ => (),
                     }
                 });
             }
@@ -813,33 +891,37 @@ impl VM {
             .get_slot_mut(index)
             .ok_or(ICError::SlotIndexOutOfRange(index as f64))?;
         if let Some(target) = target {
-            if slot.occupant.is_some_and(|occupant| occupant == target) {
-                slot.quantity = quantity;
-                Ok(None)
-            } else {
-                let Some(item_obj) = self.objects.borrow().get(&target).cloned() else {
-                    return Err(VMError::UnknownId(id));
-                };
-                let mut item_obj_ref = item_obj.borrow_mut();
-                let Some(item) = item_obj_ref.as_mut_item() else {
-                    return Err(VMError::NotAnItem(target));
-                };
-                if let Some(parent_slot_info) = item.get_parent_slot() {
-                    self.remove_slot_occupant(parent_slot_info.parent, parent_slot_info.slot)?;
+            match slot.occupant.as_mut() {
+                Some(info) if info.id == target => {
+                    info.quantity = quantity;
+                    Ok(None)
                 }
-                item.set_parent_slot(Some(ParentSlotInfo {
-                    parent: id,
-                    slot: index,
-                }));
-                let last = slot.occupant;
-                slot.occupant = Some(target);
-                slot.quantity = quantity;
-                Ok(last)
+                _ => {
+                    let Some(item_obj) = self.objects.borrow().get(&target).cloned() else {
+                        return Err(VMError::UnknownId(id));
+                    };
+                    let mut item_obj_ref = item_obj.borrow_mut();
+                    let Some(item) = item_obj_ref.as_mut_item() else {
+                        return Err(VMError::NotAnItem(target));
+                    };
+                    if let Some(parent_slot_info) = item.get_parent_slot() {
+                        self.remove_slot_occupant(parent_slot_info.parent, parent_slot_info.slot)?;
+                    }
+                    item.set_parent_slot(Some(ParentSlotInfo {
+                        parent: id,
+                        slot: index,
+                    }));
+                    let last = slot.occupant.as_ref().map(|info| info.id);
+                    slot.occupant.replace(SlotOccupantInfo {
+                        id: target,
+                        quantity,
+                    });
+                    Ok(last)
+                }
             }
         } else {
-            let last = slot.occupant;
+            let last = slot.occupant.as_ref().map(|info| info.id);
             slot.occupant = None;
-            slot.quantity = 0;
             Ok(last)
         }
     }
@@ -861,8 +943,7 @@ impl VM {
             .get_slot_mut(index)
             .ok_or(ICError::SlotIndexOutOfRange(index as f64))?;
 
-        let last = slot.occupant;
-        slot.occupant = None;
+        let last = slot.occupant.as_ref().map(|info| info.id);
         Ok(last)
     }
 
@@ -880,7 +961,7 @@ impl VM {
                     {
                         None
                     } else {
-                        Some(ObjectTemplate::freeze_object(obj, self))
+                        Some(FrozenObject::freeze_object(obj, self))
                     }
                 })
                 .collect::<Result<Vec<_>, _>>()?,
@@ -923,9 +1004,10 @@ impl VM {
             &transaction_networks,
             state.default_network_key,
         );
-        for template in state.objects {
-            let _ = transaction.add_device_from_template(template)?;
+        for frozen in state.objects {
+            let _ = transaction.add_device_from_frozen(frozen)?;
         }
+        transaction.finialize()?;
 
         self.circuit_holders.borrow_mut().clear();
         self.program_holders.borrow_mut().clear();
@@ -992,6 +1074,7 @@ impl VMTransaction {
                 .keys()
                 .map(|net_id| (*net_id, VMTransactionNetwork::default()))
                 .collect(),
+            object_parents: BTreeMap::new(),
             vm: vm.clone(),
         }
     }
@@ -1013,41 +1096,29 @@ impl VMTransaction {
                 .keys()
                 .map(|net_id| (*net_id, VMTransactionNetwork::default()))
                 .collect(),
+            object_parents: BTreeMap::new(),
             vm: vm.clone(),
         }
     }
 
-    pub fn add_device_from_template(
-        &mut self,
-        template: ObjectTemplate,
-    ) -> Result<ObjectID, VMError> {
-        for net_id in &template.connected_networks() {
+    pub fn add_device_from_frozen(&mut self, frozen: FrozenObject) -> Result<ObjectID, VMError> {
+        for net_id in &frozen.connected_networks() {
             if !self.networks.contains_key(net_id) {
                 return Err(VMError::InvalidNetwork(*net_id));
             }
         }
 
-        let obj_id = if let Some(obj_id) = template.object_info().and_then(|info| info.id) {
+        let obj_id = if let Some(obj_id) = frozen.obj_info.id {
             self.id_space.use_id(obj_id)?;
             obj_id
         } else {
             self.id_space.next()
         };
 
-        let obj = template.build(obj_id, &self.vm);
+        let obj = frozen.build_vm_obj(obj_id, &self.vm)?;
 
-        if let Some(storage) = obj.borrow_mut().as_mut_storage() {
-            for (slot_index, occupant_template) in
-                template.templates_from_slots().into_iter().enumerate()
-            {
-                if let Some(occupant_template) = occupant_template {
-                    let occupant_id = self.add_device_from_template(occupant_template)?;
-                    storage
-                        .get_slot_mut(slot_index)
-                        .unwrap_or_else(|| panic!("object storage slots out of sync with template which built it: {slot_index}"))
-                        .occupant = Some(occupant_id);
-                }
-            }
+        for (index, child_id) in frozen.contained_object_slots() {
+            self.object_parents.insert(child_id, (index, obj_id));
         }
 
         if let Some(_w_logicable) = obj.borrow().as_wireless_transmit() {
@@ -1085,6 +1156,24 @@ impl VMTransaction {
         self.objects.insert(obj_id, obj);
 
         Ok(obj_id)
+    }
+
+    pub fn finialize(&mut self) -> Result<(), VMError> {
+        for (child, (slot, parent)) in self.object_parents {
+            let child_obj = self
+                .objects
+                .get(&child)
+                .ok_or(VMError::MissingChild(child))?;
+            let child_obj_ref = child_obj.borrow_mut();
+            let item = child_obj_ref
+                .as_mut_item()
+                .ok_or(VMError::NotParentable(child))?;
+            item.set_parent_slot(Some(ParentSlotInfo {
+                slot: slot as usize,
+                parent,
+            }))
+        }
+        Ok(())
     }
 }
 
@@ -1202,7 +1291,7 @@ impl IdSpace {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FrozenVM {
-    pub objects: Vec<ObjectTemplate>,
+    pub objects: Vec<FrozenObject>,
     pub circuit_holders: Vec<ObjectID>,
     pub program_holders: Vec<ObjectID>,
     pub default_network_key: ObjectID,

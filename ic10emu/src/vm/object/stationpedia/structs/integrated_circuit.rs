@@ -14,8 +14,8 @@ use crate::{
 };
 use macro_rules_attribute::derive;
 use stationeers_data::enums::{
-    basic_enums::{Class as SlotClass, GasType, SortingClass},
-    script_enums::{LogicSlotType, LogicType},
+    basic::{Class as SlotClass, GasType, SortingClass},
+    script::{LogicSlotType, LogicType},
 };
 use std::{collections::BTreeMap, rc::Rc};
 

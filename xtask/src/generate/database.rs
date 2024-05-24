@@ -15,13 +15,12 @@ use crate::{
 };
 
 use stationeers_data::{
-    enums::MemoryAccess,
     templates::{
-        ConnectionInfo, ConsumerInfo, DeviceInfo, Instruction, InternalAtmoInfo,
+        ConnectionInfo, ConsumerInfo, DeviceInfo, FabricatorInfo, Instruction, InternalAtmoInfo,
         ItemCircuitHolderTemplate, ItemConsumerTemplate, ItemInfo, ItemLogicMemoryTemplate,
         ItemLogicTemplate, ItemSlotsTemplate, ItemSuitCircuitHolderTemplate, ItemSuitLogicTemplate,
-        ItemSuitTemplate, ItemTemplate, LogicInfo, MemoryInfo, ObjectTemplate, PrefabInfo,
-        SlotInfo, StructureCircuitHolderTemplate, StructureInfo,
+        ItemSuitTemplate, ItemTemplate, LogicInfo, MemoryInfo, ObjectTemplate, PrefabInfo, Recipe,
+        RecipeGasMix, RecipeRange, SlotInfo, StructureCircuitHolderTemplate, StructureInfo,
         StructureLogicDeviceConsumerMemoryTemplate, StructureLogicDeviceConsumerTemplate,
         StructureLogicDeviceMemoryTemplate, StructureLogicDeviceTemplate, StructureLogicTemplate,
         StructureSlotsTemplate, StructureTemplate, SuitInfo, ThermalInfo,
@@ -203,8 +202,7 @@ pub fn generate_database(
         //
         // https://regex101.com/r/V2tXIa/1
         //
-        let null_matcher = regex::Regex::new(r#"(?:(?:,\n)\s*"\w+":\snull)+(,?)"#)
-            .unwrap();
+        let null_matcher = regex::Regex::new(r#"(?:(?:,\n)\s*"\w+":\snull)+(,?)"#).unwrap();
         let json = null_matcher.replace_all(&json, "$1");
         write!(&mut database_file, "{json}")?;
         database_file.flush()?;
@@ -733,6 +731,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                         slots: slot_inserts_to_info(slot_inserts),
                         device: device.into(),
                         consumer_info: consumer.into(),
+                        fabricator_info: device.fabricator.as_ref().map(Into::into),
                     },
                 ));
                 // println!("Structure")
@@ -805,6 +804,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                         slots: slot_inserts_to_info(slot_inserts),
                         device: device.into(),
                         consumer_info: consumer.into(),
+                        fabricator_info: device.fabricator.as_ref().map(Into::into),
                         memory: memory.into(),
                     },
                 ));
@@ -1049,6 +1049,91 @@ impl From<&stationpedia::ResourceConsumer> for ConsumerInfo {
         ConsumerInfo {
             consumed_resouces: value.consumed_resources.clone(),
             processed_reagents: value.processed_reagents.clone(),
+        }
+    }
+}
+
+impl From<&stationpedia::Fabricator> for FabricatorInfo {
+    fn from(value: &stationpedia::Fabricator) -> Self {
+        FabricatorInfo {
+            tier: value
+                .tier_name
+                .parse()
+                .unwrap_or_else(|_| panic!("Unknown MachineTier {}", value.tier_name)),
+            recipes: value
+                .recipes
+                .iter()
+                .map(|(key, val)| (key.clone(), val.into()))
+                .collect(),
+        }
+    }
+}
+
+impl From<&stationpedia::Recipe> for Recipe {
+    fn from(value: &stationpedia::Recipe) -> Self {
+        Recipe {
+            tier: value
+                .tier_name
+                .parse()
+                .unwrap_or_else(|_| panic!("Unknown MachineTier {}", value.tier_name)),
+            time: value.time,
+            energy: value.energy,
+            temperature: (&value.temperature).into(),
+            pressure: (&value.pressure).into(),
+            required_mix: (&value.required_mix).into(),
+            count_types: value.count_types,
+            reagents: value
+                .reagents
+                .iter()
+                .filter_map(|(key, val)| {
+                    if *val == 0.0 {
+                        None
+                    } else {
+                        Some((key.clone(), *val))
+                    }
+                })
+                .collect(),
+        }
+    }
+}
+
+impl From<&stationpedia::RecipeTemperature> for RecipeRange {
+    fn from(value: &stationpedia::RecipeTemperature) -> Self {
+        RecipeRange {
+            start: value.start,
+            stop: value.stop,
+            is_valid: value.is_valid,
+        }
+    }
+}
+
+impl From<&stationpedia::RecipePressure> for RecipeRange {
+    fn from(value: &stationpedia::RecipePressure) -> Self {
+        RecipeRange {
+            start: value.start,
+            stop: value.stop,
+            is_valid: value.is_valid,
+        }
+    }
+}
+
+impl From<&stationpedia::RecipeGasMix> for RecipeGasMix {
+    fn from(value: &stationpedia::RecipeGasMix) -> Self {
+        RecipeGasMix {
+            rule: value.rule,
+            is_any: value.is_any,
+            is_any_to_remove: value.is_any_to_remove,
+            reagents: value
+                .reagents
+                .iter()
+                .filter_map(|(key, val)| {
+                    if *val == 0.0 {
+                        None
+                    } else {
+                        Some((key.clone(), *val))
+                    }
+                })
+                .collect(),
         }
     }
 }

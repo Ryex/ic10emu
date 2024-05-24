@@ -9,8 +9,8 @@ use crate::{
 
 use stationeers_data::{
     enums::{
-        basic_enums::{Class as SlotClass, GasType, SortingClass},
-        script_enums::{LogicSlotType, LogicType},
+        basic::{Class as SlotClass, GasType, SortingClass},
+        script::{LogicSlotType, LogicType},
     },
     templates::{DeviceInfo, ItemInfo},
 };
@@ -167,7 +167,9 @@ impl<T: GWLogicable + Object> Logicable for T {
             .ok_or_else(|| LogicError::SlotIndexOutOfRange(index, self.slots_count()))
             .and_then(|slot| {
                 use LogicSlotType::*;
-                let occupant = slot.occupant.and_then(|id| self.get_vm().get_object(id));
+                let occupant = slot
+                    .occupant
+                    .and_then(|info| self.get_vm().get_object(info.id));
                 match slt {
                     Occupied => {
                         if slot.occupant.is_some() {
@@ -177,8 +179,8 @@ impl<T: GWLogicable + Object> Logicable for T {
                         }
                     }
                     Quantity => {
-                        if slot.occupant.is_some() {
-                            Ok(slot.quantity as f64)
+                        if let Some(info) = &slot.occupant {
+                            Ok(info.quantity as f64)
                         } else {
                             Ok(0.0)
                         }
@@ -261,11 +263,11 @@ impl<T: GWLogicable + Object> Logicable for T {
                                     Pressure => logicable.get_logic(LogicType::Pressure),
                                     PressureAir => logicable
                                         .as_suit()
-                                        .map(|suit| suit.pressure_air())
+                                        .map(|suit| suit.pressure_air() as f64)
                                         .ok_or(LogicError::CantSlotRead(slt, index)),
                                     PressureWaste => logicable
                                         .as_suit()
-                                        .map(|suit| suit.pressure_waste())
+                                        .map(|suit| suit.pressure_waste() as f64)
                                         .ok_or(LogicError::CantSlotRead(slt, index)),
                                     Temperature => logicable.get_logic(LogicType::Temperature),
                                     Seeding => logicable
@@ -398,11 +400,13 @@ impl<T: GWDevice + GWStorage + Object> Device for T {
             .and_then(|slot| {
                 // special case, update slot quantity if >= 1
                 if slt == Quantity && force && value >= 1.0 {
-                    slot.quantity = value as u32;
+                    if let Some(occupant) = slot.occupant.as_mut() {
+                        occupant.quantity = value as u32;
+                    }
                     return Ok(());
                 }
                 if slot.writeable_logic.contains(&slt) {
-                    let occupant = slot.occupant.and_then(|id| vm.get_object(id));
+                    let occupant = slot.occupant.and_then(|info| vm.get_object(info.id));
                     if let Some(occupant) = occupant {
                         let mut occupant_ref = occupant.borrow_mut();
                         let logicable = occupant_ref

@@ -1,5 +1,6 @@
 use serde_derive::{Deserialize, Serialize};
 use serde_with::{serde_as, DisplayFromStr};
+use stationeers_data::enums::MachineTier;
 use std::collections::BTreeMap;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -130,15 +131,6 @@ pub struct BuildState {
     pub can_manufacture: bool,
     #[serde(rename = "MachineTier")]
     pub machine_tier: Option<MachineTier>,
-}
-
-#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
-pub enum MachineTier {
-    Undefined,
-    TierOne,
-    TierTwo,
-    TierThree,
-    Max,
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
@@ -354,7 +346,7 @@ pub struct Device {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Fabricator {
     #[serde(rename = "Tier")]
-    tier: u32,
+    pub tier: u32,
     #[serde(rename = "TierName")]
     pub tier_name: String,
     #[serde(rename = "Recipes", default)]

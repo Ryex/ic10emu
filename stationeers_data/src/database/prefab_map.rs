@@ -20530,6 +20530,89 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                         .collect(),
                     processed_reagents: vec![].into_iter().collect(),
                 },
+                fabricator_info: Some(FabricatorInfo {
+                    tier: MachineTier::Undefined,
+                    recipes: vec![
+                        ("ItemCannedCondensedMilk".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 0f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Milk".into(), 200f64), ("Steel".into(), 1f64)]
+                        .into_iter().collect() }), ("ItemCannedEdamame".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 5f64, energy : 0f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Oil".into(), 1f64), ("Soy".into(), 15f64), ("Steel"
+                        .into(), 1f64)] .into_iter().collect() }), ("ItemCannedMushroom"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 0f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Mushroom".into(), 8f64), ("Oil".into(),
+                        1f64), ("Steel".into(), 1f64)] .into_iter().collect() }),
+                        ("ItemCannedPowderedEggs".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 0f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Egg".into(), 5f64), ("Oil".into(), 1f64), ("Steel".into(),
+                        1f64)] .into_iter().collect() }), ("ItemCannedRicePudding"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 0f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Oil".into(), 1f64), ("Rice".into(),
+                        5f64), ("Steel".into(), 1f64)] .into_iter().collect() }),
+                        ("ItemCornSoup".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 0f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 3i64, reagents : vec![("Corn".into(),
+                        5f64), ("Oil".into(), 1f64), ("Steel".into(), 1f64)] .into_iter()
+                        .collect() }), ("ItemFrenchFries".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 0f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Oil".into(), 1f64), ("Potato".into(), 1f64), ("Steel"
+                        .into(), 1f64)] .into_iter().collect() }), ("ItemPumpkinSoup"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 0f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Oil".into(), 1f64), ("Pumpkin".into(),
+                        5f64), ("Steel".into(), 1f64)] .into_iter().collect() }),
+                        ("ItemTomatoSoup".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 0f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 3i64, reagents : vec![("Oil".into(),
+                        1f64), ("Steel".into(), 1f64), ("Tomato".into(), 5f64)]
+                        .into_iter().collect() })
+                    ]
+                        .into_iter()
+                        .collect(),
+                }),
                 memory: MemoryInfo {
                     instructions: Some(
                         vec![
@@ -21314,6 +21397,514 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                         .collect(),
                     processed_reagents: vec![].into_iter().collect(),
                 },
+                fabricator_info: Some(FabricatorInfo {
+                    tier: MachineTier::Undefined,
+                    recipes: vec![
+                        ("CardboardBox".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 2f64, energy : 120f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Silicon"
+                        .into(), 2f64)] .into_iter().collect() }), ("ItemCableCoil"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 200f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Copper".into(), 0.5f64)] .into_iter()
+                        .collect() }), ("ItemCoffeeMug".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 1f64, energy : 70f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 1f64)] .into_iter().collect() }),
+                        ("ItemEggCarton".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 10f64, energy : 100f64, temperature : RecipeRange { start
+                        : 1f64, stop : 80000f64, is_valid : false }, pressure :
+                        RecipeRange { start : 0f64, stop : 1000000f64, is_valid : false
+                        }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Silicon"
+                        .into(), 2f64)] .into_iter().collect() }), ("ItemEmptyCan"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 1f64,
+                        energy : 70f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Steel".into(), 1f64)] .into_iter()
+                        .collect() }), ("ItemEvaSuit".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 15f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Iron".into(), 5f64)] .into_iter()
+                        .collect() }), ("ItemGlassSheets".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 1f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Silicon".into(), 2f64)] .into_iter().collect() }),
+                        ("ItemIronFrames".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 4f64, energy : 200f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Iron".into(),
+                        4f64)] .into_iter().collect() }), ("ItemIronSheets".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 1f64, energy :
+                        200f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Iron".into(), 1f64)] .into_iter()
+                        .collect() }), ("ItemKitAccessBridge".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 30f64, energy : 15000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Solder".into(), 2f64), ("Steel"
+                        .into(), 10f64)] .into_iter().collect() }), ("ItemKitArcFurnace"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 60f64,
+                        energy : 6000f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Copper".into(), 5f64), ("Iron".into(),
+                        20f64)] .into_iter().collect() }), ("ItemKitAutolathe".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 180f64, energy :
+                        36000f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 10f64), ("Gold".into(),
+                        2f64), ("Iron".into(), 20f64)] .into_iter().collect() }),
+                        ("ItemKitBeds".into(), Recipe { tier : MachineTier::TierOne, time
+                        : 10f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 2i64, reagents : vec![("Copper"
+                        .into(), 5f64), ("Iron".into(), 20f64)] .into_iter().collect()
+                        }), ("ItemKitBlastDoor".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 10f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 3f64), ("Steel".into(), 15f64)]
+                        .into_iter().collect() }), ("ItemKitCentrifuge".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 60f64, energy : 18000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Iron".into(), 20f64)]
+                        .into_iter().collect() }), ("ItemKitChairs".into(), Recipe { tier
+                        : MachineTier::TierOne, time : 10f64, energy : 500f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Iron".into(), 20f64)]
+                        .into_iter().collect() }), ("ItemKitChute".into(), Recipe { tier
+                        : MachineTier::TierOne, time : 5f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 3f64)] .into_iter().collect() }),
+                        ("ItemKitCompositeCladding".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 1f64, energy : 200f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 1f64)] .into_iter().collect() }),
+                        ("ItemKitCompositeFloorGrating".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 3f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 1f64)] .into_iter().collect() }),
+                        ("ItemKitCrate".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 10f64, energy : 200f64, temperature : RecipeRange { start
+                        : 1f64, stop : 80000f64, is_valid : false }, pressure :
+                        RecipeRange { start : 0f64, stop : 1000000f64, is_valid : false
+                        }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Iron".into(),
+                        10f64)] .into_iter().collect() }), ("ItemKitCrateMkII".into(),
+                        Recipe { tier : MachineTier::TierTwo, time : 10f64, energy :
+                        200f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Gold".into(), 5f64), ("Iron".into(),
+                        10f64)] .into_iter().collect() }), ("ItemKitCrateMount".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 10f64, energy :
+                        500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Iron".into(), 10f64)] .into_iter()
+                        .collect() }), ("ItemKitDeepMiner".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 180f64, energy : 72000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Constantan".into(), 5f64), ("Electrum".into(), 5f64),
+                        ("Invar".into(), 10f64), ("Steel".into(), 50f64)] .into_iter()
+                        .collect() }), ("ItemKitDoor".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 10f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 3f64), ("Iron".into(), 7f64)] .into_iter()
+                        .collect() }), ("ItemKitElectronicsPrinter".into(), Recipe { tier
+                        : MachineTier::TierOne, time : 120f64, energy : 12000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 10f64), ("Gold".into(), 2f64), ("Iron"
+                        .into(), 20f64)] .into_iter().collect() }), ("ItemKitFlagODA"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 100f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Iron".into(), 8f64)] .into_iter()
+                        .collect() }), ("ItemKitFurnace".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 120f64, energy : 12000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 10f64), ("Iron".into(), 30f64)]
+                        .into_iter().collect() }), ("ItemKitFurniture".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 10f64, energy : 500f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Iron".into(), 20f64)]
+                        .into_iter().collect() }), ("ItemKitHydraulicPipeBender".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 180f64, energy :
+                        18000f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 10f64), ("Gold".into(),
+                        2f64), ("Iron".into(), 20f64)] .into_iter().collect() }),
+                        ("ItemKitInteriorDoors".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 10f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 3f64), ("Iron".into(), 5f64)] .into_iter()
+                        .collect() }), ("ItemKitLadder".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 3f64, energy : 200f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 2f64)] .into_iter().collect() }),
+                        ("ItemKitLocker".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 10f64, energy : 500f64, temperature : RecipeRange { start
+                        : 1f64, stop : 80000f64, is_valid : false }, pressure :
+                        RecipeRange { start : 0f64, stop : 1000000f64, is_valid : false
+                        }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Iron".into(),
+                        5f64)] .into_iter().collect() }), ("ItemKitPipe".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 5f64, energy : 200f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 0.5f64)] .into_iter().collect() }),
+                        ("ItemKitRailing".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 1f64, energy : 100f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Iron".into(),
+                        1f64)] .into_iter().collect() }), ("ItemKitRecycler".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 60f64, energy :
+                        12000f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Copper".into(), 10f64), ("Iron".into(),
+                        20f64)] .into_iter().collect() }), ("ItemKitReinforcedWindows"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 7f64,
+                        energy : 700f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Steel".into(), 2f64)] .into_iter()
+                        .collect() }), ("ItemKitRespawnPointWallMounted".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 20f64, energy : 500f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 1f64), ("Iron".into(), 3f64)] .into_iter()
+                        .collect() }), ("ItemKitRocketManufactory".into(), Recipe { tier
+                        : MachineTier::TierOne, time : 120f64, energy : 12000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 10f64), ("Gold".into(), 2f64), ("Iron"
+                        .into(), 20f64)] .into_iter().collect() }), ("ItemKitSDBHopper"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 10f64,
+                        energy : 700f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Iron".into(), 15f64)] .into_iter()
+                        .collect() }), ("ItemKitSecurityPrinter".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 180f64, energy : 36000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 20f64), ("Gold".into(), 20f64), ("Steel"
+                        .into(), 20f64)] .into_iter().collect() }), ("ItemKitSign"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 100f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Iron".into(), 3f64)] .into_iter()
+                        .collect() }), ("ItemKitSorter".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 10f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 1f64), ("Iron"
+                        .into(), 10f64)] .into_iter().collect() }), ("ItemKitStacker"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 10f64,
+                        energy : 500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Copper".into(), 2f64), ("Iron".into(),
+                        10f64)] .into_iter().collect() }), ("ItemKitStairs".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 20f64, energy :
+                        500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Iron".into(), 15f64)] .into_iter()
+                        .collect() }), ("ItemKitStairwell".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 20f64, energy : 6000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 15f64)] .into_iter().collect() }),
+                        ("ItemKitStandardChute".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Constantan".into(), 2f64), ("Electrum".into(), 2f64),
+                        ("Iron".into(), 3f64)] .into_iter().collect() }),
+                        ("ItemKitTables".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 10f64, energy : 500f64, temperature : RecipeRange { start
+                        : 1f64, stop : 80000f64, is_valid : false }, pressure :
+                        RecipeRange { start : 0f64, stop : 1000000f64, is_valid : false
+                        }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 2i64, reagents : vec![("Copper"
+                        .into(), 5f64), ("Iron".into(), 20f64)] .into_iter().collect()
+                        }), ("ItemKitToolManufactory".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 120f64, energy : 24000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 10f64), ("Iron".into(), 20f64)]
+                        .into_iter().collect() }), ("ItemKitWall".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Steel".into(), 1f64)] .into_iter().collect() }),
+                        ("ItemKitWallArch".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Steel"
+                        .into(), 1f64)] .into_iter().collect() }), ("ItemKitWallFlat"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Steel".into(), 1f64)] .into_iter()
+                        .collect() }), ("ItemKitWallGeometry".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Steel".into(), 1f64)] .into_iter().collect() }),
+                        ("ItemKitWallIron".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 1f64, energy : 200f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Iron".into(),
+                        1f64)] .into_iter().collect() }), ("ItemKitWallPadded".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 5f64, energy :
+                        500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Steel".into(), 1f64)] .into_iter()
+                        .collect() }), ("ItemKitWindowShutter".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 7f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Iron".into(), 1f64), ("Steel".into(), 2f64)] .into_iter()
+                        .collect() }), ("ItemPlasticSheets".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 1f64, energy : 200f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Silicon".into(), 0.5f64)] .into_iter().collect() }),
+                        ("ItemSpaceHelmet".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 15f64, energy : 500f64, temperature : RecipeRange { start
+                        : 1f64, stop : 80000f64, is_valid : false }, pressure :
+                        RecipeRange { start : 0f64, stop : 1000000f64, is_valid : false
+                        }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 2i64, reagents : vec![("Copper"
+                        .into(), 2f64), ("Gold".into(), 2f64)] .into_iter().collect() }),
+                        ("ItemSteelFrames".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 7f64, energy : 800f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Steel"
+                        .into(), 2f64)] .into_iter().collect() }), ("ItemSteelSheets"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 3f64,
+                        energy : 500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Steel".into(), 0.5f64)] .into_iter()
+                        .collect() }), ("ItemStelliteGlassSheets".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 1f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Silicon".into(), 2f64), ("Stellite".into(), 1f64)]
+                        .into_iter().collect() }), ("ItemWallLight".into(), Recipe { tier
+                        : MachineTier::TierOne, time : 10f64, energy : 500f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Iron".into(), 1f64), ("Silicon"
+                        .into(), 1f64)] .into_iter().collect() }), ("KitSDBSilo".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 120f64, energy :
+                        24000f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 10f64), ("Gold".into(),
+                        20f64), ("Steel".into(), 15f64)] .into_iter().collect() }),
+                        ("KitStructureCombustionCentrifuge".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 120f64, energy : 24000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Constantan".into(), 5f64), ("Invar".into(), 10f64),
+                        ("Steel".into(), 20f64)] .into_iter().collect() })
+                    ]
+                        .into_iter()
+                        .collect(),
+                }),
                 memory: MemoryInfo {
                     instructions: Some(
                         vec![
@@ -21436,6 +22027,157 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                         .collect(),
                     processed_reagents: vec![].into_iter().collect(),
                 },
+                fabricator_info: Some(FabricatorInfo {
+                    tier: MachineTier::TierOne,
+                    recipes: vec![
+                        ("ItemBreadLoaf".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 10f64, energy : 0f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 2i64, reagents : vec![("Flour"
+                        .into(), 200f64), ("Oil".into(), 5f64)] .into_iter().collect()
+                        }), ("ItemCerealBar".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 0f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Flour".into(), 50f64)] .into_iter().collect() }),
+                        ("ItemChocolateBar".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 0f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 2i64, reagents : vec![("Cocoa"
+                        .into(), 2f64), ("Sugar".into(), 10f64)] .into_iter().collect()
+                        }), ("ItemChocolateCake".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 30f64, energy : 0f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 5i64, reagents :
+                        vec![("Cocoa".into(), 2f64), ("Egg".into(), 1f64), ("Flour"
+                        .into(), 50f64), ("Milk".into(), 5f64), ("Sugar".into(), 50f64)]
+                        .into_iter().collect() }), ("ItemChocolateCerealBar".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 5f64, energy : 0f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Cocoa".into(), 1f64), ("Flour".into(), 50f64)]
+                        .into_iter().collect() }), ("ItemCookedCondensedMilk".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 5f64, energy : 0f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Milk".into(), 100f64)] .into_iter().collect() }),
+                        ("ItemCookedCorn".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 0f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Corn".into(),
+                        1f64)] .into_iter().collect() }), ("ItemCookedMushroom".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 5f64, energy : 0f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Mushroom".into(), 1f64)] .into_iter().collect() }),
+                        ("ItemCookedPowderedEggs".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 0f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Egg".into(), 4f64)] .into_iter().collect() }),
+                        ("ItemCookedPumpkin".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 0f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Pumpkin".into(), 1f64)] .into_iter().collect() }),
+                        ("ItemCookedRice".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 0f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Rice".into(),
+                        3f64)] .into_iter().collect() }), ("ItemCookedSoybean".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 5f64, energy : 0f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Soy".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemCookedTomato".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 0f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Tomato"
+                        .into(), 1f64)] .into_iter().collect() }), ("ItemFries".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 5f64, energy : 0f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Oil".into(), 5f64), ("Potato".into(), 1f64)] .into_iter()
+                        .collect() }), ("ItemMuffin".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 0f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Egg".into(), 1f64), ("Flour".into(), 50f64), ("Milk"
+                        .into(), 10f64)] .into_iter().collect() }), ("ItemPlainCake"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 30f64,
+                        energy : 0f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        4i64, reagents : vec![("Egg".into(), 1f64), ("Flour".into(),
+                        50f64), ("Milk".into(), 5f64), ("Sugar".into(), 50f64)]
+                        .into_iter().collect() }), ("ItemPotatoBaked".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 5f64, energy : 0f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Potato".into(), 1f64)] .into_iter().collect() }),
+                        ("ItemPumpkinPie".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 10f64, energy : 0f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 4i64, reagents : vec![("Egg".into(),
+                        1f64), ("Flour".into(), 100f64), ("Milk".into(), 10f64),
+                        ("Pumpkin".into(), 10f64)] .into_iter().collect() })
+                    ]
+                        .into_iter()
+                        .collect(),
+                }),
                 memory: MemoryInfo {
                     instructions: Some(
                         vec![
@@ -28197,6 +28939,1139 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                         .collect(),
                     processed_reagents: vec![].into_iter().collect(),
                 },
+                fabricator_info: Some(FabricatorInfo {
+                    tier: MachineTier::Undefined,
+                    recipes: vec![
+                        ("ApplianceChemistryStation".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 45f64, energy : 1500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 1f64), ("Steel"
+                        .into(), 5f64)] .into_iter().collect() }),
+                        ("ApplianceDeskLampLeft".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 10f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Iron".into(), 2f64), ("Silicon".into(), 1f64)]
+                        .into_iter().collect() }), ("ApplianceDeskLampRight".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 10f64, energy :
+                        500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Iron".into(), 2f64), ("Silicon".into(),
+                        1f64)] .into_iter().collect() }), ("ApplianceMicrowave".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 45f64, energy :
+                        1500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 2f64), ("Gold".into(),
+                        1f64), ("Iron".into(), 5f64)] .into_iter().collect() }),
+                        ("AppliancePackagingMachine".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 30f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Gold".into(), 1f64), ("Iron"
+                        .into(), 10f64)] .into_iter().collect() }),
+                        ("AppliancePaintMixer".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 45f64, energy : 1500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 1f64), ("Steel"
+                        .into(), 5f64)] .into_iter().collect() }),
+                        ("AppliancePlantGeneticAnalyzer".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 45f64, energy : 4500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 1f64), ("Steel"
+                        .into(), 5f64)] .into_iter().collect() }),
+                        ("AppliancePlantGeneticSplicer".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 50f64, energy : 5000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Inconel".into(), 10f64), ("Stellite".into(), 20f64)]
+                        .into_iter().collect() }), ("AppliancePlantGeneticStabilizer"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 50f64,
+                        energy : 5000f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Inconel".into(), 10f64), ("Stellite"
+                        .into(), 20f64)] .into_iter().collect() }),
+                        ("ApplianceReagentProcessor".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 45f64, energy : 1500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Gold".into(), 1f64), ("Iron"
+                        .into(), 5f64)] .into_iter().collect() }), ("ApplianceTabletDock"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 30f64,
+                        energy : 750f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        4i64, reagents : vec![("Copper".into(), 2f64), ("Gold".into(),
+                        1f64), ("Iron".into(), 5f64), ("Silicon".into(), 1f64)]
+                        .into_iter().collect() }), ("AutolathePrinterMod".into(), Recipe
+                        { tier : MachineTier::TierTwo, time : 180f64, energy : 72000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Constantan".into(), 8f64), ("Electrum".into(), 8f64),
+                        ("Solder".into(), 8f64), ("Steel".into(), 35f64)] .into_iter()
+                        .collect() }), ("Battery_Wireless_cell".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 10f64, energy : 10000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 10f64), ("Gold".into(), 2f64), ("Iron"
+                        .into(), 2f64)] .into_iter().collect() }),
+                        ("Battery_Wireless_cell_Big".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 20f64, energy : 20000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 15f64), ("Gold".into(), 5f64), ("Steel"
+                        .into(), 5f64)] .into_iter().collect() }),
+                        ("CartridgeAtmosAnalyser".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 100f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64), ("Iron"
+                        .into(), 1f64)] .into_iter().collect() }),
+                        ("CartridgeConfiguration".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 100f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64), ("Iron"
+                        .into(), 1f64)] .into_iter().collect() }),
+                        ("CartridgeElectronicReader".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 100f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64), ("Iron"
+                        .into(), 1f64)] .into_iter().collect() }), ("CartridgeGPS"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 100f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 5f64), ("Gold".into(),
+                        5f64), ("Iron".into(), 1f64)] .into_iter().collect() }),
+                        ("CartridgeMedicalAnalyser".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 100f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64), ("Iron"
+                        .into(), 1f64)] .into_iter().collect() }),
+                        ("CartridgeNetworkAnalyser".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 100f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64), ("Iron"
+                        .into(), 1f64)] .into_iter().collect() }), ("CartridgeOreScanner"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 100f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 5f64), ("Gold".into(),
+                        5f64), ("Iron".into(), 1f64)] .into_iter().collect() }),
+                        ("CartridgeOreScannerColor".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 100f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Constantan".into(), 5f64), ("Electrum".into(), 5f64),
+                        ("Invar".into(), 5f64), ("Silicon".into(), 5f64)] .into_iter()
+                        .collect() }), ("CartridgePlantAnalyser".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 100f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64), ("Iron"
+                        .into(), 1f64)] .into_iter().collect() }), ("CartridgeTracker"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 100f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 5f64), ("Gold".into(),
+                        5f64), ("Iron".into(), 1f64)] .into_iter().collect() }),
+                        ("CircuitboardAdvAirlockControl".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 100f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64), ("Iron"
+                        .into(), 1f64)] .into_iter().collect() }),
+                        ("CircuitboardAirControl".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 100f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64)] .into_iter()
+                        .collect() }), ("CircuitboardAirlockControl".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 5f64, energy : 100f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64), ("Iron"
+                        .into(), 1f64)] .into_iter().collect() }),
+                        ("CircuitboardDoorControl".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 100f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64)] .into_iter()
+                        .collect() }), ("CircuitboardGasDisplay".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 100f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64), ("Iron"
+                        .into(), 1f64)] .into_iter().collect() }),
+                        ("CircuitboardGraphDisplay".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 100f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64)] .into_iter()
+                        .collect() }), ("CircuitboardHashDisplay".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 100f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64)] .into_iter()
+                        .collect() }), ("CircuitboardModeControl".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 100f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64)] .into_iter()
+                        .collect() }), ("CircuitboardPowerControl".into(), Recipe { tier
+                        : MachineTier::TierOne, time : 5f64, energy : 100f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64)] .into_iter()
+                        .collect() }), ("CircuitboardShipDisplay".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 100f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64)] .into_iter()
+                        .collect() }), ("CircuitboardSolarControl".into(), Recipe { tier
+                        : MachineTier::TierOne, time : 5f64, energy : 100f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64)] .into_iter()
+                        .collect() }), ("DynamicLight".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 20f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Iron".into(), 5f64)] .into_iter()
+                        .collect() }), ("ElectronicPrinterMod".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 180f64, energy : 72000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Constantan".into(), 8f64), ("Electrum".into(), 8f64),
+                        ("Solder".into(), 8f64), ("Steel".into(), 35f64)] .into_iter()
+                        .collect() }), ("ItemAdvancedTablet".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 60f64, energy : 12000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 6i64, reagents :
+                        vec![("Copper".into(), 5.5f64), ("Electrum".into(), 1f64),
+                        ("Gold".into(), 12f64), ("Iron".into(), 3f64), ("Solder".into(),
+                        5f64), ("Steel".into(), 2f64)] .into_iter().collect() }),
+                        ("ItemAreaPowerControl".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 5000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Iron".into(), 5f64), ("Solder"
+                        .into(), 3f64)] .into_iter().collect() }), ("ItemBatteryCell"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 10f64,
+                        energy : 1000f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 5f64), ("Gold".into(),
+                        2f64), ("Iron".into(), 2f64)] .into_iter().collect() }),
+                        ("ItemBatteryCellLarge".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 20f64, energy : 20000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 10f64), ("Gold".into(), 5f64), ("Steel"
+                        .into(), 5f64)] .into_iter().collect() }),
+                        ("ItemBatteryCellNuclear".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 180f64, energy : 360000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Astroloy".into(), 10f64), ("Inconel".into(), 5f64),
+                        ("Steel".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemBatteryCharger".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 1f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64), ("Iron"
+                        .into(), 10f64)] .into_iter().collect() }),
+                        ("ItemBatteryChargerSmall".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 1f64, energy : 250f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Gold".into(), 2f64), ("Iron"
+                        .into(), 5f64)] .into_iter().collect() }), ("ItemCableAnalyser"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 100f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 2f64), ("Iron".into(),
+                        1f64), ("Silicon".into(), 2f64)] .into_iter().collect() }),
+                        ("ItemCableCoil".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 1f64, energy : 100f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Copper"
+                        .into(), 0.5f64)] .into_iter().collect() }),
+                        ("ItemCableCoilHeavy".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 0.5f64), ("Gold".into(), 0.5f64)]
+                        .into_iter().collect() }), ("ItemCableFuse".into(), Recipe { tier
+                        : MachineTier::TierOne, time : 5f64, energy : 100f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Iron".into(), 5f64)] .into_iter()
+                        .collect() }), ("ItemCreditCard".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 200f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Silicon".into(), 5f64)]
+                        .into_iter().collect() }), ("ItemDataDisk".into(), Recipe { tier
+                        : MachineTier::TierOne, time : 5f64, energy : 100f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64)] .into_iter()
+                        .collect() }), ("ItemElectronicParts".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 10f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 3f64), ("Gold".into(), 2f64), ("Iron"
+                        .into(), 3f64)] .into_iter().collect() }), ("ItemFlashingLight"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 100f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Copper".into(), 3f64), ("Iron".into(),
+                        2f64)] .into_iter().collect() }), ("ItemHEMDroidRepairKit"
+                        .into(), Recipe { tier : MachineTier::TierTwo, time : 40f64,
+                        energy : 1500f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Electrum".into(), 10f64), ("Inconel"
+                        .into(), 5f64), ("Solder".into(), 5f64)] .into_iter().collect()
+                        }), ("ItemIntegratedCircuit10".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 40f64, energy : 4000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Electrum".into(), 5f64), ("Gold".into(), 10f64), ("Solder"
+                        .into(), 2f64), ("Steel".into(), 4f64)] .into_iter().collect()
+                        }), ("ItemKitAIMeE".into(), Recipe { tier : MachineTier::TierTwo,
+                        time : 25f64, energy : 2200f64, temperature : RecipeRange { start
+                        : 1f64, stop : 80000f64, is_valid : false }, pressure :
+                        RecipeRange { start : 0f64, stop : 1000000f64, is_valid : false
+                        }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 7i64, reagents : vec![("Astroloy"
+                        .into(), 10f64), ("Constantan".into(), 8f64), ("Copper".into(),
+                        5f64), ("Electrum".into(), 15f64), ("Gold".into(), 5f64),
+                        ("Invar".into(), 7f64), ("Steel".into(), 22f64)] .into_iter()
+                        .collect() }), ("ItemKitAdvancedComposter".into(), Recipe { tier
+                        : MachineTier::TierTwo, time : 55f64, energy : 20000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Copper".into(), 15f64), ("Electrum".into(), 20f64),
+                        ("Solder".into(), 5f64), ("Steel".into(), 30f64)] .into_iter()
+                        .collect() }), ("ItemKitAdvancedFurnace".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 180f64, energy : 36000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 6i64, reagents :
+                        vec![("Copper".into(), 25f64), ("Electrum".into(), 15f64),
+                        ("Gold".into(), 5f64), ("Silicon".into(), 6f64), ("Solder"
+                        .into(), 8f64), ("Steel".into(), 30f64)] .into_iter().collect()
+                        }), ("ItemKitAdvancedPackagingMachine".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 60f64, energy : 18000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Constantan".into(), 10f64), ("Copper".into(), 10f64),
+                        ("Electrum".into(), 15f64), ("Steel".into(), 20f64)] .into_iter()
+                        .collect() }), ("ItemKitAutoMinerSmall".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 90f64, energy : 9000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 5i64, reagents :
+                        vec![("Copper".into(), 15f64), ("Electrum".into(), 50f64),
+                        ("Invar".into(), 25f64), ("Iron".into(), 15f64), ("Steel".into(),
+                        100f64)] .into_iter().collect() }), ("ItemKitAutomatedOven"
+                        .into(), Recipe { tier : MachineTier::TierTwo, time : 50f64,
+                        energy : 15000f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        5i64, reagents : vec![("Constantan".into(), 5f64), ("Copper"
+                        .into(), 15f64), ("Gold".into(), 10f64), ("Solder".into(),
+                        10f64), ("Steel".into(), 25f64)] .into_iter().collect() }),
+                        ("ItemKitBattery".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 120f64, energy : 12000f64, temperature : RecipeRange {
+                        start : 1f64, stop : 80000f64, is_valid : false }, pressure :
+                        RecipeRange { start : 0f64, stop : 1000000f64, is_valid : false
+                        }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 3i64, reagents : vec![("Copper"
+                        .into(), 20f64), ("Gold".into(), 20f64), ("Steel".into(), 20f64)]
+                        .into_iter().collect() }), ("ItemKitBatteryLarge".into(), Recipe
+                        { tier : MachineTier::TierTwo, time : 240f64, energy : 96000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 6i64, reagents :
+                        vec![("Copper".into(), 35f64), ("Electrum".into(), 10f64),
+                        ("Gold".into(), 35f64), ("Silicon".into(), 5f64), ("Steel"
+                        .into(), 35f64), ("Stellite".into(), 2f64)] .into_iter()
+                        .collect() }), ("ItemKitBeacon".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Gold".into(), 4f64), ("Solder"
+                        .into(), 2f64), ("Steel".into(), 5f64)] .into_iter().collect()
+                        }), ("ItemKitComputer".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 60f64, energy : 6000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 10f64), ("Gold".into(), 5f64), ("Iron"
+                        .into(), 5f64)] .into_iter().collect() }), ("ItemKitConsole"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 100f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 5f64), ("Gold".into(),
+                        3f64), ("Iron".into(), 2f64)] .into_iter().collect() }),
+                        ("ItemKitDynamicGenerator".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 120f64, energy : 5000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Gold".into(), 15f64), ("Nickel".into(), 15f64), ("Solder"
+                        .into(), 5f64), ("Steel".into(), 20f64)] .into_iter().collect()
+                        }), ("ItemKitElevator".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Gold".into(), 4f64), ("Solder"
+                        .into(), 2f64), ("Steel".into(), 2f64)] .into_iter().collect()
+                        }), ("ItemKitFridgeBig".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 10f64, energy : 100f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Copper".into(), 10f64), ("Gold".into(), 5f64), ("Iron"
+                        .into(), 20f64), ("Steel".into(), 15f64)] .into_iter().collect()
+                        }), ("ItemKitFridgeSmall".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 10f64, energy : 100f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 2f64), ("Iron"
+                        .into(), 10f64)] .into_iter().collect() }),
+                        ("ItemKitGasGenerator".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 120f64, energy : 1000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 10f64), ("Iron".into(), 50f64)]
+                        .into_iter().collect() }), ("ItemKitGroundTelescope".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 150f64, energy :
+                        24000f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Electrum".into(), 15f64), ("Solder"
+                        .into(), 10f64), ("Steel".into(), 25f64)] .into_iter().collect()
+                        }), ("ItemKitGrowLight".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 30f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Electrum".into(), 10f64),
+                        ("Steel".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemKitHarvie".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 60f64, energy : 500f64, temperature : RecipeRange { start
+                        : 1f64, stop : 80000f64, is_valid : false }, pressure :
+                        RecipeRange { start : 0f64, stop : 1000000f64, is_valid : false
+                        }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 5i64, reagents : vec![("Copper"
+                        .into(), 15f64), ("Electrum".into(), 10f64), ("Silicon".into(),
+                        5f64), ("Solder".into(), 5f64), ("Steel".into(), 10f64)]
+                        .into_iter().collect() }), ("ItemKitHorizontalAutoMiner".into(),
+                        Recipe { tier : MachineTier::TierTwo, time : 60f64, energy :
+                        60000f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        5i64, reagents : vec![("Copper".into(), 7f64), ("Electrum"
+                        .into(), 25f64), ("Invar".into(), 15f64), ("Iron".into(), 8f64),
+                        ("Steel".into(), 60f64)] .into_iter().collect() }),
+                        ("ItemKitHydroponicStation".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 120f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Copper".into(), 20f64), ("Gold".into(), 5f64), ("Nickel"
+                        .into(), 5f64), ("Steel".into(), 10f64)] .into_iter().collect()
+                        }), ("ItemKitLandingPadAtmos".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 10f64, energy : 1000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 1f64), ("Steel".into(), 5f64)]
+                        .into_iter().collect() }), ("ItemKitLandingPadBasic".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 10f64, energy :
+                        1000f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Copper".into(), 1f64), ("Steel".into(),
+                        5f64)] .into_iter().collect() }), ("ItemKitLandingPadWaypoint"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 10f64,
+                        energy : 1000f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Copper".into(), 1f64), ("Steel".into(),
+                        5f64)] .into_iter().collect() }), ("ItemKitLargeSatelliteDish"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 240f64,
+                        energy : 72000f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Astroloy".into(), 100f64), ("Inconel"
+                        .into(), 50f64), ("Waspaloy".into(), 20f64)] .into_iter()
+                        .collect() }), ("ItemKitLogicCircuit".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 40f64, energy : 2000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 10f64), ("Solder".into(), 2f64), ("Steel"
+                        .into(), 4f64)] .into_iter().collect() }),
+                        ("ItemKitLogicInputOutput".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 10f64, energy : 1000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 1f64), ("Gold".into(), 1f64)] .into_iter()
+                        .collect() }), ("ItemKitLogicMemory".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 10f64, energy : 1000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 1f64), ("Gold".into(), 1f64)] .into_iter()
+                        .collect() }), ("ItemKitLogicProcessor".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 10f64, energy : 1000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Gold".into(), 2f64)] .into_iter()
+                        .collect() }), ("ItemKitLogicSwitch".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 10f64, energy : 1000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 1f64), ("Gold".into(), 1f64)] .into_iter()
+                        .collect() }), ("ItemKitLogicTransmitter".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 10f64, energy : 1000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Copper".into(), 1f64), ("Electrum".into(), 3f64), ("Gold"
+                        .into(), 2f64), ("Silicon".into(), 5f64)] .into_iter().collect()
+                        }), ("ItemKitMusicMachines".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 10f64, energy : 1000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Gold".into(), 2f64)] .into_iter()
+                        .collect() }), ("ItemKitPowerTransmitter".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 20f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 7f64), ("Gold".into(), 5f64), ("Steel"
+                        .into(), 3f64)] .into_iter().collect() }),
+                        ("ItemKitPowerTransmitterOmni".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 20f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 8f64), ("Gold".into(), 4f64), ("Steel"
+                        .into(), 4f64)] .into_iter().collect() }),
+                        ("ItemKitPressurePlate".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 10f64, energy : 1000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Gold".into(), 2f64)] .into_iter()
+                        .collect() }), ("ItemKitResearchMachine".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 10f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 3f64), ("Gold".into(), 2f64), ("Iron"
+                        .into(), 9f64)] .into_iter().collect() }),
+                        ("ItemKitSatelliteDish".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 120f64, energy : 24000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Electrum".into(), 15f64), ("Solder".into(), 10f64),
+                        ("Steel".into(), 20f64)] .into_iter().collect() }),
+                        ("ItemKitSensor".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 10f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 3i64, reagents : vec![("Copper"
+                        .into(), 1f64), ("Gold".into(), 1f64), ("Iron".into(), 3f64)]
+                        .into_iter().collect() }), ("ItemKitSmallSatelliteDish".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 60f64, energy :
+                        6000f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Copper".into(), 10f64), ("Gold".into(),
+                        5f64)] .into_iter().collect() }), ("ItemKitSolarPanel".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 60f64, energy :
+                        6000f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 20f64), ("Gold".into(),
+                        5f64), ("Steel".into(), 15f64)] .into_iter().collect() }),
+                        ("ItemKitSolarPanelBasic".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 30f64, energy : 1000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 10f64), ("Gold".into(), 2f64), ("Iron"
+                        .into(), 10f64)] .into_iter().collect() }),
+                        ("ItemKitSolarPanelBasicReinforced".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 120f64, energy : 24000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Copper".into(), 10f64), ("Electrum".into(), 2f64),
+                        ("Invar".into(), 10f64), ("Steel".into(), 10f64)] .into_iter()
+                        .collect() }), ("ItemKitSolarPanelReinforced".into(), Recipe {
+                        tier : MachineTier::TierTwo, time : 120f64, energy : 24000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Astroloy".into(), 15f64), ("Copper".into(), 20f64),
+                        ("Electrum".into(), 5f64), ("Steel".into(), 10f64)] .into_iter()
+                        .collect() }), ("ItemKitSolidGenerator".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 120f64, energy : 1000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 10f64), ("Iron".into(), 50f64)]
+                        .into_iter().collect() }), ("ItemKitSpeaker".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 10f64, energy : 1000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 1f64), ("Gold".into(), 1f64), ("Steel"
+                        .into(), 5f64)] .into_iter().collect() }),
+                        ("ItemKitStirlingEngine".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 60f64, energy : 6000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 20f64), ("Gold".into(), 5f64), ("Steel"
+                        .into(), 30f64)] .into_iter().collect() }), ("ItemKitTransformer"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 60f64,
+                        energy : 12000f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Electrum".into(), 5f64), ("Steel".into(),
+                        10f64)] .into_iter().collect() }), ("ItemKitTransformerSmall"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 3f64), ("Gold".into(),
+                        1f64), ("Iron".into(), 10f64)] .into_iter().collect() }),
+                        ("ItemKitTurbineGenerator".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 60f64, energy : 6000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Gold".into(), 4f64), ("Iron"
+                        .into(), 5f64), ("Solder".into(), 4f64)] .into_iter().collect()
+                        }), ("ItemKitUprightWindTurbine".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 60f64, energy : 12000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 10f64), ("Gold".into(), 5f64), ("Iron"
+                        .into(), 10f64)] .into_iter().collect() }),
+                        ("ItemKitVendingMachine".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 60f64, energy : 15000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Electrum".into(), 50f64), ("Gold".into(), 50f64),
+                        ("Solder".into(), 10f64), ("Steel".into(), 20f64)] .into_iter()
+                        .collect() }), ("ItemKitVendingMachineRefrigerated".into(),
+                        Recipe { tier : MachineTier::TierTwo, time : 60f64, energy :
+                        25000f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        4i64, reagents : vec![("Electrum".into(), 80f64), ("Gold".into(),
+                        60f64), ("Solder".into(), 30f64), ("Steel".into(), 40f64)]
+                        .into_iter().collect() }), ("ItemKitWeatherStation".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 60f64, energy :
+                        12000f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        4i64, reagents : vec![("Copper".into(), 5f64), ("Gold".into(),
+                        3f64), ("Iron".into(), 8f64), ("Steel".into(), 3f64)]
+                        .into_iter().collect() }), ("ItemKitWindTurbine".into(), Recipe {
+                        tier : MachineTier::TierTwo, time : 60f64, energy : 12000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 10f64), ("Electrum".into(), 5f64),
+                        ("Steel".into(), 20f64)] .into_iter().collect() }),
+                        ("ItemLabeller".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 15f64, energy : 800f64, temperature : RecipeRange { start
+                        : 1f64, stop : 80000f64, is_valid : false }, pressure :
+                        RecipeRange { start : 0f64, stop : 1000000f64, is_valid : false
+                        }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 3i64, reagents : vec![("Copper"
+                        .into(), 2f64), ("Gold".into(), 1f64), ("Iron".into(), 3f64)]
+                        .into_iter().collect() }), ("ItemLaptop".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 60f64, energy : 18000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 5i64, reagents :
+                        vec![("Copper".into(), 5.5f64), ("Electrum".into(), 5f64),
+                        ("Gold".into(), 12f64), ("Solder".into(), 5f64), ("Steel".into(),
+                        2f64)] .into_iter().collect() }), ("ItemPowerConnector".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 1f64, energy :
+                        500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 5f64), ("Gold".into(),
+                        3f64), ("Iron".into(), 10f64)] .into_iter().collect() }),
+                        ("ItemResearchCapsule".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 3f64, energy : 400f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 3f64), ("Gold".into(), 2f64), ("Iron"
+                        .into(), 9f64)] .into_iter().collect() }),
+                        ("ItemResearchCapsuleGreen".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 10f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Astroloy".into(), 2f64), ("Copper".into(), 3f64), ("Gold"
+                        .into(), 2f64), ("Iron".into(), 9f64)] .into_iter().collect() }),
+                        ("ItemResearchCapsuleRed".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 8f64, energy : 50f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 3f64), ("Gold".into(), 2f64), ("Iron"
+                        .into(), 2f64)] .into_iter().collect() }),
+                        ("ItemResearchCapsuleYellow".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 1000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Astroloy".into(), 3f64), ("Copper".into(), 3f64), ("Gold"
+                        .into(), 2f64), ("Iron".into(), 9f64)] .into_iter().collect() }),
+                        ("ItemSoundCartridgeBass".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 100f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Gold".into(), 2f64), ("Silicon"
+                        .into(), 2f64)] .into_iter().collect() }),
+                        ("ItemSoundCartridgeDrums".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 100f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Gold".into(), 2f64), ("Silicon"
+                        .into(), 2f64)] .into_iter().collect() }),
+                        ("ItemSoundCartridgeLeads".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 100f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Gold".into(), 2f64), ("Silicon"
+                        .into(), 2f64)] .into_iter().collect() }),
+                        ("ItemSoundCartridgeSynth".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 100f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Gold".into(), 2f64), ("Silicon"
+                        .into(), 2f64)] .into_iter().collect() }), ("ItemTablet".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 5f64, energy :
+                        100f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 3f64), ("Gold".into(),
+                        2f64), ("Solder".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemWallLight".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 10f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 2i64, reagents : vec![("Copper"
+                        .into(), 2f64), ("Iron".into(), 1f64)] .into_iter().collect() }),
+                        ("MotherboardComms".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 4i64, reagents : vec![("Copper"
+                        .into(), 5f64), ("Electrum".into(), 2f64), ("Gold".into(), 5f64),
+                        ("Silver".into(), 5f64)] .into_iter().collect() }),
+                        ("MotherboardLogic".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 2i64, reagents : vec![("Copper"
+                        .into(), 5f64), ("Gold".into(), 5f64)] .into_iter().collect() }),
+                        ("MotherboardProgrammableChip".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64)] .into_iter()
+                        .collect() }), ("MotherboardRockets".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Electrum".into(), 5f64), ("Solder".into(), 5f64)]
+                        .into_iter().collect() }), ("MotherboardSorter".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 5f64, energy : 500f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Gold".into(), 5f64), ("Silver".into(), 5f64)] .into_iter()
+                        .collect() }), ("PipeBenderMod".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 180f64, energy : 72000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Constantan".into(), 8f64), ("Electrum".into(), 8f64),
+                        ("Solder".into(), 8f64), ("Steel".into(), 35f64)] .into_iter()
+                        .collect() }), ("PortableComposter".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 55f64, energy : 20000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 15f64), ("Steel".into(), 10f64)]
+                        .into_iter().collect() }), ("PortableSolarPanel".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 5f64, energy : 200f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 3f64), ("Iron"
+                        .into(), 5f64)] .into_iter().collect() }), ("ToolPrinterMod"
+                        .into(), Recipe { tier : MachineTier::TierTwo, time : 180f64,
+                        energy : 72000f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        4i64, reagents : vec![("Constantan".into(), 8f64), ("Electrum"
+                        .into(), 8f64), ("Solder".into(), 8f64), ("Steel".into(), 35f64)]
+                        .into_iter().collect() })
+                    ]
+                        .into_iter()
+                        .collect(),
+                }),
                 memory: MemoryInfo {
                     instructions: Some(
                         vec![
@@ -30682,6 +32557,879 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                         .collect(),
                     processed_reagents: vec![].into_iter().collect(),
                 },
+                fabricator_info: Some(FabricatorInfo {
+                    tier: MachineTier::Undefined,
+                    recipes: vec![
+                        ("ApplianceSeedTray".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 10f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Iron".into(), 10f64), ("Silicon"
+                        .into(), 15f64)] .into_iter().collect() }), ("ItemActiveVent"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 5f64), ("Gold".into(),
+                        1f64), ("Iron".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemAdhesiveInsulation".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 2f64, energy : 200f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Silicon".into(), 1f64), ("Steel".into(), 0.5f64)]
+                        .into_iter().collect() }), ("ItemDynamicAirCon".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 60f64, energy : 5000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Gold".into(), 5f64), ("Silver".into(), 5f64), ("Solder"
+                        .into(), 5f64), ("Steel".into(), 20f64)] .into_iter().collect()
+                        }), ("ItemDynamicScrubber".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 30f64, energy : 5000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Gold".into(), 5f64), ("Invar".into(), 5f64), ("Solder"
+                        .into(), 5f64), ("Steel".into(), 20f64)] .into_iter().collect()
+                        }), ("ItemGasCanisterEmpty".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemGasCanisterSmart".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 10f64, energy : 1000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Silicon".into(), 2f64), ("Steel"
+                        .into(), 15f64)] .into_iter().collect() }),
+                        ("ItemGasFilterCarbonDioxide".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemGasFilterCarbonDioxideL".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 45f64, energy : 4000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Invar".into(), 1f64), ("Steel".into(), 5f64), ("Stellite"
+                        .into(), 1f64)] .into_iter().collect() }),
+                        ("ItemGasFilterCarbonDioxideM".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 20f64, energy : 2500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Constantan".into(), 1f64), ("Iron".into(), 5f64),
+                        ("Silver".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemGasFilterNitrogen".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemGasFilterNitrogenL".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 45f64, energy : 4000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Invar".into(), 1f64), ("Steel".into(), 5f64), ("Stellite"
+                        .into(), 1f64)] .into_iter().collect() }),
+                        ("ItemGasFilterNitrogenM".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 20f64, energy : 2500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Constantan".into(), 1f64), ("Iron".into(), 5f64),
+                        ("Silver".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemGasFilterNitrousOxide".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemGasFilterNitrousOxideL".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 45f64, energy : 4000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Invar".into(), 1f64), ("Steel".into(), 5f64), ("Stellite"
+                        .into(), 1f64)] .into_iter().collect() }),
+                        ("ItemGasFilterNitrousOxideM".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 20f64, energy : 2500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Constantan".into(), 1f64), ("Iron".into(), 5f64),
+                        ("Silver".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemGasFilterOxygen".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemGasFilterOxygenL".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 45f64, energy : 4000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Invar".into(), 1f64), ("Steel".into(), 5f64), ("Stellite"
+                        .into(), 1f64)] .into_iter().collect() }),
+                        ("ItemGasFilterOxygenM".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 20f64, energy : 2500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Constantan".into(), 1f64), ("Iron".into(), 5f64),
+                        ("Silver".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemGasFilterPollutants".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemGasFilterPollutantsL".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 45f64, energy : 4000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Invar".into(), 1f64), ("Steel".into(), 5f64), ("Stellite"
+                        .into(), 1f64)] .into_iter().collect() }),
+                        ("ItemGasFilterPollutantsM".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 20f64, energy : 2500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Constantan".into(), 1f64), ("Iron".into(), 5f64),
+                        ("Silver".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemGasFilterVolatiles".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemGasFilterVolatilesL".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 45f64, energy : 4000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Invar".into(), 1f64), ("Steel".into(), 5f64), ("Stellite"
+                        .into(), 1f64)] .into_iter().collect() }),
+                        ("ItemGasFilterVolatilesM".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 20f64, energy : 2500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Constantan".into(), 1f64), ("Iron".into(), 5f64),
+                        ("Silver".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemGasFilterWater".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemGasFilterWaterL".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 45f64, energy : 4000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Invar".into(), 1f64), ("Steel".into(), 5f64), ("Stellite"
+                        .into(), 1f64)] .into_iter().collect() }), ("ItemGasFilterWaterM"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 20f64,
+                        energy : 2500f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Constantan".into(), 1f64), ("Iron"
+                        .into(), 5f64), ("Silver".into(), 5f64)] .into_iter().collect()
+                        }), ("ItemHydroponicTray".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 10f64)] .into_iter().collect() }),
+                        ("ItemKitAirlock".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 50f64, energy : 5000f64, temperature : RecipeRange { start
+                        : 1f64, stop : 80000f64, is_valid : false }, pressure :
+                        RecipeRange { start : 0f64, stop : 1000000f64, is_valid : false
+                        }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 3i64, reagents : vec![("Copper"
+                        .into(), 5f64), ("Gold".into(), 5f64), ("Steel".into(), 15f64)]
+                        .into_iter().collect() }), ("ItemKitAirlockGate".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 60f64, energy : 6000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64), ("Steel"
+                        .into(), 25f64)] .into_iter().collect() }),
+                        ("ItemKitAtmospherics".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 30f64, energy : 6000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 20f64), ("Gold".into(), 5f64), ("Iron"
+                        .into(), 10f64)] .into_iter().collect() }), ("ItemKitChute"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 2f64,
+                        energy : 500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Iron".into(), 3f64)] .into_iter()
+                        .collect() }), ("ItemKitCryoTube".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 120f64, energy : 24000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Copper".into(), 10f64), ("Gold".into(), 10f64), ("Silver"
+                        .into(), 5f64), ("Steel".into(), 35f64)] .into_iter().collect()
+                        }), ("ItemKitDrinkingFountain".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 20f64, energy : 620f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 3f64), ("Iron".into(), 5f64), ("Silicon"
+                        .into(), 8f64)] .into_iter().collect() }),
+                        ("ItemKitDynamicCanister".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 20f64, energy : 1000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 20f64)] .into_iter().collect() }),
+                        ("ItemKitDynamicGasTankAdvanced".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 40f64, energy : 2000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Iron".into(), 20f64), ("Silicon"
+                        .into(), 5f64), ("Steel".into(), 15f64)] .into_iter().collect()
+                        }), ("ItemKitDynamicHydroponics".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 30f64, energy : 1000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Nickel".into(), 5f64), ("Steel"
+                        .into(), 20f64)] .into_iter().collect() }),
+                        ("ItemKitDynamicLiquidCanister".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 20f64, energy : 1000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 20f64)] .into_iter().collect() }),
+                        ("ItemKitDynamicMKIILiquidCanister".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 40f64, energy : 2000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Iron".into(), 20f64), ("Silicon"
+                        .into(), 5f64), ("Steel".into(), 15f64)] .into_iter().collect()
+                        }), ("ItemKitEvaporationChamber".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 30f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 10f64), ("Silicon".into(), 5f64), ("Steel"
+                        .into(), 10f64)] .into_iter().collect() }),
+                        ("ItemKitHeatExchanger".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 30f64, energy : 1000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Invar".into(), 10f64), ("Steel".into(), 10f64)]
+                        .into_iter().collect() }), ("ItemKitIceCrusher".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 30f64, energy : 3000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 1f64), ("Gold".into(), 1f64), ("Iron"
+                        .into(), 3f64)] .into_iter().collect() }),
+                        ("ItemKitInsulatedLiquidPipe".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 4f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Silicon".into(), 1f64), ("Steel".into(), 1f64)]
+                        .into_iter().collect() }), ("ItemKitInsulatedPipe".into(), Recipe
+                        { tier : MachineTier::TierOne, time : 4f64, energy : 500f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Silicon".into(), 1f64), ("Steel".into(), 1f64)]
+                        .into_iter().collect() }), ("ItemKitInsulatedPipeUtility".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 15f64, energy :
+                        500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Silicon".into(), 1f64), ("Steel".into(),
+                        5f64)] .into_iter().collect() }),
+                        ("ItemKitInsulatedPipeUtilityLiquid".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 15f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Silicon".into(), 1f64), ("Steel".into(), 5f64)]
+                        .into_iter().collect() }), ("ItemKitLargeDirectHeatExchanger"
+                        .into(), Recipe { tier : MachineTier::TierTwo, time : 30f64,
+                        energy : 1000f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Invar".into(), 10f64), ("Steel".into(),
+                        10f64)] .into_iter().collect() }),
+                        ("ItemKitLargeExtendableRadiator".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 30f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 10f64), ("Invar".into(), 10f64), ("Steel"
+                        .into(), 10f64)] .into_iter().collect() }),
+                        ("ItemKitLiquidRegulator".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Gold".into(), 1f64), ("Iron"
+                        .into(), 5f64)] .into_iter().collect() }), ("ItemKitLiquidTank"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 20f64,
+                        energy : 2000f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Copper".into(), 5f64), ("Steel".into(),
+                        20f64)] .into_iter().collect() }), ("ItemKitLiquidTankInsulated"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 30f64,
+                        energy : 6000f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 5f64), ("Silicon".into(),
+                        30f64), ("Steel".into(), 20f64)] .into_iter().collect() }),
+                        ("ItemKitLiquidTurboVolumePump".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Copper".into(), 4f64), ("Electrum".into(), 5f64), ("Gold"
+                        .into(), 4f64), ("Steel".into(), 5f64)] .into_iter().collect()
+                        }), ("ItemKitPassiveLargeRadiatorGas".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 30f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Invar".into(), 5f64), ("Steel"
+                        .into(), 5f64)] .into_iter().collect() }),
+                        ("ItemKitPassiveLargeRadiatorLiquid".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 30f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Invar".into(), 5f64), ("Steel"
+                        .into(), 5f64)] .into_iter().collect() }),
+                        ("ItemKitPassthroughHeatExchanger".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 30f64, energy : 1000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Invar".into(), 10f64), ("Steel".into(), 10f64)]
+                        .into_iter().collect() }), ("ItemKitPipe".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 2f64, energy : 200f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 0.5f64)] .into_iter().collect() }),
+                        ("ItemKitPipeLiquid".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 2f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 0.5f64)] .into_iter().collect() }),
+                        ("ItemKitPipeOrgan".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 100f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Iron".into(),
+                        3f64)] .into_iter().collect() }), ("ItemKitPipeRadiator".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 5f64, energy :
+                        500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Gold".into(), 3f64), ("Steel".into(),
+                        2f64)] .into_iter().collect() }), ("ItemKitPipeRadiatorLiquid"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Gold".into(), 3f64), ("Steel".into(),
+                        2f64)] .into_iter().collect() }), ("ItemKitPipeUtility".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 15f64, energy :
+                        500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Iron".into(), 5f64)] .into_iter()
+                        .collect() }), ("ItemKitPipeUtilityLiquid".into(), Recipe { tier
+                        : MachineTier::TierOne, time : 15f64, energy : 500f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemKitPlanter".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Iron".into(),
+                        10f64)] .into_iter().collect() }), ("ItemKitPortablesConnector"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Iron".into(), 5f64)] .into_iter()
+                        .collect() }), ("ItemKitPoweredVent".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 20f64, energy : 1000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Electrum".into(), 5f64), ("Invar".into(), 2f64), ("Steel"
+                        .into(), 5f64)] .into_iter().collect() }), ("ItemKitRegulator"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 2f64), ("Gold".into(),
+                        1f64), ("Iron".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemKitSensor".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 10f64, energy : 500f64, temperature : RecipeRange { start
+                        : 1f64, stop : 80000f64, is_valid : false }, pressure :
+                        RecipeRange { start : 0f64, stop : 1000000f64, is_valid : false
+                        }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 3i64, reagents : vec![("Copper"
+                        .into(), 1f64), ("Gold".into(), 1f64), ("Iron".into(), 1f64)]
+                        .into_iter().collect() }), ("ItemKitShower".into(), Recipe { tier
+                        : MachineTier::TierOne, time : 30f64, energy : 3000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Iron".into(), 5f64), ("Silicon"
+                        .into(), 5f64)] .into_iter().collect() }), ("ItemKitSleeper"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 60f64,
+                        energy : 6000f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 10f64), ("Gold".into(),
+                        10f64), ("Steel".into(), 25f64)] .into_iter().collect() }),
+                        ("ItemKitSmallDirectHeatExchanger".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 10f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Steel".into(), 3f64)]
+                        .into_iter().collect() }), ("ItemKitStandardChute".into(), Recipe
+                        { tier : MachineTier::TierOne, time : 5f64, energy : 500f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Constantan".into(), 2f64), ("Electrum".into(), 2f64),
+                        ("Iron".into(), 3f64)] .into_iter().collect() }),
+                        ("ItemKitSuitStorage".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 30f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Iron".into(), 15f64), ("Silver"
+                        .into(), 5f64)] .into_iter().collect() }), ("ItemKitTank".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 20f64, energy :
+                        2000f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Copper".into(), 5f64), ("Steel".into(),
+                        20f64)] .into_iter().collect() }), ("ItemKitTankInsulated"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 30f64,
+                        energy : 6000f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 5f64), ("Silicon".into(),
+                        30f64), ("Steel".into(), 20f64)] .into_iter().collect() }),
+                        ("ItemKitTurboVolumePump".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Copper".into(), 4f64), ("Electrum".into(), 5f64), ("Gold"
+                        .into(), 4f64), ("Steel".into(), 5f64)] .into_iter().collect()
+                        }), ("ItemKitWaterBottleFiller".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 7f64, energy : 620f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 3f64), ("Iron".into(), 5f64), ("Silicon"
+                        .into(), 8f64)] .into_iter().collect() }),
+                        ("ItemKitWaterPurifier".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 30f64, energy : 6000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 20f64), ("Gold".into(), 5f64), ("Iron"
+                        .into(), 10f64)] .into_iter().collect() }),
+                        ("ItemLiquidCanisterEmpty".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemLiquidCanisterSmart".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 10f64, energy : 1000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Silicon".into(), 2f64), ("Steel"
+                        .into(), 15f64)] .into_iter().collect() }), ("ItemLiquidDrain"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 10f64,
+                        energy : 500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Copper".into(), 2f64), ("Iron".into(),
+                        5f64)] .into_iter().collect() }), ("ItemLiquidPipeAnalyzer"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 10f64,
+                        energy : 500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Electrum".into(), 2f64), ("Gold".into(),
+                        2f64), ("Iron".into(), 2f64)] .into_iter().collect() }),
+                        ("ItemLiquidPipeHeater".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 3f64), ("Gold".into(), 3f64), ("Iron"
+                        .into(), 5f64)] .into_iter().collect() }), ("ItemLiquidPipeValve"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Copper".into(), 2f64), ("Iron".into(),
+                        3f64)] .into_iter().collect() }), ("ItemLiquidPipeVolumePump"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 3f64), ("Gold".into(),
+                        2f64), ("Iron".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemPassiveVent".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Iron".into(),
+                        3f64)] .into_iter().collect() }), ("ItemPassiveVentInsulated"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Silicon".into(), 5f64), ("Steel".into(),
+                        1f64)] .into_iter().collect() }), ("ItemPipeAnalyizer".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 10f64, energy :
+                        500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Electrum".into(), 2f64), ("Gold".into(),
+                        2f64), ("Iron".into(), 2f64)] .into_iter().collect() }),
+                        ("ItemPipeCowl".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Iron".into(),
+                        3f64)] .into_iter().collect() }), ("ItemPipeDigitalValve".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 15f64, energy :
+                        500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 2f64), ("Invar".into(),
+                        3f64), ("Steel".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemPipeGasMixer".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 10f64, energy : 500f64, temperature : RecipeRange { start
+                        : 1f64, stop : 80000f64, is_valid : false }, pressure :
+                        RecipeRange { start : 0f64, stop : 1000000f64, is_valid : false
+                        }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 3i64, reagents : vec![("Copper"
+                        .into(), 2f64), ("Gold".into(), 2f64), ("Iron".into(), 2f64)]
+                        .into_iter().collect() }), ("ItemPipeHeater".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 5f64, energy : 500f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 3f64), ("Gold".into(), 3f64), ("Iron"
+                        .into(), 5f64)] .into_iter().collect() }), ("ItemPipeIgniter"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 10f64,
+                        energy : 500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Electrum".into(), 2f64), ("Iron".into(),
+                        2f64)] .into_iter().collect() }), ("ItemPipeLabel".into(), Recipe
+                        { tier : MachineTier::TierOne, time : 5f64, energy : 500f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 1f64)] .into_iter().collect() }),
+                        ("ItemPipeMeter".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 10f64, energy : 500f64, temperature : RecipeRange { start
+                        : 1f64, stop : 80000f64, is_valid : false }, pressure :
+                        RecipeRange { start : 0f64, stop : 1000000f64, is_valid : false
+                        }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 2i64, reagents : vec![("Copper"
+                        .into(), 2f64), ("Iron".into(), 3f64)] .into_iter().collect() }),
+                        ("ItemPipeValve".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 2i64, reagents : vec![("Copper"
+                        .into(), 2f64), ("Iron".into(), 3f64)] .into_iter().collect() }),
+                        ("ItemPipeVolumePump".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 3f64), ("Gold".into(), 2f64), ("Iron"
+                        .into(), 5f64)] .into_iter().collect() }), ("ItemWallCooler"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 3f64), ("Gold".into(),
+                        1f64), ("Iron".into(), 3f64)] .into_iter().collect() }),
+                        ("ItemWallHeater".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 3i64, reagents : vec![("Copper"
+                        .into(), 3f64), ("Gold".into(), 1f64), ("Iron".into(), 3f64)]
+                        .into_iter().collect() }), ("ItemWaterBottle".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 4f64, energy : 120f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Iron".into(), 2f64), ("Silicon".into(), 4f64)]
+                        .into_iter().collect() }), ("ItemWaterPipeDigitalValve".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 15f64, energy :
+                        500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 2f64), ("Invar".into(),
+                        3f64), ("Steel".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemWaterPipeMeter".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 10f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Iron".into(), 3f64)] .into_iter()
+                        .collect() }), ("ItemWaterWallCooler".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 3f64), ("Gold".into(), 1f64), ("Iron"
+                        .into(), 3f64)] .into_iter().collect() })
+                    ]
+                        .into_iter()
+                        .collect(),
+                }),
                 memory: MemoryInfo {
                     instructions: Some(
                         vec![
@@ -39617,6 +42365,282 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                         .collect(),
                     processed_reagents: vec![].into_iter().collect(),
                 },
+                fabricator_info: Some(FabricatorInfo {
+                    tier: MachineTier::Undefined,
+                    recipes: vec![
+                        ("ItemKitAccessBridge".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 30f64, energy : 9000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Gold".into(), 3f64), ("Steel"
+                        .into(), 10f64)] .into_iter().collect() }),
+                        ("ItemKitChuteUmbilical".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 2500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 3f64), ("Steel".into(), 10f64)]
+                        .into_iter().collect() }), ("ItemKitElectricUmbilical".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 5f64, energy :
+                        2500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Gold".into(), 5f64), ("Steel".into(),
+                        5f64)] .into_iter().collect() }), ("ItemKitFuselage".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 120f64, energy :
+                        60000f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Steel".into(), 20f64)] .into_iter()
+                        .collect() }), ("ItemKitGasUmbilical".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 2500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Steel".into(), 5f64)]
+                        .into_iter().collect() }), ("ItemKitGovernedGasRocketEngine"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 60f64,
+                        energy : 60000f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 10f64), ("Gold".into(),
+                        5f64), ("Iron".into(), 15f64)] .into_iter().collect() }),
+                        ("ItemKitLaunchMount".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 240f64, energy : 120000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Steel".into(), 60f64)] .into_iter().collect() }),
+                        ("ItemKitLaunchTower".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 30f64, energy : 30000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Steel".into(), 10f64)] .into_iter().collect() }),
+                        ("ItemKitLiquidUmbilical".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 2500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Steel".into(), 5f64)]
+                        .into_iter().collect() }), ("ItemKitPressureFedGasEngine".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 60f64, energy :
+                        60000f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        4i64, reagents : vec![("Constantan".into(), 10f64), ("Electrum"
+                        .into(), 5f64), ("Invar".into(), 20f64), ("Steel".into(), 20f64)]
+                        .into_iter().collect() }), ("ItemKitPressureFedLiquidEngine"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 60f64,
+                        energy : 60000f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Astroloy".into(), 10f64), ("Inconel"
+                        .into(), 5f64), ("Waspaloy".into(), 15f64)] .into_iter()
+                        .collect() }), ("ItemKitPumpedLiquidEngine".into(), Recipe { tier
+                        : MachineTier::TierOne, time : 60f64, energy : 60000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Constantan".into(), 10f64), ("Electrum".into(), 5f64),
+                        ("Steel".into(), 15f64)] .into_iter().collect() }),
+                        ("ItemKitRocketAvionics".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 2500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Electrum".into(), 2f64), ("Solder".into(), 3f64)]
+                        .into_iter().collect() }), ("ItemKitRocketBattery".into(), Recipe
+                        { tier : MachineTier::TierOne, time : 10f64, energy : 10000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Electrum".into(), 5f64), ("Solder".into(), 5f64), ("Steel"
+                        .into(), 10f64)] .into_iter().collect() }),
+                        ("ItemKitRocketCargoStorage".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 30f64, energy : 30000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Constantan".into(), 10f64), ("Invar".into(), 5f64),
+                        ("Steel".into(), 10f64)] .into_iter().collect() }),
+                        ("ItemKitRocketCelestialTracker".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 2500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Electrum".into(), 5f64), ("Steel".into(), 5f64)]
+                        .into_iter().collect() }), ("ItemKitRocketCircuitHousing".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 5f64, energy :
+                        2500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Electrum".into(), 2f64), ("Solder"
+                        .into(), 3f64)] .into_iter().collect() }),
+                        ("ItemKitRocketDatalink".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 2500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Electrum".into(), 2f64), ("Solder".into(), 3f64)]
+                        .into_iter().collect() }), ("ItemKitRocketGasFuelTank".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 10f64, energy :
+                        5000f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Copper".into(), 5f64), ("Steel".into(),
+                        10f64)] .into_iter().collect() }), ("ItemKitRocketLiquidFuelTank"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 10f64,
+                        energy : 5000f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Copper".into(), 5f64), ("Steel".into(),
+                        20f64)] .into_iter().collect() }), ("ItemKitRocketMiner".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 60f64, energy :
+                        60000f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        4i64, reagents : vec![("Constantan".into(), 10f64), ("Electrum"
+                        .into(), 5f64), ("Invar".into(), 5f64), ("Steel".into(), 10f64)]
+                        .into_iter().collect() }), ("ItemKitRocketScanner".into(), Recipe
+                        { tier : MachineTier::TierOne, time : 60f64, energy : 60000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 10f64), ("Gold".into(), 10f64)]
+                        .into_iter().collect() }), ("ItemKitRocketTransformerSmall"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 60f64,
+                        energy : 12000f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Electrum".into(), 5f64), ("Steel".into(),
+                        10f64)] .into_iter().collect() }), ("ItemKitStairwell".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 20f64, energy :
+                        6000f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Iron".into(), 15f64)] .into_iter()
+                        .collect() }), ("ItemRocketMiningDrillHead".into(), Recipe { tier
+                        : MachineTier::TierOne, time : 30f64, energy : 5000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 20f64)] .into_iter().collect() }),
+                        ("ItemRocketMiningDrillHeadDurable".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 30f64, energy : 5000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Iron".into(), 10f64), ("Steel".into(), 10f64)]
+                        .into_iter().collect() }),
+                        ("ItemRocketMiningDrillHeadHighSpeedIce".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 30f64, energy : 5000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Invar".into(), 5f64), ("Steel".into(), 10f64)]
+                        .into_iter().collect() }),
+                        ("ItemRocketMiningDrillHeadHighSpeedMineral".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 30f64, energy : 5000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Invar".into(), 5f64), ("Steel".into(), 10f64)]
+                        .into_iter().collect() }), ("ItemRocketMiningDrillHeadIce"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 30f64,
+                        energy : 5000f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Iron".into(), 10f64), ("Steel".into(),
+                        10f64)] .into_iter().collect() }),
+                        ("ItemRocketMiningDrillHeadLongTerm".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 30f64, energy : 5000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Invar".into(), 5f64), ("Steel".into(), 10f64)]
+                        .into_iter().collect() }), ("ItemRocketMiningDrillHeadMineral"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 30f64,
+                        energy : 5000f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Iron".into(), 10f64), ("Steel".into(),
+                        10f64)] .into_iter().collect() }), ("ItemRocketScanningHead"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 60f64,
+                        energy : 60000f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Copper".into(), 3f64), ("Gold".into(),
+                        2f64)] .into_iter().collect() })
+                    ]
+                        .into_iter()
+                        .collect(),
+                }),
                 memory: MemoryInfo {
                     instructions: Some(
                         vec![
@@ -40209,6 +43233,209 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                         .collect(),
                     processed_reagents: vec![].into_iter().collect(),
                 },
+                fabricator_info: Some(FabricatorInfo {
+                    tier: MachineTier::Undefined,
+                    recipes: vec![
+                        ("AccessCardBlack".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 2f64, energy : 200f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 3i64, reagents : vec![("Copper"
+                        .into(), 1f64), ("Gold".into(), 1f64), ("Iron".into(), 1f64)]
+                        .into_iter().collect() }), ("AccessCardBlue".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 2f64, energy : 200f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 1f64), ("Gold".into(), 1f64), ("Iron"
+                        .into(), 1f64)] .into_iter().collect() }), ("AccessCardBrown"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 2f64,
+                        energy : 200f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 1f64), ("Gold".into(),
+                        1f64), ("Iron".into(), 1f64)] .into_iter().collect() }),
+                        ("AccessCardGray".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 2f64, energy : 200f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 3i64, reagents : vec![("Copper"
+                        .into(), 1f64), ("Gold".into(), 1f64), ("Iron".into(), 1f64)]
+                        .into_iter().collect() }), ("AccessCardGreen".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 2f64, energy : 200f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 1f64), ("Gold".into(), 1f64), ("Iron"
+                        .into(), 1f64)] .into_iter().collect() }), ("AccessCardKhaki"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 2f64,
+                        energy : 200f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 1f64), ("Gold".into(),
+                        1f64), ("Iron".into(), 1f64)] .into_iter().collect() }),
+                        ("AccessCardOrange".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 2f64, energy : 200f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 3i64, reagents : vec![("Copper"
+                        .into(), 1f64), ("Gold".into(), 1f64), ("Iron".into(), 1f64)]
+                        .into_iter().collect() }), ("AccessCardPink".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 2f64, energy : 200f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 1f64), ("Gold".into(), 1f64), ("Iron"
+                        .into(), 1f64)] .into_iter().collect() }), ("AccessCardPurple"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 2f64,
+                        energy : 200f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 1f64), ("Gold".into(),
+                        1f64), ("Iron".into(), 1f64)] .into_iter().collect() }),
+                        ("AccessCardRed".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 2f64, energy : 200f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 3i64, reagents : vec![("Copper"
+                        .into(), 1f64), ("Gold".into(), 1f64), ("Iron".into(), 1f64)]
+                        .into_iter().collect() }), ("AccessCardWhite".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 2f64, energy : 200f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 1f64), ("Gold".into(), 1f64), ("Iron"
+                        .into(), 1f64)] .into_iter().collect() }), ("AccessCardYellow"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 2f64,
+                        energy : 200f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 1f64), ("Gold".into(),
+                        1f64), ("Iron".into(), 1f64)] .into_iter().collect() }),
+                        ("CartridgeAccessController".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 100f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64), ("Iron"
+                        .into(), 1f64)] .into_iter().collect() }), ("FireArmSMG".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 120f64, energy :
+                        3000f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Nickel".into(), 10f64), ("Steel".into(),
+                        30f64)] .into_iter().collect() }), ("Handgun".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 120f64, energy : 3000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Nickel".into(), 10f64), ("Steel".into(), 30f64)]
+                        .into_iter().collect() }), ("HandgunMagazine".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 60f64, energy : 500f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 3f64), ("Lead".into(), 1f64), ("Steel"
+                        .into(), 3f64)] .into_iter().collect() }), ("ItemAmmoBox".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 120f64, energy :
+                        3000f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 30f64), ("Lead".into(),
+                        50f64), ("Steel".into(), 30f64)] .into_iter().collect() }),
+                        ("ItemExplosive".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 10f64, energy : 500f64, temperature : RecipeRange { start
+                        : 1f64, stop : 80000f64, is_valid : false }, pressure :
+                        RecipeRange { start : 0f64, stop : 1000000f64, is_valid : false
+                        }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 5i64, reagents : vec![("Copper"
+                        .into(), 5f64), ("Electrum".into(), 1f64), ("Gold".into(), 5f64),
+                        ("Lead".into(), 10f64), ("Steel".into(), 7f64)] .into_iter()
+                        .collect() }), ("ItemGrenade".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 90f64, energy : 2900f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Copper".into(), 15f64), ("Gold".into(), 1f64), ("Lead"
+                        .into(), 25f64), ("Steel".into(), 25f64)] .into_iter().collect()
+                        }), ("ItemMiningCharge".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 7f64, energy : 200f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64), ("Iron"
+                        .into(), 7f64), ("Lead".into(), 10f64)] .into_iter().collect()
+                        }), ("SMGMagazine".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 60f64, energy : 500f64, temperature : RecipeRange { start
+                        : 1f64, stop : 80000f64, is_valid : false }, pressure :
+                        RecipeRange { start : 0f64, stop : 1000000f64, is_valid : false
+                        }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 3i64, reagents : vec![("Copper"
+                        .into(), 3f64), ("Lead".into(), 1f64), ("Steel".into(), 3f64)]
+                        .into_iter().collect() }), ("WeaponPistolEnergy".into(), Recipe {
+                        tier : MachineTier::TierTwo, time : 120f64, energy : 3000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Electrum".into(), 20f64), ("Gold".into(), 10f64),
+                        ("Solder".into(), 10f64), ("Steel".into(), 10f64)] .into_iter()
+                        .collect() }), ("WeaponRifleEnergy".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 240f64, energy : 10000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 6i64, reagents :
+                        vec![("Constantan".into(), 10f64), ("Electrum".into(), 20f64),
+                        ("Gold".into(), 10f64), ("Invar".into(), 10f64), ("Solder"
+                        .into(), 10f64), ("Steel".into(), 20f64)] .into_iter().collect()
+                        })
+                    ]
+                        .into_iter()
+                        .collect(),
+                }),
                 memory: MemoryInfo {
                     instructions: Some(
                         vec![
@@ -42116,6 +45343,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                         .collect(),
                     processed_reagents: vec![].into_iter().collect(),
                 },
+                fabricator_info: None,
             }
                 .into(),
         ),
@@ -43735,6 +46963,814 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                         .collect(),
                     processed_reagents: vec![].into_iter().collect(),
                 },
+                fabricator_info: Some(FabricatorInfo {
+                    tier: MachineTier::Undefined,
+                    recipes: vec![
+                        ("FlareGun".into(), Recipe { tier : MachineTier::TierOne, time :
+                        10f64, energy : 2000f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 2i64, reagents : vec![("Iron".into(),
+                        10f64), ("Silicon".into(), 10f64)] .into_iter().collect() }),
+                        ("ItemAngleGrinder".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 10f64, energy : 500f64, temperature : RecipeRange { start
+                        : 1f64, stop : 80000f64, is_valid : false }, pressure :
+                        RecipeRange { start : 0f64, stop : 1000000f64, is_valid : false
+                        }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 2i64, reagents : vec![("Copper"
+                        .into(), 1f64), ("Iron".into(), 3f64)] .into_iter().collect() }),
+                        ("ItemArcWelder".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 30f64, energy : 2500f64, temperature : RecipeRange { start
+                        : 1f64, stop : 80000f64, is_valid : false }, pressure :
+                        RecipeRange { start : 0f64, stop : 1000000f64, is_valid : false
+                        }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 4i64, reagents : vec![("Electrum"
+                        .into(), 10f64), ("Invar".into(), 5f64), ("Solder".into(),
+                        10f64), ("Steel".into(), 10f64)] .into_iter().collect() }),
+                        ("ItemBasketBall".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 1f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Silicon"
+                        .into(), 1f64)] .into_iter().collect() }), ("ItemBeacon".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 10f64, energy :
+                        500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 2f64), ("Gold".into(),
+                        1f64), ("Iron".into(), 2f64)] .into_iter().collect() }),
+                        ("ItemChemLightBlue".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 1f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Silicon".into(), 1f64)] .into_iter().collect() }),
+                        ("ItemChemLightGreen".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 1f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Silicon".into(), 1f64)] .into_iter().collect() }),
+                        ("ItemChemLightRed".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 1f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Silicon"
+                        .into(), 1f64)] .into_iter().collect() }), ("ItemChemLightWhite"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 1f64,
+                        energy : 500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Silicon".into(), 1f64)] .into_iter()
+                        .collect() }), ("ItemChemLightYellow".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 1f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Silicon".into(), 1f64)] .into_iter().collect() }),
+                        ("ItemClothingBagOveralls_Aus".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Silicon".into(), 25f64)] .into_iter().collect() }),
+                        ("ItemClothingBagOveralls_Brazil".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Silicon".into(), 25f64)] .into_iter().collect() }),
+                        ("ItemClothingBagOveralls_Canada".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Silicon".into(), 25f64)] .into_iter().collect() }),
+                        ("ItemClothingBagOveralls_China".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Silicon".into(), 25f64)] .into_iter().collect() }),
+                        ("ItemClothingBagOveralls_EU".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Silicon".into(), 25f64)] .into_iter().collect() }),
+                        ("ItemClothingBagOveralls_France".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Silicon".into(), 25f64)] .into_iter().collect() }),
+                        ("ItemClothingBagOveralls_Germany".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Silicon".into(), 25f64)] .into_iter().collect() }),
+                        ("ItemClothingBagOveralls_Japan".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Silicon".into(), 25f64)] .into_iter().collect() }),
+                        ("ItemClothingBagOveralls_Korea".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Silicon".into(), 25f64)] .into_iter().collect() }),
+                        ("ItemClothingBagOveralls_NZ".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Silicon".into(), 25f64)] .into_iter().collect() }),
+                        ("ItemClothingBagOveralls_Russia".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Silicon".into(), 25f64)] .into_iter().collect() }),
+                        ("ItemClothingBagOveralls_SouthAfrica".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Silicon".into(), 25f64)] .into_iter().collect() }),
+                        ("ItemClothingBagOveralls_UK".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Silicon".into(), 25f64)] .into_iter().collect() }),
+                        ("ItemClothingBagOveralls_US".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Silicon".into(), 25f64)] .into_iter().collect() }),
+                        ("ItemClothingBagOveralls_Ukraine".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Silicon".into(), 25f64)] .into_iter().collect() }),
+                        ("ItemCrowbar".into(), Recipe { tier : MachineTier::TierOne, time
+                        : 10f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Iron".into(),
+                        5f64)] .into_iter().collect() }), ("ItemDirtCanister".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 5f64, energy :
+                        400f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Iron".into(), 3f64)] .into_iter()
+                        .collect() }), ("ItemDisposableBatteryCharger".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 10f64, energy : 1000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 2f64), ("Iron"
+                        .into(), 2f64)] .into_iter().collect() }), ("ItemDrill".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 10f64, energy :
+                        500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Copper".into(), 5f64), ("Iron".into(),
+                        5f64)] .into_iter().collect() }), ("ItemDuctTape".into(), Recipe
+                        { tier : MachineTier::TierOne, time : 5f64, energy : 500f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 2f64)] .into_iter().collect() }),
+                        ("ItemEvaSuit".into(), Recipe { tier : MachineTier::TierOne, time
+                        : 5f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 2i64, reagents : vec![("Copper"
+                        .into(), 2f64), ("Iron".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemFlagSmall".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 1f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Iron".into(),
+                        1f64)] .into_iter().collect() }), ("ItemFlashlight".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 15f64, energy :
+                        500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Copper".into(), 2f64), ("Gold".into(),
+                        2f64)] .into_iter().collect() }), ("ItemGlasses".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 20f64, energy : 250f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Iron".into(), 15f64), ("Silicon".into(), 10f64)]
+                        .into_iter().collect() }), ("ItemHardBackpack".into(), Recipe {
+                        tier : MachineTier::TierTwo, time : 30f64, energy : 1500f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Astroloy".into(), 5f64), ("Steel".into(), 15f64),
+                        ("Stellite".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemHardJetpack".into(), Recipe { tier : MachineTier::TierTwo,
+                        time : 40f64, energy : 1750f64, temperature : RecipeRange { start
+                        : 1f64, stop : 80000f64, is_valid : false }, pressure :
+                        RecipeRange { start : 0f64, stop : 1000000f64, is_valid : false
+                        }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 4i64, reagents : vec![("Astroloy"
+                        .into(), 8f64), ("Steel".into(), 20f64), ("Stellite".into(),
+                        8f64), ("Waspaloy".into(), 8f64)] .into_iter().collect() }),
+                        ("ItemHardMiningBackPack".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 10f64, energy : 1000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Invar".into(), 1f64), ("Steel".into(), 6f64)] .into_iter()
+                        .collect() }), ("ItemHardSuit".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 60f64, energy : 3000f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Astroloy".into(), 10f64), ("Steel".into(), 20f64),
+                        ("Stellite".into(), 2f64)] .into_iter().collect() }),
+                        ("ItemHardsuitHelmet".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 50f64, energy : 1750f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Astroloy".into(), 2f64), ("Steel".into(), 10f64),
+                        ("Stellite".into(), 2f64)] .into_iter().collect() }),
+                        ("ItemIgniter".into(), Recipe { tier : MachineTier::TierOne, time
+                        : 1f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Copper"
+                        .into(), 3f64)] .into_iter().collect() }), ("ItemJetpackBasic"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 30f64,
+                        energy : 1500f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Gold".into(), 2f64), ("Lead".into(),
+                        5f64), ("Steel".into(), 10f64)] .into_iter().collect() }),
+                        ("ItemKitBasket".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 1f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 2i64, reagents : vec![("Copper"
+                        .into(), 2f64), ("Iron".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemLabeller".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 2i64, reagents : vec![("Gold".into(),
+                        1f64), ("Iron".into(), 2f64)] .into_iter().collect() }),
+                        ("ItemMKIIAngleGrinder".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 10f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 1f64), ("Electrum".into(), 4f64), ("Iron"
+                        .into(), 3f64)] .into_iter().collect() }), ("ItemMKIIArcWelder"
+                        .into(), Recipe { tier : MachineTier::TierTwo, time : 30f64,
+                        energy : 2500f64, temperature : RecipeRange { start : 1f64, stop
+                        : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        4i64, reagents : vec![("Electrum".into(), 14f64), ("Invar"
+                        .into(), 5f64), ("Solder".into(), 10f64), ("Steel".into(),
+                        10f64)] .into_iter().collect() }), ("ItemMKIICrowbar".into(),
+                        Recipe { tier : MachineTier::TierTwo, time : 10f64, energy :
+                        500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Electrum".into(), 5f64), ("Iron".into(),
+                        5f64)] .into_iter().collect() }), ("ItemMKIIDrill".into(), Recipe
+                        { tier : MachineTier::TierTwo, time : 10f64, energy : 500f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Electrum".into(), 5f64), ("Iron"
+                        .into(), 5f64)] .into_iter().collect() }), ("ItemMKIIDuctTape"
+                        .into(), Recipe { tier : MachineTier::TierTwo, time : 5f64,
+                        energy : 500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Electrum".into(), 1f64), ("Iron".into(),
+                        2f64)] .into_iter().collect() }), ("ItemMKIIMiningDrill".into(),
+                        Recipe { tier : MachineTier::TierTwo, time : 5f64, energy :
+                        500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 2f64), ("Electrum"
+                        .into(), 5f64), ("Iron".into(), 3f64)] .into_iter().collect() }),
+                        ("ItemMKIIScrewdriver".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 10f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Electrum".into(), 2f64), ("Iron".into(), 2f64)]
+                        .into_iter().collect() }), ("ItemMKIIWireCutters".into(), Recipe
+                        { tier : MachineTier::TierTwo, time : 5f64, energy : 500f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Electrum".into(), 5f64), ("Iron".into(), 3f64)]
+                        .into_iter().collect() }), ("ItemMKIIWrench".into(), Recipe {
+                        tier : MachineTier::TierTwo, time : 10f64, energy : 500f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Electrum".into(), 3f64), ("Iron".into(), 3f64)]
+                        .into_iter().collect() }), ("ItemMarineBodyArmor".into(), Recipe
+                        { tier : MachineTier::TierOne, time : 60f64, energy : 3000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Nickel".into(), 10f64), ("Silicon".into(), 10f64),
+                        ("Steel".into(), 20f64)] .into_iter().collect() }),
+                        ("ItemMarineHelmet".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 45f64, energy : 1750f64, temperature : RecipeRange { start
+                        : 1f64, stop : 80000f64, is_valid : false }, pressure :
+                        RecipeRange { start : 0f64, stop : 1000000f64, is_valid : false
+                        }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 3i64, reagents : vec![("Gold".into(),
+                        4f64), ("Silicon".into(), 4f64), ("Steel".into(), 8f64)]
+                        .into_iter().collect() }), ("ItemMiningBackPack".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 8f64, energy : 800f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 6f64)] .into_iter().collect() }),
+                        ("ItemMiningBelt".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Iron".into(),
+                        3f64)] .into_iter().collect() }), ("ItemMiningBeltMKII".into(),
+                        Recipe { tier : MachineTier::TierTwo, time : 10f64, energy :
+                        1000f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Constantan".into(), 5f64), ("Steel"
+                        .into(), 10f64)] .into_iter().collect() }), ("ItemMiningDrill"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 5f64,
+                        energy : 500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        2i64, reagents : vec![("Copper".into(), 2f64), ("Iron".into(),
+                        3f64)] .into_iter().collect() }), ("ItemMiningDrillHeavy".into(),
+                        Recipe { tier : MachineTier::TierTwo, time : 30f64, energy :
+                        2500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        4i64, reagents : vec![("Electrum".into(), 5f64), ("Invar".into(),
+                        10f64), ("Solder".into(), 10f64), ("Steel".into(), 10f64)]
+                        .into_iter().collect() }), ("ItemMiningDrillPneumatic".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 20f64, energy :
+                        2000f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 4f64), ("Solder".into(),
+                        4f64), ("Steel".into(), 6f64)] .into_iter().collect() }),
+                        ("ItemMkIIToolbelt".into(), Recipe { tier : MachineTier::TierTwo,
+                        time : 5f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 2i64, reagents : vec![("Constantan"
+                        .into(), 5f64), ("Iron".into(), 3f64)] .into_iter().collect() }),
+                        ("ItemNVG".into(), Recipe { tier : MachineTier::TierOne, time :
+                        45f64, energy : 2750f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 3i64, reagents : vec![("Hastelloy"
+                        .into(), 10f64), ("Silicon".into(), 5f64), ("Steel".into(),
+                        5f64)] .into_iter().collect() }), ("ItemPickaxe".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 1f64, energy : 500f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 1f64), ("Iron".into(), 2f64)] .into_iter()
+                        .collect() }), ("ItemPlantSampler".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 10f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Iron".into(), 5f64)] .into_iter()
+                        .collect() }), ("ItemRemoteDetonator".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 4.5f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Gold".into(), 1f64), ("Iron".into(), 3f64)] .into_iter()
+                        .collect() }), ("ItemReusableFireExtinguisher".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 20f64, energy : 1000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Steel".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemRoadFlare".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 1f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Iron".into(),
+                        1f64)] .into_iter().collect() }), ("ItemScrewdriver".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 10f64, energy :
+                        500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Iron".into(), 2f64)] .into_iter()
+                        .collect() }), ("ItemSensorLenses".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 45f64, energy : 3500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 3i64, reagents :
+                        vec![("Inconel".into(), 5f64), ("Silicon".into(), 5f64), ("Steel"
+                        .into(), 5f64)] .into_iter().collect() }),
+                        ("ItemSensorProcessingUnitCelestialScanner".into(), Recipe { tier
+                        : MachineTier::TierTwo, time : 15f64, energy : 100f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64), ("Iron"
+                        .into(), 5f64), ("Silicon".into(), 5f64)] .into_iter().collect()
+                        }), ("ItemSensorProcessingUnitMesonScanner".into(), Recipe { tier
+                        : MachineTier::TierTwo, time : 15f64, energy : 100f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64), ("Iron"
+                        .into(), 5f64), ("Silicon".into(), 5f64)] .into_iter().collect()
+                        }), ("ItemSensorProcessingUnitOreScanner".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 15f64, energy : 100f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Copper".into(), 5f64), ("Gold".into(), 5f64), ("Iron"
+                        .into(), 5f64), ("Silicon".into(), 5f64)] .into_iter().collect()
+                        }), ("ItemSpaceHelmet".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 15f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Gold".into(), 2f64)] .into_iter()
+                        .collect() }), ("ItemSpacepack".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Iron".into(), 5f64)] .into_iter()
+                        .collect() }), ("ItemSprayCanBlack".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 1f64)] .into_iter().collect() }),
+                        ("ItemSprayCanBlue".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Iron".into(),
+                        1f64)] .into_iter().collect() }), ("ItemSprayCanBrown".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 5f64, energy :
+                        500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Iron".into(), 1f64)] .into_iter()
+                        .collect() }), ("ItemSprayCanGreen".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 1f64)] .into_iter().collect() }),
+                        ("ItemSprayCanGrey".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Iron".into(),
+                        1f64)] .into_iter().collect() }), ("ItemSprayCanKhaki".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 5f64, energy :
+                        500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Iron".into(), 1f64)] .into_iter()
+                        .collect() }), ("ItemSprayCanOrange".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 1f64)] .into_iter().collect() }),
+                        ("ItemSprayCanPink".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Iron".into(),
+                        1f64)] .into_iter().collect() }), ("ItemSprayCanPurple".into(),
+                        Recipe { tier : MachineTier::TierOne, time : 5f64, energy :
+                        500f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        1i64, reagents : vec![("Iron".into(), 1f64)] .into_iter()
+                        .collect() }), ("ItemSprayCanRed".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 1f64)] .into_iter().collect() }),
+                        ("ItemSprayCanWhite".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 1f64)] .into_iter().collect() }),
+                        ("ItemSprayCanYellow".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 1f64)] .into_iter().collect() }),
+                        ("ItemSprayGun".into(), Recipe { tier : MachineTier::TierTwo,
+                        time : 10f64, energy : 2000f64, temperature : RecipeRange { start
+                        : 1f64, stop : 80000f64, is_valid : false }, pressure :
+                        RecipeRange { start : 0f64, stop : 1000000f64, is_valid : false
+                        }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 3i64, reagents : vec![("Invar"
+                        .into(), 5f64), ("Silicon".into(), 10f64), ("Steel".into(),
+                        10f64)] .into_iter().collect() }), ("ItemTerrainManipulator"
+                        .into(), Recipe { tier : MachineTier::TierOne, time : 15f64,
+                        energy : 600f64, temperature : RecipeRange { start : 1f64, stop :
+                        80000f64, is_valid : false }, pressure : RecipeRange { start :
+                        0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                        RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove :
+                        false, reagents : vec![] .into_iter().collect() }, count_types :
+                        3i64, reagents : vec![("Copper".into(), 3f64), ("Gold".into(),
+                        2f64), ("Iron".into(), 5f64)] .into_iter().collect() }),
+                        ("ItemToolBelt".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Iron".into(),
+                        3f64)] .into_iter().collect() }), ("ItemWearLamp".into(), Recipe
+                        { tier : MachineTier::TierOne, time : 15f64, energy : 500f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 2f64), ("Gold".into(), 2f64)] .into_iter()
+                        .collect() }), ("ItemWeldingTorch".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 10f64, energy : 500f64, temperature
+                        : RecipeRange { start : 1f64, stop : 80000f64, is_valid : false
+                        }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Copper".into(), 1f64), ("Iron".into(), 3f64)] .into_iter()
+                        .collect() }), ("ItemWireCutters".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Iron".into(), 3f64)] .into_iter().collect() }),
+                        ("ItemWrench".into(), Recipe { tier : MachineTier::TierOne, time
+                        : 10f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Iron".into(),
+                        3f64)] .into_iter().collect() }), ("ToyLuna".into(), Recipe {
+                        tier : MachineTier::TierOne, time : 10f64, energy : 500f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 2i64, reagents :
+                        vec![("Gold".into(), 1f64), ("Iron".into(), 5f64)] .into_iter()
+                        .collect() }), ("UniformCommander".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Silicon".into(), 25f64)] .into_iter().collect() }),
+                        ("UniformMarine".into(), Recipe { tier : MachineTier::TierOne,
+                        time : 5f64, energy : 500f64, temperature : RecipeRange { start :
+                        1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange
+                        { start : 0f64, stop : 1000000f64, is_valid : false },
+                        required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                        is_any_to_remove : false, reagents : vec![] .into_iter()
+                        .collect() }, count_types : 1i64, reagents : vec![("Silicon"
+                        .into(), 10f64)] .into_iter().collect() }),
+                        ("UniformOrangeJumpSuit".into(), Recipe { tier :
+                        MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                        RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                        pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                        is_valid : false }, required_mix : RecipeGasMix { rule : 0i64,
+                        is_any : true, is_any_to_remove : false, reagents : vec![]
+                        .into_iter().collect() }, count_types : 1i64, reagents :
+                        vec![("Silicon".into(), 10f64)] .into_iter().collect() }),
+                        ("WeaponPistolEnergy".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 120f64, energy : 3000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 4i64, reagents :
+                        vec![("Electrum".into(), 20f64), ("Gold".into(), 10f64),
+                        ("Solder".into(), 10f64), ("Steel".into(), 10f64)] .into_iter()
+                        .collect() }), ("WeaponRifleEnergy".into(), Recipe { tier :
+                        MachineTier::TierTwo, time : 240f64, energy : 10000f64,
+                        temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                        is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                        1000000f64, is_valid : false }, required_mix : RecipeGasMix {
+                        rule : 0i64, is_any : true, is_any_to_remove : false, reagents :
+                        vec![] .into_iter().collect() }, count_types : 6i64, reagents :
+                        vec![("Constantan".into(), 10f64), ("Electrum".into(), 20f64),
+                        ("Gold".into(), 10f64), ("Invar".into(), 10f64), ("Solder"
+                        .into(), 10f64), ("Steel".into(), 20f64)] .into_iter().collect()
+                        })
+                    ]
+                        .into_iter()
+                        .collect(),
+                }),
                 memory: MemoryInfo {
                     instructions: Some(
                         vec![

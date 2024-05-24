@@ -10,8 +10,8 @@ use crate::{
 };
 use itertools::Itertools;
 use stationeers_data::enums::{
-    basic_enums::BasicEnum,
-    script_enums::{LogicBatchMethod, LogicReagentMode, LogicSlotType, LogicType},
+    basic::BasicEnum,
+    script::{LogicBatchMethod, LogicReagentMode, LogicSlotType, LogicType},
 };
 use std::{fmt::Display, str::FromStr};
 use strum::IntoEnumIterator;

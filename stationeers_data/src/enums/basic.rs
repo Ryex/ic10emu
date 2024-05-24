@@ -1,6 +1,6 @@
 use serde_derive::{Deserialize, Serialize};
 use strum::{AsRefStr, Display, EnumIter, EnumProperty, EnumString, FromRepr};
-use super::script_enums::{LogicSlotType, LogicType};
+use super::script::{LogicSlotType, LogicType};
 #[derive(
     Debug,
     Display,

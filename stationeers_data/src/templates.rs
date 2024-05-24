@@ -1,9 +1,9 @@
 use std::collections::BTreeMap;
 
 use crate::enums::{
-    basic_enums::{Class as SlotClass, GasType, SortingClass},
-    script_enums::{LogicSlotType, LogicType},
-    ConnectionRole, ConnectionType, MemoryAccess,
+    basic::{Class as SlotClass, GasType, SortingClass},
+    script::{LogicSlotType, LogicType},
+    ConnectionRole, ConnectionType, MachineTier, MemoryAccess,
 };
 use serde_derive::{Deserialize, Serialize};
 
@@ -219,6 +219,39 @@ pub struct ConsumerInfo {
     pub processed_reagents: Vec<i32>,
 }
 
+#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
+pub struct RecipeRange {
+    pub start: f64,
+    pub stop: f64,
+    pub is_valid: bool,
+}
+
+#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
+pub struct RecipeGasMix {
+    pub rule: i64,
+    pub is_any: bool,
+    pub is_any_to_remove: bool,
+    pub reagents: BTreeMap<String, f64>,
+}
+
+#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
+pub struct Recipe {
+    pub tier: MachineTier,
+    pub time: f64,
+    pub energy: f64,
+    pub temperature: RecipeRange,
+    pub pressure: RecipeRange,
+    pub required_mix: RecipeGasMix,
+    pub count_types: i64,
+    pub reagents: BTreeMap<String, f64>
+}
+
+#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
+pub struct FabricatorInfo {
+    pub tier: MachineTier,
+    pub recipes: BTreeMap<String, Recipe>,
+}
+
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
 pub struct StructureInfo {
     pub small_grid: bool,
@@ -303,6 +336,7 @@ pub struct StructureLogicDeviceConsumerTemplate {
     pub slots: Vec<SlotInfo>,
     pub device: DeviceInfo,
     pub consumer_info: ConsumerInfo,
+    pub fabricator_info: Option<FabricatorInfo>,
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
@@ -338,6 +372,7 @@ pub struct StructureLogicDeviceConsumerMemoryTemplate {
     pub slots: Vec<SlotInfo>,
     pub device: DeviceInfo,
     pub consumer_info: ConsumerInfo,
+    pub fabricator_info: Option<FabricatorInfo>,
     pub memory: MemoryInfo,
 }
 

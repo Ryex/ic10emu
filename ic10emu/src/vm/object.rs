@@ -19,8 +19,7 @@ use traits::Object;
 use crate::vm::VM;
 
 use stationeers_data::enums::{
-    basic_enums::Class as SlotClass, prefabs::StationpediaPrefab, script_enums::LogicSlotType,
-    MemoryAccess,
+    basic::Class as SlotClass, prefabs::StationpediaPrefab, script::LogicSlotType, MemoryAccess,
 };
 
 pub type ObjectID = u32;
@@ -60,6 +59,10 @@ impl VMObject {
     pub fn get_vm(&self) -> Rc<VM> {
         self.borrow().get_vm().clone()
     }
+
+    pub fn get_id(&self) -> ObjectID {
+        *self.borrow().get_id()
+    }
 }
 
 #[derive(Debug, Default, Clone, Serialize, Deserialize)]
@@ -79,7 +82,8 @@ impl Name {
     pub fn from_prefab_name(name: &str) -> Self {
         Name {
             value: name.to_string(),
-            hash: StationpediaPrefab::from_str(name)
+            hash: name
+                .parse::<StationpediaPrefab>()
                 .map(|prefab| prefab as i32)
                 .unwrap_or_else(|_| const_crc32::crc32(name.as_bytes()) as i32),
         }
@@ -102,6 +106,12 @@ pub struct LogicField {
     pub value: f64,
 }
 
+#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
+pub struct SlotOccupantInfo {
+    pub quantity: u32,
+    pub id: ObjectID,
+}
+
 #[derive(Debug, Default, Clone, Serialize, Deserialize)]
 pub struct Slot {
     pub parent: ObjectID,
@@ -110,6 +120,5 @@ pub struct Slot {
     pub typ: SlotClass,
     pub readable_logic: Vec<LogicSlotType>,
     pub writeable_logic: Vec<LogicSlotType>,
-    pub occupant: Option<ObjectID>,
-    pub quantity: u32,
+    pub occupant: Option<SlotOccupantInfo>,
 }

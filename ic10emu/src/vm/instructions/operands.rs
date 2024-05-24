@@ -2,7 +2,7 @@ use crate::errors::ICError;
 use crate::interpreter;
 use crate::vm::{instructions::enums::InstructionOp, object::traits::IntegratedCircuit};
 use serde_derive::{Deserialize, Serialize};
-use stationeers_data::enums::script_enums::{
+use stationeers_data::enums::script::{
     LogicBatchMethod as BatchMode, LogicReagentMode as ReagentMode, LogicSlotType, LogicType,
 };
 use strum::EnumProperty;
@@ -248,7 +248,7 @@ impl InstOperand {
             } => Ok(*lt),
             _ => {
                 let val = self.as_value(ic)?;
-                LogicType::try_from(val).map_err(|| ICError::UnknownLogicType(val))
+                LogicType::try_from(val).map_err(|_| ICError::UnknownLogicType(val))
             }
         }
     }
@@ -264,7 +264,7 @@ impl InstOperand {
             } => Ok(*slt),
             _ => {
                 let val = self.as_value(ic)?;
-                LogicSlotType::try_from(val).map_err(|| ICError::UnknownLogicSlotType(val))
+                LogicSlotType::try_from(val).map_err(|_| ICError::UnknownLogicSlotType(val))
             }
         }
     }
@@ -277,7 +277,7 @@ impl InstOperand {
             } => Ok(*bm),
             _ => {
                 let val = self.as_value(ic)?;
-                BatchMode::try_from(val).map_err(|| ICError::UnknownBatchMode(val))
+                BatchMode::try_from(val).map_err(|_| ICError::UnknownBatchMode(val))
             }
         }
     }
@@ -290,7 +290,7 @@ impl InstOperand {
             } => Ok(*rm),
             _ => {
                 let val = self.as_value(ic)?;
-                ReagentMode::try_from(val).map_err(|| ICError::UnknownReagentMode(val))
+                ReagentMode::try_from(val).map_err(|_| ICError::UnknownReagentMode(val))
             }
         }
     }

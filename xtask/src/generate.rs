@@ -49,7 +49,7 @@ pub fn generate(
             eprintln!("generating enums...");
         }
 
-        let enums_files = enums::generate_enums(&pedia, &enums, workspace)?;
+        let enums_files = enums::generate(&pedia, &enums, workspace)?;
         eprintln!("Formatting generated files...");
         for file in &enums_files {
             prepend_generated_comment_and_format(file)?;

@@ -1,8 +1,7 @@
 use crate::vm::{
     instructions::enums::InstructionOp,
     object::{
-        errors::{LogicError, MemoryError},
-        ObjectID,
+        errors::{LogicError, MemoryError}, templates::Prefab, ObjectID
     },
 };
 use serde_derive::{Deserialize, Serialize};
@@ -42,14 +41,24 @@ pub enum VMError {
     NotAnItem(ObjectID),
     #[error("object {0} is not programmable")]
     NotProgrammable(ObjectID),
+    #[error("{0}")]
+    TemplateError(#[from] TemplateError),
+    #[error("missing child object {0}")]
+    MissingChild(ObjectID),
+    #[error("object {0} is not parentable")]
+    NotParentable(ObjectID),
 }
 
 #[derive(Error, Debug, Serialize, Deserialize)]
 pub enum TemplateError {
     #[error("object id {0} has a non conforming set of interfaces")]
     NonConformingObject(ObjectID),
-    #[error("ObjectID {0} is missing fomr the VM")]
+    #[error("object id {0} is missing from the VM")]
     MissingVMObject(ObjectID),
+    #[error("database has no template for prefab {0}")]
+    NoTemplateForPrefab(Prefab),
+    #[error("no prefab provided")]
+    MissingPrefab,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

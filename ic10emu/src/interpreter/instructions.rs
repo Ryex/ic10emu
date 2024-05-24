@@ -13,7 +13,7 @@ use crate::{
         },
     },
 };
-use stationeers_data::enums::script_enums::LogicReagentMode;
+use stationeers_data::enums::script::LogicReagentMode;
 pub trait IC10Marker: IntegratedCircuit {}
 
 impl<T: IC10Marker> SleepInstruction for T {

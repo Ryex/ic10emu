@@ -4,10 +4,10 @@ pub mod templates;
 pub mod enums {
     use serde_derive::{Deserialize, Serialize};
     use std::fmt::Display;
-    use strum::{AsRefStr, EnumIter, EnumString};
+    use strum::{AsRefStr, EnumIter, EnumString, FromRepr};
 
-    pub mod basic_enums;
-    pub mod script_enums;
+    pub mod basic;
+    pub mod script;
     pub mod prefabs;
 
     #[derive(Debug)]
@@ -46,6 +46,7 @@ pub mod enums {
         Deserialize,
         EnumIter,
         AsRefStr,
+        FromRepr,
         EnumString,
     )]
     pub enum ConnectionType {
@@ -77,6 +78,7 @@ pub mod enums {
         Deserialize,
         EnumIter,
         AsRefStr,
+        FromRepr,
         EnumString,
     )]
     pub enum ConnectionRole {
@@ -89,16 +91,45 @@ pub mod enums {
         #[default]
         None,
     }
+
+
+    #[derive(
+        Debug,
+        Default,
+        Clone,
+        Copy,
+        PartialEq,
+        PartialOrd,
+        Eq,
+        Ord,
+        Hash,
+        Serialize,
+        Deserialize,
+        EnumIter,
+        AsRefStr,
+        FromRepr,
+        EnumString,
+    )]
+    #[repr(u32)]
+    pub enum MachineTier {
+        #[default]
+        Undefined = 0,
+        TierOne = 1,
+        TierTwo = 2,
+        TierThree = 3,
+        #[serde(other)]
+        Max,
+    }
 }
 
 #[must_use]
 pub fn build_prefab_database() -> Option<BTreeMap<i32, templates::ObjectTemplate>> {
     #[cfg(feature = "prefab_database")]
-    let _map = Some(database::build_prefab_database());
+    let map = Some(database::build_prefab_database());
     #[cfg(not(feature = "prefab_database"))]
-    let _map = None;
+    let map = None;
 
-    _map
+    map
 }
 
 #[cfg(feature = "prefab_database")]

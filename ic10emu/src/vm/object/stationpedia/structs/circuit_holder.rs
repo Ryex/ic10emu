@@ -9,9 +9,9 @@ use crate::{
 };
 use macro_rules_attribute::derive;
 use stationeers_data::enums::{
-    basic_enums::Class as SlotClass,
+    basic::Class as SlotClass,
     prefabs::StationpediaPrefab,
-    script_enums::{LogicSlotType, LogicType},
+    script::{LogicSlotType, LogicType},
     ConnectionRole,
 };
 use std::rc::Rc;
@@ -73,7 +73,6 @@ impl StructureCircuitHousing {
                 ],
                 writeable_logic: vec![],
                 occupant: None,
-                quantity: 0,
             },
             pins: [None, None, None, None, None, None],
             connections: [
@@ -163,8 +162,8 @@ impl Logicable for StructureCircuitHousing {
             LogicType::ReferenceId => Ok(*self.get_id() as f64),
             LogicType::Error => Ok(self.error as f64),
             LogicType::LineNumber => {
-                let result = self.slot.occupant.and_then(|id| {
-                    self.vm.get_object(id).and_then(|obj| {
+                let result = self.slot.occupant.and_then(|info| {
+                    self.vm.get_object(info.id).and_then(|obj| {
                         obj.borrow()
                             .as_logicable()
                             .map(|logicable| logicable.get_logic(LogicType::LineNumber))
@@ -208,8 +207,8 @@ impl Logicable for StructureCircuitHousing {
             LogicType::LineNumber => self
                 .slot
                 .occupant
-                .and_then(|id| {
-                    self.vm.get_object(id).and_then(|obj| {
+                .and_then(|info| {
+                    self.vm.get_object(info.id).and_then(|obj| {
                         obj.borrow_mut().as_mut_logicable().map(|logicable| {
                             logicable.set_logic(LogicType::LineNumber, value, force)
                         })
@@ -405,11 +404,11 @@ impl CircuitHolder for StructureCircuitHousing {
     }
 
     fn get_ic(&self) -> Option<VMObject> {
-        self.slot.occupant.and_then(|id| self.vm.get_object(id))
+        self.slot.occupant.and_then(|info| self.vm.get_object(info.id))
     }
 
     fn get_ic_mut(&self) -> Option<VMObject> {
-        self.slot.occupant.and_then(|id| self.vm.get_object(id))
+        self.slot.occupant.and_then(|info| self.vm.get_object(info.id))
     }
 
     fn hault_and_catch_fire(&mut self) {

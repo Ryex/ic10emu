@@ -1,7 +1,7 @@
 use serde_derive::{Deserialize, Serialize};
 use thiserror::Error;
 
-use stationeers_data::enums::script_enums::{LogicSlotType, LogicType};
+use stationeers_data::enums::script::{LogicSlotType, LogicType};
 
 #[derive(Error, Debug, Clone, Serialize, Deserialize)]
 pub enum LogicError {

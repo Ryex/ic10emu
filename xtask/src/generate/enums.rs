@@ -10,7 +10,7 @@ use std::{
 use proc_macro2::{Ident, Span, TokenStream};
 use quote::quote;
 
-pub fn generate_enums(
+pub fn generate(
     stationpedia: &crate::stationpedia::Stationpedia,
     enums: &crate::enums::Enums,
     workspace: &std::path::Path,
@@ -28,14 +28,14 @@ pub fn generate_enums(
         .collect::<Vec<_>>();
 
     let mut writer =
-        std::io::BufWriter::new(std::fs::File::create(enums_path.join("script_enums.rs"))?);
+        std::io::BufWriter::new(std::fs::File::create(enums_path.join("script.rs"))?);
     write_repr_enum_use_header(&mut writer)?;
     for enm in enums.script_enums.values() {
         write_enum_listing(&mut writer, enm)?;
     }
 
     let mut writer =
-        std::io::BufWriter::new(std::fs::File::create(enums_path.join("basic_enums.rs"))?);
+        std::io::BufWriter::new(std::fs::File::create(enums_path.join("basic.rs"))?);
     write_repr_enum_use_header(&mut writer)?;
     let script_enums_in_basic = enums
         .script_enums
@@ -75,8 +75,8 @@ pub fn generate_enums(
     write_repr_enum(&mut writer, "StationpediaPrefab", &prefabs, true)?;
 
     Ok(vec![
-        enums_path.join("script_enums.rs"),
-        enums_path.join("basic_enums.rs"),
+        enums_path.join("script.rs"),
+        enums_path.join("basic.rs"),
         enums_path.join("prefabs.rs"),
     ])
 }
@@ -116,7 +116,7 @@ fn write_enum_aggragate_mod<T: std::io::Write>(
             };
             let display_pat = format!("{name}{display_sep}{{}}");
             let name: TokenStream = if name == "_unnamed" {
-                "".to_string()
+                String::new()
             } else {
                 name.clone()
             }
@@ -236,7 +236,7 @@ pub fn write_enum_listing<T: std::io::Write>(
                 let variant = ReprEnumVariant {
                     value: var.value as u8,
                     deprecated: var.deprecated,
-                    props: vec![("docs".to_owned(), var.description.to_owned())],
+                    props: vec![("docs".to_owned(), var.description.clone())],
                 };
                 (n.clone(), variant)
             })
@@ -255,7 +255,7 @@ pub fn write_enum_listing<T: std::io::Write>(
                 let variant = ReprEnumVariant {
                     value: var.value as u16,
                     deprecated: var.deprecated,
-                    props: vec![("docs".to_owned(), var.description.to_owned())],
+                    props: vec![("docs".to_owned(), var.description.clone())],
                 };
                 (n.clone(), variant)
             })
@@ -269,7 +269,7 @@ pub fn write_enum_listing<T: std::io::Write>(
                 let variant = ReprEnumVariant {
                     value: var.value as u32,
                     deprecated: var.deprecated,
-                    props: vec![("docs".to_owned(), var.description.to_owned())],
+                    props: vec![("docs".to_owned(), var.description.clone())],
                 };
                 (n.clone(), variant)
             })
@@ -283,7 +283,7 @@ pub fn write_enum_listing<T: std::io::Write>(
                 let variant = ReprEnumVariant {
                     value: var.value as i32,
                     deprecated: var.deprecated,
-                    props: vec![("docs".to_owned(), var.description.to_owned())],
+                    props: vec![("docs".to_owned(), var.description.clone())],
                 };
                 (n.clone(), variant)
             })
@@ -297,7 +297,7 @@ pub fn write_enum_listing<T: std::io::Write>(
                 let variant = ReprEnumVariant {
                     value: var.value as i32,
                     deprecated: var.deprecated,
-                    props: vec![("docs".to_owned(), var.description.to_owned())],
+                    props: vec![("docs".to_owned(), var.description.clone())],
                 };
                 (n.clone(), variant)
             })
@@ -344,7 +344,7 @@ fn write_repr_basic_use_header<T: std::io::Write>(
     write!(
         writer,
         "{}",
-        quote! {use super::script_enums::{ #(#enums),*};},
+        quote! {use super::script::{ #(#enums),*};},
     )?;
     Ok(())
 }

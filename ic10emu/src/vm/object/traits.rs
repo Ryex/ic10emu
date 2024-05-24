@@ -14,8 +14,8 @@ use crate::{
     },
 };
 use stationeers_data::enums::{
-    basic_enums::{Class as SlotClass, GasType, SortingClass},
-    script_enums::{LogicSlotType, LogicType},
+    basic::{Class as SlotClass, GasType, SortingClass},
+    script::{LogicSlotType, LogicType},
 };
 use std::{collections::BTreeMap, fmt::Debug};
 
@@ -126,8 +126,18 @@ tag_object_traits! {
     }
 
     pub trait Suit {
-        fn pressure_waste(&self) -> f64;
-        fn pressure_air(&self) -> f64;
+        fn pressure_waste(&self) -> f32;
+        fn pressure_waste_max(&self) -> f32;
+        fn pressure_air(&self) -> f32;
+    }
+
+    pub trait InternalAtmosphere {
+        fn get_volume(&self) -> f64;
+    }
+
+    pub trait Thermal {
+        fn get_convection_factor(&self) -> f32;
+        fn get_radiation_factor(&self) -> f32;
     }
 
     pub trait IntegratedCircuit: Logicable + MemoryWritable + SourceCode + Item {

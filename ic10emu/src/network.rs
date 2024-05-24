@@ -1,16 +1,16 @@
 use std::{collections::HashSet, ops::Deref, rc::Rc};
 
 use crate::vm::{
-    enums::script_enums::LogicType,
-    object::{
-        errors::LogicError, macros::ObjectInterface, templates::ConnectionInfo, traits::*, Name,
-        ObjectID,
-    },
+    object::{errors::LogicError, macros::ObjectInterface, traits::*, Name, ObjectID},
     VM,
 };
 use itertools::Itertools;
 use macro_rules_attribute::derive;
 use serde_derive::{Deserialize, Serialize};
+use stationeers_data::{
+    enums::{script::LogicType, ConnectionRole, ConnectionType},
+    templates::ConnectionInfo,
+};
 use strum_macros::{AsRefStr, EnumIter};
 use thiserror::Error;
 
@@ -51,7 +51,6 @@ pub enum Connection {
     None,
 }
 
-
 impl Connection {
     #[allow(dead_code)]
     pub fn from_info(typ: ConnectionType, role: ConnectionRole, net: Option<ObjectID>) -> Self {
@@ -86,65 +85,62 @@ impl Connection {
             Self::None => ConnectionInfo {
                 typ: ConnectionType::None,
                 role: ConnectionRole::None,
-                network: None,
             },
             Self::CableNetwork {
-                net,
                 typ: CableConnectionType::Data,
                 role,
+                ..
             } => ConnectionInfo {
                 typ: ConnectionType::Data,
                 role: *role,
-                network: *net,
             },
             Self::CableNetwork {
-                net,
                 typ: CableConnectionType::Power,
                 role,
+                ..
             } => ConnectionInfo {
                 typ: ConnectionType::Power,
                 role: *role,
-                network: *net,
             },
             Self::CableNetwork {
-                net,
                 typ: CableConnectionType::PowerAndData,
                 role,
+                ..
             } => ConnectionInfo {
                 typ: ConnectionType::PowerAndData,
                 role: *role,
-                network: *net,
             },
             Self::Chute { role } => ConnectionInfo {
                 typ: ConnectionType::Chute,
                 role: *role,
-                network: None,
             },
             Self::Pipe { role } => ConnectionInfo {
                 typ: ConnectionType::Pipe,
                 role: *role,
-                network: None,
             },
             Self::PipeLiquid { role } => ConnectionInfo {
                 typ: ConnectionType::PipeLiquid,
                 role: *role,
-                network: None,
             },
             Self::Elevator { role } => ConnectionInfo {
                 typ: ConnectionType::Elevator,
                 role: *role,
-                network: None,
             },
             Self::LandingPad { role } => ConnectionInfo {
                 typ: ConnectionType::LandingPad,
                 role: *role,
-                network: None,
             },
             Self::LaunchPad { role } => ConnectionInfo {
                 typ: ConnectionType::LaunchPad,
                 role: *role,
-                network: None,
             },
+        }
+    }
+
+    pub fn get_network(&self) -> Option<ObjectID> {
+        match self {
+            Self::CableNetwork { net, .. } => net.clone(),
+            _ => None,
         }
     }
 }
@@ -248,14 +244,14 @@ impl Logicable for CableNetwork {
     }
     fn can_slot_logic_read(
         &self,
-        _slt: crate::vm::enums::script_enums::LogicSlotType,
+        _slt: stationeers_data::enums::script::LogicSlotType,
         _index: f64,
     ) -> bool {
         false
     }
     fn get_slot_logic(
         &self,
-        slt: crate::vm::enums::script_enums::LogicSlotType,
+        slt: stationeers_data::enums::script::LogicSlotType,
         index: f64,
     ) -> Result<f64, LogicError> {
         Err(LogicError::CantSlotRead(slt, index))
