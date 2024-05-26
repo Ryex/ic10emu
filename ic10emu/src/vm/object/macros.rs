@@ -153,9 +153,48 @@ pub(crate) use object_trait;
 ///   - `vm_ref` must be `std::rc::Rc<crate::vm::VM>`
 macro_rules! ObjectInterface {
     {
+        @trt_cond_impl $trt:path => $trt_cond:path
+    } => {
+            paste::paste!{
+                #[inline(always)]
+                fn [<as_ $trt:snake>](&self) -> Option<[<$trt Ref>]> {
+                    if $trt_cond(self) {
+                        Some(self)
+                    } else {
+                        None
+                    }
+                }
+
+                #[inline(always)]
+                fn [<as_mut_ $trt:snake>](&mut self) -> Option<[<$trt RefMut>]> {
+                    if $trt_cond(self) {
+                        Some(self)
+                    } else {
+                        None
+                    }
+                }
+            }
+    };
+    {
+        @trt_cond_impl $trt:path
+    } => {
+            paste::paste!{
+                #[inline(always)]
+                fn [<as_ $trt:snake>](&self) -> Option<[<$trt Ref>]> {
+                    Some(self)
+                }
+
+                #[inline(always)]
+                fn [<as_mut_ $trt:snake>](&mut self) -> Option<[<$trt RefMut>]> {
+                    Some(self)
+                }
+            }
+
+    };
+    {
         @body_final
         @trt $trait_name:ident; $struct:ident;
-        @impls $($trt:path),*;
+        @impls $($trt:path $([ $trt_cond:path ])?),*;
         @id $id_field:ident: $id_typ:ty;
         @prefab $prefab_field:ident: $prefab_typ:ty;
         @name $name_field:ident: $name_typ:ty;
@@ -209,24 +248,16 @@ macro_rules! ObjectInterface {
                 self
             }
 
-            paste::paste!{$(
-            #[inline(always)]
-            fn [<as_ $trt:snake>](&self) -> Option<[<$trt Ref>]> {
-                Some(self)
-            }
-
-            #[inline(always)]
-            fn [<as_mut_ $trt:snake>](&mut self) -> Option<[<$trt RefMut>]> {
-                Some(self)
-            }
-            )*}
+            $(
+                $crate::vm::object::macros::ObjectInterface!{@trt_cond_impl $trt $( => $trt_cond)? }
+            )*
 
         }
     };
     {
         @body_final
         @trt $trait_name:ident; $struct:ident;
-        @impls $($trt:path),*;
+        @impls $($trt:path $([ $trt_cond:path ])?),*;
         @id $id_field:ident: $id_typ:ty;
         @name $name_field:ident: $name_typ:ty;
         @prefab $prefab_field:ident: $prefab_typ:ty;
@@ -235,7 +266,7 @@ macro_rules! ObjectInterface {
         $crate::vm::object::macros::ObjectInterface!{
             @body_final
             @trt $trait_name; $struct;
-            @impls $($trt),*;
+            @impls $($trt $([ $trt_cond ])?),*;
             @id $id_field: $id_typ;
             @prefab $prefab_field: $prefab_typ;
             @name $name_field: $name_typ;
@@ -245,7 +276,7 @@ macro_rules! ObjectInterface {
     {
         @body_final
         @trt $trait_name:ident; $struct:ident;
-        @impls $($trt:path),*;
+        @impls $($trt:path $([ $trt_cond:path ])?),*;
         @prefab $prefab_field:ident: $prefab_typ:ty;
         @name $name_field:ident: $name_typ:ty;
         @id $id_field:ident: $id_typ:ty;
@@ -254,7 +285,7 @@ macro_rules! ObjectInterface {
         $crate::vm::object::macros::ObjectInterface!{
             @body_final
             @trt $trait_name; $struct;
-            @impls $($trt),*;
+            @impls $($trt $([ $trt_cond ])?),*;
             @id $id_field: $id_typ;
             @prefab $prefab_field: $prefab_typ;
             @name $name_field: $name_typ;
@@ -264,7 +295,7 @@ macro_rules! ObjectInterface {
     {
         @body_final
         @trt $trait_name:ident; $struct:ident;
-        @impls $($trt:path),*;
+        @impls $($trt:path $([ $trt_cond:path ])?),*;
         @prefab $prefab_field:ident: $prefab_typ:ty;
         @id $id_field:ident: $id_typ:ty;
         @name $name_field:ident: $name_typ:ty;
@@ -273,7 +304,7 @@ macro_rules! ObjectInterface {
         $crate::vm::object::macros::ObjectInterface!{
             @body_final
             @trt $trait_name; $struct;
-            @impls $($trt),*;
+            @impls $($trt $([ $trt_cond ])?),*;
             @id $id_field: $id_typ;
             @prefab $prefab_field: $prefab_typ;
             @name $name_field: $name_typ;
@@ -283,7 +314,7 @@ macro_rules! ObjectInterface {
     {
         @body_final
         @trt $trait_name:ident; $struct:ident;
-        @impls $($trt:path),*;
+        @impls $($trt:path $([ $trt_cond:path ])?),*;
         @name $name_field:ident: $name_typ:ty;
         @prefab $prefab_field:ident: $prefab_typ:ty;
         @id $id_field:ident: $id_typ:ty;
@@ -292,7 +323,7 @@ macro_rules! ObjectInterface {
         $crate::vm::object::macros::ObjectInterface!{
             @body_final
             @trt $trait_name; $struct;
-            @impls $($trt),*;
+            @impls $($trt $([ $trt_cond ])?),*;
             @id $id_field: $id_typ;
             @prefab $prefab_field: $prefab_typ;
             @name $name_field: $name_typ;
@@ -302,7 +333,7 @@ macro_rules! ObjectInterface {
     {
         @body_final
         @trt $trait_name:ident; $struct:ident;
-        @impls $($trt:path),*;
+        @impls $($trt:path $([ $trt_cond:path ])?),*;
         @name $name_field:ident: $name_typ:ty;
         @id $id_field:ident: $id_typ:ty;
         @prefab $prefab_field:ident: $prefab_typ:ty;
@@ -311,7 +342,7 @@ macro_rules! ObjectInterface {
         $crate::vm::object::macros::ObjectInterface!{
             @body_final
             @trt $trait_name; $struct;
-            @impls $($trt),*;
+            @impls $($trt $([ $trt_cond ])?),*;
             @id $id_field: $id_typ;
             @prefab $prefab_field: $prefab_typ;
             @name $name_field: $name_typ;
@@ -320,7 +351,7 @@ macro_rules! ObjectInterface {
     };{
         @body
         @trt $trait_name:ident; $struct:ident;
-        @impls $($trt:path),*;
+        @impls $($trt:path $([ $trt_cond:path ])?),*;
         @tags {
             $(@$tag:tt $tag_field:ident: $tag_typ:ty;)*
         };
@@ -333,7 +364,7 @@ macro_rules! ObjectInterface {
         $crate::vm::object::macros::ObjectInterface!{
             @body
             @trt $trait_name; $struct;
-            @impls $($trt),*;
+            @impls $($trt $([ $trt_cond ])?),*;
             @tags {$(@$tag $tag_field: $tag_typ;)* @vm_ref $vm_ref_field: $vm_ref_typ;};
             $( $rest )*
         }
@@ -341,7 +372,7 @@ macro_rules! ObjectInterface {
     {
         @body
         @trt $trait_name:ident; $struct:ident;
-        @impls $($trt:path),*;
+        @impls $($trt:path $([ $trt_cond:path ])?),*;
         @tags {
             $(@$tag:tt $tag_field:ident: $tag_typ:ty;)*
         };
@@ -354,7 +385,7 @@ macro_rules! ObjectInterface {
         $crate::vm::object::macros::ObjectInterface!{
             @body
             @trt $trait_name; $struct;
-            @impls $($trt),*;
+            @impls $($trt $([ $trt_cond ])?),*;
             @tags {$(@$tag $tag_field: $tag_typ;)* @name $name_field: $name_typ;};
             $( $rest )*
         }
@@ -362,7 +393,7 @@ macro_rules! ObjectInterface {
     {
         @body
         @trt $trait_name:ident; $struct:ident;
-        @impls $($trt:path),*;
+        @impls $($trt:path $([ $trt_cond:path ])?),*;
         @tags {
             $(@$tag:tt $tag_field:ident: $tag_typ:ty;)*
         };
@@ -375,7 +406,7 @@ macro_rules! ObjectInterface {
         $crate::vm::object::macros::ObjectInterface!{
             @body
             @trt $trait_name; $struct;
-            @impls $($trt),*;
+            @impls $($trt $([ $trt_cond ])?),*;
             @tags {$(@$tag $tag_field: $tag_typ;)* @prefab $prefab_field: $prefab_typ;};
             $( $rest )*
         }
@@ -383,7 +414,7 @@ macro_rules! ObjectInterface {
     {
         @body
         @trt $trait_name:ident; $struct:ident;
-        @impls $($trt:path),*;
+        @impls $($trt:path $([ $trt_cond:path ])?),*;
         @tags {
             $(@$tag:tt $tag_field:ident: $tag_typ:ty;)*
         };
@@ -396,7 +427,7 @@ macro_rules! ObjectInterface {
         $crate::vm::object::macros::ObjectInterface!{
             @body
             @trt $trait_name; $struct;
-            @impls $($trt),*;
+            @impls $($trt $([ $trt_cond ])?),*;
             @tags {$(@$tag $tag_field: $tag_typ;)* @id $id_field: $id_typ;};
             $( $rest )*
         }
@@ -404,7 +435,7 @@ macro_rules! ObjectInterface {
     {
         @body
         @trt $trait_name:ident; $struct:ident;
-        @impls $($trt:path),*;
+        @impls $($trt:path $([ $trt_cond:path ])?),*;
         @tags {
             $(@$tag:tt $tag_field:ident: $tag_typ:ty;)*
         };
@@ -417,7 +448,7 @@ macro_rules! ObjectInterface {
         $crate::vm::object::macros::ObjectInterface!{
             @body
             @trt $trait_name; $struct;
-            @impls $($trt),*;
+            @impls $($trt $([ $trt_cond ])?),*;
             @tags {$(@$tag $tag_field: $tag_typ;)*};
             $( $rest )*
         }
@@ -425,7 +456,7 @@ macro_rules! ObjectInterface {
     {
         @body
         @trt $trait_name:ident; $struct:ident;
-        @impls $($trt:path),*;
+        @impls $($trt:path $([ $trt_cond:path ])?),*;
         @tags {
             $(@$tag:tt $tag_field:ident: $tag_typ:ty;)*
         };
@@ -433,14 +464,14 @@ macro_rules! ObjectInterface {
         $crate::vm::object::macros::ObjectInterface!{
             @body_final
             @trt $trait_name; $struct;
-            @impls $($trt),*;
+            @impls $($trt $([ $trt_cond ])?),*;
             $(
                 @$tag $tag_field: $tag_typ;
             )*
         }
     };
     {
-        #[custom(implements($trait_name:ident {$($trt:path),*}))]
+        #[custom(implements($trait_name:ident {$($trt:path $([$trt_cond:path])?),*}))]
         $( #[$attr:meta] )*
         $viz:vis struct $struct:ident {
             $( $body:tt )*
@@ -449,7 +480,7 @@ macro_rules! ObjectInterface {
         $crate::vm::object::macros::ObjectInterface!{
             @body
             @trt $trait_name; $struct;
-            @impls $($trt),*;
+            @impls $($trt $([ $trt_cond ])?),*;
             @tags {};
             $( $body )*
         }

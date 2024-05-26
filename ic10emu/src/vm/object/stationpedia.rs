@@ -14,13 +14,15 @@ pub mod structs;
 
 #[allow(unused)]
 pub fn object_from_frozen(obj: &ObjectInfo, id: ObjectID, vm: &Rc<VM>) -> Option<VMObject> {
-    let hash = match obj.prefab {
-        Some(Prefab::Hash(hash)) => hash,
+    #[allow(clippy::cast_possible_wrap)]
+    let hash = match &obj.prefab {
+        Some(Prefab::Hash(hash)) => *hash,
         Some(Prefab::Name(name)) => const_crc32::crc32(name.as_bytes()) as i32,
         None => return None,
     };
 
     let prefab = StationpediaPrefab::from_repr(hash);
+    #[allow(clippy::match_single_binding)]
     match prefab {
         // Some(StationpediaPrefab::ItemIntegratedCircuit10) => {
         //     Some(VMObject::new(structs::ItemIntegratedCircuit10))

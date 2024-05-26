@@ -99,7 +99,6 @@ tag_object_traits! {
             connection: Option<usize>,
         ) -> Option<ObjectRefMut>;
         fn get_ic(&self) -> Option<VMObject>;
-        fn get_ic_mut(&self) -> Option<VMObject>;
         fn hault_and_catch_fire(&mut self);
     }
 
@@ -115,6 +114,20 @@ tag_object_traits! {
         fn set_parent_slot(&mut self, info: Option<ParentSlotInfo>);
         fn get_damage(&self) -> f32;
         fn set_damage(&mut self, damage: f32);
+        fn root_parent_human(&self) -> Option<VMObject> {
+            self.get_parent_slot().and_then(|info| {
+                if let Some(obj) = self.get_vm().get_object(info.parent) {
+                    if obj.borrow().as_human().is_some() {
+                        return Some(obj);
+                    }
+                    let obj_ref = obj.borrow();
+                    if let Some(item) = obj_ref.as_item() {
+                        return item.root_parent_human()
+                    }
+                }
+                None
+            })
+        }
     }
 
     pub trait Plant {
@@ -125,7 +138,7 @@ tag_object_traits! {
         fn is_seeding(&self) -> bool;
     }
 
-    pub trait Suit {
+    pub trait Suit: Item + Storage {
         fn pressure_waste(&self) -> f32;
         fn pressure_waste_max(&self) -> f32;
         fn pressure_air(&self) -> f32;
@@ -254,6 +267,45 @@ tag_object_traits! {
         fn get_devices(&self) -> Vec<ObjectID>;
         fn get_power_only(&self) -> Vec<ObjectID>;
         fn get_channel_data(&self) -> &[f64; 8];
+    }
+
+    pub trait Human : Storage {
+        fn get_hygine(&self) -> f32;
+        fn set_hygine(&mut self, hygine: f32);
+        fn hygine_ok(&self) -> bool {
+            self.get_hygine() > 0.25
+        }
+        fn hygine_low(&self) -> bool {
+            self.get_hygine() <= 0.0
+        }
+        fn get_mood(&self) -> f32;
+        fn set_mood(&mut self, mood: f32);
+        fn get_nutrition(&self) -> f32;
+        fn set_nutrition(&mut self, nutrition: f32);
+        fn get_food_quality(&self) -> f32;
+        fn set_food_quality(&mut self, quality: f32);
+        fn get_hydration(&self) -> f32;
+        fn set_hydration(&mut self, hydration: f32);
+        fn get_oxygenation(&self) -> f32;
+        fn set_oxygenation(&mut self, oxygenation: f32);
+        fn is_artificial(&self) -> bool;
+        fn robot_battery(&self) -> Option<VMObject>;
+        fn suit_slot(&self) -> &Slot;
+        fn suit_slot_mut(&mut self) -> &mut Slot;
+        fn helmet_slot(&self) -> &Slot;
+        fn helmet_slot_mut(&mut self) -> &mut Slot;
+        fn glasses_slot(&self) -> &Slot;
+        fn glasses_slot_mut(&mut self) -> &mut Slot;
+        fn backpack_slot(&self) -> &Slot;
+        fn backpack_slot_mut(&mut self) -> &mut Slot;
+        fn left_hand_slot(&self) -> &Slot;
+        fn left_hand_slot_mut(&mut self) -> &mut Slot;
+        fn right_hand_slot(&self) -> &Slot;
+        fn right_hand_slot_mut(&mut self) -> &mut Slot;
+        fn uniform_slot(&self) -> &Slot;
+        fn uniform_slot_mut(&mut self) -> &mut Slot;
+        fn toolbelt_slot(&self) -> &Slot;
+        fn toolbelt_slot_mut(&mut self) -> &mut Slot;
     }
 
 }

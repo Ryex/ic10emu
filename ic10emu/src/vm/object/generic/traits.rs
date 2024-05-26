@@ -3,7 +3,7 @@ use crate::{
     vm::object::{
         errors::{LogicError, MemoryError},
         traits::*,
-        LogicField, MemoryAccess, ObjectID, Slot,
+        LogicField, MemoryAccess, ObjectID, Slot, VMObject,
     },
 };
 
@@ -12,10 +12,35 @@ use stationeers_data::{
         basic::{Class as SlotClass, GasType, SortingClass},
         script::{LogicSlotType, LogicType},
     },
-    templates::{DeviceInfo, ItemInfo},
+    templates::{DeviceInfo, InternalAtmoInfo, ItemInfo, SuitInfo, ThermalInfo},
 };
 use std::{collections::BTreeMap, usize};
 use strum::IntoEnumIterator;
+
+pub trait GWThermal {
+    fn is_thermal(&self) -> bool;
+    fn thermal_info(&self) -> &ThermalInfo;
+}
+
+impl<T: GWThermal + Object> Thermal for T {
+    fn get_radiation_factor(&self) -> f32 {
+        self.thermal_info().radiation_factor
+    }
+    fn get_convection_factor(&self) -> f32 {
+        self.thermal_info().convection_factor
+    }
+}
+
+pub trait GWInternalAtmo {
+    fn is_internal_atmo(&self) -> bool;
+    fn internal_atmo_info(&self) -> &InternalAtmoInfo;
+}
+
+impl<T: GWInternalAtmo + Object> InternalAtmosphere for T {
+    fn get_volume(&self) -> f64 {
+        self.internal_atmo_info().volume as f64
+    }
+}
 
 pub trait GWStructure {
     fn small_grid(&self) -> bool;
@@ -169,6 +194,7 @@ impl<T: GWLogicable + Object> Logicable for T {
                 use LogicSlotType::*;
                 let occupant = slot
                     .occupant
+                    .as_ref()
                     .and_then(|info| self.get_vm().get_object(info.id));
                 match slt {
                     Occupied => {
@@ -406,7 +432,10 @@ impl<T: GWDevice + GWStorage + Object> Device for T {
                     return Ok(());
                 }
                 if slot.writeable_logic.contains(&slt) {
-                    let occupant = slot.occupant.and_then(|info| vm.get_object(info.id));
+                    let occupant = slot
+                        .occupant
+                        .as_ref()
+                        .and_then(|info| vm.get_object(info.id));
                     if let Some(occupant) = occupant {
                         let mut occupant_ref = occupant.borrow_mut();
                         let logicable = occupant_ref
@@ -539,4 +568,596 @@ impl<T: GWItem + Object> Item for T {
     }
 }
 
-pub trait GWCircuitHolder: Logicable {}
+pub trait GWSuit: Storage {
+    fn suit_info(&self) -> &SuitInfo;
+}
+
+impl<T: GWSuit + Item + Object> Suit for T {
+    fn pressure_waste_max(&self) -> f32 {
+        self.suit_info().waste_max_pressure
+    }
+    fn pressure_air(&self) -> f32 {
+        // Game "hard" codes air tank to first slot of suits
+        let result = self.get_slot(0).and_then(|slot| {
+            let canister = slot
+                .occupant
+                .as_ref()
+                .and_then(|info| self.get_vm().get_object(info.id));
+            let pressure = canister.and_then(|canister| {
+                canister
+                    .borrow()
+                    .as_logicable()
+                    .and_then(|logicable| logicable.get_logic(LogicType::Pressure).ok())
+            });
+
+            pressure
+        });
+        result.unwrap_or(0.0) as f32
+    }
+    fn pressure_waste(&self) -> f32 {
+        // game hard codes waste tank to second slot of suits
+        let result = self.get_slot(1).and_then(|slot| {
+            let canister = slot
+                .occupant
+                .as_ref()
+                .and_then(|info| self.get_vm().get_object(info.id));
+            let pressure = canister.and_then(|canister| {
+                canister
+                    .borrow()
+                    .as_logicable()
+                    .and_then(|logicable| logicable.get_logic(LogicType::Pressure).ok())
+            });
+
+            pressure
+        });
+        result.unwrap_or(0.0) as f32
+    }
+}
+
+pub trait CircuitHolderType {}
+
+pub struct ItemCircuitHolder;
+pub struct SuitCircuitHolder;
+pub struct DeviceCircuitHolder;
+impl CircuitHolderType for ItemCircuitHolder {}
+impl CircuitHolderType for SuitCircuitHolder {}
+impl CircuitHolderType for DeviceCircuitHolder {}
+
+pub trait GWCircuitHolder: Logicable {
+    type Holder: CircuitHolderType;
+    fn gw_get_error(&self) -> i32;
+    fn gw_set_error(&mut self, state: i32);
+}
+
+pub trait GWCircuitHolderWrapper<T: GWCircuitHolder, H = <T as GWCircuitHolder>::Holder> {
+    fn clear_error_gw(&mut self);
+    fn set_error_gw(&mut self, state: i32);
+    /// i32::MAX is db
+    fn get_logicable_from_index_gw(
+        &self,
+        device: i32,
+        connection: Option<usize>,
+    ) -> Option<ObjectRef>;
+    /// i32::MAX is db
+    fn get_logicable_from_index_mut_gw(
+        &mut self,
+        device: i32,
+        connection: Option<usize>,
+    ) -> Option<ObjectRefMut>;
+    fn get_logicable_from_id_gw(
+        &self,
+        device: ObjectID,
+        connection: Option<usize>,
+    ) -> Option<ObjectRef>;
+    fn get_logicable_from_id_mut_gw(
+        &mut self,
+        device: ObjectID,
+        connection: Option<usize>,
+    ) -> Option<ObjectRefMut>;
+    fn get_ic_gw(&self) -> Option<VMObject>;
+    fn hault_and_catch_fire_gw(&mut self);
+}
+
+impl<T> CircuitHolder for T
+where
+    T: GWCircuitHolder,
+    Self: GWCircuitHolderWrapper<T>,
+{
+    fn clear_error(&mut self) {
+        self.clear_error_gw()
+    }
+    fn set_error(&mut self, state: i32) {
+        self.set_error_gw(state)
+    }
+    /// i32::MAX is db
+    fn get_logicable_from_index(
+        &self,
+        device: i32,
+        connection: Option<usize>,
+    ) -> Option<ObjectRef> {
+        self.get_logicable_from_index_gw(device, connection)
+    }
+    /// i32::MAX is db
+    fn get_logicable_from_index_mut(
+        &mut self,
+        device: i32,
+        connection: Option<usize>,
+    ) -> Option<ObjectRefMut> {
+        self.get_logicable_from_index_mut_gw(device, connection)
+    }
+    fn get_logicable_from_id(
+        &self,
+        device: ObjectID,
+        connection: Option<usize>,
+    ) -> Option<ObjectRef> {
+        self.get_logicable_from_id_gw(device, connection)
+    }
+    fn get_logicable_from_id_mut(
+        &mut self,
+        device: ObjectID,
+        connection: Option<usize>,
+    ) -> Option<ObjectRefMut> {
+        self.get_logicable_from_id_mut_gw(device, connection)
+    }
+    fn get_ic(&self) -> Option<VMObject> {
+        self.get_ic_gw()
+    }
+    fn hault_and_catch_fire(&mut self) {
+        self.hault_and_catch_fire_gw()
+    }
+}
+
+impl<T> GWCircuitHolderWrapper<T, DeviceCircuitHolder> for T
+where
+    T: GWCircuitHolder<Holder = DeviceCircuitHolder> + Device + Object,
+{
+    fn clear_error_gw(&mut self) {
+        self.gw_set_error(0);
+    }
+    fn set_error_gw(&mut self, state: i32) {
+        self.gw_set_error(state);
+    }
+
+    /// i32::MAX is db
+    fn get_logicable_from_index_gw(
+        &self,
+        device: i32,
+        connection: Option<usize>,
+    ) -> Option<ObjectRef> {
+        if device == i32::MAX {
+            // self
+            if let Some(connection) = connection {
+                self.connection_list().get(connection).and_then(|conn| {
+                    if let Connection::CableNetwork { net: Some(net), .. } = conn {
+                        self.get_vm()
+                            .get_network(*net)
+                            .map(ObjectRef::from_vm_object)
+                    } else {
+                        None
+                    }
+                })
+            } else {
+                Some(ObjectRef::from_ref(self.as_object()))
+            }
+        } else {
+            if device < 0 {
+                return None;
+            }
+            self.device_pins().and_then(|pins| {
+                pins.get(device as usize).and_then(|pin| {
+                    pin.and_then(|id| self.get_vm().get_object(id).map(ObjectRef::from_vm_object))
+                })
+            })
+        }
+    }
+
+    /// i32::MAX is db
+    fn get_logicable_from_index_mut_gw(
+        &mut self,
+        device: i32,
+        connection: Option<usize>,
+    ) -> Option<ObjectRefMut> {
+        if device == i32::MAX {
+            // self
+            if let Some(connection) = connection {
+                self.connection_list().get(connection).and_then(|conn| {
+                    if let Connection::CableNetwork { net: Some(net), .. } = conn {
+                        self.get_vm()
+                            .get_network(*net)
+                            .map(ObjectRefMut::from_vm_object)
+                    } else {
+                        None
+                    }
+                })
+            } else {
+                Some(ObjectRefMut::from_ref(self.as_mut_object()))
+            }
+        } else {
+            if device < 0 {
+                return None;
+            }
+            self.device_pins().and_then(|pins| {
+                pins.get(device as usize).and_then(|pin| {
+                    pin.and_then(|id| {
+                        self.get_vm()
+                            .get_object(id)
+                            .map(ObjectRefMut::from_vm_object)
+                    })
+                })
+            })
+        }
+    }
+
+    fn get_logicable_from_id_gw(
+        &self,
+        device: ObjectID,
+        connection: Option<usize>,
+    ) -> Option<ObjectRef> {
+        if connection.is_some() {
+            return None; // this functionality is disabled in the game, no network access via ReferenceId
+        }
+        if device == *self.get_id() {
+            return Some(ObjectRef::from_ref(self.as_object()));
+        }
+        self.get_vm()
+            .get_object(device)
+            .map(ObjectRef::from_vm_object)
+    }
+
+    fn get_logicable_from_id_mut_gw(
+        &mut self,
+        device: ObjectID,
+        connection: Option<usize>,
+    ) -> Option<ObjectRefMut> {
+        if connection.is_some() {
+            return None; // this functionality is disabled in the game, no network access via ReferenceId
+        }
+        if device == *self.get_id() {
+            return Some(ObjectRefMut::from_ref(self.as_mut_object()));
+        }
+        self.get_vm()
+            .get_object(device)
+            .map(ObjectRefMut::from_vm_object)
+    }
+
+    fn get_ic_gw(&self) -> Option<crate::vm::object::VMObject> {
+        self.get_slots()
+            .into_iter()
+            .find(|slot| slot.typ == SlotClass::ProgrammableChip)
+            .and_then(|slot| {
+                slot.occupant
+                    .as_ref()
+                    .and_then(|info| self.get_vm().get_object(info.id))
+            })
+    }
+
+    fn hault_and_catch_fire_gw(&mut self) {
+        // TODO: do something here??
+    }
+}
+
+impl<T> GWCircuitHolderWrapper<T, SuitCircuitHolder> for T
+where
+    T: GWCircuitHolder<Holder = SuitCircuitHolder> + Suit + Object,
+{
+    fn clear_error_gw(&mut self) {
+        self.gw_set_error(0);
+    }
+    fn set_error_gw(&mut self, state: i32) {
+        self.gw_set_error(state);
+    }
+
+    /// 0 -> Helmet
+    /// 1 -> BackPack
+    /// 2 -> ToolBelt
+    fn get_logicable_from_index_gw(
+        &self,
+        device: i32,
+        _connection: Option<usize>,
+    ) -> Option<ObjectRef> {
+        match device {
+            i32::MAX => Some(ObjectRef::from_ref(self.as_object())),
+            0 => self.root_parent_human().and_then(|obj| {
+                obj.borrow().as_human().and_then(|human| {
+                    human.helmet_slot().occupant.as_ref().and_then(|info| {
+                        self.get_vm()
+                            .get_object(info.id)
+                            .map(ObjectRef::from_vm_object)
+                    })
+                })
+            }),
+            1 => self.root_parent_human().and_then(|obj| {
+                obj.borrow().as_human().and_then(|human| {
+                    human.backpack_slot().occupant.as_ref().and_then(|info| {
+                        self.get_vm()
+                            .get_object(info.id)
+                            .map(ObjectRef::from_vm_object)
+                    })
+                })
+            }),
+            2 => self.root_parent_human().and_then(|obj| {
+                obj.borrow().as_human().and_then(|human| {
+                    human.toolbelt_slot().occupant.as_ref().and_then(|info| {
+                        self.get_vm()
+                            .get_object(info.id)
+                            .map(ObjectRef::from_vm_object)
+                    })
+                })
+            }),
+            _ => None,
+        }
+    }
+
+    /// i32::MAX is db
+    fn get_logicable_from_index_mut_gw(
+        &mut self,
+        device: i32,
+        _connection: Option<usize>,
+    ) -> Option<ObjectRefMut> {
+        match device {
+            i32::MAX => Some(ObjectRefMut::from_ref(self.as_mut_object())),
+            0 => self.root_parent_human().and_then(|obj| {
+                obj.borrow().as_human().and_then(|human| {
+                    human.helmet_slot().occupant.as_ref().and_then(|info| {
+                        self.get_vm()
+                            .get_object(info.id)
+                            .map(ObjectRefMut::from_vm_object)
+                    })
+                })
+            }),
+            1 => self.root_parent_human().and_then(|obj| {
+                obj.borrow().as_human().and_then(|human| {
+                    human.backpack_slot().occupant.as_ref().and_then(|info| {
+                        self.get_vm()
+                            .get_object(info.id)
+                            .map(ObjectRefMut::from_vm_object)
+                    })
+                })
+            }),
+            2 => self.root_parent_human().and_then(|obj| {
+                obj.borrow().as_human().and_then(|human| {
+                    human.toolbelt_slot().occupant.as_ref().and_then(|info| {
+                        self.get_vm()
+                            .get_object(info.id)
+                            .map(ObjectRefMut::from_vm_object)
+                    })
+                })
+            }),
+            _ => None,
+        }
+    }
+
+    fn get_logicable_from_id_gw(
+        &self,
+        device: ObjectID,
+        _connection: Option<usize>,
+    ) -> Option<ObjectRef> {
+        if device == *self.get_id() {
+            return Some(ObjectRef::from_ref(self.as_object()));
+        }
+        let contained_ids: Vec<ObjectID> = self
+            .get_slots()
+            .into_iter()
+            .filter_map(|slot| slot.occupant.as_ref().map(|info| info.id))
+            .collect();
+        if contained_ids.contains(&device) {
+            self.get_vm()
+                .get_object(device)
+                .map(ObjectRef::from_vm_object)
+        } else {
+            None
+        }
+    }
+
+    fn get_logicable_from_id_mut_gw(
+        &mut self,
+        device: ObjectID,
+        _connection: Option<usize>,
+    ) -> Option<ObjectRefMut> {
+        if device == *self.get_id() {
+            return Some(ObjectRefMut::from_ref(self.as_mut_object()));
+        }
+        let contained_ids: Vec<ObjectID> = self
+            .get_slots()
+            .into_iter()
+            .filter_map(|slot| slot.occupant.as_ref().map(|info| info.id))
+            .collect();
+        if contained_ids.contains(&device) {
+            self.get_vm()
+                .get_object(device)
+                .map(ObjectRefMut::from_vm_object)
+        } else {
+            None
+        }
+    }
+
+    fn get_ic_gw(&self) -> Option<crate::vm::object::VMObject> {
+        self.get_slots()
+            .into_iter()
+            .find(|slot| slot.typ == SlotClass::ProgrammableChip)
+            .and_then(|slot| {
+                slot.occupant
+                    .as_ref()
+                    .and_then(|info| self.get_vm().get_object(info.id))
+            })
+    }
+
+    fn hault_and_catch_fire_gw(&mut self) {
+        // TODO: do something here??
+    }
+}
+
+impl<T> GWCircuitHolderWrapper<T, ItemCircuitHolder> for T
+where
+    T: GWCircuitHolder<Holder = ItemCircuitHolder> + Item + Object,
+{
+    fn clear_error_gw(&mut self) {
+        self.gw_set_error(0);
+    }
+    fn set_error_gw(&mut self, state: i32) {
+        self.gw_set_error(state);
+    }
+
+    /// i32::MAX is db
+    /// 0 -> Helmet
+    /// 1 -> Suit
+    /// 2 -> BackPack
+    /// 3 -> ToolBelt
+    fn get_logicable_from_index_gw(
+        &self,
+        device: i32,
+        _connection: Option<usize>,
+    ) -> Option<ObjectRef> {
+        match device {
+            i32::MAX => Some(ObjectRef::from_ref(self.as_object())),
+            0 => self.root_parent_human().and_then(|obj| {
+                obj.borrow().as_human().and_then(|human| {
+                    human.helmet_slot().occupant.as_ref().and_then(|info| {
+                        self.get_vm()
+                            .get_object(info.id)
+                            .map(ObjectRef::from_vm_object)
+                    })
+                })
+            }),
+            1 => self.root_parent_human().and_then(|obj| {
+                obj.borrow().as_human().and_then(|human| {
+                    human.suit_slot().occupant.as_ref().and_then(|info| {
+                        self.get_vm()
+                            .get_object(info.id)
+                            .map(ObjectRef::from_vm_object)
+                    })
+                })
+            }),
+            2 => self.root_parent_human().and_then(|obj| {
+                obj.borrow().as_human().and_then(|human| {
+                    human.backpack_slot().occupant.as_ref().and_then(|info| {
+                        self.get_vm()
+                            .get_object(info.id)
+                            .map(ObjectRef::from_vm_object)
+                    })
+                })
+            }),
+            3 => self.root_parent_human().and_then(|obj| {
+                obj.borrow().as_human().and_then(|human| {
+                    human.toolbelt_slot().occupant.as_ref().and_then(|info| {
+                        self.get_vm()
+                            .get_object(info.id)
+                            .map(ObjectRef::from_vm_object)
+                    })
+                })
+            }),
+            _ => None,
+        }
+    }
+
+    /// i32::MAX is db
+    /// 0 -> Helmet
+    /// 1 -> Suit
+    /// 2 -> BackPack
+    /// 3 -> ToolBelt
+    fn get_logicable_from_index_mut_gw(
+        &mut self,
+        device: i32,
+        _connection: Option<usize>,
+    ) -> Option<ObjectRefMut> {
+        match device {
+            i32::MAX => Some(ObjectRefMut::from_ref(self.as_mut_object())),
+            0 => self.root_parent_human().and_then(|obj| {
+                obj.borrow().as_human().and_then(|human| {
+                    human.helmet_slot().occupant.as_ref().and_then(|info| {
+                        self.get_vm()
+                            .get_object(info.id)
+                            .map(ObjectRefMut::from_vm_object)
+                    })
+                })
+            }),
+            1 => self.root_parent_human().and_then(|obj| {
+                obj.borrow().as_human().and_then(|human| {
+                    human.suit_slot().occupant.as_ref().and_then(|info| {
+                        self.get_vm()
+                            .get_object(info.id)
+                            .map(ObjectRefMut::from_vm_object)
+                    })
+                })
+            }),
+            2 => self.root_parent_human().and_then(|obj| {
+                obj.borrow().as_human().and_then(|human| {
+                    human.backpack_slot().occupant.as_ref().and_then(|info| {
+                        self.get_vm()
+                            .get_object(info.id)
+                            .map(ObjectRefMut::from_vm_object)
+                    })
+                })
+            }),
+            3 => self.root_parent_human().and_then(|obj| {
+                obj.borrow().as_human().and_then(|human| {
+                    human.toolbelt_slot().occupant.as_ref().and_then(|info| {
+                        self.get_vm()
+                            .get_object(info.id)
+                            .map(ObjectRefMut::from_vm_object)
+                    })
+                })
+            }),
+            _ => None,
+        }
+    }
+
+    fn get_logicable_from_id_gw(
+        &self,
+        device: ObjectID,
+        _connection: Option<usize>,
+    ) -> Option<ObjectRef> {
+        if device == *self.get_id() {
+            return Some(ObjectRef::from_ref(self.as_object()));
+        }
+        let contained_ids: Vec<ObjectID> = self
+            .get_slots()
+            .into_iter()
+            .filter_map(|slot| slot.occupant.as_ref().map(|info| info.id))
+            .collect();
+        if contained_ids.contains(&device) {
+            self.get_vm()
+                .get_object(device)
+                .map(ObjectRef::from_vm_object)
+        } else {
+            None
+        }
+    }
+
+    fn get_logicable_from_id_mut_gw(
+        &mut self,
+        device: ObjectID,
+        _connection: Option<usize>,
+    ) -> Option<ObjectRefMut> {
+        if device == *self.get_id() {
+            return Some(ObjectRefMut::from_ref(self.as_mut_object()));
+        }
+        let contained_ids: Vec<ObjectID> = self
+            .get_slots()
+            .into_iter()
+            .filter_map(|slot| slot.occupant.as_ref().map(|info| info.id))
+            .collect();
+        if contained_ids.contains(&device) {
+            self.get_vm()
+                .get_object(device)
+                .map(ObjectRefMut::from_vm_object)
+        } else {
+            None
+        }
+    }
+
+    fn get_ic_gw(&self) -> Option<crate::vm::object::VMObject> {
+        self.get_slots()
+            .into_iter()
+            .find(|slot| slot.typ == SlotClass::ProgrammableChip)
+            .and_then(|slot| {
+                slot.occupant
+                    .as_ref()
+                    .and_then(|info| self.get_vm().get_object(info.id))
+            })
+    }
+
+    fn hault_and_catch_fire_gw(&mut self) {
+        // TODO: do something here??
+    }
+}

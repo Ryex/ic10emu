@@ -1141,7 +1141,7 @@ impl VMTransaction {
                     role: ConnectionRole::None,
                 } = conn
                 {
-                    if let Some(net) = self.networks.get_mut(&net_id) {
+                    if let Some(net) = self.networks.get_mut(net_id) {
                         match typ {
                             CableConnectionType::Power => net.power_only.push(obj_id),
                             _ => net.devices.push(obj_id),
@@ -1159,19 +1159,19 @@ impl VMTransaction {
     }
 
     pub fn finialize(&mut self) -> Result<(), VMError> {
-        for (child, (slot, parent)) in self.object_parents {
+        for (child, (slot, parent)) in &self.object_parents {
             let child_obj = self
                 .objects
-                .get(&child)
-                .ok_or(VMError::MissingChild(child))?;
-            let child_obj_ref = child_obj.borrow_mut();
+                .get(child)
+                .ok_or(VMError::MissingChild(*child))?;
+            let mut child_obj_ref = child_obj.borrow_mut();
             let item = child_obj_ref
                 .as_mut_item()
-                .ok_or(VMError::NotParentable(child))?;
+                .ok_or(VMError::NotParentable(*child))?;
             item.set_parent_slot(Some(ParentSlotInfo {
-                slot: slot as usize,
-                parent,
-            }))
+                slot: *slot as usize,
+                parent: *parent,
+            }));
         }
         Ok(())
     }

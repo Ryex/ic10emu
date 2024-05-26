@@ -9,6 +9,7 @@ use serde_derive::{Deserialize, Serialize};
 
 pub mod errors;
 pub mod generic;
+pub mod humans;
 pub mod macros;
 pub mod stationpedia;
 pub mod templates;
@@ -121,4 +122,29 @@ pub struct Slot {
     pub readable_logic: Vec<LogicSlotType>,
     pub writeable_logic: Vec<LogicSlotType>,
     pub occupant: Option<SlotOccupantInfo>,
+}
+
+impl Slot {
+    #[must_use]
+    pub fn new(parent: ObjectID, index: usize, name: String, typ: SlotClass) -> Self {
+        Slot {
+            parent,
+            index,
+            name,
+            typ,
+            readable_logic: vec![
+                LogicSlotType::Class,
+                LogicSlotType::Damage,
+                LogicSlotType::MaxQuantity,
+                LogicSlotType::OccupantHash,
+                LogicSlotType::Occupied,
+                LogicSlotType::PrefabHash,
+                LogicSlotType::Quantity,
+                LogicSlotType::ReferenceId,
+                LogicSlotType::SortingClass,
+            ],
+            writeable_logic: vec![],
+            occupant: None,
+        }
+    }
 }

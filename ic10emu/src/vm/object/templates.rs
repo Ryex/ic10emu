@@ -225,18 +225,19 @@ impl FrozenObject {
     }
 
     pub fn build_vm_obj(&self, id: ObjectID, vm: &Rc<VM>) -> Result<VMObject, TemplateError> {
-        let template = self.template.map_or_else(
+        let template = self.template.as_ref().map_or_else(
             || {
                 self.obj_info
                     .prefab
+                    .as_ref()
                     .map(|prefab| {
-                        vm.get_template(prefab)
-                            .ok_or(TemplateError::NoTemplateForPrefab(prefab))
+                        vm.get_template(prefab.clone())
+                            .ok_or(TemplateError::NoTemplateForPrefab(prefab.clone()))
                     })
                     .transpose()?
                     .ok_or(TemplateError::MissingPrefab)
             },
-            |template| Ok(template),
+            |template| Ok(template.clone()),
         )?;
         if let Some(obj) = stationpedia::object_from_frozen(&self.obj_info, id, vm) {
             Ok(obj)
@@ -248,6 +249,7 @@ impl FrozenObject {
     pub fn connected_networks(&self) -> Vec<ObjectID> {
         self.obj_info
             .connections
+            .as_ref()
             .map(|connections| connections.values().copied().collect())
             .unwrap_or_else(Vec::new)
     }
@@ -255,6 +257,7 @@ impl FrozenObject {
     pub fn contained_object_ids(&self) -> Vec<ObjectID> {
         self.obj_info
             .slots
+            .as_ref()
             .map(|slots| slots.values().map(|slot| slot.id).collect())
             .unwrap_or_else(Vec::new)
     }
@@ -262,6 +265,7 @@ impl FrozenObject {
     pub fn contained_object_slots(&self) -> Vec<(u32, ObjectID)> {
         self.obj_info
             .slots
+            .as_ref()
             .map(|slots| {
                 slots
                     .iter()
@@ -316,6 +320,7 @@ impl FrozenObject {
                 occupant: self
                     .obj_info
                     .slots
+                    .as_ref()
                     .and_then(|slots| slots.get(&(index as u32)).cloned()),
             })
             .collect()
@@ -569,7 +574,7 @@ impl FrozenObject {
                 thermal_info: i.thermal_info.clone(),
                 item_info: i.item.clone(),
                 parent_slot: None,
-                damage: self.obj_info.damage.clone(),
+                damage: self.obj_info.damage,
             })),
             ItemSlots(i) => Ok(VMObject::new(GenericItemStorage {
                 id,
@@ -580,7 +585,7 @@ impl FrozenObject {
                 thermal_info: i.thermal_info.clone(),
                 item_info: i.item.clone(),
                 parent_slot: None,
-                damage: self.obj_info.damage.clone(),
+                damage: self.obj_info.damage,
                 slots: self.build_slots(id, &i.slots, None),
             })),
             ItemConsumer(i) => Ok(VMObject::new(GenericItemConsumer {
@@ -592,7 +597,7 @@ impl FrozenObject {
                 thermal_info: i.thermal_info.clone(),
                 item_info: i.item.clone(),
                 parent_slot: None,
-                damage: self.obj_info.damage.clone(),
+                damage: self.obj_info.damage,
                 slots: self.build_slots(id, &i.slots, None),
                 consumer_info: i.consumer_info.clone(),
             })),
@@ -605,7 +610,7 @@ impl FrozenObject {
                 thermal_info: i.thermal_info.clone(),
                 item_info: i.item.clone(),
                 parent_slot: None,
-                damage: self.obj_info.damage.clone(),
+                damage: self.obj_info.damage,
                 slots: self.build_slots(id, &i.slots, Some(&i.logic)),
                 fields: self.build_logic_fields(&i.logic),
                 modes: i.logic.modes.clone(),
@@ -620,7 +625,7 @@ impl FrozenObject {
                     thermal_info: i.thermal_info.clone(),
                     item_info: i.item.clone(),
                     parent_slot: None,
-                    damage: self.obj_info.damage.clone(),
+                    damage: self.obj_info.damage,
                     slots: self.build_slots(id, &i.slots, Some(&i.logic)),
                     fields: self.build_logic_fields(&i.logic),
                     modes: i.logic.modes.clone(),
@@ -636,7 +641,7 @@ impl FrozenObject {
                 thermal_info: i.thermal_info.clone(),
                 item_info: i.item.clone(),
                 parent_slot: None,
-                damage: self.obj_info.damage.clone(),
+                damage: self.obj_info.damage,
                 slots: self.build_slots(id, &i.slots, Some(&i.logic)),
                 fields: self.build_logic_fields(&i.logic),
                 modes: i.logic.modes.clone(),
@@ -651,7 +656,7 @@ impl FrozenObject {
                 thermal_info: i.thermal_info.clone(),
                 item_info: i.item.clone(),
                 parent_slot: None,
-                damage: self.obj_info.damage.clone(),
+                damage: self.obj_info.damage,
                 slots: self.build_slots(id, &i.slots, Some(&i.logic)),
                 fields: self.build_logic_fields(&i.logic),
                 modes: i.logic.modes.clone(),
@@ -665,8 +670,9 @@ impl FrozenObject {
                 thermal_info: i.thermal_info.clone(),
                 item_info: i.item.clone(),
                 parent_slot: None,
-                damage: self.obj_info.damage.clone(),
+                damage: self.obj_info.damage,
                 slots: self.build_slots(id, &i.slots, None),
+                suit_info: i.suit_info.clone(),
             })),
             ItemSuitLogic(i) => Ok(VMObject::new(GenericItemSuitLogic {
                 id,
@@ -677,8 +683,9 @@ impl FrozenObject {
                 thermal_info: i.thermal_info.clone(),
                 item_info: i.item.clone(),
                 parent_slot: None,
-                damage: self.obj_info.damage.clone(),
+                damage: self.obj_info.damage,
                 slots: self.build_slots(id, &i.slots, Some(&i.logic)),
+                suit_info: i.suit_info.clone(),
                 fields: self.build_logic_fields(&i.logic),
                 modes: i.logic.modes.clone(),
             })),
@@ -691,8 +698,9 @@ impl FrozenObject {
                 thermal_info: i.thermal_info.clone(),
                 item_info: i.item.clone(),
                 parent_slot: None,
-                damage: self.obj_info.damage.clone(),
+                damage: self.obj_info.damage,
                 slots: self.build_slots(id, &i.slots, Some(&i.logic)),
+                suit_info: i.suit_info.clone(),
                 fields: self.build_logic_fields(&i.logic),
                 modes: i.logic.modes.clone(),
                 memory: self.build_memory(&i.memory),
@@ -709,7 +717,7 @@ impl FrozenObject {
         let template = vm
             .get_template(Prefab::Hash(obj_ref.get_prefab().hash))
             .map_or_else(
-                || Some(try_template_from_interfaces(interfaces, obj)),
+                || Some(try_template_from_interfaces(&interfaces, obj)),
                 |_| None,
             )
             .transpose()?;
@@ -719,10 +727,10 @@ impl FrozenObject {
 }
 
 fn try_template_from_interfaces(
-    interfaces: ObjectInterfaces,
+    interfaces: &ObjectInterfaces,
     obj: &VMObject,
 ) -> Result<ObjectTemplate, TemplateError> {
-    match interfaces {
+    match *interfaces {
         ObjectInterfaces {
             structure: Some(structure),
             storage: None,
@@ -747,6 +755,7 @@ fn try_template_from_interfaces(
             fabricator: None,
             internal_atmosphere,
             thermal,
+            human: None,
         } => {
             // completely generic structure? not sure how this got created but it technically
             // valid in the data model
@@ -781,6 +790,7 @@ fn try_template_from_interfaces(
             fabricator: None,
             internal_atmosphere,
             thermal,
+            human: None,
         } => Ok(ObjectTemplate::StructureSlots(StructureSlotsTemplate {
             prefab: obj.into(),
             internal_atmo_info: internal_atmosphere.map(Into::into),
@@ -812,6 +822,7 @@ fn try_template_from_interfaces(
             fabricator: None,
             internal_atmosphere,
             thermal,
+            human: None,
         } => Ok(ObjectTemplate::StructureLogic(StructureLogicTemplate {
             prefab: obj.into(),
             internal_atmo_info: internal_atmosphere.map(Into::into),
@@ -844,6 +855,7 @@ fn try_template_from_interfaces(
             fabricator: None,
             internal_atmosphere,
             thermal,
+            human: None,
         } => Ok(ObjectTemplate::StructureLogicDevice(
             StructureLogicDeviceTemplate {
                 prefab: obj.into(),
@@ -879,6 +891,7 @@ fn try_template_from_interfaces(
             fabricator: None,
             internal_atmosphere,
             thermal,
+            human: None,
         } => Ok(ObjectTemplate::StructureLogicDeviceMemory(
             StructureLogicDeviceMemoryTemplate {
                 prefab: obj.into(),
@@ -917,6 +930,7 @@ fn try_template_from_interfaces(
             fabricator: None,
             internal_atmosphere,
             thermal,
+            human: None,
         } => Ok(ObjectTemplate::Item(ItemTemplate {
             prefab: obj.into(),
             internal_atmo_info: internal_atmosphere.map(Into::into),
@@ -947,6 +961,7 @@ fn try_template_from_interfaces(
             fabricator: None,
             internal_atmosphere,
             thermal,
+            human: None,
         } => Ok(ObjectTemplate::ItemSlots(ItemSlotsTemplate {
             prefab: obj.into(),
             internal_atmo_info: internal_atmosphere.map(Into::into),
@@ -978,6 +993,7 @@ fn try_template_from_interfaces(
             fabricator: None,
             internal_atmosphere,
             thermal,
+            human: None,
         } => Ok(ObjectTemplate::ItemLogic(ItemLogicTemplate {
             prefab: obj.into(),
             internal_atmo_info: internal_atmosphere.map(Into::into),
@@ -1010,6 +1026,7 @@ fn try_template_from_interfaces(
             fabricator: None,
             internal_atmosphere,
             thermal,
+            human: None,
         } => Ok(ObjectTemplate::ItemLogicMemory(ItemLogicMemoryTemplate {
             prefab: obj.into(),
             internal_atmo_info: internal_atmosphere.map(Into::into),

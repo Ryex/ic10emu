@@ -139,7 +139,7 @@ impl Connection {
 
     pub fn get_network(&self) -> Option<ObjectID> {
         match self {
-            Self::CableNetwork { net, .. } => net.clone(),
+            Self::CableNetwork { net, .. } => *net,
             _ => None,
         }
     }

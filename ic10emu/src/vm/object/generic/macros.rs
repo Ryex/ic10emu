@@ -1,3 +1,45 @@
+macro_rules! GWThermal {
+    (
+        $( #[$attr:meta] )*
+        $viz:vis struct $struct:ident {
+            $($body:tt)*
+        }
+    ) => {
+        impl GWThermal for $struct {
+            fn is_thermal(&self) -> bool {
+                self.thermal_info.is_some()
+            }
+            fn thermal_info(&self) -> &ThermalInfo {
+                self.thermal_info
+                    .as_ref()
+                    .expect("GWTherml::thermal_info called on non thermal")
+            }
+        }
+    };
+}
+pub(crate) use GWThermal;
+
+macro_rules! GWInternalAtmo {
+    (
+        $( #[$attr:meta] )*
+        $viz:vis struct $struct:ident {
+            $($body:tt)*
+        }
+    ) => {
+        impl GWInternalAtmo for $struct {
+            fn is_internal_atmo(&self) -> bool {
+                self.internal_atmo_info.is_some()
+            }
+            fn internal_atmo_info(&self) -> &InternalAtmoInfo {
+                self.internal_atmo_info
+                    .as_ref()
+                    .expect("GWInternalAtmo::internal_atmo_info called on non internal atmo")
+            }
+        }
+    };
+}
+pub(crate) use GWInternalAtmo;
+
 macro_rules! GWStructure {
     (
         $( #[$attr:meta] )*
@@ -152,3 +194,19 @@ macro_rules! GWItem {
     };
 }
 pub(crate) use GWItem;
+
+macro_rules! GWSuit {
+    (
+        $( #[$attr:meta] )*
+        $viz:vis struct $struct:ident {
+            $($body:tt)*
+        }
+    ) => {
+        impl GWSuit for $struct {
+            fn suit_info(&self) -> &SuitInfo {
+                &self.suit_info
+            }
+        }
+    };
+}
+pub(crate) use GWSuit;

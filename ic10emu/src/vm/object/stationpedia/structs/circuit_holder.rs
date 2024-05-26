@@ -162,7 +162,7 @@ impl Logicable for StructureCircuitHousing {
             LogicType::ReferenceId => Ok(*self.get_id() as f64),
             LogicType::Error => Ok(self.error as f64),
             LogicType::LineNumber => {
-                let result = self.slot.occupant.and_then(|info| {
+                let result = self.slot.occupant.as_ref().and_then(|info| {
                     self.vm.get_object(info.id).and_then(|obj| {
                         obj.borrow()
                             .as_logicable()
@@ -207,6 +207,7 @@ impl Logicable for StructureCircuitHousing {
             LogicType::LineNumber => self
                 .slot
                 .occupant
+                .as_ref()
                 .and_then(|info| {
                     self.vm.get_object(info.id).and_then(|obj| {
                         obj.borrow_mut().as_mut_logicable().map(|logicable| {
@@ -404,11 +405,10 @@ impl CircuitHolder for StructureCircuitHousing {
     }
 
     fn get_ic(&self) -> Option<VMObject> {
-        self.slot.occupant.and_then(|info| self.vm.get_object(info.id))
-    }
-
-    fn get_ic_mut(&self) -> Option<VMObject> {
-        self.slot.occupant.and_then(|info| self.vm.get_object(info.id))
+        self.slot
+            .occupant
+            .as_ref()
+            .and_then(|info| self.vm.get_object(info.id))
     }
 
     fn hault_and_catch_fire(&mut self) {
