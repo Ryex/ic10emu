@@ -1,5 +1,9 @@
 use serde_derive::{Deserialize, Serialize};
 use strum::{AsRefStr, Display, EnumIter, EnumProperty, EnumString, FromRepr};
+#[cfg(feature = "tsify")]
+use tsify::Tsify;
+#[cfg(feature = "tsify")]
+use wasm_bindgen::prelude::*;
 #[derive(
     Debug,
     Display,
@@ -18,6 +22,8 @@ use strum::{AsRefStr, Display, EnumIter, EnumProperty, EnumString, FromRepr};
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(i32)]
 pub enum StationpediaPrefab {

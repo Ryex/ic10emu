@@ -1,15 +1,23 @@
 use crate::vm::{
     instructions::enums::InstructionOp,
     object::{
-        errors::{LogicError, MemoryError}, templates::Prefab, ObjectID
+        errors::{LogicError, MemoryError},
+        templates::Prefab,
+        ObjectID,
     },
 };
 use serde_derive::{Deserialize, Serialize};
 use std::error::Error as StdError;
 use std::fmt::Display;
 use thiserror::Error;
+#[cfg(feature = "tsify")]
+use tsify::Tsify;
+#[cfg(feature = "tsify")]
+use wasm_bindgen::prelude::*;
 
 #[derive(Error, Debug, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 pub enum VMError {
     #[error("device with id '{0}' does not exist")]
     UnknownId(u32),
@@ -50,6 +58,8 @@ pub enum VMError {
 }
 
 #[derive(Error, Debug, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 pub enum TemplateError {
     #[error("object id {0} has a non conforming set of interfaces")]
     NonConformingObject(ObjectID),
@@ -59,9 +69,16 @@ pub enum TemplateError {
     NoTemplateForPrefab(Prefab),
     #[error("no prefab provided")]
     MissingPrefab,
+    #[error("incorrect template for concreet impl {0} from prefab {1}")]
+    IncorrectTemplate(String, Prefab),
+    #[error("frozen memory size error: {0} is not {1}")]
+    MemorySize(usize, usize)
+
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 pub struct LineError {
     pub error: ICError,
     pub line: u32,
@@ -76,6 +93,8 @@ impl Display for LineError {
 impl StdError for LineError {}
 
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 pub struct ParseError {
     pub line: usize,
     pub start: usize,
@@ -128,6 +147,8 @@ impl ParseError {
 }
 
 #[derive(Debug, Error, Clone, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 pub enum ICError {
     #[error("error compiling code: {0}")]
     ParseError(#[from] ParseError),

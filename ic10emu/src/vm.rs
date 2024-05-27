@@ -23,6 +23,10 @@ use std::{
     collections::{BTreeMap, HashSet},
     rc::Rc,
 };
+#[cfg(feature = "tsify")]
+use tsify::Tsify;
+#[cfg(feature = "tsify")]
+use wasm_bindgen::prelude::*;
 
 use itertools::Itertools;
 use serde_derive::{Deserialize, Serialize};
@@ -119,15 +123,15 @@ impl VM {
             .and_then(|db| db.get(&hash).cloned())
     }
 
-    pub fn add_devices_frozen(
+    pub fn add_objects_frozen(
         self: &Rc<Self>,
-        frozen_devices: impl IntoIterator<Item = FrozenObject>,
+        frozen_objects: impl IntoIterator<Item = FrozenObject>,
     ) -> Result<Vec<ObjectID>, VMError> {
         let mut transaction = VMTransaction::new(self);
 
         let mut obj_ids = Vec::new();
-        for frozen in frozen_devices {
-            let obj_id = transaction.add_device_from_frozen(frozen)?;
+        for frozen in frozen_objects {
+            let obj_id = transaction.add_object_from_frozen(frozen)?;
             obj_ids.push(obj_id)
         }
 
@@ -171,13 +175,13 @@ impl VM {
         Ok(obj_ids)
     }
 
-    pub fn add_device_from_frozen(
+    pub fn add_object_from_frozen(
         self: &Rc<Self>,
         frozen: FrozenObject,
     ) -> Result<ObjectID, VMError> {
         let mut transaction = VMTransaction::new(self);
 
-        let obj_id = transaction.add_device_from_frozen(frozen)?;
+        let obj_id = transaction.add_object_from_frozen(frozen)?;
 
         transaction.finialize()?;
 
@@ -274,12 +278,12 @@ impl VM {
 
         self.circuit_holders.borrow_mut().iter_mut().for_each(|id| {
             if *id == old_id {
-                *id = new_id
+                *id = new_id;
             }
         });
         self.program_holders.borrow_mut().iter_mut().for_each(|id| {
             if *id == old_id {
-                *id = new_id
+                *id = new_id;
             }
         });
         self.networks.borrow().iter().for_each(|(_net_id, net)| {
@@ -1005,7 +1009,7 @@ impl VM {
             state.default_network_key,
         );
         for frozen in state.objects {
-            let _ = transaction.add_device_from_frozen(frozen)?;
+            let _ = transaction.add_object_from_frozen(frozen)?;
         }
         transaction.finialize()?;
 
@@ -1101,7 +1105,7 @@ impl VMTransaction {
         }
     }
 
-    pub fn add_device_from_frozen(&mut self, frozen: FrozenObject) -> Result<ObjectID, VMError> {
+    pub fn add_object_from_frozen(&mut self, frozen: FrozenObject) -> Result<ObjectID, VMError> {
         for net_id in &frozen.connected_networks() {
             if !self.networks.contains_key(net_id) {
                 return Err(VMError::InvalidNetwork(*net_id));
@@ -1134,14 +1138,14 @@ impl VMTransaction {
             self.program_holders.push(obj_id);
         }
         if let Some(device) = obj.borrow_mut().as_mut_device() {
-            for conn in device.connection_list().iter() {
+            for conn in device.connection_list() {
                 if let Connection::CableNetwork {
                     net: Some(net_id),
                     typ,
                     role: ConnectionRole::None,
                 } = conn
                 {
-                    if let Some(net) = self.networks.get_mut(net_id) {
+                    if let Some(net) = self.networks.get_mut(&net_id) {
                         match typ {
                             CableConnectionType::Power => net.power_only.push(obj_id),
                             _ => net.devices.push(obj_id),
@@ -1290,6 +1294,8 @@ impl IdSpace {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 pub struct FrozenVM {
     pub objects: Vec<FrozenObject>,
     pub circuit_holders: Vec<ObjectID>,

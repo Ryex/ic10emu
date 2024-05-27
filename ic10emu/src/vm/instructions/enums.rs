@@ -1,6 +1,10 @@
 use serde_derive::{Deserialize, Serialize};
 use strum::{Display, EnumIter, EnumProperty, EnumString, FromRepr};
 use crate::vm::object::traits::Programmable;
+#[cfg(feature = "tsify")]
+use tsify::Tsify;
+#[cfg(feature = "tsify")]
+use wasm_bindgen::prelude::*;
 #[derive(
     Debug,
     Display,
@@ -14,6 +18,8 @@ use crate::vm::object::traits::Programmable;
     Deserialize
 )]
 #[derive(EnumIter, EnumString, EnumProperty, FromRepr)]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf, serialize_all = "lowercase")]
 #[serde(rename_all = "lowercase")]
 pub enum InstructionOp {

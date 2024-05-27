@@ -7,18 +7,24 @@ use std::{
 };
 
 use itertools::Itertools;
+#[cfg(feature = "tsify")]
+use tsify::Tsify;
+#[cfg(feature = "tsify")]
+use wasm_bindgen::prelude::*;
 
 use time::format_description;
 
 use crate::{
     errors::{ICError, LineError},
     grammar,
-    vm::instructions::{enums::InstructionOp, Instruction},
+    vm::instructions::{enums::InstructionOp, operands::Operand, Instruction},
 };
 
 pub mod instructions;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 pub enum ICState {
     Start,
     Running,
@@ -27,6 +33,19 @@ pub enum ICState {
     Error(LineError),
     HasCaughtFire,
     Ended,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+pub struct ICInfo {
+    pub instruction_pointer: u32,
+    pub registers: Vec<f64>,
+    pub aliases: BTreeMap<String, Operand>,
+    pub defines: BTreeMap<String, f64>,
+    pub labels: BTreeMap<String, u32>,
+    pub state: ICState,
+    pub yield_instruciton_count: u16,
 }
 
 impl Display for ICState {
@@ -52,6 +71,8 @@ impl Display for ICState {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 pub struct Program {
     pub instructions: Vec<Instruction>,
     pub errors: Vec<ICError>,

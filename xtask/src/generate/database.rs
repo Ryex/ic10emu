@@ -14,17 +14,15 @@ use crate::{
     stationpedia::{self, Memory, Page, Stationpedia},
 };
 
-use stationeers_data::{
-    templates::{
-        ConnectionInfo, ConsumerInfo, DeviceInfo, FabricatorInfo, Instruction, InternalAtmoInfo,
-        ItemCircuitHolderTemplate, ItemConsumerTemplate, ItemInfo, ItemLogicMemoryTemplate,
-        ItemLogicTemplate, ItemSlotsTemplate, ItemSuitCircuitHolderTemplate, ItemSuitLogicTemplate,
-        ItemSuitTemplate, ItemTemplate, LogicInfo, MemoryInfo, ObjectTemplate, PrefabInfo, Recipe,
-        RecipeGasMix, RecipeRange, SlotInfo, StructureCircuitHolderTemplate, StructureInfo,
-        StructureLogicDeviceConsumerMemoryTemplate, StructureLogicDeviceConsumerTemplate,
-        StructureLogicDeviceMemoryTemplate, StructureLogicDeviceTemplate, StructureLogicTemplate,
-        StructureSlotsTemplate, StructureTemplate, SuitInfo, ThermalInfo,
-    },
+use stationeers_data::templates::{
+    ConnectionInfo, ConsumerInfo, DeviceInfo, FabricatorInfo, Instruction, InternalAtmoInfo,
+    ItemCircuitHolderTemplate, ItemConsumerTemplate, ItemInfo, ItemLogicMemoryTemplate,
+    ItemLogicTemplate, ItemSlotsTemplate, ItemSuitCircuitHolderTemplate, ItemSuitLogicTemplate,
+    ItemSuitTemplate, ItemTemplate, LogicInfo, MemoryInfo, ObjectTemplate, PrefabInfo, Recipe,
+    RecipeGasMix, RecipeRange, SlotInfo, StructureCircuitHolderTemplate, StructureInfo,
+    StructureLogicDeviceConsumerMemoryTemplate, StructureLogicDeviceConsumerTemplate,
+    StructureLogicDeviceMemoryTemplate, StructureLogicDeviceTemplate, StructureLogicTemplate,
+    StructureSlotsTemplate, StructureTemplate, SuitInfo, ThermalInfo,
 };
 
 #[allow(clippy::too_many_lines)]
@@ -67,7 +65,8 @@ pub fn generate_database(
                 | ItemLogicMemory(_)
                 | ItemSuit(_)
                 | ItemSuitLogic(_)
-                | ItemSuitCircuitHolder(_) => None,
+                | ItemSuitCircuitHolder(_)
+                | Human(_) => None,
             }
         })
         .collect();
@@ -83,7 +82,8 @@ pub fn generate_database(
                 | StructureCircuitHolder(_)
                 | StructureLogicDeviceConsumer(_)
                 | StructureLogicDeviceMemory(_)
-                | StructureLogicDeviceConsumerMemory(_) => None,
+                | StructureLogicDeviceConsumerMemory(_)
+                | Human(_) => None,
                 Item(_)
                 | ItemSlots(_)
                 | ItemConsumer(_)
@@ -112,7 +112,8 @@ pub fn generate_database(
                 | Item(_)
                 | ItemSlots(_)
                 | ItemSuit(_)
-                | ItemConsumer(_) => None,
+                | ItemConsumer(_)
+                | Human(_) => None,
                 ItemLogic(_)
                 | ItemCircuitHolder(_)
                 | ItemLogicMemory(_)
@@ -138,7 +139,8 @@ pub fn generate_database(
                 | ItemLogicMemory(_)
                 | ItemSuit(_)
                 | ItemSuitLogic(_)
-                | ItemSuitCircuitHolder(_) => None,
+                | ItemSuitCircuitHolder(_)
+                | Human(_) => None,
                 StructureLogicDevice(_)
                 | StructureCircuitHolder(_)
                 | StructureLogicDeviceMemory(_)

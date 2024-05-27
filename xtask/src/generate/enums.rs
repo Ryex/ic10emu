@@ -27,15 +27,13 @@ pub fn generate(
         .map(|enm| enm.enum_name.clone())
         .collect::<Vec<_>>();
 
-    let mut writer =
-        std::io::BufWriter::new(std::fs::File::create(enums_path.join("script.rs"))?);
+    let mut writer = std::io::BufWriter::new(std::fs::File::create(enums_path.join("script.rs"))?);
     write_repr_enum_use_header(&mut writer)?;
     for enm in enums.script_enums.values() {
         write_enum_listing(&mut writer, enm)?;
     }
 
-    let mut writer =
-        std::io::BufWriter::new(std::fs::File::create(enums_path.join("basic.rs"))?);
+    let mut writer = std::io::BufWriter::new(std::fs::File::create(enums_path.join("basic.rs"))?);
     write_repr_enum_use_header(&mut writer)?;
     let script_enums_in_basic = enums
         .script_enums
@@ -327,6 +325,11 @@ fn write_repr_enum_use_header<T: std::io::Write>(
             use strum::{
                 AsRefStr, Display, EnumIter, EnumProperty, EnumString, FromRepr,
             };
+
+            #[cfg(feature = "tsify")]
+            use tsify::Tsify;
+            #[cfg(feature = "tsify")]
+            use wasm_bindgen::prelude::*;
         }
     )?;
     Ok(())
@@ -341,11 +344,7 @@ fn write_repr_basic_use_header<T: std::io::Write>(
         .map(|enm| Ident::new(&enm.enum_name.to_case(Case::Pascal), Span::call_site()))
         .collect::<Vec<_>>();
 
-    write!(
-        writer,
-        "{}",
-        quote! {use super::script::{ #(#enums),*};},
-    )?;
+    write!(writer, "{}", quote! {use super::script::{ #(#enums),*};},)?;
     Ok(())
 }
 
@@ -434,6 +433,8 @@ where
         "{}",
         quote! {
             #[derive(#(#derives),*)]
+            #[cfg_attr(feature = "tsify", derive(Tsify))]
+            #[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
             #additional_strum
             #[repr(#repr)]
             pub enum #name {

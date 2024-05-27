@@ -16,14 +16,52 @@ use crate::{
 use stationeers_data::enums::{
     basic::{Class as SlotClass, GasType, SortingClass},
     script::{LogicSlotType, LogicType},
+    Species,
 };
 use std::{collections::BTreeMap, fmt::Debug};
+#[cfg(feature = "tsify")]
+use tsify::Tsify;
+#[cfg(feature = "tsify")]
+use wasm_bindgen::prelude::*;
+
+use strum::{AsRefStr, Display, EnumIter, EnumProperty, EnumString, FromRepr};
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 pub struct ParentSlotInfo {
     pub parent: ObjectID,
     pub slot: usize,
 }
+
+#[derive(
+    Default,
+    Debug,
+    Display,
+    Clone,
+    Copy,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    EnumString,
+    AsRefStr,
+    EnumProperty,
+    EnumIter,
+    FromRepr,
+    Serialize,
+    Deserialize,
+)]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+pub enum StatState {
+    #[default]
+    Normal,
+    Warning,
+    Critical,
+}
+
 tag_object_traits! {
     #![object_trait(Object: Debug)]
 
@@ -155,18 +193,20 @@ tag_object_traits! {
 
     pub trait IntegratedCircuit: Logicable + MemoryWritable + SourceCode + Item {
         fn get_circuit_holder(&self) -> Option<VMObject>;
-        fn get_instruction_pointer(&self) -> f64;
+        fn get_instruction_pointer(&self) -> u32;
         fn set_next_instruction(&mut self, next_instruction: f64);
         fn set_next_instruction_relative(&mut self, offset: f64) {
-            self.set_next_instruction(self.get_instruction_pointer() + offset);
+            self.set_next_instruction(self.get_instruction_pointer() as f64 + offset);
         }
         fn reset(&mut self);
         fn get_real_target(&self, indirection: u32, target: u32) -> Result<f64, ICError>;
         fn get_register(&self, indirection: u32, target: u32) -> Result<f64, ICError>;
+        fn get_registers(&self) -> &[f64];
+        fn get_registers_mut(&mut self) -> &mut [f64];
         fn set_register(&mut self, indirection: u32, target: u32, val: f64) -> Result<f64, ICError>;
         fn set_return_address(&mut self, addr: f64);
         fn al(&mut self) {
-            self.set_return_address(self.get_instruction_pointer() + 1.0);
+            self.set_return_address(self.get_instruction_pointer() as f64 + 1.0);
         }
         fn push_stack(&mut self, val: f64) -> Result<f64, ICError>;
         fn pop_stack(&mut self) -> Result<f64, ICError>;
@@ -180,6 +220,7 @@ tag_object_traits! {
         fn get_labels(&self) -> &BTreeMap<String, u32>;
         fn get_state(&self) -> ICState;
         fn set_state(&mut self, state: ICState);
+        fn get_instructions_since_yield(&self) -> u16;
     }
 
     pub trait Programmable: ICInstructable {
@@ -270,24 +311,25 @@ tag_object_traits! {
     }
 
     pub trait Human : Storage {
-        fn get_hygine(&self) -> f32;
-        fn set_hygine(&mut self, hygine: f32);
-        fn hygine_ok(&self) -> bool {
-            self.get_hygine() > 0.25
-        }
-        fn hygine_low(&self) -> bool {
-            self.get_hygine() <= 0.0
-        }
-        fn get_mood(&self) -> f32;
-        fn set_mood(&mut self, mood: f32);
+        fn get_species(&self) -> Species;
+        fn get_damage(&self) -> f32;
+        fn set_damage(&mut self, damage: f32);
         fn get_nutrition(&self) -> f32;
         fn set_nutrition(&mut self, nutrition: f32);
-        fn get_food_quality(&self) -> f32;
-        fn set_food_quality(&mut self, quality: f32);
+        fn nutrition_state(&self) -> StatState;
         fn get_hydration(&self) -> f32;
         fn set_hydration(&mut self, hydration: f32);
+        fn hydration_state(&self) -> StatState;
         fn get_oxygenation(&self) -> f32;
         fn set_oxygenation(&mut self, oxygenation: f32);
+        fn get_food_quality(&self) -> f32;
+        fn set_food_quality(&mut self, quality: f32);
+        fn get_mood(&self) -> f32;
+        fn set_mood(&mut self, mood: f32);
+        fn mood_state(&self) -> StatState;
+        fn get_hygiene(&self) -> f32;
+        fn set_hygiene(&mut self, hygine: f32);
+        fn hygine_state(&self) -> StatState;
         fn is_artificial(&self) -> bool;
         fn robot_battery(&self) -> Option<VMObject>;
         fn suit_slot(&self) -> &Slot;

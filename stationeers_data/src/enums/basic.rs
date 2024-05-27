@@ -1,5 +1,9 @@
 use serde_derive::{Deserialize, Serialize};
 use strum::{AsRefStr, Display, EnumIter, EnumProperty, EnumString, FromRepr};
+#[cfg(feature = "tsify")]
+use tsify::Tsify;
+#[cfg(feature = "tsify")]
+use wasm_bindgen::prelude::*;
 use super::script::{LogicSlotType, LogicType};
 #[derive(
     Debug,
@@ -19,6 +23,8 @@ use super::script::{LogicSlotType, LogicType};
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum AirConditioningMode {
@@ -65,6 +71,8 @@ impl TryFrom<f64> for AirConditioningMode {
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum AirControlMode {
@@ -115,6 +123,8 @@ impl TryFrom<f64> for AirControlMode {
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum ColorType {
@@ -189,6 +199,8 @@ impl TryFrom<f64> for ColorType {
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum DaylightSensorMode {
@@ -238,6 +250,8 @@ impl TryFrom<f64> for DaylightSensorMode {
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum ElevatorMode {
@@ -284,6 +298,8 @@ impl TryFrom<f64> for ElevatorMode {
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum EntityState {
@@ -333,6 +349,8 @@ impl TryFrom<f64> for EntityState {
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u32)]
 pub enum GasType {
@@ -424,6 +442,8 @@ impl TryFrom<f64> for GasType {
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum PowerMode {
@@ -477,6 +497,8 @@ impl TryFrom<f64> for PowerMode {
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum PrinterInstruction {
@@ -548,6 +570,8 @@ impl TryFrom<f64> for PrinterInstruction {
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum ReEntryProfile {
@@ -602,6 +626,8 @@ impl TryFrom<f64> for ReEntryProfile {
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum RobotMode {
@@ -662,6 +688,8 @@ impl TryFrom<f64> for RobotMode {
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum RocketMode {
@@ -719,6 +747,8 @@ impl TryFrom<f64> for RocketMode {
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum Class {
@@ -878,6 +908,8 @@ impl TryFrom<f64> for Class {
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum SorterInstruction {
@@ -938,6 +970,8 @@ impl TryFrom<f64> for SorterInstruction {
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum SortingClass {
@@ -1010,6 +1044,8 @@ impl TryFrom<f64> for SortingClass {
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum SoundAlert {
@@ -1186,6 +1222,8 @@ impl TryFrom<f64> for SoundAlert {
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum LogicTransmitterMode {
@@ -1231,6 +1269,8 @@ impl TryFrom<f64> for LogicTransmitterMode {
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum VentDirection {
@@ -1274,6 +1314,8 @@ impl TryFrom<f64> for VentDirection {
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum ConditionOperation {

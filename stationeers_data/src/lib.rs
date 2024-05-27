@@ -3,12 +3,18 @@ use std::collections::BTreeMap;
 pub mod templates;
 pub mod enums {
     use serde_derive::{Deserialize, Serialize};
+
+    #[cfg(feature = "tsify")]
+    use tsify::Tsify;
+    #[cfg(feature = "tsify")]
+    use wasm_bindgen::prelude::*;
+
     use std::fmt::Display;
     use strum::{AsRefStr, EnumIter, EnumString, FromRepr};
 
     pub mod basic;
-    pub mod script;
     pub mod prefabs;
+    pub mod script;
 
     #[derive(Debug)]
     pub struct ParseError {
@@ -26,6 +32,8 @@ pub mod enums {
     #[derive(
         Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize, EnumString,
     )]
+    #[cfg_attr(feature = "tsify", derive(Tsify))]
+    #[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
     pub enum MemoryAccess {
         Read,
         Write,
@@ -49,6 +57,8 @@ pub mod enums {
         FromRepr,
         EnumString,
     )]
+    #[cfg_attr(feature = "tsify", derive(Tsify))]
+    #[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
     pub enum ConnectionType {
         Pipe,
         Power,
@@ -81,6 +91,8 @@ pub mod enums {
         FromRepr,
         EnumString,
     )]
+    #[cfg_attr(feature = "tsify", derive(Tsify))]
+    #[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
     pub enum ConnectionRole {
         Input,
         Input2,
@@ -91,7 +103,6 @@ pub mod enums {
         #[default]
         None,
     }
-
 
     #[derive(
         Debug,
@@ -110,6 +121,8 @@ pub mod enums {
         FromRepr,
         EnumString,
     )]
+    #[cfg_attr(feature = "tsify", derive(Tsify))]
+    #[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
     #[repr(u32)]
     pub enum MachineTier {
         #[default]
@@ -119,6 +132,33 @@ pub mod enums {
         TierThree = 3,
         #[serde(other)]
         Max,
+    }
+
+    #[derive(
+        Default,
+        Debug,
+        Clone,
+        Copy,
+        PartialEq,
+        Eq,
+        PartialOrd,
+        Ord,
+        Hash,
+        EnumString,
+        AsRefStr,
+        EnumIter,
+        FromRepr,
+        Serialize,
+        Deserialize,
+    )]
+    #[cfg_attr(feature = "tsify", derive(Tsify))]
+    #[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+    pub enum Species {
+        None,
+        #[default]
+        Human,
+        Zrilian,
+        Robot,
     }
 }
 

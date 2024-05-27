@@ -237,8 +237,8 @@ impl IntegratedCircuit for ItemIntegratedCircuit10 {
         self.get_parent_slot()
             .and_then(|parent_slot| self.get_vm().get_object(parent_slot.parent))
     }
-    fn get_instruction_pointer(&self) -> f64 {
-        self.ip as f64
+    fn get_instruction_pointer(&self) -> u32 {
+        self.ip as u32
     }
     fn set_next_instruction(&mut self, next_instruction: f64) {
         self.next_ip = next_instruction as usize;
@@ -284,6 +284,12 @@ impl IntegratedCircuit for ItemIntegratedCircuit10 {
             .copied()?;
         self.registers[t as usize] = val;
         Ok(old_val)
+    }
+    fn get_registers(&self) -> &[f64] {
+        &self.registers
+    }
+    fn get_registers_mut(&mut self) -> &mut [f64] {
+        &mut self.registers
     }
     fn set_return_address(&mut self, addr: f64) {
         self.registers[RETURN_ADDRESS_INDEX] = addr;
@@ -363,6 +369,9 @@ impl IntegratedCircuit for ItemIntegratedCircuit10 {
     }
     fn set_state(&mut self, state: crate::interpreter::ICState) {
         self.state = state;
+    }
+    fn get_instructions_since_yield(&self) -> u16 {
+        self.ic
     }
 }
 

@@ -29,6 +29,8 @@ time = { version = "0.3.36", features = [
     "serde",
     "local-offset",
 ] }
+tsify = { version = "0.4.5", optional = true, features = ["js"] }
+wasm-bindgen = { version = "0.2.92", optional = true }
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 getrandom = { version = "0.2", features = ["js"] }
@@ -42,3 +44,7 @@ time = { version = "0.3.36", features = [
 [dev-dependencies]
 color-eyre = "0.6.3"
 serde_json = "1.0.117"
+
+[features]
+tsify = ["dep:tsify", "dep:wasm-bindgen", "stationeers_data/tsify"]
+wasm-bindgen = ["dep:wasm-bindgen"]

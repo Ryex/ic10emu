@@ -2,8 +2,14 @@ use serde_derive::{Deserialize, Serialize};
 use thiserror::Error;
 
 use stationeers_data::enums::script::{LogicSlotType, LogicType};
+#[cfg(feature = "tsify")]
+use tsify::Tsify;
+#[cfg(feature = "tsify")]
+use wasm_bindgen::prelude::*;
 
 #[derive(Error, Debug, Clone, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 pub enum LogicError {
     #[error("can't read LogicType {0}")]
     CantRead(LogicType),
@@ -18,6 +24,8 @@ pub enum LogicError {
 }
 
 #[derive(Error, Debug, Clone, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 pub enum MemoryError {
     #[error("stack underflow: {0} < range [0..{1})")]
     StackUnderflow(i32, usize),

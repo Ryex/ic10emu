@@ -1,5 +1,9 @@
 use serde_derive::{Deserialize, Serialize};
 use strum::{AsRefStr, Display, EnumIter, EnumProperty, EnumString, FromRepr};
+#[cfg(feature = "tsify")]
+use tsify::Tsify;
+#[cfg(feature = "tsify")]
+use wasm_bindgen::prelude::*;
 #[derive(
     Debug,
     Display,
@@ -18,6 +22,8 @@ use strum::{AsRefStr, Display, EnumIter, EnumProperty, EnumString, FromRepr};
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum LogicBatchMethod {
@@ -67,6 +73,8 @@ impl TryFrom<f64> for LogicBatchMethod {
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum LogicReagentMode {
@@ -117,6 +125,8 @@ impl TryFrom<f64> for LogicReagentMode {
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u8)]
 pub enum LogicSlotType {
@@ -310,6 +320,8 @@ impl TryFrom<f64> for LogicSlotType {
     Serialize,
     Deserialize
 )]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 #[strum(use_phf)]
 #[repr(u16)]
 pub enum LogicType {

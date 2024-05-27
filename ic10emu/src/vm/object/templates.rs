@@ -2,6 +2,7 @@ use std::{collections::BTreeMap, rc::Rc, str::FromStr};
 
 use crate::{
     errors::TemplateError,
+    interpreter::ICInfo,
     network::Connection,
     vm::{
         object::{
@@ -16,6 +17,7 @@ use crate::{
                 GenericLogicableDeviceMemoryReadWriteable, GenericLogicableDeviceMemoryReadable,
                 GenericStorage,
             },
+            humans::{EntityInfo, HumanPlayer},
             traits::*,
             LogicField, Name, Slot, SlotOccupantInfo,
         },
@@ -33,10 +35,16 @@ use stationeers_data::{
     templates::*,
 };
 use strum::{EnumProperty, IntoEnumIterator};
+#[cfg(feature = "tsify")]
+use tsify::Tsify;
+#[cfg(feature = "tsify")]
+use wasm_bindgen::prelude::*;
 
 use super::{stationpedia, MemoryAccess, ObjectID, VMObject};
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 pub enum Prefab {
     Hash(i32),
     Name(String),
@@ -59,7 +67,9 @@ impl std::fmt::Display for Prefab {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 pub struct ObjectInfo {
     pub name: Option<String>,
     pub id: Option<ObjectID>,
@@ -71,6 +81,9 @@ pub struct ObjectInfo {
     pub reagents: Option<BTreeMap<i32, f64>>,
     pub memory: Option<Vec<f64>>,
     pub logic_values: Option<BTreeMap<LogicType, f64>>,
+    pub entity: Option<EntityInfo>,
+    pub source_code: Option<String>,
+    pub circuit: Option<ICInfo>,
 }
 
 impl From<&VMObject> for ObjectInfo {
@@ -87,6 +100,9 @@ impl From<&VMObject> for ObjectInfo {
             reagents: None,
             memory: None,
             logic_values: None,
+            entity: None,
+            source_code: None,
+            circuit: None,
         }
     }
 }
@@ -108,6 +124,15 @@ impl ObjectInfo {
         if let Some(item) = interfaces.item {
             self.update_from_item(item);
         }
+        if let Some(human) = interfaces.human {
+            self.update_from_human(human);
+        }
+        if let Some(source) = interfaces.source_code {
+            self.update_from_source_code(source);
+        }
+        if let Some(circuit) = interfaces.integrated_circuit {
+            self.update_from_circuit(circuit);
+        }
         self
     }
 
@@ -120,9 +145,10 @@ impl ObjectInfo {
                 slots
                     .into_iter()
                     .enumerate()
-                    .filter_map(|(index, slot)| match slot.occupant.as_ref() {
-                        Some(occupant) => Some((index as u32, occupant.clone())),
-                        None => None,
+                    .filter_map(|(index, slot)| {
+                        slot.occupant
+                            .as_ref()
+                            .map(|occupant| (index as u32, occupant.clone()))
                     })
                     .collect(),
             );
@@ -142,16 +168,13 @@ impl ObjectInfo {
 
     pub fn update_from_device(&mut self, device: DeviceRef<'_>) -> &mut Self {
         let pins = device.device_pins();
-        if pins.is_some_and(|pins| pins.is_empty()) {
+        if pins.is_some_and(<[Option<u32>]>::is_empty) {
             self.device_pins = None;
         } else {
             self.device_pins = pins.map(|pins| {
-                pins.into_iter()
+                pins.iter()
                     .enumerate()
-                    .filter_map(|(index, pin)| match pin {
-                        Some(pin) => Some((index as u32, *pin)),
-                        None => None,
-                    })
+                    .filter_map(|(index, pin)| pin.as_ref().map(|pin| (index as u32, *pin)))
                     .collect()
             });
         }
@@ -201,11 +224,65 @@ impl ObjectInfo {
         );
         self
     }
+
+    pub fn update_from_human(&mut self, human: HumanRef<'_>) -> &mut Self {
+        let damage = human.get_damage();
+        if damage == 0.0 {
+            self.damage = None;
+        } else {
+            self.damage.replace(damage);
+        }
+        self.entity.replace(EntityInfo {
+            hydration: human.get_hydration(),
+            nutrition: human.get_nutrition(),
+            oxygenation: human.get_oxygenation(),
+            food_quality: human.get_food_quality(),
+            mood: human.get_mood(),
+            hygiene: human.get_hygiene(),
+        });
+        self
+    }
+
+    pub fn update_from_source_code(&mut self, source: SourceCodeRef<'_>) -> &mut Self {
+        let code = source.get_source_code();
+        if !code.is_empty() {
+            self.source_code.replace(code);
+        }
+        self
+    }
+
+    pub fn update_from_circuit(&mut self, circuit: IntegratedCircuitRef<'_>) -> &mut Self {
+        self.circuit.replace(ICInfo {
+            instruction_pointer: circuit.get_instruction_pointer(),
+            registers: circuit.get_registers().to_vec(),
+            aliases: circuit
+                .get_aliases()
+                .iter()
+                .map(|(key, val)| (key.clone(), val.clone()))
+                .collect(),
+            defines: circuit
+                .get_defines()
+                .iter()
+                .map(|(key, val)| (key.clone(), *val))
+                .collect(),
+            labels: circuit
+                .get_labels()
+                .iter()
+                .map(|(key, val)| (key.clone(), *val))
+                .collect(),
+            state: circuit.get_state(),
+            yield_instruciton_count: circuit.get_instructions_since_yield(),
+        });
+        self
+    }
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 pub struct FrozenObject {
     pub obj_info: ObjectInfo,
+    pub database_template: bool,
     pub template: Option<ObjectTemplate>,
 }
 
@@ -213,6 +290,7 @@ impl FrozenObject {
     pub fn new(obj_info: ObjectInfo) -> Self {
         FrozenObject {
             obj_info,
+            database_template: false,
             template: None,
         }
     }
@@ -220,6 +298,7 @@ impl FrozenObject {
     pub fn with_template(obj_info: ObjectInfo, template: ObjectTemplate) -> Self {
         FrozenObject {
             obj_info,
+            database_template: false,
             template: Some(template),
         }
     }
@@ -239,7 +318,7 @@ impl FrozenObject {
             },
             |template| Ok(template.clone()),
         )?;
-        if let Some(obj) = stationpedia::object_from_frozen(&self.obj_info, id, vm) {
+        if let Some(obj) = stationpedia::object_from_frozen(&self.obj_info, id, vm)? {
             Ok(obj)
         } else {
             self.build_generic(id, &template, vm.clone())
@@ -251,7 +330,7 @@ impl FrozenObject {
             .connections
             .as_ref()
             .map(|connections| connections.values().copied().collect())
-            .unwrap_or_else(Vec::new)
+            .unwrap_or_default()
     }
 
     pub fn contained_object_ids(&self) -> Vec<ObjectID> {
@@ -259,7 +338,7 @@ impl FrozenObject {
             .slots
             .as_ref()
             .map(|slots| slots.values().map(|slot| slot.id).collect())
-            .unwrap_or_else(Vec::new)
+            .unwrap_or_default()
     }
 
     pub fn contained_object_slots(&self) -> Vec<(u32, ObjectID)> {
@@ -272,17 +351,17 @@ impl FrozenObject {
                     .map(|(index, slot)| (*index, slot.id))
                     .collect()
             })
-            .unwrap_or_else(Vec::new)
+            .unwrap_or_default()
     }
 
     fn build_slots(
         &self,
         id: ObjectID,
-        slots_info: &Vec<SlotInfo>,
+        slots_info: &[SlotInfo],
         logic_info: Option<&LogicInfo>,
     ) -> Vec<Slot> {
         slots_info
-            .into_iter()
+            .iter()
             .enumerate()
             .map(|(index, info)| Slot {
                 parent: id,
@@ -402,7 +481,7 @@ impl FrozenObject {
             Structure(s) => Ok(VMObject::new(Generic {
                 id,
                 prefab: Name::from_prefab_name(&s.prefab.prefab_name),
-                name: Name::new(&s.prefab.name),
+                name: Name::new(&self.obj_info.name.clone().unwrap_or(s.prefab.name.clone())),
                 vm,
                 internal_atmo_info: s.internal_atmo_info.clone(),
                 thermal_info: s.thermal_info.clone(),
@@ -411,7 +490,7 @@ impl FrozenObject {
             StructureSlots(s) => Ok(VMObject::new(GenericStorage {
                 id,
                 prefab: Name::from_prefab_name(&s.prefab.prefab_name),
-                name: Name::new(&s.prefab.name),
+                name: Name::new(&self.obj_info.name.clone().unwrap_or(s.prefab.name.clone())),
                 vm,
                 internal_atmo_info: s.internal_atmo_info.clone(),
                 thermal_info: s.thermal_info.clone(),
@@ -421,7 +500,7 @@ impl FrozenObject {
             StructureLogic(s) => Ok(VMObject::new(GenericLogicable {
                 id,
                 prefab: Name::from_prefab_name(&s.prefab.prefab_name),
-                name: Name::new(&s.prefab.name),
+                name: Name::new(&self.obj_info.name.clone().unwrap_or(s.prefab.name.clone())),
                 vm,
                 internal_atmo_info: s.internal_atmo_info.clone(),
                 thermal_info: s.thermal_info.clone(),
@@ -433,7 +512,7 @@ impl FrozenObject {
             StructureLogicDevice(s) => Ok(VMObject::new(GenericLogicableDevice {
                 id,
                 prefab: Name::from_prefab_name(&s.prefab.prefab_name),
-                name: Name::new(&s.prefab.name),
+                name: Name::new(&self.obj_info.name.clone().unwrap_or(s.prefab.name.clone())),
                 vm,
                 internal_atmo_info: s.internal_atmo_info.clone(),
                 thermal_info: s.thermal_info.clone(),
@@ -449,7 +528,7 @@ impl FrozenObject {
             StructureLogicDeviceConsumer(s) => Ok(VMObject::new(GenericLogicableDeviceConsumer {
                 id,
                 prefab: Name::from_prefab_name(&s.prefab.prefab_name),
-                name: Name::new(&s.prefab.name),
+                name: Name::new(&self.obj_info.name.clone().unwrap_or(s.prefab.name.clone())),
                 vm,
                 internal_atmo_info: s.internal_atmo_info.clone(),
                 thermal_info: s.thermal_info.clone(),
@@ -466,7 +545,7 @@ impl FrozenObject {
             StructureCircuitHolder(s) => Ok(VMObject::new(GenericCircuitHolder {
                 id,
                 prefab: Name::from_prefab_name(&s.prefab.prefab_name),
-                name: Name::new(&s.prefab.name),
+                name: Name::new(&self.obj_info.name.clone().unwrap_or(s.prefab.name.clone())),
                 vm,
                 internal_atmo_info: s.internal_atmo_info.clone(),
                 thermal_info: s.thermal_info.clone(),
@@ -485,7 +564,7 @@ impl FrozenObject {
                 Ok(VMObject::new(GenericLogicableDeviceMemoryReadable {
                     id,
                     prefab: Name::from_prefab_name(&s.prefab.prefab_name),
-                    name: Name::new(&s.prefab.name),
+                    name: Name::new(&self.obj_info.name.clone().unwrap_or(s.prefab.name.clone())),
                     vm,
                     internal_atmo_info: s.internal_atmo_info.clone(),
                     thermal_info: s.thermal_info.clone(),
@@ -504,7 +583,7 @@ impl FrozenObject {
                 Ok(VMObject::new(GenericLogicableDeviceMemoryReadWriteable {
                     id,
                     prefab: Name::from_prefab_name(&s.prefab.prefab_name),
-                    name: Name::new(&s.prefab.name),
+                    name: Name::new(&self.obj_info.name.clone().unwrap_or(s.prefab.name.clone())),
                     vm,
                     internal_atmo_info: s.internal_atmo_info.clone(),
                     thermal_info: s.thermal_info.clone(),
@@ -526,7 +605,9 @@ impl FrozenObject {
                     GenericLogicableDeviceConsumerMemoryReadable {
                         id,
                         prefab: Name::from_prefab_name(&s.prefab.prefab_name),
-                        name: Name::new(&s.prefab.name),
+                        name: Name::new(
+                            &self.obj_info.name.clone().unwrap_or(s.prefab.name.clone()),
+                        ),
                         vm,
                         internal_atmo_info: s.internal_atmo_info.clone(),
                         thermal_info: s.thermal_info.clone(),
@@ -548,7 +629,7 @@ impl FrozenObject {
                 GenericLogicableDeviceConsumerMemoryReadWriteable {
                     id,
                     prefab: Name::from_prefab_name(&s.prefab.prefab_name),
-                    name: Name::new(&s.prefab.name),
+                    name: Name::new(&self.obj_info.name.clone().unwrap_or(s.prefab.name.clone())),
                     vm,
                     internal_atmo_info: s.internal_atmo_info.clone(),
                     thermal_info: s.thermal_info.clone(),
@@ -568,7 +649,7 @@ impl FrozenObject {
             Item(i) => Ok(VMObject::new(GenericItem {
                 id,
                 prefab: Name::from_prefab_name(&i.prefab.prefab_name),
-                name: Name::new(&i.prefab.name),
+                name: Name::new(&self.obj_info.name.clone().unwrap_or(i.prefab.name.clone())),
                 vm,
                 internal_atmo_info: i.internal_atmo_info.clone(),
                 thermal_info: i.thermal_info.clone(),
@@ -579,7 +660,7 @@ impl FrozenObject {
             ItemSlots(i) => Ok(VMObject::new(GenericItemStorage {
                 id,
                 prefab: Name::from_prefab_name(&i.prefab.prefab_name),
-                name: Name::new(&i.prefab.name),
+                name: Name::new(&self.obj_info.name.clone().unwrap_or(i.prefab.name.clone())),
                 vm,
                 internal_atmo_info: i.internal_atmo_info.clone(),
                 thermal_info: i.thermal_info.clone(),
@@ -591,7 +672,7 @@ impl FrozenObject {
             ItemConsumer(i) => Ok(VMObject::new(GenericItemConsumer {
                 id,
                 prefab: Name::from_prefab_name(&i.prefab.prefab_name),
-                name: Name::new(&i.prefab.name),
+                name: Name::new(&self.obj_info.name.clone().unwrap_or(i.prefab.name.clone())),
                 vm,
                 internal_atmo_info: i.internal_atmo_info.clone(),
                 thermal_info: i.thermal_info.clone(),
@@ -604,7 +685,7 @@ impl FrozenObject {
             ItemLogic(i) => Ok(VMObject::new(GenericItemLogicable {
                 id,
                 prefab: Name::from_prefab_name(&i.prefab.prefab_name),
-                name: Name::new(&i.prefab.name),
+                name: Name::new(&self.obj_info.name.clone().unwrap_or(i.prefab.name.clone())),
                 vm,
                 internal_atmo_info: i.internal_atmo_info.clone(),
                 thermal_info: i.thermal_info.clone(),
@@ -619,7 +700,7 @@ impl FrozenObject {
                 Ok(VMObject::new(GenericItemLogicableMemoryReadable {
                     id,
                     prefab: Name::from_prefab_name(&i.prefab.prefab_name),
-                    name: Name::new(&i.prefab.name),
+                    name: Name::new(&self.obj_info.name.clone().unwrap_or(i.prefab.name.clone())),
                     vm,
                     internal_atmo_info: i.internal_atmo_info.clone(),
                     thermal_info: i.thermal_info.clone(),
@@ -635,7 +716,7 @@ impl FrozenObject {
             ItemLogicMemory(i) => Ok(VMObject::new(GenericItemLogicableMemoryReadWriteable {
                 id,
                 prefab: Name::from_prefab_name(&i.prefab.prefab_name),
-                name: Name::new(&i.prefab.name),
+                name: Name::new(&self.obj_info.name.clone().unwrap_or(i.prefab.name.clone())),
                 vm,
                 internal_atmo_info: i.internal_atmo_info.clone(),
                 thermal_info: i.thermal_info.clone(),
@@ -650,7 +731,7 @@ impl FrozenObject {
             ItemCircuitHolder(i) => Ok(VMObject::new(GenericItemCircuitHolder {
                 id,
                 prefab: Name::from_prefab_name(&i.prefab.prefab_name),
-                name: Name::new(&i.prefab.name),
+                name: Name::new(&self.obj_info.name.clone().unwrap_or(i.prefab.name.clone())),
                 vm,
                 internal_atmo_info: i.internal_atmo_info.clone(),
                 thermal_info: i.thermal_info.clone(),
@@ -664,7 +745,7 @@ impl FrozenObject {
             ItemSuit(i) => Ok(VMObject::new(GenericItemSuit {
                 id,
                 prefab: Name::from_prefab_name(&i.prefab.prefab_name),
-                name: Name::new(&i.prefab.name),
+                name: Name::new(&self.obj_info.name.clone().unwrap_or(i.prefab.name.clone())),
                 vm,
                 internal_atmo_info: i.internal_atmo_info.clone(),
                 thermal_info: i.thermal_info.clone(),
@@ -677,7 +758,7 @@ impl FrozenObject {
             ItemSuitLogic(i) => Ok(VMObject::new(GenericItemSuitLogic {
                 id,
                 prefab: Name::from_prefab_name(&i.prefab.prefab_name),
-                name: Name::new(&i.prefab.name),
+                name: Name::new(&self.obj_info.name.clone().unwrap_or(i.prefab.name.clone())),
                 vm,
                 internal_atmo_info: i.internal_atmo_info.clone(),
                 thermal_info: i.thermal_info.clone(),
@@ -692,7 +773,7 @@ impl FrozenObject {
             ItemSuitCircuitHolder(i) => Ok(VMObject::new(GenericItemSuitCircuitHolder {
                 id,
                 prefab: Name::from_prefab_name(&i.prefab.prefab_name),
-                name: Name::new(&i.prefab.name),
+                name: Name::new(&self.obj_info.name.clone().unwrap_or(i.prefab.name.clone())),
                 vm,
                 internal_atmo_info: i.internal_atmo_info.clone(),
                 thermal_info: i.thermal_info.clone(),
@@ -705,6 +786,19 @@ impl FrozenObject {
                 modes: i.logic.modes.clone(),
                 memory: self.build_memory(&i.memory),
             })),
+            Human(h) => {
+                let mut human = HumanPlayer::with_species(id, vm, h.species);
+                if let Some(info) = &self.obj_info.entity {
+                    human.update_entity_info(info);
+                }
+                if let Some(slot_info) = &self.obj_info.slots {
+                    human.update_slots_from_info(slot_info);
+                }
+                if let Some(damage) = &self.obj_info.damage {
+                    human.damage = *damage;
+                }
+                Ok(VMObject::new(human))
+            }
         }
     }
 
@@ -714,15 +808,48 @@ impl FrozenObject {
         let mut obj_info: ObjectInfo = obj.into();
         obj_info.update_from_interfaces(&interfaces);
         // if the template is known, omit it. else build it from interfaces
+        let mut database_template = false;
         let template = vm
             .get_template(Prefab::Hash(obj_ref.get_prefab().hash))
             .map_or_else(
                 || Some(try_template_from_interfaces(&interfaces, obj)),
-                |_| None,
+                |template| {
+                    database_template = true;
+                    Some(Ok(template))
+                },
             )
             .transpose()?;
 
-        Ok(FrozenObject { obj_info, template })
+        Ok(FrozenObject {
+            obj_info,
+            template,
+            database_template,
+        })
+    }
+
+    pub fn freeze_object_sparse(obj: &VMObject, vm: &Rc<VM>) -> Result<Self, TemplateError> {
+        let obj_ref = obj.borrow();
+        let interfaces = ObjectInterfaces::from_object(&*obj_ref);
+        let mut obj_info: ObjectInfo = obj.into();
+        obj_info.update_from_interfaces(&interfaces);
+        // if the template is known, omit it. else build it from interfaces
+        let mut database_template = false;
+        let template = vm
+            .get_template(Prefab::Hash(obj_ref.get_prefab().hash))
+            .map_or_else(
+                || Some(try_template_from_interfaces(&interfaces, obj)),
+                |_| {
+                    database_template = true;
+                    None
+                },
+            )
+            .transpose()?;
+
+        Ok(FrozenObject {
+            obj_info,
+            template,
+            database_template,
+        })
     }
 }
 
@@ -804,7 +931,7 @@ fn try_template_from_interfaces(
             memory_readable: None,
             memory_writable: None,
             logicable: Some(logic),
-            source_code: None,
+            source_code: _sc,
             circuit_holder: _ch,
             item: None,
             integrated_circuit: None,
@@ -837,7 +964,7 @@ fn try_template_from_interfaces(
             memory_readable: None,
             memory_writable: None,
             logicable: Some(logic),
-            source_code: None,
+            source_code: _sc,
             circuit_holder: _ch,
             item: None,
             integrated_circuit: None,
@@ -873,7 +1000,7 @@ fn try_template_from_interfaces(
             memory_readable: Some(mem_r),
             memory_writable: _mem_w,
             logicable: Some(logic),
-            source_code: None,
+            source_code: _sc,
             circuit_holder: _ch,
             item: None,
             integrated_circuit: None,
@@ -975,7 +1102,7 @@ fn try_template_from_interfaces(
             memory_readable: None,
             memory_writable: None,
             logicable: Some(logic),
-            source_code: None,
+            source_code: _sc,
             circuit_holder: _ch,
             item: Some(item),
             integrated_circuit: None,
@@ -1008,10 +1135,10 @@ fn try_template_from_interfaces(
             memory_readable: Some(mem_r),
             memory_writable: _mem_w,
             logicable: Some(logic),
-            source_code: None,
+            source_code: _sc,
             circuit_holder: _ch,
             item: Some(item),
-            integrated_circuit: None,
+            integrated_circuit: _ic,
             programmable: None,
             instructable: _inst,
             logic_stack: _logic_stack,
@@ -1035,6 +1162,41 @@ fn try_template_from_interfaces(
             slots: storage.into(),
             logic: logic.into(),
             memory: mem_r.into(),
+        })),
+        ObjectInterfaces {
+            structure: None,
+            storage: Some(storage),
+            memory_readable: None,
+            memory_writable: None,
+            logicable: None,
+            source_code: None,
+            circuit_holder: None,
+            item: None,
+            integrated_circuit: None,
+            programmable: None,
+            instructable: None,
+            logic_stack: None,
+            device: None,
+            wireless_transmit: None,
+            wireless_receive: None,
+            network: None,
+            plant: None,
+            suit: None,
+            chargeable: None,
+            reagent_interface: None,
+            fabricator: None,
+            internal_atmosphere: None,
+            thermal: Some(_),
+            human: Some(human),
+        } => Ok(ObjectTemplate::Human(HumanTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "Character".to_string(),
+                prefab_hash: 294335127,
+                desc: "Charater".to_string(),
+                name: "Charater".to_string(),
+            },
+            species: human.get_species(),
+            slots: storage.into(),
         })),
         _ => Err(TemplateError::NonConformingObject(obj.get_id())),
     }

@@ -4,7 +4,7 @@ use stationeers_data::enums::MachineTier;
 use std::collections::BTreeMap;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(rename = "Stationpedia", deny_unknown_fields)]
+#[serde(rename = "Stationpedia")]
 pub struct Stationpedia {
     pub pages: Vec<Page>,
     pub reagents: BTreeMap<String, Reagent>,
