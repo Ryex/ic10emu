@@ -9,7 +9,7 @@ use crate::{
 
 use stationeers_data::{
     enums::{
-        basic::{Class as SlotClass, GasType, SortingClass},
+        basic::{Class, GasType, SortingClass},
         script::{LogicSlotType, LogicType},
     },
     templates::{DeviceInfo, InternalAtmoInfo, ItemInfo, SuitInfo, ThermalInfo},
@@ -548,7 +548,7 @@ impl<T: GWItem + Object> Item for T {
     fn reagents(&self) -> Option<&BTreeMap<String, f64>> {
         self.item_info().reagents.as_ref()
     }
-    fn slot_class(&self) -> SlotClass {
+    fn slot_class(&self) -> Class {
         self.item_info().slot_class
     }
     fn sorting_class(&self) -> SortingClass {
@@ -823,7 +823,7 @@ where
     fn get_ic_gw(&self) -> Option<crate::vm::object::VMObject> {
         self.get_slots()
             .into_iter()
-            .find(|slot| slot.typ == SlotClass::ProgrammableChip)
+            .find(|slot| slot.typ == Class::ProgrammableChip)
             .and_then(|slot| {
                 slot.occupant
                     .as_ref()
@@ -974,7 +974,7 @@ where
     fn get_ic_gw(&self) -> Option<crate::vm::object::VMObject> {
         self.get_slots()
             .into_iter()
-            .find(|slot| slot.typ == SlotClass::ProgrammableChip)
+            .find(|slot| slot.typ == Class::ProgrammableChip)
             .and_then(|slot| {
                 slot.occupant
                     .as_ref()
@@ -1149,7 +1149,7 @@ where
     fn get_ic_gw(&self) -> Option<crate::vm::object::VMObject> {
         self.get_slots()
             .into_iter()
-            .find(|slot| slot.typ == SlotClass::ProgrammableChip)
+            .find(|slot| slot.typ == Class::ProgrammableChip)
             .and_then(|slot| {
                 slot.occupant
                     .as_ref()

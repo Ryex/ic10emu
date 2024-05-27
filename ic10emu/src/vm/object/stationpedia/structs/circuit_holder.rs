@@ -9,7 +9,7 @@ use crate::{
 };
 use macro_rules_attribute::derive;
 use stationeers_data::enums::{
-    basic::Class as SlotClass,
+    basic::Class,
     prefabs::StationpediaPrefab,
     script::{LogicSlotType, LogicType},
     ConnectionRole,
@@ -58,7 +58,7 @@ impl StructureCircuitHousing {
                 parent: id,
                 index: 0,
                 name: "Programmable Chip".to_string(),
-                typ: SlotClass::ProgrammableChip,
+                typ: Class::ProgrammableChip,
                 readable_logic: vec![
                     LogicSlotType::Class,
                     LogicSlotType::Damage,

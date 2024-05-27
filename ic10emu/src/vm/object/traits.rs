@@ -14,7 +14,7 @@ use crate::{
     },
 };
 use stationeers_data::enums::{
-    basic::{Class as SlotClass, GasType, SortingClass},
+    basic::{Class, GasType, SortingClass},
     script::{LogicSlotType, LogicType},
     Species,
 };
@@ -146,7 +146,7 @@ tag_object_traits! {
         fn ingredient(&self) -> bool;
         fn max_quantity(&self) -> u32;
         fn reagents(&self) -> Option<&BTreeMap<String, f64>>;
-        fn slot_class(&self) -> SlotClass;
+        fn slot_class(&self) -> Class;
         fn sorting_class(&self) -> SortingClass;
         fn get_parent_slot(&self) -> Option<ParentSlotInfo>;
         fn set_parent_slot(&mut self, info: Option<ParentSlotInfo>);

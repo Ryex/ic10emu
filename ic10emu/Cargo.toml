@@ -47,4 +47,3 @@ serde_json = "1.0.117"
 
 [features]
 tsify = ["dep:tsify", "dep:wasm-bindgen", "stationeers_data/tsify"]
-wasm-bindgen = ["dep:wasm-bindgen"]

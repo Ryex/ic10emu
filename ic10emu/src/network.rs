@@ -11,7 +11,7 @@ use stationeers_data::{
     enums::{script::LogicType, ConnectionRole, ConnectionType},
     templates::ConnectionInfo,
 };
-use strum_macros::{AsRefStr, EnumIter};
+
 use thiserror::Error;
 #[cfg(feature = "tsify")]
 use tsify::Tsify;

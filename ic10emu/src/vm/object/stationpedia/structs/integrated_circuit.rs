@@ -14,7 +14,7 @@ use crate::{
 };
 use macro_rules_attribute::derive;
 use stationeers_data::enums::{
-    basic::{Class as SlotClass, GasType, SortingClass},
+    basic::{Class, GasType, SortingClass},
     script::{LogicSlotType, LogicType},
 };
 use std::{collections::BTreeMap, rc::Rc};
@@ -67,8 +67,8 @@ impl Item for ItemIntegratedCircuit10 {
     fn reagents(&self) -> Option<&BTreeMap<String, f64>> {
         None
     }
-    fn slot_class(&self) -> SlotClass {
-        SlotClass::ProgrammableChip
+    fn slot_class(&self) -> Class {
+        Class::ProgrammableChip
     }
     fn sorting_class(&self) -> SortingClass {
         SortingClass::Default

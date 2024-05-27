@@ -29,7 +29,10 @@ pub enum ICState {
     Start,
     Running,
     Yield,
-    Sleep(time::OffsetDateTime, f64),
+    Sleep(
+        #[cfg_attr(feature = "tsify", tsify(type = "Date"))] time::OffsetDateTime,
+        f64,
+    ),
     Error(LineError),
     HasCaughtFire,
     Ended,

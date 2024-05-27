@@ -2,8 +2,7 @@ use std::collections::BTreeMap;
 
 use macro_rules_attribute::derive;
 use stationeers_data::{
-    enums::{basic::Class as SlotClass, Species},
-    templates::SlotInfo,
+    enums::{basic::Class, Species},
 };
 #[cfg(feature = "tsify")]
 use tsify::Tsify;
@@ -106,21 +105,21 @@ impl HumanPlayer {
             food_quality: 0.75,
             mood: 1.0,
             hygiene: 1.0,
-            left_hand_slot: Slot::new(id, 0, "LeftHand".to_string(), SlotClass::None),
-            right_hand_slot: Slot::new(id, 1, "RightHand".to_string(), SlotClass::None),
-            suit_slot: Slot::new(id, 2, "Suit".to_string(), SlotClass::Suit),
-            helmet_slot: Slot::new(id, 3, "Helmet".to_string(), SlotClass::Helmet),
-            glasses_slot: Slot::new(id, 4, "Glasses".to_string(), SlotClass::Glasses),
-            backpack_slot: Slot::new(id, 5, "Back".to_string(), SlotClass::Back),
-            uniform_slot: Slot::new(id, 6, "Uniform".to_string(), SlotClass::Uniform),
-            toolbelt_slot: Slot::new(id, 7, "Belt".to_string(), SlotClass::Belt),
+            left_hand_slot: Slot::new(id, 0, "LeftHand".to_string(), Class::None),
+            right_hand_slot: Slot::new(id, 1, "RightHand".to_string(), Class::None),
+            suit_slot: Slot::new(id, 2, "Suit".to_string(), Class::Suit),
+            helmet_slot: Slot::new(id, 3, "Helmet".to_string(), Class::Helmet),
+            glasses_slot: Slot::new(id, 4, "Glasses".to_string(), Class::Glasses),
+            backpack_slot: Slot::new(id, 5, "Back".to_string(), Class::Back),
+            uniform_slot: Slot::new(id, 6, "Uniform".to_string(), Class::Uniform),
+            toolbelt_slot: Slot::new(id, 7, "Belt".to_string(), Class::Belt),
         }
     }
     pub fn with_species(id: ObjectID, vm: std::rc::Rc<VM>, species: Species) -> Self {
         let uniform_slot = if species == Species::Robot {
-            Slot::new(id, 6, "Battery".to_string(), SlotClass::Battery)
+            Slot::new(id, 6, "Battery".to_string(), Class::Battery)
         } else {
-            Slot::new(id, 6, "Uniform".to_string(), SlotClass::Uniform)
+            Slot::new(id, 6, "Uniform".to_string(), Class::Uniform)
         };
         HumanPlayer {
             id,
@@ -135,14 +134,14 @@ impl HumanPlayer {
             food_quality: 0.75,
             mood: 1.0,
             hygiene: 1.0,
-            left_hand_slot: Slot::new(id, 0, "LeftHand".to_string(), SlotClass::None),
-            right_hand_slot: Slot::new(id, 1, "RightHand".to_string(), SlotClass::None),
-            suit_slot: Slot::new(id, 2, "Suit".to_string(), SlotClass::Suit),
-            helmet_slot: Slot::new(id, 3, "Helmet".to_string(), SlotClass::Helmet),
-            glasses_slot: Slot::new(id, 4, "Glasses".to_string(), SlotClass::Glasses),
-            backpack_slot: Slot::new(id, 5, "Back".to_string(), SlotClass::Back),
+            left_hand_slot: Slot::new(id, 0, "LeftHand".to_string(), Class::None),
+            right_hand_slot: Slot::new(id, 1, "RightHand".to_string(), Class::None),
+            suit_slot: Slot::new(id, 2, "Suit".to_string(), Class::Suit),
+            helmet_slot: Slot::new(id, 3, "Helmet".to_string(), Class::Helmet),
+            glasses_slot: Slot::new(id, 4, "Glasses".to_string(), Class::Glasses),
+            backpack_slot: Slot::new(id, 5, "Back".to_string(), Class::Back),
             uniform_slot,
-            toolbelt_slot: Slot::new(id, 7, "Belt".to_string(), SlotClass::Belt),
+            toolbelt_slot: Slot::new(id, 7, "Belt".to_string(), Class::Belt),
         }
     }
 

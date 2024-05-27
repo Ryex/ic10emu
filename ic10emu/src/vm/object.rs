@@ -18,15 +18,21 @@ pub mod traits;
 use traits::Object;
 
 use crate::vm::VM;
+#[cfg(feature = "tsify")]
+use tsify::{declare, Tsify};
+#[cfg(feature = "tsify")]
+use wasm_bindgen::prelude::*;
 
 use stationeers_data::enums::{
-    basic::Class as SlotClass, prefabs::StationpediaPrefab, script::LogicSlotType, MemoryAccess,
+    basic::Class, prefabs::StationpediaPrefab, script::LogicSlotType, MemoryAccess,
 };
 
+#[cfg_attr(feature = "tsify", declare)]
 pub type ObjectID = u32;
 pub type BoxedObject = Rc<RefCell<dyn Object>>;
 
 #[derive(Debug, Clone)]
+#[cfg_attr(feature = "tsify", wasm_bindgen)]
 pub struct VMObject(BoxedObject);
 
 impl Deref for VMObject {
@@ -67,6 +73,8 @@ impl VMObject {
 }
 
 #[derive(Debug, Default, Clone, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 pub struct Name {
     pub value: String,
     pub hash: i32,
@@ -102,23 +110,29 @@ impl Name {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 pub struct LogicField {
     pub field_type: MemoryAccess,
     pub value: f64,
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 pub struct SlotOccupantInfo {
     pub quantity: u32,
     pub id: ObjectID,
 }
 
 #[derive(Debug, Default, Clone, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify))]
+#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 pub struct Slot {
     pub parent: ObjectID,
     pub index: usize,
     pub name: String,
-    pub typ: SlotClass,
+    pub typ: Class,
     pub readable_logic: Vec<LogicSlotType>,
     pub writeable_logic: Vec<LogicSlotType>,
     pub occupant: Option<SlotOccupantInfo>,
@@ -126,7 +140,7 @@ pub struct Slot {
 
 impl Slot {
     #[must_use]
-    pub fn new(parent: ObjectID, index: usize, name: String, typ: SlotClass) -> Self {
+    pub fn new(parent: ObjectID, index: usize, name: String, typ: Class) -> Self {
         Slot {
             parent,
             index,

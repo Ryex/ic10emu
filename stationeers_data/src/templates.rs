@@ -1,7 +1,7 @@
 use std::collections::BTreeMap;
 
 use crate::enums::{
-    basic::{Class as SlotClass, GasType, SortingClass},
+    basic::{Class, GasType, SortingClass},
     script::{LogicSlotType, LogicType},
     ConnectionRole, ConnectionType, MachineTier, MemoryAccess, Species,
 };
@@ -196,7 +196,7 @@ pub struct PrefabInfo {
 #[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
 pub struct SlotInfo {
     pub name: String,
-    pub typ: SlotClass,
+    pub typ: Class,
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
@@ -220,7 +220,7 @@ pub struct ItemInfo {
     pub ingredient: bool,
     pub max_quantity: u32,
     pub reagents: Option<BTreeMap<String, f64>>,
-    pub slot_class: SlotClass,
+    pub slot_class: Class,
     pub sorting_class: SortingClass,
 }
 

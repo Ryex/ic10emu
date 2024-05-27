@@ -3,7 +3,7 @@ use crate::interpreter;
 use crate::vm::{instructions::enums::InstructionOp, object::traits::IntegratedCircuit};
 use serde_derive::{Deserialize, Serialize};
 use stationeers_data::enums::script::{
-    LogicBatchMethod as BatchMode, LogicReagentMode as ReagentMode, LogicSlotType, LogicType,
+    LogicBatchMethod, LogicReagentMode, LogicSlotType, LogicType,
 };
 use strum::EnumProperty;
 #[cfg(feature = "tsify")]
@@ -65,8 +65,8 @@ pub enum Operand {
     Type {
         logic_type: Option<LogicType>,
         slot_logic_type: Option<LogicSlotType>,
-        batch_mode: Option<BatchMode>,
-        reagent_mode: Option<ReagentMode>,
+        batch_mode: Option<LogicBatchMethod>,
+        reagent_mode: Option<LogicReagentMode>,
         identifier: Identifier,
     },
     Identifier(Identifier),
@@ -285,7 +285,10 @@ impl InstOperand {
         }
     }
 
-    pub fn as_batch_mode<IC: IntegratedCircuit>(&self, ic: &IC) -> Result<BatchMode, ICError> {
+    pub fn as_batch_mode<IC: IntegratedCircuit>(
+        &self,
+        ic: &IC,
+    ) -> Result<LogicBatchMethod, ICError> {
         match &self.operand {
             Operand::Type {
                 batch_mode: Some(bm),
@@ -293,12 +296,15 @@ impl InstOperand {
             } => Ok(*bm),
             _ => {
                 let val = self.as_value(ic)?;
-                BatchMode::try_from(val).map_err(|_| ICError::UnknownBatchMode(val))
+                LogicBatchMethod::try_from(val).map_err(|_| ICError::UnknownBatchMode(val))
             }
         }
     }
 
-    pub fn as_reagent_mode<IC: IntegratedCircuit>(&self, ic: &IC) -> Result<ReagentMode, ICError> {
+    pub fn as_reagent_mode<IC: IntegratedCircuit>(
+        &self,
+        ic: &IC,
+    ) -> Result<LogicReagentMode, ICError> {
         match &self.operand {
             Operand::Type {
                 reagent_mode: Some(rm),
@@ -306,7 +312,7 @@ impl InstOperand {
             } => Ok(*rm),
             _ => {
                 let val = self.as_value(ic)?;
-                ReagentMode::try_from(val).map_err(|_| ICError::UnknownReagentMode(val))
+                LogicReagentMode::try_from(val).map_err(|_| ICError::UnknownReagentMode(val))
             }
         }
     }

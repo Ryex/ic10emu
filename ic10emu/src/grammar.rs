@@ -1,5 +1,5 @@
 use crate::{
-    errors::{ICError, ParseError},
+    errors::{ParseError},
     interpreter,
     tokens::{SplitConsecutiveIndicesExt, SplitConsecutiveWithIndices},
     vm::instructions::{

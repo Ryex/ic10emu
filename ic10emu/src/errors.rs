@@ -249,7 +249,7 @@ pub enum ICError {
     #[error("{0} is not a valid number of sleep seconds")]
     SleepDurationError(f64),
     #[error("{0} can not be added to {1} ")]
-    SleepAddtionError(time::Duration, time::OffsetDateTime),
+    SleepAddtionError(time::Duration, #[cfg_attr(feature = "tsify", tsify(type = "Date"))] time::OffsetDateTime),
 }
 
 impl ICError {

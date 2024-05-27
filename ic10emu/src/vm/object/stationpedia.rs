@@ -2,13 +2,13 @@ use std::rc::Rc;
 
 use stationeers_data::{
     enums::prefabs::StationpediaPrefab,
-    templates::{ObjectTemplate, PrefabInfo},
+    templates::{ObjectTemplate},
 };
 
 use crate::{
     errors::TemplateError,
     vm::object::{
-        templates::{FrozenObject, ObjectInfo, Prefab},
+        templates::{ObjectInfo, Prefab},
         Name, VMObject,
     },
 };

@@ -27,10 +27,8 @@ use crate::{
 use serde_derive::{Deserialize, Serialize};
 use stationeers_data::{
     enums::{
-        basic::{Class as SlotClass, GasType, SortingClass},
         prefabs::StationpediaPrefab,
         script::{LogicSlotType, LogicType},
-        ConnectionRole, ConnectionType,
     },
     templates::*,
 };
@@ -1298,7 +1296,7 @@ impl From<ItemRef<'_>> for ItemInfo {
 
 impl From<DeviceRef<'_>> for DeviceInfo {
     fn from(device: DeviceRef) -> Self {
-        let reagents: BTreeMap<i32, f64> = device.get_reagents().iter().copied().collect();
+        let _reagents: BTreeMap<i32, f64> = device.get_reagents().iter().copied().collect();
         DeviceInfo {
             connection_list: device
                 .connection_list()
