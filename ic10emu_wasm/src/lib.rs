@@ -3,32 +3,25 @@ mod utils;
 // mod types;
 
 use ic10emu::{
-    errors::{TemplateError, VMError},
+    errors::VMError,
     vm::{
         object::{templates::FrozenObject, ObjectID, VMObject},
         FrozenVM, VM,
     },
 };
-use serde_derive::{Deserialize, Serialize};
-// use types::{Registers, Stack};
-
-use std::{cell::RefCell, rc::Rc, str::FromStr};
-
 use itertools::Itertools;
-// use std::iter::FromIterator;
-// use itertools::Itertools;
+use serde_derive::{Deserialize, Serialize};
+
+use stationeers_data::enums::script::{LogicSlotType, LogicType};
+
+use std::rc::Rc;
+
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 extern "C" {
     fn alert(s: &str);
 }
-
-// #[wasm_bindgen]
-// pub struct DeviceRef {
-//     device: Rc<RefCell<Device>>,
-//     vm: Rc<RefCell<VM>>,
-// }
 
 use thiserror::Error;
 
@@ -40,329 +33,11 @@ pub enum BindingError {
     OutOfBounds(usize, usize),
 }
 
-// #[wasm_bindgen]
-// impl DeviceRef {
-//     fn from_device(device: Rc<RefCell<Device>>, vm: Rc<RefCell<VM>>) -> Self {
-//         DeviceRef { device, vm }
-//     }
-//
-//     #[wasm_bindgen(getter)]
-//     pub fn id(&self) -> ObjectID {
-//         self.device.id
-//     }
-//
-//     #[wasm_bindgen(getter)]
-//     pub fn ic(&self) -> Option<ObjectID> {
-//         self.device.ic
-//     }
-//
-//     #[wasm_bindgen(getter)]
-//     pub fn name(&self) -> Option<String> {
-//         self.device.name.clone()
-//     }
-//
-//     #[wasm_bindgen(getter, js_name = "nameHash")]
-//     pub fn name_hash(&self) -> Option<i32> {
-//         self.device.name_hash
-//     }
-//
-//     #[wasm_bindgen(getter, js_name = "prefabName")]
-//     pub fn prefab_name(&self) -> Option<String> {
-//         self.device
-//
-//             .prefab
-//             .as_ref()
-//             .map(|prefab| prefab.name.clone())
-//     }
-//
-//     #[wasm_bindgen(getter, js_name = "prefabHash")]
-//     pub fn prefab_hash(&self) -> Option<i32> {
-//         self.device
-//
-//             .prefab
-//             .as_ref()
-//             .map(|prefab| prefab.hash)
-//     }
-//
-//     #[wasm_bindgen(getter, skip_typescript)]
-//     pub fn fields(&self) -> JsValue {
-//         serde_wasm_bindgen::to_value(&self.device.get_fields(&self.vm.borrow())).unwrap()
-//     }
-//
-//     #[wasm_bindgen(getter)]
-//     pub fn slots(&self) -> types::Slots {
-//         types::Slots::from_iter(self.device.slots.iter())
-//     }
-//
-//     #[wasm_bindgen(getter, skip_typescript)]
-//     pub fn reagents(&self) -> JsValue {
-//         serde_wasm_bindgen::to_value(&self.device.reagents).unwrap()
-//     }
-//
-//     #[wasm_bindgen(getter, skip_typescript)]
-//     pub fn connections(&self) -> JsValue {
-//         serde_wasm_bindgen::to_value(&self.device.connections).unwrap()
-//     }
-//
-//     #[wasm_bindgen(getter, js_name = "ip")]
-//     pub fn ic_ip(&self) -> Option<ObjectID> {
-//         self.device.ic.as_ref().and_then(|ic| {
-//             self.vm
-//
-//                 .circuit_holders
-//                 .get(ic)
-//                 .map(|ic| ic.as_ref().ip())
-//         })
-//     }
-//
-//     #[wasm_bindgen(getter, js_name = "instructionCount")]
-//     pub fn ic_instruction_count(&self) -> Option<u16> {
-//         self.device.ic.as_ref().and_then(|ic| {
-//             self.vm
-//
-//                 .circuit_holders
-//                 .get(ic)
-//                 .map(|ic| ic.as_ref().ic.get())
-//         })
-//     }
-//
-//     #[wasm_bindgen(getter, js_name = "stack")]
-//     pub fn ic_stack(&self) -> Option<Stack> {
-//         self.device.ic.as_ref().and_then(|ic| {
-//             self.vm
-//
-//                 .circuit_holders
-//                 .get(ic)
-//                 .map(|ic| Stack(*ic.as_ref().stack.borrow()))
-//         })
-//     }
-//
-//     #[wasm_bindgen(getter, js_name = "registers")]
-//     pub fn ic_registers(&self) -> Option<Registers> {
-//         self.device.ic.as_ref().and_then(|ic| {
-//             self.vm
-//
-//                 .circuit_holders
-//                 .get(ic)
-//                 .map(|ic| Registers(*ic.as_ref().registers.borrow()))
-//         })
-//     }
-//
-//     #[wasm_bindgen(getter, js_name = "aliases", skip_typescript)]
-//     pub fn ic_aliases(&self) -> JsValue {
-//         let aliases = &self.device.ic.as_ref().and_then(|ic| {
-//             self.vm
-//
-//                 .circuit_holders
-//                 .get(ic)
-//                 .map(|ic| ic.as_ref().aliases.borrow().clone())
-//         });
-//         serde_wasm_bindgen::to_value(aliases).unwrap()
-//     }
-//
-//     #[wasm_bindgen(getter, js_name = "defines", skip_typescript)]
-//     pub fn ic_defines(&self) -> JsValue {
-//         let defines = &self.device.ic.as_ref().and_then(|ic| {
-//             self.vm
-//
-//                 .circuit_holders
-//                 .get(ic)
-//                 .map(|ic| ic.as_ref().defines.borrow().clone())
-//         });
-//         serde_wasm_bindgen::to_value(defines).unwrap()
-//     }
-//
-//     #[wasm_bindgen(getter, js_name = "pins", skip_typescript)]
-//     pub fn ic_pins(&self) -> JsValue {
-//         let pins = &self.device.ic.as_ref().and_then(|ic| {
-//             self.vm
-//
-//                 .circuit_holders
-//                 .get(ic)
-//                 .map(|ic| *ic.as_ref().pins.borrow())
-//         });
-//         serde_wasm_bindgen::to_value(pins).unwrap()
-//     }
-//
-//     #[wasm_bindgen(getter, js_name = "state")]
-//     pub fn ic_state(&self) -> Option<String> {
-//         self.device
-//
-//             .ic
-//             .as_ref()
-//             .and_then(|ic| {
-//                 self.vm
-//
-//                     .circuit_holders
-//                     .get(ic)
-//                     .map(|ic| ic.state.clone())
-//             })
-//             .map(|state| state.to_string())
-//     }
-//
-//     #[wasm_bindgen(getter, js_name = "program", skip_typescript)]
-//     pub fn ic_program(&self) -> JsValue {
-//         let prog = &self.device.ic.as_ref().and_then(|ic| {
-//             self.vm
-//
-//                 .circuit_holders
-//                 .get(ic)
-//                 .map(|ic| ic.program.borrow().clone())
-//         });
-//         serde_wasm_bindgen::to_value(prog).unwrap()
-//     }
-//
-//     #[wasm_bindgen(getter, js_name = "code")]
-//     pub fn get_code(&self) -> Option<String> {
-//         self.device.ic.as_ref().and_then(|ic| {
-//             self.vm
-//
-//                 .circuit_holders
-//                 .get(ic)
-//                 .map(|ic| ic.code.borrow().clone())
-//         })
-//     }
-//
-//     #[wasm_bindgen(js_name = "step")]
-//     pub fn step_ic(&self, advance_ip_on_err: bool) -> Result<bool, JsError> {
-//         let id = self.device.id;
-//         Ok(self.vm.step_ic(id, advance_ip_on_err)?)
-//     }
-//
-//     #[wasm_bindgen(js_name = "run")]
-//     pub fn run_ic(&self, ignore_errors: bool) -> Result<bool, JsError> {
-//         let id = self.device.id;
-//         Ok(self.vm.run_ic(id, ignore_errors)?)
-//     }
-//
-//     #[wasm_bindgen(js_name = "reset")]
-//     pub fn reset_ic(&self) -> Result<bool, JsError> {
-//         let id = self.device.id;
-//         Ok(self.vm.reset_ic(id)?)
-//     }
-//
-//     #[wasm_bindgen(js_name = "setCode")]
-//     /// Set program code if it's valid
-//     pub fn set_code(&self, code: &str) -> Result<bool, JsError> {
-//         let id = self.device.id;
-//         Ok(self.vm.set_code(id, code)?)
-//     }
-//
-//     #[wasm_bindgen(js_name = "setCodeInvalid")]
-//     /// Set program code and translate invalid lines to Nop, collecting errors
-//     pub fn set_code_invlaid(&self, code: &str) -> Result<bool, JsError> {
-//         let id = self.device.id;
-//         Ok(self.vm.set_code_invalid(id, code)?)
-//     }
-//
-//     #[wasm_bindgen(js_name = "setRegister")]
-//     pub fn ic_set_register(&self, index: ObjectID, val: f64) -> Result<f64, JsError> {
-//         let ic_id = *self
-//             .device
-//
-//             .ic
-//             .as_ref()
-//             .ok_or(VMError::NoIC(self.device.id))?;
-//         let vm_borrow = self.vm;
-//         let ic = vm_borrow
-//             .circuit_holders
-//             .get(&ic_id)
-//             .ok_or(VMError::NoIC(self.device.id))?;
-//         let result = ic.set_register(0, index, val)?;
-//         Ok(result)
-//     }
-//
-//     #[wasm_bindgen(js_name = "setStack")]
-//     pub fn ic_set_stack(&self, address: f64, val: f64) -> Result<f64, JsError> {
-//         let ic_id = *self
-//             .device
-//
-//             .ic
-//             .as_ref()
-//             .ok_or(VMError::NoIC(self.device.id))?;
-//         let vm_borrow = self.vm;
-//         let ic = vm_borrow
-//             .circuit_holders
-//             .get(&ic_id)
-//             .ok_or(VMError::NoIC(self.device.id))?;
-//         let result = ic.poke(address, val)?;
-//         Ok(result)
-//     }
-//
-//     #[wasm_bindgen(js_name = "setName")]
-//     pub fn set_name(&self, name: &str) {
-//         self.device.set_name(name)
-//     }
-//
-//     #[wasm_bindgen(js_name = "setField", skip_typescript)]
-//     pub fn set_field(&self, field: &str, value: f64, force: bool) -> Result<(), JsError> {
-//         let logic_typ = LogicType::from_str(field)?;
-//         let mut device_ref = self.device;
-//         device_ref.set_field(logic_typ, value, &self.vm, force)?;
-//         Ok(())
-//     }
-//
-//     #[wasm_bindgen(js_name = "setSlotField", skip_typescript)]
-//     pub fn set_slot_field(
-//         &self,
-//         slot: f64,
-//         field: &str,
-//         value: f64,
-//         force: bool,
-//     ) -> Result<(), JsError> {
-//         let logic_typ = LogicSlotType::from_str(field)?;
-//         let mut device_ref = self.device;
-//         device_ref.set_slot_field(slot, logic_typ, value, &self.vm, force)?;
-//         Ok(())
-//     }
-//
-//     #[wasm_bindgen(js_name = "getSlotField", skip_typescript)]
-//     pub fn get_slot_field(&self, slot: f64, field: &str) -> Result<f64, JsError> {
-//         let logic_typ = LogicSlotType::from_str(field)?;
-//         let device_ref = self.device;
-//         Ok(device_ref.get_slot_field(slot, logic_typ, &self.vm)?)
-//     }
-//
-//     #[wasm_bindgen(js_name = "getSlotFields", skip_typescript)]
-//     pub fn get_slot_fields(&self, slot: f64) -> Result<JsValue, JsError> {
-//         let device_ref = self.device;
-//         let fields = device_ref.get_slot_fields(slot, &self.vm)?;
-//         Ok(serde_wasm_bindgen::to_value(&fields).unwrap())
-//     }
-//
-//     #[wasm_bindgen(js_name = "setConnection")]
-//     pub fn set_connection(&self, conn: usize, net: Option<ObjectID>) -> Result<(), JsError> {
-//         let device_id = self.device.id;
-//         self.vm
-//
-//             .set_device_connection(device_id, conn, net)?;
-//         Ok(())
-//     }
-//
-//     #[wasm_bindgen(js_name = "removeDeviceFromNetwork")]
-//     pub fn remove_device_from_network(&self, network_id: ObjectID) -> Result<bool, JsError> {
-//         let id = self.device.id;
-//         Ok(self
-//             .vm
-//
-//             .remove_device_from_network(id, network_id)?)
-//     }
-//
-//     #[wasm_bindgen(js_name = "setPin")]
-//     pub fn set_pin(&self, pin: usize, val: Option<ObjectID>) -> Result<bool, JsError> {
-//         let id = self.device.id;
-//         Ok(self.vm.set_pin(id, pin, val)?)
-//     }
-// }
-
 #[wasm_bindgen]
 #[derive(Debug)]
 pub struct VMRef {
     vm: Rc<VM>,
 }
-
-// #[wasm_bindgen]
-// pub struct ObjectRef(VMObject);
 
 #[wasm_bindgen]
 impl VMRef {
@@ -382,9 +57,12 @@ impl VMRef {
 
     #[wasm_bindgen(js_name = "getDevice")]
     pub fn get_object(&self, id: ObjectID) -> Option<VMObject> {
-        let obj = self.vm.get_object(id);
-        // device.map(|d| DeviceRef::from_device(d.clone(), self.vm.clone()))
-        obj
+        self.vm.get_object(id)
+    }
+
+    #[wasm_bindgen(js_name = "freezeDevice")]
+    pub fn freeze_object(&self, id: ObjectID) -> Result<FrozenObject, JsError> {
+        Ok(self.vm.freeze_object(id)?)
     }
 
     #[wasm_bindgen(js_name = "setCode")]
@@ -399,17 +77,17 @@ impl VMRef {
         Ok(self.vm.set_code_invalid(id, code)?)
     }
 
-    #[wasm_bindgen(js_name = "stepIC")]
-    pub fn step_ic(&self, id: ObjectID, advance_ip_on_err: bool) -> Result<(), JsError> {
+    #[wasm_bindgen(js_name = "stepProgrammable")]
+    pub fn step_programmable(&self, id: ObjectID, advance_ip_on_err: bool) -> Result<(), JsError> {
         Ok(self.vm.step_programmable(id, advance_ip_on_err)?)
     }
 
-    #[wasm_bindgen(js_name = "runIC")]
-    pub fn run_ic(&self, id: ObjectID, ignore_errors: bool) -> Result<bool, JsError> {
+    #[wasm_bindgen(js_name = "runProgrammable")]
+    pub fn run_programmable(&self, id: ObjectID, ignore_errors: bool) -> Result<bool, JsError> {
         Ok(self.vm.run_programmable(id, ignore_errors)?)
     }
 
-    #[wasm_bindgen(js_name = "resetIC")]
+    #[wasm_bindgen(js_name = "resetProgrammable")]
     pub fn reset_ic(&self, id: ObjectID) -> Result<bool, JsError> {
         Ok(self.vm.reset_programmable(id)?)
     }
@@ -419,20 +97,25 @@ impl VMRef {
         *self.vm.default_network_key.borrow()
     }
 
-    // #[wasm_bindgen(getter)]
-    // pub fn devices(&self) -> Vec<ObjectID> {
-    //     self.vm.devices.keys().copied().collect_vec()
-    // }
-    //
-    // #[wasm_bindgen(getter)]
-    // pub fn networks(&self) -> Vec<ObjectID> {
-    //     self.vm.networks.keys().copied().collect_vec()
-    // }
-    //
-    // #[wasm_bindgen(getter)]
-    // pub fn ics(&self) -> Vec<ObjectID> {
-    //     self.vm.circuit_holders.keys().copied().collect_vec()
-    // }
+    #[wasm_bindgen(getter)]
+    pub fn objects(&self) -> Vec<ObjectID> {
+        self.vm.objects.borrow().keys().copied().collect_vec()
+    }
+
+    #[wasm_bindgen(getter)]
+    pub fn networks(&self) -> Vec<ObjectID> {
+        self.vm.networks.borrow().keys().copied().collect_vec()
+    }
+
+    #[wasm_bindgen(getter)]
+    pub fn circuit_holders(&self) -> Vec<ObjectID> {
+        self.vm.circuit_holders.borrow().clone()
+    }
+
+    #[wasm_bindgen(getter)]
+    pub fn program_holders(&self) -> Vec<ObjectID> {
+        self.vm.program_holders.borrow().clone()
+    }
 
     #[wasm_bindgen(getter, js_name = "lastOperationModified")]
     pub fn last_operation_modified(&self) -> Vec<ObjectID> {
@@ -498,7 +181,11 @@ impl VMRef {
     }
 
     #[wasm_bindgen(js_name = "removeSlotOccupant")]
-    pub fn remove_slot_occupant(&self, id: ObjectID, index: usize) -> Result<Option<ObjectID>, JsError> {
+    pub fn remove_slot_occupant(
+        &self,
+        id: ObjectID,
+        index: usize,
+    ) -> Result<Option<ObjectID>, JsError> {
         Ok(self.vm.remove_slot_occupant(id, index)?)
     }
 
@@ -511,6 +198,84 @@ impl VMRef {
     pub fn restore_vm_state(&self, state: FrozenVM) -> Result<(), JsError> {
         self.vm.restore_vm_state(state)?;
         Ok(())
+    }
+
+    #[wasm_bindgen(js_name = "getObjectName")]
+    pub fn get_object_name(&self, id: ObjectID) -> Result<String, JsError> {
+        let obj = self.vm.get_object(id).ok_or(VMError::UnknownId(id))?;
+        let name = obj.borrow().get_name().value.clone();
+        Ok(name)
+    }
+
+    #[wasm_bindgen(js_name = "setObjectName")]
+    pub fn set_object_name(&self, id: ObjectID, name: &str) -> Result<(), JsError> {
+        let obj = self.vm.get_object(id).ok_or(VMError::UnknownId(id))?;
+        obj.borrow_mut().get_mut_name().value = name.to_string();
+        Ok(())
+    }
+
+    #[wasm_bindgen(js_name = "getObjectHash")]
+    pub fn get_object_hash(&self, id: ObjectID) -> Result<i32, JsError> {
+        let obj = self.vm.get_object(id).ok_or(VMError::UnknownId(id))?;
+        let hash = obj.borrow().get_name().hash;
+        Ok(hash)
+    }
+
+    #[wasm_bindgen(js_name = "getObjectPrefabName")]
+    pub fn get_object_prefab_name(&self, id: ObjectID) -> Result<String, JsError> {
+        let obj = self.vm.get_object(id).ok_or(VMError::UnknownId(id))?;
+        let name = obj.borrow().get_prefab().value.clone();
+        Ok(name)
+    }
+
+    #[wasm_bindgen(js_name = "getObjectPrefabHash")]
+    pub fn get_object_prefab_hash(&self, id: ObjectID) -> Result<i32, JsError> {
+        let obj = self.vm.get_object(id).ok_or(VMError::UnknownId(id))?;
+        let hash = obj.borrow().get_prefab().hash;
+        Ok(hash)
+    }
+
+    #[wasm_bindgen(js_name = "getObjectSourceCode")]
+    pub fn get_object_source_code(&self, id: ObjectID) -> Result<Option<String>, JsError> {
+        let obj = self.vm.get_object(id).ok_or(VMError::UnknownId(id))?;
+        let code = obj
+            .borrow()
+            .as_source_code()
+            .map(|source| source.get_source_code());
+        Ok(code)
+    }
+
+    #[wasm_bindgen(js_name = "setRegister")]
+    pub fn set_register(&self, id: ObjectID, index: u32, val: f64) -> Result<f64, JsError> {
+        Ok(self.vm.set_register(id, index, val)?)
+    }
+
+    #[wasm_bindgen(js_name = "setMemory")]
+    pub fn set_memory(&self, id: ObjectID, address: u32, val: f64) -> Result<f64, JsError> {
+        Ok(self.vm.set_memory(id, address, val)?)
+    }
+
+    #[wasm_bindgen(js_name = "setLogicField")]
+    pub fn set_logic_field(
+        &self,
+        id: ObjectID,
+        lt: LogicType,
+        val: f64,
+        force: bool,
+    ) -> Result<(), JsError> {
+        Ok(self.vm.set_logic_field(id, lt, val, force)?)
+    }
+
+    #[wasm_bindgen(js_name = "setSlotLogicField")]
+    pub fn set_slot_logic_field(
+        &self,
+        id: ObjectID,
+        slt: LogicSlotType,
+        index: u32,
+        val: f64,
+        force: bool,
+    ) -> Result<(), JsError> {
+        Ok(self.vm.set_slot_logic_field(id, slt, index, val, force)?)
     }
 }
 

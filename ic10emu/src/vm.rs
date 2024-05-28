@@ -238,7 +238,7 @@ impl VM {
     }
 
     /// Creates a new network adn return it's ID
-    pub fn add_network(self: &Rc<Self>) -> u32 {
+    pub fn add_network(self: &Rc<Self>) -> ObjectID {
         let next_id = self.network_id_space.borrow_mut().next();
         self.networks.borrow_mut().insert(
             next_id,
@@ -257,7 +257,7 @@ impl VM {
     }
 
     /// Get network form Id
-    pub fn get_network(self: &Rc<Self>, id: u32) -> Option<VMObject> {
+    pub fn get_network(self: &Rc<Self>, id: ObjectID) -> Option<VMObject> {
         self.networks.borrow().get(&id).cloned()
     }
 
@@ -265,7 +265,11 @@ impl VM {
     ///
     /// Iterates over all objects borrowing them mutably, never call unless VM is not currently
     /// stepping or you'll get reborrow panics
-    pub fn change_device_id(self: &Rc<Self>, old_id: u32, new_id: u32) -> Result<(), VMError> {
+    pub fn change_device_id(
+        self: &Rc<Self>,
+        old_id: ObjectID,
+        new_id: ObjectID,
+    ) -> Result<(), VMError> {
         if self.id_space.borrow().has_id(&new_id) {
             return Err(VMError::IdInUse(new_id));
         }
@@ -321,7 +325,7 @@ impl VM {
 
     /// Set program code if it's valid
     /// Object Id is the programmable Id or the circuit holder's id
-    pub fn set_code(self: &Rc<Self>, id: u32, code: &str) -> Result<bool, VMError> {
+    pub fn set_code(self: &Rc<Self>, id: ObjectID, code: &str) -> Result<bool, VMError> {
         let obj = self
             .objects
             .borrow()
@@ -356,7 +360,7 @@ impl VM {
 
     /// Set program code and translate invalid lines to Nop, collecting errors
     /// Object Id is the programmable Id or the circuit holder's id
-    pub fn set_code_invalid(self: &Rc<Self>, id: u32, code: &str) -> Result<bool, VMError> {
+    pub fn set_code_invalid(self: &Rc<Self>, id: ObjectID, code: &str) -> Result<bool, VMError> {
         let obj = self
             .objects
             .borrow()
@@ -389,6 +393,143 @@ impl VM {
         Err(VMError::NoIC(id))
     }
 
+    /// Set register of integrated circuit
+    /// Object Id is the circuit Id or the circuit holder's id
+    pub fn set_register(
+        self: &Rc<Self>,
+        id: ObjectID,
+        index: u32,
+        val: f64,
+    ) -> Result<f64, VMError> {
+        let obj = self
+            .objects
+            .borrow()
+            .get(&id)
+            .cloned()
+            .ok_or(VMError::UnknownId(id))?;
+        {
+            let mut obj_ref = obj.borrow_mut();
+            if let Some(circuit) = obj_ref.as_mut_integrated_circuit() {
+                let last = circuit.set_register(0, index, val)?;
+                return Ok(last);
+            }
+        }
+        let ic_obj = {
+            let obj_ref = obj.borrow();
+            if let Some(circuit_holder) = obj_ref.as_circuit_holder() {
+                circuit_holder.get_ic()
+            } else {
+                return Err(VMError::NotCircuitHolderOrProgrammable(id));
+            }
+        };
+        if let Some(ic_obj) = ic_obj {
+            let mut ic_obj_ref = ic_obj.borrow_mut();
+            if let Some(circuit) = ic_obj_ref.as_mut_integrated_circuit() {
+                let last = circuit.set_register(0, index, val)?;
+                return Ok(last);
+            }
+            return Err(VMError::NotProgrammable(*ic_obj_ref.get_id()));
+        }
+        Err(VMError::NoIC(id))
+    }
+
+    /// Set memory at address of object with memory
+    /// Object Id is the memory writable Id or the circuit holder's id
+    pub fn set_memory(
+        self: &Rc<Self>,
+        id: ObjectID,
+        address: u32,
+        val: f64,
+    ) -> Result<f64, VMError> {
+        let obj = self
+            .objects
+            .borrow()
+            .get(&id)
+            .cloned()
+            .ok_or(VMError::UnknownId(id))?;
+        {
+            let mut obj_ref = obj.borrow_mut();
+            if let Some(circuit) = obj_ref.as_mut_memory_writable() {
+                let last = circuit
+                    .get_memory(address as i32)
+                    .map_err(Into::<ICError>::into)?;
+                circuit
+                    .set_memory(address as i32, val)
+                    .map_err(Into::<ICError>::into)?;
+                return Ok(last);
+            }
+        }
+        let ic_obj = {
+            let obj_ref = obj.borrow();
+            if let Some(circuit_holder) = obj_ref.as_circuit_holder() {
+                circuit_holder.get_ic()
+            } else {
+                None
+            }
+        };
+        if let Some(ic_obj) = ic_obj {
+            let mut ic_obj_ref = ic_obj.borrow_mut();
+            if let Some(circuit) = ic_obj_ref.as_mut_memory_writable() {
+                let last = circuit
+                    .get_memory(address as i32)
+                    .map_err(Into::<ICError>::into)?;
+                circuit
+                    .set_memory(address as i32, val)
+                    .map_err(Into::<ICError>::into)?;
+                return Ok(last);
+            }
+            return Err(VMError::NotMemoryWritable(*ic_obj_ref.get_id()));
+        }
+        Err(VMError::NotCircuitHolderOrMemoryWritable(id))
+    }
+
+    /// Set logic field on a logicable object
+    pub fn set_logic_field(
+        self: &Rc<Self>,
+        id: ObjectID,
+        lt: LogicType,
+        val: f64,
+        force: bool,
+    ) -> Result<(), VMError> {
+        let obj = self
+            .objects
+            .borrow()
+            .get(&id)
+            .cloned()
+            .ok_or(VMError::UnknownId(id))?;
+        let mut obj_ref = obj.borrow_mut();
+        let logicable = obj_ref
+            .as_mut_logicable()
+            .ok_or(VMError::NotLogicable(id))?;
+        logicable
+            .set_logic(lt, val, force)
+            .map_err(Into::<ICError>::into)?;
+        Ok(())
+    }
+
+    /// Set slot logic filed on device object
+    pub fn set_slot_logic_field(
+        self: &Rc<Self>,
+        id: ObjectID,
+        slt: LogicSlotType,
+        index: u32,
+        val: f64,
+        force: bool,
+    ) -> Result<(), VMError> {
+        let obj = self
+            .objects
+            .borrow()
+            .get(&id)
+            .cloned()
+            .ok_or(VMError::UnknownId(id))?;
+        let mut obj_ref = obj.borrow_mut();
+        let device = obj_ref.as_mut_device().ok_or(VMError::NotLogicable(id))?;
+        device
+            .set_slot_logic(slt, index as f64, val, force)
+            .map_err(Into::<ICError>::into)?;
+        Ok(())
+    }
+
     /// returns a list of device ids modified in the last operations
     pub fn last_operation_modified(self: &Rc<Self>) -> Vec<u32> {
         self.operation_modified.borrow().clone()
@@ -396,7 +537,7 @@ impl VM {
 
     pub fn step_programmable(
         self: &Rc<Self>,
-        id: u32,
+        id: ObjectID,
         advance_ip_on_err: bool,
     ) -> Result<(), VMError> {
         let obj = self
@@ -440,7 +581,7 @@ impl VM {
     /// returns true if executed 128 lines, false if returned early.
     pub fn run_programmable(
         self: &Rc<Self>,
-        id: u32,
+        id: ObjectID,
         ignore_errors: bool,
     ) -> Result<bool, VMError> {
         let obj = self
@@ -573,7 +714,11 @@ impl VM {
         }
     }
 
-    pub fn get_network_channel(self: &Rc<Self>, id: u32, channel: usize) -> Result<f64, ICError> {
+    pub fn get_network_channel(
+        self: &Rc<Self>,
+        id: ObjectID,
+        channel: usize,
+    ) -> Result<f64, ICError> {
         let network = self
             .networks
             .borrow()
@@ -653,7 +798,7 @@ impl VM {
 
     pub fn set_pin(
         self: &Rc<Self>,
-        id: u32,
+        id: ObjectID,
         pin: usize,
         val: Option<ObjectID>,
     ) -> Result<bool, VMError> {
@@ -1071,6 +1216,13 @@ impl VM {
         Ok(last)
     }
 
+    pub fn freeze_object(self: &Rc<Self>, id: ObjectID) -> Result<FrozenObject, VMError> {
+        let Some(obj) = self.objects.borrow().get(&id).cloned() else {
+            return Err(VMError::UnknownId(id));
+        };
+        Ok(FrozenObject::freeze_object(&obj, self)?)
+    }
+
     pub fn save_vm_state(self: &Rc<Self>) -> Result<FrozenVM, TemplateError> {
         Ok(FrozenVM {
             objects: self
@@ -1085,7 +1237,7 @@ impl VM {
                     {
                         None
                     } else {
-                        Some(FrozenObject::freeze_object(obj, self))
+                        Some(FrozenObject::freeze_object_sparse(obj, self))
                     }
                 })
                 .collect::<Result<Vec<_>, _>>()?,

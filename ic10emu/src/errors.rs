@@ -46,8 +46,12 @@ pub enum VMError {
     NotAnItem(ObjectID),
     #[error("object {0} is not programmable")]
     NotProgrammable(ObjectID),
+    #[error("object {0} is not memory writable")]
+    NotMemoryWritable(ObjectID),
     #[error("object {0} is not a circuit holder or programmable")]
     NotCircuitHolderOrProgrammable(ObjectID),
+    #[error("object {0} is not a circuit holder or memory writable")]
+    NotCircuitHolderOrMemoryWritable(ObjectID),
     #[error("object {0} is a circuit holder but there is no programmable ic present")]
     NoIC(ObjectID),
     #[error("{0}")]
@@ -56,6 +60,8 @@ pub enum VMError {
     MissingChild(ObjectID),
     #[error("object {0} is not parentable")]
     NotParentable(ObjectID),
+    #[error("object {0} is not logicable")]
+    NotLogicable(ObjectID),
 }
 
 #[derive(Error, Debug, Serialize, Deserialize)]

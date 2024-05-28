@@ -720,6 +720,7 @@ dependencies = [
  "serde-wasm-bindgen 0.6.5",
  "serde_derive",
  "serde_with",
+ "stationeers_data",
  "strum",
  "thiserror",
  "tsify",
