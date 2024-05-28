@@ -186,7 +186,7 @@ pub fn generate_database(
         circuit_holders,
     };
 
-    let data_path = workspace.join("data");
+    let data_path = workspace.join("www").join("data");
     if !data_path.exists() {
         std::fs::create_dir(&data_path)?;
     }

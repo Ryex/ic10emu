@@ -39,10 +39,6 @@ prefab_database = [
 [lib]
 crate-type = ["cdylib", "rlib"]
 
-[profile.release]
-# Tell `rustc` to optimize for small code size.
-opt-level = "s"
-
 [package.metadata.wasm-pack.profile.dev]
 wasm-opt = ['-O']
 

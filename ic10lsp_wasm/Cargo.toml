@@ -28,10 +28,6 @@ wasm-streams = "0.4"
 ic10lsp = { git = "https://github.com/Ryex/ic10lsp.git", branch = "wasm" }
 # ic10lsp = { path = "../../ic10lsp" }
 
-[profile.release]
-# Tell `rustc` to optimize for small code size.
-opt-level = "s"
-
 [package.metadata.wasm-pack.profile.dev]
 wasm-opt = ['-O']
 
