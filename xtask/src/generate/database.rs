@@ -229,9 +229,9 @@ fn write_prefab_map<T: std::io::Write>(
         writer,
         "{}",
         quote! {
-            use crate::enums::script_enums::*;
-            use crate::enums::basic_enums::*;
-            use crate::enums::{MemoryAccess, ConnectionType, ConnectionRole};
+            use crate::enums::script::*;
+            use crate::enums::basic::*;
+            use crate::enums::{MemoryAccess, ConnectionType, ConnectionRole, MachineTier};
             use crate::templates::*;
         }
     )?;
@@ -241,10 +241,7 @@ fn write_prefab_map<T: std::io::Write>(
             let hash = prefab.prefab().prefab_hash;
             let obj = syn::parse_str::<syn::Expr>(&uneval::to_string(prefab)?)?;
             let entry = quote! {
-                (
-                    #hash,
-                    #obj.into(),
-                )
+                map.insert(#hash, #obj.into());
             };
             Ok(entry)
         })
@@ -255,9 +252,9 @@ fn write_prefab_map<T: std::io::Write>(
         quote! {
             pub fn build_prefab_database() -> std::collections::BTreeMap<i32, crate::templates::ObjectTemplate> {
                 #[allow(clippy::unreadable_literal)]
-                std::collections::BTreeMap::from([
-                    #(#entries),*
-                ])
+                let mut map: std::collections::BTreeMap<i32, crate::templates::ObjectTemplate> = std::collections::BTreeMap::new();
+                #(#entries)*
+                map
             }
         },
     )?;

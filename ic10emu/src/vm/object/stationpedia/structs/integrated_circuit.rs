@@ -23,7 +23,12 @@ static RETURN_ADDRESS_INDEX: usize = 17;
 static STACK_POINTER_INDEX: usize = 16;
 
 #[derive(ObjectInterface!)]
-#[custom(implements(Object { Item, Storage, Logicable, MemoryReadable, MemoryWritable }))]
+#[custom(implements(Object {
+    Item, Storage, Logicable,
+    MemoryReadable, MemoryWritable,
+    SourceCode, IntegratedCircuit,
+    Programmable
+}))]
 pub struct ItemIntegratedCircuit10 {
     #[custom(object_id)]
     pub id: ObjectID,
@@ -83,7 +88,7 @@ impl Item for ItemIntegratedCircuit10 {
         self.damage
     }
     fn set_damage(&mut self, damage: f32) {
-        self.damage = damage;
+        self.damage = damage.clamp(0.0, 1.0);
     }
 }
 
@@ -208,9 +213,8 @@ impl MemoryWritable for ItemIntegratedCircuit10 {
             Ok(())
         }
     }
-    fn clear_memory(&mut self) -> Result<(), MemoryError> {
+    fn clear_memory(&mut self) {
         self.memory.fill(0.0);
-        Ok(())
     }
 }
 
@@ -369,6 +373,9 @@ impl IntegratedCircuit for ItemIntegratedCircuit10 {
     }
     fn set_state(&mut self, state: crate::interpreter::ICState) {
         self.state = state;
+        if matches!(self.state, ICState::Yield | ICState::Sleep(..)) {
+            self.ic = 0;
+        }
     }
     fn get_instructions_since_yield(&self) -> u16 {
         self.ic

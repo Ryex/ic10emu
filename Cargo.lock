@@ -688,6 +688,7 @@ dependencies = [
  "color-eyre",
  "const-crc32",
  "getrandom",
+ "ic10emu",
  "itertools",
  "macro_rules_attribute",
  "paste",

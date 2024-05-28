@@ -22,11 +22,13 @@ macro_rules! object_trait {
 
         paste::paste! {
             $(
+                #[doc = "Return a `& dyn " $trt "` if implimented by the object"]
                 #[inline(always)]
                 fn [<as_ $trt:snake>](&self) -> Option<[<$trt Ref>]> {
                     None
                 }
 
+                #[doc = "Return a `&mut dyn " $trt "` if implimented by the object"]
                 #[inline(always)]
                 fn [<as_mut_ $trt:snake>](&mut self) -> Option<[<$trt RefMut>]> {
                     None

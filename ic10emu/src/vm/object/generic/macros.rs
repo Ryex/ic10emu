@@ -210,3 +210,68 @@ macro_rules! GWSuit {
     };
 }
 pub(crate) use GWSuit;
+
+macro_rules! GWCircuitHolderItem {
+    (
+        $( #[$attr:meta] )*
+        $viz:vis struct $struct:ident {
+            $($body:tt)*
+        }
+    ) => {
+        impl GWCircuitHolder for $struct {
+            type Holder = ItemCircuitHolder;
+            fn gw_get_error(&self) -> i32 {
+                self.error
+            }
+            fn gw_set_error(&mut self, state: i32) {
+                self.error = state;
+            }
+        }
+    };
+
+}
+pub(crate) use GWCircuitHolderItem;
+
+
+macro_rules! GWCircuitHolderSuit {
+    (
+        $( #[$attr:meta] )*
+        $viz:vis struct $struct:ident {
+            $($body:tt)*
+        }
+    ) => {
+        impl GWCircuitHolder for $struct {
+            type Holder = SuitCircuitHolder;
+            fn gw_get_error(&self) -> i32 {
+                self.error
+            }
+            fn gw_set_error(&mut self, state: i32) {
+                self.error = state;
+            }
+        }
+    };
+
+}
+pub(crate) use GWCircuitHolderSuit;
+
+
+macro_rules! GWCircuitHolderDevice {
+    (
+        $( #[$attr:meta] )*
+        $viz:vis struct $struct:ident {
+            $($body:tt)*
+        }
+    ) => {
+        impl GWCircuitHolder for $struct {
+            type Holder = DeviceCircuitHolder;
+            fn gw_get_error(&self) -> i32 {
+                self.error
+            }
+            fn gw_set_error(&mut self, state: i32) {
+                self.error = state;
+            }
+        }
+    };
+
+}
+pub(crate) use GWCircuitHolderDevice;

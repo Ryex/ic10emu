@@ -8,8 +8,7 @@ use tsify::Tsify;
 use wasm_bindgen::prelude::*;
 
 #[derive(Error, Debug, Clone, Serialize, Deserialize)]
-#[cfg_attr(feature = "tsify", derive(Tsify))]
-#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub enum LogicError {
     #[error("can't read LogicType {0}")]
     CantRead(LogicType),
@@ -24,8 +23,7 @@ pub enum LogicError {
 }
 
 #[derive(Error, Debug, Clone, Serialize, Deserialize)]
-#[cfg_attr(feature = "tsify", derive(Tsify))]
-#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub enum MemoryError {
     #[error("stack underflow: {0} < range [0..{1})")]
     StackUnderflow(i32, usize),

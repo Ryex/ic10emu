@@ -12,8 +12,7 @@ use tsify::Tsify;
 use wasm_bindgen::prelude::*;
 
 #[derive(PartialEq, Eq, Debug, Clone, Copy, Serialize, Deserialize)]
-#[cfg_attr(feature = "tsify", derive(Tsify))]
-#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub enum Device {
     Db,
     Numbered(u32),
@@ -21,31 +20,27 @@ pub enum Device {
 }
 
 #[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
-#[cfg_attr(feature = "tsify", derive(Tsify))]
-#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct RegisterSpec {
     pub indirection: u32,
     pub target: u32,
 }
 
 #[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
-#[cfg_attr(feature = "tsify", derive(Tsify))]
-#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct DeviceSpec {
     pub device: Device,
     pub connection: Option<usize>,
 }
 
 #[derive(PartialEq, Eq, Debug, Clone, Serialize, Deserialize)]
-#[cfg_attr(feature = "tsify", derive(Tsify))]
-#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct Identifier {
     pub name: String,
 }
 
 #[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
-#[cfg_attr(feature = "tsify", derive(Tsify))]
-#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub enum Number {
     Float(f64),
     Binary(i64),
@@ -56,8 +51,7 @@ pub enum Number {
 }
 
 #[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
-#[cfg_attr(feature = "tsify", derive(Tsify))]
-#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub enum Operand {
     RegisterSpec(RegisterSpec),
     DeviceSpec(DeviceSpec),

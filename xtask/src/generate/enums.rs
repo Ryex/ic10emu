@@ -433,8 +433,7 @@ where
         "{}",
         quote! {
             #[derive(#(#derives),*)]
-            #[cfg_attr(feature = "tsify", derive(Tsify))]
-            #[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+            #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
             #additional_strum
             #[repr(#repr)]
             pub enum #name {

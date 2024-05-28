@@ -1,6 +1,7 @@
-pub mod enums;
+mod codegen;
 pub mod operands;
-pub mod traits;
+pub use codegen::enums;
+pub use codegen::traits;
 
 use enums::InstructionOp;
 use operands::Operand;

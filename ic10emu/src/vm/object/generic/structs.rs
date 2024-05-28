@@ -120,12 +120,13 @@ pub struct GenericLogicableDevice {
     ObjectInterface!,
     GWThermal!, GWInternalAtmo!,
     GWStructure!, GWStorage!, GWLogicable!,
-    GWDevice!
+    GWDevice!, GWCircuitHolderDevice!
 )]
 #[custom(implements(Object {
     Thermal[GWThermal::is_thermal],
     InternalAtmosphere[GWInternalAtmo::is_internal_atmo],
-    Structure, Storage, Logicable, Device
+    Structure, Storage, Logicable, Device,
+    CircuitHolder
 }))]
 pub struct GenericCircuitHolder {
     #[custom(object_id)]
@@ -146,6 +147,7 @@ pub struct GenericCircuitHolder {
     pub connections: Vec<Connection>,
     pub pins: Option<Vec<Option<ObjectID>>>,
     pub reagents: Option<BTreeMap<i32, f64>>,
+    pub error: i32,
 }
 
 #[derive(
@@ -481,12 +483,14 @@ pub struct GenericItemLogicableMemoryReadWriteable {
 #[derive(
     ObjectInterface!,
     GWThermal!, GWInternalAtmo!,
-    GWItem!, GWStorage!, GWLogicable!
+    GWItem!, GWStorage!, GWLogicable!,
+    GWCircuitHolderItem!
 )]
 #[custom(implements(Object {
     Thermal[GWThermal::is_thermal],
     InternalAtmosphere[GWInternalAtmo::is_internal_atmo],
-    Item, Storage, Logicable
+    Item, Storage, Logicable,
+    CircuitHolder
 }))]
 pub struct GenericItemCircuitHolder {
     #[custom(object_id)]
@@ -505,6 +509,7 @@ pub struct GenericItemCircuitHolder {
     pub slots: Vec<Slot>,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub modes: Option<BTreeMap<u32, String>>,
+    pub error: i32,
 }
 
 #[derive(
@@ -543,12 +548,13 @@ pub struct GenericItemSuitLogic {
     GWThermal!, GWInternalAtmo!,
     GWItem!, GWStorage!, GWLogicable!,
     GWMemoryReadable!, GWMemoryWritable!,
-    GWSuit!
+    GWSuit!, GWCircuitHolderSuit!
 )]
 #[custom(implements(Object {
     Thermal[GWThermal::is_thermal],
     InternalAtmosphere[GWInternalAtmo::is_internal_atmo],
-    Item, Storage, Suit, Logicable, MemoryReadable, MemoryWritable
+    Item, Storage, Suit, Logicable, MemoryReadable, MemoryWritable,
+    CircuitHolder
 }))]
 pub struct GenericItemSuitCircuitHolder {
     #[custom(object_id)]
@@ -569,6 +575,7 @@ pub struct GenericItemSuitCircuitHolder {
     pub fields: BTreeMap<LogicType, LogicField>,
     pub modes: Option<BTreeMap<u32, String>>,
     pub memory: Vec<f64>,
+    pub error: i32,
 }
 
 #[derive(

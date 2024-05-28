@@ -23,8 +23,7 @@ use crate::{
 pub mod instructions;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-#[cfg_attr(feature = "tsify", derive(Tsify))]
-#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub enum ICState {
     Start,
     Running,
@@ -39,8 +38,7 @@ pub enum ICState {
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
-#[cfg_attr(feature = "tsify", derive(Tsify))]
-#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct ICInfo {
     pub instruction_pointer: u32,
     pub registers: Vec<f64>,
@@ -74,8 +72,7 @@ impl Display for ICState {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-#[cfg_attr(feature = "tsify", derive(Tsify))]
-#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct Program {
     pub instructions: Vec<Instruction>,
     pub errors: Vec<ICError>,
@@ -214,87 +211,166 @@ pub fn i64_to_f64(i: i64) -> f64 {
 
 #[cfg(test)]
 mod tests {
+    use std::rc::Rc;
 
-    // static INIT: std::sync::Once = std::sync::Once::new();
-    //
-    // fn setup() {
-    //     INIT.call_once(|| {
-    //         let _ = color_eyre::install();
-    //     })
-    // }
-    //
-    // #[test]
-    // fn batch_modes() -> color_eyre::Result<()> {
-    //     setup();
-    //     let mut vm = VM::new();
-    //     let ic = vm.add_ic(None).unwrap();
-    //     let ic_id = {
-    //         let device = vm.devices.get(&ic).unwrap();
-    //         let device_ref = device.borrow();
-    //         device_ref.ic.unwrap()
-    //     };
-    //     let ic_chip = vm.circuit_holders.get(&ic_id).unwrap().borrow();
-    //     vm.set_code(
-    //         ic,
-    //         r#"lb r0 HASH("ItemActiveVent") On Sum
-    //         lb r1 HASH("ItemActiveVent") On Maximum
-    //         lb r2 HASH("ItemActiveVent") On Minimum"#,
-    //     )?;
-    //     vm.step_ic(ic, false)?;
-    //     let r0 = ic_chip.get_register(0, 0).unwrap();
-    //     assert_eq!(r0, 0.0);
-    //     vm.step_ic(ic, false)?;
-    //     let r1 = ic_chip.get_register(0, 1).unwrap();
-    //     assert_eq!(r1, f64::NEG_INFINITY);
-    //     vm.step_ic(ic, false)?;
-    //     let r2 = ic_chip.get_register(0, 2).unwrap();
-    //     assert_eq!(r2, f64::INFINITY);
-    //     Ok(())
-    // }
-    //
-    // #[test]
-    // fn stack() -> color_eyre::Result<()> {
-    //     setup();
-    //     let mut vm = VM::new();
-    //     let ic = vm.add_ic(None).unwrap();
-    //     let ic_id = {
-    //         let device = vm.devices.get(&ic).unwrap();
-    //         let device_ref = device.borrow();
-    //         device_ref.ic.unwrap()
-    //     };
-    //     let ic_chip = vm.circuit_holders.get(&ic_id).unwrap().borrow();
-    //     vm.set_code(
-    //         ic,
-    //         r#"push 100
-    //         push 10
-    //         pop r0
-    //         push 1000
-    //         peek r1
-    //         poke 1 20
-    //         pop r2
-    //         "#,
-    //     )?;
-    //     vm.step_ic(ic, false)?;
-    //     let stack0 = ic_chip.peek_addr(0.0)?;
-    //     assert_eq!(stack0, 100.0);
-    //     vm.step_ic(ic, false)?;
-    //     let stack1 = ic_chip.peek_addr(1.0)?;
-    //     assert_eq!(stack1, 10.0);
-    //     vm.step_ic(ic, false)?;
-    //     let r0 = ic_chip.get_register(0, 0).unwrap();
-    //     assert_eq!(r0, 10.0);
-    //     vm.step_ic(ic, false)?;
-    //     let stack1 = ic_chip.peek_addr(1.0)?;
-    //     assert_eq!(stack1, 1000.0);
-    //     vm.step_ic(ic, false)?;
-    //     let r1 = ic_chip.get_register(0, 1).unwrap();
-    //     assert_eq!(r1, 1000.0);
-    //     vm.step_ic(ic, false)?;
-    //     let stack1 = ic_chip.peek_addr(1.0)?;
-    //     assert_eq!(stack1, 20.0);
-    //     vm.step_ic(ic, false)?;
-    //     let r2 = ic_chip.get_register(0, 2).unwrap();
-    //     assert_eq!(r2, 20.0);
-    //     Ok(())
-    // }
+    use stationeers_data::enums::prefabs::StationpediaPrefab;
+
+    use crate::vm::{
+        object::{
+            templates::{FrozenObject, ObjectInfo, Prefab},
+            ObjectID,
+        },
+        VM,
+    };
+
+    static INIT: std::sync::Once = std::sync::Once::new();
+
+    fn setup() -> color_eyre::Result<(Rc<VM>, ObjectID, ObjectID)> {
+        INIT.call_once(|| {
+            let _ = color_eyre::install();
+        });
+
+        println!("building VM");
+        let vm = VM::new();
+
+        println!("VM built");
+
+        let frozen_ic = FrozenObject {
+            obj_info: ObjectInfo::with_prefab(Prefab::Hash(
+                StationpediaPrefab::ItemIntegratedCircuit10 as i32,
+            )),
+            database_template: true,
+            template: None,
+        };
+
+        println!("Adding IC");
+        let ic = vm.add_object_from_frozen(frozen_ic)?;
+        let frozen_circuit_holder = FrozenObject {
+            obj_info: ObjectInfo::with_prefab(Prefab::Hash(
+                StationpediaPrefab::StructureCircuitHousing as i32,
+            )),
+            database_template: true,
+            template: None,
+        };
+        println!("Adding circuit holder");
+        let ch = vm.add_object_from_frozen(frozen_circuit_holder)?;
+        println!("socketing ic into circuit holder");
+        vm.set_slot_occupant(ch, 0, Some(ic), 1)?;
+        Ok((vm, ch, ic))
+    }
+
+    #[test]
+    fn batch_modes() -> color_eyre::Result<()> {
+        let (vm, ch, ic) = setup()?;
+        eprintln!("Beginning batch mode test");
+        let ic_chip = vm.get_object(ic).unwrap();
+        let circuit_holder = vm.get_object(ch).unwrap();
+        eprintln!("IC Chip: {ic_chip:?}");
+        eprintln!("Circuit Holder: {circuit_holder:?}");
+        vm.set_code(
+            ic,
+            r#"lb r0 HASH("ItemActiveVent") On Sum
+            lb r1 HASH("ItemActiveVent") On Maximum
+            lb r2 HASH("ItemActiveVent") On Minimum"#,
+        )?;
+        vm.step_programmable(ic, false)?;
+        let r0 = ic_chip
+            .borrow()
+            .as_integrated_circuit()
+            .unwrap()
+            .get_register(0, 0)
+            .unwrap();
+        assert_eq!(r0, 0.0);
+        vm.step_programmable(ic, false)?;
+        let r1 = ic_chip
+            .borrow()
+            .as_integrated_circuit()
+            .unwrap()
+            .get_register(0, 1)
+            .unwrap();
+        assert_eq!(r1, f64::NEG_INFINITY);
+        vm.step_programmable(ic, false)?;
+        let r2 = ic_chip
+            .borrow()
+            .as_integrated_circuit()
+            .unwrap()
+            .get_register(0, 2)
+            .unwrap();
+        assert_eq!(r2, f64::INFINITY);
+        Ok(())
+    }
+
+    #[test]
+    fn stack() -> color_eyre::Result<()> {
+        let (vm, ch, ic) = setup()?;
+        eprintln!("Beginning stack test");
+        let ic_chip = vm.get_object(ic).unwrap();
+        let circuit_holder = vm.get_object(ch).unwrap();
+        eprintln!("IC Chip: {ic_chip:?}");
+        eprintln!("Circuit Holder: {circuit_holder:?}");
+        vm.set_code(
+            ic,
+            r#"push 100
+            push 10
+            pop r0
+            push 1000
+            peek r1
+            poke 1 20
+            pop r2
+            "#,
+        )?;
+        vm.step_programmable(ic, false)?;
+        let stack0 = ic_chip
+            .borrow()
+            .as_integrated_circuit()
+            .unwrap()
+            .get_stack(0.0)?;
+        assert_eq!(stack0, 100.0);
+        vm.step_programmable(ic, false)?;
+        let stack1 = ic_chip
+            .borrow()
+            .as_integrated_circuit()
+            .unwrap()
+            .get_stack(1.0)?;
+        assert_eq!(stack1, 10.0);
+        vm.step_programmable(ic, false)?;
+        let r0 = ic_chip
+            .borrow()
+            .as_integrated_circuit()
+            .unwrap()
+            .get_register(0, 0)
+            .unwrap();
+        assert_eq!(r0, 10.0);
+        vm.step_programmable(ic, false)?;
+        let stack1 = ic_chip
+            .borrow()
+            .as_integrated_circuit()
+            .unwrap()
+            .get_stack(1.0)?;
+        assert_eq!(stack1, 1000.0);
+        vm.step_programmable(ch, false)?;
+        let r1 = ic_chip
+            .borrow()
+            .as_integrated_circuit()
+            .unwrap()
+            .get_register(0, 1)
+            .unwrap();
+        assert_eq!(r1, 1000.0);
+        vm.step_programmable(ch, false)?;
+        let stack1 = ic_chip
+            .borrow()
+            .as_integrated_circuit()
+            .unwrap()
+            .get_stack(1.0)?;
+        assert_eq!(stack1, 20.0);
+        vm.step_programmable(ch, false)?;
+        let r2 = ic_chip
+            .borrow()
+            .as_integrated_circuit()
+            .unwrap()
+            .get_register(0, 2)
+            .unwrap();
+        assert_eq!(r2, 20.0);
+        Ok(())
+    }
 }

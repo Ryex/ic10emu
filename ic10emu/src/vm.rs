@@ -73,6 +73,7 @@ struct VMTransaction {
 }
 
 impl VM {
+    /// Create a new VM with it's own state and a default network
     pub fn new() -> Rc<Self> {
         let id_space = IdSpace::default();
         let mut network_id_space = IdSpace::default();
@@ -102,10 +103,14 @@ impl VM {
         vm
     }
 
+    /// get a random f64 value using a mscorlib rand PRNG
+    /// (Stationeers, being written in .net, using mscorlib's rand)
     pub fn random_f64(&self) -> f64 {
         self.random.borrow_mut().next_f64()
     }
 
+    /// Take ownership of an iterable the produces (prefab hash, ObjectTemplate) pairs and build a prefab
+    /// database
     pub fn import_template_database(
         &mut self,
         db: impl IntoIterator<Item = (i32, ObjectTemplate)>,
@@ -113,6 +118,7 @@ impl VM {
         self.template_database.replace(db.into_iter().collect());
     }
 
+    /// Get a Object Template by either prefab name or hash
     pub fn get_template(&self, prefab: Prefab) -> Option<ObjectTemplate> {
         let hash = match prefab {
             Prefab::Hash(hash) => hash,
@@ -123,6 +129,9 @@ impl VM {
             .and_then(|db| db.get(&hash).cloned())
     }
 
+    /// Add an number of object to the VM state using Frozen Object strusts.
+    /// See also `add_objects_frozen`
+    /// Returns the built objects' IDs
     pub fn add_objects_frozen(
         self: &Rc<Self>,
         frozen_objects: impl IntoIterator<Item = FrozenObject>,
@@ -175,6 +184,11 @@ impl VM {
         Ok(obj_ids)
     }
 
+    /// Add an object to the VM state using a frozen object struct
+    /// Errors if the frozen object does not provide a template and the prefab has is not in the
+    /// current database.
+    /// Errors if the object can not be built do to a template error
+    /// Returns the built object's ID
     pub fn add_object_from_frozen(
         self: &Rc<Self>,
         frozen: FrozenObject,
@@ -223,6 +237,7 @@ impl VM {
         Ok(obj_id)
     }
 
+    /// Creates a new network adn return it's ID
     pub fn add_network(self: &Rc<Self>) -> u32 {
         let next_id = self.network_id_space.borrow_mut().next();
         self.networks.borrow_mut().insert(
@@ -232,6 +247,7 @@ impl VM {
         next_id
     }
 
+    /// Get Id of default network
     pub fn get_default_network(self: &Rc<Self>) -> VMObject {
         self.networks
             .borrow()
@@ -240,12 +256,15 @@ impl VM {
             .expect("default network not present")
     }
 
+    /// Get network form Id
     pub fn get_network(self: &Rc<Self>, id: u32) -> Option<VMObject> {
         self.networks.borrow().get(&id).cloned()
     }
 
-    /// iterate over all object borrowing them mutably, never call unless VM is not currently
-    /// stepping
+    /// Change an object's ID
+    ///
+    /// Iterates over all objects borrowing them mutably, never call unless VM is not currently
+    /// stepping or you'll get reborrow panics
     pub fn change_device_id(self: &Rc<Self>, old_id: u32, new_id: u32) -> Result<(), VMError> {
         if self.id_space.borrow().has_id(&new_id) {
             return Err(VMError::IdInUse(new_id));
@@ -301,6 +320,7 @@ impl VM {
     }
 
     /// Set program code if it's valid
+    /// Object Id is the programmable Id or the circuit holder's id
     pub fn set_code(self: &Rc<Self>, id: u32, code: &str) -> Result<bool, VMError> {
         let obj = self
             .objects
@@ -308,15 +328,34 @@ impl VM {
             .get(&id)
             .cloned()
             .ok_or(VMError::UnknownId(id))?;
-        let mut obj_ref = obj.borrow_mut();
-        let programmable = obj_ref
-            .as_mut_programmable()
-            .ok_or(VMError::NotProgrammable(id))?;
-        programmable.set_source_code(code)?;
-        Ok(true)
+        {
+            let mut obj_ref = obj.borrow_mut();
+            if let Some(programmable) = obj_ref.as_mut_programmable() {
+                programmable.set_source_code(code)?;
+                return Ok(true);
+            }
+        }
+        let ic_obj = {
+            let obj_ref = obj.borrow();
+            if let Some(circuit_holder) = obj_ref.as_circuit_holder() {
+                circuit_holder.get_ic()
+            } else {
+                return Err(VMError::NotCircuitHolderOrProgrammable(id));
+            }
+        };
+        if let Some(ic_obj) = ic_obj {
+            let mut ic_obj_ref = ic_obj.borrow_mut();
+            if let Some(programmable) = ic_obj_ref.as_mut_programmable() {
+                programmable.set_source_code(code)?;
+                return Ok(true);
+            }
+            return Err(VMError::NotProgrammable(*ic_obj_ref.get_id()));
+        }
+        Err(VMError::NoIC(id))
     }
 
     /// Set program code and translate invalid lines to Nop, collecting errors
+    /// Object Id is the programmable Id or the circuit holder's id
     pub fn set_code_invalid(self: &Rc<Self>, id: u32, code: &str) -> Result<bool, VMError> {
         let obj = self
             .objects
@@ -324,12 +363,30 @@ impl VM {
             .get(&id)
             .cloned()
             .ok_or(VMError::UnknownId(id))?;
-        let mut obj_ref = obj.borrow_mut();
-        let programmable = obj_ref
-            .as_mut_programmable()
-            .ok_or(VMError::NotProgrammable(id))?;
-        programmable.set_source_code_with_invalid(code);
-        Ok(true)
+        {
+            let mut obj_ref = obj.borrow_mut();
+            if let Some(programmable) = obj_ref.as_mut_programmable() {
+                programmable.set_source_code_with_invalid(code);
+                return Ok(true);
+            }
+        }
+        let ic_obj = {
+            let obj_ref = obj.borrow();
+            if let Some(circuit_holder) = obj_ref.as_circuit_holder() {
+                circuit_holder.get_ic()
+            } else {
+                return Err(VMError::NotCircuitHolderOrProgrammable(id));
+            }
+        };
+        if let Some(ic_obj) = ic_obj {
+            let mut ic_obj_ref = ic_obj.borrow_mut();
+            if let Some(programmable) = ic_obj_ref.as_mut_programmable() {
+                programmable.set_source_code_with_invalid(code);
+                return Ok(true);
+            }
+            return Err(VMError::NotProgrammable(*ic_obj_ref.get_id()));
+        }
+        Err(VMError::NoIC(id))
     }
 
     /// returns a list of device ids modified in the last operations
@@ -348,14 +405,36 @@ impl VM {
             .get(&id)
             .cloned()
             .ok_or(VMError::UnknownId(id))?;
-        let mut obj_ref = obj.borrow_mut();
-        let programmable = obj_ref
-            .as_mut_programmable()
-            .ok_or(VMError::NotProgrammable(id))?;
-        self.operation_modified.borrow_mut().clear();
-        self.set_modified(id);
-        programmable.step(advance_ip_on_err)?;
-        Ok(())
+        {
+            let mut obj_ref = obj.borrow_mut();
+            if let Some(programmable) = obj_ref.as_mut_programmable() {
+                self.operation_modified.borrow_mut().clear();
+                self.set_modified(id);
+                programmable.step(advance_ip_on_err)?;
+                return Ok(());
+            }
+        }
+        let ic_obj = {
+            let obj_ref = obj.borrow();
+            if let Some(circuit_holder) = obj_ref.as_circuit_holder() {
+                circuit_holder.get_ic()
+            } else {
+                return Err(VMError::NotCircuitHolderOrProgrammable(id));
+            }
+        };
+
+        if let Some(ic_obj) = ic_obj {
+            let mut ic_obj_ref = ic_obj.borrow_mut();
+            let ic_id = *ic_obj_ref.get_id();
+            if let Some(programmable) = ic_obj_ref.as_mut_programmable() {
+                self.operation_modified.borrow_mut().clear();
+                self.set_modified(ic_id);
+                programmable.step(advance_ip_on_err)?;
+                return Ok(());
+            }
+            return Err(VMError::NotProgrammable(ic_id));
+        }
+        Err(VMError::NoIC(id))
     }
 
     /// returns true if executed 128 lines, false if returned early.
@@ -370,28 +449,63 @@ impl VM {
             .get(&id)
             .cloned()
             .ok_or(VMError::UnknownId(id))?;
-        let mut obj_ref = obj.borrow_mut();
-        let programmable = obj_ref
-            .as_mut_programmable()
-            .ok_or(VMError::NotProgrammable(id))?;
-        self.operation_modified.borrow_mut().clear();
-        self.set_modified(id);
-        for _i in 0..128 {
-            if let Err(err) = programmable.step(ignore_errors) {
-                if !ignore_errors {
-                    return Err(err.into());
+        {
+            let mut obj_ref = obj.borrow_mut();
+            if let Some(programmable) = obj_ref.as_mut_programmable() {
+                self.operation_modified.borrow_mut().clear();
+                self.set_modified(id);
+                for _i in 0..128 {
+                    if let Err(err) = programmable.step(ignore_errors) {
+                        if !ignore_errors {
+                            return Err(err.into());
+                        }
+                    }
+                    match programmable.get_state() {
+                        ICState::Yield => return Ok(false),
+                        ICState::Sleep(_then, _sleep_for) => return Ok(false),
+                        ICState::HasCaughtFire => return Ok(false),
+                        ICState::Error(_) if !ignore_errors => return Ok(false),
+                        _ => {}
+                    }
                 }
-            }
-            match programmable.get_state() {
-                ICState::Yield => return Ok(false),
-                ICState::Sleep(_then, _sleep_for) => return Ok(false),
-                ICState::HasCaughtFire => return Ok(false),
-                ICState::Error(_) if !ignore_errors => return Ok(false),
-                _ => {}
+                programmable.set_state(ICState::Yield);
+                return Ok(true);
             }
         }
-        programmable.set_state(ICState::Yield);
-        Ok(true)
+        let ic_obj = {
+            let obj_ref = obj.borrow();
+            if let Some(circuit_holder) = obj_ref.as_circuit_holder() {
+                circuit_holder.get_ic()
+            } else {
+                return Err(VMError::NotCircuitHolderOrProgrammable(id));
+            }
+        };
+        if let Some(ic_obj) = ic_obj {
+            let mut ic_obj_ref = ic_obj.borrow_mut();
+            let ic_id = *ic_obj_ref.get_id();
+            if let Some(programmable) = ic_obj_ref.as_mut_programmable() {
+                self.operation_modified.borrow_mut().clear();
+                self.set_modified(ic_id);
+                for _i in 0..128 {
+                    if let Err(err) = programmable.step(ignore_errors) {
+                        if !ignore_errors {
+                            return Err(err.into());
+                        }
+                    }
+                    match programmable.get_state() {
+                        ICState::Yield => return Ok(false),
+                        ICState::Sleep(_then, _sleep_for) => return Ok(false),
+                        ICState::HasCaughtFire => return Ok(false),
+                        ICState::Error(_) if !ignore_errors => return Ok(false),
+                        _ => {}
+                    }
+                }
+                programmable.set_state(ICState::Yield);
+                return Ok(true);
+            }
+            return Err(VMError::NotProgrammable(ic_id));
+        }
+        Err(VMError::NoIC(id))
     }
 
     pub fn set_modified(self: &Rc<Self>, id: ObjectID) {
@@ -427,13 +541,19 @@ impl VM {
             .borrow()
             .iter()
             .filter(move |(id, device)| {
-                device.borrow().as_device().is_some_and(|device| {
-                    device
-                        .get_logic(LogicType::PrefabHash)
-                        .is_ok_and(|f| f == prefab_hash)
-                }) && (name.is_none()
-                    || name.is_some_and(|name| name == device.borrow().get_name().hash as f64))
-                    && self.devices_on_same_network(&[source, **id])
+                if **id == source {
+                    // FIXME: check to make sure this won't cause issues
+                    // if it will pass in a self ref for access
+                    false // exclude source to prevent re-borrow panics
+                } else {
+                    device.borrow().as_device().is_some_and(|device| {
+                        device
+                            .get_logic(LogicType::PrefabHash)
+                            .is_ok_and(|f| f == prefab_hash)
+                    }) && (name.is_none()
+                        || name.is_some_and(|name| name == device.borrow().get_name().hash as f64))
+                        && self.devices_on_same_network(&[source, **id])
+                }
             })
             .map(|(_, d)| d)
             .cloned()
@@ -856,7 +976,7 @@ impl VM {
         if let Some(device) = obj.borrow().as_device() {
             for conn in device.connection_list().iter() {
                 if let Connection::CableNetwork { net: Some(net), .. } = conn {
-                    if let Some(network) = self.networks.borrow().get(&net) {
+                    if let Some(network) = self.networks.borrow().get(net) {
                         network
                             .borrow_mut()
                             .as_mut_network()
@@ -1145,7 +1265,7 @@ impl VMTransaction {
                     role: ConnectionRole::None,
                 } = conn
                 {
-                    if let Some(net) = self.networks.get_mut(&net_id) {
+                    if let Some(net) = self.networks.get_mut(net_id) {
                         match typ {
                             CableConnectionType::Power => net.power_only.push(obj_id),
                             _ => net.devices.push(obj_id),
@@ -1294,8 +1414,7 @@ impl IdSpace {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-#[cfg_attr(feature = "tsify", derive(Tsify))]
-#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct FrozenVM {
     pub objects: Vec<FrozenObject>,
     pub circuit_holders: Vec<ObjectID>,

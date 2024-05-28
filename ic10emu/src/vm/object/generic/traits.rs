@@ -381,9 +381,8 @@ impl<T: GWMemoryWritable + MemoryReadable + Object> MemoryWritable for T {
             Ok(())
         }
     }
-    fn clear_memory(&mut self) -> Result<(), MemoryError> {
+    fn clear_memory(&mut self) {
         self.memory_mut().fill(0.0);
-        Ok(())
     }
 }
 
@@ -564,7 +563,7 @@ impl<T: GWItem + Object> Item for T {
         self.damage().unwrap_or(0.0)
     }
     fn set_damage(&mut self, damage: f32) {
-        self.damage_mut().replace(damage);
+        self.damage_mut().replace(damage.clamp(0.0, 1.0));
     }
 }
 

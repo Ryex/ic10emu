@@ -16,15 +16,12 @@ use tsify::Tsify;
 use wasm_bindgen::prelude::*;
 
 #[derive(Error, Debug, Serialize, Deserialize)]
-#[cfg_attr(feature = "tsify", derive(Tsify))]
-#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub enum VMError {
     #[error("device with id '{0}' does not exist")]
-    UnknownId(u32),
+    UnknownId(ObjectID),
     #[error("ic with id '{0}' does not exist")]
-    UnknownIcId(u32),
-    #[error("device with id '{0}' does not have a ic slot")]
-    NoIC(u32),
+    UnknownIcId(ObjectID),
     #[error("ic encountered an error: {0}")]
     ICError(#[from] ICError),
     #[error("ic encountered an error: {0}")]
@@ -49,6 +46,10 @@ pub enum VMError {
     NotAnItem(ObjectID),
     #[error("object {0} is not programmable")]
     NotProgrammable(ObjectID),
+    #[error("object {0} is not a circuit holder or programmable")]
+    NotCircuitHolderOrProgrammable(ObjectID),
+    #[error("object {0} is a circuit holder but there is no programmable ic present")]
+    NoIC(ObjectID),
     #[error("{0}")]
     TemplateError(#[from] TemplateError),
     #[error("missing child object {0}")]
@@ -58,8 +59,7 @@ pub enum VMError {
 }
 
 #[derive(Error, Debug, Serialize, Deserialize)]
-#[cfg_attr(feature = "tsify", derive(Tsify))]
-#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub enum TemplateError {
     #[error("object id {0} has a non conforming set of interfaces")]
     NonConformingObject(ObjectID),
@@ -77,8 +77,7 @@ pub enum TemplateError {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-#[cfg_attr(feature = "tsify", derive(Tsify))]
-#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct LineError {
     pub error: ICError,
     pub line: u32,
@@ -93,8 +92,7 @@ impl Display for LineError {
 impl StdError for LineError {}
 
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
-#[cfg_attr(feature = "tsify", derive(Tsify))]
-#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct ParseError {
     pub line: usize,
     pub start: usize,
@@ -147,8 +145,7 @@ impl ParseError {
 }
 
 #[derive(Debug, Error, Clone, Serialize, Deserialize)]
-#[cfg_attr(feature = "tsify", derive(Tsify))]
-#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub enum ICError {
     #[error("error compiling code: {0}")]
     ParseError(#[from] ParseError),

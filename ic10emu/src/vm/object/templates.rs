@@ -41,8 +41,7 @@ use wasm_bindgen::prelude::*;
 use super::{stationpedia, MemoryAccess, ObjectID, VMObject};
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[cfg_attr(feature = "tsify", derive(Tsify))]
-#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub enum Prefab {
     Hash(i32),
     Name(String),
@@ -55,7 +54,7 @@ impl std::fmt::Display for Prefab {
                 StationpediaPrefab::from_repr(*hash),
                 format!("Unknown({hash}))"),
             ),
-            Self::Name(name) => (StationpediaPrefab::from_str(&name).ok(), name.clone()),
+            Self::Name(name) => (StationpediaPrefab::from_str(name).ok(), name.clone()),
         };
         if let Some(known) = known_prefab {
             write!(f, "{known}")
@@ -66,8 +65,7 @@ impl std::fmt::Display for Prefab {
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
-#[cfg_attr(feature = "tsify", derive(Tsify))]
-#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct ObjectInfo {
     pub name: Option<String>,
     pub id: Option<ObjectID>,
@@ -106,6 +104,28 @@ impl From<&VMObject> for ObjectInfo {
 }
 
 impl ObjectInfo {
+    /// Build empty info with a prefab name
+    pub fn with_prefab(prefab: Prefab) -> Self {
+        ObjectInfo {
+            name: None,
+            id: None,
+            prefab: Some(prefab),
+            slots: None,
+            damage: None,
+            device_pins: None,
+            connections: None,
+            reagents: None,
+            memory: None,
+            logic_values: None,
+            entity: None,
+            source_code: None,
+            circuit: None,
+        }
+    }
+
+    /// update the object info from the relavent implimented interfaces of a dyn object
+    /// use `ObjectInterfaces::from_object` with a `&dyn Object`  (`&*VMObject.borrow()`)
+    /// to obtain the interfaces
     pub fn update_from_interfaces(&mut self, interfaces: &ObjectInterfaces<'_>) -> &mut Self {
         if let Some(storage) = interfaces.storage {
             self.update_from_storage(storage);
@@ -134,6 +154,7 @@ impl ObjectInfo {
         self
     }
 
+    /// set `slots` to Some if there is relevant storage
     pub fn update_from_storage(&mut self, storage: StorageRef<'_>) -> &mut Self {
         let slots = storage.get_slots();
         if slots.is_empty() {
@@ -154,6 +175,7 @@ impl ObjectInfo {
         self
     }
 
+    /// store `item` properties like `damage`
     pub fn update_from_item(&mut self, item: ItemRef<'_>) -> &mut Self {
         let damage = item.get_damage();
         if damage == 0.0 {
@@ -164,6 +186,7 @@ impl ObjectInfo {
         self
     }
 
+    /// store `device_pins`, `reagents`, and `connections`
     pub fn update_from_device(&mut self, device: DeviceRef<'_>) -> &mut Self {
         let pins = device.device_pins();
         if pins.is_some_and(<[Option<u32>]>::is_empty) {
@@ -188,18 +211,16 @@ impl ObjectInfo {
         } else {
             self.connections.replace(
                 connections
-                    .into_iter()
+                    .iter()
                     .enumerate()
-                    .filter_map(|(index, conn)| match conn.get_network() {
-                        Some(net) => Some((index as u32, net)),
-                        None => None,
-                    })
+                    .filter_map(|(index, conn)| conn.get_network().map(|net| (index as u32, net)))
                     .collect(),
             );
         }
         self
     }
 
+    /// store memory state
     pub fn update_from_memory(&mut self, memory: MemoryReadableRef<'_>) -> &mut Self {
         if memory.memory_size() != 0 {
             self.memory.replace(memory.get_memory_slice().to_vec());
@@ -209,6 +230,7 @@ impl ObjectInfo {
         self
     }
 
+    /// store logic field state
     pub fn update_from_logic(&mut self, logic: LogicableRef<'_>) -> &mut Self {
         self.logic_values.replace(
             logic
@@ -223,6 +245,7 @@ impl ObjectInfo {
         self
     }
 
+    /// store entity state
     pub fn update_from_human(&mut self, human: HumanRef<'_>) -> &mut Self {
         let damage = human.get_damage();
         if damage == 0.0 {
@@ -241,6 +264,7 @@ impl ObjectInfo {
         self
     }
 
+    /// store source code
     pub fn update_from_source_code(&mut self, source: SourceCodeRef<'_>) -> &mut Self {
         let code = source.get_source_code();
         if !code.is_empty() {
@@ -249,6 +273,7 @@ impl ObjectInfo {
         self
     }
 
+    /// store circuit state; ie. `registers`, `aliases`, `defines` etc.
     pub fn update_from_circuit(&mut self, circuit: IntegratedCircuitRef<'_>) -> &mut Self {
         self.circuit.replace(ICInfo {
             instruction_pointer: circuit.get_instruction_pointer(),
@@ -276,8 +301,7 @@ impl ObjectInfo {
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
-#[cfg_attr(feature = "tsify", derive(Tsify))]
-#[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct FrozenObject {
     pub obj_info: ObjectInfo,
     pub database_template: bool,
@@ -379,7 +403,7 @@ impl FrozenObject {
                                 .collect::<Vec<_>>()
                         })
                     })
-                    .unwrap_or_else(Vec::new),
+                    .unwrap_or_default(),
                 writeable_logic: logic_info
                     .and_then(|info| {
                         info.logic_slot_types.get(&(index as u32)).map(|s_info| {
@@ -393,7 +417,7 @@ impl FrozenObject {
                                 .collect::<Vec<_>>()
                         })
                     })
-                    .unwrap_or_else(Vec::new),
+                    .unwrap_or_default(),
                 occupant: self
                     .obj_info
                     .slots
@@ -555,6 +579,7 @@ impl FrozenObject {
                 pins: self.build_pins(&s.device),
                 device_info: s.device.clone(),
                 reagents: self.obj_info.reagents.clone(),
+                error: 0,
             })),
             StructureLogicDeviceMemory(s)
                 if matches!(s.memory.memory_access, MemoryAccess::Read) =>
@@ -739,6 +764,7 @@ impl FrozenObject {
                 slots: self.build_slots(id, &i.slots, Some(&i.logic)),
                 fields: self.build_logic_fields(&i.logic),
                 modes: i.logic.modes.clone(),
+                error: 0,
             })),
             ItemSuit(i) => Ok(VMObject::new(GenericItemSuit {
                 id,
@@ -783,6 +809,7 @@ impl FrozenObject {
                 fields: self.build_logic_fields(&i.logic),
                 modes: i.logic.modes.clone(),
                 memory: self.build_memory(&i.memory),
+                error: 0,
             })),
             Human(h) => {
                 let mut human = HumanPlayer::with_species(id, vm, h.species);
@@ -1366,44 +1393,5 @@ impl From<StorageRef<'_>> for Vec<SlotInfo> {
                 typ: slot.typ,
             })
             .collect()
-    }
-}
-
-#[cfg(test)]
-mod tests {
-
-    use serde_derive::Deserialize;
-    use serde_json;
-    use std::collections::BTreeMap;
-    use std::fs::File;
-    use std::io::BufReader;
-    use std::path::PathBuf;
-
-    use super::ObjectTemplate;
-
-    static INIT: std::sync::Once = std::sync::Once::new();
-
-    fn setup() {
-        INIT.call_once(|| {
-            let _ = color_eyre::install();
-        })
-    }
-
-    #[allow(dead_code)]
-    #[derive(Debug, Deserialize)]
-    struct Database {
-        pub prefabs: BTreeMap<String, ObjectTemplate>,
-    }
-
-    #[test]
-    fn all_database_prefabs_parse() -> color_eyre::Result<()> {
-        setup();
-        let mut d = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        d = d.parent().unwrap().join("data").join("database.json");
-        println!("loading database from {}", d.display());
-
-        let _database: Database = serde_json::from_reader(BufReader::new(File::open(d)?))?;
-
-        Ok(())
     }
 }

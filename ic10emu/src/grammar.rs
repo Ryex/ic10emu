@@ -1,5 +1,5 @@
 use crate::{
-    errors::{ParseError},
+    errors::ParseError,
     interpreter,
     tokens::{SplitConsecutiveIndicesExt, SplitConsecutiveWithIndices},
     vm::instructions::{
@@ -14,7 +14,6 @@ use stationeers_data::enums::{
     script::{LogicBatchMethod, LogicReagentMode, LogicSlotType, LogicType},
 };
 use std::{fmt::Display, str::FromStr};
-use strum::IntoEnumIterator;
 
 pub fn parse(code: &str) -> Result<Vec<Line>, ParseError> {
     code.lines()

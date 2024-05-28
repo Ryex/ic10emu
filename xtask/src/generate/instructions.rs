@@ -13,7 +13,8 @@ pub fn generate_instructions(
         .join("ic10emu")
         .join("src")
         .join("vm")
-        .join("instructions");
+        .join("instructions")
+        .join("codegen");
     if !instructions_path.exists() {
         std::fs::create_dir(&instructions_path)?;
     }
@@ -84,8 +85,7 @@ fn write_instructions_enum<T: std::io::Write>(
         "{}",
         quote::quote! {#[derive(Debug, Display, PartialEq, Eq, PartialOrd, Ord, Clone, Copy, Serialize, Deserialize)]
             #[derive(EnumIter, EnumString, EnumProperty, FromRepr)]
-            #[cfg_attr(feature = "tsify", derive(Tsify))]
-            #[cfg_attr(feature = "tsify", tsify(into_wasm_abi, from_wasm_abi))]
+            #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
             #[strum(use_phf, serialize_all = "lowercase")]
             #[serde(rename_all = "lowercase")]
             pub enum InstructionOp {

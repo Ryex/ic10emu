@@ -2124,8 +2124,8 @@ impl<T: IC10Marker> ClrInstruction for T {
                     obj_ref
                         .as_mut_memory_writable()
                         .ok_or(MemoryError::NotWriteable)?
-                        .clear_memory()
-                        .map_err(Into::into)
+                        .clear_memory();
+                    Ok(())
                 })
             })?;
         Ok(())
@@ -2147,8 +2147,8 @@ impl<T: IC10Marker> ClrdInstruction for T {
                     obj_ref
                         .as_mut_memory_writable()
                         .ok_or(MemoryError::NotWriteable)?
-                        .clear_memory()
-                        .map_err(Into::into)
+                        .clear_memory();
+                    Ok(())
                 })
             })?;
         Ok(())

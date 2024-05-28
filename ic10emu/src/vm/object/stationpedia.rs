@@ -58,7 +58,7 @@ pub fn object_from_frozen(
                         .clone()
                         .unwrap_or_else(|| prefab.get_str("name").unwrap().to_string())),
                 ),
-                prefab: Name::from_prefab_name(&prefab.to_string()),
+                prefab: Name::from_prefab_name(prefab.as_ref()),
                 fields: template
                     .logic
                     .logic_types
@@ -84,7 +84,7 @@ pub fn object_from_frozen(
                     .map(TryInto::try_into)
                     .transpose()
                     .map_err(|vec: Vec<f64>| TemplateError::MemorySize(vec.len(), 512))?
-                    .unwrap_or_else(|| [0.0f64; 512]),
+                    .unwrap_or( [0.0f64; 512]),
                 parent_slot: None,
                 registers: obj
                     .circuit
@@ -92,7 +92,7 @@ pub fn object_from_frozen(
                     .map(|circuit| circuit.registers.clone().try_into())
                     .transpose()
                     .map_err(|vec: Vec<f64>| TemplateError::MemorySize(vec.len(), 18))?
-                    .unwrap_or_else(|| [0.0f64; 18]),
+                    .unwrap_or( [0.0f64; 18]),
                 ip: obj
                     .circuit
                     .as_ref()
