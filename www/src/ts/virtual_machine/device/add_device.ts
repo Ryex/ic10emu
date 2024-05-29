@@ -41,10 +41,10 @@ export class VMAddDeviceButton extends VMDeviceDBMixin(BaseElement) {
 
   postDBSetUpdate(): void {
     this._structures = new Map(
-      Object.values(this.deviceDB.db)
-        .filter((entry) => this.deviceDB.structures.includes(entry.name), this)
+      Object.values(this.templateDB.db)
+        .filter((entry) => this.templateDB.structures.includes(entry.name), this)
         .filter(
-          (entry) => this.deviceDB.logic_enabled.includes(entry.name),
+          (entry) => this.templateDB.logic_enabled.includes(entry.name),
           this,
         )
         .map((entry) => [entry.name, entry]),
@@ -133,7 +133,7 @@ export class VMAddDeviceButton extends VMDeviceDBMixin(BaseElement) {
   }
 
   _handleDeviceDBLoad(e: CustomEvent) {
-    this.deviceDB = e.detail;
+    this.templateDB = e.detail;
   }
 
   @state() private page = 0;

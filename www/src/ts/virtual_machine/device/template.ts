@@ -63,7 +63,7 @@ export class VmDeviceTemplate extends VMDeviceDBMixin(BaseElement) {
 
   constructor() {
     super();
-    this.deviceDB = window.VM.vm.db;
+    this.templateDB = window.VM.vm.db;
   }
 
   private _prefab_name: string;
@@ -79,7 +79,7 @@ export class VmDeviceTemplate extends VMDeviceDBMixin(BaseElement) {
   }
 
   get dbDevice(): DeviceDBEntry {
-    return this.deviceDB.db[this.prefab_name];
+    return this.templateDB.db[this.prefab_name];
   }
 
   setupState() {
@@ -198,7 +198,7 @@ export class VmDeviceTemplate extends VMDeviceDBMixin(BaseElement) {
   }
 
   renderPins(): HTMLTemplateResult {
-    const device = this.deviceDB.db[this.prefab_name];
+    const device = this.templateDB.db[this.prefab_name];
     return html`<div class="pins"></div>`;
   }
 

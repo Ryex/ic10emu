@@ -231,8 +231,11 @@ impl SourceCode for ItemIntegratedCircuit10 {
     fn get_source_code(&self) -> String {
         self.code.clone()
     }
-    fn get_line(&self, line: usize) -> Result<&Instruction, ICError> {
+    fn get_line(&self, line: usize) -> Result<Instruction, ICError> {
         self.program.get_line(line)
+    }
+    fn get_compile_errors(&self) -> Vec<ICError> {
+        self.program.errors.clone()
     }
 }
 

@@ -43,7 +43,7 @@ export class VMDeviceList extends BaseElement {
 
   constructor() {
     super();
-    this.devices = [...window.VM.vm.deviceIds];
+    this.devices = [...window.VM.vm.objectIds];
   }
 
   connectedCallback(): void {
@@ -149,7 +149,7 @@ export class VMDeviceList extends BaseElement {
     if (this._filter) {
       const datapoints: [string, number][] = [];
       for (const device_id of this.devices) {
-        const device = window.VM.vm.devices.get(device_id);
+        const device = window.VM.vm.objects.get(device_id);
         if (device) {
           if (typeof device.name !== "undefined") {
             datapoints.push([device.name, device.id]);

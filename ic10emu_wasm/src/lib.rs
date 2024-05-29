@@ -3,18 +3,21 @@ mod utils;
 // mod types;
 
 use ic10emu::{
-    errors::VMError,
+    errors::{ICError, VMError},
     vm::{
-        object::{templates::FrozenObject, ObjectID, VMObject},
+        object::{templates::{FrozenObject, FrozenObjectFull}, ObjectID},
         FrozenVM, VM,
     },
 };
 use itertools::Itertools;
 use serde_derive::{Deserialize, Serialize};
 
-use stationeers_data::enums::script::{LogicSlotType, LogicType};
+use stationeers_data::{
+    enums::script::{LogicSlotType, LogicType},
+    templates::ObjectTemplate,
+};
 
-use std::rc::Rc;
+use std::{collections::BTreeMap, rc::Rc};
 
 use wasm_bindgen::prelude::*;
 
@@ -39,6 +42,28 @@ pub struct VMRef {
     vm: Rc<VM>,
 }
 
+use tsify::Tsify;
+
+#[derive(Clone, Debug, Serialize, Deserialize, Tsify)]
+#[tsify(into_wasm_abi, from_wasm_abi)]
+pub struct TemplateDatabase(BTreeMap<i32, ObjectTemplate>);
+
+impl IntoIterator for TemplateDatabase {
+    type Item = (i32, ObjectTemplate);
+    type IntoIter = std::collections::btree_map::IntoIter<i32, ObjectTemplate>;
+    fn into_iter(self) -> Self::IntoIter {
+        self.0.into_iter()
+    }
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize, Tsify)]
+#[tsify(into_wasm_abi, from_wasm_abi)]
+pub struct FrozenObjects(Vec<FrozenObjectFull>);
+
+#[derive(Clone, Debug, Serialize, Deserialize, Tsify)]
+#[tsify(into_wasm_abi, from_wasm_abi)]
+pub struct CompileErrors(Vec<ICError>);
+
 #[wasm_bindgen]
 impl VMRef {
     #[wasm_bindgen(constructor)]
@@ -46,8 +71,18 @@ impl VMRef {
         VMRef { vm: VM::new() }
     }
 
-    #[wasm_bindgen(js_name = "addDeviceFromTemplate")]
-    pub fn add_device_from_template(&self, frozen: FrozenObject) -> Result<ObjectID, JsError> {
+    #[wasm_bindgen(js_name = "importTemplateDatabase")]
+    pub fn import_template_database(&self, db: TemplateDatabase) {
+        self.vm.import_template_database(db);
+    }
+
+    #[wasm_bindgen(js_name = "getTemplateDatabase")]
+    pub fn get_template_database(&self) -> TemplateDatabase {
+        TemplateDatabase(self.vm.get_template_database())
+    }
+
+    #[wasm_bindgen(js_name = "addObjectFromFrozen")]
+    pub fn add_object_from_frozen(&self, frozen: FrozenObject) -> Result<ObjectID, JsError> {
         web_sys::console::log_2(
             &"(wasm) adding device".into(),
             &serde_wasm_bindgen::to_value(&frozen).unwrap(),
@@ -55,14 +90,19 @@ impl VMRef {
         Ok(self.vm.add_object_from_frozen(frozen)?)
     }
 
-    #[wasm_bindgen(js_name = "getDevice")]
-    pub fn get_object(&self, id: ObjectID) -> Option<VMObject> {
-        self.vm.get_object(id)
+    // #[wasm_bindgen(js_name = "getDevice")]
+    // pub fn get_object(&self, id: ObjectID) -> Option<VMObject> {
+    //     self.vm.get_object(id)
+    // }
+
+    #[wasm_bindgen(js_name = "freezeObject")]
+    pub fn freeze_object(&self, id: ObjectID) -> Result<FrozenObjectFull, JsError> {
+        Ok(self.vm.freeze_object(id)?)
     }
 
-    #[wasm_bindgen(js_name = "freezeDevice")]
-    pub fn freeze_object(&self, id: ObjectID) -> Result<FrozenObject, JsError> {
-        Ok(self.vm.freeze_object(id)?)
+    #[wasm_bindgen(js_name = "freezeObjects")]
+    pub fn freeze_objects(&self, ids: Vec<ObjectID>) -> Result<FrozenObjects, JsError> {
+        Ok(FrozenObjects(self.vm.freeze_objects(ids)?))
     }
 
     #[wasm_bindgen(js_name = "setCode")]
@@ -75,6 +115,18 @@ impl VMRef {
     /// Set program code and translate invalid lines to Nop, collecting errors
     pub fn set_code_invalid(&self, id: ObjectID, code: &str) -> Result<bool, JsError> {
         Ok(self.vm.set_code_invalid(id, code)?)
+    }
+
+    #[wasm_bindgen(js_name = "getCode")]
+    /// Set program code if it's valid
+    pub fn get_code(&self, id: ObjectID) -> Result<String, JsError> {
+        Ok(self.vm.get_code(id)?)
+    }
+
+    #[wasm_bindgen(js_name = "getCompileErrors")]
+    /// Set program code if it's valid
+    pub fn get_compiler_errors(&self, id: ObjectID) -> Result<CompileErrors, JsError> {
+        Ok(CompileErrors(self.vm.get_compile_errors(id)?))
     }
 
     #[wasm_bindgen(js_name = "stepProgrammable")]

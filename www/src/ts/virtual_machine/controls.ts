@@ -65,7 +65,7 @@ export class VMICControls extends VMActiveICMixin(BaseElement) {
   @query(".active-ic-select") activeICSelect: SlSelect;
 
   protected render() {
-    const ics = Array.from(window.VM.vm.ics);
+    const ics = Array.from(window.VM.vm.circuitHolders);
     return html`
       <sl-card class="card">
         <div class="controls" slot="header">
@@ -116,7 +116,7 @@ export class VMICControls extends VMActiveICMixin(BaseElement) {
               hoist
               size="small"
               placement="bottom"
-              value="${this.deviceID}"
+              value="${this.objectID}"
               @sl-change=${this._handleChangeActiveIC}
               class="active-ic-select"
             >

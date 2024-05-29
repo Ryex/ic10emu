@@ -143,7 +143,9 @@ tag_object_traits! {
         fn get_source_code(&self) -> String;
         /// Return the compiled instruction and it's operands at the indexed line in the source
         /// code.
-        fn get_line(&self, line: usize) -> Result<&Instruction, ICError>;
+        fn get_line(&self, line: usize) -> Result<Instruction, ICError>;
+        /// Return a vector of any errors encountered while compiling the source with `set_source_code_with_invalid`
+        fn get_compile_errors(&self) -> Vec<ICError>;
     }
 
     pub trait CircuitHolder: Logicable + Storage {
@@ -497,3 +499,51 @@ impl Debug for dyn Object {
         )
     }
 }
+
+impl<T: CircuitHolder> SourceCode for T {
+    fn get_line(&self, line: usize) -> Result<Instruction, ICError> {
+        let ic = self.get_ic().ok_or(ICError::DeviceHasNoIC)?;
+        let result = ic
+            .borrow()
+            .as_source_code()
+            .ok_or(ICError::DeviceHasNoIC)?
+            .get_line(line);
+        result.clone()
+    }
+    fn set_source_code(&mut self, code: &str) -> Result<(), ICError> {
+        self.get_ic()
+            .and_then(|obj| {
+                obj.borrow_mut()
+                    .as_mut_source_code()
+                    .map(|source| source.set_source_code(code))
+            })
+            .transpose()?;
+        Ok(())
+    }
+    fn set_source_code_with_invalid(&mut self, code: &str) {
+        self.get_ic().and_then(|obj| {
+            obj.borrow_mut()
+                .as_mut_source_code()
+                .map(|source| source.set_source_code_with_invalid(code))
+        });
+    }
+    fn get_source_code(&self) -> String {
+        self.get_ic()
+            .and_then(|obj| {
+                obj.borrow()
+                    .as_source_code()
+                    .map(|source| source.get_source_code())
+            })
+            .unwrap_or_default()
+    }
+    fn get_compile_errors(&self) -> Vec<ICError> {
+        self.get_ic()
+            .and_then(|obj| {
+                obj.borrow()
+                    .as_source_code()
+                    .map(|source| source.get_compile_errors())
+            })
+            .unwrap_or_default()
+    }
+}
+

@@ -13,7 +13,31 @@ export function docReady(fn: () => void) {
 }
 
 function isZeroNegative(zero: number) {
-  return Object.is(zero, -0)
+  return Object.is(zero, -0);
+}
+
+function makeCRCTable() {
+  let c;
+  const crcTable = [];
+  for (let n = 0; n < 256; n++) {
+    c = n;
+    for (let k = 0; k < 8; k++) {
+      c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+    }
+    crcTable[n] = c;
+  }
+  return crcTable;
+}
+
+const crcTable = makeCRCTable();
+
+// Signed crc32 for string
+export function crc32(str: string): number {
+  let crc = 0 ^ -1;
+  for (let i = 0, len = str.length; i < len; i++) {
+    crc = (crc >>> 8) ^ crcTable[(crc ^ str.charCodeAt(i)) & 0xff];
+  }
+  return crc ^ -1;
 }
 
 export function numberToString(n: number): string {
@@ -68,10 +92,54 @@ export function fromJson(value: string): any {
   return JSON.parse(value, reviver);
 }
 
+
+export function compareMaps(map1: Map<any, any>, map2: Map<any, any>): boolean {
+  let testVal;
+  if (map1.size !== map2.size) {
+    return false;
+  }
+  for (let [key, val] of map1) {
+    testVal = map2.get(key);
+    if((testVal === undefined && !map2.has(key)) || !structuralEqual(val, testVal)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+export function compareArrays( array1: any[], array2: any[]): boolean {
+  if (array1.length !== array2.length) {
+    return false;
+  }
+  for ( let i = 0, len = array1.length; i < len; i++) {
+    if (!structuralEqual(array1[i], array2[i])) {
+      return false;
+    }
+  }
+  return true;
+}
+
+export function compareStructuralObjects(a: object, b: object): boolean {
+  const aProps = new Map(Object.entries(a));
+  const bProps = new Map(Object.entries(b));
+  return compareMaps(aProps, bProps);
+}
 export function structuralEqual(a: any, b: any): boolean {
-  const _a = JSON.stringify(a, replacer);
-  const _b = JSON.stringify(b, replacer);
-  return _a === _b;
+  const aType = typeof a;
+  const bType = typeof b;
+  if ( aType !== typeof bType) {
+    return false;
+  }
+  if (a instanceof Map && b instanceof Map) {
+    return compareMaps(a, b);
+  }
+  if (Array.isArray(a) && Array.isArray(b)) {
+    return compareArrays(a, b);
+  }
+  if (aType === "object" && bType === "object") {
+    return compareStructuralObjects(a, b);
+  }
+  return a !== b;
 }
 
 // probably not needed, fetch() exists now
@@ -144,7 +212,7 @@ export async function saveFile(content: BlobPart) {
   } else {
     console.log("saving file via hidden link event");
     var a = document.createElement("a");
-    const date = new Date().valueOf().toString(16) ;
+    const date = new Date().valueOf().toString(16);
     a.download = `code_${date}.ic10`;
     a.href = window.URL.createObjectURL(blob);
     a.click();
@@ -243,6 +311,26 @@ export function parseIntWithHexOrBinary(s: string): number {
   return parseInt(s);
 }
 
-export function clamp (val: number, min: number, max: number) {
+export function clamp(val: number, min: number, max: number) {
   return Math.min(Math.max(val, min), max);
+}
+
+export type TypedEventTarget<EventMap extends object> = {
+  new (): TypedEventTargetInterface<EventMap>;
+};
+
+interface TypedEventTargetInterface<EventMap> extends EventTarget {
+  addEventListener<K extends keyof EventMap>(
+    type: K,
+    callback: (
+      event: EventMap[K] extends Event ? EventMap[K] : never,
+    ) => EventMap[K] extends Event ? void : never,
+    options?: boolean | AddEventListenerOptions,
+  ): void;
+
+  addEventListener(
+    type: string,
+    callback: EventListenerOrEventListenerObject | null,
+    options?: EventListenerOptions | boolean,
+  ): void;
 }

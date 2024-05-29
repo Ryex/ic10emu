@@ -1,4 +1,4 @@
-use std::{collections::BTreeMap, rc::Rc, str::FromStr};
+use std::{collections::BTreeMap, fmt::Display, rc::Rc, str::FromStr};
 
 use crate::{
     errors::TemplateError,
@@ -69,7 +69,7 @@ impl std::fmt::Display for Prefab {
 pub struct ObjectInfo {
     pub name: Option<String>,
     pub id: Option<ObjectID>,
-    pub prefab: Option<Prefab>,
+    pub prefab: Option<String>,
     pub slots: Option<BTreeMap<u32, SlotOccupantInfo>>,
     pub damage: Option<f32>,
     pub device_pins: Option<BTreeMap<u32, ObjectID>>,
@@ -80,6 +80,7 @@ pub struct ObjectInfo {
     pub entity: Option<EntityInfo>,
     pub source_code: Option<String>,
     pub circuit: Option<ICInfo>,
+    pub socketed_ic: Option<ObjectID>,
 }
 
 impl From<&VMObject> for ObjectInfo {
@@ -88,7 +89,7 @@ impl From<&VMObject> for ObjectInfo {
         ObjectInfo {
             name: Some(obj_ref.get_name().value.clone()),
             id: Some(*obj_ref.get_id()),
-            prefab: Some(Prefab::Hash(obj_ref.get_prefab().hash)),
+            prefab: Some(obj_ref.get_prefab().value.clone()),
             slots: None,
             damage: None,
             device_pins: None,
@@ -99,6 +100,7 @@ impl From<&VMObject> for ObjectInfo {
             entity: None,
             source_code: None,
             circuit: None,
+            socketed_ic: None,
         }
     }
 }
@@ -106,10 +108,16 @@ impl From<&VMObject> for ObjectInfo {
 impl ObjectInfo {
     /// Build empty info with a prefab name
     pub fn with_prefab(prefab: Prefab) -> Self {
+        let prefab_name = match prefab {
+            Prefab::Name(name) => name,
+            Prefab::Hash(hash) => StationpediaPrefab::from_repr(hash)
+                .map(|sp| sp.to_string())
+                .unwrap_or_default(),
+        };
         ObjectInfo {
             name: None,
             id: None,
-            prefab: Some(prefab),
+            prefab: Some(prefab_name),
             slots: None,
             damage: None,
             device_pins: None,
@@ -120,6 +128,7 @@ impl ObjectInfo {
             entity: None,
             source_code: None,
             circuit: None,
+            socketed_ic: None,
         }
     }
 
@@ -150,6 +159,9 @@ impl ObjectInfo {
         }
         if let Some(circuit) = interfaces.integrated_circuit {
             self.update_from_circuit(circuit);
+        }
+        if let Some(circuit_holder) = interfaces.circuit_holder {
+            self.update_from_circuit_holder(circuit_holder);
         }
         self
     }
@@ -298,6 +310,24 @@ impl ObjectInfo {
         });
         self
     }
+
+    /// store socketed Ic Id
+    pub fn update_from_circuit_holder(
+        &mut self,
+        circuit_holder: CircuitHolderRef<'_>,
+    ) -> &mut Self {
+        if let Some(ic) = circuit_holder.get_ic() {
+            self.socketed_ic.replace(ic.get_id());
+        }
+        self
+    }
+}
+
+#[derive(Debug, Clone, Deserialize, Serialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
+pub struct FrozenObjectFull {
+    pub obj_info: ObjectInfo,
+    pub template: ObjectTemplate,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -332,8 +362,9 @@ impl FrozenObject {
                     .prefab
                     .as_ref()
                     .map(|prefab| {
-                        vm.get_template(prefab.clone())
-                            .ok_or(TemplateError::NoTemplateForPrefab(prefab.clone()))
+                        vm.get_template(Prefab::Name(prefab.clone())).ok_or(
+                            TemplateError::NoTemplateForPrefab(Prefab::Name(prefab.clone())),
+                        )
                     })
                     .transpose()?
                     .ok_or(TemplateError::MissingPrefab)
@@ -827,28 +858,24 @@ impl FrozenObject {
         }
     }
 
-    pub fn freeze_object(obj: &VMObject, vm: &Rc<VM>) -> Result<Self, TemplateError> {
+    pub fn freeze_object(obj: &VMObject, vm: &Rc<VM>) -> Result<FrozenObjectFull, TemplateError> {
         let obj_ref = obj.borrow();
         let interfaces = ObjectInterfaces::from_object(&*obj_ref);
         let mut obj_info: ObjectInfo = obj.into();
         obj_info.update_from_interfaces(&interfaces);
         // if the template is known, omit it. else build it from interfaces
-        let mut database_template = false;
         let template = vm
             .get_template(Prefab::Hash(obj_ref.get_prefab().hash))
             .map_or_else(
-                || Some(try_template_from_interfaces(&interfaces, obj)),
+                || try_template_from_interfaces(&interfaces, obj),
                 |template| {
-                    database_template = true;
-                    Some(Ok(template))
+                    Ok(template)
                 },
-            )
-            .transpose()?;
+            )?;
 
-        Ok(FrozenObject {
+        Ok(FrozenObjectFull {
             obj_info,
             template,
-            database_template,
         })
     }
 

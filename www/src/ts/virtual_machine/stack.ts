@@ -46,7 +46,7 @@ export class VMICStack extends VMActiveICMixin(BaseElement) {
     return html`
       <sl-card class="card">
         <div class="card-body">
-          ${this.stack?.map((val, index) => {
+          ${this.memory?.map((val, index) => {
             return html`
               <sl-tooltip placement="left">
                 <div slot="content">

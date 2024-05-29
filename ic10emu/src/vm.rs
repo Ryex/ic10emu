@@ -6,7 +6,7 @@ use crate::{
     interpreter::ICState,
     network::{CableConnectionType, CableNetwork, Connection, FrozenCableNetwork},
     vm::object::{
-        templates::{FrozenObject, Prefab},
+        templates::{FrozenObject, FrozenObjectFull, Prefab},
         traits::ParentSlotInfo,
         ObjectID, SlotOccupantInfo, VMObject,
     },
@@ -46,7 +46,7 @@ pub struct VM {
 
     /// list of object id's touched on the last operation
     operation_modified: RefCell<Vec<ObjectID>>,
-    template_database: Option<BTreeMap<i32, ObjectTemplate>>,
+    template_database: RefCell<Option<BTreeMap<i32, ObjectTemplate>>>,
 }
 
 #[derive(Debug, Default)]
@@ -92,7 +92,7 @@ impl VM {
             network_id_space: RefCell::new(network_id_space),
             random: Rc::new(RefCell::new(crate::rand_mscorlib::Random::new())),
             operation_modified: RefCell::new(Vec::new()),
-            template_database: stationeers_data::build_prefab_database(),
+            template_database: RefCell::new(stationeers_data::build_prefab_database()),
         });
 
         let default_network = VMObject::new(CableNetwork::new(default_network_key, vm.clone()));
@@ -105,28 +105,39 @@ impl VM {
 
     /// get a random f64 value using a mscorlib rand PRNG
     /// (Stationeers, being written in .net, using mscorlib's rand)
-    pub fn random_f64(&self) -> f64 {
+    pub fn random_f64(self: &Rc<Self>) -> f64 {
         self.random.borrow_mut().next_f64()
     }
 
     /// Take ownership of an iterable the produces (prefab hash, ObjectTemplate) pairs and build a prefab
     /// database
     pub fn import_template_database(
-        &mut self,
+        self: &Rc<Self>,
         db: impl IntoIterator<Item = (i32, ObjectTemplate)>,
     ) {
-        self.template_database.replace(db.into_iter().collect());
+        self.template_database
+            .borrow_mut()
+            .replace(db.into_iter().collect());
     }
 
     /// Get a Object Template by either prefab name or hash
-    pub fn get_template(&self, prefab: Prefab) -> Option<ObjectTemplate> {
+    pub fn get_template(self: &Rc<Self>, prefab: Prefab) -> Option<ObjectTemplate> {
         let hash = match prefab {
             Prefab::Hash(hash) => hash,
             Prefab::Name(name) => const_crc32::crc32(name.as_bytes()) as i32,
         };
         self.template_database
+            .borrow()
             .as_ref()
             .and_then(|db| db.get(&hash).cloned())
+    }
+
+    pub fn get_template_database(self: &Rc<Self>) -> BTreeMap<i32, ObjectTemplate> {
+        self.template_database
+            .borrow()
+            .as_ref()
+            .cloned()
+            .unwrap_or_default()
     }
 
     /// Add an number of object to the VM state using Frozen Object strusts.
@@ -334,7 +345,7 @@ impl VM {
             .ok_or(VMError::UnknownId(id))?;
         {
             let mut obj_ref = obj.borrow_mut();
-            if let Some(programmable) = obj_ref.as_mut_programmable() {
+            if let Some(programmable) = obj_ref.as_mut_source_code() {
                 programmable.set_source_code(code)?;
                 return Ok(true);
             }
@@ -387,6 +398,72 @@ impl VM {
             if let Some(programmable) = ic_obj_ref.as_mut_programmable() {
                 programmable.set_source_code_with_invalid(code);
                 return Ok(true);
+            }
+            return Err(VMError::NotProgrammable(*ic_obj_ref.get_id()));
+        }
+        Err(VMError::NoIC(id))
+    }
+
+    /// Get program code
+    /// Object Id is the programmable Id or the circuit holder's id
+    pub fn get_code(self: &Rc<Self>, id: ObjectID) -> Result<String, VMError> {
+        let obj = self
+            .objects
+            .borrow()
+            .get(&id)
+            .cloned()
+            .ok_or(VMError::UnknownId(id))?;
+        {
+            let obj_ref = obj.borrow();
+            if let Some(programmable) = obj_ref.as_source_code() {
+                return Ok(programmable.get_source_code());
+            }
+        }
+        let ic_obj = {
+            let obj_ref = obj.borrow();
+            if let Some(circuit_holder) = obj_ref.as_circuit_holder() {
+                circuit_holder.get_ic()
+            } else {
+                return Err(VMError::NotCircuitHolderOrProgrammable(id));
+            }
+        };
+        if let Some(ic_obj) = ic_obj {
+            let ic_obj_ref = ic_obj.borrow();
+            if let Some(programmable) = ic_obj_ref.as_source_code() {
+                return Ok(programmable.get_source_code());
+            }
+            return Err(VMError::NotProgrammable(*ic_obj_ref.get_id()));
+        }
+        Err(VMError::NoIC(id))
+    }
+
+    /// Get a vector of any errors compiling the source code
+    /// Object Id is the programmable Id or the circuit holder's id
+    pub fn get_compile_errors(self: &Rc<Self>, id: ObjectID) -> Result<Vec<ICError>, VMError> {
+        let obj = self
+            .objects
+            .borrow()
+            .get(&id)
+            .cloned()
+            .ok_or(VMError::UnknownId(id))?;
+        {
+            let obj_ref = obj.borrow();
+            if let Some(programmable) = obj_ref.as_source_code() {
+                return Ok(programmable.get_compile_errors());
+            }
+        }
+        let ic_obj = {
+            let obj_ref = obj.borrow();
+            if let Some(circuit_holder) = obj_ref.as_circuit_holder() {
+                circuit_holder.get_ic()
+            } else {
+                return Err(VMError::NotCircuitHolderOrProgrammable(id));
+            }
+        };
+        if let Some(ic_obj) = ic_obj {
+            let ic_obj_ref = ic_obj.borrow();
+            if let Some(programmable) = ic_obj_ref.as_source_code() {
+                return Ok(programmable.get_compile_errors());
             }
             return Err(VMError::NotProgrammable(*ic_obj_ref.get_id()));
         }
@@ -1216,11 +1293,25 @@ impl VM {
         Ok(last)
     }
 
-    pub fn freeze_object(self: &Rc<Self>, id: ObjectID) -> Result<FrozenObject, VMError> {
+    pub fn freeze_object(self: &Rc<Self>, id: ObjectID) -> Result<FrozenObjectFull, VMError> {
         let Some(obj) = self.objects.borrow().get(&id).cloned() else {
             return Err(VMError::UnknownId(id));
         };
         Ok(FrozenObject::freeze_object(&obj, self)?)
+    }
+
+    pub fn freeze_objects(
+        self: &Rc<Self>,
+        ids: impl IntoIterator<Item = ObjectID>,
+    ) -> Result<Vec<FrozenObjectFull>, VMError> {
+        ids.into_iter()
+            .map(|id| {
+                let Some(obj) = self.objects.borrow().get(&id).cloned() else {
+                    return Err(VMError::UnknownId(id));
+                };
+                Ok(FrozenObject::freeze_object(&obj, self)?)
+            })
+            .collect()
     }
 
     pub fn save_vm_state(self: &Rc<Self>) -> Result<FrozenVM, TemplateError> {

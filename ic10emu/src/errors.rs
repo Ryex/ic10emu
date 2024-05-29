@@ -207,7 +207,7 @@ pub enum ICError {
     WriteOnlyField(String),
     #[error("device has no field '{0}'")]
     DeviceHasNoField(String),
-    #[error("device has not ic")]
+    #[error("device has no ic")]
     DeviceHasNoIC,
     #[error("unknown device '{0}'")]
     UnknownDeviceId(f64),

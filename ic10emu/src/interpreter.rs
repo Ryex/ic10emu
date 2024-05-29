@@ -185,9 +185,10 @@ impl Program {
         }
     }
 
-    pub fn get_line(&self, line: usize) -> Result<&Instruction, ICError> {
+    pub fn get_line(&self, line: usize) -> Result<Instruction, ICError> {
         self.instructions
             .get(line)
+            .cloned()
             .ok_or(ICError::InstructionPointerOutOfRange(line))
     }
 }
@@ -236,8 +237,8 @@ mod tests {
         println!("VM built");
 
         let frozen_ic = FrozenObject {
-            obj_info: ObjectInfo::with_prefab(Prefab::Hash(
-                StationpediaPrefab::ItemIntegratedCircuit10 as i32,
+            obj_info: ObjectInfo::with_prefab(Prefab::Name(
+                StationpediaPrefab::ItemIntegratedCircuit10.to_string(),
             )),
             database_template: true,
             template: None,
@@ -246,8 +247,8 @@ mod tests {
         println!("Adding IC");
         let ic = vm.add_object_from_frozen(frozen_ic)?;
         let frozen_circuit_holder = FrozenObject {
-            obj_info: ObjectInfo::with_prefab(Prefab::Hash(
-                StationpediaPrefab::StructureCircuitHousing as i32,
+            obj_info: ObjectInfo::with_prefab(Prefab::Name(
+                StationpediaPrefab::StructureCircuitHousing.to_string(),
             )),
             database_template: true,
             template: None,

@@ -1,9 +1,6 @@
 use std::rc::Rc;
 
-use stationeers_data::{
-    enums::prefabs::StationpediaPrefab,
-    templates::{ObjectTemplate},
-};
+use stationeers_data::{enums::prefabs::StationpediaPrefab, templates::ObjectTemplate};
 
 use crate::{
     errors::TemplateError,
@@ -29,10 +26,12 @@ pub fn object_from_frozen(
     vm: &Rc<VM>,
 ) -> Result<Option<VMObject>, TemplateError> {
     #[allow(clippy::cast_possible_wrap)]
-    let hash = match &obj.prefab {
-        Some(Prefab::Hash(hash)) => *hash,
-        Some(Prefab::Name(name)) => const_crc32::crc32(name.as_bytes()) as i32,
-        None => return Ok(None),
+    let Some(hash) = obj
+        .prefab
+        .as_ref()
+        .map(|name| const_crc32::crc32(name.as_bytes()) as i32)
+    else {
+        return Ok(None);
     };
 
     let prefab = StationpediaPrefab::from_repr(hash);
@@ -84,7 +83,7 @@ pub fn object_from_frozen(
                     .map(TryInto::try_into)
                     .transpose()
                     .map_err(|vec: Vec<f64>| TemplateError::MemorySize(vec.len(), 512))?
-                    .unwrap_or( [0.0f64; 512]),
+                    .unwrap_or([0.0f64; 512]),
                 parent_slot: None,
                 registers: obj
                     .circuit
@@ -92,7 +91,7 @@ pub fn object_from_frozen(
                     .map(|circuit| circuit.registers.clone().try_into())
                     .transpose()
                     .map_err(|vec: Vec<f64>| TemplateError::MemorySize(vec.len(), 18))?
-                    .unwrap_or( [0.0f64; 18]),
+                    .unwrap_or([0.0f64; 18]),
                 ip: obj
                     .circuit
                     .as_ref()

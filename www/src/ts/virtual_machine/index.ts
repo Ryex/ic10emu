@@ -1,18 +1,19 @@
-import {
-  DeviceRef,
-  DeviceTemplate,
+import type {
+  ObjectTemplate,
+  FrozenObject,
   FrozenVM,
   LogicType,
   LogicSlotType,
-  SlotOccupantTemplate,
-  Slots,
   VMRef,
-  init,
+  TemplateDatabase,
+  FrozenCableNetwork,
+  FrozenObjectFull,
 } from "ic10emu_wasm";
-import { DeviceDB } from "./device_db";
+import * as Comlink from "comlink";
 import "./base_device";
 import "./device";
 import { App } from "app";
+import { structuralEqual, TypedEventTarget } from "utils";
 export interface ToastMessage {
   variant: "warning" | "danger" | "success" | "primary" | "neutral";
   icon: string;
@@ -21,156 +22,168 @@ export interface ToastMessage {
   id: string;
 }
 
-export interface CacheDeviceRef extends DeviceRef {
-  dirty: boolean;
+export interface VirtualMachinEventMap {
+  "vm-template-db-loaded": CustomEvent<TemplateDatabase>;
+  "vm-objects-update": CustomEvent<number[]>;
+  "vm-objects-removed": CustomEvent<number[]>;
+  "vm-objects-modified": CustomEvent<number>;
+  "vm-run-ic": CustomEvent<number>;
+  "vm-object-id-change": CustomEvent<{ old: number; new: number }>;
 }
 
-function cachedDeviceRef(ref: DeviceRef) {
-  let slotsDirty = true;
-  let cachedSlots: Slots = undefined;
-  return new Proxy<DeviceRef>(ref, {
-    get(target, prop, receiver) {
-      if (prop === "slots") {
-        if (typeof cachedSlots === undefined || slotsDirty) {
-          cachedSlots = target.slots;
-          slotsDirty = false;
-        }
-        return cachedSlots;
-      } else if (prop === "dirty") {
-        return slotsDirty;
-      }
-      return Reflect.get(target, prop, receiver);
-    },
-    set(target, prop, value) {
-      if (prop === "dirty") {
-        slotsDirty = value;
-        return true;
-      }
-      return Reflect.set(target, prop, value);
-    },
-  }) as CacheDeviceRef;
-}
+class VirtualMachine extends (EventTarget as TypedEventTarget<VirtualMachinEventMap>) {
+  ic10vm: Comlink.Remote<VMRef>;
+  templateDBPromise: Promise<TemplateDatabase>;
+  templateDB: TemplateDatabase;
 
-class VirtualMachine extends EventTarget {
-  ic10vm: VMRef;
-  _devices: Map<number, CacheDeviceRef>;
-  _ics: Map<number, DeviceRef>;
+  private _objects: Map<number, FrozenObjectFull>;
+  private _circuitHolders: Map<number, FrozenObjectFull>;
+  private _networks: Map<number, FrozenCableNetwork>;
+  private _default_network: number;
 
-  db: DeviceDB;
-  dbPromise: Promise<{ default: DeviceDB }>;
+  private vm_worker: Worker;
 
   private app: App;
 
   constructor(app: App) {
     super();
     this.app = app;
-    const vm = init();
+    this.vm_worker = new Worker("./vm_worker.ts");
+    const vm = Comlink.wrap<VMRef>(this.vm_worker);
+    this.ic10vm = vm;
     window.VM.set(this);
 
-    this.ic10vm = vm;
+    this._objects = new Map();
+    this._circuitHolders = new Map();
+    this._networks = new Map();
 
-    this._devices = new Map();
-    this._ics = new Map();
+    this.templateDBPromise = this.ic10vm.getTemplateDatabase();
 
-    this.dbPromise = import("../../../data/database.json", {
-      assert: { type: "json" },
-    }) as Promise<{ default: DeviceDB }>;
+    this.templateDBPromise.then((db) => this.setupTemplateDatabase(db));
 
-    this.dbPromise.then((module) =>
-      this.setupDeviceDatabase(module.default as DeviceDB),
-    );
-
-    this.updateDevices();
+    this.updateObjects();
     this.updateCode();
   }
 
-  get devices() {
-    return this._devices;
+  get objects() {
+    return this._objects;
   }
 
-  get deviceIds() {
-    const ids = Array.from(this.ic10vm.devices);
+  get objectIds() {
+    const ids = Array.from(this._objects.keys());
     ids.sort();
     return ids;
   }
 
-  get ics() {
-    return this._ics;
+  get circuitHolders() {
+    return this._circuitHolders;
   }
 
-  get icIds() {
-    return Array.from(this.ic10vm.ics);
-  }
-
-  get networks() {
-    return Array.from(this.ic10vm.networks);
-  }
-
-  get defaultNetwork() {
-    return this.ic10vm.defaultNetwork;
-  }
-
-  get activeIC() {
-    return this._ics.get(this.app.session.activeIC);
-  }
-
-  visibleDevices(source: number) {
-    const ids = Array.from(this.ic10vm.visibleDevices(source));
-    return ids.map((id, _index) => this._devices.get(id)!);
-  }
-
-  visibleDeviceIds(source: number) {
-    const ids = Array.from(this.ic10vm.visibleDevices(source));
+  get circuitHolderIds() {
+    const ids = Array.from(this._circuitHolders.keys());
+    ids.sort();
     return ids;
   }
 
-  updateDevices() {
-    var update_flag = false;
-    const removedDevices = [];
-    const device_ids = this.ic10vm.devices;
-    for (const id of device_ids) {
-      if (!this._devices.has(id)) {
-        this._devices.set(id, cachedDeviceRef(this.ic10vm.getDevice(id)!));
-        update_flag = true;
-      }
-    }
-    for (const id of this._devices.keys()) {
-      if (!device_ids.includes(id)) {
-        this._devices.delete(id);
-        update_flag = true;
-        removedDevices.push(id);
-      }
-    }
+  get networks() {
+    const ids = Array.from(this._networks.keys());
+    ids.sort();
+    return ids;
+  }
 
-    for (const [id, device] of this._devices) {
-      device.dirty = true;
-      if (typeof device.ic !== "undefined") {
-        if (!this._ics.has(id)) {
-          this._ics.set(id, device);
-          update_flag = true;
+  get defaultNetwork() {
+    return this._default_network;
+  }
+
+  get activeIC() {
+    return this._circuitHolders.get(this.app.session.activeIC);
+  }
+
+  async visibleDevices(source: number) {
+    const visDevices = await this.ic10vm.visibleDevices(source);
+    const ids = Array.from(visDevices);
+    ids.sort();
+    return ids.map((id, _index) => this._objects.get(id)!);
+  }
+
+  async visibleDeviceIds(source: number) {
+    const visDevices = await this.ic10vm.visibleDevices(source);
+    const ids = Array.from(visDevices);
+    ids.sort();
+    return ids;
+  }
+
+  async updateObjects() {
+    let updateFlag = false;
+    const removedObjects = [];
+    const objectIds = await this.ic10vm.objects;
+    const frozenObjects = await this.ic10vm.freezeObjects(objectIds);
+    const updatedObjects = [];
+
+    for (const [index, id] of objectIds.entries()) {
+      if (!this._objects.has(id)) {
+        this._objects.set(id, frozenObjects[index]);
+        updateFlag = true;
+        updatedObjects.push(id);
+      } else {
+        if (!structuralEqual(this._objects.get(id), frozenObjects[index])) {
+          this._objects.set(id, frozenObjects[index]);
+          updatedObjects.push(id);
+          updateFlag = true;
         }
       }
     }
 
-    for (const id of this._ics.keys()) {
-      if (!this._devices.has(id)) {
-        this._ics.delete(id);
-        update_flag = true;
+    for (const id of this._objects.keys()) {
+      if (!objectIds.includes(id)) {
+        this._objects.delete(id);
+        updateFlag = true;
+        removedObjects.push(id);
       }
     }
 
-    if (update_flag) {
-      const ids = Array.from(device_ids);
+    for (const [id, obj] of this._objects) {
+      if (typeof obj.obj_info.socketed_ic !== "undefined") {
+        if (!this._circuitHolders.has(id)) {
+          this._circuitHolders.set(id, obj);
+          updateFlag = true;
+          if (!updatedObjects.includes(id)) {
+            updatedObjects.push(id);
+          }
+        }
+      } else {
+        if (this._circuitHolders.has(id)) {
+          updateFlag = true;
+          if (!updatedObjects.includes(id)) {
+            updatedObjects.push(id);
+          }
+          this._circuitHolders.delete(id);
+        }
+      }
+    }
+
+    for (const id of this._circuitHolders.keys()) {
+      if (!this._objects.has(id)) {
+        this._circuitHolders.delete(id);
+        updateFlag = true;
+        if (!removedObjects.includes(id)) {
+          removedObjects.push(id);
+        }
+      }
+    }
+
+    if (updateFlag) {
+      const ids = Array.from(updatedObjects);
       ids.sort();
       this.dispatchEvent(
-        new CustomEvent("vm-devices-update", {
+        new CustomEvent("vm-objects-update", {
           detail: ids,
         }),
       );
-      if (removedDevices.length > 0) {
+      if (removedObjects.length > 0) {
         this.dispatchEvent(
-          new CustomEvent("vm-devices-removed", {
-            detail: removedDevices,
+          new CustomEvent("vm-objects-removed", {
+            detail: removedObjects,
           }),
         );
       }
@@ -178,20 +191,24 @@ class VirtualMachine extends EventTarget {
     }
   }
 
-  updateCode() {
+  async updateCode() {
     const progs = this.app.session.programs;
     for (const id of progs.keys()) {
       const attempt = Date.now().toString(16);
-      const ic = this._ics.get(id);
+      const circuitHolder = this._circuitHolders.get(id);
       const prog = progs.get(id);
-      if (ic && prog && ic.code !== prog) {
+      if (
+        circuitHolder &&
+        prog &&
+        circuitHolder.obj_info.source_code !== prog
+      ) {
         try {
           console.time(`CompileProgram_${id}_${attempt}`);
-          this.ics.get(id)!.setCodeInvalid(progs.get(id)!);
-          const compiled = this.ics.get(id)?.program!;
-          this.app.session.setProgramErrors(id, compiled.errors);
+          await this.ic10vm.setCodeInvalid(id, progs.get(id)!);
+          const errors = await this.ic10vm.getCompileErrors(id);
+          this.app.session.setProgramErrors(id, errors);
           this.dispatchEvent(
-            new CustomEvent("vm-device-modified", { detail: id }),
+            new CustomEvent("vm-object-modified", { detail: id }),
           );
         } catch (err) {
           this.handleVmError(err);
@@ -203,65 +220,65 @@ class VirtualMachine extends EventTarget {
     this.update(false);
   }
 
-  step() {
+  async step() {
     const ic = this.activeIC;
     if (ic) {
       try {
-        ic.step(false);
+        await this.ic10vm.stepProgrammable(ic.obj_info.id, false);
       } catch (err) {
         this.handleVmError(err);
       }
       this.update();
       this.dispatchEvent(
-        new CustomEvent("vm-run-ic", { detail: this.activeIC!.id }),
+        new CustomEvent("vm-run-ic", { detail: this.activeIC!.obj_info.id }),
       );
     }
   }
 
-  run() {
+  async run() {
     const ic = this.activeIC;
     if (ic) {
       try {
-        ic.run(false);
+        await this.ic10vm.runProgrammable(ic.obj_info.id, false);
       } catch (err) {
         this.handleVmError(err);
       }
       this.update();
       this.dispatchEvent(
-        new CustomEvent("vm-run-ic", { detail: this.activeIC!.id }),
+        new CustomEvent("vm-run-ic", { detail: this.activeIC!.obj_info.id }),
       );
     }
   }
 
-  reset() {
+  async reset() {
     const ic = this.activeIC;
     if (ic) {
-      ic.reset();
-      this.update();
+      await this.ic10vm.resetProgrammable(ic.obj_info.id);
+      await this.update();
     }
   }
 
-  update(save: boolean = true) {
-    this.updateDevices();
-    this.ic10vm.lastOperationModified.forEach((id, _index, _modifiedIds) => {
-      if (this.devices.has(id)) {
-        this.dispatchEvent(
-          new CustomEvent("vm-device-modified", { detail: id }),
-        );
+  async update(save: boolean = true) {
+    await this.updateObjects();
+    const lastModified = await this.ic10vm.lastOperationModified;
+    lastModified.forEach((id, _index, _modifiedIds) => {
+      if (this.objects.has(id)) {
+        this.updateDevice(id, false);
       }
     }, this);
-    this.updateDevice(this.activeIC.id, save);
+    this.updateDevice(this.activeIC.obj_info.id, false);
     if (save) this.app.session.save();
   }
 
   updateDevice(id: number, save: boolean = true) {
-    const device = this._devices.get(id);
-    device.dirty = true;
+    const device = this._objects.get(id);
     this.dispatchEvent(
-      new CustomEvent("vm-device-modified", { detail: device.id }),
+      new CustomEvent("vm-device-modified", { detail: device.obj_info.id }),
     );
-    if (typeof device.ic !== "undefined") {
-      this.app.session.setActiveLine(device.id, device.ip!);
+    if (typeof device.obj_info.socketed_ic !== "undefined") {
+      const ic = this._objects.get(device.obj_info.socketed_ic);
+      const ip = ic.obj_info.circuit?.instruction_pointer;
+      this.app.session.setActiveLine(device.obj_info.id, ip);
     }
     if (save) this.app.session.save();
   }
@@ -278,15 +295,15 @@ class VirtualMachine extends EventTarget {
     this.dispatchEvent(new CustomEvent("vm-message", { detail: message }));
   }
 
-  changeDeviceID(oldID: number, newID: number): boolean {
+  async changeDeviceID(oldID: number, newID: number): Promise<boolean> {
     try {
-      this.ic10vm.changeDeviceId(oldID, newID);
+      await this.ic10vm.changeDeviceId(oldID, newID);
       if (this.app.session.activeIC === oldID) {
         this.app.session.activeIC = newID;
       }
-      this.updateDevices();
+      await this.updateObjects();
       this.dispatchEvent(
-        new CustomEvent("vm-device-id-change", {
+        new CustomEvent("vm-object-id-change", {
           detail: {
             old: oldID,
             new: newID,
@@ -301,11 +318,11 @@ class VirtualMachine extends EventTarget {
     }
   }
 
-  setRegister(index: number, val: number): boolean {
+  async setRegister(index: number, val: number): Promise<boolean> {
     const ic = this.activeIC!;
     try {
-      ic.setRegister(index, val);
-      this.updateDevice(ic.id);
+      await this.ic10vm.setRegister(ic.obj_info.id, index, val);
+      this.updateDevice(ic.obj_info.id);
       return true;
     } catch (err) {
       this.handleVmError(err);
@@ -313,11 +330,11 @@ class VirtualMachine extends EventTarget {
     }
   }
 
-  setStack(addr: number, val: number): boolean {
+  async setStack(addr: number, val: number): Promise<boolean> {
     const ic = this.activeIC!;
     try {
-      ic!.setStack(addr, val);
-      this.updateDevice(ic.id);
+      await this.ic10vm.setMemory(ic.obj_info.id, addr, val);
+      this.updateDevice(ic.obj_info.id);
       return true;
     } catch (err) {
       this.handleVmError(err);
@@ -325,14 +342,12 @@ class VirtualMachine extends EventTarget {
     }
   }
 
-  setDeviceName(id: number, name: string): boolean {
-    const device = this._devices.get(id);
-    if (device) {
+  async setObjectName(id: number, name: string): Promise<boolean> {
+    const obj = this._objects.get(id);
+    if (obj) {
       try {
-        device.setName(name);
-        this.dispatchEvent(
-          new CustomEvent("vm-device-modified", { detail: id }),
-        );
+        await this.ic10vm.setObjectName(obj.obj_info.id, name);
+        this.updateDevice(obj.obj_info.id);
         this.app.session.save();
         return true;
       } catch (e) {
@@ -342,18 +357,18 @@ class VirtualMachine extends EventTarget {
     return false;
   }
 
-  setDeviceField(
+  async setObjectField(
     id: number,
     field: LogicType,
     val: number,
     force?: boolean,
-  ): boolean {
+  ): Promise<boolean> {
     force = force ?? false;
-    const device = this._devices.get(id);
-    if (device) {
+    const obj = this._objects.get(id);
+    if (obj) {
       try {
-        device.setField(field, val, force);
-        this.updateDevice(device.id);
+        await this.ic10vm.setLogicField(obj.obj_info.id, field, val, force);
+        this.updateDevice(obj.obj_info.id);
         return true;
       } catch (err) {
         this.handleVmError(err);
@@ -362,19 +377,25 @@ class VirtualMachine extends EventTarget {
     return false;
   }
 
-  setDeviceSlotField(
+  async setObjectSlotField(
     id: number,
     slot: number,
     field: LogicSlotType,
     val: number,
     force?: boolean,
-  ): boolean {
+  ): Promise<boolean> {
     force = force ?? false;
-    const device = this._devices.get(id);
-    if (device) {
+    const obj = this._objects.get(id);
+    if (obj) {
       try {
-        device.setSlotField(slot, field, val, force);
-        this.updateDevice(device.id);
+        await this.ic10vm.setSlotLogicField(
+          obj.obj_info.id,
+          field,
+          slot,
+          val,
+          force,
+        );
+        this.updateDevice(obj.obj_info.id);
         return true;
       } catch (err) {
         this.handleVmError(err);
@@ -383,16 +404,16 @@ class VirtualMachine extends EventTarget {
     return false;
   }
 
-  setDeviceConnection(
+  async setDeviceConnection(
     id: number,
     conn: number,
     val: number | undefined,
-  ): boolean {
-    const device = this._devices.get(id);
+  ): Promise<boolean> {
+    const device = this._objects.get(id);
     if (typeof device !== "undefined") {
       try {
-        this.ic10vm.setDeviceConnection(id, conn, val);
-        this.updateDevice(device.id);
+        await this.ic10vm.setDeviceConnection(id, conn, val);
+        this.updateDevice(device.obj_info.id);
         return true;
       } catch (err) {
         this.handleVmError(err);
@@ -401,12 +422,16 @@ class VirtualMachine extends EventTarget {
     return false;
   }
 
-  setDevicePin(id: number, pin: number, val: number | undefined): boolean {
-    const device = this._devices.get(id);
+  async setDevicePin(
+    id: number,
+    pin: number,
+    val: number | undefined,
+  ): Promise<boolean> {
+    const device = this._objects.get(id);
     if (typeof device !== "undefined") {
       try {
-        this.ic10vm.setPin(id, pin, val);
-        this.updateDevice(device.id);
+        await this.ic10vm.setPin(id, pin, val);
+        this.updateDevice(device.obj_info.id);
         return true;
       } catch (err) {
         this.handleVmError(err);
@@ -415,22 +440,23 @@ class VirtualMachine extends EventTarget {
     return false;
   }
 
-  setupDeviceDatabase(db: DeviceDB) {
-    this.db = db;
-    console.log("Loaded Device Database", this.db);
+  setupTemplateDatabase(db: TemplateDatabase) {
+    this.templateDB = db;
+    console.log("Loaded Template Database", this.templateDB);
     this.dispatchEvent(
-      new CustomEvent("vm-device-db-loaded", { detail: this.db }),
+      new CustomEvent("vm-template-db-loaded", { detail: this.templateDB }),
     );
   }
 
-  addDeviceFromTemplate(template: DeviceTemplate): boolean {
+  async addObjectFromFrozen(frozen: FrozenObject): Promise<boolean> {
     try {
-      console.log("adding device", template);
-      const id = this.ic10vm.addDeviceFromTemplate(template);
-      this._devices.set(id, cachedDeviceRef(this.ic10vm.getDevice(id)!));
-      const device_ids = this.ic10vm.devices;
+      console.log("adding device", frozen);
+      const id = await this.ic10vm.addObjectFromFrozen(frozen);
+      const refrozen = await this.ic10vm.freezeObject(id);
+      this._objects.set(id, refrozen);
+      const device_ids = await this.ic10vm.objects;
       this.dispatchEvent(
-        new CustomEvent("vm-devices-update", {
+        new CustomEvent("vm-objects-update", {
           detail: Array.from(device_ids),
         }),
       );
@@ -442,10 +468,10 @@ class VirtualMachine extends EventTarget {
     }
   }
 
-  removeDevice(id: number): boolean {
+  async removeDevice(id: number): Promise<boolean> {
     try {
-      this.ic10vm.removeDevice(id);
-      this.updateDevices();
+      await this.ic10vm.removeDevice(id);
+      await this.updateObjects();
       return true;
     } catch (err) {
       this.handleVmError(err);
@@ -453,17 +479,18 @@ class VirtualMachine extends EventTarget {
     }
   }
 
-  setDeviceSlotOccupant(
+  async setSlotOccupant(
     id: number,
     index: number,
-    template: SlotOccupantTemplate,
-  ): boolean {
-    const device = this._devices.get(id);
+    frozen: FrozenObject,
+    quantity: number,
+  ): Promise<boolean> {
+    const device = this._objects.get(id);
     if (typeof device !== "undefined") {
       try {
-        console.log("setting slot occupant", template);
-        this.ic10vm.setSlotOccupant(id, index, template);
-        this.updateDevice(device.id);
+        console.log("setting slot occupant", frozen);
+        await this.ic10vm.setSlotOccupant(id, index, frozen, quantity);
+        this.updateDevice(device.obj_info.id);
         return true;
       } catch (err) {
         this.handleVmError(err);
@@ -472,12 +499,12 @@ class VirtualMachine extends EventTarget {
     return false;
   }
 
-  removeDeviceSlotOccupant(id: number, index: number): boolean {
-    const device = this._devices.get(id);
+  async removeSlotOccupant(id: number, index: number): Promise<boolean> {
+    const device = this._objects.get(id);
     if (typeof device !== "undefined") {
       try {
         this.ic10vm.removeSlotOccupant(id, index);
-        this.updateDevice(device.id);
+        this.updateDevice(device.obj_info.id);
         return true;
       } catch (err) {
         this.handleVmError(err);
@@ -486,25 +513,25 @@ class VirtualMachine extends EventTarget {
     return false;
   }
 
-  saveVMState(): FrozenVM {
+  async saveVMState(): Promise<FrozenVM> {
     return this.ic10vm.saveVMState();
   }
 
-  restoreVMState(state: FrozenVM) {
+  async restoreVMState(state: FrozenVM) {
     try {
-      this.ic10vm.restoreVMState(state);
-      this._devices = new Map();
-      this._ics = new Map();
-      this.updateDevices();
+      await this.ic10vm.restoreVMState(state);
+      this._objects = new Map();
+      this._circuitHolders = new Map();
+      await this.updateObjects();
     } catch (e) {
       this.handleVmError(e);
     }
   }
 
-  getPrograms() {
-    const programs: [number, string][] = Array.from(this._ics.entries()).map(
-      ([id, ic]) => [id, ic.code],
-    );
+  getPrograms() : [number, string][] {
+    const programs: [number, string][] = Array.from(
+      this._circuitHolders.entries(),
+    ).map(([id, ic]) => [id, ic.obj_info.source_code]);
     return programs;
   }
 }

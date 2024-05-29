@@ -1,7 +1,7 @@
 import { html, css, HTMLTemplateResult } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMDeviceDBMixin, VMDeviceMixin } from "virtual_machine/base_device";
+import { VMDeviceDBMixin, VMObjectMixin } from "virtual_machine/base_device";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js";
 import { parseIntWithHexOrBinary, parseNumber } from "utils";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
@@ -15,7 +15,7 @@ import { repeat } from "lit/directives/repeat.js";
 export type CardTab = "fields" | "slots" | "reagents" | "networks" | "pins";
 
 @customElement("vm-device-card")
-export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
+export class VMDeviceCard extends VMDeviceDBMixin(VMObjectMixin(BaseElement)) {
   image_err: boolean;
 
   @property({ type: Boolean }) open: boolean;
@@ -135,14 +135,14 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
   }
 
   renderHeader(): HTMLTemplateResult {
-    const thisIsActiveIc = this.activeICId === this.deviceID;
+    const thisIsActiveIc = this.activeICId === this.objectID;
     const badges: HTMLTemplateResult[] = [];
     if (thisIsActiveIc) {
       badges.push(html`<sl-badge variant="primary" pill pulse>db</sl-badge>`);
     }
     const activeIc = window.VM.vm.activeIC;
     activeIc?.pins?.forEach((id, index) => {
-      if (this.deviceID == id) {
+      if (this.objectID == id) {
         badges.push(
           html`<sl-badge variant="success" pill>d${index}</sl-badge>`,
         );
@@ -154,20 +154,20 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
           onerror="this.src = '${VMDeviceCard.transparentImg}'" />
       </sl-tooltip>
       <div class="header-name">
-        <sl-input id="vmDeviceCard${this.deviceID}Id" class="device-id me-1" size="small" pill value=${this.deviceID}
+        <sl-input id="vmDeviceCard${this.objectID}Id" class="device-id me-1" size="small" pill value=${this.objectID}
           @sl-change=${this._handleChangeID}>
           <span slot="prefix">Id</span>
-          <sl-copy-button slot="suffix" .value=${this.deviceID}></sl-copy-button>
+          <sl-copy-button slot="suffix" .value=${this.objectID}></sl-copy-button>
         </sl-input>
-        <sl-input id="vmDeviceCard${this.deviceID}Name" class="device-name me-1" size="small" pill
+        <sl-input id="vmDeviceCard${this.objectID}Name" class="device-name me-1" size="small" pill
           placeholder=${this.prefabName} value=${this.name} @sl-change=${this._handleChangeName}>
           <span slot="prefix">Name</span>
-          <sl-copy-button slot="suffix" from="vmDeviceCard${this.deviceID}Name.value"></sl-copy-button>
+          <sl-copy-button slot="suffix" from="vmDeviceCard${this.objectID}Name.value"></sl-copy-button>
         </sl-input>
-        <sl-input id="vmDeviceCard${this.deviceID}NameHash" size="small" pill class="device-name-hash me-1"
+        <sl-input id="vmDeviceCard${this.objectID}NameHash" size="small" pill class="device-name-hash me-1"
           value="${this.nameHash}" readonly>
           <span slot="prefix">Hash</span>
-          <sl-copy-button slot="suffix" from="vmDeviceCard${this.deviceID}NameHash.value"></sl-copy-button>
+          <sl-copy-button slot="suffix" from="vmDeviceCard${this.objectID}NameHash.value"></sl-copy-button>
         </sl-input>
         ${badges.map((badge) => badge)}
       </div>
@@ -183,7 +183,7 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
   renderFields() {
     return this.delayRenderTab(
       "fields",
-      html`<vm-device-fields .deviceID=${this.deviceID}></vm-device-fields>`,
+      html`<vm-device-fields .deviceID=${this.objectID}></vm-device-fields>`,
     );
   }
 
@@ -202,7 +202,7 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
           ${repeat(this.slots,
             (slot, index) => slot.typ + index.toString(),
             (_slot, index) => html`
-              <vm-device-slot .deviceID=${this.deviceID} .slotIndex=${index} class-"flex flex-row max-w-lg mr-2 mb-2">
+              <vm-device-slot .deviceID=${this.objectID} .slotIndex=${index} class-"flex flex-row max-w-lg mr-2 mb-2">
               </vm-device-slot>
             `,
           )}
@@ -242,7 +242,7 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
     return this.delayRenderTab(
       "pins",
       html`<div class="pins">
-        <vm-device-pins .deviceID=${this.deviceID}></vm-device-pins>
+        <vm-device-pins .deviceID=${this.objectID}></vm-device-pins>
       </div>`
     );
   }
@@ -295,7 +295,7 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
           <sl-tab slot="nav" panel="slots">Slots</sl-tab>
           <sl-tab slot="nav" panel="reagents" disabled>Reagents</sl-tab>
           <sl-tab slot="nav" panel="networks">Networks</sl-tab>
-          <sl-tab slot="nav" panel="pins" ?disabled=${!this.device.pins}>Pins</sl-tab>
+          <sl-tab slot="nav" panel="pins" ?disabled=${!this.obj.pins}>Pins</sl-tab>
 
           <sl-tab-panel name="fields" active>
             ${until(this.renderFields(), html`<sl-spinner></sl-spinner>`)}
@@ -318,7 +318,7 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
             onerror="this.src = '${VMDeviceCard.transparentImg}'" />
           <div class="flex-g">
             <p><strong>Are you sure you want to remove this device?</strong></p>
-            <span>Id ${this.deviceID} : ${this.name ?? this.prefabName}</span>
+            <span>Id ${this.objectID} : ${this.name ?? this.prefabName}</span>
           </div>
         </div>
         <div slot="footer">
@@ -350,12 +350,12 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
     const val = parseIntWithHexOrBinary(input.value);
     if (!isNaN(val)) {
       window.VM.get().then((vm) => {
-        if (!vm.changeDeviceID(this.deviceID, val)) {
-          input.value = this.deviceID.toString();
+        if (!vm.changeDeviceID(this.objectID, val)) {
+          input.value = this.objectID.toString();
         }
       });
     } else {
-      input.value = this.deviceID.toString();
+      input.value = this.objectID.toString();
     }
   }
 
@@ -363,7 +363,7 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
     const input = e.target as SlInput;
     const name = input.value.length === 0 ? undefined : input.value;
     window.VM.get().then((vm) => {
-      if (!vm.setDeviceName(this.deviceID, name)) {
+      if (!vm.setObjectName(this.objectID, name)) {
         input.value = this.name;
       }
       this.updateDevice();
@@ -375,7 +375,7 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
 
   _removeDialogRemove() {
     this.removeDialog.hide();
-    window.VM.get().then((vm) => vm.removeDevice(this.deviceID));
+    window.VM.get().then((vm) => vm.removeDevice(this.objectID));
   }
 
   _handleChangeConnection(e: CustomEvent) {
@@ -383,7 +383,7 @@ export class VMDeviceCard extends VMDeviceDBMixin(VMDeviceMixin(BaseElement)) {
     const conn = parseInt(select.getAttribute("key")!);
     const val = select.value ? parseInt(select.value as string) : undefined;
     window.VM.get().then((vm) =>
-      vm.setDeviceConnection(this.deviceID, conn, val),
+      vm.setDeviceConnection(this.objectID, conn, val),
     );
     this.updateDevice();
   }

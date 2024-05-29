@@ -2,11 +2,11 @@
 import { html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMDeviceDBMixin, VMDeviceMixin } from "virtual_machine/base_device";
+import { VMDeviceDBMixin, VMObjectMixin } from "virtual_machine/base_device";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js";
 
 @customElement("vm-device-pins")
-export class VMDevicePins extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
+export class VMDevicePins extends VMObjectMixin(VMDeviceDBMixin(BaseElement)) {
   constructor() {
     super();
     this.subscribe("ic", "visible-devices");
@@ -14,7 +14,7 @@ export class VMDevicePins extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
 
   render() {
     const pins = this.pins;
-    const visibleDevices = window.VM.vm.visibleDevices(this.deviceID);
+    const visibleDevices = window.VM.vm.visibleDevices(this.objectID);
     const pinsHtml = pins?.map(
       (pin, index) =>
         html`
@@ -37,7 +37,7 @@ export class VMDevicePins extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
     const select = e.target as SlSelect;
     const pin = parseInt(select.getAttribute("key")!);
     const val = select.value ? parseInt(select.value as string) : undefined;
-    window.VM.get().then((vm) => vm.setDevicePin(this.deviceID, pin, val));
+    window.VM.get().then((vm) => vm.setDevicePin(this.objectID, pin, val));
     this.updateDevice();
   }
 

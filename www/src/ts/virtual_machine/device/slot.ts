@@ -1,7 +1,7 @@
 import { html, css } from "lit";
 import { customElement, property} from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMDeviceDBMixin, VMDeviceMixin } from "virtual_machine/base_device";
+import { VMDeviceDBMixin, VMObjectMixin } from "virtual_machine/base_device";
 import {
   clamp,
   displayNumber,
@@ -21,7 +21,7 @@ export interface SlotModifyEvent {
 }
 
 @customElement("vm-device-slot")
-export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
+export class VMDeviceSlot extends VMObjectMixin(VMDeviceDBMixin(BaseElement)) {
   private _slotIndex: number;
 
   get slotIndex() {
@@ -72,7 +72,7 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
   slotOccupantImg(): string {
     const slot = this.slots[this.slotIndex];
     if (typeof slot.occupant !== "undefined") {
-      const hashLookup = (this.deviceDB ?? {}).names_by_hash ?? {};
+      const hashLookup = (this.templateDB ?? {}).names_by_hash ?? {};
       const prefabName = hashLookup[slot.occupant.prefab_hash] ?? "UnknownHash";
       return `img/stationpedia/${prefabName}.png`;
     } else {
@@ -83,7 +83,7 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
   slotOccupantPrefabName(): string {
     const slot = this.slots[this.slotIndex];
     if (typeof slot.occupant !== "undefined") {
-      const hashLookup = (this.deviceDB ?? {}).names_by_hash ?? {};
+      const hashLookup = (this.templateDB ?? {}).names_by_hash ?? {};
       const prefabName = hashLookup[slot.occupant.prefab_hash] ?? "UnknownHash";
       return prefabName;
     } else {
@@ -92,8 +92,8 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
   }
 
   slotOcccupantTemplate(): { name: string; typ: SlotType } | undefined {
-    if (this.deviceDB) {
-      const entry = this.deviceDB.db[this.prefabName];
+    if (this.templateDB) {
+      const entry = this.templateDB.db[this.prefabName];
       return entry?.slots[this.slotIndex];
     } else {
       return undefined;
@@ -101,7 +101,7 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
   }
 
   renderHeader() {
-    const inputIdBase = `vmDeviceSlot${this.deviceID}Slot${this.slotIndex}Head`;
+    const inputIdBase = `vmDeviceSlot${this.objectID}Slot${this.slotIndex}Head`;
     const slot = this.slots[this.slotIndex];
     const slotImg = this.slotOccupantImg();
     const img = html`<img
@@ -111,7 +111,7 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
     />`;
     const template = this.slotOcccupantTemplate();
 
-    const thisIsActiveIc = this.activeICId === this.deviceID;
+    const thisIsActiveIc = this.activeICId === this.objectID;
 
     const enableQuantityInput = false;
 
@@ -202,7 +202,7 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
   }
 
   _handleSlotOccupantRemove() {
-    window.VM.vm.removeDeviceSlotOccupant(this.deviceID, this.slotIndex);
+    window.VM.vm.removeSlotOccupant(this.objectID, this.slotIndex);
   }
 
   _handleSlotClick(_e: Event) {
@@ -210,7 +210,7 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
       new CustomEvent<SlotModifyEvent>("device-modify-slot", {
         bubbles: true,
         composed: true,
-        detail: { deviceID: this.deviceID, slotIndex: this.slotIndex },
+        detail: { deviceID: this.objectID, slotIndex: this.slotIndex },
       }),
     );
   }
@@ -220,23 +220,23 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
     const slot = this.slots[this.slotIndex];
     const val = clamp(input.valueAsNumber, 1, slot.occupant.max_quantity);
     if (
-      !window.VM.vm.setDeviceSlotField(
-        this.deviceID,
+      !window.VM.vm.setObjectSlotField(
+        this.objectID,
         this.slotIndex,
         "Quantity",
         val,
         true,
       )
     ) {
-      input.value = this.device
+      input.value = this.obj
         .getSlotField(this.slotIndex, "Quantity")
         .toString();
     }
   }
 
   renderFields() {
-    const inputIdBase = `vmDeviceSlot${this.deviceID}Slot${this.slotIndex}Field`;
-    const _fields = this.device.getSlotFields(this.slotIndex);
+    const inputIdBase = `vmDeviceSlot${this.objectID}Slot${this.slotIndex}Field`;
+    const _fields = this.obj.getSlotFields(this.slotIndex);
     const fields = Array.from(_fields.entries());
 
     return html`
@@ -273,9 +273,9 @@ export class VMDeviceSlot extends VMDeviceMixin(VMDeviceDBMixin(BaseElement)) {
     }
     window.VM.get().then((vm) => {
       if (
-        !vm.setDeviceSlotField(this.deviceID, this.slotIndex, field, val, true)
+        !vm.setObjectSlotField(this.objectID, this.slotIndex, field, val, true)
       ) {
-        input.value = this.device
+        input.value = this.obj
           .getSlotField(this.slotIndex, field)
           .toString();
       }

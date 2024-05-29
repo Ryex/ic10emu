@@ -54,8 +54,8 @@ export class VMSlotAddDialog extends VMDeviceDBMixin(BaseElement) {
 
   postDBSetUpdate(): void {
     this._items = new Map(
-      Object.values(this.deviceDB.db)
-        .filter((entry) => this.deviceDB.items.includes(entry.name), this)
+      Object.values(this.templateDB.db)
+        .filter((entry) => this.templateDB.items.includes(entry.name), this)
         .map((entry) => [entry.name, entry]),
     );
     this.setupSearch();
@@ -66,8 +66,8 @@ export class VMSlotAddDialog extends VMDeviceDBMixin(BaseElement) {
   setupSearch() {
     let filteredItemss = Array.from(this._items.values());
     if( typeof this.deviceID !== "undefined" && typeof this.slotIndex !== "undefined") {
-      const device = window.VM.vm.devices.get(this.deviceID);
-      const dbDevice = this.deviceDB.db[device.prefabName]
+      const device = window.VM.vm.objects.get(this.deviceID);
+      const dbDevice = this.templateDB.db[device.prefabName]
       const slot = dbDevice.slots[this.slotIndex]
       const typ = slot.typ;
 
@@ -157,17 +157,17 @@ export class VMSlotAddDialog extends VMDeviceDBMixin(BaseElement) {
   }
 
   _handleClickNone() {
-    window.VM.vm.removeDeviceSlotOccupant(this.deviceID, this.slotIndex);
+    window.VM.vm.removeSlotOccupant(this.deviceID, this.slotIndex);
     this.hide();
   }
 
   _handleClickItem(e: Event) {
     const div = e.currentTarget as HTMLDivElement;
     const key = div.getAttribute("key");
-    const entry = this.deviceDB.db[key];
-    const device = window.VM.vm.devices.get(this.deviceID);
-    const dbDevice = this.deviceDB.db[device.prefabName]
-    const sorting = this.deviceDB.enums["SortingClass"][entry.item.sorting ?? "Default"] ?? 0;
+    const entry = this.templateDB.db[key];
+    const device = window.VM.vm.objects.get(this.deviceID);
+    const dbDevice = this.templateDB.db[device.prefabName]
+    const sorting = this.templateDB.enums["SortingClass"][entry.item.sorting ?? "Default"] ?? 0;
     console.log("using entry", dbDevice);
     const fields: { [key in LogicSlotType]?: LogicField } = Object.fromEntries(
       Object.entries(dbDevice.slotlogic[this.slotIndex] ?? {})
@@ -175,7 +175,7 @@ export class VMSlotAddDialog extends VMDeviceDBMixin(BaseElement) {
           let slt = slt_s as LogicSlotType;
           let value = 0.0
           if (slt === "FilterType") {
-            value = this.deviceDB.enums["GasType"][entry.item.filtertype]
+            value = this.templateDB.enums["GasType"][entry.item.filtertype]
           }
           const field: LogicField = { field_type, value};
           return [slt, field];
@@ -189,7 +189,7 @@ export class VMSlotAddDialog extends VMDeviceDBMixin(BaseElement) {
     const template: SlotOccupantTemplate = {
       fields
     }
-    window.VM.vm.setDeviceSlotOccupant(this.deviceID, this.slotIndex, template);
+    window.VM.vm.setSlotOccupant(this.deviceID, this.slotIndex, template);
     this.hide();
   }
 
@@ -197,7 +197,7 @@ export class VMSlotAddDialog extends VMDeviceDBMixin(BaseElement) {
   @query(".device-search-input") searchInput: SlInput;
 
   render() {
-    const device = window.VM.vm.devices.get(this.deviceID);
+    const device = window.VM.vm.objects.get(this.deviceID);
     const name = device?.name ?? device?.prefabName ?? "";
     const id = this.deviceID ?? 0;
     return html`
