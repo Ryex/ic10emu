@@ -1,26 +1,23 @@
 import type {
   Connection,
-  DeviceTemplate,
+  ObjectTemplate,
   LogicField,
   LogicType,
   Slot,
-  SlotTemplate,
-  ConnectionCableNetwork,
 } from "ic10emu_wasm";
 import { html, css, HTMLTemplateResult } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
 
-import type { DeviceDB, DeviceDBEntry } from "virtual_machine/device_db";
 import { connectionFromDeviceDBConnection } from "./dbutils";
-import { displayNumber, parseNumber } from "utils";
+import { crc32, displayNumber, parseNumber } from "utils";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js";
 import { VMDeviceCard } from "./card";
-import { VMDeviceDBMixin } from "virtual_machine/base_device";
+import { VMTemplateDBMixin } from "virtual_machine/base_device";
 
 @customElement("vm-device-template")
-export class VmDeviceTemplate extends VMDeviceDBMixin(BaseElement) {
+export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
 
   static styles = [
     ...defaultCss,
@@ -56,14 +53,14 @@ export class VmDeviceTemplate extends VMDeviceDBMixin(BaseElement) {
 
   @state() fields: { [key in LogicType]?: LogicField };
   @state() slots: SlotTemplate[];
-  @state() template: DeviceTemplate;
+  @state() template: ObjectTemplate;
   @state() device_id: number | undefined;
   @state() device_name: string | undefined;
   @state() connections: Connection[];
 
   constructor() {
     super();
-    this.templateDB = window.VM.vm.db;
+    this.templateDB = window.VM.vm.templateDB;
   }
 
   private _prefab_name: string;
@@ -78,27 +75,27 @@ export class VmDeviceTemplate extends VMDeviceDBMixin(BaseElement) {
     this.setupState();
   }
 
-  get dbDevice(): DeviceDBEntry {
-    return this.templateDB.db[this.prefab_name];
+  get dbTemplate(): ObjectTemplate {
+    return this.templateDB.get( crc32(this.prefab_name));
   }
 
   setupState() {
 
     this.fields = Object.fromEntries(
-      Object.entries(this.dbDevice?.logic ?? {}).map(([lt, ft]) => {
-        const value = lt === "PrefabHash" ? this.dbDevice.hash : 0.0;
+      Object.entries(this.dbTemplate?.logic ?? {}).map(([lt, ft]) => {
+        const value = lt === "PrefabHash" ? this.dbTemplate.prefab.prefab_hash : 0.0;
         return [lt, { field_type: ft, value } as LogicField];
       }),
     );
 
-    this.slots = (this.dbDevice?.slots ?? []).map(
+    this.slots = (this.dbTemplate?.slots ?? []).map(
       (slot, _index) =>
         ({
           typ: slot.typ,
         }) as SlotTemplate,
     );
 
-    const connections = Object.entries(this.dbDevice?.conn ?? {}).map(
+    const connections = Object.entries(this.dbTemplate?.conn ?? {}).map(
       ([index, conn]) =>
         [index, connectionFromDeviceDBConnection(conn)] as const,
     );
@@ -203,7 +200,7 @@ export class VmDeviceTemplate extends VMDeviceDBMixin(BaseElement) {
   }
 
   render() {
-    const device = this.dbDevice;
+    const device = this.dbTemplate;
     return html`
       <sl-card class="template-card">
         <div class="header h-20 w-96" slot="header">

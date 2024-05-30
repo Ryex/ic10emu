@@ -1,20 +1,20 @@
 import { html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMDeviceDBMixin, VMObjectMixin } from "virtual_machine/base_device";
+import { VMTemplateDBMixin, VMObjectMixin } from "virtual_machine/base_device";
 import { displayNumber, parseNumber } from "utils";
 import type { LogicType } from "ic10emu_wasm";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
 
 @customElement("vm-device-fields")
-export class VMDeviceSlot extends VMObjectMixin(VMDeviceDBMixin(BaseElement)) {
+export class VMDeviceSlot extends VMObjectMixin(VMTemplateDBMixin(BaseElement)) {
   constructor() {
     super();
     this.subscribe("fields");
   }
 
   render() {
-    const fields = Array.from(this.fields.entries());
+    const fields = Array.from(this.logicFields.entries());
     const inputIdBase = `vmDeviceCard${this.objectID}Field`;
     return html`
       ${fields.map(([name, field], _index, _fields) => {
@@ -34,7 +34,7 @@ export class VMDeviceSlot extends VMObjectMixin(VMDeviceDBMixin(BaseElement)) {
     const val = parseNumber(input.value);
     window.VM.get().then((vm) => {
       if (!vm.setObjectField(this.objectID, field, val, true)) {
-        input.value = this.fields.get(field).value.toString();
+        input.value = this.logicFields.get(field).value.toString();
       }
       this.updateDevice();
     });

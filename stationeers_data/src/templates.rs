@@ -293,10 +293,34 @@ pub struct StructureInfo {
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
+pub enum InstructionPartType {
+    Bool8,
+    Byte8,
+    Int32,
+    UInt32,
+    Short16,
+    UShort16,
+    Unused(u32),
+    Unknown(String),
+}
+
+#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
+pub struct InstructionPart {
+    pub range: (u32, u32),
+    pub name: String,
+    pub typ: InstructionPartType,
+}
+
+#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct Instruction {
     pub description: String,
+    pub description_stripped: String,
     pub typ: String,
     pub value: i64,
+    pub valid: (u32, Option<u32>),
+    pub parts: Vec<InstructionPart>,
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]

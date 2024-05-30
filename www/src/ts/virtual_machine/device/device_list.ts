@@ -151,11 +151,11 @@ export class VMDeviceList extends BaseElement {
       for (const device_id of this.devices) {
         const device = window.VM.vm.objects.get(device_id);
         if (device) {
-          if (typeof device.name !== "undefined") {
-            datapoints.push([device.name, device.id]);
+          if (typeof device.obj_info.name !== "undefined") {
+            datapoints.push([device.obj_info.name, device.obj_info.id]);
           }
-          if (typeof device.prefabName !== "undefined") {
-            datapoints.push([device.prefabName, device.id]);
+          if (typeof device.obj_info.prefab !== "undefined") {
+            datapoints.push([device.obj_info.prefab, device.obj_info.id]);
           }
         }
       }

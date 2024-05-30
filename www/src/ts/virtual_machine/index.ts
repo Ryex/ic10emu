@@ -116,8 +116,15 @@ class VirtualMachine extends (EventTarget as TypedEventTarget<VirtualMachinEvent
   async updateObjects() {
     let updateFlag = false;
     const removedObjects = [];
-    const objectIds = await this.ic10vm.objects;
-    const frozenObjects = await this.ic10vm.freezeObjects(objectIds);
+    let objectIds;
+    let frozenObjects;
+    try {
+      objectIds = await this.ic10vm.objects;
+      frozenObjects = await this.ic10vm.freezeObjects(objectIds);
+    } catch (e) {
+      this.handleVmError(e);
+      return;
+    }
     const updatedObjects = [];
 
     for (const [index, id] of objectIds.entries()) {
@@ -270,7 +277,14 @@ class VirtualMachine extends (EventTarget as TypedEventTarget<VirtualMachinEvent
     if (save) this.app.session.save();
   }
 
-  updateDevice(id: number, save: boolean = true) {
+  async updateDevice(id: number, save: boolean = true) {
+    let frozen;
+    try {
+      frozen = await this.ic10vm.freezeObject(id);
+      this._objects.set(id, frozen);
+    } catch (e) {
+      this.handleVmError(e);
+    }
     const device = this._objects.get(id);
     this.dispatchEvent(
       new CustomEvent("vm-device-modified", { detail: device.obj_info.id }),
@@ -528,7 +542,7 @@ class VirtualMachine extends (EventTarget as TypedEventTarget<VirtualMachinEvent
     }
   }
 
-  getPrograms() : [number, string][] {
+  getPrograms(): [number, string][] {
     const programs: [number, string][] = Array.from(
       this._circuitHolders.entries(),
     ).map(([id, ic]) => [id, ic.obj_info.source_code]);

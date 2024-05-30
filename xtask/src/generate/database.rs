@@ -15,14 +15,15 @@ use crate::{
 };
 
 use stationeers_data::templates::{
-    ConnectionInfo, ConsumerInfo, DeviceInfo, FabricatorInfo, Instruction, InternalAtmoInfo,
-    ItemCircuitHolderTemplate, ItemConsumerTemplate, ItemInfo, ItemLogicMemoryTemplate,
-    ItemLogicTemplate, ItemSlotsTemplate, ItemSuitCircuitHolderTemplate, ItemSuitLogicTemplate,
-    ItemSuitTemplate, ItemTemplate, LogicInfo, MemoryInfo, ObjectTemplate, PrefabInfo, Recipe,
-    RecipeGasMix, RecipeRange, SlotInfo, StructureCircuitHolderTemplate, StructureInfo,
-    StructureLogicDeviceConsumerMemoryTemplate, StructureLogicDeviceConsumerTemplate,
-    StructureLogicDeviceMemoryTemplate, StructureLogicDeviceTemplate, StructureLogicTemplate,
-    StructureSlotsTemplate, StructureTemplate, SuitInfo, ThermalInfo,
+    ConnectionInfo, ConsumerInfo, DeviceInfo, FabricatorInfo, Instruction, InstructionPart,
+    InstructionPartType, InternalAtmoInfo, ItemCircuitHolderTemplate, ItemConsumerTemplate,
+    ItemInfo, ItemLogicMemoryTemplate, ItemLogicTemplate, ItemSlotsTemplate,
+    ItemSuitCircuitHolderTemplate, ItemSuitLogicTemplate, ItemSuitTemplate, ItemTemplate,
+    LogicInfo, MemoryInfo, ObjectTemplate, PrefabInfo, Recipe, RecipeGasMix, RecipeRange, SlotInfo,
+    StructureCircuitHolderTemplate, StructureInfo, StructureLogicDeviceConsumerMemoryTemplate,
+    StructureLogicDeviceConsumerTemplate, StructureLogicDeviceMemoryTemplate,
+    StructureLogicDeviceTemplate, StructureLogicTemplate, StructureSlotsTemplate,
+    StructureTemplate, SuitInfo, ThermalInfo,
 };
 
 #[allow(clippy::too_many_lines)]
@@ -202,9 +203,9 @@ pub fn generate_database(
         // remove preceding comma if it exists, leave trailing comma intact if it exists, capture
         // repeating groups of null fields
         //
-        // https://regex101.com/r/V2tXIa/1
+        // https://regex101.com/r/WFpjHV/1
         //
-        let null_matcher = regex::Regex::new(r#"(?:(?:,\n)\s*"\w+":\snull)+(,?)"#).unwrap();
+        let null_matcher = regex::Regex::new(r#"(?:(?:,?\n)\s*"\w+":\snull)+(,?)"#).unwrap();
         let json = null_matcher.replace_all(&json, "$1");
         write!(&mut database_file, "{json}")?;
         database_file.flush()?;
@@ -1017,10 +1018,66 @@ impl From<&stationpedia::Structure> for StructureInfo {
 
 impl From<&stationpedia::Instruction> for Instruction {
     fn from(value: &stationpedia::Instruction) -> Self {
+        let color_re = regex::Regex::new(r"<color=.*?>|</color>").unwrap();
+        let description_stripped = color_re.replace_all(&value.description, "").to_string();
+        // https://regex101.com/r/GVNgq3/1
+        let valid_range_re =
+            regex::Regex::new(r"VALID ONLY AT ADDRESS(?:ES)? (?<start>\d+) (?:TO (?<end>\d+))?")
+                .unwrap();
+        // https://regex101.com/r/jwbISO/1
+        let part_re =
+            regex::Regex::new(r"[ \|]+(?<start>\d+)-(?<end>\d+)[ \|]+(?<name>[A-Z_]+)[ \|]+(?:(?<type>[A-Z]+_[0-9]+)|(?<unused_len>\d+))")
+                .unwrap();
+        let valid = {
+            if let Some(caps) = valid_range_re.captures(&description_stripped) {
+                (
+                    caps.name("start").unwrap().as_str().parse().unwrap(),
+                    caps.name("end").map(|cap| cap.as_str().parse().unwrap()),
+                )
+            } else {
+                (0, None)
+            }
+        };
+        let parts = {
+            part_re
+                .captures_iter(&description_stripped)
+                .map(|caps| {
+                    let typ = caps
+                        .name("type")
+                        .map(|cap| match cap.as_str() {
+                            "BOOL_8" => InstructionPartType::Bool8,
+                            "BYTE_8" => InstructionPartType::Byte8,
+                            "INT_32" => InstructionPartType::Int32,
+                            "UINT_32" => InstructionPartType::UInt32,
+                            "SHORT_16" => InstructionPartType::Short16,
+                            "USHORT_16" => InstructionPartType::UShort16,
+                            s => InstructionPartType::Unknown(s.to_string()),
+                        })
+                        .unwrap_or_else(|| {
+                            let len = caps
+                                .name("unused_len")
+                                .and_then(|cap| cap.as_str().parse().ok())
+                                .unwrap_or(0);
+                            InstructionPartType::Unused(len)
+                        });
+                    InstructionPart {
+                        range: (
+                            caps.name("start").unwrap().as_str().parse().unwrap(),
+                            caps.name("end").unwrap().as_str().parse().unwrap(),
+                        ),
+                        name: caps.name("name").unwrap().as_str().to_string(),
+                        typ,
+                    }
+                })
+                .collect()
+        };
         Instruction {
             description: value.description.clone(),
+            description_stripped,
             typ: value.type_.clone(),
             value: value.value,
+            valid,
+            parts,
         }
     }
 }

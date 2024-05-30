@@ -20460,31 +20460,353 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     vec![
                         ("DeviceSetLock".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>LOCK_STATE</color>                   | <color=orange>BOOL_8</color>     |\r\n| <color=grey>16-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>48</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 6i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | LOCK_STATE                   | BOOL_8     |\r\n| 16-63    | UNUSED                       | 48         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 6i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "LOCK_STATE".into(), typ :
+                        InstructionPartType::Bool8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(48u32) }] .into_iter().collect() }),
                         ("EjectAllReagents".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 8i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 8i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(56u32) }] .into_iter().collect() }),
                         ("EjectReagent".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 7i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | REAGENT_HASH                 | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 7i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 39u32)) }, name : "REAGENT_HASH".into(), typ :
+                        InstructionPartType::Int32 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((40u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(24u32) }] .into_iter().collect() }),
                         ("ExecuteRecipe".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY</color>                     | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 2i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY                     | BYTE_8     |\r\n| 16-47    | PREFAB_HASH                  | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 2i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "QUANTITY".into(), typ :
+                        InstructionPartType::Byte8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 47u32))
+                        }, name : "PREFAB_HASH".into(), typ : InstructionPartType::Int32
+                        }, InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((48u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(16u32) }] .into_iter().collect() }),
                         ("JumpIfNextInvalid".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 4i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 4i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "STACK_ADDRESS".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("JumpToAddress".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 5i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 5i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "STACK_ADDRESS".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("MissingRecipeReagent".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 54 TO 62</color>                     |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY_CEIL</color>                | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 9i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 54 TO 62                     |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY_CEIL                | BYTE_8     |\r\n| 16-47    | REAGENT_HASH                 | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 9i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((54u32,
+                        Some(62u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "QUANTITY_CEIL".into(), typ :
+                        InstructionPartType::Byte8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 47u32))
+                        }, name : "REAGENT_HASH".into(), typ : InstructionPartType::Int32
+                        }, InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((48u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(16u32) }] .into_iter().collect() }),
                         ("StackPointer".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESS 63</color>                             |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>INDEX</color>                        | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 1i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESS 63                             |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | INDEX                        | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 1i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((63u32, None)) },
+                        parts : vec![InstructionPart { range : { trait FromTuple < T >:
+                        Sized { fn from_tuple(tuple : T) -> Self; } impl < T > FromTuple
+                        < (T, T,) > for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,))
+                        -> Self { [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0,
+                        T1,) > for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,))
+                        -> Self { tuple } } #[inline] fn convert < T0, T1, Out :
+                        FromTuple < (T0, T1,) >> (tuple : (T0, T1,)) -> Out {
+                        Out::from_tuple(tuple) } convert((0u32, 7u32)) }, name :
+                        "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "INDEX".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("WaitUntilNextValid".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 3i64 })
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 3i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(56u32) }] .into_iter().collect() })
                     ]
                         .into_iter()
                         .collect(),
@@ -21692,31 +22014,353 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     vec![
                         ("DeviceSetLock".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>LOCK_STATE</color>                   | <color=orange>BOOL_8</color>     |\r\n| <color=grey>16-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>48</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 6i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | LOCK_STATE                   | BOOL_8     |\r\n| 16-63    | UNUSED                       | 48         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 6i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "LOCK_STATE".into(), typ :
+                        InstructionPartType::Bool8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(48u32) }] .into_iter().collect() }),
                         ("EjectAllReagents".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 8i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 8i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(56u32) }] .into_iter().collect() }),
                         ("EjectReagent".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 7i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | REAGENT_HASH                 | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 7i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 39u32)) }, name : "REAGENT_HASH".into(), typ :
+                        InstructionPartType::Int32 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((40u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(24u32) }] .into_iter().collect() }),
                         ("ExecuteRecipe".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY</color>                     | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 2i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY                     | BYTE_8     |\r\n| 16-47    | PREFAB_HASH                  | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 2i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "QUANTITY".into(), typ :
+                        InstructionPartType::Byte8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 47u32))
+                        }, name : "PREFAB_HASH".into(), typ : InstructionPartType::Int32
+                        }, InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((48u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(16u32) }] .into_iter().collect() }),
                         ("JumpIfNextInvalid".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 4i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 4i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "STACK_ADDRESS".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("JumpToAddress".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 5i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 5i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "STACK_ADDRESS".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("MissingRecipeReagent".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 54 TO 62</color>                     |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY_CEIL</color>                | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 9i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 54 TO 62                     |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY_CEIL                | BYTE_8     |\r\n| 16-47    | REAGENT_HASH                 | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 9i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((54u32,
+                        Some(62u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "QUANTITY_CEIL".into(), typ :
+                        InstructionPartType::Byte8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 47u32))
+                        }, name : "REAGENT_HASH".into(), typ : InstructionPartType::Int32
+                        }, InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((48u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(16u32) }] .into_iter().collect() }),
                         ("StackPointer".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESS 63</color>                             |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>INDEX</color>                        | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 1i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESS 63                             |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | INDEX                        | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 1i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((63u32, None)) },
+                        parts : vec![InstructionPart { range : { trait FromTuple < T >:
+                        Sized { fn from_tuple(tuple : T) -> Self; } impl < T > FromTuple
+                        < (T, T,) > for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,))
+                        -> Self { [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0,
+                        T1,) > for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,))
+                        -> Self { tuple } } #[inline] fn convert < T0, T1, Out :
+                        FromTuple < (T0, T1,) >> (tuple : (T0, T1,)) -> Out {
+                        Out::from_tuple(tuple) } convert((0u32, 7u32)) }, name :
+                        "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "INDEX".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("WaitUntilNextValid".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 3i64 })
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 3i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(56u32) }] .into_iter().collect() })
                     ]
                         .into_iter()
                         .collect(),
@@ -21952,31 +22596,353 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     vec![
                         ("DeviceSetLock".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>LOCK_STATE</color>                   | <color=orange>BOOL_8</color>     |\r\n| <color=grey>16-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>48</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 6i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | LOCK_STATE                   | BOOL_8     |\r\n| 16-63    | UNUSED                       | 48         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 6i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "LOCK_STATE".into(), typ :
+                        InstructionPartType::Bool8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(48u32) }] .into_iter().collect() }),
                         ("EjectAllReagents".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 8i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 8i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(56u32) }] .into_iter().collect() }),
                         ("EjectReagent".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 7i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | REAGENT_HASH                 | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 7i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 39u32)) }, name : "REAGENT_HASH".into(), typ :
+                        InstructionPartType::Int32 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((40u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(24u32) }] .into_iter().collect() }),
                         ("ExecuteRecipe".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY</color>                     | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 2i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY                     | BYTE_8     |\r\n| 16-47    | PREFAB_HASH                  | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 2i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "QUANTITY".into(), typ :
+                        InstructionPartType::Byte8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 47u32))
+                        }, name : "PREFAB_HASH".into(), typ : InstructionPartType::Int32
+                        }, InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((48u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(16u32) }] .into_iter().collect() }),
                         ("JumpIfNextInvalid".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 4i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 4i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "STACK_ADDRESS".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("JumpToAddress".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 5i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 5i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "STACK_ADDRESS".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("MissingRecipeReagent".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 54 TO 62</color>                     |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY_CEIL</color>                | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 9i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 54 TO 62                     |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY_CEIL                | BYTE_8     |\r\n| 16-47    | REAGENT_HASH                 | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 9i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((54u32,
+                        Some(62u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "QUANTITY_CEIL".into(), typ :
+                        InstructionPartType::Byte8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 47u32))
+                        }, name : "REAGENT_HASH".into(), typ : InstructionPartType::Int32
+                        }, InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((48u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(16u32) }] .into_iter().collect() }),
                         ("StackPointer".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESS 63</color>                             |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>INDEX</color>                        | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 1i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESS 63                             |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | INDEX                        | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 1i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((63u32, None)) },
+                        parts : vec![InstructionPart { range : { trait FromTuple < T >:
+                        Sized { fn from_tuple(tuple : T) -> Self; } impl < T > FromTuple
+                        < (T, T,) > for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,))
+                        -> Self { [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0,
+                        T1,) > for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,))
+                        -> Self { tuple } } #[inline] fn convert < T0, T1, Out :
+                        FromTuple < (T0, T1,) >> (tuple : (T0, T1,)) -> Out {
+                        Out::from_tuple(tuple) } convert((0u32, 7u32)) }, name :
+                        "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "INDEX".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("WaitUntilNextValid".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 3i64 })
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 3i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(56u32) }] .into_iter().collect() })
                     ]
                         .into_iter()
                         .collect(),
@@ -29510,31 +30476,353 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     vec![
                         ("DeviceSetLock".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>LOCK_STATE</color>                   | <color=orange>BOOL_8</color>     |\r\n| <color=grey>16-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>48</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 6i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | LOCK_STATE                   | BOOL_8     |\r\n| 16-63    | UNUSED                       | 48         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 6i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "LOCK_STATE".into(), typ :
+                        InstructionPartType::Bool8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(48u32) }] .into_iter().collect() }),
                         ("EjectAllReagents".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 8i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 8i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(56u32) }] .into_iter().collect() }),
                         ("EjectReagent".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 7i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | REAGENT_HASH                 | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 7i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 39u32)) }, name : "REAGENT_HASH".into(), typ :
+                        InstructionPartType::Int32 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((40u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(24u32) }] .into_iter().collect() }),
                         ("ExecuteRecipe".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY</color>                     | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 2i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY                     | BYTE_8     |\r\n| 16-47    | PREFAB_HASH                  | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 2i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "QUANTITY".into(), typ :
+                        InstructionPartType::Byte8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 47u32))
+                        }, name : "PREFAB_HASH".into(), typ : InstructionPartType::Int32
+                        }, InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((48u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(16u32) }] .into_iter().collect() }),
                         ("JumpIfNextInvalid".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 4i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 4i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "STACK_ADDRESS".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("JumpToAddress".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 5i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 5i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "STACK_ADDRESS".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("MissingRecipeReagent".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 54 TO 62</color>                     |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY_CEIL</color>                | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 9i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 54 TO 62                     |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY_CEIL                | BYTE_8     |\r\n| 16-47    | REAGENT_HASH                 | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 9i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((54u32,
+                        Some(62u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "QUANTITY_CEIL".into(), typ :
+                        InstructionPartType::Byte8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 47u32))
+                        }, name : "REAGENT_HASH".into(), typ : InstructionPartType::Int32
+                        }, InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((48u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(16u32) }] .into_iter().collect() }),
                         ("StackPointer".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESS 63</color>                             |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>INDEX</color>                        | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 1i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESS 63                             |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | INDEX                        | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 1i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((63u32, None)) },
+                        parts : vec![InstructionPart { range : { trait FromTuple < T >:
+                        Sized { fn from_tuple(tuple : T) -> Self; } impl < T > FromTuple
+                        < (T, T,) > for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,))
+                        -> Self { [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0,
+                        T1,) > for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,))
+                        -> Self { tuple } } #[inline] fn convert < T0, T1, Out :
+                        FromTuple < (T0, T1,) >> (tuple : (T0, T1,)) -> Out {
+                        Out::from_tuple(tuple) } convert((0u32, 7u32)) }, name :
+                        "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "INDEX".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("WaitUntilNextValid".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 3i64 })
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 3i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(56u32) }] .into_iter().collect() })
                     ]
                         .into_iter()
                         .collect(),
@@ -32726,31 +34014,353 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     vec![
                         ("DeviceSetLock".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>LOCK_STATE</color>                   | <color=orange>BOOL_8</color>     |\r\n| <color=grey>16-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>48</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 6i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | LOCK_STATE                   | BOOL_8     |\r\n| 16-63    | UNUSED                       | 48         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 6i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "LOCK_STATE".into(), typ :
+                        InstructionPartType::Bool8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(48u32) }] .into_iter().collect() }),
                         ("EjectAllReagents".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 8i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 8i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(56u32) }] .into_iter().collect() }),
                         ("EjectReagent".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 7i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | REAGENT_HASH                 | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 7i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 39u32)) }, name : "REAGENT_HASH".into(), typ :
+                        InstructionPartType::Int32 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((40u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(24u32) }] .into_iter().collect() }),
                         ("ExecuteRecipe".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY</color>                     | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 2i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY                     | BYTE_8     |\r\n| 16-47    | PREFAB_HASH                  | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 2i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "QUANTITY".into(), typ :
+                        InstructionPartType::Byte8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 47u32))
+                        }, name : "PREFAB_HASH".into(), typ : InstructionPartType::Int32
+                        }, InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((48u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(16u32) }] .into_iter().collect() }),
                         ("JumpIfNextInvalid".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 4i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 4i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "STACK_ADDRESS".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("JumpToAddress".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 5i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 5i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "STACK_ADDRESS".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("MissingRecipeReagent".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 54 TO 62</color>                     |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY_CEIL</color>                | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 9i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 54 TO 62                     |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY_CEIL                | BYTE_8     |\r\n| 16-47    | REAGENT_HASH                 | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 9i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((54u32,
+                        Some(62u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "QUANTITY_CEIL".into(), typ :
+                        InstructionPartType::Byte8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 47u32))
+                        }, name : "REAGENT_HASH".into(), typ : InstructionPartType::Int32
+                        }, InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((48u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(16u32) }] .into_iter().collect() }),
                         ("StackPointer".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESS 63</color>                             |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>INDEX</color>                        | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 1i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESS 63                             |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | INDEX                        | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 1i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((63u32, None)) },
+                        parts : vec![InstructionPart { range : { trait FromTuple < T >:
+                        Sized { fn from_tuple(tuple : T) -> Self; } impl < T > FromTuple
+                        < (T, T,) > for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,))
+                        -> Self { [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0,
+                        T1,) > for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,))
+                        -> Self { tuple } } #[inline] fn convert < T0, T1, Out :
+                        FromTuple < (T0, T1,) >> (tuple : (T0, T1,)) -> Out {
+                        Out::from_tuple(tuple) } convert((0u32, 7u32)) }, name :
+                        "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "INDEX".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("WaitUntilNextValid".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 3i64 })
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 3i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(56u32) }] .into_iter().collect() })
                     ]
                         .into_iter()
                         .collect(),
@@ -36849,22 +38459,263 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     vec![
                         ("FilterPrefabHashEquals".into(), Instruction { description :
                         "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>"
-                        .into(), typ : "SorterInstruction".into(), value : 1i64 }),
+                        .into(), description_stripped :
+                        "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | PREFAB_HASH                  | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |"
+                        .into(), typ : "SorterInstruction".into(), value : 1i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, None)) },
+                        parts : vec![InstructionPart { range : { trait FromTuple < T >:
+                        Sized { fn from_tuple(tuple : T) -> Self; } impl < T > FromTuple
+                        < (T, T,) > for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,))
+                        -> Self { [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0,
+                        T1,) > for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,))
+                        -> Self { tuple } } #[inline] fn convert < T0, T1, Out :
+                        FromTuple < (T0, T1,) >> (tuple : (T0, T1,)) -> Out {
+                        Out::from_tuple(tuple) } convert((0u32, 7u32)) }, name :
+                        "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 39u32)) }, name : "PREFAB_HASH".into(), typ :
+                        InstructionPartType::Int32 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((40u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(24u32) }] .into_iter().collect() }),
                         ("FilterPrefabHashNotEquals".into(), Instruction { description :
                         "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>"
-                        .into(), typ : "SorterInstruction".into(), value : 2i64 }),
+                        .into(), description_stripped :
+                        "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | PREFAB_HASH                  | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |"
+                        .into(), typ : "SorterInstruction".into(), value : 2i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, None)) },
+                        parts : vec![InstructionPart { range : { trait FromTuple < T >:
+                        Sized { fn from_tuple(tuple : T) -> Self; } impl < T > FromTuple
+                        < (T, T,) > for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,))
+                        -> Self { [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0,
+                        T1,) > for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,))
+                        -> Self { tuple } } #[inline] fn convert < T0, T1, Out :
+                        FromTuple < (T0, T1,) >> (tuple : (T0, T1,)) -> Out {
+                        Out::from_tuple(tuple) } convert((0u32, 7u32)) }, name :
+                        "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 39u32)) }, name : "PREFAB_HASH".into(), typ :
+                        InstructionPartType::Int32 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((40u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(24u32) }] .into_iter().collect() }),
                         ("FilterQuantityCompare".into(), Instruction { description :
                         "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>CONDITION_OPERATION</color>          | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-31 </color>   | <color=yellow>QUANTITY</color>                     | <color=orange>USHORT_16</color>  |\r\n| <color=grey>32-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>32</color>         |</color>"
-                        .into(), typ : "SorterInstruction".into(), value : 5i64 }),
+                        .into(), description_stripped :
+                        "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | CONDITION_OPERATION          | BYTE_8     |\r\n| 16-31    | QUANTITY                     | USHORT_16  |\r\n| 32-63    | UNUSED                       | 32         |"
+                        .into(), typ : "SorterInstruction".into(), value : 5i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, None)) },
+                        parts : vec![InstructionPart { range : { trait FromTuple < T >:
+                        Sized { fn from_tuple(tuple : T) -> Self; } impl < T > FromTuple
+                        < (T, T,) > for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,))
+                        -> Self { [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0,
+                        T1,) > for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,))
+                        -> Self { tuple } } #[inline] fn convert < T0, T1, Out :
+                        FromTuple < (T0, T1,) >> (tuple : (T0, T1,)) -> Out {
+                        Out::from_tuple(tuple) } convert((0u32, 7u32)) }, name :
+                        "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "CONDITION_OPERATION".into(),
+                        typ : InstructionPartType::Byte8 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 31u32))
+                        }, name : "QUANTITY".into(), typ : InstructionPartType::UShort16
+                        }, InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((32u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(32u32) }] .into_iter().collect() }),
                         ("FilterSlotTypeCompare".into(), Instruction { description :
                         "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>CONDITION_OPERATION</color>          | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-31 </color>   | <color=yellow>SLOT_TYPE</color>                    | <color=orange>USHORT_16</color>  |\r\n| <color=grey>32-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>32</color>         |</color>"
-                        .into(), typ : "SorterInstruction".into(), value : 4i64 }),
+                        .into(), description_stripped :
+                        "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | CONDITION_OPERATION          | BYTE_8     |\r\n| 16-31    | SLOT_TYPE                    | USHORT_16  |\r\n| 32-63    | UNUSED                       | 32         |"
+                        .into(), typ : "SorterInstruction".into(), value : 4i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, None)) },
+                        parts : vec![InstructionPart { range : { trait FromTuple < T >:
+                        Sized { fn from_tuple(tuple : T) -> Self; } impl < T > FromTuple
+                        < (T, T,) > for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,))
+                        -> Self { [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0,
+                        T1,) > for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,))
+                        -> Self { tuple } } #[inline] fn convert < T0, T1, Out :
+                        FromTuple < (T0, T1,) >> (tuple : (T0, T1,)) -> Out {
+                        Out::from_tuple(tuple) } convert((0u32, 7u32)) }, name :
+                        "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "CONDITION_OPERATION".into(),
+                        typ : InstructionPartType::Byte8 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 31u32))
+                        }, name : "SLOT_TYPE".into(), typ : InstructionPartType::UShort16
+                        }, InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((32u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(32u32) }] .into_iter().collect() }),
                         ("FilterSortingClassCompare".into(), Instruction { description :
                         "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>CONDITION_OPERATION</color>          | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-31 </color>   | <color=yellow>SORTING_CLASS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>32-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>32</color>         |</color>"
-                        .into(), typ : "SorterInstruction".into(), value : 3i64 }),
+                        .into(), description_stripped :
+                        "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | CONDITION_OPERATION          | BYTE_8     |\r\n| 16-31    | SORTING_CLASS                | USHORT_16  |\r\n| 32-63    | UNUSED                       | 32         |"
+                        .into(), typ : "SorterInstruction".into(), value : 3i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, None)) },
+                        parts : vec![InstructionPart { range : { trait FromTuple < T >:
+                        Sized { fn from_tuple(tuple : T) -> Self; } impl < T > FromTuple
+                        < (T, T,) > for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,))
+                        -> Self { [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0,
+                        T1,) > for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,))
+                        -> Self { tuple } } #[inline] fn convert < T0, T1, Out :
+                        FromTuple < (T0, T1,) >> (tuple : (T0, T1,)) -> Out {
+                        Out::from_tuple(tuple) } convert((0u32, 7u32)) }, name :
+                        "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "CONDITION_OPERATION".into(),
+                        typ : InstructionPartType::Byte8 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 31u32))
+                        }, name : "SORTING_CLASS".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((32u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(32u32) }] .into_iter().collect() }),
                         ("LimitNextExecutionByCount".into(), Instruction { description :
                         "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>COUNT</color>                        | <color=orange>UINT_32</color>    |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>"
-                        .into(), typ : "SorterInstruction".into(), value : 6i64 })
+                        .into(), description_stripped :
+                        "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | COUNT                        | UINT_32    |\r\n| 40-63    | UNUSED                       | 24         |"
+                        .into(), typ : "SorterInstruction".into(), value : 6i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, None)) },
+                        parts : vec![InstructionPart { range : { trait FromTuple < T >:
+                        Sized { fn from_tuple(tuple : T) -> Self; } impl < T > FromTuple
+                        < (T, T,) > for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,))
+                        -> Self { [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0,
+                        T1,) > for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,))
+                        -> Self { tuple } } #[inline] fn convert < T0, T1, Out :
+                        FromTuple < (T0, T1,) >> (tuple : (T0, T1,)) -> Out {
+                        Out::from_tuple(tuple) } convert((0u32, 7u32)) }, name :
+                        "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 39u32)) }, name : "COUNT".into(), typ :
+                        InstructionPartType::UInt32 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((40u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(24u32) }] .into_iter().collect() })
                     ]
                         .into_iter()
                         .collect(),
@@ -41203,7 +43054,61 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     vec![
                         ("BodyOrientation".into(), Instruction { description :
                         "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>CELESTIAL_INDEX</color>              | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-31 </color>   | <color=yellow>HORIZONTAL_DECI_DEGREES</color>      | <color=orange>SHORT_16</color>   |\r\n| <color=red>32-47 </color>   | <color=yellow>VERTICAL_DECI_DEGREES</color>        | <color=orange>SHORT_16</color>   |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>"
-                        .into(), typ : "CelestialTracking".into(), value : 1i64 })
+                        .into(), description_stripped :
+                        "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | CELESTIAL_INDEX              | BYTE_8     |\r\n| 16-31    | HORIZONTAL_DECI_DEGREES      | SHORT_16   |\r\n| 32-47    | VERTICAL_DECI_DEGREES        | SHORT_16   |\r\n| 48-63    | UNUSED                       | 16         |"
+                        .into(), typ : "CelestialTracking".into(), value : 1i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, None)) },
+                        parts : vec![InstructionPart { range : { trait FromTuple < T >:
+                        Sized { fn from_tuple(tuple : T) -> Self; } impl < T > FromTuple
+                        < (T, T,) > for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,))
+                        -> Self { [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0,
+                        T1,) > for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,))
+                        -> Self { tuple } } #[inline] fn convert < T0, T1, Out :
+                        FromTuple < (T0, T1,) >> (tuple : (T0, T1,)) -> Out {
+                        Out::from_tuple(tuple) } convert((0u32, 7u32)) }, name :
+                        "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "CELESTIAL_INDEX".into(), typ
+                        : InstructionPartType::Byte8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 31u32))
+                        }, name : "HORIZONTAL_DECI_DEGREES".into(), typ :
+                        InstructionPartType::Short16 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((32u32, 47u32))
+                        }, name : "VERTICAL_DECI_DEGREES".into(), typ :
+                        InstructionPartType::Short16 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((48u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(16u32) }] .into_iter().collect() })
                     ]
                         .into_iter()
                         .collect(),
@@ -41704,31 +43609,353 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     vec![
                         ("DeviceSetLock".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>LOCK_STATE</color>                   | <color=orange>BOOL_8</color>     |\r\n| <color=grey>16-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>48</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 6i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | LOCK_STATE                   | BOOL_8     |\r\n| 16-63    | UNUSED                       | 48         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 6i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "LOCK_STATE".into(), typ :
+                        InstructionPartType::Bool8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(48u32) }] .into_iter().collect() }),
                         ("EjectAllReagents".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 8i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 8i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(56u32) }] .into_iter().collect() }),
                         ("EjectReagent".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 7i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | REAGENT_HASH                 | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 7i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 39u32)) }, name : "REAGENT_HASH".into(), typ :
+                        InstructionPartType::Int32 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((40u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(24u32) }] .into_iter().collect() }),
                         ("ExecuteRecipe".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY</color>                     | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 2i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY                     | BYTE_8     |\r\n| 16-47    | PREFAB_HASH                  | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 2i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "QUANTITY".into(), typ :
+                        InstructionPartType::Byte8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 47u32))
+                        }, name : "PREFAB_HASH".into(), typ : InstructionPartType::Int32
+                        }, InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((48u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(16u32) }] .into_iter().collect() }),
                         ("JumpIfNextInvalid".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 4i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 4i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "STACK_ADDRESS".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("JumpToAddress".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 5i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 5i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "STACK_ADDRESS".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("MissingRecipeReagent".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 54 TO 62</color>                     |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY_CEIL</color>                | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 9i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 54 TO 62                     |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY_CEIL                | BYTE_8     |\r\n| 16-47    | REAGENT_HASH                 | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 9i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((54u32,
+                        Some(62u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "QUANTITY_CEIL".into(), typ :
+                        InstructionPartType::Byte8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 47u32))
+                        }, name : "REAGENT_HASH".into(), typ : InstructionPartType::Int32
+                        }, InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((48u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(16u32) }] .into_iter().collect() }),
                         ("StackPointer".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESS 63</color>                             |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>INDEX</color>                        | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 1i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESS 63                             |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | INDEX                        | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 1i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((63u32, None)) },
+                        parts : vec![InstructionPart { range : { trait FromTuple < T >:
+                        Sized { fn from_tuple(tuple : T) -> Self; } impl < T > FromTuple
+                        < (T, T,) > for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,))
+                        -> Self { [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0,
+                        T1,) > for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,))
+                        -> Self { tuple } } #[inline] fn convert < T0, T1, Out :
+                        FromTuple < (T0, T1,) >> (tuple : (T0, T1,)) -> Out {
+                        Out::from_tuple(tuple) } convert((0u32, 7u32)) }, name :
+                        "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "INDEX".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("WaitUntilNextValid".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 3i64 })
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 3i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(56u32) }] .into_iter().collect() })
                     ]
                         .into_iter()
                         .collect(),
@@ -42470,31 +44697,353 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     vec![
                         ("DeviceSetLock".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>LOCK_STATE</color>                   | <color=orange>BOOL_8</color>     |\r\n| <color=grey>16-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>48</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 6i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | LOCK_STATE                   | BOOL_8     |\r\n| 16-63    | UNUSED                       | 48         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 6i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "LOCK_STATE".into(), typ :
+                        InstructionPartType::Bool8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(48u32) }] .into_iter().collect() }),
                         ("EjectAllReagents".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 8i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 8i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(56u32) }] .into_iter().collect() }),
                         ("EjectReagent".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 7i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | REAGENT_HASH                 | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 7i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 39u32)) }, name : "REAGENT_HASH".into(), typ :
+                        InstructionPartType::Int32 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((40u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(24u32) }] .into_iter().collect() }),
                         ("ExecuteRecipe".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY</color>                     | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 2i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY                     | BYTE_8     |\r\n| 16-47    | PREFAB_HASH                  | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 2i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "QUANTITY".into(), typ :
+                        InstructionPartType::Byte8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 47u32))
+                        }, name : "PREFAB_HASH".into(), typ : InstructionPartType::Int32
+                        }, InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((48u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(16u32) }] .into_iter().collect() }),
                         ("JumpIfNextInvalid".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 4i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 4i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "STACK_ADDRESS".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("JumpToAddress".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 5i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 5i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "STACK_ADDRESS".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("MissingRecipeReagent".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 54 TO 62</color>                     |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY_CEIL</color>                | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 9i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 54 TO 62                     |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY_CEIL                | BYTE_8     |\r\n| 16-47    | REAGENT_HASH                 | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 9i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((54u32,
+                        Some(62u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "QUANTITY_CEIL".into(), typ :
+                        InstructionPartType::Byte8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 47u32))
+                        }, name : "REAGENT_HASH".into(), typ : InstructionPartType::Int32
+                        }, InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((48u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(16u32) }] .into_iter().collect() }),
                         ("StackPointer".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESS 63</color>                             |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>INDEX</color>                        | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 1i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESS 63                             |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | INDEX                        | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 1i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((63u32, None)) },
+                        parts : vec![InstructionPart { range : { trait FromTuple < T >:
+                        Sized { fn from_tuple(tuple : T) -> Self; } impl < T > FromTuple
+                        < (T, T,) > for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,))
+                        -> Self { [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0,
+                        T1,) > for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,))
+                        -> Self { tuple } } #[inline] fn convert < T0, T1, Out :
+                        FromTuple < (T0, T1,) >> (tuple : (T0, T1,)) -> Out {
+                        Out::from_tuple(tuple) } convert((0u32, 7u32)) }, name :
+                        "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "INDEX".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("WaitUntilNextValid".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 3i64 })
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 3i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(56u32) }] .into_iter().collect() })
                     ]
                         .into_iter()
                         .collect(),
@@ -46611,31 +49160,353 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     vec![
                         ("DeviceSetLock".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>LOCK_STATE</color>                   | <color=orange>BOOL_8</color>     |\r\n| <color=grey>16-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>48</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 6i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | LOCK_STATE                   | BOOL_8     |\r\n| 16-63    | UNUSED                       | 48         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 6i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "LOCK_STATE".into(), typ :
+                        InstructionPartType::Bool8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(48u32) }] .into_iter().collect() }),
                         ("EjectAllReagents".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 8i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 8i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(56u32) }] .into_iter().collect() }),
                         ("EjectReagent".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 7i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | REAGENT_HASH                 | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 7i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 39u32)) }, name : "REAGENT_HASH".into(), typ :
+                        InstructionPartType::Int32 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((40u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(24u32) }] .into_iter().collect() }),
                         ("ExecuteRecipe".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY</color>                     | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 2i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY                     | BYTE_8     |\r\n| 16-47    | PREFAB_HASH                  | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 2i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "QUANTITY".into(), typ :
+                        InstructionPartType::Byte8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 47u32))
+                        }, name : "PREFAB_HASH".into(), typ : InstructionPartType::Int32
+                        }, InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((48u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(16u32) }] .into_iter().collect() }),
                         ("JumpIfNextInvalid".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 4i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 4i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "STACK_ADDRESS".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("JumpToAddress".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 5i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 5i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "STACK_ADDRESS".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("MissingRecipeReagent".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 54 TO 62</color>                     |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY_CEIL</color>                | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 9i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 54 TO 62                     |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY_CEIL                | BYTE_8     |\r\n| 16-47    | REAGENT_HASH                 | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 9i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((54u32,
+                        Some(62u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 15u32)) }, name : "QUANTITY_CEIL".into(), typ :
+                        InstructionPartType::Byte8 }, InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((16u32, 47u32))
+                        }, name : "REAGENT_HASH".into(), typ : InstructionPartType::Int32
+                        }, InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((48u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(16u32) }] .into_iter().collect() }),
                         ("StackPointer".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESS 63</color>                             |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>INDEX</color>                        | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 1i64 }),
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESS 63                             |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | INDEX                        | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 1i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((63u32, None)) },
+                        parts : vec![InstructionPart { range : { trait FromTuple < T >:
+                        Sized { fn from_tuple(tuple : T) -> Self; } impl < T > FromTuple
+                        < (T, T,) > for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,))
+                        -> Self { [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0,
+                        T1,) > for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,))
+                        -> Self { tuple } } #[inline] fn convert < T0, T1, Out :
+                        FromTuple < (T0, T1,) >> (tuple : (T0, T1,)) -> Out {
+                        Out::from_tuple(tuple) } convert((0u32, 7u32)) }, name :
+                        "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 23u32)) }, name : "INDEX".into(), typ :
+                        InstructionPartType::UShort16 }, InstructionPart { range : {
+                        trait FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self;
+                        } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((24u32, 63u32))
+                        }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(40u32) }] .into_iter().collect() }),
                         ("WaitUntilNextValid".into(), Instruction { description :
                         "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>"
-                        .into(), typ : "PrinterInstruction".into(), value : 3i64 })
+                        .into(), description_stripped :
+                        "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |"
+                        .into(), typ : "PrinterInstruction".into(), value : 3i64, valid :
+                        { trait FromTuple < T >: Sized { fn from_tuple(tuple : T) ->
+                        Self; } impl < T > FromTuple < (T, T,) > for [T; 2] { #[inline]
+                        fn from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } }
+                        impl < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline]
+                        fn from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32,
+                        Some(53u32))) }, parts : vec![InstructionPart { range : { trait
+                        FromTuple < T >: Sized { fn from_tuple(tuple : T) -> Self; } impl
+                        < T > FromTuple < (T, T,) > for [T; 2] { #[inline] fn
+                        from_tuple(tuple : (T, T,)) -> Self { [tuple.0, tuple.1] } } impl
+                        < T0, T1 > FromTuple < (T0, T1,) > for (T0, T1,) { #[inline] fn
+                        from_tuple(tuple : (T0, T1,)) -> Self { tuple } } #[inline] fn
+                        convert < T0, T1, Out : FromTuple < (T0, T1,) >> (tuple : (T0,
+                        T1,)) -> Out { Out::from_tuple(tuple) } convert((0u32, 7u32)) },
+                        name : "OP_CODE".into(), typ : InstructionPartType::Byte8 },
+                        InstructionPart { range : { trait FromTuple < T >: Sized { fn
+                        from_tuple(tuple : T) -> Self; } impl < T > FromTuple < (T, T,) >
+                        for [T; 2] { #[inline] fn from_tuple(tuple : (T, T,)) -> Self {
+                        [tuple.0, tuple.1] } } impl < T0, T1 > FromTuple < (T0, T1,) >
+                        for (T0, T1,) { #[inline] fn from_tuple(tuple : (T0, T1,)) ->
+                        Self { tuple } } #[inline] fn convert < T0, T1, Out : FromTuple <
+                        (T0, T1,) >> (tuple : (T0, T1,)) -> Out { Out::from_tuple(tuple)
+                        } convert((8u32, 63u32)) }, name : "UNUSED".into(), typ :
+                        InstructionPartType::Unused(56u32) }] .into_iter().collect() })
                     ]
                         .into_iter()
                         .collect(),

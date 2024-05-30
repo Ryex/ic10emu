@@ -1,7 +1,7 @@
 import { html, css } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMDeviceDBMixin } from "virtual_machine/base_device";
+import { VMTemplateDBMixin } from "virtual_machine/base_device";
 import type { DeviceDB, DeviceDBEntry } from "virtual_machine/device_db";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
 import SlDialog from "@shoelace-style/shoelace/dist/components/dialog/dialog.component.js";
@@ -11,7 +11,7 @@ import uFuzzy from "@leeoniya/ufuzzy";
 import { LogicField, LogicSlotType, SlotOccupantTemplate } from "ic10emu_wasm";
 
 @customElement("vm-slot-add-dialog")
-export class VMSlotAddDialog extends VMDeviceDBMixin(BaseElement) {
+export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
   static styles = [
     ...defaultCss,
     css`

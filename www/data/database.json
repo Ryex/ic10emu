@@ -6212,8 +6212,7 @@
         "hygine_reduction_multiplier": 1.5,
         "waste_max_pressure": 4053.0
       },
-      "memory": {
-        "instructions": null,
+      "memory": {,
         "memory_access": "ReadWrite",
         "memory_size": 0
       }
@@ -6493,8 +6492,7 @@
         "circuit_holder": false
       },
       "slots": [],
-      "memory": {
-        "instructions": null,
+      "memory": {,
         "memory_access": "ReadWrite",
         "memory_size": 512
       }
@@ -16637,48 +16635,345 @@
         "instructions": {
           "DeviceSetLock": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>LOCK_STATE</color>                   | <color=orange>BOOL_8</color>     |\r\n| <color=grey>16-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>48</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | LOCK_STATE                   | BOOL_8     |\r\n| 16-63    | UNUSED                       | 48         |",
             "typ": "PrinterInstruction",
-            "value": 6
+            "value": 6,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "LOCK_STATE",
+                "typ": "Bool8"
+              },
+              {
+                "range": [
+                  16,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 48
+                }
+              }
+            ]
           },
           "EjectAllReagents": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |",
             "typ": "PrinterInstruction",
-            "value": 8
+            "value": 8,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 56
+                }
+              }
+            ]
           },
           "EjectReagent": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | REAGENT_HASH                 | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |",
             "typ": "PrinterInstruction",
-            "value": 7
+            "value": 7,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  39
+                ],
+                "name": "REAGENT_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  40,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 24
+                }
+              }
+            ]
           },
           "ExecuteRecipe": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY</color>                     | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY                     | BYTE_8     |\r\n| 16-47    | PREFAB_HASH                  | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |",
             "typ": "PrinterInstruction",
-            "value": 2
+            "value": 2,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "QUANTITY",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  47
+                ],
+                "name": "PREFAB_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
           },
           "JumpIfNextInvalid": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 4
+            "value": 4,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "STACK_ADDRESS",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "JumpToAddress": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 5
+            "value": 5,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "STACK_ADDRESS",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "MissingRecipeReagent": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 54 TO 62</color>                     |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY_CEIL</color>                | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 54 TO 62                     |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY_CEIL                | BYTE_8     |\r\n| 16-47    | REAGENT_HASH                 | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |",
             "typ": "PrinterInstruction",
-            "value": 9
+            "value": 9,
+            "valid": [
+              54,
+              62
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "QUANTITY_CEIL",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  47
+                ],
+                "name": "REAGENT_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
           },
           "StackPointer": {
             "description": "| <color=grey>VALID ONLY AT ADDRESS 63</color>                             |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>INDEX</color>                        | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESS 63                             |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | INDEX                        | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 1
+            "value": 1,
+            "valid": [
+              63,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "INDEX",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "WaitUntilNextValid": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |",
             "typ": "PrinterInstruction",
-            "value": 3
+            "value": 3,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 56
+                }
+              }
+            ]
           }
         },
         "memory_access": "ReadWrite",
@@ -19070,48 +19365,345 @@
         "instructions": {
           "DeviceSetLock": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>LOCK_STATE</color>                   | <color=orange>BOOL_8</color>     |\r\n| <color=grey>16-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>48</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | LOCK_STATE                   | BOOL_8     |\r\n| 16-63    | UNUSED                       | 48         |",
             "typ": "PrinterInstruction",
-            "value": 6
+            "value": 6,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "LOCK_STATE",
+                "typ": "Bool8"
+              },
+              {
+                "range": [
+                  16,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 48
+                }
+              }
+            ]
           },
           "EjectAllReagents": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |",
             "typ": "PrinterInstruction",
-            "value": 8
+            "value": 8,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 56
+                }
+              }
+            ]
           },
           "EjectReagent": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | REAGENT_HASH                 | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |",
             "typ": "PrinterInstruction",
-            "value": 7
+            "value": 7,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  39
+                ],
+                "name": "REAGENT_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  40,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 24
+                }
+              }
+            ]
           },
           "ExecuteRecipe": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY</color>                     | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY                     | BYTE_8     |\r\n| 16-47    | PREFAB_HASH                  | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |",
             "typ": "PrinterInstruction",
-            "value": 2
+            "value": 2,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "QUANTITY",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  47
+                ],
+                "name": "PREFAB_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
           },
           "JumpIfNextInvalid": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 4
+            "value": 4,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "STACK_ADDRESS",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "JumpToAddress": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 5
+            "value": 5,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "STACK_ADDRESS",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "MissingRecipeReagent": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 54 TO 62</color>                     |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY_CEIL</color>                | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 54 TO 62                     |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY_CEIL                | BYTE_8     |\r\n| 16-47    | REAGENT_HASH                 | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |",
             "typ": "PrinterInstruction",
-            "value": 9
+            "value": 9,
+            "valid": [
+              54,
+              62
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "QUANTITY_CEIL",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  47
+                ],
+                "name": "REAGENT_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
           },
           "StackPointer": {
             "description": "| <color=grey>VALID ONLY AT ADDRESS 63</color>                             |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>INDEX</color>                        | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESS 63                             |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | INDEX                        | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 1
+            "value": 1,
+            "valid": [
+              63,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "INDEX",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "WaitUntilNextValid": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |",
             "typ": "PrinterInstruction",
-            "value": 3
+            "value": 3,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 56
+                }
+              }
+            ]
           }
         },
         "memory_access": "ReadWrite",
@@ -19689,48 +20281,345 @@
         "instructions": {
           "DeviceSetLock": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>LOCK_STATE</color>                   | <color=orange>BOOL_8</color>     |\r\n| <color=grey>16-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>48</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | LOCK_STATE                   | BOOL_8     |\r\n| 16-63    | UNUSED                       | 48         |",
             "typ": "PrinterInstruction",
-            "value": 6
+            "value": 6,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "LOCK_STATE",
+                "typ": "Bool8"
+              },
+              {
+                "range": [
+                  16,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 48
+                }
+              }
+            ]
           },
           "EjectAllReagents": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |",
             "typ": "PrinterInstruction",
-            "value": 8
+            "value": 8,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 56
+                }
+              }
+            ]
           },
           "EjectReagent": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | REAGENT_HASH                 | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |",
             "typ": "PrinterInstruction",
-            "value": 7
+            "value": 7,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  39
+                ],
+                "name": "REAGENT_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  40,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 24
+                }
+              }
+            ]
           },
           "ExecuteRecipe": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY</color>                     | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY                     | BYTE_8     |\r\n| 16-47    | PREFAB_HASH                  | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |",
             "typ": "PrinterInstruction",
-            "value": 2
+            "value": 2,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "QUANTITY",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  47
+                ],
+                "name": "PREFAB_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
           },
           "JumpIfNextInvalid": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 4
+            "value": 4,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "STACK_ADDRESS",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "JumpToAddress": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 5
+            "value": 5,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "STACK_ADDRESS",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "MissingRecipeReagent": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 54 TO 62</color>                     |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY_CEIL</color>                | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 54 TO 62                     |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY_CEIL                | BYTE_8     |\r\n| 16-47    | REAGENT_HASH                 | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |",
             "typ": "PrinterInstruction",
-            "value": 9
+            "value": 9,
+            "valid": [
+              54,
+              62
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "QUANTITY_CEIL",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  47
+                ],
+                "name": "REAGENT_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
           },
           "StackPointer": {
             "description": "| <color=grey>VALID ONLY AT ADDRESS 63</color>                             |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>INDEX</color>                        | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESS 63                             |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | INDEX                        | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 1
+            "value": 1,
+            "valid": [
+              63,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "INDEX",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "WaitUntilNextValid": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |",
             "typ": "PrinterInstruction",
-            "value": 3
+            "value": 3,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 56
+                }
+              }
+            ]
           }
         },
         "memory_access": "ReadWrite",
@@ -30132,48 +31021,345 @@
         "instructions": {
           "DeviceSetLock": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>LOCK_STATE</color>                   | <color=orange>BOOL_8</color>     |\r\n| <color=grey>16-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>48</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | LOCK_STATE                   | BOOL_8     |\r\n| 16-63    | UNUSED                       | 48         |",
             "typ": "PrinterInstruction",
-            "value": 6
+            "value": 6,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "LOCK_STATE",
+                "typ": "Bool8"
+              },
+              {
+                "range": [
+                  16,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 48
+                }
+              }
+            ]
           },
           "EjectAllReagents": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |",
             "typ": "PrinterInstruction",
-            "value": 8
+            "value": 8,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 56
+                }
+              }
+            ]
           },
           "EjectReagent": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | REAGENT_HASH                 | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |",
             "typ": "PrinterInstruction",
-            "value": 7
+            "value": 7,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  39
+                ],
+                "name": "REAGENT_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  40,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 24
+                }
+              }
+            ]
           },
           "ExecuteRecipe": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY</color>                     | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY                     | BYTE_8     |\r\n| 16-47    | PREFAB_HASH                  | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |",
             "typ": "PrinterInstruction",
-            "value": 2
+            "value": 2,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "QUANTITY",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  47
+                ],
+                "name": "PREFAB_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
           },
           "JumpIfNextInvalid": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 4
+            "value": 4,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "STACK_ADDRESS",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "JumpToAddress": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 5
+            "value": 5,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "STACK_ADDRESS",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "MissingRecipeReagent": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 54 TO 62</color>                     |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY_CEIL</color>                | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 54 TO 62                     |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY_CEIL                | BYTE_8     |\r\n| 16-47    | REAGENT_HASH                 | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |",
             "typ": "PrinterInstruction",
-            "value": 9
+            "value": 9,
+            "valid": [
+              54,
+              62
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "QUANTITY_CEIL",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  47
+                ],
+                "name": "REAGENT_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
           },
           "StackPointer": {
             "description": "| <color=grey>VALID ONLY AT ADDRESS 63</color>                             |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>INDEX</color>                        | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESS 63                             |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | INDEX                        | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 1
+            "value": 1,
+            "valid": [
+              63,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "INDEX",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "WaitUntilNextValid": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |",
             "typ": "PrinterInstruction",
-            "value": 3
+            "value": 3,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 56
+                }
+              }
+            ]
           }
         },
         "memory_access": "ReadWrite",
@@ -35333,48 +36519,345 @@
         "instructions": {
           "DeviceSetLock": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>LOCK_STATE</color>                   | <color=orange>BOOL_8</color>     |\r\n| <color=grey>16-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>48</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | LOCK_STATE                   | BOOL_8     |\r\n| 16-63    | UNUSED                       | 48         |",
             "typ": "PrinterInstruction",
-            "value": 6
+            "value": 6,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "LOCK_STATE",
+                "typ": "Bool8"
+              },
+              {
+                "range": [
+                  16,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 48
+                }
+              }
+            ]
           },
           "EjectAllReagents": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |",
             "typ": "PrinterInstruction",
-            "value": 8
+            "value": 8,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 56
+                }
+              }
+            ]
           },
           "EjectReagent": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | REAGENT_HASH                 | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |",
             "typ": "PrinterInstruction",
-            "value": 7
+            "value": 7,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  39
+                ],
+                "name": "REAGENT_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  40,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 24
+                }
+              }
+            ]
           },
           "ExecuteRecipe": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY</color>                     | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY                     | BYTE_8     |\r\n| 16-47    | PREFAB_HASH                  | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |",
             "typ": "PrinterInstruction",
-            "value": 2
+            "value": 2,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "QUANTITY",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  47
+                ],
+                "name": "PREFAB_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
           },
           "JumpIfNextInvalid": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 4
+            "value": 4,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "STACK_ADDRESS",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "JumpToAddress": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 5
+            "value": 5,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "STACK_ADDRESS",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "MissingRecipeReagent": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 54 TO 62</color>                     |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY_CEIL</color>                | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 54 TO 62                     |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY_CEIL                | BYTE_8     |\r\n| 16-47    | REAGENT_HASH                 | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |",
             "typ": "PrinterInstruction",
-            "value": 9
+            "value": 9,
+            "valid": [
+              54,
+              62
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "QUANTITY_CEIL",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  47
+                ],
+                "name": "REAGENT_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
           },
           "StackPointer": {
             "description": "| <color=grey>VALID ONLY AT ADDRESS 63</color>                             |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>INDEX</color>                        | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESS 63                             |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | INDEX                        | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 1
+            "value": 1,
+            "valid": [
+              63,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "INDEX",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "WaitUntilNextValid": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |",
             "typ": "PrinterInstruction",
-            "value": 3
+            "value": 3,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 56
+                }
+              }
+            ]
           }
         },
         "memory_access": "ReadWrite",
@@ -39351,33 +40834,255 @@
         "instructions": {
           "FilterPrefabHashEquals": {
             "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | PREFAB_HASH                  | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |",
             "typ": "SorterInstruction",
-            "value": 1
+            "value": 1,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  39
+                ],
+                "name": "PREFAB_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  40,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 24
+                }
+              }
+            ]
           },
           "FilterPrefabHashNotEquals": {
             "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | PREFAB_HASH                  | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |",
             "typ": "SorterInstruction",
-            "value": 2
+            "value": 2,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  39
+                ],
+                "name": "PREFAB_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  40,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 24
+                }
+              }
+            ]
           },
           "FilterQuantityCompare": {
             "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>CONDITION_OPERATION</color>          | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-31 </color>   | <color=yellow>QUANTITY</color>                     | <color=orange>USHORT_16</color>  |\r\n| <color=grey>32-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>32</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | CONDITION_OPERATION          | BYTE_8     |\r\n| 16-31    | QUANTITY                     | USHORT_16  |\r\n| 32-63    | UNUSED                       | 32         |",
             "typ": "SorterInstruction",
-            "value": 5
+            "value": 5,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "CONDITION_OPERATION",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  31
+                ],
+                "name": "QUANTITY",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  32,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 32
+                }
+              }
+            ]
           },
           "FilterSlotTypeCompare": {
             "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>CONDITION_OPERATION</color>          | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-31 </color>   | <color=yellow>SLOT_TYPE</color>                    | <color=orange>USHORT_16</color>  |\r\n| <color=grey>32-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>32</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | CONDITION_OPERATION          | BYTE_8     |\r\n| 16-31    | SLOT_TYPE                    | USHORT_16  |\r\n| 32-63    | UNUSED                       | 32         |",
             "typ": "SorterInstruction",
-            "value": 4
+            "value": 4,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "CONDITION_OPERATION",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  31
+                ],
+                "name": "SLOT_TYPE",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  32,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 32
+                }
+              }
+            ]
           },
           "FilterSortingClassCompare": {
             "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>CONDITION_OPERATION</color>          | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-31 </color>   | <color=yellow>SORTING_CLASS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>32-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>32</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | CONDITION_OPERATION          | BYTE_8     |\r\n| 16-31    | SORTING_CLASS                | USHORT_16  |\r\n| 32-63    | UNUSED                       | 32         |",
             "typ": "SorterInstruction",
-            "value": 3
+            "value": 3,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "CONDITION_OPERATION",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  31
+                ],
+                "name": "SORTING_CLASS",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  32,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 32
+                }
+              }
+            ]
           },
           "LimitNextExecutionByCount": {
             "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>COUNT</color>                        | <color=orange>UINT_32</color>    |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | COUNT                        | UINT_32    |\r\n| 40-63    | UNUSED                       | 24         |",
             "typ": "SorterInstruction",
-            "value": 6
+            "value": 6,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  39
+                ],
+                "name": "COUNT",
+                "typ": "UInt32"
+              },
+              {
+                "range": [
+                  40,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 24
+                }
+              }
+            ]
           }
         },
         "memory_access": "ReadWrite",
@@ -43813,8 +45518,57 @@
         "instructions": {
           "BodyOrientation": {
             "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>CELESTIAL_INDEX</color>              | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-31 </color>   | <color=yellow>HORIZONTAL_DECI_DEGREES</color>      | <color=orange>SHORT_16</color>   |\r\n| <color=red>32-47 </color>   | <color=yellow>VERTICAL_DECI_DEGREES</color>        | <color=orange>SHORT_16</color>   |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | CELESTIAL_INDEX              | BYTE_8     |\r\n| 16-31    | HORIZONTAL_DECI_DEGREES      | SHORT_16   |\r\n| 32-47    | VERTICAL_DECI_DEGREES        | SHORT_16   |\r\n| 48-63    | UNUSED                       | 16         |",
             "typ": "CelestialTracking",
-            "value": 1
+            "value": 1,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "CELESTIAL_INDEX",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  31
+                ],
+                "name": "HORIZONTAL_DECI_DEGREES",
+                "typ": "Short16"
+              },
+              {
+                "range": [
+                  32,
+                  47
+                ],
+                "name": "VERTICAL_DECI_DEGREES",
+                "typ": "Short16"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
           }
         },
         "memory_access": "Read",
@@ -44906,48 +46660,345 @@
         "instructions": {
           "DeviceSetLock": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>LOCK_STATE</color>                   | <color=orange>BOOL_8</color>     |\r\n| <color=grey>16-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>48</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | LOCK_STATE                   | BOOL_8     |\r\n| 16-63    | UNUSED                       | 48         |",
             "typ": "PrinterInstruction",
-            "value": 6
+            "value": 6,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "LOCK_STATE",
+                "typ": "Bool8"
+              },
+              {
+                "range": [
+                  16,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 48
+                }
+              }
+            ]
           },
           "EjectAllReagents": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |",
             "typ": "PrinterInstruction",
-            "value": 8
+            "value": 8,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 56
+                }
+              }
+            ]
           },
           "EjectReagent": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | REAGENT_HASH                 | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |",
             "typ": "PrinterInstruction",
-            "value": 7
+            "value": 7,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  39
+                ],
+                "name": "REAGENT_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  40,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 24
+                }
+              }
+            ]
           },
           "ExecuteRecipe": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY</color>                     | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY                     | BYTE_8     |\r\n| 16-47    | PREFAB_HASH                  | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |",
             "typ": "PrinterInstruction",
-            "value": 2
+            "value": 2,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "QUANTITY",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  47
+                ],
+                "name": "PREFAB_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
           },
           "JumpIfNextInvalid": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 4
+            "value": 4,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "STACK_ADDRESS",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "JumpToAddress": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 5
+            "value": 5,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "STACK_ADDRESS",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "MissingRecipeReagent": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 54 TO 62</color>                     |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY_CEIL</color>                | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 54 TO 62                     |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY_CEIL                | BYTE_8     |\r\n| 16-47    | REAGENT_HASH                 | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |",
             "typ": "PrinterInstruction",
-            "value": 9
+            "value": 9,
+            "valid": [
+              54,
+              62
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "QUANTITY_CEIL",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  47
+                ],
+                "name": "REAGENT_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
           },
           "StackPointer": {
             "description": "| <color=grey>VALID ONLY AT ADDRESS 63</color>                             |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>INDEX</color>                        | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESS 63                             |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | INDEX                        | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 1
+            "value": 1,
+            "valid": [
+              63,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "INDEX",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "WaitUntilNextValid": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |",
             "typ": "PrinterInstruction",
-            "value": 3
+            "value": 3,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 56
+                }
+              }
+            ]
           }
         },
         "memory_access": "ReadWrite",
@@ -46134,48 +48185,345 @@
         "instructions": {
           "DeviceSetLock": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>LOCK_STATE</color>                   | <color=orange>BOOL_8</color>     |\r\n| <color=grey>16-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>48</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | LOCK_STATE                   | BOOL_8     |\r\n| 16-63    | UNUSED                       | 48         |",
             "typ": "PrinterInstruction",
-            "value": 6
+            "value": 6,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "LOCK_STATE",
+                "typ": "Bool8"
+              },
+              {
+                "range": [
+                  16,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 48
+                }
+              }
+            ]
           },
           "EjectAllReagents": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |",
             "typ": "PrinterInstruction",
-            "value": 8
+            "value": 8,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 56
+                }
+              }
+            ]
           },
           "EjectReagent": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | REAGENT_HASH                 | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |",
             "typ": "PrinterInstruction",
-            "value": 7
+            "value": 7,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  39
+                ],
+                "name": "REAGENT_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  40,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 24
+                }
+              }
+            ]
           },
           "ExecuteRecipe": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY</color>                     | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY                     | BYTE_8     |\r\n| 16-47    | PREFAB_HASH                  | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |",
             "typ": "PrinterInstruction",
-            "value": 2
+            "value": 2,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "QUANTITY",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  47
+                ],
+                "name": "PREFAB_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
           },
           "JumpIfNextInvalid": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 4
+            "value": 4,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "STACK_ADDRESS",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "JumpToAddress": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 5
+            "value": 5,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "STACK_ADDRESS",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "MissingRecipeReagent": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 54 TO 62</color>                     |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY_CEIL</color>                | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 54 TO 62                     |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY_CEIL                | BYTE_8     |\r\n| 16-47    | REAGENT_HASH                 | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |",
             "typ": "PrinterInstruction",
-            "value": 9
+            "value": 9,
+            "valid": [
+              54,
+              62
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "QUANTITY_CEIL",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  47
+                ],
+                "name": "REAGENT_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
           },
           "StackPointer": {
             "description": "| <color=grey>VALID ONLY AT ADDRESS 63</color>                             |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>INDEX</color>                        | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESS 63                             |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | INDEX                        | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 1
+            "value": 1,
+            "valid": [
+              63,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "INDEX",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "WaitUntilNextValid": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |",
             "typ": "PrinterInstruction",
-            "value": 3
+            "value": 3,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 56
+                }
+              }
+            ]
           }
         },
         "memory_access": "ReadWrite",
@@ -52365,48 +54713,345 @@
         "instructions": {
           "DeviceSetLock": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>LOCK_STATE</color>                   | <color=orange>BOOL_8</color>     |\r\n| <color=grey>16-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>48</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | LOCK_STATE                   | BOOL_8     |\r\n| 16-63    | UNUSED                       | 48         |",
             "typ": "PrinterInstruction",
-            "value": 6
+            "value": 6,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "LOCK_STATE",
+                "typ": "Bool8"
+              },
+              {
+                "range": [
+                  16,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 48
+                }
+              }
+            ]
           },
           "EjectAllReagents": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |",
             "typ": "PrinterInstruction",
-            "value": 8
+            "value": 8,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 56
+                }
+              }
+            ]
           },
           "EjectReagent": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | REAGENT_HASH                 | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |",
             "typ": "PrinterInstruction",
-            "value": 7
+            "value": 7,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  39
+                ],
+                "name": "REAGENT_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  40,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 24
+                }
+              }
+            ]
           },
           "ExecuteRecipe": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY</color>                     | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY                     | BYTE_8     |\r\n| 16-47    | PREFAB_HASH                  | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |",
             "typ": "PrinterInstruction",
-            "value": 2
+            "value": 2,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "QUANTITY",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  47
+                ],
+                "name": "PREFAB_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
           },
           "JumpIfNextInvalid": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 4
+            "value": 4,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "STACK_ADDRESS",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "JumpToAddress": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 5
+            "value": 5,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "STACK_ADDRESS",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "MissingRecipeReagent": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 54 TO 62</color>                     |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY_CEIL</color>                | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>REAGENT_HASH</color>                 | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 54 TO 62                     |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY_CEIL                | BYTE_8     |\r\n| 16-47    | REAGENT_HASH                 | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |",
             "typ": "PrinterInstruction",
-            "value": 9
+            "value": 9,
+            "valid": [
+              54,
+              62
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "QUANTITY_CEIL",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  47
+                ],
+                "name": "REAGENT_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
           },
           "StackPointer": {
             "description": "| <color=grey>VALID ONLY AT ADDRESS 63</color>                             |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>INDEX</color>                        | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESS 63                             |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | INDEX                        | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
             "typ": "PrinterInstruction",
-            "value": 1
+            "value": 1,
+            "valid": [
+              63,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "INDEX",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
           },
           "WaitUntilNextValid": {
             "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=grey>8-63 </color>    | <color=grey>UNUSED</color>                       | <color=grey>56</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-63     | UNUSED                       | 56         |",
             "typ": "PrinterInstruction",
-            "value": 3
+            "value": 3,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 56
+                }
+              }
+            ]
           }
         },
         "memory_access": "ReadWrite",

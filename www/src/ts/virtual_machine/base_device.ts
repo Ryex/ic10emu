@@ -10,6 +10,10 @@ import type {
   ObjectID,
   TemplateDatabase,
   FrozenObjectFull,
+  Class,
+  LogicSlotType,
+  SlotOccupantInfo,
+  ICState,
 } from "ic10emu_wasm";
 import { crc32, structuralEqual } from "utils";
 import { LitElement, PropertyValueMap } from "lit";
@@ -24,20 +28,22 @@ export declare class VMObjectMixinInterface {
   nameHash: number | null;
   prefabName: string | null;
   prefabHash: number | null;
-  fields: Map<LogicType, LogicField>;
-  slots: Slot[];
-  reagents: Map<number, number>;
-  connections: Connection[];
-  icIP: number;
-  icOpCount: number;
-  icState: string;
-  errors: ICError[];
+  logicFields: Map<LogicType, LogicField> | null;
+  slots: VmObjectSlotInfo[] | null;
+  slotsCount: number | null;
+  reagents: Map<number, number> | null;
+  connections: Connection[] | null;
+  icIP: number | null;
+  icOpCount: number | null;
+  icState: string | null;
+  errors: ICError[] | null;
   registers: number[] | null;
   memory: number[] | null;
   aliases: Map<string, Operand> | null;
-  defines: Map<string, string> | null;
+  defines: Map<string, number> | null;
   numPins: number | null;
   pins: Map<number, ObjectID> | null;
+  visibleDevices: ObjectID[] | null;
   _handleDeviceModified(e: CustomEvent): void;
   updateDevice(): void;
   updateIC(): void;
@@ -54,23 +60,34 @@ export type VMObjectMixinSubscription =
   | "slots-count"
   | "reagents"
   | "connections"
+  | "memory"
   | "ic"
   | "active-ic"
   | { field: LogicType }
   | { slot: number }
   | "visible-devices";
 
+export interface VmObjectSlotInfo {
+  parent: ObjectID;
+  index: number;
+  name: string;
+  typ: Class;
+  logicFields: Map<LogicSlotType, LogicField>;
+  quantity: number;
+  occupant: FrozenObjectFull | undefined;
+}
+
 export const VMObjectMixin = <T extends Constructor<LitElement>>(
   superClass: T,
 ) => {
   class VMObjectMixinClass extends superClass {
-    private _deviceID: number;
-    get deviceID() {
-      return this._deviceID;
+    private _objectID: number;
+    get objectID() {
+      return this._objectID;
     }
     @property({ type: Number })
-    set deviceID(val: number) {
-      this._deviceID = val;
+    set objectID(val: number) {
+      this._objectID = val;
       this.updateDevice();
     }
 
@@ -93,40 +110,42 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
 
     @state() name: string | null = null;
     @state() nameHash: number | null = null;
-    @state() prefabName: string | null;
-    @state() prefabHash: number | null;
-    @state() fields: Map<LogicType, LogicField>;
-    @state() slots: Slot[];
-    @state() reagents: Map<number, number>;
-    @state() connections: Connection[];
-    @state() icIP: number;
-    @state() icOpCount: number;
-    @state() icState: string;
-    @state() errors: ICError[];
-    @state() registers: number[] | null;
-    @state() memory: number[] | null;
-    @state() aliases: Map<string, Operand> | null;
-    @state() defines: Map<string, string> | null;
-    @state() numPins: number | null;
-    @state() pins: Map<number, ObjectID> | null;
+    @state() prefabName: string | null = null;
+    @state() prefabHash: number | null = null;
+    @state() logicFields: Map<LogicType, LogicField> | null = null;
+    @state() slots: VmObjectSlotInfo[] | null = null;
+    @state() slotsCount: number | null = null;
+    @state() reagents: Map<number, number> | null = null;
+    @state() connections: Connection[] | null = null;
+    @state() icIP: number | null = null;
+    @state() icOpCount: number | null = null;
+    @state() icState: ICState | null = null;
+    @state() errors: ICError[] | null = null;
+    @state() registers: number[] | null = null;
+    @state() memory: number[] | null = null;
+    @state() aliases: Map<string, Operand> | null = null;
+    @state() defines: Map<string, number> | null = null;
+    @state() numPins: number | null = null;
+    @state() pins: Map<number, ObjectID> | null = null;
+    @state() visibleDevices: ObjectID[] | null = null;
 
     connectedCallback(): void {
       const root = super.connectedCallback();
       window.VM.get().then((vm) => {
         vm.addEventListener(
-          "vm-device-modified",
+          "vm-objects-modified",
           this._handleDeviceModified.bind(this),
         );
         vm.addEventListener(
-          "vm-devices-update",
+          "vm-objects-update",
           this._handleDevicesModified.bind(this),
         );
         vm.addEventListener(
-          "vm-device-id-change",
+          "vm-object-id-change",
           this._handleDeviceIdChange.bind(this),
         );
         vm.addEventListener(
-          "vm-devices-removed",
+          "vm-objects-removed",
           this._handleDevicesRemoved.bind(this),
         );
       });
@@ -137,19 +156,19 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
     disconnectedCallback(): void {
       window.VM.get().then((vm) => {
         vm.removeEventListener(
-          "vm-device-modified",
+          "vm-objects-modified",
           this._handleDeviceModified.bind(this),
         );
         vm.removeEventListener(
-          "vm-devices-update",
+          "vm-objects-update",
           this._handleDevicesModified.bind(this),
         );
         vm.removeEventListener(
-          "vm-device-id-change",
+          "vm-object-id-change",
           this._handleDeviceIdChange.bind(this),
         );
         vm.removeEventListener(
-          "vm-devices-removed",
+          "vm-objects-removed",
           this._handleDevicesRemoved.bind(this),
         );
       });
@@ -158,7 +177,7 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
     async _handleDeviceModified(e: CustomEvent) {
       const id = e.detail;
       const activeIcId = window.App.app.session.activeIC;
-      if (this.deviceID === id) {
+      if (this.objectID === id) {
         this.updateDevice();
       } else if (
         id === activeIcId &&
@@ -168,7 +187,7 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
         this.requestUpdate();
       } else if (this.objectSubscriptions.includes("visible-devices")) {
         const visibleDevices = await window.VM.vm.visibleDeviceIds(
-          this.deviceID,
+          this.objectID,
         );
         if (visibleDevices.includes(id)) {
           this.updateDevice();
@@ -180,7 +199,7 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
     async _handleDevicesModified(e: CustomEvent<number[]>) {
       const activeIcId = window.App.app.session.activeIC;
       const ids = e.detail;
-      if (ids.includes(this.deviceID)) {
+      if (ids.includes(this.objectID)) {
         this.updateDevice();
         if (this.objectSubscriptions.includes("visible-devices")) {
           this.requestUpdate();
@@ -193,7 +212,7 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
         this.requestUpdate();
       } else if (this.objectSubscriptions.includes("visible-devices")) {
         const visibleDevices = await window.VM.vm.visibleDeviceIds(
-          this.deviceID,
+          this.objectID,
         );
         if (ids.some((id) => visibleDevices.includes(id))) {
           this.updateDevice();
@@ -203,11 +222,11 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
     }
 
     async _handleDeviceIdChange(e: CustomEvent<{ old: number; new: number }>) {
-      if (this.deviceID === e.detail.old) {
-        this.deviceID = e.detail.new;
+      if (this.objectID === e.detail.old) {
+        this.objectID = e.detail.new;
       } else if (this.objectSubscriptions.includes("visible-devices")) {
         const visibleDevices = await window.VM.vm.visibleDeviceIds(
-          this.deviceID,
+          this.objectID,
         );
         if (
           visibleDevices.some(
@@ -227,48 +246,86 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
     }
 
     updateDevice() {
-      this.obj = window.VM.vm.objects.get(this.deviceID)!;
+      this.obj = window.VM.vm.objects.get(this.objectID)!;
 
       if (typeof this.obj === "undefined") {
         return;
       }
 
+      let newFields: Map<LogicType, LogicField> | null = null;
       if (
-        this.objectSubscriptions.includes("slots") ||
-        this.objectSubscriptions.includes("slots-count")
+        this.objectSubscriptions.some(
+          (sub) =>
+            sub === "fields" || (typeof sub === "object" && "field" in sub),
+        )
       ) {
-        const slotsOccupantInfo = this.obj.obj_info.slots;
+        const logicValues =
+          this.obj.obj_info.logic_values ?? new Map<LogicType, number>();
+        const logicTemplate =
+          "logic" in this.obj.template ? this.obj.template.logic : null;
+        newFields = new Map(
+          Array.from(logicTemplate?.logic_types.entries() ?? []).map(
+            ([lt, access]) => {
+              let field: LogicField = {
+                field_type: access,
+                value: logicValues.get(lt) ?? 0,
+              };
+              return [lt, field];
+            },
+          ),
+        );
+      }
+
+      const visibleDevices = this.obj.obj_info.visible_devices ?? [];
+      if (!structuralEqual(this.visibleDevices, visibleDevices)) {
+        this.visibleDevices = visibleDevices;
+      }
+
+      let newSlots: VmObjectSlotInfo[] | null = null;
+      if (
+        this.objectSubscriptions.some(
+          (sub) =>
+            sub === "slots" || (typeof sub === "object" && "slot" in sub),
+        )
+      ) {
+        const slotsOccupantInfo =
+          this.obj.obj_info.slots ?? new Map<number, SlotOccupantInfo>();
+        const slotsLogicValues =
+          this.obj.obj_info.slot_logic_values ??
+          new Map<number, Map<LogicSlotType, number>>();
         const logicTemplate =
           "logic" in this.obj.template ? this.obj.template.logic : null;
         const slotsTemplate =
           "slots" in this.obj.template ? this.obj.template.slots : [];
-        let slots: Slot[] | null = null;
-        if (slotsOccupantInfo.size !== 0) {
-          slots = slotsTemplate.map((template, index) => {
-            let slot = {
-              parent: this.obj.obj_info.id,
-              index: index,
-              name: template.name,
-              typ: template.typ,
-              readable_logic: Array.from(
-                logicTemplate?.logic_slot_types.get(index)?.entries() ?? [],
-              )
-                .filter(([_, val]) => val === "Read" || val === "ReadWrite")
-                .map(([key, _]) => key),
-              writeable_logic: Array.from(
-                logicTemplate?.logic_slot_types.get(index)?.entries() ?? [],
-              )
-                .filter(([_, val]) => val === "Write" || val === "ReadWrite")
-                .map(([key, _]) => key),
-              occupant: slotsOccupantInfo.get(index),
-            };
-            return slot;
-          });
-        }
-
-        if (!structuralEqual(this.slots, slots)) {
-          this.slots = slots;
-        }
+        newSlots = slotsTemplate.map((template, index) => {
+          const fieldEntryInfos = Array.from(
+            logicTemplate?.logic_slot_types.get(index).entries() ?? [],
+          );
+          const logicFields = new Map(
+            fieldEntryInfos.map(([slt, access]) => {
+              let field: LogicField = {
+                field_type: access,
+                value: slotsLogicValues.get(index)?.get(slt) ?? 0,
+              };
+              return [slt, field];
+            }),
+          );
+          let occupantInfo = slotsOccupantInfo.get(index);
+          let occupant =
+            typeof occupantInfo !== "undefined"
+              ? window.VM.vm.objects.get(occupantInfo.id)
+              : null;
+          let slot: VmObjectSlotInfo = {
+            parent: this.obj.obj_info.id,
+            index: index,
+            name: template.name,
+            typ: template.typ,
+            logicFields: logicFields,
+            occupant: occupant,
+            quantity: occupantInfo?.quantity ?? 0,
+          };
+          return slot;
+        });
       }
 
       for (const sub of this.objectSubscriptions) {
@@ -293,22 +350,20 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
               this.prefabHash = crc32(prefabName);
             }
           } else if (sub === "fields") {
-            const fields = this.obj.obj_info.logic_values ?? null;
-            const logicTemplate =
-              "logic" in this.obj.template ? this.obj.template.logic : null;
-            let logic_fields: Map<LogicType, LogicField> | null = null;
-            if (fields !== null) {
-              logic_fields = new Map();
-              for (const [lt, val] of fields) {
-                const access = logicTemplate?.logic_types.get(lt) ?? "Read";
-                logic_fields.set(lt, {
-                  value: val,
-                  field_type: access,
-                });
-              }
+            if (!structuralEqual(this.logicFields, newFields)) {
+              this.logicFields = newFields;
             }
-            if (!structuralEqual(this.fields, logic_fields)) {
-              this.fields = logic_fields;
+          } else if (sub === "slots") {
+            if (!structuralEqual(this.slots, newSlots)) {
+              this.slots = newSlots;
+              this.slotsCount = newSlots.length;
+            }
+          } else if (sub === "slots-count") {
+            const slotsTemplate =
+              "slots" in this.obj.template ? this.obj.template.slots : [];
+            const slotsCount = slotsTemplate.length;
+            if (this.slotsCount !== slotsCount) {
+              this.slotsCount = slotsCount;
             }
           } else if (sub === "reagents") {
             const reagents = this.obj.obj_info.reagents;
@@ -367,10 +422,15 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
             if (!structuralEqual(this.connections, connections)) {
               this.connections = connections;
             }
+          } else if (sub === "memory") {
+            const stack = this.obj.obj_info.memory ?? null;
+            if (!structuralEqual(this.memory, stack)) {
+              this.memory = stack;
+            }
           } else if (sub === "ic") {
             if (
               typeof this.obj.obj_info.circuit !== "undefined" ||
-              this.obj.obj_info.socketed_ic !== "undefined"
+              typeof this.obj.obj_info.socketed_ic !== "undefined"
             ) {
               this.updateIC();
             }
@@ -382,21 +442,19 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
           }
         } else {
           if ("field" in sub) {
-            const fields = this.obj.obj_info.logic_values;
-            if (this.fields.get(sub.field) !== fields.get(sub.field)) {
-              this.fields = fields;
+            if (this.logicFields.get(sub.field) !== newFields.get(sub.field)) {
+              this.logicFields = newFields;
             }
           } else if ("slot" in sub) {
-            const slots = this.obj.slots;
             if (
               typeof this.slots === "undefined" ||
               this.slots.length < sub.slot
             ) {
-              this.slots = slots;
+              this.slots = newSlots;
             } else if (
-              !structuralEqual(this.slots[sub.slot], slots[sub.slot])
+              !structuralEqual(this.slots[sub.slot], newSlots[sub.slot])
             ) {
-              this.slots = slots;
+              this.slots = newSlots;
             }
           }
         }
@@ -404,41 +462,42 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
     }
 
     updateIC() {
-      const ip = this.obj.ip!;
+      const ip = this.obj.obj_info.circuit?.instruction_pointer ?? null;
       if (this.icIP !== ip) {
         this.icIP = ip;
       }
-      const opCount = this.obj.instructionCount!;
+      const opCount =
+        this.obj.obj_info.circuit?.yield_instruciton_count ?? null;
       if (this.icOpCount !== opCount) {
         this.icOpCount = opCount;
       }
-      const state = this.obj.state!;
+      const state = this.obj.obj_info.circuit?.state ?? null;
       if (this.icState !== state) {
         this.icState = state;
       }
-      const errors = this.obj.program?.errors ?? null;
+      const errors = this.obj.obj_info.compile_errors ?? null;
       if (!structuralEqual(this.errors, errors)) {
         this.errors = errors;
       }
-      const registers = this.obj.registers ?? null;
+      const registers = this.obj.obj_info.circuit?.registers ?? null;
       if (!structuralEqual(this.registers, registers)) {
         this.registers = registers;
       }
-      const stack = this.obj.stack ?? null;
-      if (!structuralEqual(this.memory, stack)) {
-        this.memory = stack;
-      }
-      const aliases = this.obj.aliases ?? null;
+      const aliases = this.obj.obj_info.circuit?.aliases ?? null;
       if (!structuralEqual(this.aliases, aliases)) {
         this.aliases = aliases;
       }
-      const defines = this.obj.defines ?? null;
+      const defines = this.obj.obj_info.circuit?.defines ?? null;
       if (!structuralEqual(this.defines, defines)) {
         this.defines = defines;
       }
-      const pins = this.obj.pins ?? null;
+      const pins = this.obj.obj_info.device_pins ?? new Map<number, number>();
       if (!structuralEqual(this.pins, pins)) {
         this.pins = pins;
+        this.numPins =
+          "device" in this.obj.template
+            ? this.obj.template.device.device_pins_length
+            : Math.max(...Array.from(this.pins?.keys() ?? [0]));
       }
     }
   }
@@ -492,16 +551,16 @@ export const VMActiveICMixin = <T extends Constructor<LitElement>>(
   return VMActiveICMixinClass as Constructor<VMObjectMixinInterface> & T;
 };
 
-export declare class VMDeviceDBMixinInterface {
+export declare class VMTemplateDBMixinInterface {
   templateDB: TemplateDatabase;
   _handleDeviceDBLoad(e: CustomEvent): void;
   postDBSetUpdate(): void;
 }
 
-export const VMDeviceDBMixin = <T extends Constructor<LitElement>>(
+export const VMTemplateDBMixin = <T extends Constructor<LitElement>>(
   superClass: T,
 ) => {
-  class VMDeviceDBMixinClass extends superClass {
+  class VMTemplateDBMixinClass extends superClass {
     connectedCallback(): void {
       const root = super.connectedCallback();
       window.VM.vm.addEventListener(
@@ -540,5 +599,5 @@ export const VMDeviceDBMixin = <T extends Constructor<LitElement>>(
     }
   }
 
-  return VMDeviceDBMixinClass as Constructor<VMDeviceDBMixinInterface> & T;
+  return VMTemplateDBMixinClass as Constructor<VMTemplateDBMixinInterface> & T;
 };

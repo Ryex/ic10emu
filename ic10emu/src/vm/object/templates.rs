@@ -1,7 +1,7 @@
-use std::{collections::BTreeMap, fmt::Display, rc::Rc, str::FromStr};
+use std::{collections::BTreeMap, rc::Rc, str::FromStr};
 
 use crate::{
-    errors::TemplateError,
+    errors::{ICError, TemplateError},
     interpreter::ICInfo,
     network::Connection,
     vm::{
@@ -77,10 +77,13 @@ pub struct ObjectInfo {
     pub reagents: Option<BTreeMap<i32, f64>>,
     pub memory: Option<Vec<f64>>,
     pub logic_values: Option<BTreeMap<LogicType, f64>>,
+    pub slot_logic_values: Option<BTreeMap<u32, BTreeMap<LogicSlotType, f64>>>,
     pub entity: Option<EntityInfo>,
     pub source_code: Option<String>,
+    pub compile_errors: Option<Vec<ICError>>,
     pub circuit: Option<ICInfo>,
     pub socketed_ic: Option<ObjectID>,
+    pub visible_devices: Option<Vec<ObjectID>>,
 }
 
 impl From<&VMObject> for ObjectInfo {
@@ -97,10 +100,13 @@ impl From<&VMObject> for ObjectInfo {
             reagents: None,
             memory: None,
             logic_values: None,
+            slot_logic_values: None,
             entity: None,
             source_code: None,
+            compile_errors: None,
             circuit: None,
             socketed_ic: None,
+            visible_devices: None,
         }
     }
 }
@@ -125,10 +131,13 @@ impl ObjectInfo {
             reagents: None,
             memory: None,
             logic_values: None,
+            slot_logic_values: None,
             entity: None,
             source_code: None,
+            compile_errors: None,
             circuit: None,
             socketed_ic: None,
+            visible_devices: None,
         }
     }
 
@@ -229,6 +238,8 @@ impl ObjectInfo {
                     .collect(),
             );
         }
+        let visible_devices = device.get_vm().visible_devices(*device.get_id());
+        self.visible_devices.replace(visible_devices);
         self
     }
 
@@ -254,6 +265,29 @@ impl ObjectInfo {
                 })
                 .collect(),
         );
+        let num_slots = logic.slots_count();
+        if num_slots > 0 {
+            let slot_logic_values = (0..num_slots)
+                .map(|index| {
+                    (
+                        index as u32,
+                        LogicSlotType::iter()
+                            .filter_map(|slt| {
+                                if logic.can_slot_logic_read(slt, index as f64) {
+                                    Some((
+                                        slt,
+                                        logic.get_slot_logic(slt, index as f64).unwrap_or(0.0),
+                                    ))
+                                } else {
+                                    None
+                                }
+                            })
+                            .collect(),
+                    )
+                })
+                .collect();
+            self.slot_logic_values.replace(slot_logic_values);
+        }
         self
     }
 
@@ -281,6 +315,10 @@ impl ObjectInfo {
         let code = source.get_source_code();
         if !code.is_empty() {
             self.source_code.replace(code);
+        }
+        let errors = source.get_compile_errors();
+        if !errors.is_empty() {
+            self.compile_errors.replace(errors);
         }
         self
     }
@@ -868,15 +906,10 @@ impl FrozenObject {
             .get_template(Prefab::Hash(obj_ref.get_prefab().hash))
             .map_or_else(
                 || try_template_from_interfaces(&interfaces, obj),
-                |template| {
-                    Ok(template)
-                },
+                |template| Ok(template),
             )?;
 
-        Ok(FrozenObjectFull {
-            obj_info,
-            template,
-        })
+        Ok(FrozenObjectFull { obj_info, template })
     }
 
     pub fn freeze_object_sparse(obj: &VMObject, vm: &Rc<VM>) -> Result<Self, TemplateError> {

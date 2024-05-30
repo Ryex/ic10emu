@@ -1,15 +1,19 @@
 import { html, css } from "lit";
 import { customElement, property} from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMDeviceDBMixin, VMObjectMixin } from "virtual_machine/base_device";
+import { VMTemplateDBMixin, VMObjectMixin } from "virtual_machine/base_device";
 import {
   clamp,
+  crc32,
   displayNumber,
   parseNumber,
 } from "utils";
 import {
+  LogicField,
   LogicSlotType,
-  SlotType,
+  SlotInfo,
+  Class as SlotType,
+  TemplateDatabase,
 } from "ic10emu_wasm";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
 import { VMDeviceCard } from "./card";
@@ -21,7 +25,7 @@ export interface SlotModifyEvent {
 }
 
 @customElement("vm-device-slot")
-export class VMDeviceSlot extends VMObjectMixin(VMDeviceDBMixin(BaseElement)) {
+export class VMDeviceSlot extends VMObjectMixin(VMTemplateDBMixin(BaseElement)) {
   private _slotIndex: number;
 
   get slotIndex() {
@@ -72,8 +76,7 @@ export class VMDeviceSlot extends VMObjectMixin(VMDeviceDBMixin(BaseElement)) {
   slotOccupantImg(): string {
     const slot = this.slots[this.slotIndex];
     if (typeof slot.occupant !== "undefined") {
-      const hashLookup = (this.templateDB ?? {}).names_by_hash ?? {};
-      const prefabName = hashLookup[slot.occupant.prefab_hash] ?? "UnknownHash";
+      const prefabName = slot.occupant.obj_info.prefab;
       return `img/stationpedia/${prefabName}.png`;
     } else {
       return `img/stationpedia/SlotIcon_${slot.typ}.png`;
@@ -83,18 +86,16 @@ export class VMDeviceSlot extends VMObjectMixin(VMDeviceDBMixin(BaseElement)) {
   slotOccupantPrefabName(): string {
     const slot = this.slots[this.slotIndex];
     if (typeof slot.occupant !== "undefined") {
-      const hashLookup = (this.templateDB ?? {}).names_by_hash ?? {};
-      const prefabName = hashLookup[slot.occupant.prefab_hash] ?? "UnknownHash";
+      const prefabName = slot.occupant.obj_info.prefab;
       return prefabName;
     } else {
       return undefined;
     }
   }
 
-  slotOcccupantTemplate(): { name: string; typ: SlotType } | undefined {
-    if (this.templateDB) {
-      const entry = this.templateDB.db[this.prefabName];
-      return entry?.slots[this.slotIndex];
+  slotOcccupantTemplate(): SlotInfo | undefined {
+    if ("slots" in this.obj.template) {
+      return this.obj.template.slots[this.slotIndex];
     } else {
       return undefined;
     }
@@ -139,10 +140,11 @@ export class VMDeviceSlot extends VMObjectMixin(VMDeviceDBMixin(BaseElement)) {
                 class="absolute bottom-0 right-0 mr-1 mb-1 text-xs
                                   text-neutral-200/90 font-mono bg-neutral-500/40 rounded pl-1 pr-1"
               >
-                <small
-                  >${slot.occupant.quantity}/${slot.occupant
-                    .max_quantity}</small
-                >
+                <small>
+                  ${slot.quantity}/${"item" in slot.occupant.template
+                    ? slot.occupant.template.item.max_quantity
+                    : 1}
+                </small>
               </div>`,
           )}
           <div></div>
@@ -170,13 +172,20 @@ export class VMDeviceSlot extends VMObjectMixin(VMDeviceDBMixin(BaseElement)) {
                 ? html` <sl-input
                     type="number"
                     size="small"
-                    .value=${slot.occupant.quantity.toString()}
+                    .value=${slot.quantity.toString()}
                     .min=${1}
-                    .max=${slot.occupant.max_quantity}
+                    .max=${"item" in slot.occupant.template
+                      ? slot.occupant.template.item.max_quantity
+                      : 1}
                     @sl-change=${this._handleSlotQuantityChange}
                   >
                     <div slot="help-text">
-                      <span>Max Quantity: ${slot.occupant.max_quantity}</span>
+                      <span>
+                        Max Quantity:
+                        ${"item" in slot.occupant.template
+                          ? slot.occupant.template.item.max_quantity
+                          : 1}
+                      </span>
                     </div>
                   </sl-input>`
                 : ""}
@@ -218,7 +227,13 @@ export class VMDeviceSlot extends VMObjectMixin(VMDeviceDBMixin(BaseElement)) {
   _handleSlotQuantityChange(e: Event) {
     const input = e.currentTarget as SlInput;
     const slot = this.slots[this.slotIndex];
-    const val = clamp(input.valueAsNumber, 1, slot.occupant.max_quantity);
+    const val = clamp(
+      input.valueAsNumber,
+      1,
+      "item" in slot.occupant.template
+        ? slot.occupant.template.item.max_quantity
+        : 1,
+    );
     if (
       !window.VM.vm.setObjectSlotField(
         this.objectID,
@@ -228,15 +243,15 @@ export class VMDeviceSlot extends VMObjectMixin(VMDeviceDBMixin(BaseElement)) {
         true,
       )
     ) {
-      input.value = this.obj
-        .getSlotField(this.slotIndex, "Quantity")
-        .toString();
+      input.value = this.slots[this.slotIndex].quantity.toString();
     }
   }
 
   renderFields() {
     const inputIdBase = `vmDeviceSlot${this.objectID}Slot${this.slotIndex}Field`;
-    const _fields = this.obj.getSlotFields(this.slotIndex);
+    const _fields =
+      this.slots[this.slotIndex].logicFields ??
+      new Map<LogicSlotType, LogicField>();
     const fields = Array.from(_fields.entries());
 
     return html`
@@ -269,14 +284,23 @@ export class VMDeviceSlot extends VMObjectMixin(VMDeviceDBMixin(BaseElement)) {
     let val = parseNumber(input.value);
     if (field === "Quantity") {
       const slot = this.slots[this.slotIndex];
-      val = clamp(input.valueAsNumber, 1, slot.occupant.max_quantity);
+      val = clamp(
+        input.valueAsNumber,
+        1,
+        "item" in slot.occupant.template
+          ? slot.occupant.template.item.max_quantity
+          : 1,
+      );
     }
     window.VM.get().then((vm) => {
       if (
         !vm.setObjectSlotField(this.objectID, this.slotIndex, field, val, true)
       ) {
-        input.value = this.obj
-          .getSlotField(this.slotIndex, field)
+        input.value = (
+          this.slots[this.slotIndex].logicFields ??
+          new Map<LogicSlotType, LogicField>()
+        )
+          .get(field)
           .toString();
       }
       this.updateDevice();
