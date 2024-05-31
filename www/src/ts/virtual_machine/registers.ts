@@ -44,17 +44,16 @@ export class VMICRegisters extends VMActiveICMixin(BaseElement) {
   }
 
   protected render() {
-    const registerAliases: [string, number][] = (
-      (
-        [...(this.aliases ?? [])].filter(
-          ([_alias, target]) =>
-            "RegisterSpec" in target && target.RegisterSpec.indirection === 0,
-        ) as [string, RegisterSpec][]
-      ).map(([alias, target]) => [alias, target.RegisterSpec.target]) as [
-        string,
-        number,
-      ][]
-    ).concat(VMICRegisters.defaultAliases);
+    const registerAliases: [string, number][] =
+      [...(Array.from(this.aliases?.entries() ?? []))].flatMap(
+        ([alias, target]) => {
+          if ("RegisterSpec" in target && target.RegisterSpec.indirection === 0) {
+            return [[alias, target.RegisterSpec.target]] as [string, number][];
+          } else {
+            return [] as [string, number][];
+          }
+        }
+      ).concat(VMICRegisters.defaultAliases);
     return html`
       <sl-card class="card">
         <div class="card-body">

@@ -4,8 +4,12 @@ mod utils;
 
 use ic10emu::{
     errors::{ICError, VMError},
+    network::FrozenCableNetwork,
     vm::{
-        object::{templates::{FrozenObject, FrozenObjectFull}, ObjectID},
+        object::{
+            templates::{FrozenObject, FrozenObjectFull},
+            ObjectID,
+        },
         FrozenVM, VM,
     },
 };
@@ -60,9 +64,49 @@ impl IntoIterator for TemplateDatabase {
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct FrozenObjects(Vec<FrozenObjectFull>);
 
+impl IntoIterator for FrozenObjects {
+    type Item = FrozenObjectFull;
+    type IntoIter = std::vec::IntoIter<FrozenObjectFull>;
+    fn into_iter(self) -> Self::IntoIter {
+        self.0.into_iter()
+    }
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize, Tsify)]
+#[tsify(into_wasm_abi, from_wasm_abi)]
+pub struct FrozenObjectsSparse(Vec<FrozenObject>);
+
+impl IntoIterator for FrozenObjectsSparse {
+    type Item = FrozenObject;
+    type IntoIter = std::vec::IntoIter<FrozenObject>;
+    fn into_iter(self) -> Self::IntoIter {
+        self.0.into_iter()
+    }
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize, Tsify)]
+#[tsify(into_wasm_abi, from_wasm_abi)]
+pub struct FrozenNetworks(Vec<FrozenCableNetwork>);
+
+impl IntoIterator for FrozenNetworks {
+    type Item = FrozenCableNetwork;
+    type IntoIter = std::vec::IntoIter<FrozenCableNetwork>;
+    fn into_iter(self) -> Self::IntoIter {
+        self.0.into_iter()
+    }
+}
+
 #[derive(Clone, Debug, Serialize, Deserialize, Tsify)]
 #[tsify(into_wasm_abi, from_wasm_abi)]
 pub struct CompileErrors(Vec<ICError>);
+
+impl IntoIterator for CompileErrors {
+    type Item = ICError;
+    type IntoIter = std::vec::IntoIter<ICError>;
+    fn into_iter(self) -> Self::IntoIter {
+        self.0.into_iter()
+    }
+}
 
 #[wasm_bindgen]
 impl VMRef {
@@ -81,13 +125,26 @@ impl VMRef {
         TemplateDatabase(self.vm.get_template_database())
     }
 
-    #[wasm_bindgen(js_name = "addObjectFromFrozen")]
-    pub fn add_object_from_frozen(&self, frozen: FrozenObject) -> Result<ObjectID, JsError> {
+    #[wasm_bindgen(js_name = "addObjectFrozen")]
+    pub fn add_object_frozen(&self, frozen: FrozenObject) -> Result<ObjectID, JsError> {
         web_sys::console::log_2(
             &"(wasm) adding device".into(),
             &serde_wasm_bindgen::to_value(&frozen).unwrap(),
         );
-        Ok(self.vm.add_object_from_frozen(frozen)?)
+        Ok(self.vm.add_object_frozen(frozen)?)
+    }
+
+    #[wasm_bindgen(js_name = "addObjectsFrozen")]
+    pub fn add_objects_frozen(
+        &self,
+        frozen_objects: FrozenObjectsSparse,
+    ) -> Result<Vec<ObjectID>, JsError> {
+        web_sys::console::log_2(
+            &"(wasm) adding device".into(),
+            &serde_wasm_bindgen::to_value(&frozen_objects).unwrap(),
+        );
+
+        Ok(self.vm.add_objects_frozen(frozen_objects)?)
     }
 
     // #[wasm_bindgen(js_name = "getDevice")]
@@ -103,6 +160,16 @@ impl VMRef {
     #[wasm_bindgen(js_name = "freezeObjects")]
     pub fn freeze_objects(&self, ids: Vec<ObjectID>) -> Result<FrozenObjects, JsError> {
         Ok(FrozenObjects(self.vm.freeze_objects(ids)?))
+    }
+
+    #[wasm_bindgen(js_name = "freezeNetwork")]
+    pub fn freeze_network(&self, id: ObjectID) -> Result<FrozenCableNetwork, JsError> {
+        Ok(self.vm.freeze_network(id)?)
+    }
+
+    #[wasm_bindgen(js_name = "freezeNetworks")]
+    pub fn freeze_networks(&self, ids: Vec<ObjectID>) -> Result<FrozenNetworks, JsError> {
+        Ok(FrozenNetworks(self.vm.freeze_networks(ids)?))
     }
 
     #[wasm_bindgen(js_name = "setCode")]
@@ -225,7 +292,7 @@ impl VMRef {
             // TODO: we just assume if the ID is found that the frozen object passed is the same object..
             obj.get_id()
         } else {
-            self.vm.add_object_from_frozen(frozen)?
+            self.vm.add_object_frozen(frozen)?
         };
         Ok(self
             .vm

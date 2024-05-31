@@ -123,14 +123,14 @@ export class VMICControls extends VMActiveICMixin(BaseElement) {
               ${ics.map(
                 ([id, device], _index) =>
                   html`<sl-option
-                    name=${device.name}
-                    prefabName=${device.prefabName}
+                    name=${device.obj_info.name}
+                    prefabName=${device.obj_info.prefab}
                     value=${id}
                   >
-                    ${device.name
-                      ? html`<span slot="suffix">${device.prefabName}</span>`
+                    ${device.obj_info.name
+                      ? html`<span slot="suffix">${device.obj_info.prefab}</span>`
                       : ""}
-                    Device:${id} ${device.name ?? device.prefabName}
+                    Device:${id} ${device.obj_info.name ?? device.obj_info.prefab}
                   </sl-option>`,
               )}
             </sl-select>
@@ -156,13 +156,16 @@ export class VMICControls extends VMActiveICMixin(BaseElement) {
             <span>Errors</span>
             ${this.errors.map(
               (err) =>
-                html`<div class="hstack">
-                  <span>
-                    Line: ${err.ParseError.line} -
-                    ${err.ParseError.start}:${err.ParseError.end}
-                  </span>
-                  <span class="ms-auto">${err.ParseError.msg}</span>
-                </div>`,
+                typeof err === "object"
+                  && "ParseError" in err
+                  ? html`<div class="hstack">
+                      <span>
+                        Line: ${err.ParseError.line} -
+                        ${"ParseError" in err ? err.ParseError.start : "N/A"}:${err.ParseError.end}
+                      </span>
+                      <span class="ms-auto">${err.ParseError.msg}</span>
+                    </div>`
+                  : html`${JSON.stringify(err)}`,
             )}
           </div>
         </div>

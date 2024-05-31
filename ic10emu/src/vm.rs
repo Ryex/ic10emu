@@ -2,7 +2,7 @@ pub mod instructions;
 pub mod object;
 
 use crate::{
-    errors::{ICError, TemplateError, VMError},
+    errors::{ICError, VMError},
     interpreter::ICState,
     network::{CableConnectionType, CableNetwork, Connection, FrozenCableNetwork},
     vm::object::{
@@ -183,7 +183,7 @@ impl VM {
             let mut net_ref = net.borrow_mut();
             let net_interface = net_ref
                 .as_mut_network()
-                .unwrap_or_else(|| panic!("non network network: {net_id}"));
+                .ok_or(VMError::NonNetworkNetwork(net_id))?;
             for id in trans_net.devices {
                 net_interface.add_data(id);
             }
@@ -200,7 +200,7 @@ impl VM {
     /// current database.
     /// Errors if the object can not be built do to a template error
     /// Returns the built object's ID
-    pub fn add_object_from_frozen(
+    pub fn add_object_frozen(
         self: &Rc<Self>,
         frozen: FrozenObject,
     ) -> Result<ObjectID, VMError> {
@@ -236,7 +236,7 @@ impl VM {
             let mut net_ref = net.borrow_mut();
             let net_interface = net_ref
                 .as_mut_network()
-                .unwrap_or_else(|| panic!("non network network: {net_id}"));
+                .ok_or(VMError::NonNetworkNetwork(net_id))?;
             for id in trans_net.devices {
                 net_interface.add_data(id);
             }
@@ -952,14 +952,14 @@ impl VM {
                             network
                                 .borrow_mut()
                                 .as_mut_network()
-                                .expect("non-network network")
+                                .ok_or(VMError::NonNetworkNetwork(*net))?
                                 .remove_power(id);
                         }
                         _ => {
                             network
                                 .borrow_mut()
                                 .as_mut_network()
-                                .expect("non-network network")
+                                .ok_or(VMError::NonNetworkNetwork(*net))?
                                 .remove_data(id);
                         }
                     }
@@ -982,14 +982,14 @@ impl VM {
                         network
                             .borrow_mut()
                             .as_mut_network()
-                            .expect("non-network network")
+                            .ok_or(VMError::NonNetworkNetwork(target_net))?
                             .add_power(id);
                     }
                     _ => {
                         network
                             .borrow_mut()
                             .as_mut_network()
-                            .expect("non-network network")
+                            .ok_or(VMError::NonNetworkNetwork(target_net))?
                             .add_data(id);
                     }
                 }
@@ -1025,7 +1025,7 @@ impl VM {
             network
                 .borrow_mut()
                 .as_mut_network()
-                .expect("non-network network")
+                .ok_or(VMError::NonNetworkNetwork(network_id))?
                 .remove_all(id);
             Ok(true)
         } else {
@@ -1314,7 +1314,38 @@ impl VM {
             .collect()
     }
 
-    pub fn save_vm_state(self: &Rc<Self>) -> Result<FrozenVM, TemplateError> {
+    pub fn freeze_network(self: &Rc<Self>, id: ObjectID) -> Result<FrozenCableNetwork, VMError> {
+        Ok(self
+            .networks
+            .borrow()
+            .get(&id)
+            .ok_or(VMError::UnknownId(id))?
+            .borrow()
+            .as_network()
+            .ok_or(VMError::NonNetworkNetwork(id))?
+            .into())
+    }
+
+    pub fn freeze_networks(
+        self: &Rc<Self>,
+        ids: impl IntoIterator<Item = ObjectID>,
+    ) -> Result<Vec<FrozenCableNetwork>, VMError> {
+        ids.into_iter()
+            .map(|id| {
+                Ok(self
+                    .networks
+                    .borrow()
+                    .get(&id)
+                    .ok_or(VMError::UnknownId(id))?
+                    .borrow()
+                    .as_network()
+                    .ok_or(VMError::NonNetworkNetwork(id))?
+                    .into())
+            })
+            .collect::<Result<Vec<FrozenCableNetwork>, VMError>>()
+    }
+
+    pub fn save_vm_state(self: &Rc<Self>) -> Result<FrozenVM, VMError> {
         Ok(FrozenVM {
             objects: self
                 .objects
@@ -1337,13 +1368,14 @@ impl VM {
                 .borrow()
                 .values()
                 .map(|network| {
-                    network
+                    let net_id = network.get_id();
+                    Ok(network
                         .borrow()
                         .as_network()
-                        .expect("non-network network")
-                        .into()
+                        .ok_or(VMError::NonNetworkNetwork(net_id))?
+                        .into())
                 })
-                .collect(),
+                .collect::<Result<Vec<FrozenCableNetwork>, VMError>>()?,
             default_network_key: *self.default_network_key.borrow(),
             circuit_holders: self.circuit_holders.borrow().clone(),
             program_holders: self.program_holders.borrow().clone(),
@@ -1412,7 +1444,7 @@ impl VM {
             let mut net_ref = net.borrow_mut();
             let net_interface = net_ref
                 .as_mut_network()
-                .unwrap_or_else(|| panic!("non network network: {net_id}"));
+                .ok_or(VMError::NonNetworkNetwork(net_id))?;
             for id in trans_net.devices {
                 net_interface.add_data(id);
             }

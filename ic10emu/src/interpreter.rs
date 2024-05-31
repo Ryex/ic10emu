@@ -245,7 +245,7 @@ mod tests {
         };
 
         println!("Adding IC");
-        let ic = vm.add_object_from_frozen(frozen_ic)?;
+        let ic = vm.add_object_frozen(frozen_ic)?;
         let frozen_circuit_holder = FrozenObject {
             obj_info: ObjectInfo::with_prefab(Prefab::Name(
                 StationpediaPrefab::StructureCircuitHousing.to_string(),
@@ -254,7 +254,7 @@ mod tests {
             template: None,
         };
         println!("Adding circuit holder");
-        let ch = vm.add_object_from_frozen(frozen_circuit_holder)?;
+        let ch = vm.add_object_frozen(frozen_circuit_holder)?;
         println!("socketing ic into circuit holder");
         vm.set_slot_occupant(ch, 0, Some(ic), 1)?;
         Ok((vm, ch, ic))

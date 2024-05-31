@@ -62,6 +62,8 @@ pub enum VMError {
     NotParentable(ObjectID),
     #[error("object {0} is not logicable")]
     NotLogicable(ObjectID),
+    #[error("network object {0} is not a network")]
+    NonNetworkNetwork(ObjectID)
 }
 
 #[derive(Error, Debug, Serialize, Deserialize)]

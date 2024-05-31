@@ -432,7 +432,7 @@ export class VMDeviceCard extends VMTemplateDBMixin(
     const val = parseIntWithHexOrBinary(input.value);
     if (!isNaN(val)) {
       window.VM.get().then((vm) => {
-        if (!vm.changeDeviceID(this.objectID, val)) {
+        if (!vm.changeObjectID(this.objectID, val)) {
           input.value = this.objectID.toString();
         }
       });
