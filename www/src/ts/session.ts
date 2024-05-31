@@ -1,4 +1,4 @@
-import type { ICError, FrozenVM, SlotType } from "ic10emu_wasm";
+import type { ICError, FrozenVM, Class } from "ic10emu_wasm";
 import { App } from "./app";
 
 import { openDB, DBSchema } from "idb";
@@ -230,7 +230,7 @@ export class Session extends EventTarget {
 
   async saveLocal(name: string) {
     const state: VMState = {
-      vm: (await window.VM.get()).ic10vm.saveVMState(),
+      vm: await (await window.VM.get()).ic10vm.saveVMState(),
       activeIC: this.activeIC,
     };
     const db = await this.openIndexDB();

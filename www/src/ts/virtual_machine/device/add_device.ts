@@ -1,4 +1,3 @@
-
 import { html, css } from "lit";
 import { customElement, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
@@ -6,14 +5,18 @@ import { BaseElement, defaultCss } from "components";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
 
 import SlDrawer from "@shoelace-style/shoelace/dist/components/drawer/drawer.js";
-import type { DeviceDBEntry } from "virtual_machine/device_db";
 import { repeat } from "lit/directives/repeat.js";
 import { cache } from "lit/directives/cache.js";
 import { default as uFuzzy } from "@leeoniya/ufuzzy";
 import { when } from "lit/directives/when.js";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { VMTemplateDBMixin } from "virtual_machine/base_device";
+import { LogicInfo, ObjectTemplate, StructureInfo } from "ic10emu_wasm";
 
+type LogicableStrucutureTemplate = Extract<
+  ObjectTemplate,
+  { structure: StructureInfo; logic: LogicInfo }
+>;
 
 @customElement("vm-add-device-button")
 export class VMAddDeviceButton extends VMTemplateDBMixin(BaseElement) {
@@ -35,27 +38,30 @@ export class VMAddDeviceButton extends VMTemplateDBMixin(BaseElement) {
   @query("sl-drawer") drawer: SlDrawer;
   @query(".device-search-input") searchInput: SlInput;
 
-  private _structures: Map<string, DeviceDBEntry> = new Map();
+  private _structures: Map<string, LogicableStrucutureTemplate> = new Map();
   private _datapoints: [string, string][] = [];
   private _haystack: string[] = [];
 
   postDBSetUpdate(): void {
     this._structures = new Map(
-      Object.values(this.templateDB.db)
-        .filter((entry) => this.templateDB.structures.includes(entry.name), this)
-        .filter(
-          (entry) => this.templateDB.logic_enabled.includes(entry.name),
-          this,
-        )
-        .map((entry) => [entry.name, entry]),
+      Array.from(this.templateDB.values()).flatMap((template) => {
+        if ("structure" in template && "logic" in template) {
+          return [[template.prefab.prefab_name, template]] as [
+            string,
+            LogicableStrucutureTemplate,
+          ][];
+        } else {
+          return [] as [string, LogicableStrucutureTemplate][];
+        }
+      }),
     );
 
     const datapoints: [string, string][] = [];
     for (const entry of this._structures.values()) {
       datapoints.push(
-        [entry.title, entry.name],
-        [entry.name, entry.name],
-        [entry.desc, entry.name],
+        [entry.prefab.name, entry.prefab.prefab_name],
+        [entry.prefab.prefab_name, entry.prefab.prefab_name],
+        [entry.prefab.desc, entry.prefab.prefab_name],
       );
     }
     const haystack: string[] = datapoints.map((data) => data[0]);
@@ -78,7 +84,7 @@ export class VMAddDeviceButton extends VMTemplateDBMixin(BaseElement) {
   }
 
   private _searchResults: {
-    entry: DeviceDBEntry;
+    entry: LogicableStrucutureTemplate;
     haystackEntry: string;
     ranges: number[];
   }[] = [];
@@ -116,7 +122,7 @@ export class VMAddDeviceButton extends VMTemplateDBMixin(BaseElement) {
       // return everything
       this._searchResults = [...this._structures.values()].map((st) => ({
         entry: st,
-        haystackEntry: st.title,
+        haystackEntry: st.prefab.prefab_name,
         ranges: [],
       }));
     }
@@ -143,28 +149,28 @@ export class VMAddDeviceButton extends VMTemplateDBMixin(BaseElement) {
     const totalPages = Math.ceil((this._searchResults?.length ?? 0) / perPage);
     let pageKeys = Array.from({ length: totalPages }, (_, index) => index);
     const extra: {
-      entry: { title: string; name: string };
+      entry: { prefab: { name: string; prefab_name: string } };
       haystackEntry: string;
       ranges: number[];
     }[] = [];
     if (this.page < totalPages - 1) {
       extra.push({
-        entry: { title: "", name: this.filter },
+        entry: { prefab: { name: "", prefab_name: this.filter } },
         haystackEntry: "...",
         ranges: [],
       });
     }
     return when(
       typeof this._searchResults !== "undefined" &&
-        this._searchResults.length < 20,
+      this._searchResults.length < 20,
       () =>
         repeat(
           this._searchResults ?? [],
-          (result) => result.entry.name,
+          (result) => result.entry.prefab.prefab_name,
           (result) =>
             cache(html`
               <vm-device-template
-                prefab_name=${result.entry.name}
+                prefab_name=${result.entry.prefab.prefab_name}
                 class="card"
                 @add-device-template=${this._handleDeviceAdd}
               >
@@ -183,46 +189,46 @@ export class VMAddDeviceButton extends VMTemplateDBMixin(BaseElement) {
             <div class="p-2 ml-2">
               Page:
               ${pageKeys.map(
-                (key, index) => html`
+        (key, index) => html`
                   <span
                     class="p-2 cursor-pointer hover:text-purple-400 ${index ===
-                    this.page
-                      ? " text-purple-500"
-                      : ""}"
+            this.page
+            ? " text-purple-500"
+            : ""}"
                     key=${key}
                     @click=${this._handlePageChange}
                     >${key + 1}${index < totalPages - 1 ? "," : ""}</span
                   >
                 `,
-              )}
+      )}
             </div>
           </div>
           <div class="flex flex-row flex-wrap">
             ${[
-              ...this._searchResults.slice(
-                perPage * this.page,
-                perPage * this.page + perPage,
-              ),
-              ...extra,
-            ].map((result) => {
-              let hay = result.haystackEntry.slice(0, 15);
-              if (result.haystackEntry.length > 15) hay += "...";
-              const ranges = result.ranges.filter((pos) => pos < 20);
-              const key = result.entry.name;
-              return html`
+          ...this._searchResults.slice(
+            perPage * this.page,
+            perPage * this.page + perPage,
+          ),
+          ...extra,
+        ].map((result) => {
+          let hay = result.haystackEntry.slice(0, 15);
+          if (result.haystackEntry.length > 15) hay += "...";
+          const ranges = result.ranges.filter((pos) => pos < 20);
+          const key = result.entry.prefab.prefab_name;
+          return html`
                 <div
                   class="m-2 text-neutral-200/90 italic cursor-pointer rounded bg-neutral-700 hover:bg-purple-500 px-1"
                   key=${key}
                   @click=${this._handleHaystackClick}
                 >
-                  ${result.entry.title} (<small class="text-sm">
+                  ${result.entry.prefab.name} (<small class="text-sm">
                     ${ranges.length
-                      ? unsafeHTML(uFuzzy.highlight(hay, ranges))
-                      : hay} </small
+              ? unsafeHTML(uFuzzy.highlight(hay, ranges))
+              : hay} </small
                   >)
                 </div>
               `;
-            })}
+        })}
           </div>
         </div>
       `,
@@ -278,8 +284,8 @@ export class VMAddDeviceButton extends VMTemplateDBMixin(BaseElement) {
           slot="footer"
           variant="primary"
           @click=${() => {
-            this.drawer.hide();
-          }}
+        this.drawer.hide();
+      }}
         >
           Close
         </sl-button>

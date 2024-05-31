@@ -2,13 +2,21 @@ import { html, css } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
 import { VMTemplateDBMixin } from "virtual_machine/base_device";
-import type { DeviceDB, DeviceDBEntry } from "virtual_machine/device_db";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
 import SlDialog from "@shoelace-style/shoelace/dist/components/dialog/dialog.component.js";
 import { VMDeviceCard } from "./card";
 import { when } from "lit/directives/when.js";
 import uFuzzy from "@leeoniya/ufuzzy";
-import { LogicField, LogicSlotType, SlotOccupantTemplate } from "ic10emu_wasm";
+import {
+  FrozenObject,
+  ItemInfo,
+  LogicField,
+  LogicSlotType,
+  ObjectInfo,
+  ObjectTemplate,
+} from "ic10emu_wasm";
+
+type SlotableItemTemplate = Extract<ObjectTemplate, { item: ItemInfo }>;
 
 @customElement("vm-slot-add-dialog")
 export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
@@ -30,8 +38,8 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
     `,
   ];
 
-  private _items: Map<string, DeviceDBEntry> = new Map();
-  private _filteredItems: DeviceDBEntry[];
+  private _items: Map<string, SlotableItemTemplate> = new Map();
+  private _filteredItems: SlotableItemTemplate[];
   private _datapoints: [string, string][] = [];
   private _haystack: string[] = [];
 
@@ -47,42 +55,52 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
   }
 
   private _searchResults: {
-    entry: DeviceDBEntry;
+    entry: SlotableItemTemplate;
     haystackEntry: string;
     ranges: number[];
   }[] = [];
 
   postDBSetUpdate(): void {
     this._items = new Map(
-      Object.values(this.templateDB.db)
-        .filter((entry) => this.templateDB.items.includes(entry.name), this)
-        .map((entry) => [entry.name, entry]),
+      Array.from(this.templateDB.values()).flatMap((template) => {
+        if ("item" in template) {
+          return [[template.prefab.prefab_name, template]] as [
+            string,
+            SlotableItemTemplate,
+          ][];
+        } else {
+          return [] as [string, SlotableItemTemplate][];
+        }
+      }),
     );
     this.setupSearch();
     this.performSearch();
   }
 
-
   setupSearch() {
-    let filteredItemss = Array.from(this._items.values());
-    if( typeof this.deviceID !== "undefined" && typeof this.slotIndex !== "undefined") {
-      const device = window.VM.vm.objects.get(this.deviceID);
-      const dbDevice = this.templateDB.db[device.prefabName]
-      const slot = dbDevice.slots[this.slotIndex]
+    let filteredItems = Array.from(this._items.values());
+    if (
+      typeof this.objectID !== "undefined" &&
+      typeof this.slotIndex !== "undefined"
+    ) {
+      const obj = window.VM.vm.objects.get(this.objectID);
+      const template = obj.template;
+      const slot = "slots" in template ? template.slots[this.slotIndex] : null;
       const typ = slot.typ;
 
       if (typeof typ === "string" && typ !== "None") {
-        filteredItemss = Array.from(this._items.values()).filter(item => item.item.slotclass === typ);
+        filteredItems = Array.from(this._items.values()).filter(
+          (item) => item.item.slot_class === typ,
+        );
       }
-
     }
-    this._filteredItems= filteredItemss;
+    this._filteredItems = filteredItems;
     const datapoints: [string, string][] = [];
     for (const entry of this._filteredItems) {
       datapoints.push(
-        [entry.title, entry.name],
-        [entry.name, entry.name],
-        [entry.desc, entry.name],
+        [entry.prefab.name, entry.prefab.prefab_name],
+        [entry.prefab.prefab_name, entry.prefab.prefab_name],
+        [entry.prefab.desc, entry.prefab.prefab_name],
       );
     }
 
@@ -93,7 +111,6 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
 
   performSearch() {
     if (this._filter) {
-
       const uf = new uFuzzy({});
       const [_idxs, info, order] = uf.search(
         this._haystack,
@@ -102,18 +119,17 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
         1e3,
       );
 
-      const filtered = order?.map((infoIdx) => ({
-        name: this._datapoints[info.idx[infoIdx]][1],
-        haystackEntry: this._haystack[info.idx[infoIdx]],
-        ranges: info.ranges[infoIdx],
-      })) ?? [];
+      const filtered =
+        order?.map((infoIdx) => ({
+          name: this._datapoints[info.idx[infoIdx]][1],
+          haystackEntry: this._haystack[info.idx[infoIdx]],
+          ranges: info.ranges[infoIdx],
+        })) ?? [];
 
       const uniqueNames = new Set(filtered.map((obj) => obj.name));
-      const unique = [...uniqueNames].map(
-        (result) => {
-          return filtered.find((obj) => obj.name === result);
-        },
-      );
+      const unique = [...uniqueNames].map((result) => {
+        return filtered.find((obj) => obj.name === result);
+      });
 
       this._searchResults = unique.map(({ name, haystackEntry, ranges }) => ({
         entry: this._items.get(name)!,
@@ -124,7 +140,7 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
       // return everything
       this._searchResults = [...this._filteredItems].map((st) => ({
         entry: st,
-        haystackEntry: st.title,
+        haystackEntry: st.prefab.prefab_name,
         ranges: [],
       }));
     }
@@ -133,63 +149,61 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
   renderSearchResults() {
     const enableNone = false;
     const none = html`
-        <div class="cursor-pointer hover:bg-neutral-600 rounded px-2 py-1 me-1" @click=${this._handleClickNone}>
-          None
-        </div>
+      <div
+        class="cursor-pointer hover:bg-neutral-600 rounded px-2 py-1 me-1"
+        @click=${this._handleClickNone}
+      >
+        None
+      </div>
     `;
     return html`
       <div class="mt-2 max-h-48 overflow-y-auto w-full">
         ${enableNone ? none : ""}
         ${this._searchResults.map((result) => {
-        const imgSrc = `img/stationpedia/${result.entry.name}.png`;
-        const img = html`
-        <img class="w-8 h-8 mr-2" src=${imgSrc} onerror="this.src = '${VMDeviceCard.transparentImg}'" />
-        `;
-        return html`
-        <div class="cursor-pointer hover:bg-neutral-600 rounded px-2 py-1 me-1 flex flex-row" key=${result.entry.name} @click=${this._handleClickItem}>
-          ${img}
-          <div>${result.entry.title}</div>
-        </div>
-        `;
-        })}
+      const imgSrc = `img/stationpedia/${result.entry.prefab.prefab_name}.png`;
+      const img = html`
+            <img
+              class="w-8 h-8 mr-2"
+              src=${imgSrc}
+              onerror="this.src = '${VMDeviceCard.transparentImg}'"
+            />
+          `;
+      return html`
+            <div
+              class="cursor-pointer hover:bg-neutral-600 rounded px-2 py-1 me-1 flex flex-row"
+              key=${result.entry.prefab.prefab_hash.toString()}
+              @click=${this._handleClickItem}
+            >
+              ${img}
+              <div>${result.entry.prefab.name}</div>
+            </div>
+          `;
+    })}
       </div>
     `;
   }
 
   _handleClickNone() {
-    window.VM.vm.removeSlotOccupant(this.deviceID, this.slotIndex);
+    window.VM.vm.removeSlotOccupant(this.objectID, this.slotIndex);
     this.hide();
   }
 
   _handleClickItem(e: Event) {
     const div = e.currentTarget as HTMLDivElement;
-    const key = div.getAttribute("key");
-    const entry = this.templateDB.db[key];
-    const device = window.VM.vm.objects.get(this.deviceID);
-    const dbDevice = this.templateDB.db[device.prefabName]
-    const sorting = this.templateDB.enums["SortingClass"][entry.item.sorting ?? "Default"] ?? 0;
-    console.log("using entry", dbDevice);
-    const fields: { [key in LogicSlotType]?: LogicField } = Object.fromEntries(
-      Object.entries(dbDevice.slotlogic[this.slotIndex] ?? {})
-        .map(([slt_s, field_type]) => {
-          let slt = slt_s as LogicSlotType;
-          let value = 0.0
-          if (slt === "FilterType") {
-            value = this.templateDB.enums["GasType"][entry.item.filtertype]
-          }
-          const field: LogicField = { field_type, value};
-          return [slt, field];
-        })
-    );
-    fields["PrefabHash"] = { field_type: "Read", value: entry.hash };
-    fields["MaxQuantity"] = { field_type: "Read", value: entry.item.maxquantity ?? 1.0 };
-    fields["SortingClass"] = { field_type: "Read", value: sorting };
-    fields["Quantity"] = { field_type: "Read", value: 1 };
+    const key = parseInt(div.getAttribute("key"));
+    const entry = this.templateDB.get(key) as SlotableItemTemplate;
+    const obj = window.VM.vm.objects.get(this.objectID);
+    const dbTemplate = obj.template;
+    console.log("using entry", dbTemplate);
 
-    const template: SlotOccupantTemplate = {
-      fields
-    }
-    window.VM.vm.setSlotOccupant(this.deviceID, this.slotIndex, template);
+    const template: FrozenObject = {
+      obj_info: {
+        prefab: entry.prefab.prefab_name,
+      } as ObjectInfo,
+      database_template: true,
+      template: undefined,
+    };
+    window.VM.vm.setSlotOccupant(this.objectID, this.slotIndex, template, 1);
     this.hide();
   }
 
@@ -197,30 +211,35 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
   @query(".device-search-input") searchInput: SlInput;
 
   render() {
-    const device = window.VM.vm.objects.get(this.deviceID);
-    const name = device?.name ?? device?.prefabName ?? "";
-    const id = this.deviceID ?? 0;
+    const device = window.VM.vm.objects.get(this.objectID);
+    const name = device?.obj_info.name ?? device?.obj_info.prefab ?? "";
+    const id = this.objectID ?? 0;
     return html`
       <sl-dialog
         label="Edit device ${id} : ${name} Slot ${this.slotIndex}"
         class="slot-add-dialog"
         @sl-hide=${this._handleDialogHide}
       >
-        <sl-input class="device-search-input" autofocus placeholder="filter" clearable
-          @sl-input=${this._handleSearchInput}>
+        <sl-input
+          class="device-search-input"
+          autofocus
+          placeholder="filter"
+          clearable
+          @sl-input=${this._handleSearchInput}
+        >
           <span slot="prefix">Search Items</span>
           <sl-icon slot="suffix" name="search"></sl-icon>
         </sl-input>
         ${when(
-          typeof this.deviceID !== "undefined" &&
-          typeof this.slotIndex !== "undefined",
-          () => html`
+      typeof this.objectID !== "undefined" &&
+      typeof this.slotIndex !== "undefined",
+      () => html`
             <div class="flex flex-row overflow-x-auto">
               ${this.renderSearchResults()}
             </div>
           `,
-          () => html``,
-        )}
+      () => html``,
+    )}
       </sl-dialog>
     `;
   }
@@ -239,15 +258,15 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
   }
 
   _handleDialogHide() {
-    this.deviceID = undefined;
+    this.objectID = undefined;
     this.slotIndex = undefined;
   }
 
-  @state() private deviceID: number;
+  @state() private objectID: number;
   @state() private slotIndex: number;
 
-  show(deviceID: number, slotIndex: number) {
-    this.deviceID = deviceID;
+  show(objectID: number, slotIndex: number) {
+    this.objectID = objectID;
     this.slotIndex = slotIndex;
     this.setupSearch();
     this.performSearch();

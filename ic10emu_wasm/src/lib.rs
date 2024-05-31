@@ -3,7 +3,7 @@ mod utils;
 // mod types;
 
 use ic10emu::{
-    errors::{ICError, VMError},
+    errors::{ICError, TemplateError, VMError},
     network::FrozenCableNetwork,
     vm::{
         object::{
@@ -288,11 +288,42 @@ impl VMRef {
         frozen: FrozenObject,
         quantity: u32,
     ) -> Result<Option<ObjectID>, JsError> {
+        let Some(prefab) = frozen.obj_info.prefab.as_ref() else {
+            return Err(TemplateError::MissingPrefab.into());
+        };
         let obj_id = if let Some(obj) = frozen.obj_info.id.and_then(|id| self.vm.get_object(id)) {
             // TODO: we just assume if the ID is found that the frozen object passed is the same object..
             obj.get_id()
         } else {
-            self.vm.add_object_frozen(frozen)?
+            // check to see if frozen is using the same prefab as current occupant
+            let obj_id = if let Some(occupant_id) = {
+                let obj = self.vm.get_object(id).ok_or(VMError::UnknownId(id))?;
+                let obj_ref = obj.borrow();
+                let storage = obj_ref.as_storage().ok_or(VMError::NotStorage(id))?;
+                let slot = storage
+                    .get_slot(index)
+                    .ok_or(ICError::SlotIndexOutOfRange(index as f64))?;
+                slot.occupant.as_ref().map(|info| info.id)
+            } {
+                let occupant = self
+                    .vm
+                    .get_object(id)
+                    .ok_or(VMError::UnknownId(occupant_id))?;
+                let occupant_ref = occupant.borrow();
+                let occupant_prefab = occupant_ref.get_prefab();
+                if prefab.as_str() == occupant_prefab.value.as_str() {
+                    Some(*occupant_ref.get_id())
+                } else {
+                    None
+                }
+            } else {
+                None
+            };
+            if let Some(obj_id) = obj_id {
+                obj_id
+            } else {
+                self.vm.add_object_frozen(frozen)?
+            }
         };
         Ok(self
             .vm
