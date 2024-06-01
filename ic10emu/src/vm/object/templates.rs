@@ -70,6 +70,7 @@ pub struct ObjectInfo {
     pub name: Option<String>,
     pub id: Option<ObjectID>,
     pub prefab: Option<String>,
+    pub prefab_hash: Option<i32>,
     pub slots: Option<BTreeMap<u32, SlotOccupantInfo>>,
     pub damage: Option<f32>,
     pub device_pins: Option<BTreeMap<u32, ObjectID>>,
@@ -93,6 +94,7 @@ impl From<&VMObject> for ObjectInfo {
             name: Some(obj_ref.get_name().value.clone()),
             id: Some(*obj_ref.get_id()),
             prefab: Some(obj_ref.get_prefab().value.clone()),
+            prefab_hash: Some(obj_ref.get_prefab().hash),
             slots: None,
             damage: None,
             device_pins: None,
@@ -114,6 +116,14 @@ impl From<&VMObject> for ObjectInfo {
 impl ObjectInfo {
     /// Build empty info with a prefab name
     pub fn with_prefab(prefab: Prefab) -> Self {
+        let prefab_hash = match &prefab {
+            Prefab::Name(name) => name
+                .parse::<StationpediaPrefab>()
+                .ok()
+                .map(|p| p as i32)
+                .unwrap_or_else(|| const_crc32::crc32(name.as_bytes()) as i32),
+            Prefab::Hash(hash) => *hash,
+        };
         let prefab_name = match prefab {
             Prefab::Name(name) => name,
             Prefab::Hash(hash) => StationpediaPrefab::from_repr(hash)
@@ -124,6 +134,7 @@ impl ObjectInfo {
             name: None,
             id: None,
             prefab: Some(prefab_name),
+            prefab_hash: Some(prefab_hash),
             slots: None,
             damage: None,
             device_pins: None,
@@ -141,7 +152,7 @@ impl ObjectInfo {
         }
     }
 
-    /// update the object info from the relavent implimented interfaces of a dyn object
+    /// update the object info from the relevant implemented interfaces of a dyn object
     /// use `ObjectInterfaces::from_object` with a `&dyn Object`  (`&*VMObject.borrow()`)
     /// to obtain the interfaces
     pub fn update_from_interfaces(&mut self, interfaces: &ObjectInterfaces<'_>) -> &mut Self {
@@ -344,7 +355,7 @@ impl ObjectInfo {
                 .map(|(key, val)| (key.clone(), *val))
                 .collect(),
             state: circuit.get_state(),
-            yield_instruciton_count: circuit.get_instructions_since_yield(),
+            yield_instruction_count: circuit.get_instructions_since_yield(),
         });
         self
     }
@@ -404,6 +415,16 @@ impl FrozenObject {
                             TemplateError::NoTemplateForPrefab(Prefab::Name(prefab.clone())),
                         )
                     })
+                    .transpose()?
+                    .map_or_else(
+                        || {
+                            self.obj_info.prefab_hash.as_ref().map(|hash| {
+                                vm.get_template(Prefab::Hash(*hash))
+                                    .ok_or(TemplateError::NoTemplateForPrefab(Prefab::Hash(*hash)))
+                            })
+                        },
+                        |template| Some(Ok(template)),
+                    )
                     .transpose()?
                     .ok_or(TemplateError::MissingPrefab)
             },

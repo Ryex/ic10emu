@@ -46,7 +46,7 @@ pub struct ICInfo {
     pub defines: BTreeMap<String, f64>,
     pub labels: BTreeMap<String, u32>,
     pub state: ICState,
-    pub yield_instruciton_count: u16,
+    pub yield_instruction_count: u16,
 }
 
 impl Display for ICState {

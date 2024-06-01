@@ -7,6 +7,7 @@ use crate::vm::{
     },
 };
 use serde_derive::{Deserialize, Serialize};
+use stationeers_data::templates::ObjectTemplate;
 use std::error::Error as StdError;
 use std::fmt::Display;
 use thiserror::Error;
@@ -77,8 +78,8 @@ pub enum TemplateError {
     NoTemplateForPrefab(Prefab),
     #[error("no prefab provided")]
     MissingPrefab,
-    #[error("incorrect template for concreet impl {0} from prefab {1}")]
-    IncorrectTemplate(String, Prefab),
+    #[error("incorrect template for concrete impl {0} from prefab {1}: {2:?}")]
+    IncorrectTemplate(String, Prefab, ObjectTemplate),
     #[error("frozen memory size error: {0} is not {1}")]
     MemorySize(usize, usize)
 

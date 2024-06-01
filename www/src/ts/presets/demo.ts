@@ -1,4 +1,5 @@
-import { VMState } from "../session";
+import { ObjectInfo } from "ic10emu_wasm";
+import { SessionDB } from "../session";
 
 export const demoCode = `# Highlighting Demo
 
@@ -63,92 +64,83 @@ j ra
 
 `;
 
-export const demoVMState: VMState = {
+export const demoVMState: SessionDB.CurrentDBVmState = {
   vm: {
-    ics: [
+    objects: [
       {
-        device: 1,
-        id: 2,
-        registers: Array(18).fill(0),
-        ip: 0,
-        ic: 0,
-        stack: Array(512).fill(0),
-        aliases: new Map(),
-        defines: new Map(),
-        pins: Array(6).fill(undefined),
-        state: "Start",
-        code: demoCode,
-      },
-    ],
-    devices: [
-      {
-        id: 1,
-        prefab_name: "StructureCircuitHousing",
-        slots: [
-          {
-            typ: "ProgrammableChip",
-            occupant: {
-              id: 2,
-              fields: {
-                "PrefabHash": {
-                  field_type: "Read",
-                  value: -744098481,
-                },
-                "Quantity":{
-                  field_type: "Read",
-                  value: 1
-                },
-                "MaxQuantity": {
-                  field_type: "Read",
-                  value: 1,
-                },
-                "SortingClass": {
-                  field_type: "Read",
-                  value: 0,
-                },
-              },
-            },
-          },
-        ],
-        connections: [
-          {
-            CableNetwork: {
-              net: 1,
-              typ: "Data",
-            },
-          },
-          {
-            CableNetwork: {
-              net: undefined,
-              typ: "Power",
-            },
-          },
-        ],
-        fields: {
-          "PrefabHash": {
-            field_type: "Read",
-            value: -128473777,
-          },
-          "Setting": {
-            field_type: "ReadWrite",
-            value: 0,
-          },
-          "RequiredPower": {
-            field_type: "Read",
-            value: 0,
-          }
+        obj_info: {
+          id: 1,
+          prefab: "StructureCircuitHousing",
+          socketed_ic: 2,
+          slots: new Map([[0, { id: 2, quantity: 1 }]]),
+          connections: new Map([[0, 1]]),
+
+          // unused, provided to make compiler happy
+          name: undefined,
+          prefab_hash: undefined,
+          compile_errors: undefined,
+          damage: undefined,
+          device_pins: undefined,
+          reagents: undefined,
+          logic_values: undefined,
+          slot_logic_values: undefined,
+          entity: undefined,
+          visible_devices: undefined,
+          memory: undefined,
+          source_code: undefined,
+          circuit: undefined
         },
+        template: undefined,
+        database_template: true,
       },
+      {
+        obj_info: {
+          id: 2,
+          prefab: "ItemIntegratedCircuit10",
+          source_code: demoCode,
+          memory: new Array(512).fill(0),
+          circuit: {
+            instruction_pointer: 0,
+            yield_instruction_count: 0,
+            state: "Start",
+            aliases: new Map(),
+            defines: new Map(),
+            labels: new Map(),
+            registers: new Array(18).fill(0)
+          },
+
+          // unused, provided to make compiler happy
+          name: undefined,
+          prefab_hash: undefined,
+          compile_errors: undefined,
+          slots: undefined,
+          damage: undefined,
+          device_pins: undefined,
+          connections: undefined,
+          reagents: undefined,
+          logic_values: undefined,
+          slot_logic_values: undefined,
+          entity: undefined,
+          socketed_ic: undefined,
+          visible_devices: undefined,
+        },
+        template: undefined,
+        database_template: true
+      }
     ],
     networks: [
       {
         id: 1,
         devices: [1],
         power_only: [],
-        channels: Array(8).fill(NaN),
-      },
+        channels: Array(8).fill(NaN) as [number, number, number, number, number, number, number, number],
+      }
     ],
-    default_network: 1,
+    program_holders: [2],
+    circuit_holders: [1],
+    default_network_key: 1,
+    wireless_receivers: [],
+    wireless_transmitters: [],
   },
   activeIC: 1,
-};
+}

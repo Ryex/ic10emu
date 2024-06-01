@@ -36,6 +36,12 @@ const template_database = new Map(
     return [parseInt(hash), prefab_database.prefabs[name]];
   }),
 );
+
+console.info("Loading Prefab Template Database into VM", template_database);
+const start_time = performance.now();
 vm.importTemplateDatabase(template_database);
+const now = performance.now();
+const time_elapsed = (now - start_time) / 1000;
+console.log(`Prefab Templat Database loaded in ${time_elapsed} seconds`);
 
 Comlink.expose(vm);

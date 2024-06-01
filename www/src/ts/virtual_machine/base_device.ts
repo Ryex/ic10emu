@@ -133,7 +133,7 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
       const root = super.connectedCallback();
       window.VM.get().then((vm) => {
         vm.addEventListener(
-          "vm-objects-modified",
+          "vm-object-modified",
           this._handleDeviceModified.bind(this),
         );
         vm.addEventListener(
@@ -156,7 +156,7 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
     disconnectedCallback(): void {
       window.VM.get().then((vm) => {
         vm.removeEventListener(
-          "vm-objects-modified",
+          "vm-object-modified",
           this._handleDeviceModified.bind(this),
         );
         vm.removeEventListener(
@@ -467,7 +467,7 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
         this.icIP = ip;
       }
       const opCount =
-        this.obj.obj_info.circuit?.yield_instruciton_count ?? null;
+        this.obj.obj_info.circuit?.yield_instruction_count ?? null;
       if (this.icOpCount !== opCount) {
         this.icOpCount = opCount;
       }

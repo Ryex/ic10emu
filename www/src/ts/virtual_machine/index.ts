@@ -23,18 +23,19 @@ export interface ToastMessage {
   id: string;
 }
 
-export interface VirtualMachinEventMap {
+export interface VirtualMachineEventMap {
   "vm-template-db-loaded": CustomEvent<TemplateDatabase>;
   "vm-objects-update": CustomEvent<number[]>;
   "vm-objects-removed": CustomEvent<number[]>;
-  "vm-objects-modified": CustomEvent<number>;
+  "vm-object-modified": CustomEvent<number>;
   "vm-run-ic": CustomEvent<number>;
   "vm-object-id-change": CustomEvent<{ old: number; new: number }>;
   "vm-networks-update": CustomEvent<number[]>;
   "vm-networks-removed": CustomEvent<number[]>;
+  "vm-message": CustomEvent<ToastMessage>;
 }
 
-class VirtualMachine extends (EventTarget as TypedEventTarget<VirtualMachinEventMap>) {
+class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
   ic10vm: Comlink.Remote<VMRef>;
   templateDBPromise: Promise<TemplateDatabase>;
   templateDB: TemplateDatabase;
@@ -51,7 +52,7 @@ class VirtualMachine extends (EventTarget as TypedEventTarget<VirtualMachinEvent
   constructor(app: App) {
     super();
     this.app = app;
-    this.vm_worker = new Worker("./vm_worker.ts");
+    this.vm_worker = new Worker( new URL("./vm_worker.ts", import.meta.url));
     const vm = Comlink.wrap<VMRef>(this.vm_worker);
     this.ic10vm = vm;
     window.VM.set(this);
@@ -155,17 +156,9 @@ class VirtualMachine extends (EventTarget as TypedEventTarget<VirtualMachinEvent
     if (updateFlag) {
       const ids = Array.from(updatedNetworks);
       ids.sort();
-      this.dispatchEvent(
-        new CustomEvent("vm-networks-update", {
-          detail: ids,
-        }),
-      );
+      this.dispatchCustomEvent("vm-networks-update", ids);
       if (removedNetworks.length > 0) {
-        this.dispatchEvent(
-          new CustomEvent("vm-networks-removed", {
-            detail: removedNetworks,
-          }),
-        );
+        this.dispatchCustomEvent("vm-networks-removed", removedNetworks);
       }
       this.app.session.save();
     }
@@ -240,17 +233,9 @@ class VirtualMachine extends (EventTarget as TypedEventTarget<VirtualMachinEvent
     if (updateFlag) {
       const ids = Array.from(updatedObjects);
       ids.sort();
-      this.dispatchEvent(
-        new CustomEvent("vm-objects-update", {
-          detail: ids,
-        }),
-      );
+      this.dispatchCustomEvent("vm-objects-update", ids);
       if (removedObjects.length > 0) {
-        this.dispatchEvent(
-          new CustomEvent("vm-objects-removed", {
-            detail: removedObjects,
-          }),
-        );
+        this.dispatchCustomEvent("vm-objects-removed", removedObjects);
       }
       this.app.session.save();
     }
@@ -272,9 +257,7 @@ class VirtualMachine extends (EventTarget as TypedEventTarget<VirtualMachinEvent
           await this.ic10vm.setCodeInvalid(id, progs.get(id)!);
           const errors = await this.ic10vm.getCompileErrors(id);
           this.app.session.setProgramErrors(id, errors);
-          this.dispatchEvent(
-            new CustomEvent("vm-object-modified", { detail: id }),
-          );
+          this.dispatchCustomEvent("vm-object-modified", id);
         } catch (err) {
           this.handleVmError(err);
         } finally {
@@ -294,9 +277,7 @@ class VirtualMachine extends (EventTarget as TypedEventTarget<VirtualMachinEvent
         this.handleVmError(err);
       }
       this.update();
-      this.dispatchEvent(
-        new CustomEvent("vm-run-ic", { detail: this.activeIC!.obj_info.id }),
-      );
+      this.dispatchCustomEvent("vm-run-ic", this.activeIC!.obj_info.id);
     }
   }
 
@@ -309,9 +290,7 @@ class VirtualMachine extends (EventTarget as TypedEventTarget<VirtualMachinEvent
         this.handleVmError(err);
       }
       this.update();
-      this.dispatchEvent(
-        new CustomEvent("vm-run-ic", { detail: this.activeIC!.obj_info.id }),
-      );
+      this.dispatchCustomEvent("vm-run-ic", this.activeIC!.obj_info.id);
     }
   }
 
@@ -345,9 +324,7 @@ class VirtualMachine extends (EventTarget as TypedEventTarget<VirtualMachinEvent
       this.handleVmError(e);
     }
     const device = this._objects.get(id);
-    this.dispatchEvent(
-      new CustomEvent("vm-object-modified", { detail: device.obj_info.id }),
-    );
+    this.dispatchCustomEvent("vm-object-modified", device.obj_info.id);
     if (typeof device.obj_info.socketed_ic !== "undefined") {
       const ic = this._objects.get(device.obj_info.socketed_ic);
       const ip = ic.obj_info.circuit?.instruction_pointer;
@@ -365,7 +342,7 @@ class VirtualMachine extends (EventTarget as TypedEventTarget<VirtualMachinEvent
       msg: err.message,
       id: Date.now().toString(16),
     };
-    this.dispatchEvent(new CustomEvent("vm-message", { detail: message }));
+    this.dispatchCustomEvent("vm-message", message);
   }
 
   // return the data connected oject ids for a network
@@ -380,14 +357,10 @@ class VirtualMachine extends (EventTarget as TypedEventTarget<VirtualMachinEvent
         this.app.session.activeIC = newID;
       }
       await this.updateObjects();
-      this.dispatchEvent(
-        new CustomEvent("vm-object-id-change", {
-          detail: {
-            old: oldID,
-            new: newID,
-          },
-        }),
-      );
+      this.dispatchCustomEvent("vm-object-id-change", {
+        old: oldID,
+        new: newID,
+      });
       this.app.session.changeID(oldID, newID);
       return true;
     } catch (err) {
@@ -521,9 +494,7 @@ class VirtualMachine extends (EventTarget as TypedEventTarget<VirtualMachinEvent
   setupTemplateDatabase(db: TemplateDatabase) {
     this.templateDB = db;
     console.log("Loaded Template Database", this.templateDB);
-    this.dispatchEvent(
-      new CustomEvent("vm-template-db-loaded", { detail: this.templateDB }),
-    );
+    this.dispatchCustomEvent("vm-template-db-loaded", this.templateDB);
   }
 
   async addObjectFrozen(frozen: FrozenObject): Promise<ObjectID | undefined> {
@@ -533,11 +504,7 @@ class VirtualMachine extends (EventTarget as TypedEventTarget<VirtualMachinEvent
       const refrozen = await this.ic10vm.freezeObject(id);
       this._objects.set(id, refrozen);
       const device_ids = await this.ic10vm.objects;
-      this.dispatchEvent(
-        new CustomEvent("vm-objects-update", {
-          detail: Array.from(device_ids),
-        }),
-      );
+      this.dispatchCustomEvent("vm-objects-update", Array.from(device_ids));
       this.app.session.save();
       return id;
     } catch (err) {
@@ -555,11 +522,7 @@ class VirtualMachine extends (EventTarget as TypedEventTarget<VirtualMachinEvent
         this._objects.set(id, refrozen[index]);
       })
       const device_ids = await this.ic10vm.objects;
-      this.dispatchEvent(
-        new CustomEvent("vm-objects-update", {
-          detail: Array.from(device_ids),
-        }),
-      );
+      this.dispatchCustomEvent("vm-objects-update", Array.from(device_ids));
       this.app.session.save();
       return Array.from(ids);
     } catch (err) {

@@ -205,7 +205,7 @@ pub fn generate_database(
         //
         // https://regex101.com/r/WFpjHV/1
         //
-        let null_matcher = regex::Regex::new(r#"(?:(?:,?\n)\s*"\w+":\snull)+(,?)"#).unwrap();
+        let null_matcher = regex::Regex::new(r#"(?:,\n\s*"\w+":\snull)+(,?)|(?:(?:\n)?\s*"\w+":\snull),"#).unwrap();
         let json = null_matcher.replace_all(&json, "$1");
         write!(&mut database_file, "{json}")?;
         database_file.flush()?;

@@ -154,7 +154,7 @@ export class VMICControls extends VMActiveICMixin(BaseElement) {
           <sl-divider></sl-divider>
           <div class="vstack">
             <span>Errors</span>
-            ${this.errors.map(
+            ${this.errors?.map(
               (err) =>
                 typeof err === "object"
                   && "ParseError" in err

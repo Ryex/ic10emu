@@ -45,6 +45,7 @@ pub fn object_from_frozen(
                 return Err(TemplateError::IncorrectTemplate(
                     "ItemIntegratedCircuit10".to_string(),
                     Prefab::Name("ItemIntegratedCircuit10".to_string()),
+                    template,
                 ));
             };
 
@@ -101,7 +102,7 @@ pub fn object_from_frozen(
                 ic: obj
                     .circuit
                     .as_ref()
-                    .map(|circuit| circuit.yield_instruciton_count)
+                    .map(|circuit| circuit.yield_instruction_count)
                     .unwrap_or(0),
                 aliases: obj
                     .circuit

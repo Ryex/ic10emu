@@ -13,7 +13,7 @@ use wasm_bindgen::prelude::*;
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
-#[serde(untagged)]
+#[serde(tag = "templateType")]
 pub enum ObjectTemplate {
     Structure(StructureTemplate),
     StructureSlots(StructureSlotsTemplate),

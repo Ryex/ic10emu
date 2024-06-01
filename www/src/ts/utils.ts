@@ -100,18 +100,18 @@ export function compareMaps(map1: Map<any, any>, map2: Map<any, any>): boolean {
   }
   for (let [key, val] of map1) {
     testVal = map2.get(key);
-    if((testVal === undefined && !map2.has(key)) || !structuralEqual(val, testVal)) {
+    if ((testVal === undefined && !map2.has(key)) || !structuralEqual(val, testVal)) {
       return false;
     }
   }
   return true;
 }
 
-export function compareArrays( array1: any[], array2: any[]): boolean {
+export function compareArrays(array1: any[], array2: any[]): boolean {
   if (array1.length !== array2.length) {
     return false;
   }
-  for ( let i = 0, len = array1.length; i < len; i++) {
+  for (let i = 0, len = array1.length; i < len; i++) {
     if (!structuralEqual(array1[i], array2[i])) {
       return false;
     }
@@ -127,7 +127,7 @@ export function compareStructuralObjects(a: object, b: object): boolean {
 export function structuralEqual(a: any, b: any): boolean {
   const aType = typeof a;
   const bType = typeof b;
-  if ( aType !== typeof bType) {
+  if (aType !== typeof bType) {
     return false;
   }
   if (a instanceof Map && b instanceof Map) {
@@ -315,9 +315,29 @@ export function clamp(val: number, min: number, max: number) {
   return Math.min(Math.max(val, min), max);
 }
 
-export type TypedEventTarget<EventMap extends object> = {
-  new (): TypedEventTargetInterface<EventMap>;
-};
+// export type TypedEventTarget<EventMap extends object> = {
+//   new(): TypedEventTargetInterface<EventMap>;
+// };
+
+type Constructor<T = {}> = new (...args: any[]) => T
+export const TypedEventTarget = <EventMap extends object>(
+) => {
+  class TypedEventTargetClass extends EventTarget {
+    dispatchCustomEvent<K extends keyof EventMap>(
+      type: K,
+      data?: EventMap[K] extends CustomEvent<infer DetailData> ? DetailData : never,
+      eventInitDict?: EventInit,
+    ): boolean {
+      return this.dispatchEvent(new CustomEvent(type as string, {
+        detail: data,
+        bubbles: eventInitDict?.bubbles,
+        cancelable: eventInitDict?.cancelable,
+        composed: eventInitDict?.composed
+      }))
+    }
+  }
+  return TypedEventTargetClass as Constructor<TypedEventTargetInterface<EventMap>>;
+}
 
 interface TypedEventTargetInterface<EventMap> extends EventTarget {
   addEventListener<K extends keyof EventMap>(
@@ -336,15 +356,35 @@ interface TypedEventTargetInterface<EventMap> extends EventTarget {
     options?: boolean | AddEventListenerOptions,
   ): void;
 
+  /**
+   * @deprecated This method is untyped because the event name is not present in the event map
+   */
   addEventListener(
     type: string,
     callback: EventListenerOrEventListenerObject | null,
     options?: EventListenerOptions | boolean,
   ): void;
 
+  /**
+   * @deprecated This method is untyped because the event name is not present in the event map
+   */
   removeEventListener(
     type: string,
     callback: EventListenerOrEventListenerObject | null,
     options?: EventListenerOptions | boolean,
   ): void;
+
+  dispatchCustomEvent<K extends keyof EventMap>(
+    type: K,
+    data?: EventMap[K] extends CustomEvent<infer DetailData> ? DetailData : never,
+    eventInitDict?: EventInit,
+  ): boolean;
+}
+
+export function dispatchTypedEvent<EventMap, K extends keyof EventMap>(
+  target: TypedEventTargetInterface<EventMap>,
+  type: K,
+  data: EventMap[K] extends CustomEvent<infer DetailData> ? DetailData : never
+): boolean {
+  return target.dispatchEvent(new CustomEvent(type as string, { detail: data }))
 }
