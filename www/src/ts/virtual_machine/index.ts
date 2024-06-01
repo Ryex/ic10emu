@@ -11,7 +11,7 @@ import type {
   ObjectID,
 } from "ic10emu_wasm";
 import * as Comlink from "comlink";
-import "./base_device";
+import "./baseDevice";
 import "./device";
 import { App } from "app";
 import { structuralEqual, TypedEventTarget } from "utils";
@@ -52,14 +52,23 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
   constructor(app: App) {
     super();
     this.app = app;
-    this.vm_worker = new Worker( new URL("./vm_worker.ts", import.meta.url));
-    const vm = Comlink.wrap<VMRef>(this.vm_worker);
-    this.ic10vm = vm;
-    window.VM.set(this);
 
     this._objects = new Map();
     this._circuitHolders = new Map();
     this._networks = new Map();
+
+    this.setupVM();
+  }
+
+  async setupVM() {
+    this.vm_worker = new Worker(new URL("./vmWorker.ts", import.meta.url));
+    const loaded = (w: Worker) =>
+      new Promise((r) => w.addEventListener("message", r, { once: true }));
+    await Promise.all([loaded(this.vm_worker)]);
+    console.info("VM Worker loaded");
+    const vm = Comlink.wrap<VMRef>(this.vm_worker);
+    this.ic10vm = vm;
+    window.VM.set(this);
 
     this.templateDBPromise = this.ic10vm.getTemplateDatabase();
 

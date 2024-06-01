@@ -187,12 +187,16 @@ pub fn generate_database(
         circuit_holders,
     };
 
-    let data_path = workspace.join("www").join("data");
+    let data_path = workspace
+        .join("www")
+        .join("src")
+        .join("ts")
+        .join("virtual_machine");
     if !data_path.exists() {
         std::fs::create_dir(&data_path)?;
     }
     {
-        let database_path = data_path.join("database.json");
+        let database_path = data_path.join("prefabDatabase.ts");
         let mut database_file = std::io::BufWriter::new(std::fs::File::create(database_path)?);
         let json = serde_json::to_string_pretty(&db)?;
         // this may seem anathema but I don't want to write a separate struct set to skip Nones
@@ -205,9 +209,11 @@ pub fn generate_database(
         //
         // https://regex101.com/r/WFpjHV/1
         //
-        let null_matcher = regex::Regex::new(r#"(?:,\n\s*"\w+":\snull)+(,?)|(?:(?:\n)?\s*"\w+":\snull),"#).unwrap();
+        let null_matcher =
+            regex::Regex::new(r#"(?:,\n\s*"\w+":\snull)+(,?)|(?:(?:\n)?\s*"\w+":\snull),"#)
+                .unwrap();
         let json = null_matcher.replace_all(&json, "$1");
-        write!(&mut database_file, "{json}")?;
+        write!(&mut database_file, "export default {json} as const")?;
         database_file.flush()?;
     }
 
@@ -236,11 +242,13 @@ fn write_prefab_map<T: std::io::Write>(
             use crate::templates::*;
         }
     )?;
+    let enum_tag_regex = regex::Regex::new(r#"templateType:\s"\w+"\.into\(\),"#).unwrap();
     let entries = prefabs
         .values()
         .map(|prefab| {
             let hash = prefab.prefab().prefab_hash;
-            let obj = syn::parse_str::<syn::Expr>(&uneval::to_string(prefab)?)?;
+            let uneval_src = &uneval::to_string(prefab)?;
+            let obj = syn::parse_str::<syn::Expr>(&enum_tag_regex.replace_all(&uneval_src, ""))?;
             let entry = quote! {
                 map.insert(#hash, #obj.into());
             };

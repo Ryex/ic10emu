@@ -1,7 +1,7 @@
 import { html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMTemplateDBMixin, VMObjectMixin } from "virtual_machine/base_device";
+import { VMTemplateDBMixin, VMObjectMixin } from "virtual_machine/baseDevice";
 import { displayNumber, parseNumber } from "utils";
 import type { LogicType } from "ic10emu_wasm";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";

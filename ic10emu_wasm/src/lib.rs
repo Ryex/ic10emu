@@ -108,6 +108,23 @@ impl IntoIterator for CompileErrors {
     }
 }
 
+use color_eyre::eyre;
+pub fn parse_value<'a, T: serde::Deserialize<'a>>(
+    jd: impl serde::Deserializer<'a>,
+) -> Result<T, color_eyre::Report> {
+    let mut track = serde_path_to_error::Track::new();
+    let path = serde_path_to_error::Deserializer::new(jd, &mut track);
+    let mut fun = |path: serde_ignored::Path| {
+        log!("Found ignored key: {path}");
+    };
+    serde_ignored::deserialize(path, &mut fun).map_err(|e| {
+        eyre::eyre!(
+            "path: {track} | error = {e}",
+            track = track.path().to_string(),
+        )
+    })
+}
+
 #[wasm_bindgen]
 impl VMRef {
     #[wasm_bindgen(constructor)]
@@ -118,6 +135,18 @@ impl VMRef {
     #[wasm_bindgen(js_name = "importTemplateDatabase")]
     pub fn import_template_database(&self, db: TemplateDatabase) {
         self.vm.import_template_database(db);
+    }
+
+    #[wasm_bindgen(js_name = "importTemplateDatabaseSerde")]
+    pub fn import_template_database_serde(&self, db: JsValue) -> Result<(), JsError> {
+        let parsed_db: BTreeMap<i32, ObjectTemplate> =
+            parse_value(serde_wasm_bindgen::Deserializer::from(db)).map_err(|err| {
+                <&dyn std::error::Error as std::convert::Into<JsError>>::into(
+                    std::convert::AsRef::<dyn std::error::Error>::as_ref(&err),
+                )
+            })?;
+        self.vm.import_template_database(parsed_db);
+        Ok(())
     }
 
     #[wasm_bindgen(js_name = "getTemplateDatabase")]

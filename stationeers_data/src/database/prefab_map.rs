@@ -25,7 +25,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1330388999i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "AccessCardBlack".into(),
                 prefab_hash: -1330388999i32,
@@ -49,7 +48,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1411327657i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "AccessCardBlue".into(),
                 prefab_hash: -1411327657i32,
@@ -73,7 +71,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1412428165i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "AccessCardBrown".into(),
                 prefab_hash: 1412428165i32,
@@ -97,7 +94,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1339479035i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "AccessCardGray".into(),
                 prefab_hash: -1339479035i32,
@@ -121,7 +117,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -374567952i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "AccessCardGreen".into(),
                 prefab_hash: -374567952i32,
@@ -145,7 +140,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         337035771i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "AccessCardKhaki".into(),
                 prefab_hash: 337035771i32,
@@ -169,7 +163,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -332896929i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "AccessCardOrange".into(),
                 prefab_hash: -332896929i32,
@@ -193,7 +186,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         431317557i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "AccessCardPink".into(),
                 prefab_hash: 431317557i32,
@@ -217,7 +209,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         459843265i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "AccessCardPurple".into(),
                 prefab_hash: 459843265i32,
@@ -241,7 +232,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1713748313i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "AccessCardRed".into(),
                 prefab_hash: -1713748313i32,
@@ -265,7 +255,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2079959157i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "AccessCardWhite".into(),
                 prefab_hash: 2079959157i32,
@@ -289,7 +278,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         568932536i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "AccessCardYellow".into(),
                 prefab_hash: 568932536i32,
@@ -313,7 +301,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1365789392i32,
         ItemConsumerTemplate {
-            templateType: "ItemConsumer".into(),
             prefab: PrefabInfo {
                 prefab_name: "ApplianceChemistryStation".into(),
                 prefab_hash: 1365789392i32,
@@ -349,7 +336,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1683849799i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ApplianceDeskLampLeft".into(),
                 prefab_hash: -1683849799i32,
@@ -373,7 +359,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1174360780i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ApplianceDeskLampRight".into(),
                 prefab_hash: 1174360780i32,
@@ -397,7 +382,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1136173965i32,
         ItemConsumerTemplate {
-            templateType: "ItemConsumer".into(),
             prefab: PrefabInfo {
                 prefab_name: "ApplianceMicrowave".into(),
                 prefab_hash: -1136173965i32,
@@ -438,7 +422,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -749191906i32,
         ItemConsumerTemplate {
-            templateType: "ItemConsumer".into(),
             prefab: PrefabInfo {
                 prefab_name: "AppliancePackagingMachine".into(),
                 prefab_hash: -749191906i32,
@@ -479,7 +462,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1339716113i32,
         ItemConsumerTemplate {
-            templateType: "ItemConsumer".into(),
             prefab: PrefabInfo {
                 prefab_name: "AppliancePaintMixer".into(),
                 prefab_hash: -1339716113i32,
@@ -516,7 +498,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1303038067i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "AppliancePlantGeneticAnalyzer".into(),
                 prefab_hash: -1303038067i32,
@@ -544,7 +525,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1094868323i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "AppliancePlantGeneticSplicer".into(),
                 prefab_hash: -1094868323i32,
@@ -575,7 +555,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         871432335i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "AppliancePlantGeneticStabilizer".into(),
                 prefab_hash: 871432335i32,
@@ -603,7 +582,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1260918085i32,
         ItemConsumerTemplate {
-            templateType: "ItemConsumer".into(),
             prefab: PrefabInfo {
                 prefab_name: "ApplianceReagentProcessor".into(),
                 prefab_hash: 1260918085i32,
@@ -645,7 +623,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         142831994i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "ApplianceSeedTray".into(),
                 prefab_hash: 142831994i32,
@@ -684,7 +661,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1853941363i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "ApplianceTabletDock".into(),
                 prefab_hash: 1853941363i32,
@@ -711,7 +687,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         221058307i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "AutolathePrinterMod".into(),
                 prefab_hash: 221058307i32,
@@ -736,7 +711,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -462415758i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "Battery_Wireless_cell".into(),
                 prefab_hash: -462415758i32,
@@ -783,7 +757,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -41519077i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "Battery_Wireless_cell_Big".into(),
                 prefab_hash: -41519077i32,
@@ -830,7 +803,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1976947556i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "CardboardBox".into(),
                 prefab_hash: -1976947556i32,
@@ -863,7 +835,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1634532552i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CartridgeAccessController".into(),
                 prefab_hash: -1634532552i32,
@@ -887,7 +858,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1550278665i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CartridgeAtmosAnalyser".into(),
                 prefab_hash: -1550278665i32,
@@ -912,7 +882,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -932136011i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CartridgeConfiguration".into(),
                 prefab_hash: -932136011i32,
@@ -936,7 +905,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1462180176i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CartridgeElectronicReader".into(),
                 prefab_hash: -1462180176i32,
@@ -960,7 +928,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1957063345i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CartridgeGPS".into(),
                 prefab_hash: -1957063345i32,
@@ -984,7 +951,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         872720793i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CartridgeGuide".into(),
                 prefab_hash: 872720793i32,
@@ -1008,7 +974,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1116110181i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CartridgeMedicalAnalyser".into(),
                 prefab_hash: -1116110181i32,
@@ -1033,7 +998,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1606989119i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CartridgeNetworkAnalyser".into(),
                 prefab_hash: 1606989119i32,
@@ -1058,7 +1022,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1768732546i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CartridgeOreScanner".into(),
                 prefab_hash: -1768732546i32,
@@ -1083,7 +1046,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1738236580i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CartridgeOreScannerColor".into(),
                 prefab_hash: 1738236580i32,
@@ -1108,7 +1070,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1101328282i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CartridgePlantAnalyser".into(),
                 prefab_hash: 1101328282i32,
@@ -1132,7 +1093,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         81488783i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CartridgeTracker".into(),
                 prefab_hash: 81488783i32,
@@ -1156,7 +1116,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1633663176i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CircuitboardAdvAirlockControl".into(),
                 prefab_hash: 1633663176i32,
@@ -1180,7 +1139,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1618019559i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CircuitboardAirControl".into(),
                 prefab_hash: 1618019559i32,
@@ -1205,7 +1163,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         912176135i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CircuitboardAirlockControl".into(),
                 prefab_hash: 912176135i32,
@@ -1230,7 +1187,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -412104504i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CircuitboardCameraDisplay".into(),
                 prefab_hash: -412104504i32,
@@ -1255,7 +1211,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         855694771i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CircuitboardDoorControl".into(),
                 prefab_hash: 855694771i32,
@@ -1280,7 +1235,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -82343730i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CircuitboardGasDisplay".into(),
                 prefab_hash: -82343730i32,
@@ -1305,7 +1259,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1344368806i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CircuitboardGraphDisplay".into(),
                 prefab_hash: 1344368806i32,
@@ -1329,7 +1282,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1633074601i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CircuitboardHashDisplay".into(),
                 prefab_hash: 1633074601i32,
@@ -1353,7 +1305,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1134148135i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CircuitboardModeControl".into(),
                 prefab_hash: -1134148135i32,
@@ -1378,7 +1329,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1923778429i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CircuitboardPowerControl".into(),
                 prefab_hash: -1923778429i32,
@@ -1403,7 +1353,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2044446819i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CircuitboardShipDisplay".into(),
                 prefab_hash: -2044446819i32,
@@ -1428,7 +1377,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2020180320i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "CircuitboardSolarControl".into(),
                 prefab_hash: 2020180320i32,
@@ -1453,7 +1401,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1228794916i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "CompositeRollCover".into(),
                 prefab_hash: 1228794916i32,
@@ -1503,7 +1450,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         8709219i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "CrateMkII".into(),
                 prefab_hash: 8709219i32,
@@ -1540,7 +1486,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1531087544i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "DecayedFood".into(),
                 prefab_hash: 1531087544i32,
@@ -1565,7 +1510,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1844430312i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "DeviceLfoVolume".into(),
                 prefab_hash: -1844430312i32,
@@ -1628,7 +1572,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1762696475i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "DeviceStepUnit".into(),
                 prefab_hash: 1762696475i32,
@@ -1735,7 +1678,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         519913639i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicAirConditioner".into(),
                 prefab_hash: 519913639i32,
@@ -1766,7 +1708,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1941079206i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicCrate".into(),
                 prefab_hash: 1941079206i32,
@@ -1803,7 +1744,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2085885850i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicGPR".into(),
                 prefab_hash: -2085885850i32,
@@ -1856,7 +1796,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1713611165i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicGasCanisterAir".into(),
                 prefab_hash: -1713611165i32,
@@ -1887,7 +1826,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -322413931i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicGasCanisterCarbonDioxide".into(),
                 prefab_hash: -322413931i32,
@@ -1918,7 +1856,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1741267161i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicGasCanisterEmpty".into(),
                 prefab_hash: -1741267161i32,
@@ -1949,7 +1886,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -817051527i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicGasCanisterFuel".into(),
                 prefab_hash: -817051527i32,
@@ -1980,7 +1916,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         121951301i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicGasCanisterNitrogen".into(),
                 prefab_hash: 121951301i32,
@@ -2011,7 +1946,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         30727200i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicGasCanisterNitrousOxide".into(),
                 prefab_hash: 30727200i32,
@@ -2041,7 +1975,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1360925836i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicGasCanisterOxygen".into(),
                 prefab_hash: 1360925836i32,
@@ -2072,7 +2005,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         396065382i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicGasCanisterPollutants".into(),
                 prefab_hash: 396065382i32,
@@ -2102,7 +2034,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -8883951i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicGasCanisterRocketFuel".into(),
                 prefab_hash: -8883951i32,
@@ -2132,7 +2063,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         108086870i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicGasCanisterVolatiles".into(),
                 prefab_hash: 108086870i32,
@@ -2163,7 +2093,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         197293625i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicGasCanisterWater".into(),
                 prefab_hash: 197293625i32,
@@ -2196,7 +2125,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -386375420i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicGasTankAdvanced".into(),
                 prefab_hash: -386375420i32,
@@ -2226,7 +2154,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1264455519i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicGasTankAdvancedOxygen".into(),
                 prefab_hash: -1264455519i32,
@@ -2256,7 +2183,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -82087220i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicGenerator".into(),
                 prefab_hash: -82087220i32,
@@ -2290,7 +2216,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         587726607i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicHydroponics".into(),
                 prefab_hash: 587726607i32,
@@ -2330,7 +2255,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -21970188i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicLight".into(),
                 prefab_hash: -21970188i32,
@@ -2385,7 +2309,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1939209112i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicLiquidCanisterEmpty".into(),
                 prefab_hash: -1939209112i32,
@@ -2418,7 +2341,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2130739600i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicMKIILiquidCanisterEmpty".into(),
                 prefab_hash: 2130739600i32,
@@ -2451,7 +2373,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -319510386i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicMKIILiquidCanisterWater".into(),
                 prefab_hash: -319510386i32,
@@ -2484,7 +2405,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         755048589i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicScrubber".into(),
                 prefab_hash: 755048589i32,
@@ -2519,7 +2439,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         106953348i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "DynamicSkeleton".into(),
                 prefab_hash: 106953348i32,
@@ -2543,7 +2462,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -311170652i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ElectronicPrinterMod".into(),
                 prefab_hash: -311170652i32,
@@ -2568,7 +2486,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -110788403i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ElevatorCarrage".into(),
                 prefab_hash: -110788403i32,
@@ -2592,7 +2509,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1730165908i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "EntityChick".into(),
                 prefab_hash: 1730165908i32,
@@ -2623,7 +2539,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         334097180i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "EntityChickenBrown".into(),
                 prefab_hash: 334097180i32,
@@ -2654,7 +2569,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1010807532i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "EntityChickenWhite".into(),
                 prefab_hash: 1010807532i32,
@@ -2685,7 +2599,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         966959649i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "EntityRoosterBlack".into(),
                 prefab_hash: 966959649i32,
@@ -2715,7 +2628,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -583103395i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "EntityRoosterBrown".into(),
                 prefab_hash: -583103395i32,
@@ -2746,7 +2658,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1517856652i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "Fertilizer".into(),
                 prefab_hash: 1517856652i32,
@@ -2771,7 +2682,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -86315541i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "FireArmSMG".into(),
                 prefab_hash: -86315541i32,
@@ -2798,7 +2708,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1845441951i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "Flag_ODA_10m".into(),
                 prefab_hash: 1845441951i32,
@@ -2814,7 +2723,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1159126354i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "Flag_ODA_4m".into(),
                 prefab_hash: 1159126354i32,
@@ -2830,7 +2738,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1998634960i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "Flag_ODA_6m".into(),
                 prefab_hash: 1998634960i32,
@@ -2846,7 +2753,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -375156130i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "Flag_ODA_8m".into(),
                 prefab_hash: -375156130i32,
@@ -2862,7 +2768,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         118685786i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "FlareGun".into(),
                 prefab_hash: 118685786i32,
@@ -2892,7 +2797,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1840108251i32,
         StructureCircuitHolderTemplate {
-            templateType: "StructureCircuitHolder".into(),
             prefab: PrefabInfo {
                 prefab_name: "H2Combustor".into(),
                 prefab_hash: 1840108251i32,
@@ -3020,7 +2924,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         247238062i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "Handgun".into(),
                 prefab_hash: 247238062i32,
@@ -3047,7 +2950,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1254383185i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "HandgunMagazine".into(),
                 prefab_hash: 1254383185i32,
@@ -3071,7 +2973,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -857713709i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "HumanSkull".into(),
                 prefab_hash: -857713709i32,
@@ -3095,7 +2996,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -73796547i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ImGuiCircuitboardAirlockControl".into(),
                 prefab_hash: -73796547i32,
@@ -3119,7 +3019,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -842048328i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemActiveVent".into(),
                 prefab_hash: -842048328i32,
@@ -3144,7 +3043,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1871048978i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemAdhesiveInsulation".into(),
                 prefab_hash: 1871048978i32,
@@ -3168,7 +3066,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1722785341i32,
         ItemCircuitHolderTemplate {
-            templateType: "ItemCircuitHolder".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemAdvancedTablet".into(),
                 prefab_hash: 1722785341i32,
@@ -3254,7 +3151,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         176446172i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemAlienMushroom".into(),
                 prefab_hash: 176446172i32,
@@ -3278,7 +3174,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -9559091i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemAmmoBox".into(),
                 prefab_hash: -9559091i32,
@@ -3302,7 +3197,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         201215010i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemAngleGrinder".into(),
                 prefab_hash: 201215010i32,
@@ -3355,7 +3249,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1385062886i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemArcWelder".into(),
                 prefab_hash: 1385062886i32,
@@ -3408,7 +3301,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1757673317i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemAreaPowerControl".into(),
                 prefab_hash: 1757673317i32,
@@ -3433,7 +3325,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         412924554i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemAstroloyIngot".into(),
                 prefab_hash: 412924554i32,
@@ -3458,7 +3349,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1662476145i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemAstroloySheets".into(),
                 prefab_hash: -1662476145i32,
@@ -3482,7 +3372,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         789015045i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemAuthoringTool".into(),
                 prefab_hash: 789015045i32,
@@ -3506,7 +3395,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1731627004i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemAuthoringToolRocketNetwork".into(),
                 prefab_hash: -1731627004i32,
@@ -3530,7 +3418,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1262580790i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemBasketBall".into(),
                 prefab_hash: -1262580790i32,
@@ -3554,7 +3441,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         700133157i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemBatteryCell".into(),
                 prefab_hash: 700133157i32,
@@ -3601,7 +3487,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -459827268i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemBatteryCellLarge".into(),
                 prefab_hash: -459827268i32,
@@ -3648,7 +3533,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         544617306i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemBatteryCellNuclear".into(),
                 prefab_hash: 544617306i32,
@@ -3695,7 +3579,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1866880307i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemBatteryCharger".into(),
                 prefab_hash: -1866880307i32,
@@ -3720,7 +3603,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1008295833i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemBatteryChargerSmall".into(),
                 prefab_hash: 1008295833i32,
@@ -3744,7 +3626,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -869869491i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemBeacon".into(),
                 prefab_hash: -869869491i32,
@@ -3797,7 +3678,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -831480639i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemBiomass".into(),
                 prefab_hash: -831480639i32,
@@ -3822,7 +3702,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         893514943i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemBreadLoaf".into(),
                 prefab_hash: 893514943i32,
@@ -3846,7 +3725,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1792787349i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCableAnalyser".into(),
                 prefab_hash: -1792787349i32,
@@ -3870,7 +3748,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -466050668i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCableCoil".into(),
                 prefab_hash: -466050668i32,
@@ -3895,7 +3772,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2060134443i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCableCoilHeavy".into(),
                 prefab_hash: 2060134443i32,
@@ -3920,7 +3796,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         195442047i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCableFuse".into(),
                 prefab_hash: 195442047i32,
@@ -3944,7 +3819,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2104175091i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCannedCondensedMilk".into(),
                 prefab_hash: -2104175091i32,
@@ -3969,7 +3843,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -999714082i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCannedEdamame".into(),
                 prefab_hash: -999714082i32,
@@ -3994,7 +3867,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1344601965i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCannedMushroom".into(),
                 prefab_hash: -1344601965i32,
@@ -4019,7 +3891,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1161510063i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCannedPowderedEggs".into(),
                 prefab_hash: 1161510063i32,
@@ -4044,7 +3915,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1185552595i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCannedRicePudding".into(),
                 prefab_hash: -1185552595i32,
@@ -4069,7 +3939,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         791746840i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCerealBar".into(),
                 prefab_hash: 791746840i32,
@@ -4094,7 +3963,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         252561409i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCharcoal".into(),
                 prefab_hash: 252561409i32,
@@ -4119,7 +3987,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -772542081i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemChemLightBlue".into(),
                 prefab_hash: -772542081i32,
@@ -4144,7 +4011,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -597479390i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemChemLightGreen".into(),
                 prefab_hash: -597479390i32,
@@ -4169,7 +4035,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -525810132i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemChemLightRed".into(),
                 prefab_hash: -525810132i32,
@@ -4194,7 +4059,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1312166823i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemChemLightWhite".into(),
                 prefab_hash: 1312166823i32,
@@ -4219,7 +4083,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1224819963i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemChemLightYellow".into(),
                 prefab_hash: 1224819963i32,
@@ -4243,7 +4106,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         234601764i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemChocolateBar".into(),
                 prefab_hash: 234601764i32,
@@ -4267,7 +4129,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -261575861i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemChocolateCake".into(),
                 prefab_hash: -261575861i32,
@@ -4291,7 +4152,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         860793245i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemChocolateCerealBar".into(),
                 prefab_hash: 860793245i32,
@@ -4315,7 +4175,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1724793494i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCoalOre".into(),
                 prefab_hash: 1724793494i32,
@@ -4340,7 +4199,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -983091249i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCobaltOre".into(),
                 prefab_hash: -983091249i32,
@@ -4365,7 +4223,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         457286516i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCocoaPowder".into(),
                 prefab_hash: 457286516i32,
@@ -4389,7 +4246,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         680051921i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCocoaTree".into(),
                 prefab_hash: 680051921i32,
@@ -4413,7 +4269,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1800622698i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCoffeeMug".into(),
                 prefab_hash: 1800622698i32,
@@ -4437,7 +4292,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1058547521i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemConstantanIngot".into(),
                 prefab_hash: 1058547521i32,
@@ -4461,7 +4315,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1715917521i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCookedCondensedMilk".into(),
                 prefab_hash: 1715917521i32,
@@ -4485,7 +4338,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1344773148i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCookedCorn".into(),
                 prefab_hash: 1344773148i32,
@@ -4509,7 +4361,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1076892658i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCookedMushroom".into(),
                 prefab_hash: -1076892658i32,
@@ -4533,7 +4384,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1712264413i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCookedPowderedEggs".into(),
                 prefab_hash: -1712264413i32,
@@ -4557,7 +4407,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1849281546i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCookedPumpkin".into(),
                 prefab_hash: 1849281546i32,
@@ -4581,7 +4430,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2013539020i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCookedRice".into(),
                 prefab_hash: 2013539020i32,
@@ -4605,7 +4453,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1353449022i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCookedSoybean".into(),
                 prefab_hash: 1353449022i32,
@@ -4629,7 +4476,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -709086714i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCookedTomato".into(),
                 prefab_hash: -709086714i32,
@@ -4653,7 +4499,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -404336834i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCopperIngot".into(),
                 prefab_hash: -404336834i32,
@@ -4678,7 +4523,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -707307845i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCopperOre".into(),
                 prefab_hash: -707307845i32,
@@ -4703,7 +4547,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         258339687i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCorn".into(),
                 prefab_hash: 258339687i32,
@@ -4728,7 +4571,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         545034114i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCornSoup".into(),
                 prefab_hash: 545034114i32,
@@ -4753,7 +4595,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1756772618i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCreditCard".into(),
                 prefab_hash: -1756772618i32,
@@ -4777,7 +4618,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         215486157i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCropHay".into(),
                 prefab_hash: 215486157i32,
@@ -4801,7 +4641,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         856108234i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemCrowbar".into(),
                 prefab_hash: 856108234i32,
@@ -4826,7 +4665,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1005843700i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemDataDisk".into(),
                 prefab_hash: 1005843700i32,
@@ -4850,7 +4688,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         902565329i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemDirtCanister".into(),
                 prefab_hash: 902565329i32,
@@ -4875,7 +4712,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1234745580i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemDirtyOre".into(),
                 prefab_hash: -1234745580i32,
@@ -4900,7 +4736,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2124435700i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemDisposableBatteryCharger".into(),
                 prefab_hash: -2124435700i32,
@@ -4925,7 +4760,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2009673399i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemDrill".into(),
                 prefab_hash: 2009673399i32,
@@ -4979,7 +4813,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1943134693i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemDuctTape".into(),
                 prefab_hash: -1943134693i32,
@@ -5004,7 +4837,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1072914031i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemDynamicAirCon".into(),
                 prefab_hash: 1072914031i32,
@@ -5028,7 +4860,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -971920158i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemDynamicScrubber".into(),
                 prefab_hash: -971920158i32,
@@ -5052,7 +4883,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -524289310i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemEggCarton".into(),
                 prefab_hash: -524289310i32,
@@ -5085,7 +4915,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         731250882i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemElectronicParts".into(),
                 prefab_hash: 731250882i32,
@@ -5109,7 +4938,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         502280180i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemElectrumIngot".into(),
                 prefab_hash: 502280180i32,
@@ -5133,7 +4961,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -351438780i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemEmergencyAngleGrinder".into(),
                 prefab_hash: -351438780i32,
@@ -5186,7 +5013,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1056029600i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemEmergencyArcWelder".into(),
                 prefab_hash: -1056029600i32,
@@ -5239,7 +5065,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         976699731i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemEmergencyCrowbar".into(),
                 prefab_hash: 976699731i32,
@@ -5263,7 +5088,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2052458905i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemEmergencyDrill".into(),
                 prefab_hash: -2052458905i32,
@@ -5316,7 +5140,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1791306431i32,
         ItemSuitTemplate {
-            templateType: "ItemSuit".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemEmergencyEvaSuit".into(),
                 prefab_hash: 1791306431i32,
@@ -5357,7 +5180,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1061510408i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemEmergencyPickaxe".into(),
                 prefab_hash: -1061510408i32,
@@ -5381,7 +5203,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         266099983i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemEmergencyScrewdriver".into(),
                 prefab_hash: 266099983i32,
@@ -5405,7 +5226,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         205916793i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemEmergencySpaceHelmet".into(),
                 prefab_hash: 205916793i32,
@@ -5469,7 +5289,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1661941301i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemEmergencyToolBelt".into(),
                 prefab_hash: 1661941301i32,
@@ -5503,7 +5322,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2102803952i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemEmergencyWireCutters".into(),
                 prefab_hash: 2102803952i32,
@@ -5527,7 +5345,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         162553030i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemEmergencyWrench".into(),
                 prefab_hash: 162553030i32,
@@ -5551,7 +5368,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1013818348i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemEmptyCan".into(),
                 prefab_hash: 1013818348i32,
@@ -5576,7 +5392,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1677018918i32,
         ItemSuitTemplate {
-            templateType: "ItemSuit".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemEvaSuit".into(),
                 prefab_hash: 1677018918i32,
@@ -5618,7 +5433,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         235361649i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemExplosive".into(),
                 prefab_hash: 235361649i32,
@@ -5642,7 +5456,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         892110467i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemFern".into(),
                 prefab_hash: 892110467i32,
@@ -5667,7 +5480,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -383972371i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemFertilizedEgg".into(),
                 prefab_hash: -383972371i32,
@@ -5692,7 +5504,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         266654416i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemFilterFern".into(),
                 prefab_hash: 266654416i32,
@@ -5717,7 +5528,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2011191088i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemFlagSmall".into(),
                 prefab_hash: 2011191088i32,
@@ -5741,7 +5551,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2107840748i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemFlashingLight".into(),
                 prefab_hash: -2107840748i32,
@@ -5765,7 +5574,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -838472102i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemFlashlight".into(),
                 prefab_hash: -838472102i32,
@@ -5822,7 +5630,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -665995854i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemFlour".into(),
                 prefab_hash: -665995854i32,
@@ -5847,7 +5654,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1573623434i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemFlowerBlue".into(),
                 prefab_hash: -1573623434i32,
@@ -5871,7 +5677,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1513337058i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemFlowerGreen".into(),
                 prefab_hash: -1513337058i32,
@@ -5895,7 +5700,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1411986716i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemFlowerOrange".into(),
                 prefab_hash: -1411986716i32,
@@ -5919,7 +5723,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -81376085i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemFlowerRed".into(),
                 prefab_hash: -81376085i32,
@@ -5943,7 +5746,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1712822019i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemFlowerYellow".into(),
                 prefab_hash: 1712822019i32,
@@ -5967,7 +5769,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -57608687i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemFrenchFries".into(),
                 prefab_hash: -57608687i32,
@@ -5991,7 +5792,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1371786091i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemFries".into(),
                 prefab_hash: 1371786091i32,
@@ -6015,7 +5815,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -767685874i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasCanisterCarbonDioxide".into(),
                 prefab_hash: -767685874i32,
@@ -6042,7 +5841,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         42280099i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasCanisterEmpty".into(),
                 prefab_hash: 42280099i32,
@@ -6069,7 +5867,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1014695176i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasCanisterFuel".into(),
                 prefab_hash: -1014695176i32,
@@ -6096,7 +5893,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2145068424i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasCanisterNitrogen".into(),
                 prefab_hash: 2145068424i32,
@@ -6123,7 +5919,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1712153401i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasCanisterNitrousOxide".into(),
                 prefab_hash: -1712153401i32,
@@ -6150,7 +5945,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1152261938i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasCanisterOxygen".into(),
                 prefab_hash: -1152261938i32,
@@ -6177,7 +5971,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1552586384i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasCanisterPollutants".into(),
                 prefab_hash: -1552586384i32,
@@ -6204,7 +5997,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -668314371i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasCanisterSmart".into(),
                 prefab_hash: -668314371i32,
@@ -6231,7 +6023,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -472094806i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasCanisterVolatiles".into(),
                 prefab_hash: -472094806i32,
@@ -6258,7 +6049,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1854861891i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasCanisterWater".into(),
                 prefab_hash: -1854861891i32,
@@ -6287,7 +6077,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1635000764i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterCarbonDioxide".into(),
                 prefab_hash: 1635000764i32,
@@ -6312,7 +6101,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -185568964i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterCarbonDioxideInfinite".into(),
                 prefab_hash: -185568964i32,
@@ -6337,7 +6125,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1876847024i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterCarbonDioxideL".into(),
                 prefab_hash: 1876847024i32,
@@ -6361,7 +6148,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         416897318i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterCarbonDioxideM".into(),
                 prefab_hash: 416897318i32,
@@ -6385,7 +6171,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         632853248i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterNitrogen".into(),
                 prefab_hash: 632853248i32,
@@ -6410,7 +6195,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         152751131i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterNitrogenInfinite".into(),
                 prefab_hash: 152751131i32,
@@ -6435,7 +6219,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1387439451i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterNitrogenL".into(),
                 prefab_hash: -1387439451i32,
@@ -6459,7 +6242,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -632657357i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterNitrogenM".into(),
                 prefab_hash: -632657357i32,
@@ -6483,7 +6265,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1247674305i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterNitrousOxide".into(),
                 prefab_hash: -1247674305i32,
@@ -6507,7 +6288,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -123934842i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterNitrousOxideInfinite".into(),
                 prefab_hash: -123934842i32,
@@ -6532,7 +6312,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         465267979i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterNitrousOxideL".into(),
                 prefab_hash: 465267979i32,
@@ -6556,7 +6335,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1824284061i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterNitrousOxideM".into(),
                 prefab_hash: 1824284061i32,
@@ -6580,7 +6358,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -721824748i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterOxygen".into(),
                 prefab_hash: -721824748i32,
@@ -6605,7 +6382,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1055451111i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterOxygenInfinite".into(),
                 prefab_hash: -1055451111i32,
@@ -6630,7 +6406,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1217998945i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterOxygenL".into(),
                 prefab_hash: -1217998945i32,
@@ -6654,7 +6429,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1067319543i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterOxygenM".into(),
                 prefab_hash: -1067319543i32,
@@ -6678,7 +6452,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1915566057i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterPollutants".into(),
                 prefab_hash: 1915566057i32,
@@ -6703,7 +6476,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -503738105i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterPollutantsInfinite".into(),
                 prefab_hash: -503738105i32,
@@ -6728,7 +6500,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1959564765i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterPollutantsL".into(),
                 prefab_hash: 1959564765i32,
@@ -6752,7 +6523,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         63677771i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterPollutantsM".into(),
                 prefab_hash: 63677771i32,
@@ -6776,7 +6546,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         15011598i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterVolatiles".into(),
                 prefab_hash: 15011598i32,
@@ -6801,7 +6570,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1916176068i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterVolatilesInfinite".into(),
                 prefab_hash: -1916176068i32,
@@ -6826,7 +6594,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1255156286i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterVolatilesL".into(),
                 prefab_hash: 1255156286i32,
@@ -6850,7 +6617,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1037507240i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterVolatilesM".into(),
                 prefab_hash: 1037507240i32,
@@ -6874,7 +6640,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1993197973i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterWater".into(),
                 prefab_hash: -1993197973i32,
@@ -6899,7 +6664,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1678456554i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterWaterInfinite".into(),
                 prefab_hash: -1678456554i32,
@@ -6924,7 +6688,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2004969680i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterWaterL".into(),
                 prefab_hash: 2004969680i32,
@@ -6948,7 +6711,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         8804422i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasFilterWaterM".into(),
                 prefab_hash: 8804422i32,
@@ -6972,7 +6734,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1717593480i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasSensor".into(),
                 prefab_hash: 1717593480i32,
@@ -6996,7 +6757,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2113012215i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGasTankStorage".into(),
                 prefab_hash: -2113012215i32,
@@ -7021,7 +6781,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1588896491i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGlassSheets".into(),
                 prefab_hash: 1588896491i32,
@@ -7046,7 +6805,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1068925231i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGlasses".into(),
                 prefab_hash: -1068925231i32,
@@ -7070,7 +6828,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         226410516i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGoldIngot".into(),
                 prefab_hash: 226410516i32,
@@ -7095,7 +6852,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1348105509i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGoldOre".into(),
                 prefab_hash: -1348105509i32,
@@ -7120,7 +6876,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1544275894i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemGrenade".into(),
                 prefab_hash: 1544275894i32,
@@ -7145,7 +6900,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         470636008i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemHEMDroidRepairKit".into(),
                 prefab_hash: 470636008i32,
@@ -7169,7 +6923,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         374891127i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemHardBackpack".into(),
                 prefab_hash: 374891127i32,
@@ -7304,7 +7057,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -412551656i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemHardJetpack".into(),
                 prefab_hash: -412551656i32,
@@ -7468,7 +7220,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         900366130i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemHardMiningBackPack".into(),
                 prefab_hash: 900366130i32,
@@ -7517,7 +7268,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1758310454i32,
         ItemSuitCircuitHolderTemplate {
-            templateType: "ItemSuitCircuitHolder".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemHardSuit".into(),
                 prefab_hash: -1758310454i32,
@@ -7685,7 +7435,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -84573099i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemHardsuitHelmet".into(),
                 prefab_hash: -84573099i32,
@@ -7750,7 +7499,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1579842814i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemHastelloyIngot".into(),
                 prefab_hash: 1579842814i32,
@@ -7774,7 +7522,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         299189339i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemHat".into(),
                 prefab_hash: 299189339i32,
@@ -7798,7 +7545,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         998653377i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemHighVolumeGasCanisterEmpty".into(),
                 prefab_hash: 998653377i32,
@@ -7825,7 +7571,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1117581553i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemHorticultureBelt".into(),
                 prefab_hash: -1117581553i32,
@@ -7861,7 +7606,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1193543727i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemHydroponicTray".into(),
                 prefab_hash: -1193543727i32,
@@ -7886,7 +7630,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1217489948i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemIce".into(),
                 prefab_hash: 1217489948i32,
@@ -7911,7 +7654,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         890106742i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemIgniter".into(),
                 prefab_hash: 890106742i32,
@@ -7936,7 +7678,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -787796599i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemInconelIngot".into(),
                 prefab_hash: -787796599i32,
@@ -7960,7 +7701,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         897176943i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemInsulation".into(),
                 prefab_hash: 897176943i32,
@@ -7985,7 +7725,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -744098481i32,
         ItemLogicMemoryTemplate {
-            templateType: "ItemLogicMemory".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemIntegratedCircuit10".into(),
                 prefab_hash: -744098481i32,
@@ -8028,7 +7767,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -297990285i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemInvarIngot".into(),
                 prefab_hash: -297990285i32,
@@ -8052,7 +7790,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1225836666i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemIronFrames".into(),
                 prefab_hash: 1225836666i32,
@@ -8076,7 +7813,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1301215609i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemIronIngot".into(),
                 prefab_hash: -1301215609i32,
@@ -8101,7 +7837,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1758427767i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemIronOre".into(),
                 prefab_hash: 1758427767i32,
@@ -8126,7 +7861,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -487378546i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemIronSheets".into(),
                 prefab_hash: -487378546i32,
@@ -8150,7 +7884,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1969189000i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemJetpackBasic".into(),
                 prefab_hash: 1969189000i32,
@@ -8276,7 +8009,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         496830914i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitAIMeE".into(),
                 prefab_hash: 496830914i32,
@@ -8300,7 +8032,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         513258369i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitAccessBridge".into(),
                 prefab_hash: 513258369i32,
@@ -8324,7 +8055,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1431998347i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitAdvancedComposter".into(),
                 prefab_hash: -1431998347i32,
@@ -8348,7 +8078,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -616758353i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitAdvancedFurnace".into(),
                 prefab_hash: -616758353i32,
@@ -8372,7 +8101,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -598545233i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitAdvancedPackagingMachine".into(),
                 prefab_hash: -598545233i32,
@@ -8396,7 +8124,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         964043875i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitAirlock".into(),
                 prefab_hash: 964043875i32,
@@ -8420,7 +8147,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         682546947i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitAirlockGate".into(),
                 prefab_hash: 682546947i32,
@@ -8444,7 +8170,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -98995857i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitArcFurnace".into(),
                 prefab_hash: -98995857i32,
@@ -8468,7 +8193,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1222286371i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitAtmospherics".into(),
                 prefab_hash: 1222286371i32,
@@ -8492,7 +8216,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1668815415i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitAutoMinerSmall".into(),
                 prefab_hash: 1668815415i32,
@@ -8516,7 +8239,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1753893214i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitAutolathe".into(),
                 prefab_hash: -1753893214i32,
@@ -8540,7 +8262,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1931958659i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitAutomatedOven".into(),
                 prefab_hash: -1931958659i32,
@@ -8564,7 +8285,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         148305004i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitBasket".into(),
                 prefab_hash: 148305004i32,
@@ -8588,7 +8308,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1406656973i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitBattery".into(),
                 prefab_hash: 1406656973i32,
@@ -8612,7 +8331,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -21225041i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitBatteryLarge".into(),
                 prefab_hash: -21225041i32,
@@ -8636,7 +8354,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         249073136i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitBeacon".into(),
                 prefab_hash: 249073136i32,
@@ -8660,7 +8377,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1241256797i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitBeds".into(),
                 prefab_hash: -1241256797i32,
@@ -8684,7 +8400,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1755116240i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitBlastDoor".into(),
                 prefab_hash: -1755116240i32,
@@ -8708,7 +8423,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         578182956i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitCentrifuge".into(),
                 prefab_hash: 578182956i32,
@@ -8732,7 +8446,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1394008073i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitChairs".into(),
                 prefab_hash: -1394008073i32,
@@ -8756,7 +8469,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1025254665i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitChute".into(),
                 prefab_hash: 1025254665i32,
@@ -8780,7 +8492,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -876560854i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitChuteUmbilical".into(),
                 prefab_hash: -876560854i32,
@@ -8804,7 +8515,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1470820996i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitCompositeCladding".into(),
                 prefab_hash: -1470820996i32,
@@ -8828,7 +8538,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1182412869i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitCompositeFloorGrating".into(),
                 prefab_hash: 1182412869i32,
@@ -8852,7 +8561,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1990225489i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitComputer".into(),
                 prefab_hash: 1990225489i32,
@@ -8876,7 +8584,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1241851179i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitConsole".into(),
                 prefab_hash: -1241851179i32,
@@ -8900,7 +8607,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         429365598i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitCrate".into(),
                 prefab_hash: 429365598i32,
@@ -8924,7 +8630,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1585956426i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitCrateMkII".into(),
                 prefab_hash: -1585956426i32,
@@ -8948,7 +8653,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -551612946i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitCrateMount".into(),
                 prefab_hash: -551612946i32,
@@ -8972,7 +8676,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -545234195i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitCryoTube".into(),
                 prefab_hash: -545234195i32,
@@ -8996,7 +8699,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1935075707i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitDeepMiner".into(),
                 prefab_hash: -1935075707i32,
@@ -9020,7 +8722,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         77421200i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitDockingPort".into(),
                 prefab_hash: 77421200i32,
@@ -9044,7 +8745,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         168615924i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitDoor".into(),
                 prefab_hash: 168615924i32,
@@ -9068,7 +8768,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1743663875i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitDrinkingFountain".into(),
                 prefab_hash: -1743663875i32,
@@ -9092,7 +8791,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1061945368i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitDynamicCanister".into(),
                 prefab_hash: -1061945368i32,
@@ -9116,7 +8814,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1533501495i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitDynamicGasTankAdvanced".into(),
                 prefab_hash: 1533501495i32,
@@ -9140,7 +8837,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -732720413i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitDynamicGenerator".into(),
                 prefab_hash: -732720413i32,
@@ -9164,7 +8860,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1861154222i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitDynamicHydroponics".into(),
                 prefab_hash: -1861154222i32,
@@ -9188,7 +8883,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         375541286i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitDynamicLiquidCanister".into(),
                 prefab_hash: 375541286i32,
@@ -9212,7 +8906,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -638019974i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitDynamicMKIILiquidCanister".into(),
                 prefab_hash: -638019974i32,
@@ -9236,7 +8929,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1603046970i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitElectricUmbilical".into(),
                 prefab_hash: 1603046970i32,
@@ -9260,7 +8952,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1181922382i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitElectronicsPrinter".into(),
                 prefab_hash: -1181922382i32,
@@ -9284,7 +8975,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -945806652i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitElevator".into(),
                 prefab_hash: -945806652i32,
@@ -9308,7 +8998,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         755302726i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitEngineLarge".into(),
                 prefab_hash: 755302726i32,
@@ -9332,7 +9021,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1969312177i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitEngineMedium".into(),
                 prefab_hash: 1969312177i32,
@@ -9356,7 +9044,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         19645163i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitEngineSmall".into(),
                 prefab_hash: 19645163i32,
@@ -9380,7 +9067,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1587787610i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitEvaporationChamber".into(),
                 prefab_hash: 1587787610i32,
@@ -9404,7 +9090,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1701764190i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitFlagODA".into(),
                 prefab_hash: 1701764190i32,
@@ -9428,7 +9113,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1168199498i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitFridgeBig".into(),
                 prefab_hash: -1168199498i32,
@@ -9452,7 +9136,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1661226524i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitFridgeSmall".into(),
                 prefab_hash: 1661226524i32,
@@ -9476,7 +9159,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -806743925i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitFurnace".into(),
                 prefab_hash: -806743925i32,
@@ -9500,7 +9182,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1162905029i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitFurniture".into(),
                 prefab_hash: 1162905029i32,
@@ -9524,7 +9205,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -366262681i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitFuselage".into(),
                 prefab_hash: -366262681i32,
@@ -9548,7 +9228,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         377745425i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitGasGenerator".into(),
                 prefab_hash: 377745425i32,
@@ -9572,7 +9251,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1867280568i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitGasUmbilical".into(),
                 prefab_hash: -1867280568i32,
@@ -9596,7 +9274,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         206848766i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitGovernedGasRocketEngine".into(),
                 prefab_hash: 206848766i32,
@@ -9620,7 +9297,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2140672772i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitGroundTelescope".into(),
                 prefab_hash: -2140672772i32,
@@ -9644,7 +9320,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         341030083i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitGrowLight".into(),
                 prefab_hash: 341030083i32,
@@ -9668,7 +9343,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1022693454i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitHarvie".into(),
                 prefab_hash: -1022693454i32,
@@ -9692,7 +9366,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1710540039i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitHeatExchanger".into(),
                 prefab_hash: -1710540039i32,
@@ -9716,7 +9389,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         844391171i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitHorizontalAutoMiner".into(),
                 prefab_hash: 844391171i32,
@@ -9740,7 +9412,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2098556089i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitHydraulicPipeBender".into(),
                 prefab_hash: -2098556089i32,
@@ -9764,7 +9435,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -927931558i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitHydroponicAutomated".into(),
                 prefab_hash: -927931558i32,
@@ -9788,7 +9458,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2057179799i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitHydroponicStation".into(),
                 prefab_hash: 2057179799i32,
@@ -9812,7 +9481,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         288111533i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitIceCrusher".into(),
                 prefab_hash: 288111533i32,
@@ -9836,7 +9504,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2067655311i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitInsulatedLiquidPipe".into(),
                 prefab_hash: 2067655311i32,
@@ -9860,7 +9527,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         452636699i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitInsulatedPipe".into(),
                 prefab_hash: 452636699i32,
@@ -9884,7 +9550,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -27284803i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitInsulatedPipeUtility".into(),
                 prefab_hash: -27284803i32,
@@ -9908,7 +9573,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1831558953i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitInsulatedPipeUtilityLiquid".into(),
                 prefab_hash: -1831558953i32,
@@ -9932,7 +9596,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1935945891i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitInteriorDoors".into(),
                 prefab_hash: 1935945891i32,
@@ -9956,7 +9619,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         489494578i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitLadder".into(),
                 prefab_hash: 489494578i32,
@@ -9980,7 +9642,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1817007843i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitLandingPadAtmos".into(),
                 prefab_hash: 1817007843i32,
@@ -10004,7 +9665,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         293581318i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitLandingPadBasic".into(),
                 prefab_hash: 293581318i32,
@@ -10028,7 +9688,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1267511065i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitLandingPadWaypoint".into(),
                 prefab_hash: -1267511065i32,
@@ -10052,7 +9711,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         450164077i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitLargeDirectHeatExchanger".into(),
                 prefab_hash: 450164077i32,
@@ -10076,7 +9734,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         847430620i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitLargeExtendableRadiator".into(),
                 prefab_hash: 847430620i32,
@@ -10100,7 +9757,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2039971217i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitLargeSatelliteDish".into(),
                 prefab_hash: -2039971217i32,
@@ -10124,7 +9780,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1854167549i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitLaunchMount".into(),
                 prefab_hash: -1854167549i32,
@@ -10148,7 +9803,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -174523552i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitLaunchTower".into(),
                 prefab_hash: -174523552i32,
@@ -10172,7 +9826,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1951126161i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitLiquidRegulator".into(),
                 prefab_hash: 1951126161i32,
@@ -10196,7 +9849,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -799849305i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitLiquidTank".into(),
                 prefab_hash: -799849305i32,
@@ -10220,7 +9872,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         617773453i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitLiquidTankInsulated".into(),
                 prefab_hash: 617773453i32,
@@ -10244,7 +9895,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1805020897i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitLiquidTurboVolumePump".into(),
                 prefab_hash: -1805020897i32,
@@ -10268,7 +9918,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1571996765i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitLiquidUmbilical".into(),
                 prefab_hash: 1571996765i32,
@@ -10292,7 +9941,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         882301399i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitLocker".into(),
                 prefab_hash: 882301399i32,
@@ -10316,7 +9964,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1512322581i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitLogicCircuit".into(),
                 prefab_hash: 1512322581i32,
@@ -10340,7 +9987,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1997293610i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitLogicInputOutput".into(),
                 prefab_hash: 1997293610i32,
@@ -10364,7 +10010,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2098214189i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitLogicMemory".into(),
                 prefab_hash: -2098214189i32,
@@ -10388,7 +10033,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         220644373i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitLogicProcessor".into(),
                 prefab_hash: 220644373i32,
@@ -10412,7 +10056,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         124499454i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitLogicSwitch".into(),
                 prefab_hash: 124499454i32,
@@ -10436,7 +10079,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1005397063i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitLogicTransmitter".into(),
                 prefab_hash: 1005397063i32,
@@ -10460,7 +10102,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -344968335i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitMotherShipCore".into(),
                 prefab_hash: -344968335i32,
@@ -10484,7 +10125,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2038889137i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitMusicMachines".into(),
                 prefab_hash: -2038889137i32,
@@ -10508,7 +10148,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1752768283i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitPassiveLargeRadiatorGas".into(),
                 prefab_hash: -1752768283i32,
@@ -10532,7 +10171,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1453961898i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitPassiveLargeRadiatorLiquid".into(),
                 prefab_hash: 1453961898i32,
@@ -10556,7 +10194,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         636112787i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitPassthroughHeatExchanger".into(),
                 prefab_hash: 636112787i32,
@@ -10580,7 +10217,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2062364768i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitPictureFrame".into(),
                 prefab_hash: -2062364768i32,
@@ -10604,7 +10240,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1619793705i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitPipe".into(),
                 prefab_hash: -1619793705i32,
@@ -10628,7 +10263,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1166461357i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitPipeLiquid".into(),
                 prefab_hash: -1166461357i32,
@@ -10652,7 +10286,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -827125300i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitPipeOrgan".into(),
                 prefab_hash: -827125300i32,
@@ -10676,7 +10309,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         920411066i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitPipeRadiator".into(),
                 prefab_hash: 920411066i32,
@@ -10700,7 +10332,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1697302609i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitPipeRadiatorLiquid".into(),
                 prefab_hash: -1697302609i32,
@@ -10724,7 +10355,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1934508338i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitPipeUtility".into(),
                 prefab_hash: 1934508338i32,
@@ -10748,7 +10378,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         595478589i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitPipeUtilityLiquid".into(),
                 prefab_hash: 595478589i32,
@@ -10772,7 +10401,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         119096484i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitPlanter".into(),
                 prefab_hash: 119096484i32,
@@ -10796,7 +10424,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1041148999i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitPortablesConnector".into(),
                 prefab_hash: 1041148999i32,
@@ -10820,7 +10447,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         291368213i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitPowerTransmitter".into(),
                 prefab_hash: 291368213i32,
@@ -10844,7 +10470,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -831211676i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitPowerTransmitterOmni".into(),
                 prefab_hash: -831211676i32,
@@ -10868,7 +10493,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2015439334i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitPoweredVent".into(),
                 prefab_hash: 2015439334i32,
@@ -10892,7 +10516,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -121514007i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitPressureFedGasEngine".into(),
                 prefab_hash: -121514007i32,
@@ -10916,7 +10539,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -99091572i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitPressureFedLiquidEngine".into(),
                 prefab_hash: -99091572i32,
@@ -10940,7 +10562,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         123504691i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitPressurePlate".into(),
                 prefab_hash: 123504691i32,
@@ -10964,7 +10585,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1921918951i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitPumpedLiquidEngine".into(),
                 prefab_hash: 1921918951i32,
@@ -10988,7 +10608,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         750176282i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitRailing".into(),
                 prefab_hash: 750176282i32,
@@ -11012,7 +10631,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         849148192i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitRecycler".into(),
                 prefab_hash: 849148192i32,
@@ -11036,7 +10654,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1181371795i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitRegulator".into(),
                 prefab_hash: 1181371795i32,
@@ -11060,7 +10677,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1459985302i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitReinforcedWindows".into(),
                 prefab_hash: 1459985302i32,
@@ -11084,7 +10700,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         724776762i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitResearchMachine".into(),
                 prefab_hash: 724776762i32,
@@ -11108,7 +10723,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1574688481i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitRespawnPointWallMounted".into(),
                 prefab_hash: 1574688481i32,
@@ -11132,7 +10746,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1396305045i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitRocketAvionics".into(),
                 prefab_hash: 1396305045i32,
@@ -11156,7 +10769,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -314072139i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitRocketBattery".into(),
                 prefab_hash: -314072139i32,
@@ -11180,7 +10792,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         479850239i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitRocketCargoStorage".into(),
                 prefab_hash: 479850239i32,
@@ -11204,7 +10815,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -303008602i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitRocketCelestialTracker".into(),
                 prefab_hash: -303008602i32,
@@ -11228,7 +10838,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         721251202i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitRocketCircuitHousing".into(),
                 prefab_hash: 721251202i32,
@@ -11252,7 +10861,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1256996603i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitRocketDatalink".into(),
                 prefab_hash: -1256996603i32,
@@ -11276,7 +10884,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1629347579i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitRocketGasFuelTank".into(),
                 prefab_hash: -1629347579i32,
@@ -11300,7 +10907,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2032027950i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitRocketLiquidFuelTank".into(),
                 prefab_hash: 2032027950i32,
@@ -11324,7 +10930,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -636127860i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitRocketManufactory".into(),
                 prefab_hash: -636127860i32,
@@ -11348,7 +10953,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -867969909i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitRocketMiner".into(),
                 prefab_hash: -867969909i32,
@@ -11372,7 +10976,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1753647154i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitRocketScanner".into(),
                 prefab_hash: 1753647154i32,
@@ -11396,7 +10999,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -932335800i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitRocketTransformerSmall".into(),
                 prefab_hash: -932335800i32,
@@ -11420,7 +11022,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1827215803i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitRoverFrame".into(),
                 prefab_hash: 1827215803i32,
@@ -11444,7 +11045,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         197243872i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitRoverMKI".into(),
                 prefab_hash: 197243872i32,
@@ -11468,7 +11068,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         323957548i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitSDBHopper".into(),
                 prefab_hash: 323957548i32,
@@ -11492,7 +11091,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         178422810i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitSatelliteDish".into(),
                 prefab_hash: 178422810i32,
@@ -11516,7 +11114,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         578078533i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitSecurityPrinter".into(),
                 prefab_hash: 578078533i32,
@@ -11540,7 +11137,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1776897113i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitSensor".into(),
                 prefab_hash: -1776897113i32,
@@ -11564,7 +11160,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         735858725i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitShower".into(),
                 prefab_hash: 735858725i32,
@@ -11588,7 +11183,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         529996327i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitSign".into(),
                 prefab_hash: 529996327i32,
@@ -11612,7 +11206,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         326752036i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitSleeper".into(),
                 prefab_hash: 326752036i32,
@@ -11636,7 +11229,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1332682164i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitSmallDirectHeatExchanger".into(),
                 prefab_hash: -1332682164i32,
@@ -11660,7 +11252,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1960952220i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitSmallSatelliteDish".into(),
                 prefab_hash: 1960952220i32,
@@ -11684,7 +11275,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1924492105i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitSolarPanel".into(),
                 prefab_hash: -1924492105i32,
@@ -11708,7 +11298,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         844961456i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitSolarPanelBasic".into(),
                 prefab_hash: 844961456i32,
@@ -11732,7 +11321,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -528695432i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitSolarPanelBasicReinforced".into(),
                 prefab_hash: -528695432i32,
@@ -11756,7 +11344,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -364868685i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitSolarPanelReinforced".into(),
                 prefab_hash: -364868685i32,
@@ -11780,7 +11367,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1293995736i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitSolidGenerator".into(),
                 prefab_hash: 1293995736i32,
@@ -11804,7 +11390,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         969522478i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitSorter".into(),
                 prefab_hash: 969522478i32,
@@ -11828,7 +11413,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -126038526i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitSpeaker".into(),
                 prefab_hash: -126038526i32,
@@ -11852,7 +11436,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1013244511i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitStacker".into(),
                 prefab_hash: 1013244511i32,
@@ -11876,7 +11459,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         170878959i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitStairs".into(),
                 prefab_hash: 170878959i32,
@@ -11900,7 +11482,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1868555784i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitStairwell".into(),
                 prefab_hash: -1868555784i32,
@@ -11924,7 +11505,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2133035682i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitStandardChute".into(),
                 prefab_hash: 2133035682i32,
@@ -11948,7 +11528,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1821571150i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitStirlingEngine".into(),
                 prefab_hash: -1821571150i32,
@@ -11972,7 +11551,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1088892825i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitSuitStorage".into(),
                 prefab_hash: 1088892825i32,
@@ -11996,7 +11574,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1361598922i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitTables".into(),
                 prefab_hash: -1361598922i32,
@@ -12020,7 +11597,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         771439840i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitTank".into(),
                 prefab_hash: 771439840i32,
@@ -12044,7 +11620,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1021053608i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitTankInsulated".into(),
                 prefab_hash: 1021053608i32,
@@ -12068,7 +11643,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         529137748i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitToolManufactory".into(),
                 prefab_hash: 529137748i32,
@@ -12092,7 +11666,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -453039435i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitTransformer".into(),
                 prefab_hash: -453039435i32,
@@ -12116,7 +11689,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         665194284i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitTransformerSmall".into(),
                 prefab_hash: 665194284i32,
@@ -12140,7 +11712,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1590715731i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitTurbineGenerator".into(),
                 prefab_hash: -1590715731i32,
@@ -12164,7 +11735,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1248429712i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitTurboVolumePump".into(),
                 prefab_hash: -1248429712i32,
@@ -12188,7 +11758,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1798044015i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitUprightWindTurbine".into(),
                 prefab_hash: -1798044015i32,
@@ -12212,7 +11781,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2038384332i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitVendingMachine".into(),
                 prefab_hash: -2038384332i32,
@@ -12236,7 +11804,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1867508561i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitVendingMachineRefrigerated".into(),
                 prefab_hash: -1867508561i32,
@@ -12260,7 +11827,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1826855889i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitWall".into(),
                 prefab_hash: -1826855889i32,
@@ -12284,7 +11850,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1625214531i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitWallArch".into(),
                 prefab_hash: 1625214531i32,
@@ -12308,7 +11873,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -846838195i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitWallFlat".into(),
                 prefab_hash: -846838195i32,
@@ -12332,7 +11896,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -784733231i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitWallGeometry".into(),
                 prefab_hash: -784733231i32,
@@ -12356,7 +11919,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -524546923i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitWallIron".into(),
                 prefab_hash: -524546923i32,
@@ -12380,7 +11942,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -821868990i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitWallPadded".into(),
                 prefab_hash: -821868990i32,
@@ -12404,7 +11965,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         159886536i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitWaterBottleFiller".into(),
                 prefab_hash: 159886536i32,
@@ -12428,7 +11988,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         611181283i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitWaterPurifier".into(),
                 prefab_hash: 611181283i32,
@@ -12452,7 +12011,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         337505889i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitWeatherStation".into(),
                 prefab_hash: 337505889i32,
@@ -12476,7 +12034,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -868916503i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitWindTurbine".into(),
                 prefab_hash: -868916503i32,
@@ -12500,7 +12057,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1779979754i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemKitWindowShutter".into(),
                 prefab_hash: 1779979754i32,
@@ -12524,7 +12080,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -743968726i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemLabeller".into(),
                 prefab_hash: -743968726i32,
@@ -12578,7 +12133,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         141535121i32,
         ItemCircuitHolderTemplate {
-            templateType: "ItemCircuitHolder".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemLaptop".into(),
                 prefab_hash: 141535121i32,
@@ -12654,7 +12208,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2134647745i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemLeadIngot".into(),
                 prefab_hash: 2134647745i32,
@@ -12678,7 +12231,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -190236170i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemLeadOre".into(),
                 prefab_hash: -190236170i32,
@@ -12703,7 +12255,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1949076595i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemLightSword".into(),
                 prefab_hash: 1949076595i32,
@@ -12727,7 +12278,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -185207387i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemLiquidCanisterEmpty".into(),
                 prefab_hash: -185207387i32,
@@ -12756,7 +12306,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         777684475i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemLiquidCanisterSmart".into(),
                 prefab_hash: 777684475i32,
@@ -12785,7 +12334,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2036225202i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemLiquidDrain".into(),
                 prefab_hash: 2036225202i32,
@@ -12809,7 +12357,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         226055671i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemLiquidPipeAnalyzer".into(),
                 prefab_hash: 226055671i32,
@@ -12833,7 +12380,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -248475032i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemLiquidPipeHeater".into(),
                 prefab_hash: -248475032i32,
@@ -12858,7 +12404,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2126113312i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemLiquidPipeValve".into(),
                 prefab_hash: -2126113312i32,
@@ -12883,7 +12428,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2106280569i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemLiquidPipeVolumePump".into(),
                 prefab_hash: -2106280569i32,
@@ -12907,7 +12451,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2037427578i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemLiquidTankStorage".into(),
                 prefab_hash: 2037427578i32,
@@ -12932,7 +12475,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         240174650i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemMKIIAngleGrinder".into(),
                 prefab_hash: 240174650i32,
@@ -12986,7 +12528,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2061979347i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemMKIIArcWelder".into(),
                 prefab_hash: -2061979347i32,
@@ -13039,7 +12580,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1440775434i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemMKIICrowbar".into(),
                 prefab_hash: 1440775434i32,
@@ -13064,7 +12604,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         324791548i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemMKIIDrill".into(),
                 prefab_hash: 324791548i32,
@@ -13118,7 +12657,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         388774906i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemMKIIDuctTape".into(),
                 prefab_hash: 388774906i32,
@@ -13143,7 +12681,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1875271296i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemMKIIMiningDrill".into(),
                 prefab_hash: -1875271296i32,
@@ -13203,7 +12740,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2015613246i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemMKIIScrewdriver".into(),
                 prefab_hash: -2015613246i32,
@@ -13228,7 +12764,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -178893251i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemMKIIWireCutters".into(),
                 prefab_hash: -178893251i32,
@@ -13253,7 +12788,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1862001680i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemMKIIWrench".into(),
                 prefab_hash: 1862001680i32,
@@ -13278,7 +12812,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1399098998i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemMarineBodyArmor".into(),
                 prefab_hash: 1399098998i32,
@@ -13309,7 +12842,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1073631646i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemMarineHelmet".into(),
                 prefab_hash: 1073631646i32,
@@ -13336,7 +12868,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1327248310i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemMilk".into(),
                 prefab_hash: 1327248310i32,
@@ -13361,7 +12892,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1650383245i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemMiningBackPack".into(),
                 prefab_hash: -1650383245i32,
@@ -13407,7 +12937,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -676435305i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemMiningBelt".into(),
                 prefab_hash: -676435305i32,
@@ -13444,7 +12973,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1470787934i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemMiningBeltMKII".into(),
                 prefab_hash: 1470787934i32,
@@ -13603,7 +13131,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         15829510i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemMiningCharge".into(),
                 prefab_hash: 15829510i32,
@@ -13627,7 +13154,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1055173191i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemMiningDrill".into(),
                 prefab_hash: 1055173191i32,
@@ -13687,7 +13213,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1663349918i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemMiningDrillHeavy".into(),
                 prefab_hash: -1663349918i32,
@@ -13747,7 +13272,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1258187304i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemMiningDrillPneumatic".into(),
                 prefab_hash: 1258187304i32,
@@ -13776,7 +13300,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1467558064i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemMkIIToolbelt".into(),
                 prefab_hash: 1467558064i32,
@@ -13911,7 +13434,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1864982322i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemMuffin".into(),
                 prefab_hash: -1864982322i32,
@@ -13936,7 +13458,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2044798572i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemMushroom".into(),
                 prefab_hash: 2044798572i32,
@@ -13961,7 +13482,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         982514123i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemNVG".into(),
                 prefab_hash: 982514123i32,
@@ -14014,7 +13534,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1406385572i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemNickelIngot".into(),
                 prefab_hash: -1406385572i32,
@@ -14038,7 +13557,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1830218956i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemNickelOre".into(),
                 prefab_hash: 1830218956i32,
@@ -14063,7 +13581,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1499471529i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemNitrice".into(),
                 prefab_hash: -1499471529i32,
@@ -14088,7 +13605,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1805394113i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemOxite".into(),
                 prefab_hash: -1805394113i32,
@@ -14113,7 +13629,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         238631271i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPassiveVent".into(),
                 prefab_hash: 238631271i32,
@@ -14138,7 +13653,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1397583760i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPassiveVentInsulated".into(),
                 prefab_hash: -1397583760i32,
@@ -14162,7 +13676,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2042955224i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPeaceLily".into(),
                 prefab_hash: 2042955224i32,
@@ -14187,7 +13700,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -913649823i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPickaxe".into(),
                 prefab_hash: -913649823i32,
@@ -14212,7 +13724,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1118069417i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPillHeal".into(),
                 prefab_hash: 1118069417i32,
@@ -14237,7 +13748,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         418958601i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPillStun".into(),
                 prefab_hash: 418958601i32,
@@ -14262,7 +13772,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -767597887i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPipeAnalyizer".into(),
                 prefab_hash: -767597887i32,
@@ -14287,7 +13796,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -38898376i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPipeCowl".into(),
                 prefab_hash: -38898376i32,
@@ -14312,7 +13820,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1532448832i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPipeDigitalValve".into(),
                 prefab_hash: -1532448832i32,
@@ -14337,7 +13844,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1134459463i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPipeGasMixer".into(),
                 prefab_hash: -1134459463i32,
@@ -14362,7 +13868,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1751627006i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPipeHeater".into(),
                 prefab_hash: -1751627006i32,
@@ -14387,7 +13892,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1366030599i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPipeIgniter".into(),
                 prefab_hash: 1366030599i32,
@@ -14411,7 +13915,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         391769637i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPipeLabel".into(),
                 prefab_hash: 391769637i32,
@@ -14436,7 +13939,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -906521320i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPipeLiquidRadiator".into(),
                 prefab_hash: -906521320i32,
@@ -14461,7 +13963,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1207939683i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPipeMeter".into(),
                 prefab_hash: 1207939683i32,
@@ -14486,7 +13987,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1796655088i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPipeRadiator".into(),
                 prefab_hash: -1796655088i32,
@@ -14511,7 +14011,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         799323450i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPipeValve".into(),
                 prefab_hash: 799323450i32,
@@ -14536,7 +14035,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1766301997i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPipeVolumePump".into(),
                 prefab_hash: -1766301997i32,
@@ -14561,7 +14059,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1108244510i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPlainCake".into(),
                 prefab_hash: -1108244510i32,
@@ -14585,7 +14082,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1159179557i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPlantEndothermic_Creative".into(),
                 prefab_hash: -1159179557i32,
@@ -14609,7 +14105,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         851290561i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPlantEndothermic_Genepool1".into(),
                 prefab_hash: 851290561i32,
@@ -14634,7 +14129,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1414203269i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPlantEndothermic_Genepool2".into(),
                 prefab_hash: -1414203269i32,
@@ -14659,7 +14153,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         173023800i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPlantSampler".into(),
                 prefab_hash: 173023800i32,
@@ -14718,7 +14211,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -532672323i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPlantSwitchGrass".into(),
                 prefab_hash: -532672323i32,
@@ -14742,7 +14234,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1208890208i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPlantThermogenic_Creative".into(),
                 prefab_hash: -1208890208i32,
@@ -14766,7 +14257,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -177792789i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPlantThermogenic_Genepool1".into(),
                 prefab_hash: -177792789i32,
@@ -14791,7 +14281,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1819167057i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPlantThermogenic_Genepool2".into(),
                 prefab_hash: 1819167057i32,
@@ -14816,7 +14305,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         662053345i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPlasticSheets".into(),
                 prefab_hash: 662053345i32,
@@ -14840,7 +14328,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1929046963i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPotato".into(),
                 prefab_hash: 1929046963i32,
@@ -14865,7 +14352,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2111886401i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPotatoBaked".into(),
                 prefab_hash: -2111886401i32,
@@ -14889,7 +14375,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         839924019i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPowerConnector".into(),
                 prefab_hash: 839924019i32,
@@ -14914,7 +14399,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1277828144i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPumpkin".into(),
                 prefab_hash: 1277828144i32,
@@ -14939,7 +14423,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         62768076i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPumpkinPie".into(),
                 prefab_hash: 62768076i32,
@@ -14963,7 +14446,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1277979876i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPumpkinSoup".into(),
                 prefab_hash: 1277979876i32,
@@ -14988,7 +14470,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1616308158i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPureIce".into(),
                 prefab_hash: -1616308158i32,
@@ -15013,7 +14494,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1251009404i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPureIceCarbonDioxide".into(),
                 prefab_hash: -1251009404i32,
@@ -15038,7 +14518,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         944530361i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPureIceHydrogen".into(),
                 prefab_hash: 944530361i32,
@@ -15063,7 +14542,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1715945725i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPureIceLiquidCarbonDioxide".into(),
                 prefab_hash: -1715945725i32,
@@ -15088,7 +14566,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1044933269i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPureIceLiquidHydrogen".into(),
                 prefab_hash: -1044933269i32,
@@ -15113,7 +14590,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1674576569i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPureIceLiquidNitrogen".into(),
                 prefab_hash: 1674576569i32,
@@ -15138,7 +14614,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1428477399i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPureIceLiquidNitrous".into(),
                 prefab_hash: 1428477399i32,
@@ -15163,7 +14638,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         541621589i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPureIceLiquidOxygen".into(),
                 prefab_hash: 541621589i32,
@@ -15188,7 +14662,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1748926678i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPureIceLiquidPollutant".into(),
                 prefab_hash: -1748926678i32,
@@ -15213,7 +14686,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1306628937i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPureIceLiquidVolatiles".into(),
                 prefab_hash: -1306628937i32,
@@ -15238,7 +14710,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1708395413i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPureIceNitrogen".into(),
                 prefab_hash: -1708395413i32,
@@ -15263,7 +14734,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         386754635i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPureIceNitrous".into(),
                 prefab_hash: 386754635i32,
@@ -15288,7 +14758,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1150448260i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPureIceOxygen".into(),
                 prefab_hash: -1150448260i32,
@@ -15313,7 +14782,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1755356i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPureIcePollutant".into(),
                 prefab_hash: -1755356i32,
@@ -15338,7 +14806,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2073202179i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPureIcePollutedWater".into(),
                 prefab_hash: -2073202179i32,
@@ -15363,7 +14830,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -874791066i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPureIceSteam".into(),
                 prefab_hash: -874791066i32,
@@ -15388,7 +14854,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -633723719i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemPureIceVolatiles".into(),
                 prefab_hash: -633723719i32,
@@ -15413,7 +14878,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         495305053i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemRTG".into(),
                 prefab_hash: 495305053i32,
@@ -15438,7 +14902,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1817645803i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemRTGSurvival".into(),
                 prefab_hash: 1817645803i32,
@@ -15463,7 +14926,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1641500434i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemReagentMix".into(),
                 prefab_hash: -1641500434i32,
@@ -15488,7 +14950,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         678483886i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemRemoteDetonator".into(),
                 prefab_hash: 678483886i32,
@@ -15541,7 +15002,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1773192190i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemReusableFireExtinguisher".into(),
                 prefab_hash: -1773192190i32,
@@ -15572,7 +15032,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         658916791i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemRice".into(),
                 prefab_hash: 658916791i32,
@@ -15597,7 +15056,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         871811564i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemRoadFlare".into(),
                 prefab_hash: 871811564i32,
@@ -15622,7 +15080,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2109945337i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemRocketMiningDrillHead".into(),
                 prefab_hash: 2109945337i32,
@@ -15647,7 +15104,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1530764483i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemRocketMiningDrillHeadDurable".into(),
                 prefab_hash: 1530764483i32,
@@ -15671,7 +15127,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         653461728i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemRocketMiningDrillHeadHighSpeedIce".into(),
                 prefab_hash: 653461728i32,
@@ -15695,7 +15150,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1440678625i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemRocketMiningDrillHeadHighSpeedMineral".into(),
                 prefab_hash: 1440678625i32,
@@ -15719,7 +15173,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -380904592i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemRocketMiningDrillHeadIce".into(),
                 prefab_hash: -380904592i32,
@@ -15743,7 +15196,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -684020753i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemRocketMiningDrillHeadLongTerm".into(),
                 prefab_hash: -684020753i32,
@@ -15767,7 +15219,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1083675581i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemRocketMiningDrillHeadMineral".into(),
                 prefab_hash: 1083675581i32,
@@ -15791,7 +15242,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1198702771i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemRocketScanningHead".into(),
                 prefab_hash: -1198702771i32,
@@ -15815,7 +15265,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1661270830i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemScanner".into(),
                 prefab_hash: 1661270830i32,
@@ -15840,7 +15289,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         687940869i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemScrewdriver".into(),
                 prefab_hash: 687940869i32,
@@ -15865,7 +15313,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1981101032i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSecurityCamera".into(),
                 prefab_hash: -1981101032i32,
@@ -15890,7 +15337,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1176140051i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSensorLenses".into(),
                 prefab_hash: -1176140051i32,
@@ -15954,7 +15400,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1154200014i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSensorProcessingUnitCelestialScanner".into(),
                 prefab_hash: -1154200014i32,
@@ -15978,7 +15423,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1730464583i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSensorProcessingUnitMesonScanner".into(),
                 prefab_hash: -1730464583i32,
@@ -16003,7 +15447,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1219128491i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSensorProcessingUnitOreScanner".into(),
                 prefab_hash: -1219128491i32,
@@ -16028,7 +15471,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -290196476i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSiliconIngot".into(),
                 prefab_hash: -290196476i32,
@@ -16052,7 +15494,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1103972403i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSiliconOre".into(),
                 prefab_hash: 1103972403i32,
@@ -16077,7 +15518,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -929742000i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSilverIngot".into(),
                 prefab_hash: -929742000i32,
@@ -16101,7 +15541,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -916518678i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSilverOre".into(),
                 prefab_hash: -916518678i32,
@@ -16126,7 +15565,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -82508479i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSolderIngot".into(),
                 prefab_hash: -82508479i32,
@@ -16150,7 +15588,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -365253871i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSolidFuel".into(),
                 prefab_hash: -365253871i32,
@@ -16174,7 +15611,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1883441704i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSoundCartridgeBass".into(),
                 prefab_hash: -1883441704i32,
@@ -16198,7 +15634,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1901500508i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSoundCartridgeDrums".into(),
                 prefab_hash: -1901500508i32,
@@ -16222,7 +15657,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1174735962i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSoundCartridgeLeads".into(),
                 prefab_hash: -1174735962i32,
@@ -16246,7 +15680,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1971419310i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSoundCartridgeSynth".into(),
                 prefab_hash: -1971419310i32,
@@ -16270,7 +15703,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1387403148i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSoyOil".into(),
                 prefab_hash: 1387403148i32,
@@ -16294,7 +15726,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1924673028i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSoybean".into(),
                 prefab_hash: 1924673028i32,
@@ -16319,7 +15750,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1737666461i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSpaceCleaner".into(),
                 prefab_hash: -1737666461i32,
@@ -16344,7 +15774,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         714830451i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSpaceHelmet".into(),
                 prefab_hash: 714830451i32,
@@ -16409,7 +15838,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         675686937i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSpaceIce".into(),
                 prefab_hash: 675686937i32,
@@ -16433,7 +15861,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2131916219i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSpaceOre".into(),
                 prefab_hash: 2131916219i32,
@@ -16458,7 +15885,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1260618380i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSpacepack".into(),
                 prefab_hash: -1260618380i32,
@@ -16584,7 +16010,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -688107795i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSprayCanBlack".into(),
                 prefab_hash: -688107795i32,
@@ -16609,7 +16034,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -498464883i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSprayCanBlue".into(),
                 prefab_hash: -498464883i32,
@@ -16634,7 +16058,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         845176977i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSprayCanBrown".into(),
                 prefab_hash: 845176977i32,
@@ -16659,7 +16082,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1880941852i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSprayCanGreen".into(),
                 prefab_hash: -1880941852i32,
@@ -16684,7 +16106,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1645266981i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSprayCanGrey".into(),
                 prefab_hash: -1645266981i32,
@@ -16709,7 +16130,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1918456047i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSprayCanKhaki".into(),
                 prefab_hash: 1918456047i32,
@@ -16734,7 +16154,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -158007629i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSprayCanOrange".into(),
                 prefab_hash: -158007629i32,
@@ -16759,7 +16178,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1344257263i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSprayCanPink".into(),
                 prefab_hash: 1344257263i32,
@@ -16784,7 +16202,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         30686509i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSprayCanPurple".into(),
                 prefab_hash: 30686509i32,
@@ -16809,7 +16226,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1514393921i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSprayCanRed".into(),
                 prefab_hash: 1514393921i32,
@@ -16834,7 +16250,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         498481505i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSprayCanWhite".into(),
                 prefab_hash: 498481505i32,
@@ -16859,7 +16274,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         995468116i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSprayCanYellow".into(),
                 prefab_hash: 995468116i32,
@@ -16884,7 +16298,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1289723966i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSprayGun".into(),
                 prefab_hash: 1289723966i32,
@@ -16912,7 +16325,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1448105779i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSteelFrames".into(),
                 prefab_hash: -1448105779i32,
@@ -16937,7 +16349,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -654790771i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSteelIngot".into(),
                 prefab_hash: -654790771i32,
@@ -16962,7 +16373,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         38555961i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSteelSheets".into(),
                 prefab_hash: 38555961i32,
@@ -16987,7 +16397,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2038663432i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemStelliteGlassSheets".into(),
                 prefab_hash: -2038663432i32,
@@ -17011,7 +16420,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1897868623i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemStelliteIngot".into(),
                 prefab_hash: -1897868623i32,
@@ -17035,7 +16443,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2111910840i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSugar".into(),
                 prefab_hash: 2111910840i32,
@@ -17059,7 +16466,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1335056202i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSugarCane".into(),
                 prefab_hash: -1335056202i32,
@@ -17083,7 +16489,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1274308304i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemSuitModCryogenicUpgrade".into(),
                 prefab_hash: -1274308304i32,
@@ -17108,7 +16513,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -229808600i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemTablet".into(),
                 prefab_hash: -229808600i32,
@@ -17171,7 +16575,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         111280987i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemTerrainManipulator".into(),
                 prefab_hash: 111280987i32,
@@ -17239,7 +16642,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -998592080i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemTomato".into(),
                 prefab_hash: -998592080i32,
@@ -17264,7 +16666,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         688734890i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemTomatoSoup".into(),
                 prefab_hash: 688734890i32,
@@ -17289,7 +16690,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -355127880i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemToolBelt".into(),
                 prefab_hash: -355127880i32,
@@ -17324,7 +16724,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -800947386i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemTropicalPlant".into(),
                 prefab_hash: -800947386i32,
@@ -17349,7 +16748,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1516581844i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemUraniumOre".into(),
                 prefab_hash: -1516581844i32,
@@ -17374,7 +16772,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1253102035i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemVolatiles".into(),
                 prefab_hash: 1253102035i32,
@@ -17399,7 +16796,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1567752627i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWallCooler".into(),
                 prefab_hash: -1567752627i32,
@@ -17424,7 +16820,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1880134612i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWallHeater".into(),
                 prefab_hash: 1880134612i32,
@@ -17449,7 +16844,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1108423476i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWallLight".into(),
                 prefab_hash: 1108423476i32,
@@ -17474,7 +16868,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         156348098i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWaspaloyIngot".into(),
                 prefab_hash: 156348098i32,
@@ -17498,7 +16891,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         107741229i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWaterBottle".into(),
                 prefab_hash: 107741229i32,
@@ -17523,7 +16915,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         309693520i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWaterPipeDigitalValve".into(),
                 prefab_hash: 309693520i32,
@@ -17547,7 +16938,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -90898877i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWaterPipeMeter".into(),
                 prefab_hash: -90898877i32,
@@ -17571,7 +16961,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1721846327i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWaterWallCooler".into(),
                 prefab_hash: -1721846327i32,
@@ -17595,7 +16984,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -598730959i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWearLamp".into(),
                 prefab_hash: -598730959i32,
@@ -17648,7 +17036,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2066892079i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWeldingTorch".into(),
                 prefab_hash: -2066892079i32,
@@ -17681,7 +17068,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1057658015i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWheat".into(),
                 prefab_hash: -1057658015i32,
@@ -17706,7 +17092,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1535854074i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWireCutters".into(),
                 prefab_hash: 1535854074i32,
@@ -17731,7 +17116,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -504717121i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWirelessBatteryCellExtraLarge".into(),
                 prefab_hash: -504717121i32,
@@ -17778,7 +17162,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1826023284i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWreckageAirConditioner1".into(),
                 prefab_hash: -1826023284i32,
@@ -17802,7 +17185,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         169888054i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWreckageAirConditioner2".into(),
                 prefab_hash: 169888054i32,
@@ -17826,7 +17208,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -310178617i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWreckageHydroponicsTray1".into(),
                 prefab_hash: -310178617i32,
@@ -17850,7 +17231,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -997763i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWreckageLargeExtendableRadiator01".into(),
                 prefab_hash: -997763i32,
@@ -17874,7 +17254,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         391453348i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWreckageStructureRTG1".into(),
                 prefab_hash: 391453348i32,
@@ -17898,7 +17277,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -834664349i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWreckageStructureWeatherStation001".into(),
                 prefab_hash: -834664349i32,
@@ -17922,7 +17300,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1464424921i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWreckageStructureWeatherStation002".into(),
                 prefab_hash: 1464424921i32,
@@ -17946,7 +17323,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         542009679i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWreckageStructureWeatherStation003".into(),
                 prefab_hash: 542009679i32,
@@ -17970,7 +17346,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1104478996i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWreckageStructureWeatherStation004".into(),
                 prefab_hash: -1104478996i32,
@@ -17994,7 +17369,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -919745414i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWreckageStructureWeatherStation005".into(),
                 prefab_hash: -919745414i32,
@@ -18018,7 +17392,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1344576960i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWreckageStructureWeatherStation006".into(),
                 prefab_hash: 1344576960i32,
@@ -18042,7 +17415,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         656649558i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWreckageStructureWeatherStation007".into(),
                 prefab_hash: 656649558i32,
@@ -18066,7 +17438,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1214467897i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWreckageStructureWeatherStation008".into(),
                 prefab_hash: -1214467897i32,
@@ -18090,7 +17461,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1662394403i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWreckageTurbineGenerator1".into(),
                 prefab_hash: -1662394403i32,
@@ -18114,7 +17484,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         98602599i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWreckageTurbineGenerator2".into(),
                 prefab_hash: 98602599i32,
@@ -18138,7 +17507,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1927790321i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWreckageTurbineGenerator3".into(),
                 prefab_hash: 1927790321i32,
@@ -18162,7 +17530,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1682930158i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWreckageWallCooler1".into(),
                 prefab_hash: -1682930158i32,
@@ -18186,7 +17553,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         45733800i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWreckageWallCooler2".into(),
                 prefab_hash: 45733800i32,
@@ -18210,7 +17576,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1886261558i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ItemWrench".into(),
                 prefab_hash: -1886261558i32,
@@ -18235,7 +17600,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1932952652i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "KitSDBSilo".into(),
                 prefab_hash: 1932952652i32,
@@ -18260,7 +17624,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         231903234i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "KitStructureCombustionCentrifuge".into(),
                 prefab_hash: 231903234i32,
@@ -18284,7 +17647,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1427415566i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "KitchenTableShort".into(),
                 prefab_hash: -1427415566i32,
@@ -18300,7 +17662,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -78099334i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "KitchenTableSimpleShort".into(),
                 prefab_hash: -78099334i32,
@@ -18316,7 +17677,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1068629349i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "KitchenTableSimpleTall".into(),
                 prefab_hash: -1068629349i32,
@@ -18332,7 +17692,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1386237782i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "KitchenTableTall".into(),
                 prefab_hash: -1386237782i32,
@@ -18348,7 +17707,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1605130615i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "Lander".into(),
                 prefab_hash: 1605130615i32,
@@ -18383,7 +17741,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1295222317i32,
         StructureLogicTemplate {
-            templateType: "StructureLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "Landingpad_2x2CenterPiece01".into(),
                 prefab_hash: -1295222317i32,
@@ -18409,7 +17766,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         912453390i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "Landingpad_BlankPiece".into(),
                 prefab_hash: 912453390i32,
@@ -18425,7 +17781,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1070143159i32,
         StructureLogicTemplate {
-            templateType: "StructureLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "Landingpad_CenterPiece01".into(),
                 prefab_hash: 1070143159i32,
@@ -18459,7 +17814,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1101296153i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "Landingpad_CrossPiece".into(),
                 prefab_hash: 1101296153i32,
@@ -18476,7 +17830,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2066405918i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "Landingpad_DataConnectionPiece".into(),
                 prefab_hash: -2066405918i32,
@@ -18563,7 +17916,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         977899131i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "Landingpad_DiagonalPiece01".into(),
                 prefab_hash: 977899131i32,
@@ -18580,7 +17932,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         817945707i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "Landingpad_GasConnectorInwardPiece".into(),
                 prefab_hash: 817945707i32,
@@ -18656,7 +18007,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1100218307i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "Landingpad_GasConnectorOutwardPiece".into(),
                 prefab_hash: -1100218307i32,
@@ -18733,7 +18083,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         170818567i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "Landingpad_GasCylinderTankPiece".into(),
                 prefab_hash: 170818567i32,
@@ -18750,7 +18099,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1216167727i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "Landingpad_LiquidConnectorInwardPiece".into(),
                 prefab_hash: -1216167727i32,
@@ -18826,7 +18174,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1788929869i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "Landingpad_LiquidConnectorOutwardPiece".into(),
                 prefab_hash: -1788929869i32,
@@ -18903,7 +18250,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -976273247i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "Landingpad_StraightPiece01".into(),
                 prefab_hash: -976273247i32,
@@ -18920,7 +18266,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1872345847i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "Landingpad_TaxiPieceCorner".into(),
                 prefab_hash: -1872345847i32,
@@ -18936,7 +18281,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         146051619i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "Landingpad_TaxiPieceHold".into(),
                 prefab_hash: 146051619i32,
@@ -18952,7 +18296,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1477941080i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "Landingpad_TaxiPieceStraight".into(),
                 prefab_hash: -1477941080i32,
@@ -18968,7 +18311,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1514298582i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "Landingpad_ThreshholdPiece".into(),
                 prefab_hash: -1514298582i32,
@@ -19022,7 +18364,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1531272458i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "LogicStepSequencer8".into(),
                 prefab_hash: 1531272458i32,
@@ -19102,7 +18443,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -99064335i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "Meteorite".into(),
                 prefab_hash: -99064335i32,
@@ -19126,7 +18466,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1667675295i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "MonsterEgg".into(),
                 prefab_hash: -1667675295i32,
@@ -19150,7 +18489,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -337075633i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "MotherboardComms".into(),
                 prefab_hash: -337075633i32,
@@ -19175,7 +18513,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         502555944i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "MotherboardLogic".into(),
                 prefab_hash: 502555944i32,
@@ -19200,7 +18537,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -127121474i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "MotherboardMissionControl".into(),
                 prefab_hash: -127121474i32,
@@ -19224,7 +18560,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -161107071i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "MotherboardProgrammableChip".into(),
                 prefab_hash: -161107071i32,
@@ -19249,7 +18584,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -806986392i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "MotherboardRockets".into(),
                 prefab_hash: -806986392i32,
@@ -19273,7 +18607,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1908268220i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "MotherboardSorter".into(),
                 prefab_hash: -1908268220i32,
@@ -19298,7 +18631,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1930442922i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "MothershipCore".into(),
                 prefab_hash: -1930442922i32,
@@ -19323,7 +18655,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         155856647i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "NpcChick".into(),
                 prefab_hash: 155856647i32,
@@ -19356,7 +18687,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         399074198i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "NpcChicken".into(),
                 prefab_hash: 399074198i32,
@@ -19389,7 +18719,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         248893646i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "PassiveSpeaker".into(),
                 prefab_hash: 248893646i32,
@@ -19439,7 +18768,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         443947415i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "PipeBenderMod".into(),
                 prefab_hash: 443947415i32,
@@ -19464,7 +18792,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1958705204i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "PortableComposter".into(),
                 prefab_hash: -1958705204i32,
@@ -19497,7 +18824,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2043318949i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "PortableSolarPanel".into(),
                 prefab_hash: 2043318949i32,
@@ -19549,7 +18875,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         399661231i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "RailingElegant01".into(),
                 prefab_hash: 399661231i32,
@@ -19565,7 +18890,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1898247915i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "RailingElegant02".into(),
                 prefab_hash: -1898247915i32,
@@ -19581,7 +18905,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2072792175i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "RailingIndustrial02".into(),
                 prefab_hash: -2072792175i32,
@@ -19597,7 +18920,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         980054869i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ReagentColorBlue".into(),
                 prefab_hash: 980054869i32,
@@ -19621,7 +18943,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         120807542i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ReagentColorGreen".into(),
                 prefab_hash: 120807542i32,
@@ -19645,7 +18966,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -400696159i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ReagentColorOrange".into(),
                 prefab_hash: -400696159i32,
@@ -19671,7 +18991,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1998377961i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ReagentColorRed".into(),
                 prefab_hash: 1998377961i32,
@@ -19695,7 +19014,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         635208006i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ReagentColorYellow".into(),
                 prefab_hash: 635208006i32,
@@ -19721,7 +19039,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -788672929i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "RespawnPoint".into(),
                 prefab_hash: -788672929i32,
@@ -19738,7 +19055,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -491247370i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "RespawnPointWallMounted".into(),
                 prefab_hash: -491247370i32,
@@ -19754,7 +19070,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         434786784i32,
         ItemCircuitHolderTemplate {
-            templateType: "ItemCircuitHolder".into(),
             prefab: PrefabInfo {
                 prefab_name: "Robot".into(),
                 prefab_hash: 434786784i32,
@@ -19905,7 +19220,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         350726273i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "RoverCargo".into(),
                 prefab_hash: 350726273i32,
@@ -20112,7 +19426,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2049946335i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "Rover_MkI".into(),
                 prefab_hash: -2049946335i32,
@@ -20271,7 +19584,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         861674123i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "Rover_MkI_build_states".into(),
                 prefab_hash: 861674123i32,
@@ -20287,7 +19599,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -256607540i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "SMGMagazine".into(),
                 prefab_hash: -256607540i32,
@@ -20311,7 +19622,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1139887531i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "SeedBag_Cocoa".into(),
                 prefab_hash: 1139887531i32,
@@ -20335,7 +19645,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1290755415i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "SeedBag_Corn".into(),
                 prefab_hash: -1290755415i32,
@@ -20360,7 +19669,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1990600883i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "SeedBag_Fern".into(),
                 prefab_hash: -1990600883i32,
@@ -20385,7 +19693,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         311593418i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "SeedBag_Mushroom".into(),
                 prefab_hash: 311593418i32,
@@ -20410,7 +19717,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1005571172i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "SeedBag_Potato".into(),
                 prefab_hash: 1005571172i32,
@@ -20435,7 +19741,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1423199840i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "SeedBag_Pumpkin".into(),
                 prefab_hash: 1423199840i32,
@@ -20460,7 +19765,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1691151239i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "SeedBag_Rice".into(),
                 prefab_hash: -1691151239i32,
@@ -20485,7 +19789,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1783004244i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "SeedBag_Soybean".into(),
                 prefab_hash: 1783004244i32,
@@ -20510,7 +19813,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1884103228i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "SeedBag_SugarCane".into(),
                 prefab_hash: -1884103228i32,
@@ -20534,7 +19836,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         488360169i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "SeedBag_Switchgrass".into(),
                 prefab_hash: 488360169i32,
@@ -20558,7 +19859,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1922066841i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "SeedBag_Tomato".into(),
                 prefab_hash: -1922066841i32,
@@ -20583,7 +19883,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -654756733i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "SeedBag_Wheet".into(),
                 prefab_hash: -654756733i32,
@@ -20608,7 +19907,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1991297271i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "SpaceShuttle".into(),
                 prefab_hash: -1991297271i32,
@@ -20640,7 +19938,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1527229051i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StopWatch".into(),
                 prefab_hash: -1527229051i32,
@@ -20692,7 +19989,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1298920475i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureAccessBridge".into(),
                 prefab_hash: 1298920475i32,
@@ -20745,7 +20041,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1129453144i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureActiveVent".into(),
                 prefab_hash: -1129453144i32,
@@ -20821,7 +20116,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         446212963i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureAdvancedComposter".into(),
                 prefab_hash: 446212963i32,
@@ -20900,7 +20194,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         545937711i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureAdvancedFurnace".into(),
                 prefab_hash: 545937711i32,
@@ -21007,7 +20300,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -463037670i32,
         StructureLogicDeviceConsumerMemoryTemplate {
-            templateType: "StructureLogicDeviceConsumerMemory".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureAdvancedPackagingMachine".into(),
                 prefab_hash: -463037670i32,
@@ -21528,7 +20820,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2087593337i32,
         StructureCircuitHolderTemplate {
-            templateType: "StructureCircuitHolder".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureAirConditioner".into(),
                 prefab_hash: -2087593337i32,
@@ -21660,7 +20951,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2105052344i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureAirlock".into(),
                 prefab_hash: -2105052344i32,
@@ -21719,7 +21009,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1736080881i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureAirlockGate".into(),
                 prefab_hash: 1736080881i32,
@@ -21777,7 +21066,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1811979158i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureAngledBench".into(),
                 prefab_hash: 1811979158i32,
@@ -21833,7 +21121,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -247344692i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureArcFurnace".into(),
                 prefab_hash: -247344692i32,
@@ -21919,7 +21206,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1999523701i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureAreaPowerControl".into(),
                 prefab_hash: 1999523701i32,
@@ -22012,7 +21298,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1032513487i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureAreaPowerControlReversed".into(),
                 prefab_hash: -1032513487i32,
@@ -22105,7 +21390,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         7274344i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureAutoMinerSmall".into(),
                 prefab_hash: 7274344i32,
@@ -22174,7 +21458,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         336213101i32,
         StructureLogicDeviceConsumerMemoryTemplate {
-            templateType: "StructureLogicDeviceConsumerMemory".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureAutolathe".into(),
                 prefab_hash: 336213101i32,
@@ -23091,7 +22374,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1672404896i32,
         StructureLogicDeviceConsumerMemoryTemplate {
-            templateType: "StructureLogicDeviceConsumerMemory".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureAutomatedOven".into(),
                 prefab_hash: -1672404896i32,
@@ -23674,7 +22956,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2099900163i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureBackLiquidPressureRegulator".into(),
                 prefab_hash: 2099900163i32,
@@ -23731,7 +23012,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1149857558i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureBackPressureRegulator".into(),
                 prefab_hash: -1149857558i32,
@@ -23787,7 +23067,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1613497288i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureBasketHoop".into(),
                 prefab_hash: -1613497288i32,
@@ -23839,7 +23118,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -400115994i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureBattery".into(),
                 prefab_hash: -400115994i32,
@@ -23904,7 +23182,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1945930022i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureBatteryCharger".into(),
                 prefab_hash: 1945930022i32,
@@ -24019,7 +23296,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -761772413i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureBatteryChargerSmall".into(),
                 prefab_hash: -761772413i32,
@@ -24099,7 +23375,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1388288459i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureBatteryLarge".into(),
                 prefab_hash: -1388288459i32,
@@ -24164,7 +23439,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1125305264i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureBatteryMedium".into(),
                 prefab_hash: -1125305264i32,
@@ -24229,7 +23503,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2123455080i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureBatterySmall".into(),
                 prefab_hash: -2123455080i32,
@@ -24294,7 +23567,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -188177083i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureBeacon".into(),
                 prefab_hash: -188177083i32,
@@ -24346,7 +23618,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2042448192i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureBench".into(),
                 prefab_hash: -2042448192i32,
@@ -24425,7 +23696,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         406745009i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureBench1".into(),
                 prefab_hash: 406745009i32,
@@ -24503,7 +23773,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2127086069i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureBench2".into(),
                 prefab_hash: -2127086069i32,
@@ -24581,7 +23850,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -164622691i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureBench3".into(),
                 prefab_hash: -164622691i32,
@@ -24659,7 +23927,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1750375230i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureBench4".into(),
                 prefab_hash: 1750375230i32,
@@ -24737,7 +24004,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         337416191i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureBlastDoor".into(),
                 prefab_hash: 337416191i32,
@@ -24796,7 +24062,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         697908419i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureBlockBed".into(),
                 prefab_hash: 697908419i32,
@@ -24861,7 +24126,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         378084505i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureBlocker".into(),
                 prefab_hash: 378084505i32,
@@ -24877,7 +24141,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1036015121i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableAnalysizer".into(),
                 prefab_hash: 1036015121i32,
@@ -24927,7 +24190,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -889269388i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableCorner".into(),
                 prefab_hash: -889269388i32,
@@ -24944,7 +24206,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         980469101i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableCorner3".into(),
                 prefab_hash: 980469101i32,
@@ -24961,7 +24222,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         318437449i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableCorner3Burnt".into(),
                 prefab_hash: 318437449i32,
@@ -24977,7 +24237,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2393826i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableCorner3HBurnt".into(),
                 prefab_hash: 2393826i32,
@@ -24993,7 +24252,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1542172466i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableCorner4".into(),
                 prefab_hash: -1542172466i32,
@@ -25009,7 +24267,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         268421361i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableCorner4Burnt".into(),
                 prefab_hash: 268421361i32,
@@ -25025,7 +24282,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -981223316i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableCorner4HBurnt".into(),
                 prefab_hash: -981223316i32,
@@ -25041,7 +24297,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -177220914i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableCornerBurnt".into(),
                 prefab_hash: -177220914i32,
@@ -25057,7 +24312,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -39359015i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableCornerH".into(),
                 prefab_hash: -39359015i32,
@@ -25073,7 +24327,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1843379322i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableCornerH3".into(),
                 prefab_hash: -1843379322i32,
@@ -25089,7 +24342,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         205837861i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableCornerH4".into(),
                 prefab_hash: 205837861i32,
@@ -25105,7 +24357,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1931412811i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableCornerHBurnt".into(),
                 prefab_hash: 1931412811i32,
@@ -25121,7 +24372,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         281380789i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableFuse100k".into(),
                 prefab_hash: 281380789i32,
@@ -25163,7 +24413,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1103727120i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableFuse1k".into(),
                 prefab_hash: -1103727120i32,
@@ -25205,7 +24454,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -349716617i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableFuse50k".into(),
                 prefab_hash: -349716617i32,
@@ -25247,7 +24495,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -631590668i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableFuse5k".into(),
                 prefab_hash: -631590668i32,
@@ -25289,7 +24536,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -175342021i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableJunction".into(),
                 prefab_hash: -175342021i32,
@@ -25306,7 +24552,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1112047202i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableJunction4".into(),
                 prefab_hash: 1112047202i32,
@@ -25323,7 +24568,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1756896811i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableJunction4Burnt".into(),
                 prefab_hash: -1756896811i32,
@@ -25339,7 +24583,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -115809132i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableJunction4HBurnt".into(),
                 prefab_hash: -115809132i32,
@@ -25355,7 +24598,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         894390004i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableJunction5".into(),
                 prefab_hash: 894390004i32,
@@ -25371,7 +24613,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1545286256i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableJunction5Burnt".into(),
                 prefab_hash: 1545286256i32,
@@ -25387,7 +24628,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1404690610i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableJunction6".into(),
                 prefab_hash: -1404690610i32,
@@ -25404,7 +24644,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -628145954i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableJunction6Burnt".into(),
                 prefab_hash: -628145954i32,
@@ -25420,7 +24659,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1854404029i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableJunction6HBurnt".into(),
                 prefab_hash: 1854404029i32,
@@ -25436,7 +24674,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1620686196i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableJunctionBurnt".into(),
                 prefab_hash: -1620686196i32,
@@ -25452,7 +24689,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         469451637i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableJunctionH".into(),
                 prefab_hash: 469451637i32,
@@ -25468,7 +24704,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -742234680i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableJunctionH4".into(),
                 prefab_hash: -742234680i32,
@@ -25484,7 +24719,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1530571426i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableJunctionH5".into(),
                 prefab_hash: -1530571426i32,
@@ -25500,7 +24734,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1701593300i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableJunctionH5Burnt".into(),
                 prefab_hash: 1701593300i32,
@@ -25516,7 +24749,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1036780772i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableJunctionH6".into(),
                 prefab_hash: 1036780772i32,
@@ -25532,7 +24764,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -341365649i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableJunctionHBurnt".into(),
                 prefab_hash: -341365649i32,
@@ -25548,7 +24779,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         605357050i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableStraight".into(),
                 prefab_hash: 605357050i32,
@@ -25565,7 +24795,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1196981113i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableStraightBurnt".into(),
                 prefab_hash: -1196981113i32,
@@ -25581,7 +24810,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -146200530i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableStraightH".into(),
                 prefab_hash: -146200530i32,
@@ -25597,7 +24825,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2085762089i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCableStraightHBurnt".into(),
                 prefab_hash: 2085762089i32,
@@ -25613,7 +24840,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -342072665i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCamera".into(),
                 prefab_hash: -342072665i32,
@@ -25667,7 +24893,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1385712131i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCapsuleTankGas".into(),
                 prefab_hash: -1385712131i32,
@@ -25742,7 +24967,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1415396263i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCapsuleTankLiquid".into(),
                 prefab_hash: 1415396263i32,
@@ -25817,7 +25041,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1151864003i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCargoStorageMedium".into(),
                 prefab_hash: 1151864003i32,
@@ -26024,7 +25247,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1493672123i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCargoStorageSmall".into(),
                 prefab_hash: -1493672123i32,
@@ -26546,7 +25768,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         690945935i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCentrifuge".into(),
                 prefab_hash: 690945935i32,
@@ -26615,7 +25836,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1167659360i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChair".into(),
                 prefab_hash: 1167659360i32,
@@ -26672,7 +25892,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1944858936i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChairBacklessDouble".into(),
                 prefab_hash: 1944858936i32,
@@ -26728,7 +25947,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1672275150i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChairBacklessSingle".into(),
                 prefab_hash: 1672275150i32,
@@ -26784,7 +26002,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -367720198i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChairBoothCornerLeft".into(),
                 prefab_hash: -367720198i32,
@@ -26840,7 +26057,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1640720378i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChairBoothMiddle".into(),
                 prefab_hash: 1640720378i32,
@@ -26896,7 +26112,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1152812099i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChairRectangleDouble".into(),
                 prefab_hash: -1152812099i32,
@@ -26952,7 +26167,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1425428917i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChairRectangleSingle".into(),
                 prefab_hash: -1425428917i32,
@@ -27008,7 +26222,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1245724402i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChairThickDouble".into(),
                 prefab_hash: -1245724402i32,
@@ -27064,7 +26277,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1510009608i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChairThickSingle".into(),
                 prefab_hash: -1510009608i32,
@@ -27120,7 +26332,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -850484480i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChuteBin".into(),
                 prefab_hash: -850484480i32,
@@ -27188,7 +26399,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1360330136i32,
         StructureSlotsTemplate {
-            templateType: "StructureSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChuteCorner".into(),
                 prefab_hash: 1360330136i32,
@@ -27208,7 +26418,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -810874728i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChuteDigitalFlipFlopSplitterLeft".into(),
                 prefab_hash: -810874728i32,
@@ -27285,7 +26494,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         163728359i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChuteDigitalFlipFlopSplitterRight".into(),
                 prefab_hash: 163728359i32,
@@ -27362,7 +26570,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         648608238i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChuteDigitalValveLeft".into(),
                 prefab_hash: 648608238i32,
@@ -27432,7 +26639,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1337091041i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChuteDigitalValveRight".into(),
                 prefab_hash: -1337091041i32,
@@ -27502,7 +26708,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1446854725i32,
         StructureSlotsTemplate {
-            templateType: "StructureSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChuteFlipFlopSplitter".into(),
                 prefab_hash: -1446854725i32,
@@ -27521,7 +26726,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1469588766i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChuteInlet".into(),
                 prefab_hash: -1469588766i32,
@@ -27586,7 +26790,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -611232514i32,
         StructureSlotsTemplate {
-            templateType: "StructureSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChuteJunction".into(),
                 prefab_hash: -611232514i32,
@@ -27606,7 +26809,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1022714809i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChuteOutlet".into(),
                 prefab_hash: -1022714809i32,
@@ -27672,7 +26874,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         225377225i32,
         StructureSlotsTemplate {
-            templateType: "StructureSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChuteOverflow".into(),
                 prefab_hash: 225377225i32,
@@ -27692,7 +26893,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         168307007i32,
         StructureSlotsTemplate {
-            templateType: "StructureSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChuteStraight".into(),
                 prefab_hash: 168307007i32,
@@ -27712,7 +26912,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1918892177i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChuteUmbilicalFemale".into(),
                 prefab_hash: -1918892177i32,
@@ -27773,7 +26972,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -659093969i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChuteUmbilicalFemaleSide".into(),
                 prefab_hash: -659093969i32,
@@ -27834,7 +27032,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -958884053i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChuteUmbilicalMale".into(),
                 prefab_hash: -958884053i32,
@@ -27908,7 +27105,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         434875271i32,
         StructureSlotsTemplate {
-            templateType: "StructureSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChuteValve".into(),
                 prefab_hash: 434875271i32,
@@ -27928,7 +27124,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -607241919i32,
         StructureSlotsTemplate {
-            templateType: "StructureSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureChuteWindow".into(),
                 prefab_hash: -607241919i32,
@@ -27948,7 +27143,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -128473777i32,
         StructureCircuitHolderTemplate {
-            templateType: "StructureCircuitHolder".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCircuitHousing".into(),
                 prefab_hash: -128473777i32,
@@ -28019,7 +27213,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1238905683i32,
         StructureCircuitHolderTemplate {
-            templateType: "StructureCircuitHolder".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCombustionCentrifuge".into(),
                 prefab_hash: 1238905683i32,
@@ -28153,7 +27346,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1513030150i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeCladdingAngled".into(),
                 prefab_hash: -1513030150i32,
@@ -28169,7 +27361,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -69685069i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeCladdingAngledCorner".into(),
                 prefab_hash: -69685069i32,
@@ -28185,7 +27376,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1841871763i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeCladdingAngledCornerInner".into(),
                 prefab_hash: -1841871763i32,
@@ -28201,7 +27391,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1417912632i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeCladdingAngledCornerInnerLong".into(),
                 prefab_hash: -1417912632i32,
@@ -28217,7 +27406,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         947705066i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeCladdingAngledCornerInnerLongL".into(),
                 prefab_hash: 947705066i32,
@@ -28233,7 +27421,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1032590967i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeCladdingAngledCornerInnerLongR".into(),
                 prefab_hash: -1032590967i32,
@@ -28249,7 +27436,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         850558385i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeCladdingAngledCornerLong".into(),
                 prefab_hash: 850558385i32,
@@ -28265,7 +27451,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -348918222i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeCladdingAngledCornerLongR".into(),
                 prefab_hash: -348918222i32,
@@ -28281,7 +27466,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -387546514i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeCladdingAngledLong".into(),
                 prefab_hash: -387546514i32,
@@ -28297,7 +27481,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         212919006i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeCladdingCylindrical".into(),
                 prefab_hash: 212919006i32,
@@ -28313,7 +27496,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1077151132i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeCladdingCylindricalPanel".into(),
                 prefab_hash: 1077151132i32,
@@ -28329,7 +27511,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1997436771i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeCladdingPanel".into(),
                 prefab_hash: 1997436771i32,
@@ -28345,7 +27526,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -259357734i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeCladdingRounded".into(),
                 prefab_hash: -259357734i32,
@@ -28361,7 +27541,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1951525046i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeCladdingRoundedCorner".into(),
                 prefab_hash: 1951525046i32,
@@ -28377,7 +27556,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         110184667i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeCladdingRoundedCornerInner".into(),
                 prefab_hash: 110184667i32,
@@ -28393,7 +27571,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         139107321i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeCladdingSpherical".into(),
                 prefab_hash: 139107321i32,
@@ -28409,7 +27586,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         534213209i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeCladdingSphericalCap".into(),
                 prefab_hash: 534213209i32,
@@ -28425,7 +27601,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1751355139i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeCladdingSphericalCorner".into(),
                 prefab_hash: 1751355139i32,
@@ -28441,7 +27616,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -793837322i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeDoor".into(),
                 prefab_hash: -793837322i32,
@@ -28500,7 +27674,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         324868581i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeFloorGrating".into(),
                 prefab_hash: 324868581i32,
@@ -28517,7 +27690,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -895027741i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeFloorGrating2".into(),
                 prefab_hash: -895027741i32,
@@ -28533,7 +27705,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1113471627i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeFloorGrating3".into(),
                 prefab_hash: -1113471627i32,
@@ -28549,7 +27720,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         600133846i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeFloorGrating4".into(),
                 prefab_hash: 600133846i32,
@@ -28565,7 +27735,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2109695912i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeFloorGratingOpen".into(),
                 prefab_hash: 2109695912i32,
@@ -28581,7 +27750,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         882307910i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeFloorGratingOpenRotated".into(),
                 prefab_hash: 882307910i32,
@@ -28597,7 +27765,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1237302061i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeWall".into(),
                 prefab_hash: 1237302061i32,
@@ -28614,7 +27781,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         718343384i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeWall02".into(),
                 prefab_hash: 718343384i32,
@@ -28630,7 +27796,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1574321230i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeWall03".into(),
                 prefab_hash: 1574321230i32,
@@ -28646,7 +27811,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1011701267i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeWall04".into(),
                 prefab_hash: -1011701267i32,
@@ -28662,7 +27826,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2060571986i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeWindow".into(),
                 prefab_hash: -2060571986i32,
@@ -28679,7 +27842,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -688284639i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCompositeWindowIron".into(),
                 prefab_hash: -688284639i32,
@@ -28695,7 +27857,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -626563514i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureComputer".into(),
                 prefab_hash: -626563514i32,
@@ -28760,7 +27921,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1420719315i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCondensationChamber".into(),
                 prefab_hash: 1420719315i32,
@@ -28842,7 +28002,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -965741795i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCondensationValve".into(),
                 prefab_hash: -965741795i32,
@@ -28894,7 +28053,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         235638270i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureConsole".into(),
                 prefab_hash: 235638270i32,
@@ -28957,7 +28115,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -722284333i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureConsoleDual".into(),
                 prefab_hash: -722284333i32,
@@ -29021,7 +28178,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -53151617i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureConsoleLED1x2".into(),
                 prefab_hash: -53151617i32,
@@ -29080,7 +28236,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1949054743i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureConsoleLED1x3".into(),
                 prefab_hash: -1949054743i32,
@@ -29139,7 +28294,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -815193061i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureConsoleLED5".into(),
                 prefab_hash: -815193061i32,
@@ -29198,7 +28352,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         801677497i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureConsoleMonitor".into(),
                 prefab_hash: 801677497i32,
@@ -29261,7 +28414,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1961153710i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureControlChair".into(),
                 prefab_hash: -1961153710i32,
@@ -29362,7 +28514,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1968255729i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCornerLocker".into(),
                 prefab_hash: -1968255729i32,
@@ -29466,7 +28617,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -733500083i32,
         StructureSlotsTemplate {
-            templateType: "StructureSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCrateMount".into(),
                 prefab_hash: -733500083i32,
@@ -29485,7 +28635,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1938254586i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCryoTube".into(),
                 prefab_hash: 1938254586i32,
@@ -29562,7 +28711,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1443059329i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCryoTubeHorizontal".into(),
                 prefab_hash: 1443059329i32,
@@ -29629,7 +28777,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1381321828i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureCryoTubeVertical".into(),
                 prefab_hash: -1381321828i32,
@@ -29696,7 +28843,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1076425094i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureDaylightSensor".into(),
                 prefab_hash: 1076425094i32,
@@ -29757,7 +28903,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         265720906i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureDeepMiner".into(),
                 prefab_hash: 265720906i32,
@@ -29819,7 +28964,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1280984102i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureDigitalValve".into(),
                 prefab_hash: -1280984102i32,
@@ -29875,7 +29019,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1944485013i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureDiode".into(),
                 prefab_hash: 1944485013i32,
@@ -29926,7 +29069,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         576516101i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureDiodeSlide".into(),
                 prefab_hash: 576516101i32,
@@ -29977,7 +29119,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -137465079i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureDockPortSide".into(),
                 prefab_hash: -137465079i32,
@@ -30030,7 +29171,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1968371847i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureDrinkingFountain".into(),
                 prefab_hash: 1968371847i32,
@@ -30081,7 +29221,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1668992663i32,
         StructureCircuitHolderTemplate {
-            templateType: "StructureCircuitHolder".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureElectrolyzer".into(),
                 prefab_hash: -1668992663i32,
@@ -30210,7 +29349,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1307165496i32,
         StructureLogicDeviceConsumerMemoryTemplate {
-            templateType: "StructureLogicDeviceConsumerMemory".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureElectronicsPrinter".into(),
                 prefab_hash: 1307165496i32,
@@ -31698,7 +30836,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -827912235i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureElevatorLevelFront".into(),
                 prefab_hash: -827912235i32,
@@ -31756,7 +30893,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2060648791i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureElevatorLevelIndustrial".into(),
                 prefab_hash: 2060648791i32,
@@ -31811,7 +30947,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         826144419i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureElevatorShaft".into(),
                 prefab_hash: 826144419i32,
@@ -31867,7 +31002,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1998354978i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureElevatorShaftIndustrial".into(),
                 prefab_hash: 1998354978i32,
@@ -31917,7 +31051,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1668452680i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureEmergencyButton".into(),
                 prefab_hash: 1668452680i32,
@@ -31971,7 +31104,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2035781224i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureEngineMountTypeA1".into(),
                 prefab_hash: 2035781224i32,
@@ -31987,7 +31119,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1429782576i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureEvaporationChamber".into(),
                 prefab_hash: -1429782576i32,
@@ -32069,7 +31200,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         195298587i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureExpansionValve".into(),
                 prefab_hash: 195298587i32,
@@ -32121,7 +31251,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1622567418i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureFairingTypeA1".into(),
                 prefab_hash: 1622567418i32,
@@ -32137,7 +31266,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -104908736i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureFairingTypeA2".into(),
                 prefab_hash: -104908736i32,
@@ -32153,7 +31281,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1900541738i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureFairingTypeA3".into(),
                 prefab_hash: -1900541738i32,
@@ -32169,7 +31296,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -348054045i32,
         StructureCircuitHolderTemplate {
-            templateType: "StructureCircuitHolder".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureFiltration".into(),
                 prefab_hash: -348054045i32,
@@ -32299,7 +31425,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1529819532i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureFlagSmall".into(),
                 prefab_hash: -1529819532i32,
@@ -32315,7 +31440,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1535893860i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureFlashingLight".into(),
                 prefab_hash: -1535893860i32,
@@ -32366,7 +31490,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         839890807i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureFlatBench".into(),
                 prefab_hash: 839890807i32,
@@ -32422,7 +31545,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1048813293i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureFloorDrain".into(),
                 prefab_hash: 1048813293i32,
@@ -32442,7 +31564,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1432512808i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureFrame".into(),
                 prefab_hash: 1432512808i32,
@@ -32459,7 +31580,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2112390778i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureFrameCorner".into(),
                 prefab_hash: -2112390778i32,
@@ -32476,7 +31596,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         271315669i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureFrameCornerCut".into(),
                 prefab_hash: 271315669i32,
@@ -32492,7 +31611,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1240951678i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureFrameIron".into(),
                 prefab_hash: -1240951678i32,
@@ -32508,7 +31626,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -302420053i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureFrameSide".into(),
                 prefab_hash: -302420053i32,
@@ -32525,7 +31642,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         958476921i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureFridgeBig".into(),
                 prefab_hash: 958476921i32,
@@ -32740,7 +31856,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         751887598i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureFridgeSmall".into(),
                 prefab_hash: 751887598i32,
@@ -32839,7 +31954,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1947944864i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureFurnace".into(),
                 prefab_hash: 1947944864i32,
@@ -32939,7 +32053,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1033024712i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureFuselageTypeA1".into(),
                 prefab_hash: 1033024712i32,
@@ -32955,7 +32068,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1533287054i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureFuselageTypeA2".into(),
                 prefab_hash: -1533287054i32,
@@ -32971,7 +32083,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1308115015i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureFuselageTypeA4".into(),
                 prefab_hash: 1308115015i32,
@@ -32987,7 +32098,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         147395155i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureFuselageTypeC5".into(),
                 prefab_hash: 147395155i32,
@@ -33003,7 +32113,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1165997963i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureGasGenerator".into(),
                 prefab_hash: 1165997963i32,
@@ -33081,7 +32190,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2104106366i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureGasMixer".into(),
                 prefab_hash: 2104106366i32,
@@ -33139,7 +32247,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1252983604i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureGasSensor".into(),
                 prefab_hash: -1252983604i32,
@@ -33206,7 +32313,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1632165346i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureGasTankStorage".into(),
                 prefab_hash: 1632165346i32,
@@ -33284,7 +32390,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1680477930i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureGasUmbilicalFemale".into(),
                 prefab_hash: -1680477930i32,
@@ -33333,7 +32438,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -648683847i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureGasUmbilicalFemaleSide".into(),
                 prefab_hash: -648683847i32,
@@ -33382,7 +32486,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1814939203i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureGasUmbilicalMale".into(),
                 prefab_hash: -1814939203i32,
@@ -33445,7 +32548,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -324331872i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureGlassDoor".into(),
                 prefab_hash: -324331872i32,
@@ -33503,7 +32605,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -214232602i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureGovernedGasEngine".into(),
                 prefab_hash: -214232602i32,
@@ -33577,7 +32678,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -619745681i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureGroundBasedTelescope".into(),
                 prefab_hash: -619745681i32,
@@ -33644,7 +32744,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1758710260i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureGrowLight".into(),
                 prefab_hash: -1758710260i32,
@@ -33696,7 +32795,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         958056199i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureHarvie".into(),
                 prefab_hash: 958056199i32,
@@ -33797,7 +32895,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         944685608i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureHeatExchangeLiquidtoGas".into(),
                 prefab_hash: 944685608i32,
@@ -33851,7 +32948,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         21266291i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureHeatExchangerGastoGas".into(),
                 prefab_hash: 21266291i32,
@@ -33904,7 +33000,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -613784254i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureHeatExchangerLiquidtoLiquid".into(),
                 prefab_hash: -613784254i32,
@@ -33958,7 +33053,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1070427573i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureHorizontalAutoMiner".into(),
                 prefab_hash: 1070427573i32,
@@ -34032,7 +33126,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1888248335i32,
         StructureLogicDeviceConsumerMemoryTemplate {
-            templateType: "StructureLogicDeviceConsumerMemory".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureHydraulicPipeBender".into(),
                 prefab_hash: -1888248335i32,
@@ -35281,7 +34374,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1441767298i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureHydroponicsStation".into(),
                 prefab_hash: 1441767298i32,
@@ -35467,7 +34559,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1464854517i32,
         StructureSlotsTemplate {
-            templateType: "StructureSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureHydroponicsTray".into(),
                 prefab_hash: 1464854517i32,
@@ -35493,7 +34584,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1841632400i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureHydroponicsTrayData".into(),
                 prefab_hash: -1841632400i32,
@@ -35597,7 +34687,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         443849486i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureIceCrusher".into(),
                 prefab_hash: 443849486i32,
@@ -35665,7 +34754,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1005491513i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureIgniter".into(),
                 prefab_hash: 1005491513i32,
@@ -35714,7 +34802,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1693382705i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInLineTankGas1x1".into(),
                 prefab_hash: -1693382705i32,
@@ -35734,7 +34821,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         35149429i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInLineTankGas1x2".into(),
                 prefab_hash: 35149429i32,
@@ -35754,7 +34840,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         543645499i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInLineTankLiquid1x1".into(),
                 prefab_hash: 543645499i32,
@@ -35774,7 +34859,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1183969663i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInLineTankLiquid1x2".into(),
                 prefab_hash: -1183969663i32,
@@ -35794,7 +34878,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1818267386i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInsulatedInLineTankGas1x1".into(),
                 prefab_hash: 1818267386i32,
@@ -35813,7 +34896,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -177610944i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInsulatedInLineTankGas1x2".into(),
                 prefab_hash: -177610944i32,
@@ -35832,7 +34914,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -813426145i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInsulatedInLineTankLiquid1x1".into(),
                 prefab_hash: -813426145i32,
@@ -35851,7 +34932,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1452100517i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInsulatedInLineTankLiquid1x2".into(),
                 prefab_hash: 1452100517i32,
@@ -35870,7 +34950,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1967711059i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInsulatedPipeCorner".into(),
                 prefab_hash: -1967711059i32,
@@ -35890,7 +34969,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -92778058i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInsulatedPipeCrossJunction".into(),
                 prefab_hash: -92778058i32,
@@ -35910,7 +34988,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1328210035i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInsulatedPipeCrossJunction3".into(),
                 prefab_hash: 1328210035i32,
@@ -35930,7 +35007,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -783387184i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInsulatedPipeCrossJunction4".into(),
                 prefab_hash: -783387184i32,
@@ -35950,7 +35026,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1505147578i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInsulatedPipeCrossJunction5".into(),
                 prefab_hash: -1505147578i32,
@@ -35970,7 +35045,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1061164284i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInsulatedPipeCrossJunction6".into(),
                 prefab_hash: 1061164284i32,
@@ -35990,7 +35064,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1713710802i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInsulatedPipeLiquidCorner".into(),
                 prefab_hash: 1713710802i32,
@@ -36009,7 +35082,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1926651727i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInsulatedPipeLiquidCrossJunction".into(),
                 prefab_hash: 1926651727i32,
@@ -36028,7 +35100,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         363303270i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInsulatedPipeLiquidCrossJunction4".into(),
                 prefab_hash: 363303270i32,
@@ -36047,7 +35118,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1654694384i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInsulatedPipeLiquidCrossJunction5".into(),
                 prefab_hash: 1654694384i32,
@@ -36066,7 +35136,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -72748982i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInsulatedPipeLiquidCrossJunction6".into(),
                 prefab_hash: -72748982i32,
@@ -36085,7 +35154,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         295678685i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInsulatedPipeLiquidStraight".into(),
                 prefab_hash: 295678685i32,
@@ -36104,7 +35172,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -532384855i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInsulatedPipeLiquidTJunction".into(),
                 prefab_hash: -532384855i32,
@@ -36123,7 +35190,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2134172356i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInsulatedPipeStraight".into(),
                 prefab_hash: 2134172356i32,
@@ -36143,7 +35209,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2076086215i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInsulatedPipeTJunction".into(),
                 prefab_hash: -2076086215i32,
@@ -36163,7 +35228,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -31273349i32,
         StructureSlotsTemplate {
-            templateType: "StructureSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInsulatedTankConnector".into(),
                 prefab_hash: -31273349i32,
@@ -36185,7 +35249,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1602030414i32,
         StructureSlotsTemplate {
-            templateType: "StructureSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInsulatedTankConnectorLiquid".into(),
                 prefab_hash: -1602030414i32,
@@ -36207,7 +35270,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2096421875i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInteriorDoorGlass".into(),
                 prefab_hash: -2096421875i32,
@@ -36259,7 +35321,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         847461335i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInteriorDoorPadded".into(),
                 prefab_hash: 847461335i32,
@@ -36311,7 +35372,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1981698201i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInteriorDoorPaddedThin".into(),
                 prefab_hash: 1981698201i32,
@@ -36363,7 +35423,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1182923101i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureInteriorDoorTriangle".into(),
                 prefab_hash: -1182923101i32,
@@ -36415,7 +35474,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -828056979i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureKlaxon".into(),
                 prefab_hash: -828056979i32,
@@ -36495,7 +35553,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -415420281i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLadder".into(),
                 prefab_hash: -415420281i32,
@@ -36511,7 +35568,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1541734993i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLadderEnd".into(),
                 prefab_hash: 1541734993i32,
@@ -36527,7 +35583,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1230658883i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLargeDirectHeatExchangeGastoGas".into(),
                 prefab_hash: -1230658883i32,
@@ -36578,7 +35633,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1412338038i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLargeDirectHeatExchangeGastoLiquid".into(),
                 prefab_hash: 1412338038i32,
@@ -36629,7 +35683,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         792686502i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLargeDirectHeatExchangeLiquidtoLiquid".into(),
                 prefab_hash: 792686502i32,
@@ -36680,7 +35733,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -566775170i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLargeExtendableRadiator".into(),
                 prefab_hash: -566775170i32,
@@ -36739,7 +35791,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1351081801i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLargeHangerDoor".into(),
                 prefab_hash: -1351081801i32,
@@ -36797,7 +35848,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1913391845i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLargeSatelliteDish".into(),
                 prefab_hash: 1913391845i32,
@@ -36863,7 +35913,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -558953231i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLaunchMount".into(),
                 prefab_hash: -558953231i32,
@@ -36880,7 +35929,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         797794350i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLightLong".into(),
                 prefab_hash: 797794350i32,
@@ -36930,7 +35978,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1847265835i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLightLongAngled".into(),
                 prefab_hash: 1847265835i32,
@@ -36980,7 +36027,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         555215790i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLightLongWide".into(),
                 prefab_hash: 555215790i32,
@@ -37030,7 +36076,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1514476632i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLightRound".into(),
                 prefab_hash: 1514476632i32,
@@ -37080,7 +36125,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1592905386i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLightRoundAngled".into(),
                 prefab_hash: 1592905386i32,
@@ -37130,7 +36174,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1436121888i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLightRoundSmall".into(),
                 prefab_hash: 1436121888i32,
@@ -37180,7 +36223,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1687692899i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLiquidDrain".into(),
                 prefab_hash: 1687692899i32,
@@ -37236,7 +36278,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2113838091i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLiquidPipeAnalyzer".into(),
                 prefab_hash: -2113838091i32,
@@ -37308,7 +36349,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -287495560i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLiquidPipeHeater".into(),
                 prefab_hash: -287495560i32,
@@ -37361,7 +36401,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -782453061i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLiquidPipeOneWayValve".into(),
                 prefab_hash: -782453061i32,
@@ -37412,7 +36451,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2072805863i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLiquidPipeRadiator".into(),
                 prefab_hash: 2072805863i32,
@@ -37458,7 +36496,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         482248766i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLiquidPressureRegulator".into(),
                 prefab_hash: 482248766i32,
@@ -37515,7 +36552,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1098900430i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLiquidTankBig".into(),
                 prefab_hash: 1098900430i32,
@@ -37590,7 +36626,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1430440215i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLiquidTankBigInsulated".into(),
                 prefab_hash: -1430440215i32,
@@ -37665,7 +36700,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1988118157i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLiquidTankSmall".into(),
                 prefab_hash: 1988118157i32,
@@ -37740,7 +36774,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         608607718i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLiquidTankSmallInsulated".into(),
                 prefab_hash: 608607718i32,
@@ -37815,7 +36848,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1691898022i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLiquidTankStorage".into(),
                 prefab_hash: 1691898022i32,
@@ -37893,7 +36925,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1051805505i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLiquidTurboVolumePump".into(),
                 prefab_hash: -1051805505i32,
@@ -37956,7 +36987,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1734723642i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLiquidUmbilicalFemale".into(),
                 prefab_hash: 1734723642i32,
@@ -38005,7 +37035,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1220870319i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLiquidUmbilicalFemaleSide".into(),
                 prefab_hash: 1220870319i32,
@@ -38054,7 +37083,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1798420047i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLiquidUmbilicalMale".into(),
                 prefab_hash: -1798420047i32,
@@ -38117,7 +37145,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1849974453i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLiquidValve".into(),
                 prefab_hash: 1849974453i32,
@@ -38168,7 +37195,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -454028979i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLiquidVolumePump".into(),
                 prefab_hash: -454028979i32,
@@ -38224,7 +37250,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -647164662i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLockerSmall".into(),
                 prefab_hash: -647164662i32,
@@ -38310,7 +37335,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         264413729i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicBatchReader".into(),
                 prefab_hash: 264413729i32,
@@ -38363,7 +37387,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         436888930i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicBatchSlotReader".into(),
                 prefab_hash: 436888930i32,
@@ -38416,7 +37439,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1415443359i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicBatchWriter".into(),
                 prefab_hash: 1415443359i32,
@@ -38469,7 +37491,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         491845673i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicButton".into(),
                 prefab_hash: 491845673i32,
@@ -38519,7 +37540,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1489728908i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicCompare".into(),
                 prefab_hash: -1489728908i32,
@@ -38581,7 +37601,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         554524804i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicDial".into(),
                 prefab_hash: 554524804i32,
@@ -38630,7 +37649,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1942143074i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicGate".into(),
                 prefab_hash: 1942143074i32,
@@ -38694,7 +37712,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2077593121i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicHashGen".into(),
                 prefab_hash: 2077593121i32,
@@ -38743,7 +37760,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1657691323i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicMath".into(),
                 prefab_hash: 1657691323i32,
@@ -38808,7 +37824,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1160020195i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicMathUnary".into(),
                 prefab_hash: -1160020195i32,
@@ -38874,7 +37889,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -851746783i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicMemory".into(),
                 prefab_hash: -851746783i32,
@@ -38923,7 +37937,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         929022276i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicMinMax".into(),
                 prefab_hash: 929022276i32,
@@ -38982,7 +37995,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2096189278i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicMirror".into(),
                 prefab_hash: 2096189278i32,
@@ -39026,7 +38038,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -345383640i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicReader".into(),
                 prefab_hash: -345383640i32,
@@ -39079,7 +38090,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -124308857i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicReagentReader".into(),
                 prefab_hash: -124308857i32,
@@ -39132,7 +38142,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         876108549i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicRocketDownlink".into(),
                 prefab_hash: 876108549i32,
@@ -39181,7 +38190,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         546002924i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicRocketUplink".into(),
                 prefab_hash: 546002924i32,
@@ -39232,7 +38240,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1822736084i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicSelect".into(),
                 prefab_hash: 1822736084i32,
@@ -39294,7 +38301,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -767867194i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicSlotReader".into(),
                 prefab_hash: -767867194i32,
@@ -39347,7 +38353,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         873418029i32,
         StructureLogicDeviceMemoryTemplate {
-            templateType: "StructureLogicDeviceMemory".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicSorter".into(),
                 prefab_hash: 873418029i32,
@@ -39724,7 +38729,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1220484876i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicSwitch".into(),
                 prefab_hash: 1220484876i32,
@@ -39774,7 +38778,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         321604921i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicSwitch2".into(),
                 prefab_hash: 321604921i32,
@@ -39824,7 +38827,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -693235651i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicTransmitter".into(),
                 prefab_hash: -693235651i32,
@@ -39874,7 +38876,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1326019434i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicWriter".into(),
                 prefab_hash: -1326019434i32,
@@ -39927,7 +38928,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1321250424i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureLogicWriterSwitch".into(),
                 prefab_hash: -1321250424i32,
@@ -39981,7 +38981,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1808154199i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureManualHatch".into(),
                 prefab_hash: -1808154199i32,
@@ -40034,7 +39033,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1918215845i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureMediumConvectionRadiator".into(),
                 prefab_hash: -1918215845i32,
@@ -40088,7 +39086,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1169014183i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureMediumConvectionRadiatorLiquid".into(),
                 prefab_hash: -1169014183i32,
@@ -40142,7 +39139,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -566348148i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureMediumHangerDoor".into(),
                 prefab_hash: -566348148i32,
@@ -40200,7 +39196,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -975966237i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureMediumRadiator".into(),
                 prefab_hash: -975966237i32,
@@ -40254,7 +39249,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1141760613i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureMediumRadiatorLiquid".into(),
                 prefab_hash: -1141760613i32,
@@ -40308,7 +39302,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1093860567i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureMediumRocketGasFuelTank".into(),
                 prefab_hash: -1093860567i32,
@@ -40383,7 +39376,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1143639539i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureMediumRocketLiquidFuelTank".into(),
                 prefab_hash: 1143639539i32,
@@ -40458,7 +39450,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1713470563i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureMotionSensor".into(),
                 prefab_hash: -1713470563i32,
@@ -40508,7 +39499,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1898243702i32,
         StructureCircuitHolderTemplate {
-            templateType: "StructureCircuitHolder".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureNitrolyzer".into(),
                 prefab_hash: 1898243702i32,
@@ -40665,7 +39655,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         322782515i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureOccupancySensor".into(),
                 prefab_hash: 322782515i32,
@@ -40715,7 +39704,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1794932560i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureOverheadShortCornerLocker".into(),
                 prefab_hash: -1794932560i32,
@@ -40784,7 +39772,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1468249454i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureOverheadShortLocker".into(),
                 prefab_hash: 1468249454i32,
@@ -40923,7 +39910,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2066977095i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePassiveLargeRadiatorGas".into(),
                 prefab_hash: 2066977095i32,
@@ -40977,7 +39963,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         24786172i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePassiveLargeRadiatorLiquid".into(),
                 prefab_hash: 24786172i32,
@@ -41031,7 +40016,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1812364811i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePassiveLiquidDrain".into(),
                 prefab_hash: 1812364811i32,
@@ -41074,7 +40058,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         335498166i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePassiveVent".into(),
                 prefab_hash: 335498166i32,
@@ -41094,7 +40077,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1363077139i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePassiveVentInsulated".into(),
                 prefab_hash: 1363077139i32,
@@ -41113,7 +40095,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1674187440i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePassthroughHeatExchangerGasToGas".into(),
                 prefab_hash: -1674187440i32,
@@ -41166,7 +40147,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1928991265i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePassthroughHeatExchangerGasToLiquid".into(),
                 prefab_hash: 1928991265i32,
@@ -41220,7 +40200,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1472829583i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePassthroughHeatExchangerLiquidToLiquid".into(),
                 prefab_hash: -1472829583i32,
@@ -41274,7 +40253,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1434523206i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePictureFrameThickLandscapeLarge".into(),
                 prefab_hash: -1434523206i32,
@@ -41290,7 +40268,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2041566697i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePictureFrameThickLandscapeSmall".into(),
                 prefab_hash: -2041566697i32,
@@ -41306,7 +40283,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         950004659i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePictureFrameThickMountLandscapeLarge".into(),
                 prefab_hash: 950004659i32,
@@ -41322,7 +40298,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         347154462i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePictureFrameThickMountLandscapeSmall".into(),
                 prefab_hash: 347154462i32,
@@ -41338,7 +40313,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1459641358i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePictureFrameThickMountPortraitLarge".into(),
                 prefab_hash: -1459641358i32,
@@ -41354,7 +40328,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2066653089i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePictureFrameThickMountPortraitSmall".into(),
                 prefab_hash: -2066653089i32,
@@ -41370,7 +40343,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1686949570i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePictureFrameThickPortraitLarge".into(),
                 prefab_hash: -1686949570i32,
@@ -41386,7 +40358,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1218579821i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePictureFrameThickPortraitSmall".into(),
                 prefab_hash: -1218579821i32,
@@ -41402,7 +40373,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1418288625i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePictureFrameThinLandscapeLarge".into(),
                 prefab_hash: -1418288625i32,
@@ -41418,7 +40388,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2024250974i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePictureFrameThinLandscapeSmall".into(),
                 prefab_hash: -2024250974i32,
@@ -41434,7 +40403,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1146760430i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePictureFrameThinMountLandscapeLarge".into(),
                 prefab_hash: -1146760430i32,
@@ -41450,7 +40418,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1752493889i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePictureFrameThinMountLandscapeSmall".into(),
                 prefab_hash: -1752493889i32,
@@ -41466,7 +40433,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1094895077i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePictureFrameThinMountPortraitLarge".into(),
                 prefab_hash: 1094895077i32,
@@ -41482,7 +40448,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1835796040i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePictureFrameThinMountPortraitSmall".into(),
                 prefab_hash: 1835796040i32,
@@ -41498,7 +40463,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1212777087i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePictureFrameThinPortraitLarge".into(),
                 prefab_hash: 1212777087i32,
@@ -41514,7 +40478,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1684488658i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePictureFrameThinPortraitSmall".into(),
                 prefab_hash: 1684488658i32,
@@ -41530,7 +40493,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         435685051i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeAnalysizer".into(),
                 prefab_hash: 435685051i32,
@@ -41603,7 +40565,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1785673561i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeCorner".into(),
                 prefab_hash: -1785673561i32,
@@ -41623,7 +40584,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         465816159i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeCowl".into(),
                 prefab_hash: 465816159i32,
@@ -41642,7 +40602,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1405295588i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeCrossJunction".into(),
                 prefab_hash: -1405295588i32,
@@ -41662,7 +40621,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2038427184i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeCrossJunction3".into(),
                 prefab_hash: 2038427184i32,
@@ -41682,7 +40640,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -417629293i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeCrossJunction4".into(),
                 prefab_hash: -417629293i32,
@@ -41702,7 +40659,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1877193979i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeCrossJunction5".into(),
                 prefab_hash: -1877193979i32,
@@ -41722,7 +40678,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         152378047i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeCrossJunction6".into(),
                 prefab_hash: 152378047i32,
@@ -41742,7 +40697,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -419758574i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeHeater".into(),
                 prefab_hash: -419758574i32,
@@ -41795,7 +40749,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1286441942i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeIgniter".into(),
                 prefab_hash: 1286441942i32,
@@ -41845,7 +40798,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2068497073i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeInsulatedLiquidCrossJunction".into(),
                 prefab_hash: -2068497073i32,
@@ -41864,7 +40816,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -999721119i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeLabel".into(),
                 prefab_hash: -999721119i32,
@@ -41907,7 +40858,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1856720921i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeLiquidCorner".into(),
                 prefab_hash: -1856720921i32,
@@ -41927,7 +40877,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1848735691i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeLiquidCrossJunction".into(),
                 prefab_hash: 1848735691i32,
@@ -41947,7 +40896,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1628087508i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeLiquidCrossJunction3".into(),
                 prefab_hash: 1628087508i32,
@@ -41967,7 +40915,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -9555593i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeLiquidCrossJunction4".into(),
                 prefab_hash: -9555593i32,
@@ -41987,7 +40934,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2006384159i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeLiquidCrossJunction5".into(),
                 prefab_hash: -2006384159i32,
@@ -42007,7 +40953,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         291524699i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeLiquidCrossJunction6".into(),
                 prefab_hash: 291524699i32,
@@ -42027,7 +40972,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         667597982i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeLiquidStraight".into(),
                 prefab_hash: 667597982i32,
@@ -42047,7 +40991,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         262616717i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeLiquidTJunction".into(),
                 prefab_hash: 262616717i32,
@@ -42067,7 +41010,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1798362329i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeMeter".into(),
                 prefab_hash: -1798362329i32,
@@ -42110,7 +41052,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1580412404i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeOneWayValve".into(),
                 prefab_hash: 1580412404i32,
@@ -42161,7 +41102,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1305252611i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeOrgan".into(),
                 prefab_hash: 1305252611i32,
@@ -42181,7 +41121,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1696603168i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeRadiator".into(),
                 prefab_hash: 1696603168i32,
@@ -42227,7 +41166,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -399883995i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeRadiatorFlat".into(),
                 prefab_hash: -399883995i32,
@@ -42273,7 +41211,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2024754523i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeRadiatorFlatLiquid".into(),
                 prefab_hash: 2024754523i32,
@@ -42319,7 +41256,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         73728932i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeStraight".into(),
                 prefab_hash: 73728932i32,
@@ -42339,7 +41275,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -913817472i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeTJunction".into(),
                 prefab_hash: -913817472i32,
@@ -42359,7 +41294,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1125641329i32,
         StructureSlotsTemplate {
-            templateType: "StructureSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePlanter".into(),
                 prefab_hash: -1125641329i32,
@@ -42385,7 +41319,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1559586682i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePlatformLadderOpen".into(),
                 prefab_hash: 1559586682i32,
@@ -42401,7 +41334,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         989835703i32,
         StructureSlotsTemplate {
-            templateType: "StructureSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePlinth".into(),
                 prefab_hash: 989835703i32,
@@ -42420,7 +41352,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -899013427i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePortablesConnector".into(),
                 prefab_hash: -899013427i32,
@@ -42485,7 +41416,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -782951720i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePowerConnector".into(),
                 prefab_hash: -782951720i32,
@@ -42548,7 +41478,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -65087121i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePowerTransmitter".into(),
                 prefab_hash: -65087121i32,
@@ -42611,7 +41540,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -327468845i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePowerTransmitterOmni".into(),
                 prefab_hash: -327468845i32,
@@ -42662,7 +41590,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1195820278i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePowerTransmitterReceiver".into(),
                 prefab_hash: 1195820278i32,
@@ -42725,7 +41652,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         101488029i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePowerUmbilicalFemale".into(),
                 prefab_hash: 101488029i32,
@@ -42772,7 +41698,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1922506192i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePowerUmbilicalFemaleSide".into(),
                 prefab_hash: 1922506192i32,
@@ -42819,7 +41744,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1529453938i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePowerUmbilicalMale".into(),
                 prefab_hash: 1529453938i32,
@@ -42879,7 +41803,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         938836756i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePoweredVent".into(),
                 prefab_hash: 938836756i32,
@@ -42939,7 +41862,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -785498334i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePoweredVentLarge".into(),
                 prefab_hash: -785498334i32,
@@ -42999,7 +41921,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         23052817i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePressurantValve".into(),
                 prefab_hash: 23052817i32,
@@ -43056,7 +41977,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -624011170i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePressureFedGasEngine".into(),
                 prefab_hash: -624011170i32,
@@ -43131,7 +42051,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         379750958i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePressureFedLiquidEngine".into(),
                 prefab_hash: 379750958i32,
@@ -43208,7 +42127,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2008706143i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePressurePlateLarge".into(),
                 prefab_hash: -2008706143i32,
@@ -43257,7 +42175,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1269458680i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePressurePlateMedium".into(),
                 prefab_hash: 1269458680i32,
@@ -43306,7 +42223,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1536471028i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePressurePlateSmall".into(),
                 prefab_hash: -1536471028i32,
@@ -43355,7 +42271,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         209854039i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePressureRegulator".into(),
                 prefab_hash: 209854039i32,
@@ -43411,7 +42326,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         568800213i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureProximitySensor".into(),
                 prefab_hash: 568800213i32,
@@ -43461,7 +42375,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2031440019i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePumpedLiquidEngine".into(),
                 prefab_hash: -2031440019i32,
@@ -43538,7 +42451,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -737232128i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructurePurgeValve".into(),
                 prefab_hash: -737232128i32,
@@ -43594,7 +42506,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1756913871i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureRailing".into(),
                 prefab_hash: -1756913871i32,
@@ -43610,7 +42521,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1633947337i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureRecycler".into(),
                 prefab_hash: -1633947337i32,
@@ -43694,7 +42604,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1577831321i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureRefrigeratedVendingMachine".into(),
                 prefab_hash: -1577831321i32,
@@ -43929,7 +42838,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2027713511i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureReinforcedCompositeWindow".into(),
                 prefab_hash: 2027713511i32,
@@ -43946,7 +42854,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -816454272i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureReinforcedCompositeWindowSteel".into(),
                 prefab_hash: -816454272i32,
@@ -43963,7 +42870,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1939061729i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureReinforcedWallPaddedWindow".into(),
                 prefab_hash: 1939061729i32,
@@ -43980,7 +42886,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         158502707i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureReinforcedWallPaddedWindowThin".into(),
                 prefab_hash: 158502707i32,
@@ -43997,7 +42902,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         808389066i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureRocketAvionics".into(),
                 prefab_hash: 808389066i32,
@@ -44098,7 +43002,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         997453927i32,
         StructureLogicDeviceMemoryTemplate {
-            templateType: "StructureLogicDeviceMemory".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureRocketCelestialTracker".into(),
                 prefab_hash: 997453927i32,
@@ -44219,7 +43122,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         150135861i32,
         StructureCircuitHolderTemplate {
-            templateType: "StructureCircuitHolder".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureRocketCircuitHousing".into(),
                 prefab_hash: 150135861i32,
@@ -44289,7 +43191,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         178472613i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureRocketEngineTiny".into(),
                 prefab_hash: 178472613i32,
@@ -44365,7 +43266,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1781051034i32,
         StructureLogicDeviceConsumerMemoryTemplate {
-            templateType: "StructureLogicDeviceConsumerMemory".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureRocketManufactory".into(),
                 prefab_hash: 1781051034i32,
@@ -45069,7 +43969,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2087223687i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureRocketMiner".into(),
                 prefab_hash: -2087223687i32,
@@ -45136,7 +44035,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2014252591i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureRocketScanner".into(),
                 prefab_hash: 2014252591i32,
@@ -45193,7 +44091,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -654619479i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureRocketTower".into(),
                 prefab_hash: -654619479i32,
@@ -45209,7 +44106,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         518925193i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureRocketTransformerSmall".into(),
                 prefab_hash: 518925193i32,
@@ -45265,7 +44161,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         806513938i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureRover".into(),
                 prefab_hash: 806513938i32,
@@ -45281,7 +44176,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1875856925i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSDBHopper".into(),
                 prefab_hash: -1875856925i32,
@@ -45335,7 +44229,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         467225612i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSDBHopperAdvanced".into(),
                 prefab_hash: 467225612i32,
@@ -45391,7 +44284,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1155865682i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSDBSilo".into(),
                 prefab_hash: 1155865682i32,
@@ -45466,7 +44358,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         439026183i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSatelliteDish".into(),
                 prefab_hash: 439026183i32,
@@ -45532,7 +44423,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -641491515i32,
         StructureLogicDeviceConsumerMemoryTemplate {
-            templateType: "StructureLogicDeviceConsumerMemory".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSecurityPrinter".into(),
                 prefab_hash: -641491515i32,
@@ -46167,7 +45057,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1172114950i32,
         StructureSlotsTemplate {
-            templateType: "StructureSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureShelf".into(),
                 prefab_hash: 1172114950i32,
@@ -46191,7 +45080,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         182006674i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureShelfMedium".into(),
                 prefab_hash: 182006674i32,
@@ -46372,7 +45260,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1330754486i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureShortCornerLocker".into(),
                 prefab_hash: 1330754486i32,
@@ -46441,7 +45328,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -554553467i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureShortLocker".into(),
                 prefab_hash: -554553467i32,
@@ -46580,7 +45466,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -775128944i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureShower".into(),
                 prefab_hash: -775128944i32,
@@ -46632,7 +45517,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1081797501i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureShowerPowered".into(),
                 prefab_hash: -1081797501i32,
@@ -46687,7 +45571,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         879058460i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSign1x1".into(),
                 prefab_hash: 879058460i32,
@@ -46729,7 +45612,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         908320837i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSign2x1".into(),
                 prefab_hash: 908320837i32,
@@ -46771,7 +45653,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -492611i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSingleBed".into(),
                 prefab_hash: -492611i32,
@@ -46827,7 +45708,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1467449329i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSleeper".into(),
                 prefab_hash: -1467449329i32,
@@ -46902,7 +45782,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1213495833i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSleeperLeft".into(),
                 prefab_hash: 1213495833i32,
@@ -46975,7 +45854,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1812330717i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSleeperRight".into(),
                 prefab_hash: -1812330717i32,
@@ -47048,7 +45926,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1300059018i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSleeperVertical".into(),
                 prefab_hash: -1300059018i32,
@@ -47121,7 +45998,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1382098999i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSleeperVerticalDroid".into(),
                 prefab_hash: 1382098999i32,
@@ -47179,7 +46055,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1310303582i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSmallDirectHeatExchangeGastoGas".into(),
                 prefab_hash: 1310303582i32,
@@ -47230,7 +46105,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1825212016i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSmallDirectHeatExchangeLiquidtoGas".into(),
                 prefab_hash: 1825212016i32,
@@ -47281,7 +46155,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -507770416i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSmallDirectHeatExchangeLiquidtoLiquid".into(),
                 prefab_hash: -507770416i32,
@@ -47332,7 +46205,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2138748650i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSmallSatelliteDish".into(),
                 prefab_hash: -2138748650i32,
@@ -47398,7 +46270,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1633000411i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSmallTableBacklessDouble".into(),
                 prefab_hash: -1633000411i32,
@@ -47414,7 +46285,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1897221677i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSmallTableBacklessSingle".into(),
                 prefab_hash: -1897221677i32,
@@ -47430,7 +46300,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1260651529i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSmallTableDinnerSingle".into(),
                 prefab_hash: 1260651529i32,
@@ -47446,7 +46315,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -660451023i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSmallTableRectangleDouble".into(),
                 prefab_hash: -660451023i32,
@@ -47462,7 +46330,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -924678969i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSmallTableRectangleSingle".into(),
                 prefab_hash: -924678969i32,
@@ -47478,7 +46345,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -19246131i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSmallTableThickDouble".into(),
                 prefab_hash: -19246131i32,
@@ -47494,7 +46360,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -291862981i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSmallTableThickSingle".into(),
                 prefab_hash: -291862981i32,
@@ -47510,7 +46375,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2045627372i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSolarPanel".into(),
                 prefab_hash: -2045627372i32,
@@ -47562,7 +46426,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1554349863i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSolarPanel45".into(),
                 prefab_hash: -1554349863i32,
@@ -47614,7 +46477,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         930865127i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSolarPanel45Reinforced".into(),
                 prefab_hash: 930865127i32,
@@ -47665,7 +46527,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -539224550i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSolarPanelDual".into(),
                 prefab_hash: -539224550i32,
@@ -47718,7 +46579,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1545574413i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSolarPanelDualReinforced".into(),
                 prefab_hash: -1545574413i32,
@@ -47770,7 +46630,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1968102968i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSolarPanelFlat".into(),
                 prefab_hash: 1968102968i32,
@@ -47822,7 +46681,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1697196770i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSolarPanelFlatReinforced".into(),
                 prefab_hash: 1697196770i32,
@@ -47873,7 +46731,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -934345724i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSolarPanelReinforced".into(),
                 prefab_hash: -934345724i32,
@@ -47924,7 +46781,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         813146305i32,
         StructureLogicDeviceConsumerTemplate {
-            templateType: "StructureLogicDeviceConsumer".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSolidFuelGenerator".into(),
                 prefab_hash: 813146305i32,
@@ -48005,7 +46861,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1009150565i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSorter".into(),
                 prefab_hash: -1009150565i32,
@@ -48115,7 +46970,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2020231820i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureStacker".into(),
                 prefab_hash: -2020231820i32,
@@ -48213,7 +47067,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1585641623i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureStackerReverse".into(),
                 prefab_hash: 1585641623i32,
@@ -48311,7 +47164,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1405018945i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureStairs4x2".into(),
                 prefab_hash: 1405018945i32,
@@ -48327,7 +47179,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         155214029i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureStairs4x2RailL".into(),
                 prefab_hash: 155214029i32,
@@ -48343,7 +47194,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -212902482i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureStairs4x2RailR".into(),
                 prefab_hash: -212902482i32,
@@ -48359,7 +47209,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1088008720i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureStairs4x2Rails".into(),
                 prefab_hash: -1088008720i32,
@@ -48375,7 +47224,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         505924160i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureStairwellBackLeft".into(),
                 prefab_hash: 505924160i32,
@@ -48391,7 +47239,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -862048392i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureStairwellBackPassthrough".into(),
                 prefab_hash: -862048392i32,
@@ -48407,7 +47254,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2128896573i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureStairwellBackRight".into(),
                 prefab_hash: -2128896573i32,
@@ -48423,7 +47269,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -37454456i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureStairwellFrontLeft".into(),
                 prefab_hash: -37454456i32,
@@ -48439,7 +47284,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1625452928i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureStairwellFrontPassthrough".into(),
                 prefab_hash: -1625452928i32,
@@ -48455,7 +47299,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         340210934i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureStairwellFrontRight".into(),
                 prefab_hash: 340210934i32,
@@ -48471,7 +47314,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2049879875i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureStairwellNoDoors".into(),
                 prefab_hash: 2049879875i32,
@@ -48487,7 +47329,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -260316435i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureStirlingEngine".into(),
                 prefab_hash: -260316435i32,
@@ -48576,7 +47417,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -793623899i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureStorageLocker".into(),
                 prefab_hash: -793623899i32,
@@ -48889,7 +47729,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         255034731i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureSuitStorage".into(),
                 prefab_hash: 255034731i32,
@@ -48998,7 +47837,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1606848156i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureTankBig".into(),
                 prefab_hash: -1606848156i32,
@@ -49074,7 +47912,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1280378227i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureTankBigInsulated".into(),
                 prefab_hash: 1280378227i32,
@@ -49150,7 +47987,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1276379454i32,
         StructureSlotsTemplate {
-            templateType: "StructureSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureTankConnector".into(),
                 prefab_hash: -1276379454i32,
@@ -49173,7 +48009,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1331802518i32,
         StructureSlotsTemplate {
-            templateType: "StructureSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureTankConnectorLiquid".into(),
                 prefab_hash: 1331802518i32,
@@ -49196,7 +48031,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1013514688i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureTankSmall".into(),
                 prefab_hash: 1013514688i32,
@@ -49272,7 +48106,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         955744474i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureTankSmallAir".into(),
                 prefab_hash: 955744474i32,
@@ -49348,7 +48181,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2102454415i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureTankSmallFuel".into(),
                 prefab_hash: 2102454415i32,
@@ -49424,7 +48256,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         272136332i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureTankSmallInsulated".into(),
                 prefab_hash: 272136332i32,
@@ -49500,7 +48331,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -465741100i32,
         StructureLogicDeviceConsumerMemoryTemplate {
-            templateType: "StructureLogicDeviceConsumerMemory".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureToolManufactory".into(),
                 prefab_hash: -465741100i32,
@@ -50690,7 +49520,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1473807953i32,
         StructureSlotsTemplate {
-            templateType: "StructureSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureTorpedoRack".into(),
                 prefab_hash: 1473807953i32,
@@ -50718,7 +49547,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1570931620i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureTraderWaypoint".into(),
                 prefab_hash: 1570931620i32,
@@ -50768,7 +49596,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1423212473i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureTransformer".into(),
                 prefab_hash: -1423212473i32,
@@ -50824,7 +49651,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1065725831i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureTransformerMedium".into(),
                 prefab_hash: -1065725831i32,
@@ -50879,7 +49705,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         833912764i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureTransformerMediumReversed".into(),
                 prefab_hash: 833912764i32,
@@ -50934,7 +49759,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -890946730i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureTransformerSmall".into(),
                 prefab_hash: -890946730i32,
@@ -50989,7 +49813,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1054059374i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureTransformerSmallReversed".into(),
                 prefab_hash: 1054059374i32,
@@ -51044,7 +49867,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1282191063i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureTurbineGenerator".into(),
                 prefab_hash: 1282191063i32,
@@ -51093,7 +49915,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1310794736i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureTurboVolumePump".into(),
                 prefab_hash: 1310794736i32,
@@ -51155,7 +49976,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         750118160i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureUnloader".into(),
                 prefab_hash: 750118160i32,
@@ -51242,7 +50062,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1622183451i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureUprightWindTurbine".into(),
                 prefab_hash: 1622183451i32,
@@ -51291,7 +50110,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -692036078i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureValve".into(),
                 prefab_hash: -692036078i32,
@@ -51342,7 +50160,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -443130773i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureVendingMachine".into(),
                 prefab_hash: -443130773i32,
@@ -51553,7 +50370,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -321403609i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureVolumePump".into(),
                 prefab_hash: -321403609i32,
@@ -51609,7 +50425,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -858143148i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallArch".into(),
                 prefab_hash: -858143148i32,
@@ -51625,7 +50440,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1649708822i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallArchArrow".into(),
                 prefab_hash: 1649708822i32,
@@ -51641,7 +50455,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1794588890i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallArchCornerRound".into(),
                 prefab_hash: 1794588890i32,
@@ -51657,7 +50470,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1963016580i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallArchCornerSquare".into(),
                 prefab_hash: -1963016580i32,
@@ -51673,7 +50485,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1281911841i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallArchCornerTriangle".into(),
                 prefab_hash: 1281911841i32,
@@ -51689,7 +50500,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1182510648i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallArchPlating".into(),
                 prefab_hash: 1182510648i32,
@@ -51705,7 +50515,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         782529714i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallArchTwoTone".into(),
                 prefab_hash: 782529714i32,
@@ -51721,7 +50530,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -739292323i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallCooler".into(),
                 prefab_hash: -739292323i32,
@@ -51790,7 +50598,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1635864154i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallFlat".into(),
                 prefab_hash: 1635864154i32,
@@ -51806,7 +50613,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         898708250i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallFlatCornerRound".into(),
                 prefab_hash: 898708250i32,
@@ -51822,7 +50628,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         298130111i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallFlatCornerSquare".into(),
                 prefab_hash: 298130111i32,
@@ -51838,7 +50643,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2097419366i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallFlatCornerTriangle".into(),
                 prefab_hash: 2097419366i32,
@@ -51854,7 +50658,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1161662836i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallFlatCornerTriangleFlat".into(),
                 prefab_hash: -1161662836i32,
@@ -51870,7 +50673,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1979212240i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallGeometryCorner".into(),
                 prefab_hash: 1979212240i32,
@@ -51886,7 +50688,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1049735537i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallGeometryStreight".into(),
                 prefab_hash: 1049735537i32,
@@ -51902,7 +50703,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1602758612i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallGeometryT".into(),
                 prefab_hash: 1602758612i32,
@@ -51918,7 +50718,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1427845483i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallGeometryTMirrored".into(),
                 prefab_hash: -1427845483i32,
@@ -51934,7 +50733,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         24258244i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallHeater".into(),
                 prefab_hash: 24258244i32,
@@ -52000,7 +50798,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1287324802i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallIron".into(),
                 prefab_hash: 1287324802i32,
@@ -52016,7 +50813,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1485834215i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallIron02".into(),
                 prefab_hash: 1485834215i32,
@@ -52032,7 +50828,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         798439281i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallIron03".into(),
                 prefab_hash: 798439281i32,
@@ -52048,7 +50843,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1309433134i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallIron04".into(),
                 prefab_hash: -1309433134i32,
@@ -52064,7 +50858,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1492930217i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallLargePanel".into(),
                 prefab_hash: 1492930217i32,
@@ -52080,7 +50873,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -776581573i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallLargePanelArrow".into(),
                 prefab_hash: -776581573i32,
@@ -52096,7 +50888,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1860064656i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallLight".into(),
                 prefab_hash: -1860064656i32,
@@ -52146,7 +50937,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1306415132i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallLightBattery".into(),
                 prefab_hash: -1306415132i32,
@@ -52212,7 +51002,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1590330637i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallPaddedArch".into(),
                 prefab_hash: 1590330637i32,
@@ -52228,7 +51017,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1126688298i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallPaddedArchCorner".into(),
                 prefab_hash: -1126688298i32,
@@ -52244,7 +51032,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1171987947i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallPaddedArchLightFittingTop".into(),
                 prefab_hash: 1171987947i32,
@@ -52260,7 +51047,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1546743960i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallPaddedArchLightsFittings".into(),
                 prefab_hash: -1546743960i32,
@@ -52276,7 +51062,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -155945899i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallPaddedCorner".into(),
                 prefab_hash: -155945899i32,
@@ -52292,7 +51077,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1183203913i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallPaddedCornerThin".into(),
                 prefab_hash: 1183203913i32,
@@ -52308,7 +51092,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         8846501i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallPaddedNoBorder".into(),
                 prefab_hash: 8846501i32,
@@ -52324,7 +51107,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         179694804i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallPaddedNoBorderCorner".into(),
                 prefab_hash: 179694804i32,
@@ -52340,7 +51122,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1611559100i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallPaddedThinNoBorder".into(),
                 prefab_hash: -1611559100i32,
@@ -52356,7 +51137,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1769527556i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallPaddedThinNoBorderCorner".into(),
                 prefab_hash: 1769527556i32,
@@ -52372,7 +51152,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2087628940i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallPaddedWindow".into(),
                 prefab_hash: 2087628940i32,
@@ -52388,7 +51167,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -37302931i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallPaddedWindowThin".into(),
                 prefab_hash: -37302931i32,
@@ -52404,7 +51182,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         635995024i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallPadding".into(),
                 prefab_hash: 635995024i32,
@@ -52420,7 +51197,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1243329828i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallPaddingArchVent".into(),
                 prefab_hash: -1243329828i32,
@@ -52436,7 +51212,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2024882687i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallPaddingLightFitting".into(),
                 prefab_hash: 2024882687i32,
@@ -52452,7 +51227,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1102403554i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallPaddingThin".into(),
                 prefab_hash: -1102403554i32,
@@ -52468,7 +51242,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         26167457i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallPlating".into(),
                 prefab_hash: 26167457i32,
@@ -52484,7 +51257,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         619828719i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallSmallPanelsAndHatch".into(),
                 prefab_hash: 619828719i32,
@@ -52500,7 +51272,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -639306697i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallSmallPanelsArrow".into(),
                 prefab_hash: -639306697i32,
@@ -52516,7 +51287,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         386820253i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallSmallPanelsMonoChrome".into(),
                 prefab_hash: 386820253i32,
@@ -52532,7 +51302,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1407480603i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallSmallPanelsOpen".into(),
                 prefab_hash: -1407480603i32,
@@ -52548,7 +51317,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1709994581i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallSmallPanelsTwoTone".into(),
                 prefab_hash: 1709994581i32,
@@ -52564,7 +51332,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1177469307i32,
         StructureTemplate {
-            templateType: "Structure".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWallVent".into(),
                 prefab_hash: -1177469307i32,
@@ -52580,7 +51347,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1178961954i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWaterBottleFiller".into(),
                 prefab_hash: -1178961954i32,
@@ -52663,7 +51429,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1433754995i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWaterBottleFillerBottom".into(),
                 prefab_hash: 1433754995i32,
@@ -52746,7 +51511,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -756587791i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWaterBottleFillerPowered".into(),
                 prefab_hash: -756587791i32,
@@ -52832,7 +51596,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1986658780i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWaterBottleFillerPoweredBottom".into(),
                 prefab_hash: 1986658780i32,
@@ -52918,7 +51681,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -517628750i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWaterDigitalValve".into(),
                 prefab_hash: -517628750i32,
@@ -52974,7 +51736,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         433184168i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWaterPipeMeter".into(),
                 prefab_hash: 433184168i32,
@@ -53016,7 +51777,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         887383294i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWaterPurifier".into(),
                 prefab_hash: 887383294i32,
@@ -53078,7 +51838,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1369060582i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWaterWallCooler".into(),
                 prefab_hash: -1369060582i32,
@@ -53146,7 +51905,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1997212478i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWeatherStation".into(),
                 prefab_hash: 1997212478i32,
@@ -53208,7 +51966,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2082355173i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWindTurbine".into(),
                 prefab_hash: -2082355173i32,
@@ -53258,7 +52015,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         2056377335i32,
         StructureLogicDeviceTemplate {
-            templateType: "StructureLogicDevice".into(),
             prefab: PrefabInfo {
                 prefab_name: "StructureWindowShutter".into(),
                 prefab_hash: 2056377335i32,
@@ -53317,7 +52073,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1700018136i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ToolPrinterMod".into(),
                 prefab_hash: 1700018136i32,
@@ -53342,7 +52097,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         94730034i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "ToyLuna".into(),
                 prefab_hash: 94730034i32,
@@ -53366,7 +52120,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -2083426457i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "UniformCommander".into(),
                 prefab_hash: -2083426457i32,
@@ -53399,7 +52152,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -48342840i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "UniformMarine".into(),
                 prefab_hash: -48342840i32,
@@ -53431,7 +52183,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         810053150i32,
         ItemSlotsTemplate {
-            templateType: "ItemSlots".into(),
             prefab: PrefabInfo {
                 prefab_name: "UniformOrangeJumpSuit".into(),
                 prefab_hash: 810053150i32,
@@ -53463,7 +52214,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         789494694i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "WeaponEnergy".into(),
                 prefab_hash: 789494694i32,
@@ -53515,7 +52265,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -385323479i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "WeaponPistolEnergy".into(),
                 prefab_hash: -385323479i32,
@@ -53574,7 +52323,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         1154745374i32,
         ItemLogicTemplate {
-            templateType: "ItemLogic".into(),
             prefab: PrefabInfo {
                 prefab_name: "WeaponRifleEnergy".into(),
                 prefab_hash: 1154745374i32,
@@ -53633,7 +52381,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     map.insert(
         -1102977898i32,
         ItemTemplate {
-            templateType: "Item".into(),
             prefab: PrefabInfo {
                 prefab_name: "WeaponTorpedo".into(),
                 prefab_hash: -1102977898i32,

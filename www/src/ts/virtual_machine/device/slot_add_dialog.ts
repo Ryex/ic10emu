@@ -1,7 +1,7 @@
 import { html, css } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMTemplateDBMixin } from "virtual_machine/base_device";
+import { VMTemplateDBMixin } from "virtual_machine/baseDevice";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
 import SlDialog from "@shoelace-style/shoelace/dist/components/dialog/dialog.component.js";
 import { VMDeviceCard } from "./card";

@@ -10,7 +10,7 @@ import { cache } from "lit/directives/cache.js";
 import { default as uFuzzy } from "@leeoniya/ufuzzy";
 import { when } from "lit/directives/when.js";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
-import { VMTemplateDBMixin } from "virtual_machine/base_device";
+import { VMTemplateDBMixin } from "virtual_machine/baseDevice";
 import { LogicInfo, ObjectTemplate, StructureInfo } from "ic10emu_wasm";
 
 type LogicableStrucutureTemplate = Extract<

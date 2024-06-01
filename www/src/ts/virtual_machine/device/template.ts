@@ -24,7 +24,7 @@ import { crc32, displayNumber, parseNumber } from "utils";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js";
 import { VMDeviceCard } from "./card";
-import { VMTemplateDBMixin } from "virtual_machine/base_device";
+import { VMTemplateDBMixin } from "virtual_machine/baseDevice";
 
 export interface SlotTemplate {
   typ: Class

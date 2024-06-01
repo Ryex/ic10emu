@@ -1,7 +1,7 @@
 import { html, css } from "lit";
 import { customElement, query } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMActiveICMixin } from "virtual_machine/base_device";
+import { VMActiveICMixin } from "virtual_machine/baseDevice";
 
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.js";
 

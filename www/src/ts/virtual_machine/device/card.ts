@@ -1,7 +1,7 @@
 import { html, css, HTMLTemplateResult } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMTemplateDBMixin, VMObjectMixin } from "virtual_machine/base_device";
+import { VMTemplateDBMixin, VMObjectMixin } from "virtual_machine/baseDevice";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js";
 import { parseIntWithHexOrBinary, parseNumber } from "utils";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";

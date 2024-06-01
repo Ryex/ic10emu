@@ -1,4 +1,4 @@
-{
+export default {
   "prefabs": {
     "AccessCardBlack": {
       "templateType": "Item",
@@ -66636,4 +66636,4 @@
     "StructureNitrolyzer",
     "StructureRocketCircuitHousing"
   ]
-}
+} as const

@@ -29,7 +29,7 @@ time = { version = "0.3.36", features = [
     "serde",
     "local-offset",
 ] }
-tsify = { version = "0.4.5", optional = true, features = ["js"] }
+tsify = { version = "0.4.5", optional = true, features = ["json"] }
 wasm-bindgen = { version = "0.2.92", optional = true }
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
