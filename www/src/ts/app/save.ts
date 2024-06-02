@@ -1,7 +1,7 @@
 import { HTMLTemplateResult, html, css, CSSResultGroup } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMState } from "session";
+import { SessionDB } from "session";
 
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
 import { repeat } from "lit/directives/repeat.js";
@@ -34,21 +34,21 @@ export class SaveDialog extends BaseElement {
     `,
   ];
 
-  private _saves: { name: string; date: Date; session: VMState }[];
+  private _saves: { name: string; date: Date; session: SessionDB.CurrentDBVmState }[];
 
   get saves() {
     return this._saves;
   }
 
   @state()
-  set saves(val: { name: string; date: Date; session: VMState }[]) {
+  set saves(val: { name: string; date: Date; session: SessionDB.CurrentDBVmState }[]) {
     this._saves = val;
     this.performSearch();
   }
 
   @state() mode: SaveDialogMode;
 
-  private searchResults: { name: string; date: Date; session: VMState }[];
+  private searchResults: { name: string; date: Date; session: SessionDB.CurrentDBVmState }[];
 
   constructor() {
     super();

@@ -10,33 +10,47 @@ crate-type = ["lib", "cdylib"]
 
 
 [dependencies]
+stationeers_data = { path = "../stationeers_data" }
 const-crc32 = "1.3.0"
-itertools = "0.12.1"
-phf = "0.11.2"
+itertools = "0.13.0"
+macro_rules_attribute = "0.2.0"
+paste = "1.0.15"
+phf = { version = "0.11.2", features = ["macros"] }
 rand = "0.8.5"
-regex = "1.10.3"
-serde = { version = "1.0.197", features = ["derive"] }
-serde_with = "3.7.0"
+regex = "1.10.4"
+serde = "1.0.202"
+serde_derive = "1.0.202"
+serde_with = "3.8.1"
 strum = { version = "0.26.2", features = ["derive", "phf", "strum_macros"] }
 strum_macros = "0.26.2"
-thiserror = "1.0.58"
-time = { version = "0.3.34", features = [
+thiserror = "1.0.61"
+time = { version = "0.3.36", features = [
     "formatting",
     "serde",
     "local-offset",
 ] }
+tsify = { version = "0.4.5", optional = true, features = ["json"] }
+wasm-bindgen = { version = "0.2.92", optional = true }
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 getrandom = { version = "0.2", features = ["js"] }
-time = { version = "0.3.34", features = [
+time = { version = "0.3.36", features = [
     "formatting",
     "serde",
     "local-offset",
     "wasm-bindgen",
 ] }
 
+[dev-dependencies]
+color-eyre = "0.6.3"
+serde_json = "1.0.117"
 
-[build-dependencies]
-convert_case = "0.6.0"
-phf_codegen = "0.11.2"
-regex = "1.10.3"
+# Self dev dependency to enable prefab_database feature for tests
+ic10emu = { path = ".", features = ["prefab_database"] }
+
+[features]
+default = []
+tsify = ["dep:tsify", "dep:wasm-bindgen", "stationeers_data/tsify"]
+prefab_database = [
+    "stationeers_data/prefab_database",
+] # compile with the prefab database enabled

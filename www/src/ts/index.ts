@@ -111,6 +111,6 @@ window.App = new DeferedApp();
 window.VM = new DeferedVM();
 
 import type { App } from "./app";
-import type { VirtualMachine } from "./virtual_machine";
+import type { VirtualMachine } from "./virtualMachine";
 
 import("./app");

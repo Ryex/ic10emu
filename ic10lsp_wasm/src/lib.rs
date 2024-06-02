@@ -1,6 +1,6 @@
+use futures::stream::TryStreamExt;
 use std::{collections::HashMap, sync::Arc};
 use tokio::sync::RwLock;
-use futures::stream::TryStreamExt;
 use tower_lsp::{LspService, Server};
 use wasm_bindgen::{prelude::*, JsCast};
 use wasm_bindgen_futures::stream::JsStream;
@@ -60,7 +60,7 @@ pub async fn serve(config: ServerConfig) -> Result<(), JsValue> {
     let output = wasm_streams::WritableStream::from_raw(output);
     let output = output.try_into_async_write().map_err(|err| err.0)?;
 
-    let (service, messages) = LspService::new(|client| ic10lsp_lib::server::Backend{
+    let (service, messages) = LspService::new(|client| ic10lsp_lib::server::Backend {
         client,
         files: Arc::new(RwLock::new(HashMap::new())),
         config: Arc::new(RwLock::new(ic10lsp_lib::server::Configuration::default())),

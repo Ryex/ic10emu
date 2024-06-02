@@ -1,12 +1,25 @@
-use std::{collections::HashSet, ops::Deref};
+use std::{collections::HashSet, ops::Deref, rc::Rc};
 
-use serde::{Deserialize, Serialize};
-use strum_macros::{AsRefStr, EnumIter};
-use thiserror::Error;
-
+use crate::vm::{
+    object::{errors::LogicError, macros::ObjectInterface, traits::*, Name, ObjectID},
+    VM,
+};
 use itertools::Itertools;
+use macro_rules_attribute::derive;
+use serde_derive::{Deserialize, Serialize};
+use stationeers_data::{
+    enums::{script::LogicType, ConnectionRole, ConnectionType},
+    templates::ConnectionInfo,
+};
+
+use thiserror::Error;
+#[cfg(feature = "tsify")]
+use tsify::Tsify;
+#[cfg(feature = "tsify")]
+use wasm_bindgen::prelude::*;
 
 #[derive(Debug, Default, Clone, Copy, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub enum CableConnectionType {
     Power,
     Data,
@@ -15,157 +28,277 @@ pub enum CableConnectionType {
 }
 
 #[derive(Debug, Default, Clone, Copy, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub enum Connection {
     CableNetwork {
-        net: Option<u32>,
+        net: Option<ObjectID>,
         typ: CableConnectionType,
+        role: ConnectionRole,
     },
-    #[default]
-    Other,
-}
-
-#[derive(
-    Debug, Default, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, EnumIter, AsRefStr,
-)]
-pub enum ConnectionType {
-    Pipe,
-    Power,
-    Data,
-    Chute,
-    Elevator,
-    PipeLiquid,
-    LandingPad,
-    LaunchPad,
-    PowerAndData,
-    #[serde(other)]
-    #[default]
-    None,
-}
-
-#[derive(
-    Debug, Default, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, EnumIter, AsRefStr,
-)]
-pub enum ConnectionRole {
-    Input,
-    Input2,
-    Output,
-    Output2,
-    Waste,
-    #[serde(other)]
+    Chute {
+        role: ConnectionRole,
+    },
+    Pipe {
+        role: ConnectionRole,
+    },
+    Elevator {
+        role: ConnectionRole,
+    },
+    LandingPad {
+        role: ConnectionRole,
+    },
+    LaunchPad {
+        role: ConnectionRole,
+    },
+    PipeLiquid {
+        role: ConnectionRole,
+    },
     #[default]
     None,
 }
 
 impl Connection {
     #[allow(dead_code)]
-    fn from(typ: ConnectionType, _role: ConnectionRole) -> Self {
+    pub fn from_info(typ: ConnectionType, role: ConnectionRole, net: Option<ObjectID>) -> Self {
         match typ {
-            ConnectionType::None
-            | ConnectionType::Chute
-            | ConnectionType::Pipe
-            | ConnectionType::Elevator
-            | ConnectionType::LandingPad
-            | ConnectionType::LaunchPad
-            | ConnectionType::PipeLiquid => Self::Other,
+            ConnectionType::None => Self::None,
             ConnectionType::Data => Self::CableNetwork {
-                net: None,
+                net,
                 typ: CableConnectionType::Data,
+                role,
             },
             ConnectionType::Power => Self::CableNetwork {
-                net: None,
+                net,
                 typ: CableConnectionType::Power,
+                role,
             },
             ConnectionType::PowerAndData => Self::CableNetwork {
-                net: None,
+                net,
                 typ: CableConnectionType::PowerAndData,
+                role,
+            },
+            ConnectionType::Chute => Self::Chute { role },
+            ConnectionType::Pipe => Self::Pipe { role },
+            ConnectionType::Elevator => Self::Elevator { role },
+            ConnectionType::LandingPad => Self::LandingPad { role },
+            ConnectionType::LaunchPad => Self::LaunchPad { role },
+            ConnectionType::PipeLiquid => Self::PipeLiquid { role },
+        }
+    }
+
+    pub fn to_info(&self) -> ConnectionInfo {
+        match self {
+            Self::None => ConnectionInfo {
+                typ: ConnectionType::None,
+                role: ConnectionRole::None,
+            },
+            Self::CableNetwork {
+                typ: CableConnectionType::Data,
+                role,
+                ..
+            } => ConnectionInfo {
+                typ: ConnectionType::Data,
+                role: *role,
+            },
+            Self::CableNetwork {
+                typ: CableConnectionType::Power,
+                role,
+                ..
+            } => ConnectionInfo {
+                typ: ConnectionType::Power,
+                role: *role,
+            },
+            Self::CableNetwork {
+                typ: CableConnectionType::PowerAndData,
+                role,
+                ..
+            } => ConnectionInfo {
+                typ: ConnectionType::PowerAndData,
+                role: *role,
+            },
+            Self::Chute { role } => ConnectionInfo {
+                typ: ConnectionType::Chute,
+                role: *role,
+            },
+            Self::Pipe { role } => ConnectionInfo {
+                typ: ConnectionType::Pipe,
+                role: *role,
+            },
+            Self::PipeLiquid { role } => ConnectionInfo {
+                typ: ConnectionType::PipeLiquid,
+                role: *role,
+            },
+            Self::Elevator { role } => ConnectionInfo {
+                typ: ConnectionType::Elevator,
+                role: *role,
+            },
+            Self::LandingPad { role } => ConnectionInfo {
+                typ: ConnectionType::LandingPad,
+                role: *role,
+            },
+            Self::LaunchPad { role } => ConnectionInfo {
+                typ: ConnectionType::LaunchPad,
+                role: *role,
             },
         }
     }
+
+    pub fn get_network(&self) -> Option<ObjectID> {
+        match self {
+            Self::CableNetwork { net, .. } => *net,
+            _ => None,
+        }
+    }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Network {
-    pub id: u32,
-    pub devices: HashSet<u32>,
-    pub power_only: HashSet<u32>,
+#[derive(ObjectInterface!, Debug)]
+#[custom(implements(Object { Storage, Logicable, Network}))]
+pub struct CableNetwork {
+    #[custom(object_id)]
+    pub id: ObjectID,
+    #[custom(object_prefab)]
+    /// required by object interface but atm unused by network
+    pub prefab: Name,
+    #[custom(object_name)]
+    /// required by object interface but atm unused by network
+    pub name: Name,
+    #[custom(object_vm_ref)]
+    pub vm: Rc<VM>,
+    /// data enabled objects (must be devices)
+    pub devices: HashSet<ObjectID>,
+    /// power only connections
+    pub power_only: HashSet<ObjectID>,
+    /// channel data
     pub channels: [f64; 8],
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct FrozenNetwork {
-    pub id: u32,
-    pub devices: Vec<u32>,
-    pub power_only: Vec<u32>,
-    pub channels: [f64; 8],
-}
-
-impl<T> From<T> for FrozenNetwork
-where
-    T: Deref<Target = Network>,
-{
-    fn from(value: T) -> Self {
-        FrozenNetwork {
-            id: value.id,
-            devices: value.devices.iter().copied().collect_vec(),
-            power_only: value.power_only.iter().copied().collect_vec(),
-            channels: value.channels,
-        }
+impl Storage for CableNetwork {
+    fn slots_count(&self) -> usize {
+        0
+    }
+    fn get_slot(&self, _index: usize) -> Option<&crate::vm::object::Slot> {
+        None
+    }
+    fn get_slot_mut(&mut self, _index: usize) -> Option<&mut crate::vm::object::Slot> {
+        None
+    }
+    fn get_slots(&self) -> Vec<&crate::vm::object::Slot> {
+        vec![]
+    }
+    fn get_slots_mut(&mut self) -> Vec<&mut crate::vm::object::Slot> {
+        vec![]
     }
 }
 
-impl From<FrozenNetwork> for Network {
-    fn from(value: FrozenNetwork) -> Self {
-        Network {
-            id: value.id,
-            devices: value.devices.into_iter().collect(),
-            power_only: value.power_only.into_iter().collect(),
-            channels: value.channels,
-        }
+impl Logicable for CableNetwork {
+    fn prefab_hash(&self) -> i32 {
+        0
+    }
+    fn name_hash(&self) -> i32 {
+        0
+    }
+    fn is_logic_readable(&self) -> bool {
+        true
+    }
+    fn is_logic_writeable(&self) -> bool {
+        true
+    }
+    fn can_logic_read(&self, lt: LogicType) -> bool {
+        use LogicType::*;
+        matches!(
+            lt,
+            Channel0 | Channel1 | Channel2 | Channel3 | Channel4 | Channel5 | Channel6 | Channel7
+        )
+    }
+    fn can_logic_write(&self, lt: LogicType) -> bool {
+        use LogicType::*;
+        matches!(
+            lt,
+            Channel0 | Channel1 | Channel2 | Channel3 | Channel4 | Channel5 | Channel6 | Channel7
+        )
+    }
+    fn get_logic(&self, lt: LogicType) -> Result<f64, crate::vm::object::errors::LogicError> {
+        use LogicType::*;
+        let index: usize = match lt {
+            Channel0 => 0,
+            Channel1 => 1,
+            Channel2 => 2,
+            Channel3 => 3,
+            Channel4 => 4,
+            Channel5 => 5,
+            Channel6 => 6,
+            Channel7 => 7,
+            _ => return Err(LogicError::CantRead(lt)),
+        };
+        Ok(self.channels[index])
+    }
+    fn set_logic(&mut self, lt: LogicType, value: f64, _force: bool) -> Result<(), LogicError> {
+        use LogicType::*;
+        let index: usize = match lt {
+            Channel0 => 0,
+            Channel1 => 1,
+            Channel2 => 2,
+            Channel3 => 3,
+            Channel4 => 4,
+            Channel5 => 5,
+            Channel6 => 6,
+            Channel7 => 7,
+            _ => return Err(LogicError::CantWrite(lt)),
+        };
+        self.channels[index] = value;
+        Ok(())
+    }
+    fn can_slot_logic_read(
+        &self,
+        _slt: stationeers_data::enums::script::LogicSlotType,
+        _index: f64,
+    ) -> bool {
+        false
+    }
+    fn get_slot_logic(
+        &self,
+        slt: stationeers_data::enums::script::LogicSlotType,
+        index: f64,
+    ) -> Result<f64, LogicError> {
+        Err(LogicError::CantSlotRead(slt, index))
+    }
+    fn valid_logic_types(&self) -> Vec<LogicType> {
+        use LogicType::*;
+        vec![
+            Channel0, Channel1, Channel2, Channel3, Channel4, Channel5, Channel6, Channel7,
+        ]
+    }
+    fn known_modes(&self) -> Option<Vec<(u32, String)>> {
+        None
     }
 }
 
-#[derive(Debug, Error)]
-pub enum NetworkError {
-    #[error("")]
-    ChannelIndexOutOfRange,
-}
-
-impl Network {
-
-    pub fn new(id: u32) -> Self {
-        Network {
-            id,
-            devices: HashSet::new(),
-            power_only: HashSet::new(),
-            channels: [f64::NAN; 8],
-        }
-    }
-
-    pub fn contains(&self, id: &u32) -> bool {
+impl Network for CableNetwork {
+    fn contains(&self, id: &ObjectID) -> bool {
         self.devices.contains(id) || self.power_only.contains(id)
     }
 
-    pub fn contains_all(&self, ids: &[u32]) -> bool {
+    fn contains_all(&self, ids: &[ObjectID]) -> bool {
         ids.iter().all(|id| self.contains(id))
     }
 
-    pub fn contains_data(&self, id: &u32) -> bool {
+    fn contains_data(&self, id: &ObjectID) -> bool {
         self.devices.contains(id)
     }
 
-    pub fn contains_all_data(&self, ids: &[u32]) -> bool {
+    fn contains_all_data(&self, ids: &[ObjectID]) -> bool {
         ids.iter().all(|id| self.contains_data(id))
     }
 
-    pub fn contains_power(&self, id: &u32) -> bool {
+    fn contains_power(&self, id: &ObjectID) -> bool {
         self.power_only.contains(id)
     }
 
-    pub fn contains_all_power(&self, ids: &[u32]) -> bool {
+    fn contains_all_power(&self, ids: &[ObjectID]) -> bool {
         ids.iter().all(|id| self.contains_power(id))
     }
 
-    pub fn data_visible(&self, source: &u32) -> Vec<u32> {
+    fn data_visible(&self, source: &ObjectID) -> Vec<ObjectID> {
         if self.contains_data(source) {
             self.devices
                 .iter()
@@ -177,23 +310,100 @@ impl Network {
         }
     }
 
-    pub fn add_data(&mut self, id: u32) -> bool {
+    fn add_data(&mut self, id: ObjectID) -> bool {
         self.devices.insert(id)
     }
 
-    pub fn add_power(&mut self, id: u32) -> bool {
+    fn add_power(&mut self, id: ObjectID) -> bool {
         self.power_only.insert(id)
     }
 
-    pub fn remove_all(&mut self, id: u32) -> bool {
+    fn remove_all(&mut self, id: ObjectID) -> bool {
         self.devices.remove(&id) || self.power_only.remove(&id)
     }
-    pub fn remove_data(&mut self, id: u32) -> bool {
+    fn remove_data(&mut self, id: ObjectID) -> bool {
         self.devices.remove(&id)
     }
 
-    pub fn remove_power(&mut self, id: u32) -> bool {
+    fn remove_power(&mut self, id: ObjectID) -> bool {
         self.devices.remove(&id)
+    }
+
+    fn get_devices(&self) -> Vec<ObjectID> {
+        self.devices.iter().copied().collect_vec()
+    }
+
+    fn get_power_only(&self) -> Vec<ObjectID> {
+        self.power_only.iter().copied().collect_vec()
+    }
+
+    fn get_channel_data(&self) -> &[f64; 8] {
+        &self.channels
+    }
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
+pub struct FrozenCableNetwork {
+    pub id: ObjectID,
+    pub devices: Vec<u32>,
+    pub power_only: Vec<u32>,
+    pub channels: [f64; 8],
+}
+
+impl<T> From<T> for FrozenCableNetwork
+where
+    T: Deref<Target = CableNetwork>,
+{
+    fn from(value: T) -> Self {
+        FrozenCableNetwork {
+            id: value.id,
+            devices: value.devices.iter().copied().collect_vec(),
+            power_only: value.power_only.iter().copied().collect_vec(),
+            channels: value.channels,
+        }
+    }
+}
+
+impl From<NetworkRef<'_>> for FrozenCableNetwork {
+    fn from(value: NetworkRef) -> Self {
+        FrozenCableNetwork {
+            id: *value.get_id(),
+            devices: value.get_devices(),
+            power_only: value.get_power_only(),
+            channels: *value.get_channel_data(),
+        }
+    }
+}
+
+#[derive(Debug, Error)]
+pub enum NetworkError {
+    #[error("")]
+    ChannelIndexOutOfRange,
+}
+
+impl CableNetwork {
+    pub fn new(id: u32, vm: Rc<VM>) -> Self {
+        CableNetwork {
+            id,
+            prefab: Name::new(""),
+            name: Name::new(""),
+            vm,
+            devices: HashSet::new(),
+            power_only: HashSet::new(),
+            channels: [f64::NAN; 8],
+        }
+    }
+    pub fn from_frozen(value: FrozenCableNetwork, vm: Rc<VM>) -> Self {
+        CableNetwork {
+            id: value.id,
+            prefab: Name::new(""),
+            name: Name::new(""),
+            vm,
+            devices: value.devices.into_iter().collect(),
+            power_only: value.power_only.into_iter().collect(),
+            channels: value.channels,
+        }
     }
 
     pub fn set_channel(&mut self, chan: usize, val: f64) -> Result<f64, NetworkError> {
