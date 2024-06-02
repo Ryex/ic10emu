@@ -137,10 +137,21 @@ impl VMRef {
         self.vm.import_template_database(db);
     }
 
-    #[wasm_bindgen(js_name = "importTemplateDatabaseSerde")]
-    pub fn import_template_database_serde(&self, db: JsValue) -> Result<(), JsError> {
+    #[wasm_bindgen(js_name = "importTemplateDatabaseSerdeWasm")]
+    pub fn import_template_database_serde_wasm(&self, db: JsValue) -> Result<(), JsError> {
         let parsed_db: BTreeMap<i32, ObjectTemplate> =
             parse_value(serde_wasm_bindgen::Deserializer::from(db)).map_err(|err| {
+                <&dyn std::error::Error as std::convert::Into<JsError>>::into(
+                    std::convert::AsRef::<dyn std::error::Error>::as_ref(&err),
+                )
+            })?;
+        self.vm.import_template_database(parsed_db);
+        Ok(())
+    }
+    #[wasm_bindgen(js_name = "importTemplateDatabaseSerdeJson")]
+    pub fn import_template_database_serde_json(&self, db: String) -> Result<(), JsError> {
+        let parsed_db: BTreeMap<i32, ObjectTemplate> =
+            parse_value(&mut serde_json::Deserializer::from_str(&db)).map_err(|err| {
                 <&dyn std::error::Error as std::convert::Into<JsError>>::into(
                     std::convert::AsRef::<dyn std::error::Error>::as_ref(&err),
                 )
@@ -240,33 +251,33 @@ impl VMRef {
         Ok(self.vm.reset_programmable(id)?)
     }
 
-    #[wasm_bindgen(getter, js_name = "defaultNetwork")]
-    pub fn default_network(&self) -> ObjectID {
+    #[wasm_bindgen(js_name = "getDefaultNetwork")]
+    pub fn get_default_network(&self) -> ObjectID {
         *self.vm.default_network_key.borrow()
     }
 
-    #[wasm_bindgen(getter)]
-    pub fn objects(&self) -> Vec<ObjectID> {
+    #[wasm_bindgen(js_name = "getObjects")]
+    pub fn get_objects(&self) -> Vec<ObjectID> {
         self.vm.objects.borrow().keys().copied().collect_vec()
     }
 
-    #[wasm_bindgen(getter)]
-    pub fn networks(&self) -> Vec<ObjectID> {
+    #[wasm_bindgen(js_name = "getNetworks")]
+    pub fn get_networks(&self) -> Vec<ObjectID> {
         self.vm.networks.borrow().keys().copied().collect_vec()
     }
 
-    #[wasm_bindgen(getter)]
-    pub fn circuit_holders(&self) -> Vec<ObjectID> {
+    #[wasm_bindgen(js_name = "getCircuitHolders")]
+    pub fn get_circuit_holders(&self) -> Vec<ObjectID> {
         self.vm.circuit_holders.borrow().clone()
     }
 
-    #[wasm_bindgen(getter)]
-    pub fn program_holders(&self) -> Vec<ObjectID> {
+    #[wasm_bindgen(js_name = "getProgramHolders")]
+    pub fn get_program_holders(&self) -> Vec<ObjectID> {
         self.vm.program_holders.borrow().clone()
     }
 
-    #[wasm_bindgen(getter, js_name = "lastOperationModified")]
-    pub fn last_operation_modified(&self) -> Vec<ObjectID> {
+    #[wasm_bindgen(js_name = "getLastOperationModified")]
+    pub fn get_last_operation_modified(&self) -> Vec<ObjectID> {
         self.vm.last_operation_modified()
     }
 

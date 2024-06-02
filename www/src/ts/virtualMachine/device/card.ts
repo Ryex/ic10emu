@@ -1,7 +1,7 @@
 import { html, css, HTMLTemplateResult } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMTemplateDBMixin, VMObjectMixin } from "virtual_machine/baseDevice";
+import { VMTemplateDBMixin, VMObjectMixin } from "virtualMachine/baseDevice";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js";
 import { parseIntWithHexOrBinary, parseNumber } from "utils";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
@@ -148,8 +148,14 @@ export class VMDeviceCard extends VMTemplateDBMixin(
       "device" in activeIc?.template
         ? activeIc.template.device.device_pins_length
         : Math.max(
-          ...Array.from(activeIc?.obj_info.device_pins?.keys() ?? [0]),
-        );
+            ...Array.from(
+              activeIc?.obj_info.device_pins != null
+                ? Object.keys(activeIc?.obj_info.device_pins).map((key) =>
+                    parseInt(key),
+                  )
+                : [0],
+            ),
+          );
     const pins = new Array(numPins)
       .fill(true)
       .map((_, index) => this.pins.get(index));
@@ -217,8 +223,8 @@ export class VMDeviceCard extends VMTemplateDBMixin(
       <div class="ms-auto mt-auto mb-auto me-2">
         <sl-tooltip
           content=${thisIsActiveIc
-        ? "Removing the selected Active IC is disabled"
-        : "Remove Device"}
+            ? "Removing the selected Active IC is disabled"
+            : "Remove Device"}
         >
           <sl-icon-button
             class="remove-button"
@@ -252,13 +258,13 @@ export class VMDeviceCard extends VMTemplateDBMixin(
       html`
         <div class="flex flex-row flex-wrap">
           ${repeat(
-        this.slots,
-        (slot, index) => slot.typ + index.toString(),
-        (_slot, index) => html`
+            this.slots,
+            (slot, index) => slot.typ + index.toString(),
+            (_slot, index) => html`
               <vm-device-slot .deviceID=${this.objectID} .slotIndex=${index} class-"flex flex-row max-w-lg mr-2 mb-2">
               </vm-device-slot>
             `,
-      )}
+          )}
         </div>
       `,
     );
@@ -287,11 +293,11 @@ export class VMDeviceCard extends VMTemplateDBMixin(
         >
           <span slot="prefix">Connection:${index} </span>
           ${vmNetworks.map(
-        (net) =>
-          html`<sl-option value=${net.toString()}
+            (net) =>
+              html`<sl-option value=${net.toString()}
                 >Network ${net}</sl-option
               >`,
-      )}
+          )}
           <span slot="prefix"> ${conn?.typ} </span>
         </sl-select>
       `;
@@ -318,12 +324,12 @@ export class VMDeviceCard extends VMTemplateDBMixin(
       resolver?: (result: HTMLTemplateResult) => void;
     };
   } = {
-      fields: {},
-      slots: {},
-      reagents: {},
-      networks: {},
-      pins: {},
-    };
+    fields: {},
+    slots: {},
+    reagents: {},
+    networks: {},
+    pins: {},
+  };
 
   delayRenderTab(
     name: CardTab,

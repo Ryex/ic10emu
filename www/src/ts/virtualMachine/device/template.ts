@@ -24,12 +24,12 @@ import { crc32, displayNumber, parseNumber } from "utils";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js";
 import { VMDeviceCard } from "./card";
-import { VMTemplateDBMixin } from "virtual_machine/baseDevice";
+import { VMTemplateDBMixin } from "virtualMachine/baseDevice";
 
 export interface SlotTemplate {
-  typ: Class
-  quantity: number,
-  occupant?: FrozenObject,
+  typ: Class;
+  quantity: number;
+  occupant?: FrozenObject;
 }
 
 export interface ConnectionCableNetwork {
@@ -42,7 +42,6 @@ export interface ConnectionCableNetwork {
 
 @customElement("vm-device-template")
 export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
-
   static styles = [
     ...defaultCss,
     css`
@@ -91,7 +90,6 @@ export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
   private _prefabName: string;
   private _prefabHash: number;
 
-
   get prefabName(): string {
     return this._prefabName;
   }
@@ -107,7 +105,7 @@ export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
   }
 
   get dbTemplate(): ObjectTemplate {
-    return this.templateDB.get(this._prefabHash);
+    return this.templateDB[this._prefabHash];
   }
 
   setupState() {
@@ -117,7 +115,7 @@ export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
       (
         Array.from(
           "logic" in dbTemplate
-            ? dbTemplate.logic.logic_types.entries() ?? []
+            ? Object.entries(dbTemplate.logic.logic_types)
             : [],
         ) as [LogicType, MemoryAccess][]
       ).map(([lt, access]) => {
@@ -156,14 +154,15 @@ export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
 
     this.connections = connections.map((conn) => conn[1]);
 
-    const numPins = "device" in dbTemplate ? dbTemplate.device.device_pins_length : 0;
+    const numPins =
+      "device" in dbTemplate ? dbTemplate.device.device_pins_length : 0;
     this.pins = new Array(numPins).fill(undefined);
   }
   renderFields(): HTMLTemplateResult {
     const fields = Object.entries(this.fields);
     return html`
       ${fields.map(([name, field], _index, _fields) => {
-      return html`
+        return html`
           <sl-input
             key="${name}"
             value="${displayNumber(field.value)}"
@@ -175,7 +174,7 @@ export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
             <span slot="suffix">${field.field_type}</span>
           </sl-input>
         `;
-    })}
+      })}
     `;
   }
 
@@ -209,11 +208,11 @@ export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
     return html`
       <div class="networks">
         ${connections.map((connection, index, _conns) => {
-      const conn =
-        typeof connection === "object" && "CableNetwork" in connection
-          ? connection.CableNetwork
-          : null;
-      return html`
+          const conn =
+            typeof connection === "object" && "CableNetwork" in connection
+              ? connection.CableNetwork
+              : null;
+          return html`
             <sl-select
               hoist
               placement="top"
@@ -225,13 +224,13 @@ export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
             >
               <span slot="prefix">Connection:${index} </span>
               ${vmNetworks.map(
-        (net) =>
-          html`<sl-option value=${net}>Network ${net}</sl-option>`,
-      )}
+                (net) =>
+                  html`<sl-option value=${net}>Network ${net}</sl-option>`,
+              )}
               <span slot="prefix"> ${conn?.typ} </span>
             </sl-select>
           `;
-    })}
+        })}
       </div>
     `;
   }
@@ -270,13 +269,13 @@ export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
         >
           <span slot="prefix">d${index}</span>
           ${visibleDevices.map(
-          (device, _index) => html`
+            (device, _index) => html`
               <sl-option value=${device.obj_info.id.toString()}>
                 Device ${device.obj_info.id} :
                 ${device.obj_info.name ?? device.obj_info.prefab}
               </sl-option>
             `,
-        )}
+          )}
         </sl-select>`,
     );
     return html`<div class="pins">${pinsHtml}</div>`;
@@ -286,7 +285,7 @@ export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
     const select = e.target as SlSelect;
     const pin = parseInt(select.getAttribute("key")!);
     const val = select.value ? parseInt(select.value as string) : undefined;
-    this.pins[pin] = val
+    this.pins[pin] = val;
   }
 
   render() {
@@ -342,40 +341,50 @@ export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
     const objInfo: ObjectInfo = {
       id: this.objectId,
       name: this.objectName,
-      prefab: this.prefabName
+      prefab: this.prefabName,
     } as ObjectInfo;
 
     if (this.slots.length > 0) {
-      const slotOccupants: [FrozenObject, number][] = this.slots.flatMap((slot, index) => {
-        return typeof slot.occupant !== "undefined" ? [[slot.occupant, index]] : [];
-      })
+      const slotOccupants: [FrozenObject, number][] = this.slots.flatMap(
+        (slot, index) => {
+          return typeof slot.occupant !== "undefined"
+            ? [[slot.occupant, index]]
+            : [];
+        },
+      );
       let slotOccupantTemplates: FrozenObject[] | null = null;
       let slotOccupantObjectIds: ObjectID[] | null = null;
 
       let slotOccupantIdsMap: Map<number, number> = new Map();
       if (slotOccupants.length > 0) {
         slotOccupantTemplates = slotOccupants.map(([slot, _]) => slot);
-        slotOccupantObjectIds = await window.VM.vm.addObjectsFrozen(slotOccupantTemplates);
-        slotOccupantIdsMap = new Map(slotOccupants.map((_, index) => {
-          return [index, slotOccupantObjectIds[index]];
-        }))
+        slotOccupantObjectIds = await window.VM.vm.addObjectsFrozen(
+          slotOccupantTemplates,
+        );
+        slotOccupantIdsMap = new Map(
+          slotOccupants.map((_, index) => {
+            return [index, slotOccupantObjectIds[index]];
+          }),
+        );
       }
-      objInfo.slots = new Map(this.slots.flatMap((slot, index) => {
-        const occupantId = slotOccupantIdsMap.get(index);
-        if (typeof occupantId !== "undefined") {
-          const info: SlotOccupantInfo = {
-            id: occupantId,
-            quantity: slot.quantity
-          };
-          return [[index, info]] as [number, SlotOccupantInfo][];
-        } else {
-          return [] as [number, SlotOccupantInfo][];
-        }
-      }))
+      objInfo.slots = Object.fromEntries(
+        this.slots.flatMap((slot, index) => {
+          const occupantId = slotOccupantIdsMap.get(index);
+          if (typeof occupantId !== "undefined") {
+            const info: SlotOccupantInfo = {
+              id: occupantId,
+              quantity: slot.quantity,
+            };
+            return [[index, info]] as [number, SlotOccupantInfo][];
+          } else {
+            return [] as [number, SlotOccupantInfo][];
+          }
+        }),
+      );
     }
 
     if (this.connections.length > 0) {
-      objInfo.connections = new Map(
+      objInfo.connections = Object.fromEntries(
         this.connections.flatMap((conn, index) => {
           return typeof conn === "object" &&
             "CableNetwork" in conn &&
@@ -387,7 +396,10 @@ export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
     }
 
     if (this.fields.size > 0) {
-      objInfo.logic_values = new Map(this.fields)
+      objInfo.logic_values = Object.fromEntries(this.fields) as Record<
+        LogicType,
+        number
+      >;
     }
 
     const template: FrozenObject = {

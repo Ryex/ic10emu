@@ -72,9 +72,12 @@ export const demoVMState: SessionDB.CurrentDBVmState = {
           id: 1,
           prefab: "StructureCircuitHousing",
           socketed_ic: 2,
-          slots: new Map([[0, { id: 2, quantity: 1 }]]),
-          connections: new Map([[0, 1]]),
-
+          slots: {
+            0: { id: 2, quantity: 1 },
+          },
+          connections: {
+            0: 1,
+          },
           // unused, provided to make compiler happy
           name: undefined,
           prefab_hash: undefined,
@@ -88,7 +91,7 @@ export const demoVMState: SessionDB.CurrentDBVmState = {
           visible_devices: undefined,
           memory: undefined,
           source_code: undefined,
-          circuit: undefined
+          circuit: undefined,
         },
         template: undefined,
         database_template: true,
@@ -103,10 +106,10 @@ export const demoVMState: SessionDB.CurrentDBVmState = {
             instruction_pointer: 0,
             yield_instruction_count: 0,
             state: "Start",
-            aliases: new Map(),
-            defines: new Map(),
-            labels: new Map(),
-            registers: new Array(18).fill(0)
+            aliases: {},
+            defines: {},
+            labels: {},
+            registers: new Array(18).fill(0),
           },
 
           // unused, provided to make compiler happy
@@ -125,16 +128,25 @@ export const demoVMState: SessionDB.CurrentDBVmState = {
           visible_devices: undefined,
         },
         template: undefined,
-        database_template: true
-      }
+        database_template: true,
+      },
     ],
     networks: [
       {
         id: 1,
         devices: [1],
         power_only: [],
-        channels: Array(8).fill(NaN) as [number, number, number, number, number, number, number, number],
-      }
+        channels: Array(8).fill(NaN) as [
+          number,
+          number,
+          number,
+          number,
+          number,
+          number,
+          number,
+          number,
+        ],
+      },
     ],
     program_holders: [2],
     circuit_holders: [1],
@@ -143,4 +155,4 @@ export const demoVMState: SessionDB.CurrentDBVmState = {
     wireless_transmitters: [],
   },
   activeIC: 1,
-}
+};

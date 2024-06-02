@@ -15,6 +15,7 @@ num-integer = "0.1.46"
 phf = "0.11.2"
 serde = "1.0.202"
 serde_derive = "1.0.202"
+serde_with = "3.8.1"
 strum = { version = "0.26.2", features = ["derive", "phf", "strum_macros"] }
 tsify = { version = "0.4.5", optional = true, features = ["json"] }
 wasm-bindgen = { version = "0.2.92", optional = true }

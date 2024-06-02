@@ -260,17 +260,22 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
         )
       ) {
         const logicValues =
-          this.obj.obj_info.logic_values ?? new Map<LogicType, number>();
+          this.obj.obj_info.logic_values != null
+            ? (new Map(Object.entries(this.obj.obj_info.logic_values)) as Map<
+                LogicType,
+                number
+              >)
+            : null;
         const logicTemplate =
           "logic" in this.obj.template ? this.obj.template.logic : null;
         newFields = new Map(
-          Array.from(logicTemplate?.logic_types.entries() ?? []).map(
+          Array.from(Object.entries(logicTemplate?.logic_types) ?? []).map(
             ([lt, access]) => {
               let field: LogicField = {
                 field_type: access,
-                value: logicValues.get(lt) ?? 0,
+                value: logicValues.get(lt as LogicType) ?? 0,
               };
-              return [lt, field];
+              return [lt as LogicType, field];
             },
           ),
         );
@@ -289,25 +294,44 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
         )
       ) {
         const slotsOccupantInfo =
-          this.obj.obj_info.slots ?? new Map<number, SlotOccupantInfo>();
+          this.obj.obj_info.slots != null
+            ? new Map(
+                Object.entries(this.obj.obj_info.slots).map(([key, val]) => [
+                  parseInt(key),
+                  val,
+                ]),
+              )
+            : null;
         const slotsLogicValues =
-          this.obj.obj_info.slot_logic_values ??
-          new Map<number, Map<LogicSlotType, number>>();
+          this.obj.obj_info.slot_logic_values != null
+            ? new Map<number, Map<LogicSlotType, number>>(
+                Object.entries(this.obj.obj_info.slot_logic_values).map(
+                  ([index, values]) => [
+                    parseInt(index),
+                    new Map(Object.entries(values)) as Map<
+                      LogicSlotType,
+                      number
+                    >,
+                  ],
+                ),
+              )
+            : null;
         const logicTemplate =
           "logic" in this.obj.template ? this.obj.template.logic : null;
         const slotsTemplate =
           "slots" in this.obj.template ? this.obj.template.slots : [];
         newSlots = slotsTemplate.map((template, index) => {
           const fieldEntryInfos = Array.from(
-            logicTemplate?.logic_slot_types.get(index).entries() ?? [],
+            Object.entries(logicTemplate?.logic_slot_types[index]) ?? [],
           );
           const logicFields = new Map(
             fieldEntryInfos.map(([slt, access]) => {
               let field: LogicField = {
                 field_type: access,
-                value: slotsLogicValues.get(index)?.get(slt) ?? 0,
+                value:
+                  slotsLogicValues.get(index)?.get(slt as LogicSlotType) ?? 0,
               };
-              return [slt, field];
+              return [slt as LogicSlotType, field];
             }),
           );
           let occupantInfo = slotsOccupantInfo.get(index);
@@ -366,12 +390,26 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
               this.slotsCount = slotsCount;
             }
           } else if (sub === "reagents") {
-            const reagents = this.obj.obj_info.reagents;
+            const reagents =
+              this.obj.obj_info.reagents != null
+                ? new Map(
+                    Object.entries(this.obj.obj_info.reagents).map(
+                      ([key, val]) => [parseInt(key), val],
+                    ),
+                  )
+                : null;
             if (!structuralEqual(this.reagents, reagents)) {
               this.reagents = reagents;
             }
           } else if (sub === "connections") {
-            const connectionsMap = this.obj.obj_info.connections ?? new Map();
+            const connectionsMap =
+              this.obj.obj_info.connections != null
+                ? new Map(
+                    Object.entries(this.obj.obj_info.connections).map(
+                      ([key, val]) => [parseInt(key), val],
+                    ),
+                  )
+                : null;
             const connectionList =
               "device" in this.obj.template
                 ? this.obj.template.device.connection_list
@@ -483,15 +521,31 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
       if (!structuralEqual(this.registers, registers)) {
         this.registers = registers;
       }
-      const aliases = this.obj.obj_info.circuit?.aliases ?? null;
+      const aliases =
+        this.obj.obj_info.circuit?.aliases != null
+          ? new Map(Object.entries(this.obj.obj_info.circuit.aliases))
+          : null;
       if (!structuralEqual(this.aliases, aliases)) {
         this.aliases = aliases;
       }
-      const defines = this.obj.obj_info.circuit?.defines ?? null;
+      const defines =
+        this.obj.obj_info.circuit?.defines != null
+          ? new Map(
+              Object.entries(this.obj.obj_info.circuit.defines),
+              // .map(([key, val]) => [])
+            )
+          : null;
       if (!structuralEqual(this.defines, defines)) {
-        this.defines = defines;
+        this.defines = new Map(defines);
       }
-      const pins = this.obj.obj_info.device_pins ?? new Map<number, number>();
+      const pins =
+        this.obj.obj_info.device_pins != null
+          ? new Map(
+              Object.entries(this.obj.obj_info.device_pins).map(
+                ([key, val]) => [parseInt(key), val],
+              ),
+            )
+          : null;
       if (!structuralEqual(this.pins, pins)) {
         this.pins = pins;
         this.numPins =
@@ -590,7 +644,7 @@ export const VMTemplateDBMixin = <T extends Constructor<LitElement>>(
       return this._templateDB;
     }
 
-    postDBSetUpdate(): void { }
+    postDBSetUpdate(): void {}
 
     @state()
     set templateDB(val: TemplateDatabase) {

@@ -1,7 +1,7 @@
 import { html, css } from "lit";
 import { customElement } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMActiveICMixin } from "virtual_machine/baseDevice";
+import { VMActiveICMixin } from "virtualMachine/baseDevice";
 
 import { RegisterSpec } from "ic10emu_wasm";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";

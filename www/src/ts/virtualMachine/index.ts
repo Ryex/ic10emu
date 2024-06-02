@@ -83,7 +83,7 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
     return this._objects;
   }
 
-  get objectIds() {
+  get objectIds(): ObjectID[] {
     const ids = Array.from(this._objects.keys());
     ids.sort();
     return ids;
@@ -93,13 +93,13 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
     return this._circuitHolders;
   }
 
-  get circuitHolderIds() {
+  get circuitHolderIds(): ObjectID[] {
     const ids = Array.from(this._circuitHolders.keys());
     ids.sort();
     return ids;
   }
 
-  get networks() {
+  get networks(): ObjectID[] {
     const ids = Array.from(this._networks.keys());
     ids.sort();
     return ids;
@@ -320,7 +320,10 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
         this.updateObject(id, false);
       }
     }, this);
-    this.updateObject(this.activeIC.obj_info.id, false);
+    const activeIC = this.activeIC;
+    if (activeIC != null) {
+      this.updateObject(activeIC.obj_info.id, false);
+    }
     if (save) this.app.session.save();
   }
 
@@ -356,7 +359,7 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
 
   // return the data connected oject ids for a network
   networkDataDevices(network: ObjectID): number[] {
-    return this._networks.get(network)?.devices ?? []
+    return this._networks.get(network)?.devices ?? [];
   }
 
   async changeObjectID(oldID: number, newID: number): Promise<boolean> {
@@ -522,14 +525,16 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
     }
   }
 
-  async addObjectsFrozen(frozenObjects: FrozenObject[]): Promise<ObjectID[] | undefined> {
+  async addObjectsFrozen(
+    frozenObjects: FrozenObject[],
+  ): Promise<ObjectID[] | undefined> {
     try {
       console.log("adding devices", frozenObjects);
       const ids = await this.ic10vm.addObjectsFrozen(frozenObjects);
       const refrozen = await this.ic10vm.freezeObjects(ids);
       ids.forEach((id, index) => {
         this._objects.set(id, refrozen[index]);
-      })
+      });
       const device_ids = await this.ic10vm.objects;
       this.dispatchCustomEvent("vm-objects-update", Array.from(device_ids));
       this.app.session.save();

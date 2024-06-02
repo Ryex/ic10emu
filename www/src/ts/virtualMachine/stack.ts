@@ -1,7 +1,7 @@
 import { html, css } from "lit";
 import { customElement } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMActiveICMixin } from "virtual_machine/baseDevice";
+import { VMActiveICMixin } from "virtualMachine/baseDevice";
 
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
 import { displayNumber, parseNumber } from "utils";
@@ -41,7 +41,7 @@ export class VMICStack extends VMActiveICMixin(BaseElement) {
   }
 
   protected render() {
-    const sp = this.registers![16];
+    const sp = this.registers != null ? this.registers[16] : 0;
 
     return html`
       <sl-card class="card">

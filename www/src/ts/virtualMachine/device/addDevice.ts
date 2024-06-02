@@ -10,7 +10,7 @@ import { cache } from "lit/directives/cache.js";
 import { default as uFuzzy } from "@leeoniya/ufuzzy";
 import { when } from "lit/directives/when.js";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
-import { VMTemplateDBMixin } from "virtual_machine/baseDevice";
+import { VMTemplateDBMixin } from "virtualMachine/baseDevice";
 import { LogicInfo, ObjectTemplate, StructureInfo } from "ic10emu_wasm";
 
 type LogicableStrucutureTemplate = Extract<
@@ -44,7 +44,7 @@ export class VMAddDeviceButton extends VMTemplateDBMixin(BaseElement) {
 
   postDBSetUpdate(): void {
     this._structures = new Map(
-      Array.from(this.templateDB.values()).flatMap((template) => {
+      Array.from(Object.values(this.templateDB)).flatMap((template) => {
         if ("structure" in template && "logic" in template) {
           return [[template.prefab.prefab_name, template]] as [
             string,
@@ -162,7 +162,7 @@ export class VMAddDeviceButton extends VMTemplateDBMixin(BaseElement) {
     }
     return when(
       typeof this._searchResults !== "undefined" &&
-      this._searchResults.length < 20,
+        this._searchResults.length < 20,
       () =>
         repeat(
           this._searchResults ?? [],
@@ -189,33 +189,33 @@ export class VMAddDeviceButton extends VMTemplateDBMixin(BaseElement) {
             <div class="p-2 ml-2">
               Page:
               ${pageKeys.map(
-        (key, index) => html`
+                (key, index) => html`
                   <span
                     class="p-2 cursor-pointer hover:text-purple-400 ${index ===
-            this.page
-            ? " text-purple-500"
-            : ""}"
+                    this.page
+                      ? " text-purple-500"
+                      : ""}"
                     key=${key}
                     @click=${this._handlePageChange}
                     >${key + 1}${index < totalPages - 1 ? "," : ""}</span
                   >
                 `,
-      )}
+              )}
             </div>
           </div>
           <div class="flex flex-row flex-wrap">
             ${[
-          ...this._searchResults.slice(
-            perPage * this.page,
-            perPage * this.page + perPage,
-          ),
-          ...extra,
-        ].map((result) => {
-          let hay = result.haystackEntry.slice(0, 15);
-          if (result.haystackEntry.length > 15) hay += "...";
-          const ranges = result.ranges.filter((pos) => pos < 20);
-          const key = result.entry.prefab.prefab_name;
-          return html`
+              ...this._searchResults.slice(
+                perPage * this.page,
+                perPage * this.page + perPage,
+              ),
+              ...extra,
+            ].map((result) => {
+              let hay = result.haystackEntry.slice(0, 15);
+              if (result.haystackEntry.length > 15) hay += "...";
+              const ranges = result.ranges.filter((pos) => pos < 20);
+              const key = result.entry.prefab.prefab_name;
+              return html`
                 <div
                   class="m-2 text-neutral-200/90 italic cursor-pointer rounded bg-neutral-700 hover:bg-purple-500 px-1"
                   key=${key}
@@ -223,12 +223,12 @@ export class VMAddDeviceButton extends VMTemplateDBMixin(BaseElement) {
                 >
                   ${result.entry.prefab.name} (<small class="text-sm">
                     ${ranges.length
-              ? unsafeHTML(uFuzzy.highlight(hay, ranges))
-              : hay} </small
+                      ? unsafeHTML(uFuzzy.highlight(hay, ranges))
+                      : hay} </small
                   >)
                 </div>
               `;
-        })}
+            })}
           </div>
         </div>
       `,
@@ -284,8 +284,8 @@ export class VMAddDeviceButton extends VMTemplateDBMixin(BaseElement) {
           slot="footer"
           variant="primary"
           @click=${() => {
-        this.drawer.hide();
-      }}
+            this.drawer.hide();
+          }}
         >
           Close
         </sl-button>

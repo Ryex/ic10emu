@@ -7,10 +7,10 @@ import { ShareSessionDialog } from "./share";
 import "../editor";
 import { IC10Editor } from "../editor";
 import { Session } from "../session";
-import { VirtualMachine } from "../virtual_machine";
+import { VirtualMachine } from "../virtualMachine";
 import { openFile, saveFile } from "../utils";
 
-import "../virtual_machine/ui";
+import "../virtualMachine/ui";
 import "./save";
 import { SaveDialog } from "./save";
 import "./welcome";
@@ -22,6 +22,7 @@ declare global {
 }
 
 import packageJson from "../../../package.json"
+import { until } from "lit/directives/until.js";
 
 @customElement("ic10emu-app")
 export class App extends BaseElement {
@@ -83,20 +84,38 @@ export class App extends BaseElement {
   }
 
   protected render(): HTMLTemplateResult {
+    const mainBody = window.VM.get().then(vm => {
+      return html`
+        <sl-split-panel
+          style="--min: 20em; --max: calc(100% - 20em);"
+
+          primary="start"
+          snap="512px 50%"
+          snap-threshold="15"
+        >
+          <ace-ic10 slot="start"></ace-ic10>
+          <div slot="end"><vm-ui></vm-ui></div>
+        </sl-split-panel>
+      `;
+    });
     return html`
       <div class="app-container">
         <app-nav appVer=${this.appVersion} gitVer=${this.gitVer} buildDate=${this.buildDate} ></app-nav>
         <div class="app-body">
-          <sl-split-panel
-            style="--min: 20em; --max: calc(100% - 20em);"
-
-            primary="start"
-            snap="512px 50%"
-            snap-threshold="15"
-          >
-            <ace-ic10 slot="start"></ace-ic10>
-            <div slot="end"><vm-ui></vm-ui></div>
-          </sl-split-panel>
+          ${until(
+            mainBody,
+            html`
+              <div class="w-full h-full place-content-center">
+                <div class="w-full h-fit justify-center">
+                  <p class="mt-auto mr-auto ml-auto w-fit text-2xl">
+                    Loading Ic10 Virtual Machine
+                    <sl-spinner class="self-center" style="font-size: 1.5rem; --track-width: 5px;">
+                    </sl-spinner>
+                  </p>
+                </div>
+              </div>
+            `
+          )}
         </div>
         <session-share-dialog></session-share-dialog>
         <save-dialog></save-dialog>

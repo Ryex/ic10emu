@@ -5,6 +5,9 @@ use crate::enums::{
     script::{LogicSlotType, LogicType},
     ConnectionRole, ConnectionType, MachineTier, MemoryAccess, Species,
 };
+
+use serde_with::{serde_as, DisplayFromStr, Map};
+
 use serde_derive::{Deserialize, Serialize};
 #[cfg(feature = "tsify")]
 use tsify::Tsify;
@@ -195,11 +198,14 @@ pub struct SlotInfo {
     pub typ: Class,
 }
 
+#[serde_as]
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct LogicInfo {
+    #[serde_as( as = "BTreeMap<DisplayFromStr, _>")]
     pub logic_slot_types: BTreeMap<u32, BTreeMap<LogicSlotType, MemoryAccess>>,
     pub logic_types: BTreeMap<LogicType, MemoryAccess>,
+    #[serde_as( as = "Option<BTreeMap<DisplayFromStr, _>>")]
     pub modes: Option<BTreeMap<u32, String>>,
     pub transmission_receiver: bool,
     pub wireless_logic: bool,

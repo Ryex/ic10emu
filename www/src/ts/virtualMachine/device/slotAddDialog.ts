@@ -1,7 +1,7 @@
 import { html, css } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMTemplateDBMixin } from "virtual_machine/baseDevice";
+import { VMTemplateDBMixin } from "virtualMachine/baseDevice";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
 import SlDialog from "@shoelace-style/shoelace/dist/components/dialog/dialog.component.js";
 import { VMDeviceCard } from "./card";
@@ -62,7 +62,7 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
 
   postDBSetUpdate(): void {
     this._items = new Map(
-      Array.from(this.templateDB.values()).flatMap((template) => {
+      Array.from(Object.values(this.templateDB)).flatMap((template) => {
         if ("item" in template) {
           return [[template.prefab.prefab_name, template]] as [
             string,
@@ -160,15 +160,15 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
       <div class="mt-2 max-h-48 overflow-y-auto w-full">
         ${enableNone ? none : ""}
         ${this._searchResults.map((result) => {
-      const imgSrc = `img/stationpedia/${result.entry.prefab.prefab_name}.png`;
-      const img = html`
+          const imgSrc = `img/stationpedia/${result.entry.prefab.prefab_name}.png`;
+          const img = html`
             <img
               class="w-8 h-8 mr-2"
               src=${imgSrc}
               onerror="this.src = '${VMDeviceCard.transparentImg}'"
             />
           `;
-      return html`
+          return html`
             <div
               class="cursor-pointer hover:bg-neutral-600 rounded px-2 py-1 me-1 flex flex-row"
               key=${result.entry.prefab.prefab_hash.toString()}
@@ -178,7 +178,7 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
               <div>${result.entry.prefab.name}</div>
             </div>
           `;
-    })}
+        })}
       </div>
     `;
   }
@@ -191,7 +191,7 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
   _handleClickItem(e: Event) {
     const div = e.currentTarget as HTMLDivElement;
     const key = parseInt(div.getAttribute("key"));
-    const entry = this.templateDB.get(key) as SlotableItemTemplate;
+    const entry = this.templateDB[key] as SlotableItemTemplate;
     const obj = window.VM.vm.objects.get(this.objectID);
     const dbTemplate = obj.template;
     console.log("using entry", dbTemplate);
@@ -231,15 +231,15 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
           <sl-icon slot="suffix" name="search"></sl-icon>
         </sl-input>
         ${when(
-      typeof this.objectID !== "undefined" &&
-      typeof this.slotIndex !== "undefined",
-      () => html`
+          typeof this.objectID !== "undefined" &&
+            typeof this.slotIndex !== "undefined",
+          () => html`
             <div class="flex flex-row overflow-x-auto">
               ${this.renderSearchResults()}
             </div>
           `,
-      () => html``,
-    )}
+          () => html``,
+        )}
       </sl-dialog>
     `;
   }

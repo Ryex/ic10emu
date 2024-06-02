@@ -7,8 +7,8 @@ import { structuralEqual } from "utils";
 
 import { repeat } from "lit/directives/repeat.js";
 import { default as uFuzzy } from "@leeoniya/ufuzzy";
-import { VMSlotAddDialog } from "./slot_add_dialog";
-import "./add_device"
+import { VMSlotAddDialog } from "./slotAddDialog";
+import "./addDevice"
 import { SlotModifyEvent } from "./slot";
 
 @customElement("vm-device-list")

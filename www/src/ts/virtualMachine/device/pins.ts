@@ -1,7 +1,7 @@
 import { html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMTemplateDBMixin, VMObjectMixin } from "virtual_machine/baseDevice";
+import { VMTemplateDBMixin, VMObjectMixin } from "virtualMachine/baseDevice";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js";
 import { ObjectID } from "ic10emu_wasm";
 

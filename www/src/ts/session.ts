@@ -1,19 +1,39 @@
-import type { ICError, FrozenVM, RegisterSpec, DeviceSpec, LogicType, LogicSlotType, LogicField, Class as SlotType, FrozenCableNetwork, FrozenObject, ObjectInfo, ICState, ObjectID } from "ic10emu_wasm";
+import type {
+  ICError,
+  FrozenVM,
+  RegisterSpec,
+  DeviceSpec,
+  LogicType,
+  LogicSlotType,
+  LogicField,
+  Class as SlotType,
+  FrozenCableNetwork,
+  FrozenObject,
+  ObjectInfo,
+  ICState,
+  ObjectID,
+} from "ic10emu_wasm";
 import { App } from "./app";
 
 import { openDB, DBSchema, IDBPTransaction, IDBPDatabase } from "idb";
-import { TypedEventTarget, crc32, dispatchTypedEvent, fromJson, toJson } from "./utils";
+import {
+  TypedEventTarget,
+  crc32,
+  dispatchTypedEvent,
+  fromJson,
+  toJson,
+} from "./utils";
 
 import * as presets from "./presets";
 const { demoVMState } = presets;
 
 export interface SessionEventMap {
-  "sessions-local-update": CustomEvent,
-  "session-active-ic": CustomEvent<ObjectID>,
-  "session-id-change": CustomEvent<{ old: ObjectID, new: ObjectID }>,
-  "session-errors": CustomEvent<ObjectID[]>,
-  "session-load": CustomEvent<Session>,
-  "active-line": CustomEvent<ObjectID>,
+  "sessions-local-update": CustomEvent;
+  "session-active-ic": CustomEvent<ObjectID>;
+  "session-id-change": CustomEvent<{ old: ObjectID; new: ObjectID }>;
+  "session-errors": CustomEvent<ObjectID[]>;
+  "session-load": CustomEvent<Session>;
+  "active-line": CustomEvent<ObjectID>;
 }
 
 export class Session extends TypedEventTarget<SessionEventMap>() {
@@ -66,16 +86,14 @@ export class Session extends TypedEventTarget<SessionEventMap>() {
       this.programs.set(newID, this.programs.get(oldID));
       this.programs.delete(oldID);
     }
-    this.dispatchCustomEvent("session-id-change", { old: oldID, new: newID })
+    this.dispatchCustomEvent("session-id-change", { old: oldID, new: newID });
   }
 
-  onIDChange(
-    callback: (e: CustomEvent<{ old: number; new: number }>) => any,
-  ) {
+  onIDChange(callback: (e: CustomEvent<{ old: number; new: number }>) => any) {
     this.addEventListener("session-id-change", callback);
   }
 
-  onActiveIc(callback: (e: CustomEvent<number>) => any,) {
+  onActiveIc(callback: (e: CustomEvent<number>) => any) {
     this.addEventListener("session-active-ic", callback);
   }
 
@@ -168,8 +186,9 @@ export class Session extends TypedEventTarget<SessionEventMap>() {
       // assign first so it's present when the
       // vm fires events
       this._activeIC = data.activeIC;
-      this.app.vm.restoreVMState(state);
-      this.programs = this.app.vm.getPrograms();
+      const vm = await window.VM.get()
+      await vm.restoreVMState(state);
+      this.programs = vm.getPrograms();
       // assign again to fire event
       this.activeIC = data.activeIC;
     }
@@ -205,31 +224,36 @@ export class Session extends TypedEventTarget<SessionEventMap>() {
   }
 
   async openIndexDB() {
-    return await openDB<SessionDB.CurrentDBSchema>("ic10-vm-sessions", SessionDB.LOCAL_DB_VERSION, {
-      async upgrade(db, oldVersion, newVersion, transaction, event) {
-        if (oldVersion < SessionDB.DBVersion.V1) {
-          const sessionStore = db.createObjectStore("sessions");
-          sessionStore.createIndex("by-date", "date");
-          sessionStore.createIndex("by-name", "name");
-        }
-        if (oldVersion < SessionDB.DBVersion.V2) {
-          const v1Transaction = transaction as unknown as IDBPTransaction<SessionDB.AppDBSchemaV1>;
-          const v1SessionStore = v1Transaction.objectStore("sessions");
-          const v1Sessions = await v1SessionStore.getAll();
-          const v2SessionStore = db.createObjectStore("sessionsV2");
-          v2SessionStore.createIndex("by-date", "date");
-          v2SessionStore.createIndex("by-name", "name");
-          for (const v1Session of v1Sessions) {
-            await v2SessionStore.add({
-              name: v1Session.name,
-              date: v1Session.date,
-              version: SessionDB.DBVersion.V2,
-              session: SessionDB.V2.fromV1State(v1Session.session)
-            })
+    return await openDB<SessionDB.CurrentDBSchema>(
+      "ic10-vm-sessions",
+      SessionDB.LOCAL_DB_VERSION,
+      {
+        async upgrade(db, oldVersion, newVersion, transaction, event) {
+          if (oldVersion < SessionDB.DBVersion.V1) {
+            const sessionStore = db.createObjectStore("sessions");
+            sessionStore.createIndex("by-date", "date");
+            sessionStore.createIndex("by-name", "name");
           }
-        }
+          if (oldVersion < SessionDB.DBVersion.V2) {
+            const v1Transaction =
+              transaction as unknown as IDBPTransaction<SessionDB.AppDBSchemaV1>;
+            const v1SessionStore = v1Transaction.objectStore("sessions");
+            const v1Sessions = await v1SessionStore.getAll();
+            const v2SessionStore = db.createObjectStore("sessionsV2");
+            v2SessionStore.createIndex("by-date", "date");
+            v2SessionStore.createIndex("by-name", "name");
+            for (const v1Session of v1Sessions) {
+              await v2SessionStore.add({
+                name: v1Session.name,
+                date: v1Session.date,
+                version: SessionDB.DBVersion.V2,
+                session: SessionDB.V2.fromV1State(v1Session.session),
+              });
+            }
+          }
+        },
       },
-    });
+    );
   }
 
   async saveLocal(name: string) {
@@ -238,8 +262,13 @@ export class Session extends TypedEventTarget<SessionEventMap>() {
       activeIC: this.activeIC,
     };
     const db = await this.openIndexDB();
-    const transaction = db.transaction([SessionDB.LOCAL_DB_SESSION_STORE], "readwrite");
-    const sessionStore = transaction.objectStore(SessionDB.LOCAL_DB_SESSION_STORE);
+    const transaction = db.transaction(
+      [SessionDB.LOCAL_DB_SESSION_STORE],
+      "readwrite",
+    );
+    const sessionStore = transaction.objectStore(
+      SessionDB.LOCAL_DB_SESSION_STORE,
+    );
     await sessionStore.put(
       {
         name,
@@ -263,8 +292,13 @@ export class Session extends TypedEventTarget<SessionEventMap>() {
 
   async deleteLocalSave(name: string) {
     const db = await this.openIndexDB();
-    const transaction = db.transaction([SessionDB.LOCAL_DB_SESSION_STORE], "readwrite");
-    const sessionStore = transaction.objectStore(SessionDB.LOCAL_DB_SESSION_STORE);
+    const transaction = db.transaction(
+      [SessionDB.LOCAL_DB_SESSION_STORE],
+      "readwrite",
+    );
+    const sessionStore = transaction.objectStore(
+      SessionDB.LOCAL_DB_SESSION_STORE,
+    );
     await sessionStore.delete(name);
     this.dispatchCustomEvent("sessions-local-update");
   }
@@ -276,9 +310,7 @@ export class Session extends TypedEventTarget<SessionEventMap>() {
 }
 
 export namespace SessionDB {
-
   export namespace V1 {
-
     export interface VMState {
       activeIC: number;
       vm: FrozenVM;
@@ -306,14 +338,14 @@ export namespace SessionDB {
     export type DeviceSpec = {
       readonly DeviceSpec: {
         readonly device:
-        | "Db"
-        | { readonly Numbered: number }
-        | {
-          readonly Indirect: {
-            readonly indirection: number;
-            readonly target: number;
-          };
-        };
+          | "Db"
+          | { readonly Numbered: number }
+          | {
+              readonly Indirect: {
+                readonly indirection: number;
+                readonly target: number;
+              };
+            };
         readonly connection: number | undefined;
       };
     };
@@ -363,11 +395,9 @@ export namespace SessionDB {
       state: string;
       code: string;
     }
-
   }
 
   export namespace V2 {
-
     export interface VMState {
       activeIC: number;
       vm: FrozenVM;
@@ -387,9 +417,9 @@ export namespace SessionDB {
             instruction_pointer: ic.ip,
             yield_instruction_count: ic.ic,
             state: ic.state as ICState,
-            aliases: ic.aliases,
-            defines: ic.defines,
-            labels: new Map(),
+            aliases: Object.fromEntries(ic.aliases.entries()),
+            defines: Object.fromEntries(ic.defines.entries()),
+            labels: {},
             registers: ic.registers,
           },
 
@@ -407,110 +437,135 @@ export namespace SessionDB {
         },
         database_template: true,
         template: undefined,
-      }
+      };
     }
-    function objectsFromV1Template(template: SessionDB.V1.DeviceTemplate, idFn: () => number, socketedIcFn: (id: number) => number | undefined): FrozenObject[] {
-      const slotOccupantsPairs = new Map(template.slots.flatMap((slot, index) => {
-        if (typeof slot.occupant !== "undefined") {
-          return [
-            [
-              index,
+    function objectsFromV1Template(
+      template: SessionDB.V1.DeviceTemplate,
+      idFn: () => number,
+      socketedIcFn: (id: number) => number | undefined,
+    ): FrozenObject[] {
+      const slotOccupantsPairs = new Map(
+        template.slots.flatMap((slot, index) => {
+          if (typeof slot.occupant !== "undefined") {
+            return [
               [
-                {
-                  obj_info: {
-                    name: undefined,
-                    id: slot.occupant.id ?? idFn(),
-                    prefab: undefined,
-                    prefab_hash: slot.occupant.fields.PrefabHash?.value,
-                    damage: slot.occupant.fields.Damage?.value,
+                index,
+                [
+                  {
+                    obj_info: {
+                      name: undefined,
+                      id: slot.occupant.id ?? idFn(),
+                      prefab: undefined,
+                      prefab_hash: slot.occupant.fields.PrefabHash?.value,
+                      damage: slot.occupant.fields.Damage?.value,
 
-                    socketed_ic: undefined,
-                    // unused
-                    memory: undefined,
-                    source_code: undefined,
-                    compile_errors: undefined,
-                    circuit: undefined,
-                    slots: undefined,
-                    device_pins: undefined,
-                    connections: undefined,
-                    reagents: undefined,
-                    logic_values: undefined,
-                    slot_logic_values: undefined,
-                    entity: undefined,
-                    visible_devices: undefined,
+                      socketed_ic: undefined,
+                      // unused
+                      memory: undefined,
+                      source_code: undefined,
+                      compile_errors: undefined,
+                      circuit: undefined,
+                      slots: undefined,
+                      device_pins: undefined,
+                      connections: undefined,
+                      reagents: undefined,
+                      logic_values: undefined,
+                      slot_logic_values: undefined,
+                      entity: undefined,
+                      visible_devices: undefined,
+                    },
+                    database_template: true,
+                    template: undefined,
                   },
-                  database_template: true,
-                  template: undefined
-                },
-                slot.occupant.fields.Quantity ?? 1
-              ]
-            ]
-          ] as [number, [FrozenObject, number]][];
-        } else {
-          return [] as [number, [FrozenObject, number]][];
-        }
-      }));
-      return [
-        ...Array.from(slotOccupantsPairs.entries()).map(([_index, [obj, _quantity]]) => obj),
-        {
-          obj_info: {
-            name: template.name,
-            id: template.id,
-            prefab: template.prefab_name,
-            prefab_hash: undefined,
-            slots: new Map(
-              Array.from(slotOccupantsPairs.entries())
-                .map(([index, [obj, quantity]]) => [index, {
+                  slot.occupant.fields.Quantity ?? 1,
+                ],
+              ],
+            ] as [number, [FrozenObject, number]][];
+          } else {
+            return [] as [number, [FrozenObject, number]][];
+          }
+        }),
+      );
+      const frozen: FrozenObject = {
+        obj_info: {
+          name: template.name,
+          id: template.id,
+          prefab: template.prefab_name,
+          prefab_hash: undefined,
+          slots: Object.fromEntries(
+            Array.from(slotOccupantsPairs.entries()).map(
+              ([index, [obj, quantity]]) => [
+                index,
+                {
                   quantity,
                   id: obj.obj_info.id,
-                }])
+                },
+              ],
             ),
-            socketed_ic: socketedIcFn(template.id),
+          ),
+          socketed_ic: socketedIcFn(template.id),
 
-            logic_values: new Map(Object.entries(template.fields).map(([key, val]) => {
-              return [key as LogicType, val.value]
-            })),
+          logic_values: Object.fromEntries(
+            Object.entries(template.fields).map(([key, val]) => {
+              return [key, val.value];
+            }),
+          ) as Record<LogicType, number>,
 
-            // unused
-            memory: undefined,
-            source_code: undefined,
-            compile_errors: undefined,
-            circuit: undefined,
-            damage: undefined,
-            device_pins: undefined,
-            connections: undefined,
-            reagents: undefined,
-            slot_logic_values: undefined,
-            entity: undefined,
-            visible_devices: undefined,
-
-          },
-          database_template: true,
-          template: undefined,
-        }
+          // unused
+          memory: undefined,
+          source_code: undefined,
+          compile_errors: undefined,
+          circuit: undefined,
+          damage: undefined,
+          device_pins: undefined,
+          connections: undefined,
+          reagents: undefined,
+          slot_logic_values: undefined,
+          entity: undefined,
+          visible_devices: undefined,
+        },
+        database_template: true,
+        template: undefined,
+      };
+      return [
+        ...Array.from(slotOccupantsPairs.entries()).map(
+          ([_index, [obj, _quantity]]) => obj,
+        ),
+        frozen,
       ];
     }
 
     export function fromV1State(v1State: SessionDB.V1.VMState): VMState {
-      const highestObjetId = Math.max(...
-        v1State.vm
-          .devices
-          .map(device => device.id ?? -1)
-          .concat(
-            v1State.vm
-              .ics
-              .map(ic => ic.id ?? -1)
-          )
+      const highestObjetId = Math.max(
+        ...v1State.vm.devices
+          .map((device) => device.id ?? -1)
+          .concat(v1State.vm.ics.map((ic) => ic.id ?? -1)),
       );
       let nextId = highestObjetId + 1;
-      const deviceIcs = new Map(v1State.vm.ics.map(ic => [ic.device, objectFromIC(ic)]));
-      const objects = v1State.vm.devices.flatMap(device => {
-        return objectsFromV1Template(device, () => nextId++, (id) => deviceIcs.get(id)?.obj_info.id ?? undefined)
-      })
+      const deviceIcs = new Map(
+        v1State.vm.ics.map((ic) => [ic.device, objectFromIC(ic)]),
+      );
+      const objects = v1State.vm.devices.flatMap((device) => {
+        return objectsFromV1Template(
+          device,
+          () => nextId++,
+          (id) => deviceIcs.get(id)?.obj_info.id ?? undefined,
+        );
+      });
       const vm: FrozenVM = {
         objects,
-        circuit_holders: objects.flatMap(obj => "socketed_ic" in obj.obj_info && typeof obj.obj_info.socketed_ic !== "undefined" ? [obj.obj_info.id] : []),
-        program_holders: objects.flatMap(obj => "source_code" in obj.obj_info && typeof obj.obj_info.source_code !== "undefined" ? [obj.obj_info.id] : []),
+        circuit_holders: objects.flatMap((obj) =>
+          "socketed_ic" in obj.obj_info &&
+          typeof obj.obj_info.socketed_ic !== "undefined"
+            ? [obj.obj_info.id]
+            : [],
+        ),
+        program_holders: objects.flatMap((obj) =>
+          "source_code" in obj.obj_info &&
+          typeof obj.obj_info.source_code !== "undefined"
+            ? [obj.obj_info.id]
+            : [],
+        ),
         default_network_key: v1State.vm.default_network,
         networks: v1State.vm.networks as FrozenCableNetwork[],
         wireless_receivers: [],
@@ -522,7 +577,6 @@ export namespace SessionDB {
       };
       return v2State;
     }
-
   }
 
   export enum DBVersion {
@@ -533,7 +587,7 @@ export namespace SessionDB {
   export const LOCAL_DB_VERSION = DBVersion.V2 as const;
   export type CurrentDBSchema = AppDBSchemaV2;
   export type CurrentDBVmState = V2.VMState;
-  export const LOCAL_DB_SESSION_STORE = "sessionsV2" as const
+  export const LOCAL_DB_SESSION_STORE = "sessionsV2" as const;
 
   export interface AppDBSchemaV1 extends DBSchema {
     sessions: {
@@ -578,8 +632,6 @@ export namespace SessionDB {
     };
   }
 }
-
-
 
 export interface OldPrograms {
   programs: [number, string][];
