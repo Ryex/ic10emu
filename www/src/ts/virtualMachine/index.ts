@@ -22,6 +22,12 @@ export interface ToastMessage {
   msg: string;
   id: string;
 }
+import {
+  signal,
+  computed,
+  effect,
+} from '@lit-labs/preact-signals';
+import type { Signal } from '@lit-labs/preact-signals';
 
 export interface VirtualMachineEventMap {
   "vm-template-db-loaded": CustomEvent<TemplateDatabase>;
@@ -40,10 +46,12 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
   templateDBPromise: Promise<TemplateDatabase>;
   templateDB: TemplateDatabase;
 
-  private _objects: Map<number, FrozenObjectFull>;
-  private _circuitHolders: Map<number, FrozenObjectFull>;
-  private _networks: Map<number, FrozenCableNetwork>;
-  private _default_network: number;
+  private _vmState: Signal<FrozenVM>;
+
+  private _objects: Map<number, Signal<FrozenObjectFull>>;
+  private _circuitHolders: Map<number, Signal<FrozenObjectFull>>;
+  private _networks: Map<number, Signal<FrozenCableNetwork>>;
+  private _default_network: Signal<number>;
 
   private vm_worker: Worker;
 
@@ -61,6 +69,9 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
   }
 
   async setupVM() {
+    this.templateDBPromise = this.ic10vm.getTemplateDatabase();
+    this.templateDBPromise.then((db) => this.setupTemplateDatabase(db));
+
     this.vm_worker = new Worker(new URL("./vmWorker.ts", import.meta.url));
     const loaded = (w: Worker) =>
       new Promise((r) => w.addEventListener("message", r, { once: true }));
@@ -68,15 +79,19 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
     console.info("VM Worker loaded");
     const vm = Comlink.wrap<VMRef>(this.vm_worker);
     this.ic10vm = vm;
+    this._vmState.value = await this.ic10vm.saveVMState();
     window.VM.set(this);
 
-    this.templateDBPromise = this.ic10vm.getTemplateDatabase();
+    effect(() => {
+      this.updateObjects(this._vmState.value);
+      this.updateNetworks(this._vmState.value);
+    });
 
-    this.templateDBPromise.then((db) => this.setupTemplateDatabase(db));
-
-    this.updateObjects();
-    this.updateNetworks();
     this.updateCode();
+  }
+
+  get state() {
+    return this._vmState;
   }
 
   get objects() {
@@ -113,41 +128,42 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
     return this._circuitHolders.get(this.app.session.activeIC);
   }
 
-  async visibleDevices(source: number) {
-    const visDevices = await this.ic10vm.visibleDevices(source);
-    const ids = Array.from(visDevices);
-    ids.sort();
-    return ids.map((id, _index) => this._objects.get(id)!);
+  async visibleDevices(source: number): Promise<Signal<FrozenObjectFull>[]> {
+    try {
+      const visDevices = await this.ic10vm.visibleDevices(source);
+      const ids = Array.from(visDevices);
+      ids.sort();
+      return ids.map((id, _index) => this._objects.get(id)!);
+    } catch (err) {
+      this.handleVmError(err);
+    }
   }
 
-  async visibleDeviceIds(source: number) {
+  async visibleDeviceIds(source: number): Promise<number[]> {
     const visDevices = await this.ic10vm.visibleDevices(source);
     const ids = Array.from(visDevices);
     ids.sort();
     return ids;
   }
 
-  async updateNetworks() {
+  async updateNetworks(state: FrozenVM) {
     let updateFlag = false;
     const removedNetworks = [];
-    let networkIds: Uint32Array;
-    let frozenNetworks: FrozenCableNetwork[];
-    try {
-      networkIds = await this.ic10vm.networks;
-      frozenNetworks = await this.ic10vm.freezeNetworks(networkIds);
-    } catch (e) {
-      this.handleVmError(e);
-      return;
-    }
+    const networkIds: ObjectID[] = [];
+    const frozenNetworks: FrozenCableNetwork[] = state.networks;
     const updatedNetworks: ObjectID[] = [];
-    for (const [index, id] of networkIds.entries()) {
+
+    for (const [index, net] of frozenNetworks.entries()) {
+      const id = net.id;
+      networkIds.push(id);
       if (!this._networks.has(id)) {
-        this._networks.set(id, frozenNetworks[index]);
+        this._networks.set(id, signal(net));
         updateFlag = true;
         updatedNetworks.push(id);
       } else {
-        if (!structuralEqual(this._networks.get(id), frozenNetworks[index])) {
-          this._networks.set(id, frozenNetworks[index]);
+        const mappedNet = this._networks.get(id);
+        if (!structuralEqual(mappedNet.peek(), net)) {
+          mappedNet.value = net;
           updatedNetworks.push(id);
           updateFlag = true;
         }
@@ -173,28 +189,24 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
     }
   }
 
-  async updateObjects() {
-    let updateFlag = false;
+  async updateObjects(state: FrozenVM) {
     const removedObjects = [];
-    let objectIds: Uint32Array;
-    let frozenObjects: FrozenObjectFull[];
-    try {
-      objectIds = await this.ic10vm.objects;
-      frozenObjects = await this.ic10vm.freezeObjects(objectIds);
-    } catch (e) {
-      this.handleVmError(e);
-      return;
-    }
+    const frozenObjects = state.objects;
+    const objectIds: ObjectID[] = [];
     const updatedObjects: ObjectID[] = [];
+    let updateFlag = false;
 
-    for (const [index, id] of objectIds.entries()) {
+    for (const [index, obj] of frozenObjects.entries()) {
+      const id = obj.obj_info.id;
+      objectIds.push(id);
       if (!this._objects.has(id)) {
-        this._objects.set(id, frozenObjects[index]);
+        this._objects.set(id, signal(obj));
         updateFlag = true;
         updatedObjects.push(id);
       } else {
-        if (!structuralEqual(this._objects.get(id), frozenObjects[index])) {
-          this._objects.set(id, frozenObjects[index]);
+        const mappedObject = this._objects.get(id);
+        if (!structuralEqual(obj, mappedObject.peek())) {
+          mappedObject.value = obj;
           updatedObjects.push(id);
           updateFlag = true;
         }
@@ -210,7 +222,7 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
     }
 
     for (const [id, obj] of this._objects) {
-      if (typeof obj.obj_info.socketed_ic !== "undefined") {
+      if (typeof obj.peek().obj_info.socketed_ic !== "undefined") {
         if (!this._circuitHolders.has(id)) {
           this._circuitHolders.set(id, obj);
           updateFlag = true;
@@ -259,7 +271,7 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
       if (
         circuitHolder &&
         prog &&
-        circuitHolder.obj_info.source_code !== prog
+        circuitHolder.peek().obj_info.source_code !== prog
       ) {
         try {
           console.time(`CompileProgram_${id}_${attempt}`);
@@ -281,12 +293,12 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
     const ic = this.activeIC;
     if (ic) {
       try {
-        await this.ic10vm.stepProgrammable(ic.obj_info.id, false);
+        await this.ic10vm.stepProgrammable(ic.peek().obj_info.id, false);
       } catch (err) {
         this.handleVmError(err);
       }
       this.update();
-      this.dispatchCustomEvent("vm-run-ic", this.activeIC!.obj_info.id);
+      this.dispatchCustomEvent("vm-run-ic", this.activeIC!.peek().obj_info.id);
     }
   }
 
@@ -294,55 +306,30 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
     const ic = this.activeIC;
     if (ic) {
       try {
-        await this.ic10vm.runProgrammable(ic.obj_info.id, false);
+        await this.ic10vm.runProgrammable(ic.peek().obj_info.id, false);
       } catch (err) {
         this.handleVmError(err);
       }
       this.update();
-      this.dispatchCustomEvent("vm-run-ic", this.activeIC!.obj_info.id);
+      this.dispatchCustomEvent("vm-run-ic", this.activeIC!.peek().obj_info.id);
     }
   }
 
   async reset() {
     const ic = this.activeIC;
     if (ic) {
-      await this.ic10vm.resetProgrammable(ic.obj_info.id);
+      await this.ic10vm.resetProgrammable(ic.peek().obj_info.id);
       await this.update();
     }
   }
 
   async update(save: boolean = true) {
-    await this.updateObjects();
-    await this.updateNetworks();
-    const lastModified = await this.ic10vm.lastOperationModified;
-    lastModified.forEach((id, _index, _modifiedIds) => {
-      if (this.objects.has(id)) {
-        this.updateObject(id, false);
-      }
-    }, this);
-    const activeIC = this.activeIC;
-    if (activeIC != null) {
-      this.updateObject(activeIC.obj_info.id, false);
-    }
-    if (save) this.app.session.save();
-  }
-
-  async updateObject(id: number, save: boolean = true) {
-    let frozen;
     try {
-      frozen = await this.ic10vm.freezeObject(id);
-      this._objects.set(id, frozen);
-    } catch (e) {
-      this.handleVmError(e);
+      this._vmState.value = await this.ic10vm.saveVMState();
+      if (save) this.app.session.save();
+    } catch (err) {
+      this.handleVmError(err);
     }
-    const device = this._objects.get(id);
-    this.dispatchCustomEvent("vm-object-modified", device.obj_info.id);
-    if (typeof device.obj_info.socketed_ic !== "undefined") {
-      const ic = this._objects.get(device.obj_info.socketed_ic);
-      const ip = ic.obj_info.circuit?.instruction_pointer;
-      this.app.session.setActiveLine(device.obj_info.id, ip);
-    }
-    if (save) this.app.session.save();
   }
 
   handleVmError(err: Error) {
@@ -359,7 +346,7 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
 
   // return the data connected oject ids for a network
   networkDataDevices(network: ObjectID): number[] {
-    return this._networks.get(network)?.devices ?? [];
+    return this._networks.get(network)?.peek().devices ?? [];
   }
 
   async changeObjectID(oldID: number, newID: number): Promise<boolean> {
@@ -368,7 +355,7 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
       if (this.app.session.activeIC === oldID) {
         this.app.session.activeIC = newID;
       }
-      await this.updateObjects();
+      await this.update();
       this.dispatchCustomEvent("vm-object-id-change", {
         old: oldID,
         new: newID,
@@ -383,25 +370,29 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
 
   async setRegister(index: number, val: number): Promise<boolean> {
     const ic = this.activeIC!;
-    try {
-      await this.ic10vm.setRegister(ic.obj_info.id, index, val);
-      this.updateObject(ic.obj_info.id);
+    if (ic) {
+      try {
+        await this.ic10vm.setRegister(ic.peek().obj_info.id, index, val);
+      } catch (err) {
+        this.handleVmError(err);
+        return false;
+      }
+      await this.update();
       return true;
-    } catch (err) {
-      this.handleVmError(err);
-      return false;
     }
   }
 
   async setStack(addr: number, val: number): Promise<boolean> {
     const ic = this.activeIC!;
-    try {
-      await this.ic10vm.setMemory(ic.obj_info.id, addr, val);
-      this.updateObject(ic.obj_info.id);
+    if (ic) {
+      try {
+        await this.ic10vm.setMemory(ic.peek().obj_info.id, addr, val);
+      } catch (err) {
+        this.handleVmError(err);
+        return false;
+      }
+      await this.update();
       return true;
-    } catch (err) {
-      this.handleVmError(err);
-      return false;
     }
   }
 
@@ -409,13 +400,13 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
     const obj = this._objects.get(id);
     if (obj) {
       try {
-        await this.ic10vm.setObjectName(obj.obj_info.id, name);
-        this.updateObject(obj.obj_info.id);
-        this.app.session.save();
-        return true;
+        await this.ic10vm.setObjectName(obj.peek().obj_info.id, name);
       } catch (e) {
         this.handleVmError(e);
+        return false;
       }
+      await this.update();
+      return true;
     }
     return false;
   }
@@ -430,12 +421,13 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
     const obj = this._objects.get(id);
     if (obj) {
       try {
-        await this.ic10vm.setLogicField(obj.obj_info.id, field, val, force);
-        this.updateObject(obj.obj_info.id);
-        return true;
+        await this.ic10vm.setLogicField(obj.peek().obj_info.id, field, val, force);
       } catch (err) {
         this.handleVmError(err);
+        return false;
       }
+      await this.update();
+      return true;
     }
     return false;
   }
@@ -452,17 +444,18 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
     if (obj) {
       try {
         await this.ic10vm.setSlotLogicField(
-          obj.obj_info.id,
+          obj.peek().obj_info.id,
           field,
           slot,
           val,
           force,
         );
-        this.updateObject(obj.obj_info.id);
-        return true;
       } catch (err) {
         this.handleVmError(err);
+        return false;
       }
+      await this.update();
+      return true;
     }
     return false;
   }
@@ -476,11 +469,12 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
     if (typeof device !== "undefined") {
       try {
         await this.ic10vm.setDeviceConnection(id, conn, val);
-        this.updateObject(device.obj_info.id);
-        return true;
       } catch (err) {
         this.handleVmError(err);
+        return false;
       }
+      await this.update();
+      return true;
     }
     return false;
   }
@@ -494,11 +488,12 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
     if (typeof device !== "undefined") {
       try {
         await this.ic10vm.setPin(id, pin, val);
-        this.updateObject(device.obj_info.id);
-        return true;
       } catch (err) {
         this.handleVmError(err);
+        return false;
       }
+      await this.update();
+      return true;
     }
     return false;
   }
@@ -513,11 +508,7 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
     try {
       console.log("adding device", frozen);
       const id = await this.ic10vm.addObjectFrozen(frozen);
-      const refrozen = await this.ic10vm.freezeObject(id);
-      this._objects.set(id, refrozen);
-      const device_ids = await this.ic10vm.objects;
-      this.dispatchCustomEvent("vm-objects-update", Array.from(device_ids));
-      this.app.session.save();
+      await this.update();
       return id;
     } catch (err) {
       this.handleVmError(err);
@@ -531,13 +522,7 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
     try {
       console.log("adding devices", frozenObjects);
       const ids = await this.ic10vm.addObjectsFrozen(frozenObjects);
-      const refrozen = await this.ic10vm.freezeObjects(ids);
-      ids.forEach((id, index) => {
-        this._objects.set(id, refrozen[index]);
-      });
-      const device_ids = await this.ic10vm.objects;
-      this.dispatchCustomEvent("vm-objects-update", Array.from(device_ids));
-      this.app.session.save();
+      await this.update();
       return Array.from(ids);
     } catch (err) {
       this.handleVmError(err);
@@ -548,12 +533,12 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
   async removeDevice(id: number): Promise<boolean> {
     try {
       await this.ic10vm.removeDevice(id);
-      await this.updateObjects();
-      return true;
     } catch (err) {
       this.handleVmError(err);
       return false;
     }
+    await this.update();
+    return true;
   }
 
   async setSlotOccupant(
@@ -567,7 +552,7 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
       try {
         console.log("setting slot occupant", frozen);
         await this.ic10vm.setSlotOccupant(id, index, frozen, quantity);
-        this.updateObject(device.obj_info.id);
+        await this.update();
         return true;
       } catch (err) {
         this.handleVmError(err);
@@ -580,8 +565,8 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
     const device = this._objects.get(id);
     if (typeof device !== "undefined") {
       try {
-        this.ic10vm.removeSlotOccupant(id, index);
-        this.updateObject(device.obj_info.id);
+        await this.ic10vm.removeSlotOccupant(id, index);
+        await this.update();
         return true;
       } catch (err) {
         this.handleVmError(err);
@@ -591,7 +576,7 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
   }
 
   async saveVMState(): Promise<FrozenVM> {
-    return this.ic10vm.saveVMState();
+    return await this.ic10vm.saveVMState();
   }
 
   async restoreVMState(state: FrozenVM) {
@@ -599,7 +584,7 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
       await this.ic10vm.restoreVMState(state);
       this._objects = new Map();
       this._circuitHolders = new Map();
-      await this.updateObjects();
+      await this.update();
     } catch (e) {
       this.handleVmError(e);
     }
@@ -608,7 +593,7 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
   getPrograms(): [number, string][] {
     const programs: [number, string][] = Array.from(
       this._circuitHolders.entries(),
-    ).map(([id, ic]) => [id, ic.obj_info.source_code]);
+    ).map(([id, ic]) => [id, ic.peek().obj_info.source_code]);
     return programs;
   }
 }

@@ -14,58 +14,15 @@ import type {
   LogicSlotType,
   SlotOccupantInfo,
   ICState,
+  ObjectTemplate,
 } from "ic10emu_wasm";
 import { crc32, structuralEqual } from "utils";
 import { LitElement, PropertyValueMap } from "lit";
 
-type Constructor<T = {}> = new (...args: any[]) => T;
-
-export declare class VMObjectMixinInterface {
-  objectID: ObjectID;
-  activeICId: ObjectID;
-  obj: FrozenObjectFull;
-  name: string | null;
-  nameHash: number | null;
-  prefabName: string | null;
-  prefabHash: number | null;
-  logicFields: Map<LogicType, LogicField> | null;
-  slots: VmObjectSlotInfo[] | null;
-  slotsCount: number | null;
-  reagents: Map<number, number> | null;
-  connections: Connection[] | null;
-  icIP: number | null;
-  icOpCount: number | null;
-  icState: string | null;
-  errors: ICError[] | null;
-  registers: number[] | null;
-  memory: number[] | null;
-  aliases: Map<string, Operand> | null;
-  defines: Map<string, number> | null;
-  numPins: number | null;
-  pins: Map<number, ObjectID> | null;
-  visibleDevices: ObjectID[] | null;
-  _handleDeviceModified(e: CustomEvent): void;
-  updateDevice(): void;
-  updateIC(): void;
-  subscribe(...sub: VMObjectMixinSubscription[]): void;
-  unsubscribe(filter: (sub: VMObjectMixinSubscription) => boolean): void;
-}
-
-export type VMObjectMixinSubscription =
-  | "name"
-  | "nameHash"
-  | "prefabName"
-  | "fields"
-  | "slots"
-  | "slots-count"
-  | "reagents"
-  | "connections"
-  | "memory"
-  | "ic"
-  | "active-ic"
-  | { field: LogicType }
-  | { slot: number }
-  | "visible-devices";
+import {
+  computed,
+} from '@lit-labs/preact-signals';
+import type { Signal } from '@lit-labs/preact-signals';
 
 export interface VmObjectSlotInfo {
   parent: ObjectID;
@@ -74,8 +31,308 @@ export interface VmObjectSlotInfo {
   typ: Class;
   logicFields: Map<LogicSlotType, LogicField>;
   quantity: number;
-  occupant: FrozenObjectFull | undefined;
+  occupant: ComputedObjectSignals | null;
 }
+
+export class ComputedObjectSignals {
+  obj: Signal<FrozenObjectFull>;
+  id: Signal<number>;
+  template: Signal<ObjectTemplate>;
+
+  name: Signal<string | null>;
+  nameHash: Signal<number | null>;
+  prefabName: Signal<string | null>;
+  prefabHash: Signal<number | null>;
+  displayName: Signal<string>;
+  logicFields: Signal<Map<LogicType, LogicField> | null>;
+  slots: Signal<VmObjectSlotInfo[] | null>;
+  slotsCount: Signal<number | null>;
+  reagents: Signal<Map<number, number> | null>;
+
+  connections: Signal<Connection[] | null>;
+  visibleDevices: Signal<ComputedObjectSignals[]>;
+
+  memory: Signal<number[] | null>;
+  icIP: Signal<number | null>;
+  icOpCount: Signal<number | null>;
+  icState: Signal<ICState | null>;
+  errors: Signal<ICError[] | null>;
+  registers: Signal<number[] | null>;
+  aliases: Signal<Map<string, Operand> | null>;
+  defines: Signal<Map<string, number> | null>;
+
+  numPins: Signal<number | null>;
+  pins: Signal<Map<number, ObjectID> | null>;
+
+
+  constructor(obj: Signal<FrozenObjectFull>) {
+    this.obj = obj
+    this.id = computed(() => { return this.obj.value.obj_info.id; });
+
+    this.template = computed(() => { return this.obj.value.template; });
+
+    this.name = computed(() => { return this.obj.value.obj_info.name; });
+    this.nameHash = computed(() => { return this.name.value !== "undefined" ? crc32(this.name.value) : null; });
+    this.prefabName = computed(() => { return this.obj.value.obj_info.prefab; });
+    this.prefabHash = computed(() => { return this.obj.value.obj_info.prefab_hash; });
+    this.displayName = computed(() => { return this.obj.value.obj_info.name ?? this.obj.value.obj_info.prefab; });
+
+    this.logicFields = computed(() => {
+      const obj_info = this.obj.value.obj_info;
+      const template = this.obj.value.template;
+
+      const logicValues =
+        obj_info.logic_values != null
+          ? (new Map(Object.entries(obj_info.logic_values)) as Map<
+            LogicType,
+            number
+          >)
+          : null;
+      const logicTemplate =
+        "logic" in template ? template.logic : null;
+
+      return new Map(
+        Array.from(Object.entries(logicTemplate?.logic_types) ?? []).map(
+          ([lt, access]) => {
+            let field: LogicField = {
+              field_type: access,
+              value: logicValues.get(lt as LogicType) ?? 0,
+            };
+            return [lt as LogicType, field];
+          },
+        ),
+      )
+    });
+
+    this.slots = computed(() => {
+      const obj_info = this.obj.value.obj_info;
+      const template = this.obj.value.template;
+
+      const slotsOccupantInfo =
+        obj_info.slots != null
+          ? new Map(
+            Object.entries(obj_info.slots).map(([key, val]) => [
+              parseInt(key),
+              val,
+            ]),
+          )
+          : null;
+      const slotsLogicValues =
+        obj_info.slot_logic_values != null
+          ? new Map<number, Map<LogicSlotType, number>>(
+            Object.entries(obj_info.slot_logic_values).map(
+              ([index, values]) => [
+                parseInt(index),
+                new Map(Object.entries(values)) as Map<
+                  LogicSlotType,
+                  number
+                >,
+              ],
+            ),
+          )
+          : null;
+      const logicTemplate =
+        "logic" in template ? template.logic : null;
+      const slotsTemplate =
+        "slots" in template ? template.slots : [];
+
+      return slotsTemplate.map((template, index) => {
+        const fieldEntryInfos = Array.from(
+          Object.entries(logicTemplate?.logic_slot_types[index]) ?? [],
+        );
+        const logicFields = new Map(
+          fieldEntryInfos.map(([slt, access]) => {
+            let field: LogicField = {
+              field_type: access,
+              value:
+                slotsLogicValues.get(index)?.get(slt as LogicSlotType) ?? 0,
+            };
+            return [slt as LogicSlotType, field];
+          }),
+        );
+        let occupantInfo = slotsOccupantInfo.get(index);
+        let occupant =
+          typeof occupantInfo !== "undefined"
+            ? globalObjectSignalMap.get(occupantInfo.id) ?? null
+            : null;
+        let slot: VmObjectSlotInfo = {
+          parent: obj_info.id,
+          index: index,
+          name: template.name,
+          typ: template.typ,
+          logicFields: logicFields,
+          occupant: occupant,
+          quantity: occupantInfo?.quantity ?? 0,
+        };
+        return slot;
+      });
+    });
+
+    this.slotsCount = computed(() => {
+      const slotsTemplate =
+        "slots" in this.obj.value.template ? this.obj.value.template.slots : [];
+      return slotsTemplate.length;
+    });
+
+    this.reagents = computed(() => {
+      const reagents =
+        this.obj.value.obj_info.reagents != null
+          ? new Map(
+            Object.entries(this.obj.value.obj_info.reagents).map(
+              ([key, val]) => [parseInt(key), val],
+            ),
+          )
+          : null;
+      return reagents;
+    });
+
+    this.connections = computed(() => {
+      const obj_info = this.obj.value.obj_info;
+      const template = this.obj.value.template;
+
+      const connectionsMap =
+        obj_info.connections != null
+          ? new Map(
+            Object.entries(obj_info.connections).map(
+              ([key, val]) => [parseInt(key), val],
+            ),
+          )
+          : null;
+      const connectionList =
+        "device" in template
+          ? template.device.connection_list
+          : [];
+      let connections: Connection[] | null = null;
+      if (connectionList.length !== 0) {
+        connections = connectionList.map((conn, index) => {
+          if (conn.typ === "Data") {
+            return {
+              CableNetwork: {
+                typ: "Data",
+                role: conn.role,
+                net: connectionsMap.get(index),
+              },
+            };
+          } else if (conn.typ === "Power") {
+            return {
+              CableNetwork: {
+                typ: "Power",
+                role: conn.role,
+                net: connectionsMap.get(index),
+              },
+            };
+          } else if (conn.typ === "PowerAndData") {
+            return {
+              CableNetwork: {
+                typ: "Data",
+                role: conn.role,
+                net: connectionsMap.get(index),
+              },
+            };
+          } else if (conn.typ === "Pipe") {
+            return { Pipe: { role: conn.role } };
+          } else if (conn.typ === "Chute") {
+            return { Chute: { role: conn.role } };
+          } else if (conn.typ === "Elevator") {
+            return { Elevator: { role: conn.role } };
+          } else if (conn.typ === "LaunchPad") {
+            return { LaunchPad: { role: conn.role } };
+          } else if (conn.typ === "LandingPad") {
+            return { LandingPad: { role: conn.role } };
+          } else if (conn.typ === "PipeLiquid") {
+            return { PipeLiquid: { role: conn.role } };
+          }
+          return "None";
+        });
+      }
+      return connections;
+    });
+
+    this.visibleDevices = computed(() => {
+      return this.obj.value.obj_info.visible_devices.map((id) => globalObjectSignalMap.get(id))
+    });
+
+    this.memory = computed(() => {
+      return this.obj.value.obj_info.memory ?? null;
+    });
+
+    this.icIP = computed(() => {
+      return this.obj.value.obj_info.circuit?.instruction_pointer ?? null;
+    });
+
+    this.icOpCount = computed(() => {
+      return this.obj.value.obj_info.circuit?.yield_instruction_count ?? null;
+    });
+
+    this.icState = computed(() => {
+      return this.obj.value.obj_info.circuit?.state ?? null;
+    });
+
+    this.errors = computed(() => {
+      return this.obj.value.obj_info.compile_errors ?? null;
+    });
+
+    this.registers = computed(() => {
+      return this.obj.value.obj_info.circuit?.registers ?? null;
+    });
+
+    this.aliases = computed(() => {
+      const aliases = this.obj.value.obj_info.circuit?.aliases ?? null;
+      return aliases != null ? new Map(Object.entries(aliases)) : null;
+    });
+
+    this.defines = computed(() => {
+      const defines = this.obj.value.obj_info.circuit?.defines ?? null;
+      return defines != null ? new Map(Object.entries(defines)) : null;
+    });
+
+    this.pins = computed(() => {
+      const pins = this.obj.value.obj_info.device_pins;
+      return pins != null ? new Map(Object.entries(pins).map(([key, val]) => [parseInt(key), val])) : null;
+    });
+
+    this.numPins = computed(() => {
+      return "device" in this.obj.value.template
+        ? this.obj.value.template.device.device_pins_length
+        : Math.max(...Array.from(this.pins.value?.keys() ?? [0]));
+    });
+
+  }
+}
+
+class ObjectComputedSignalMap extends Map {
+  get(id: ObjectID): ComputedObjectSignals {
+    if (!this.has(id)) {
+      const obj = window.VM.vm.objects.get(id)
+      if (typeof obj !== "undefined") {
+        this.set(id, new ComputedObjectSignals(obj));
+      }
+    }
+    return super.get(id);
+  }
+  set(id: ObjectID, value: ComputedObjectSignals): this {
+    super.set(id, value);
+    return this
+  }
+}
+
+export const globalObjectSignalMap = new ObjectComputedSignalMap();
+
+type Constructor<T = {}> = new (...args: any[]) => T;
+
+export declare class VMObjectMixinInterface {
+  objectID: ObjectID;
+  activeICId: ObjectID;
+  objectSignals: ComputedObjectSignals | null;
+  _handleDeviceModified(e: CustomEvent): void;
+  updateDevice(): void;
+  subscribe(...sub: VMObjectMixinSubscription[]): void;
+  unsubscribe(filter: (sub: VMObjectMixinSubscription) => boolean): void;
+}
+
+export type VMObjectMixinSubscription =
+  | "active-ic"
+  | "visible-devices";
 
 export const VMObjectMixin = <T extends Constructor<LitElement>>(
   superClass: T,
@@ -104,30 +361,9 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
       );
     }
 
-    obj: FrozenObjectFull;
+    @state() objectSignals: ComputedObjectSignals | null;
 
     @state() activeICId: number;
-
-    @state() name: string | null = null;
-    @state() nameHash: number | null = null;
-    @state() prefabName: string | null = null;
-    @state() prefabHash: number | null = null;
-    @state() logicFields: Map<LogicType, LogicField> | null = null;
-    @state() slots: VmObjectSlotInfo[] | null = null;
-    @state() slotsCount: number | null = null;
-    @state() reagents: Map<number, number> | null = null;
-    @state() connections: Connection[] | null = null;
-    @state() icIP: number | null = null;
-    @state() icOpCount: number | null = null;
-    @state() icState: ICState | null = null;
-    @state() errors: ICError[] | null = null;
-    @state() registers: number[] | null = null;
-    @state() memory: number[] | null = null;
-    @state() aliases: Map<string, Operand> | null = null;
-    @state() defines: Map<string, number> | null = null;
-    @state() numPins: number | null = null;
-    @state() pins: Map<number, ObjectID> | null = null;
-    @state() visibleDevices: ObjectID[] | null = null;
 
     connectedCallback(): void {
       const root = super.connectedCallback();
@@ -246,315 +482,20 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
     }
 
     updateDevice() {
-      this.obj = window.VM.vm.objects.get(this.objectID)!;
+      const newObjSignals = globalObjectSignalMap.get(this.objectID);
+      if (newObjSignals !== this.objectSignals) {
+        this.objectSignals = newObjSignals
+      }
 
-      if (typeof this.obj === "undefined") {
+      if (typeof this.objectSignals === "undefined") {
         return;
       }
 
-      let newFields: Map<LogicType, LogicField> | null = null;
-      if (
-        this.objectSubscriptions.some(
-          (sub) =>
-            sub === "fields" || (typeof sub === "object" && "field" in sub),
-        )
-      ) {
-        const logicValues =
-          this.obj.obj_info.logic_values != null
-            ? (new Map(Object.entries(this.obj.obj_info.logic_values)) as Map<
-                LogicType,
-                number
-              >)
-            : null;
-        const logicTemplate =
-          "logic" in this.obj.template ? this.obj.template.logic : null;
-        newFields = new Map(
-          Array.from(Object.entries(logicTemplate?.logic_types) ?? []).map(
-            ([lt, access]) => {
-              let field: LogicField = {
-                field_type: access,
-                value: logicValues.get(lt as LogicType) ?? 0,
-              };
-              return [lt as LogicType, field];
-            },
-          ),
-        );
-      }
+      // other updates needed
 
-      const visibleDevices = this.obj.obj_info.visible_devices ?? [];
-      if (!structuralEqual(this.visibleDevices, visibleDevices)) {
-        this.visibleDevices = visibleDevices;
-      }
-
-      let newSlots: VmObjectSlotInfo[] | null = null;
-      if (
-        this.objectSubscriptions.some(
-          (sub) =>
-            sub === "slots" || (typeof sub === "object" && "slot" in sub),
-        )
-      ) {
-        const slotsOccupantInfo =
-          this.obj.obj_info.slots != null
-            ? new Map(
-                Object.entries(this.obj.obj_info.slots).map(([key, val]) => [
-                  parseInt(key),
-                  val,
-                ]),
-              )
-            : null;
-        const slotsLogicValues =
-          this.obj.obj_info.slot_logic_values != null
-            ? new Map<number, Map<LogicSlotType, number>>(
-                Object.entries(this.obj.obj_info.slot_logic_values).map(
-                  ([index, values]) => [
-                    parseInt(index),
-                    new Map(Object.entries(values)) as Map<
-                      LogicSlotType,
-                      number
-                    >,
-                  ],
-                ),
-              )
-            : null;
-        const logicTemplate =
-          "logic" in this.obj.template ? this.obj.template.logic : null;
-        const slotsTemplate =
-          "slots" in this.obj.template ? this.obj.template.slots : [];
-        newSlots = slotsTemplate.map((template, index) => {
-          const fieldEntryInfos = Array.from(
-            Object.entries(logicTemplate?.logic_slot_types[index]) ?? [],
-          );
-          const logicFields = new Map(
-            fieldEntryInfos.map(([slt, access]) => {
-              let field: LogicField = {
-                field_type: access,
-                value:
-                  slotsLogicValues.get(index)?.get(slt as LogicSlotType) ?? 0,
-              };
-              return [slt as LogicSlotType, field];
-            }),
-          );
-          let occupantInfo = slotsOccupantInfo.get(index);
-          let occupant =
-            typeof occupantInfo !== "undefined"
-              ? window.VM.vm.objects.get(occupantInfo.id)
-              : null;
-          let slot: VmObjectSlotInfo = {
-            parent: this.obj.obj_info.id,
-            index: index,
-            name: template.name,
-            typ: template.typ,
-            logicFields: logicFields,
-            occupant: occupant,
-            quantity: occupantInfo?.quantity ?? 0,
-          };
-          return slot;
-        });
-      }
-
-      for (const sub of this.objectSubscriptions) {
-        if (typeof sub === "string") {
-          if (sub == "name") {
-            const name = this.obj.obj_info.name ?? null;
-            if (this.name !== name) {
-              this.name = name;
-            }
-          } else if (sub === "nameHash") {
-            const nameHash =
-              typeof this.obj.obj_info.name !== "undefined"
-                ? crc32(this.obj.obj_info.name)
-                : null;
-            if (this.nameHash !== nameHash) {
-              this.nameHash = nameHash;
-            }
-          } else if (sub === "prefabName") {
-            const prefabName = this.obj.obj_info.prefab ?? null;
-            if (this.prefabName !== prefabName) {
-              this.prefabName = prefabName;
-              this.prefabHash = crc32(prefabName);
-            }
-          } else if (sub === "fields") {
-            if (!structuralEqual(this.logicFields, newFields)) {
-              this.logicFields = newFields;
-            }
-          } else if (sub === "slots") {
-            if (!structuralEqual(this.slots, newSlots)) {
-              this.slots = newSlots;
-              this.slotsCount = newSlots.length;
-            }
-          } else if (sub === "slots-count") {
-            const slotsTemplate =
-              "slots" in this.obj.template ? this.obj.template.slots : [];
-            const slotsCount = slotsTemplate.length;
-            if (this.slotsCount !== slotsCount) {
-              this.slotsCount = slotsCount;
-            }
-          } else if (sub === "reagents") {
-            const reagents =
-              this.obj.obj_info.reagents != null
-                ? new Map(
-                    Object.entries(this.obj.obj_info.reagents).map(
-                      ([key, val]) => [parseInt(key), val],
-                    ),
-                  )
-                : null;
-            if (!structuralEqual(this.reagents, reagents)) {
-              this.reagents = reagents;
-            }
-          } else if (sub === "connections") {
-            const connectionsMap =
-              this.obj.obj_info.connections != null
-                ? new Map(
-                    Object.entries(this.obj.obj_info.connections).map(
-                      ([key, val]) => [parseInt(key), val],
-                    ),
-                  )
-                : null;
-            const connectionList =
-              "device" in this.obj.template
-                ? this.obj.template.device.connection_list
-                : [];
-            let connections: Connection[] | null = null;
-            if (connectionList.length !== 0) {
-              connections = connectionList.map((conn, index) => {
-                if (conn.typ === "Data") {
-                  return {
-                    CableNetwork: {
-                      typ: "Data",
-                      role: conn.role,
-                      net: connectionsMap.get(index),
-                    },
-                  };
-                } else if (conn.typ === "Power") {
-                  return {
-                    CableNetwork: {
-                      typ: "Power",
-                      role: conn.role,
-                      net: connectionsMap.get(index),
-                    },
-                  };
-                } else if (conn.typ === "PowerAndData") {
-                  return {
-                    CableNetwork: {
-                      typ: "Data",
-                      role: conn.role,
-                      net: connectionsMap.get(index),
-                    },
-                  };
-                } else if (conn.typ === "Pipe") {
-                  return { Pipe: { role: conn.role } };
-                } else if (conn.typ === "Chute") {
-                  return { Chute: { role: conn.role } };
-                } else if (conn.typ === "Elevator") {
-                  return { Elevator: { role: conn.role } };
-                } else if (conn.typ === "LaunchPad") {
-                  return { LaunchPad: { role: conn.role } };
-                } else if (conn.typ === "LandingPad") {
-                  return { LandingPad: { role: conn.role } };
-                } else if (conn.typ === "PipeLiquid") {
-                  return { PipeLiquid: { role: conn.role } };
-                }
-                return "None";
-              });
-            }
-            if (!structuralEqual(this.connections, connections)) {
-              this.connections = connections;
-            }
-          } else if (sub === "memory") {
-            const stack = this.obj.obj_info.memory ?? null;
-            if (!structuralEqual(this.memory, stack)) {
-              this.memory = stack;
-            }
-          } else if (sub === "ic") {
-            if (
-              typeof this.obj.obj_info.circuit !== "undefined" ||
-              typeof this.obj.obj_info.socketed_ic !== "undefined"
-            ) {
-              this.updateIC();
-            }
-          } else if (sub === "active-ic") {
-            const activeIc = window.VM.vm?.activeIC;
-            if (this.activeICId !== activeIc.obj_info.id) {
-              this.activeICId = activeIc.obj_info.id;
-            }
-          }
-        } else {
-          if ("field" in sub) {
-            if (this.logicFields.get(sub.field) !== newFields.get(sub.field)) {
-              this.logicFields = newFields;
-            }
-          } else if ("slot" in sub) {
-            if (
-              typeof this.slots === "undefined" ||
-              this.slots.length < sub.slot
-            ) {
-              this.slots = newSlots;
-            } else if (
-              !structuralEqual(this.slots[sub.slot], newSlots[sub.slot])
-            ) {
-              this.slots = newSlots;
-            }
-          }
-        }
-      }
-    }
-
-    updateIC() {
-      const ip = this.obj.obj_info.circuit?.instruction_pointer ?? null;
-      if (this.icIP !== ip) {
-        this.icIP = ip;
-      }
-      const opCount =
-        this.obj.obj_info.circuit?.yield_instruction_count ?? null;
-      if (this.icOpCount !== opCount) {
-        this.icOpCount = opCount;
-      }
-      const state = this.obj.obj_info.circuit?.state ?? null;
-      if (this.icState !== state) {
-        this.icState = state;
-      }
-      const errors = this.obj.obj_info.compile_errors ?? null;
-      if (!structuralEqual(this.errors, errors)) {
-        this.errors = errors;
-      }
-      const registers = this.obj.obj_info.circuit?.registers ?? null;
-      if (!structuralEqual(this.registers, registers)) {
-        this.registers = registers;
-      }
-      const aliases =
-        this.obj.obj_info.circuit?.aliases != null
-          ? new Map(Object.entries(this.obj.obj_info.circuit.aliases))
-          : null;
-      if (!structuralEqual(this.aliases, aliases)) {
-        this.aliases = aliases;
-      }
-      const defines =
-        this.obj.obj_info.circuit?.defines != null
-          ? new Map(
-              Object.entries(this.obj.obj_info.circuit.defines),
-              // .map(([key, val]) => [])
-            )
-          : null;
-      if (!structuralEqual(this.defines, defines)) {
-        this.defines = new Map(defines);
-      }
-      const pins =
-        this.obj.obj_info.device_pins != null
-          ? new Map(
-              Object.entries(this.obj.obj_info.device_pins).map(
-                ([key, val]) => [parseInt(key), val],
-              ),
-            )
-          : null;
-      if (!structuralEqual(this.pins, pins)) {
-        this.pins = pins;
-        this.numPins =
-          "device" in this.obj.template
-            ? this.obj.template.device.device_pins_length
-            : Math.max(...Array.from(this.pins?.keys() ?? [0]));
-      }
     }
   }
+
   return VMObjectMixinClass as Constructor<VMObjectMixinInterface> & T;
 };
 
@@ -596,7 +537,6 @@ export const VMActiveICMixin = <T extends Constructor<LitElement>>(
       const id = e.detail;
       if (this.objectID !== id) {
         this.objectID = id;
-        this.obj = window.VM.vm.objects.get(this.objectID)!;
       }
       this.updateDevice();
     }
@@ -618,7 +558,7 @@ export const VMTemplateDBMixin = <T extends Constructor<LitElement>>(
     connectedCallback(): void {
       const root = super.connectedCallback();
       window.VM.vm.addEventListener(
-        "vm-device-db-loaded",
+        "vm-template-db-loaded",
         this._handleDeviceDBLoad.bind(this),
       );
       if (typeof window.VM.vm.templateDB !== "undefined") {
@@ -644,7 +584,7 @@ export const VMTemplateDBMixin = <T extends Constructor<LitElement>>(
       return this._templateDB;
     }
 
-    postDBSetUpdate(): void {}
+    postDBSetUpdate(): void { }
 
     @state()
     set templateDB(val: TemplateDatabase) {

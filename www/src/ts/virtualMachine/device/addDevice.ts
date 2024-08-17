@@ -13,7 +13,7 @@ import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { VMTemplateDBMixin } from "virtualMachine/baseDevice";
 import { LogicInfo, ObjectTemplate, StructureInfo } from "ic10emu_wasm";
 
-type LogicableStrucutureTemplate = Extract<
+type LogicableStructureTemplate = Extract<
   ObjectTemplate,
   { structure: StructureInfo; logic: LogicInfo }
 >;
@@ -38,7 +38,7 @@ export class VMAddDeviceButton extends VMTemplateDBMixin(BaseElement) {
   @query("sl-drawer") drawer: SlDrawer;
   @query(".device-search-input") searchInput: SlInput;
 
-  private _structures: Map<string, LogicableStrucutureTemplate> = new Map();
+  private _structures: Map<string, LogicableStructureTemplate> = new Map();
   private _datapoints: [string, string][] = [];
   private _haystack: string[] = [];
 
@@ -48,10 +48,10 @@ export class VMAddDeviceButton extends VMTemplateDBMixin(BaseElement) {
         if ("structure" in template && "logic" in template) {
           return [[template.prefab.prefab_name, template]] as [
             string,
-            LogicableStrucutureTemplate,
+            LogicableStructureTemplate,
           ][];
         } else {
-          return [] as [string, LogicableStrucutureTemplate][];
+          return [] as [string, LogicableStructureTemplate][];
         }
       }),
     );
@@ -84,7 +84,7 @@ export class VMAddDeviceButton extends VMTemplateDBMixin(BaseElement) {
   }
 
   private _searchResults: {
-    entry: LogicableStrucutureTemplate;
+    entry: LogicableStructureTemplate;
     haystackEntry: string;
     ranges: number[];
   }[] = [];
@@ -132,7 +132,7 @@ export class VMAddDeviceButton extends VMTemplateDBMixin(BaseElement) {
     super.connectedCallback();
     window.VM.get().then((vm) =>
       vm.addEventListener(
-        "vm-device-db-loaded",
+        "vm-template-db-loaded",
         this._handleDeviceDBLoad.bind(this),
       ),
     );

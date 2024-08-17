@@ -1,7 +1,8 @@
 import { html, css, HTMLTemplateResult } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
+import { watch, SignalWatcher, computed } from '@lit-labs/preact-signals';
 import { BaseElement, defaultCss } from "components";
-import { VMTemplateDBMixin, VMObjectMixin } from "virtualMachine/baseDevice";
+import { VMTemplateDBMixin, VMObjectMixin, globalObjectSignalMap } from "virtualMachine/baseDevice";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js";
 import { parseIntWithHexOrBinary, parseNumber } from "utils";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
@@ -16,7 +17,7 @@ export type CardTab = "fields" | "slots" | "reagents" | "networks" | "pins";
 
 @customElement("vm-device-card")
 export class VMDeviceCard extends VMTemplateDBMixin(
-  VMObjectMixin(BaseElement),
+  VMObjectMixin(SignalWatcher(BaseElement)),
 ) {
   image_err: boolean;
 
@@ -26,13 +27,6 @@ export class VMDeviceCard extends VMTemplateDBMixin(
     super();
     this.open = false;
     this.subscribe(
-      "prefabName",
-      "name",
-      "nameHash",
-      "reagents",
-      "slots-count",
-      "reagents",
-      "connections",
       "active-ic",
     );
   }
@@ -142,23 +136,12 @@ export class VMDeviceCard extends VMTemplateDBMixin(
     if (thisIsActiveIc) {
       badges.push(html`<sl-badge variant="primary" pill pulse>db</sl-badge>`);
     }
-    const activeIc = window.VM.vm.activeIC;
+    const activeIc = globalObjectSignalMap.get(this.activeICId);
 
-    const numPins =
-      "device" in activeIc?.template
-        ? activeIc.template.device.device_pins_length
-        : Math.max(
-            ...Array.from(
-              activeIc?.obj_info.device_pins != null
-                ? Object.keys(activeIc?.obj_info.device_pins).map((key) =>
-                    parseInt(key),
-                  )
-                : [0],
-            ),
-          );
+    const numPins = activeIc.numPins.value;
     const pins = new Array(numPins)
       .fill(true)
-      .map((_, index) => this.pins.get(index));
+      .map((_, index) => this.objectSignals.pins.value.get(index));
     pins.forEach((id, index) => {
       if (this.objectID == id) {
         badges.push(
@@ -167,10 +150,10 @@ export class VMDeviceCard extends VMTemplateDBMixin(
       }
     }, this);
     return html`
-      <sl-tooltip content="${this.prefabName}">
+      <sl-tooltip content="${watch(this.objectSignals.prefabName)}">
         <img
           class="image me-2"
-          src="img/stationpedia/${this.prefabName}.png"
+          src="img/stationpedia/${watch(this.objectSignals.prefabName)}.png"
           onerror="this.src = '${VMDeviceCard.transparentImg}'"
         />
       </sl-tooltip>
@@ -194,8 +177,8 @@ export class VMDeviceCard extends VMTemplateDBMixin(
           class="device-name me-1"
           size="small"
           pill
-          placeholder=${this.prefabName}
-          value=${this.name}
+          placeholder=${watch(this.objectSignals.prefabName)}
+          value=${watch(this.objectSignals.name)}
           @sl-change=${this._handleChangeName}
         >
           <span slot="prefix">Name</span>
@@ -209,7 +192,7 @@ export class VMDeviceCard extends VMTemplateDBMixin(
           size="small"
           pill
           class="device-name-hash me-1"
-          value="${this.nameHash.toString()}"
+          value="${watch(this.objectSignals.nameHash)}"
           readonly
         >
           <span slot="prefix">Hash</span>
@@ -257,9 +240,7 @@ export class VMDeviceCard extends VMTemplateDBMixin(
       "slots",
       html`
         <div class="flex flex-row flex-wrap">
-          ${repeat(
-            this.slots,
-            (slot, index) => slot.typ + index.toString(),
+          ${repeat(Array(this.objectSignals.slotsCount),
             (_slot, index) => html`
               <vm-device-slot .deviceID=${this.objectID} .slotIndex=${index} class-"flex flex-row max-w-lg mr-2 mb-2">
               </vm-device-slot>
@@ -276,7 +257,7 @@ export class VMDeviceCard extends VMTemplateDBMixin(
 
   renderNetworks() {
     const vmNetworks = window.VM.vm.networks;
-    const networks = this.connections.map((connection, index, _conns) => {
+    const networks = this.objectSignals.connections.value.map((connection, index, _conns) => {
       const conn =
         typeof connection === "object" && "CableNetwork" in connection
           ? connection.CableNetwork
@@ -357,6 +338,8 @@ export class VMDeviceCard extends VMTemplateDBMixin(
   }
 
   render(): HTMLTemplateResult {
+    const disablePins = computed(() => {return !this.objectSignals.numPins.value;});
+    const displayName = computed(() => { return this.objectSignals.name.value ?? this.objectSignals.prefabName.value})
     return html`
       <ic10-details class="device-card" ?open=${this.open}>
         <div class="header" slot="summary">${this.renderHeader()}</div>
@@ -365,7 +348,7 @@ export class VMDeviceCard extends VMTemplateDBMixin(
           <sl-tab slot="nav" panel="slots">Slots</sl-tab>
           <sl-tab slot="nav" panel="reagents" disabled>Reagents</sl-tab>
           <sl-tab slot="nav" panel="networks">Networks</sl-tab>
-          <sl-tab slot="nav" panel="pins" ?disabled=${!this.numPins}
+          <sl-tab slot="nav" panel="pins" ?disabled=${watch(disablePins)}
             >Pins</sl-tab
           >
 
@@ -394,12 +377,12 @@ export class VMDeviceCard extends VMTemplateDBMixin(
         <div class="remove-dialog-body">
           <img
             class="dialog-image mt-auto mb-auto me-2"
-            src="img/stationpedia/${this.prefabName}.png"
+            src="img/stationpedia/${watch(this.objectSignals.prefabName)}.png"
             onerror="this.src = '${VMDeviceCard.transparentImg}'"
           />
           <div class="flex-g">
             <p><strong>Are you sure you want to remove this device?</strong></p>
-            <span>Id ${this.objectID} : ${this.name ?? this.prefabName}</span>
+            <span>Id ${this.objectID} : ${watch(displayName)}</span>
           </div>
         </div>
         <div slot="footer">
@@ -452,7 +435,7 @@ export class VMDeviceCard extends VMTemplateDBMixin(
     const name = input.value.length === 0 ? undefined : input.value;
     window.VM.get().then((vm) => {
       if (!vm.setObjectName(this.objectID, name)) {
-        input.value = this.name;
+        input.value = this.objectSignals.name.value;
       }
       this.updateDevice();
     });

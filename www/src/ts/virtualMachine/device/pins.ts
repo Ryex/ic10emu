@@ -4,22 +4,30 @@ import { BaseElement, defaultCss } from "components";
 import { VMTemplateDBMixin, VMObjectMixin } from "virtualMachine/baseDevice";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js";
 import { ObjectID } from "ic10emu_wasm";
+import { effect, watch } from "@lit-labs/preact-signals";
+import { SlOption } from "@shoelace-style/shoelace";
 
 @customElement("vm-device-pins")
 export class VMDevicePins extends VMObjectMixin(VMTemplateDBMixin(BaseElement)) {
   constructor() {
     super();
-    this.subscribe("ic", "visible-devices");
+    // this.subscribe("visible-devices");
   }
 
   render() {
-    const pins = new Array(this.numPins ?? 0)
+    const pins = new Array(this.objectSignals.numPins.value ?? 0)
       .fill(true)
-      .map((_, index) => this.pins.get(index));
-    const visibleDevices = (this.visibleDevices ?? []).map((id) => window.VM.vm.objects.get(id));
+      .map((_, index) => this.objectSignals.pins.value.get(index));
+    const visibleDevices = (this.objectSignals.visibleDevices.value ?? []);
+    const forceSelectUpdate = () => {
+      const slSelect = this.renderRoot.querySelector("sl-select") as SlSelect;
+      if (slSelect != null) {
+        slSelect.handleValueChange();
+      }
+    };
     const pinsHtml = pins?.map(
-      (pin, index) =>
-        html` <sl-select
+      (pin, index) => {
+        return html` <sl-select
           hoist
           placement="top"
           clearable
@@ -29,14 +37,24 @@ export class VMDevicePins extends VMObjectMixin(VMTemplateDBMixin(BaseElement)) 
         >
           <span slot="prefix">d${index}</span>
           ${visibleDevices.map(
-            (device, _index) => html`
-              <sl-option value=${device.obj_info.id.toString()}>
-                Device ${device.obj_info.id} :
-                ${device.obj_info.name ?? device.obj_info.prefab}
-              </sl-option>
-            `,
+            (device, _index) => {
+              device.id.subscribe((id: ObjectID) => {
+                forceSelectUpdate();
+              });
+              device.displayName.subscribe((_: string) => {
+                forceSelectUpdate();
+              });
+              return html`
+                <sl-option value=${watch(device.id)}>
+                  Device ${watch(device.id)} :
+                  ${watch(device.displayName)}
+                </sl-option>
+              `
+            }
+
           )}
-        </sl-select>`,
+        </sl-select>`;
+      }
     );
     return pinsHtml;
   }
