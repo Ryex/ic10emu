@@ -53,6 +53,9 @@ pub enum Connection {
     PipeLiquid {
         role: ConnectionRole,
     },
+    RoboticArmRail {
+        role: ConnectionRole,
+    },
     #[default]
     None,
 }
@@ -83,6 +86,7 @@ impl Connection {
             ConnectionType::LandingPad => Self::LandingPad { role },
             ConnectionType::LaunchPad => Self::LaunchPad { role },
             ConnectionType::PipeLiquid => Self::PipeLiquid { role },
+            ConnectionType::RoboticArmRail => Self::RoboticArmRail { role },
         }
     }
 
@@ -139,6 +143,10 @@ impl Connection {
             Self::LaunchPad { role } => ConnectionInfo {
                 typ: ConnectionType::LaunchPad,
                 role: *role,
+            },
+            Self::RoboticArmRail { role } => ConnectionInfo {
+                typ: ConnectionType::RoboticArmRail,
+                role: *role
             },
         }
     }

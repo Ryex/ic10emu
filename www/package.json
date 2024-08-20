@@ -27,6 +27,7 @@
     "@oneidentity/zstd-js": "^1.0.3",
     "@rsbuild/core": "^0.7.10",
     "@rsbuild/plugin-image-compress": "^0.7.10",
+    "@rsbuild/plugin-sass": "^0.7.10",
     "@rsbuild/plugin-type-check": "^0.7.10",
     "@rspack/cli": "^0.7.5",
     "@rspack/core": "^0.7.5",

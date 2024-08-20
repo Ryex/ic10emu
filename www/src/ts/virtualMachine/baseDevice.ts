@@ -21,6 +21,7 @@ import { LitElement, PropertyValueMap } from "lit";
 
 import {
   computed,
+  signal,
 } from '@lit-labs/preact-signals';
 import type { Signal } from '@lit-labs/preact-signals';
 
@@ -138,7 +139,7 @@ export class ComputedObjectSignals {
 
       return slotsTemplate.map((template, index) => {
         const fieldEntryInfos = Array.from(
-          Object.entries(logicTemplate?.logic_slot_types[index]) ?? [],
+          Object.entries(logicTemplate?.logic_slot_types.get(index)) ?? [],
         );
         const logicFields = new Map(
           fieldEntryInfos.map(([slt, access]) => {
@@ -321,11 +322,11 @@ export const globalObjectSignalMap = new ObjectComputedSignalMap();
 type Constructor<T = {}> = new (...args: any[]) => T;
 
 export declare class VMObjectMixinInterface {
-  objectID: ObjectID;
-  activeICId: ObjectID;
+  objectID: Signal<ObjectID>;
+  activeICId: Signal<ObjectID>;
   objectSignals: ComputedObjectSignals | null;
   _handleDeviceModified(e: CustomEvent): void;
-  updateDevice(): void;
+  updateObject(): void;
   subscribe(...sub: VMObjectMixinSubscription[]): void;
   unsubscribe(filter: (sub: VMObjectMixinSubscription) => boolean): void;
 }
@@ -338,14 +339,12 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
   superClass: T,
 ) => {
   class VMObjectMixinClass extends superClass {
-    private _objectID: number;
-    get objectID() {
-      return this._objectID;
-    }
-    @property({ type: Number })
-    set objectID(val: number) {
-      this._objectID = val;
-      this.updateDevice();
+    objectID: Signal<ObjectID | null>;
+
+    constructor (...args: any[]) {
+      super(...args);
+      this.objectID = signal(null);
+      this.objectID.subscribe((_) => {this.updateObject()})
     }
 
     @state() private objectSubscriptions: VMObjectMixinSubscription[] = [];
@@ -354,16 +353,16 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
       this.objectSubscriptions = this.objectSubscriptions.concat(sub);
     }
 
-    // remove subscripotions matching the filter
+    // remove subscriptions matching the filter
     unsubscribe(filter: (sub: VMObjectMixinSubscription) => boolean) {
       this.objectSubscriptions = this.objectSubscriptions.filter(
         (sub) => !filter(sub),
       );
     }
 
-    @state() objectSignals: ComputedObjectSignals | null;
+    @state() objectSignals: ComputedObjectSignals | null = null;
 
-    @state() activeICId: number;
+    activeICId: Signal<number> = signal(null);
 
     connectedCallback(): void {
       const root = super.connectedCallback();
@@ -385,7 +384,7 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
           this._handleDevicesRemoved.bind(this),
         );
       });
-      this.updateDevice();
+      this.updateObject();
       return root;
     }
 
@@ -413,20 +412,20 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
     async _handleDeviceModified(e: CustomEvent) {
       const id = e.detail;
       const activeIcId = window.App.app.session.activeIC;
-      if (this.objectID === id) {
-        this.updateDevice();
+      if (this.objectID.peek() === id) {
+        this.updateObject();
       } else if (
         id === activeIcId &&
         this.objectSubscriptions.includes("active-ic")
       ) {
-        this.updateDevice();
+        this.updateObject();
         this.requestUpdate();
       } else if (this.objectSubscriptions.includes("visible-devices")) {
         const visibleDevices = await window.VM.vm.visibleDeviceIds(
-          this.objectID,
+          this.objectID.peek(),
         );
         if (visibleDevices.includes(id)) {
-          this.updateDevice();
+          this.updateObject();
           this.requestUpdate();
         }
       }
@@ -435,8 +434,8 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
     async _handleDevicesModified(e: CustomEvent<number[]>) {
       const activeIcId = window.App.app.session.activeIC;
       const ids = e.detail;
-      if (ids.includes(this.objectID)) {
-        this.updateDevice();
+      if (ids.includes(this.objectID.peek())) {
+        this.updateObject();
         if (this.objectSubscriptions.includes("visible-devices")) {
           this.requestUpdate();
         }
@@ -444,25 +443,25 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
         ids.includes(activeIcId) &&
         this.objectSubscriptions.includes("active-ic")
       ) {
-        this.updateDevice();
+        this.updateObject();
         this.requestUpdate();
       } else if (this.objectSubscriptions.includes("visible-devices")) {
         const visibleDevices = await window.VM.vm.visibleDeviceIds(
-          this.objectID,
+          this.objectID.peek(),
         );
         if (ids.some((id) => visibleDevices.includes(id))) {
-          this.updateDevice();
+          this.updateObject();
           this.requestUpdate();
         }
       }
     }
 
     async _handleDeviceIdChange(e: CustomEvent<{ old: number; new: number }>) {
-      if (this.objectID === e.detail.old) {
-        this.objectID = e.detail.new;
+      if (this.objectID.peek() === e.detail.old) {
+        this.objectID.value = e.detail.new;
       } else if (this.objectSubscriptions.includes("visible-devices")) {
         const visibleDevices = await window.VM.vm.visibleDeviceIds(
-          this.objectID,
+          this.objectID.peek(),
         );
         if (
           visibleDevices.some(
@@ -481,8 +480,9 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
       }
     }
 
-    updateDevice() {
-      const newObjSignals = globalObjectSignalMap.get(this.objectID);
+    updateObject() {
+      this.activeICId.value = window.App.app.session.activeIC;
+      const newObjSignals = globalObjectSignalMap.get(this.objectID.peek());
       if (newObjSignals !== this.objectSignals) {
         this.objectSignals = newObjSignals
       }
@@ -503,9 +503,9 @@ export const VMActiveICMixin = <T extends Constructor<LitElement>>(
   superClass: T,
 ) => {
   class VMActiveICMixinClass extends VMObjectMixin(superClass) {
-    constructor() {
-      super();
-      this.objectID = window.App.app.session.activeIC;
+    constructor(...args: any[]) {
+      super(...args);
+      this.objectID.value = window.App.app.session.activeIC;
     }
 
     connectedCallback(): void {
@@ -535,10 +535,10 @@ export const VMActiveICMixin = <T extends Constructor<LitElement>>(
 
     _handleActiveIC(e: CustomEvent) {
       const id = e.detail;
-      if (this.objectID !== id) {
-        this.objectID = id;
+      if (this.objectID.value !== id) {
+        this.objectID.value = id;
       }
-      this.updateDevice();
+      this.updateObject();
     }
   }
 
@@ -569,7 +569,7 @@ export const VMTemplateDBMixin = <T extends Constructor<LitElement>>(
 
     disconnectedCallback(): void {
       window.VM.vm.removeEventListener(
-        "vm-device-db-loaded",
+        "vm-template-db-loaded",
         this._handleDeviceDBLoad.bind(this),
       );
     }

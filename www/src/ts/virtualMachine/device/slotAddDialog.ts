@@ -1,7 +1,7 @@
-import { html, css } from "lit";
+import { html, css, nothing } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMTemplateDBMixin } from "virtualMachine/baseDevice";
+import { ComputedObjectSignals, globalObjectSignalMap, VMTemplateDBMixin } from "virtualMachine/baseDevice";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
 import SlDialog from "@shoelace-style/shoelace/dist/components/dialog/dialog.component.js";
 import { VMDeviceCard } from "./card";
@@ -15,6 +15,8 @@ import {
   ObjectInfo,
   ObjectTemplate,
 } from "ic10emu_wasm";
+import { computed, ReadonlySignal, signal, Signal, watch } from "@lit-labs/preact-signals";
+import { repeat } from "lit/directives/repeat.js";
 
 type SlotableItemTemplate = Extract<ObjectTemplate, { item: ItemInfo }>;
 
@@ -38,30 +40,33 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
     `,
   ];
 
-  private _items: Map<string, SlotableItemTemplate> = new Map();
-  private _filteredItems: SlotableItemTemplate[];
-  private _datapoints: [string, string][] = [];
-  private _haystack: string[] = [];
+  private _items: Signal<Record<string, SlotableItemTemplate>> = signal({});
+  private _filteredItems: ReadonlySignal<SlotableItemTemplate[]>;
+  private _datapoints: ReadonlySignal<[string, string][]>;
+  private _haystack: ReadonlySignal<string[]>;
 
-  private _filter: string = "";
+  private _filter: Signal<string> = signal("");
   get filter() {
-    return this._filter;
+    return this._filter.peek();
   }
 
-  @state()
   set filter(val: string) {
-    this._filter = val;
-    this.performSearch();
+    this._filter.value = val;
   }
 
-  private _searchResults: {
+  private _searchResults: ReadonlySignal<{
     entry: SlotableItemTemplate;
     haystackEntry: string;
     ranges: number[];
-  }[] = [];
+  }[]>;
+
+  constructor() {
+    super();
+    this.setupSearch();
+  }
 
   postDBSetUpdate(): void {
-    this._items = new Map(
+    this._items.value = Object.fromEntries(
       Array.from(Object.values(this.templateDB)).flatMap((template) => {
         if ("item" in template) {
           return [[template.prefab.prefab_name, template]] as [
@@ -73,77 +78,84 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
         }
       }),
     );
-    this.setupSearch();
-    this.performSearch();
   }
 
   setupSearch() {
-    let filteredItems = Array.from(this._items.values());
-    if (
-      typeof this.objectID !== "undefined" &&
-      typeof this.slotIndex !== "undefined"
-    ) {
-      const obj = window.VM.vm.objects.get(this.objectID);
-      const template = obj.template;
-      const slot = "slots" in template ? template.slots[this.slotIndex] : null;
-      const typ = slot.typ;
+    const filteredItems = computed(() => {
+      let filtered = Array.from(Object.values(this._items.value));
+      const obj = globalObjectSignalMap.get(this.objectID.value ?? null);
+      if (obj != null) {
+        const template = obj.template;
+        const slot = "slots" in template.value ? template.value.slots[this.slotIndex.value] : null;
+        const typ = slot.typ;
 
-      if (typeof typ === "string" && typ !== "None") {
-        filteredItems = Array.from(this._items.values()).filter(
-          (item) => item.item.slot_class === typ,
+        if (typeof typ === "string" && typ !== "None") {
+          filtered = Array.from(Object.values(this._items.value)).filter(
+            (item) => item.item.slot_class === typ,
+          );
+        }
+      }
+      return filtered;
+    });
+    this._filteredItems = filteredItems;
+
+    const datapoints = computed(() => {
+      const datapoints: [string, string][] = [];
+      for (const entry of this._filteredItems.value) {
+        datapoints.push(
+          [entry.prefab.name, entry.prefab.prefab_name],
+          [entry.prefab.prefab_name, entry.prefab.prefab_name],
+          [entry.prefab.desc, entry.prefab.prefab_name],
         );
       }
-    }
-    this._filteredItems = filteredItems;
-    const datapoints: [string, string][] = [];
-    for (const entry of this._filteredItems) {
-      datapoints.push(
-        [entry.prefab.name, entry.prefab.prefab_name],
-        [entry.prefab.prefab_name, entry.prefab.prefab_name],
-        [entry.prefab.desc, entry.prefab.prefab_name],
-      );
-    }
-
-    const haystack: string[] = datapoints.map((data) => data[0]);
+      return datapoints;
+    });
     this._datapoints = datapoints;
+
+    const haystack: Signal<string[]> = computed(() => {
+      return datapoints.value.map((data) => data[0]);
+    });
     this._haystack = haystack;
-  }
 
-  performSearch() {
-    if (this._filter) {
-      const uf = new uFuzzy({});
-      const [_idxs, info, order] = uf.search(
-        this._haystack,
-        this._filter,
-        0,
-        1e3,
-      );
+    const searchResults = computed(() => {
+      let results;
+      if (this._filter.value) {
+        const uf = new uFuzzy({});
+        const [_idxs, info, order] = uf.search(
+          this._haystack.value,
+          this._filter.value,
+          0,
+          1e3,
+        );
 
-      const filtered =
-        order?.map((infoIdx) => ({
-          name: this._datapoints[info.idx[infoIdx]][1],
-          haystackEntry: this._haystack[info.idx[infoIdx]],
-          ranges: info.ranges[infoIdx],
-        })) ?? [];
+        const filtered =
+          order?.map((infoIdx) => ({
+            name: this._datapoints.value[info.idx[infoIdx]][1],
+            haystackEntry: this._haystack.value[info.idx[infoIdx]],
+            ranges: info.ranges[infoIdx],
+          })) ?? [];
 
-      const uniqueNames = new Set(filtered.map((obj) => obj.name));
-      const unique = [...uniqueNames].map((result) => {
-        return filtered.find((obj) => obj.name === result);
-      });
+        const uniqueNames = new Set(filtered.map((obj) => obj.name));
+        const unique = [...uniqueNames].map((result) => {
+          return filtered.find((obj) => obj.name === result);
+        });
 
-      this._searchResults = unique.map(({ name, haystackEntry, ranges }) => ({
-        entry: this._items.get(name)!,
-        haystackEntry,
-        ranges,
-      }));
-    } else {
-      // return everything
-      this._searchResults = [...this._filteredItems].map((st) => ({
-        entry: st,
-        haystackEntry: st.prefab.prefab_name,
-        ranges: [],
-      }));
-    }
+        results = unique.map(({ name, haystackEntry, ranges }) => ({
+          entry: this._items.value[name]!,
+          haystackEntry,
+          ranges,
+        }));
+      } else {
+        // return everything
+        results = [...this._filteredItems.value].map((st) => ({
+          entry: st,
+          haystackEntry: st.prefab.prefab_name,
+          ranges: [],
+        }));
+      }
+      return results;
+    });
+    this._searchResults = searchResults;
   }
 
   renderSearchResults() {
@@ -156,10 +168,13 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
         None
       </div>
     `;
-    return html`
-      <div class="mt-2 max-h-48 overflow-y-auto w-full">
-        ${enableNone ? none : ""}
-        ${this._searchResults.map((result) => {
+    const resultsHtml = computed(() => {
+      return repeat(
+        this._searchResults.value,
+        (result) => {
+          return result.entry.prefab.prefab_hash;
+        },
+        (result) => {
           const imgSrc = `img/stationpedia/${result.entry.prefab.prefab_name}.png`;
           const img = html`
             <img
@@ -178,22 +193,28 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
               <div>${result.entry.prefab.name}</div>
             </div>
           `;
-        })}
+        }
+      );
+    });
+    return html`
+      <div class="mt-2 max-h-48 overflow-y-auto w-full">
+        ${enableNone ? none : ""}
+        ${watch(resultsHtml)}
       </div>
     `;
   }
 
   _handleClickNone() {
-    window.VM.vm.removeSlotOccupant(this.objectID, this.slotIndex);
+    window.VM.vm.removeSlotOccupant(this.objectID.peek(), this.slotIndex.peek());
     this.hide();
   }
 
   _handleClickItem(e: Event) {
     const div = e.currentTarget as HTMLDivElement;
     const key = parseInt(div.getAttribute("key"));
-    const entry = this.templateDB[key] as SlotableItemTemplate;
-    const obj = window.VM.vm.objects.get(this.objectID);
-    const dbTemplate = obj.template;
+    const entry = this.templateDB.get(key) as SlotableItemTemplate;
+    const obj = window.VM.vm.objects.get(this.objectID.peek());
+    const dbTemplate = obj.peek().template;
     console.log("using entry", dbTemplate);
 
     const template: FrozenObject = {
@@ -203,7 +224,7 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
       database_template: true,
       template: undefined,
     };
-    window.VM.vm.setSlotOccupant(this.objectID, this.slotIndex, template, 1);
+    window.VM.vm.setSlotOccupant(this.objectID.peek(), this.slotIndex.peek(), template, 1);
     this.hide();
   }
 
@@ -211,12 +232,22 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
   @query(".device-search-input") searchInput: SlInput;
 
   render() {
-    const device = window.VM.vm.objects.get(this.objectID);
-    const name = device?.obj_info.name ?? device?.obj_info.prefab ?? "";
-    const id = this.objectID ?? 0;
+    const device = computed(() => {
+      return globalObjectSignalMap.get(this.objectID.value) ?? null;
+    });
+    const name = computed(() => {
+      return device.value?.displayName.value ?? nothing;
+
+    });
+    const id = computed(() => this.objectID.value ?? 0);
+    const resultsHtml = html`
+      <div class="flex flex-row overflow-x-auto">
+        ${this.renderSearchResults()}
+      </div>
+    `;
     return html`
       <sl-dialog
-        label="Edit device ${id} : ${name} Slot ${this.slotIndex}"
+        label="Edit device ${watch(id)} : ${watch(name)} Slot ${watch(this.slotIndex)}"
         class="slot-add-dialog"
         @sl-hide=${this._handleDialogHide}
       >
@@ -230,16 +261,7 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
           <span slot="prefix">Search Items</span>
           <sl-icon slot="suffix" name="search"></sl-icon>
         </sl-input>
-        ${when(
-          typeof this.objectID !== "undefined" &&
-            typeof this.slotIndex !== "undefined",
-          () => html`
-            <div class="flex flex-row overflow-x-auto">
-              ${this.renderSearchResults()}
-            </div>
-          `,
-          () => html``,
-        )}
+        ${resultsHtml}
       </sl-dialog>
     `;
   }
@@ -262,14 +284,12 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
     this.slotIndex = undefined;
   }
 
-  @state() private objectID: number;
-  @state() private slotIndex: number;
+  private objectID: Signal<number> = signal(null);
+  private slotIndex: Signal<number> = signal(0);
 
   show(objectID: number, slotIndex: number) {
-    this.objectID = objectID;
-    this.slotIndex = slotIndex;
-    this.setupSearch();
-    this.performSearch();
+    this.objectID.value = objectID;
+    this.slotIndex.value = slotIndex;
     this.dialog.show();
     this.searchInput.select();
   }

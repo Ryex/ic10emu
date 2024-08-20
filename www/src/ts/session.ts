@@ -417,14 +417,16 @@ export namespace SessionDB {
             instruction_pointer: ic.ip,
             yield_instruction_count: ic.ic,
             state: ic.state as ICState,
-            aliases: Object.fromEntries(ic.aliases.entries()),
-            defines: Object.fromEntries(ic.defines.entries()),
-            labels: {},
+            aliases: ic.aliases,
+            defines: ic.defines,
+            labels: new Map(),
             registers: ic.registers,
           },
 
           // unused
           slots: undefined,
+          parent_slot: undefined,
+          root_parent_human: undefined,
           damage: undefined,
           device_pins: undefined,
           connections: undefined,
@@ -492,7 +494,7 @@ export namespace SessionDB {
           id: template.id,
           prefab: template.prefab_name,
           prefab_hash: undefined,
-          slots: Object.fromEntries(
+          slots: new Map(
             Array.from(slotOccupantsPairs.entries()).map(
               ([index, [obj, quantity]]) => [
                 index,
@@ -505,17 +507,19 @@ export namespace SessionDB {
           ),
           socketed_ic: socketedIcFn(template.id),
 
-          logic_values: Object.fromEntries(
+          logic_values: new Map(
             Object.entries(template.fields).map(([key, val]) => {
-              return [key, val.value];
+              return [key as LogicType, val.value];
             }),
-          ) as Record<LogicType, number>,
+          ),
 
           // unused
           memory: undefined,
           source_code: undefined,
           compile_errors: undefined,
           circuit: undefined,
+          parent_slot: undefined,
+          root_parent_human: undefined,
           damage: undefined,
           device_pins: undefined,
           connections: undefined,

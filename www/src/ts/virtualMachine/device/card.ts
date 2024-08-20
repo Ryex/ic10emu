@@ -122,7 +122,7 @@ export class VMDeviceCard extends VMTemplateDBMixin(
 
   _handleDeviceDBLoad(e: CustomEvent<any>): void {
     super._handleDeviceDBLoad(e);
-    this.updateDevice();
+    this.updateObject();
   }
 
   onImageErr(e: Event) {
@@ -131,24 +131,38 @@ export class VMDeviceCard extends VMTemplateDBMixin(
   }
 
   renderHeader(): HTMLTemplateResult {
-    const thisIsActiveIc = this.activeICId === this.objectID;
-    const badges: HTMLTemplateResult[] = [];
-    if (thisIsActiveIc) {
-      badges.push(html`<sl-badge variant="primary" pill pulse>db</sl-badge>`);
-    }
-    const activeIc = globalObjectSignalMap.get(this.activeICId);
+    const thisIsActiveIc = computed(() => {
+      return this.activeICId.value === this.objectID.value;
+    });
 
-    const numPins = activeIc.numPins.value;
-    const pins = new Array(numPins)
-      .fill(true)
-      .map((_, index) => this.objectSignals.pins.value.get(index));
-    pins.forEach((id, index) => {
-      if (this.objectID == id) {
-        badges.push(
-          html`<sl-badge variant="success" pill>d${index}</sl-badge>`,
-        );
+    const activeIc = computed(() => {
+      return globalObjectSignalMap.get(this.activeICId.value);
+    });
+
+    const numPins = computed(() => {
+      return activeIc.value.numPins.value;
+    });
+
+    const pins = computed(() => {
+      return new Array(numPins.value)
+        .fill(true)
+        .map((_, index) => this.objectSignals.pins.value.get(index));
+    });
+    const badgesHtml = computed(() => {
+
+      const badges: HTMLTemplateResult[] = [];
+      if (thisIsActiveIc.value) {
+        badges.push(html`<sl-badge variant="primary" pill pulse>db</sl-badge>`);
       }
-    }, this);
+      pins.value.forEach((id, index) => {
+        if (this.objectID.value == id) {
+          badges.push(
+            html`<sl-badge variant="success" pill>d${index}</sl-badge>`,
+          );
+        }
+      }, this);
+      return badges
+    });
     return html`
       <sl-tooltip content="${watch(this.objectSignals.prefabName)}">
         <img
@@ -159,21 +173,21 @@ export class VMDeviceCard extends VMTemplateDBMixin(
       </sl-tooltip>
       <div class="header-name">
         <sl-input
-          id="vmDeviceCard${this.objectID}Id"
+          id="vmDeviceCard${watch(this.objectID)}Id"
           class="device-id me-1"
           size="small"
           pill
-          value=${this.objectID.toString()}
+          value=${watch(this.objectID)}
           @sl-change=${this._handleChangeID}
         >
           <span slot="prefix">Id</span>
           <sl-copy-button
             slot="suffix"
-            .value=${this.objectID.toString()}
+            .value=${watch(this.objectID)}
           ></sl-copy-button>
         </sl-input>
         <sl-input
-          id="vmDeviceCard${this.objectID}Name"
+          id="vmDeviceCard${watch(this.objectID)}Name"
           class="device-name me-1"
           size="small"
           pill
@@ -184,11 +198,11 @@ export class VMDeviceCard extends VMTemplateDBMixin(
           <span slot="prefix">Name</span>
           <sl-copy-button
             slot="suffix"
-            from="vmDeviceCard${this.objectID}Name.value"
+            from="vmDeviceCard${watch(this.objectID)}Name.value"
           ></sl-copy-button>
         </sl-input>
         <sl-input
-          id="vmDeviceCard${this.objectID}NameHash"
+          id="vmDeviceCard${watch(this.objectID)}NameHash"
           size="small"
           pill
           class="device-name-hash me-1"
@@ -201,7 +215,7 @@ export class VMDeviceCard extends VMTemplateDBMixin(
             from="vmDeviceCard${this.objectID}NameHash.value"
           ></sl-copy-button>
         </sl-input>
-        ${badges.map((badge) => badge)}
+        ${watch(badgesHtml)}
       </div>
       <div class="ms-auto mt-auto mb-auto me-2">
         <sl-tooltip
@@ -256,7 +270,7 @@ export class VMDeviceCard extends VMTemplateDBMixin(
   }
 
   renderNetworks() {
-    const vmNetworks = window.VM.vm.networks;
+    const vmNetworks = window.VM.vm.networkIds;
     const networks = this.objectSignals.connections.value.map((connection, index, _conns) => {
       const conn =
         typeof connection === "object" && "CableNetwork" in connection
@@ -273,7 +287,7 @@ export class VMDeviceCard extends VMTemplateDBMixin(
           @sl-change=${this._handleChangeConnection}
         >
           <span slot="prefix">Connection:${index} </span>
-          ${vmNetworks.map(
+          ${vmNetworks.value.map(
             (net) =>
               html`<sl-option value=${net.toString()}
                 >Network ${net}</sl-option
@@ -421,7 +435,7 @@ export class VMDeviceCard extends VMTemplateDBMixin(
     const val = parseIntWithHexOrBinary(input.value);
     if (!isNaN(val)) {
       window.VM.get().then((vm) => {
-        if (!vm.changeObjectID(this.objectID, val)) {
+        if (!vm.changeObjectID(this.objectID.peek(), val)) {
           input.value = this.objectID.toString();
         }
       });
@@ -434,10 +448,10 @@ export class VMDeviceCard extends VMTemplateDBMixin(
     const input = e.target as SlInput;
     const name = input.value.length === 0 ? undefined : input.value;
     window.VM.get().then((vm) => {
-      if (!vm.setObjectName(this.objectID, name)) {
+      if (!vm.setObjectName(this.objectID.peek(), name)) {
         input.value = this.objectSignals.name.value;
       }
-      this.updateDevice();
+      this.updateObject();
     });
   }
   _handleDeviceRemoveButton(_e: Event) {
@@ -446,7 +460,7 @@ export class VMDeviceCard extends VMTemplateDBMixin(
 
   _removeDialogRemove() {
     this.removeDialog.hide();
-    window.VM.get().then((vm) => vm.removeDevice(this.objectID));
+    window.VM.get().then((vm) => vm.removeDevice(this.objectID.peek()));
   }
 
   _handleChangeConnection(e: CustomEvent) {
@@ -454,8 +468,8 @@ export class VMDeviceCard extends VMTemplateDBMixin(
     const conn = parseInt(select.getAttribute("key")!);
     const val = select.value ? parseInt(select.value as string) : undefined;
     window.VM.get().then((vm) =>
-      vm.setDeviceConnection(this.objectID, conn, val),
+      vm.setDeviceConnection(this.objectID.peek(), conn, val),
     );
-    this.updateDevice();
+    this.updateObject();
   }
 }

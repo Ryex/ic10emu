@@ -153,7 +153,7 @@ pub enum LogicSlotType {
     #[strum(serialize = "OccupantHash")]
     #[strum(
         props(
-            docs = "returns the has of the current occupant, the unique identifier of the thing",
+            docs = "returns the hash of the current occupant, the unique identifier of the thing",
             value = "2"
         )
     )]
@@ -2095,6 +2095,14 @@ pub enum LogicType {
         )
     )]
     NameHash = 268u16,
+    #[strum(serialize = "Altitude")]
+    #[strum(
+        props(
+            docs = "The altitude that the rocket above the planet's surface. -1 if the rocket is in space.",
+            value = "269"
+        )
+    )]
+    Altitude = 269u16,
 }
 impl TryFrom<f64> for LogicType {
     type Error = super::ParseError;

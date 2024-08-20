@@ -583,9 +583,9 @@ pub enum ReEntryProfile {
     #[strum(props(docs = "", value = "0"))]
     #[default]
     None = 0u8,
-    #[strum(serialize = "Optimal")]
+    #[strum(serialize = "Low")]
     #[strum(props(docs = "", value = "1"))]
-    Optimal = 1u8,
+    Low = 1u8,
     #[strum(serialize = "Medium")]
     #[strum(props(docs = "", value = "2"))]
     Medium = 2u8,
@@ -874,6 +874,12 @@ pub enum Class {
     #[strum(serialize = "SuitMod")]
     #[strum(props(docs = "", value = "39"))]
     SuitMod = 39u8,
+    #[strum(serialize = "Crate")]
+    #[strum(props(docs = "", value = "40"))]
+    Crate = 40u8,
+    #[strum(serialize = "Portables")]
+    #[strum(props(docs = "", value = "41"))]
+    Portables = 41u8,
 }
 impl TryFrom<f64> for Class {
     type Error = super::ParseError;
@@ -1559,6 +1565,7 @@ impl std::str::FromStr for BasicEnum {
             "logictype.activate" => Ok(Self::LogicType(LogicType::Activate)),
             "logictype.airrelease" => Ok(Self::LogicType(LogicType::AirRelease)),
             "logictype.alignmenterror" => Ok(Self::LogicType(LogicType::AlignmentError)),
+            "logictype.altitude" => Ok(Self::LogicType(LogicType::Altitude)),
             "logictype.apex" => Ok(Self::LogicType(LogicType::Apex)),
             "logictype.autoland" => Ok(Self::LogicType(LogicType::AutoLand)),
             "logictype.autoshutoff" => Ok(Self::LogicType(LogicType::AutoShutOff)),
@@ -2103,10 +2110,10 @@ impl std::str::FromStr for BasicEnum {
                 Ok(Self::PrinterInstruction(PrinterInstruction::WaitUntilNextValid))
             }
             "reentryprofile.high" => Ok(Self::ReEntryProfile(ReEntryProfile::High)),
+            "reentryprofile.low" => Ok(Self::ReEntryProfile(ReEntryProfile::Low)),
             "reentryprofile.max" => Ok(Self::ReEntryProfile(ReEntryProfile::Max)),
             "reentryprofile.medium" => Ok(Self::ReEntryProfile(ReEntryProfile::Medium)),
             "reentryprofile.none" => Ok(Self::ReEntryProfile(ReEntryProfile::None)),
-            "reentryprofile.optimal" => Ok(Self::ReEntryProfile(ReEntryProfile::Optimal)),
             "robotmode.follow" => Ok(Self::RobotMode(RobotMode::Follow)),
             "robotmode.movetotarget" => Ok(Self::RobotMode(RobotMode::MoveToTarget)),
             "robotmode.none" => Ok(Self::RobotMode(RobotMode::None)),
@@ -2130,6 +2137,7 @@ impl std::str::FromStr for BasicEnum {
             "slotclass.cartridge" => Ok(Self::SlotClass(Class::Cartridge)),
             "slotclass.circuit" => Ok(Self::SlotClass(Class::Circuit)),
             "slotclass.circuitboard" => Ok(Self::SlotClass(Class::Circuitboard)),
+            "slotclass.crate" => Ok(Self::SlotClass(Class::Crate)),
             "slotclass.creditcard" => Ok(Self::SlotClass(Class::CreditCard)),
             "slotclass.datadisk" => Ok(Self::SlotClass(Class::DataDisk)),
             "slotclass.dirtcanister" => Ok(Self::SlotClass(Class::DirtCanister)),
@@ -2150,6 +2158,7 @@ impl std::str::FromStr for BasicEnum {
             "slotclass.ore" => Ok(Self::SlotClass(Class::Ore)),
             "slotclass.organ" => Ok(Self::SlotClass(Class::Organ)),
             "slotclass.plant" => Ok(Self::SlotClass(Class::Plant)),
+            "slotclass.portables" => Ok(Self::SlotClass(Class::Portables)),
             "slotclass.programmablechip" => Ok(Self::SlotClass(Class::ProgrammableChip)),
             "slotclass.scanninghead" => Ok(Self::SlotClass(Class::ScanningHead)),
             "slotclass.sensorprocessingunit" => {

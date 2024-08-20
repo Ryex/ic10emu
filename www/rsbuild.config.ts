@@ -1,6 +1,7 @@
 import { defineConfig } from "@rsbuild/core";
 import { pluginTypeCheck } from "@rsbuild/plugin-type-check";
 import { pluginImageCompress } from "@rsbuild/plugin-image-compress";
+import { pluginSass } from "@rsbuild/plugin-sass";
 
 const rspack = require("@rspack/core");
 const { CssExtractRspackPlugin } = require("@rspack/core");
@@ -72,5 +73,5 @@ export default defineConfig({
       template: "./src/index.html",
     },
   },
-  plugins: [pluginTypeCheck(), pluginImageCompress()],
+  plugins: [pluginSass(), pluginTypeCheck(), pluginImageCompress()],
 });

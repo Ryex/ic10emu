@@ -47,11 +47,14 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Small Satellite Dish",
-            desc = "This small communications unit can be used to communicate with nearby trade vessels.\n\n        When connected to a <link=ThingStructureComputer><color=green>Computer</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic.",
+            desc = "This small communications unit can be used to communicate with nearby trade vessels.\n\n        When connected to a <link=ThingStructureComputer><color=green>Computer (Modern)</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic.",
             value = "-2138748650"
         )
     )]
     StructureSmallSatelliteDish = -2138748650i32,
+    #[strum(serialize = "StructureRobotArmDoor")]
+    #[strum(props(name = "Linear Rail Door", desc = "", value = "-2131782367"))]
+    StructureRobotArmDoor = -2131782367i32,
     #[strum(serialize = "StructureStairwellBackRight")]
     #[strum(props(name = "Stairwell (Back Right)", desc = "", value = "-2128896573"))]
     StructureStairwellBackRight = -2128896573i32,
@@ -62,7 +65,7 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Kit (Liquid Pipe Valve)",
-            desc = "This kit creates a <link=ThingStructureLiquidValve><color=green>Liquid Valve</color></link>.",
+            desc = "This kit creates a <link=ThingStructureLiquidValve><color=green>Valve (Liquid)</color></link>.",
             value = "-2126113312"
         )
     )]
@@ -189,6 +192,15 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureWindTurbine = -2082355173i32,
+    #[strum(serialize = "StructureCompositeWindowShutterController")]
+    #[strum(
+        props(
+            name = "Composite Window Shutter Controller",
+            desc = "",
+            value = "-2078371660"
+        )
+    )]
+    StructureCompositeWindowShutterController = -2078371660i32,
     #[strum(serialize = "StructureInsulatedPipeTJunction")]
     #[strum(
         props(
@@ -455,7 +467,7 @@ pub enum StationpediaPrefab {
     )]
     PortableComposter = -1958705204i32,
     #[strum(serialize = "CartridgeGPS")]
-    #[strum(props(name = "GPS", desc = "", value = "-1957063345"))]
+    #[strum(props(name = "Cartridge (GPS)", desc = "", value = "-1957063345"))]
     CartridgeGps = -1957063345i32,
     #[strum(serialize = "StructureConsoleLED1x3")]
     #[strum(
@@ -545,7 +557,7 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Sorter Motherboard",
-            desc = "Motherboards are connected to <link=ThingStructureComputer><color=green>Computer</color></link>s to perform various technical functions.\nThe <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> K-cops 10-10 sorter motherboard permits <link=Stationeers><color=#0080FFFF>Stationeers</color></link> to control which items a <link=ThingStructureSorter><color=green>Sorter</color></link> does, and does not, permit to pass.",
+            desc = "Motherboards are connected to <link=ThingStructureComputer><color=green>Computer (Modern)</color></link>s to perform various technical functions.\nThe <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> K-cops 10-10 sorter motherboard permits <link=Stationeers><color=#0080FFFF>Stationeers</color></link> to control which items a <link=ThingStructureSorter><color=green>Sorter</color></link> does, and does not, permit to pass.",
             value = "-1908268220"
         )
     )]
@@ -725,11 +737,20 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Kit (Wall)", desc = "", value = "-1826855889"))]
     ItemKitWall = -1826855889i32,
     #[strum(serialize = "ItemWreckageAirConditioner1")]
-    #[strum(props(name = "Wreckage Air Conditioner", desc = "", value = "-1826023284"))]
+    #[strum(props(name = "Wreckage", desc = "", value = "-1826023284"))]
     ItemWreckageAirConditioner1 = -1826023284i32,
     #[strum(serialize = "ItemKitStirlingEngine")]
     #[strum(props(name = "Kit (Stirling Engine)", desc = "", value = "-1821571150"))]
     ItemKitStirlingEngine = -1821571150i32,
+    #[strum(serialize = "StructureRoboticArmDock")]
+    #[strum(
+        props(
+            name = "LArRE Dock",
+            desc = "The Linear Articulated Rail Entity or LArRE can be used to plant, harvest and fertilize plants in plant trays. It can also grab items from a <link=ThingStructureChuteExportBin><color=green>Chute Export Bin</color></link> and drop them in a <link=ThingStructureChuteBin><color=green>Chute Import Bin</color></link>. LArRE can interact with plant trays or chute bins built under a linear rail station or built under its dock.",
+            value = "-1818718810"
+        )
+    )]
+    StructureRoboticArmDock = -1818718810i32,
     #[strum(serialize = "StructureGasUmbilicalMale")]
     #[strum(
         props(
@@ -822,6 +843,9 @@ pub enum StationpediaPrefab {
         )
     )]
     LandingpadLiquidConnectorOutwardPiece = -1788929869i32,
+    #[strum(serialize = "StructureRoboticArmRailStraight")]
+    #[strum(props(name = "Linear Rail Straight", desc = "", value = "-1785844184"))]
+    StructureRoboticArmRailStraight = -1785844184i32,
     #[strum(serialize = "StructurePipeCorner")]
     #[strum(
         props(
@@ -846,7 +870,7 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "CartridgeOreScanner")]
     #[strum(
         props(
-            name = "Ore Scanner",
+            name = "Cartridge (Ore Scanner)",
             desc = "When inserted into a <link=ThingItemTablet><color=green>Handheld Tablet</color></link> the scanner will display minerals hidden underground on the tablet.",
             value = "-1768732546"
         )
@@ -1064,7 +1088,7 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Appliance Desk Lamp Left", desc = "", value = "-1683849799"))]
     ApplianceDeskLampLeft = -1683849799i32,
     #[strum(serialize = "ItemWreckageWallCooler1")]
-    #[strum(props(name = "Wreckage Wall Cooler", desc = "", value = "-1682930158"))]
+    #[strum(props(name = "Wreckage", desc = "", value = "-1682930158"))]
     ItemWreckageWallCooler1 = -1682930158i32,
     #[strum(serialize = "StructureGasUmbilicalFemale")]
     #[strum(props(name = "Umbilical Socket (Gas)", desc = "", value = "-1680477930"))]
@@ -1121,9 +1145,7 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Astroloy Sheets", desc = "", value = "-1662476145"))]
     ItemAstroloySheets = -1662476145i32,
     #[strum(serialize = "ItemWreckageTurbineGenerator1")]
-    #[strum(
-        props(name = "Wreckage Turbine Generator", desc = "", value = "-1662394403")
-    )]
+    #[strum(props(name = "Wreckage", desc = "", value = "-1662394403"))]
     ItemWreckageTurbineGenerator1 = -1662394403i32,
     #[strum(serialize = "ItemMiningBackPack")]
     #[strum(props(name = "Mining Backpack", desc = "", value = "-1650383245"))]
@@ -1248,7 +1270,7 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "CartridgeAtmosAnalyser")]
     #[strum(
         props(
-            name = "Atmos Analyzer",
+            name = "Cartridge (Atmos Analyzer)",
             desc = "The Lorenz atmos analyzer is a multi-functional mass-spectrometer designed by <link=ExMin><color=#0080FFFF>ExMin</color></link> for use with the OreCore <link=ThingItemTablet><color=green>Handheld Tablet</color></link>. It displays the pressure, concentration and molar quantity of <link=GasPage><color=#0080FFFF>gas</color></link> in rooms, tanks, or pipe networks.",
             value = "-1550278665"
         )
@@ -1391,7 +1413,7 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Sleeper", desc = "", value = "-1467449329"))]
     StructureSleeper = -1467449329i32,
     #[strum(serialize = "CartridgeElectronicReader")]
-    #[strum(props(name = "eReader", desc = "", value = "-1462180176"))]
+    #[strum(props(name = "Cartridge (eReader)", desc = "", value = "-1462180176"))]
     CartridgeElectronicReader = -1462180176i32,
     #[strum(serialize = "StructurePictureFrameThickMountPortraitLarge")]
     #[strum(
@@ -1622,6 +1644,9 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureLogicWriter")]
     #[strum(props(name = "Logic Writer", desc = "", value = "-1326019434"))]
     StructureLogicWriter = -1326019434i32,
+    #[strum(serialize = "StructureRoboticArmRailCorner")]
+    #[strum(props(name = "Linear Rail Corner", desc = "", value = "-1323992709"))]
+    StructureRoboticArmRailCorner = -1323992709i32,
     #[strum(serialize = "StructureLogicWriterSwitch")]
     #[strum(props(name = "Logic Writer Switch", desc = "", value = "-1321250424"))]
     StructureLogicWriterSwitch = -1321250424i32,
@@ -1798,6 +1823,9 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureLargeDirectHeatExchangeGastoGas = -1230658883i32,
+    #[strum(serialize = "ItemKitRoboticArm")]
+    #[strum(props(name = "Kit (LArRE)", desc = "", value = "-1228287398"))]
+    ItemKitRoboticArm = -1228287398i32,
     #[strum(serialize = "ItemSensorProcessingUnitOreScanner")]
     #[strum(
         props(
@@ -1823,13 +1851,7 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Landingpad Liquid Input", desc = "", value = "-1216167727"))]
     LandingpadLiquidConnectorInwardPiece = -1216167727i32,
     #[strum(serialize = "ItemWreckageStructureWeatherStation008")]
-    #[strum(
-        props(
-            name = "Wreckage Structure Weather Station",
-            desc = "",
-            value = "-1214467897"
-        )
-    )]
+    #[strum(props(name = "Wreckage", desc = "", value = "-1214467897"))]
     ItemWreckageStructureWeatherStation008 = -1214467897i32,
     #[strum(serialize = "ItemPlantThermogenic_Creative")]
     #[strum(
@@ -2025,7 +2047,7 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Active Vent",
-            desc = "The active vent is a powered device for maintaining <link=GasPage><color=#0080FFFF>gas</color></link> pressure by pumping gas into (or out of) a pipe network. The vent has two modes: 'Outward' sets it to pump gas into a space until pressure is reached; 'Inward' sets it to pump gas out until pressure is reached. The pressure parameter can be set on a connected <link=ThingStructureConsole><color=green>Console</color></link>. Default pressure is 101kPa for Outward; 0kPa for Inward ...",
+            desc = "The active vent is a powered device for maintaining <link=GasPage><color=#0080FFFF>gas</color></link> pressure by pumping gas into (or out of) a pipe network. The vent has two modes: 'Outward' sets it to pump gas into a space until pressure is reached; 'Inward' sets it to pump gas out until pressure is reached. The pressure parameter can be set on a connected <link=ThingStructureConsole><color=green>Console</color></link>. Default pressure is 101kPa for Outward; 0kPa for Inward...",
             value = "-1129453144"
         )
     )]
@@ -2057,7 +2079,7 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "CartridgeMedicalAnalyser")]
     #[strum(
         props(
-            name = "Medical Analyzer",
+            name = "Cartridge (Medical Analyzer)",
             desc = "When added to the OreCore <link=ThingItemTablet><color=green>Handheld Tablet</color></link>, <link=Asura><color=#0080FFFF>Asura's</color></link>'s ReadyMed medical analyzer reveals the health, or otherwise, of users various organs. Due to a design flaw, older models were notorious for producing quasar-like levels of x-ray radiation. Recent advances in shielding have more than halved the risk to users.",
             value = "-1116110181"
         )
@@ -2076,13 +2098,7 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Cake", desc = "", value = "-1108244510"))]
     ItemPlainCake = -1108244510i32,
     #[strum(serialize = "ItemWreckageStructureWeatherStation004")]
-    #[strum(
-        props(
-            name = "Wreckage Structure Weather Station",
-            desc = "",
-            value = "-1104478996"
-        )
-    )]
+    #[strum(props(name = "Wreckage", desc = "", value = "-1104478996"))]
     ItemWreckageStructureWeatherStation004 = -1104478996i32,
     #[strum(serialize = "StructureCableFuse1k")]
     #[strum(props(name = "Fuse (1kW)", desc = "", value = "-1103727120"))]
@@ -2301,6 +2317,9 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemDynamicScrubber")]
     #[strum(props(name = "Kit (Portable Scrubber)", desc = "", value = "-971920158"))]
     ItemDynamicScrubber = -971920158i32,
+    #[strum(serialize = "ItemWaterBottlePackage")]
+    #[strum(props(name = "Water Bottle Package", desc = "", value = "-971586619"))]
+    ItemWaterBottlePackage = -971586619i32,
     #[strum(serialize = "StructureCondensationValve")]
     #[strum(
         props(
@@ -2337,7 +2356,7 @@ pub enum StationpediaPrefab {
     )]
     ItemKitRocketTransformerSmall = -932335800i32,
     #[strum(serialize = "CartridgeConfiguration")]
-    #[strum(props(name = "Configuration", desc = "", value = "-932136011"))]
+    #[strum(props(name = "Cartridge (Configuration)", desc = "", value = "-932136011"))]
     CartridgeConfiguration = -932136011i32,
     #[strum(serialize = "ItemSilverIngot")]
     #[strum(props(name = "Ingot (Silver)", desc = "", value = "-929742000"))]
@@ -2353,13 +2372,7 @@ pub enum StationpediaPrefab {
     )]
     StructureSmallTableRectangleSingle = -924678969i32,
     #[strum(serialize = "ItemWreckageStructureWeatherStation005")]
-    #[strum(
-        props(
-            name = "Wreckage Structure Weather Station",
-            desc = "",
-            value = "-919745414"
-        )
-    )]
+    #[strum(props(name = "Wreckage", desc = "", value = "-919745414"))]
     ItemWreckageStructureWeatherStation005 = -919745414i32,
     #[strum(serialize = "ItemSilverOre")]
     #[strum(
@@ -2465,7 +2478,7 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureChuteBin")]
     #[strum(
         props(
-            name = "Chute Bin",
+            name = "Chute Import Bin",
             desc = "The <link=Stationeers><color=#0080FFFF>Stationeer's</color></link> goal is to make off-world survival less of a struggle for themselves, and those who will follow in their footsteps.\nLike most <link=Recurso><color=#0080FFFF>Recurso</color></link>-designed systems, chute bins are simple and robust powered items, allowing items to be manually passed into chute networks by pulling a lever. They can also be programmed with <link=LogicUnitPage><color=#0080FFFF>logic</color></link> to operate automatically, although full automation requires the use items such as a <link=ThingStructureSDBHopper><color=green>SDB Hopper</color></link>.",
             value = "-850484480"
         )
@@ -2493,13 +2506,7 @@ pub enum StationpediaPrefab {
     )]
     ItemFlashlight = -838472102i32,
     #[strum(serialize = "ItemWreckageStructureWeatherStation001")]
-    #[strum(
-        props(
-            name = "Wreckage Structure Weather Station",
-            desc = "",
-            value = "-834664349"
-        )
-    )]
+    #[strum(props(name = "Wreckage", desc = "", value = "-834664349"))]
     ItemWreckageStructureWeatherStation001 = -834664349i32,
     #[strum(serialize = "ItemBiomass")]
     #[strum(
@@ -2650,15 +2657,6 @@ pub enum StationpediaPrefab {
         )
     )]
     StructurePowerConnector = -782951720i32,
-    #[strum(serialize = "StructureLiquidPipeOneWayValve")]
-    #[strum(
-        props(
-            name = "One Way Valve (Liquid)",
-            desc = "The one way valve moves liquid in one direction only: from input side to output side. It only permits flow if the input pressure is higher than output pressure..",
-            value = "-782453061"
-        )
-    )]
-    StructureLiquidPipeOneWayValve = -782453061i32,
     #[strum(serialize = "StructureWallLargePanelArrow")]
     #[strum(props(name = "Wall (Large Panel Arrow)", desc = "", value = "-776581573"))]
     StructureWallLargePanelArrow = -776581573i32,
@@ -2695,6 +2693,9 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureWaterBottleFillerPowered")]
     #[strum(props(name = "Waterbottle Filler", desc = "", value = "-756587791"))]
     StructureWaterBottleFillerPowered = -756587791i32,
+    #[strum(serialize = "ItemKitRobotArmDoor")]
+    #[strum(props(name = "Kit (Linear Rail Door)", desc = "", value = "-753675589"))]
+    ItemKitRobotArmDoor = -753675589i32,
     #[strum(serialize = "AppliancePackagingMachine")]
     #[strum(
         props(
@@ -2791,7 +2792,7 @@ pub enum StationpediaPrefab {
     )]
     StructureLogicTransmitter = -693235651i32,
     #[strum(serialize = "StructureValve")]
-    #[strum(props(name = "Valve", desc = "", value = "-692036078"))]
+    #[strum(props(name = "Valve (Gas)", desc = "", value = "-692036078"))]
     StructureValve = -692036078i32,
     #[strum(serialize = "StructureCompositeWindowIron")]
     #[strum(props(name = "Iron Window", desc = "", value = "-688284639"))]
@@ -2919,8 +2920,8 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureComputer")]
     #[strum(
         props(
-            name = "Computer",
-            desc = "In some ways a relic, the 'Chonk R1' was designed by severely conflicted <link=Norsec><color=#0080FFFF>Norsec</color></link> technicians, who needed a unit that could operate with a wide range of <link=LogicUnitPage><color=#0080FFFF>motherboards</color></link>, while also enduring the worst a new Cadet could throw at it.\nThe result is a machine described by some as 'the only PC likely to survive our collision with a black hole', while other, less appreciative users regard it as sharing most of its technological DNA with a cheese grater.\nCompatible motherboards:\n- <link=ThingMotherboardLogic><color=green>Logic Motherboard</color></link>\n- <link=ThingMotherboardManufacturing><color=green>Manufacturing Motherboard</color></link>\n- <link=ThingMotherboardSorter><color=green>Sorter Motherboard</color></link>\n- <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link>\n- <link=ThingMotherboardProgrammableChip><color=green>IC Editor Motherboard</color></link>",
+            name = "Computer (Modern)",
+            desc = "This unit operates with a wide range of <link=LogicUnitPage><color=#0080FFFF>motherboards</color></link>.",
             value = "-626563514"
         )
     )]
@@ -3082,6 +3083,9 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemEggCarton = -524289310i32,
+    #[strum(serialize = "StructurePipeLiquidOneWayValveLever")]
+    #[strum(props(name = "One Way Valve (Liquid)", desc = "", value = "-523832822"))]
+    StructurePipeLiquidOneWayValveLever = -523832822i32,
     #[strum(serialize = "StructureWaterDigitalValve")]
     #[strum(props(name = "Liquid Digital Valve", desc = "", value = "-517628750"))]
     StructureWaterDigitalValve = -517628750i32,
@@ -3127,6 +3131,9 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemIronSheets")]
     #[strum(props(name = "Iron Sheets", desc = "", value = "-487378546"))]
     ItemIronSheets = -487378546i32,
+    #[strum(serialize = "StructureReinforcedWall")]
+    #[strum(props(name = "Reinforced Wall", desc = "", value = "-475746988"))]
+    StructureReinforcedWall = -475746988i32,
     #[strum(serialize = "ItemGasCanisterVolatiles")]
     #[strum(props(name = "Canister (Volatiles)", desc = "", value = "-472094806"))]
     ItemGasCanisterVolatiles = -472094806i32,
@@ -3190,6 +3197,9 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureVendingMachine = -443130773i32,
+    #[strum(serialize = "ItemKitLinearRail")]
+    #[strum(props(name = "Kit (Linear Rail)", desc = "", value = "-441759975"))]
+    ItemKitLinearRail = -441759975i32,
     #[strum(serialize = "StructurePipeHeater")]
     #[strum(
         props(
@@ -3229,6 +3239,15 @@ pub enum StationpediaPrefab {
         )
     )]
     CircuitboardCameraDisplay = -412104504i32,
+    #[strum(serialize = "StructureComputerUpright")]
+    #[strum(
+        props(
+            name = "Computer (Retro)",
+            desc = "This unit operates with a wide range of <link=LogicUnitPage><color=#0080FFFF>motherboards</color></link>.",
+            value = "-405593895"
+        )
+    )]
+    StructureComputerUpright = -405593895i32,
     #[strum(serialize = "ItemCopperIngot")]
     #[strum(
         props(
@@ -3238,6 +3257,9 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemCopperIngot = -404336834i32,
+    #[strum(serialize = "ItemCerealBarBox")]
+    #[strum(props(name = "Cereal Bar Box", desc = "", value = "-401648353"))]
+    ItemCerealBarBox = -401648353i32,
     #[strum(serialize = "ReagentColorOrange")]
     #[strum(props(name = "Color Dye (Orange)", desc = "", value = "-400696159"))]
     ReagentColorOrange = -400696159i32,
@@ -3359,7 +3381,7 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Communications Motherboard",
-            desc = "When placed in a <link=ThingStructureComputer><color=green>Computer</color></link> and connected to a <link=ThingLandingpad_DataConnectionPiece><color=green>Landingpad Data And Power</color></link>, a <link=ThingStructureSatelliteDish><color=green>Medium Satellite Dish</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link> allows Stationeers to trade with suppliers. Adjust the horizontal and vertical attributes of the <link=ThingStructureSatelliteDish><color=green>Medium Satellite Dish</color></link> either directly or through logic. You need a communications signal of 95% or above to establish reliable communications with a trader. A minimum of a 3x3 clear pad area with a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link> at the center is required for a trader to land.",
+            desc = "When placed in a <link=ThingStructureComputer><color=green>Computer (Modern)</color></link> and connected to a <link=ThingLandingpad_DataConnectionPiece><color=green>Landingpad Data And Power</color></link>, a <link=ThingStructureSatelliteDish><color=green>Medium Satellite Dish</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link> allows Stationeers to trade with suppliers. Adjust the horizontal and vertical attributes of the <link=ThingStructureSatelliteDish><color=green>Medium Satellite Dish</color></link> either directly or through logic. You need a communications signal of 95% or above to establish reliable communications with a trader. A minimum of a 3x3 clear pad area with a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link> at the center is required for a trader to land.",
             value = "-337075633"
         )
     )]
@@ -3379,7 +3401,7 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Portable Gas Tank (CO2)",
-            desc = "Portable gas tanks do one thing: store gas. To refill the tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or ... boom. Once it's full, you can refill a <link=ThingItemGasCanisterCarbonDioxide><color=green>Canister (CO2)</color></link> by attaching it to the tank's striped section. Or you could vent the tank's variable flow rate valve into a room and create an atmosphere ... of sorts.",
+            desc = "Portable gas tanks do one thing: store gas. To refill the tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or... boom. Once it's full, you can refill a <link=ThingItemGasCanisterCarbonDioxide><color=green>Canister (CO2)</color></link> by attaching it to the tank's striped section. Or you could vent the tank's variable flow rate valve into a room and create an atmosphere... of sorts.",
             value = "-322413931"
         )
     )]
@@ -3415,7 +3437,7 @@ pub enum StationpediaPrefab {
     )]
     ElectronicPrinterMod = -311170652i32,
     #[strum(serialize = "ItemWreckageHydroponicsTray1")]
-    #[strum(props(name = "Wreckage Hydroponics Tray", desc = "", value = "-310178617"))]
+    #[strum(props(name = "Wreckage", desc = "", value = "-310178617"))]
     ItemWreckageHydroponicsTray1 = -310178617i32,
     #[strum(serialize = "ItemKitRocketCelestialTracker")]
     #[strum(
@@ -3449,6 +3471,9 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureLiquidPipeHeater = -287495560i32,
+    #[strum(serialize = "StructureRoboticArmRailInnerCorner")]
+    #[strum(props(name = "Linear Rail Inner Corner", desc = "", value = "-267108827"))]
+    StructureRoboticArmRailInnerCorner = -267108827i32,
     #[strum(serialize = "ItemChocolateCake")]
     #[strum(props(name = "Chocolate Cake", desc = "", value = "-261575861"))]
     ItemChocolateCake = -261575861i32,
@@ -3456,7 +3481,7 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Stirling Engine",
-            desc = "Harnessing an ancient thermal exploit, the <link=Recurso><color=#0080FFFF>Recurso</color></link> 'Libra' Stirling Engine generates power via the expansion and contraction of a working gas to drive pistons operating an electrical generator.\n      \nWhen high pressure hot gas is supplied into the input pipe, this gas will heat the hot side of the unit, then pass into the output pipe. The cooler side uses the room's ambient atmosphere, which must be kept at a lower temperature and pressure in order to create a differential. Add a working gas by inserting a <link=SlotGasCanister><color=orange>Gas Canister</color></link>. The unit must be deactivated when adding or removing canisters, or the working gas may leak into the surrounding atmosphere.\n \nGases with a low molecular mass make the most efficient working gases. Increasing the moles of working gas can result in a greater potential power output. However, overpressuring the unit may have ... sub-optimal results.",
+            desc = "Harnessing an ancient thermal exploit, the <link=Recurso><color=#0080FFFF>Recurso</color></link> 'Libra' Stirling Engine generates power via the expansion and contraction of a working gas to drive pistons operating an electrical generator.\n      \nWhen high pressure hot gas is supplied into the input pipe, this gas will heat the hot side of the unit, then pass into the output pipe. The cooler side uses the room's ambient atmosphere, which must be kept at a lower temperature and pressure in order to create a differential. Add a working gas by inserting a <link=SlotGasCanister><color=orange>Gas Canister</color></link>. The unit must be deactivated when adding or removing canisters, or the working gas may leak into the surrounding atmosphere.\n \nGases with a low molecular mass make the most efficient working gases. Increasing the moles of working gas can result in a greater potential power output. However, overpressuring the unit may have... sub-optimal results.",
             value = "-260316435"
         )
     )]
@@ -3491,7 +3516,7 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Handheld Tablet",
-            desc = "The <link=Xigo><color=#0080FFFF>Xigo</color></link> handheld 'Padi' tablet is an all-purpose data platform, provided as standard issue to all <link=Stationeers><color=#0080FFFF>Stationeers</color></link>. A dynamic multi-tool that accepts a range of <link=CartridgePage><color=#0080FFFF>cartridges</color></link>, the Padi becomes an <link=ThingCartridgeAtmosAnalyser><color=green>Atmos Analyzer</color></link> or <link=ThingCartridgeTracker><color=green>Tracker</color></link>, <link=ThingCartridgeMedicalAnalyser><color=green>Medical Analyzer</color></link>, <link=ThingCartridgeOreScanner><color=green>Ore Scanner</color></link>, <link=ThingCartridgeElectronicReader><color=green>eReader</color></link>, and various other functions.",
+            desc = "The <link=Xigo><color=#0080FFFF>Xigo</color></link> handheld 'Padi' tablet is an all-purpose data platform, provided as standard issue to all <link=Stationeers><color=#0080FFFF>Stationeers</color></link>. A dynamic multi-tool that accepts a range of <link=CartridgePage><color=#0080FFFF>cartridges</color></link>, the Padi becomes an <link=ThingCartridgeAtmosAnalyser><color=green>Cartridge (Atmos Analyzer)</color></link> or <link=ThingCartridgeTracker><color=green>Cartridge (Tracker)</color></link>, <link=ThingCartridgeMedicalAnalyser><color=green>Cartridge (Medical Analyzer)</color></link>, <link=ThingCartridgeOreScanner><color=green>Cartridge (Ore Scanner)</color></link>, <link=ThingCartridgeElectronicReader><color=green>Cartridge (eReader)</color></link>, and various other functions.",
             value = "-229808600"
         )
     )]
@@ -3575,7 +3600,7 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "IC Editor Motherboard",
-            desc = "When placed in a <link=ThingStructureComputer><color=green>Computer</color></link>, the IC Editor allows players to write and edit IC code, which can then be uploaded to a <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> if housed in an <link=ThingStructureCircuitHousing><color=green>IC Housing</color></link>.",
+            desc = "When placed in a <link=ThingStructureComputer><color=green>Computer (Modern)</color></link>, the IC Editor allows players to write and edit IC code, which can then be uploaded to a <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> if housed in an <link=ThingStructureCircuitHousing><color=green>IC Housing</color></link>.",
             value = "-161107071"
         )
     )]
@@ -3707,6 +3732,9 @@ pub enum StationpediaPrefab {
         props(name = "Kitchen Table (Simple Short)", desc = "", value = "-78099334")
     )]
     KitchenTableSimpleShort = -78099334i32,
+    #[strum(serialize = "ItemCerealBarBag")]
+    #[strum(props(name = "Cereal Bar Bag", desc = "", value = "-75205276"))]
+    ItemCerealBarBag = -75205276i32,
     #[strum(serialize = "ImGuiCircuitboardAirlockControl")]
     #[strum(props(name = "Airlock (Experimental)", desc = "", value = "-73796547"))]
     ImGuiCircuitboardAirlockControl = -73796547i32,
@@ -3785,6 +3813,9 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureWallPaddedWindowThin")]
     #[strum(props(name = "Wall (Padded Window Thin)", desc = "", value = "-37302931"))]
     StructureWallPaddedWindowThin = -37302931i32,
+    #[strum(serialize = "StructureRoboticArmRailOuterCorner")]
+    #[strum(props(name = "Linear Rail Outer Corner", desc = "", value = "-33470826"))]
+    StructureRoboticArmRailOuterCorner = -33470826i32,
     #[strum(serialize = "StructureInsulatedTankConnector")]
     #[strum(props(name = "Insulated Tank Connector", desc = "", value = "-31273349"))]
     StructureInsulatedTankConnector = -31273349i32,
@@ -3835,12 +3866,10 @@ pub enum StationpediaPrefab {
     )]
     ItemPureIcePollutant = -1755356i32,
     #[strum(serialize = "ItemWreckageLargeExtendableRadiator01")]
-    #[strum(
-        props(name = "Wreckage Large Extendable Radiator", desc = "", value = "-997763")
-    )]
+    #[strum(props(name = "Wreckage", desc = "", value = "-997763"))]
     ItemWreckageLargeExtendableRadiator01 = -997763i32,
     #[strum(serialize = "StructureSingleBed")]
-    #[strum(props(name = "Single Bed", desc = "Description coming.", value = "-492611"))]
+    #[strum(props(name = "Single Bed", desc = "", value = "-492611"))]
     StructureSingleBed = -492611i32,
     #[strum(serialize = "StructureCableCorner3HBurnt")]
     #[strum(
@@ -3971,7 +4000,7 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Canister", desc = "", value = "42280099"))]
     ItemGasCanisterEmpty = 42280099i32,
     #[strum(serialize = "ItemWreckageWallCooler2")]
-    #[strum(props(name = "Wreckage Wall Cooler", desc = "", value = "45733800"))]
+    #[strum(props(name = "Wreckage", desc = "", value = "45733800"))]
     ItemWreckageWallCooler2 = 45733800i32,
     #[strum(serialize = "ItemPumpkinPie")]
     #[strum(props(name = "Pumpkin Pie", desc = "", value = "62768076"))]
@@ -3992,13 +4021,13 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Kit (Docking Port)", desc = "", value = "77421200"))]
     ItemKitDockingPort = 77421200i32,
     #[strum(serialize = "CartridgeTracker")]
-    #[strum(props(name = "Tracker", desc = "", value = "81488783"))]
+    #[strum(props(name = "Cartridge (Tracker)", desc = "", value = "81488783"))]
     CartridgeTracker = 81488783i32,
     #[strum(serialize = "ToyLuna")]
     #[strum(props(name = "Toy Luna", desc = "", value = "94730034"))]
     ToyLuna = 94730034i32,
     #[strum(serialize = "ItemWreckageTurbineGenerator2")]
-    #[strum(props(name = "Wreckage Turbine Generator", desc = "", value = "98602599"))]
+    #[strum(props(name = "Wreckage", desc = "", value = "98602599"))]
     ItemWreckageTurbineGenerator2 = 98602599i32,
     #[strum(serialize = "StructurePowerUmbilicalFemale")]
     #[strum(props(name = "Umbilical Socket (Power)", desc = "", value = "101488029"))]
@@ -4165,7 +4194,7 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Kit (Door)", desc = "", value = "168615924"))]
     ItemKitDoor = 168615924i32,
     #[strum(serialize = "ItemWreckageAirConditioner2")]
-    #[strum(props(name = "Wreckage Air Conditioner", desc = "", value = "169888054"))]
+    #[strum(props(name = "Wreckage", desc = "", value = "169888054"))]
     ItemWreckageAirConditioner2 = 169888054i32,
     #[strum(serialize = "Landingpad_GasCylinderTankPiece")]
     #[strum(
@@ -4312,7 +4341,7 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Chocolate Bar", desc = "", value = "234601764"))]
     ItemChocolateBar = 234601764i32,
     #[strum(serialize = "ItemExplosive")]
-    #[strum(props(name = "Remote Explosive", desc = "", value = "235361649"))]
+    #[strum(props(name = "Demolition Charge", desc = "", value = "235361649"))]
     ItemExplosive = 235361649i32,
     #[strum(serialize = "StructureConsole")]
     #[strum(
@@ -4326,8 +4355,8 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemPassiveVent")]
     #[strum(
         props(
-            name = "Passive Vent",
-            desc = "This kit creates a <link=ThingItemPassiveVent><color=green>Passive Vent</color></link> among other variants.",
+            name = "Kit (Passive Vent)",
+            desc = "This kit creates a <link=ThingItemPassiveVent><color=green>Kit (Passive Vent)</color></link> among other variants.",
             value = "238631271"
         )
     )]
@@ -4620,6 +4649,9 @@ pub enum StationpediaPrefab {
         )
     )]
     StructurePressureFedLiquidEngine = 379750958i32,
+    #[strum(serialize = "ItemMiningPackage")]
+    #[strum(props(name = "Mining Supplies Package", desc = "", value = "384478267"))]
+    ItemMiningPackage = 384478267i32,
     #[strum(serialize = "ItemPureIceNitrous")]
     #[strum(
         props(
@@ -4644,7 +4676,7 @@ pub enum StationpediaPrefab {
     )]
     ItemMkiiDuctTape = 388774906i32,
     #[strum(serialize = "ItemWreckageStructureRTG1")]
-    #[strum(props(name = "Wreckage Structure RTG", desc = "", value = "391453348"))]
+    #[strum(props(name = "Wreckage", desc = "", value = "391453348"))]
     ItemWreckageStructureRtg1 = 391453348i32,
     #[strum(serialize = "ItemPipeLabel")]
     #[strum(
@@ -4723,7 +4755,7 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Pipe Analyzer",
-            desc = "Allegedly the outcome of a weekend father-daughter electronics project by an overzealous {<link=ExMin><color=#0080FFFF>ExMin</color></link> engineer, the pipe analyzer is essentially a more advanced version of the <link=ThingStructurePipeMeter><color=green>Pipe Meter</color></link>.\nDisplaying the internal pressure of pipe networks, it  also reads out temperature and gas contents, and can be connected to a <link=ThingStructureConsole><color=green>Console</color></link> or <link=ThingStructureComputer><color=green>Computer</color></link> via a {<link=LogicPage><color=#0080FFFF>Logic</color></link> system.",
+            desc = "Allegedly the outcome of a weekend father-daughter electronics project by an overzealous {<link=ExMin><color=#0080FFFF>ExMin</color></link> engineer, the pipe analyzer is essentially a more advanced version of the <link=ThingStructurePipeMeter><color=green>Pipe Meter</color></link>.\nDisplaying the internal pressure of pipe networks, it  also reads out temperature and gas contents, and can be connected to a <link=ThingStructureConsole><color=green>Console</color></link> or <link=ThingStructureComputer><color=green>Computer (Modern)</color></link> via a {<link=LogicPage><color=#0080FFFF>Logic</color></link> system.",
             value = "435685051"
         )
     )]
@@ -4735,7 +4767,7 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Medium Satellite Dish",
-            desc = "This medium communications unit can be used to communicate with nearby trade vessels.\n      \nWhen connected to a <link=ThingStructureComputer><color=green>Computer</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic.",
+            desc = "This medium communications unit can be used to communicate with nearby trade vessels.\n      \nWhen connected to a <link=ThingStructureComputer><color=green>Computer (Modern)</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic.",
             value = "439026183"
         )
     )]
@@ -4855,7 +4887,7 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Logic Motherboard",
-            desc = "Motherboards are connected to <link=ThingStructureComputer><color=green>Computer</color></link>s to perform various technical functions.\nThe <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> K-cops logic motherboard allows <link=Stationeers><color=#0080FFFF>Stationeers</color></link> to set variables and actions on specific <link=LogicUnitPage><color=#0080FFFF>logic</color></link>-controlled items.",
+            desc = "Motherboards are connected to <link=ThingStructureComputer><color=green>Computer (Modern)</color></link>s to perform various technical functions.\nThe <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> K-cops logic motherboard allows <link=Stationeers><color=#0080FFFF>Stationeers</color></link> to set variables and actions on specific <link=LogicUnitPage><color=#0080FFFF>logic</color></link>-controlled items.",
             value = "502555944"
         )
     )]
@@ -4863,6 +4895,11 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureStairwellBackLeft")]
     #[strum(props(name = "Stairwell (Back Left)", desc = "", value = "505924160"))]
     StructureStairwellBackLeft = 505924160i32,
+    #[strum(serialize = "ItemResidentialPackage")]
+    #[strum(
+        props(name = "Residential Supplies Package", desc = "", value = "509629504")
+    )]
+    ItemResidentialPackage = 509629504i32,
     #[strum(serialize = "ItemKitAccessBridge")]
     #[strum(props(name = "Kit (Access Bridge)", desc = "", value = "513258369"))]
     ItemKitAccessBridge = 513258369i32,
@@ -4903,13 +4940,7 @@ pub enum StationpediaPrefab {
     )]
     ItemPureIceLiquidOxygen = 541621589i32,
     #[strum(serialize = "ItemWreckageStructureWeatherStation003")]
-    #[strum(
-        props(
-            name = "Wreckage Structure Weather Station",
-            desc = "",
-            value = "542009679"
-        )
-    )]
+    #[strum(props(name = "Wreckage", desc = "", value = "542009679"))]
     ItemWreckageStructureWeatherStation003 = 542009679i32,
     #[strum(serialize = "StructureInLineTankLiquid1x1")]
     #[strum(
@@ -5056,13 +5087,7 @@ pub enum StationpediaPrefab {
     )]
     ItemRocketMiningDrillHeadHighSpeedIce = 653461728i32,
     #[strum(serialize = "ItemWreckageStructureWeatherStation007")]
-    #[strum(
-        props(
-            name = "Wreckage Structure Weather Station",
-            desc = "",
-            value = "656649558"
-        )
-    )]
+    #[strum(props(name = "Wreckage", desc = "", value = "656649558"))]
     ItemWreckageStructureWeatherStation007 = 656649558i32,
     #[strum(serialize = "ItemRice")]
     #[strum(
@@ -5092,7 +5117,9 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Space Ice", desc = "", value = "675686937"))]
     ItemSpaceIce = 675686937i32,
     #[strum(serialize = "ItemRemoteDetonator")]
-    #[strum(props(name = "Remote Detonator", desc = "", value = "678483886"))]
+    #[strum(
+        props(name = "Remote Detonator", desc = "0.Mode0\n1.Mode1", value = "678483886")
+    )]
     ItemRemoteDetonator = 678483886i32,
     #[strum(serialize = "ItemCocoaTree")]
     #[strum(props(name = "Cocoa", desc = "", value = "680051921"))]
@@ -5128,9 +5155,7 @@ pub enum StationpediaPrefab {
     )]
     StructureCentrifuge = 690945935i32,
     #[strum(serialize = "StructureBlockBed")]
-    #[strum(
-        props(name = "Block Bed", desc = "Description coming.", value = "697908419")
-    )]
+    #[strum(props(name = "Block Bed", desc = "", value = "697908419"))]
     StructureBlockBed = 697908419i32,
     #[strum(serialize = "ItemBatteryCell")]
     #[strum(
@@ -5221,6 +5246,15 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "WeaponEnergy")]
     #[strum(props(name = "Weapon Energy", desc = "", value = "789494694"))]
     WeaponEnergy = 789494694i32,
+    #[strum(serialize = "StructureCompositeWindowShutterConnector")]
+    #[strum(
+        props(
+            name = "Composite Window Shutter Connector",
+            desc = "",
+            value = "791407452"
+        )
+    )]
+    StructureCompositeWindowShutterConnector = 791407452i32,
     #[strum(serialize = "ItemCerealBar")]
     #[strum(
         props(
@@ -5249,7 +5283,7 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Kit (Pipe Valve)",
-            desc = "This kit creates a <link=ThingStructureValve><color=green>Valve</color></link>.",
+            desc = "This kit creates a <link=ThingStructureValve><color=green>Valve (Gas)</color></link>.",
             value = "799323450"
         )
     )]
@@ -5349,6 +5383,9 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureCompositeCladdingAngledCornerLong = 850558385i32,
+    #[strum(serialize = "ItemEmergencySuppliesBox")]
+    #[strum(props(name = "Emergency Supplies", desc = "", value = "851103794"))]
+    ItemEmergencySuppliesBox = 851103794i32,
     #[strum(serialize = "ItemPlantEndothermic_Genepool1")]
     #[strum(
         props(
@@ -5401,7 +5438,7 @@ pub enum StationpediaPrefab {
     )]
     ItemRoadFlare = 871811564i32,
     #[strum(serialize = "CartridgeGuide")]
-    #[strum(props(name = "Guide", desc = "", value = "872720793"))]
+    #[strum(props(name = "Cartridge (Guide)", desc = "", value = "872720793"))]
     CartridgeGuide = 872720793i32,
     #[strum(serialize = "StructureLogicSorter")]
     #[strum(
@@ -5841,7 +5878,7 @@ pub enum StationpediaPrefab {
     )]
     LandingpadCrossPiece = 1101296153i32,
     #[strum(serialize = "CartridgePlantAnalyser")]
-    #[strum(props(name = "Cartridge Plant Analyser", desc = "", value = "1101328282"))]
+    #[strum(props(name = "Cartridge (Plant Analyser)", desc = "", value = "1101328282"))]
     CartridgePlantAnalyser = 1101328282i32,
     #[strum(serialize = "ItemSiliconOre")]
     #[strum(
@@ -6053,7 +6090,7 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Ice (Volatiles)",
-            desc = "An extremely reactive ice with numerous hydrocarbons trapped inside. For simplicity's sake, these are often displayed as H2 by devices like the <link=ThingCartridgeAtmosAnalyser><color=green>Atmos Analyzer</color></link>.\n      \n<link=GasVolatiles><color=#44AD83>Volatiles</color></link> combust in a 2:1 ratio with <link=GasOxygen><color=#44AD83>Oxygen</color></link>, creating <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> and pollutants. However when catalysed via devices such as the <link=ThingH2Combustor><color=green>H2 Combustor</color></link> in the presence of <link=GasOxygen><color=#44AD83>Oxygen</color></link>, they produce\n        <link=GasSteam><color=#44AD83>Steam</color></link> and heat with a modicum of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> and <link=GasPollutant><color=#44AD83>Pollutant</color></link> due to the autoignition of the volatiles in the chamber. Along with <link=GasOxygen><color=#44AD83>Oxygen</color></link>, volatiles gas is also the major component of fuel for such devices as the <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link>.\n",
+            desc = "An extremely reactive ice with numerous hydrocarbons trapped inside. For simplicity's sake, these are often displayed as H2 by devices like the <link=ThingCartridgeAtmosAnalyser><color=green>Cartridge (Atmos Analyzer)</color></link>.\n      \n<link=GasVolatiles><color=#44AD83>Volatiles</color></link> combust in a 2:1 ratio with <link=GasOxygen><color=#44AD83>Oxygen</color></link>, creating <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> and pollutants. However when catalysed via devices such as the <link=ThingH2Combustor><color=green>H2 Combustor</color></link> in the presence of <link=GasOxygen><color=#44AD83>Oxygen</color></link>, they produce\n        <link=GasSteam><color=#44AD83>Steam</color></link> and heat with a modicum of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> and <link=GasPollutant><color=#44AD83>Pollutant</color></link> due to the autoignition of the volatiles in the chamber. Along with <link=GasOxygen><color=#44AD83>Oxygen</color></link>, volatiles gas is also the major component of fuel for such devices as the <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link>.\n",
             value = "1253102035"
         )
     )]
@@ -6131,6 +6168,9 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureWallIron")]
     #[strum(props(name = "Iron Wall (Type 1)", desc = "", value = "1287324802"))]
     StructureWallIron = 1287324802i32,
+    #[strum(serialize = "StructurePipeOneWayValveLever")]
+    #[strum(props(name = "One Way Valve (Gas)", desc = "", value = "1289581593"))]
+    StructurePipeOneWayValveLever = 1289581593i32,
     #[strum(serialize = "ItemSprayGun")]
     #[strum(
         props(
@@ -6243,13 +6283,7 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Graph Display", desc = "", value = "1344368806"))]
     CircuitboardGraphDisplay = 1344368806i32,
     #[strum(serialize = "ItemWreckageStructureWeatherStation006")]
-    #[strum(
-        props(
-            name = "Wreckage Structure Weather Station",
-            desc = "",
-            value = "1344576960"
-        )
-    )]
+    #[strum(props(name = "Wreckage", desc = "", value = "1344576960"))]
     ItemWreckageStructureWeatherStation006 = 1344576960i32,
     #[strum(serialize = "ItemCookedCorn")]
     #[strum(
@@ -6384,13 +6418,7 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Water Bottle Filler Bottom", desc = "", value = "1433754995"))]
     StructureWaterBottleFillerBottom = 1433754995i32,
     #[strum(serialize = "StructureLightRoundSmall")]
-    #[strum(
-        props(
-            name = "Light Round (Small)",
-            desc = "Description coming.",
-            value = "1436121888"
-        )
-    )]
+    #[strum(props(name = "Light Round (Small)", desc = "", value = "1436121888"))]
     StructureLightRoundSmall = 1436121888i32,
     #[strum(serialize = "ItemRocketMiningDrillHeadHighSpeedMineral")]
     #[strum(
@@ -6432,17 +6460,14 @@ pub enum StationpediaPrefab {
         props(name = "Kit (Medium Radiator Liquid)", desc = "", value = "1453961898")
     )]
     ItemKitPassiveLargeRadiatorLiquid = 1453961898i32,
+    #[strum(serialize = "ItemPortablesPackage")]
+    #[strum(props(name = "Portables Package", desc = "", value = "1459105919"))]
+    ItemPortablesPackage = 1459105919i32,
     #[strum(serialize = "ItemKitReinforcedWindows")]
-    #[strum(props(name = "Kit (Reinforced Windows)", desc = "", value = "1459985302"))]
+    #[strum(props(name = "Kit (Reinforced Walls)", desc = "", value = "1459985302"))]
     ItemKitReinforcedWindows = 1459985302i32,
     #[strum(serialize = "ItemWreckageStructureWeatherStation002")]
-    #[strum(
-        props(
-            name = "Wreckage Structure Weather Station",
-            desc = "",
-            value = "1464424921"
-        )
-    )]
+    #[strum(props(name = "Wreckage", desc = "", value = "1464424921"))]
     ItemWreckageStructureWeatherStation002 = 1464424921i32,
     #[strum(serialize = "StructureHydroponicsTray")]
     #[strum(
@@ -6477,6 +6502,12 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureTorpedoRack")]
     #[strum(props(name = "Torpedo Rack", desc = "", value = "1473807953"))]
     StructureTorpedoRack = 1473807953i32,
+    #[strum(serialize = "ItemWaterBottleBag")]
+    #[strum(props(name = "Water Bottle Bag", desc = "", value = "1476318823"))]
+    ItemWaterBottleBag = 1476318823i32,
+    #[strum(serialize = "ItemInsulatedCanisterPackage")]
+    #[strum(props(name = "Insulated Canister Package", desc = "", value = "1485675617"))]
+    ItemInsulatedCanisterPackage = 1485675617i32,
     #[strum(serialize = "StructureWallIron02")]
     #[strum(props(name = "Iron Wall (Type 2)", desc = "", value = "1485834215"))]
     StructureWallIron02 = 1485834215i32,
@@ -6496,9 +6527,7 @@ pub enum StationpediaPrefab {
     )]
     ItemSprayCanRed = 1514393921i32,
     #[strum(serialize = "StructureLightRound")]
-    #[strum(
-        props(name = "Light Round", desc = "Description coming.", value = "1514476632")
-    )]
+    #[strum(props(name = "Light Round", desc = "", value = "1514476632"))]
     StructureLightRound = 1514476632i32,
     #[strum(serialize = "Fertilizer")]
     #[strum(
@@ -6590,15 +6619,9 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemHastelloyIngot")]
     #[strum(props(name = "Ingot (Hastelloy)", desc = "", value = "1579842814"))]
     ItemHastelloyIngot = 1579842814i32,
-    #[strum(serialize = "StructurePipeOneWayValve")]
-    #[strum(
-        props(
-            name = "One Way Valve (Gas)",
-            desc = "The one way valve moves gas in one direction only: from input side to output side. It only permits flow if the input pressure is higher than output pressure.\n",
-            value = "1580412404"
-        )
-    )]
-    StructurePipeOneWayValve = 1580412404i32,
+    #[strum(serialize = "StructureCompositeWindowShutter")]
+    #[strum(props(name = "Composite Window Shutter", desc = "", value = "1580592998"))]
+    StructureCompositeWindowShutter = 1580592998i32,
     #[strum(serialize = "StructureStackerReverse")]
     #[strum(
         props(
@@ -6624,13 +6647,7 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Wall (Padded Arch)", desc = "", value = "1590330637"))]
     StructureWallPaddedArch = 1590330637i32,
     #[strum(serialize = "StructureLightRoundAngled")]
-    #[strum(
-        props(
-            name = "Light Round (Angled)",
-            desc = "Description coming.",
-            value = "1592905386"
-        )
-    )]
+    #[strum(props(name = "Light Round (Angled)", desc = "", value = "1592905386"))]
     StructureLightRoundAngled = 1592905386i32,
     #[strum(serialize = "StructureWallGeometryT")]
     #[strum(props(name = "Wall (Geometry T)", desc = "", value = "1602758612"))]
@@ -6644,7 +6661,7 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "CartridgeNetworkAnalyser")]
     #[strum(
         props(
-            name = "Network Analyzer",
+            name = "Cartridge (Network Analyzer)",
             desc = "A minor masterpiece of micro-electronic engineering, the network analyzer displays the current, voltage and wattage of a cable network, as well as any devices connected to it. Based on a widely-copied <link=Sinotai><color=#0080FFFF>Sinotai</color></link> design, it's used in conjunction with the OreCore <link=ThingItemTablet><color=green>Handheld Tablet</color></link>.",
             value = "1606989119"
         )
@@ -6750,13 +6767,7 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Emergency Tool Belt", desc = "", value = "1661941301"))]
     ItemEmergencyToolBelt = 1661941301i32,
     #[strum(serialize = "StructureEmergencyButton")]
-    #[strum(
-        props(
-            name = "Important Button",
-            desc = "Description coming.",
-            value = "1668452680"
-        )
-    )]
+    #[strum(props(name = "Important Button", desc = "", value = "1668452680"))]
     StructureEmergencyButton = 1668452680i32,
     #[strum(serialize = "ItemKitAutoMinerSmall")]
     #[strum(props(name = "Kit (Autominer Small)", desc = "", value = "1668815415"))]
@@ -6881,7 +6892,7 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Advanced Tablet",
-            desc = "The advanced <link=Xigo><color=#0080FFFF>Xigo</color></link> Padi 2 tablet is an improved version of the basic <link=ThingItemTablet><color=green>Handheld Tablet</color></link>, boasting two <link=CartridgePage><color=#0080FFFF>cartridge</color></link> slots. The Padi 2 accepts <link=ThingCartridgeAtmosAnalyser><color=green>Atmos Analyzer</color></link>, <link=ThingCartridgeTracker><color=green>Tracker</color></link>, <link=ThingCartridgeMedicalAnalyser><color=green>Medical Analyzer</color></link>, <link=ThingCartridgeOreScanner><color=green>Ore Scanner</color></link>, <link=ThingCartridgeElectronicReader><color=green>eReader</color></link>, and various other cartridges.\n\t  \n\t  With a <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> in the <link=SlotProgrammableChip><color=orange>Programmable Chip</color></link>, you can access variable slots on the carrying human using the device numbers (d0, d1, etc...), so long as the item can be access via logic, such as the <link=ThingItemHardSuit><color=green>Hardsuit</color></link>.Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>",
+            desc = "The advanced <link=Xigo><color=#0080FFFF>Xigo</color></link> Padi 2 tablet is an improved version of the basic <link=ThingItemTablet><color=green>Handheld Tablet</color></link>, boasting two <link=CartridgePage><color=#0080FFFF>cartridge</color></link> slots. The Padi 2 accepts <link=ThingCartridgeAtmosAnalyser><color=green>Cartridge (Atmos Analyzer)</color></link>, <link=ThingCartridgeTracker><color=green>Cartridge (Tracker)</color></link>, <link=ThingCartridgeMedicalAnalyser><color=green>Cartridge (Medical Analyzer)</color></link>, <link=ThingCartridgeOreScanner><color=green>Cartridge (Ore Scanner)</color></link>, <link=ThingCartridgeElectronicReader><color=green>Cartridge (eReader)</color></link>, and various other cartridges.\n\t  \n\t  With a <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> in the <link=SlotProgrammableChip><color=orange>Programmable Chip</color></link>, you can access variable slots on the carrying human using the device numbers (d0, d1, etc...), so long as the item can be access via logic, such as the <link=ThingItemHardSuit><color=green>Hardsuit</color></link>.Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>",
             value = "1722785341"
         )
     )]
@@ -6919,7 +6930,7 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "CartridgeOreScannerColor")]
     #[strum(
         props(
-            name = "Ore Scanner (Color)",
+            name = "Cartridge (Ore Scanner Color)",
             desc = "When inserted into a <link=ThingItemTablet><color=green>Handheld Tablet</color></link> the scanner will display minerals hidden underground in different colors on the tablet.",
             value = "1738236580"
         )
@@ -6943,7 +6954,7 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemAreaPowerControl")]
     #[strum(
         props(
-            name = "Kit (Power Controller)",
+            name = "Kit (Area Power Controller)",
             desc = "This kit places a <link=ThingStructureAreaPowerControl><color=green>Area Power Control</color></link> (APC) on any support structure. The APC kit has two options, selecting which direction you would like the APC power to flow.",
             value = "1757673317"
         )
@@ -6977,7 +6988,9 @@ pub enum StationpediaPrefab {
     )]
     StructureWallPaddedThinNoBorderCorner = 1769527556i32,
     #[strum(serialize = "ItemKitWindowShutter")]
-    #[strum(props(name = "Kit (Window Shutter)", desc = "", value = "1779979754"))]
+    #[strum(
+        props(name = "Kit (Composite Window Shutter)", desc = "", value = "1779979754")
+    )]
     ItemKitWindowShutter = 1779979754i32,
     #[strum(serialize = "StructureRocketManufactory")]
     #[strum(props(name = "Rocket Manufactory", desc = "", value = "1781051034"))]
@@ -7000,6 +7013,11 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemCoffeeMug")]
     #[strum(props(name = "Coffee Mug", desc = "", value = "1800622698"))]
     ItemCoffeeMug = 1800622698i32,
+    #[strum(serialize = "StructureRoboticArmRailStraightStop")]
+    #[strum(
+        props(name = "Linear Rail Straight Station", desc = "", value = "1800701885")
+    )]
+    StructureRoboticArmRailStraightStop = 1800701885i32,
     #[strum(serialize = "StructureAngledBench")]
     #[strum(props(name = "Bench (Angled)", desc = "", value = "1811979158"))]
     StructureAngledBench = 1811979158i32,
@@ -7118,7 +7136,7 @@ pub enum StationpediaPrefab {
     )]
     ItemCookedPumpkin = 1849281546i32,
     #[strum(serialize = "StructureLiquidValve")]
-    #[strum(props(name = "Liquid Valve", desc = "", value = "1849974453"))]
+    #[strum(props(name = "Valve (Liquid)", desc = "", value = "1849974453"))]
     StructureLiquidValve = 1849974453i32,
     #[strum(serialize = "ApplianceTabletDock")]
     #[strum(props(name = "Tablet Dock", desc = "", value = "1853941363"))]
@@ -7167,7 +7185,7 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Large Satellite Dish",
-            desc = "This large communications unit can be used to communicate with nearby trade vessels.\n\n        When connected to a <link=ThingStructureComputer><color=green>Computer</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic.",
+            desc = "This large communications unit can be used to communicate with nearby trade vessels.\n\n        When connected to a <link=ThingStructureComputer><color=green>Computer (Modern)</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic.",
             value = "1913391845"
         )
     )]
@@ -7217,7 +7235,7 @@ pub enum StationpediaPrefab {
     )]
     StructureInsulatedPipeLiquidCrossJunction = 1926651727i32,
     #[strum(serialize = "ItemWreckageTurbineGenerator3")]
-    #[strum(props(name = "Wreckage Turbine Generator", desc = "", value = "1927790321"))]
+    #[strum(props(name = "Wreckage", desc = "", value = "1927790321"))]
     ItemWreckageTurbineGenerator3 = 1927790321i32,
     #[strum(serialize = "StructurePassthroughHeatExchangerGasToLiquid")]
     #[strum(
@@ -7336,6 +7354,9 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureCompositeCladdingRoundedCorner = 1951525046i32,
+    #[strum(serialize = "StructureChuteExportBin")]
+    #[strum(props(name = "Chute Export Bin", desc = "", value = "1957571043"))]
+    StructureChuteExportBin = 1957571043i32,
     #[strum(serialize = "ItemGasFilterPollutantsL")]
     #[strum(props(name = "Heavy Filter (Pollutants)", desc = "", value = "1959564765"))]
     ItemGasFilterPollutantsL = 1959564765i32,
@@ -7354,8 +7375,8 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureDrinkingFountain")]
     #[strum(
         props(
-            name = "<N:EN:StructureDrinkingFountain>",
-            desc = "<N:EN:StructureDrinkingFountain>",
+            name = "Drinking Fountain",
+            desc = "The Drinking Fountain can be interacted with directly to increase hydration. It needs a <link=GasWater><color=#44AD83>Water</color></link> supply.",
             value = "1968371847"
         )
     )]
@@ -7372,6 +7393,9 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemKitEngineMedium")]
     #[strum(props(name = "Kit (Engine Medium)", desc = "", value = "1969312177"))]
     ItemKitEngineMedium = 1969312177i32,
+    #[strum(serialize = "StructureRoboticArmRailCornerStop")]
+    #[strum(props(name = "Linear Rail Corner Station", desc = "", value = "1974053060"))]
+    StructureRoboticArmRailCornerStop = 1974053060i32,
     #[strum(serialize = "StructureWallGeometryCorner")]
     #[strum(props(name = "Wall (Geometry Corner)", desc = "", value = "1979212240"))]
     StructureWallGeometryCorner = 1979212240i32,
@@ -7541,15 +7565,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureStairwellNoDoors")]
     #[strum(props(name = "Stairwell (No Doors)", desc = "", value = "2049879875"))]
     StructureStairwellNoDoors = 2049879875i32,
-    #[strum(serialize = "StructureWindowShutter")]
-    #[strum(
-        props(
-            name = "Window Shutter",
-            desc = "For those special, private moments, a window that can be closed to prying eyes. \n      \nWhen closed, has the heat transfer characteristics of a basic wall. Requires power, and can be connected to logic systems.",
-            value = "2056377335"
-        )
-    )]
-    StructureWindowShutter = 2056377335i32,
     #[strum(serialize = "ItemKitHydroponicStation")]
     #[strum(props(name = "Kit (Hydroponic Station)", desc = "", value = "2057179799"))]
     ItemKitHydroponicStation = 2057179799i32,
@@ -7557,7 +7572,7 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Cable Coil (Heavy)",
-            desc = "Use heavy cable coil for power systems with large draws. Unlike <link=ThingStructureCableCoil><color=green><N:EN:StructureCableCoil></color></link>, which can only safely conduct 5kW, heavy cables can transmit up to 100kW.",
+            desc = "Use heavy cable coil for power systems with large draws. Unlike <link=ThingItemCableCoil><color=green>Cable Coil</color></link>, which can only safely conduct 5kW, heavy cables can transmit up to 100kW.",
             value = "2060134443"
         )
     )]

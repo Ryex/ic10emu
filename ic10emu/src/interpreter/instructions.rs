@@ -2540,7 +2540,7 @@ impl<T: IC10Marker> LrInstruction for T {
                                         .as_reagent_interface()
                                         .ok_or(ICError::NotReagentReadable(*logicable.get_id()))?;
                                     reagent_interface
-                                        .get_current_recipie()
+                                        .get_current_recipe()
                                         .iter()
                                         .find(|(hash, _)| *hash as f64 == int)
                                         .map(|(_, quantity)| *quantity)
@@ -2686,7 +2686,7 @@ impl<T: IC10Marker> HcfInstruction for T {
                 .borrow_mut()
                 .as_mut_circuit_holder()
                 .ok_or(ICError::CircuitHolderNotLogicable(*self.get_id()))?
-                .hault_and_catch_fire();
+                .halt_and_catch_fire();
         }
         self.set_state(ICState::HasCaughtFire);
         Ok(())

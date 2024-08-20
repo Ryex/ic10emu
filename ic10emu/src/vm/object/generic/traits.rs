@@ -701,7 +701,7 @@ where
     fn get_ic(&self) -> Option<VMObject> {
         self.get_ic_gw()
     }
-    fn hault_and_catch_fire(&mut self) {
+    fn halt_and_catch_fire(&mut self) {
         self.hault_and_catch_fire_gw()
     }
 }

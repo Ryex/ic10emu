@@ -621,7 +621,6 @@ dependencies = [
  "color-eyre",
  "const-crc32",
  "getrandom",
- "ic10emu",
  "itertools",
  "macro_rules_attribute",
  "paste",
@@ -651,14 +650,13 @@ dependencies = [
  "itertools",
  "js-sys",
  "serde",
- "serde-wasm-bindgen",
+ "serde-wasm-bindgen 0.6.5",
  "serde_derive",
  "serde_ignored",
  "serde_json",
  "serde_path_to_error",
  "serde_with",
  "stationeers_data",
- "strum",
  "thiserror",
  "tsify",
  "wasm-bindgen",
@@ -1282,6 +1280,17 @@ dependencies = [
 
 [[package]]
 name = "serde-wasm-bindgen"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f3b143e2833c57ab9ad3ea280d21fd34e285a42837aeb0ee301f4f41890fa00e"
+dependencies = [
+ "js-sys",
+ "serde",
+ "wasm-bindgen",
+]
+
+[[package]]
+name = "serde-wasm-bindgen"
 version = "0.6.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8302e169f0eddcc139c70f139d19d6467353af16f9fce27e8c30158036a1e16b"
@@ -1796,6 +1805,7 @@ checksum = "d6b26cf145f2f3b9ff84e182c448eaf05468e247f148cf3d2a7d67d78ff023a0"
 dependencies = [
  "gloo-utils",
  "serde",
+ "serde-wasm-bindgen 0.5.0",
  "serde_json",
  "tsify-macros",
  "wasm-bindgen",

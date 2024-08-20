@@ -1,10 +1,11 @@
-import { html, css } from "lit";
+import { html, css, nothing } from "lit";
 import { customElement } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
 import { VMActiveICMixin } from "virtualMachine/baseDevice";
 
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
 import { displayNumber, parseNumber } from "utils";
+import { computed, watch } from "@lit-labs/preact-signals";
 
 @customElement("vm-ic-stack")
 export class VMICStack extends VMActiveICMixin(BaseElement) {
@@ -37,35 +38,49 @@ export class VMICStack extends VMActiveICMixin(BaseElement) {
 
   constructor() {
     super();
-    this.subscribe("ic", "active-ic")
+    this.subscribe("active-ic")
   }
 
   protected render() {
-    const sp = this.registers != null ? this.registers[16] : 0;
+    const sp = computed(() => {
+      return this.objectSignals.registers.value != null ? this.objectSignals.registers.value[16] : 0;
+    });
+
+    const memoryHtml = this.objectSignals?.memory.peek()?.map((val, index) => {
+      const content = computed(() => {
+        return sp.value === index ? html`<strong>Stack Pointer</strong>` : nothing;
+      });
+      const pointerClass = computed(() => {
+        return sp.value === index ? "stack-pointer" : nothing;
+      });
+      const displayVal = computed(() => {
+        return displayNumber(this.objectSignals.memory.value[index]);
+      });
+
+      return html`
+        <sl-tooltip placement="left">
+          <div slot="content">
+            ${watch(content)}
+            Address ${index}
+          </div>
+          <sl-input
+            type="text"
+            value="${watch(displayVal)}"
+            size="small"
+            class="stack-input ${watch(pointerClass)}"
+            @sl-change=${this._handleCellChange}
+            key=${index}
+          >
+            <span slot="prefix"> ${index} </span>
+          </sl-input>
+        </sl-tooltip>
+      `;
+    }) ?? nothing;
 
     return html`
       <sl-card class="card">
         <div class="card-body">
-          ${this.memory?.map((val, index) => {
-            return html`
-              <sl-tooltip placement="left">
-                <div slot="content">
-                  ${sp === index ? html`<strong>Stack Pointer</strong>` : ""}
-                  Address ${index}
-                </div>
-                <sl-input
-                  type="text"
-                  value="${displayNumber(val)}"
-                  size="small"
-                  class="stack-input ${sp === index ? "stack-pointer" : ""}"
-                  @sl-change=${this._handleCellChange}
-                  key=${index}
-                >
-                  <span slot="prefix"> ${index} </span>
-                </sl-input>
-              </sl-tooltip>
-            `;
-          })}
+          ${memoryHtml}
         </div>
       </sl-card>
     `;

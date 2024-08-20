@@ -6,24 +6,24 @@ import type {
 import * as Comlink from "comlink";
 
 import prefabDatabase from "./prefabDatabase";
-import { parseNumber } from "utils";
+import { comlinkSpecialJsonTransferHandler, parseNumber } from "utils";
 
+Comlink.transferHandlers.set("SpecialJson", comlinkSpecialJsonTransferHandler);
 
 console.info("Processing Json prefab Database ", prefabDatabase);
 
 const vm: VMRef = init();
 
 
-const template_database = Object.fromEntries(
+const start_time = performance.now();
+const template_database = new Map(
   Object.entries(prefabDatabase.prefabsByHash).map(([hash, prefabName]) => [
     parseInt(hash),
     prefabDatabase.prefabs[prefabName],
   ]),
 ) as TemplateDatabase;
-
+console.info("Loading Prefab Template Database into VM", template_database);
 try {
-  console.info("Loading Prefab Template Database into VM", template_database);
-  const start_time = performance.now();
   // vm.importTemplateDatabase(template_database);
   vm.importTemplateDatabase(template_database);
   const now = performance.now();

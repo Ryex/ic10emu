@@ -6,7 +6,7 @@ use crate::enums::{
     ConnectionRole, ConnectionType, MachineTier, MemoryAccess, Species,
 };
 
-use serde_with::{serde_as, DisplayFromStr, Map};
+use serde_with::{serde_as, DisplayFromStr};
 
 use serde_derive::{Deserialize, Serialize};
 #[cfg(feature = "tsify")]
@@ -250,7 +250,7 @@ pub struct DeviceInfo {
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct ConsumerInfo {
-    pub consumed_resouces: Vec<String>,
+    pub consumed_resources: Vec<String>,
     pub processed_reagents: Vec<i32>,
 }
 
@@ -353,7 +353,7 @@ pub struct InternalAtmoInfo {
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct SuitInfo {
-    pub hygine_reduction_multiplier: f32,
+    pub hygiene_reduction_multiplier: f32,
     pub waste_max_pressure: f32,
 }
 

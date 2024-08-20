@@ -63,7 +63,7 @@ export class VMDevicePins extends VMObjectMixin(VMTemplateDBMixin(BaseElement)) 
     const select = e.target as SlSelect;
     const pin = parseInt(select.getAttribute("key")!);
     const val = select.value ? parseInt(select.value as string) : undefined;
-    window.VM.get().then((vm) => vm.setDevicePin(this.objectID, pin, val));
-    this.updateDevice();
+    window.VM.get().then((vm) => vm.setDevicePin(this.objectID.peek(), pin, val));
+    this.updateObject();
   }
 }

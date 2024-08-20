@@ -191,7 +191,7 @@ pub fn generate_database(
         .join("www")
         .join("src")
         .join("ts")
-        .join("virtual_machine");
+        .join("virtualMachine");
     if !data_path.exists() {
         std::fs::create_dir(&data_path)?;
     }
@@ -860,7 +860,7 @@ fn slot_inserts_to_info(slots: &[stationpedia::SlotInsert]) -> Vec<SlotInfo> {
             typ: slot
                 .slot_type
                 .parse()
-                .unwrap_or_else(|err| panic!("faild to parse slot class: {err}")),
+                .unwrap_or_else(|err| panic!("failed to parse slot class: {err}")),
         })
         .collect()
 }
@@ -891,7 +891,7 @@ pub struct ObjectDatabase {
 impl From<&stationpedia::SuitInfo> for SuitInfo {
     fn from(value: &stationpedia::SuitInfo) -> Self {
         SuitInfo {
-            hygine_reduction_multiplier: value.hygine_reduction_multiplier,
+            hygiene_reduction_multiplier: value.hygiene_reduction_multiplier,
             waste_max_pressure: value.waste_max_pressure,
         }
     }
@@ -979,11 +979,17 @@ impl From<&stationpedia::Item> for ItemInfo {
             slot_class: item
                 .slot_class
                 .parse()
-                .unwrap_or_else(|err| panic!("failed to parse slot class: {err}")),
+                .unwrap_or_else(|err| {
+                    let slot_class = &item.slot_class;
+                    panic!("failed to parse slot class `{slot_class}`: {err}");
+                }),
             sorting_class: item
                 .sorting_class
                 .parse()
-                .unwrap_or_else(|err| panic!("failed to parse sorting class: {err}")),
+                .unwrap_or_else(|err| {
+                    let sorting_class = &item.sorting_class;
+                    panic!("failed to parse sorting class `{sorting_class}`: {err}");
+                }),
         }
     }
 }
@@ -997,10 +1003,10 @@ impl From<&stationpedia::Device> for DeviceInfo {
                 .map(|(typ, role)| ConnectionInfo {
                     typ: typ
                         .parse()
-                        .unwrap_or_else(|err| panic!("failed to parse connection type: {err}")),
+                        .unwrap_or_else(|err| panic!("failed to parse connection type `{typ}`: {err}")),
                     role: role
                         .parse()
-                        .unwrap_or_else(|err| panic!("failed to parse connection role: {err}")),
+                        .unwrap_or_else(|err| panic!("failed to parse connection role `{role}`: {err}")),
                 })
                 .collect(),
             device_pins_length: value.devices_length,
@@ -1111,7 +1117,7 @@ impl From<&stationpedia::Memory> for MemoryInfo {
 impl From<&stationpedia::ResourceConsumer> for ConsumerInfo {
     fn from(value: &stationpedia::ResourceConsumer) -> Self {
         ConsumerInfo {
-            consumed_resouces: value.consumed_resources.clone(),
+            consumed_resources: value.consumed_resources.clone(),
             processed_reagents: value.processed_reagents.clone(),
         }
     }

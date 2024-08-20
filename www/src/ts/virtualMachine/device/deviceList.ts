@@ -10,10 +10,15 @@ import { default as uFuzzy } from "@leeoniya/ufuzzy";
 import { VMSlotAddDialog } from "./slotAddDialog";
 import "./addDevice"
 import { SlotModifyEvent } from "./slot";
+import { computed, Signal, signal, SignalWatcher, watch } from "@lit-labs/preact-signals";
+import { globalObjectSignalMap } from "virtualMachine/baseDevice";
+import { ObjectID } from "ic10emu_wasm";
 
 @customElement("vm-device-list")
-export class VMDeviceList extends BaseElement {
-  @state() devices: number[];
+export class VMDeviceList extends SignalWatcher(BaseElement) {
+  devices: Signal<ObjectID[]>;
+  private _filter: Signal<string> = signal("");
+  private _filteredDeviceIds: Signal<number[] | undefined>;
 
   static styles = [
     ...defaultCss,
@@ -43,17 +48,50 @@ export class VMDeviceList extends BaseElement {
 
   constructor() {
     super();
-    this.devices = [...window.VM.vm.objectIds];
-  }
+    this.devices = computed(() => {
+      const objIds = window.VM.vm.objectIds.value;
+      const deviceIds = [];
+      for (const id of objIds) {
+        const obj = window.VM.vm.objects.get(id);
+        const info = obj.value.obj_info;
+        if (!(info.parent_slot != null || info.root_parent_human != null)) {
+          deviceIds.push(id)
+        }
+      }
+      deviceIds.sort();
+      return deviceIds;
+    });
+    this._filteredDeviceIds = computed(() => {
+      if (this._filter.value) {
+        const datapoints: [string, number][] = [];
+        for (const device_id of this.devices.value) {
+          const device = globalObjectSignalMap.get(device_id);
+          if (device) {
+            const name = device.name.peek();
+            const id = device.id.peek();
+            const prefab = device.prefabName.peek();
+            if (name != null) {
+              datapoints.push([name, id]);
+            }
+            if (prefab != null) {
+              datapoints.push([prefab, id]);
+            }
+          }
+        }
+        const haystack: string[] = datapoints.map((data) => data[0]);
+        const uf = new uFuzzy({});
+        const [_idxs, info, order] = uf.search(haystack, this._filter.value, 0, 1e3);
 
-  connectedCallback(): void {
-    super.connectedCallback();
-    window.VM.get().then((vm) =>
-      vm.addEventListener(
-        "vm-devices-update",
-        this._handleDevicesUpdate.bind(this),
-      ),
-    );
+        const filtered = order?.map((infoIdx) => datapoints[info.idx[infoIdx]]);
+        const deviceIds: number[] =
+          filtered
+            ?.map((data) => data[1])
+            ?.filter((val, index, arr) => arr.indexOf(val) === index) ?? [];
+        return deviceIds;
+      } else {
+        return Array.from(this.devices.value);
+      }
+    });
   }
 
   protected firstUpdated(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
@@ -63,27 +101,20 @@ export class VMDeviceList extends BaseElement {
     );
   }
 
-  _handleDevicesUpdate(e: CustomEvent) {
-    const ids = e.detail;
-    if (!structuralEqual(this.devices, ids)) {
-      this.devices = ids;
-      this.devices.sort();
-    }
-  }
-
   protected render(): HTMLTemplateResult {
     const deviceCards = repeat(
-      this.filteredDeviceIds,
+      this.filteredDeviceIds.value,
       (id) => id,
       (id) =>
         html`<vm-device-card .deviceID=${id} class="device-list-card">
         </vm-device-card>`,
     );
+    const numDevices = computed(() => this.devices.value.length);
     const result = html`
       <div class="header">
         <span>
           Devices:
-          <sl-badge variant="neutral" pill>${this.devices.length}</sl-badge>
+          <sl-badge variant="neutral" pill>${watch(numDevices)}</sl-badge>
         </span>
         <sl-input
           class="device-filter-input"
@@ -118,18 +149,14 @@ export class VMDeviceList extends BaseElement {
     }
   }
 
-  private _filteredDeviceIds: number[] | undefined;
-  private _filter: string = "";
-
   @query(".device-filter-input") filterInput: SlInput;
   get filter() {
-    return this._filter;
+    return this._filter.value;
   }
 
   @state()
   set filter(val: string) {
-    this._filter = val;
-    this.performSearch();
+    this._filter.value = val;
   }
 
   private filterTimeout: number | undefined;
@@ -143,35 +170,6 @@ export class VMDeviceList extends BaseElement {
       that.filter = that.filterInput.value;
       that.filterTimeout = undefined;
     }, 500);
-  }
-
-  performSearch() {
-    if (this._filter) {
-      const datapoints: [string, number][] = [];
-      for (const device_id of this.devices) {
-        const device = window.VM.vm.objects.get(device_id);
-        if (device) {
-          if (typeof device.obj_info.name !== "undefined") {
-            datapoints.push([device.obj_info.name, device.obj_info.id]);
-          }
-          if (typeof device.obj_info.prefab !== "undefined") {
-            datapoints.push([device.obj_info.prefab, device.obj_info.id]);
-          }
-        }
-      }
-      const haystack: string[] = datapoints.map((data) => data[0]);
-      const uf = new uFuzzy({});
-      const [_idxs, info, order] = uf.search(haystack, this._filter, 0, 1e3);
-
-      const filtered = order?.map((infoIdx) => datapoints[info.idx[infoIdx]]);
-      const deviceIds: number[] =
-        filtered
-          ?.map((data) => data[1])
-          ?.filter((val, index, arr) => arr.indexOf(val) === index) ?? [];
-      this._filteredDeviceIds = deviceIds;
-    } else {
-      this._filteredDeviceIds = undefined;
-    }
   }
 }
 

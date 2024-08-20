@@ -14,7 +14,7 @@ import * as Comlink from "comlink";
 import "./baseDevice";
 import "./device";
 import { App } from "app";
-import { structuralEqual, TypedEventTarget } from "utils";
+import { comlinkSpecialJsonTransferHandler, structuralEqual, TypedEventTarget } from "utils";
 export interface ToastMessage {
   variant: "warning" | "danger" | "success" | "primary" | "neutral";
   icon: string;
@@ -26,8 +26,10 @@ import {
   signal,
   computed,
   effect,
+  batch,
 } from '@lit-labs/preact-signals';
 import type { Signal } from '@lit-labs/preact-signals';
+import { getJsonContext } from "./jsonErrorUtils";
 
 export interface VirtualMachineEventMap {
   "vm-template-db-loaded": CustomEvent<TemplateDatabase>;
@@ -41,16 +43,23 @@ export interface VirtualMachineEventMap {
   "vm-message": CustomEvent<ToastMessage>;
 }
 
+Comlink.transferHandlers.set("SpecialJson", comlinkSpecialJsonTransferHandler);
+
+const jsonErrorRegex = /((invalid type: .*)|(missing field .*)) at line (?<errorLine>\d+) column (?<errorColumn>\d+)/;
+
 class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
   ic10vm: Comlink.Remote<VMRef>;
   templateDBPromise: Promise<TemplateDatabase>;
   templateDB: TemplateDatabase;
 
-  private _vmState: Signal<FrozenVM>;
+  private _vmState: Signal<FrozenVM> = signal(null);
 
   private _objects: Map<number, Signal<FrozenObjectFull>>;
+  private _objectIds: Signal<ObjectID[]>;
   private _circuitHolders: Map<number, Signal<FrozenObjectFull>>;
+  private _circuitHolderIds: Signal<ObjectID[]>;
   private _networks: Map<number, Signal<FrozenCableNetwork>>;
+  private _networkIds: Signal<ObjectID[]>;
   private _default_network: Signal<number>;
 
   private vm_worker: Worker;
@@ -62,15 +71,17 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
     this.app = app;
 
     this._objects = new Map();
+    this._objectIds = signal([]);
     this._circuitHolders = new Map();
+    this._circuitHolderIds = signal([]);
     this._networks = new Map();
+    this._networkIds = signal([]);
+    this._networkDevicesSignals = new Map();
 
     this.setupVM();
   }
 
   async setupVM() {
-    this.templateDBPromise = this.ic10vm.getTemplateDatabase();
-    this.templateDBPromise.then((db) => this.setupTemplateDatabase(db));
 
     this.vm_worker = new Worker(new URL("./vmWorker.ts", import.meta.url));
     const loaded = (w: Worker) =>
@@ -81,6 +92,9 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
     this.ic10vm = vm;
     this._vmState.value = await this.ic10vm.saveVMState();
     window.VM.set(this);
+
+    this.templateDBPromise = this.ic10vm.getTemplateDatabase();
+    this.templateDBPromise.then((db) => this.setupTemplateDatabase(db));
 
     effect(() => {
       this.updateObjects(this._vmState.value);
@@ -98,26 +112,24 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
     return this._objects;
   }
 
-  get objectIds(): ObjectID[] {
-    const ids = Array.from(this._objects.keys());
-    ids.sort();
-    return ids;
+  get objectIds(): Signal<ObjectID[]> {
+    return this._objectIds;
   }
 
   get circuitHolders() {
     return this._circuitHolders;
   }
 
-  get circuitHolderIds(): ObjectID[] {
-    const ids = Array.from(this._circuitHolders.keys());
-    ids.sort();
-    return ids;
+  get circuitHolderIds(): Signal<ObjectID[]> {
+    return this._circuitHolderIds;
   }
 
-  get networks(): ObjectID[] {
-    const ids = Array.from(this._networks.keys());
-    ids.sort();
-    return ids;
+  get networks() {
+    return this._networks;
+  }
+
+  get networkIds(): Signal<ObjectID[]> {
+    return this._networkIds;
   }
 
   get defaultNetwork() {
@@ -187,6 +199,9 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
       }
       this.app.session.save();
     }
+
+    networkIds.sort();
+    this._networkIds.value = networkIds;
   }
 
   async updateObjects(state: FrozenVM) {
@@ -260,6 +275,15 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
       }
       this.app.session.save();
     }
+
+    objectIds.sort();
+    const circuitHolderIds = Array.from(this._circuitHolders.keys());
+    circuitHolderIds.sort();
+
+    batch(() => {
+      this._objectIds.value = objectIds;
+      this._circuitHolderIds.value = circuitHolderIds;
+    });
   }
 
   async updateCode() {
@@ -332,21 +356,50 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
     }
   }
 
-  handleVmError(err: Error) {
-    console.log("Error in Virtual Machine", err);
-    const message: ToastMessage = {
+  handleVmError(err: Error, args: { context?: string, jsonContext?: string, trace?: boolean } = {}) {
+    const message = args.context ? `Error in Virtual Machine {${args.context}}` : "Error in Virtual Machine";
+    console.log(message, err);
+    if (args.jsonContext != null) {
+      const jsonTypeError = err.message.match(jsonErrorRegex)
+      if (jsonTypeError) {
+        console.log(
+          "Json Error context",
+          getJsonContext(
+            parseInt(jsonTypeError.groups["errorLine"]),
+            parseInt(jsonTypeError.groups["errorColumn"]),
+            args.jsonContext,
+            100
+          )
+        )
+      }
+    }
+    if (args.trace) {
+      console.trace();
+    }
+    const toastMessage: ToastMessage = {
       variant: "danger",
       icon: "bug",
       title: `Error in Virtual Machine ${err.name}`,
       msg: err.message,
       id: Date.now().toString(16),
     };
-    this.dispatchCustomEvent("vm-message", message);
+    this.dispatchCustomEvent("vm-message", toastMessage);
   }
 
   // return the data connected oject ids for a network
-  networkDataDevices(network: ObjectID): number[] {
+  networkDataDevices(network: ObjectID): ObjectID[] {
     return this._networks.get(network)?.peek().devices ?? [];
+  }
+
+  private _networkDevicesSignals: Map<ObjectID, Signal<ObjectID[]>>;
+
+  networkDataDevicesSignal(network: ObjectID): Signal<ObjectID[]> {
+    if (!this._networkDevicesSignals.has(network) && this._networks.get(network) != null) {
+      this._networkDevicesSignals.set(network, computed(
+        () => this._networks.get(network).value.devices ?? []
+      ));
+    }
+    return this._networkDevicesSignals.get(network);
   }
 
   async changeObjectID(oldID: number, newID: number): Promise<boolean> {
@@ -581,12 +634,13 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
 
   async restoreVMState(state: FrozenVM) {
     try {
+      console.info("Restoring VM State from", state);
       await this.ic10vm.restoreVMState(state);
       this._objects = new Map();
       this._circuitHolders = new Map();
       await this.update();
     } catch (e) {
-      this.handleVmError(e);
+      this.handleVmError(e, {jsonContext: JSON.stringify(state)});
     }
   }
 

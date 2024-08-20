@@ -53,10 +53,10 @@ export class VMDeviceSlot extends VMObjectMixin(VMTemplateDBMixin(BaseElement)) 
     const field = input.getAttribute("key")! as LogicType;
     const val = parseNumber(input.value);
     window.VM.get().then((vm) => {
-      if (!vm.setObjectField(this.objectID, field, val, true)) {
+      if (!vm.setObjectField(this.objectID.peek(), field, val, true)) {
         input.value = this.objectSignals.logicFields.value.get(field).value.toString();
       }
-      this.updateDevice();
+      this.updateObject();
     });
   }
 }

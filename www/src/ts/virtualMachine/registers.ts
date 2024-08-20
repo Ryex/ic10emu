@@ -1,4 +1,4 @@
-import { html, css } from "lit";
+import { html, css, nothing } from "lit";
 import { customElement } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
 import { VMActiveICMixin } from "virtualMachine/baseDevice";
@@ -6,6 +6,7 @@ import { VMActiveICMixin } from "virtualMachine/baseDevice";
 import { RegisterSpec } from "ic10emu_wasm";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
 import { displayNumber, parseNumber } from "utils";
+import { computed, Signal, watch } from "@lit-labs/preact-signals";
 
 @customElement("vm-ic-registers")
 export class VMICRegisters extends VMActiveICMixin(BaseElement) {
@@ -40,12 +41,12 @@ export class VMICRegisters extends VMActiveICMixin(BaseElement) {
 
   constructor() {
     super();
-    this.subscribe("ic", "active-ic")
+    this.subscribe("active-ic")
   }
 
   protected render() {
-    const registerAliases: [string, number][] =
-      [...(Array.from(this.aliases?.entries() ?? []))].flatMap(
+    const registerAliases: Signal<[string, number][]> = computed(() => {
+      return [...(Array.from(this.objectSignals.aliases.value?.entries() ?? []))].flatMap(
         ([alias, target]) => {
           if ("RegisterSpec" in target && target.RegisterSpec.indirection === 0) {
             return [[alias, target.RegisterSpec.target]] as [string, number][];
@@ -54,33 +55,49 @@ export class VMICRegisters extends VMActiveICMixin(BaseElement) {
           }
         }
       ).concat(VMICRegisters.defaultAliases);
+    });
+
+    const registerHtml = this.objectSignals?.registers.peek().map((val, index) => {
+      const aliases = computed(() => {
+        return registerAliases.value
+          .filter(([_alias, target]) => index === target)
+          .map(([alias, _target]) => alias);
+      });
+      const aliasesList = computed(() => {
+        return aliases.value.join(", ");
+      });
+      const aliasesText = computed(() => {
+        return aliasesList.value || "None";
+      });
+      const valDisplay = computed(() => {
+        const val = this.objectSignals.registers.value[index];
+        return displayNumber(val);
+      });
+      return html`
+        <sl-tooltip placement="left" class="tooltip">
+          <div slot="content">
+            <strong>Register r${index}</strong> Aliases:
+            <em>${watch(aliasesText)}</em>
+          </div>
+          <sl-input
+            type="text"
+            value="${watch(valDisplay)}"
+            size="small"
+            class="reg-input"
+            @sl-change=${this._handleCellChange}
+            key=${index}
+          >
+            <span slot="prefix">r${index}</span>
+            <span slot="suffix">${watch(aliasesList)}</span>
+          </sl-input>
+        </sl-tooltip>
+      `;
+    }) ?? nothing;
+
     return html`
       <sl-card class="card">
         <div class="card-body">
-          ${this.registers?.map((val, index) => {
-            const aliases = registerAliases
-              .filter(([_alias, target]) => index === target)
-              .map(([alias, _target]) => alias);
-            return html`
-              <sl-tooltip placement="left" class="tooltip">
-                <div slot="content">
-                  <strong>Register r${index}</strong> Aliases:
-                  <em>${aliases.join(", ") || "None"}</em>
-                </div>
-                <sl-input
-                  type="text"
-                  value="${displayNumber(val)}"
-                  size="small"
-                  class="reg-input"
-                  @sl-change=${this._handleCellChange}
-                  key=${index}
-                >
-                  <span slot="prefix">r${index}</span>
-                  <span slot="suffix">${aliases.join(", ")}</span>
-                </sl-input>
-              </sl-tooltip>
-            `;
-          })}
+          ${registerHtml}
         </div>
       </sl-card>
     `;

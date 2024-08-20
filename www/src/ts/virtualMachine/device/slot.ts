@@ -268,7 +268,7 @@ export class VMDeviceSlot extends VMObjectMixin(VMTemplateDBMixin(SignalWatcher(
   }
 
   _handleSlotOccupantRemove() {
-    window.VM.vm.removeSlotOccupant(this.objectID, this.slotIndex);
+    window.VM.vm.removeSlotOccupant(this.objectID.peek(), this.slotIndex);
   }
 
   _handleSlotClick(_e: Event) {
@@ -276,7 +276,7 @@ export class VMDeviceSlot extends VMObjectMixin(VMTemplateDBMixin(SignalWatcher(
       new CustomEvent<SlotModifyEvent>("device-modify-slot", {
         bubbles: true,
         composed: true,
-        detail: { deviceID: this.objectID, slotIndex: this.slotIndex },
+        detail: { deviceID: this.objectID.peek(), slotIndex: this.slotIndex },
       }),
     );
   }
@@ -293,7 +293,7 @@ export class VMDeviceSlot extends VMObjectMixin(VMTemplateDBMixin(SignalWatcher(
     );
     if (
       !window.VM.vm.setObjectSlotField(
-        this.objectID,
+        this.objectID.peek(),
         this.slotIndex,
         "Quantity",
         val,
@@ -365,7 +365,7 @@ export class VMDeviceSlot extends VMObjectMixin(VMTemplateDBMixin(SignalWatcher(
     }
     window.VM.get().then((vm) => {
       if (
-        !vm.setObjectSlotField(this.objectID, this.slotIndex, field, val, true)
+        !vm.setObjectSlotField(this.objectID.peek(), this.slotIndex, field, val, true)
       ) {
         input.value = (
           this.slotSignal.value.logicFields ??
@@ -374,7 +374,7 @@ export class VMDeviceSlot extends VMObjectMixin(VMTemplateDBMixin(SignalWatcher(
           .get(field)
           .toString();
       }
-      this.updateDevice();
+      this.updateObject();
     });
   }
 

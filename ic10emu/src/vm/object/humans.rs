@@ -327,7 +327,7 @@ impl Human for HumanPlayer {
     fn set_hygiene(&mut self, hygiene: f32) {
         self.hygiene = hygiene.clamp(0.0, MAX_HYGIENE);
     }
-    fn hygine_state(&self) -> StatState {
+    fn hygiene_state(&self) -> StatState {
         if self.hygiene < CRITICAL_HYGIENE {
             return StatState::Critical;
         }

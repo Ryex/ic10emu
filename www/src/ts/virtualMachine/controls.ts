@@ -1,16 +1,28 @@
-import { html, css } from "lit";
+import { html, css, nothing } from "lit";
 import { customElement, query } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMActiveICMixin } from "virtualMachine/baseDevice";
+import { ComputedObjectSignals, globalObjectSignalMap, VMActiveICMixin } from "virtualMachine/baseDevice";
 
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.js";
+import { computed, Signal, watch } from "@lit-labs/preact-signals";
+import { FrozenObjectFull } from "ic10emu_wasm";
 
 @customElement("vm-ic-controls")
 export class VMICControls extends VMActiveICMixin(BaseElement) {
 
+  circuitHolders: Signal<ComputedObjectSignals[]>;
+
   constructor() {
     super();
-    this.subscribe("ic", "active-ic")
+    this.subscribe("active-ic")
+    this.circuitHolders = computed(() => {
+      const ids = window.VM.vm.circuitHolderIds.value;
+      const circuitHolders = [];
+      for (const id of ids) {
+        circuitHolders.push(globalObjectSignalMap.get(id));
+      }
+      return circuitHolders;
+    });
   }
 
   static styles = [
@@ -64,8 +76,49 @@ export class VMICControls extends VMActiveICMixin(BaseElement) {
 
   @query(".active-ic-select") activeICSelect: SlSelect;
 
+  forceSelectUpdate() {
+    if (this.activeICSelect != null) {
+      this.activeICSelect.handleValueChange();
+    }
+  }
+
   protected render() {
-    const ics = Array.from(window.VM.vm.circuitHolders);
+    const icsOptions = computed(() => {
+      return this.circuitHolders.value.map((circuitHolder) => {
+
+        circuitHolder.prefabName.subscribe((_) => {this.forceSelectUpdate()});
+        circuitHolder.id.subscribe((_) => {this.forceSelectUpdate()});
+        circuitHolder.displayName.subscribe((_) => {this.forceSelectUpdate()});
+
+        const span = circuitHolder.name ? html`<span slot="suffix">${watch(circuitHolder.prefabName)}</span>` : nothing ;
+        return html`
+          <sl-option
+            prefabName=${watch(circuitHolder.prefabName)}
+            value=${watch(circuitHolder.id)}
+          >
+            ${span}
+            Device:${watch(circuitHolder.id)} ${watch(circuitHolder.displayName)}
+          </sl-option>`
+      });
+    });
+    icsOptions.subscribe((_) => {this.forceSelectUpdate()});
+
+    const icErrors = computed(() => {
+      return this.objectSignals?.errors.value?.map(
+        (err) =>
+          typeof err === "object"
+            && "ParseError" in err
+            ? html`<div class="hstack">
+                <span>
+                  Line: ${err.ParseError.line} -
+                  ${"ParseError" in err ? err.ParseError.start : "N/A"}:${err.ParseError.end}
+                </span>
+                <span class="ms-auto">${err.ParseError.msg}</span>
+              </div>`
+            : html`${JSON.stringify(err)}`,
+      ) ?? nothing;
+    });
+
     return html`
       <sl-card class="card">
         <div class="controls" slot="header">
@@ -116,57 +169,33 @@ export class VMICControls extends VMActiveICMixin(BaseElement) {
               hoist
               size="small"
               placement="bottom"
-              value="${this.objectID}"
+              value="${watch(this.objectID)}"
               @sl-change=${this._handleChangeActiveIC}
               class="active-ic-select"
             >
-              ${ics.map(
-                ([id, device], _index) =>
-                  html`<sl-option
-                    name=${device.obj_info.name}
-                    prefabName=${device.obj_info.prefab}
-                    value=${id}
-                  >
-                    ${device.obj_info.name
-                      ? html`<span slot="suffix">${device.obj_info.prefab}</span>`
-                      : ""}
-                    Device:${id} ${device.obj_info.name ?? device.obj_info.prefab}
-                  </sl-option>`,
-              )}
+              ${watch(icsOptions)}
             </sl-select>
           </div>
         </div>
         <div class="stats">
           <div class="hstack">
             <span>Instruction Pointer</span>
-            <span class="ms-auto">${this.icIP}</span>
+            <span class="ms-auto">${this.objectSignals ? watch(this.objectSignals.icIP) : nothing}</span>
           </div>
           <sl-divider></sl-divider>
           <div class="hstack">
             <span>Last Run Operations Count</span>
-            <span class="ms-auto">${this.icOpCount}</span>
+            <span class="ms-auto">${this.objectSignals ? watch(this.objectSignals.icOpCount) : nothing}</span>
           </div>
           <sl-divider></sl-divider>
           <div class="hstack">
             <span>Last State</span>
-            <span class="ms-auto">${this.icState}</span>
+            <span class="ms-auto">${this.objectSignals ? watch(this.objectSignals.icState) : nothing}</span>
           </div>
           <sl-divider></sl-divider>
           <div class="vstack">
             <span>Errors</span>
-            ${this.errors?.map(
-              (err) =>
-                typeof err === "object"
-                  && "ParseError" in err
-                  ? html`<div class="hstack">
-                      <span>
-                        Line: ${err.ParseError.line} -
-                        ${"ParseError" in err ? err.ParseError.start : "N/A"}:${err.ParseError.end}
-                      </span>
-                      <span class="ms-auto">${err.ParseError.msg}</span>
-                    </div>`
-                  : html`${JSON.stringify(err)}`,
-            )}
+            ${watch(icErrors)}
           </div>
         </div>
       </sl-card>
@@ -181,18 +210,6 @@ export class VMICControls extends VMActiveICMixin(BaseElement) {
   }
   _handleResetClick() {
     window.VM.get().then((vm) => vm.reset());
-  }
-
-  updateIC(): void {
-    super.updateIC();
-    this.activeICSelect?.dispatchEvent(new Event("slotchange"));
-    // if (this.activeICSelect) {
-    //   const val = this.activeICSelect.value;
-    //   this.activeICSelect.value = "";
-    //   this.activeICSelect.requestUpdate();
-    //   this.activeICSelect.value = val;
-    //   this.activeICSelect.
-    // }
   }
 
   _handleChangeActiveIC(e: CustomEvent) {

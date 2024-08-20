@@ -411,7 +411,7 @@ impl CircuitHolder for StructureCircuitHousing {
             .and_then(|info| self.vm.get_object(info.id))
     }
 
-    fn hault_and_catch_fire(&mut self) {
+    fn halt_and_catch_fire(&mut self) {
         // TODO: do something here??
     }
 }

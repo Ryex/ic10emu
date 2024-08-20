@@ -214,7 +214,7 @@ export default {
         }
       ],
       "consumer_info": {
-        "consumed_resouces": [
+        "consumed_resources": [
           "ItemCharcoal",
           "ItemCobaltOre",
           "ItemFern",
@@ -279,7 +279,7 @@ export default {
         }
       ],
       "consumer_info": {
-        "consumed_resouces": [
+        "consumed_resources": [
           "ItemCorn",
           "ItemEgg",
           "ItemFertilizedEgg",
@@ -322,7 +322,7 @@ export default {
         }
       ],
       "consumer_info": {
-        "consumed_resouces": [
+        "consumed_resources": [
           "ItemCookedCondensedMilk",
           "ItemCookedCorn",
           "ItemCookedMushroom",
@@ -361,7 +361,7 @@ export default {
         }
       ],
       "consumer_info": {
-        "consumed_resouces": [
+        "consumed_resources": [
           "ItemSoyOil",
           "ReagentColorBlue",
           "ReagentColorGreen",
@@ -468,7 +468,7 @@ export default {
         }
       ],
       "consumer_info": {
-        "consumed_resouces": [
+        "consumed_resources": [
           "ItemWheat",
           "ItemSugarCane",
           "ItemCocoaTree",
@@ -722,7 +722,7 @@ export default {
         "prefab_name": "CartridgeAtmosAnalyser",
         "prefab_hash": -1550278665,
         "desc": "The Lorenz atmos analyzer is a multi-functional mass-spectrometer designed by <link=ExMin><color=#0080FFFF>ExMin</color></link> for use with the OreCore <link=ThingItemTablet><color=green>Handheld Tablet</color></link>. It displays the pressure, concentration and molar quantity of <link=GasPage><color=#0080FFFF>gas</color></link> in rooms, tanks, or pipe networks.",
-        "name": "Atmos Analyzer"
+        "name": "Cartridge (Atmos Analyzer)"
       },
       "item": {
         "consumable": false,
@@ -738,7 +738,7 @@ export default {
         "prefab_name": "CartridgeConfiguration",
         "prefab_hash": -932136011,
         "desc": "",
-        "name": "Configuration"
+        "name": "Cartridge (Configuration)"
       },
       "item": {
         "consumable": false,
@@ -754,7 +754,7 @@ export default {
         "prefab_name": "CartridgeElectronicReader",
         "prefab_hash": -1462180176,
         "desc": "",
-        "name": "eReader"
+        "name": "Cartridge (eReader)"
       },
       "item": {
         "consumable": false,
@@ -770,7 +770,7 @@ export default {
         "prefab_name": "CartridgeGPS",
         "prefab_hash": -1957063345,
         "desc": "",
-        "name": "GPS"
+        "name": "Cartridge (GPS)"
       },
       "item": {
         "consumable": false,
@@ -786,7 +786,7 @@ export default {
         "prefab_name": "CartridgeGuide",
         "prefab_hash": 872720793,
         "desc": "",
-        "name": "Guide"
+        "name": "Cartridge (Guide)"
       },
       "item": {
         "consumable": false,
@@ -802,7 +802,7 @@ export default {
         "prefab_name": "CartridgeMedicalAnalyser",
         "prefab_hash": -1116110181,
         "desc": "When added to the OreCore <link=ThingItemTablet><color=green>Handheld Tablet</color></link>, <link=Asura><color=#0080FFFF>Asura's</color></link>'s ReadyMed medical analyzer reveals the health, or otherwise, of users various organs. Due to a design flaw, older models were notorious for producing quasar-like levels of x-ray radiation. Recent advances in shielding have more than halved the risk to users.",
-        "name": "Medical Analyzer"
+        "name": "Cartridge (Medical Analyzer)"
       },
       "item": {
         "consumable": false,
@@ -818,7 +818,7 @@ export default {
         "prefab_name": "CartridgeNetworkAnalyser",
         "prefab_hash": 1606989119,
         "desc": "A minor masterpiece of micro-electronic engineering, the network analyzer displays the current, voltage and wattage of a cable network, as well as any devices connected to it. Based on a widely-copied <link=Sinotai><color=#0080FFFF>Sinotai</color></link> design, it's used in conjunction with the OreCore <link=ThingItemTablet><color=green>Handheld Tablet</color></link>.",
-        "name": "Network Analyzer"
+        "name": "Cartridge (Network Analyzer)"
       },
       "item": {
         "consumable": false,
@@ -834,7 +834,7 @@ export default {
         "prefab_name": "CartridgeOreScanner",
         "prefab_hash": -1768732546,
         "desc": "When inserted into a <link=ThingItemTablet><color=green>Handheld Tablet</color></link> the scanner will display minerals hidden underground on the tablet.",
-        "name": "Ore Scanner"
+        "name": "Cartridge (Ore Scanner)"
       },
       "item": {
         "consumable": false,
@@ -850,7 +850,7 @@ export default {
         "prefab_name": "CartridgeOreScannerColor",
         "prefab_hash": 1738236580,
         "desc": "When inserted into a <link=ThingItemTablet><color=green>Handheld Tablet</color></link> the scanner will display minerals hidden underground in different colors on the tablet.",
-        "name": "Ore Scanner (Color)"
+        "name": "Cartridge (Ore Scanner Color)"
       },
       "item": {
         "consumable": false,
@@ -866,7 +866,7 @@ export default {
         "prefab_name": "CartridgePlantAnalyser",
         "prefab_hash": 1101328282,
         "desc": "",
-        "name": "Cartridge Plant Analyser"
+        "name": "Cartridge (Plant Analyser)"
       },
       "item": {
         "consumable": false,
@@ -882,7 +882,7 @@ export default {
         "prefab_name": "CartridgeTracker",
         "prefab_hash": 81488783,
         "desc": "",
-        "name": "Tracker"
+        "name": "Cartridge (Tracker)"
       },
       "item": {
         "consumable": false,
@@ -1141,7 +1141,7 @@ export default {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 1,
-        "slot_class": "None",
+        "slot_class": "Crate",
         "sorting_class": "Storage"
       },
       "slots": [
@@ -1466,6 +1466,10 @@ export default {
         {
           "name": "Battery",
           "typ": "Battery"
+        },
+        {
+          "name": "Liquid Canister",
+          "typ": "LiquidCanister"
         }
       ]
     },
@@ -1481,7 +1485,7 @@ export default {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 1,
-        "slot_class": "None",
+        "slot_class": "Crate",
         "sorting_class": "Storage"
       },
       "slots": [
@@ -1585,7 +1589,7 @@ export default {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 1,
-        "slot_class": "None",
+        "slot_class": "Portables",
         "sorting_class": "Atmospherics"
       },
       "thermal_info": {
@@ -1604,14 +1608,14 @@ export default {
       "prefab": {
         "prefab_name": "DynamicGasCanisterCarbonDioxide",
         "prefab_hash": -322413931,
-        "desc": "Portable gas tanks do one thing: store gas. To refill the tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or ... boom. Once it's full, you can refill a <link=ThingItemGasCanisterCarbonDioxide><color=green>Canister (CO2)</color></link> by attaching it to the tank's striped section. Or you could vent the tank's variable flow rate valve into a room and create an atmosphere ... of sorts.",
+        "desc": "Portable gas tanks do one thing: store gas. To refill the tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or... boom. Once it's full, you can refill a <link=ThingItemGasCanisterCarbonDioxide><color=green>Canister (CO2)</color></link> by attaching it to the tank's striped section. Or you could vent the tank's variable flow rate valve into a room and create an atmosphere... of sorts.",
         "name": "Portable Gas Tank (CO2)"
       },
       "item": {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 1,
-        "slot_class": "None",
+        "slot_class": "Portables",
         "sorting_class": "Default"
       },
       "thermal_info": {
@@ -1637,7 +1641,7 @@ export default {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 1,
-        "slot_class": "None",
+        "slot_class": "Portables",
         "sorting_class": "Default"
       },
       "thermal_info": {
@@ -1663,7 +1667,7 @@ export default {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 1,
-        "slot_class": "None",
+        "slot_class": "Portables",
         "sorting_class": "Default"
       },
       "thermal_info": {
@@ -1689,7 +1693,7 @@ export default {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 1,
-        "slot_class": "None",
+        "slot_class": "Portables",
         "sorting_class": "Default"
       },
       "thermal_info": {
@@ -1715,7 +1719,7 @@ export default {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 1,
-        "slot_class": "None",
+        "slot_class": "Portables",
         "sorting_class": "Default"
       },
       "thermal_info": {
@@ -1741,7 +1745,7 @@ export default {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 1,
-        "slot_class": "None",
+        "slot_class": "Portables",
         "sorting_class": "Default"
       },
       "thermal_info": {
@@ -1767,7 +1771,7 @@ export default {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 1,
-        "slot_class": "None",
+        "slot_class": "Portables",
         "sorting_class": "Default"
       },
       "thermal_info": {
@@ -1793,7 +1797,7 @@ export default {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 1,
-        "slot_class": "None",
+        "slot_class": "Portables",
         "sorting_class": "Default"
       },
       "thermal_info": {
@@ -1819,7 +1823,7 @@ export default {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 1,
-        "slot_class": "None",
+        "slot_class": "Portables",
         "sorting_class": "Default"
       },
       "thermal_info": {
@@ -1845,7 +1849,7 @@ export default {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 1,
-        "slot_class": "None",
+        "slot_class": "Portables",
         "sorting_class": "Atmospherics"
       },
       "thermal_info": {
@@ -1871,7 +1875,7 @@ export default {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 1,
-        "slot_class": "None",
+        "slot_class": "Portables",
         "sorting_class": "Default"
       },
       "thermal_info": {
@@ -1897,7 +1901,7 @@ export default {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 1,
-        "slot_class": "None",
+        "slot_class": "Portables",
         "sorting_class": "Atmospherics"
       },
       "thermal_info": {
@@ -2058,7 +2062,7 @@ export default {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 1,
-        "slot_class": "None",
+        "slot_class": "Portables",
         "sorting_class": "Atmospherics"
       },
       "thermal_info": {
@@ -2084,7 +2088,7 @@ export default {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 1,
-        "slot_class": "None",
+        "slot_class": "Portables",
         "sorting_class": "Atmospherics"
       },
       "thermal_info": {
@@ -2110,7 +2114,7 @@ export default {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 1,
-        "slot_class": "None",
+        "slot_class": "Portables",
         "sorting_class": "Atmospherics"
       },
       "thermal_info": {
@@ -2691,7 +2695,7 @@ export default {
       "prefab": {
         "prefab_name": "ItemAdvancedTablet",
         "prefab_hash": 1722785341,
-        "desc": "The advanced <link=Xigo><color=#0080FFFF>Xigo</color></link> Padi 2 tablet is an improved version of the basic <link=ThingItemTablet><color=green>Handheld Tablet</color></link>, boasting two <link=CartridgePage><color=#0080FFFF>cartridge</color></link> slots. The Padi 2 accepts <link=ThingCartridgeAtmosAnalyser><color=green>Atmos Analyzer</color></link>, <link=ThingCartridgeTracker><color=green>Tracker</color></link>, <link=ThingCartridgeMedicalAnalyser><color=green>Medical Analyzer</color></link>, <link=ThingCartridgeOreScanner><color=green>Ore Scanner</color></link>, <link=ThingCartridgeElectronicReader><color=green>eReader</color></link>, and various other cartridges.\n\t  \n\t  With a <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> in the <link=SlotProgrammableChip><color=orange>Programmable Chip</color></link>, you can access variable slots on the carrying human using the device numbers (d0, d1, etc...), so long as the item can be access via logic, such as the <link=ThingItemHardSuit><color=green>Hardsuit</color></link>.Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>",
+        "desc": "The advanced <link=Xigo><color=#0080FFFF>Xigo</color></link> Padi 2 tablet is an improved version of the basic <link=ThingItemTablet><color=green>Handheld Tablet</color></link>, boasting two <link=CartridgePage><color=#0080FFFF>cartridge</color></link> slots. The Padi 2 accepts <link=ThingCartridgeAtmosAnalyser><color=green>Cartridge (Atmos Analyzer)</color></link>, <link=ThingCartridgeTracker><color=green>Cartridge (Tracker)</color></link>, <link=ThingCartridgeMedicalAnalyser><color=green>Cartridge (Medical Analyzer)</color></link>, <link=ThingCartridgeOreScanner><color=green>Cartridge (Ore Scanner)</color></link>, <link=ThingCartridgeElectronicReader><color=green>Cartridge (eReader)</color></link>, and various other cartridges.\n\t  \n\t  With a <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> in the <link=SlotProgrammableChip><color=orange>Programmable Chip</color></link>, you can access variable slots on the carrying human using the device numbers (d0, d1, etc...), so long as the item can be access via logic, such as the <link=ThingItemHardSuit><color=green>Hardsuit</color></link>.Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>",
         "name": "Advanced Tablet"
       },
       "item": {
@@ -2906,7 +2910,7 @@ export default {
         "prefab_name": "ItemAreaPowerControl",
         "prefab_hash": 1757673317,
         "desc": "This kit places a <link=ThingStructureAreaPowerControl><color=green>Area Power Control</color></link> (APC) on any support structure. The APC kit has two options, selecting which direction you would like the APC power to flow.",
-        "name": "Kit (Power Controller)"
+        "name": "Kit (Area Power Controller)"
       },
       "item": {
         "consumable": false,
@@ -3257,7 +3261,7 @@ export default {
       "prefab": {
         "prefab_name": "ItemCableCoilHeavy",
         "prefab_hash": 2060134443,
-        "desc": "Use heavy cable coil for power systems with large draws. Unlike <link=ThingStructureCableCoil><color=green><N:EN:StructureCableCoil></color></link>, which can only safely conduct 5kW, heavy cables can transmit up to 100kW.",
+        "desc": "Use heavy cable coil for power systems with large draws. Unlike <link=ThingItemCableCoil><color=green>Cable Coil</color></link>, which can only safely conduct 5kW, heavy cables can transmit up to 100kW.",
         "name": "Cable Coil (Heavy)"
       },
       "item": {
@@ -3379,6 +3383,90 @@ export default {
         "slot_class": "None",
         "sorting_class": "Food"
       }
+    },
+    "ItemCerealBarBag": {
+      "templateType": "ItemSlots",
+      "prefab": {
+        "prefab_name": "ItemCerealBarBag",
+        "prefab_hash": -75205276,
+        "desc": "",
+        "name": "Cereal Bar Bag"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "None",
+        "sorting_class": "Storage"
+      },
+      "slots": [
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        }
+      ]
+    },
+    "ItemCerealBarBox": {
+      "templateType": "ItemSlots",
+      "prefab": {
+        "prefab_name": "ItemCerealBarBox",
+        "prefab_hash": -401648353,
+        "desc": "",
+        "name": "Cereal Bar Box"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "None",
+        "sorting_class": "Storage"
+      },
+      "slots": [
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        }
+      ]
     },
     "ItemCharcoal": {
       "templateType": "Item",
@@ -3765,7 +3853,7 @@ export default {
         "ingredient": true,
         "max_quantity": 10,
         "reagents": {
-          "Soy": 5.0
+          "Soy": 1.0
         },
         "slot_class": "None",
         "sorting_class": "Food"
@@ -4345,7 +4433,7 @@ export default {
         }
       ],
       "suit_info": {
-        "hygine_reduction_multiplier": 1.0,
+        "hygiene_reduction_multiplier": 1.0,
         "waste_max_pressure": 4053.0
       }
     },
@@ -4441,6 +4529,48 @@ export default {
         "circuit_holder": false
       },
       "slots": []
+    },
+    "ItemEmergencySuppliesBox": {
+      "templateType": "ItemSlots",
+      "prefab": {
+        "prefab_name": "ItemEmergencySuppliesBox",
+        "prefab_hash": 851103794,
+        "desc": "",
+        "name": "Emergency Supplies"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "None",
+        "sorting_class": "Default"
+      },
+      "slots": [
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        }
+      ]
     },
     "ItemEmergencyToolBelt": {
       "templateType": "ItemSlots",
@@ -4592,7 +4722,7 @@ export default {
         }
       ],
       "suit_info": {
-        "hygine_reduction_multiplier": 1.0,
+        "hygiene_reduction_multiplier": 1.0,
         "waste_max_pressure": 4053.0
       }
     },
@@ -4602,14 +4732,14 @@ export default {
         "prefab_name": "ItemExplosive",
         "prefab_hash": 235361649,
         "desc": "",
-        "name": "Remote Explosive"
+        "name": "Demolition Charge"
       },
       "item": {
         "consumable": false,
         "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
-        "sorting_class": "Default"
+        "max_quantity": 3,
+        "slot_class": "Tool",
+        "sorting_class": "Tools"
       }
     },
     "ItemFern": {
@@ -6459,7 +6589,7 @@ export default {
         }
       ],
       "suit_info": {
-        "hygine_reduction_multiplier": 1.5,
+        "hygiene_reduction_multiplier": 1.5,
         "waste_max_pressure": 4053.0
       },
       "memory": {
@@ -6710,6 +6840,28 @@ export default {
         "slot_class": "Ingot",
         "sorting_class": "Resources"
       }
+    },
+    "ItemInsulatedCanisterPackage": {
+      "templateType": "ItemSlots",
+      "prefab": {
+        "prefab_name": "ItemInsulatedCanisterPackage",
+        "prefab_hash": 1485675617,
+        "desc": "",
+        "name": "Insulated Canister Package"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "None",
+        "sorting_class": "Default"
+      },
+      "slots": [
+        {
+          "name": "",
+          "typ": "None"
+        }
+      ]
     },
     "ItemInsulation": {
       "templateType": "Item",
@@ -8273,6 +8425,22 @@ export default {
         "sorting_class": "Kits"
       }
     },
+    "ItemKitLinearRail": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "ItemKitLinearRail",
+        "prefab_hash": -441759975,
+        "desc": "",
+        "name": "Kit (Linear Rail)"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 10,
+        "slot_class": "None",
+        "sorting_class": "Kits"
+      }
+    },
     "ItemKitLiquidRegulator": {
       "templateType": "Item",
       "prefab": {
@@ -8871,7 +9039,7 @@ export default {
         "prefab_name": "ItemKitReinforcedWindows",
         "prefab_hash": 1459985302,
         "desc": "",
-        "name": "Kit (Reinforced Windows)"
+        "name": "Kit (Reinforced Walls)"
       },
       "item": {
         "consumable": false,
@@ -8909,6 +9077,38 @@ export default {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 10,
+        "slot_class": "None",
+        "sorting_class": "Kits"
+      }
+    },
+    "ItemKitRobotArmDoor": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "ItemKitRobotArmDoor",
+        "prefab_hash": -753675589,
+        "desc": "",
+        "name": "Kit (Linear Rail Door)"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 10,
+        "slot_class": "None",
+        "sorting_class": "Kits"
+      }
+    },
+    "ItemKitRoboticArm": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "ItemKitRoboticArm",
+        "prefab_hash": -1228287398,
+        "desc": "",
+        "name": "Kit (LArRE)"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
         "slot_class": "None",
         "sorting_class": "Kits"
       }
@@ -9831,7 +10031,7 @@ export default {
         "prefab_name": "ItemKitWindowShutter",
         "prefab_hash": 1779979754,
         "desc": "",
-        "name": "Kit (Window Shutter)"
+        "name": "Kit (Composite Window Shutter)"
       },
       "item": {
         "consumable": false,
@@ -10117,7 +10317,7 @@ export default {
       "prefab": {
         "prefab_name": "ItemLiquidPipeValve",
         "prefab_hash": -2126113312,
-        "desc": "This kit creates a <link=ThingStructureLiquidValve><color=green>Liquid Valve</color></link>.",
+        "desc": "This kit creates a <link=ThingStructureLiquidValve><color=green>Valve (Liquid)</color></link>.",
         "name": "Kit (Liquid Pipe Valve)"
       },
       "item": {
@@ -10908,9 +11108,9 @@ export default {
       "item": {
         "consumable": false,
         "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
-        "sorting_class": "Default"
+        "max_quantity": 3,
+        "slot_class": "Tool",
+        "sorting_class": "Tools"
       }
     },
     "ItemMiningDrill": {
@@ -11036,6 +11236,48 @@ export default {
         {
           "name": "Gas Canister",
           "typ": "GasCanister"
+        }
+      ]
+    },
+    "ItemMiningPackage": {
+      "templateType": "ItemSlots",
+      "prefab": {
+        "prefab_name": "ItemMiningPackage",
+        "prefab_hash": 384478267,
+        "desc": "",
+        "name": "Mining Supplies Package"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "None",
+        "sorting_class": "Storage"
+      },
+      "slots": [
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
         }
       ]
     },
@@ -11379,8 +11621,8 @@ export default {
       "prefab": {
         "prefab_name": "ItemPassiveVent",
         "prefab_hash": 238631271,
-        "desc": "This kit creates a <link=ThingItemPassiveVent><color=green>Passive Vent</color></link> among other variants.",
-        "name": "Passive Vent"
+        "desc": "This kit creates a <link=ThingItemPassiveVent><color=green>Kit (Passive Vent)</color></link> among other variants.",
+        "name": "Kit (Passive Vent)"
       },
       "item": {
         "consumable": false,
@@ -11635,7 +11877,7 @@ export default {
       "prefab": {
         "prefab_name": "ItemPipeValve",
         "prefab_hash": 799323450,
-        "desc": "This kit creates a <link=ThingStructureValve><color=green>Valve</color></link>.",
+        "desc": "This kit creates a <link=ThingStructureValve><color=green>Valve (Gas)</color></link>.",
         "name": "Kit (Pipe Valve)"
       },
       "item": {
@@ -11856,6 +12098,48 @@ export default {
         "slot_class": "None",
         "sorting_class": "Resources"
       }
+    },
+    "ItemPortablesPackage": {
+      "templateType": "ItemSlots",
+      "prefab": {
+        "prefab_name": "ItemPortablesPackage",
+        "prefab_hash": 1459105919,
+        "desc": "",
+        "name": "Portables Package"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "None",
+        "sorting_class": "Storage"
+      },
+      "slots": [
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        }
+      ]
     },
     "ItemPotato": {
       "templateType": "Item",
@@ -12287,7 +12571,7 @@ export default {
       "prefab": {
         "prefab_name": "ItemRemoteDetonator",
         "prefab_hash": 678483886,
-        "desc": "",
+        "desc": "0.Mode0\n1.Mode1",
         "name": "Remote Detonator"
       },
       "item": {
@@ -12313,9 +12597,16 @@ export default {
         },
         "logic_types": {
           "Power": "Read",
+          "Mode": "ReadWrite",
           "Error": "Read",
+          "Activate": "ReadWrite",
+          "Lock": "ReadWrite",
           "On": "ReadWrite",
           "ReferenceId": "Read"
+        },
+        "modes": {
+          "0": "Mode0",
+          "1": "Mode1"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -12325,6 +12616,48 @@ export default {
         {
           "name": "Battery",
           "typ": "Battery"
+        }
+      ]
+    },
+    "ItemResidentialPackage": {
+      "templateType": "ItemSlots",
+      "prefab": {
+        "prefab_name": "ItemResidentialPackage",
+        "prefab_hash": 509629504,
+        "desc": "",
+        "name": "Residential Supplies Package"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "None",
+        "sorting_class": "Storage"
+      },
+      "slots": [
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
         }
       ]
     },
@@ -13513,7 +13846,7 @@ export default {
       "prefab": {
         "prefab_name": "ItemTablet",
         "prefab_hash": -229808600,
-        "desc": "The <link=Xigo><color=#0080FFFF>Xigo</color></link> handheld 'Padi' tablet is an all-purpose data platform, provided as standard issue to all <link=Stationeers><color=#0080FFFF>Stationeers</color></link>. A dynamic multi-tool that accepts a range of <link=CartridgePage><color=#0080FFFF>cartridges</color></link>, the Padi becomes an <link=ThingCartridgeAtmosAnalyser><color=green>Atmos Analyzer</color></link> or <link=ThingCartridgeTracker><color=green>Tracker</color></link>, <link=ThingCartridgeMedicalAnalyser><color=green>Medical Analyzer</color></link>, <link=ThingCartridgeOreScanner><color=green>Ore Scanner</color></link>, <link=ThingCartridgeElectronicReader><color=green>eReader</color></link>, and various other functions.",
+        "desc": "The <link=Xigo><color=#0080FFFF>Xigo</color></link> handheld 'Padi' tablet is an all-purpose data platform, provided as standard issue to all <link=Stationeers><color=#0080FFFF>Stationeers</color></link>. A dynamic multi-tool that accepts a range of <link=CartridgePage><color=#0080FFFF>cartridges</color></link>, the Padi becomes an <link=ThingCartridgeAtmosAnalyser><color=green>Cartridge (Atmos Analyzer)</color></link> or <link=ThingCartridgeTracker><color=green>Cartridge (Tracker)</color></link>, <link=ThingCartridgeMedicalAnalyser><color=green>Cartridge (Medical Analyzer)</color></link>, <link=ThingCartridgeOreScanner><color=green>Cartridge (Ore Scanner)</color></link>, <link=ThingCartridgeElectronicReader><color=green>Cartridge (eReader)</color></link>, and various other functions.",
         "name": "Handheld Tablet"
       },
       "item": {
@@ -13757,7 +14090,7 @@ export default {
       "prefab": {
         "prefab_name": "ItemVolatiles",
         "prefab_hash": 1253102035,
-        "desc": "An extremely reactive ice with numerous hydrocarbons trapped inside. For simplicity's sake, these are often displayed as H2 by devices like the <link=ThingCartridgeAtmosAnalyser><color=green>Atmos Analyzer</color></link>.\n      \n<link=GasVolatiles><color=#44AD83>Volatiles</color></link> combust in a 2:1 ratio with <link=GasOxygen><color=#44AD83>Oxygen</color></link>, creating <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> and pollutants. However when catalysed via devices such as the <link=ThingH2Combustor><color=green>H2 Combustor</color></link> in the presence of <link=GasOxygen><color=#44AD83>Oxygen</color></link>, they produce\n        <link=GasSteam><color=#44AD83>Steam</color></link> and heat with a modicum of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> and <link=GasPollutant><color=#44AD83>Pollutant</color></link> due to the autoignition of the volatiles in the chamber. Along with <link=GasOxygen><color=#44AD83>Oxygen</color></link>, volatiles gas is also the major component of fuel for such devices as the <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link>.\n",
+        "desc": "An extremely reactive ice with numerous hydrocarbons trapped inside. For simplicity's sake, these are often displayed as H2 by devices like the <link=ThingCartridgeAtmosAnalyser><color=green>Cartridge (Atmos Analyzer)</color></link>.\n      \n<link=GasVolatiles><color=#44AD83>Volatiles</color></link> combust in a 2:1 ratio with <link=GasOxygen><color=#44AD83>Oxygen</color></link>, creating <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> and pollutants. However when catalysed via devices such as the <link=ThingH2Combustor><color=green>H2 Combustor</color></link> in the presence of <link=GasOxygen><color=#44AD83>Oxygen</color></link>, they produce\n        <link=GasSteam><color=#44AD83>Steam</color></link> and heat with a modicum of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> and <link=GasPollutant><color=#44AD83>Pollutant</color></link> due to the autoignition of the volatiles in the chamber. Along with <link=GasOxygen><color=#44AD83>Oxygen</color></link>, volatiles gas is also the major component of fuel for such devices as the <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link>.\n",
         "name": "Ice (Volatiles)"
       },
       "item": {
@@ -13850,6 +14183,90 @@ export default {
         "slot_class": "LiquidBottle",
         "sorting_class": "Default"
       }
+    },
+    "ItemWaterBottleBag": {
+      "templateType": "ItemSlots",
+      "prefab": {
+        "prefab_name": "ItemWaterBottleBag",
+        "prefab_hash": 1476318823,
+        "desc": "",
+        "name": "Water Bottle Bag"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "None",
+        "sorting_class": "Storage"
+      },
+      "slots": [
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        }
+      ]
+    },
+    "ItemWaterBottlePackage": {
+      "templateType": "ItemSlots",
+      "prefab": {
+        "prefab_name": "ItemWaterBottlePackage",
+        "prefab_hash": -971586619,
+        "desc": "",
+        "name": "Water Bottle Package"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "None",
+        "sorting_class": "Storage"
+      },
+      "slots": [
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        },
+        {
+          "name": "",
+          "typ": "None"
+        }
+      ]
     },
     "ItemWaterPipeDigitalValve": {
       "templateType": "Item",
@@ -14047,7 +14464,7 @@ export default {
         "prefab_name": "ItemWreckageAirConditioner1",
         "prefab_hash": -1826023284,
         "desc": "",
-        "name": "Wreckage Air Conditioner"
+        "name": "Wreckage"
       },
       "item": {
         "consumable": false,
@@ -14063,7 +14480,7 @@ export default {
         "prefab_name": "ItemWreckageAirConditioner2",
         "prefab_hash": 169888054,
         "desc": "",
-        "name": "Wreckage Air Conditioner"
+        "name": "Wreckage"
       },
       "item": {
         "consumable": false,
@@ -14079,7 +14496,7 @@ export default {
         "prefab_name": "ItemWreckageHydroponicsTray1",
         "prefab_hash": -310178617,
         "desc": "",
-        "name": "Wreckage Hydroponics Tray"
+        "name": "Wreckage"
       },
       "item": {
         "consumable": false,
@@ -14095,7 +14512,7 @@ export default {
         "prefab_name": "ItemWreckageLargeExtendableRadiator01",
         "prefab_hash": -997763,
         "desc": "",
-        "name": "Wreckage Large Extendable Radiator"
+        "name": "Wreckage"
       },
       "item": {
         "consumable": false,
@@ -14111,7 +14528,7 @@ export default {
         "prefab_name": "ItemWreckageStructureRTG1",
         "prefab_hash": 391453348,
         "desc": "",
-        "name": "Wreckage Structure RTG"
+        "name": "Wreckage"
       },
       "item": {
         "consumable": false,
@@ -14127,7 +14544,7 @@ export default {
         "prefab_name": "ItemWreckageStructureWeatherStation001",
         "prefab_hash": -834664349,
         "desc": "",
-        "name": "Wreckage Structure Weather Station"
+        "name": "Wreckage"
       },
       "item": {
         "consumable": false,
@@ -14143,7 +14560,7 @@ export default {
         "prefab_name": "ItemWreckageStructureWeatherStation002",
         "prefab_hash": 1464424921,
         "desc": "",
-        "name": "Wreckage Structure Weather Station"
+        "name": "Wreckage"
       },
       "item": {
         "consumable": false,
@@ -14159,7 +14576,7 @@ export default {
         "prefab_name": "ItemWreckageStructureWeatherStation003",
         "prefab_hash": 542009679,
         "desc": "",
-        "name": "Wreckage Structure Weather Station"
+        "name": "Wreckage"
       },
       "item": {
         "consumable": false,
@@ -14175,7 +14592,7 @@ export default {
         "prefab_name": "ItemWreckageStructureWeatherStation004",
         "prefab_hash": -1104478996,
         "desc": "",
-        "name": "Wreckage Structure Weather Station"
+        "name": "Wreckage"
       },
       "item": {
         "consumable": false,
@@ -14191,7 +14608,7 @@ export default {
         "prefab_name": "ItemWreckageStructureWeatherStation005",
         "prefab_hash": -919745414,
         "desc": "",
-        "name": "Wreckage Structure Weather Station"
+        "name": "Wreckage"
       },
       "item": {
         "consumable": false,
@@ -14207,7 +14624,7 @@ export default {
         "prefab_name": "ItemWreckageStructureWeatherStation006",
         "prefab_hash": 1344576960,
         "desc": "",
-        "name": "Wreckage Structure Weather Station"
+        "name": "Wreckage"
       },
       "item": {
         "consumable": false,
@@ -14223,7 +14640,7 @@ export default {
         "prefab_name": "ItemWreckageStructureWeatherStation007",
         "prefab_hash": 656649558,
         "desc": "",
-        "name": "Wreckage Structure Weather Station"
+        "name": "Wreckage"
       },
       "item": {
         "consumable": false,
@@ -14239,7 +14656,7 @@ export default {
         "prefab_name": "ItemWreckageStructureWeatherStation008",
         "prefab_hash": -1214467897,
         "desc": "",
-        "name": "Wreckage Structure Weather Station"
+        "name": "Wreckage"
       },
       "item": {
         "consumable": false,
@@ -14255,7 +14672,7 @@ export default {
         "prefab_name": "ItemWreckageTurbineGenerator1",
         "prefab_hash": -1662394403,
         "desc": "",
-        "name": "Wreckage Turbine Generator"
+        "name": "Wreckage"
       },
       "item": {
         "consumable": false,
@@ -14271,7 +14688,7 @@ export default {
         "prefab_name": "ItemWreckageTurbineGenerator2",
         "prefab_hash": 98602599,
         "desc": "",
-        "name": "Wreckage Turbine Generator"
+        "name": "Wreckage"
       },
       "item": {
         "consumable": false,
@@ -14287,7 +14704,7 @@ export default {
         "prefab_name": "ItemWreckageTurbineGenerator3",
         "prefab_hash": 1927790321,
         "desc": "",
-        "name": "Wreckage Turbine Generator"
+        "name": "Wreckage"
       },
       "item": {
         "consumable": false,
@@ -14303,7 +14720,7 @@ export default {
         "prefab_name": "ItemWreckageWallCooler1",
         "prefab_hash": -1682930158,
         "desc": "",
-        "name": "Wreckage Wall Cooler"
+        "name": "Wreckage"
       },
       "item": {
         "consumable": false,
@@ -14319,7 +14736,7 @@ export default {
         "prefab_name": "ItemWreckageWallCooler2",
         "prefab_hash": 45733800,
         "desc": "",
-        "name": "Wreckage Wall Cooler"
+        "name": "Wreckage"
       },
       "item": {
         "consumable": false,
@@ -14443,39 +14860,39 @@ export default {
       "slots": [
         {
           "name": "",
-          "typ": "None"
+          "typ": "Crate"
         },
         {
           "name": "",
-          "typ": "None"
+          "typ": "Crate"
         },
         {
           "name": "",
-          "typ": "None"
+          "typ": "Crate"
         },
         {
           "name": "",
-          "typ": "None"
+          "typ": "Crate"
         },
         {
           "name": "",
-          "typ": "None"
+          "typ": "Crate"
         },
         {
           "name": "",
-          "typ": "None"
+          "typ": "Crate"
         },
         {
           "name": "",
-          "typ": "None"
+          "typ": "Portables"
         },
         {
           "name": "",
-          "typ": "None"
+          "typ": "Portables"
         },
         {
-          "name": "Entity",
-          "typ": "Entity"
+          "name": "",
+          "typ": "Crate"
         }
       ]
     },
@@ -15222,7 +15639,7 @@ export default {
       "prefab": {
         "prefab_name": "MotherboardComms",
         "prefab_hash": -337075633,
-        "desc": "When placed in a <link=ThingStructureComputer><color=green>Computer</color></link> and connected to a <link=ThingLandingpad_DataConnectionPiece><color=green>Landingpad Data And Power</color></link>, a <link=ThingStructureSatelliteDish><color=green>Medium Satellite Dish</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link> allows Stationeers to trade with suppliers. Adjust the horizontal and vertical attributes of the <link=ThingStructureSatelliteDish><color=green>Medium Satellite Dish</color></link> either directly or through logic. You need a communications signal of 95% or above to establish reliable communications with a trader. A minimum of a 3x3 clear pad area with a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link> at the center is required for a trader to land.",
+        "desc": "When placed in a <link=ThingStructureComputer><color=green>Computer (Modern)</color></link> and connected to a <link=ThingLandingpad_DataConnectionPiece><color=green>Landingpad Data And Power</color></link>, a <link=ThingStructureSatelliteDish><color=green>Medium Satellite Dish</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link> allows Stationeers to trade with suppliers. Adjust the horizontal and vertical attributes of the <link=ThingStructureSatelliteDish><color=green>Medium Satellite Dish</color></link> either directly or through logic. You need a communications signal of 95% or above to establish reliable communications with a trader. A minimum of a 3x3 clear pad area with a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link> at the center is required for a trader to land.",
         "name": "Communications Motherboard"
       },
       "item": {
@@ -15238,7 +15655,7 @@ export default {
       "prefab": {
         "prefab_name": "MotherboardLogic",
         "prefab_hash": 502555944,
-        "desc": "Motherboards are connected to <link=ThingStructureComputer><color=green>Computer</color></link>s to perform various technical functions.\nThe <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> K-cops logic motherboard allows <link=Stationeers><color=#0080FFFF>Stationeers</color></link> to set variables and actions on specific <link=LogicUnitPage><color=#0080FFFF>logic</color></link>-controlled items.",
+        "desc": "Motherboards are connected to <link=ThingStructureComputer><color=green>Computer (Modern)</color></link>s to perform various technical functions.\nThe <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> K-cops logic motherboard allows <link=Stationeers><color=#0080FFFF>Stationeers</color></link> to set variables and actions on specific <link=LogicUnitPage><color=#0080FFFF>logic</color></link>-controlled items.",
         "name": "Logic Motherboard"
       },
       "item": {
@@ -15270,7 +15687,7 @@ export default {
       "prefab": {
         "prefab_name": "MotherboardProgrammableChip",
         "prefab_hash": -161107071,
-        "desc": "When placed in a <link=ThingStructureComputer><color=green>Computer</color></link>, the IC Editor allows players to write and edit IC code, which can then be uploaded to a <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> if housed in an <link=ThingStructureCircuitHousing><color=green>IC Housing</color></link>.",
+        "desc": "When placed in a <link=ThingStructureComputer><color=green>Computer (Modern)</color></link>, the IC Editor allows players to write and edit IC code, which can then be uploaded to a <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> if housed in an <link=ThingStructureCircuitHousing><color=green>IC Housing</color></link>.",
         "name": "IC Editor Motherboard"
       },
       "item": {
@@ -15302,7 +15719,7 @@ export default {
       "prefab": {
         "prefab_name": "MotherboardSorter",
         "prefab_hash": -1908268220,
-        "desc": "Motherboards are connected to <link=ThingStructureComputer><color=green>Computer</color></link>s to perform various technical functions.\nThe <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> K-cops 10-10 sorter motherboard permits <link=Stationeers><color=#0080FFFF>Stationeers</color></link> to control which items a <link=ThingStructureSorter><color=green>Sorter</color></link> does, and does not, permit to pass.",
+        "desc": "Motherboards are connected to <link=ThingStructureComputer><color=green>Computer (Modern)</color></link>s to perform various technical functions.\nThe <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> K-cops 10-10 sorter motherboard permits <link=Stationeers><color=#0080FFFF>Stationeers</color></link> to control which items a <link=ThingStructureSorter><color=green>Sorter</color></link> does, and does not, permit to pass.",
         "name": "Sorter Motherboard"
       },
       "item": {
@@ -16713,7 +17130,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureActiveVent",
         "prefab_hash": -1129453144,
-        "desc": "The active vent is a powered device for maintaining <link=GasPage><color=#0080FFFF>gas</color></link> pressure by pumping gas into (or out of) a pipe network. The vent has two modes: 'Outward' sets it to pump gas into a space until pressure is reached; 'Inward' sets it to pump gas out until pressure is reached. The pressure parameter can be set on a connected <link=ThingStructureConsole><color=green>Console</color></link>. Default pressure is 101kPa for Outward; 0kPa for Inward ...",
+        "desc": "The active vent is a powered device for maintaining <link=GasPage><color=#0080FFFF>gas</color></link> pressure by pumping gas into (or out of) a pipe network. The vent has two modes: 'Outward' sets it to pump gas into a space until pressure is reached; 'Inward' sets it to pump gas out until pressure is reached. The pressure parameter can be set on a connected <link=ThingStructureConsole><color=green>Console</color></link>. Default pressure is 101kPa for Outward; 0kPa for Inward...",
         "name": "Active Vent"
       },
       "structure": {
@@ -17076,7 +17493,7 @@ export default {
         "has_reagents": true
       },
       "consumer_info": {
-        "consumed_resouces": [
+        "consumed_resources": [
           "ItemCookedCondensedMilk",
           "ItemCookedCorn",
           "ItemCookedMushroom",
@@ -17170,7 +17587,7 @@ export default {
             },
             "count_types": 3,
             "reagents": {
-              "Mushroom": 8.0,
+              "Mushroom": 5.0,
               "Oil": 1.0,
               "Steel": 1.0
             }
@@ -17306,7 +17723,7 @@ export default {
             "count_types": 3,
             "reagents": {
               "Oil": 1.0,
-              "Pumpkin": 5.0,
+              "Pumpkin": 2.0,
               "Steel": 1.0
             }
           },
@@ -18431,7 +18848,7 @@ export default {
         "has_reagents": true
       },
       "consumer_info": {
-        "consumed_resouces": [
+        "consumed_resources": [
           "ItemAstroloyIngot",
           "ItemConstantanIngot",
           "ItemCopperIngot",
@@ -18480,6 +18897,31 @@ export default {
             "count_types": 1,
             "reagents": {
               "Silicon": 2.0
+            }
+          },
+          "ItemAstroloySheets": {
+            "tier": "TierOne",
+            "time": 3.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Astroloy": 3.0
             }
           },
           "ItemCableCoil": {
@@ -19377,7 +19819,7 @@ export default {
             },
             "count_types": 1,
             "reagents": {
-              "Steel": 2.0
+              "Astroloy": 2.0
             }
           },
           "ItemKitRespawnPointWallMounted": {
@@ -19404,6 +19846,33 @@ export default {
             "reagents": {
               "Copper": 1.0,
               "Iron": 3.0
+            }
+          },
+          "ItemKitRobotArmDoor": {
+            "tier": "TierTwo",
+            "time": 10.0,
+            "energy": 400.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 3.0,
+              "Steel": 12.0
             }
           },
           "ItemKitRocketManufactory": {
@@ -19864,7 +20333,7 @@ export default {
             },
             "count_types": 2,
             "reagents": {
-              "Iron": 1.0,
+              "Solder": 1.0,
               "Steel": 2.0
             }
           },
@@ -20504,7 +20973,7 @@ export default {
         "has_reagents": true
       },
       "consumer_info": {
-        "consumed_resouces": [
+        "consumed_resources": [
           "ItemCorn",
           "ItemEgg",
           "ItemFertilizedEgg",
@@ -20806,7 +21275,7 @@ export default {
             },
             "count_types": 1,
             "reagents": {
-              "Rice": 3.0
+              "Rice": 1.0
             }
           },
           "ItemCookedSoybean": {
@@ -20831,7 +21300,7 @@ export default {
             },
             "count_types": 1,
             "reagents": {
-              "Soy": 5.0
+              "Soy": 1.0
             }
           },
           "ItemCookedTomato": {
@@ -22507,7 +22976,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureBlockBed",
         "prefab_hash": 697908419,
-        "desc": "Description coming.",
+        "desc": "",
         "name": "Block Bed"
       },
       "structure": {
@@ -25296,7 +25765,7 @@ export default {
         "prefab_name": "StructureChuteBin",
         "prefab_hash": -850484480,
         "desc": "The <link=Stationeers><color=#0080FFFF>Stationeer's</color></link> goal is to make off-world survival less of a struggle for themselves, and those who will follow in their footsteps.\nLike most <link=Recurso><color=#0080FFFF>Recurso</color></link>-designed systems, chute bins are simple and robust powered items, allowing items to be manually passed into chute networks by pulling a lever. They can also be programmed with <link=LogicUnitPage><color=#0080FFFF>logic</color></link> to operate automatically, although full automation requires the use items such as a <link=ThingStructureSDBHopper><color=green>SDB Hopper</color></link>.",
-        "name": "Chute Bin"
+        "name": "Chute Import Bin"
       },
       "structure": {
         "small_grid": true
@@ -25663,6 +26132,73 @@ export default {
           {
             "typ": "Chute",
             "role": "Output"
+          },
+          {
+            "typ": "PowerAndData",
+            "role": "None"
+          }
+        ],
+        "has_activate_state": false,
+        "has_atmosphere": false,
+        "has_color_state": false,
+        "has_lock_state": true,
+        "has_mode_state": false,
+        "has_on_off_state": true,
+        "has_open_state": true,
+        "has_reagents": false
+      }
+    },
+    "StructureChuteExportBin": {
+      "templateType": "StructureLogicDevice",
+      "prefab": {
+        "prefab_name": "StructureChuteExportBin",
+        "prefab_hash": 1957571043,
+        "desc": "",
+        "name": "Chute Export Bin"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "logic": {
+        "logic_slot_types": {
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
+        },
+        "logic_types": {
+          "Power": "Read",
+          "Open": "ReadWrite",
+          "Error": "Read",
+          "Lock": "ReadWrite",
+          "On": "ReadWrite",
+          "RequiredPower": "Read",
+          "PrefabHash": "Read",
+          "ReferenceId": "Read",
+          "NameHash": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": [
+        {
+          "name": "Input",
+          "typ": "None"
+        }
+      ],
+      "device": {
+        "connection_list": [
+          {
+            "typ": "Chute",
+            "role": "Input"
           },
           {
             "typ": "PowerAndData",
@@ -26741,13 +27277,154 @@ export default {
         "small_grid": false
       }
     },
+    "StructureCompositeWindowShutter": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructureCompositeWindowShutter",
+        "prefab_hash": 1580592998,
+        "desc": "",
+        "name": "Composite Window Shutter"
+      },
+      "structure": {
+        "small_grid": false
+      }
+    },
+    "StructureCompositeWindowShutterConnector": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructureCompositeWindowShutterConnector",
+        "prefab_hash": 791407452,
+        "desc": "",
+        "name": "Composite Window Shutter Connector"
+      },
+      "structure": {
+        "small_grid": false
+      }
+    },
+    "StructureCompositeWindowShutterController": {
+      "templateType": "StructureLogicDevice",
+      "prefab": {
+        "prefab_name": "StructureCompositeWindowShutterController",
+        "prefab_hash": -2078371660,
+        "desc": "",
+        "name": "Composite Window Shutter Controller"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "logic": {
+        "logic_slot_types": {},
+        "logic_types": {
+          "Power": "Read",
+          "Open": "ReadWrite",
+          "Error": "Read",
+          "Lock": "ReadWrite",
+          "On": "ReadWrite",
+          "RequiredPower": "Read",
+          "PrefabHash": "Read",
+          "ReferenceId": "Read",
+          "NameHash": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": [],
+      "device": {
+        "connection_list": [
+          {
+            "typ": "Data",
+            "role": "None"
+          },
+          {
+            "typ": "Power",
+            "role": "None"
+          }
+        ],
+        "has_activate_state": false,
+        "has_atmosphere": false,
+        "has_color_state": false,
+        "has_lock_state": true,
+        "has_mode_state": false,
+        "has_on_off_state": true,
+        "has_open_state": true,
+        "has_reagents": false
+      }
+    },
     "StructureComputer": {
       "templateType": "StructureLogicDevice",
       "prefab": {
         "prefab_name": "StructureComputer",
         "prefab_hash": -626563514,
-        "desc": "In some ways a relic, the 'Chonk R1' was designed by severely conflicted <link=Norsec><color=#0080FFFF>Norsec</color></link> technicians, who needed a unit that could operate with a wide range of <link=LogicUnitPage><color=#0080FFFF>motherboards</color></link>, while also enduring the worst a new Cadet could throw at it.\nThe result is a machine described by some as 'the only PC likely to survive our collision with a black hole', while other, less appreciative users regard it as sharing most of its technological DNA with a cheese grater.\nCompatible motherboards:\n- <link=ThingMotherboardLogic><color=green>Logic Motherboard</color></link>\n- <link=ThingMotherboardManufacturing><color=green>Manufacturing Motherboard</color></link>\n- <link=ThingMotherboardSorter><color=green>Sorter Motherboard</color></link>\n- <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link>\n- <link=ThingMotherboardProgrammableChip><color=green>IC Editor Motherboard</color></link>",
-        "name": "Computer"
+        "desc": "This unit operates with a wide range of <link=LogicUnitPage><color=#0080FFFF>motherboards</color></link>.",
+        "name": "Computer (Modern)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "logic": {
+        "logic_slot_types": {
+          "0": {},
+          "1": {},
+          "2": {}
+        },
+        "logic_types": {
+          "Power": "Read",
+          "Open": "ReadWrite",
+          "Error": "Read",
+          "Lock": "ReadWrite",
+          "On": "ReadWrite",
+          "RequiredPower": "Read",
+          "PrefabHash": "Read",
+          "ReferenceId": "Read",
+          "NameHash": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": [
+        {
+          "name": "Data Disk",
+          "typ": "DataDisk"
+        },
+        {
+          "name": "Data Disk",
+          "typ": "DataDisk"
+        },
+        {
+          "name": "Motherboard",
+          "typ": "Motherboard"
+        }
+      ],
+      "device": {
+        "connection_list": [
+          {
+            "typ": "Data",
+            "role": "None"
+          },
+          {
+            "typ": "Power",
+            "role": "None"
+          }
+        ],
+        "has_activate_state": false,
+        "has_atmosphere": false,
+        "has_color_state": false,
+        "has_lock_state": true,
+        "has_mode_state": false,
+        "has_on_off_state": true,
+        "has_open_state": true,
+        "has_reagents": false
+      }
+    },
+    "StructureComputerUpright": {
+      "templateType": "StructureLogicDevice",
+      "prefab": {
+        "prefab_name": "StructureComputerUpright",
+        "prefab_hash": -405593895,
+        "desc": "This unit operates with a wide range of <link=LogicUnitPage><color=#0080FFFF>motherboards</color></link>.",
+        "name": "Computer (Retro)"
       },
       "structure": {
         "small_grid": true
@@ -27528,7 +28205,7 @@ export default {
       "slots": [
         {
           "name": "Container Slot",
-          "typ": "None"
+          "typ": "Crate"
         }
       ]
     },
@@ -28077,8 +28754,8 @@ export default {
       "prefab": {
         "prefab_name": "StructureDrinkingFountain",
         "prefab_hash": 1968371847,
-        "desc": "<N:EN:StructureDrinkingFountain>",
-        "name": "<N:EN:StructureDrinkingFountain>"
+        "desc": "The Drinking Fountain can be interacted with directly to increase hydration. It needs a <link=GasWater><color=#44AD83>Water</color></link> supply.",
+        "name": "Drinking Fountain"
       },
       "structure": {
         "small_grid": true
@@ -28333,7 +29010,7 @@ export default {
         "has_reagents": true
       },
       "consumer_info": {
-        "consumed_resouces": [
+        "consumed_resources": [
           "ItemAstroloyIngot",
           "ItemConstantanIngot",
           "ItemCopperIngot",
@@ -30501,6 +31178,31 @@ export default {
               "Waspaloy": 20.0
             }
           },
+          "ItemKitLinearRail": {
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Steel": 3.0
+            }
+          },
           "ItemKitLogicCircuit": {
             "tier": "TierOne",
             "time": 40.0,
@@ -30793,6 +31495,33 @@ export default {
               "Iron": 9.0
             }
           },
+          "ItemKitRoboticArm": {
+            "tier": "TierOne",
+            "time": 150.0,
+            "energy": 10000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Astroloy": 15.0,
+              "Hastelloy": 5.0,
+              "Inconel": 10.0
+            }
+          },
           "ItemKitSatelliteDish": {
             "tier": "TierOne",
             "time": 120.0,
@@ -30822,8 +31551,8 @@ export default {
           },
           "ItemKitSensor": {
             "tier": "TierOne",
-            "time": 5.0,
-            "energy": 10.0,
+            "time": 10.0,
+            "energy": 500.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -32450,7 +33179,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureEmergencyButton",
         "prefab_hash": 1668452680,
-        "desc": "Description coming.",
+        "desc": "",
         "name": "Important Button"
       },
       "structure": {
@@ -34673,7 +35402,7 @@ export default {
         "has_reagents": true
       },
       "consumer_info": {
-        "consumed_resouces": [
+        "consumed_resources": [
           "ItemAstroloyIngot",
           "ItemConstantanIngot",
           "ItemCopperIngot",
@@ -36463,33 +37192,6 @@ export default {
               "Copper": 2.0,
               "Gold": 1.0,
               "Iron": 5.0
-            }
-          },
-          "ItemKitSensor": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 1.0,
-              "Gold": 1.0,
-              "Iron": 1.0
             }
           },
           "ItemKitShower": {
@@ -39238,7 +39940,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureLargeSatelliteDish",
         "prefab_hash": 1913391845,
-        "desc": "This large communications unit can be used to communicate with nearby trade vessels.\n\n        When connected to a <link=ThingStructureComputer><color=green>Computer</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic.",
+        "desc": "This large communications unit can be used to communicate with nearby trade vessels.\n\n        When connected to a <link=ThingStructureComputer><color=green>Computer (Modern)</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic.",
         "name": "Large Satellite Dish"
       },
       "structure": {
@@ -39445,7 +40147,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureLightRound",
         "prefab_hash": 1514476632,
-        "desc": "Description coming.",
+        "desc": "",
         "name": "Light Round"
       },
       "structure": {
@@ -39489,7 +40191,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureLightRoundAngled",
         "prefab_hash": 1592905386,
-        "desc": "Description coming.",
+        "desc": "",
         "name": "Light Round (Angled)"
       },
       "structure": {
@@ -39533,7 +40235,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureLightRoundSmall",
         "prefab_hash": 1436121888,
-        "desc": "Description coming.",
+        "desc": "",
         "name": "Light Round (Small)"
       },
       "structure": {
@@ -39741,53 +40443,6 @@ export default {
         "has_lock_state": true,
         "has_mode_state": false,
         "has_on_off_state": true,
-        "has_open_state": false,
-        "has_reagents": false
-      }
-    },
-    "StructureLiquidPipeOneWayValve": {
-      "templateType": "StructureLogicDevice",
-      "prefab": {
-        "prefab_name": "StructureLiquidPipeOneWayValve",
-        "prefab_hash": -782453061,
-        "desc": "The one way valve moves liquid in one direction only: from input side to output side. It only permits flow if the input pressure is higher than output pressure..",
-        "name": "One Way Valve (Liquid)"
-      },
-      "structure": {
-        "small_grid": true
-      },
-      "logic": {
-        "logic_slot_types": {},
-        "logic_types": {
-          "Setting": "ReadWrite",
-          "Maximum": "Read",
-          "Ratio": "Read",
-          "PrefabHash": "Read",
-          "ReferenceId": "Read",
-          "NameHash": "Read"
-        },
-        "transmission_receiver": false,
-        "wireless_logic": false,
-        "circuit_holder": false
-      },
-      "slots": [],
-      "device": {
-        "connection_list": [
-          {
-            "typ": "PipeLiquid",
-            "role": "Input"
-          },
-          {
-            "typ": "PipeLiquid",
-            "role": "Output"
-          }
-        ],
-        "has_activate_state": false,
-        "has_atmosphere": false,
-        "has_color_state": false,
-        "has_lock_state": false,
-        "has_mode_state": false,
-        "has_on_off_state": false,
         "has_open_state": false,
         "has_reagents": false
       }
@@ -40474,7 +41129,7 @@ export default {
         "prefab_name": "StructureLiquidValve",
         "prefab_hash": 1849974453,
         "desc": "",
-        "name": "Liquid Valve"
+        "name": "Valve (Liquid)"
       },
       "structure": {
         "small_grid": true
@@ -43833,7 +44488,7 @@ export default {
       "prefab": {
         "prefab_name": "StructurePipeAnalysizer",
         "prefab_hash": 435685051,
-        "desc": "Allegedly the outcome of a weekend father-daughter electronics project by an overzealous {<link=ExMin><color=#0080FFFF>ExMin</color></link> engineer, the pipe analyzer is essentially a more advanced version of the <link=ThingStructurePipeMeter><color=green>Pipe Meter</color></link>.\nDisplaying the internal pressure of pipe networks, it  also reads out temperature and gas contents, and can be connected to a <link=ThingStructureConsole><color=green>Console</color></link> or <link=ThingStructureComputer><color=green>Computer</color></link> via a {<link=LogicPage><color=#0080FFFF>Logic</color></link> system.",
+        "desc": "Allegedly the outcome of a weekend father-daughter electronics project by an overzealous {<link=ExMin><color=#0080FFFF>ExMin</color></link> engineer, the pipe analyzer is essentially a more advanced version of the <link=ThingStructurePipeMeter><color=green>Pipe Meter</color></link>.\nDisplaying the internal pressure of pipe networks, it  also reads out temperature and gas contents, and can be connected to a <link=ThingStructureConsole><color=green>Console</color></link> or <link=ThingStructureComputer><color=green>Computer (Modern)</color></link> via a {<link=LogicPage><color=#0080FFFF>Logic</color></link> system.",
         "name": "Pipe Analyzer"
       },
       "structure": {
@@ -44248,6 +44903,54 @@ export default {
         "radiation_factor": 0.0005
       }
     },
+    "StructurePipeLiquidOneWayValveLever": {
+      "templateType": "StructureLogicDevice",
+      "prefab": {
+        "prefab_name": "StructurePipeLiquidOneWayValveLever",
+        "prefab_hash": -523832822,
+        "desc": "",
+        "name": "One Way Valve (Liquid)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "logic": {
+        "logic_slot_types": {},
+        "logic_types": {
+          "Setting": "ReadWrite",
+          "Maximum": "Read",
+          "Ratio": "Read",
+          "On": "ReadWrite",
+          "PrefabHash": "Read",
+          "ReferenceId": "Read",
+          "NameHash": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": [],
+      "device": {
+        "connection_list": [
+          {
+            "typ": "PipeLiquid",
+            "role": "Input"
+          },
+          {
+            "typ": "PipeLiquid",
+            "role": "Output"
+          }
+        ],
+        "has_activate_state": false,
+        "has_atmosphere": false,
+        "has_color_state": false,
+        "has_lock_state": false,
+        "has_mode_state": false,
+        "has_on_off_state": true,
+        "has_open_state": false,
+        "has_reagents": false
+      }
+    },
     "StructurePipeLiquidStraight": {
       "templateType": "Structure",
       "prefab": {
@@ -44315,12 +45018,12 @@ export default {
         "has_reagents": false
       }
     },
-    "StructurePipeOneWayValve": {
+    "StructurePipeOneWayValveLever": {
       "templateType": "StructureLogicDevice",
       "prefab": {
-        "prefab_name": "StructurePipeOneWayValve",
-        "prefab_hash": 1580412404,
-        "desc": "The one way valve moves gas in one direction only: from input side to output side. It only permits flow if the input pressure is higher than output pressure.\n",
+        "prefab_name": "StructurePipeOneWayValveLever",
+        "prefab_hash": 1289581593,
+        "desc": "",
         "name": "One Way Valve (Gas)"
       },
       "structure": {
@@ -44332,6 +45035,7 @@ export default {
           "Setting": "ReadWrite",
           "Maximum": "Read",
           "Ratio": "Read",
+          "On": "ReadWrite",
           "PrefabHash": "Read",
           "ReferenceId": "Read",
           "NameHash": "Read"
@@ -44357,7 +45061,7 @@ export default {
         "has_color_state": false,
         "has_lock_state": false,
         "has_mode_state": false,
-        "has_on_off_state": false,
+        "has_on_off_state": true,
         "has_open_state": false,
         "has_reagents": false
       }
@@ -44623,8 +45327,8 @@ export default {
       },
       "slots": [
         {
-          "name": "",
-          "typ": "None"
+          "name": "Portables",
+          "typ": "Portables"
         }
       ],
       "device": {
@@ -46438,6 +47142,18 @@ export default {
         "small_grid": false
       }
     },
+    "StructureReinforcedWall": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructureReinforcedWall",
+        "prefab_hash": -475746988,
+        "desc": "",
+        "name": "Reinforced Wall"
+      },
+      "structure": {
+        "small_grid": false
+      }
+    },
     "StructureReinforcedWallPaddedWindow": {
       "templateType": "Structure",
       "prefab": {
@@ -46460,6 +47176,198 @@ export default {
       },
       "structure": {
         "small_grid": false
+      }
+    },
+    "StructureRobotArmDoor": {
+      "templateType": "StructureLogicDevice",
+      "prefab": {
+        "prefab_name": "StructureRobotArmDoor",
+        "prefab_hash": -2131782367,
+        "desc": "",
+        "name": "Linear Rail Door"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "logic": {
+        "logic_slot_types": {},
+        "logic_types": {
+          "Power": "Read",
+          "Open": "ReadWrite",
+          "RequiredPower": "Read",
+          "PrefabHash": "Read",
+          "ReferenceId": "Read",
+          "NameHash": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": [],
+      "device": {
+        "connection_list": [
+          {
+            "typ": "Data",
+            "role": "None"
+          },
+          {
+            "typ": "Power",
+            "role": "None"
+          }
+        ],
+        "has_activate_state": false,
+        "has_atmosphere": false,
+        "has_color_state": false,
+        "has_lock_state": false,
+        "has_mode_state": false,
+        "has_on_off_state": false,
+        "has_open_state": true,
+        "has_reagents": false
+      }
+    },
+    "StructureRoboticArmDock": {
+      "templateType": "StructureLogicDevice",
+      "prefab": {
+        "prefab_name": "StructureRoboticArmDock",
+        "prefab_hash": -1818718810,
+        "desc": "The Linear Articulated Rail Entity or LArRE can be used to plant, harvest and fertilize plants in plant trays. It can also grab items from a <link=ThingStructureChuteExportBin><color=green>Chute Export Bin</color></link> and drop them in a <link=ThingStructureChuteBin><color=green>Chute Import Bin</color></link>. LArRE can interact with plant trays or chute bins built under a linear rail station or built under its dock.",
+        "name": "LArRE Dock"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "logic": {
+        "logic_slot_types": {
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
+        },
+        "logic_types": {
+          "Power": "Read",
+          "Error": "Read",
+          "Activate": "ReadWrite",
+          "Setting": "ReadWrite",
+          "On": "ReadWrite",
+          "RequiredPower": "Read",
+          "Idle": "Read",
+          "PrefabHash": "Read",
+          "ReferenceId": "Read",
+          "Index": "Read",
+          "NameHash": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": [
+        {
+          "name": "Arm Slot",
+          "typ": "None"
+        }
+      ],
+      "device": {
+        "connection_list": [
+          {
+            "typ": "RoboticArmRail",
+            "role": "None"
+          },
+          {
+            "typ": "RoboticArmRail",
+            "role": "None"
+          },
+          {
+            "typ": "PowerAndData",
+            "role": "None"
+          }
+        ],
+        "has_activate_state": true,
+        "has_atmosphere": false,
+        "has_color_state": false,
+        "has_lock_state": false,
+        "has_mode_state": false,
+        "has_on_off_state": true,
+        "has_open_state": false,
+        "has_reagents": false
+      }
+    },
+    "StructureRoboticArmRailCorner": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructureRoboticArmRailCorner",
+        "prefab_hash": -1323992709,
+        "desc": "",
+        "name": "Linear Rail Corner"
+      },
+      "structure": {
+        "small_grid": true
+      }
+    },
+    "StructureRoboticArmRailCornerStop": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructureRoboticArmRailCornerStop",
+        "prefab_hash": 1974053060,
+        "desc": "",
+        "name": "Linear Rail Corner Station"
+      },
+      "structure": {
+        "small_grid": true
+      }
+    },
+    "StructureRoboticArmRailInnerCorner": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructureRoboticArmRailInnerCorner",
+        "prefab_hash": -267108827,
+        "desc": "",
+        "name": "Linear Rail Inner Corner"
+      },
+      "structure": {
+        "small_grid": true
+      }
+    },
+    "StructureRoboticArmRailOuterCorner": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructureRoboticArmRailOuterCorner",
+        "prefab_hash": -33470826,
+        "desc": "",
+        "name": "Linear Rail Outer Corner"
+      },
+      "structure": {
+        "small_grid": true
+      }
+    },
+    "StructureRoboticArmRailStraight": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructureRoboticArmRailStraight",
+        "prefab_hash": -1785844184,
+        "desc": "",
+        "name": "Linear Rail Straight"
+      },
+      "structure": {
+        "small_grid": true
+      }
+    },
+    "StructureRoboticArmRailStraightStop": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructureRoboticArmRailStraightStop",
+        "prefab_hash": 1800701885,
+        "desc": "",
+        "name": "Linear Rail Straight Station"
+      },
+      "structure": {
+        "small_grid": true
       }
     },
     "StructureRocketAvionics": {
@@ -46532,7 +47440,8 @@ export default {
           "Size": "Read",
           "TotalQuantity": "Read",
           "MinedQuantity": "Read",
-          "NameHash": "Read"
+          "NameHash": "Read",
+          "Altitude": "Read"
         },
         "modes": {
           "0": "Invalid",
@@ -46891,7 +47800,7 @@ export default {
         "has_reagents": true
       },
       "consumer_info": {
-        "consumed_resouces": [
+        "consumed_resources": [
           "ItemAstroloyIngot",
           "ItemConstantanIngot",
           "ItemCopperIngot",
@@ -48501,7 +49410,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureSatelliteDish",
         "prefab_hash": 439026183,
-        "desc": "This medium communications unit can be used to communicate with nearby trade vessels.\n      \nWhen connected to a <link=ThingStructureComputer><color=green>Computer</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic.",
+        "desc": "This medium communications unit can be used to communicate with nearby trade vessels.\n      \nWhen connected to a <link=ThingStructureComputer><color=green>Computer (Modern)</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic.",
         "name": "Medium Satellite Dish"
       },
       "structure": {
@@ -48636,7 +49545,7 @@ export default {
         "has_reagents": true
       },
       "consumer_info": {
-        "consumed_resouces": [
+        "consumed_resources": [
           "ItemAstroloyIngot",
           "ItemConstantanIngot",
           "ItemCopperIngot",
@@ -49120,7 +50029,7 @@ export default {
             }
           },
           "ItemExplosive": {
-            "tier": "TierOne",
+            "tier": "TierTwo",
             "time": 10.0,
             "energy": 500.0,
             "temperature": {
@@ -49139,13 +50048,11 @@ export default {
               "is_any_to_remove": false,
               "reagents": {}
             },
-            "count_types": 5,
+            "count_types": 3,
             "reagents": {
-              "Copper": 5.0,
               "Electrum": 1.0,
-              "Gold": 5.0,
-              "Lead": 10.0,
-              "Steel": 7.0
+              "Silicon": 3.0,
+              "Solder": 1.0
             }
           },
           "ItemGrenade": {
@@ -49178,7 +50085,7 @@ export default {
           },
           "ItemMiningCharge": {
             "tier": "TierOne",
-            "time": 7.0,
+            "time": 5.0,
             "energy": 200.0,
             "temperature": {
               "start": 1.0,
@@ -49196,12 +50103,11 @@ export default {
               "is_any_to_remove": false,
               "reagents": {}
             },
-            "count_types": 4,
+            "count_types": 3,
             "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0,
-              "Iron": 7.0,
-              "Lead": 10.0
+              "Gold": 1.0,
+              "Iron": 1.0,
+              "Silicon": 3.0
             }
           },
           "SMGMagazine": {
@@ -50376,7 +51282,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureSingleBed",
         "prefab_hash": -492611,
-        "desc": "Description coming.",
+        "desc": "",
         "name": "Single Bed"
       },
       "structure": {
@@ -50935,7 +51841,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureSmallSatelliteDish",
         "prefab_hash": -2138748650,
-        "desc": "This small communications unit can be used to communicate with nearby trade vessels.\n\n        When connected to a <link=ThingStructureComputer><color=green>Computer</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic.",
+        "desc": "This small communications unit can be used to communicate with nearby trade vessels.\n\n        When connected to a <link=ThingStructureComputer><color=green>Computer (Modern)</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic.",
         "name": "Small Satellite Dish"
       },
       "structure": {
@@ -51519,7 +52425,7 @@ export default {
         "has_reagents": false
       },
       "consumer_info": {
-        "consumed_resouces": [
+        "consumed_resources": [
           "ItemCharcoal",
           "ItemCoalOre",
           "ItemSolidFuel"
@@ -52015,7 +52921,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureStirlingEngine",
         "prefab_hash": -260316435,
-        "desc": "Harnessing an ancient thermal exploit, the <link=Recurso><color=#0080FFFF>Recurso</color></link> 'Libra' Stirling Engine generates power via the expansion and contraction of a working gas to drive pistons operating an electrical generator.\n      \nWhen high pressure hot gas is supplied into the input pipe, this gas will heat the hot side of the unit, then pass into the output pipe. The cooler side uses the room's ambient atmosphere, which must be kept at a lower temperature and pressure in order to create a differential. Add a working gas by inserting a <link=SlotGasCanister><color=orange>Gas Canister</color></link>. The unit must be deactivated when adding or removing canisters, or the working gas may leak into the surrounding atmosphere.\n \nGases with a low molecular mass make the most efficient working gases. Increasing the moles of working gas can result in a greater potential power output. However, overpressuring the unit may have ... sub-optimal results.",
+        "desc": "Harnessing an ancient thermal exploit, the <link=Recurso><color=#0080FFFF>Recurso</color></link> 'Libra' Stirling Engine generates power via the expansion and contraction of a working gas to drive pistons operating an electrical generator.\n      \nWhen high pressure hot gas is supplied into the input pipe, this gas will heat the hot side of the unit, then pass into the output pipe. The cooler side uses the room's ambient atmosphere, which must be kept at a lower temperature and pressure in order to create a differential. Add a working gas by inserting a <link=SlotGasCanister><color=orange>Gas Canister</color></link>. The unit must be deactivated when adding or removing canisters, or the working gas may leak into the surrounding atmosphere.\n \nGases with a low molecular mass make the most efficient working gases. Increasing the moles of working gas can result in a greater potential power output. However, overpressuring the unit may have... sub-optimal results.",
         "name": "Stirling Engine"
       },
       "structure": {
@@ -53290,7 +54196,7 @@ export default {
         "has_reagents": true
       },
       "consumer_info": {
-        "consumed_resouces": [
+        "consumed_resources": [
           "ItemAstroloyIngot",
           "ItemConstantanIngot",
           "ItemCopperIngot",
@@ -54102,6 +55008,33 @@ export default {
               "Iron": 5.0
             }
           },
+          "ItemExplosive": {
+            "tier": "TierTwo",
+            "time": 90.0,
+            "energy": 9000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Electrum": 1.0,
+              "Silicon": 7.0,
+              "Solder": 2.0
+            }
+          },
           "ItemFlagSmall": {
             "tier": "TierOne",
             "time": 1.0,
@@ -54787,6 +55720,33 @@ export default {
               "Steel": 10.0
             }
           },
+          "ItemMiningCharge": {
+            "tier": "TierOne",
+            "time": 60.0,
+            "energy": 6000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Gold": 1.0,
+              "Iron": 1.0,
+              "Silicon": 5.0
+            }
+          },
           "ItemMiningDrill": {
             "tier": "TierOne",
             "time": 5.0,
@@ -54974,9 +55934,9 @@ export default {
             }
           },
           "ItemRemoteDetonator": {
-            "tier": "TierOne",
-            "time": 4.5,
-            "energy": 500.0,
+            "tier": "TierTwo",
+            "time": 30.0,
+            "energy": 1500.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -54993,10 +55953,11 @@ export default {
               "is_any_to_remove": false,
               "reagents": {}
             },
-            "count_types": 2,
+            "count_types": 3,
             "reagents": {
-              "Gold": 1.0,
-              "Iron": 3.0
+              "Copper": 5.0,
+              "Solder": 5.0,
+              "Steel": 5.0
             }
           },
           "ItemReusableFireExtinguisher": {
@@ -56833,7 +57794,7 @@ export default {
         "prefab_name": "StructureValve",
         "prefab_hash": -692036078,
         "desc": "",
-        "name": "Valve"
+        "name": "Valve (Gas)"
       },
       "structure": {
         "small_grid": true
@@ -58719,7 +59680,7 @@ export default {
       }
     },
     "StructureWaterPurifier": {
-      "templateType": "StructureLogicDevice",
+      "templateType": "StructureLogicDeviceConsumer",
       "prefab": {
         "prefab_name": "StructureWaterPurifier",
         "prefab_hash": 887383294,
@@ -58786,6 +59747,12 @@ export default {
         "has_on_off_state": true,
         "has_open_state": false,
         "has_reagents": false
+      },
+      "consumer_info": {
+        "consumed_resources": [
+          "ItemCharcoal"
+        ],
+        "processed_reagents": []
       }
     },
     "StructureWaterWallCooler": {
@@ -58956,62 +59923,6 @@ export default {
         "has_mode_state": false,
         "has_on_off_state": false,
         "has_open_state": false,
-        "has_reagents": false
-      }
-    },
-    "StructureWindowShutter": {
-      "templateType": "StructureLogicDevice",
-      "prefab": {
-        "prefab_name": "StructureWindowShutter",
-        "prefab_hash": 2056377335,
-        "desc": "For those special, private moments, a window that can be closed to prying eyes. \n      \nWhen closed, has the heat transfer characteristics of a basic wall. Requires power, and can be connected to logic systems.",
-        "name": "Window Shutter"
-      },
-      "structure": {
-        "small_grid": true
-      },
-      "logic": {
-        "logic_slot_types": {},
-        "logic_types": {
-          "Power": "Read",
-          "Open": "ReadWrite",
-          "Mode": "ReadWrite",
-          "Error": "Read",
-          "Setting": "ReadWrite",
-          "On": "ReadWrite",
-          "RequiredPower": "Read",
-          "Idle": "Read",
-          "PrefabHash": "Read",
-          "ReferenceId": "Read",
-          "NameHash": "Read"
-        },
-        "modes": {
-          "0": "Operate",
-          "1": "Logic"
-        },
-        "transmission_receiver": false,
-        "wireless_logic": false,
-        "circuit_holder": false
-      },
-      "slots": [],
-      "device": {
-        "connection_list": [
-          {
-            "typ": "Data",
-            "role": "None"
-          },
-          {
-            "typ": "Power",
-            "role": "None"
-          }
-        ],
-        "has_activate_state": false,
-        "has_atmosphere": false,
-        "has_color_state": false,
-        "has_lock_state": false,
-        "has_mode_state": true,
-        "has_on_off_state": true,
-        "has_open_state": true,
         "has_reagents": false
       }
     },
@@ -59773,7 +60684,7 @@ export default {
           "OccupantHash": {
             "value": 2,
             "deprecated": false,
-            "description": "returns the has of the current occupant, the unique identifier of the thing"
+            "description": "returns the hash of the current occupant, the unique identifier of the thing"
           },
           "Occupied": {
             "value": 1,
@@ -59864,6 +60775,11 @@ export default {
             "value": 243,
             "deprecated": false,
             "description": "The angular discrepancy between the telescope's current orientation and the target. Indicates how 'off target' the telescope is. Returns NaN when no target."
+          },
+          "Altitude": {
+            "value": 269,
+            "deprecated": false,
+            "description": "The altitude that the rocket above the planet's surface. -1 if the rocket is in space."
           },
           "Apex": {
             "value": 238,
@@ -61525,7 +62441,7 @@ export default {
           "OccupantHash": {
             "value": 2,
             "deprecated": false,
-            "description": "returns the has of the current occupant, the unique identifier of the thing"
+            "description": "returns the hash of the current occupant, the unique identifier of the thing"
           },
           "Occupied": {
             "value": 1,
@@ -61616,6 +62532,11 @@ export default {
             "value": 243,
             "deprecated": false,
             "description": "The angular discrepancy between the telescope's current orientation and the target. Indicates how 'off target' the telescope is. Returns NaN when no target."
+          },
+          "Altitude": {
+            "value": 269,
+            "deprecated": false,
+            "description": "The altitude that the rocket above the planet's surface. -1 if the rocket is in space."
           },
           "Apex": {
             "value": 238,
@@ -63032,6 +63953,11 @@ export default {
             "deprecated": false,
             "description": ""
           },
+          "Low": {
+            "value": 1,
+            "deprecated": false,
+            "description": ""
+          },
           "Max": {
             "value": 4,
             "deprecated": false,
@@ -63044,11 +63970,6 @@ export default {
           },
           "None": {
             "value": 0,
-            "deprecated": false,
-            "description": ""
-          },
-          "Optimal": {
-            "value": 1,
             "deprecated": false,
             "description": ""
           }
@@ -63182,6 +64103,11 @@ export default {
             "deprecated": false,
             "description": ""
           },
+          "Crate": {
+            "value": 40,
+            "deprecated": false,
+            "description": ""
+          },
           "CreditCard": {
             "value": 28,
             "deprecated": false,
@@ -63279,6 +64205,11 @@ export default {
           },
           "Plant": {
             "value": 11,
+            "deprecated": false,
+            "description": ""
+          },
+          "Portables": {
+            "value": 41,
             "deprecated": false,
             "description": ""
           },
@@ -63729,6 +64660,7 @@ export default {
   "prefabsByHash": {
     "-2140672772": "ItemKitGroundTelescope",
     "-2138748650": "StructureSmallSatelliteDish",
+    "-2131782367": "StructureRobotArmDoor",
     "-2128896573": "StructureStairwellBackRight",
     "-2127086069": "StructureBench2",
     "-2126113312": "ItemLiquidPipeValve",
@@ -63750,6 +64682,7 @@ export default {
     "-2085885850": "DynamicGPR",
     "-2083426457": "UniformCommander",
     "-2082355173": "StructureWindTurbine",
+    "-2078371660": "StructureCompositeWindowShutterController",
     "-2076086215": "StructureInsulatedPipeTJunction",
     "-2073202179": "ItemPureIcePollutedWater",
     "-2072792175": "RailingIndustrial02",
@@ -63833,6 +64766,7 @@ export default {
     "-1826855889": "ItemKitWall",
     "-1826023284": "ItemWreckageAirConditioner1",
     "-1821571150": "ItemKitStirlingEngine",
+    "-1818718810": "StructureRoboticArmDock",
     "-1814939203": "StructureGasUmbilicalMale",
     "-1812330717": "StructureSleeperRight",
     "-1808154199": "StructureManualHatch",
@@ -63845,6 +64779,7 @@ export default {
     "-1794932560": "StructureOverheadShortCornerLocker",
     "-1792787349": "ItemCableAnalyser",
     "-1788929869": "Landingpad_LiquidConnectorOutwardPiece",
+    "-1785844184": "StructureRoboticArmRailStraight",
     "-1785673561": "StructurePipeCorner",
     "-1776897113": "ItemKitSensor",
     "-1773192190": "ItemReusableFireExtinguisher",
@@ -63977,6 +64912,7 @@ export default {
     "-1332682164": "ItemKitSmallDirectHeatExchanger",
     "-1330388999": "AccessCardBlack",
     "-1326019434": "StructureLogicWriter",
+    "-1323992709": "StructureRoboticArmRailCorner",
     "-1321250424": "StructureLogicWriterSwitch",
     "-1309433134": "StructureWallIron04",
     "-1306628937": "ItemPureIceLiquidVolatiles",
@@ -64005,6 +64941,7 @@ export default {
     "-1240951678": "StructureFrameIron",
     "-1234745580": "ItemDirtyOre",
     "-1230658883": "StructureLargeDirectHeatExchangeGastoGas",
+    "-1228287398": "ItemKitRoboticArm",
     "-1219128491": "ItemSensorProcessingUnitOreScanner",
     "-1218579821": "StructurePictureFrameThickPortraitSmall",
     "-1217998945": "ItemGasFilterOxygenL",
@@ -64082,6 +65019,7 @@ export default {
     "-976273247": "Landingpad_StraightPiece01",
     "-975966237": "StructureMediumRadiator",
     "-971920158": "ItemDynamicScrubber",
+    "-971586619": "ItemWaterBottlePackage",
     "-965741795": "StructureCondensationValve",
     "-958884053": "StructureChuteUmbilicalMale",
     "-945806652": "ItemKitElevator",
@@ -64137,7 +65075,6 @@ export default {
     "-784733231": "ItemKitWallGeometry",
     "-783387184": "StructureInsulatedPipeCrossJunction4",
     "-782951720": "StructurePowerConnector",
-    "-782453061": "StructureLiquidPipeOneWayValve",
     "-776581573": "StructureWallLargePanelArrow",
     "-775128944": "StructureShower",
     "-772542081": "ItemChemLightBlue",
@@ -64146,6 +65083,7 @@ export default {
     "-767597887": "ItemPipeAnalyizer",
     "-761772413": "StructureBatteryChargerSmall",
     "-756587791": "StructureWaterBottleFillerPowered",
+    "-753675589": "ItemKitRobotArmDoor",
     "-749191906": "AppliancePackagingMachine",
     "-744098481": "ItemIntegratedCircuit10",
     "-743968726": "ItemLabeller",
@@ -64205,6 +65143,7 @@ export default {
     "-525810132": "ItemChemLightRed",
     "-524546923": "ItemKitWallIron",
     "-524289310": "ItemEggCarton",
+    "-523832822": "StructurePipeLiquidOneWayValveLever",
     "-517628750": "StructureWaterDigitalValve",
     "-507770416": "StructureSmallDirectHeatExchangeLiquidtoLiquid",
     "-504717121": "ItemWirelessBatteryCellExtraLarge",
@@ -64212,6 +65151,7 @@ export default {
     "-498464883": "ItemSprayCanBlue",
     "-491247370": "RespawnPointWallMounted",
     "-487378546": "ItemIronSheets",
+    "-475746988": "StructureReinforcedWall",
     "-472094806": "ItemGasCanisterVolatiles",
     "-466050668": "ItemCableCoil",
     "-465741100": "StructureToolManufactory",
@@ -64221,12 +65161,15 @@ export default {
     "-454028979": "StructureLiquidVolumePump",
     "-453039435": "ItemKitTransformer",
     "-443130773": "StructureVendingMachine",
+    "-441759975": "ItemKitLinearRail",
     "-419758574": "StructurePipeHeater",
     "-417629293": "StructurePipeCrossJunction4",
     "-415420281": "StructureLadder",
     "-412551656": "ItemHardJetpack",
     "-412104504": "CircuitboardCameraDisplay",
+    "-405593895": "StructureComputerUpright",
     "-404336834": "ItemCopperIngot",
+    "-401648353": "ItemCerealBarBox",
     "-400696159": "ReagentColorOrange",
     "-400115994": "StructureBattery",
     "-399883995": "StructurePipeRadiatorFlat",
@@ -64266,6 +65209,7 @@ export default {
     "-291862981": "StructureSmallTableThickSingle",
     "-290196476": "ItemSiliconIngot",
     "-287495560": "StructureLiquidPipeHeater",
+    "-267108827": "StructureRoboticArmRailInnerCorner",
     "-261575861": "ItemChocolateCake",
     "-260316435": "StructureStirlingEngine",
     "-259357734": "StructureCompositeCladdingRounded",
@@ -64312,6 +65256,7 @@ export default {
     "-82087220": "DynamicGenerator",
     "-81376085": "ItemFlowerRed",
     "-78099334": "KitchenTableSimpleShort",
+    "-75205276": "ItemCerealBarBag",
     "-73796547": "ImGuiCircuitboardAirlockControl",
     "-72748982": "StructureInsulatedPipeLiquidCrossJunction6",
     "-69685069": "StructureCompositeCladdingAngledCorner",
@@ -64324,6 +65269,7 @@ export default {
     "-38898376": "ItemPipeCowl",
     "-37454456": "StructureStairwellFrontLeft",
     "-37302931": "StructureWallPaddedWindowThin",
+    "-33470826": "StructureRoboticArmRailOuterCorner",
     "-31273349": "StructureInsulatedTankConnector",
     "-27284803": "ItemKitInsulatedPipeUtility",
     "-21970188": "DynamicLight",
@@ -64469,6 +65415,7 @@ export default {
     "377745425": "ItemKitGasGenerator",
     "378084505": "StructureBlocker",
     "379750958": "StructurePressureFedLiquidEngine",
+    "384478267": "ItemMiningPackage",
     "386754635": "ItemPureIceNitrous",
     "386820253": "StructureWallSmallPanelsMonoChrome",
     "388774906": "ItemMKIIDuctTape",
@@ -64512,6 +65459,7 @@ export default {
     "502280180": "ItemElectrumIngot",
     "502555944": "MotherboardLogic",
     "505924160": "StructureStairwellBackLeft",
+    "509629504": "ItemResidentialPackage",
     "513258369": "ItemKitAccessBridge",
     "518925193": "StructureRocketTransformerSmall",
     "519913639": "DynamicAirConditioner",
@@ -64576,6 +65524,7 @@ export default {
     "782529714": "StructureWallArchTwoTone",
     "789015045": "ItemAuthoringTool",
     "789494694": "WeaponEnergy",
+    "791407452": "StructureCompositeWindowShutterConnector",
     "791746840": "ItemCerealBar",
     "792686502": "StructureLargeDirectHeatExchangeLiquidtoLiquid",
     "797794350": "StructureLightLong",
@@ -64598,6 +65547,7 @@ export default {
     "847461335": "StructureInteriorDoorPadded",
     "849148192": "ItemKitRecycler",
     "850558385": "StructureCompositeCladdingAngledCornerLong",
+    "851103794": "ItemEmergencySuppliesBox",
     "851290561": "ItemPlantEndothermic_Genepool1",
     "855694771": "CircuitboardDoorControl",
     "856108234": "ItemCrowbar",
@@ -64728,6 +65678,7 @@ export default {
     "1282191063": "StructureTurbineGenerator",
     "1286441942": "StructurePipeIgniter",
     "1287324802": "StructureWallIron",
+    "1289581593": "StructurePipeOneWayValveLever",
     "1289723966": "ItemSprayGun",
     "1293995736": "ItemKitSolidGenerator",
     "1298920475": "StructureAccessBridge",
@@ -64775,6 +65726,7 @@ export default {
     "1443059329": "StructureCryoTubeHorizontal",
     "1452100517": "StructureInsulatedInLineTankLiquid1x2",
     "1453961898": "ItemKitPassiveLargeRadiatorLiquid",
+    "1459105919": "ItemPortablesPackage",
     "1459985302": "ItemKitReinforcedWindows",
     "1464424921": "ItemWreckageStructureWeatherStation002",
     "1464854517": "StructureHydroponicsTray",
@@ -64782,6 +65734,8 @@ export default {
     "1468249454": "StructureOverheadShortLocker",
     "1470787934": "ItemMiningBeltMKII",
     "1473807953": "StructureTorpedoRack",
+    "1476318823": "ItemWaterBottleBag",
+    "1485675617": "ItemInsulatedCanisterPackage",
     "1485834215": "StructureWallIron02",
     "1492930217": "StructureWallLargePanel",
     "1512322581": "ItemKitLogicCircuit",
@@ -64803,7 +65757,7 @@ export default {
     "1574321230": "StructureCompositeWall03",
     "1574688481": "ItemKitRespawnPointWallMounted",
     "1579842814": "ItemHastelloyIngot",
-    "1580412404": "StructurePipeOneWayValve",
+    "1580592998": "StructureCompositeWindowShutter",
     "1585641623": "StructureStackerReverse",
     "1587787610": "ItemKitEvaporationChamber",
     "1588896491": "ItemGlassSheets",
@@ -64867,6 +65821,7 @@ export default {
     "1791306431": "ItemEmergencyEvaSuit",
     "1794588890": "StructureWallArchCornerRound",
     "1800622698": "ItemCoffeeMug",
+    "1800701885": "StructureRoboticArmRailStraightStop",
     "1811979158": "StructureAngledBench",
     "1812364811": "StructurePassiveLiquidDrain",
     "1817007843": "ItemKitLandingPadAtmos",
@@ -64917,12 +65872,14 @@ export default {
     "1949076595": "ItemLightSword",
     "1951126161": "ItemKitLiquidRegulator",
     "1951525046": "StructureCompositeCladdingRoundedCorner",
+    "1957571043": "StructureChuteExportBin",
     "1959564765": "ItemGasFilterPollutantsL",
     "1960952220": "ItemKitSmallSatelliteDish",
     "1968102968": "StructureSolarPanelFlat",
     "1968371847": "StructureDrinkingFountain",
     "1969189000": "ItemJetpackBasic",
     "1969312177": "ItemKitEngineMedium",
+    "1974053060": "StructureRoboticArmRailCornerStop",
     "1979212240": "StructureWallGeometryCorner",
     "1981698201": "StructureInteriorDoorPaddedThin",
     "1986658780": "StructureWaterBottleFillerPoweredBottom",
@@ -64954,7 +65911,6 @@ export default {
     "2043318949": "PortableSolarPanel",
     "2044798572": "ItemMushroom",
     "2049879875": "StructureStairwellNoDoors",
-    "2056377335": "StructureWindowShutter",
     "2057179799": "ItemKitHydroponicStation",
     "2060134443": "ItemCableCoilHeavy",
     "2060648791": "StructureElevatorLevelIndustrial",
@@ -65110,6 +66066,7 @@ export default {
     "StructureChuteDigitalFlipFlopSplitterRight",
     "StructureChuteDigitalValveLeft",
     "StructureChuteDigitalValveRight",
+    "StructureChuteExportBin",
     "StructureChuteFlipFlopSplitter",
     "StructureChuteInlet",
     "StructureChuteJunction",
@@ -65154,7 +66111,11 @@ export default {
     "StructureCompositeWall04",
     "StructureCompositeWindow",
     "StructureCompositeWindowIron",
+    "StructureCompositeWindowShutter",
+    "StructureCompositeWindowShutterConnector",
+    "StructureCompositeWindowShutterController",
     "StructureComputer",
+    "StructureComputerUpright",
     "StructureCondensationChamber",
     "StructureCondensationValve",
     "StructureConsole",
@@ -65276,7 +66237,6 @@ export default {
     "StructureLiquidDrain",
     "StructureLiquidPipeAnalyzer",
     "StructureLiquidPipeHeater",
-    "StructureLiquidPipeOneWayValve",
     "StructureLiquidPipeRadiator",
     "StructureLiquidPressureRegulator",
     "StructureLiquidTankBig",
@@ -65371,10 +66331,11 @@ export default {
     "StructurePipeLiquidCrossJunction4",
     "StructurePipeLiquidCrossJunction5",
     "StructurePipeLiquidCrossJunction6",
+    "StructurePipeLiquidOneWayValveLever",
     "StructurePipeLiquidStraight",
     "StructurePipeLiquidTJunction",
     "StructurePipeMeter",
-    "StructurePipeOneWayValve",
+    "StructurePipeOneWayValveLever",
     "StructurePipeOrgan",
     "StructurePipeRadiator",
     "StructurePipeRadiatorFlat",
@@ -65409,8 +66370,17 @@ export default {
     "StructureRefrigeratedVendingMachine",
     "StructureReinforcedCompositeWindow",
     "StructureReinforcedCompositeWindowSteel",
+    "StructureReinforcedWall",
     "StructureReinforcedWallPaddedWindow",
     "StructureReinforcedWallPaddedWindowThin",
+    "StructureRobotArmDoor",
+    "StructureRoboticArmDock",
+    "StructureRoboticArmRailCorner",
+    "StructureRoboticArmRailCornerStop",
+    "StructureRoboticArmRailInnerCorner",
+    "StructureRoboticArmRailOuterCorner",
+    "StructureRoboticArmRailStraight",
+    "StructureRoboticArmRailStraightStop",
     "StructureRocketAvionics",
     "StructureRocketCelestialTracker",
     "StructureRocketCircuitHousing",
@@ -65558,8 +66528,7 @@ export default {
     "StructureWaterPurifier",
     "StructureWaterWallCooler",
     "StructureWeatherStation",
-    "StructureWindTurbine",
-    "StructureWindowShutter"
+    "StructureWindTurbine"
   ],
   "devices": [
     "CompositeRollCover",
@@ -65632,6 +66601,7 @@ export default {
     "StructureChuteDigitalFlipFlopSplitterRight",
     "StructureChuteDigitalValveLeft",
     "StructureChuteDigitalValveRight",
+    "StructureChuteExportBin",
     "StructureChuteInlet",
     "StructureChuteOutlet",
     "StructureChuteUmbilicalFemale",
@@ -65640,7 +66610,9 @@ export default {
     "StructureCircuitHousing",
     "StructureCombustionCentrifuge",
     "StructureCompositeDoor",
+    "StructureCompositeWindowShutterController",
     "StructureComputer",
+    "StructureComputerUpright",
     "StructureCondensationChamber",
     "StructureCondensationValve",
     "StructureConsole",
@@ -65717,7 +66689,6 @@ export default {
     "StructureLiquidDrain",
     "StructureLiquidPipeAnalyzer",
     "StructureLiquidPipeHeater",
-    "StructureLiquidPipeOneWayValve",
     "StructureLiquidPipeRadiator",
     "StructureLiquidPressureRegulator",
     "StructureLiquidTankBig",
@@ -65780,8 +66751,9 @@ export default {
     "StructurePipeHeater",
     "StructurePipeIgniter",
     "StructurePipeLabel",
+    "StructurePipeLiquidOneWayValveLever",
     "StructurePipeMeter",
-    "StructurePipeOneWayValve",
+    "StructurePipeOneWayValveLever",
     "StructurePipeRadiator",
     "StructurePipeRadiatorFlat",
     "StructurePipeRadiatorFlatLiquid",
@@ -65807,6 +66779,8 @@ export default {
     "StructurePurgeValve",
     "StructureRecycler",
     "StructureRefrigeratedVendingMachine",
+    "StructureRobotArmDoor",
+    "StructureRoboticArmDock",
     "StructureRocketAvionics",
     "StructureRocketCelestialTracker",
     "StructureRocketCircuitHousing",
@@ -65885,8 +66859,7 @@ export default {
     "StructureWaterPurifier",
     "StructureWaterWallCooler",
     "StructureWeatherStation",
-    "StructureWindTurbine",
-    "StructureWindowShutter"
+    "StructureWindTurbine"
   ],
   "items": [
     "AccessCardBlack",
@@ -66012,6 +66985,8 @@ export default {
     "ItemCannedPowderedEggs",
     "ItemCannedRicePudding",
     "ItemCerealBar",
+    "ItemCerealBarBag",
+    "ItemCerealBarBox",
     "ItemCharcoal",
     "ItemChemLightBlue",
     "ItemChemLightGreen",
@@ -66061,6 +67036,7 @@ export default {
     "ItemEmergencyPickaxe",
     "ItemEmergencyScrewdriver",
     "ItemEmergencySpaceHelmet",
+    "ItemEmergencySuppliesBox",
     "ItemEmergencyToolBelt",
     "ItemEmergencyWireCutters",
     "ItemEmergencyWrench",
@@ -66140,6 +67116,7 @@ export default {
     "ItemIce",
     "ItemIgniter",
     "ItemInconelIngot",
+    "ItemInsulatedCanisterPackage",
     "ItemInsulation",
     "ItemIntegratedCircuit10",
     "ItemInvarIngot",
@@ -66227,6 +67204,7 @@ export default {
     "ItemKitLargeSatelliteDish",
     "ItemKitLaunchMount",
     "ItemKitLaunchTower",
+    "ItemKitLinearRail",
     "ItemKitLiquidRegulator",
     "ItemKitLiquidTank",
     "ItemKitLiquidTankInsulated",
@@ -66267,6 +67245,8 @@ export default {
     "ItemKitReinforcedWindows",
     "ItemKitResearchMachine",
     "ItemKitRespawnPointWallMounted",
+    "ItemKitRobotArmDoor",
+    "ItemKitRoboticArm",
     "ItemKitRocketAvionics",
     "ItemKitRocketBattery",
     "ItemKitRocketCargoStorage",
@@ -66357,6 +67337,7 @@ export default {
     "ItemMiningDrill",
     "ItemMiningDrillHeavy",
     "ItemMiningDrillPneumatic",
+    "ItemMiningPackage",
     "ItemMkIIToolbelt",
     "ItemMuffin",
     "ItemMushroom",
@@ -66393,6 +67374,7 @@ export default {
     "ItemPlantThermogenic_Genepool1",
     "ItemPlantThermogenic_Genepool2",
     "ItemPlasticSheets",
+    "ItemPortablesPackage",
     "ItemPotato",
     "ItemPotatoBaked",
     "ItemPowerConnector",
@@ -66420,6 +67402,7 @@ export default {
     "ItemRTGSurvival",
     "ItemReagentMix",
     "ItemRemoteDetonator",
+    "ItemResidentialPackage",
     "ItemReusableFireExtinguisher",
     "ItemRice",
     "ItemRoadFlare",
@@ -66489,6 +67472,8 @@ export default {
     "ItemWallLight",
     "ItemWaspaloyIngot",
     "ItemWaterBottle",
+    "ItemWaterBottleBag",
+    "ItemWaterBottlePackage",
     "ItemWaterPipeDigitalValve",
     "ItemWaterPipeMeter",
     "ItemWaterWallCooler",

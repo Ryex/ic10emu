@@ -72,6 +72,8 @@ pub struct ObjectInfo {
     pub prefab: Option<String>,
     pub prefab_hash: Option<i32>,
     pub slots: Option<BTreeMap<u32, SlotOccupantInfo>>,
+    pub parent_slot: Option<(ObjectID, u32)>,
+    pub root_parent_human: Option<ObjectID>,
     pub damage: Option<f32>,
     pub device_pins: Option<BTreeMap<u32, ObjectID>>,
     pub connections: Option<BTreeMap<u32, ObjectID>>,
@@ -96,6 +98,8 @@ impl From<&VMObject> for ObjectInfo {
             prefab: Some(obj_ref.get_prefab().value.clone()),
             prefab_hash: Some(obj_ref.get_prefab().hash),
             slots: None,
+            parent_slot: None,
+            root_parent_human: None,
             damage: None,
             device_pins: None,
             connections: None,
@@ -136,6 +140,8 @@ impl ObjectInfo {
             prefab: Some(prefab_name),
             prefab_hash: Some(prefab_hash),
             slots: None,
+            parent_slot: None,
+            root_parent_human: None,
             damage: None,
             device_pins: None,
             connections: None,
@@ -214,6 +220,14 @@ impl ObjectInfo {
             self.damage = None;
         } else {
             self.damage.replace(damage);
+        }
+        let parent_slot = item.get_parent_slot();
+        if let Some(parent_slot) = parent_slot {
+            self.parent_slot = Some((parent_slot.parent, parent_slot.slot as u32));
+        }
+        let root_parent_human = item.root_parent_human();
+        if let Some(root_parent_human) = root_parent_human {
+            self.root_parent_human = Some(root_parent_human.get_id());
         }
         self
     }

@@ -322,7 +322,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 .into_iter()
                 .collect(),
             consumer_info: ConsumerInfo {
-                consumed_resouces: vec![
+                consumed_resources: vec![
                     "ItemCharcoal".into(), "ItemCobaltOre".into(), "ItemFern".into(),
                     "ItemSilverIngot".into(), "ItemSilverOre".into(), "ItemSoyOil".into()
                 ]
@@ -404,7 +404,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 .into_iter()
                 .collect(),
             consumer_info: ConsumerInfo {
-                consumed_resouces: vec![
+                consumed_resources: vec![
                     "ItemCorn".into(), "ItemEgg".into(), "ItemFertilizedEgg".into(),
                     "ItemFlour".into(), "ItemMilk".into(), "ItemMushroom".into(),
                     "ItemPotato".into(), "ItemPumpkin".into(), "ItemRice".into(),
@@ -444,7 +444,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 .into_iter()
                 .collect(),
             consumer_info: ConsumerInfo {
-                consumed_resouces: vec![
+                consumed_resources: vec![
                     "ItemCookedCondensedMilk".into(), "ItemCookedCorn".into(),
                     "ItemCookedMushroom".into(), "ItemCookedPowderedEggs".into(),
                     "ItemCookedPumpkin".into(), "ItemCookedRice".into(),
@@ -483,7 +483,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 .into_iter()
                 .collect(),
             consumer_info: ConsumerInfo {
-                consumed_resouces: vec![
+                consumed_resources: vec![
                     "ItemSoyOil".into(), "ReagentColorBlue".into(), "ReagentColorGreen"
                     .into(), "ReagentColorOrange".into(), "ReagentColorRed".into(),
                     "ReagentColorYellow".into()
@@ -607,7 +607,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 .into_iter()
                 .collect(),
             consumer_info: ConsumerInfo {
-                consumed_resouces: vec![
+                consumed_resources: vec![
                     "ItemWheat".into(), "ItemSugarCane".into(), "ItemCocoaTree".into(),
                     "ItemSoybean".into(), "ItemFlowerBlue".into(), "ItemFlowerGreen"
                     .into(), "ItemFlowerOrange".into(), "ItemFlowerRed".into(),
@@ -739,9 +739,10 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Empty".into()), (1u32, "Critical".into()), (2u32,
-                        "VeryLow".into()), (3u32, "Low".into()), (4u32, "Medium".into()),
-                        (5u32, "High".into()), (6u32, "Full".into())
+                        ("0".into(), "Empty".into()), ("1".into(), "Critical".into()),
+                        ("2".into(), "VeryLow".into()), ("3".into(), "Low".into()), ("4"
+                        .into(), "Medium".into()), ("5".into(), "High".into()), ("6"
+                        .into(), "Full".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -785,9 +786,10 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Empty".into()), (1u32, "Critical".into()), (2u32,
-                        "VeryLow".into()), (3u32, "Low".into()), (4u32, "Medium".into()),
-                        (5u32, "High".into()), (6u32, "Full".into())
+                        ("0".into(), "Empty".into()), ("1".into(), "Critical".into()),
+                        ("2".into(), "VeryLow".into()), ("3".into(), "Low".into()), ("4"
+                        .into(), "Medium".into()), ("5".into(), "High".into()), ("6"
+                        .into(), "Full".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -863,7 +865,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_hash: -1550278665i32,
                 desc: "The Lorenz atmos analyzer is a multi-functional mass-spectrometer designed by <link=ExMin><color=#0080FFFF>ExMin</color></link> for use with the OreCore <link=ThingItemTablet><color=green>Handheld Tablet</color></link>. It displays the pressure, concentration and molar quantity of <link=GasPage><color=#0080FFFF>gas</color></link> in rooms, tanks, or pipe networks."
                     .into(),
-                name: "Atmos Analyzer".into(),
+                name: "Cartridge (Atmos Analyzer)".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -886,7 +888,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "CartridgeConfiguration".into(),
                 prefab_hash: -932136011i32,
                 desc: "".into(),
-                name: "Configuration".into(),
+                name: "Cartridge (Configuration)".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -909,7 +911,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "CartridgeElectronicReader".into(),
                 prefab_hash: -1462180176i32,
                 desc: "".into(),
-                name: "eReader".into(),
+                name: "Cartridge (eReader)".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -932,7 +934,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "CartridgeGPS".into(),
                 prefab_hash: -1957063345i32,
                 desc: "".into(),
-                name: "GPS".into(),
+                name: "Cartridge (GPS)".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -955,7 +957,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "CartridgeGuide".into(),
                 prefab_hash: 872720793i32,
                 desc: "".into(),
-                name: "Guide".into(),
+                name: "Cartridge (Guide)".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -979,7 +981,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_hash: -1116110181i32,
                 desc: "When added to the OreCore <link=ThingItemTablet><color=green>Handheld Tablet</color></link>, <link=Asura><color=#0080FFFF>Asura\'s</color></link>\'s ReadyMed medical analyzer reveals the health, or otherwise, of users various organs. Due to a design flaw, older models were notorious for producing quasar-like levels of x-ray radiation. Recent advances in shielding have more than halved the risk to users."
                     .into(),
-                name: "Medical Analyzer".into(),
+                name: "Cartridge (Medical Analyzer)".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -1003,7 +1005,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_hash: 1606989119i32,
                 desc: "A minor masterpiece of micro-electronic engineering, the network analyzer displays the current, voltage and wattage of a cable network, as well as any devices connected to it. Based on a widely-copied <link=Sinotai><color=#0080FFFF>Sinotai</color></link> design, it\'s used in conjunction with the OreCore <link=ThingItemTablet><color=green>Handheld Tablet</color></link>."
                     .into(),
-                name: "Network Analyzer".into(),
+                name: "Cartridge (Network Analyzer)".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -1027,7 +1029,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_hash: -1768732546i32,
                 desc: "When inserted into a <link=ThingItemTablet><color=green>Handheld Tablet</color></link> the scanner will display minerals hidden underground on the tablet."
                     .into(),
-                name: "Ore Scanner".into(),
+                name: "Cartridge (Ore Scanner)".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -1051,7 +1053,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_hash: 1738236580i32,
                 desc: "When inserted into a <link=ThingItemTablet><color=green>Handheld Tablet</color></link> the scanner will display minerals hidden underground in different colors on the tablet."
                     .into(),
-                name: "Ore Scanner (Color)".into(),
+                name: "Cartridge (Ore Scanner Color)".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -1074,7 +1076,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "CartridgePlantAnalyser".into(),
                 prefab_hash: 1101328282i32,
                 desc: "".into(),
-                name: "Cartridge Plant Analyser".into(),
+                name: "Cartridge (Plant Analyser)".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -1097,7 +1099,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "CartridgeTracker".into(),
                 prefab_hash: 81488783i32,
                 desc: "".into(),
-                name: "Tracker".into(),
+                name: "Cartridge (Tracker)".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -1423,7 +1425,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Operate".into()), (1u32, "Logic".into())]
+                    vec![("0".into(), "Operate".into()), ("1".into(), "Logic".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -1463,7 +1465,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 ingredient: false,
                 max_quantity: 1u32,
                 reagents: None,
-                slot_class: Class::None,
+                slot_class: Class::Crate,
                 sorting_class: SortingClass::Storage,
             },
             thermal_info: None,
@@ -1536,9 +1538,9 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Whole Note".into()), (1u32, "Half Note".into()), (2u32,
-                        "Quarter Note".into()), (3u32, "Eighth Note".into()), (4u32,
-                        "Sixteenth Note".into())
+                        ("0".into(), "Whole Note".into()), ("1".into(), "Half Note"
+                        .into()), ("2".into(), "Quarter Note".into()), ("3".into(),
+                        "Eighth Note".into()), ("4".into(), "Sixteenth Note".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -1597,54 +1599,68 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "C-2".into()), (1u32, "C#-2".into()), (2u32, "D-2"
-                        .into()), (3u32, "D#-2".into()), (4u32, "E-2".into()), (5u32,
-                        "F-2".into()), (6u32, "F#-2".into()), (7u32, "G-2".into()),
-                        (8u32, "G#-2".into()), (9u32, "A-2".into()), (10u32, "A#-2"
-                        .into()), (11u32, "B-2".into()), (12u32, "C-1".into()), (13u32,
-                        "C#-1".into()), (14u32, "D-1".into()), (15u32, "D#-1".into()),
-                        (16u32, "E-1".into()), (17u32, "F-1".into()), (18u32, "F#-1"
-                        .into()), (19u32, "G-1".into()), (20u32, "G#-1".into()), (21u32,
-                        "A-1".into()), (22u32, "A#-1".into()), (23u32, "B-1".into()),
-                        (24u32, "C0".into()), (25u32, "C#0".into()), (26u32, "D0"
-                        .into()), (27u32, "D#0".into()), (28u32, "E0".into()), (29u32,
-                        "F0".into()), (30u32, "F#0".into()), (31u32, "G0".into()),
-                        (32u32, "G#0".into()), (33u32, "A0".into()), (34u32, "A#0"
-                        .into()), (35u32, "B0".into()), (36u32, "C1".into()), (37u32,
-                        "C#1".into()), (38u32, "D1".into()), (39u32, "D#1".into()),
-                        (40u32, "E1".into()), (41u32, "F1".into()), (42u32, "F#1"
-                        .into()), (43u32, "G1".into()), (44u32, "G#1".into()), (45u32,
-                        "A1".into()), (46u32, "A#1".into()), (47u32, "B1".into()),
-                        (48u32, "C2".into()), (49u32, "C#2".into()), (50u32, "D2"
-                        .into()), (51u32, "D#2".into()), (52u32, "E2".into()), (53u32,
-                        "F2".into()), (54u32, "F#2".into()), (55u32, "G2".into()),
-                        (56u32, "G#2".into()), (57u32, "A2".into()), (58u32, "A#2"
-                        .into()), (59u32, "B2".into()), (60u32, "C3".into()), (61u32,
-                        "C#3".into()), (62u32, "D3".into()), (63u32, "D#3".into()),
-                        (64u32, "E3".into()), (65u32, "F3".into()), (66u32, "F#3"
-                        .into()), (67u32, "G3".into()), (68u32, "G#3".into()), (69u32,
-                        "A3".into()), (70u32, "A#3".into()), (71u32, "B3".into()),
-                        (72u32, "C4".into()), (73u32, "C#4".into()), (74u32, "D4"
-                        .into()), (75u32, "D#4".into()), (76u32, "E4".into()), (77u32,
-                        "F4".into()), (78u32, "F#4".into()), (79u32, "G4".into()),
-                        (80u32, "G#4".into()), (81u32, "A4".into()), (82u32, "A#4"
-                        .into()), (83u32, "B4".into()), (84u32, "C5".into()), (85u32,
-                        "C#5".into()), (86u32, "D5".into()), (87u32, "D#5".into()),
-                        (88u32, "E5".into()), (89u32, "F5".into()), (90u32, "F#5"
-                        .into()), (91u32, "G5 ".into()), (92u32, "G#5".into()), (93u32,
-                        "A5".into()), (94u32, "A#5".into()), (95u32, "B5".into()),
-                        (96u32, "C6".into()), (97u32, "C#6".into()), (98u32, "D6"
-                        .into()), (99u32, "D#6".into()), (100u32, "E6".into()), (101u32,
-                        "F6".into()), (102u32, "F#6".into()), (103u32, "G6".into()),
-                        (104u32, "G#6".into()), (105u32, "A6".into()), (106u32, "A#6"
-                        .into()), (107u32, "B6".into()), (108u32, "C7".into()), (109u32,
-                        "C#7".into()), (110u32, "D7".into()), (111u32, "D#7".into()),
-                        (112u32, "E7".into()), (113u32, "F7".into()), (114u32, "F#7"
-                        .into()), (115u32, "G7".into()), (116u32, "G#7".into()), (117u32,
-                        "A7".into()), (118u32, "A#7".into()), (119u32, "B7".into()),
-                        (120u32, "C8".into()), (121u32, "C#8".into()), (122u32, "D8"
-                        .into()), (123u32, "D#8".into()), (124u32, "E8".into()), (125u32,
-                        "F8".into()), (126u32, "F#8".into()), (127u32, "G8".into())
+                        ("0".into(), "C-2".into()), ("1".into(), "C#-2".into()), ("2"
+                        .into(), "D-2".into()), ("3".into(), "D#-2".into()), ("4".into(),
+                        "E-2".into()), ("5".into(), "F-2".into()), ("6".into(), "F#-2"
+                        .into()), ("7".into(), "G-2".into()), ("8".into(), "G#-2"
+                        .into()), ("9".into(), "A-2".into()), ("10".into(), "A#-2"
+                        .into()), ("11".into(), "B-2".into()), ("12".into(), "C-1"
+                        .into()), ("13".into(), "C#-1".into()), ("14".into(), "D-1"
+                        .into()), ("15".into(), "D#-1".into()), ("16".into(), "E-1"
+                        .into()), ("17".into(), "F-1".into()), ("18".into(), "F#-1"
+                        .into()), ("19".into(), "G-1".into()), ("20".into(), "G#-1"
+                        .into()), ("21".into(), "A-1".into()), ("22".into(), "A#-1"
+                        .into()), ("23".into(), "B-1".into()), ("24".into(), "C0"
+                        .into()), ("25".into(), "C#0".into()), ("26".into(), "D0"
+                        .into()), ("27".into(), "D#0".into()), ("28".into(), "E0"
+                        .into()), ("29".into(), "F0".into()), ("30".into(), "F#0"
+                        .into()), ("31".into(), "G0".into()), ("32".into(), "G#0"
+                        .into()), ("33".into(), "A0".into()), ("34".into(), "A#0"
+                        .into()), ("35".into(), "B0".into()), ("36".into(), "C1".into()),
+                        ("37".into(), "C#1".into()), ("38".into(), "D1".into()), ("39"
+                        .into(), "D#1".into()), ("40".into(), "E1".into()), ("41".into(),
+                        "F1".into()), ("42".into(), "F#1".into()), ("43".into(), "G1"
+                        .into()), ("44".into(), "G#1".into()), ("45".into(), "A1"
+                        .into()), ("46".into(), "A#1".into()), ("47".into(), "B1"
+                        .into()), ("48".into(), "C2".into()), ("49".into(), "C#2"
+                        .into()), ("50".into(), "D2".into()), ("51".into(), "D#2"
+                        .into()), ("52".into(), "E2".into()), ("53".into(), "F2".into()),
+                        ("54".into(), "F#2".into()), ("55".into(), "G2".into()), ("56"
+                        .into(), "G#2".into()), ("57".into(), "A2".into()), ("58".into(),
+                        "A#2".into()), ("59".into(), "B2".into()), ("60".into(), "C3"
+                        .into()), ("61".into(), "C#3".into()), ("62".into(), "D3"
+                        .into()), ("63".into(), "D#3".into()), ("64".into(), "E3"
+                        .into()), ("65".into(), "F3".into()), ("66".into(), "F#3"
+                        .into()), ("67".into(), "G3".into()), ("68".into(), "G#3"
+                        .into()), ("69".into(), "A3".into()), ("70".into(), "A#3"
+                        .into()), ("71".into(), "B3".into()), ("72".into(), "C4".into()),
+                        ("73".into(), "C#4".into()), ("74".into(), "D4".into()), ("75"
+                        .into(), "D#4".into()), ("76".into(), "E4".into()), ("77".into(),
+                        "F4".into()), ("78".into(), "F#4".into()), ("79".into(), "G4"
+                        .into()), ("80".into(), "G#4".into()), ("81".into(), "A4"
+                        .into()), ("82".into(), "A#4".into()), ("83".into(), "B4"
+                        .into()), ("84".into(), "C5".into()), ("85".into(), "C#5"
+                        .into()), ("86".into(), "D5".into()), ("87".into(), "D#5"
+                        .into()), ("88".into(), "E5".into()), ("89".into(), "F5".into()),
+                        ("90".into(), "F#5".into()), ("91".into(), "G5 ".into()), ("92"
+                        .into(), "G#5".into()), ("93".into(), "A5".into()), ("94".into(),
+                        "A#5".into()), ("95".into(), "B5".into()), ("96".into(), "C6"
+                        .into()), ("97".into(), "C#6".into()), ("98".into(), "D6"
+                        .into()), ("99".into(), "D#6".into()), ("100".into(), "E6"
+                        .into()), ("101".into(), "F6".into()), ("102".into(), "F#6"
+                        .into()), ("103".into(), "G6".into()), ("104".into(), "G#6"
+                        .into()), ("105".into(), "A6".into()), ("106".into(), "A#6"
+                        .into()), ("107".into(), "B6".into()), ("108".into(), "C7"
+                        .into()), ("109".into(), "C#7".into()), ("110".into(), "D7"
+                        .into()), ("111".into(), "D#7".into()), ("112".into(), "E7"
+                        .into()), ("113".into(), "F7".into()), ("114".into(), "F#7"
+                        .into()), ("115".into(), "G7".into()), ("116".into(), "G#7"
+                        .into()), ("117".into(), "A7".into()), ("118".into(), "A#7"
+                        .into()), ("119".into(), "B7".into()), ("120".into(), "C8"
+                        .into()), ("121".into(), "C#8".into()), ("122".into(), "D8"
+                        .into()), ("123".into(), "D#8".into()), ("124".into(), "E8"
+                        .into()), ("125".into(), "F8".into()), ("126".into(), "F#8"
+                        .into()), ("127".into(), "G8".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -1699,7 +1715,10 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 radiation_factor: 0f32,
             }),
             internal_atmo_info: None,
-            slots: vec![SlotInfo { name : "Battery".into(), typ : Class::Battery }]
+            slots: vec![
+                SlotInfo { name : "Battery".into(), typ : Class::Battery }, SlotInfo {
+                name : "Liquid Canister".into(), typ : Class::LiquidCanister }
+            ]
                 .into_iter()
                 .collect(),
         }
@@ -1721,7 +1740,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 ingredient: false,
                 max_quantity: 1u32,
                 reagents: None,
-                slot_class: Class::None,
+                slot_class: Class::Crate,
                 sorting_class: SortingClass::Storage,
             },
             thermal_info: None,
@@ -1763,7 +1782,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -1809,7 +1828,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 ingredient: false,
                 max_quantity: 1u32,
                 reagents: None,
-                slot_class: Class::None,
+                slot_class: Class::Portables,
                 sorting_class: SortingClass::Atmospherics,
             },
             thermal_info: Some(ThermalInfo {
@@ -1829,7 +1848,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "DynamicGasCanisterCarbonDioxide".into(),
                 prefab_hash: -322413931i32,
-                desc: "Portable gas tanks do one thing: store gas. To refill the tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or ... boom. Once it\'s full, you can refill a <link=ThingItemGasCanisterCarbonDioxide><color=green>Canister (CO2)</color></link> by attaching it to the tank\'s striped section. Or you could vent the tank\'s variable flow rate valve into a room and create an atmosphere ... of sorts."
+                desc: "Portable gas tanks do one thing: store gas. To refill the tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or... boom. Once it\'s full, you can refill a <link=ThingItemGasCanisterCarbonDioxide><color=green>Canister (CO2)</color></link> by attaching it to the tank\'s striped section. Or you could vent the tank\'s variable flow rate valve into a room and create an atmosphere... of sorts."
                     .into(),
                 name: "Portable Gas Tank (CO2)".into(),
             },
@@ -1839,7 +1858,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 ingredient: false,
                 max_quantity: 1u32,
                 reagents: None,
-                slot_class: Class::None,
+                slot_class: Class::Portables,
                 sorting_class: SortingClass::Default,
             },
             thermal_info: Some(ThermalInfo {
@@ -1869,7 +1888,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 ingredient: false,
                 max_quantity: 1u32,
                 reagents: None,
-                slot_class: Class::None,
+                slot_class: Class::Portables,
                 sorting_class: SortingClass::Default,
             },
             thermal_info: Some(ThermalInfo {
@@ -1899,7 +1918,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 ingredient: false,
                 max_quantity: 1u32,
                 reagents: None,
-                slot_class: Class::None,
+                slot_class: Class::Portables,
                 sorting_class: SortingClass::Default,
             },
             thermal_info: Some(ThermalInfo {
@@ -1929,7 +1948,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 ingredient: false,
                 max_quantity: 1u32,
                 reagents: None,
-                slot_class: Class::None,
+                slot_class: Class::Portables,
                 sorting_class: SortingClass::Default,
             },
             thermal_info: Some(ThermalInfo {
@@ -1958,7 +1977,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 ingredient: false,
                 max_quantity: 1u32,
                 reagents: None,
-                slot_class: Class::None,
+                slot_class: Class::Portables,
                 sorting_class: SortingClass::Default,
             },
             thermal_info: Some(ThermalInfo {
@@ -1988,7 +2007,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 ingredient: false,
                 max_quantity: 1u32,
                 reagents: None,
-                slot_class: Class::None,
+                slot_class: Class::Portables,
                 sorting_class: SortingClass::Default,
             },
             thermal_info: Some(ThermalInfo {
@@ -2017,7 +2036,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 ingredient: false,
                 max_quantity: 1u32,
                 reagents: None,
-                slot_class: Class::None,
+                slot_class: Class::Portables,
                 sorting_class: SortingClass::Default,
             },
             thermal_info: Some(ThermalInfo {
@@ -2046,7 +2065,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 ingredient: false,
                 max_quantity: 1u32,
                 reagents: None,
-                slot_class: Class::None,
+                slot_class: Class::Portables,
                 sorting_class: SortingClass::Default,
             },
             thermal_info: Some(ThermalInfo {
@@ -2076,7 +2095,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 ingredient: false,
                 max_quantity: 1u32,
                 reagents: None,
-                slot_class: Class::None,
+                slot_class: Class::Portables,
                 sorting_class: SortingClass::Default,
             },
             thermal_info: Some(ThermalInfo {
@@ -2106,7 +2125,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 ingredient: false,
                 max_quantity: 1u32,
                 reagents: None,
-                slot_class: Class::None,
+                slot_class: Class::Portables,
                 sorting_class: SortingClass::Atmospherics,
             },
             thermal_info: Some(ThermalInfo {
@@ -2137,7 +2156,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 ingredient: false,
                 max_quantity: 1u32,
                 reagents: None,
-                slot_class: Class::None,
+                slot_class: Class::Portables,
                 sorting_class: SortingClass::Default,
             },
             thermal_info: Some(ThermalInfo {
@@ -2166,7 +2185,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 ingredient: false,
                 max_quantity: 1u32,
                 reagents: None,
-                slot_class: Class::None,
+                slot_class: Class::Portables,
                 sorting_class: SortingClass::Atmospherics,
             },
             thermal_info: Some(ThermalInfo {
@@ -2275,7 +2294,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -2322,7 +2341,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 ingredient: false,
                 max_quantity: 1u32,
                 reagents: None,
-                slot_class: Class::None,
+                slot_class: Class::Portables,
                 sorting_class: SortingClass::Atmospherics,
             },
             thermal_info: Some(ThermalInfo {
@@ -2354,7 +2373,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 ingredient: false,
                 max_quantity: 1u32,
                 reagents: None,
-                slot_class: Class::None,
+                slot_class: Class::Portables,
                 sorting_class: SortingClass::Atmospherics,
             },
             thermal_info: Some(ThermalInfo {
@@ -2386,7 +2405,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 ingredient: false,
                 max_quantity: 1u32,
                 reagents: None,
-                slot_class: Class::None,
+                slot_class: Class::Portables,
                 sorting_class: SortingClass::Atmospherics,
             },
             thermal_info: Some(ThermalInfo {
@@ -2811,7 +2830,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             }),
             internal_atmo_info: None,
             logic: LogicInfo {
-                logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
+                logic_slot_types: vec![("0".into(), vec![] .into_iter().collect())]
                     .into_iter()
                     .collect(),
                 logic_types: vec![
@@ -2884,7 +2903,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Idle".into()), (1u32, "Active".into())]
+                    vec![("0".into(), "Idle".into()), ("1".into(), "Active".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -3069,7 +3088,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "ItemAdvancedTablet".into(),
                 prefab_hash: 1722785341i32,
-                desc: "The advanced <link=Xigo><color=#0080FFFF>Xigo</color></link> Padi 2 tablet is an improved version of the basic <link=ThingItemTablet><color=green>Handheld Tablet</color></link>, boasting two <link=CartridgePage><color=#0080FFFF>cartridge</color></link> slots. The Padi 2 accepts <link=ThingCartridgeAtmosAnalyser><color=green>Atmos Analyzer</color></link>, <link=ThingCartridgeTracker><color=green>Tracker</color></link>, <link=ThingCartridgeMedicalAnalyser><color=green>Medical Analyzer</color></link>, <link=ThingCartridgeOreScanner><color=green>Ore Scanner</color></link>, <link=ThingCartridgeElectronicReader><color=green>eReader</color></link>, and various other cartridges.\n\t  \n\t  With a <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> in the <link=SlotProgrammableChip><color=orange>Programmable Chip</color></link>, you can access variable slots on the carrying human using the device numbers (d0, d1, etc...), so long as the item can be access via logic, such as the <link=ThingItemHardSuit><color=green>Hardsuit</color></link>.Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>"
+                desc: "The advanced <link=Xigo><color=#0080FFFF>Xigo</color></link> Padi 2 tablet is an improved version of the basic <link=ThingItemTablet><color=green>Handheld Tablet</color></link>, boasting two <link=CartridgePage><color=#0080FFFF>cartridge</color></link> slots. The Padi 2 accepts <link=ThingCartridgeAtmosAnalyser><color=green>Cartridge (Atmos Analyzer)</color></link>, <link=ThingCartridgeTracker><color=green>Cartridge (Tracker)</color></link>, <link=ThingCartridgeMedicalAnalyser><color=green>Cartridge (Medical Analyzer)</color></link>, <link=ThingCartridgeOreScanner><color=green>Cartridge (Ore Scanner)</color></link>, <link=ThingCartridgeElectronicReader><color=green>Cartridge (eReader)</color></link>, and various other cartridges.\n\t  \n\t  With a <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> in the <link=SlotProgrammableChip><color=orange>Programmable Chip</color></link>, you can access variable slots on the carrying human using the device numbers (d0, d1, etc...), so long as the item can be access via logic, such as the <link=ThingItemHardSuit><color=green>Hardsuit</color></link>.Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>"
                     .into(),
                 name: "Advanced Tablet".into(),
             },
@@ -3086,7 +3105,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -3094,20 +3113,20 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::Class, MemoryAccess::Read),
                     (LogicSlotType::MaxQuantity, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (2u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("2".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (3u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("3".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
@@ -3129,7 +3148,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Mode0".into()), (1u32, "Mode1".into())]
+                    vec![("0".into(), "Mode0".into()), ("1".into(), "Mode1".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -3216,7 +3235,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -3268,7 +3287,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -3306,7 +3325,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_hash: 1757673317i32,
                 desc: "This kit places a <link=ThingStructureAreaPowerControl><color=green>Area Power Control</color></link> (APC) on any support structure. The APC kit has two options, selecting which direction you would like the APC power to flow."
                     .into(),
-                name: "Kit (Power Controller)".into(),
+                name: "Kit (Area Power Controller)".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -3469,9 +3488,10 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Empty".into()), (1u32, "Critical".into()), (2u32,
-                        "VeryLow".into()), (3u32, "Low".into()), (4u32, "Medium".into()),
-                        (5u32, "High".into()), (6u32, "Full".into())
+                        ("0".into(), "Empty".into()), ("1".into(), "Critical".into()),
+                        ("2".into(), "VeryLow".into()), ("3".into(), "Low".into()), ("4"
+                        .into(), "Medium".into()), ("5".into(), "High".into()), ("6"
+                        .into(), "Full".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -3515,9 +3535,10 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Empty".into()), (1u32, "Critical".into()), (2u32,
-                        "VeryLow".into()), (3u32, "Low".into()), (4u32, "Medium".into()),
-                        (5u32, "High".into()), (6u32, "Full".into())
+                        ("0".into(), "Empty".into()), ("1".into(), "Critical".into()),
+                        ("2".into(), "VeryLow".into()), ("3".into(), "Low".into()), ("4"
+                        .into(), "Medium".into()), ("5".into(), "High".into()), ("6"
+                        .into(), "Full".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -3561,9 +3582,10 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Empty".into()), (1u32, "Critical".into()), (2u32,
-                        "VeryLow".into()), (3u32, "Low".into()), (4u32, "Medium".into()),
-                        (5u32, "High".into()), (6u32, "Full".into())
+                        ("0".into(), "Empty".into()), ("1".into(), "Critical".into()),
+                        ("2".into(), "VeryLow".into()), ("3".into(), "Low".into()), ("4"
+                        .into(), "Medium".into()), ("5".into(), "High".into()), ("6"
+                        .into(), "Full".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -3645,7 +3667,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -3775,7 +3797,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "ItemCableCoilHeavy".into(),
                 prefab_hash: 2060134443i32,
-                desc: "Use heavy cable coil for power systems with large draws. Unlike <link=ThingStructureCableCoil><color=green><N:EN:StructureCableCoil></color></link>, which can only safely conduct 5kW, heavy cables can transmit up to 100kW."
+                desc: "Use heavy cable coil for power systems with large draws. Unlike <link=ThingItemCableCoil><color=green>Cable Coil</color></link>, which can only safely conduct 5kW, heavy cables can transmit up to 100kW."
                     .into(),
                 name: "Cable Coil (Heavy)".into(),
             },
@@ -3957,6 +3979,70 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             },
             thermal_info: None,
             internal_atmo_info: None,
+        }
+            .into(),
+    );
+    map.insert(
+        -75205276i32,
+        ItemSlotsTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "ItemCerealBarBag".into(),
+                prefab_hash: -75205276i32,
+                desc: "".into(),
+                name: "Cereal Bar Bag".into(),
+            },
+            item: ItemInfo {
+                consumable: false,
+                filter_type: None,
+                ingredient: false,
+                max_quantity: 1u32,
+                reagents: None,
+                slot_class: Class::None,
+                sorting_class: SortingClass::Storage,
+            },
+            thermal_info: None,
+            internal_atmo_info: None,
+            slots: vec![
+                SlotInfo { name : "".into(), typ : Class::None }, SlotInfo { name : ""
+                .into(), typ : Class::None }, SlotInfo { name : "".into(), typ :
+                Class::None }, SlotInfo { name : "".into(), typ : Class::None }, SlotInfo
+                { name : "".into(), typ : Class::None }, SlotInfo { name : "".into(), typ
+                : Class::None }
+            ]
+                .into_iter()
+                .collect(),
+        }
+            .into(),
+    );
+    map.insert(
+        -401648353i32,
+        ItemSlotsTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "ItemCerealBarBox".into(),
+                prefab_hash: -401648353i32,
+                desc: "".into(),
+                name: "Cereal Bar Box".into(),
+            },
+            item: ItemInfo {
+                consumable: false,
+                filter_type: None,
+                ingredient: false,
+                max_quantity: 1u32,
+                reagents: None,
+                slot_class: Class::None,
+                sorting_class: SortingClass::Storage,
+            },
+            thermal_info: None,
+            internal_atmo_info: None,
+            slots: vec![
+                SlotInfo { name : "".into(), typ : Class::None }, SlotInfo { name : ""
+                .into(), typ : Class::None }, SlotInfo { name : "".into(), typ :
+                Class::None }, SlotInfo { name : "".into(), typ : Class::None }, SlotInfo
+                { name : "".into(), typ : Class::None }, SlotInfo { name : "".into(), typ
+                : Class::None }
+            ]
+                .into_iter()
+                .collect(),
         }
             .into(),
     );
@@ -4464,7 +4550,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 filter_type: None,
                 ingredient: true,
                 max_quantity: 10u32,
-                reagents: Some(vec![("Soy".into(), 5f64)].into_iter().collect()),
+                reagents: Some(vec![("Soy".into(), 1f64)].into_iter().collect()),
                 slot_class: Class::None,
                 sorting_class: SortingClass::Food,
             },
@@ -4780,7 +4866,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -4980,7 +5066,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -5032,7 +5118,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -5107,7 +5193,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -5171,7 +5257,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 .into_iter()
                 .collect(),
             suit_info: SuitInfo {
-                hygine_reduction_multiplier: 1f32,
+                hygiene_reduction_multiplier: 1f32,
                 waste_max_pressure: 4053f32,
             },
         }
@@ -5283,6 +5369,38 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 circuit_holder: false,
             },
             slots: vec![].into_iter().collect(),
+        }
+            .into(),
+    );
+    map.insert(
+        851103794i32,
+        ItemSlotsTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "ItemEmergencySuppliesBox".into(),
+                prefab_hash: 851103794i32,
+                desc: "".into(),
+                name: "Emergency Supplies".into(),
+            },
+            item: ItemInfo {
+                consumable: false,
+                filter_type: None,
+                ingredient: false,
+                max_quantity: 1u32,
+                reagents: None,
+                slot_class: Class::None,
+                sorting_class: SortingClass::Default,
+            },
+            thermal_info: None,
+            internal_atmo_info: None,
+            slots: vec![
+                SlotInfo { name : "".into(), typ : Class::None }, SlotInfo { name : ""
+                .into(), typ : Class::None }, SlotInfo { name : "".into(), typ :
+                Class::None }, SlotInfo { name : "".into(), typ : Class::None }, SlotInfo
+                { name : "".into(), typ : Class::None }, SlotInfo { name : "".into(), typ
+                : Class::None }
+            ]
+                .into_iter()
+                .collect(),
         }
             .into(),
     );
@@ -5424,7 +5542,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 .into_iter()
                 .collect(),
             suit_info: SuitInfo {
-                hygine_reduction_multiplier: 1f32,
+                hygiene_reduction_multiplier: 1f32,
                 waste_max_pressure: 4053f32,
             },
         }
@@ -5437,16 +5555,16 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "ItemExplosive".into(),
                 prefab_hash: 235361649i32,
                 desc: "".into(),
-                name: "Remote Explosive".into(),
+                name: "Demolition Charge".into(),
             },
             item: ItemInfo {
                 consumable: false,
                 filter_type: None,
                 ingredient: false,
-                max_quantity: 1u32,
+                max_quantity: 3u32,
                 reagents: None,
-                slot_class: Class::None,
-                sorting_class: SortingClass::Default,
+                slot_class: Class::Tool,
+                sorting_class: SortingClass::Tools,
             },
             thermal_info: None,
             internal_atmo_info: None,
@@ -5593,7 +5711,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -5613,7 +5731,10 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Low Power".into()), (1u32, "High Power".into())]
+                    vec![
+                        ("0".into(), "Low Power".into()), ("1".into(), "High Power"
+                        .into())
+                    ]
                         .into_iter()
                         .collect(),
                 ),
@@ -6943,83 +7064,83 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (1u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("1".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (2u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("2".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (3u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("3".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (4u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("4".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (5u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("5".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (6u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("6".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (7u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("7".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (8u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("8".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (9u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("9".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (10u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("10".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (11u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("11".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
@@ -7077,7 +7198,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -7086,97 +7207,97 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::Class, MemoryAccess::Read),
                     (LogicSlotType::MaxQuantity, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (2u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("2".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (3u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("3".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (4u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("4".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (5u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("5".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (6u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("6".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (7u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("7".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (8u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("8".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (9u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("9".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (10u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("10".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (11u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("11".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (12u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("12".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (13u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("13".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (14u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("14".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
@@ -7291,7 +7412,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: Some(InternalAtmoInfo { volume: 10f32 }),
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -7300,7 +7421,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::Class, MemoryAccess::Read),
                     (LogicSlotType::MaxQuantity, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -7309,7 +7430,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::Class, MemoryAccess::Read),
                     (LogicSlotType::MaxQuantity, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (2u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("2".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -7317,13 +7438,13 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::Class, MemoryAccess::Read),
                     (LogicSlotType::MaxQuantity, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (3u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("3".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (4u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("4".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
@@ -7331,21 +7452,21 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::FilterType, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (5u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("5".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::FilterType, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (6u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("6".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::FilterType, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (7u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("7".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -7421,7 +7542,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 .into_iter()
                 .collect(),
             suit_info: SuitInfo {
-                hygine_reduction_multiplier: 1.5f32,
+                hygiene_reduction_multiplier: 1.5f32,
                 waste_max_pressure: 4053f32,
             },
             memory: MemoryInfo {
@@ -7699,6 +7820,32 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             .into(),
     );
     map.insert(
+        1485675617i32,
+        ItemSlotsTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "ItemInsulatedCanisterPackage".into(),
+                prefab_hash: 1485675617i32,
+                desc: "".into(),
+                name: "Insulated Canister Package".into(),
+            },
+            item: ItemInfo {
+                consumable: false,
+                filter_type: None,
+                ingredient: false,
+                max_quantity: 1u32,
+                reagents: None,
+                slot_class: Class::None,
+                sorting_class: SortingClass::Default,
+            },
+            thermal_info: None,
+            internal_atmo_info: None,
+            slots: vec![SlotInfo { name : "".into(), typ : Class::None }]
+                .into_iter()
+                .collect(),
+        }
+            .into(),
+    );
+    map.insert(
         897176943i32,
         ItemTemplate {
             prefab: PrefabInfo {
@@ -7904,7 +8051,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -7913,62 +8060,62 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::Class, MemoryAccess::Read),
                     (LogicSlotType::MaxQuantity, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (2u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("2".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (3u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("3".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (4u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("4".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (5u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("5".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (6u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("6".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (7u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("7".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (8u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("8".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (9u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("9".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
@@ -9824,6 +9971,29 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             .into(),
     );
     map.insert(
+        -441759975i32,
+        ItemTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "ItemKitLinearRail".into(),
+                prefab_hash: -441759975i32,
+                desc: "".into(),
+                name: "Kit (Linear Rail)".into(),
+            },
+            item: ItemInfo {
+                consumable: false,
+                filter_type: None,
+                ingredient: false,
+                max_quantity: 10u32,
+                reagents: None,
+                slot_class: Class::None,
+                sorting_class: SortingClass::Kits,
+            },
+            thermal_info: None,
+            internal_atmo_info: None,
+        }
+            .into(),
+    );
+    map.insert(
         1951126161i32,
         ItemTemplate {
             prefab: PrefabInfo {
@@ -10681,7 +10851,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "ItemKitReinforcedWindows".into(),
                 prefab_hash: 1459985302i32,
                 desc: "".into(),
-                name: "Kit (Reinforced Windows)".into(),
+                name: "Kit (Reinforced Walls)".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -10734,6 +10904,52 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 filter_type: None,
                 ingredient: false,
                 max_quantity: 10u32,
+                reagents: None,
+                slot_class: Class::None,
+                sorting_class: SortingClass::Kits,
+            },
+            thermal_info: None,
+            internal_atmo_info: None,
+        }
+            .into(),
+    );
+    map.insert(
+        -753675589i32,
+        ItemTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "ItemKitRobotArmDoor".into(),
+                prefab_hash: -753675589i32,
+                desc: "".into(),
+                name: "Kit (Linear Rail Door)".into(),
+            },
+            item: ItemInfo {
+                consumable: false,
+                filter_type: None,
+                ingredient: false,
+                max_quantity: 10u32,
+                reagents: None,
+                slot_class: Class::None,
+                sorting_class: SortingClass::Kits,
+            },
+            thermal_info: None,
+            internal_atmo_info: None,
+        }
+            .into(),
+    );
+    map.insert(
+        -1228287398i32,
+        ItemTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "ItemKitRoboticArm".into(),
+                prefab_hash: -1228287398i32,
+                desc: "".into(),
+                name: "Kit (LArRE)".into(),
+            },
+            item: ItemInfo {
+                consumable: false,
+                filter_type: None,
+                ingredient: false,
+                max_quantity: 1u32,
                 reagents: None,
                 slot_class: Class::None,
                 sorting_class: SortingClass::Kits,
@@ -12061,7 +12277,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "ItemKitWindowShutter".into(),
                 prefab_hash: 1779979754i32,
                 desc: "".into(),
-                name: "Kit (Window Shutter)".into(),
+                name: "Kit (Composite Window Shutter)".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -12100,7 +12316,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -12153,13 +12369,13 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (1u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("1".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
@@ -12168,7 +12384,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::Class, MemoryAccess::Read),
                     (LogicSlotType::MaxQuantity, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (2u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("2".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -12407,7 +12623,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "ItemLiquidPipeValve".into(),
                 prefab_hash: -2126113312i32,
-                desc: "This kit creates a <link=ThingStructureLiquidValve><color=green>Liquid Valve</color></link>."
+                desc: "This kit creates a <link=ThingStructureLiquidValve><color=green>Valve (Liquid)</color></link>."
                     .into(),
                 name: "Kit (Liquid Pipe Valve)".into(),
             },
@@ -12495,7 +12711,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -12547,7 +12763,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -12624,7 +12840,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -12701,7 +12917,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -12723,7 +12939,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Default".into()), (1u32, "Flatten".into())]
+                    vec![("0".into(), "Default".into()), ("1".into(), "Flatten".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -12993,104 +13209,104 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (1u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("1".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (2u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("2".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (3u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("3".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (4u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("4".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (5u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("5".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (6u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("6".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (7u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("7".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (8u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("8".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (9u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("9".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (10u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("10".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (11u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("11".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (12u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("12".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (13u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("13".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (14u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("14".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
@@ -13141,10 +13357,10 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 consumable: false,
                 filter_type: None,
                 ingredient: false,
-                max_quantity: 1u32,
+                max_quantity: 3u32,
                 reagents: None,
-                slot_class: Class::None,
-                sorting_class: SortingClass::Default,
+                slot_class: Class::Tool,
+                sorting_class: SortingClass::Tools,
             },
             thermal_info: None,
             internal_atmo_info: None,
@@ -13174,7 +13390,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -13196,7 +13412,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Default".into()), (1u32, "Flatten".into())]
+                    vec![("0".into(), "Default".into()), ("1".into(), "Flatten".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -13233,7 +13449,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -13255,7 +13471,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Default".into()), (1u32, "Flatten".into())]
+                    vec![("0".into(), "Default".into()), ("1".into(), "Flatten".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -13298,6 +13514,38 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             .into(),
     );
     map.insert(
+        384478267i32,
+        ItemSlotsTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "ItemMiningPackage".into(),
+                prefab_hash: 384478267i32,
+                desc: "".into(),
+                name: "Mining Supplies Package".into(),
+            },
+            item: ItemInfo {
+                consumable: false,
+                filter_type: None,
+                ingredient: false,
+                max_quantity: 1u32,
+                reagents: None,
+                slot_class: Class::None,
+                sorting_class: SortingClass::Storage,
+            },
+            thermal_info: None,
+            internal_atmo_info: None,
+            slots: vec![
+                SlotInfo { name : "".into(), typ : Class::None }, SlotInfo { name : ""
+                .into(), typ : Class::None }, SlotInfo { name : "".into(), typ :
+                Class::None }, SlotInfo { name : "".into(), typ : Class::None }, SlotInfo
+                { name : "".into(), typ : Class::None }, SlotInfo { name : "".into(), typ
+                : Class::None }
+            ]
+                .into_iter()
+                .collect(),
+        }
+            .into(),
+    );
+    map.insert(
         1467558064i32,
         ItemLogicTemplate {
             prefab: PrefabInfo {
@@ -13320,83 +13568,83 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (1u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("1".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (2u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("2".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (3u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("3".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (4u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("4".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (5u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("5".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (6u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("6".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (7u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("7".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (8u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("8".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (9u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("9".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (10u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("10".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (11u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("11".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
@@ -13501,7 +13749,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -13632,9 +13880,9 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "ItemPassiveVent".into(),
                 prefab_hash: 238631271i32,
-                desc: "This kit creates a <link=ThingItemPassiveVent><color=green>Passive Vent</color></link> among other variants."
+                desc: "This kit creates a <link=ThingItemPassiveVent><color=green>Kit (Passive Vent)</color></link> among other variants."
                     .into(),
-                name: "Passive Vent".into(),
+                name: "Kit (Passive Vent)".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -14014,7 +14262,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "ItemPipeValve".into(),
                 prefab_hash: 799323450i32,
-                desc: "This kit creates a <link=ThingStructureValve><color=green>Valve</color></link>."
+                desc: "This kit creates a <link=ThingStructureValve><color=green>Valve (Gas)</color></link>."
                     .into(),
                 name: "Kit (Pipe Valve)".into(),
             },
@@ -14173,7 +14421,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -14194,7 +14442,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Mode0".into()), (1u32, "Mode1".into())]
+                    vec![("0".into(), "Mode0".into()), ("1".into(), "Mode1".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -14322,6 +14570,38 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             },
             thermal_info: None,
             internal_atmo_info: None,
+        }
+            .into(),
+    );
+    map.insert(
+        1459105919i32,
+        ItemSlotsTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "ItemPortablesPackage".into(),
+                prefab_hash: 1459105919i32,
+                desc: "".into(),
+                name: "Portables Package".into(),
+            },
+            item: ItemInfo {
+                consumable: false,
+                filter_type: None,
+                ingredient: false,
+                max_quantity: 1u32,
+                reagents: None,
+                slot_class: Class::None,
+                sorting_class: SortingClass::Storage,
+            },
+            thermal_info: None,
+            internal_atmo_info: None,
+            slots: vec![
+                SlotInfo { name : "".into(), typ : Class::None }, SlotInfo { name : ""
+                .into(), typ : Class::None }, SlotInfo { name : "".into(), typ :
+                Class::None }, SlotInfo { name : "".into(), typ : Class::None }, SlotInfo
+                { name : "".into(), typ : Class::None }, SlotInfo { name : "".into(), typ
+                : Class::None }
+            ]
+                .into_iter()
+                .collect(),
         }
             .into(),
     );
@@ -14953,7 +15233,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "ItemRemoteDetonator".into(),
                 prefab_hash: 678483886i32,
-                desc: "".into(),
+                desc: "0.Mode0\n1.Mode1".into(),
                 name: "Remote Detonator".into(),
             },
             item: ItemInfo {
@@ -14969,7 +15249,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -14982,18 +15262,56 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 logic_types: vec![
-                    (LogicType::Power, MemoryAccess::Read), (LogicType::Error,
-                    MemoryAccess::Read), (LogicType::On, MemoryAccess::ReadWrite),
+                    (LogicType::Power, MemoryAccess::Read), (LogicType::Mode,
+                    MemoryAccess::ReadWrite), (LogicType::Error, MemoryAccess::Read),
+                    (LogicType::Activate, MemoryAccess::ReadWrite), (LogicType::Lock,
+                    MemoryAccess::ReadWrite), (LogicType::On, MemoryAccess::ReadWrite),
                     (LogicType::ReferenceId, MemoryAccess::Read)
                 ]
                     .into_iter()
                     .collect(),
-                modes: None,
+                modes: Some(
+                    vec![("0".into(), "Mode0".into()), ("1".into(), "Mode1".into())]
+                        .into_iter()
+                        .collect(),
+                ),
                 transmission_receiver: false,
                 wireless_logic: false,
                 circuit_holder: false,
             },
             slots: vec![SlotInfo { name : "Battery".into(), typ : Class::Battery }]
+                .into_iter()
+                .collect(),
+        }
+            .into(),
+    );
+    map.insert(
+        509629504i32,
+        ItemSlotsTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "ItemResidentialPackage".into(),
+                prefab_hash: 509629504i32,
+                desc: "".into(),
+                name: "Residential Supplies Package".into(),
+            },
+            item: ItemInfo {
+                consumable: false,
+                filter_type: None,
+                ingredient: false,
+                max_quantity: 1u32,
+                reagents: None,
+                slot_class: Class::None,
+                sorting_class: SortingClass::Storage,
+            },
+            thermal_info: None,
+            internal_atmo_info: None,
+            slots: vec![
+                SlotInfo { name : "".into(), typ : Class::None }, SlotInfo { name : ""
+                .into(), typ : Class::None }, SlotInfo { name : "".into(), typ :
+                Class::None }, SlotInfo { name : "".into(), typ : Class::None }, SlotInfo
+                { name : "".into(), typ : Class::None }, SlotInfo { name : "".into(), typ
+                : Class::None }
+            ]
                 .into_iter()
                 .collect(),
         }
@@ -15357,7 +15675,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -15365,7 +15683,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::Class, MemoryAccess::Read),
                     (LogicSlotType::MaxQuantity, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -15905,7 +16223,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -15914,62 +16232,62 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::Class, MemoryAccess::Read),
                     (LogicSlotType::MaxQuantity, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (2u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("2".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (3u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("3".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (4u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("4".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (5u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("5".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (6u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("6".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (7u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("7".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (8u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("8".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (9u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("9".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
@@ -16516,7 +16834,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "ItemTablet".into(),
                 prefab_hash: -229808600i32,
-                desc: "The <link=Xigo><color=#0080FFFF>Xigo</color></link> handheld \'Padi\' tablet is an all-purpose data platform, provided as standard issue to all <link=Stationeers><color=#0080FFFF>Stationeers</color></link>. A dynamic multi-tool that accepts a range of <link=CartridgePage><color=#0080FFFF>cartridges</color></link>, the Padi becomes an <link=ThingCartridgeAtmosAnalyser><color=green>Atmos Analyzer</color></link> or <link=ThingCartridgeTracker><color=green>Tracker</color></link>, <link=ThingCartridgeMedicalAnalyser><color=green>Medical Analyzer</color></link>, <link=ThingCartridgeOreScanner><color=green>Ore Scanner</color></link>, <link=ThingCartridgeElectronicReader><color=green>eReader</color></link>, and various other functions."
+                desc: "The <link=Xigo><color=#0080FFFF>Xigo</color></link> handheld \'Padi\' tablet is an all-purpose data platform, provided as standard issue to all <link=Stationeers><color=#0080FFFF>Stationeers</color></link>. A dynamic multi-tool that accepts a range of <link=CartridgePage><color=#0080FFFF>cartridges</color></link>, the Padi becomes an <link=ThingCartridgeAtmosAnalyser><color=green>Cartridge (Atmos Analyzer)</color></link> or <link=ThingCartridgeTracker><color=green>Cartridge (Tracker)</color></link>, <link=ThingCartridgeMedicalAnalyser><color=green>Cartridge (Medical Analyzer)</color></link>, <link=ThingCartridgeOreScanner><color=green>Cartridge (Ore Scanner)</color></link>, <link=ThingCartridgeElectronicReader><color=green>Cartridge (eReader)</color></link>, and various other functions."
                     .into(),
                 name: "Handheld Tablet".into(),
             },
@@ -16533,7 +16851,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -16541,7 +16859,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::Class, MemoryAccess::Read),
                     (LogicSlotType::MaxQuantity, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -16594,7 +16912,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -16602,7 +16920,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::Class, MemoryAccess::Read),
                     (LogicSlotType::MaxQuantity, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -16622,7 +16940,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Mode0".into()), (1u32, "Mode1".into())]
+                    vec![("0".into(), "Mode0".into()), ("1".into(), "Mode1".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -16775,7 +17093,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "ItemVolatiles".into(),
                 prefab_hash: 1253102035i32,
-                desc: "An extremely reactive ice with numerous hydrocarbons trapped inside. For simplicity\'s sake, these are often displayed as H2 by devices like the <link=ThingCartridgeAtmosAnalyser><color=green>Atmos Analyzer</color></link>.\n      \n<link=GasVolatiles><color=#44AD83>Volatiles</color></link> combust in a 2:1 ratio with <link=GasOxygen><color=#44AD83>Oxygen</color></link>, creating <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> and pollutants. However when catalysed via devices such as the <link=ThingH2Combustor><color=green>H2 Combustor</color></link> in the presence of <link=GasOxygen><color=#44AD83>Oxygen</color></link>, they produce\n        <link=GasSteam><color=#44AD83>Steam</color></link> and heat with a modicum of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> and <link=GasPollutant><color=#44AD83>Pollutant</color></link> due to the autoignition of the volatiles in the chamber. Along with <link=GasOxygen><color=#44AD83>Oxygen</color></link>, volatiles gas is also the major component of fuel for such devices as the <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link>.\n"
+                desc: "An extremely reactive ice with numerous hydrocarbons trapped inside. For simplicity\'s sake, these are often displayed as H2 by devices like the <link=ThingCartridgeAtmosAnalyser><color=green>Cartridge (Atmos Analyzer)</color></link>.\n      \n<link=GasVolatiles><color=#44AD83>Volatiles</color></link> combust in a 2:1 ratio with <link=GasOxygen><color=#44AD83>Oxygen</color></link>, creating <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> and pollutants. However when catalysed via devices such as the <link=ThingH2Combustor><color=green>H2 Combustor</color></link> in the presence of <link=GasOxygen><color=#44AD83>Oxygen</color></link>, they produce\n        <link=GasSteam><color=#44AD83>Steam</color></link> and heat with a modicum of <link=GasCarbonDioxide><color=#44AD83>Carbon Dioxide</color></link> and <link=GasPollutant><color=#44AD83>Pollutant</color></link> due to the autoignition of the volatiles in the chamber. Along with <link=GasOxygen><color=#44AD83>Oxygen</color></link>, volatiles gas is also the major component of fuel for such devices as the <link=ThingItemWeldingTorch><color=green>Welding Torch</color></link>.\n"
                     .into(),
                 name: "Ice (Volatiles)".into(),
             },
@@ -16913,6 +17231,70 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             .into(),
     );
     map.insert(
+        1476318823i32,
+        ItemSlotsTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "ItemWaterBottleBag".into(),
+                prefab_hash: 1476318823i32,
+                desc: "".into(),
+                name: "Water Bottle Bag".into(),
+            },
+            item: ItemInfo {
+                consumable: false,
+                filter_type: None,
+                ingredient: false,
+                max_quantity: 1u32,
+                reagents: None,
+                slot_class: Class::None,
+                sorting_class: SortingClass::Storage,
+            },
+            thermal_info: None,
+            internal_atmo_info: None,
+            slots: vec![
+                SlotInfo { name : "".into(), typ : Class::None }, SlotInfo { name : ""
+                .into(), typ : Class::None }, SlotInfo { name : "".into(), typ :
+                Class::None }, SlotInfo { name : "".into(), typ : Class::None }, SlotInfo
+                { name : "".into(), typ : Class::None }, SlotInfo { name : "".into(), typ
+                : Class::None }
+            ]
+                .into_iter()
+                .collect(),
+        }
+            .into(),
+    );
+    map.insert(
+        -971586619i32,
+        ItemSlotsTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "ItemWaterBottlePackage".into(),
+                prefab_hash: -971586619i32,
+                desc: "".into(),
+                name: "Water Bottle Package".into(),
+            },
+            item: ItemInfo {
+                consumable: false,
+                filter_type: None,
+                ingredient: false,
+                max_quantity: 1u32,
+                reagents: None,
+                slot_class: Class::None,
+                sorting_class: SortingClass::Storage,
+            },
+            thermal_info: None,
+            internal_atmo_info: None,
+            slots: vec![
+                SlotInfo { name : "".into(), typ : Class::None }, SlotInfo { name : ""
+                .into(), typ : Class::None }, SlotInfo { name : "".into(), typ :
+                Class::None }, SlotInfo { name : "".into(), typ : Class::None }, SlotInfo
+                { name : "".into(), typ : Class::None }, SlotInfo { name : "".into(), typ
+                : Class::None }
+            ]
+                .into_iter()
+                .collect(),
+        }
+            .into(),
+    );
+    map.insert(
         309693520i32,
         ItemTemplate {
             prefab: PrefabInfo {
@@ -17003,7 +17385,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -17144,9 +17526,10 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Empty".into()), (1u32, "Critical".into()), (2u32,
-                        "VeryLow".into()), (3u32, "Low".into()), (4u32, "Medium".into()),
-                        (5u32, "High".into()), (6u32, "Full".into())
+                        ("0".into(), "Empty".into()), ("1".into(), "Critical".into()),
+                        ("2".into(), "VeryLow".into()), ("3".into(), "Low".into()), ("4"
+                        .into(), "Medium".into()), ("5".into(), "High".into()), ("6"
+                        .into(), "Full".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -17166,7 +17549,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "ItemWreckageAirConditioner1".into(),
                 prefab_hash: -1826023284i32,
                 desc: "".into(),
-                name: "Wreckage Air Conditioner".into(),
+                name: "Wreckage".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -17189,7 +17572,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "ItemWreckageAirConditioner2".into(),
                 prefab_hash: 169888054i32,
                 desc: "".into(),
-                name: "Wreckage Air Conditioner".into(),
+                name: "Wreckage".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -17212,7 +17595,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "ItemWreckageHydroponicsTray1".into(),
                 prefab_hash: -310178617i32,
                 desc: "".into(),
-                name: "Wreckage Hydroponics Tray".into(),
+                name: "Wreckage".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -17235,7 +17618,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "ItemWreckageLargeExtendableRadiator01".into(),
                 prefab_hash: -997763i32,
                 desc: "".into(),
-                name: "Wreckage Large Extendable Radiator".into(),
+                name: "Wreckage".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -17258,7 +17641,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "ItemWreckageStructureRTG1".into(),
                 prefab_hash: 391453348i32,
                 desc: "".into(),
-                name: "Wreckage Structure RTG".into(),
+                name: "Wreckage".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -17281,7 +17664,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "ItemWreckageStructureWeatherStation001".into(),
                 prefab_hash: -834664349i32,
                 desc: "".into(),
-                name: "Wreckage Structure Weather Station".into(),
+                name: "Wreckage".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -17304,7 +17687,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "ItemWreckageStructureWeatherStation002".into(),
                 prefab_hash: 1464424921i32,
                 desc: "".into(),
-                name: "Wreckage Structure Weather Station".into(),
+                name: "Wreckage".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -17327,7 +17710,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "ItemWreckageStructureWeatherStation003".into(),
                 prefab_hash: 542009679i32,
                 desc: "".into(),
-                name: "Wreckage Structure Weather Station".into(),
+                name: "Wreckage".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -17350,7 +17733,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "ItemWreckageStructureWeatherStation004".into(),
                 prefab_hash: -1104478996i32,
                 desc: "".into(),
-                name: "Wreckage Structure Weather Station".into(),
+                name: "Wreckage".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -17373,7 +17756,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "ItemWreckageStructureWeatherStation005".into(),
                 prefab_hash: -919745414i32,
                 desc: "".into(),
-                name: "Wreckage Structure Weather Station".into(),
+                name: "Wreckage".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -17396,7 +17779,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "ItemWreckageStructureWeatherStation006".into(),
                 prefab_hash: 1344576960i32,
                 desc: "".into(),
-                name: "Wreckage Structure Weather Station".into(),
+                name: "Wreckage".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -17419,7 +17802,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "ItemWreckageStructureWeatherStation007".into(),
                 prefab_hash: 656649558i32,
                 desc: "".into(),
-                name: "Wreckage Structure Weather Station".into(),
+                name: "Wreckage".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -17442,7 +17825,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "ItemWreckageStructureWeatherStation008".into(),
                 prefab_hash: -1214467897i32,
                 desc: "".into(),
-                name: "Wreckage Structure Weather Station".into(),
+                name: "Wreckage".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -17465,7 +17848,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "ItemWreckageTurbineGenerator1".into(),
                 prefab_hash: -1662394403i32,
                 desc: "".into(),
-                name: "Wreckage Turbine Generator".into(),
+                name: "Wreckage".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -17488,7 +17871,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "ItemWreckageTurbineGenerator2".into(),
                 prefab_hash: 98602599i32,
                 desc: "".into(),
-                name: "Wreckage Turbine Generator".into(),
+                name: "Wreckage".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -17511,7 +17894,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "ItemWreckageTurbineGenerator3".into(),
                 prefab_hash: 1927790321i32,
                 desc: "".into(),
-                name: "Wreckage Turbine Generator".into(),
+                name: "Wreckage".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -17534,7 +17917,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "ItemWreckageWallCooler1".into(),
                 prefab_hash: -1682930158i32,
                 desc: "".into(),
-                name: "Wreckage Wall Cooler".into(),
+                name: "Wreckage".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -17557,7 +17940,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "ItemWreckageWallCooler2".into(),
                 prefab_hash: 45733800i32,
                 desc: "".into(),
-                name: "Wreckage Wall Cooler".into(),
+                name: "Wreckage".into(),
             },
             item: ItemInfo {
                 consumable: false,
@@ -17725,13 +18108,13 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             thermal_info: None,
             internal_atmo_info: None,
             slots: vec![
-                SlotInfo { name : "".into(), typ : Class::None }, SlotInfo { name : ""
-                .into(), typ : Class::None }, SlotInfo { name : "".into(), typ :
-                Class::None }, SlotInfo { name : "".into(), typ : Class::None }, SlotInfo
-                { name : "".into(), typ : Class::None }, SlotInfo { name : "".into(), typ
-                : Class::None }, SlotInfo { name : "".into(), typ : Class::None },
-                SlotInfo { name : "".into(), typ : Class::None }, SlotInfo { name :
-                "Entity".into(), typ : Class::Entity }
+                SlotInfo { name : "".into(), typ : Class::Crate }, SlotInfo { name : ""
+                .into(), typ : Class::Crate }, SlotInfo { name : "".into(), typ :
+                Class::Crate }, SlotInfo { name : "".into(), typ : Class::Crate },
+                SlotInfo { name : "".into(), typ : Class::Crate }, SlotInfo { name : ""
+                .into(), typ : Class::Crate }, SlotInfo { name : "".into(), typ :
+                Class::Portables }, SlotInfo { name : "".into(), typ : Class::Portables
+                }, SlotInfo { name : "".into(), typ : Class::Crate }
             ]
                 .into_iter()
                 .collect(),
@@ -17796,9 +18179,9 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 logic_types: vec![].into_iter().collect(),
                 modes: Some(
                     vec![
-                        (0u32, "None".into()), (1u32, "NoContact".into()), (2u32,
-                        "Moving".into()), (3u32, "Holding".into()), (4u32, "Landed"
-                        .into())
+                        ("0".into(), "None".into()), ("1".into(), "NoContact".into()),
+                        ("2".into(), "Moving".into()), ("3".into(), "Holding".into()),
+                        ("4".into(), "Landed".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -17876,9 +18259,9 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "None".into()), (1u32, "NoContact".into()), (2u32,
-                        "Moving".into()), (3u32, "Holding".into()), (4u32, "Landed"
-                        .into())
+                        ("0".into(), "None".into()), ("1".into(), "NoContact".into()),
+                        ("2".into(), "Moving".into()), ("3".into(), "Holding".into()),
+                        ("4".into(), "Landed".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -18376,7 +18759,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -18402,9 +18785,9 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Whole Note".into()), (1u32, "Half Note".into()), (2u32,
-                        "Quarter Note".into()), (3u32, "Eighth Note".into()), (4u32,
-                        "Sixteenth Note".into())
+                        ("0".into(), "Whole Note".into()), ("1".into(), "Half Note"
+                        .into()), ("2".into(), "Quarter Note".into()), ("3".into(),
+                        "Eighth Note".into()), ("4".into(), "Sixteenth Note".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -18492,7 +18875,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "MotherboardComms".into(),
                 prefab_hash: -337075633i32,
-                desc: "When placed in a <link=ThingStructureComputer><color=green>Computer</color></link> and connected to a <link=ThingLandingpad_DataConnectionPiece><color=green>Landingpad Data And Power</color></link>, a <link=ThingStructureSatelliteDish><color=green>Medium Satellite Dish</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link> allows Stationeers to trade with suppliers. Adjust the horizontal and vertical attributes of the <link=ThingStructureSatelliteDish><color=green>Medium Satellite Dish</color></link> either directly or through logic. You need a communications signal of 95% or above to establish reliable communications with a trader. A minimum of a 3x3 clear pad area with a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link> at the center is required for a trader to land."
+                desc: "When placed in a <link=ThingStructureComputer><color=green>Computer (Modern)</color></link> and connected to a <link=ThingLandingpad_DataConnectionPiece><color=green>Landingpad Data And Power</color></link>, a <link=ThingStructureSatelliteDish><color=green>Medium Satellite Dish</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link> allows Stationeers to trade with suppliers. Adjust the horizontal and vertical attributes of the <link=ThingStructureSatelliteDish><color=green>Medium Satellite Dish</color></link> either directly or through logic. You need a communications signal of 95% or above to establish reliable communications with a trader. A minimum of a 3x3 clear pad area with a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link> at the center is required for a trader to land."
                     .into(),
                 name: "Communications Motherboard".into(),
             },
@@ -18516,7 +18899,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "MotherboardLogic".into(),
                 prefab_hash: 502555944i32,
-                desc: "Motherboards are connected to <link=ThingStructureComputer><color=green>Computer</color></link>s to perform various technical functions.\nThe <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> K-cops logic motherboard allows <link=Stationeers><color=#0080FFFF>Stationeers</color></link> to set variables and actions on specific <link=LogicUnitPage><color=#0080FFFF>logic</color></link>-controlled items."
+                desc: "Motherboards are connected to <link=ThingStructureComputer><color=green>Computer (Modern)</color></link>s to perform various technical functions.\nThe <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> K-cops logic motherboard allows <link=Stationeers><color=#0080FFFF>Stationeers</color></link> to set variables and actions on specific <link=LogicUnitPage><color=#0080FFFF>logic</color></link>-controlled items."
                     .into(),
                 name: "Logic Motherboard".into(),
             },
@@ -18563,7 +18946,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "MotherboardProgrammableChip".into(),
                 prefab_hash: -161107071i32,
-                desc: "When placed in a <link=ThingStructureComputer><color=green>Computer</color></link>, the IC Editor allows players to write and edit IC code, which can then be uploaded to a <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> if housed in an <link=ThingStructureCircuitHousing><color=green>IC Housing</color></link>."
+                desc: "When placed in a <link=ThingStructureComputer><color=green>Computer (Modern)</color></link>, the IC Editor allows players to write and edit IC code, which can then be uploaded to a <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> if housed in an <link=ThingStructureCircuitHousing><color=green>IC Housing</color></link>."
                     .into(),
                 name: "IC Editor Motherboard".into(),
             },
@@ -18610,7 +18993,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "MotherboardSorter".into(),
                 prefab_hash: -1908268220i32,
-                desc: "Motherboards are connected to <link=ThingStructureComputer><color=green>Computer</color></link>s to perform various technical functions.\nThe <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> K-cops 10-10 sorter motherboard permits <link=Stationeers><color=#0080FFFF>Stationeers</color></link> to control which items a <link=ThingStructureSorter><color=green>Sorter</color></link> does, and does not, permit to pass."
+                desc: "Motherboards are connected to <link=ThingStructureComputer><color=green>Computer (Modern)</color></link>s to perform various technical functions.\nThe <link=Norsec><color=#0080FFFF>Norsec-designed</color></link> K-cops 10-10 sorter motherboard permits <link=Stationeers><color=#0080FFFF>Stationeers</color></link> to control which items a <link=ThingStructureSorter><color=green>Sorter</color></link> does, and does not, permit to pass."
                     .into(),
                 name: "Sorter Motherboard".into(),
             },
@@ -18843,7 +19226,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -19090,7 +19473,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -19098,62 +19481,62 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::Class, MemoryAccess::Read),
                     (LogicSlotType::MaxQuantity, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (2u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("2".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (3u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("3".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (4u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("4".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (5u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("5".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (6u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("6".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (7u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("7".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (8u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("8".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (9u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("9".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
@@ -19190,10 +19573,10 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "None".into()), (1u32, "Follow".into()), (2u32,
-                        "MoveToTarget".into()), (3u32, "Roam".into()), (4u32, "Unload"
-                        .into()), (5u32, "PathToTarget".into()), (6u32, "StorageFull"
-                        .into())
+                        ("0".into(), "None".into()), ("1".into(), "Follow".into()), ("2"
+                        .into(), "MoveToTarget".into()), ("3".into(), "Roam".into()),
+                        ("4".into(), "Unload".into()), ("5".into(), "PathToTarget"
+                        .into()), ("6".into(), "StorageFull".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -19243,20 +19626,20 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (1u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("1".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (2u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("2".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
@@ -19264,21 +19647,21 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::FilterType, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (3u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("3".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::FilterType, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (4u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("4".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::FilterType, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (5u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("5".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -19287,7 +19670,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::Class, MemoryAccess::Read),
                     (LogicSlotType::MaxQuantity, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (6u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("6".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -19296,7 +19679,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::Class, MemoryAccess::Read),
                     (LogicSlotType::MaxQuantity, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (7u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("7".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -19305,7 +19688,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::Class, MemoryAccess::Read),
                     (LogicSlotType::MaxQuantity, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (8u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("8".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -19314,7 +19697,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::Class, MemoryAccess::Read),
                     (LogicSlotType::MaxQuantity, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (9u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("9".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -19322,7 +19705,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::Class, MemoryAccess::Read),
                     (LogicSlotType::MaxQuantity, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (10u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("10".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -19330,7 +19713,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::Class, MemoryAccess::Read),
                     (LogicSlotType::MaxQuantity, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (11u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("11".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -19338,27 +19721,27 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::Class, MemoryAccess::Read),
                     (LogicSlotType::MaxQuantity, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (12u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("12".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (13u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("13".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (14u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("14".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (15u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("15".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
@@ -19449,20 +19832,20 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (1u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("1".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (2u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("2".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
@@ -19471,7 +19854,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::Class, MemoryAccess::Read),
                     (LogicSlotType::MaxQuantity, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (3u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("3".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -19479,7 +19862,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::Class, MemoryAccess::Read),
                     (LogicSlotType::MaxQuantity, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (4u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("4".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -19487,41 +19870,41 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::Class, MemoryAccess::Read),
                     (LogicSlotType::MaxQuantity, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (5u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("5".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (6u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("6".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (7u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("7".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (8u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("8".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (9u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("9".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
                     MemoryAccess::Read), (LogicSlotType::MaxQuantity,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (10u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("10".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
@@ -20044,7 +20427,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "StructureActiveVent".into(),
                 prefab_hash: -1129453144i32,
-                desc: "The active vent is a powered device for maintaining <link=GasPage><color=#0080FFFF>gas</color></link> pressure by pumping gas into (or out of) a pipe network. The vent has two modes: \'Outward\' sets it to pump gas into a space until pressure is reached; \'Inward\' sets it to pump gas out until pressure is reached. The pressure parameter can be set on a connected <link=ThingStructureConsole><color=green>Console</color></link>. Default pressure is 101kPa for Outward; 0kPa for Inward ..."
+                desc: "The active vent is a powered device for maintaining <link=GasPage><color=#0080FFFF>gas</color></link> pressure by pumping gas into (or out of) a pipe network. The vent has two modes: \'Outward\' sets it to pump gas into a space until pressure is reached; \'Inward\' sets it to pump gas out until pressure is reached. The pressure parameter can be set on a connected <link=ThingStructureConsole><color=green>Console</color></link>. Default pressure is 101kPa for Outward; 0kPa for Inward..."
                     .into(),
                 name: "Active Vent".into(),
             },
@@ -20053,7 +20436,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -20081,7 +20464,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Outward".into()), (1u32, "Inward".into())]
+                    vec![("0".into(), "Outward".into()), ("1".into(), "Inward".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -20128,8 +20511,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -20151,7 +20534,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Mode0".into()), (1u32, "Mode1".into())]
+                    vec![("0".into(), "Mode0".into()), ("1".into(), "Mode1".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -20209,8 +20592,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -20255,7 +20638,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Mode0".into()), (1u32, "Mode1".into())]
+                    vec![("0".into(), "Mode0".into()), ("1".into(), "Mode1".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -20312,8 +20695,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -20366,7 +20749,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 has_reagents: true,
             },
             consumer_info: ConsumerInfo {
-                consumed_resouces: vec![
+                consumed_resources: vec![
                     "ItemCookedCondensedMilk".into(), "ItemCookedCorn".into(),
                     "ItemCookedMushroom".into(), "ItemCookedPowderedEggs".into(),
                     "ItemCookedPumpkin".into(), "ItemCookedRice".into(),
@@ -20402,7 +20785,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     pressure : RecipeRange { start : 0f64, stop : 1000000f64, is_valid :
                     false }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
                     is_any_to_remove : false, reagents : vec![] .into_iter().collect() },
-                    count_types : 3i64, reagents : vec![("Mushroom".into(), 8f64), ("Oil"
+                    count_types : 3i64, reagents : vec![("Mushroom".into(), 5f64), ("Oil"
                     .into(), 1f64), ("Steel".into(), 1f64)] .into_iter().collect() }),
                     ("ItemCannedPowderedEggs".into(), Recipe { tier :
                     MachineTier::TierOne, time : 5f64, energy : 0f64, temperature :
@@ -20441,7 +20824,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     0f64, stop : 1000000f64, is_valid : false }, required_mix :
                     RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove : false,
                     reagents : vec![] .into_iter().collect() }, count_types : 3i64,
-                    reagents : vec![("Oil".into(), 1f64), ("Pumpkin".into(), 5f64),
+                    reagents : vec![("Oil".into(), 1f64), ("Pumpkin".into(), 2f64),
                     ("Steel".into(), 1f64)] .into_iter().collect() }), ("ItemTomatoSoup"
                     .into(), Recipe { tier : MachineTier::TierOne, time : 5f64, energy :
                     0f64, temperature : RecipeRange { start : 1f64, stop : 80000f64,
@@ -20834,7 +21217,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             }),
             internal_atmo_info: None,
             logic: LogicInfo {
-                logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
+                logic_slot_types: vec![("0".into(), vec![] .into_iter().collect())]
                     .into_iter()
                     .collect(),
                 logic_types: vec![
@@ -20909,7 +21292,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Idle".into()), (1u32, "Active".into())]
+                    vec![("0".into(), "Idle".into()), ("1".into(), "Active".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -20976,7 +21359,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Operate".into()), (1u32, "Logic".into())]
+                    vec![("0".into(), "Operate".into()), ("1".into(), "Logic".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -21033,7 +21416,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Operate".into()), (1u32, "Logic".into())]
+                    vec![("0".into(), "Operate".into()), ("1".into(), "Logic".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -21077,7 +21460,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -21133,7 +21516,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -21141,7 +21524,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -21218,7 +21601,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -21228,7 +21611,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -21257,9 +21640,9 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Idle".into()), (1u32, "Discharged".into()), (2u32,
-                        "Discharging".into()), (3u32, "Charging".into()), (4u32,
-                        "Charged".into())
+                        ("0".into(), "Idle".into()), ("1".into(), "Discharged".into()),
+                        ("2".into(), "Discharging".into()), ("3".into(), "Charging"
+                        .into()), ("4".into(), "Charged".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -21310,7 +21693,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -21320,7 +21703,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -21349,9 +21732,9 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Idle".into()), (1u32, "Discharged".into()), (2u32,
-                        "Discharging".into()), (3u32, "Charging".into()), (4u32,
-                        "Charged".into())
+                        ("0".into(), "Idle".into()), ("1".into(), "Discharged".into()),
+                        ("2".into(), "Discharging".into()), ("3".into(), "Charging"
+                        .into()), ("4".into(), "Charged".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -21402,8 +21785,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -21470,8 +21853,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -21524,7 +21907,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 has_reagents: true,
             },
             consumer_info: ConsumerInfo {
-                consumed_resouces: vec![
+                consumed_resources: vec![
                     "ItemAstroloyIngot".into(), "ItemConstantanIngot".into(),
                     "ItemCopperIngot".into(), "ItemElectrumIngot".into(), "ItemGoldIngot"
                     .into(), "ItemHastelloyIngot".into(), "ItemInconelIngot".into(),
@@ -21548,6 +21931,13 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove : false,
                     reagents : vec![] .into_iter().collect() }, count_types : 1i64,
                     reagents : vec![("Silicon".into(), 2f64)] .into_iter().collect() }),
+                    ("ItemAstroloySheets".into(), Recipe { tier : MachineTier::TierOne,
+                    time : 3f64, energy : 500f64, temperature : RecipeRange { start :
+                    1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange {
+                    start : 0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                    RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove : false,
+                    reagents : vec![] .into_iter().collect() }, count_types : 1i64,
+                    reagents : vec![("Astroloy".into(), 3f64)] .into_iter().collect() }),
                     ("ItemCableCoil".into(), Recipe { tier : MachineTier::TierOne, time :
                     5f64, energy : 200f64, temperature : RecipeRange { start : 1f64, stop
                     : 80000f64, is_valid : false }, pressure : RecipeRange { start :
@@ -21803,7 +22193,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     pressure : RecipeRange { start : 0f64, stop : 1000000f64, is_valid :
                     false }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
                     is_any_to_remove : false, reagents : vec![] .into_iter().collect() },
-                    count_types : 1i64, reagents : vec![("Steel".into(), 2f64)]
+                    count_types : 1i64, reagents : vec![("Astroloy".into(), 2f64)]
                     .into_iter().collect() }), ("ItemKitRespawnPointWallMounted".into(),
                     Recipe { tier : MachineTier::TierOne, time : 20f64, energy : 500f64,
                     temperature : RecipeRange { start : 1f64, stop : 80000f64, is_valid :
@@ -21812,6 +22202,14 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     : true, is_any_to_remove : false, reagents : vec![] .into_iter()
                     .collect() }, count_types : 2i64, reagents : vec![("Copper".into(),
                     1f64), ("Iron".into(), 3f64)] .into_iter().collect() }),
+                    ("ItemKitRobotArmDoor".into(), Recipe { tier : MachineTier::TierTwo,
+                    time : 10f64, energy : 400f64, temperature : RecipeRange { start :
+                    1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange {
+                    start : 0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                    RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove : false,
+                    reagents : vec![] .into_iter().collect() }, count_types : 3i64,
+                    reagents : vec![("Copper".into(), 5f64), ("Gold".into(), 3f64),
+                    ("Steel".into(), 12f64)] .into_iter().collect() }),
                     ("ItemKitRocketManufactory".into(), Recipe { tier :
                     MachineTier::TierOne, time : 120f64, energy : 12000f64, temperature :
                     RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
@@ -21942,7 +22340,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     false }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
                     is_valid : false }, required_mix : RecipeGasMix { rule : 0i64, is_any
                     : true, is_any_to_remove : false, reagents : vec![] .into_iter()
-                    .collect() }, count_types : 2i64, reagents : vec![("Iron".into(),
+                    .collect() }, count_types : 2i64, reagents : vec![("Solder".into(),
                     1f64), ("Steel".into(), 2f64)] .into_iter().collect() }),
                     ("ItemPlasticSheets".into(), Recipe { tier : MachineTier::TierOne,
                     time : 1f64, energy : 200f64, temperature : RecipeRange { start :
@@ -22385,8 +22783,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -22439,7 +22837,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 has_reagents: true,
             },
             consumer_info: ConsumerInfo {
-                consumed_resouces: vec![
+                consumed_resources: vec![
                     "ItemCorn".into(), "ItemEgg".into(), "ItemFertilizedEgg".into(),
                     "ItemFlour".into(), "ItemMilk".into(), "ItemMushroom".into(),
                     "ItemPotato".into(), "ItemPumpkin".into(), "ItemRice".into(),
@@ -22533,14 +22931,14 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     pressure : RecipeRange { start : 0f64, stop : 1000000f64, is_valid :
                     false }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
                     is_any_to_remove : false, reagents : vec![] .into_iter().collect() },
-                    count_types : 1i64, reagents : vec![("Rice".into(), 3f64)]
+                    count_types : 1i64, reagents : vec![("Rice".into(), 1f64)]
                     .into_iter().collect() }), ("ItemCookedSoybean".into(), Recipe { tier
                     : MachineTier::TierOne, time : 5f64, energy : 0f64, temperature :
                     RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
                     pressure : RecipeRange { start : 0f64, stop : 1000000f64, is_valid :
                     false }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
                     is_any_to_remove : false, reagents : vec![] .into_iter().collect() },
-                    count_types : 1i64, reagents : vec![("Soy".into(), 5f64)]
+                    count_types : 1i64, reagents : vec![("Soy".into(), 1f64)]
                     .into_iter().collect() }), ("ItemCookedTomato".into(), Recipe { tier
                     : MachineTier::TierOne, time : 5f64, energy : 0f64, temperature :
                     RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
@@ -23145,9 +23543,10 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Empty".into()), (1u32, "Critical".into()), (2u32,
-                        "VeryLow".into()), (3u32, "Low".into()), (4u32, "Medium".into()),
-                        (5u32, "High".into()), (6u32, "Full".into())
+                        ("0".into(), "Empty".into()), ("1".into(), "Critical".into()),
+                        ("2".into(), "VeryLow".into()), ("3".into(), "Low".into()), ("4"
+                        .into(), "Medium".into()), ("5".into(), "High".into()), ("6"
+                        .into(), "Full".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -23194,7 +23593,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -23204,7 +23603,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -23214,7 +23613,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (2u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("2".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -23224,7 +23623,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (3u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("3".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -23234,7 +23633,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (4u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("4".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -23307,7 +23706,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -23317,7 +23716,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -23402,9 +23801,10 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Empty".into()), (1u32, "Critical".into()), (2u32,
-                        "VeryLow".into()), (3u32, "Low".into()), (4u32, "Medium".into()),
-                        (5u32, "High".into()), (6u32, "Full".into())
+                        ("0".into(), "Empty".into()), ("1".into(), "Critical".into()),
+                        ("2".into(), "VeryLow".into()), ("3".into(), "Low".into()), ("4"
+                        .into(), "Medium".into()), ("5".into(), "High".into()), ("6"
+                        .into(), "Full".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -23465,9 +23865,10 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Empty".into()), (1u32, "Critical".into()), (2u32,
-                        "VeryLow".into()), (3u32, "Low".into()), (4u32, "Medium".into()),
-                        (5u32, "High".into()), (6u32, "Full".into())
+                        ("0".into(), "Empty".into()), ("1".into(), "Critical".into()),
+                        ("2".into(), "VeryLow".into()), ("3".into(), "Low".into()), ("4"
+                        .into(), "Medium".into()), ("5".into(), "High".into()), ("6"
+                        .into(), "Full".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -23529,9 +23930,10 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Empty".into()), (1u32, "Critical".into()), (2u32,
-                        "VeryLow".into()), (3u32, "Low".into()), (4u32, "Medium".into()),
-                        (5u32, "High".into()), (6u32, "Full".into())
+                        ("0".into(), "Empty".into()), ("1".into(), "Critical".into()),
+                        ("2".into(), "VeryLow".into()), ("3".into(), "Low".into()), ("4"
+                        .into(), "Medium".into()), ("5".into(), "High".into()), ("6"
+                        .into(), "Full".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -23630,7 +24032,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -23639,7 +24041,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::On, MemoryAccess::ReadWrite),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -23707,7 +24109,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -23716,7 +24118,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::On, MemoryAccess::ReadWrite),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -23784,7 +24186,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -23793,7 +24195,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::On, MemoryAccess::ReadWrite),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -23861,7 +24263,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -23870,7 +24272,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::On, MemoryAccess::ReadWrite),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -23938,7 +24340,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -23947,7 +24349,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::On, MemoryAccess::ReadWrite),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -24029,7 +24431,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Operate".into()), (1u32, "Logic".into())]
+                    vec![("0".into(), "Operate".into()), ("1".into(), "Logic".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -24065,7 +24467,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "StructureBlockBed".into(),
                 prefab_hash: 697908419i32,
-                desc: "Description coming.".into(),
+                desc: "".into(),
                 name: "Block Bed".into(),
             },
             structure: StructureInfo { small_grid: true },
@@ -24073,7 +24475,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -24861,7 +25263,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Mode0".into()), (1u32, "Mode1".into())]
+                    vec![("0".into(), "Mode0".into()), ("1".into(), "Mode1".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -25052,68 +25454,82 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect()), (2u32, vec![] .into_iter().collect()), (3u32, vec![]
-                    .into_iter().collect()), (4u32, vec![] .into_iter().collect()),
-                    (5u32, vec![] .into_iter().collect()), (6u32, vec![] .into_iter()
-                    .collect()), (7u32, vec![] .into_iter().collect()), (8u32, vec![]
-                    .into_iter().collect()), (9u32, vec![] .into_iter().collect()),
-                    (10u32, vec![] .into_iter().collect()), (11u32, vec![] .into_iter()
-                    .collect()), (12u32, vec![] .into_iter().collect()), (13u32, vec![]
-                    .into_iter().collect()), (14u32, vec![] .into_iter().collect()),
-                    (15u32, vec![] .into_iter().collect()), (16u32, vec![] .into_iter()
-                    .collect()), (17u32, vec![] .into_iter().collect()), (18u32, vec![]
-                    .into_iter().collect()), (19u32, vec![] .into_iter().collect()),
-                    (20u32, vec![] .into_iter().collect()), (21u32, vec![] .into_iter()
-                    .collect()), (22u32, vec![] .into_iter().collect()), (23u32, vec![]
-                    .into_iter().collect()), (24u32, vec![] .into_iter().collect()),
-                    (25u32, vec![] .into_iter().collect()), (26u32, vec![] .into_iter()
-                    .collect()), (27u32, vec![] .into_iter().collect()), (28u32, vec![]
-                    .into_iter().collect()), (29u32, vec![] .into_iter().collect()),
-                    (30u32, vec![] .into_iter().collect()), (31u32, vec![] .into_iter()
-                    .collect()), (32u32, vec![] .into_iter().collect()), (33u32, vec![]
-                    .into_iter().collect()), (34u32, vec![] .into_iter().collect()),
-                    (35u32, vec![] .into_iter().collect()), (36u32, vec![] .into_iter()
-                    .collect()), (37u32, vec![] .into_iter().collect()), (38u32, vec![]
-                    .into_iter().collect()), (39u32, vec![] .into_iter().collect()),
-                    (40u32, vec![] .into_iter().collect()), (41u32, vec![] .into_iter()
-                    .collect()), (42u32, vec![] .into_iter().collect()), (43u32, vec![]
-                    .into_iter().collect()), (44u32, vec![] .into_iter().collect()),
-                    (45u32, vec![] .into_iter().collect()), (46u32, vec![] .into_iter()
-                    .collect()), (47u32, vec![] .into_iter().collect()), (48u32, vec![]
-                    .into_iter().collect()), (49u32, vec![] .into_iter().collect()),
-                    (50u32, vec![] .into_iter().collect()), (51u32, vec![] .into_iter()
-                    .collect()), (52u32, vec![] .into_iter().collect()), (53u32, vec![]
-                    .into_iter().collect()), (54u32, vec![] .into_iter().collect()),
-                    (55u32, vec![] .into_iter().collect()), (56u32, vec![] .into_iter()
-                    .collect()), (57u32, vec![] .into_iter().collect()), (58u32, vec![]
-                    .into_iter().collect()), (59u32, vec![] .into_iter().collect()),
-                    (60u32, vec![] .into_iter().collect()), (61u32, vec![] .into_iter()
-                    .collect()), (62u32, vec![] .into_iter().collect()), (63u32, vec![]
-                    .into_iter().collect()), (64u32, vec![] .into_iter().collect()),
-                    (65u32, vec![] .into_iter().collect()), (66u32, vec![] .into_iter()
-                    .collect()), (67u32, vec![] .into_iter().collect()), (68u32, vec![]
-                    .into_iter().collect()), (69u32, vec![] .into_iter().collect()),
-                    (70u32, vec![] .into_iter().collect()), (71u32, vec![] .into_iter()
-                    .collect()), (72u32, vec![] .into_iter().collect()), (73u32, vec![]
-                    .into_iter().collect()), (74u32, vec![] .into_iter().collect()),
-                    (75u32, vec![] .into_iter().collect()), (76u32, vec![] .into_iter()
-                    .collect()), (77u32, vec![] .into_iter().collect()), (78u32, vec![]
-                    .into_iter().collect()), (79u32, vec![] .into_iter().collect()),
-                    (80u32, vec![] .into_iter().collect()), (81u32, vec![] .into_iter()
-                    .collect()), (82u32, vec![] .into_iter().collect()), (83u32, vec![]
-                    .into_iter().collect()), (84u32, vec![] .into_iter().collect()),
-                    (85u32, vec![] .into_iter().collect()), (86u32, vec![] .into_iter()
-                    .collect()), (87u32, vec![] .into_iter().collect()), (88u32, vec![]
-                    .into_iter().collect()), (89u32, vec![] .into_iter().collect()),
-                    (90u32, vec![] .into_iter().collect()), (91u32, vec![] .into_iter()
-                    .collect()), (92u32, vec![] .into_iter().collect()), (93u32, vec![]
-                    .into_iter().collect()), (94u32, vec![] .into_iter().collect()),
-                    (95u32, vec![] .into_iter().collect()), (96u32, vec![] .into_iter()
-                    .collect()), (97u32, vec![] .into_iter().collect()), (98u32, vec![]
-                    .into_iter().collect()), (99u32, vec![] .into_iter().collect()),
-                    (100u32, vec![] .into_iter().collect()), (101u32, vec![] .into_iter()
-                    .collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect()), ("2".into(), vec![] .into_iter().collect()),
+                    ("3".into(), vec![] .into_iter().collect()), ("4".into(), vec![]
+                    .into_iter().collect()), ("5".into(), vec![] .into_iter().collect()),
+                    ("6".into(), vec![] .into_iter().collect()), ("7".into(), vec![]
+                    .into_iter().collect()), ("8".into(), vec![] .into_iter().collect()),
+                    ("9".into(), vec![] .into_iter().collect()), ("10".into(), vec![]
+                    .into_iter().collect()), ("11".into(), vec![] .into_iter()
+                    .collect()), ("12".into(), vec![] .into_iter().collect()), ("13"
+                    .into(), vec![] .into_iter().collect()), ("14".into(), vec![]
+                    .into_iter().collect()), ("15".into(), vec![] .into_iter()
+                    .collect()), ("16".into(), vec![] .into_iter().collect()), ("17"
+                    .into(), vec![] .into_iter().collect()), ("18".into(), vec![]
+                    .into_iter().collect()), ("19".into(), vec![] .into_iter()
+                    .collect()), ("20".into(), vec![] .into_iter().collect()), ("21"
+                    .into(), vec![] .into_iter().collect()), ("22".into(), vec![]
+                    .into_iter().collect()), ("23".into(), vec![] .into_iter()
+                    .collect()), ("24".into(), vec![] .into_iter().collect()), ("25"
+                    .into(), vec![] .into_iter().collect()), ("26".into(), vec![]
+                    .into_iter().collect()), ("27".into(), vec![] .into_iter()
+                    .collect()), ("28".into(), vec![] .into_iter().collect()), ("29"
+                    .into(), vec![] .into_iter().collect()), ("30".into(), vec![]
+                    .into_iter().collect()), ("31".into(), vec![] .into_iter()
+                    .collect()), ("32".into(), vec![] .into_iter().collect()), ("33"
+                    .into(), vec![] .into_iter().collect()), ("34".into(), vec![]
+                    .into_iter().collect()), ("35".into(), vec![] .into_iter()
+                    .collect()), ("36".into(), vec![] .into_iter().collect()), ("37"
+                    .into(), vec![] .into_iter().collect()), ("38".into(), vec![]
+                    .into_iter().collect()), ("39".into(), vec![] .into_iter()
+                    .collect()), ("40".into(), vec![] .into_iter().collect()), ("41"
+                    .into(), vec![] .into_iter().collect()), ("42".into(), vec![]
+                    .into_iter().collect()), ("43".into(), vec![] .into_iter()
+                    .collect()), ("44".into(), vec![] .into_iter().collect()), ("45"
+                    .into(), vec![] .into_iter().collect()), ("46".into(), vec![]
+                    .into_iter().collect()), ("47".into(), vec![] .into_iter()
+                    .collect()), ("48".into(), vec![] .into_iter().collect()), ("49"
+                    .into(), vec![] .into_iter().collect()), ("50".into(), vec![]
+                    .into_iter().collect()), ("51".into(), vec![] .into_iter()
+                    .collect()), ("52".into(), vec![] .into_iter().collect()), ("53"
+                    .into(), vec![] .into_iter().collect()), ("54".into(), vec![]
+                    .into_iter().collect()), ("55".into(), vec![] .into_iter()
+                    .collect()), ("56".into(), vec![] .into_iter().collect()), ("57"
+                    .into(), vec![] .into_iter().collect()), ("58".into(), vec![]
+                    .into_iter().collect()), ("59".into(), vec![] .into_iter()
+                    .collect()), ("60".into(), vec![] .into_iter().collect()), ("61"
+                    .into(), vec![] .into_iter().collect()), ("62".into(), vec![]
+                    .into_iter().collect()), ("63".into(), vec![] .into_iter()
+                    .collect()), ("64".into(), vec![] .into_iter().collect()), ("65"
+                    .into(), vec![] .into_iter().collect()), ("66".into(), vec![]
+                    .into_iter().collect()), ("67".into(), vec![] .into_iter()
+                    .collect()), ("68".into(), vec![] .into_iter().collect()), ("69"
+                    .into(), vec![] .into_iter().collect()), ("70".into(), vec![]
+                    .into_iter().collect()), ("71".into(), vec![] .into_iter()
+                    .collect()), ("72".into(), vec![] .into_iter().collect()), ("73"
+                    .into(), vec![] .into_iter().collect()), ("74".into(), vec![]
+                    .into_iter().collect()), ("75".into(), vec![] .into_iter()
+                    .collect()), ("76".into(), vec![] .into_iter().collect()), ("77"
+                    .into(), vec![] .into_iter().collect()), ("78".into(), vec![]
+                    .into_iter().collect()), ("79".into(), vec![] .into_iter()
+                    .collect()), ("80".into(), vec![] .into_iter().collect()), ("81"
+                    .into(), vec![] .into_iter().collect()), ("82".into(), vec![]
+                    .into_iter().collect()), ("83".into(), vec![] .into_iter()
+                    .collect()), ("84".into(), vec![] .into_iter().collect()), ("85"
+                    .into(), vec![] .into_iter().collect()), ("86".into(), vec![]
+                    .into_iter().collect()), ("87".into(), vec![] .into_iter()
+                    .collect()), ("88".into(), vec![] .into_iter().collect()), ("89"
+                    .into(), vec![] .into_iter().collect()), ("90".into(), vec![]
+                    .into_iter().collect()), ("91".into(), vec![] .into_iter()
+                    .collect()), ("92".into(), vec![] .into_iter().collect()), ("93"
+                    .into(), vec![] .into_iter().collect()), ("94".into(), vec![]
+                    .into_iter().collect()), ("95".into(), vec![] .into_iter()
+                    .collect()), ("96".into(), vec![] .into_iter().collect()), ("97"
+                    .into(), vec![] .into_iter().collect()), ("98".into(), vec![]
+                    .into_iter().collect()), ("99".into(), vec![] .into_iter()
+                    .collect()), ("100".into(), vec![] .into_iter().collect()), ("101"
+                    .into(), vec![] .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -25258,7 +25674,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25266,7 +25682,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25274,7 +25690,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (2u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("2".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25282,7 +25698,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (3u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("3".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25290,7 +25706,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (4u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("4".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25298,7 +25714,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (5u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("5".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25306,7 +25722,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (6u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("6".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25314,7 +25730,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (7u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("7".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25322,7 +25738,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (8u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("8".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25330,7 +25746,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (9u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("9".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25338,7 +25754,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (10u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("10".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25346,7 +25762,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (11u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("11".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25354,7 +25770,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (12u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("12".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25362,7 +25778,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (13u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("13".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25370,7 +25786,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (14u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("14".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25378,7 +25794,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (15u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("15".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25386,7 +25802,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (16u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("16".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25394,7 +25810,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (17u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("17".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25402,7 +25818,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (18u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("18".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25410,7 +25826,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (19u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("19".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25418,7 +25834,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (20u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("20".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25426,7 +25842,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (21u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("21".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25434,7 +25850,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (22u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("22".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25442,7 +25858,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (23u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("23".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25450,7 +25866,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (24u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("24".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25458,7 +25874,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (25u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("25".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25466,7 +25882,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (26u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("26".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25474,7 +25890,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (27u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("27".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25482,7 +25898,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (28u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("28".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25490,7 +25906,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (29u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("29".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25498,7 +25914,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (30u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("30".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25506,7 +25922,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (31u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("31".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25514,7 +25930,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (32u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("32".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25522,7 +25938,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (33u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("33".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25530,7 +25946,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (34u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("34".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25538,7 +25954,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (35u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("35".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25546,7 +25962,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (36u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("36".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25554,7 +25970,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (37u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("37".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25562,7 +25978,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (38u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("38".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25570,7 +25986,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (39u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("39".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25578,7 +25994,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (40u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("40".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25586,7 +26002,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (41u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("41".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25594,7 +26010,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (42u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("42".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25602,7 +26018,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (43u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("43".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25610,7 +26026,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (44u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("44".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25618,7 +26034,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (45u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("45".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25626,7 +26042,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (46u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("46".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25634,7 +26050,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (47u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("47".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25642,7 +26058,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (48u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("48".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25650,7 +26066,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (49u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("49".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25658,7 +26074,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (50u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("50".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25666,7 +26082,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (51u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("51".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25780,8 +26196,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -25848,7 +26264,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25903,7 +26319,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -25958,7 +26374,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -26013,7 +26429,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -26068,7 +26484,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -26123,7 +26539,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -26178,7 +26594,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -26233,7 +26649,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -26288,7 +26704,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -26337,14 +26753,14 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_hash: -850484480i32,
                 desc: "The <link=Stationeers><color=#0080FFFF>Stationeer\'s</color></link> goal is to make off-world survival less of a struggle for themselves, and those who will follow in their footsteps.\nLike most <link=Recurso><color=#0080FFFF>Recurso</color></link>-designed systems, chute bins are simple and robust powered items, allowing items to be manually passed into chute networks by pulling a lever. They can also be programmed with <link=LogicUnitPage><color=#0080FFFF>logic</color></link> to operate automatically, although full automation requires the use items such as a <link=ThingStructureSDBHopper><color=green>SDB Hopper</color></link>."
                     .into(),
-                name: "Chute Bin".into(),
+                name: "Chute Import Bin".into(),
             },
             structure: StructureInfo { small_grid: true },
             thermal_info: None,
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -26430,7 +26846,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -26456,7 +26872,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Mode0".into()), (1u32, "Mode1".into())]
+                    vec![("0".into(), "Mode0".into()), ("1".into(), "Mode1".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -26506,7 +26922,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -26532,7 +26948,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Mode0".into()), (1u32, "Mode1".into())]
+                    vec![("0".into(), "Mode0".into()), ("1".into(), "Mode1".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -26582,7 +26998,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -26651,7 +27067,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -26706,6 +27122,72 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             .into(),
     );
     map.insert(
+        1957571043i32,
+        StructureLogicDeviceTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "StructureChuteExportBin".into(),
+                prefab_hash: 1957571043i32,
+                desc: "".into(),
+                name: "Chute Export Bin".into(),
+            },
+            structure: StructureInfo { small_grid: true },
+            thermal_info: None,
+            internal_atmo_info: None,
+            logic: LogicInfo {
+                logic_slot_types: vec![
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    (LogicSlotType::OccupantHash, MemoryAccess::Read),
+                    (LogicSlotType::Quantity, MemoryAccess::Read),
+                    (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
+                    MemoryAccess::Read), (LogicSlotType::MaxQuantity,
+                    MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
+                    (LogicSlotType::SortingClass, MemoryAccess::Read),
+                    (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
+                    .collect())
+                ]
+                    .into_iter()
+                    .collect(),
+                logic_types: vec![
+                    (LogicType::Power, MemoryAccess::Read), (LogicType::Open,
+                    MemoryAccess::ReadWrite), (LogicType::Error, MemoryAccess::Read),
+                    (LogicType::Lock, MemoryAccess::ReadWrite), (LogicType::On,
+                    MemoryAccess::ReadWrite), (LogicType::RequiredPower,
+                    MemoryAccess::Read), (LogicType::PrefabHash, MemoryAccess::Read),
+                    (LogicType::ReferenceId, MemoryAccess::Read), (LogicType::NameHash,
+                    MemoryAccess::Read)
+                ]
+                    .into_iter()
+                    .collect(),
+                modes: None,
+                transmission_receiver: false,
+                wireless_logic: false,
+                circuit_holder: false,
+            },
+            slots: vec![SlotInfo { name : "Input".into(), typ : Class::None }]
+                .into_iter()
+                .collect(),
+            device: DeviceInfo {
+                connection_list: vec![
+                    ConnectionInfo { typ : ConnectionType::Chute, role :
+                    ConnectionRole::Input }, ConnectionInfo { typ :
+                    ConnectionType::PowerAndData, role : ConnectionRole::None }
+                ]
+                    .into_iter()
+                    .collect(),
+                device_pins_length: None,
+                has_activate_state: false,
+                has_atmosphere: false,
+                has_color_state: false,
+                has_lock_state: true,
+                has_mode_state: false,
+                has_on_off_state: true,
+                has_open_state: true,
+                has_reagents: false,
+            },
+        }
+            .into(),
+    );
+    map.insert(
         -1446854725i32,
         StructureSlotsTemplate {
             prefab: PrefabInfo {
@@ -26738,7 +27220,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -26821,7 +27303,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -26923,7 +27405,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -26983,7 +27465,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -27043,7 +27525,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -27068,8 +27550,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Left".into()), (1u32, "Center".into()), (2u32, "Right"
-                        .into())
+                        ("0".into(), "Left".into()), ("1".into(), "Center".into()), ("2"
+                        .into(), "Right".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -27154,7 +27636,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -27228,8 +27710,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect()), (2u32, vec![] .into_iter().collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect()), ("2".into(), vec![] .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -27641,7 +28123,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Operate".into()), (1u32, "Logic".into())]
+                    vec![("0".into(), "Operate".into()), ("1".into(), "Logic".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -27855,22 +28337,168 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             .into(),
     );
     map.insert(
+        1580592998i32,
+        StructureTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "StructureCompositeWindowShutter".into(),
+                prefab_hash: 1580592998i32,
+                desc: "".into(),
+                name: "Composite Window Shutter".into(),
+            },
+            structure: StructureInfo { small_grid: false },
+            thermal_info: None,
+            internal_atmo_info: None,
+        }
+            .into(),
+    );
+    map.insert(
+        791407452i32,
+        StructureTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "StructureCompositeWindowShutterConnector".into(),
+                prefab_hash: 791407452i32,
+                desc: "".into(),
+                name: "Composite Window Shutter Connector".into(),
+            },
+            structure: StructureInfo { small_grid: false },
+            thermal_info: None,
+            internal_atmo_info: None,
+        }
+            .into(),
+    );
+    map.insert(
+        -2078371660i32,
+        StructureLogicDeviceTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "StructureCompositeWindowShutterController".into(),
+                prefab_hash: -2078371660i32,
+                desc: "".into(),
+                name: "Composite Window Shutter Controller".into(),
+            },
+            structure: StructureInfo { small_grid: true },
+            thermal_info: None,
+            internal_atmo_info: None,
+            logic: LogicInfo {
+                logic_slot_types: vec![].into_iter().collect(),
+                logic_types: vec![
+                    (LogicType::Power, MemoryAccess::Read), (LogicType::Open,
+                    MemoryAccess::ReadWrite), (LogicType::Error, MemoryAccess::Read),
+                    (LogicType::Lock, MemoryAccess::ReadWrite), (LogicType::On,
+                    MemoryAccess::ReadWrite), (LogicType::RequiredPower,
+                    MemoryAccess::Read), (LogicType::PrefabHash, MemoryAccess::Read),
+                    (LogicType::ReferenceId, MemoryAccess::Read), (LogicType::NameHash,
+                    MemoryAccess::Read)
+                ]
+                    .into_iter()
+                    .collect(),
+                modes: None,
+                transmission_receiver: false,
+                wireless_logic: false,
+                circuit_holder: false,
+            },
+            slots: vec![].into_iter().collect(),
+            device: DeviceInfo {
+                connection_list: vec![
+                    ConnectionInfo { typ : ConnectionType::Data, role :
+                    ConnectionRole::None }, ConnectionInfo { typ : ConnectionType::Power,
+                    role : ConnectionRole::None }
+                ]
+                    .into_iter()
+                    .collect(),
+                device_pins_length: None,
+                has_activate_state: false,
+                has_atmosphere: false,
+                has_color_state: false,
+                has_lock_state: true,
+                has_mode_state: false,
+                has_on_off_state: true,
+                has_open_state: true,
+                has_reagents: false,
+            },
+        }
+            .into(),
+    );
+    map.insert(
         -626563514i32,
         StructureLogicDeviceTemplate {
             prefab: PrefabInfo {
                 prefab_name: "StructureComputer".into(),
                 prefab_hash: -626563514i32,
-                desc: "In some ways a relic, the \'Chonk R1\' was designed by severely conflicted <link=Norsec><color=#0080FFFF>Norsec</color></link> technicians, who needed a unit that could operate with a wide range of <link=LogicUnitPage><color=#0080FFFF>motherboards</color></link>, while also enduring the worst a new Cadet could throw at it.\nThe result is a machine described by some as \'the only PC likely to survive our collision with a black hole\', while other, less appreciative users regard it as sharing most of its technological DNA with a cheese grater.\nCompatible motherboards:\n- <link=ThingMotherboardLogic><color=green>Logic Motherboard</color></link>\n- <link=ThingMotherboardManufacturing><color=green>Manufacturing Motherboard</color></link>\n- <link=ThingMotherboardSorter><color=green>Sorter Motherboard</color></link>\n- <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link>\n- <link=ThingMotherboardProgrammableChip><color=green>IC Editor Motherboard</color></link>"
+                desc: "This unit operates with a wide range of <link=LogicUnitPage><color=#0080FFFF>motherboards</color></link>."
                     .into(),
-                name: "Computer".into(),
+                name: "Computer (Modern)".into(),
             },
             structure: StructureInfo { small_grid: true },
             thermal_info: None,
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect()), (2u32, vec![] .into_iter().collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect()), ("2".into(), vec![] .into_iter().collect())
+                ]
+                    .into_iter()
+                    .collect(),
+                logic_types: vec![
+                    (LogicType::Power, MemoryAccess::Read), (LogicType::Open,
+                    MemoryAccess::ReadWrite), (LogicType::Error, MemoryAccess::Read),
+                    (LogicType::Lock, MemoryAccess::ReadWrite), (LogicType::On,
+                    MemoryAccess::ReadWrite), (LogicType::RequiredPower,
+                    MemoryAccess::Read), (LogicType::PrefabHash, MemoryAccess::Read),
+                    (LogicType::ReferenceId, MemoryAccess::Read), (LogicType::NameHash,
+                    MemoryAccess::Read)
+                ]
+                    .into_iter()
+                    .collect(),
+                modes: None,
+                transmission_receiver: false,
+                wireless_logic: false,
+                circuit_holder: false,
+            },
+            slots: vec![
+                SlotInfo { name : "Data Disk".into(), typ : Class::DataDisk }, SlotInfo {
+                name : "Data Disk".into(), typ : Class::DataDisk }, SlotInfo { name :
+                "Motherboard".into(), typ : Class::Motherboard }
+            ]
+                .into_iter()
+                .collect(),
+            device: DeviceInfo {
+                connection_list: vec![
+                    ConnectionInfo { typ : ConnectionType::Data, role :
+                    ConnectionRole::None }, ConnectionInfo { typ : ConnectionType::Power,
+                    role : ConnectionRole::None }
+                ]
+                    .into_iter()
+                    .collect(),
+                device_pins_length: None,
+                has_activate_state: false,
+                has_atmosphere: false,
+                has_color_state: false,
+                has_lock_state: true,
+                has_mode_state: false,
+                has_on_off_state: true,
+                has_open_state: true,
+                has_reagents: false,
+            },
+        }
+            .into(),
+    );
+    map.insert(
+        -405593895i32,
+        StructureLogicDeviceTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "StructureComputerUpright".into(),
+                prefab_hash: -405593895i32,
+                desc: "This unit operates with a wide range of <link=LogicUnitPage><color=#0080FFFF>motherboards</color></link>."
+                    .into(),
+                name: "Computer (Retro)".into(),
+            },
+            structure: StructureInfo { small_grid: true },
+            thermal_info: None,
+            internal_atmo_info: None,
+            logic: LogicInfo {
+                logic_slot_types: vec![
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect()), ("2".into(), vec![] .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -28065,8 +28693,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -28127,8 +28755,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -28202,8 +28830,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Default".into()), (1u32, "Percent".into()), (2u32,
-                        "Power".into())
+                        ("0".into(), "Default".into()), ("1".into(), "Percent".into()),
+                        ("2".into(), "Power".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -28260,8 +28888,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Default".into()), (1u32, "Percent".into()), (2u32,
-                        "Power".into())
+                        ("0".into(), "Default".into()), ("1".into(), "Percent".into()),
+                        ("2".into(), "Power".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -28318,8 +28946,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Default".into()), (1u32, "Percent".into()), (2u32,
-                        "Power".into())
+                        ("0".into(), "Default".into()), ("1".into(), "Percent".into()),
+                        ("2".into(), "Power".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -28364,8 +28992,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -28429,7 +29057,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -28479,7 +29107,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Mode0".into()), (1u32, "Mode1".into())]
+                    vec![("0".into(), "Mode0".into()), ("1".into(), "Mode1".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -28525,7 +29153,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -28533,7 +29161,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -28541,7 +29169,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (2u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("2".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -28549,7 +29177,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (3u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("3".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -28557,7 +29185,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (4u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("4".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -28565,7 +29193,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (5u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("5".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -28626,7 +29254,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             structure: StructureInfo { small_grid: true },
             thermal_info: None,
             internal_atmo_info: None,
-            slots: vec![SlotInfo { name : "Container Slot".into(), typ : Class::None }]
+            slots: vec![SlotInfo { name : "Container Slot".into(), typ : Class::Crate }]
                 .into_iter()
                 .collect(),
         }
@@ -28650,7 +29278,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -28725,7 +29353,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             }),
             internal_atmo_info: None,
             logic: LogicInfo {
-                logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
+                logic_slot_types: vec![("0".into(), vec![] .into_iter().collect())]
                     .into_iter()
                     .collect(),
                 logic_types: vec![
@@ -28791,7 +29419,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             }),
             internal_atmo_info: None,
             logic: LogicInfo {
-                logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
+                logic_slot_types: vec![("0".into(), vec![] .into_iter().collect())]
                     .into_iter()
                     .collect(),
                 logic_types: vec![
@@ -28869,8 +29497,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Default".into()), (1u32, "Horizontal".into()), (2u32,
-                        "Vertical".into())
+                        ("0".into(), "Default".into()), ("1".into(), "Horizontal"
+                        .into()), ("2".into(), "Vertical".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -28914,7 +29542,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             thermal_info: None,
             internal_atmo_info: None,
             logic: LogicInfo {
-                logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
+                logic_slot_types: vec![("0".into(), vec![] .into_iter().collect())]
                     .into_iter()
                     .collect(),
                 logic_types: vec![
@@ -29174,8 +29802,9 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "StructureDrinkingFountain".into(),
                 prefab_hash: 1968371847i32,
-                desc: "<N:EN:StructureDrinkingFountain>".into(),
-                name: "<N:EN:StructureDrinkingFountain>".into(),
+                desc: "The Drinking Fountain can be interacted with directly to increase hydration. It needs a <link=GasWater><color=#44AD83>Water</color></link> supply."
+                    .into(),
+                name: "Drinking Fountain".into(),
             },
             structure: StructureInfo { small_grid: true },
             thermal_info: None,
@@ -29235,7 +29864,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             }),
             internal_atmo_info: None,
             logic: LogicInfo {
-                logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
+                logic_slot_types: vec![("0".into(), vec![] .into_iter().collect())]
                     .into_iter()
                     .collect(),
                 logic_types: vec![
@@ -29308,7 +29937,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Idle".into()), (1u32, "Active".into())]
+                    vec![("0".into(), "Idle".into()), ("1".into(), "Active".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -29361,8 +29990,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -29415,7 +30044,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 has_reagents: true,
             },
             consumer_info: ConsumerInfo {
-                consumed_resouces: vec![
+                consumed_resources: vec![
                     "ItemAstroloyIngot".into(), "ItemConstantanIngot".into(),
                     "ItemCopperIngot".into(), "ItemElectrumIngot".into(), "ItemGoldIngot"
                     .into(), "ItemHastelloyIngot".into(), "ItemInconelIngot".into(),
@@ -30063,14 +30692,21 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     is_any_to_remove : false, reagents : vec![] .into_iter().collect() },
                     count_types : 3i64, reagents : vec![("Astroloy".into(), 100f64),
                     ("Inconel".into(), 50f64), ("Waspaloy".into(), 20f64)] .into_iter()
-                    .collect() }), ("ItemKitLogicCircuit".into(), Recipe { tier :
-                    MachineTier::TierOne, time : 40f64, energy : 2000f64, temperature :
+                    .collect() }), ("ItemKitLinearRail".into(), Recipe { tier :
+                    MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
                     RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
                     pressure : RecipeRange { start : 0f64, stop : 1000000f64, is_valid :
                     false }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
                     is_any_to_remove : false, reagents : vec![] .into_iter().collect() },
-                    count_types : 3i64, reagents : vec![("Copper".into(), 10f64),
-                    ("Solder".into(), 2f64), ("Steel".into(), 4f64)] .into_iter()
+                    count_types : 1i64, reagents : vec![("Steel".into(), 3f64)]
+                    .into_iter().collect() }), ("ItemKitLogicCircuit".into(), Recipe {
+                    tier : MachineTier::TierOne, time : 40f64, energy : 2000f64,
+                    temperature : RecipeRange { start : 1f64, stop : 80000f64, is_valid :
+                    false }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                    is_valid : false }, required_mix : RecipeGasMix { rule : 0i64, is_any
+                    : true, is_any_to_remove : false, reagents : vec![] .into_iter()
+                    .collect() }, count_types : 3i64, reagents : vec![("Copper".into(),
+                    10f64), ("Solder".into(), 2f64), ("Steel".into(), 4f64)] .into_iter()
                     .collect() }), ("ItemKitLogicInputOutput".into(), Recipe { tier :
                     MachineTier::TierOne, time : 10f64, energy : 1000f64, temperature :
                     RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
@@ -30148,6 +30784,14 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     is_any_to_remove : false, reagents : vec![] .into_iter().collect() },
                     count_types : 3i64, reagents : vec![("Copper".into(), 3f64), ("Gold"
                     .into(), 2f64), ("Iron".into(), 9f64)] .into_iter().collect() }),
+                    ("ItemKitRoboticArm".into(), Recipe { tier : MachineTier::TierOne,
+                    time : 150f64, energy : 10000f64, temperature : RecipeRange { start :
+                    1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange {
+                    start : 0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                    RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove : false,
+                    reagents : vec![] .into_iter().collect() }, count_types : 3i64,
+                    reagents : vec![("Astroloy".into(), 15f64), ("Hastelloy".into(),
+                    5f64), ("Inconel".into(), 10f64)] .into_iter().collect() }),
                     ("ItemKitSatelliteDish".into(), Recipe { tier : MachineTier::TierOne,
                     time : 120f64, energy : 24000f64, temperature : RecipeRange { start :
                     1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange {
@@ -30156,8 +30800,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     reagents : vec![] .into_iter().collect() }, count_types : 3i64,
                     reagents : vec![("Electrum".into(), 15f64), ("Solder".into(), 10f64),
                     ("Steel".into(), 20f64)] .into_iter().collect() }), ("ItemKitSensor"
-                    .into(), Recipe { tier : MachineTier::TierOne, time : 5f64, energy :
-                    10f64, temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                    .into(), Recipe { tier : MachineTier::TierOne, time : 10f64, energy :
+                    500f64, temperature : RecipeRange { start : 1f64, stop : 80000f64,
                     is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
                     1000000f64, is_valid : false }, required_mix : RecipeGasMix { rule :
                     0i64, is_any : true, is_any_to_remove : false, reagents : vec![]
@@ -31054,7 +31698,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "StructureEmergencyButton".into(),
                 prefab_hash: 1668452680i32,
-                desc: "Description coming.".into(),
+                desc: "".into(),
                 name: "Important Button".into(),
             },
             structure: StructureInfo { small_grid: true },
@@ -31308,8 +31952,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect()), (2u32, vec![] .into_iter().collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect()), ("2".into(), vec![] .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -31382,7 +32026,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Idle".into()), (1u32, "Active".into())]
+                    vec![("0".into(), "Idle".into()), ("1".into(), "Active".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -31501,7 +32145,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -31657,7 +32301,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -31665,7 +32309,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -31673,7 +32317,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (2u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("2".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -31681,7 +32325,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (3u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("3".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -31689,7 +32333,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (4u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("4".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -31697,7 +32341,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (5u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("5".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -31705,7 +32349,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (6u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("6".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -31713,7 +32357,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (7u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("7".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -31721,7 +32365,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (8u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("8".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -31729,7 +32373,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (9u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("9".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -31737,7 +32381,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (10u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("10".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -31745,7 +32389,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (11u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("11".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -31753,7 +32397,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (12u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("12".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -31761,7 +32405,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (13u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("13".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -31769,7 +32413,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (14u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("14".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -31871,7 +32515,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -31879,7 +32523,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -31969,8 +32613,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -32009,7 +32653,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Mode0".into()), (1u32, "Mode1".into())]
+                    vec![("0".into(), "Mode0".into()), ("1".into(), "Mode1".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -32325,7 +32969,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -32513,8 +33157,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Left".into()), (1u32, "Center".into()), (2u32, "Right"
-                        .into())
+                        ("0".into(), "Left".into()), ("1".into(), "Center".into()), ("2"
+                        .into(), "Right".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -32572,7 +33216,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Operate".into()), (1u32, "Logic".into())]
+                    vec![("0".into(), "Operate".into()), ("1".into(), "Logic".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -32807,7 +33451,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -32815,7 +33459,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -32823,7 +33467,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (2u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("2".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -32852,8 +33496,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Idle".into()), (1u32, "Happy".into()), (2u32, "UnHappy"
-                        .into()), (3u32, "Dead".into())
+                        ("0".into(), "Idle".into()), ("1".into(), "Happy".into()), ("2"
+                        .into(), "UnHappy".into()), ("3".into(), "Dead".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -33065,8 +33709,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -33085,7 +33729,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Mode0".into()), (1u32, "Mode1".into())]
+                    vec![("0".into(), "Mode0".into()), ("1".into(), "Mode1".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -33138,8 +33782,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -33192,7 +33836,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 has_reagents: true,
             },
             consumer_info: ConsumerInfo {
-                consumed_resouces: vec![
+                consumed_resources: vec![
                     "ItemAstroloyIngot".into(), "ItemConstantanIngot".into(),
                     "ItemCopperIngot".into(), "ItemElectrumIngot".into(), "ItemGoldIngot"
                     .into(), "ItemHastelloyIngot".into(), "ItemInconelIngot".into(),
@@ -33728,69 +34372,62 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     is_any_to_remove : false, reagents : vec![] .into_iter().collect() },
                     count_types : 3i64, reagents : vec![("Copper".into(), 2f64), ("Gold"
                     .into(), 1f64), ("Iron".into(), 5f64)] .into_iter().collect() }),
-                    ("ItemKitSensor".into(), Recipe { tier : MachineTier::TierOne, time :
-                    10f64, energy : 500f64, temperature : RecipeRange { start : 1f64,
+                    ("ItemKitShower".into(), Recipe { tier : MachineTier::TierOne, time :
+                    30f64, energy : 3000f64, temperature : RecipeRange { start : 1f64,
                     stop : 80000f64, is_valid : false }, pressure : RecipeRange { start :
                     0f64, stop : 1000000f64, is_valid : false }, required_mix :
                     RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove : false,
                     reagents : vec![] .into_iter().collect() }, count_types : 3i64,
-                    reagents : vec![("Copper".into(), 1f64), ("Gold".into(), 1f64),
-                    ("Iron".into(), 1f64)] .into_iter().collect() }), ("ItemKitShower"
-                    .into(), Recipe { tier : MachineTier::TierOne, time : 30f64, energy :
-                    3000f64, temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                    reagents : vec![("Copper".into(), 5f64), ("Iron".into(), 5f64),
+                    ("Silicon".into(), 5f64)] .into_iter().collect() }),
+                    ("ItemKitSleeper".into(), Recipe { tier : MachineTier::TierOne, time
+                    : 60f64, energy : 6000f64, temperature : RecipeRange { start : 1f64,
+                    stop : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                    0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                    RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove : false,
+                    reagents : vec![] .into_iter().collect() }, count_types : 3i64,
+                    reagents : vec![("Copper".into(), 10f64), ("Gold".into(), 10f64),
+                    ("Steel".into(), 25f64)] .into_iter().collect() }),
+                    ("ItemKitSmallDirectHeatExchanger".into(), Recipe { tier :
+                    MachineTier::TierOne, time : 10f64, energy : 500f64, temperature :
+                    RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                    pressure : RecipeRange { start : 0f64, stop : 1000000f64, is_valid :
+                    false }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                    is_any_to_remove : false, reagents : vec![] .into_iter().collect() },
+                    count_types : 2i64, reagents : vec![("Copper".into(), 5f64), ("Steel"
+                    .into(), 3f64)] .into_iter().collect() }), ("ItemKitStandardChute"
+                    .into(), Recipe { tier : MachineTier::TierOne, time : 5f64, energy :
+                    500f64, temperature : RecipeRange { start : 1f64, stop : 80000f64,
                     is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
                     1000000f64, is_valid : false }, required_mix : RecipeGasMix { rule :
                     0i64, is_any : true, is_any_to_remove : false, reagents : vec![]
                     .into_iter().collect() }, count_types : 3i64, reagents :
-                    vec![("Copper".into(), 5f64), ("Iron".into(), 5f64), ("Silicon"
-                    .into(), 5f64)] .into_iter().collect() }), ("ItemKitSleeper".into(),
-                    Recipe { tier : MachineTier::TierOne, time : 60f64, energy : 6000f64,
-                    temperature : RecipeRange { start : 1f64, stop : 80000f64, is_valid :
-                    false }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
-                    is_valid : false }, required_mix : RecipeGasMix { rule : 0i64, is_any
-                    : true, is_any_to_remove : false, reagents : vec![] .into_iter()
-                    .collect() }, count_types : 3i64, reagents : vec![("Copper".into(),
-                    10f64), ("Gold".into(), 10f64), ("Steel".into(), 25f64)] .into_iter()
-                    .collect() }), ("ItemKitSmallDirectHeatExchanger".into(), Recipe {
-                    tier : MachineTier::TierOne, time : 10f64, energy : 500f64,
+                    vec![("Constantan".into(), 2f64), ("Electrum".into(), 2f64), ("Iron"
+                    .into(), 3f64)] .into_iter().collect() }), ("ItemKitSuitStorage"
+                    .into(), Recipe { tier : MachineTier::TierOne, time : 30f64, energy :
+                    500f64, temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                    is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                    1000000f64, is_valid : false }, required_mix : RecipeGasMix { rule :
+                    0i64, is_any : true, is_any_to_remove : false, reagents : vec![]
+                    .into_iter().collect() }, count_types : 3i64, reagents :
+                    vec![("Copper".into(), 5f64), ("Iron".into(), 15f64), ("Silver"
+                    .into(), 5f64)] .into_iter().collect() }), ("ItemKitTank".into(),
+                    Recipe { tier : MachineTier::TierOne, time : 20f64, energy : 2000f64,
                     temperature : RecipeRange { start : 1f64, stop : 80000f64, is_valid :
                     false }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
                     is_valid : false }, required_mix : RecipeGasMix { rule : 0i64, is_any
                     : true, is_any_to_remove : false, reagents : vec![] .into_iter()
                     .collect() }, count_types : 2i64, reagents : vec![("Copper".into(),
-                    5f64), ("Steel".into(), 3f64)] .into_iter().collect() }),
-                    ("ItemKitStandardChute".into(), Recipe { tier : MachineTier::TierOne,
-                    time : 5f64, energy : 500f64, temperature : RecipeRange { start :
+                    5f64), ("Steel".into(), 20f64)] .into_iter().collect() }),
+                    ("ItemKitTankInsulated".into(), Recipe { tier : MachineTier::TierOne,
+                    time : 30f64, energy : 6000f64, temperature : RecipeRange { start :
                     1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange {
                     start : 0f64, stop : 1000000f64, is_valid : false }, required_mix :
                     RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove : false,
                     reagents : vec![] .into_iter().collect() }, count_types : 3i64,
-                    reagents : vec![("Constantan".into(), 2f64), ("Electrum".into(),
-                    2f64), ("Iron".into(), 3f64)] .into_iter().collect() }),
-                    ("ItemKitSuitStorage".into(), Recipe { tier : MachineTier::TierOne,
-                    time : 30f64, energy : 500f64, temperature : RecipeRange { start :
-                    1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange {
-                    start : 0f64, stop : 1000000f64, is_valid : false }, required_mix :
-                    RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove : false,
-                    reagents : vec![] .into_iter().collect() }, count_types : 3i64,
-                    reagents : vec![("Copper".into(), 5f64), ("Iron".into(), 15f64),
-                    ("Silver".into(), 5f64)] .into_iter().collect() }), ("ItemKitTank"
-                    .into(), Recipe { tier : MachineTier::TierOne, time : 20f64, energy :
-                    2000f64, temperature : RecipeRange { start : 1f64, stop : 80000f64,
-                    is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
-                    1000000f64, is_valid : false }, required_mix : RecipeGasMix { rule :
-                    0i64, is_any : true, is_any_to_remove : false, reagents : vec![]
-                    .into_iter().collect() }, count_types : 2i64, reagents :
-                    vec![("Copper".into(), 5f64), ("Steel".into(), 20f64)] .into_iter()
-                    .collect() }), ("ItemKitTankInsulated".into(), Recipe { tier :
-                    MachineTier::TierOne, time : 30f64, energy : 6000f64, temperature :
-                    RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
-                    pressure : RecipeRange { start : 0f64, stop : 1000000f64, is_valid :
-                    false }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
-                    is_any_to_remove : false, reagents : vec![] .into_iter().collect() },
-                    count_types : 3i64, reagents : vec![("Copper".into(), 5f64),
-                    ("Silicon".into(), 30f64), ("Steel".into(), 20f64)] .into_iter()
-                    .collect() }), ("ItemKitTurboVolumePump".into(), Recipe { tier :
+                    reagents : vec![("Copper".into(), 5f64), ("Silicon".into(), 30f64),
+                    ("Steel".into(), 20f64)] .into_iter().collect() }),
+                    ("ItemKitTurboVolumePump".into(), Recipe { tier :
                     MachineTier::TierTwo, time : 5f64, energy : 500f64, temperature :
                     RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
                     pressure : RecipeRange { start : 0f64, stop : 1000000f64, is_valid :
@@ -34388,7 +35025,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -34400,7 +35037,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -34412,7 +35049,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (2u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("2".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -34424,7 +35061,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (3u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("3".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -34436,7 +35073,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (4u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("4".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -34448,7 +35085,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (5u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("5".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -34460,7 +35097,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (6u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("6".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -34472,7 +35109,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (7u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("7".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -34599,7 +35236,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -34612,7 +35249,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::Seeding, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -34701,7 +35338,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             }),
             internal_atmo_info: None,
             logic: LogicInfo {
-                logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
+                logic_slot_types: vec![("0".into(), vec![] .into_iter().collect())]
                     .into_iter()
                     .collect(),
                 logic_types: vec![
@@ -35294,7 +35931,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Operate".into()), (1u32, "Logic".into())]
+                    vec![("0".into(), "Operate".into()), ("1".into(), "Logic".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -35345,7 +35982,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Operate".into()), (1u32, "Logic".into())]
+                    vec![("0".into(), "Operate".into()), ("1".into(), "Logic".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -35396,7 +36033,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Operate".into()), (1u32, "Logic".into())]
+                    vec![("0".into(), "Operate".into()), ("1".into(), "Logic".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -35447,7 +36084,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Operate".into()), (1u32, "Logic".into())]
+                    vec![("0".into(), "Operate".into()), ("1".into(), "Logic".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -35499,27 +36136,32 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "None".into()), (1u32, "Alarm2".into()), (2u32, "Alarm3"
-                        .into()), (3u32, "Alarm4".into()), (4u32, "Alarm5".into()),
-                        (5u32, "Alarm6".into()), (6u32, "Alarm7".into()), (7u32, "Music1"
-                        .into()), (8u32, "Music2".into()), (9u32, "Music3".into()),
-                        (10u32, "Alarm8".into()), (11u32, "Alarm9".into()), (12u32,
-                        "Alarm10".into()), (13u32, "Alarm11".into()), (14u32, "Alarm12"
-                        .into()), (15u32, "Danger".into()), (16u32, "Warning".into()),
-                        (17u32, "Alert".into()), (18u32, "StormIncoming".into()), (19u32,
-                        "IntruderAlert".into()), (20u32, "Depressurising".into()),
-                        (21u32, "Pressurising".into()), (22u32, "AirlockCycling".into()),
-                        (23u32, "PowerLow".into()), (24u32, "SystemFailure".into()),
-                        (25u32, "Welcome".into()), (26u32, "MalfunctionDetected".into()),
-                        (27u32, "HaltWhoGoesThere".into()), (28u32, "FireFireFire"
-                        .into()), (29u32, "One".into()), (30u32, "Two".into()), (31u32,
-                        "Three".into()), (32u32, "Four".into()), (33u32, "Five".into()),
-                        (34u32, "Floor".into()), (35u32, "RocketLaunching".into()),
-                        (36u32, "LiftOff".into()), (37u32, "TraderIncoming".into()),
-                        (38u32, "TraderLanded".into()), (39u32, "PressureHigh".into()),
-                        (40u32, "PressureLow".into()), (41u32, "TemperatureHigh".into()),
-                        (42u32, "TemperatureLow".into()), (43u32, "PollutantsDetected"
-                        .into()), (44u32, "HighCarbonDioxide".into()), (45u32, "Alarm1"
+                        ("0".into(), "None".into()), ("1".into(), "Alarm2".into()), ("2"
+                        .into(), "Alarm3".into()), ("3".into(), "Alarm4".into()), ("4"
+                        .into(), "Alarm5".into()), ("5".into(), "Alarm6".into()), ("6"
+                        .into(), "Alarm7".into()), ("7".into(), "Music1".into()), ("8"
+                        .into(), "Music2".into()), ("9".into(), "Music3".into()), ("10"
+                        .into(), "Alarm8".into()), ("11".into(), "Alarm9".into()), ("12"
+                        .into(), "Alarm10".into()), ("13".into(), "Alarm11".into()),
+                        ("14".into(), "Alarm12".into()), ("15".into(), "Danger".into()),
+                        ("16".into(), "Warning".into()), ("17".into(), "Alert".into()),
+                        ("18".into(), "StormIncoming".into()), ("19".into(),
+                        "IntruderAlert".into()), ("20".into(), "Depressurising".into()),
+                        ("21".into(), "Pressurising".into()), ("22".into(),
+                        "AirlockCycling".into()), ("23".into(), "PowerLow".into()), ("24"
+                        .into(), "SystemFailure".into()), ("25".into(), "Welcome"
+                        .into()), ("26".into(), "MalfunctionDetected".into()), ("27"
+                        .into(), "HaltWhoGoesThere".into()), ("28".into(), "FireFireFire"
+                        .into()), ("29".into(), "One".into()), ("30".into(), "Two"
+                        .into()), ("31".into(), "Three".into()), ("32".into(), "Four"
+                        .into()), ("33".into(), "Five".into()), ("34".into(), "Floor"
+                        .into()), ("35".into(), "RocketLaunching".into()), ("36".into(),
+                        "LiftOff".into()), ("37".into(), "TraderIncoming".into()), ("38"
+                        .into(), "TraderLanded".into()), ("39".into(), "PressureHigh"
+                        .into()), ("40".into(), "PressureLow".into()), ("41".into(),
+                        "TemperatureHigh".into()), ("42".into(), "TemperatureLow"
+                        .into()), ("43".into(), "PollutantsDetected".into()), ("44"
+                        .into(), "HighCarbonDioxide".into()), ("45".into(), "Alarm1"
                         .into())
                     ]
                         .into_iter()
@@ -35815,7 +36457,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Operate".into()), (1u32, "Logic".into())]
+                    vec![("0".into(), "Operate".into()), ("1".into(), "Logic".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -35851,7 +36493,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "StructureLargeSatelliteDish".into(),
                 prefab_hash: 1913391845i32,
-                desc: "This large communications unit can be used to communicate with nearby trade vessels.\n\n        When connected to a <link=ThingStructureComputer><color=green>Computer</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic."
+                desc: "This large communications unit can be used to communicate with nearby trade vessels.\n\n        When connected to a <link=ThingStructureComputer><color=green>Computer (Modern)</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic."
                     .into(),
                 name: "Large Satellite Dish".into(),
             },
@@ -36079,7 +36721,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "StructureLightRound".into(),
                 prefab_hash: 1514476632i32,
-                desc: "Description coming.".into(),
+                desc: "".into(),
                 name: "Light Round".into(),
             },
             structure: StructureInfo { small_grid: true },
@@ -36128,7 +36770,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "StructureLightRoundAngled".into(),
                 prefab_hash: 1592905386i32,
-                desc: "Description coming.".into(),
+                desc: "".into(),
                 name: "Light Round (Angled)".into(),
             },
             structure: StructureInfo { small_grid: true },
@@ -36177,7 +36819,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "StructureLightRoundSmall".into(),
                 prefab_hash: 1436121888i32,
-                desc: "Description coming.".into(),
+                desc: "".into(),
                 name: "Light Round (Small)".into(),
             },
             structure: StructureInfo { small_grid: true },
@@ -36392,56 +37034,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 has_lock_state: true,
                 has_mode_state: false,
                 has_on_off_state: true,
-                has_open_state: false,
-                has_reagents: false,
-            },
-        }
-            .into(),
-    );
-    map.insert(
-        -782453061i32,
-        StructureLogicDeviceTemplate {
-            prefab: PrefabInfo {
-                prefab_name: "StructureLiquidPipeOneWayValve".into(),
-                prefab_hash: -782453061i32,
-                desc: "The one way valve moves liquid in one direction only: from input side to output side. It only permits flow if the input pressure is higher than output pressure.."
-                    .into(),
-                name: "One Way Valve (Liquid)".into(),
-            },
-            structure: StructureInfo { small_grid: true },
-            thermal_info: None,
-            internal_atmo_info: None,
-            logic: LogicInfo {
-                logic_slot_types: vec![].into_iter().collect(),
-                logic_types: vec![
-                    (LogicType::Setting, MemoryAccess::ReadWrite), (LogicType::Maximum,
-                    MemoryAccess::Read), (LogicType::Ratio, MemoryAccess::Read),
-                    (LogicType::PrefabHash, MemoryAccess::Read), (LogicType::ReferenceId,
-                    MemoryAccess::Read), (LogicType::NameHash, MemoryAccess::Read)
-                ]
-                    .into_iter()
-                    .collect(),
-                modes: None,
-                transmission_receiver: false,
-                wireless_logic: false,
-                circuit_holder: false,
-            },
-            slots: vec![].into_iter().collect(),
-            device: DeviceInfo {
-                connection_list: vec![
-                    ConnectionInfo { typ : ConnectionType::PipeLiquid, role :
-                    ConnectionRole::Input }, ConnectionInfo { typ :
-                    ConnectionType::PipeLiquid, role : ConnectionRole::Output }
-                ]
-                    .into_iter()
-                    .collect(),
-                device_pins_length: None,
-                has_activate_state: false,
-                has_atmosphere: false,
-                has_color_state: false,
-                has_lock_state: false,
-                has_mode_state: false,
-                has_on_off_state: false,
                 has_open_state: false,
                 has_reagents: false,
             },
@@ -36860,7 +37452,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -36951,7 +37543,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Right".into()), (1u32, "Left".into())]
+                    vec![("0".into(), "Right".into()), ("1".into(), "Left".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -37110,8 +37702,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Left".into()), (1u32, "Center".into()), (2u32, "Right"
-                        .into())
+                        ("0".into(), "Left".into()), ("1".into(), "Center".into()), ("2"
+                        .into(), "Right".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -37149,7 +37741,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "StructureLiquidValve".into(),
                 prefab_hash: 1849974453i32,
                 desc: "".into(),
-                name: "Liquid Valve".into(),
+                name: "Valve (Liquid)".into(),
             },
             structure: StructureInfo { small_grid: true },
             thermal_info: None,
@@ -37261,7 +37853,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -37269,7 +37861,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -37277,7 +37869,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (2u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("2".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -37285,7 +37877,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (3u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("3".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -37564,8 +38156,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Equals".into()), (1u32, "Greater".into()), (2u32, "Less"
-                        .into()), (3u32, "NotEquals".into())
+                        ("0".into(), "Equals".into()), ("1".into(), "Greater".into()),
+                        ("2".into(), "Less".into()), ("3".into(), "NotEquals".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -37674,9 +38266,9 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "AND".into()), (1u32, "OR".into()), (2u32, "XOR".into()),
-                        (3u32, "NAND".into()), (4u32, "NOR".into()), (5u32, "XNOR"
-                        .into())
+                        ("0".into(), "AND".into()), ("1".into(), "OR".into()), ("2"
+                        .into(), "XOR".into()), ("3".into(), "NAND".into()), ("4".into(),
+                        "NOR".into()), ("5".into(), "XNOR".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -37785,10 +38377,10 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Add".into()), (1u32, "Subtract".into()), (2u32,
-                        "Multiply".into()), (3u32, "Divide".into()), (4u32, "Mod"
-                        .into()), (5u32, "Atan2".into()), (6u32, "Pow".into()), (7u32,
-                        "Log".into())
+                        ("0".into(), "Add".into()), ("1".into(), "Subtract".into()), ("2"
+                        .into(), "Multiply".into()), ("3".into(), "Divide".into()), ("4"
+                        .into(), "Mod".into()), ("5".into(), "Atan2".into()), ("6"
+                        .into(), "Pow".into()), ("7".into(), "Log".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -37849,12 +38441,14 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Ceil".into()), (1u32, "Floor".into()), (2u32, "Abs"
-                        .into()), (3u32, "Log".into()), (4u32, "Exp".into()), (5u32,
-                        "Round".into()), (6u32, "Rand".into()), (7u32, "Sqrt".into()),
-                        (8u32, "Sin".into()), (9u32, "Cos".into()), (10u32, "Tan"
-                        .into()), (11u32, "Asin".into()), (12u32, "Acos".into()), (13u32,
-                        "Atan".into()), (14u32, "Not".into())
+                        ("0".into(), "Ceil".into()), ("1".into(), "Floor".into()), ("2"
+                        .into(), "Abs".into()), ("3".into(), "Log".into()), ("4".into(),
+                        "Exp".into()), ("5".into(), "Round".into()), ("6".into(), "Rand"
+                        .into()), ("7".into(), "Sqrt".into()), ("8".into(), "Sin"
+                        .into()), ("9".into(), "Cos".into()), ("10".into(), "Tan"
+                        .into()), ("11".into(), "Asin".into()), ("12".into(), "Acos"
+                        .into()), ("13".into(), "Atan".into()), ("14".into(), "Not"
+                        .into())
                     ]
                         .into_iter()
                         .collect(),
@@ -37960,7 +38554,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Greater".into()), (1u32, "Less".into())]
+                    vec![("0".into(), "Greater".into()), ("1".into(), "Less".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -38264,8 +38858,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Equals".into()), (1u32, "Greater".into()), (2u32, "Less"
-                        .into()), (3u32, "NotEquals".into())
+                        ("0".into(), "Equals".into()), ("1".into(), "Greater".into()),
+                        ("2".into(), "Less".into()), ("3".into(), "NotEquals".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -38365,7 +38959,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -38373,7 +38967,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -38381,7 +38975,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (2u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("2".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -38389,7 +38983,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (3u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("3".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -38416,7 +39010,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "All".into()), (1u32, "Any".into()), (2u32, "None".into())
+                        ("0".into(), "All".into()), ("1".into(), "Any".into()), ("2"
+                        .into(), "None".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -38841,7 +39436,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 logic_slot_types: vec![].into_iter().collect(),
                 logic_types: vec![].into_iter().collect(),
                 modes: Some(
-                    vec![(0u32, "Passive".into()), (1u32, "Active".into())]
+                    vec![("0".into(), "Passive".into()), ("1".into(), "Active".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -39006,7 +39601,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Operate".into()), (1u32, "Logic".into())]
+                    vec![("0".into(), "Operate".into()), ("1".into(), "Logic".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -39163,7 +39758,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Operate".into()), (1u32, "Logic".into())]
+                    vec![("0".into(), "Operate".into()), ("1".into(), "Logic".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -39514,7 +40109,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -39613,7 +40208,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Idle".into()), (1u32, "Active".into())]
+                    vec![("0".into(), "Idle".into()), ("1".into(), "Active".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -39715,7 +40310,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -39723,7 +40318,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -39783,7 +40378,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -39791,7 +40386,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -39799,7 +40394,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (2u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("2".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -39807,7 +40402,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (3u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("3".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -39815,7 +40410,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (4u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("4".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -39823,7 +40418,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (5u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("5".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -39831,7 +40426,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (6u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("6".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -39839,7 +40434,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (7u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("7".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -39847,7 +40442,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (8u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("8".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -39855,7 +40450,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (9u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("9".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -40496,7 +41091,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "StructurePipeAnalysizer".into(),
                 prefab_hash: 435685051i32,
-                desc: "Allegedly the outcome of a weekend father-daughter electronics project by an overzealous {<link=ExMin><color=#0080FFFF>ExMin</color></link> engineer, the pipe analyzer is essentially a more advanced version of the <link=ThingStructurePipeMeter><color=green>Pipe Meter</color></link>.\nDisplaying the internal pressure of pipe networks, it  also reads out temperature and gas contents, and can be connected to a <link=ThingStructureConsole><color=green>Console</color></link> or <link=ThingStructureComputer><color=green>Computer</color></link> via a {<link=LogicPage><color=#0080FFFF>Logic</color></link> system."
+                desc: "Allegedly the outcome of a weekend father-daughter electronics project by an overzealous {<link=ExMin><color=#0080FFFF>ExMin</color></link> engineer, the pipe analyzer is essentially a more advanced version of the <link=ThingStructurePipeMeter><color=green>Pipe Meter</color></link>.\nDisplaying the internal pressure of pipe networks, it  also reads out temperature and gas contents, and can be connected to a <link=ThingStructureConsole><color=green>Console</color></link> or <link=ThingStructureComputer><color=green>Computer (Modern)</color></link> via a {<link=LogicPage><color=#0080FFFF>Logic</color></link> system."
                     .into(),
                 name: "Pipe Analyzer".into(),
             },
@@ -40970,6 +41565,56 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             .into(),
     );
     map.insert(
+        -523832822i32,
+        StructureLogicDeviceTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "StructurePipeLiquidOneWayValveLever".into(),
+                prefab_hash: -523832822i32,
+                desc: "".into(),
+                name: "One Way Valve (Liquid)".into(),
+            },
+            structure: StructureInfo { small_grid: true },
+            thermal_info: None,
+            internal_atmo_info: None,
+            logic: LogicInfo {
+                logic_slot_types: vec![].into_iter().collect(),
+                logic_types: vec![
+                    (LogicType::Setting, MemoryAccess::ReadWrite), (LogicType::Maximum,
+                    MemoryAccess::Read), (LogicType::Ratio, MemoryAccess::Read),
+                    (LogicType::On, MemoryAccess::ReadWrite), (LogicType::PrefabHash,
+                    MemoryAccess::Read), (LogicType::ReferenceId, MemoryAccess::Read),
+                    (LogicType::NameHash, MemoryAccess::Read)
+                ]
+                    .into_iter()
+                    .collect(),
+                modes: None,
+                transmission_receiver: false,
+                wireless_logic: false,
+                circuit_holder: false,
+            },
+            slots: vec![].into_iter().collect(),
+            device: DeviceInfo {
+                connection_list: vec![
+                    ConnectionInfo { typ : ConnectionType::PipeLiquid, role :
+                    ConnectionRole::Input }, ConnectionInfo { typ :
+                    ConnectionType::PipeLiquid, role : ConnectionRole::Output }
+                ]
+                    .into_iter()
+                    .collect(),
+                device_pins_length: None,
+                has_activate_state: false,
+                has_atmosphere: false,
+                has_color_state: false,
+                has_lock_state: false,
+                has_mode_state: false,
+                has_on_off_state: true,
+                has_open_state: false,
+                has_reagents: false,
+            },
+        }
+            .into(),
+    );
+    map.insert(
         667597982i32,
         StructureTemplate {
             prefab: PrefabInfo {
@@ -41050,13 +41695,12 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             .into(),
     );
     map.insert(
-        1580412404i32,
+        1289581593i32,
         StructureLogicDeviceTemplate {
             prefab: PrefabInfo {
-                prefab_name: "StructurePipeOneWayValve".into(),
-                prefab_hash: 1580412404i32,
-                desc: "The one way valve moves gas in one direction only: from input side to output side. It only permits flow if the input pressure is higher than output pressure.\n"
-                    .into(),
+                prefab_name: "StructurePipeOneWayValveLever".into(),
+                prefab_hash: 1289581593i32,
+                desc: "".into(),
                 name: "One Way Valve (Gas)".into(),
             },
             structure: StructureInfo { small_grid: true },
@@ -41067,8 +41711,9 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 logic_types: vec![
                     (LogicType::Setting, MemoryAccess::ReadWrite), (LogicType::Maximum,
                     MemoryAccess::Read), (LogicType::Ratio, MemoryAccess::Read),
-                    (LogicType::PrefabHash, MemoryAccess::Read), (LogicType::ReferenceId,
-                    MemoryAccess::Read), (LogicType::NameHash, MemoryAccess::Read)
+                    (LogicType::On, MemoryAccess::ReadWrite), (LogicType::PrefabHash,
+                    MemoryAccess::Read), (LogicType::ReferenceId, MemoryAccess::Read),
+                    (LogicType::NameHash, MemoryAccess::Read)
                 ]
                     .into_iter()
                     .collect(),
@@ -41092,7 +41737,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 has_color_state: false,
                 has_lock_state: false,
                 has_mode_state: false,
-                has_on_off_state: false,
+                has_on_off_state: true,
                 has_open_state: false,
                 has_reagents: false,
             },
@@ -41363,7 +42008,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -41389,7 +42034,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 wireless_logic: false,
                 circuit_holder: false,
             },
-            slots: vec![SlotInfo { name : "".into(), typ : Class::None }]
+            slots: vec![SlotInfo { name : "Portables".into(), typ : Class::Portables }]
                 .into_iter()
                 .collect(),
             device: DeviceInfo {
@@ -41428,7 +42073,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -41507,7 +42152,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Unlinked".into()), (1u32, "Linked".into())]
+                    vec![("0".into(), "Unlinked".into()), ("1".into(), "Linked".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -41619,7 +42264,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Unlinked".into()), (1u32, "Linked".into())]
+                    vec![("0".into(), "Unlinked".into()), ("1".into(), "Linked".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -41768,8 +42413,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Left".into()), (1u32, "Center".into()), (2u32, "Right"
-                        .into())
+                        ("0".into(), "Left".into()), ("1".into(), "Center".into()), ("2"
+                        .into(), "Right".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -41828,7 +42473,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Outward".into()), (1u32, "Inward".into())]
+                    vec![("0".into(), "Outward".into()), ("1".into(), "Inward".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -41887,7 +42532,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Outward".into()), (1u32, "Inward".into())]
+                    vec![("0".into(), "Outward".into()), ("1".into(), "Inward".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -42533,7 +43178,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -42541,7 +43186,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -42619,68 +43264,82 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect()), (2u32, vec![] .into_iter().collect()), (3u32, vec![]
-                    .into_iter().collect()), (4u32, vec![] .into_iter().collect()),
-                    (5u32, vec![] .into_iter().collect()), (6u32, vec![] .into_iter()
-                    .collect()), (7u32, vec![] .into_iter().collect()), (8u32, vec![]
-                    .into_iter().collect()), (9u32, vec![] .into_iter().collect()),
-                    (10u32, vec![] .into_iter().collect()), (11u32, vec![] .into_iter()
-                    .collect()), (12u32, vec![] .into_iter().collect()), (13u32, vec![]
-                    .into_iter().collect()), (14u32, vec![] .into_iter().collect()),
-                    (15u32, vec![] .into_iter().collect()), (16u32, vec![] .into_iter()
-                    .collect()), (17u32, vec![] .into_iter().collect()), (18u32, vec![]
-                    .into_iter().collect()), (19u32, vec![] .into_iter().collect()),
-                    (20u32, vec![] .into_iter().collect()), (21u32, vec![] .into_iter()
-                    .collect()), (22u32, vec![] .into_iter().collect()), (23u32, vec![]
-                    .into_iter().collect()), (24u32, vec![] .into_iter().collect()),
-                    (25u32, vec![] .into_iter().collect()), (26u32, vec![] .into_iter()
-                    .collect()), (27u32, vec![] .into_iter().collect()), (28u32, vec![]
-                    .into_iter().collect()), (29u32, vec![] .into_iter().collect()),
-                    (30u32, vec![] .into_iter().collect()), (31u32, vec![] .into_iter()
-                    .collect()), (32u32, vec![] .into_iter().collect()), (33u32, vec![]
-                    .into_iter().collect()), (34u32, vec![] .into_iter().collect()),
-                    (35u32, vec![] .into_iter().collect()), (36u32, vec![] .into_iter()
-                    .collect()), (37u32, vec![] .into_iter().collect()), (38u32, vec![]
-                    .into_iter().collect()), (39u32, vec![] .into_iter().collect()),
-                    (40u32, vec![] .into_iter().collect()), (41u32, vec![] .into_iter()
-                    .collect()), (42u32, vec![] .into_iter().collect()), (43u32, vec![]
-                    .into_iter().collect()), (44u32, vec![] .into_iter().collect()),
-                    (45u32, vec![] .into_iter().collect()), (46u32, vec![] .into_iter()
-                    .collect()), (47u32, vec![] .into_iter().collect()), (48u32, vec![]
-                    .into_iter().collect()), (49u32, vec![] .into_iter().collect()),
-                    (50u32, vec![] .into_iter().collect()), (51u32, vec![] .into_iter()
-                    .collect()), (52u32, vec![] .into_iter().collect()), (53u32, vec![]
-                    .into_iter().collect()), (54u32, vec![] .into_iter().collect()),
-                    (55u32, vec![] .into_iter().collect()), (56u32, vec![] .into_iter()
-                    .collect()), (57u32, vec![] .into_iter().collect()), (58u32, vec![]
-                    .into_iter().collect()), (59u32, vec![] .into_iter().collect()),
-                    (60u32, vec![] .into_iter().collect()), (61u32, vec![] .into_iter()
-                    .collect()), (62u32, vec![] .into_iter().collect()), (63u32, vec![]
-                    .into_iter().collect()), (64u32, vec![] .into_iter().collect()),
-                    (65u32, vec![] .into_iter().collect()), (66u32, vec![] .into_iter()
-                    .collect()), (67u32, vec![] .into_iter().collect()), (68u32, vec![]
-                    .into_iter().collect()), (69u32, vec![] .into_iter().collect()),
-                    (70u32, vec![] .into_iter().collect()), (71u32, vec![] .into_iter()
-                    .collect()), (72u32, vec![] .into_iter().collect()), (73u32, vec![]
-                    .into_iter().collect()), (74u32, vec![] .into_iter().collect()),
-                    (75u32, vec![] .into_iter().collect()), (76u32, vec![] .into_iter()
-                    .collect()), (77u32, vec![] .into_iter().collect()), (78u32, vec![]
-                    .into_iter().collect()), (79u32, vec![] .into_iter().collect()),
-                    (80u32, vec![] .into_iter().collect()), (81u32, vec![] .into_iter()
-                    .collect()), (82u32, vec![] .into_iter().collect()), (83u32, vec![]
-                    .into_iter().collect()), (84u32, vec![] .into_iter().collect()),
-                    (85u32, vec![] .into_iter().collect()), (86u32, vec![] .into_iter()
-                    .collect()), (87u32, vec![] .into_iter().collect()), (88u32, vec![]
-                    .into_iter().collect()), (89u32, vec![] .into_iter().collect()),
-                    (90u32, vec![] .into_iter().collect()), (91u32, vec![] .into_iter()
-                    .collect()), (92u32, vec![] .into_iter().collect()), (93u32, vec![]
-                    .into_iter().collect()), (94u32, vec![] .into_iter().collect()),
-                    (95u32, vec![] .into_iter().collect()), (96u32, vec![] .into_iter()
-                    .collect()), (97u32, vec![] .into_iter().collect()), (98u32, vec![]
-                    .into_iter().collect()), (99u32, vec![] .into_iter().collect()),
-                    (100u32, vec![] .into_iter().collect()), (101u32, vec![] .into_iter()
-                    .collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect()), ("2".into(), vec![] .into_iter().collect()),
+                    ("3".into(), vec![] .into_iter().collect()), ("4".into(), vec![]
+                    .into_iter().collect()), ("5".into(), vec![] .into_iter().collect()),
+                    ("6".into(), vec![] .into_iter().collect()), ("7".into(), vec![]
+                    .into_iter().collect()), ("8".into(), vec![] .into_iter().collect()),
+                    ("9".into(), vec![] .into_iter().collect()), ("10".into(), vec![]
+                    .into_iter().collect()), ("11".into(), vec![] .into_iter()
+                    .collect()), ("12".into(), vec![] .into_iter().collect()), ("13"
+                    .into(), vec![] .into_iter().collect()), ("14".into(), vec![]
+                    .into_iter().collect()), ("15".into(), vec![] .into_iter()
+                    .collect()), ("16".into(), vec![] .into_iter().collect()), ("17"
+                    .into(), vec![] .into_iter().collect()), ("18".into(), vec![]
+                    .into_iter().collect()), ("19".into(), vec![] .into_iter()
+                    .collect()), ("20".into(), vec![] .into_iter().collect()), ("21"
+                    .into(), vec![] .into_iter().collect()), ("22".into(), vec![]
+                    .into_iter().collect()), ("23".into(), vec![] .into_iter()
+                    .collect()), ("24".into(), vec![] .into_iter().collect()), ("25"
+                    .into(), vec![] .into_iter().collect()), ("26".into(), vec![]
+                    .into_iter().collect()), ("27".into(), vec![] .into_iter()
+                    .collect()), ("28".into(), vec![] .into_iter().collect()), ("29"
+                    .into(), vec![] .into_iter().collect()), ("30".into(), vec![]
+                    .into_iter().collect()), ("31".into(), vec![] .into_iter()
+                    .collect()), ("32".into(), vec![] .into_iter().collect()), ("33"
+                    .into(), vec![] .into_iter().collect()), ("34".into(), vec![]
+                    .into_iter().collect()), ("35".into(), vec![] .into_iter()
+                    .collect()), ("36".into(), vec![] .into_iter().collect()), ("37"
+                    .into(), vec![] .into_iter().collect()), ("38".into(), vec![]
+                    .into_iter().collect()), ("39".into(), vec![] .into_iter()
+                    .collect()), ("40".into(), vec![] .into_iter().collect()), ("41"
+                    .into(), vec![] .into_iter().collect()), ("42".into(), vec![]
+                    .into_iter().collect()), ("43".into(), vec![] .into_iter()
+                    .collect()), ("44".into(), vec![] .into_iter().collect()), ("45"
+                    .into(), vec![] .into_iter().collect()), ("46".into(), vec![]
+                    .into_iter().collect()), ("47".into(), vec![] .into_iter()
+                    .collect()), ("48".into(), vec![] .into_iter().collect()), ("49"
+                    .into(), vec![] .into_iter().collect()), ("50".into(), vec![]
+                    .into_iter().collect()), ("51".into(), vec![] .into_iter()
+                    .collect()), ("52".into(), vec![] .into_iter().collect()), ("53"
+                    .into(), vec![] .into_iter().collect()), ("54".into(), vec![]
+                    .into_iter().collect()), ("55".into(), vec![] .into_iter()
+                    .collect()), ("56".into(), vec![] .into_iter().collect()), ("57"
+                    .into(), vec![] .into_iter().collect()), ("58".into(), vec![]
+                    .into_iter().collect()), ("59".into(), vec![] .into_iter()
+                    .collect()), ("60".into(), vec![] .into_iter().collect()), ("61"
+                    .into(), vec![] .into_iter().collect()), ("62".into(), vec![]
+                    .into_iter().collect()), ("63".into(), vec![] .into_iter()
+                    .collect()), ("64".into(), vec![] .into_iter().collect()), ("65"
+                    .into(), vec![] .into_iter().collect()), ("66".into(), vec![]
+                    .into_iter().collect()), ("67".into(), vec![] .into_iter()
+                    .collect()), ("68".into(), vec![] .into_iter().collect()), ("69"
+                    .into(), vec![] .into_iter().collect()), ("70".into(), vec![]
+                    .into_iter().collect()), ("71".into(), vec![] .into_iter()
+                    .collect()), ("72".into(), vec![] .into_iter().collect()), ("73"
+                    .into(), vec![] .into_iter().collect()), ("74".into(), vec![]
+                    .into_iter().collect()), ("75".into(), vec![] .into_iter()
+                    .collect()), ("76".into(), vec![] .into_iter().collect()), ("77"
+                    .into(), vec![] .into_iter().collect()), ("78".into(), vec![]
+                    .into_iter().collect()), ("79".into(), vec![] .into_iter()
+                    .collect()), ("80".into(), vec![] .into_iter().collect()), ("81"
+                    .into(), vec![] .into_iter().collect()), ("82".into(), vec![]
+                    .into_iter().collect()), ("83".into(), vec![] .into_iter()
+                    .collect()), ("84".into(), vec![] .into_iter().collect()), ("85"
+                    .into(), vec![] .into_iter().collect()), ("86".into(), vec![]
+                    .into_iter().collect()), ("87".into(), vec![] .into_iter()
+                    .collect()), ("88".into(), vec![] .into_iter().collect()), ("89"
+                    .into(), vec![] .into_iter().collect()), ("90".into(), vec![]
+                    .into_iter().collect()), ("91".into(), vec![] .into_iter()
+                    .collect()), ("92".into(), vec![] .into_iter().collect()), ("93"
+                    .into(), vec![] .into_iter().collect()), ("94".into(), vec![]
+                    .into_iter().collect()), ("95".into(), vec![] .into_iter()
+                    .collect()), ("96".into(), vec![] .into_iter().collect()), ("97"
+                    .into(), vec![] .into_iter().collect()), ("98".into(), vec![]
+                    .into_iter().collect()), ("99".into(), vec![] .into_iter()
+                    .collect()), ("100".into(), vec![] .into_iter().collect()), ("101"
+                    .into(), vec![] .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -42868,6 +43527,21 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             .into(),
     );
     map.insert(
+        -475746988i32,
+        StructureTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "StructureReinforcedWall".into(),
+                prefab_hash: -475746988i32,
+                desc: "".into(),
+                name: "Reinforced Wall".into(),
+            },
+            structure: StructureInfo { small_grid: false },
+            thermal_info: None,
+            internal_atmo_info: None,
+        }
+            .into(),
+    );
+    map.insert(
         1939061729i32,
         StructureTemplate {
             prefab: PrefabInfo {
@@ -42894,6 +43568,216 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 name: "Reinforced Window (Thin)".into(),
             },
             structure: StructureInfo { small_grid: false },
+            thermal_info: None,
+            internal_atmo_info: None,
+        }
+            .into(),
+    );
+    map.insert(
+        -2131782367i32,
+        StructureLogicDeviceTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "StructureRobotArmDoor".into(),
+                prefab_hash: -2131782367i32,
+                desc: "".into(),
+                name: "Linear Rail Door".into(),
+            },
+            structure: StructureInfo { small_grid: true },
+            thermal_info: None,
+            internal_atmo_info: None,
+            logic: LogicInfo {
+                logic_slot_types: vec![].into_iter().collect(),
+                logic_types: vec![
+                    (LogicType::Power, MemoryAccess::Read), (LogicType::Open,
+                    MemoryAccess::ReadWrite), (LogicType::RequiredPower,
+                    MemoryAccess::Read), (LogicType::PrefabHash, MemoryAccess::Read),
+                    (LogicType::ReferenceId, MemoryAccess::Read), (LogicType::NameHash,
+                    MemoryAccess::Read)
+                ]
+                    .into_iter()
+                    .collect(),
+                modes: None,
+                transmission_receiver: false,
+                wireless_logic: false,
+                circuit_holder: false,
+            },
+            slots: vec![].into_iter().collect(),
+            device: DeviceInfo {
+                connection_list: vec![
+                    ConnectionInfo { typ : ConnectionType::Data, role :
+                    ConnectionRole::None }, ConnectionInfo { typ : ConnectionType::Power,
+                    role : ConnectionRole::None }
+                ]
+                    .into_iter()
+                    .collect(),
+                device_pins_length: None,
+                has_activate_state: false,
+                has_atmosphere: false,
+                has_color_state: false,
+                has_lock_state: false,
+                has_mode_state: false,
+                has_on_off_state: false,
+                has_open_state: true,
+                has_reagents: false,
+            },
+        }
+            .into(),
+    );
+    map.insert(
+        -1818718810i32,
+        StructureLogicDeviceTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "StructureRoboticArmDock".into(),
+                prefab_hash: -1818718810i32,
+                desc: "The Linear Articulated Rail Entity or LArRE can be used to plant, harvest and fertilize plants in plant trays. It can also grab items from a <link=ThingStructureChuteExportBin><color=green>Chute Export Bin</color></link> and drop them in a <link=ThingStructureChuteBin><color=green>Chute Import Bin</color></link>. LArRE can interact with plant trays or chute bins built under a linear rail station or built under its dock."
+                    .into(),
+                name: "LArRE Dock".into(),
+            },
+            structure: StructureInfo { small_grid: true },
+            thermal_info: None,
+            internal_atmo_info: None,
+            logic: LogicInfo {
+                logic_slot_types: vec![
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    (LogicSlotType::OccupantHash, MemoryAccess::Read),
+                    (LogicSlotType::Quantity, MemoryAccess::Read),
+                    (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
+                    MemoryAccess::Read), (LogicSlotType::MaxQuantity,
+                    MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
+                    (LogicSlotType::SortingClass, MemoryAccess::Read),
+                    (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
+                    .collect())
+                ]
+                    .into_iter()
+                    .collect(),
+                logic_types: vec![
+                    (LogicType::Power, MemoryAccess::Read), (LogicType::Error,
+                    MemoryAccess::Read), (LogicType::Activate, MemoryAccess::ReadWrite),
+                    (LogicType::Setting, MemoryAccess::ReadWrite), (LogicType::On,
+                    MemoryAccess::ReadWrite), (LogicType::RequiredPower,
+                    MemoryAccess::Read), (LogicType::Idle, MemoryAccess::Read),
+                    (LogicType::PrefabHash, MemoryAccess::Read), (LogicType::ReferenceId,
+                    MemoryAccess::Read), (LogicType::Index, MemoryAccess::Read),
+                    (LogicType::NameHash, MemoryAccess::Read)
+                ]
+                    .into_iter()
+                    .collect(),
+                modes: None,
+                transmission_receiver: false,
+                wireless_logic: false,
+                circuit_holder: false,
+            },
+            slots: vec![SlotInfo { name : "Arm Slot".into(), typ : Class::None }]
+                .into_iter()
+                .collect(),
+            device: DeviceInfo {
+                connection_list: vec![
+                    ConnectionInfo { typ : ConnectionType::RoboticArmRail, role :
+                    ConnectionRole::None }, ConnectionInfo { typ :
+                    ConnectionType::RoboticArmRail, role : ConnectionRole::None },
+                    ConnectionInfo { typ : ConnectionType::PowerAndData, role :
+                    ConnectionRole::None }
+                ]
+                    .into_iter()
+                    .collect(),
+                device_pins_length: None,
+                has_activate_state: true,
+                has_atmosphere: false,
+                has_color_state: false,
+                has_lock_state: false,
+                has_mode_state: false,
+                has_on_off_state: true,
+                has_open_state: false,
+                has_reagents: false,
+            },
+        }
+            .into(),
+    );
+    map.insert(
+        -1323992709i32,
+        StructureTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "StructureRoboticArmRailCorner".into(),
+                prefab_hash: -1323992709i32,
+                desc: "".into(),
+                name: "Linear Rail Corner".into(),
+            },
+            structure: StructureInfo { small_grid: true },
+            thermal_info: None,
+            internal_atmo_info: None,
+        }
+            .into(),
+    );
+    map.insert(
+        1974053060i32,
+        StructureTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "StructureRoboticArmRailCornerStop".into(),
+                prefab_hash: 1974053060i32,
+                desc: "".into(),
+                name: "Linear Rail Corner Station".into(),
+            },
+            structure: StructureInfo { small_grid: true },
+            thermal_info: None,
+            internal_atmo_info: None,
+        }
+            .into(),
+    );
+    map.insert(
+        -267108827i32,
+        StructureTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "StructureRoboticArmRailInnerCorner".into(),
+                prefab_hash: -267108827i32,
+                desc: "".into(),
+                name: "Linear Rail Inner Corner".into(),
+            },
+            structure: StructureInfo { small_grid: true },
+            thermal_info: None,
+            internal_atmo_info: None,
+        }
+            .into(),
+    );
+    map.insert(
+        -33470826i32,
+        StructureTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "StructureRoboticArmRailOuterCorner".into(),
+                prefab_hash: -33470826i32,
+                desc: "".into(),
+                name: "Linear Rail Outer Corner".into(),
+            },
+            structure: StructureInfo { small_grid: true },
+            thermal_info: None,
+            internal_atmo_info: None,
+        }
+            .into(),
+    );
+    map.insert(
+        -1785844184i32,
+        StructureTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "StructureRoboticArmRailStraight".into(),
+                prefab_hash: -1785844184i32,
+                desc: "".into(),
+                name: "Linear Rail Straight".into(),
+            },
+            structure: StructureInfo { small_grid: true },
+            thermal_info: None,
+            internal_atmo_info: None,
+        }
+            .into(),
+    );
+    map.insert(
+        1800701885i32,
+        StructureTemplate {
+            prefab: PrefabInfo {
+                prefab_name: "StructureRoboticArmRailStraightStop".into(),
+                prefab_hash: 1800701885i32,
+                desc: "".into(),
+                name: "Linear Rail Straight Station".into(),
+            },
+            structure: StructureInfo { small_grid: true },
             thermal_info: None,
             internal_atmo_info: None,
         }
@@ -42961,15 +43845,15 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicType::Size, MemoryAccess::Read),
                     (LogicType::TotalQuantity, MemoryAccess::Read),
                     (LogicType::MinedQuantity, MemoryAccess::Read), (LogicType::NameHash,
-                    MemoryAccess::Read)
+                    MemoryAccess::Read), (LogicType::Altitude, MemoryAccess::Read)
                 ]
                     .into_iter()
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Invalid".into()), (1u32, "None".into()), (2u32, "Mine"
-                        .into()), (3u32, "Survey".into()), (4u32, "Discover".into()),
-                        (5u32, "Chart".into())
+                        ("0".into(), "Invalid".into()), ("1".into(), "None".into()), ("2"
+                        .into(), "Mine".into()), ("3".into(), "Survey".into()), ("4"
+                        .into(), "Discover".into()), ("5".into(), "Chart".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -43133,7 +44017,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -43277,8 +44161,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -43331,7 +44215,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 has_reagents: true,
             },
             consumer_info: ConsumerInfo {
-                consumed_resouces: vec![
+                consumed_resources: vec![
                     "ItemAstroloyIngot".into(), "ItemConstantanIngot".into(),
                     "ItemCopperIngot".into(), "ItemElectrumIngot".into(), "ItemGoldIngot"
                     .into(), "ItemHastelloyIngot".into(), "ItemInconelIngot".into(),
@@ -43981,8 +44865,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -44045,7 +44929,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             thermal_info: None,
             internal_atmo_info: None,
             logic: LogicInfo {
-                logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
+                logic_slot_types: vec![("0".into(), vec![] .into_iter().collect())]
                     .into_iter()
                     .collect(),
                 logic_types: vec![
@@ -44186,7 +45070,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             thermal_info: None,
             internal_atmo_info: None,
             logic: LogicInfo {
-                logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
+                logic_slot_types: vec![("0".into(), vec![] .into_iter().collect())]
                     .into_iter()
                     .collect(),
                 logic_types: vec![
@@ -44239,7 +45123,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             thermal_info: None,
             internal_atmo_info: None,
             logic: LogicInfo {
-                logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
+                logic_slot_types: vec![("0".into(), vec![] .into_iter().collect())]
                     .into_iter()
                     .collect(),
                 logic_types: vec![
@@ -44296,8 +45180,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -44317,7 +45201,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Mode0".into()), (1u32, "Mode1".into())]
+                    vec![("0".into(), "Mode0".into()), ("1".into(), "Mode1".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -44361,7 +45245,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "StructureSatelliteDish".into(),
                 prefab_hash: 439026183i32,
-                desc: "This medium communications unit can be used to communicate with nearby trade vessels.\n      \nWhen connected to a <link=ThingStructureComputer><color=green>Computer</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic."
+                desc: "This medium communications unit can be used to communicate with nearby trade vessels.\n      \nWhen connected to a <link=ThingStructureComputer><color=green>Computer (Modern)</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic."
                     .into(),
                 name: "Medium Satellite Dish".into(),
             },
@@ -44435,8 +45319,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -44489,7 +45373,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 has_reagents: true,
             },
             consumer_info: ConsumerInfo {
-                consumed_resouces: vec![
+                consumed_resources: vec![
                     "ItemAstroloyIngot".into(), "ItemConstantanIngot".into(),
                     "ItemCopperIngot".into(), "ItemElectrumIngot".into(), "ItemGoldIngot"
                     .into(), "ItemHastelloyIngot".into(), "ItemInconelIngot".into(),
@@ -44638,38 +45522,37 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter().collect() }, count_types : 3i64, reagents :
                     vec![("Copper".into(), 30f64), ("Lead".into(), 50f64), ("Steel"
                     .into(), 30f64)] .into_iter().collect() }), ("ItemExplosive".into(),
-                    Recipe { tier : MachineTier::TierOne, time : 10f64, energy : 500f64,
+                    Recipe { tier : MachineTier::TierTwo, time : 10f64, energy : 500f64,
                     temperature : RecipeRange { start : 1f64, stop : 80000f64, is_valid :
                     false }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
                     is_valid : false }, required_mix : RecipeGasMix { rule : 0i64, is_any
                     : true, is_any_to_remove : false, reagents : vec![] .into_iter()
-                    .collect() }, count_types : 5i64, reagents : vec![("Copper".into(),
-                    5f64), ("Electrum".into(), 1f64), ("Gold".into(), 5f64), ("Lead"
-                    .into(), 10f64), ("Steel".into(), 7f64)] .into_iter().collect() }),
-                    ("ItemGrenade".into(), Recipe { tier : MachineTier::TierOne, time :
-                    90f64, energy : 2900f64, temperature : RecipeRange { start : 1f64,
+                    .collect() }, count_types : 3i64, reagents : vec![("Electrum".into(),
+                    1f64), ("Silicon".into(), 3f64), ("Solder".into(), 1f64)]
+                    .into_iter().collect() }), ("ItemGrenade".into(), Recipe { tier :
+                    MachineTier::TierOne, time : 90f64, energy : 2900f64, temperature :
+                    RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                    pressure : RecipeRange { start : 0f64, stop : 1000000f64, is_valid :
+                    false }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                    is_any_to_remove : false, reagents : vec![] .into_iter().collect() },
+                    count_types : 4i64, reagents : vec![("Copper".into(), 15f64), ("Gold"
+                    .into(), 1f64), ("Lead".into(), 25f64), ("Steel".into(), 25f64)]
+                    .into_iter().collect() }), ("ItemMiningCharge".into(), Recipe { tier
+                    : MachineTier::TierOne, time : 5f64, energy : 200f64, temperature :
+                    RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                    pressure : RecipeRange { start : 0f64, stop : 1000000f64, is_valid :
+                    false }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                    is_any_to_remove : false, reagents : vec![] .into_iter().collect() },
+                    count_types : 3i64, reagents : vec![("Gold".into(), 1f64), ("Iron"
+                    .into(), 1f64), ("Silicon".into(), 3f64)] .into_iter().collect() }),
+                    ("SMGMagazine".into(), Recipe { tier : MachineTier::TierOne, time :
+                    60f64, energy : 500f64, temperature : RecipeRange { start : 1f64,
                     stop : 80000f64, is_valid : false }, pressure : RecipeRange { start :
                     0f64, stop : 1000000f64, is_valid : false }, required_mix :
                     RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove : false,
-                    reagents : vec![] .into_iter().collect() }, count_types : 4i64,
-                    reagents : vec![("Copper".into(), 15f64), ("Gold".into(), 1f64),
-                    ("Lead".into(), 25f64), ("Steel".into(), 25f64)] .into_iter()
-                    .collect() }), ("ItemMiningCharge".into(), Recipe { tier :
-                    MachineTier::TierOne, time : 7f64, energy : 200f64, temperature :
-                    RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
-                    pressure : RecipeRange { start : 0f64, stop : 1000000f64, is_valid :
-                    false }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
-                    is_any_to_remove : false, reagents : vec![] .into_iter().collect() },
-                    count_types : 4i64, reagents : vec![("Copper".into(), 5f64), ("Gold"
-                    .into(), 5f64), ("Iron".into(), 7f64), ("Lead".into(), 10f64)]
-                    .into_iter().collect() }), ("SMGMagazine".into(), Recipe { tier :
-                    MachineTier::TierOne, time : 60f64, energy : 500f64, temperature :
-                    RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
-                    pressure : RecipeRange { start : 0f64, stop : 1000000f64, is_valid :
-                    false }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
-                    is_any_to_remove : false, reagents : vec![] .into_iter().collect() },
-                    count_types : 3i64, reagents : vec![("Copper".into(), 3f64), ("Lead"
-                    .into(), 1f64), ("Steel".into(), 3f64)] .into_iter().collect() }),
+                    reagents : vec![] .into_iter().collect() }, count_types : 3i64,
+                    reagents : vec![("Copper".into(), 3f64), ("Lead".into(), 1f64),
+                    ("Steel".into(), 3f64)] .into_iter().collect() }),
                     ("WeaponPistolEnergy".into(), Recipe { tier : MachineTier::TierTwo,
                     time : 120f64, energy : 3000f64, temperature : RecipeRange { start :
                     1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange {
@@ -45091,7 +45974,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45099,7 +45982,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45107,7 +45990,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (2u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("2".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45115,7 +45998,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (3u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("3".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45123,7 +46006,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (4u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("4".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45131,7 +46014,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (5u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("5".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45139,7 +46022,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (6u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("6".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45147,7 +46030,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (7u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("7".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45155,7 +46038,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (8u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("8".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45163,7 +46046,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (9u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("9".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45171,7 +46054,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (10u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("10".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45179,7 +46062,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (11u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("11".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45187,7 +46070,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (12u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("12".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45195,7 +46078,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (13u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("13".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45203,7 +46086,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (14u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("14".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45271,7 +46154,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45279,7 +46162,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45339,7 +46222,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45347,7 +46230,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45355,7 +46238,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (2u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("2".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45363,7 +46246,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (3u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("3".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45371,7 +46254,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (4u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("4".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45379,7 +46262,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (5u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("5".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45387,7 +46270,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (6u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("6".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45395,7 +46278,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (7u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("7".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45403,7 +46286,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (8u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("8".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45411,7 +46294,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (9u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("9".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45656,7 +46539,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "StructureSingleBed".into(),
                 prefab_hash: -492611i32,
-                desc: "Description coming.".into(),
+                desc: "".into(),
                 name: "Single Bed".into(),
             },
             structure: StructureInfo { small_grid: true },
@@ -45664,7 +46547,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45722,7 +46605,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -45796,7 +46679,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             }),
             internal_atmo_info: None,
             logic: LogicInfo {
-                logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
+                logic_slot_types: vec![("0".into(), vec![] .into_iter().collect())]
                     .into_iter()
                     .collect(),
                 logic_types: vec![
@@ -45816,8 +46699,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Safe".into()), (1u32, "Unsafe".into()), (2u32,
-                        "Unpowered".into())
+                        ("0".into(), "Safe".into()), ("1".into(), "Unsafe".into()), ("2"
+                        .into(), "Unpowered".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -45868,7 +46751,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             }),
             internal_atmo_info: None,
             logic: LogicInfo {
-                logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
+                logic_slot_types: vec![("0".into(), vec![] .into_iter().collect())]
                     .into_iter()
                     .collect(),
                 logic_types: vec![
@@ -45888,8 +46771,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Safe".into()), (1u32, "Unsafe".into()), (2u32,
-                        "Unpowered".into())
+                        ("0".into(), "Safe".into()), ("1".into(), "Unsafe".into()), ("2"
+                        .into(), "Unpowered".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -45940,7 +46823,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             }),
             internal_atmo_info: None,
             logic: LogicInfo {
-                logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
+                logic_slot_types: vec![("0".into(), vec![] .into_iter().collect())]
                     .into_iter()
                     .collect(),
                 logic_types: vec![
@@ -45960,8 +46843,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Safe".into()), (1u32, "Unsafe".into()), (2u32,
-                        "Unpowered".into())
+                        ("0".into(), "Safe".into()), ("1".into(), "Unsafe".into()), ("2"
+                        .into(), "Unpowered".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -46009,7 +46892,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             thermal_info: None,
             internal_atmo_info: None,
             logic: LogicInfo {
-                logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
+                logic_slot_types: vec![("0".into(), vec![] .into_iter().collect())]
                     .into_iter()
                     .collect(),
                 logic_types: vec![
@@ -46208,7 +47091,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "StructureSmallSatelliteDish".into(),
                 prefab_hash: -2138748650i32,
-                desc: "This small communications unit can be used to communicate with nearby trade vessels.\n\n        When connected to a <link=ThingStructureComputer><color=green>Computer</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic."
+                desc: "This small communications unit can be used to communicate with nearby trade vessels.\n\n        When connected to a <link=ThingStructureComputer><color=green>Computer (Modern)</color></link> containing a <link=ThingMotherboardComms><color=green>Communications Motherboard</color></link> motherboard, a <link=ThingLandingpad_CenterPiece01><color=green>Landingpad Center</color></link>, and a <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link>, this allows Stationeers to contact traders. Adjust its horizontal and vertical attributes either directly or through logic."
                     .into(),
                 name: "Small Satellite Dish".into(),
             },
@@ -46793,7 +47676,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -46816,7 +47699,10 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Not Generating".into()), (1u32, "Generating".into())]
+                    vec![
+                        ("0".into(), "Not Generating".into()), ("1".into(), "Generating"
+                        .into())
+                    ]
                         .into_iter()
                         .collect(),
                 ),
@@ -46847,7 +47733,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 has_reagents: false,
             },
             consumer_info: ConsumerInfo {
-                consumed_resouces: vec![
+                consumed_resources: vec![
                     "ItemCharcoal".into(), "ItemCoalOre".into(), "ItemSolidFuel".into()
                 ]
                     .into_iter()
@@ -46873,7 +47759,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -46881,7 +47767,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -46889,7 +47775,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (2u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("2".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -46897,7 +47783,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (3u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("3".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -46925,8 +47811,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "Split".into()), (1u32, "Filter".into()), (2u32, "Logic"
-                        .into())
+                        ("0".into(), "Split".into()), ("1".into(), "Filter".into()), ("2"
+                        .into(), "Logic".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -46982,7 +47868,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -46990,7 +47876,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -46998,7 +47884,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (2u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("2".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47027,7 +47913,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Automatic".into()), (1u32, "Logic".into())]
+                    vec![("0".into(), "Automatic".into()), ("1".into(), "Logic".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -47079,7 +47965,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47087,7 +47973,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47095,7 +47981,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (2u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("2".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47124,7 +48010,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Automatic".into()), (1u32, "Logic".into())]
+                    vec![("0".into(), "Automatic".into()), ("1".into(), "Logic".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -47332,7 +48218,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             prefab: PrefabInfo {
                 prefab_name: "StructureStirlingEngine".into(),
                 prefab_hash: -260316435i32,
-                desc: "Harnessing an ancient thermal exploit, the <link=Recurso><color=#0080FFFF>Recurso</color></link> \'Libra\' Stirling Engine generates power via the expansion and contraction of a working gas to drive pistons operating an electrical generator.\n      \nWhen high pressure hot gas is supplied into the input pipe, this gas will heat the hot side of the unit, then pass into the output pipe. The cooler side uses the room\'s ambient atmosphere, which must be kept at a lower temperature and pressure in order to create a differential. Add a working gas by inserting a <link=SlotGasCanister><color=orange>Gas Canister</color></link>. The unit must be deactivated when adding or removing canisters, or the working gas may leak into the surrounding atmosphere.\n \nGases with a low molecular mass make the most efficient working gases. Increasing the moles of working gas can result in a greater potential power output. However, overpressuring the unit may have ... sub-optimal results."
+                desc: "Harnessing an ancient thermal exploit, the <link=Recurso><color=#0080FFFF>Recurso</color></link> \'Libra\' Stirling Engine generates power via the expansion and contraction of a working gas to drive pistons operating an electrical generator.\n      \nWhen high pressure hot gas is supplied into the input pipe, this gas will heat the hot side of the unit, then pass into the output pipe. The cooler side uses the room\'s ambient atmosphere, which must be kept at a lower temperature and pressure in order to create a differential. Add a working gas by inserting a <link=SlotGasCanister><color=orange>Gas Canister</color></link>. The unit must be deactivated when adding or removing canisters, or the working gas may leak into the surrounding atmosphere.\n \nGases with a low molecular mass make the most efficient working gases. Increasing the moles of working gas can result in a greater potential power output. However, overpressuring the unit may have... sub-optimal results."
                     .into(),
                 name: "Stirling Engine".into(),
             },
@@ -47343,7 +48229,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             }),
             internal_atmo_info: None,
             logic: LogicInfo {
-                logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
+                logic_slot_types: vec![("0".into(), vec![] .into_iter().collect())]
                     .into_iter()
                     .collect(),
                 logic_types: vec![
@@ -47428,7 +48314,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47436,7 +48322,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47444,7 +48330,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (2u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("2".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47452,7 +48338,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (3u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("3".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47460,7 +48346,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (4u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("4".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47468,7 +48354,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (5u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("5".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47476,7 +48362,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (6u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("6".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47484,7 +48370,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (7u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("7".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47492,7 +48378,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (8u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("8".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47500,7 +48386,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (9u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("9".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47508,7 +48394,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (10u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("10".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47516,7 +48402,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (11u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("11".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47524,7 +48410,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (12u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("12".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47532,7 +48418,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (13u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("13".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47540,7 +48426,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (14u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("14".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47548,7 +48434,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (15u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("15".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47556,7 +48442,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (16u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("16".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47564,7 +48450,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (17u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("17".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47572,7 +48458,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (18u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("18".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47580,7 +48466,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (19u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("19".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47588,7 +48474,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (20u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("20".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47596,7 +48482,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (21u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("21".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47604,7 +48490,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (22u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("22".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47612,7 +48498,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (23u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("23".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47620,7 +48506,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (24u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("24".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47628,7 +48514,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (25u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("25".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47636,7 +48522,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (26u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("26".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47644,7 +48530,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (27u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("27".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47652,7 +48538,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (28u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("28".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47660,7 +48546,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (29u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("29".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -47741,7 +48627,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -47755,7 +48641,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::ReadWrite), (LogicSlotType::Lock,
                     MemoryAccess::ReadWrite), (LogicSlotType::SortingClass,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (1u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("1".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
@@ -47770,7 +48656,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (2u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("2".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -48343,8 +49229,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -48397,7 +49283,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 has_reagents: true,
             },
             consumer_info: ConsumerInfo {
-                consumed_resouces: vec![
+                consumed_resources: vec![
                     "ItemAstroloyIngot".into(), "ItemConstantanIngot".into(),
                     "ItemCopperIngot".into(), "ItemElectrumIngot".into(), "ItemGoldIngot"
                     .into(), "ItemHastelloyIngot".into(), "ItemInconelIngot".into(),
@@ -48640,68 +49526,76 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     : true, is_any_to_remove : false, reagents : vec![] .into_iter()
                     .collect() }, count_types : 2i64, reagents : vec![("Copper".into(),
                     2f64), ("Iron".into(), 5f64)] .into_iter().collect() }),
-                    ("ItemFlagSmall".into(), Recipe { tier : MachineTier::TierOne, time :
-                    1f64, energy : 500f64, temperature : RecipeRange { start : 1f64, stop
-                    : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                    ("ItemExplosive".into(), Recipe { tier : MachineTier::TierTwo, time :
+                    90f64, energy : 9000f64, temperature : RecipeRange { start : 1f64,
+                    stop : 80000f64, is_valid : false }, pressure : RecipeRange { start :
                     0f64, stop : 1000000f64, is_valid : false }, required_mix :
                     RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove : false,
-                    reagents : vec![] .into_iter().collect() }, count_types : 1i64,
-                    reagents : vec![("Iron".into(), 1f64)] .into_iter().collect() }),
-                    ("ItemFlashlight".into(), Recipe { tier : MachineTier::TierOne, time
-                    : 15f64, energy : 500f64, temperature : RecipeRange { start : 1f64,
+                    reagents : vec![] .into_iter().collect() }, count_types : 3i64,
+                    reagents : vec![("Electrum".into(), 1f64), ("Silicon".into(), 7f64),
+                    ("Solder".into(), 2f64)] .into_iter().collect() }), ("ItemFlagSmall"
+                    .into(), Recipe { tier : MachineTier::TierOne, time : 1f64, energy :
+                    500f64, temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                    is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                    1000000f64, is_valid : false }, required_mix : RecipeGasMix { rule :
+                    0i64, is_any : true, is_any_to_remove : false, reagents : vec![]
+                    .into_iter().collect() }, count_types : 1i64, reagents : vec![("Iron"
+                    .into(), 1f64)] .into_iter().collect() }), ("ItemFlashlight".into(),
+                    Recipe { tier : MachineTier::TierOne, time : 15f64, energy : 500f64,
+                    temperature : RecipeRange { start : 1f64, stop : 80000f64, is_valid :
+                    false }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                    is_valid : false }, required_mix : RecipeGasMix { rule : 0i64, is_any
+                    : true, is_any_to_remove : false, reagents : vec![] .into_iter()
+                    .collect() }, count_types : 2i64, reagents : vec![("Copper".into(),
+                    2f64), ("Gold".into(), 2f64)] .into_iter().collect() }),
+                    ("ItemGlasses".into(), Recipe { tier : MachineTier::TierOne, time :
+                    20f64, energy : 250f64, temperature : RecipeRange { start : 1f64,
                     stop : 80000f64, is_valid : false }, pressure : RecipeRange { start :
                     0f64, stop : 1000000f64, is_valid : false }, required_mix :
                     RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove : false,
                     reagents : vec![] .into_iter().collect() }, count_types : 2i64,
-                    reagents : vec![("Copper".into(), 2f64), ("Gold".into(), 2f64)]
-                    .into_iter().collect() }), ("ItemGlasses".into(), Recipe { tier :
-                    MachineTier::TierOne, time : 20f64, energy : 250f64, temperature :
+                    reagents : vec![("Iron".into(), 15f64), ("Silicon".into(), 10f64)]
+                    .into_iter().collect() }), ("ItemHardBackpack".into(), Recipe { tier
+                    : MachineTier::TierTwo, time : 30f64, energy : 1500f64, temperature :
                     RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
                     pressure : RecipeRange { start : 0f64, stop : 1000000f64, is_valid :
                     false }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
                     is_any_to_remove : false, reagents : vec![] .into_iter().collect() },
-                    count_types : 2i64, reagents : vec![("Iron".into(), 15f64),
-                    ("Silicon".into(), 10f64)] .into_iter().collect() }),
-                    ("ItemHardBackpack".into(), Recipe { tier : MachineTier::TierTwo,
-                    time : 30f64, energy : 1500f64, temperature : RecipeRange { start :
-                    1f64, stop : 80000f64, is_valid : false }, pressure : RecipeRange {
-                    start : 0f64, stop : 1000000f64, is_valid : false }, required_mix :
-                    RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove : false,
-                    reagents : vec![] .into_iter().collect() }, count_types : 3i64,
-                    reagents : vec![("Astroloy".into(), 5f64), ("Steel".into(), 15f64),
-                    ("Stellite".into(), 5f64)] .into_iter().collect() }),
-                    ("ItemHardJetpack".into(), Recipe { tier : MachineTier::TierTwo, time
-                    : 40f64, energy : 1750f64, temperature : RecipeRange { start : 1f64,
-                    stop : 80000f64, is_valid : false }, pressure : RecipeRange { start :
-                    0f64, stop : 1000000f64, is_valid : false }, required_mix :
-                    RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove : false,
-                    reagents : vec![] .into_iter().collect() }, count_types : 4i64,
-                    reagents : vec![("Astroloy".into(), 8f64), ("Steel".into(), 20f64),
-                    ("Stellite".into(), 8f64), ("Waspaloy".into(), 8f64)] .into_iter()
-                    .collect() }), ("ItemHardMiningBackPack".into(), Recipe { tier :
-                    MachineTier::TierOne, time : 10f64, energy : 1000f64, temperature :
+                    count_types : 3i64, reagents : vec![("Astroloy".into(), 5f64),
+                    ("Steel".into(), 15f64), ("Stellite".into(), 5f64)] .into_iter()
+                    .collect() }), ("ItemHardJetpack".into(), Recipe { tier :
+                    MachineTier::TierTwo, time : 40f64, energy : 1750f64, temperature :
                     RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
                     pressure : RecipeRange { start : 0f64, stop : 1000000f64, is_valid :
                     false }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
                     is_any_to_remove : false, reagents : vec![] .into_iter().collect() },
-                    count_types : 2i64, reagents : vec![("Invar".into(), 1f64), ("Steel"
-                    .into(), 6f64)] .into_iter().collect() }), ("ItemHardSuit".into(),
-                    Recipe { tier : MachineTier::TierTwo, time : 60f64, energy : 3000f64,
-                    temperature : RecipeRange { start : 1f64, stop : 80000f64, is_valid :
-                    false }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
-                    is_valid : false }, required_mix : RecipeGasMix { rule : 0i64, is_any
-                    : true, is_any_to_remove : false, reagents : vec![] .into_iter()
-                    .collect() }, count_types : 3i64, reagents : vec![("Astroloy".into(),
-                    10f64), ("Steel".into(), 20f64), ("Stellite".into(), 2f64)]
-                    .into_iter().collect() }), ("ItemHardsuitHelmet".into(), Recipe {
-                    tier : MachineTier::TierTwo, time : 50f64, energy : 1750f64,
-                    temperature : RecipeRange { start : 1f64, stop : 80000f64, is_valid :
-                    false }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
-                    is_valid : false }, required_mix : RecipeGasMix { rule : 0i64, is_any
-                    : true, is_any_to_remove : false, reagents : vec![] .into_iter()
-                    .collect() }, count_types : 3i64, reagents : vec![("Astroloy".into(),
-                    2f64), ("Steel".into(), 10f64), ("Stellite".into(), 2f64)]
-                    .into_iter().collect() }), ("ItemIgniter".into(), Recipe { tier :
+                    count_types : 4i64, reagents : vec![("Astroloy".into(), 8f64),
+                    ("Steel".into(), 20f64), ("Stellite".into(), 8f64), ("Waspaloy"
+                    .into(), 8f64)] .into_iter().collect() }), ("ItemHardMiningBackPack"
+                    .into(), Recipe { tier : MachineTier::TierOne, time : 10f64, energy :
+                    1000f64, temperature : RecipeRange { start : 1f64, stop : 80000f64,
+                    is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
+                    1000000f64, is_valid : false }, required_mix : RecipeGasMix { rule :
+                    0i64, is_any : true, is_any_to_remove : false, reagents : vec![]
+                    .into_iter().collect() }, count_types : 2i64, reagents :
+                    vec![("Invar".into(), 1f64), ("Steel".into(), 6f64)] .into_iter()
+                    .collect() }), ("ItemHardSuit".into(), Recipe { tier :
+                    MachineTier::TierTwo, time : 60f64, energy : 3000f64, temperature :
+                    RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                    pressure : RecipeRange { start : 0f64, stop : 1000000f64, is_valid :
+                    false }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                    is_any_to_remove : false, reagents : vec![] .into_iter().collect() },
+                    count_types : 3i64, reagents : vec![("Astroloy".into(), 10f64),
+                    ("Steel".into(), 20f64), ("Stellite".into(), 2f64)] .into_iter()
+                    .collect() }), ("ItemHardsuitHelmet".into(), Recipe { tier :
+                    MachineTier::TierTwo, time : 50f64, energy : 1750f64, temperature :
+                    RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
+                    pressure : RecipeRange { start : 0f64, stop : 1000000f64, is_valid :
+                    false }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
+                    is_any_to_remove : false, reagents : vec![] .into_iter().collect() },
+                    count_types : 3i64, reagents : vec![("Astroloy".into(), 2f64),
+                    ("Steel".into(), 10f64), ("Stellite".into(), 2f64)] .into_iter()
+                    .collect() }), ("ItemIgniter".into(), Recipe { tier :
                     MachineTier::TierOne, time : 1f64, energy : 500f64, temperature :
                     RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
                     pressure : RecipeRange { start : 0f64, stop : 1000000f64, is_valid :
@@ -48837,22 +49731,30 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove : false,
                     reagents : vec![] .into_iter().collect() }, count_types : 2i64,
                     reagents : vec![("Constantan".into(), 5f64), ("Steel".into(), 10f64)]
-                    .into_iter().collect() }), ("ItemMiningDrill".into(), Recipe { tier :
-                    MachineTier::TierOne, time : 5f64, energy : 500f64, temperature :
+                    .into_iter().collect() }), ("ItemMiningCharge".into(), Recipe { tier
+                    : MachineTier::TierOne, time : 60f64, energy : 6000f64, temperature :
                     RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
                     pressure : RecipeRange { start : 0f64, stop : 1000000f64, is_valid :
                     false }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
                     is_any_to_remove : false, reagents : vec![] .into_iter().collect() },
-                    count_types : 2i64, reagents : vec![("Copper".into(), 2f64), ("Iron"
-                    .into(), 3f64)] .into_iter().collect() }), ("ItemMiningDrillHeavy"
-                    .into(), Recipe { tier : MachineTier::TierTwo, time : 30f64, energy :
-                    2500f64, temperature : RecipeRange { start : 1f64, stop : 80000f64,
-                    is_valid : false }, pressure : RecipeRange { start : 0f64, stop :
-                    1000000f64, is_valid : false }, required_mix : RecipeGasMix { rule :
-                    0i64, is_any : true, is_any_to_remove : false, reagents : vec![]
-                    .into_iter().collect() }, count_types : 4i64, reagents :
-                    vec![("Electrum".into(), 5f64), ("Invar".into(), 10f64), ("Solder"
-                    .into(), 10f64), ("Steel".into(), 10f64)] .into_iter().collect() }),
+                    count_types : 3i64, reagents : vec![("Gold".into(), 1f64), ("Iron"
+                    .into(), 1f64), ("Silicon".into(), 5f64)] .into_iter().collect() }),
+                    ("ItemMiningDrill".into(), Recipe { tier : MachineTier::TierOne, time
+                    : 5f64, energy : 500f64, temperature : RecipeRange { start : 1f64,
+                    stop : 80000f64, is_valid : false }, pressure : RecipeRange { start :
+                    0f64, stop : 1000000f64, is_valid : false }, required_mix :
+                    RecipeGasMix { rule : 0i64, is_any : true, is_any_to_remove : false,
+                    reagents : vec![] .into_iter().collect() }, count_types : 2i64,
+                    reagents : vec![("Copper".into(), 2f64), ("Iron".into(), 3f64)]
+                    .into_iter().collect() }), ("ItemMiningDrillHeavy".into(), Recipe {
+                    tier : MachineTier::TierTwo, time : 30f64, energy : 2500f64,
+                    temperature : RecipeRange { start : 1f64, stop : 80000f64, is_valid :
+                    false }, pressure : RecipeRange { start : 0f64, stop : 1000000f64,
+                    is_valid : false }, required_mix : RecipeGasMix { rule : 0i64, is_any
+                    : true, is_any_to_remove : false, reagents : vec![] .into_iter()
+                    .collect() }, count_types : 4i64, reagents : vec![("Electrum".into(),
+                    5f64), ("Invar".into(), 10f64), ("Solder".into(), 10f64), ("Steel"
+                    .into(), 10f64)] .into_iter().collect() }),
                     ("ItemMiningDrillPneumatic".into(), Recipe { tier :
                     MachineTier::TierOne, time : 20f64, energy : 2000f64, temperature :
                     RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
@@ -48892,15 +49794,15 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter().collect() }, count_types : 2i64, reagents :
                     vec![("Copper".into(), 5f64), ("Iron".into(), 5f64)] .into_iter()
                     .collect() }), ("ItemRemoteDetonator".into(), Recipe { tier :
-                    MachineTier::TierOne, time : 4.5f64, energy : 500f64, temperature :
+                    MachineTier::TierTwo, time : 30f64, energy : 1500f64, temperature :
                     RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
                     pressure : RecipeRange { start : 0f64, stop : 1000000f64, is_valid :
                     false }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
                     is_any_to_remove : false, reagents : vec![] .into_iter().collect() },
-                    count_types : 2i64, reagents : vec![("Gold".into(), 1f64), ("Iron"
-                    .into(), 3f64)] .into_iter().collect() }),
-                    ("ItemReusableFireExtinguisher".into(), Recipe { tier :
-                    MachineTier::TierOne, time : 20f64, energy : 1000f64, temperature :
+                    count_types : 3i64, reagents : vec![("Copper".into(), 5f64),
+                    ("Solder".into(), 5f64), ("Steel".into(), 5f64)] .into_iter()
+                    .collect() }), ("ItemReusableFireExtinguisher".into(), Recipe { tier
+                    : MachineTier::TierOne, time : 20f64, energy : 1000f64, temperature :
                     RecipeRange { start : 1f64, stop : 80000f64, is_valid : false },
                     pressure : RecipeRange { start : 0f64, stop : 1000000f64, is_valid :
                     false }, required_mix : RecipeGasMix { rule : 0i64, is_any : true,
@@ -49941,7 +50843,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Right".into()), (1u32, "Left".into())]
+                    vec![("0".into(), "Right".into()), ("1".into(), "Left".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -49988,7 +50890,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -49996,7 +50898,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     MemoryAccess::Read), (LogicSlotType::PrefabHash, MemoryAccess::Read),
                     (LogicSlotType::SortingClass, MemoryAccess::Read),
                     (LogicSlotType::ReferenceId, MemoryAccess::Read)] .into_iter()
-                    .collect()), (1u32, vec![(LogicSlotType::Occupied,
+                    .collect()), ("1".into(), vec![(LogicSlotType::Occupied,
                     MemoryAccess::Read), (LogicSlotType::OccupantHash,
                     MemoryAccess::Read), (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -50023,7 +50925,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Automatic".into()), (1u32, "Logic".into())]
+                    vec![("0".into(), "Automatic".into()), ("1".into(), "Logic".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -50114,7 +51016,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 prefab_name: "StructureValve".into(),
                 prefab_hash: -692036078i32,
                 desc: "".into(),
-                name: "Valve".into(),
+                name: "Valve (Gas)".into(),
             },
             structure: StructureInfo { small_grid: true },
             thermal_info: None,
@@ -50172,68 +51074,82 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![] .into_iter().collect()), (1u32, vec![] .into_iter()
-                    .collect()), (2u32, vec![] .into_iter().collect()), (3u32, vec![]
-                    .into_iter().collect()), (4u32, vec![] .into_iter().collect()),
-                    (5u32, vec![] .into_iter().collect()), (6u32, vec![] .into_iter()
-                    .collect()), (7u32, vec![] .into_iter().collect()), (8u32, vec![]
-                    .into_iter().collect()), (9u32, vec![] .into_iter().collect()),
-                    (10u32, vec![] .into_iter().collect()), (11u32, vec![] .into_iter()
-                    .collect()), (12u32, vec![] .into_iter().collect()), (13u32, vec![]
-                    .into_iter().collect()), (14u32, vec![] .into_iter().collect()),
-                    (15u32, vec![] .into_iter().collect()), (16u32, vec![] .into_iter()
-                    .collect()), (17u32, vec![] .into_iter().collect()), (18u32, vec![]
-                    .into_iter().collect()), (19u32, vec![] .into_iter().collect()),
-                    (20u32, vec![] .into_iter().collect()), (21u32, vec![] .into_iter()
-                    .collect()), (22u32, vec![] .into_iter().collect()), (23u32, vec![]
-                    .into_iter().collect()), (24u32, vec![] .into_iter().collect()),
-                    (25u32, vec![] .into_iter().collect()), (26u32, vec![] .into_iter()
-                    .collect()), (27u32, vec![] .into_iter().collect()), (28u32, vec![]
-                    .into_iter().collect()), (29u32, vec![] .into_iter().collect()),
-                    (30u32, vec![] .into_iter().collect()), (31u32, vec![] .into_iter()
-                    .collect()), (32u32, vec![] .into_iter().collect()), (33u32, vec![]
-                    .into_iter().collect()), (34u32, vec![] .into_iter().collect()),
-                    (35u32, vec![] .into_iter().collect()), (36u32, vec![] .into_iter()
-                    .collect()), (37u32, vec![] .into_iter().collect()), (38u32, vec![]
-                    .into_iter().collect()), (39u32, vec![] .into_iter().collect()),
-                    (40u32, vec![] .into_iter().collect()), (41u32, vec![] .into_iter()
-                    .collect()), (42u32, vec![] .into_iter().collect()), (43u32, vec![]
-                    .into_iter().collect()), (44u32, vec![] .into_iter().collect()),
-                    (45u32, vec![] .into_iter().collect()), (46u32, vec![] .into_iter()
-                    .collect()), (47u32, vec![] .into_iter().collect()), (48u32, vec![]
-                    .into_iter().collect()), (49u32, vec![] .into_iter().collect()),
-                    (50u32, vec![] .into_iter().collect()), (51u32, vec![] .into_iter()
-                    .collect()), (52u32, vec![] .into_iter().collect()), (53u32, vec![]
-                    .into_iter().collect()), (54u32, vec![] .into_iter().collect()),
-                    (55u32, vec![] .into_iter().collect()), (56u32, vec![] .into_iter()
-                    .collect()), (57u32, vec![] .into_iter().collect()), (58u32, vec![]
-                    .into_iter().collect()), (59u32, vec![] .into_iter().collect()),
-                    (60u32, vec![] .into_iter().collect()), (61u32, vec![] .into_iter()
-                    .collect()), (62u32, vec![] .into_iter().collect()), (63u32, vec![]
-                    .into_iter().collect()), (64u32, vec![] .into_iter().collect()),
-                    (65u32, vec![] .into_iter().collect()), (66u32, vec![] .into_iter()
-                    .collect()), (67u32, vec![] .into_iter().collect()), (68u32, vec![]
-                    .into_iter().collect()), (69u32, vec![] .into_iter().collect()),
-                    (70u32, vec![] .into_iter().collect()), (71u32, vec![] .into_iter()
-                    .collect()), (72u32, vec![] .into_iter().collect()), (73u32, vec![]
-                    .into_iter().collect()), (74u32, vec![] .into_iter().collect()),
-                    (75u32, vec![] .into_iter().collect()), (76u32, vec![] .into_iter()
-                    .collect()), (77u32, vec![] .into_iter().collect()), (78u32, vec![]
-                    .into_iter().collect()), (79u32, vec![] .into_iter().collect()),
-                    (80u32, vec![] .into_iter().collect()), (81u32, vec![] .into_iter()
-                    .collect()), (82u32, vec![] .into_iter().collect()), (83u32, vec![]
-                    .into_iter().collect()), (84u32, vec![] .into_iter().collect()),
-                    (85u32, vec![] .into_iter().collect()), (86u32, vec![] .into_iter()
-                    .collect()), (87u32, vec![] .into_iter().collect()), (88u32, vec![]
-                    .into_iter().collect()), (89u32, vec![] .into_iter().collect()),
-                    (90u32, vec![] .into_iter().collect()), (91u32, vec![] .into_iter()
-                    .collect()), (92u32, vec![] .into_iter().collect()), (93u32, vec![]
-                    .into_iter().collect()), (94u32, vec![] .into_iter().collect()),
-                    (95u32, vec![] .into_iter().collect()), (96u32, vec![] .into_iter()
-                    .collect()), (97u32, vec![] .into_iter().collect()), (98u32, vec![]
-                    .into_iter().collect()), (99u32, vec![] .into_iter().collect()),
-                    (100u32, vec![] .into_iter().collect()), (101u32, vec![] .into_iter()
-                    .collect())
+                    ("0".into(), vec![] .into_iter().collect()), ("1".into(), vec![]
+                    .into_iter().collect()), ("2".into(), vec![] .into_iter().collect()),
+                    ("3".into(), vec![] .into_iter().collect()), ("4".into(), vec![]
+                    .into_iter().collect()), ("5".into(), vec![] .into_iter().collect()),
+                    ("6".into(), vec![] .into_iter().collect()), ("7".into(), vec![]
+                    .into_iter().collect()), ("8".into(), vec![] .into_iter().collect()),
+                    ("9".into(), vec![] .into_iter().collect()), ("10".into(), vec![]
+                    .into_iter().collect()), ("11".into(), vec![] .into_iter()
+                    .collect()), ("12".into(), vec![] .into_iter().collect()), ("13"
+                    .into(), vec![] .into_iter().collect()), ("14".into(), vec![]
+                    .into_iter().collect()), ("15".into(), vec![] .into_iter()
+                    .collect()), ("16".into(), vec![] .into_iter().collect()), ("17"
+                    .into(), vec![] .into_iter().collect()), ("18".into(), vec![]
+                    .into_iter().collect()), ("19".into(), vec![] .into_iter()
+                    .collect()), ("20".into(), vec![] .into_iter().collect()), ("21"
+                    .into(), vec![] .into_iter().collect()), ("22".into(), vec![]
+                    .into_iter().collect()), ("23".into(), vec![] .into_iter()
+                    .collect()), ("24".into(), vec![] .into_iter().collect()), ("25"
+                    .into(), vec![] .into_iter().collect()), ("26".into(), vec![]
+                    .into_iter().collect()), ("27".into(), vec![] .into_iter()
+                    .collect()), ("28".into(), vec![] .into_iter().collect()), ("29"
+                    .into(), vec![] .into_iter().collect()), ("30".into(), vec![]
+                    .into_iter().collect()), ("31".into(), vec![] .into_iter()
+                    .collect()), ("32".into(), vec![] .into_iter().collect()), ("33"
+                    .into(), vec![] .into_iter().collect()), ("34".into(), vec![]
+                    .into_iter().collect()), ("35".into(), vec![] .into_iter()
+                    .collect()), ("36".into(), vec![] .into_iter().collect()), ("37"
+                    .into(), vec![] .into_iter().collect()), ("38".into(), vec![]
+                    .into_iter().collect()), ("39".into(), vec![] .into_iter()
+                    .collect()), ("40".into(), vec![] .into_iter().collect()), ("41"
+                    .into(), vec![] .into_iter().collect()), ("42".into(), vec![]
+                    .into_iter().collect()), ("43".into(), vec![] .into_iter()
+                    .collect()), ("44".into(), vec![] .into_iter().collect()), ("45"
+                    .into(), vec![] .into_iter().collect()), ("46".into(), vec![]
+                    .into_iter().collect()), ("47".into(), vec![] .into_iter()
+                    .collect()), ("48".into(), vec![] .into_iter().collect()), ("49"
+                    .into(), vec![] .into_iter().collect()), ("50".into(), vec![]
+                    .into_iter().collect()), ("51".into(), vec![] .into_iter()
+                    .collect()), ("52".into(), vec![] .into_iter().collect()), ("53"
+                    .into(), vec![] .into_iter().collect()), ("54".into(), vec![]
+                    .into_iter().collect()), ("55".into(), vec![] .into_iter()
+                    .collect()), ("56".into(), vec![] .into_iter().collect()), ("57"
+                    .into(), vec![] .into_iter().collect()), ("58".into(), vec![]
+                    .into_iter().collect()), ("59".into(), vec![] .into_iter()
+                    .collect()), ("60".into(), vec![] .into_iter().collect()), ("61"
+                    .into(), vec![] .into_iter().collect()), ("62".into(), vec![]
+                    .into_iter().collect()), ("63".into(), vec![] .into_iter()
+                    .collect()), ("64".into(), vec![] .into_iter().collect()), ("65"
+                    .into(), vec![] .into_iter().collect()), ("66".into(), vec![]
+                    .into_iter().collect()), ("67".into(), vec![] .into_iter()
+                    .collect()), ("68".into(), vec![] .into_iter().collect()), ("69"
+                    .into(), vec![] .into_iter().collect()), ("70".into(), vec![]
+                    .into_iter().collect()), ("71".into(), vec![] .into_iter()
+                    .collect()), ("72".into(), vec![] .into_iter().collect()), ("73"
+                    .into(), vec![] .into_iter().collect()), ("74".into(), vec![]
+                    .into_iter().collect()), ("75".into(), vec![] .into_iter()
+                    .collect()), ("76".into(), vec![] .into_iter().collect()), ("77"
+                    .into(), vec![] .into_iter().collect()), ("78".into(), vec![]
+                    .into_iter().collect()), ("79".into(), vec![] .into_iter()
+                    .collect()), ("80".into(), vec![] .into_iter().collect()), ("81"
+                    .into(), vec![] .into_iter().collect()), ("82".into(), vec![]
+                    .into_iter().collect()), ("83".into(), vec![] .into_iter()
+                    .collect()), ("84".into(), vec![] .into_iter().collect()), ("85"
+                    .into(), vec![] .into_iter().collect()), ("86".into(), vec![]
+                    .into_iter().collect()), ("87".into(), vec![] .into_iter()
+                    .collect()), ("88".into(), vec![] .into_iter().collect()), ("89"
+                    .into(), vec![] .into_iter().collect()), ("90".into(), vec![]
+                    .into_iter().collect()), ("91".into(), vec![] .into_iter()
+                    .collect()), ("92".into(), vec![] .into_iter().collect()), ("93"
+                    .into(), vec![] .into_iter().collect()), ("94".into(), vec![]
+                    .into_iter().collect()), ("95".into(), vec![] .into_iter()
+                    .collect()), ("96".into(), vec![] .into_iter().collect()), ("97"
+                    .into(), vec![] .into_iter().collect()), ("98".into(), vec![]
+                    .into_iter().collect()), ("99".into(), vec![] .into_iter()
+                    .collect()), ("100".into(), vec![] .into_iter().collect()), ("101"
+                    .into(), vec![] .into_iter().collect())
                 ]
                     .into_iter()
                     .collect(),
@@ -50542,7 +51458,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -50745,7 +51661,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -50948,7 +51864,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -51358,7 +52274,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -51370,7 +52286,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::Volume, MemoryAccess::Read), (LogicSlotType::Open,
                     MemoryAccess::ReadWrite), (LogicSlotType::SortingClass,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (1u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("1".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
@@ -51440,7 +52356,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -51452,7 +52368,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::Volume, MemoryAccess::Read), (LogicSlotType::Open,
                     MemoryAccess::ReadWrite), (LogicSlotType::SortingClass,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (1u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("1".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
@@ -51522,7 +52438,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -51534,7 +52450,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::Volume, MemoryAccess::Read), (LogicSlotType::Open,
                     MemoryAccess::ReadWrite), (LogicSlotType::SortingClass,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (1u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("1".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
@@ -51607,7 +52523,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read),
@@ -51619,7 +52535,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     (LogicSlotType::Volume, MemoryAccess::Read), (LogicSlotType::Open,
                     MemoryAccess::ReadWrite), (LogicSlotType::SortingClass,
                     MemoryAccess::Read), (LogicSlotType::ReferenceId,
-                    MemoryAccess::Read)] .into_iter().collect()), (1u32,
+                    MemoryAccess::Read)] .into_iter().collect()), ("1".into(),
                     vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
@@ -51776,7 +52692,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
     );
     map.insert(
         887383294i32,
-        StructureLogicDeviceTemplate {
+        StructureLogicDeviceConsumerTemplate {
             prefab: PrefabInfo {
                 prefab_name: "StructureWaterPurifier".into(),
                 prefab_hash: 887383294i32,
@@ -51788,7 +52704,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             thermal_info: None,
             internal_atmo_info: None,
             logic: LogicInfo {
-                logic_slot_types: vec![(0u32, vec![] .into_iter().collect())]
+                logic_slot_types: vec![("0".into(), vec![] .into_iter().collect())]
                     .into_iter()
                     .collect(),
                 logic_types: vec![
@@ -51832,6 +52748,11 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 has_open_state: false,
                 has_reagents: false,
             },
+            consumer_info: ConsumerInfo {
+                consumed_resources: vec!["ItemCharcoal".into()].into_iter().collect(),
+                processed_reagents: vec![].into_iter().collect(),
+            },
+            fabricator_info: None,
         }
             .into(),
     );
@@ -51849,7 +52770,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Class,
@@ -51931,8 +52852,8 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .collect(),
                 modes: Some(
                     vec![
-                        (0u32, "NoStorm".into()), (1u32, "StormIncoming".into()), (2u32,
-                        "InStorm".into())
+                        ("0".into(), "NoStorm".into()), ("1".into(), "StormIncoming"
+                        .into()), ("2".into(), "InStorm".into())
                     ]
                         .into_iter()
                         .collect(),
@@ -52007,64 +52928,6 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                 has_mode_state: false,
                 has_on_off_state: false,
                 has_open_state: false,
-                has_reagents: false,
-            },
-        }
-            .into(),
-    );
-    map.insert(
-        2056377335i32,
-        StructureLogicDeviceTemplate {
-            prefab: PrefabInfo {
-                prefab_name: "StructureWindowShutter".into(),
-                prefab_hash: 2056377335i32,
-                desc: "For those special, private moments, a window that can be closed to prying eyes. \n      \nWhen closed, has the heat transfer characteristics of a basic wall. Requires power, and can be connected to logic systems."
-                    .into(),
-                name: "Window Shutter".into(),
-            },
-            structure: StructureInfo { small_grid: true },
-            thermal_info: None,
-            internal_atmo_info: None,
-            logic: LogicInfo {
-                logic_slot_types: vec![].into_iter().collect(),
-                logic_types: vec![
-                    (LogicType::Power, MemoryAccess::Read), (LogicType::Open,
-                    MemoryAccess::ReadWrite), (LogicType::Mode, MemoryAccess::ReadWrite),
-                    (LogicType::Error, MemoryAccess::Read), (LogicType::Setting,
-                    MemoryAccess::ReadWrite), (LogicType::On, MemoryAccess::ReadWrite),
-                    (LogicType::RequiredPower, MemoryAccess::Read), (LogicType::Idle,
-                    MemoryAccess::Read), (LogicType::PrefabHash, MemoryAccess::Read),
-                    (LogicType::ReferenceId, MemoryAccess::Read), (LogicType::NameHash,
-                    MemoryAccess::Read)
-                ]
-                    .into_iter()
-                    .collect(),
-                modes: Some(
-                    vec![(0u32, "Operate".into()), (1u32, "Logic".into())]
-                        .into_iter()
-                        .collect(),
-                ),
-                transmission_receiver: false,
-                wireless_logic: false,
-                circuit_holder: false,
-            },
-            slots: vec![].into_iter().collect(),
-            device: DeviceInfo {
-                connection_list: vec![
-                    ConnectionInfo { typ : ConnectionType::Data, role :
-                    ConnectionRole::None }, ConnectionInfo { typ : ConnectionType::Power,
-                    role : ConnectionRole::None }
-                ]
-                    .into_iter()
-                    .collect(),
-                device_pins_length: None,
-                has_activate_state: false,
-                has_atmosphere: false,
-                has_color_state: false,
-                has_lock_state: false,
-                has_mode_state: true,
-                has_on_off_state: true,
-                has_open_state: true,
                 has_reagents: false,
             },
         }
@@ -52233,7 +53096,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -52284,7 +53147,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -52306,7 +53169,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Stun".into()), (1u32, "Kill".into())]
+                    vec![("0".into(), "Stun".into()), ("1".into(), "Kill".into())]
                         .into_iter()
                         .collect(),
                 ),
@@ -52342,7 +53205,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
             internal_atmo_info: None,
             logic: LogicInfo {
                 logic_slot_types: vec![
-                    (0u32, vec![(LogicSlotType::Occupied, MemoryAccess::Read),
+                    ("0".into(), vec![(LogicSlotType::Occupied, MemoryAccess::Read),
                     (LogicSlotType::OccupantHash, MemoryAccess::Read),
                     (LogicSlotType::Quantity, MemoryAccess::Read),
                     (LogicSlotType::Damage, MemoryAccess::Read), (LogicSlotType::Charge,
@@ -52364,7 +53227,7 @@ pub fn build_prefab_database() -> std::collections::BTreeMap<
                     .into_iter()
                     .collect(),
                 modes: Some(
-                    vec![(0u32, "Stun".into()), (1u32, "Kill".into())]
+                    vec![("0".into(), "Stun".into()), ("1".into(), "Kill".into())]
                         .into_iter()
                         .collect(),
                 ),

@@ -72,16 +72,18 @@ export const demoVMState: SessionDB.CurrentDBVmState = {
           id: 1,
           prefab: "StructureCircuitHousing",
           socketed_ic: 2,
-          slots: {
-            0: { id: 2, quantity: 1 },
-          },
-          connections: {
-            0: 1,
-          },
+          slots: new Map([
+            [0, { id: 2, quantity: 1 }],
+          ]),
+          connections: new Map([
+            [0, 1],
+          ]),
           // unused, provided to make compiler happy
           name: undefined,
           prefab_hash: undefined,
           compile_errors: undefined,
+          parent_slot: undefined,
+          root_parent_human: undefined,
           damage: undefined,
           device_pins: undefined,
           reagents: undefined,
@@ -106,9 +108,9 @@ export const demoVMState: SessionDB.CurrentDBVmState = {
             instruction_pointer: 0,
             yield_instruction_count: 0,
             state: "Start",
-            aliases: {},
-            defines: {},
-            labels: {},
+            aliases: new Map(),
+            defines: new Map(),
+            labels: new Map(),
             registers: new Array(18).fill(0),
           },
 
@@ -117,6 +119,8 @@ export const demoVMState: SessionDB.CurrentDBVmState = {
           prefab_hash: undefined,
           compile_errors: undefined,
           slots: undefined,
+          parent_slot: undefined,
+          root_parent_human: undefined,
           damage: undefined,
           device_pins: undefined,
           connections: undefined,

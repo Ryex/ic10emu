@@ -1,4 +1,5 @@
 import { Ace } from "ace-builds";
+import { TransferHandler } from "comlink";
 
 export function docReady(fn: () => void) {
   // see if DOM is already available
@@ -92,6 +93,26 @@ export function fromJson(value: string): any {
   return JSON.parse(value, reviver);
 }
 
+// this is a hack that *may* not be needed
+type SuitableForSpecialJson = any;
+export const comlinkSpecialJsonTransferHandler: TransferHandler<any, string> = {
+  canHandle: (obj: unknown): obj is SuitableForSpecialJson => {
+    return typeof obj === "object"
+      || (
+        typeof obj === "number"
+        && (!Number.isFinite(obj) || Number.isNaN(obj) || isZeroNegative(obj))
+      )
+      || typeof obj === "undefined";
+  },
+  serialize: (obj: SuitableForSpecialJson) => {
+    const sJson = toJson(obj);
+    return [
+      sJson,
+      [],
+    ]
+  },
+  deserialize: (obj: string) => fromJson(obj)
+};
 
 export function compareMaps(map1: Map<any, any>, map2: Map<any, any>): boolean {
   let testVal;

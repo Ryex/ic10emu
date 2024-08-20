@@ -190,7 +190,7 @@ tag_object_traits! {
         /// Get the programmable circuit object slotted into this circuit holder
         fn get_ic(&self) -> Option<VMObject>;
         /// Execute a `hcf` instruction
-        fn hault_and_catch_fire(&mut self);
+        fn halt_and_catch_fire(&mut self);
     }
 
     pub trait Item {
@@ -403,7 +403,7 @@ tag_object_traits! {
 
     pub trait ReagentInterface: Device {
         /// Reagents required by current recipe
-        fn get_current_recipie(&self) -> Vec<(i32, f64)>;
+        fn get_current_recipe(&self) -> Vec<(i32, f64)>;
         /// Reagents required to complete current recipe
         fn get_current_required(&self) -> Vec<(i32, f64)>;
     }
@@ -465,8 +465,8 @@ tag_object_traits! {
         fn set_mood(&mut self, mood: f32);
         fn mood_state(&self) -> StatState;
         fn get_hygiene(&self) -> f32;
-        fn set_hygiene(&mut self, hygine: f32);
-        fn hygine_state(&self) -> StatState;
+        fn set_hygiene(&mut self, hygiene: f32);
+        fn hygiene_state(&self) -> StatState;
         fn is_artificial(&self) -> bool;
         fn robot_battery(&self) -> Option<VMObject>;
         fn suit_slot(&self) -> &Slot;

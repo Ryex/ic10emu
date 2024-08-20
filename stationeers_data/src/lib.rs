@@ -69,6 +69,7 @@ pub mod enums {
         LandingPad,
         LaunchPad,
         PowerAndData,
+        RoboticArmRail,
         #[serde(other)]
         #[default]
         None,

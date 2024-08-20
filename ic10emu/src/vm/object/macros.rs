@@ -22,13 +22,13 @@ macro_rules! object_trait {
 
         paste::paste! {
             $(
-                #[doc = "Return a `& dyn " $trt "` if implimented by the object"]
+                #[doc = "Return a `& dyn " $trt "` if implemented by the object"]
                 #[inline(always)]
                 fn [<as_ $trt:snake>](&self) -> Option<[<$trt Ref>]> {
                     None
                 }
 
-                #[doc = "Return a `&mut dyn " $trt "` if implimented by the object"]
+                #[doc = "Return a `&mut dyn " $trt "` if implemented by the object"]
                 #[inline(always)]
                 fn [<as_mut_ $trt:snake>](&mut self) -> Option<[<$trt RefMut>]> {
                     None
@@ -74,7 +74,7 @@ macro_rules! object_trait {
 
                     }
                 }
-                /// call func on the dyn refrence or a borrow of the vm object
+                /// call func on the dyn reference or a borrow of the vm object
                 pub fn map<F, R>(&self, mut func: F ) -> R
                     where
                         F: std::ops::FnMut(& dyn $trait_name) -> R
@@ -103,12 +103,12 @@ macro_rules! object_trait {
                 }
                 pub fn get_id(&self) -> u32 {
                     match self {
-                        Self::DynRef(refrence) => *refrence.get_id(),
+                        Self::DynRef(reference) => *reference.get_id(),
                         Self::VMObject(obj) => *obj.borrow().get_id(),
 
                     }
                 }
-                /// call func on the dyn refrence or a borrow of the vm object
+                /// call func on the dyn reference or a borrow of the vm object
                 pub fn map<F, R>(&mut self, mut func: F ) -> R
                     where
                         F: std::ops::FnMut(&mut dyn $trait_name) -> R

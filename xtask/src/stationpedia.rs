@@ -91,7 +91,7 @@ pub struct Page {
     #[serde(rename = "SourceCode", default)]
     pub source_code: bool,
     #[serde(rename = "Chargeable")]
-    pub chargeable: Option<Chargable>,
+    pub chargeable: Option<Chargeable>,
     #[serde(rename = "ResourceConsumer")]
     pub resource_consumer: Option<ResourceConsumer>,
     #[serde(rename = "InternalAtmosphere")]
@@ -257,8 +257,8 @@ pub struct Item {
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SuitInfo {
-    #[serde(rename = "HygineReductionMultiplier")]
-    pub hygine_reduction_multiplier: f32,
+    #[serde(rename = "HygieneReductionMultiplier")]
+    pub hygiene_reduction_multiplier: f32,
     #[serde(rename = "WasteMaxPressure")]
     pub waste_max_pressure: f32,
 }
@@ -269,9 +269,9 @@ pub struct Recipe {
     pub creator_prefab_name: String,
     #[serde(rename = "TierName")]
     pub tier_name: String,
-    #[serde(rename = "Time")]
+    #[serde(rename = "Time", default)]
     pub time: f64,
-    #[serde(rename = "Energy")]
+    #[serde(rename = "Energy", default)]
     pub energy: f64,
     #[serde(rename = "Temperature")]
     pub temperature: RecipeTemperature,
@@ -279,7 +279,7 @@ pub struct Recipe {
     pub pressure: RecipePressure,
     #[serde(rename = "RequiredMix")]
     pub required_mix: RecipeGasMix,
-    #[serde(rename = "CountTypes")]
+    #[serde(rename = "CountTypes", default)]
     pub count_types: i64,
     #[serde(flatten)]
     pub reagents: indexmap::IndexMap<String, f64>,
@@ -354,7 +354,7 @@ pub struct Fabricator {
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
-pub struct Chargable {
+pub struct Chargeable {
     #[serde(rename = "PowerMaximum")]
     pub power_maximum: f32,
 }
