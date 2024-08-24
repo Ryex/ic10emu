@@ -243,7 +243,7 @@ export class IC10Editor extends BaseElement {
     app.session.onLoad((_e) => {
       const session = app.session;
       const updated_ids: number[] = [];
-      for (const [id, code] of session.programs) {
+      for (const [id, code] of session.programs.value) {
         updated_ids.push(id);
         that.createOrSetSession(id, code);
       }
@@ -271,7 +271,7 @@ export class IC10Editor extends BaseElement {
           that.activeLineMarkers.set(
             id,
             session.addMarker(
-              new Range(active_line, 0, active_line, 1),
+              new Range(active_line.value, 0, active_line.value, 1),
               "vm_ic_active_line",
               "fullLine",
               true,

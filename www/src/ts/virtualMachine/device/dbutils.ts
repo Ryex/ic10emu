@@ -12,7 +12,7 @@ export function connectionFromConnectionInfo(conn: ConnectionInfo): Connection {
   ) {
     connection = {
       CableNetwork: {
-        net: window.VM.vm.defaultNetwork.peek(),
+        net: window.VM.vm.state.defaultNetworkId.peek(),
         typ: conn.typ as CableConnectionType,
         role: conn.role,
       },

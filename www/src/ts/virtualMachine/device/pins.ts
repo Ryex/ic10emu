@@ -1,61 +1,86 @@
-import { html, css } from "lit";
-import { customElement, property } from "lit/decorators.js";
-import { BaseElement, defaultCss } from "components";
-import { VMTemplateDBMixin, VMObjectMixin } from "virtualMachine/baseDevice";
+import { html } from "lit";
+import { customElement } from "lit/decorators.js";
+import { BaseElement } from "components";
+import { VMObjectMixin } from "virtualMachine/baseDevice";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js";
-import { ObjectID } from "ic10emu_wasm";
-import { effect, watch } from "@lit-labs/preact-signals";
-import { SlOption } from "@shoelace-style/shoelace";
+import { ObjectID, ObjectTemplate } from "ic10emu_wasm";
+import { computed, watch } from "@lit-labs/preact-signals";
+import { createRef, ref, Ref } from "lit/directives/ref.js";
+import { isSome, range } from "utils";
 
 @customElement("vm-device-pins")
-export class VMDevicePins extends VMObjectMixin(VMTemplateDBMixin(BaseElement)) {
-  constructor() {
-    super();
-    // this.subscribe("visible-devices");
+export class VMDevicePins extends VMObjectMixin(BaseElement) {
+
+  forceSelectUpdate(...slSelects: Ref<SlSelect>[]) {
+    for (const slSelect of slSelects) {
+      if (slSelect.value != null && "handleValueChange" in slSelect.value) {
+        slSelect.value.handleValueChange();
+      }
+    }
   }
 
-  render() {
-    const pins = new Array(this.objectSignals.numPins.value ?? 0)
-      .fill(true)
-      .map((_, index) => this.objectSignals.pins.value.get(index));
-    const visibleDevices = (this.objectSignals.visibleDevices.value ?? []);
-    const forceSelectUpdate = () => {
-      const slSelect = this.renderRoot.querySelector("sl-select") as SlSelect;
-      if (slSelect != null) {
-        slSelect.handleValueChange();
-      }
-    };
-    const pinsHtml = pins?.map(
-      (pin, index) => {
-        return html` <sl-select
-          hoist
-          placement="top"
-          clearable
-          key=${index}
-          value=${pin}
-          @sl-change=${this._handleChangePin}
-        >
-          <span slot="prefix">d${index}</span>
-          ${visibleDevices.map(
-            (device, _index) => {
-              device.id.subscribe((id: ObjectID) => {
-                forceSelectUpdate();
-              });
-              device.displayName.subscribe((_: string) => {
-                forceSelectUpdate();
-              });
-              return html`
-                <sl-option value=${watch(device.id)}>
-                  Device ${watch(device.id)} :
-                  ${watch(device.displayName)}
-                </sl-option>
-              `
-            }
+  private _pinSelectRefMap: Map<number, Ref<SlSelect>> = new Map();
 
-          )}
-        </sl-select>`;
-      }
-    );
+  getPinSelectRef(index: number): Ref<SlSelect> {
+    if (!this._pinSelectRefMap.has(index)) {
+      this._pinSelectRefMap.set(index, createRef());
+    }
+    return this._pinSelectRefMap.get(index);
+  }
+
+  visibleDeviceIds = computed(() => {
+    const vm = this.vm.value;
+    const obj = vm?.state.getObject(this.objectIDSignal.value).value
+    return obj?.obj_info.visible_devices ?? [];
+  });
+
+  numPins = computed(() => {
+    const vm = this.vm.value;
+    return vm?.state.getDeviceNumPins(this.objectIDSignal.value).value;
+  })
+
+  deviceOptions = computed(() => {
+    return this.visibleDeviceIds.value.map(id => {
+      const deviceDisplayName = this.vm.value?.state.getObjectDisplayName(id);
+      deviceDisplayName.subscribe(() => {
+        this.forceSelectUpdate(...this._pinSelectRefMap.values());
+      });
+      return html`
+        <sl-option value=${id}}>
+          Device ${id} :
+          ${watch(deviceDisplayName)}
+        </sl-option>
+      `
+    });
+  });
+
+  render() {
+    const pinsHtml = computed(() => {
+      return range(this.numPins.value).map(
+        index => {
+          const selectRef = this.getPinSelectRef(index);
+          const pin = computed(() => {
+            const vm = this.vm.value;
+            return vm?.state.getDevicePin(this.objectIDSignal.value, index).value;
+          });
+
+          return html`
+            <sl-select
+              hoist
+              placement="top"
+              clearable
+              key=${index}
+              value=${watch(pin)}
+              @sl-change=${this._handleChangePin}
+              ${ref(selectRef)}
+            >
+              <span slot="prefix">d${index}</span>
+              ${watch(this.deviceOptions)}
+            </sl-select>
+          `;
+        }
+      );
+    });
     return pinsHtml;
   }
 
@@ -63,7 +88,6 @@ export class VMDevicePins extends VMObjectMixin(VMTemplateDBMixin(BaseElement)) 
     const select = e.target as SlSelect;
     const pin = parseInt(select.getAttribute("key")!);
     const val = select.value ? parseInt(select.value as string) : undefined;
-    window.VM.get().then((vm) => vm.setDevicePin(this.objectID.peek(), pin, val));
-    this.updateObject();
+    window.VM.get().then((vm) => vm.setDevicePin(this.objectID, pin, val));
   }
 }

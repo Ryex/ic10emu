@@ -25,6 +25,7 @@ import {
 } from "./utils";
 
 import * as presets from "./presets";
+import { batch, computed, effect, signal, Signal } from "@lit-labs/preact-signals";
 const { demoVMState } = presets;
 
 export interface SessionEventMap {
@@ -37,63 +38,64 @@ export interface SessionEventMap {
 }
 
 export class Session extends TypedEventTarget<SessionEventMap>() {
-  private _programs: Map<number, string>;
-  private _errors: Map<number, ICError[]>;
-  private _activeIC: number;
-  private _activeLines: Map<number, number>;
+  private _programs: Signal<Map<ObjectID, string>>;
+  private _errors: Signal<Map<ObjectID, ICError[]>>;
+  private _activeIC: Signal<ObjectID>;
+  private _activeLines: Signal<Map<ObjectID, number>>;
   private _save_timeout?: ReturnType<typeof setTimeout>;
-  private _vm_state: FrozenVM;
 
   private app: App;
 
   constructor(app: App) {
     super();
     this.app = app;
-    this._programs = new Map();
-    this._errors = new Map();
+    this._programs = signal(new Map());
+    this._errors = signal(new Map());
     this._save_timeout = undefined;
-    this._activeIC = 1;
-    this._activeLines = new Map();
-    this._vm_state = undefined;
+    this._activeIC = signal(null);
+    this._activeLines = signal(new Map());
     this.loadFromFragment();
 
     const that = this;
     window.addEventListener("hashchange", (_event) => {
       that.loadFromFragment();
     });
+
+    this._programs.subscribe((_) => {this._fireOnLoad()});
   }
 
-  get programs(): Map<number, string> {
+  get programs(): Signal<Map<number, string>> {
     return this._programs;
   }
 
   set programs(programs: Iterable<[number, string]>) {
-    this._programs = new Map([...programs]);
-    this._fireOnLoad();
+    this._programs.value = new Map(programs);
   }
 
-  get activeIC() {
+  get activeIC(): Signal<ObjectID> {
     return this._activeIC;
   }
 
-  set activeIC(val: number) {
-    this._activeIC = val;
-    this.dispatchCustomEvent("session-active-ic", this.activeIC);
+  set activeIC(val: ObjectID) {
+    this._activeIC.value = val;
+    this.dispatchCustomEvent("session-active-ic", this.activeIC.peek());
   }
 
-  changeID(oldID: number, newID: number) {
-    if (this.programs.has(oldID)) {
-      this.programs.set(newID, this.programs.get(oldID));
-      this.programs.delete(oldID);
+  changeID(oldID: ObjectID, newID: ObjectID) {
+    if (this.programs.peek().has(oldID)) {
+      const newVal = new Map(this.programs.value);
+      newVal.set(newID, newVal.get(oldID));
+      newVal.delete(oldID);
+      this.programs.value = newVal;
     }
     this.dispatchCustomEvent("session-id-change", { old: oldID, new: newID });
   }
 
-  onIDChange(callback: (e: CustomEvent<{ old: number; new: number }>) => any) {
+  onIDChange(callback: (e: CustomEvent<{ old: ObjectID; new: ObjectID}>) => any) {
     this.addEventListener("session-id-change", callback);
   }
 
-  onActiveIc(callback: (e: CustomEvent<number>) => any) {
+  onActiveIc(callback: (e: CustomEvent<ObjectID>) => any) {
     this.addEventListener("session-active-ic", callback);
   }
 
@@ -101,36 +103,36 @@ export class Session extends TypedEventTarget<SessionEventMap>() {
     return this._errors;
   }
 
-  getActiveLine(id: number) {
-    return this._activeLines.get(id);
+  getActiveLine(id: ObjectID) {
+    return computed(() => this._activeLines.value.get(id));
   }
 
-  setActiveLine(id: number, line: number) {
-    const last = this._activeLines.get(id);
+  setActiveLine(id: ObjectID, line: number) {
+    const last = this._activeLines.peek().get(id);
     if (last !== line) {
-      this._activeLines.set(id, line);
+      this._activeLines.value = new Map([ ... this._activeLines.value.entries(), [id, line]]);
       this._fireOnActiveLine(id);
     }
   }
 
-  setProgramCode(id: number, code: string) {
-    this._programs.set(id, code);
+  setProgramCode(id: ObjectID, code: string) {
+    this._programs.value = new Map([ ...this._programs.value.entries(), [id, code]]);
     if (this.app.vm) {
       this.app.vm.updateCode();
     }
     this.save();
   }
 
-  setProgramErrors(id: number, errors: ICError[]) {
-    this._errors.set(id, errors);
+  setProgramErrors(id: ObjectID, errors: ICError[]) {
+    this._errors.value = new Map([ ...this._errors.value.entries(), [id, errors]]);
     this._fireOnErrors([id]);
   }
 
-  _fireOnErrors(ids: number[]) {
+  _fireOnErrors(ids: ObjectID[]) {
     this.dispatchCustomEvent("session-errors", ids);
   }
 
-  onErrors(callback: (e: CustomEvent<number[]>) => any) {
+  onErrors(callback: (e: CustomEvent<ObjectID[]>) => any) {
     this.addEventListener("session-errors", callback);
   }
 
@@ -142,7 +144,7 @@ export class Session extends TypedEventTarget<SessionEventMap>() {
     this.dispatchCustomEvent("session-load", this);
   }
 
-  onActiveLine(callback: (e: CustomEvent<number>) => any) {
+  onActiveLine(callback: (e: CustomEvent<ObjectID>) => any) {
     this.addEventListener("active-line", callback);
   }
 
@@ -159,7 +161,8 @@ export class Session extends TypedEventTarget<SessionEventMap>() {
   }
 
   async saveToFragment() {
-    const toSave = { vm: this.app.vm.saveVMState(), activeIC: this.activeIC };
+    const vm = await window.VM.get()
+    const toSave = { vm: vm.state.vm.value, activeIC: this.activeIC };
     const bytes = new TextEncoder().encode(toJson(toSave));
     try {
       const c_bytes = await compress(bytes, defaultCompression);
@@ -172,21 +175,21 @@ export class Session extends TypedEventTarget<SessionEventMap>() {
   }
 
   async load(data: SessionDB.CurrentDBVmState | OldPrograms | string) {
+    const vm = await window.VM.get()
     if (typeof data === "string") {
-      this._activeIC = 1;
-      this.app.vm.restoreVMState(demoVMState.vm);
-      this._programs = new Map([[1, data]]);
+      this.activeIC = 1;
+      await vm.restoreVMState(demoVMState.vm);
+      this.programs = [[1, data]];
     } else if ("programs" in data) {
-      this._activeIC = 1;
-      this.app.vm.restoreVMState(demoVMState.vm);
-      this._programs = new Map(data.programs);
+      this.activeIC = 1;
+      await vm.restoreVMState(demoVMState.vm);
+      this.programs = data.programs;
     } else if ("vm" in data) {
-      this._programs = new Map();
+      this.programs = [];
       const state = data.vm;
       // assign first so it's present when the
       // vm fires events
-      this._activeIC = data.activeIC;
-      const vm = await window.VM.get()
+      this._activeIC.value = data.activeIC;
       await vm.restoreVMState(state);
       this.programs = vm.getPrograms();
       // assign again to fire event
@@ -259,7 +262,7 @@ export class Session extends TypedEventTarget<SessionEventMap>() {
   async saveLocal(name: string) {
     const state: SessionDB.CurrentDBVmState = {
       vm: await (await window.VM.get()).ic10vm.saveVMState(),
-      activeIC: this.activeIC,
+      activeIC: this.activeIC.peek(),
     };
     const db = await this.openIndexDB();
     const transaction = db.transaction(

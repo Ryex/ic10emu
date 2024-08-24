@@ -1,29 +1,15 @@
 import { html, css, nothing } from "lit";
 import { customElement, query } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { ComputedObjectSignals, globalObjectSignalMap, VMActiveICMixin } from "virtualMachine/baseDevice";
 
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.js";
-import { computed, Signal, watch } from "@lit-labs/preact-signals";
+import { computed, Signal, SignalWatcher, watch } from "@lit-labs/preact-signals";
 import { FrozenObjectFull } from "ic10emu_wasm";
+import { VMObjectMixin } from "./baseDevice";
+import { createRef, Ref, ref } from "lit/directives/ref.js";
 
 @customElement("vm-ic-controls")
-export class VMICControls extends VMActiveICMixin(BaseElement) {
-
-  circuitHolders: Signal<ComputedObjectSignals[]>;
-
-  constructor() {
-    super();
-    this.subscribe("active-ic")
-    this.circuitHolders = computed(() => {
-      const ids = window.VM.vm.circuitHolderIds.value;
-      const circuitHolders = [];
-      for (const id of ids) {
-        circuitHolders.push(globalObjectSignalMap.get(id));
-      }
-      return circuitHolders;
-    });
-  }
+export class VMICControls extends VMObjectMixin(SignalWatcher(BaseElement)) {
 
   static styles = [
     ...defaultCss,
@@ -74,37 +60,89 @@ export class VMICControls extends VMActiveICMixin(BaseElement) {
     `,
   ];
 
-  @query(".active-ic-select") activeICSelect: SlSelect;
-
-  forceSelectUpdate() {
-    if (this.activeICSelect != null) {
-      this.activeICSelect.handleValueChange();
-    }
+  constructor() {
+    super();
+    this.activeIC.subscribe(() => this.forceSelectUpdate());
+    this.icOptions.subscribe(() => this.forceSelectUpdate());
   }
 
-  protected render() {
-    const icsOptions = computed(() => {
-      return this.circuitHolders.value.map((circuitHolder) => {
+  activeICSelect: Ref<SlSelect> = createRef();
 
-        circuitHolder.prefabName.subscribe((_) => {this.forceSelectUpdate()});
-        circuitHolder.id.subscribe((_) => {this.forceSelectUpdate()});
-        circuitHolder.displayName.subscribe((_) => {this.forceSelectUpdate()});
+  selectUpdateTimeout: ReturnType<typeof setTimeout> = null;
 
-        const span = circuitHolder.name ? html`<span slot="suffix">${watch(circuitHolder.prefabName)}</span>` : nothing ;
-        return html`
-          <sl-option
-            prefabName=${watch(circuitHolder.prefabName)}
-            value=${watch(circuitHolder.id)}
-          >
-            ${span}
-            Device:${watch(circuitHolder.id)} ${watch(circuitHolder.displayName)}
-          </sl-option>`
+  forceSelectUpdate() {
+    if (this.selectUpdateTimeout) {
+      clearTimeout(this.selectUpdateTimeout);
+    }
+    this.selectUpdateTimeout = setTimeout(() => {
+      if (this.activeICSelect.value != null) {
+        this.activeICSelect.value.value = this.activeIC.value.toString();
+        this.activeICSelect.value.handleValueChange();
+      }
+    }, 100);
+  }
+
+  activeIC = computed(() => {
+    return this.vm.value?.activeIC.value
+  })
+
+  circuitHolderIds = computed(() => {
+    return this.vm.value?.state.circuitHolderIds.value ?? [];
+  });
+
+  errors = computed(() => {
+    const obj = this.vm.value?.state.getObject(this.activeIC.value).value;
+    return obj?.obj_info.compile_errors ?? [];
+  });
+
+  icIP = computed(() => {
+    const circuit = this.vm.value?.state.getCircuitInfo(this.activeIC.value).value;
+    return circuit?.instruction_pointer ?? null;
+  });
+
+  icOpCount = computed(() => {
+    const circuit = this.vm.value?.state.getCircuitInfo(this.activeIC.value).value;
+    return circuit?.yield_instruction_count ?? 0;
+  });
+
+  icState = computed(() => {
+    const circuit = this.vm.value?.state.getCircuitInfo(this.activeIC.value).value;
+    return circuit?.state ?? null;
+  });
+
+
+  icOptions = computed(() => {
+    return this.circuitHolderIds.value.map(id => {
+      const circuitHolder = computed(() => {
+        return this.vm.value?.state.getObject(id).value;
       });
+
+      const prefabName = computed(() => {
+        return circuitHolder.value?.obj_info.prefab ?? "";
+      });
+      const displayName = computed(() => {
+        return circuitHolder.value?.obj_info.name ?? circuitHolder.value?.obj_info.prefab ?? "";
+      });
+
+      prefabName.subscribe(() => this.forceSelectUpdate());
+      displayName.subscribe(() => this.forceSelectUpdate());
+
+      const span = html`<span slot="suffix">${watch(displayName)}</span>`;
+      return html`
+        <sl-option
+          prefabName=${watch(prefabName)}
+          .value=${id}
+        >
+          ${span}
+          Device:${id} ${watch(displayName)}
+        </sl-option>`
     });
-    icsOptions.subscribe((_) => {this.forceSelectUpdate()});
+  });
+
+  render() {
 
     const icErrors = computed(() => {
-      return this.objectSignals?.errors.value?.map(
+      return this.errors.value.map(
         (err) =>
           typeof err === "object"
             && "ParseError" in err
@@ -169,28 +207,29 @@ export class VMICControls extends VMActiveICMixin(BaseElement) {
               hoist
               size="small"
               placement="bottom"
-              value="${watch(this.objectID)}"
+              value="${this.activeIC.value}"
               @sl-change=${this._handleChangeActiveIC}
               class="active-ic-select"
+              ${ref(this.activeICSelect)}
             >
-              ${watch(icsOptions)}
+              ${watch(this.icOptions)}
             </sl-select>
           </div>
         </div>
         <div class="stats">
           <div class="hstack">
             <span>Instruction Pointer</span>
-            <span class="ms-auto">${this.objectSignals ? watch(this.objectSignals.icIP) : nothing}</span>
+            <span class="ms-auto">${watch(this.icIP)}</span>
           </div>
           <sl-divider></sl-divider>
           <div class="hstack">
             <span>Last Run Operations Count</span>
-            <span class="ms-auto">${this.objectSignals ? watch(this.objectSignals.icOpCount) : nothing}</span>
+            <span class="ms-auto">${watch(this.icOpCount)}</span>
           </div>
           <sl-divider></sl-divider>
           <div class="hstack">
             <span>Last State</span>
-            <span class="ms-auto">${this.objectSignals ? watch(this.objectSignals.icState) : nothing}</span>
+            <span class="ms-auto">${watch(this.icState)}</span>
           </div>
           <sl-divider></sl-divider>
           <div class="vstack">

@@ -1,15 +1,14 @@
 import { html, css, nothing } from "lit";
 import { customElement } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMActiveICMixin } from "virtualMachine/baseDevice";
+import { VMObjectMixin } from "virtualMachine/baseDevice";
 
-import { RegisterSpec } from "ic10emu_wasm";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
-import { displayNumber, parseNumber } from "utils";
-import { computed, Signal, watch } from "@lit-labs/preact-signals";
+import { displayNumber, parseNumber, range, structuralEqual } from "utils";
+import { computed, ReadonlySignal, Signal, watch } from "@lit-labs/preact-signals";
 
 @customElement("vm-ic-registers")
-export class VMICRegisters extends VMActiveICMixin(BaseElement) {
+export class VMICRegisters extends VMObjectMixin(BaseElement) {
   static styles = [
     ...defaultCss,
     css`
@@ -39,38 +38,56 @@ export class VMICRegisters extends VMActiveICMixin(BaseElement) {
     ["ra", 17],
   ];
 
-  constructor() {
-    super();
-    this.subscribe("active-ic")
+
+  circuit = computed(() => {
+    return this.vm.value?.state.getCircuitInfo(this.vm.value?.activeIC.value).value;
+  });
+
+  registerCount = computed(() => {
+    return this.vm.value?.state.getCircuitRegistersCount(this.vm.value.activeIC.value).value;
+  })
+
+  registerAliases = (() => {
+    let last: [string, number][] = null;
+    return computed(() => {
+      const aliases = this.vm.value?.state.getCircuitAliases(this.vm.value?.activeIC.value).value
+      const forRegisters = [...(Object.entries(aliases ?? {}) ?? [])].flatMap(([alias, target]): [string, number][] => {
+        if ("RegisterSpec" in target && target.RegisterSpec.indirection === 0) {
+          return [[alias, target.RegisterSpec.target]];
+        }
+        return [];
+      }).concat(VMICRegisters.defaultAliases);
+      if (structuralEqual(last, forRegisters)) {
+        return last;
+      }
+      last = forRegisters;
+      return forRegisters;
+    });
+  })();
+
+  aliasesFor(index: number): ReadonlySignal<string[]> {
+    return computed(() => {
+      return this.registerAliases.value?.flatMap(([alias, target]): string[] => target === index ? [alias] : [])
+    });
+  }
+
+  registerAt(index: number): ReadonlySignal<number> {
+    return computed(() => {
+      return this.vm.value?.state.getCircuitRegistersAt(this.vm.value?.activeIC.value, index).value
+    })
   }
 
   protected render() {
-    const registerAliases: Signal<[string, number][]> = computed(() => {
-      return [...(Array.from(this.objectSignals.aliases.value?.entries() ?? []))].flatMap(
-        ([alias, target]) => {
-          if ("RegisterSpec" in target && target.RegisterSpec.indirection === 0) {
-            return [[alias, target.RegisterSpec.target]] as [string, number][];
-          } else {
-            return [] as [string, number][];
-          }
-        }
-      ).concat(VMICRegisters.defaultAliases);
-    });
 
-    const registerHtml = this.objectSignals?.registers.peek().map((val, index) => {
-      const aliases = computed(() => {
-        return registerAliases.value
-          .filter(([_alias, target]) => index === target)
-          .map(([alias, _target]) => alias);
-      });
+    const registerHtml = computed(() => range(this.registerCount.value).map(index => {
       const aliasesList = computed(() => {
-        return aliases.value.join(", ");
-      });
+        return this.aliasesFor(index).value?.join(", ") ?? nothing;
+      })
       const aliasesText = computed(() => {
-        return aliasesList.value || "None";
+        return this.aliasesFor(index).value?.join(", ") ?? "None";
       });
       const valDisplay = computed(() => {
-        const val = this.objectSignals.registers.value[index];
+        const val = this.registerAt(index).value;
         return displayNumber(val);
       });
       return html`
@@ -92,12 +109,12 @@ export class VMICRegisters extends VMActiveICMixin(BaseElement) {
           </sl-input>
         </sl-tooltip>
       `;
-    }) ?? nothing;
+    }) ?? nothing);
 
     return html`
       <sl-card class="card">
         <div class="card-body">
-          ${registerHtml}
+          ${watch(registerHtml)}
         </div>
       </sl-card>
     `;

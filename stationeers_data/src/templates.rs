@@ -203,9 +203,11 @@ pub struct SlotInfo {
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct LogicInfo {
     #[serde_as( as = "BTreeMap<DisplayFromStr, _>")]
+    #[cfg_attr(feature = "tsify", tsify(type = "Map<string, Map<LogicSlotType, MemoryAccess>>"))]
     pub logic_slot_types: BTreeMap<u32, BTreeMap<LogicSlotType, MemoryAccess>>,
     pub logic_types: BTreeMap<LogicType, MemoryAccess>,
     #[serde_as( as = "Option<BTreeMap<DisplayFromStr, _>>")]
+    #[cfg_attr(feature = "tsify", tsify(type = "Map<string, string> | undefined"))]
     pub modes: Option<BTreeMap<u32, String>>,
     pub transmission_receiver: bool,
     pub wireless_logic: bool,

@@ -20,12 +20,12 @@ import { customElement, property, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
 
 import { connectionFromConnectionInfo } from "./dbutils";
-import { crc32, displayNumber, parseNumber } from "utils";
+import { crc32, displayNumber, parseNumber, structuralEqual } from "utils";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js";
 import { VMDeviceCard } from "./card";
-import { globalObjectSignalMap, VMTemplateDBMixin } from "virtualMachine/baseDevice";
-import { computed, Signal, watch } from "@lit-labs/preact-signals";
+import { VMObjectMixin } from "virtualMachine/baseDevice";
+import { computed, effect, signal, Signal, watch } from "@lit-labs/preact-signals";
 import { createRef, ref, Ref } from "lit/directives/ref.js";
 
 export interface SlotTemplate {
@@ -43,7 +43,7 @@ export interface ConnectionCableNetwork {
 }
 
 @customElement("vm-device-template")
-export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
+export class VmObjectTemplate extends VMObjectMixin(BaseElement) {
   static styles = [
     ...defaultCss,
     css`
@@ -84,34 +84,40 @@ export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
   objectName: Signal<string | undefined>;
   connections: Signal<Connection[]>;
 
-  constructor() {
-    super();
-    this.templateDB = window.VM.vm.templateDB;
-  }
-
-  private _prefabName: string;
-  private _prefabHash: number;
+  private prefabNameSignal = signal(null);
+  private prefabHashSignal = computed(() => crc32(this.prefabNameSignal.value));
 
   get prefabName(): string {
-    return this._prefabName;
+    return this.prefabNameSignal.peek();
   }
   get prefabHash(): number {
-    return this._prefabHash;
+    return this.prefabHashSignal.peek();
   }
 
   @property({ type: String })
   set prefabName(val: string) {
-    this._prefabName = val;
-    this._prefabHash = crc32(this._prefabName);
-    this.setupState();
+    this.prefabNameSignal.value = val;
   }
 
-  get dbTemplate(): ObjectTemplate {
-    return this.templateDB.get(this._prefabHash);
+  dbTemplate = (() => {
+    let last: ObjectTemplate = null;
+    return computed(() => {
+      const next = this.vm.value?.state.templateDB.value.get(this.prefabHashSignal.value) ?? null;
+      if (structuralEqual(last, next)) {
+        return last;
+      }
+      last = next;
+      return next;
+    });
+  })();
+
+  constructor() {
+    super();
+    this.dbTemplate.subscribe(() => this.setupState())
   }
 
   setupState() {
-    const dbTemplate = this.dbTemplate;
+    const dbTemplate = this.dbTemplate.value;
 
     this.fields.value = Object.fromEntries(
       (
@@ -122,7 +128,7 @@ export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
         ) as [LogicType, MemoryAccess][]
       ).map(([lt, access]) => {
         const value =
-          lt === "PrefabHash" ? this.dbTemplate.prefab.prefab_hash : 0.0;
+          lt === "PrefabHash" ? dbTemplate.prefab.prefab_hash : 0.0;
         return [lt, value];
       }),
     ) as Record<LogicType, number>;
@@ -187,7 +193,7 @@ export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
     const val = parseNumber(input.value);
     this.fields.value = { ...this.fields.value, [field]: val};
     if (field === "ReferenceId" && val !== 0) {
-      this.objectId.value = val;
+      this.objectIDSignal.value = val;
     }
   }
 
@@ -213,11 +219,16 @@ export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
     return html``;
   }
 
+  networkOptions = computed(() => {
+    const vm = this.vm.value;
+    return vm?.state.networkIds.value.map(net => html`<sl-option value=${net}>Network ${net}</sl-option>`);
+  });
+
   renderNetworks() {
     const vm = window.VM.vm;
-    const vmNetworks = computed(() => {
-      return vm.networkIds.value.map((net) => html`<sl-option value=${net}>Network ${net}</sl-option>`);
-    });
+    this.networkOptions.subscribe((_) => {
+     this.forceSelectUpdate(this.networksSelectRef);
+    })
     const connections = computed(() => {
       this.connections.value.map((connection, index, _conns) => {
         const conn =
@@ -236,13 +247,12 @@ export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
             ${ref(this.networksSelectRef)}
           >
             <span slot="prefix">Connection:${index} </span>
-            ${watch(vmNetworks)}
+            ${watch(this.networkOptions)}
             <span slot="prefix"> ${conn?.typ} </span>
           </sl-select>
         `;
       });
     });
-    vmNetworks.subscribe((_) => { this.forceSelectUpdate(this.networksSelectRef)})
     return html`
       <div class="networks">
         ${watch(connections)}
@@ -272,42 +282,50 @@ export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
     this.forceSelectUpdate(...this._pinsSelectRefMap.values());
   }
 
-  renderPins(): HTMLTemplateResult {
-    const networks = computed(() => {
-      return this.connections.value.flatMap((connection, index) => {
-        return typeof connection === "object" && "CableNetwork" in connection
-          ? [connection.CableNetwork.net]
-          : [];
-      });
+  networks = computed(() => {
+    return this.connections.value.flatMap(connection => {
+      return typeof connection === "object" && "CableNetwork" in connection
+        ? [connection.CableNetwork.net]
+        : [];
     });
-    const visibleDeviceIds = computed(() => {
-      return  [
-      ...new Set(
-        networks.value.flatMap((net) => window.VM.vm.networkDataDevicesSignal(net).value),
-      ),
-    ];
+  });
 
+  visibleDeviceIds = (() => {
+    let last: ObjectID[] = null;
+    return computed(() => {
+      const vm = this.vm.value;
+      const next = [
+        ...new Set(
+          this.networks.value.flatMap((net) => vm?.state.getNetwork(net).value.devices ?? []),
+        ),
+      ];
+      if (structuralEqual(last, next)) {
+        return last;
+      }
+      last = next;
+      return next;
     });
-    const visibleDevices = computed(() => {
-      return visibleDeviceIds.value.map((id) =>
-        globalObjectSignalMap.get(id),
-      );
-    });
-    const visibleDevicesHtml = computed(() => {
-      return visibleDevices.value.map(
-            (device, _index) => {
-              device.id.subscribe((_) => { this.forcePinSelectUpdate(); });
-              device.displayName.subscribe((_) => { this.forcePinSelectUpdate(); });
-              return html`
-                <sl-option value=${watch(device.id)}>
-                  Device ${watch(device.id)} :
-                  ${watch(device.displayName)}
-                </sl-option>
-              `
-            }
-          )
-    });
-    visibleDeviceIds.subscribe((_) => { this.forcePinSelectUpdate(); });
+  })();
+
+  visibleDeviceOptions = computed(() => {
+    return this.visibleDeviceIds.value.map(
+      id => {
+        const displayName = computed(() => {
+          this.vm.value?.state.getObjectDisplayName(id).value;
+        });
+        displayName.subscribe((_) => { this.forcePinSelectUpdate(); });
+        return html`
+          <sl-option value=${id}>
+            Device ${id} :
+            ${watch(displayName)}
+          </sl-option>
+        `
+      }
+    )
+  });
+
+  renderPins(): HTMLTemplateResult {
+    this.visibleDeviceOptions.subscribe((_) => { this.forcePinSelectUpdate(); });
     const pinsHtml = computed(() => {
       this.pins.value.map(
         (pin, index) => {
@@ -322,7 +340,7 @@ export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
             ${ref(pinRef)}
           >
             <span slot="prefix">d${index}</span>
-            ${watch(visibleDevicesHtml)}
+            ${watch(this.visibleDeviceOptions)}
           </sl-select>`
         }
       );
@@ -341,20 +359,22 @@ export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
 
   render() {
     const device = this.dbTemplate;
+    const prefabName = computed(() => device.value.prefab.prefab_name);
+    const name = computed(() => device.value.prefab.name);
     return html`
       <sl-card class="template-card">
         <div class="header h-20 w-96" slot="header">
-          <sl-tooltip content="${device?.prefab.prefab_name}">
+          <sl-tooltip content="${watch(prefabName)}">
             <img
               class="image me-2"
-              src="img/stationpedia/${device?.prefab.prefab_name}.png"
+              src="img/stationpedia/${watch(prefabName)}.png"
               onerror="this.src = '${VMDeviceCard.transparentImg}'"
             />
           </sl-tooltip>
           <div class="vstack">
-            <span>${device.prefab.name}</span>
-            <span><small>${device?.prefab.prefab_name}</small></span>
-            <span><small>${device?.prefab.prefab_hash}</small></span>
+            <span>${watch(name)}</span>
+            <span><small>${watch(prefabName)}</small></span>
+            <span><small>${watch(prefabName)}</small></span>
           </div>
           <sl-button
             class="ms-auto mt-auto mb-auto"
@@ -390,7 +410,7 @@ export class VmObjectTemplate extends VMTemplateDBMixin(BaseElement) {
     );
     // Typescript doesn't like  fileds defined as  `X | undefined` not being present, hence cast
     const objInfo: ObjectInfo = {
-      id: this.objectId.value,
+      id: this.objectIDSignal.value,
       name: this.objectName.value,
       prefab: this.prefabName,
     } as ObjectInfo;

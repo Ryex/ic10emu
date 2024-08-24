@@ -3,23 +3,19 @@ import { customElement, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
 
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
-import { structuralEqual } from "utils";
+import { isSome, structuralEqual } from "utils";
 
 import { repeat } from "lit/directives/repeat.js";
 import { default as uFuzzy } from "@leeoniya/ufuzzy";
 import { VMSlotAddDialog } from "./slotAddDialog";
 import "./addDevice"
 import { SlotModifyEvent } from "./slot";
-import { computed, Signal, signal, SignalWatcher, watch } from "@lit-labs/preact-signals";
-import { globalObjectSignalMap } from "virtualMachine/baseDevice";
+import { computed, ReadonlySignal, Signal, signal, SignalWatcher, watch } from "@lit-labs/preact-signals";
 import { ObjectID } from "ic10emu_wasm";
+import { VMObjectMixin } from "virtualMachine/baseDevice";
 
 @customElement("vm-device-list")
-export class VMDeviceList extends SignalWatcher(BaseElement) {
-  devices: Signal<ObjectID[]>;
-  private _filter: Signal<string> = signal("");
-  private _filteredDeviceIds: Signal<number[] | undefined>;
-
+export class VMDeviceList extends VMObjectMixin(BaseElement) {
   static styles = [
     ...defaultCss,
     css`
@@ -48,34 +44,42 @@ export class VMDeviceList extends SignalWatcher(BaseElement) {
 
   constructor() {
     super();
-    this.devices = computed(() => {
-      const objIds = window.VM.vm.objectIds.value;
-      const deviceIds = [];
-      for (const id of objIds) {
-        const obj = window.VM.vm.objects.get(id);
-        const info = obj.value.obj_info;
-        if (!(info.parent_slot != null || info.root_parent_human != null)) {
-          deviceIds.push(id)
+  }
+
+  devices: ReadonlySignal<ObjectID[]> = (() => {
+    let last: ObjectID[] = null;
+    return computed(() => {
+      const vm = this.vm.value;
+      const next: ObjectID[] = vm?.state.vm.value?.objects.flatMap((obj): ObjectID[] => {
+        if (!isSome(obj.obj_info.parent_slot) && !isSome(obj.obj_info.root_parent_human)) {
+          return [obj.obj_info.id]
         }
+        return [];
+      })
+      if (structuralEqual(last, next)) {
+        return last;
       }
-      deviceIds.sort();
-      return deviceIds;
+      last = next;
+      return next;
     });
-    this._filteredDeviceIds = computed(() => {
+  })();
+
+  private _filter: Signal<string> = signal("");
+  private _filteredDeviceIds: ReadonlySignal<ObjectID[]> = (() => {
+    let last: ObjectID[] = null;
+    return computed(() => {
+      const vm = this.vm.value;
+      let next = this.devices.value;
       if (this._filter.value) {
         const datapoints: [string, number][] = [];
         for (const device_id of this.devices.value) {
-          const device = globalObjectSignalMap.get(device_id);
-          if (device) {
-            const name = device.name.peek();
-            const id = device.id.peek();
-            const prefab = device.prefabName.peek();
-            if (name != null) {
-              datapoints.push([name, id]);
-            }
-            if (prefab != null) {
-              datapoints.push([prefab, id]);
-            }
+          const name = vm?.state.getObjectName(device_id).value;
+          const prefab = vm?.state.getObjectPrefabName(device_id).value;
+          if (name != null) {
+            datapoints.push([name, device_id]);
+          }
+          if (prefab != null) {
+            datapoints.push([prefab, device_id]);
           }
         }
         const haystack: string[] = datapoints.map((data) => data[0]);
@@ -87,12 +91,15 @@ export class VMDeviceList extends SignalWatcher(BaseElement) {
           filtered
             ?.map((data) => data[1])
             ?.filter((val, index, arr) => arr.indexOf(val) === index) ?? [];
-        return deviceIds;
-      } else {
-        return Array.from(this.devices.value);
+        next = deviceIds;
       }
+      if (structuralEqual(last, next)) {
+        return last;
+      }
+      last = next;
+      return next;
     });
-  }
+  })();
 
   protected firstUpdated(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
     this.renderRoot.querySelector(".device-list").addEventListener(
@@ -102,13 +109,13 @@ export class VMDeviceList extends SignalWatcher(BaseElement) {
   }
 
   protected render(): HTMLTemplateResult {
-    const deviceCards = repeat(
+    const deviceCards = computed(() => repeat(
       this.filteredDeviceIds.value,
       (id) => id,
       (id) =>
-        html`<vm-device-card .deviceID=${id} class="device-list-card">
+        html`<vm-device-card .objectID=${id} class="device-list-card">
         </vm-device-card>`,
-    );
+    ));
     const numDevices = computed(() => this.devices.value.length);
     const result = html`
       <div class="header">
@@ -126,7 +133,7 @@ export class VMDeviceList extends SignalWatcher(BaseElement) {
         </sl-input>
         <vm-add-device-button class="ms-auto"></vm-add-device-button>
       </div>
-      <div class="device-list">${deviceCards}</div>
+      <div class="device-list">${watch(deviceCards)}</div>
       <vm-slot-add-dialog></vm-slot-add-dialog>
     `;
 
@@ -138,7 +145,7 @@ export class VMDeviceList extends SignalWatcher(BaseElement) {
   _showDeviceSlotDialog(
     e: CustomEvent<SlotModifyEvent>,
   ) {
-    this.slotDialog.show(e.detail.deviceID, e.detail.slotIndex);
+    this.slotDialog.show(e.detail.objectID, e.detail.slotIndex);
   }
 
   get filteredDeviceIds() {

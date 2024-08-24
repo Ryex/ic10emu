@@ -1,11 +1,12 @@
 import { html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMTemplateDBMixin, VMObjectMixin, VmObjectSlotInfo, ComputedObjectSignals } from "virtualMachine/baseDevice";
+import { VMObjectMixin, } from "virtualMachine/baseDevice";
 import {
   clamp,
   crc32,
   displayNumber,
+  isSome,
   parseNumber,
 } from "utils";
 import {
@@ -21,34 +22,22 @@ import { when } from "lit/directives/when.js";
 import { computed, signal, Signal, SignalWatcher, watch } from "@lit-labs/preact-signals";
 
 export interface SlotModifyEvent {
-  deviceID: number;
+  objectID: number;
   slotIndex: number;
 }
 
-@customElement("vm-device-slot")
-export class VMDeviceSlot extends VMObjectMixin(VMTemplateDBMixin(SignalWatcher(BaseElement))) {
-  private _slotIndex: Signal<number>;
+@customElement("vm-object-slot")
+export class VMDeviceSlot extends VMObjectMixin(BaseElement) {
 
-  slotSignal: Signal<VmObjectSlotInfo>;
-
-  get slotIndex() {
-    return this._slotIndex.value;
-  }
+  slotIndexSignal: Signal<number> = signal(0);
 
   @property({ type: Number })
-  set slotIndex(val: number) {
-    this._slotIndex.value = val;
+  get slotIndex() {
+    return this.slotIndexSignal.peek();
   }
 
-  constructor() {
-    super();
-    this._slotIndex = signal(0);
-    this.subscribe("active-ic");
-    this.slotSignal = computed(() => {
-      const index = this._slotIndex.value;
-      return this.objectSignals.slots.value[index];
-    });
-    this.setupSignals();
+  set slotIndex(val: number) {
+    this.slotIndexSignal.value = val;
   }
 
   static styles = [
@@ -79,93 +68,86 @@ export class VMDeviceSlot extends VMObjectMixin(VMTemplateDBMixin(SignalWatcher(
     `,
   ];
 
-  setupSignals() {
-    this.slotOccupant = computed(() => {
-      const slot = this.slotSignal.value ?? null;
-      return slot?.occupant ?? null;
-    });
-    this.slotFieldTypes = computed(() => {
-      return Array.from(this.slotSignal.value?.logicFields.keys() ?? []) ;
-    });
-    this.slotOccupantImg  = computed(() => {
-      const slot = this.slotSignal.value ?? null;
-      if (slot != null && slot.occupant != null) {
-        const prefabName = slot.occupant.prefabName;
-        return `img/stationpedia/${watch(prefabName)}.png`;
-      } else {
-        return `img/stationpedia/SlotIcon_${slot.typ}.png`;
-      }
-    });
-    this.slotOccupantPrefabName = computed(() => {
-      const slot = this.slotSignal.value ?? null;
-      if (slot != null && slot.occupant != null) {
-        const prefabName = slot.occupant.prefabName.value;
-        return prefabName;
-      } else {
-        return null;
-      }
-    });
-    this.slotOccupantTemplate = computed(() => {
-      if (this.objectSignals != null && "slots" in this.objectSignals.template.value) {
-        return this.objectSignals.template.value.slots[this.slotIndex];
-      } else {
-        return null;
-      }
-    });
-  }
 
-  slotOccupant: Signal<ComputedObjectSignals | null>;
-  slotFieldTypes: Signal<LogicSlotType[]>;
-  slotOccupantImg: Signal<string>;
-  slotOccupantPrefabName: Signal<string | null>;
-  slotOccupantTemplate: Signal<SlotInfo | null>;
+  slotInfo = computed(() => {
+    return this.vm.value?.state.getObjectSlotInfo(this.objectIDSignal.value, this.slotIndexSignal.value).value ?? null;
+  });
+
+  slotOccupantId = computed(() => {
+    const slot = this.slotInfo.value ?? null;
+    return slot?.occupant ?? null;
+  });
+
+  slotOccupant = computed(() => {
+    return this.vm.value?.state.getObject(this.slotOccupantId.value).value;
+  });
+
+  slotFieldTypes = computed(() => {
+    return this.vm.value?.state.getObjectSlotFieldNames(this.objectIDSignal.value, this.slotIndexSignal.value).value ?? [];
+  });
+
+  slotOccupantImg = computed(() => {
+    const occupant = this.slotOccupant.value;
+    if (isSome(occupant)) {
+      const prefabName = occupant.obj_info.prefab;
+      return `img/stationpedia/${prefabName}.png`;
+    } else {
+      const slot = this.vm.value?.state.getObjectSlotInfo(this.objectIDSignal.value, this.slotIndexSignal.value).value ?? null;
+      return `img/stationpedia/SlotIcon_${slot?.typ}.png`;
+    }
+  });
+
+  slotOccupantPrefabName = computed(() => {
+    const occupant = this.slotOccupant.value;
+    return occupant?.obj_info.prefab ?? null;
+  });
+
+  slotQuantity = computed(() => {
+    const slot = this.slotInfo.value ?? null;
+    return slot?.quantity;
+  });
+
+  slotTyp = computed(() => {
+    const slot = this.slotInfo.value ?? null;
+    return slot?.typ;
+  });
+
+  slotName = computed(() => {
+    const slot = this.slotInfo.value ?? null;
+    return slot?.name ?? slot?.typ;
+  });
+
+  slotDisplayName = computed(() => {
+    return this.slotOccupantPrefabName.value ?? this.slotName ?? "";
+  });
+
+  maxQuantity = computed(() => {
+    const occupant = this.slotOccupant.value;
+    const template = occupant?.template ?? null;
+    if (isSome(template) && "item" in template) {
+      return template.item.max_quantity;
+    }
+    return 1;
+  });
 
   renderHeader() {
-    const inputIdBase = `vmDeviceSlot${this.objectID}Slot${this.slotIndex}Head`;
-    // const slot = this.slotSignal.value;
-    const slotImg = this.slotOccupantImg;
+    // const inputIdBase = computed(() => `vmDeviceSlot${this.objectIDSignal.value}Slot${this.slotIndexSignal.value}Head`);
     const img = html`<img
       class="w-10 h-10"
-      src="${watch(slotImg)}"
+      src="${watch(this.slotOccupantImg)}"
       onerror="this.src = '${VMDeviceCard.transparentImg}'"
     />`;
-    const template = this.slotOccupantTemplate;
-    const templateName = computed(() => {
-      return template.value?.name ?? null;
-    });
-    const slotTyp = computed(() => {
-      return this.slotSignal.value.typ;
-    })
 
     const enableQuantityInput = false;
 
-    const quantity = computed(() => {
-      const slot = this.slotSignal.value;
-      return slot.quantity;
-    });
-
-    const maxQuantity = computed(() => {
-      const slotOccupant = this.slotSignal.value.occupant;
-      const template = slotOccupant?.template.value ?? null;
-      if (template != null && "item" in template) {
-        return template.item.max_quantity;
-      } else {
-        return 1;
-      }
-    });
-
-    const slotDisplayName = computed(() => {
-      return this.slotOccupantPrefabName.value ?? this.slotSignal.value.typ;
+    const removeDisabled = computed(() => {
+      return this.vm.value?.activeIC.value === this.objectIDSignal.value && this.slotTyp.value === "ProgrammableChip"
     });
 
     const tooltipContent = computed(() => {
-      return this.activeICId === this.objectID && slotTyp.value === "ProgrammableChip"
+      return removeDisabled.value
         ? "Removing the selected Active IC is disabled"
         : "Remove Occupant"
-    })
-
-    const removeDisabled = computed(() => {
-      return this.activeICId === this.objectID && slotTyp.value === "ProgrammableChip"
     });
 
     const quantityContent = computed(() => {
@@ -176,7 +158,7 @@ export class VMDeviceSlot extends VMObjectMixin(VMTemplateDBMixin(SignalWatcher(
               text-neutral-200/90 font-mono bg-neutral-500/40 rounded pl-1 pr-1"
           >
             <small>
-              ${watch(quantity)}/${watch(maxQuantity)}
+              ${watch(this.slotQuantity)}/${watch(this.maxQuantity)}
             </small>
           </div>`
       } else {
@@ -185,34 +167,30 @@ export class VMDeviceSlot extends VMObjectMixin(VMTemplateDBMixin(SignalWatcher(
     });
 
     const slotName = computed(() => {
-      if(this.slotOccupant.value != null) {
-        return html` <span> ${watch(this.slotOccupantPrefabName)} </span> `
-      } else {
-       html` <span> ${watch(templateName)} </span> `
-      }
+      return html` <span> ${watch(this.slotDisplayName)} </span> `
     });
 
     const inputContent = computed(() => {
-      if (this.slotOccupant.value != null) {
+      if (isSome(this.slotOccupant.value)) {
         return html`
           <div class="quantity-input ms-auto pl-2 mt-auto mb-auto me-2">
             ${enableQuantityInput
-                ? html`<sl-input
+            ? html`<sl-input
                     type="number"
                     size="small"
-                    .value=${watch(quantity)}
+                    .value=${watch(this.slotQuantity)}
                     .min=${1}
-                    .max=${watch(maxQuantity)}
+                    .max=${watch(this.maxQuantity)}
                     @sl-change=${this._handleSlotQuantityChange}
                   >
                     <div slot="help-text">
                       <span>
                         Max Quantity:
-                        ${watch(maxQuantity)}
+                        ${watch(this.maxQuantity)}
                       </span>
                     </div>
                   </sl-input>`
-                : ""}
+            : ""}
             <sl-tooltip
               content=${watch(tooltipContent)}
             >
@@ -245,7 +223,7 @@ export class VMDeviceSlot extends VMObjectMixin(VMTemplateDBMixin(SignalWatcher(
           >
             <small>${this.slotIndex}</small>
           </div>
-          <sl-tooltip content="${watch(slotDisplayName)}">
+          <sl-tooltip content="${watch(this.slotDisplayName)}">
             ${img}
           </sl-tooltip>
           ${watch(quantityContent)}
@@ -258,7 +236,7 @@ export class VMDeviceSlot extends VMObjectMixin(VMTemplateDBMixin(SignalWatcher(
           <div class="text-neutral-400 text-xs mt-auto flex flex-col mb-1">
             <div>
               <strong class="mt-auto mb-auto">Type:</strong
-              ><span class="p-1">${watch(slotTyp)}</span>
+              ><span class="p-1">${watch(this.slotTyp)}</span>
             </div>
           </div>
         </div>
@@ -268,7 +246,7 @@ export class VMDeviceSlot extends VMObjectMixin(VMTemplateDBMixin(SignalWatcher(
   }
 
   _handleSlotOccupantRemove() {
-    window.VM.vm.removeSlotOccupant(this.objectID.peek(), this.slotIndex);
+    window.VM.vm.removeSlotOccupant(this.objectID, this.slotIndex);
   }
 
   _handleSlotClick(_e: Event) {
@@ -276,64 +254,57 @@ export class VMDeviceSlot extends VMObjectMixin(VMTemplateDBMixin(SignalWatcher(
       new CustomEvent<SlotModifyEvent>("device-modify-slot", {
         bubbles: true,
         composed: true,
-        detail: { deviceID: this.objectID.peek(), slotIndex: this.slotIndex },
+        detail: { objectID: this.objectID, slotIndex: this.slotIndex },
       }),
     );
   }
 
   _handleSlotQuantityChange(e: Event) {
     const input = e.currentTarget as SlInput;
-    const slot = this.slotSignal.value;
     const val = clamp(
       input.valueAsNumber,
       1,
-      "item" in slot.occupant.template.value
-        ? slot.occupant.template.value.item.max_quantity
-        : 1,
+      this.maxQuantity.peek()
     );
     if (
       !window.VM.vm.setObjectSlotField(
-        this.objectID.peek(),
+        this.objectID,
         this.slotIndex,
         "Quantity",
         val,
         true,
       )
     ) {
-      input.value = this.slotSignal.value.quantity.toString();
+      input.value = this.slotQuantity.value.toString();
     }
   }
 
   renderFields() {
-    const inputIdBase = `vmDeviceSlot${this.objectID}Slot${this.slotIndex}Field`;
+    const inputIdBase = computed(() => `vmDeviceSlot${this.objectIDSignal.value}Slot${this.slotIndexSignal.value}Field`);
     const fields = computed(() => {
-      const slot = this.slotSignal.value;
-      const _fields =
-        slot.logicFields??
-        new Map<LogicSlotType, LogicField>();
       return this.slotFieldTypes.value.map(
-        (name, _index, _types) => {
+        field => {
           const slotField = computed(() => {
-            return this.slotSignal.value.logicFields.get(name);
+            return this.vm.value?.state.getObjectSlotField(this.objectIDSignal.value, this.slotIndexSignal.value, field).value ?? null;
           });
           const fieldValue = computed(() => {
-            return displayNumber(slotField.value.value);
+            return displayNumber(slotField.value?.value ?? null);
           })
           const fieldAccessType = computed(() => {
-            return slotField.value.field_type;
+            return slotField.value?.field_type ?? null;
           })
           return html`
             <sl-input
-              id="${inputIdBase}${name}"
-              key="${name}"
+              id="${watch(inputIdBase)}${field}"
+              key="${field}"
               value="${watch(fieldValue)}"
               size="small"
               @sl-change=${this._handleChangeSlotField}
             >
-              <span slot="prefix">${name}</span>
+              <span slot="prefix">${field}</span>
               <sl-copy-button
                 slot="suffix"
-                from="${inputIdBase}${name}.value"
+                from="${watch(inputIdBase)}${field}.value"
               ></sl-copy-button>
               <span slot="suffix">${watch(fieldAccessType)}</span>
             </sl-input>
@@ -354,27 +325,19 @@ export class VMDeviceSlot extends VMObjectMixin(VMTemplateDBMixin(SignalWatcher(
     const field = input.getAttribute("key")! as LogicSlotType;
     let val = parseNumber(input.value);
     if (field === "Quantity") {
-      const slot = this.slotSignal.value;
+      const slot = this.slotIndexSignal.value;
       val = clamp(
         input.valueAsNumber,
         1,
-        "item" in slot.occupant.template.value
-          ? slot.occupant.template.value.item.max_quantity
-          : 1,
+        this.maxQuantity.peek(),
       );
     }
     window.VM.get().then((vm) => {
       if (
-        !vm.setObjectSlotField(this.objectID.peek(), this.slotIndex, field, val, true)
+        !vm.setObjectSlotField(this.objectID, this.slotIndex, field, val, true)
       ) {
-        input.value = (
-          this.slotSignal.value.logicFields ??
-          new Map<LogicSlotType, LogicField>()
-        )
-          .get(field)
-          .toString();
+        input.value = (vm.state.getObjectSlotField(this.objectIDSignal.value, this.slotIndexSignal.value, field).value.value ?? null).toString();
       }
-      this.updateObject();
     });
   }
 

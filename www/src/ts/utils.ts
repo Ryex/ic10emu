@@ -1,6 +1,18 @@
 import { Ace } from "ace-builds";
 import { TransferHandler } from "comlink";
 
+export function isSome<T>(object: T | null | undefined): object is T {
+  return typeof object !== "undefined" && object !== null;
+}
+
+export function range(size: number, start: number = 0): number[] {
+  const base = [...Array(size ?? 0).keys()]
+  if (start != 0) {
+    return base.map(i => i + start);
+  }
+  return base
+}
+
 export function docReady(fn: () => void) {
   // see if DOM is already available
   if (

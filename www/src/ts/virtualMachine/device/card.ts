@@ -1,10 +1,10 @@
-import { html, css, HTMLTemplateResult } from "lit";
-import { customElement, property, query, state } from "lit/decorators.js";
-import { watch, SignalWatcher, computed } from '@lit-labs/preact-signals';
+import { html, css, HTMLTemplateResult, nothing } from "lit";
+import { customElement, property, query } from "lit/decorators.js";
+import { watch, computed } from '@lit-labs/preact-signals';
 import { BaseElement, defaultCss } from "components";
-import { VMTemplateDBMixin, VMObjectMixin, globalObjectSignalMap } from "virtualMachine/baseDevice";
+import { VMObjectMixin } from "virtualMachine/baseDevice";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js";
-import { parseIntWithHexOrBinary, parseNumber } from "utils";
+import { crc32, isSome, parseIntWithHexOrBinary, range } from "utils";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
 import SlDialog from "@shoelace-style/shoelace/dist/components/dialog/dialog.component.js";
 import "./slot";
@@ -12,13 +12,13 @@ import "./fields";
 import "./pins";
 import { until } from "lit/directives/until.js";
 import { repeat } from "lit/directives/repeat.js";
+import { Connection } from "ic10emu_wasm";
+import { createRef, ref, Ref } from "lit/directives/ref.js";
 
 export type CardTab = "fields" | "slots" | "reagents" | "networks" | "pins";
 
 @customElement("vm-device-card")
-export class VMDeviceCard extends VMTemplateDBMixin(
-  VMObjectMixin(SignalWatcher(BaseElement)),
-) {
+export class VMDeviceCard extends VMObjectMixin(BaseElement) {
   image_err: boolean;
 
   @property({ type: Boolean }) open: boolean;
@@ -26,9 +26,6 @@ export class VMDeviceCard extends VMTemplateDBMixin(
   constructor() {
     super();
     this.open = false;
-    this.subscribe(
-      "active-ic",
-    );
   }
 
   static styles = [
@@ -120,114 +117,117 @@ export class VMDeviceCard extends VMTemplateDBMixin(
     `,
   ];
 
-  _handleDeviceDBLoad(e: CustomEvent<any>): void {
-    super._handleDeviceDBLoad(e);
-    this.updateObject();
-  }
-
   onImageErr(e: Event) {
     this.image_err = true;
     console.log("Image load error", e);
   }
 
+  thisIsActiveIc = computed(() => {
+    return this.vm.value?.activeIC.value === this.objectIDSignal.value;
+  });
+
+  activeIcPins = computed(() => {
+    return this.vm.value?.state.getDevicePins(this.vm.value?.activeIC.value).value ?? [];
+  });
+
+  prefabName = computed(() => {
+    return this.vm.value?.state.getObject(this.objectIDSignal.value).value?.obj_info.prefab ?? "unknown";
+  });
+
+  objectName = computed(() => {
+    return this.vm.value?.state.getObject(this.objectIDSignal.value).value?.obj_info.name ?? "";
+  });
+
+  objectNameHash = computed(() => {
+    return crc32(this.vm.value?.state.getObject(this.objectIDSignal.value).value?.obj_info.name ?? "");
+  });
+
+
   renderHeader(): HTMLTemplateResult {
-    const thisIsActiveIc = computed(() => {
-      return this.activeICId.value === this.objectID.value;
-    });
-
-    const activeIc = computed(() => {
-      return globalObjectSignalMap.get(this.activeICId.value);
-    });
-
-    const numPins = computed(() => {
-      return activeIc.value.numPins.value;
-    });
-
-    const pins = computed(() => {
-      return new Array(numPins.value)
-        .fill(true)
-        .map((_, index) => this.objectSignals.pins.value.get(index));
-    });
     const badgesHtml = computed(() => {
-
       const badges: HTMLTemplateResult[] = [];
-      if (thisIsActiveIc.value) {
+      if (this.thisIsActiveIc.value) {
         badges.push(html`<sl-badge variant="primary" pill pulse>db</sl-badge>`);
       }
-      pins.value.forEach((id, index) => {
-        if (this.objectID.value == id) {
+      this.activeIcPins.value.forEach(([pin, id]) => {
+        if (this.objectIDSignal.value == id) {
           badges.push(
-            html`<sl-badge variant="success" pill>d${index}</sl-badge>`,
+            html`<sl-badge variant="success" pill>d${pin}</sl-badge>`,
           );
         }
       }, this);
       return badges
     });
+
+    const removeText = computed(() => {
+      return this.thisIsActiveIc.value
+        ? "Removing the selected Active IC is disabled"
+        : "Remove Device";
+    });
+
     return html`
-      <sl-tooltip content="${watch(this.objectSignals.prefabName)}">
+      <sl-tooltip content="${watch(this.prefabName)}">
         <img
           class="image me-2"
-          src="img/stationpedia/${watch(this.objectSignals.prefabName)}.png"
+          src="img/stationpedia/${watch(this.prefabName)}.png"
           onerror="this.src = '${VMDeviceCard.transparentImg}'"
         />
       </sl-tooltip>
       <div class="header-name">
         <sl-input
-          id="vmDeviceCard${watch(this.objectID)}Id"
+          id="vmDeviceCard${watch(this.objectIDSignal)}Id"
           class="device-id me-1"
           size="small"
           pill
-          value=${watch(this.objectID)}
+          value=${watch(this.objectIDSignal)}
           @sl-change=${this._handleChangeID}
         >
           <span slot="prefix">Id</span>
           <sl-copy-button
             slot="suffix"
-            .value=${watch(this.objectID)}
+            .value=${watch(this.objectIDSignal)}
           ></sl-copy-button>
         </sl-input>
         <sl-input
-          id="vmDeviceCard${watch(this.objectID)}Name"
+          id="vmDeviceCard${watch(this.objectIDSignal)}Name"
           class="device-name me-1"
           size="small"
           pill
-          placeholder=${watch(this.objectSignals.prefabName)}
-          value=${watch(this.objectSignals.name)}
+          placeholder=${watch(this.prefabName)}
+          value=${watch(this.objectName)}
           @sl-change=${this._handleChangeName}
         >
           <span slot="prefix">Name</span>
           <sl-copy-button
             slot="suffix"
-            from="vmDeviceCard${watch(this.objectID)}Name.value"
+            from="vmDeviceCard${watch(this.objectIDSignal)}Name.value"
           ></sl-copy-button>
         </sl-input>
         <sl-input
-          id="vmDeviceCard${watch(this.objectID)}NameHash"
+          id="vmDeviceCard${watch(this.objectIDSignal)}NameHash"
           size="small"
           pill
           class="device-name-hash me-1"
-          value="${watch(this.objectSignals.nameHash)}"
+          value="${watch(this.objectNameHash)}"
           readonly
         >
           <span slot="prefix">Hash</span>
           <sl-copy-button
             slot="suffix"
-            from="vmDeviceCard${this.objectID}NameHash.value"
+            from="vmDeviceCard${watch(this.objectIDSignal)}NameHash.value"
           ></sl-copy-button>
         </sl-input>
         ${watch(badgesHtml)}
       </div>
       <div class="ms-auto mt-auto mb-auto me-2">
         <sl-tooltip
-          content=${thisIsActiveIc
-            ? "Removing the selected Active IC is disabled"
-            : "Remove Device"}
+          content=${watch(removeText)}
         >
           <sl-icon-button
             class="remove-button"
             name="trash"
             label="Remove Device"
-            ?disabled=${thisIsActiveIc}
+            ?disabled=${watch(this.thisIsActiveIc)}
             @click=${this._handleDeviceRemoveButton}
           ></sl-icon-button>
         </sl-tooltip>
@@ -238,7 +238,7 @@ export class VMDeviceCard extends VMTemplateDBMixin(
   renderFields() {
     return this.delayRenderTab(
       "fields",
-      html`<vm-device-fields .deviceID=${this.objectID}></vm-device-fields>`,
+      html`<vm-device-fields .objectID=${watch(this.objectIDSignal)}></vm-device-fields>`,
     );
   }
 
@@ -249,17 +249,24 @@ export class VMDeviceCard extends VMTemplateDBMixin(
   static transparentImg =
     "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" as const;
 
+  objectSlotCount = computed(() => {
+    return this.vm.value?.state.getObjectSlotCount(this.objectIDSignal.value).value;
+  });
+
   async renderSlots() {
+    const slotsHtml = computed(() => {
+      return repeat(range(this.objectSlotCount.value),
+        (_slot, index) => html`
+          <vm-object-slot .objectID=${watch(this.objectIDSignal)} .slotIndex=${index} class-"flex flex-row max-w-lg mr-2 mb-2">
+          </vm-object-slot>
+        `,
+      );
+    });
     return this.delayRenderTab(
       "slots",
       html`
         <div class="flex flex-row flex-wrap">
-          ${repeat(Array(this.objectSignals.slotsCount),
-            (_slot, index) => html`
-              <vm-device-slot .deviceID=${this.objectID} .slotIndex=${index} class-"flex flex-row max-w-lg mr-2 mb-2">
-              </vm-device-slot>
-            `,
-          )}
+          ${watch(slotsHtml)}
         </div>
       `,
     );
@@ -269,37 +276,86 @@ export class VMDeviceCard extends VMTemplateDBMixin(
     return this.delayRenderTab("reagents", html``);
   }
 
-  renderNetworks() {
-    const vmNetworks = window.VM.vm.networkIds;
-    const networks = this.objectSignals.connections.value.map((connection, index, _conns) => {
-      const conn =
-        typeof connection === "object" && "CableNetwork" in connection
-          ? connection.CableNetwork
-          : null;
+  networkIds = computed(() => {
+    return this.vm.value?.state.networkIds.value ?? [];
+  });
+
+  numConnections = computed(() => {
+    return this.vm.value?.state.getObjectConnectionCount(this.objectIDSignal.value).value;
+  })
+
+  private _connectionsSelectRefMap: Map<number, Ref<SlSelect>> = new Map();
+
+  getConnectionSelectRef(index: number): Ref<SlSelect> {
+    if (!this._connectionsSelectRefMap.has(index)) {
+      this._connectionsSelectRefMap.set(index, createRef());
+    }
+    return this._connectionsSelectRefMap.get(index);
+  }
+
+  forceSelectUpdate(...slSelects: Ref<SlSelect>[]) {
+    for (const slSelect of slSelects) {
+      if (slSelect.value != null && "handleValueChange" in slSelect.value) {
+        slSelect.value.handleValueChange();
+      }
+    }
+  }
+
+  renderConnections() {
+    const connectionsHtml = computed(() => range(this.numConnections.value).map(index => {
+      const conn = computed(() => {
+        return this.vm.value?.state.getObjectConnection(this.objectIDSignal.value, index).value;
+      });
+      const connNet = computed(() => {
+        const connection: Connection = conn.value ?? "None";
+        if (typeof connection === "object" && "CableNetwork" in connection) {
+          return connection.CableNetwork.net;
+        }
+        return null;
+      });
+      const selectDisabled = computed(() => !isSome(connNet.value));
+      const selectOptions = computed(() => {
+        return this.networkIds.value.map(id => html`
+          <sl-option value=${id}>
+            Network ${id}
+          </sl-option>
+        `);
+      });
+      const connTyp = computed(() => {
+        const connection: Connection = conn.value ?? "None";
+        return typeof connection === "object" ? Object.keys(connection)[0] : connection;
+      });
+
+      const connectionSelectRef = this.getConnectionSelectRef(index);
+      selectOptions.subscribe(() => {this.forceSelectUpdate(connectionSelectRef)})
+
+      connNet.subscribe((net) => {
+        if (isSome(connectionSelectRef.value)) {
+          connectionSelectRef.value.value = net.toString(0)
+          connectionSelectRef.value.handleValueChange();
+        }
+      })
+
       return html`
         <sl-select
           hoist
           placement="top"
           clearable
           key=${index}
-          value=${conn?.net}
-          ?disabled=${conn === null}
+          value=${watch(connNet)}
+          ?disabled=${watch(selectDisabled)}
           @sl-change=${this._handleChangeConnection}
+          ${ref(connectionSelectRef)}
         >
           <span slot="prefix">Connection:${index} </span>
-          ${vmNetworks.value.map(
-            (net) =>
-              html`<sl-option value=${net.toString()}
-                >Network ${net}</sl-option
-              >`,
-          )}
-          <span slot="prefix"> ${conn?.typ} </span>
+            ${watch(selectOptions)}
+          <span slot="prefix"> ${watch(connTyp)} </span>
         </sl-select>
       `;
-    });
+    }));
     return this.delayRenderTab(
       "networks",
-      html`<div class="networks">${networks}</div>`,
+      html`<div class="networks">${watch(connectionsHtml)}</div>`,
     );
   }
 
@@ -307,7 +363,7 @@ export class VMDeviceCard extends VMTemplateDBMixin(
     return this.delayRenderTab(
       "pins",
       html`<div class="pins">
-        <vm-device-pins .deviceID=${this.objectID}></vm-device-pins>
+        <vm-device-pins .objectID=${watch(this.objectIDSignal)}></vm-device-pins>
       </div>`,
     );
   }
@@ -319,12 +375,12 @@ export class VMDeviceCard extends VMTemplateDBMixin(
       resolver?: (result: HTMLTemplateResult) => void;
     };
   } = {
-    fields: {},
-    slots: {},
-    reagents: {},
-    networks: {},
-    pins: {},
-  };
+      fields: {},
+      slots: {},
+      reagents: {},
+      networks: {},
+      pins: {},
+    };
 
   delayRenderTab(
     name: CardTab,
@@ -351,9 +407,22 @@ export class VMDeviceCard extends VMTemplateDBMixin(
     }
   }
 
+  numPins = computed(() => {
+    return this.vm.value?.state.getDeviceNumPins(this.objectIDSignal.value)
+  });
+
+  displayName = computed(() => {
+    const obj = this.vm.value?.state.getObject(this.objectIDSignal.value).value;
+    return obj?.obj_info.name ?? obj?.obj_info.prefab ?? null;
+  });
+
+  imageName = computed(() => {
+    const obj = this.vm.value?.state.getObject(this.objectIDSignal.value).value;
+    return obj?.obj_info.prefab ?? "error";
+  });
+
   render(): HTMLTemplateResult {
-    const disablePins = computed(() => {return !this.objectSignals.numPins.value;});
-    const displayName = computed(() => { return this.objectSignals.name.value ?? this.objectSignals.prefabName.value})
+    const disablePins = computed(() => { return !this.numPins.value; });
     return html`
       <ic10-details class="device-card" ?open=${this.open}>
         <div class="header" slot="summary">${this.renderHeader()}</div>
@@ -376,7 +445,7 @@ export class VMDeviceCard extends VMTemplateDBMixin(
             ${until(this.renderReagents(), html`<sl-spinner></sl-spinner>`)}
           </sl-tab-panel>
           <sl-tab-panel name="networks">
-            ${until(this.renderNetworks(), html`<sl-spinner></sl-spinner>`)}
+            ${until(this.renderConnections(), html`<sl-spinner></sl-spinner>`)}
           </sl-tab-panel>
           <sl-tab-panel name="pins"
             >${until(this.renderPins(), html`<sl-spinner></sl-spinner>`)}
@@ -391,12 +460,12 @@ export class VMDeviceCard extends VMTemplateDBMixin(
         <div class="remove-dialog-body">
           <img
             class="dialog-image mt-auto mb-auto me-2"
-            src="img/stationpedia/${watch(this.objectSignals.prefabName)}.png"
+            src="img/stationpedia/${watch(this.imageName)}.png"
             onerror="this.src = '${VMDeviceCard.transparentImg}'"
           />
           <div class="flex-g">
             <p><strong>Are you sure you want to remove this device?</strong></p>
-            <span>Id ${this.objectID} : ${watch(displayName)}</span>
+            <span>Id ${watch(this.objectIDSignal)} : ${watch(this.displayName)}</span>
           </div>
         </div>
         <div slot="footer">
@@ -435,7 +504,7 @@ export class VMDeviceCard extends VMTemplateDBMixin(
     const val = parseIntWithHexOrBinary(input.value);
     if (!isNaN(val)) {
       window.VM.get().then((vm) => {
-        if (!vm.changeObjectID(this.objectID.peek(), val)) {
+        if (!vm.changeObjectID(this.objectID, val)) {
           input.value = this.objectID.toString();
         }
       });
@@ -448,10 +517,9 @@ export class VMDeviceCard extends VMTemplateDBMixin(
     const input = e.target as SlInput;
     const name = input.value.length === 0 ? undefined : input.value;
     window.VM.get().then((vm) => {
-      if (!vm.setObjectName(this.objectID.peek(), name)) {
-        input.value = this.objectSignals.name.value;
+      if (!vm.setObjectName(this.objectID, name)) {
+        input.value = this.objectName.peek();
       }
-      this.updateObject();
     });
   }
   _handleDeviceRemoveButton(_e: Event) {
@@ -460,7 +528,7 @@ export class VMDeviceCard extends VMTemplateDBMixin(
 
   _removeDialogRemove() {
     this.removeDialog.hide();
-    window.VM.get().then((vm) => vm.removeDevice(this.objectID.peek()));
+    window.VM.get().then((vm) => vm.removeDevice(this.objectID));
   }
 
   _handleChangeConnection(e: CustomEvent) {
@@ -468,8 +536,7 @@ export class VMDeviceCard extends VMTemplateDBMixin(
     const conn = parseInt(select.getAttribute("key")!);
     const val = select.value ? parseInt(select.value as string) : undefined;
     window.VM.get().then((vm) =>
-      vm.setDeviceConnection(this.objectID.peek(), conn, val),
+      vm.setDeviceConnection(this.objectID, conn, val),
     );
-    this.updateObject();
   }
 }

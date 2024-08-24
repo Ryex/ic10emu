@@ -1,14 +1,14 @@
 import { html, css, nothing } from "lit";
 import { customElement } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMActiveICMixin } from "virtualMachine/baseDevice";
+import { VMObjectMixin } from "virtualMachine/baseDevice";
 
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
-import { displayNumber, parseNumber } from "utils";
+import { displayNumber, parseNumber, range } from "utils";
 import { computed, watch } from "@lit-labs/preact-signals";
 
 @customElement("vm-ic-stack")
-export class VMICStack extends VMActiveICMixin(BaseElement) {
+export class VMICStack extends VMObjectMixin(BaseElement) {
   static styles = [
     ...defaultCss,
     css`
@@ -36,25 +36,38 @@ export class VMICStack extends VMActiveICMixin(BaseElement) {
     `,
   ];
 
-  constructor() {
-    super();
-    this.subscribe("active-ic")
+  circuit = computed(() => {
+    return this.vm.value?.state.getCircuitInfo(this.vm.value?.activeIC.value).value;
+  });
+
+  sp = computed(() => {
+    return this.circuit.value?.registers[16] ?? 0;
+  });
+
+  socketedIc = computed(() => {
+    return this.vm.value?.state.getObject(this.vm.value?.activeIC.value).value?.obj_info.socketed_ic ?? null;
+  })
+
+  memorySize = computed(() => {
+    return this.vm.value?.state.getObjectMemorySize(this.socketedIc.value).value;
+  });
+
+  memoryAt(index: number) {
+    return computed(() => {
+      return this.vm.value?.state.getObjectMemoryAt(this.socketedIc.value, index).value
+    });
   }
 
   protected render() {
-    const sp = computed(() => {
-      return this.objectSignals.registers.value != null ? this.objectSignals.registers.value[16] : 0;
-    });
-
-    const memoryHtml = this.objectSignals?.memory.peek()?.map((val, index) => {
+    const memoryHtml = computed(() => range(this.memorySize.value).map(index => {
       const content = computed(() => {
-        return sp.value === index ? html`<strong>Stack Pointer</strong>` : nothing;
+        return this.sp.value === index ? html`<strong>Stack Pointer</strong>` : nothing;
       });
       const pointerClass = computed(() => {
-        return sp.value === index ? "stack-pointer" : nothing;
+        return this.sp.value === index ? "stack-pointer" : nothing;
       });
       const displayVal = computed(() => {
-        return displayNumber(this.objectSignals.memory.value[index]);
+        return displayNumber(this.memoryAt(index).value);
       });
 
       return html`
@@ -75,12 +88,12 @@ export class VMICStack extends VMActiveICMixin(BaseElement) {
           </sl-input>
         </sl-tooltip>
       `;
-    }) ?? nothing;
+    }));
 
     return html`
       <sl-card class="card">
         <div class="card-body">
-          ${memoryHtml}
+          ${watch(memoryHtml)}
         </div>
       </sl-card>
     `;

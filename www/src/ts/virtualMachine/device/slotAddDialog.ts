@@ -1,27 +1,25 @@
 import { html, css, nothing } from "lit";
-import { customElement, property, query, state } from "lit/decorators.js";
+import { customElement, query } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { ComputedObjectSignals, globalObjectSignalMap, VMTemplateDBMixin } from "virtualMachine/baseDevice";
+import { VMObjectMixin } from "virtualMachine/baseDevice";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
 import SlDialog from "@shoelace-style/shoelace/dist/components/dialog/dialog.component.js";
 import { VMDeviceCard } from "./card";
-import { when } from "lit/directives/when.js";
 import uFuzzy from "@leeoniya/ufuzzy";
 import {
   FrozenObject,
   ItemInfo,
-  LogicField,
-  LogicSlotType,
   ObjectInfo,
   ObjectTemplate,
 } from "ic10emu_wasm";
 import { computed, ReadonlySignal, signal, Signal, watch } from "@lit-labs/preact-signals";
 import { repeat } from "lit/directives/repeat.js";
+import { isSome, structuralEqual } from "utils";
 
 type SlotableItemTemplate = Extract<ObjectTemplate, { item: ItemInfo }>;
 
 @customElement("vm-slot-add-dialog")
-export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
+export class VMSlotAddDialog extends VMObjectMixin(BaseElement) {
   static styles = [
     ...defaultCss,
     css`
@@ -40,11 +38,6 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
     `,
   ];
 
-  private _items: Signal<Record<string, SlotableItemTemplate>> = signal({});
-  private _filteredItems: ReadonlySignal<SlotableItemTemplate[]>;
-  private _datapoints: ReadonlySignal<[string, string][]>;
-  private _haystack: ReadonlySignal<string[]>;
-
   private _filter: Signal<string> = signal("");
   get filter() {
     return this._filter.peek();
@@ -54,75 +47,104 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
     this._filter.value = val;
   }
 
-  private _searchResults: ReadonlySignal<{
-    entry: SlotableItemTemplate;
-    haystackEntry: string;
-    ranges: number[];
-  }[]>;
+  templateDB = computed(() => {
+    return this.vm.value?.state.templateDB.value ?? null;
+  });
 
-  constructor() {
-    super();
-    this.setupSearch();
-  }
+  items = (() => {
+    let last: { [k: string]: SlotableItemTemplate } = null;
+    return computed(() => {
+      const next = Object.fromEntries(
+        Array.from(Object.values(this.templateDB.value ?? {})).flatMap((template) => {
+          if ("item" in template) {
+            return [[template.prefab.prefab_name, template]] as [
+              string,
+              SlotableItemTemplate,
+            ][];
+          } else {
+            return [] as [string, SlotableItemTemplate][];
+          }
+        }),
+      );
+      if (structuralEqual(last, next)) {
+        return last;
+      }
+      last = next;
+      return next;
+    });
+  })();
 
-  postDBSetUpdate(): void {
-    this._items.value = Object.fromEntries(
-      Array.from(Object.values(this.templateDB)).flatMap((template) => {
-        if ("item" in template) {
-          return [[template.prefab.prefab_name, template]] as [
-            string,
-            SlotableItemTemplate,
-          ][];
-        } else {
-          return [] as [string, SlotableItemTemplate][];
-        }
-      }),
-    );
-  }
-
-  setupSearch() {
-    const filteredItems = computed(() => {
-      let filtered = Array.from(Object.values(this._items.value));
-      const obj = globalObjectSignalMap.get(this.objectID.value ?? null);
-      if (obj != null) {
+  filteredItems = (() => {
+    let last: SlotableItemTemplate[] = null;
+    return computed(() => {
+      let filtered = Array.from(Object.values(this.items.value));
+      const obj = this.vm.value?.state.getObject(this.objectIDSignal.value).value;
+      if (isSome(obj)) {
         const template = obj.template;
-        const slot = "slots" in template.value ? template.value.slots[this.slotIndex.value] : null;
+        const slot = "slots" in template ? template.slots[this.slotIndex.value] : null;
         const typ = slot.typ;
 
         if (typeof typ === "string" && typ !== "None") {
-          filtered = Array.from(Object.values(this._items.value)).filter(
+          filtered = Array.from(Object.values(this.items.value)).filter(
             (item) => item.item.slot_class === typ,
           );
         }
       }
+      if (structuralEqual(last, filtered)) {
+        return last;
+      }
+      last = filtered;
       return filtered;
     });
-    this._filteredItems = filteredItems;
+  })();
 
-    const datapoints = computed(() => {
+  datapoints = (() => {
+    let last: [string, string][] = null;
+    return computed(() => {
       const datapoints: [string, string][] = [];
-      for (const entry of this._filteredItems.value) {
+      for (const entry of this.filteredItems.value) {
         datapoints.push(
           [entry.prefab.name, entry.prefab.prefab_name],
           [entry.prefab.prefab_name, entry.prefab.prefab_name],
           [entry.prefab.desc, entry.prefab.prefab_name],
         );
       }
+      if (structuralEqual(last, datapoints)) {
+        return last;
+      }
+      last = datapoints;
       return datapoints;
     });
-    this._datapoints = datapoints;
+  })();
 
-    const haystack: Signal<string[]> = computed(() => {
-      return datapoints.value.map((data) => data[0]);
+  haystack = (() => {
+    let last: string[] = null;
+    return computed(() => {
+      const hay = this.datapoints.value.map(data => data[0])
+      if (structuralEqual(last, hay)) {
+        return last;
+      }
+      last = hay;
+      return hay
     });
-    this._haystack = haystack;
+  })();
 
-    const searchResults = computed(() => {
+  searchResults: ReadonlySignal<{
+    entry: SlotableItemTemplate
+    haystackEntry: string,
+    ranges: number[]
+  }[]> = (() => {
+    let last: {
+      entry: SlotableItemTemplate
+      haystackEntry: string,
+      ranges: number[]
+    }[] = null;
+    return computed(() => {
       let results;
       if (this._filter.value) {
         const uf = new uFuzzy({});
         const [_idxs, info, order] = uf.search(
-          this._haystack.value,
+          this.haystack.value,
           this._filter.value,
           0,
           1e3,
@@ -130,8 +152,8 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
 
         const filtered =
           order?.map((infoIdx) => ({
-            name: this._datapoints.value[info.idx[infoIdx]][1],
-            haystackEntry: this._haystack.value[info.idx[infoIdx]],
+            name: this.datapoints.value[info.idx[infoIdx]][1],
+            haystackEntry: this.haystack.value[info.idx[infoIdx]],
             ranges: info.ranges[infoIdx],
           })) ?? [];
 
@@ -141,22 +163,25 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
         });
 
         results = unique.map(({ name, haystackEntry, ranges }) => ({
-          entry: this._items.value[name]!,
+          entry: this.items.value[name]!,
           haystackEntry,
           ranges,
         }));
       } else {
         // return everything
-        results = [...this._filteredItems.value].map((st) => ({
+        results = [...this.filteredItems.value].map((st) => ({
           entry: st,
           haystackEntry: st.prefab.prefab_name,
           ranges: [],
         }));
       }
+      if (structuralEqual(last, results)) {
+        return last;
+      }
+      last = results
       return results;
     });
-    this._searchResults = searchResults;
-  }
+  })();
 
   renderSearchResults() {
     const enableNone = false;
@@ -170,7 +195,7 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
     `;
     const resultsHtml = computed(() => {
       return repeat(
-        this._searchResults.value,
+        this.searchResults.value,
         (result) => {
           return result.entry.prefab.prefab_hash;
         },
@@ -205,15 +230,15 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
   }
 
   _handleClickNone() {
-    window.VM.vm.removeSlotOccupant(this.objectID.peek(), this.slotIndex.peek());
+    window.VM.vm.removeSlotOccupant(this.objectID, this.slotIndex.peek());
     this.hide();
   }
 
   _handleClickItem(e: Event) {
     const div = e.currentTarget as HTMLDivElement;
     const key = parseInt(div.getAttribute("key"));
-    const entry = this.templateDB.get(key) as SlotableItemTemplate;
-    const obj = window.VM.vm.objects.get(this.objectID.peek());
+    const entry = this.templateDB.value.get(key) as SlotableItemTemplate;
+    const obj = window.VM.vm.state.getObject(this.objectID);
     const dbTemplate = obj.peek().template;
     console.log("using entry", dbTemplate);
 
@@ -224,7 +249,7 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
       database_template: true,
       template: undefined,
     };
-    window.VM.vm.setSlotOccupant(this.objectID.peek(), this.slotIndex.peek(), template, 1);
+    window.VM.vm.setSlotOccupant(this.objectID, this.slotIndex.peek(), template, 1);
     this.hide();
   }
 
@@ -232,14 +257,10 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
   @query(".device-search-input") searchInput: SlInput;
 
   render() {
-    const device = computed(() => {
-      return globalObjectSignalMap.get(this.objectID.value) ?? null;
+   const name = computed(() => {
+      return this.vm.value?.state.getObjectDisplayName(this.objectIDSignal.value) ?? "";
     });
-    const name = computed(() => {
-      return device.value?.displayName.value ?? nothing;
-
-    });
-    const id = computed(() => this.objectID.value ?? 0);
+    const id = computed(() => this.objectIDSignal.value ?? 0);
     const resultsHtml = html`
       <div class="flex flex-row overflow-x-auto">
         ${this.renderSearchResults()}
@@ -284,11 +305,10 @@ export class VMSlotAddDialog extends VMTemplateDBMixin(BaseElement) {
     this.slotIndex = undefined;
   }
 
-  private objectID: Signal<number> = signal(null);
   private slotIndex: Signal<number> = signal(0);
 
   show(objectID: number, slotIndex: number) {
-    this.objectID.value = objectID;
+    this.objectIDSignal.value = objectID;
     this.slotIndex.value = slotIndex;
     this.dialog.show();
     this.searchInput.select();

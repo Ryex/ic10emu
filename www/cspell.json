@@ -132,6 +132,7 @@
         "trunc",
         "ufuzzy",
         "VMIC",
+        "VMUI",
         "vstack",
         "whos"
     ],

@@ -155,7 +155,7 @@ impl VM {
             obj_ids.push(obj_id)
         }
 
-        transaction.finialize()?;
+        transaction.finalize()?;
 
         let transaction_ids = transaction.id_space.in_use_ids();
         self.id_space.borrow_mut().use_new_ids(&transaction_ids);
@@ -200,15 +200,12 @@ impl VM {
     /// current database.
     /// Errors if the object can not be built do to a template error
     /// Returns the built object's ID
-    pub fn add_object_frozen(
-        self: &Rc<Self>,
-        frozen: FrozenObject,
-    ) -> Result<ObjectID, VMError> {
+    pub fn add_object_frozen(self: &Rc<Self>, frozen: FrozenObject) -> Result<ObjectID, VMError> {
         let mut transaction = VMTransaction::new(self);
 
         let obj_id = transaction.add_object_from_frozen(frozen)?;
 
-        transaction.finialize()?;
+        transaction.finalize()?;
 
         let transaction_ids = transaction.id_space.in_use_ids();
         self.id_space.borrow_mut().use_new_ids(&transaction_ids);
@@ -1351,17 +1348,7 @@ impl VM {
                 .objects
                 .borrow()
                 .iter()
-                .filter_map(|(_obj_id, obj)| {
-                    if obj
-                        .borrow()
-                        .as_item()
-                        .is_some_and(|item| item.get_parent_slot().is_some())
-                    {
-                        None
-                    } else {
-                        Some(FrozenObject::freeze_object_sparse(obj, self))
-                    }
-                })
+                .map(|(_obj_id, obj)| FrozenObject::freeze_object_sparse(obj, self))
                 .collect::<Result<Vec<_>, _>>()?,
             networks: self
                 .networks
@@ -1406,7 +1393,7 @@ impl VM {
         for frozen in state.objects {
             let _ = transaction.add_object_from_frozen(frozen)?;
         }
-        transaction.finialize()?;
+        transaction.finalize()?;
 
         self.circuit_holders.borrow_mut().clear();
         self.program_holders.borrow_mut().clear();
@@ -1423,6 +1410,7 @@ impl VM {
         let transaction_ids = transaction.id_space.in_use_ids();
         self.id_space.borrow_mut().use_ids(&transaction_ids)?;
 
+        self.objects.borrow_mut().extend(transaction.objects);
         self.circuit_holders
             .borrow_mut()
             .extend(transaction.circuit_holders);
@@ -1557,7 +1545,7 @@ impl VMTransaction {
         Ok(obj_id)
     }
 
-    pub fn finialize(&mut self) -> Result<(), VMError> {
+    pub fn finalize(&mut self) -> Result<(), VMError> {
         for (child, (slot, parent)) in &self.object_parents {
             let child_obj = self
                 .objects
