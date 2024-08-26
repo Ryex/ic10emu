@@ -526,7 +526,12 @@ export class VMState {
     if (!this.signalCacheHas(key)) {
       const s = computed((): number => {
         const obj = this.getObject(id).value;
-        return [...obj?.obj_info.device_pins?.keys() ?? []].length;
+        const template = obj?.template;
+        let numPins = [...obj?.obj_info.device_pins?.keys() ?? []].length;
+        if (isSome(template) && "device" in template) {
+          numPins = template.device.device_pins_length ?? 0;
+        }
+        return numPins;
       });
       this.signalCacheSet(key, s);
       return s;

@@ -54,7 +54,7 @@ export class VMAddDeviceButton extends VMObjectMixin(BaseElement) {
     let last: Map<string, LogicableStructureTemplate> = null
     return computed(() => {
       const next = new Map(
-        Array.from(Object.values(this.templateDB.value ?? {})).flatMap((template) => {
+        Array.from(this.templateDB.value?.values() ?? []).flatMap((template) => {
           if ("structure" in template && "logic" in template) {
             return [[template.prefab.prefab_name, template]] as [
               string,
@@ -244,7 +244,7 @@ export class VMAddDeviceButton extends VMObjectMixin(BaseElement) {
           (result) =>
             html`
           <vm-device-template
-            prefab_name=${result.entry.prefab.prefab_name}
+            prefabName=${result.entry.prefab.prefab_name}
             class="card"
             @add-device-template=${this._handleDeviceAdd}
           >

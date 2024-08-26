@@ -11,6 +11,7 @@ import {
   ItemInfo,
   ObjectInfo,
   ObjectTemplate,
+  TemplateDatabase,
 } from "ic10emu_wasm";
 import { computed, ReadonlySignal, signal, Signal, watch } from "@lit-labs/preact-signals";
 import { repeat } from "lit/directives/repeat.js";
@@ -47,7 +48,7 @@ export class VMSlotAddDialog extends VMObjectMixin(BaseElement) {
     this._filter.value = val;
   }
 
-  templateDB = computed(() => {
+  templateDB = computed((): TemplateDatabase => {
     return this.vm.value?.state.templateDB.value ?? null;
   });
 
@@ -55,7 +56,7 @@ export class VMSlotAddDialog extends VMObjectMixin(BaseElement) {
     let last: { [k: string]: SlotableItemTemplate } = null;
     return computed(() => {
       const next = Object.fromEntries(
-        Array.from(Object.values(this.templateDB.value ?? {})).flatMap((template) => {
+        Array.from(this.templateDB.value?.values() ?? []).flatMap((template) => {
           if ("item" in template) {
             return [[template.prefab.prefab_name, template]] as [
               string,
@@ -82,7 +83,7 @@ export class VMSlotAddDialog extends VMObjectMixin(BaseElement) {
       if (isSome(obj)) {
         const template = obj.template;
         const slot = "slots" in template ? template.slots[this.slotIndex.value] : null;
-        const typ = slot.typ;
+        const typ = slot?.typ;
 
         if (typeof typ === "string" && typ !== "None") {
           filtered = Array.from(Object.values(this.items.value)).filter(
@@ -238,10 +239,6 @@ export class VMSlotAddDialog extends VMObjectMixin(BaseElement) {
     const div = e.currentTarget as HTMLDivElement;
     const key = parseInt(div.getAttribute("key"));
     const entry = this.templateDB.value.get(key) as SlotableItemTemplate;
-    const obj = window.VM.vm.state.getObject(this.objectID);
-    const dbTemplate = obj.peek().template;
-    console.log("using entry", dbTemplate);
-
     const template: FrozenObject = {
       obj_info: {
         prefab: entry.prefab.prefab_name,
@@ -301,8 +298,8 @@ export class VMSlotAddDialog extends VMObjectMixin(BaseElement) {
   }
 
   _handleDialogHide() {
-    this.objectID = undefined;
-    this.slotIndex = undefined;
+    this.objectIDSignal.value = null;
+    this.slotIndex.value = null;
   }
 
   private slotIndex: Signal<number> = signal(0);

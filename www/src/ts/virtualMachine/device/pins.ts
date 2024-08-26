@@ -81,7 +81,7 @@ export class VMDevicePins extends VMObjectMixin(BaseElement) {
         }
       );
     });
-    return pinsHtml;
+    return html`${watch(pinsHtml)}`;
   }
 
   _handleChangePin(e: CustomEvent) {

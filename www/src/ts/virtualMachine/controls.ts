@@ -76,7 +76,7 @@ export class VMICControls extends VMObjectMixin(SignalWatcher(BaseElement)) {
     }
     this.selectUpdateTimeout = setTimeout(() => {
       if (this.activeICSelect.value != null) {
-        this.activeICSelect.value.value = this.activeIC.value.toString();
+        this.activeICSelect.value.value = this.activeIC.value?.toString() ?? "";
         this.activeICSelect.value.handleValueChange();
       }
     }, 100);

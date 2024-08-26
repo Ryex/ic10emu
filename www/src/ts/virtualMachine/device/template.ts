@@ -20,7 +20,7 @@ import { customElement, property, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
 
 import { connectionFromConnectionInfo } from "./dbutils";
-import { crc32, displayNumber, parseNumber, structuralEqual } from "utils";
+import { crc32, displayNumber, isSome, parseNumber, structuralEqual } from "utils";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js";
 import { VMDeviceCard } from "./card";
@@ -76,16 +76,16 @@ export class VmObjectTemplate extends VMObjectMixin(BaseElement) {
     `,
   ];
 
-  fields: Signal<Record<LogicType, number>>;
-  slots: Signal<SlotTemplate[]>;
-  pins: Signal<(ObjectID | undefined)[]>;
-  template: Signal<FrozenObject>;
-  objectId: Signal<number | undefined>;
-  objectName: Signal<string | undefined>;
-  connections: Signal<Connection[]>;
+  fields: Signal<Record<LogicType, number>> = signal(null);
+  slots: Signal<SlotTemplate[]> = signal([]);
+  pins: Signal<(ObjectID | null)[]> = signal(null);
+  template: Signal<FrozenObject> = signal(null);
+  objectId: Signal<number | null> = signal(null);
+  objectName: Signal<string | null> = signal(null);
+  connections: Signal<Connection[]> = signal([]);
 
   private prefabNameSignal = signal(null);
-  private prefabHashSignal = computed(() => crc32(this.prefabNameSignal.value));
+  private prefabHashSignal = computed(() => crc32(this.prefabNameSignal.value ?? ""));
 
   get prefabName(): string {
     return this.prefabNameSignal.peek();
@@ -114,6 +114,10 @@ export class VmObjectTemplate extends VMObjectMixin(BaseElement) {
   constructor() {
     super();
     this.dbTemplate.subscribe(() => this.setupState())
+    this.prefabNameSignal.subscribe(() => this.setupState());
+    this.networkOptions.subscribe((_) => {
+      this.forceSelectUpdate(this.networksSelectRef);
+    })
   }
 
   setupState() {
@@ -122,8 +126,8 @@ export class VmObjectTemplate extends VMObjectMixin(BaseElement) {
     this.fields.value = Object.fromEntries(
       (
         Array.from(
-          "logic" in dbTemplate
-            ? Object.entries(dbTemplate.logic.logic_types)
+          isSome(dbTemplate) && "logic" in dbTemplate
+            ? dbTemplate.logic.logic_types.entries()
             : [],
         ) as [LogicType, MemoryAccess][]
       ).map(([lt, access]) => {
@@ -134,7 +138,7 @@ export class VmObjectTemplate extends VMObjectMixin(BaseElement) {
     ) as Record<LogicType, number>;
 
     this.slots.value = (
-      ("slots" in dbTemplate ? dbTemplate.slots ?? [] : []) as SlotInfo[]
+      (isSome(dbTemplate) && "slots" in dbTemplate ? dbTemplate.slots ?? [] : []) as SlotInfo[]
     ).map(
       (slot, _index) =>
         ({
@@ -144,7 +148,7 @@ export class VmObjectTemplate extends VMObjectMixin(BaseElement) {
     );
 
     const connections = (
-      "device" in dbTemplate
+      isSome(dbTemplate) && "device" in dbTemplate
         ? dbTemplate.device.connection_list
         : ([] as ConnectionInfo[])
     ).map(
@@ -163,27 +167,30 @@ export class VmObjectTemplate extends VMObjectMixin(BaseElement) {
     this.connections.value = connections.map((conn) => conn[1]);
 
     const numPins =
-      "device" in dbTemplate ? dbTemplate.device.device_pins_length : 0;
+      isSome(dbTemplate) && "device" in dbTemplate ? dbTemplate.device.device_pins_length : 0;
     this.pins.value = new Array(numPins).fill(undefined);
   }
 
-  renderFields(): HTMLTemplateResult {
-    const fields = Object.entries(this.fields);
-    return html`
-      ${fields.map(([name, field], _index, _fields) => {
+  fieldsHtml = computed(() => {
+    const fields = Object.entries(this.fields.value);
+    fields.map(([name, field], _index, _fields) => {
       return html`
           <sl-input
             key="${name}"
-            value="${displayNumber(field.value)}"
+            value="${displayNumber(field)}"
             size="small"
             @sl-change=${this._handleChangeField}
             ?disabled=${name === "PrefabHash"}
           >
             <span slot="prefix">${name}</span>
-            <span slot="suffix">${field.field_type}</span>
           </sl-input>
         `;
-    })}
+    });
+  });
+
+  renderFields(): HTMLTemplateResult {
+    return html`
+      ${watch(this.fieldsHtml)}
     `;
   }
 
@@ -191,7 +198,7 @@ export class VmObjectTemplate extends VMObjectMixin(BaseElement) {
     const input = e.target as SlInput;
     const field = input.getAttribute("key")! as LogicType;
     const val = parseNumber(input.value);
-    this.fields.value = { ...this.fields.value, [field]: val};
+    this.fields.value = { ...this.fields.value, [field]: val };
     if (field === "ReferenceId" && val !== 0) {
       this.objectIDSignal.value = val;
     }
@@ -224,38 +231,34 @@ export class VmObjectTemplate extends VMObjectMixin(BaseElement) {
     return vm?.state.networkIds.value.map(net => html`<sl-option value=${net}>Network ${net}</sl-option>`);
   });
 
-  renderNetworks() {
-    const vm = window.VM.vm;
-    this.networkOptions.subscribe((_) => {
-     this.forceSelectUpdate(this.networksSelectRef);
-    })
-    const connections = computed(() => {
-      this.connections.value.map((connection, index, _conns) => {
-        const conn =
-          typeof connection === "object" && "CableNetwork" in connection
-            ? connection.CableNetwork
-            : null;
-        return html`
-          <sl-select
-            hoist
-            placement="top"
-            clearable
-            key=${index}
-            value=${conn?.net}
-            ?disabled=${conn === null}
-            @sl-change=${this._handleChangeConnection}
-            ${ref(this.networksSelectRef)}
-          >
-            <span slot="prefix">Connection:${index} </span>
-            ${watch(this.networkOptions)}
-            <span slot="prefix"> ${conn?.typ} </span>
-          </sl-select>
-        `;
-      });
+  connectionsHtml = computed(() => {
+    this.connections.value?.map((connection, index, _conns) => {
+      const conn =
+        typeof connection === "object" && "CableNetwork" in connection
+          ? connection.CableNetwork
+          : null;
+      return html`
+        <sl-select
+          hoist
+          placement="top"
+          clearable
+          key=${index}
+          value=${conn?.net}
+          ?disabled=${conn === null}
+          @sl-change=${this._handleChangeConnection}
+          ${ref(this.networksSelectRef)}
+        >
+          <span slot="prefix">Connection:${index} </span>
+          ${watch(this.networkOptions)}
+          <span slot="prefix"> ${conn?.typ} </span>
+        </sl-select>
+      `;
     });
+  });
+  renderNetworks() {
     return html`
       <div class="networks">
-        ${watch(connections)}
+        ${watch(this.connectionsHtml)}
       </div>
     `;
   }
@@ -271,7 +274,7 @@ export class VmObjectTemplate extends VMObjectMixin(BaseElement) {
 
   private _pinsSelectRefMap: Map<number, Ref<SlSelect>> = new Map();
 
-  getPinRef(index: number) : Ref<SlSelect> {
+  getPinRef(index: number): Ref<SlSelect> {
     if (!this._pinsSelectRefMap.has(index)) {
       this._pinsSelectRefMap.set(index, createRef());
     }
@@ -359,8 +362,8 @@ export class VmObjectTemplate extends VMObjectMixin(BaseElement) {
 
   render() {
     const device = this.dbTemplate;
-    const prefabName = computed(() => device.value.prefab.prefab_name);
-    const name = computed(() => device.value.prefab.name);
+    const prefabName = computed(() => device.value?.prefab.prefab_name ?? "");
+    const name = computed(() => device.value?.prefab.name ?? "");
     return html`
       <sl-card class="template-card">
         <div class="header h-20 w-96" slot="header">

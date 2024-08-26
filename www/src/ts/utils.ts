@@ -55,7 +55,7 @@ export function crc32(str: string): number {
 
 export function numberToString(n: number): string {
   if (isZeroNegative(n)) return "-0";
-  return n.toString();
+  return n?.toString() ?? `${n}`;
 }
 export function displayNumber(n: number): string {
   return numberToString(n).replace("Infinity", "∞");
