@@ -23,15 +23,10 @@ export interface ToastMessage {
   id: string;
 }
 import {
-  signal,
   computed,
-  effect,
-  batch,
 } from '@lit-labs/preact-signals';
-import type { Signal } from '@lit-labs/preact-signals';
 import { getJsonContext } from "./jsonErrorUtils";
 import { VMState } from "./state";
-import { Obj } from "@popperjs/core";
 
 export interface VirtualMachineEventMap {
   "vm-template-db-loaded": CustomEvent<TemplateDatabase>;
@@ -94,19 +89,19 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
   }
 
   async updateCode() {
-    const progs = this.app.session.programs.peek();
+    const progs = this.app.session.programs;
     for (const id of progs.keys()) {
       const attempt = Date.now().toString(16);
-      const circuitHolder = this.state.getObject(id);
-      const prog = progs.get(id);
+      const vmProg = this.state.getObjectProgramSource(id).peek();
+      const prog = progs.get(id).peek();
       if (
-        circuitHolder &&
+        vmProg &&
         prog &&
-        circuitHolder.peek().obj_info.source_code !== prog
+        vmProg !== prog
       ) {
         try {
           console.time(`CompileProgram_${id}_${attempt}`);
-          await this.ic10vm.setCodeInvalid(id, progs.get(id)!);
+          await this.ic10vm.setCodeInvalid(id, prog);
           const errors = await this.ic10vm.getCompileErrors(id);
           this.app.session.setProgramErrors(id, errors);
           this.dispatchCustomEvent("vm-object-modified", id);

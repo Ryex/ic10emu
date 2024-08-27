@@ -60,6 +60,7 @@
         "brne",
         "brnez",
         "Circuitboard",
+        "Clrd",
         "codegen",
         "conv",
         "cstyle",
@@ -110,6 +111,7 @@
         "reagentmodes",
         "repr",
         "retval",
+        "Rmap",
         "rocketstation",
         "rparen",
         "sapz",
@@ -143,6 +145,7 @@
         "trunc",
         "Tsify",
         "uneval",
-        "whos"
+        "whos",
+        "xtask"
     ]
 }

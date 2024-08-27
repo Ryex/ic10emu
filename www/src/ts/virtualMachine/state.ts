@@ -593,7 +593,16 @@ export class VMState {
     const key = `obj:${id},source`;
     if (!this.signalCacheHas(key)) {
       const s = computed(() => {
-        return this.getObject(id).value?.obj_info.source_code ?? null;
+        if (this.circuitHolderIds.value?.includes(id)) {
+          const circuit = this.getObject(id).value;
+          const ic = this.getObject(circuit?.obj_info.socketed_ic).value;
+          return ic?.obj_info.source_code ?? null;
+        } else if (this.programHolderIds.value?.includes(id)) {
+          return this.getObject(id).value?.obj_info.source_code ?? null;
+        } else {
+          console.error(`(objectId: ${id}) does not refer to a object with a known program interface`)
+          return null;
+        }
       })
       this.signalCacheSet(key, s);
       return s;

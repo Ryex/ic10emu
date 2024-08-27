@@ -2700,3 +2700,15 @@ impl<T: IC10Marker> LabelInstruction for T {
         Ok(())
     }
 }
+
+impl<T: IC10Marker> RmapInstruction for T {
+    ///rmap r? d? reagentHash(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        d: &crate::vm::instructions::operands::InstOperand,
+        reagent_hash: &crate::vm::instructions::operands::InstOperand,
+    ) -> Result<(), crate::errors::ICError> {
+        todo!()
+    }
+}

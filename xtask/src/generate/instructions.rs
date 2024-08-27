@@ -89,6 +89,7 @@ fn write_instructions_enum<T: std::io::Write>(
             #[strum(use_phf, serialize_all = "lowercase")]
             #[serde(rename_all = "lowercase")]
             pub enum InstructionOp {
+                    #[strum(props( example = "", desc = "No Operation", operands = "0" ))]
                     Nop,
                     #(#inst_variants)*
 

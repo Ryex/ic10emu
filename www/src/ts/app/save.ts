@@ -1,7 +1,7 @@
-import { HTMLTemplateResult, html, css, CSSResultGroup } from "lit";
-import { customElement, property, query, state } from "lit/decorators.js";
+import { html, css} from "lit";
+import { customElement, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { SessionDB } from "session";
+import { SessionDB } from "sessionDB";
 
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
 import { repeat } from "lit/directives/repeat.js";

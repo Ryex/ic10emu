@@ -1,3 +1,4 @@
+import { defaultVMState } from "./default";
 import { demoVMState } from "./demo";
 
-export { demoVMState };
+export { defaultVMState, demoVMState };

@@ -243,9 +243,9 @@ export class IC10Editor extends BaseElement {
     app.session.onLoad((_e) => {
       const session = app.session;
       const updated_ids: number[] = [];
-      for (const [id, code] of session.programs.value) {
+      for (const [id, code] of session.programs) {
         updated_ids.push(id);
-        that.createOrSetSession(id, code);
+        that.createOrSetSession(id, code.peek());
       }
       that.activateSession(that.activeSession);
       for (const [id, _] of that.sessions) {

@@ -3291,6 +3291,41 @@ pub trait RandInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
+pub trait RmapInstruction: IntegratedCircuit {
+    ///rmap r? d? reagentHash(r?|num)
+    fn execute_rmap(
+        &mut self,
+        r: &crate::vm::instructions::operands::Operand,
+        d: &crate::vm::instructions::operands::Operand,
+        reagent_hash: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        RmapInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(
+                r,
+                InstructionOp::Rmap,
+                0usize,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(
+                d,
+                InstructionOp::Rmap,
+                1usize,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(
+                reagent_hash,
+                InstructionOp::Rmap,
+                2usize,
+            ),
+        )
+    }
+    ///rmap r? d? reagentHash(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        d: &crate::vm::instructions::operands::InstOperand,
+        reagent_hash: &crate::vm::instructions::operands::InstOperand,
+    ) -> Result<(), crate::errors::ICError>;
+}
 pub trait RoundInstruction: IntegratedCircuit {
     ///round r? a(r?|num)
     fn execute_round(
@@ -4587,7 +4622,7 @@ pub trait YieldInstruction: IntegratedCircuit {
     ///yield
     fn execute_inner(&mut self) -> Result<(), crate::errors::ICError>;
 }
-pub trait ICInstructable: AbsInstruction + AcosInstruction + AddInstruction + AliasInstruction + AndInstruction + AsinInstruction + AtanInstruction + Atan2Instruction + BapInstruction + BapalInstruction + BapzInstruction + BapzalInstruction + BdnsInstruction + BdnsalInstruction + BdseInstruction + BdsealInstruction + BeqInstruction + BeqalInstruction + BeqzInstruction + BeqzalInstruction + BgeInstruction + BgealInstruction + BgezInstruction + BgezalInstruction + BgtInstruction + BgtalInstruction + BgtzInstruction + BgtzalInstruction + BleInstruction + BlealInstruction + BlezInstruction + BlezalInstruction + BltInstruction + BltalInstruction + BltzInstruction + BltzalInstruction + BnaInstruction + BnaalInstruction + BnanInstruction + BnazInstruction + BnazalInstruction + BneInstruction + BnealInstruction + BnezInstruction + BnezalInstruction + BrapInstruction + BrapzInstruction + BrdnsInstruction + BrdseInstruction + BreqInstruction + BreqzInstruction + BrgeInstruction + BrgezInstruction + BrgtInstruction + BrgtzInstruction + BrleInstruction + BrlezInstruction + BrltInstruction + BrltzInstruction + BrnaInstruction + BrnanInstruction + BrnazInstruction + BrneInstruction + BrnezInstruction + CeilInstruction + ClrInstruction + ClrdInstruction + CosInstruction + DefineInstruction + DivInstruction + ExpInstruction + FloorInstruction + GetInstruction + GetdInstruction + HcfInstruction + JInstruction + JalInstruction + JrInstruction + LInstruction + LabelInstruction + LbInstruction + LbnInstruction + LbnsInstruction + LbsInstruction + LdInstruction + LogInstruction + LrInstruction + LsInstruction + MaxInstruction + MinInstruction + ModInstruction + MoveInstruction + MulInstruction + NorInstruction + NotInstruction + OrInstruction + PeekInstruction + PokeInstruction + PopInstruction + PushInstruction + PutInstruction + PutdInstruction + RandInstruction + RoundInstruction + SInstruction + SapInstruction + SapzInstruction + SbInstruction + SbnInstruction + SbsInstruction + SdInstruction + SdnsInstruction + SdseInstruction + SelectInstruction + SeqInstruction + SeqzInstruction + SgeInstruction + SgezInstruction + SgtInstruction + SgtzInstruction + SinInstruction + SlaInstruction + SleInstruction + SleepInstruction + SlezInstruction + SllInstruction + SltInstruction + SltzInstruction + SnaInstruction + SnanInstruction + SnanzInstruction + SnazInstruction + SneInstruction + SnezInstruction + SqrtInstruction + SraInstruction + SrlInstruction + SsInstruction + SubInstruction + TanInstruction + TruncInstruction + XorInstruction + YieldInstruction {}
+pub trait ICInstructable: AbsInstruction + AcosInstruction + AddInstruction + AliasInstruction + AndInstruction + AsinInstruction + AtanInstruction + Atan2Instruction + BapInstruction + BapalInstruction + BapzInstruction + BapzalInstruction + BdnsInstruction + BdnsalInstruction + BdseInstruction + BdsealInstruction + BeqInstruction + BeqalInstruction + BeqzInstruction + BeqzalInstruction + BgeInstruction + BgealInstruction + BgezInstruction + BgezalInstruction + BgtInstruction + BgtalInstruction + BgtzInstruction + BgtzalInstruction + BleInstruction + BlealInstruction + BlezInstruction + BlezalInstruction + BltInstruction + BltalInstruction + BltzInstruction + BltzalInstruction + BnaInstruction + BnaalInstruction + BnanInstruction + BnazInstruction + BnazalInstruction + BneInstruction + BnealInstruction + BnezInstruction + BnezalInstruction + BrapInstruction + BrapzInstruction + BrdnsInstruction + BrdseInstruction + BreqInstruction + BreqzInstruction + BrgeInstruction + BrgezInstruction + BrgtInstruction + BrgtzInstruction + BrleInstruction + BrlezInstruction + BrltInstruction + BrltzInstruction + BrnaInstruction + BrnanInstruction + BrnazInstruction + BrneInstruction + BrnezInstruction + CeilInstruction + ClrInstruction + ClrdInstruction + CosInstruction + DefineInstruction + DivInstruction + ExpInstruction + FloorInstruction + GetInstruction + GetdInstruction + HcfInstruction + JInstruction + JalInstruction + JrInstruction + LInstruction + LabelInstruction + LbInstruction + LbnInstruction + LbnsInstruction + LbsInstruction + LdInstruction + LogInstruction + LrInstruction + LsInstruction + MaxInstruction + MinInstruction + ModInstruction + MoveInstruction + MulInstruction + NorInstruction + NotInstruction + OrInstruction + PeekInstruction + PokeInstruction + PopInstruction + PushInstruction + PutInstruction + PutdInstruction + RandInstruction + RmapInstruction + RoundInstruction + SInstruction + SapInstruction + SapzInstruction + SbInstruction + SbnInstruction + SbsInstruction + SdInstruction + SdnsInstruction + SdseInstruction + SelectInstruction + SeqInstruction + SeqzInstruction + SgeInstruction + SgezInstruction + SgtInstruction + SgtzInstruction + SinInstruction + SlaInstruction + SleInstruction + SleepInstruction + SlezInstruction + SllInstruction + SltInstruction + SltzInstruction + SnaInstruction + SnanInstruction + SnanzInstruction + SnazInstruction + SneInstruction + SnezInstruction + SqrtInstruction + SraInstruction + SrlInstruction + SsInstruction + SubInstruction + TanInstruction + TruncInstruction + XorInstruction + YieldInstruction {}
 impl<T> ICInstructable for T
 where
     T: AbsInstruction + AcosInstruction + AddInstruction + AliasInstruction
@@ -4615,15 +4650,15 @@ where
         + MinInstruction + ModInstruction + MoveInstruction + MulInstruction
         + NorInstruction + NotInstruction + OrInstruction + PeekInstruction
         + PokeInstruction + PopInstruction + PushInstruction + PutInstruction
-        + PutdInstruction + RandInstruction + RoundInstruction + SInstruction
-        + SapInstruction + SapzInstruction + SbInstruction + SbnInstruction
-        + SbsInstruction + SdInstruction + SdnsInstruction + SdseInstruction
-        + SelectInstruction + SeqInstruction + SeqzInstruction + SgeInstruction
-        + SgezInstruction + SgtInstruction + SgtzInstruction + SinInstruction
-        + SlaInstruction + SleInstruction + SleepInstruction + SlezInstruction
-        + SllInstruction + SltInstruction + SltzInstruction + SnaInstruction
-        + SnanInstruction + SnanzInstruction + SnazInstruction + SneInstruction
-        + SnezInstruction + SqrtInstruction + SraInstruction + SrlInstruction
-        + SsInstruction + SubInstruction + TanInstruction + TruncInstruction
-        + XorInstruction + YieldInstruction,
+        + PutdInstruction + RandInstruction + RmapInstruction + RoundInstruction
+        + SInstruction + SapInstruction + SapzInstruction + SbInstruction
+        + SbnInstruction + SbsInstruction + SdInstruction + SdnsInstruction
+        + SdseInstruction + SelectInstruction + SeqInstruction + SeqzInstruction
+        + SgeInstruction + SgezInstruction + SgtInstruction + SgtzInstruction
+        + SinInstruction + SlaInstruction + SleInstruction + SleepInstruction
+        + SlezInstruction + SllInstruction + SltInstruction + SltzInstruction
+        + SnaInstruction + SnanInstruction + SnanzInstruction + SnazInstruction
+        + SneInstruction + SnezInstruction + SqrtInstruction + SraInstruction
+        + SrlInstruction + SsInstruction + SubInstruction + TanInstruction
+        + TruncInstruction + XorInstruction + YieldInstruction,
 {}

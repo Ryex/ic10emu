@@ -36,6 +36,7 @@ use wasm_bindgen::prelude::*;
 #[strum(use_phf, serialize_all = "lowercase")]
 #[serde(rename_all = "lowercase")]
 pub enum InstructionOp {
+    #[strum(props(example = "", desc = "No Operation", operands = "0"))]
     Nop,
     #[strum(
         props(
@@ -839,6 +840,14 @@ pub enum InstructionOp {
     Rand,
     #[strum(
         props(
+            example = "rmap r? d? reagentHash(r?|num)",
+            desc = "Given a reagent hash, store the corresponding prefab hash that the device expects to fulfill the reagent requirement. For example, on an autolathe, the hash for Iron will store the hash for ItemIronIngot.",
+            operands = "3"
+        )
+    )]
+    Rmap,
+    #[strum(
+        props(
             example = "round r? a(r?|num)",
             desc = "Register = a rounded to nearest integer",
             operands = "2"
@@ -1459,6 +1468,9 @@ impl InstructionOp {
                 ic.execute_putd(&operands[0usize], &operands[1usize], &operands[2usize])
             }
             Self::Rand => ic.execute_rand(&operands[0usize]),
+            Self::Rmap => {
+                ic.execute_rmap(&operands[0usize], &operands[1usize], &operands[2usize])
+            }
             Self::Round => ic.execute_round(&operands[0usize], &operands[1usize]),
             Self::S => {
                 ic.execute_s(&operands[0usize], &operands[1usize], &operands[2usize])

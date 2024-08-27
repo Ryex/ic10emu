@@ -1,31 +1,20 @@
 import type {
   ICError,
-  FrozenVM,
-  RegisterSpec,
-  DeviceSpec,
-  LogicType,
-  LogicSlotType,
-  LogicField,
-  Class as SlotType,
-  FrozenCableNetwork,
-  FrozenObject,
-  ObjectInfo,
-  ICState,
   ObjectID,
 } from "ic10emu_wasm";
 import { App } from "./app";
 
-import { openDB, DBSchema, IDBPTransaction, IDBPDatabase } from "idb";
+import { openDB, IDBPTransaction } from "idb";
 import {
   TypedEventTarget,
-  crc32,
-  dispatchTypedEvent,
   fromJson,
+  structuralEqual,
   toJson,
 } from "./utils";
 
 import * as presets from "./presets";
-import { batch, computed, effect, signal, Signal } from "@lit-labs/preact-signals";
+import { computed, signal, Signal } from "@lit-labs/preact-signals";
+import { SessionDB } from "sessionDB";
 const { demoVMState } = presets;
 
 export interface SessionEventMap {
@@ -38,7 +27,7 @@ export interface SessionEventMap {
 }
 
 export class Session extends TypedEventTarget<SessionEventMap>() {
-  private _programs: Signal<Map<ObjectID, string>>;
+  private _programs: Map<ObjectID, Signal<string>>;
   private _errors: Signal<Map<ObjectID, ICError[]>>;
   private _activeIC: Signal<ObjectID>;
   private _activeLines: Signal<Map<ObjectID, number>>;
@@ -49,7 +38,7 @@ export class Session extends TypedEventTarget<SessionEventMap>() {
   constructor(app: App) {
     super();
     this.app = app;
-    this._programs = signal(new Map());
+    this._programs = new Map();
     this._errors = signal(new Map());
     this._save_timeout = undefined;
     this._activeIC = signal(null);
@@ -60,16 +49,23 @@ export class Session extends TypedEventTarget<SessionEventMap>() {
     window.addEventListener("hashchange", (_event) => {
       that.loadFromFragment();
     });
-
-    this._programs.subscribe((_) => {this._fireOnLoad()});
   }
 
-  get programs(): Signal<Map<number, string>> {
+  get programs(): Map<ObjectID, Signal<string>> {
     return this._programs;
   }
 
-  set programs(programs: Iterable<[number, string]>) {
-    this._programs.value = new Map(programs);
+  set programs(programs: Iterable<[ObjectID, string]>) {
+    const seenIds: ObjectID[] = []
+    for (const [id, code] of programs) {
+      this.setProgram(id, code);
+      seenIds.push(id);
+    }
+    for (const id of this._programs.keys()) {
+      if (!seenIds.includes(id)) {
+        this.setProgram(id, null);
+      }
+    }
   }
 
   get activeIC(): Signal<ObjectID> {
@@ -82,16 +78,14 @@ export class Session extends TypedEventTarget<SessionEventMap>() {
   }
 
   changeID(oldID: ObjectID, newID: ObjectID) {
-    if (this.programs.peek().has(oldID)) {
-      const newVal = new Map(this.programs.value);
-      newVal.set(newID, newVal.get(oldID));
-      newVal.delete(oldID);
-      this.programs.value = newVal;
+    if (this._programs.has(oldID)) {
+      this._programs.set(newID, this._programs.get(oldID));
+      this._programs.delete(oldID);
     }
     this.dispatchCustomEvent("session-id-change", { old: oldID, new: newID });
   }
 
-  onIDChange(callback: (e: CustomEvent<{ old: ObjectID; new: ObjectID}>) => any) {
+  onIDChange(callback: (e: CustomEvent<{ old: ObjectID; new: ObjectID }>) => any) {
     this.addEventListener("session-id-change", callback);
   }
 
@@ -110,21 +104,36 @@ export class Session extends TypedEventTarget<SessionEventMap>() {
   setActiveLine(id: ObjectID, line: number) {
     const last = this._activeLines.peek().get(id);
     if (last !== line) {
-      this._activeLines.value = new Map([ ... this._activeLines.value.entries(), [id, line]]);
+      this._activeLines.value = new Map([... this._activeLines.value.entries(), [id, line]]);
       this._fireOnActiveLine(id);
     }
   }
 
   setProgramCode(id: ObjectID, code: string) {
-    this._programs.value = new Map([ ...this._programs.value.entries(), [id, code]]);
+    this.setProgram(id, code);
     if (this.app.vm) {
       this.app.vm.updateCode();
     }
     this.save();
   }
 
+  getProgram(id: ObjectID): Signal<string> {
+    if (!this._programs.has(id)) {
+      this._programs.set(id, signal(null));
+    }
+    return this._programs.get(id);
+  }
+
+  private setProgram(id: ObjectID, code: string) {
+    if (!this._programs.has(id)) {
+      this._programs.set(id, signal(code));
+    } else {
+      this._programs.get(id).value = code;
+    }
+  }
+
   setProgramErrors(id: ObjectID, errors: ICError[]) {
-    this._errors.value = new Map([ ...this._errors.value.entries(), [id, errors]]);
+    this._errors.value = new Map([...this._errors.value.entries(), [id, errors]]);
     this._fireOnErrors([id]);
   }
 
@@ -223,6 +232,8 @@ export class Session extends TypedEventTarget<SessionEventMap>() {
           console.log("Bad session data:", data);
         }
       }
+    } else {
+      this.load(presets.defaultVMState);
     }
   }
 
@@ -312,333 +323,6 @@ export class Session extends TypedEventTarget<SessionEventMap>() {
   }
 }
 
-export namespace SessionDB {
-  export namespace V1 {
-    export interface VMState {
-      activeIC: number;
-      vm: FrozenVM;
-    }
-
-    export interface FrozenVM {
-      ics: FrozenIC[];
-      devices: DeviceTemplate[];
-      networks: FrozenNetwork[];
-      default_network: number;
-    }
-
-    export interface FrozenNetwork {
-      id: number;
-      devices: number[];
-      power_only: number[];
-      channels: number[];
-    }
-    export type RegisterSpec = {
-      readonly RegisterSpec: {
-        readonly indirection: number;
-        readonly target: number;
-      };
-    };
-    export type DeviceSpec = {
-      readonly DeviceSpec: {
-        readonly device:
-          | "Db"
-          | { readonly Numbered: number }
-          | {
-              readonly Indirect: {
-                readonly indirection: number;
-                readonly target: number;
-              };
-            };
-        readonly connection: number | undefined;
-      };
-    };
-    export type Alias = RegisterSpec | DeviceSpec;
-
-    export type Aliases = Map<string, Alias>;
-
-    export type Defines = Map<string, number>;
-
-    export type Pins = (number | undefined)[];
-    export interface SlotOccupantTemplate {
-      id?: number;
-      fields: { [key in LogicSlotType]?: LogicField };
-    }
-    export interface ConnectionCableNetwork {
-      CableNetwork: {
-        net: number | undefined;
-        typ: string;
-      };
-    }
-    export type Connection = ConnectionCableNetwork | "Other";
-
-    export interface SlotTemplate {
-      typ: SlotType;
-      occupant?: SlotOccupantTemplate;
-    }
-
-    export interface DeviceTemplate {
-      id?: number;
-      name?: string;
-      prefab_name?: string;
-      slots: SlotTemplate[];
-      // reagents: { [key: string]: float}
-      connections: Connection[];
-      fields: { [key in LogicType]?: LogicField };
-    }
-    export interface FrozenIC {
-      device: number;
-      id: number;
-      registers: number[];
-      ip: number;
-      ic: number;
-      stack: number[];
-      aliases: Aliases;
-      defines: Defines;
-      pins: Pins;
-      state: string;
-      code: string;
-    }
-  }
-
-  export namespace V2 {
-    export interface VMState {
-      activeIC: number;
-      vm: FrozenVM;
-    }
-
-    function objectFromIC(ic: SessionDB.V1.FrozenIC): FrozenObject {
-      return {
-        obj_info: {
-          name: undefined,
-          id: ic.id,
-          prefab: "ItemIntegratedCircuit10",
-          prefab_hash: crc32("ItemIntegratedCircuit10"),
-          memory: ic.stack,
-          source_code: ic.code,
-          compile_errors: undefined,
-          circuit: {
-            instruction_pointer: ic.ip,
-            yield_instruction_count: ic.ic,
-            state: ic.state as ICState,
-            aliases: ic.aliases,
-            defines: ic.defines,
-            labels: new Map(),
-            registers: ic.registers,
-          },
-
-          // unused
-          slots: undefined,
-          parent_slot: undefined,
-          root_parent_human: undefined,
-          damage: undefined,
-          device_pins: undefined,
-          connections: undefined,
-          reagents: undefined,
-          logic_values: undefined,
-          slot_logic_values: undefined,
-          entity: undefined,
-          socketed_ic: undefined,
-          visible_devices: undefined,
-        },
-        database_template: true,
-        template: undefined,
-      };
-    }
-    function objectsFromV1Template(
-      template: SessionDB.V1.DeviceTemplate,
-      idFn: () => number,
-      socketedIcFn: (id: number) => number | undefined,
-    ): FrozenObject[] {
-      const slotOccupantsPairs = new Map(
-        template.slots.flatMap((slot, index) => {
-          if (typeof slot.occupant !== "undefined") {
-            return [
-              [
-                index,
-                [
-                  {
-                    obj_info: {
-                      name: undefined,
-                      id: slot.occupant.id ?? idFn(),
-                      prefab: undefined,
-                      prefab_hash: slot.occupant.fields.PrefabHash?.value,
-                      damage: slot.occupant.fields.Damage?.value,
-
-                      socketed_ic: undefined,
-                      // unused
-                      memory: undefined,
-                      source_code: undefined,
-                      compile_errors: undefined,
-                      circuit: undefined,
-                      slots: undefined,
-                      device_pins: undefined,
-                      connections: undefined,
-                      reagents: undefined,
-                      logic_values: undefined,
-                      slot_logic_values: undefined,
-                      entity: undefined,
-                      visible_devices: undefined,
-                    },
-                    database_template: true,
-                    template: undefined,
-                  },
-                  slot.occupant.fields.Quantity ?? 1,
-                ],
-              ],
-            ] as [number, [FrozenObject, number]][];
-          } else {
-            return [] as [number, [FrozenObject, number]][];
-          }
-        }),
-      );
-      const frozen: FrozenObject = {
-        obj_info: {
-          name: template.name,
-          id: template.id,
-          prefab: template.prefab_name,
-          prefab_hash: undefined,
-          slots: new Map(
-            Array.from(slotOccupantsPairs.entries()).map(
-              ([index, [obj, quantity]]) => [
-                index,
-                {
-                  quantity,
-                  id: obj.obj_info.id,
-                },
-              ],
-            ),
-          ),
-          socketed_ic: socketedIcFn(template.id),
-
-          logic_values: new Map(
-            Object.entries(template.fields).map(([key, val]) => {
-              return [key as LogicType, val.value];
-            }),
-          ),
-
-          // unused
-          memory: undefined,
-          source_code: undefined,
-          compile_errors: undefined,
-          circuit: undefined,
-          parent_slot: undefined,
-          root_parent_human: undefined,
-          damage: undefined,
-          device_pins: undefined,
-          connections: undefined,
-          reagents: undefined,
-          slot_logic_values: undefined,
-          entity: undefined,
-          visible_devices: undefined,
-        },
-        database_template: true,
-        template: undefined,
-      };
-      return [
-        ...Array.from(slotOccupantsPairs.entries()).map(
-          ([_index, [obj, _quantity]]) => obj,
-        ),
-        frozen,
-      ];
-    }
-
-    export function fromV1State(v1State: SessionDB.V1.VMState): VMState {
-      const highestObjetId = Math.max(
-        ...v1State.vm.devices
-          .map((device) => device.id ?? -1)
-          .concat(v1State.vm.ics.map((ic) => ic.id ?? -1)),
-      );
-      let nextId = highestObjetId + 1;
-      const deviceIcs = new Map(
-        v1State.vm.ics.map((ic) => [ic.device, objectFromIC(ic)]),
-      );
-      const objects = v1State.vm.devices.flatMap((device) => {
-        return objectsFromV1Template(
-          device,
-          () => nextId++,
-          (id) => deviceIcs.get(id)?.obj_info.id ?? undefined,
-        );
-      });
-      const vm: FrozenVM = {
-        objects,
-        circuit_holders: objects.flatMap((obj) =>
-          "socketed_ic" in obj.obj_info &&
-          typeof obj.obj_info.socketed_ic !== "undefined"
-            ? [obj.obj_info.id]
-            : [],
-        ),
-        program_holders: objects.flatMap((obj) =>
-          "source_code" in obj.obj_info &&
-          typeof obj.obj_info.source_code !== "undefined"
-            ? [obj.obj_info.id]
-            : [],
-        ),
-        default_network_key: v1State.vm.default_network,
-        networks: v1State.vm.networks as FrozenCableNetwork[],
-        wireless_receivers: [],
-        wireless_transmitters: [],
-      };
-      const v2State: VMState = {
-        activeIC: v1State.activeIC,
-        vm,
-      };
-      return v2State;
-    }
-  }
-
-  export enum DBVersion {
-    V1 = 1,
-    V2 = 2,
-  }
-
-  export const LOCAL_DB_VERSION = DBVersion.V2 as const;
-  export type CurrentDBSchema = AppDBSchemaV2;
-  export type CurrentDBVmState = V2.VMState;
-  export const LOCAL_DB_SESSION_STORE = "sessionsV2" as const;
-
-  export interface AppDBSchemaV1 extends DBSchema {
-    sessions: {
-      key: string;
-      value: {
-        name: string;
-        date: Date;
-        session: V1.VMState;
-      };
-      indexes: {
-        "by-date": Date;
-        "by-name": string;
-      };
-    };
-  }
-
-  export interface AppDBSchemaV2 extends DBSchema {
-    sessions: {
-      key: string;
-      value: {
-        name: string;
-        date: Date;
-        session: V1.VMState;
-      };
-      indexes: {
-        "by-date": Date;
-        "by-name": string;
-      };
-    };
-    sessionsV2: {
-      key: string;
-      value: {
-        name: string;
-        date: Date;
-        version: DBVersion.V2;
-        session: V2.VMState;
-      };
-      indexes: {
-        "by-date": Date;
-        "by-name": string;
-      };
-    };
-  }
-}
 
 export interface OldPrograms {
   programs: [number, string][];
