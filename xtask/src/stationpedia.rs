@@ -30,10 +30,14 @@ impl Stationpedia {
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Reagent {
+    #[serde(rename = "Id")]
+    pub id: u8,
     #[serde(rename = "Hash")]
-    pub hash: i64,
+    pub hash: i32,
     #[serde(rename = "Unit")]
     pub unit: String,
+    #[serde(rename = "IsOrganic")]
+    pub is_organic: bool,
     #[serde(rename = "Sources")]
     pub sources: Option<BTreeMap<String, f64>>,
 }

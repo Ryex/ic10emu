@@ -1,4 +1,4 @@
-use color_eyre::eyre;
+use color_eyre::eyre::{self, Context};
 use quote::ToTokens;
 
 use std::collections::BTreeMap;
@@ -98,16 +98,22 @@ fn format_rust(content: impl ToTokens) -> color_eyre::Result<String> {
     Ok(prettyplease::unparse(&content))
 }
 
-fn prepend_generated_comment_and_format(file_path: &std::path::Path, module: &str) -> color_eyre::Result<()> {
+fn prepend_generated_comment_and_format(
+    file_path: &std::path::Path,
+    module: &str,
+) -> color_eyre::Result<()> {
     use std::io::Write;
     let tmp_path = file_path.with_extension("rs.tmp");
     {
         let mut tmp = std::fs::File::create(&tmp_path)?;
-        let src = syn::parse_file(&std::fs::read_to_string(file_path)?)?;
+        let src = syn::parse_file(&std::fs::read_to_string(file_path)?)
+            .with_context(|| format!("Error parsing file {}", file_path.display()))?;
 
-        let formated = format_rust(src)?;
+        let formatted = format_rust(src)?;
 
-        write!(&mut tmp, "\
+        write!(
+            &mut tmp,
+            "\
             // =================================================\n\
             //   !! <----->      DO NOT MODIFY      <-----> !!\n\
             //\n\
@@ -122,7 +128,7 @@ fn prepend_generated_comment_and_format(file_path: &std::path::Path, module: &st
             //\n\
             // =================================================\n\
             \n\
-            {formated}\
+            {formatted}\
             "
         )?;
     }

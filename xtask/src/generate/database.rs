@@ -19,11 +19,11 @@ use stationeers_data::templates::{
     InstructionPartType, InternalAtmoInfo, ItemCircuitHolderTemplate, ItemConsumerTemplate,
     ItemInfo, ItemLogicMemoryTemplate, ItemLogicTemplate, ItemSlotsTemplate,
     ItemSuitCircuitHolderTemplate, ItemSuitLogicTemplate, ItemSuitTemplate, ItemTemplate,
-    LogicInfo, MemoryInfo, ObjectTemplate, PrefabInfo, Recipe, RecipeGasMix, RecipeRange, SlotInfo,
-    StructureCircuitHolderTemplate, StructureInfo, StructureLogicDeviceConsumerMemoryTemplate,
-    StructureLogicDeviceConsumerTemplate, StructureLogicDeviceMemoryTemplate,
-    StructureLogicDeviceTemplate, StructureLogicTemplate, StructureSlotsTemplate,
-    StructureTemplate, SuitInfo, ThermalInfo,
+    LogicInfo, MemoryInfo, ObjectTemplate, PrefabInfo, Reagent, Recipe, RecipeGasMix, RecipeRange,
+    SlotInfo, StructureCircuitHolderTemplate, StructureInfo,
+    StructureLogicDeviceConsumerMemoryTemplate, StructureLogicDeviceConsumerTemplate,
+    StructureLogicDeviceMemoryTemplate, StructureLogicDeviceTemplate, StructureLogicTemplate,
+    StructureSlotsTemplate, StructureTemplate, SuitInfo, ThermalInfo,
 };
 
 #[allow(clippy::too_many_lines)]
@@ -174,9 +174,21 @@ pub fn generate_database(
             }
         })
         .collect();
+
+    let reagents = stationpedia
+        .reagents
+        .iter()
+        .map(|(name, reagent)| {
+            (
+                name.clone(),
+                Into::<Reagent>::into(reagent).with_name(name.clone()),
+            )
+        })
+        .collect();
+
     let db: ObjectDatabase = ObjectDatabase {
         prefabs,
-        reagents: stationpedia.reagents.clone(),
+        reagents,
         enums: enums.clone(),
         prefabs_by_hash,
         structures,
@@ -191,7 +203,7 @@ pub fn generate_database(
         .join("www")
         .join("src")
         .join("ts")
-        .join("virtualMachine");
+        .join("database");
     if !data_path.exists() {
         std::fs::create_dir(&data_path)?;
     }
@@ -225,7 +237,15 @@ pub fn generate_database(
     let mut prefab_map_file = std::io::BufWriter::new(std::fs::File::create(&prefab_map_path)?);
     write_prefab_map(&mut prefab_map_file, &db.prefabs)?;
 
-    Ok(vec![prefab_map_path])
+    let reagent_map_path = workspace
+        .join("stationeers_data")
+        .join("src")
+        .join("database")
+        .join("reagent_map.rs");
+    let mut reagent_map_file = std::io::BufWriter::new(std::fs::File::create(&reagent_map_path)?);
+    write_reagent_map(&mut reagent_map_file, &db.reagents)?;
+
+    Ok(vec![prefab_map_path, reagent_map_path])
 }
 
 fn write_prefab_map<T: std::io::Write>(
@@ -243,12 +263,17 @@ fn write_prefab_map<T: std::io::Write>(
         }
     )?;
     let enum_tag_regex = regex::Regex::new(r#"templateType:\s"\w+"\.into\(\),"#).unwrap();
+    let numeric_string_literal_regex = regex::Regex::new(r#""(\d+)"\.into\(\)"#).unwrap();
     let entries = prefabs
         .values()
         .map(|prefab| {
             let hash = prefab.prefab().prefab_hash;
             let uneval_src = &uneval::to_string(prefab)?;
-            let obj = syn::parse_str::<syn::Expr>(&enum_tag_regex.replace_all(&uneval_src, ""))?;
+            let fixed = enum_tag_regex.replace_all(&uneval_src, "");
+            let fixed = numeric_string_literal_regex.replace_all(&fixed, |captures: &regex::Captures| {
+                captures[1].to_string()
+            });
+            let obj = syn::parse_str::<syn::Expr>(&fixed)?;
             let entry = quote! {
                 map.insert(#hash, #obj.into());
             };
@@ -270,9 +295,47 @@ fn write_prefab_map<T: std::io::Write>(
     Ok(())
 }
 
+fn write_reagent_map<T: std::io::Write>(
+    writer: &mut BufWriter<T>,
+    reagents: &BTreeMap<String, Reagent>,
+) -> color_eyre::Result<()> {
+    write!(
+        writer,
+        "{}",
+        quote! {
+            use crate::templates::Reagent;
+        }
+    )?;
+    let entries = reagents
+        .values()
+        .map(|reagent| {
+            let id = reagent.id;
+            let uneval_src = &uneval::to_string(reagent)?;
+            let obj = syn::parse_str::<syn::Expr>(&uneval_src)?;
+            let entry = quote! {
+                map.insert(#id, #obj);
+            };
+            Ok(entry)
+        })
+        .collect::<Result<Vec<_>, color_eyre::Report>>()?;
+    write!(
+        writer,
+        "{}",
+        quote! {
+            pub fn build_reagent_database() -> std::collections::BTreeMap<u8, crate::templates::Reagent> {
+                #[allow(clippy::unreadable_literal)]
+                let mut map: std::collections::BTreeMap<u8, crate::templates::Reagent> = std::collections::BTreeMap::new();
+                #(#entries)*
+                map
+            }
+        },
+    )?;
+    Ok(())
+}
+
 #[allow(clippy::too_many_lines)]
 fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
-    println!("Generating templates ...");
+    eprintln!("Generating templates ...");
     let mut templates: Vec<ObjectTemplate> = Vec::new();
     for page in &pedia.pages {
         let prefab = PrefabInfo {
@@ -567,7 +630,6 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                     thermal_info: thermal.as_ref().map(Into::into),
                     internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
                 }));
-                // println!("Structure")
             }
             Page {
                 item: None,
@@ -591,7 +653,6 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                     internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
                     slots: slot_inserts_to_info(slot_inserts),
                 }));
-                // println!("Structure")
             }
             Page {
                 item: None,
@@ -624,7 +685,6 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                     logic,
                     slots: slot_inserts_to_info(slot_inserts),
                 }));
-                // println!("Structure")
             }
             Page {
                 item: None,
@@ -660,7 +720,6 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                         device: device.into(),
                     },
                 ));
-                // println!("Structure")
             }
             Page {
                 item: None,
@@ -704,7 +763,6 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                         device: device.into(),
                     },
                 ));
-                // println!("Structure")
             }
             Page {
                 item: None,
@@ -742,7 +800,6 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                         fabricator_info: device.fabricator.as_ref().map(Into::into),
                     },
                 ));
-                // println!("Structure")
             }
             Page {
                 item: None,
@@ -778,7 +835,6 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                         memory: memory.into(),
                     },
                 ));
-                // println!("Structure")
             }
             Page {
                 item: None,
@@ -816,7 +872,6 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                         memory: memory.into(),
                     },
                 ));
-                // println!("Structure")
             }
             _ => panic!(
                 "\
@@ -851,16 +906,32 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
     templates
 }
 
-fn slot_inserts_to_info(slots: &[stationpedia::SlotInsert]) -> Vec<SlotInfo> {
+fn slot_inserts_to_info(slots: &[stationpedia::SlotInsert]) -> BTreeMap<u32, SlotInfo> {
     let mut tmp: Vec<_> = slots.into();
     tmp.sort_by(|a, b| a.slot_index.cmp(&b.slot_index));
     tmp.iter()
-        .map(|slot| SlotInfo {
-            name: slot.slot_name.clone(),
-            typ: slot
-                .slot_type
-                .parse()
-                .unwrap_or_else(|err| panic!("failed to parse slot class: {err}")),
+        .map(|slot| {
+            let typ = &slot.slot_type;
+            if typ == "Proxy" {
+                (
+                    slot.slot_index,
+                    SlotInfo::Proxy {
+                        name: slot.slot_name.clone(),
+                        index: slot.slot_index,
+                    },
+                )
+            } else {
+                (
+                    slot.slot_index,
+                    SlotInfo::Direct {
+                        name: slot.slot_name.clone(),
+                        class: typ.parse().unwrap_or_else(|err| {
+                            panic!("failed to parse slot class '{typ}': {err}")
+                        }),
+                        index: slot.slot_index,
+                    },
+                )
+            }
         })
         .collect()
 }
@@ -877,7 +948,7 @@ fn mode_inserts_to_info(modes: &[stationpedia::ModeInsert]) -> BTreeMap<u32, Str
 #[serde(rename_all = "camelCase")]
 pub struct ObjectDatabase {
     pub prefabs: BTreeMap<String, ObjectTemplate>,
-    pub reagents: BTreeMap<String, stationpedia::Reagent>,
+    pub reagents: BTreeMap<String, Reagent>,
     pub enums: enums::Enums,
     pub prefabs_by_hash: BTreeMap<i32, String>,
     pub structures: Vec<String>,
@@ -929,10 +1000,10 @@ impl From<&stationpedia::LogicInfo> for LogicInfo {
                             .map(|(key, val)| {
                                 (
                                     key.parse().unwrap_or_else(|err| {
-                                        panic!("failed to parse logic slot type: {err}")
+                                        panic!("failed to parse logic slot type '{key}': {err}")
                                     }),
                                     val.parse().unwrap_or_else(|err| {
-                                        panic!("failed to parse memory access: {err}")
+                                        panic!("failed to parse memory access '{val}': {err}")
                                     }),
                                 )
                             })
@@ -946,10 +1017,12 @@ impl From<&stationpedia::LogicInfo> for LogicInfo {
                 .iter()
                 .map(|(key, val)| {
                     (
-                        key.parse()
-                            .unwrap_or_else(|err| panic!("failed to parse logic type: {err}")),
-                        val.parse()
-                            .unwrap_or_else(|err| panic!("failed to parse memory access: {err}")),
+                        key.parse().unwrap_or_else(|err| {
+                            panic!("failed to parse logic type '{key}' : {err}")
+                        }),
+                        val.parse().unwrap_or_else(|err| {
+                            panic!("failed to parse memory access '{val}': {err}")
+                        }),
                     )
                 })
                 .collect(),
@@ -976,20 +1049,14 @@ impl From<&stationpedia::Item> for ItemInfo {
                 .reagents
                 .as_ref()
                 .map(|map| map.iter().map(|(key, val)| (key.clone(), *val)).collect()),
-            slot_class: item
-                .slot_class
-                .parse()
-                .unwrap_or_else(|err| {
-                    let slot_class = &item.slot_class;
-                    panic!("failed to parse slot class `{slot_class}`: {err}");
-                }),
-            sorting_class: item
-                .sorting_class
-                .parse()
-                .unwrap_or_else(|err| {
-                    let sorting_class = &item.sorting_class;
-                    panic!("failed to parse sorting class `{sorting_class}`: {err}");
-                }),
+            slot_class: item.slot_class.parse().unwrap_or_else(|err| {
+                let slot_class = &item.slot_class;
+                panic!("failed to parse slot class `{slot_class}`: {err}");
+            }),
+            sorting_class: item.sorting_class.parse().unwrap_or_else(|err| {
+                let sorting_class = &item.sorting_class;
+                panic!("failed to parse sorting class `{sorting_class}`: {err}");
+            }),
         }
     }
 }
@@ -1001,12 +1068,12 @@ impl From<&stationpedia::Device> for DeviceInfo {
                 .connection_list
                 .iter()
                 .map(|(typ, role)| ConnectionInfo {
-                    typ: typ
-                        .parse()
-                        .unwrap_or_else(|err| panic!("failed to parse connection type `{typ}`: {err}")),
-                    role: role
-                        .parse()
-                        .unwrap_or_else(|err| panic!("failed to parse connection role `{role}`: {err}")),
+                    typ: typ.parse().unwrap_or_else(|err| {
+                        panic!("failed to parse connection type `{typ}`: {err}")
+                    }),
+                    role: role.parse().unwrap_or_else(|err| {
+                        panic!("failed to parse connection role `{role}`: {err}")
+                    }),
                 })
                 .collect(),
             device_pins_length: value.devices_length,
@@ -1123,6 +1190,19 @@ impl From<&stationpedia::ResourceConsumer> for ConsumerInfo {
     }
 }
 
+impl From<&stationpedia::Reagent> for Reagent {
+    fn from(value: &stationpedia::Reagent) -> Self {
+        Reagent {
+            id: value.id,
+            name: String::new(),
+            hash: value.hash,
+            unit: value.unit.clone(),
+            is_organic: value.is_organic,
+            sources: value.sources.clone().unwrap_or_default(),
+        }
+    }
+}
+
 impl From<&stationpedia::Fabricator> for FabricatorInfo {
     fn from(value: &stationpedia::Fabricator) -> Self {
         FabricatorInfo {
@@ -1133,7 +1213,7 @@ impl From<&stationpedia::Fabricator> for FabricatorInfo {
             recipes: value
                 .recipes
                 .iter()
-                .map(|(key, val)| (key.clone(), val.into()))
+                .map(|(prefab, val)| Into::<Recipe>::into(val).with_target(prefab))
                 .collect(),
         }
     }
@@ -1142,6 +1222,8 @@ impl From<&stationpedia::Fabricator> for FabricatorInfo {
 impl From<&stationpedia::Recipe> for Recipe {
     fn from(value: &stationpedia::Recipe) -> Self {
         Recipe {
+            target_prefab: String::new(),
+            target_prefab_hash: 0,
             tier: value
                 .tier_name
                 .parse()

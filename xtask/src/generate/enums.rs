@@ -15,7 +15,7 @@ pub fn generate(
     enums: &crate::enums::Enums,
     workspace: &std::path::Path,
 ) -> color_eyre::Result<Vec<PathBuf>> {
-    println!("Writing Enum Listings ...");
+    eprintln!("Writing Enum Listings ...");
     let enums_path = workspace.join("stationeers_data").join("src").join("enums");
     if !enums_path.exists() {
         std::fs::create_dir(&enums_path)?;
@@ -51,7 +51,7 @@ pub fn generate(
         }
         write_enum_listing(&mut writer, enm)?;
     }
-    write_enum_aggragate_mod(&mut writer, &enums.basic_enums)?;
+    write_enum_aggregate_mod(&mut writer, &enums.basic_enums)?;
 
     let mut writer = std::io::BufWriter::new(std::fs::File::create(enums_path.join("prefabs.rs"))?);
     write_repr_enum_use_header(&mut writer)?;
@@ -80,7 +80,7 @@ pub fn generate(
 }
 
 #[allow(clippy::type_complexity)]
-fn write_enum_aggragate_mod<T: std::io::Write>(
+fn write_enum_aggregate_mod<T: std::io::Write>(
     writer: &mut BufWriter<T>,
     enums: &BTreeMap<String, crate::enums::EnumListing>,
 ) -> color_eyre::Result<()> {
