@@ -12,7 +12,7 @@ macro_rules! GWThermal {
             fn thermal_info(&self) -> &ThermalInfo {
                 self.thermal_info
                     .as_ref()
-                    .expect("GWTherml::thermal_info called on non thermal")
+                    .expect("GWThermal::thermal_info called on non thermal")
             }
         }
     };
@@ -64,10 +64,10 @@ macro_rules! GWStorage {
         }
     ) => {
         impl GWStorage for $struct {
-            fn slots(&self) -> &Vec<Slot> {
+            fn slots(&self) -> &BTreeMap<u32, Slot> {
                 &self.slots
             }
-            fn slots_mut(&mut self) -> &mut Vec<Slot> {
+            fn slots_mut(&mut self) -> &mut BTreeMap<u32, Slot> {
                 &mut self.slots
             }
         }
@@ -156,10 +156,10 @@ macro_rules! GWDevice {
             fn pins_mut(&mut self) -> Option<&mut [Option<ObjectID>]> {
                 self.pins.as_mut().map(|pins| pins.as_mut_slice())
             }
-            fn reagents(&self) -> Option<&BTreeMap<i32, f64>> {
+            fn reagents(&self) -> Option<&BTreeMap<u8, f64>> {
                 self.reagents.as_ref()
             }
-            fn reagents_mut(&mut self) -> &mut Option<BTreeMap<i32, f64>> {
+            fn reagents_mut(&mut self) -> &mut Option<BTreeMap<u8, f64>> {
                 &mut self.reagents
             }
         }
@@ -228,10 +228,8 @@ macro_rules! GWCircuitHolderItem {
             }
         }
     };
-
 }
 pub(crate) use GWCircuitHolderItem;
-
 
 macro_rules! GWCircuitHolderSuit {
     (
@@ -250,10 +248,8 @@ macro_rules! GWCircuitHolderSuit {
             }
         }
     };
-
 }
 pub(crate) use GWCircuitHolderSuit;
-
 
 macro_rules! GWCircuitHolderDevice {
     (
@@ -272,6 +268,61 @@ macro_rules! GWCircuitHolderDevice {
             }
         }
     };
-
 }
 pub(crate) use GWCircuitHolderDevice;
+
+macro_rules! GWReagentConsumer {
+    (
+        $( #[$attr:meta] )*
+        $viz:vis struct $struct:ident {
+            $($body:tt)*
+        }
+    ) => {
+        impl GWReagentConsumer for $struct {
+            fn consumer_info(&self) -> &ConsumerInfo {
+                &self.consumer_info
+            }
+        }
+    };
+}
+pub(crate) use GWReagentConsumer;
+
+macro_rules! GWReagentRequirer {
+    (
+        $( #[$attr:meta] )*
+        $viz:vis struct $struct:ident {
+            $($body:tt)*
+        }
+    ) => {
+        impl GWReagentRequirer for $struct {
+            fn get_current_recipe_gw(&self) -> Option<(u32, u32)> {
+                self.current_recipe
+            }
+            fn get_fab_info_gw(&self) -> Option<&FabricatorInfo> {
+                self.fabricator_info.as_ref()
+            }
+        }
+    };
+}
+pub(crate) use GWReagentRequirer;
+
+macro_rules! GWFabricator {
+    (
+        $( #[$attr:meta] )*
+        $viz:vis struct $struct:ident {
+            $($body:tt)*
+        }
+    ) => {
+        impl GWFabricator for $struct {
+            fn is_fabricator(&self) -> bool {
+                self.fabricator_info.is_some()
+            }
+            fn fabricator_info(&self) -> &FabricatorInfo {
+                self.fabricator_info
+                    .as_ref()
+                    .expect("GWFabricator::fabricator_info call on non Fabricator")
+            }
+        }
+    };
+}
+pub(crate) use GWFabricator;

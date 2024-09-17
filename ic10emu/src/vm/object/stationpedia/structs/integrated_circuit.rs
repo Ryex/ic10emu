@@ -1,5 +1,5 @@
 use crate::{
-    errors::ICError,
+    errors::{ICError, LineError},
     interpreter::{instructions::IC10Marker, ICState, Program},
     vm::{
         instructions::{operands::Operand, Instruction},
@@ -22,7 +22,7 @@ use std::{collections::BTreeMap, rc::Rc};
 static RETURN_ADDRESS_INDEX: usize = 17;
 static STACK_POINTER_INDEX: usize = 16;
 
-#[derive(ObjectInterface!)]
+#[derive(ObjectInterface!, Debug)]
 #[custom(implements(Object {
     Item, Storage, Logicable,
     MemoryReadable, MemoryWritable,
@@ -57,6 +57,9 @@ pub struct ItemIntegratedCircuit10 {
 }
 
 impl Item for ItemIntegratedCircuit10 {
+    fn debug_item(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "UNIMPLEMENTED") //TODO: Implement
+    }
     fn consumable(&self) -> bool {
         false
     }
@@ -93,6 +96,9 @@ impl Item for ItemIntegratedCircuit10 {
 }
 
 impl Storage for ItemIntegratedCircuit10 {
+    fn debug_storage(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "UNIMPLEMENTED") //TODO: Implement
+    }
     fn slots_count(&self) -> usize {
         0
     }
@@ -102,15 +108,18 @@ impl Storage for ItemIntegratedCircuit10 {
     fn get_slot_mut(&mut self, _index: usize) -> Option<&mut Slot> {
         None
     }
-    fn get_slots(&self) -> Vec<&Slot> {
+    fn get_slots(&self) -> Vec<(usize, &Slot)> {
         vec![]
     }
-    fn get_slots_mut(&mut self) -> Vec<&mut Slot> {
+    fn get_slots_mut(&mut self) -> Vec<(usize, &mut Slot)> {
         vec![]
     }
 }
 
 impl Logicable for ItemIntegratedCircuit10 {
+    fn debug_logicable(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "UNIMPLEMENTED") //TODO: Implement
+    }
     fn prefab_hash(&self) -> i32 {
         self.get_prefab().hash
     }
@@ -170,7 +179,7 @@ impl Logicable for ItemIntegratedCircuit10 {
                 _ => Err(LogicError::CantWrite(lt)),
             })
     }
-    fn can_slot_logic_read(&self, _slt: LogicSlotType, _indexx: f64) -> bool {
+    fn can_slot_logic_read(&self, _slt: LogicSlotType, _index: f64) -> bool {
         false
     }
     fn get_slot_logic(&self, _slt: LogicSlotType, index: f64) -> Result<f64, LogicError> {
@@ -185,6 +194,9 @@ impl Logicable for ItemIntegratedCircuit10 {
 }
 
 impl MemoryReadable for ItemIntegratedCircuit10 {
+    fn debug_memory_readable(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "UNIMPLEMENTED") //TODO: Implement
+    }
     fn memory_size(&self) -> usize {
         self.memory.len()
     }
@@ -203,6 +215,9 @@ impl MemoryReadable for ItemIntegratedCircuit10 {
 }
 
 impl MemoryWritable for ItemIntegratedCircuit10 {
+    fn debug_memory_writable(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "UNIMPLEMENTED") //TODO: Implement
+    }
     fn set_memory(&mut self, index: i32, val: f64) -> Result<(), MemoryError> {
         if index < 0 {
             Err(MemoryError::StackUnderflow(index, self.memory.len()))
@@ -219,6 +234,9 @@ impl MemoryWritable for ItemIntegratedCircuit10 {
 }
 
 impl SourceCode for ItemIntegratedCircuit10 {
+    fn debug_source_code(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "UNIMPLEMENTED") //TODO: Implement
+    }
     fn set_source_code(&mut self, code: &str) -> Result<(), ICError> {
         self.program = Program::try_from_code(code)?;
         self.code = code.to_string();
@@ -240,6 +258,9 @@ impl SourceCode for ItemIntegratedCircuit10 {
 }
 
 impl IntegratedCircuit for ItemIntegratedCircuit10 {
+    fn debug_integrated_circuit(&self,f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "UNIMPLEMENTED") //TODO: Implement
+    }
     fn get_circuit_holder(&self) -> Option<VMObject> {
         self.get_parent_slot()
             .and_then(|parent_slot| self.get_vm().get_object(parent_slot.parent))
@@ -388,31 +409,42 @@ impl IntegratedCircuit for ItemIntegratedCircuit10 {
 impl IC10Marker for ItemIntegratedCircuit10 {}
 
 impl Programmable for ItemIntegratedCircuit10 {
+    fn debug_programmable(&self,f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "UNIMPLEMENTED") //TODO: Implement
+    }
+    #[tracing::instrument]
     fn step(&mut self, advance_ip_on_err: bool) -> Result<(), crate::errors::ICError> {
+        tracing::trace!(ignore_error = advance_ip_on_err, "stepping IC");
         if matches!(&self.state, ICState::HasCaughtFire) {
+            tracing::debug!("IC on Fire!");
             return Ok(());
         }
         if matches!(&self.state, ICState::Error(_)) && !advance_ip_on_err {
+            tracing::debug!("IC in an error state, not advancing");
             return Ok(());
         }
         if let ICState::Sleep(then, sleep_for) = &self.state {
             if let Some(duration) = time::Duration::checked_seconds_f64(*sleep_for) {
                 if let Some(sleep_till) = then.checked_add(duration) {
-                    if sleep_till
-                        <= time::OffsetDateTime::now_local()
-                            .unwrap_or_else(|_| time::OffsetDateTime::now_utc())
-                    {
+                    let now = time::OffsetDateTime::now_local()
+                        .unwrap_or_else(|_| time::OffsetDateTime::now_utc());
+                    if sleep_till > now {
+                        tracing::debug!("Sleeping: {sleep_till} > {now}");
                         return Ok(());
                     }
                     // else sleep duration ended, continue
                 } else {
-                    return Err(ICError::SleepAddtionError(duration, *then));
+                    return Err(ICError::SleepAdditionError {
+                        duration,
+                        time: *then,
+                    });
                 }
             } else {
                 return Err(ICError::SleepDurationError(*sleep_for));
             }
         }
         if self.ip >= self.program.len() || self.program.is_empty() {
+            tracing::debug!("IC at end of program");
             self.state = ICState::Ended;
             return Ok(());
         }
@@ -423,7 +455,13 @@ impl Programmable for ItemIntegratedCircuit10 {
         let instruction = line.instruction;
         let result = instruction.execute(self, operands);
 
-        let was_error = if let Err(_err) = result {
+        let was_error = if let Err(err) = result {
+            let msg = err.to_string();
+            self.state = ICState::Error(LineError {
+                error: err,
+                line: self.ip as u32,
+                msg,
+            });
             self.get_circuit_holder()
                 .ok_or(ICError::NoCircuitHolder(self.id))?
                 .borrow_mut()
@@ -437,7 +475,7 @@ impl Programmable for ItemIntegratedCircuit10 {
 
         if !was_error || advance_ip_on_err {
             self.ip = self.next_ip;
-            if self.ip >= self.program.len() {
+            if self.ip >= self.program.len() && !matches!(&self.state, ICState::Error(_)) {
                 self.state = ICState::Ended;
             }
         }

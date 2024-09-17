@@ -2103,6 +2103,17 @@ pub enum LogicType {
         )
     )]
     Altitude = 269u16,
+    #[strum(serialize = "TargetSlotIndex")]
+    #[strum(
+        props(
+            docs = "The slot index that the target device that this device will try to interact with",
+            value = "270"
+        )
+    )]
+    TargetSlotIndex = 270u16,
+    #[strum(serialize = "TargetPrefabHash")]
+    #[strum(props(docs = "The prefab", value = "271"))]
+    TargetPrefabHash = 271u16,
 }
 impl TryFrom<f64> for LogicType {
     type Error = super::ParseError;

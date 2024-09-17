@@ -27,6 +27,7 @@ use crate::{
 use serde_derive::{Deserialize, Serialize};
 use stationeers_data::{
     enums::{
+        basic::Class,
         prefabs::StationpediaPrefab,
         script::{LogicSlotType, LogicType},
     },
@@ -64,6 +65,7 @@ impl std::fmt::Display for Prefab {
     }
 }
 
+#[serde_with::skip_serializing_none]
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct ObjectInfo {
@@ -77,8 +79,7 @@ pub struct ObjectInfo {
     pub damage: Option<f32>,
     pub device_pins: Option<BTreeMap<u32, ObjectID>>,
     pub connections: Option<BTreeMap<u32, ObjectID>>,
-    pub reagents: Option<BTreeMap<i32, f64>>,
-    pub memory: Option<Vec<f64>>,
+    pub reagents: Option<BTreeMap<u8, f64>>,    pub memory: Option<Vec<f64>>,
     pub logic_values: Option<BTreeMap<LogicType, f64>>,
     pub slot_logic_values: Option<BTreeMap<u32, BTreeMap<LogicSlotType, f64>>>,
     pub entity: Option<EntityInfo>,
@@ -201,7 +202,6 @@ impl ObjectInfo {
             self.slots.replace(
                 slots
                     .into_iter()
-                    .enumerate()
                     .filter_map(|(index, slot)| {
                         slot.occupant
                             .as_ref()
@@ -245,7 +245,7 @@ impl ObjectInfo {
                     .collect()
             });
         }
-        let reagents: BTreeMap<i32, f64> = device.get_reagents().iter().copied().collect();
+        let reagents: BTreeMap<u8, f64> = device.get_reagents().iter().copied().collect();
         if reagents.is_empty() {
             self.reagents = None;
         } else {
@@ -393,6 +393,7 @@ pub struct FrozenObjectFull {
     pub template: ObjectTemplate,
 }
 
+#[serde_with::skip_serializing_none]
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct FrozenObject {
@@ -480,53 +481,66 @@ impl FrozenObject {
             .unwrap_or_default()
     }
 
-    fn build_slots(
+    fn build_slots<'a>(
         &self,
         id: ObjectID,
-        slots_info: &[SlotInfo],
+        slots_info: impl IntoIterator<Item = (&'a u32, &'a SlotInfo)>,
         logic_info: Option<&LogicInfo>,
-    ) -> Vec<Slot> {
+    ) -> BTreeMap<u32, Slot> {
         slots_info
-            .iter()
-            .enumerate()
-            .map(|(index, info)| Slot {
-                parent: id,
-                index,
-                name: info.name.clone(),
-                typ: info.typ,
-                readable_logic: logic_info
-                    .and_then(|info| {
-                        info.logic_slot_types.get(&(index as u32)).map(|s_info| {
-                            s_info
-                                .iter()
-                                .filter_map(|(key, access)| match access {
-                                    MemoryAccess::Read | MemoryAccess::ReadWrite => Some(key),
-                                    _ => None,
+            .into_iter()
+            .map(|(index, info)| {
+                let (name, class, proxy) = match info {
+                    SlotInfo::Direct { name, class, .. } => (name.clone(), *class, false),
+                    SlotInfo::Proxy { name, .. } => (name.clone(), Class::None, true),
+                };
+                (
+                    *index,
+                    Slot {
+                        parent: id,
+                        index: *index as usize,
+                        name,
+                        class,
+                        proxy,
+                        readable_logic: logic_info
+                            .and_then(|info| {
+                                info.logic_slot_types.get(index).map(|s_info| {
+                                    s_info
+                                        .iter()
+                                        .filter_map(|(key, access)| match access {
+                                            MemoryAccess::Read | MemoryAccess::ReadWrite => {
+                                                Some(key)
+                                            }
+                                            _ => None,
+                                        })
+                                        .copied()
+                                        .collect::<Vec<_>>()
                                 })
-                                .copied()
-                                .collect::<Vec<_>>()
-                        })
-                    })
-                    .unwrap_or_default(),
-                writeable_logic: logic_info
-                    .and_then(|info| {
-                        info.logic_slot_types.get(&(index as u32)).map(|s_info| {
-                            s_info
-                                .iter()
-                                .filter_map(|(key, access)| match access {
-                                    MemoryAccess::Write | MemoryAccess::ReadWrite => Some(key),
-                                    _ => None,
+                            })
+                            .unwrap_or_default(),
+                        writeable_logic: logic_info
+                            .and_then(|info| {
+                                info.logic_slot_types.get(index).map(|s_info| {
+                                    s_info
+                                        .iter()
+                                        .filter_map(|(key, access)| match access {
+                                            MemoryAccess::Write | MemoryAccess::ReadWrite => {
+                                                Some(key)
+                                            }
+                                            _ => None,
+                                        })
+                                        .copied()
+                                        .collect::<Vec<_>>()
                                 })
-                                .copied()
-                                .collect::<Vec<_>>()
-                        })
-                    })
-                    .unwrap_or_default(),
-                occupant: self
-                    .obj_info
-                    .slots
-                    .as_ref()
-                    .and_then(|slots| slots.get(&(index as u32)).cloned()),
+                            })
+                            .unwrap_or_default(),
+                        occupant: self
+                            .obj_info
+                            .slots
+                            .as_ref()
+                            .and_then(|slots| slots.get(index).cloned()),
+                    },
+                )
             })
             .collect()
     }
@@ -748,6 +762,7 @@ impl FrozenObject {
                         reagents: self.obj_info.reagents.clone(),
                         consumer_info: s.consumer_info.clone(),
                         fabricator_info: s.fabricator_info.clone(),
+                        current_recipe: None,
                         memory: self.build_memory(&s.memory),
                     },
                 ))
@@ -771,6 +786,7 @@ impl FrozenObject {
                     consumer_info: s.consumer_info.clone(),
                     fabricator_info: s.fabricator_info.clone(),
                     memory: self.build_memory(&s.memory),
+                    current_recipe: None,
                 },
             )),
             Item(i) => Ok(VMObject::new(GenericItem {
@@ -998,7 +1014,8 @@ fn try_template_from_interfaces(
             plant: None,
             suit: None,
             chargeable: None,
-            reagent_interface: None,
+            reagent_requirer: None,
+            reagent_consumer: None,
             fabricator: None,
             internal_atmosphere,
             thermal,
@@ -1033,7 +1050,8 @@ fn try_template_from_interfaces(
             plant: None,
             suit: None,
             chargeable: None,
-            reagent_interface: None,
+            reagent_requirer: None,
+            reagent_consumer: None,
             fabricator: None,
             internal_atmosphere,
             thermal,
@@ -1065,7 +1083,8 @@ fn try_template_from_interfaces(
             plant: None,
             suit: None,
             chargeable: None,
-            reagent_interface: None,
+            reagent_requirer: None,
+            reagent_consumer: None,
             fabricator: None,
             internal_atmosphere,
             thermal,
@@ -1098,7 +1117,8 @@ fn try_template_from_interfaces(
             plant: None,
             suit: None,
             chargeable: None,
-            reagent_interface: None,
+            reagent_requirer: None,
+            reagent_consumer: None,
             fabricator: None,
             internal_atmosphere,
             thermal,
@@ -1134,7 +1154,8 @@ fn try_template_from_interfaces(
             plant: None,
             suit: None,
             chargeable: None,
-            reagent_interface: None,
+            reagent_requirer: None,
+            reagent_consumer: None,
             fabricator: None,
             internal_atmosphere,
             thermal,
@@ -1173,7 +1194,8 @@ fn try_template_from_interfaces(
             plant: None,
             suit: None,
             chargeable: None,
-            reagent_interface: None,
+            reagent_requirer: None,
+            reagent_consumer: None,
             fabricator: None,
             internal_atmosphere,
             thermal,
@@ -1204,7 +1226,8 @@ fn try_template_from_interfaces(
             plant: None,
             suit: None,
             chargeable: None,
-            reagent_interface: None,
+            reagent_requirer: None,
+            reagent_consumer: None,
             fabricator: None,
             internal_atmosphere,
             thermal,
@@ -1236,7 +1259,8 @@ fn try_template_from_interfaces(
             plant: None,
             suit: None,
             chargeable: None,
-            reagent_interface: None,
+            reagent_requirer: None,
+            reagent_consumer: None,
             fabricator: None,
             internal_atmosphere,
             thermal,
@@ -1269,7 +1293,8 @@ fn try_template_from_interfaces(
             plant: None,
             suit: None,
             chargeable: None,
-            reagent_interface: None,
+            reagent_requirer: None,
+            reagent_consumer: None,
             fabricator: None,
             internal_atmosphere,
             thermal,
@@ -1303,7 +1328,8 @@ fn try_template_from_interfaces(
             plant: None,
             suit: None,
             chargeable: None,
-            reagent_interface: None,
+            reagent_requirer: None,
+            reagent_consumer: None,
             fabricator: None,
             internal_atmosphere: None,
             thermal: Some(_),
@@ -1312,13 +1338,16 @@ fn try_template_from_interfaces(
             prefab: PrefabInfo {
                 prefab_name: "Character".to_string(),
                 prefab_hash: 294335127,
-                desc: "Charater".to_string(),
-                name: "Charater".to_string(),
+                desc: "Character".to_string(),
+                name: "Character".to_string(),
             },
             species: human.get_species(),
             slots: storage.into(),
         })),
-        _ => Err(TemplateError::NonConformingObject(obj.get_id())),
+        _ => {
+            tracing::error!("Object interface has a non conforming pattern: {:?}", obj);
+            Err(TemplateError::NonConformingObject(obj.get_id()))
+        }
     }
 }
 
@@ -1341,6 +1370,7 @@ impl From<&VMObject> for PrefabInfo {
         }
     }
 }
+
 impl From<LogicableRef<'_>> for LogicInfo {
     fn from(logic: LogicableRef) -> Self {
         // Logicable: Storage -> !None
@@ -1352,10 +1382,9 @@ impl From<LogicableRef<'_>> for LogicInfo {
             logic_slot_types: storage
                 .get_slots()
                 .iter()
-                .enumerate()
                 .map(|(index, slot)| {
                     (
-                        index as u32,
+                        *index as u32,
                         LogicSlotType::iter()
                             .filter_map(|slt| {
                                 let readable = slot.readable_logic.contains(&slt);
@@ -1418,7 +1447,7 @@ impl From<ItemRef<'_>> for ItemInfo {
 
 impl From<DeviceRef<'_>> for DeviceInfo {
     fn from(device: DeviceRef) -> Self {
-        let _reagents: BTreeMap<i32, f64> = device.get_reagents().iter().copied().collect();
+        let _reagents: BTreeMap<u8, f64> = device.get_reagents().iter().copied().collect();
         DeviceInfo {
             connection_list: device
                 .connection_list()
@@ -1478,14 +1507,27 @@ impl From<ThermalRef<'_>> for ThermalInfo {
     }
 }
 
-impl From<StorageRef<'_>> for Vec<SlotInfo> {
+impl From<StorageRef<'_>> for BTreeMap<u32, SlotInfo> {
     fn from(storage: StorageRef<'_>) -> Self {
         storage
             .get_slots()
             .iter()
-            .map(|slot| SlotInfo {
-                name: slot.name.clone(),
-                typ: slot.typ,
+            .map(|(_index, slot)| {
+                (
+                    slot.index as u32,
+                    if slot.proxy {
+                        SlotInfo::Proxy {
+                            name: slot.name.clone(),
+                            index: slot.index as u32,
+                        }
+                    } else {
+                        SlotInfo::Direct {
+                            name: slot.name.clone(),
+                            class: slot.class,
+                            index: slot.index as u32,
+                        }
+                    },
+                )
             })
             .collect()
     }

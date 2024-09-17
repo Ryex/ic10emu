@@ -14,7 +14,7 @@ use stationeers_data::enums::{
     script::{LogicSlotType, LogicType},
     ConnectionRole,
 };
-use std::rc::Rc;
+use std::{collections::BTreeMap, rc::Rc};
 use strum::EnumProperty;
 
 #[derive(ObjectInterface!)]
@@ -58,7 +58,7 @@ impl StructureCircuitHousing {
                 parent: id,
                 index: 0,
                 name: "Programmable Chip".to_string(),
-                typ: Class::ProgrammableChip,
+                class: Class::ProgrammableChip,
                 readable_logic: vec![
                     LogicSlotType::Class,
                     LogicSlotType::Damage,
@@ -73,6 +73,7 @@ impl StructureCircuitHousing {
                 ],
                 writeable_logic: vec![],
                 occupant: None,
+                proxy: false,
             },
             pins: [None, None, None, None, None, None],
             connections: [
@@ -95,9 +96,15 @@ impl Structure for StructureCircuitHousing {
     fn is_small_grid(&self) -> bool {
         true
     }
+    fn debug_structure(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "small_grid: {}", self.is_small_grid())
+    }
 }
 
 impl Storage for StructureCircuitHousing {
+    fn debug_storage(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "slots: {:?}", self.get_slots())
+    }
     fn slots_count(&self) -> usize {
         1
     }
@@ -115,15 +122,31 @@ impl Storage for StructureCircuitHousing {
             Some(&mut self.slot)
         }
     }
-    fn get_slots(&self) -> Vec<&Slot> {
-        vec![&self.slot]
+    fn get_slots(&self) -> Vec<(usize, &Slot)> {
+        vec![(0, &self.slot)]
     }
-    fn get_slots_mut(&mut self) -> Vec<&mut Slot> {
-        vec![&mut self.slot]
+    fn get_slots_mut(&mut self) -> Vec<(usize, &mut Slot)> {
+        vec![(0, &mut self.slot)]
     }
 }
 
 impl Logicable for StructureCircuitHousing {
+    fn debug_logicable(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        let values: BTreeMap<LogicType, Option<f64>> = self
+            .valid_logic_types()
+            .into_iter()
+            .map(|lt| (lt, self.get_logic(lt).ok()))
+            .collect();
+        write!(
+            f,
+            "prefab_hash: {}, name_hash: {}, readable: {}, writable: {}, values{:?}",
+            self.prefab_hash(),
+            self.name_hash(),
+            self.is_logic_readable(),
+            self.is_logic_writeable(),
+            values
+        )
+    }
     fn prefab_hash(&self) -> i32 {
         self.get_prefab().hash
     }
@@ -253,6 +276,13 @@ impl Logicable for StructureCircuitHousing {
 }
 
 impl Device for StructureCircuitHousing {
+    fn debug_device(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(
+            f,
+            "pins: {:?}, connections: {:?}",
+            self.pins, self.connections
+        )
+    }
     fn has_reagents(&self) -> bool {
         false
     }
@@ -277,13 +307,13 @@ impl Device for StructureCircuitHousing {
     fn has_on_off_state(&self) -> bool {
         true
     }
-    fn get_reagents(&self) -> Vec<(i32, f64)> {
+    fn get_reagents(&self) -> Vec<(u8, f64)> {
         vec![]
     }
-    fn set_reagents(&mut self, _reagents: &[(i32, f64)]) {
+    fn set_reagents(&mut self, _reagents: &[(u8, f64)]) {
         // nope
     }
-    fn add_reagents(&mut self, _reagents: &[(i32, f64)]) {
+    fn add_reagents(&mut self, _reagents: &[(u8, f64)]) {
         // nope
     }
     fn connection_list(&self) -> &[crate::network::Connection] {
@@ -313,6 +343,9 @@ impl Device for StructureCircuitHousing {
 }
 
 impl CircuitHolder for StructureCircuitHousing {
+    fn debug_circuit_holder(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "error: {}, setting: {}", self.error, self.setting)
+    }
     fn clear_error(&mut self) {
         self.error = 0
     }

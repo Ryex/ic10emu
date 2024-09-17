@@ -16,7 +16,7 @@ use stationeers_data::{
         script::{LogicBatchMethod, LogicSlotType, LogicType},
         ConnectionRole,
     },
-    templates::ObjectTemplate,
+    templates::{ObjectTemplate, Reagent},
 };
 use std::{
     cell::RefCell,
@@ -47,6 +47,7 @@ pub struct VM {
     /// list of object id's touched on the last operation
     operation_modified: RefCell<Vec<ObjectID>>,
     template_database: RefCell<Option<BTreeMap<i32, ObjectTemplate>>>,
+    reagent_database: RefCell<Option<BTreeMap<u8, Reagent>>>,
 }
 
 #[derive(Debug, Default)]
@@ -93,6 +94,7 @@ impl VM {
             random: Rc::new(RefCell::new(crate::rand_mscorlib::Random::new())),
             operation_modified: RefCell::new(Vec::new()),
             template_database: RefCell::new(stationeers_data::build_prefab_database()),
+            reagent_database: RefCell::new(stationeers_data::build_reagent_database()),
         });
 
         let default_network = VMObject::new(CableNetwork::new(default_network_key, vm.clone()));
@@ -109,7 +111,7 @@ impl VM {
         self.random.borrow_mut().next_f64()
     }
 
-    /// Take ownership of an iterable the produces (prefab hash, ObjectTemplate) pairs and build a prefab
+    /// Take ownership of an iterable that produces (prefab hash, ObjectTemplate) pairs and build a prefab
     /// database
     pub fn import_template_database(
         self: &Rc<Self>,
@@ -118,6 +120,53 @@ impl VM {
         self.template_database
             .borrow_mut()
             .replace(db.into_iter().collect());
+    }
+
+    pub fn import_reagent_database(self: &Rc<Self>, db: impl IntoIterator<Item = (u8, Reagent)>) {
+        self.reagent_database
+            .borrow_mut()
+            .replace(db.into_iter().collect());
+    }
+
+    pub fn lookup_reagent_by_hash(self: &Rc<Self>, hash: i32) -> Option<Reagent> {
+        self.reagent_database.borrow().as_ref().and_then(|db| {
+            db.iter().find_map(|(_id, reagent)| {
+                if reagent.hash == hash {
+                    Some(reagent.clone())
+                } else {
+                    None
+                }
+            })
+        })
+    }
+
+    pub fn lookup_reagent_by_name(self: &Rc<Self>, name: impl AsRef<str>) -> Option<Reagent> {
+        let name = name.as_ref();
+        self.reagent_database.borrow().as_ref().and_then(|db| {
+            db.iter().find_map(|(_id, reagent)| {
+                if reagent.name.as_str() == name {
+                    Some(reagent.clone())
+                } else {
+                    None
+                }
+            })
+        })
+    }
+
+    pub fn lookup_template_by_name(
+        self: &Rc<Self>,
+        name: impl AsRef<str>,
+    ) -> Option<ObjectTemplate> {
+        let name = name.as_ref();
+        self.template_database.borrow().as_ref().and_then(|db| {
+            db.iter().find_map(|(_hash, template)| {
+                if &template.prefab().prefab_name == name {
+                    Some(template.clone())
+                } else {
+                    None
+                }
+            })
+        })
     }
 
     /// Get a Object Template by either prefab name or hash
@@ -140,7 +189,7 @@ impl VM {
             .unwrap_or_default()
     }
 
-    /// Add an number of object to the VM state using Frozen Object strusts.
+    /// Add an number of object to the VM state using Frozen Object structs.
     /// See also `add_objects_frozen`
     /// Returns the built objects' IDs
     pub fn add_objects_frozen(
@@ -293,17 +342,20 @@ impl VM {
         for obj in self.objects.borrow().values() {
             let mut obj_ref = obj.borrow_mut();
             if let Some(device) = obj_ref.as_mut_device() {
-                device.get_slots_mut().iter_mut().for_each(|slot| {
-                    if slot.parent == old_id {
-                        slot.parent = new_id;
-                    }
-                    match slot.occupant.as_mut() {
-                        Some(info) if info.id == old_id => {
-                            info.id = new_id;
+                device
+                    .get_slots_mut()
+                    .iter_mut()
+                    .for_each(|(_index, slot)| {
+                        if slot.parent == old_id {
+                            slot.parent = new_id;
                         }
-                        _ => (),
-                    }
-                });
+                        match slot.occupant.as_mut() {
+                            Some(info) if info.id == old_id => {
+                                info.id = new_id;
+                            }
+                            _ => (),
+                        }
+                    });
             }
         }
 
@@ -727,6 +779,7 @@ impl VM {
         self.operation_modified.borrow_mut().push(id);
     }
 
+    #[tracing::instrument]
     pub fn reset_programmable(self: &Rc<Self>, id: ObjectID) -> Result<bool, VMError> {
         let obj = self
             .objects
@@ -734,12 +787,33 @@ impl VM {
             .get(&id)
             .cloned()
             .ok_or(VMError::UnknownId(id))?;
-        let mut obj_ref = obj.borrow_mut();
-        let programmable = obj_ref
-            .as_mut_programmable()
-            .ok_or(VMError::NotProgrammable(id))?;
-        programmable.reset();
-        Ok(true)
+        {
+            let mut obj_ref = obj.borrow_mut();
+            if let Some(programmable) = obj_ref.as_mut_programmable() {
+                tracing::debug!(id, "resetting");
+                programmable.reset();
+                return Ok(true);
+            }
+        }
+        let ic_obj = {
+            let obj_ref = obj.borrow();
+            if let Some(circuit_holder) = obj_ref.as_circuit_holder() {
+                circuit_holder.get_ic()
+            } else {
+                return Err(VMError::NotCircuitHolderOrProgrammable(id));
+            }
+        };
+        if let Some(ic_obj) = ic_obj {
+            let mut ic_obj_ref = ic_obj.borrow_mut();
+            let ic_id = *ic_obj_ref.get_id();
+            if let Some(programmable) = ic_obj_ref.as_mut_programmable() {
+                tracing::debug!(id = ic_id, "resetting");
+                programmable.reset();
+                return Ok(true);
+            }
+            return Err(VMError::NotProgrammable(ic_id));
+        }
+        Err(VMError::NoIC(id))
     }
 
     pub fn get_object(self: &Rc<Self>, id: ObjectID) -> Option<VMObject> {
@@ -918,7 +992,11 @@ impl VM {
         let connections = device.connection_list_mut();
         if connection >= connections.len() {
             let conn_len = connections.len();
-            return Err(ICError::ConnectionIndexOutOfRange(connection, conn_len).into());
+            return Err(ICError::ConnectionIndexOutOfRange {
+                index: connection,
+                range: conn_len,
+            }
+            .into());
         }
 
         // scope this borrow
@@ -1570,7 +1648,7 @@ impl LogicBatchMethodWrapper {
     pub fn apply(&self, samples: &[f64]) -> f64 {
         match self.0 {
             LogicBatchMethod::Sum => samples.iter().sum(),
-            // Both c-charp and rust return NaN for 0.0/0.0 so we're good here
+            // Both c-sharp and rust return NaN for 0.0/0.0 so we're good here
             LogicBatchMethod::Average => {
                 samples.iter().copied().sum::<f64>() / samples.len() as f64
             }

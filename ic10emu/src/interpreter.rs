@@ -29,7 +29,9 @@ pub enum ICState {
     Running,
     Yield,
     Sleep(
-        #[cfg_attr(feature = "tsify", tsify(type = "Date"))] time::OffsetDateTime,
+        #[cfg_attr(feature = "tsify", tsify(type = "string"))]
+        #[serde(with = "time::serde::rfc3339")]
+        time::OffsetDateTime,
         f64,
     ),
     Error(LineError),
@@ -119,7 +121,13 @@ impl Program {
                 Some(code) => match code {
                     grammar::Code::Label(label) => {
                         if labels_set.contains(&label.id.name) {
-                            Err(ICError::DuplicateLabel(label.id.name))
+                            let source_line =
+                                labels.get(&label.id.name).copied().unwrap_or_default();
+                            Err(ICError::DuplicateLabel {
+                                label: label.id.name,
+                                line: line_number as u32,
+                                source_line,
+                            })
                         } else {
                             labels_set.insert(label.id.name.clone());
                             labels.insert(label.id.name, line_number as u32);
@@ -157,7 +165,13 @@ impl Program {
                 Some(code) => match code {
                     grammar::Code::Label(label) => {
                         if labels_set.contains(&label.id.name) {
-                            errors.push(ICError::DuplicateLabel(label.id.name));
+                            let source_line =
+                                labels.get(&label.id.name).copied().unwrap_or_default();
+                            errors.push(ICError::DuplicateLabel {
+                                label: label.id.name,
+                                line: line_number as u32,
+                                source_line,
+                            });
                         } else {
                             labels_set.insert(label.id.name.clone());
                             labels.insert(label.id.name, line_number as u32);

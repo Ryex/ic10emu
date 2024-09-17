@@ -7,14 +7,18 @@ use crate::{
     },
 };
 
+use itertools::Itertools;
 use stationeers_data::{
     enums::{
         basic::{Class, GasType, SortingClass},
         script::{LogicSlotType, LogicType},
     },
-    templates::{DeviceInfo, InternalAtmoInfo, ItemInfo, SuitInfo, ThermalInfo},
+    templates::{
+        ConsumerInfo, DeviceInfo, FabricatorInfo, InternalAtmoInfo, ItemInfo, RecipeOrder,
+        SuitInfo, ThermalInfo,
+    },
 };
-use std::{collections::BTreeMap, usize};
+use std::collections::BTreeMap;
 use strum::IntoEnumIterator;
 
 pub trait GWThermal {
@@ -29,6 +33,9 @@ impl<T: GWThermal + Object> Thermal for T {
     fn get_convection_factor(&self) -> f32 {
         self.thermal_info().convection_factor
     }
+    fn debug_thermal(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "thermal_info: {:?}", self.thermal_info())
+    }
 }
 
 pub trait GWInternalAtmo {
@@ -40,6 +47,9 @@ impl<T: GWInternalAtmo + Object> InternalAtmosphere for T {
     fn get_volume(&self) -> f64 {
         self.internal_atmo_info().volume as f64
     }
+    fn debug_internal_atmosphere(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "internal_atmo_info: {:?}", self.internal_atmo_info())
+    }
 }
 
 pub trait GWStructure {
@@ -50,11 +60,14 @@ impl<T: GWStructure + Object> Structure for T {
     fn is_small_grid(&self) -> bool {
         self.small_grid()
     }
+    fn debug_structure(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "small_grid: {}", self.small_grid())
+    }
 }
 
 pub trait GWStorage {
-    fn slots(&self) -> &Vec<Slot>;
-    fn slots_mut(&mut self) -> &mut Vec<Slot>;
+    fn slots(&self) -> &BTreeMap<u32, Slot>;
+    fn slots_mut(&mut self) -> &mut BTreeMap<u32, Slot>;
 }
 
 impl<T: GWStorage + Object> Storage for T {
@@ -62,16 +75,25 @@ impl<T: GWStorage + Object> Storage for T {
         self.slots().len()
     }
     fn get_slot(&self, index: usize) -> Option<&Slot> {
-        self.slots().get(index)
+        self.slots().get(&(index as u32))
     }
     fn get_slot_mut(&mut self, index: usize) -> Option<&mut Slot> {
-        self.slots_mut().get_mut(index)
+        self.slots_mut().get_mut(&(index as u32))
     }
-    fn get_slots(&self) -> Vec<&Slot> {
-        self.slots().iter().collect()
+    fn get_slots(&self) -> Vec<(usize, &Slot)> {
+        self.slots()
+            .iter()
+            .map(|(index, slot)| (*index as usize, slot))
+            .collect()
     }
-    fn get_slots_mut(&mut self) -> Vec<&mut Slot> {
-        self.slots_mut().iter_mut().collect()
+    fn get_slots_mut(&mut self) -> Vec<(usize, &mut Slot)> {
+        self.slots_mut()
+            .iter_mut()
+            .map(|(index, slot)| (*index as usize, slot))
+            .collect()
+    }
+    fn debug_storage(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "slots: {:?}", self.slots())
     }
 }
 
@@ -82,6 +104,14 @@ pub trait GWLogicable: Storage {
 }
 
 impl<T: GWLogicable + Object> Logicable for T {
+    fn debug_logicable(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(
+            f,
+            "fields: {:?}, modes: {:?}",
+            self.fields(),
+            self.known_modes()
+        )
+    }
     fn prefab_hash(&self) -> i32 {
         self.get_prefab().hash
     }
@@ -213,7 +243,7 @@ impl<T: GWLogicable + Object> Logicable for T {
                     }
                     Class => {
                         if slot.occupant.is_some() {
-                            Ok(slot.typ as i32 as f64)
+                            Ok(slot.class as i32 as f64)
                         } else {
                             Ok(0.0)
                         }
@@ -349,6 +379,14 @@ pub trait GWMemoryReadable {
 }
 
 impl<T: GWMemoryReadable + Object> MemoryReadable for T {
+    fn debug_memory_readable(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(
+            f,
+            "size: {}, values: {:?}",
+            self.memory_size(),
+            self.memory()
+        )
+    }
     fn memory_size(&self) -> usize {
         self.memory_size()
     }
@@ -371,6 +409,14 @@ pub trait GWMemoryWritable: MemoryReadable {
 }
 
 impl<T: GWMemoryWritable + MemoryReadable + Object> MemoryWritable for T {
+    fn debug_memory_writable(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(
+            f,
+            "size: {}, values: {:?}",
+            self.memory_size(),
+            self.get_memory_slice()
+        )
+    }
     fn set_memory(&mut self, index: i32, val: f64) -> Result<(), MemoryError> {
         if index < 0 {
             Err(MemoryError::StackUnderflow(index, self.memory_size()))
@@ -392,11 +438,20 @@ pub trait GWDevice: GWLogicable + Logicable {
     fn connections_mut(&mut self) -> &mut [Connection];
     fn pins(&self) -> Option<&[Option<ObjectID>]>;
     fn pins_mut(&mut self) -> Option<&mut [Option<ObjectID>]>;
-    fn reagents(&self) -> Option<&BTreeMap<i32, f64>>;
-    fn reagents_mut(&mut self) -> &mut Option<BTreeMap<i32, f64>>;
+    fn reagents(&self) -> Option<&BTreeMap<u8, f64>>;
+    fn reagents_mut(&mut self) -> &mut Option<BTreeMap<u8, f64>>;
 }
 
 impl<T: GWDevice + GWStorage + Object> Device for T {
+    fn debug_device(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(
+            f,
+            "device_info: {:?}, connections: {:?}, pins: {:?}",
+            self.device_info(),
+            self.connections(),
+            self.pins()
+        )
+    }
     fn can_slot_logic_write(&self, slt: LogicSlotType, index: f64) -> bool {
         if index < 0.0 {
             false
@@ -499,7 +554,7 @@ impl<T: GWDevice + GWStorage + Object> Device for T {
     fn has_atmosphere(&self) -> bool {
         self.device_info().has_atmosphere
     }
-    fn get_reagents(&self) -> Vec<(i32, f64)> {
+    fn get_reagents(&self) -> Vec<(u8, f64)> {
         self.reagents()
             .map(|reagents| {
                 reagents
@@ -509,11 +564,11 @@ impl<T: GWDevice + GWStorage + Object> Device for T {
             })
             .unwrap_or_default()
     }
-    fn set_reagents(&mut self, reagents: &[(i32, f64)]) {
+    fn set_reagents(&mut self, reagents: &[(u8, f64)]) {
         let reagents_ref = self.reagents_mut();
         *reagents_ref = Some(reagents.iter().copied().collect());
     }
-    fn add_reagents(&mut self, reagents: &[(i32, f64)]) {
+    fn add_reagents(&mut self, reagents: &[(u8, f64)]) {
         let reagents_ref = self.reagents_mut();
         if let Some(ref mut reagents_ref) = reagents_ref {
             reagents_ref.extend(reagents.iter().map(|(hash, quant)| (hash, quant)));
@@ -532,6 +587,15 @@ pub trait GWItem {
 }
 
 impl<T: GWItem + Object> Item for T {
+    fn debug_item(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(
+            f,
+            "item_info: {:?}, parent_slot: {:?}, damage: {:?}",
+            self.item_info(),
+            self.parent_slot(),
+            self.damage()
+        )
+    }
     fn consumable(&self) -> bool {
         self.item_info().consumable
     }
@@ -572,6 +636,9 @@ pub trait GWSuit: Storage {
 }
 
 impl<T: GWSuit + Item + Object> Suit for T {
+    fn debug_suit(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "suit_info: {:?}", self.suit_info())
+    }
     fn pressure_waste_max(&self) -> f32 {
         self.suit_info().waste_max_pressure
     }
@@ -654,7 +721,7 @@ pub trait GWCircuitHolderWrapper<T: GWCircuitHolder, H = <T as GWCircuitHolder>:
         connection: Option<usize>,
     ) -> Option<ObjectRefMut>;
     fn get_ic_gw(&self) -> Option<VMObject>;
-    fn hault_and_catch_fire_gw(&mut self);
+    fn halt_and_catch_fire_gw(&mut self);
 }
 
 impl<T> CircuitHolder for T
@@ -662,6 +729,9 @@ where
     T: GWCircuitHolder,
     Self: GWCircuitHolderWrapper<T>,
 {
+    fn debug_circuit_holder(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "GenericCircuitHolder, Limited Info")
+    }
     fn clear_error(&mut self) {
         self.clear_error_gw()
     }
@@ -702,7 +772,7 @@ where
         self.get_ic_gw()
     }
     fn halt_and_catch_fire(&mut self) {
-        self.hault_and_catch_fire_gw()
+        self.halt_and_catch_fire_gw()
     }
 }
 
@@ -822,15 +892,15 @@ where
     fn get_ic_gw(&self) -> Option<crate::vm::object::VMObject> {
         self.get_slots()
             .into_iter()
-            .find(|slot| slot.typ == Class::ProgrammableChip)
-            .and_then(|slot| {
+            .find(|(_, slot)| slot.class == Class::ProgrammableChip)
+            .and_then(|(_, slot)| {
                 slot.occupant
                     .as_ref()
                     .and_then(|info| self.get_vm().get_object(info.id))
             })
     }
 
-    fn hault_and_catch_fire_gw(&mut self) {
+    fn halt_and_catch_fire_gw(&mut self) {
         // TODO: do something here??
     }
 }
@@ -937,7 +1007,7 @@ where
         let contained_ids: Vec<ObjectID> = self
             .get_slots()
             .into_iter()
-            .filter_map(|slot| slot.occupant.as_ref().map(|info| info.id))
+            .filter_map(|(_, slot)| slot.occupant.as_ref().map(|info| info.id))
             .collect();
         if contained_ids.contains(&device) {
             self.get_vm()
@@ -959,7 +1029,7 @@ where
         let contained_ids: Vec<ObjectID> = self
             .get_slots()
             .into_iter()
-            .filter_map(|slot| slot.occupant.as_ref().map(|info| info.id))
+            .filter_map(|(_, slot)| slot.occupant.as_ref().map(|info| info.id))
             .collect();
         if contained_ids.contains(&device) {
             self.get_vm()
@@ -973,15 +1043,15 @@ where
     fn get_ic_gw(&self) -> Option<crate::vm::object::VMObject> {
         self.get_slots()
             .into_iter()
-            .find(|slot| slot.typ == Class::ProgrammableChip)
-            .and_then(|slot| {
+            .find(|(_, slot)| slot.class == Class::ProgrammableChip)
+            .and_then(|(_, slot)| {
                 slot.occupant
                     .as_ref()
                     .and_then(|info| self.get_vm().get_object(info.id))
             })
     }
 
-    fn hault_and_catch_fire_gw(&mut self) {
+    fn halt_and_catch_fire_gw(&mut self) {
         // TODO: do something here??
     }
 }
@@ -1112,7 +1182,7 @@ where
         let contained_ids: Vec<ObjectID> = self
             .get_slots()
             .into_iter()
-            .filter_map(|slot| slot.occupant.as_ref().map(|info| info.id))
+            .filter_map(|(_, slot)| slot.occupant.as_ref().map(|info| info.id))
             .collect();
         if contained_ids.contains(&device) {
             self.get_vm()
@@ -1134,7 +1204,7 @@ where
         let contained_ids: Vec<ObjectID> = self
             .get_slots()
             .into_iter()
-            .filter_map(|slot| slot.occupant.as_ref().map(|info| info.id))
+            .filter_map(|(_, slot)| slot.occupant.as_ref().map(|info| info.id))
             .collect();
         if contained_ids.contains(&device) {
             self.get_vm()
@@ -1148,15 +1218,130 @@ where
     fn get_ic_gw(&self) -> Option<crate::vm::object::VMObject> {
         self.get_slots()
             .into_iter()
-            .find(|slot| slot.typ == Class::ProgrammableChip)
-            .and_then(|slot| {
+            .find(|(_, slot)| slot.class == Class::ProgrammableChip)
+            .and_then(|(_, slot)| {
                 slot.occupant
                     .as_ref()
                     .and_then(|info| self.get_vm().get_object(info.id))
             })
     }
 
-    fn hault_and_catch_fire_gw(&mut self) {
+    fn halt_and_catch_fire_gw(&mut self) {
         // TODO: do something here??
+    }
+}
+
+pub trait GWReagentConsumer {
+    fn consumer_info(&self) -> &ConsumerInfo;
+}
+
+impl<T: GWReagentConsumer + Object> ReagentConsumer for T {
+    fn debug_reagent_consumer(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "") // TODO: implement
+    }
+    fn get_resources_used(&self) -> Vec<i32> {
+        let info = self.consumer_info();
+        let vm = self.get_vm();
+        info.consumed_resources
+            .iter()
+            .filter_map(|resource| {
+                let prefab = vm.lookup_template_by_name(resource);
+                prefab.map(|prefab| prefab.prefab().prefab_hash)
+            })
+            .collect_vec()
+    }
+    fn can_process_reagent(&self, reagent_id: u8) -> bool {
+        let info = self.consumer_info();
+        let vm = self.get_vm();
+        let processed = info
+            .processed_reagents
+            .iter()
+            .filter_map(|reagent_hash| vm.lookup_reagent_by_hash(*reagent_hash))
+            .collect_vec();
+        processed
+            .iter()
+            .find(|reagent| reagent.id == reagent_id)
+            .is_some()
+    }
+}
+
+pub trait GWReagentRequirer: Device {
+    fn get_current_recipe_gw(&self) -> Option<(u32, u32)>;
+    fn get_fab_info_gw(&self) -> Option<&FabricatorInfo>;
+}
+
+impl<T: GWReagentRequirer + Object> ReagentRequirer for T {
+    fn debug_reagent_requirer(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(
+            f,
+            "current: {:?}, required: {:?}",
+            self.get_current_recipe(),
+            self.get_current_required()
+        )
+    }
+    fn get_current_recipe(&self) -> Option<RecipeOrder> {
+        if let Some((current, quantity)) = self.get_current_recipe_gw() {
+            let info = self.get_fab_info_gw();
+            let recipe = info.and_then(|info| info.recipes.get(current as usize));
+            recipe.map(|recipe| RecipeOrder {
+                recipe: recipe.clone(),
+                quantity,
+            })
+        } else {
+            return None;
+        }
+    }
+    fn get_current_required(&self) -> Vec<(u8, f64)> {
+        let current = self.get_current_recipe();
+        let vm = self.get_vm();
+        let have = self.get_reagents();
+        let needed = current.map_or_else(std::default::Default::default, |current| {
+            current
+                .recipe
+                .reagents
+                .iter()
+                .filter_map(|(reagent_name, reagent_quantity)| {
+                    if let Some(reagent) = vm.lookup_reagent_by_name(&reagent_name) {
+                        if let Some((_id, have_quantity)) = have
+                            .iter()
+                            .find(|(id, quantity)| &reagent.id == id && quantity < reagent_quantity)
+                        {
+                            Some((reagent.id, reagent_quantity - have_quantity))
+                        } else {
+                            None
+                        }
+                    } else {
+                        None
+                    }
+                })
+                .collect_vec()
+        });
+        needed
+    }
+    fn get_prefab_hash_from_reagent_hash(&self, reagent_hash: i32) -> Option<i32> {
+        let vm = self.get_vm();
+        let reagent = vm.lookup_reagent_by_hash(reagent_hash);
+        reagent.and_then(|reagent| {
+            reagent
+                .sources
+                .iter()
+                .find(|(source_prefab, _quant)| source_prefab.contains("Ingot"))
+                .map(|(prefab, _quant)| {
+                    vm.lookup_template_by_name(prefab)
+                        .map(|template| template.prefab().prefab_hash)
+                })
+                .flatten()
+        })
+    }
+}
+
+pub trait GWFabricator: ReagentRequirer {
+    fn is_fabricator(&self) -> bool;
+    fn fabricator_info(&self) -> &FabricatorInfo;
+}
+
+impl<T: GWFabricator + Object> Fabricator for T {
+    fn debug_fabricator(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "UNIMPLEMENTED") // TODO: implement
     }
 }

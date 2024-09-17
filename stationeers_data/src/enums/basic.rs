@@ -2001,6 +2001,12 @@ impl std::str::FromStr for BasicEnum {
             "logictype.stress" => Ok(Self::LogicType(LogicType::Stress)),
             "logictype.survey" => Ok(Self::LogicType(LogicType::Survey)),
             "logictype.targetpadindex" => Ok(Self::LogicType(LogicType::TargetPadIndex)),
+            "logictype.targetprefabhash" => {
+                Ok(Self::LogicType(LogicType::TargetPrefabHash))
+            }
+            "logictype.targetslotindex" => {
+                Ok(Self::LogicType(LogicType::TargetSlotIndex))
+            }
             "logictype.targetx" => Ok(Self::LogicType(LogicType::TargetX)),
             "logictype.targety" => Ok(Self::LogicType(LogicType::TargetY)),
             "logictype.targetz" => Ok(Self::LogicType(LogicType::TargetZ)),

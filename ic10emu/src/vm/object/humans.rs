@@ -1,9 +1,7 @@
 use std::collections::BTreeMap;
 
 use macro_rules_attribute::derive;
-use stationeers_data::{
-    enums::{basic::Class, Species},
-};
+use stationeers_data::enums::{basic::Class, Species};
 #[cfg(feature = "tsify")]
 use tsify::Tsify;
 #[cfg(feature = "tsify")]
@@ -193,32 +191,43 @@ impl Thermal for HumanPlayer {
     fn get_convection_factor(&self) -> f32 {
         0.1
     }
+    fn debug_thermal(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(
+            f,
+            "radiation: {}, convection: {}",
+            self.get_radiation_factor(),
+            self.get_convection_factor()
+        )
+    }
 }
 
 impl Storage for HumanPlayer {
-    fn get_slots(&self) -> Vec<&Slot> {
+    fn debug_storage(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "slots: {:?}", self.get_slots())
+    }
+    fn get_slots(&self) -> Vec<(usize, &Slot)> {
         vec![
-            &self.left_hand_slot,
-            &self.right_hand_slot,
-            &self.helmet_slot,
-            &self.suit_slot,
-            &self.backpack_slot,
-            &self.uniform_slot,
-            &self.toolbelt_slot,
-            &self.glasses_slot,
+            (0, &self.left_hand_slot),
+            (1, &self.right_hand_slot),
+            (2, &self.helmet_slot),
+            (3, &self.suit_slot),
+            (4, &self.backpack_slot),
+            (5, &self.uniform_slot),
+            (6, &self.toolbelt_slot),
+            (7, &self.glasses_slot),
         ]
     }
 
-    fn get_slots_mut(&mut self) -> Vec<&mut Slot> {
+    fn get_slots_mut(&mut self) -> Vec<(usize, &mut Slot)> {
         vec![
-            &mut self.left_hand_slot,
-            &mut self.right_hand_slot,
-            &mut self.helmet_slot,
-            &mut self.suit_slot,
-            &mut self.backpack_slot,
-            &mut self.uniform_slot,
-            &mut self.toolbelt_slot,
-            &mut self.glasses_slot,
+            (0, &mut self.left_hand_slot),
+            (1, &mut self.right_hand_slot),
+            (2, &mut self.helmet_slot),
+            (3, &mut self.suit_slot),
+            (4, &mut self.backpack_slot),
+            (5, &mut self.uniform_slot),
+            (6, &mut self.toolbelt_slot),
+            (7, &mut self.glasses_slot),
         ]
     }
 
@@ -255,6 +264,20 @@ impl Storage for HumanPlayer {
 }
 
 impl Human for HumanPlayer {
+    fn debug_human(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "species: {:?}, damage: {}, hydration: {}, nutrition:, {}, oxygenation: {}, food_quality: {}, mood: {}, hygiene: {}, artificial: {}, battery: {:?}",
+            self.get_species(),
+            self.get_damage(),
+            self.get_hydration(),
+            self.get_nutrition(),
+            self.get_oxygenation(),
+            self.get_food_quality(),
+            self.get_mood(),
+            self.get_hygiene(),
+            self.is_artificial(),
+            self.robot_battery()
+    )
+    }
     fn get_species(&self) -> Species {
         self.species
     }

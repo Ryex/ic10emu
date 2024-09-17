@@ -27,6 +27,7 @@ pub enum CableConnectionType {
     PowerAndData,
 }
 
+#[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Copy, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub enum Connection {
@@ -146,7 +147,7 @@ impl Connection {
             },
             Self::RoboticArmRail { role } => ConnectionInfo {
                 typ: ConnectionType::RoboticArmRail,
-                role: *role
+                role: *role,
             },
         }
     }
@@ -181,6 +182,9 @@ pub struct CableNetwork {
 }
 
 impl Storage for CableNetwork {
+    fn debug_storage(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "UNIMPLEMENTED") //TODO: Implement
+    }
     fn slots_count(&self) -> usize {
         0
     }
@@ -190,15 +194,18 @@ impl Storage for CableNetwork {
     fn get_slot_mut(&mut self, _index: usize) -> Option<&mut crate::vm::object::Slot> {
         None
     }
-    fn get_slots(&self) -> Vec<&crate::vm::object::Slot> {
+    fn get_slots(&self) -> Vec<(usize, &crate::vm::object::Slot)> {
         vec![]
     }
-    fn get_slots_mut(&mut self) -> Vec<&mut crate::vm::object::Slot> {
+    fn get_slots_mut(&mut self) -> Vec<(usize, &mut crate::vm::object::Slot)> {
         vec![]
     }
 }
 
 impl Logicable for CableNetwork {
+    fn debug_logicable(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "UNIMPLEMENTED") //TODO: Implement
+    }
     fn prefab_hash(&self) -> i32 {
         0
     }
@@ -282,6 +289,9 @@ impl Logicable for CableNetwork {
 }
 
 impl Network for CableNetwork {
+    fn debug_network(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "UNIMPLEMENTED") //TODO: Implement
+    }
     fn contains(&self, id: &ObjectID) -> bool {
         self.devices.contains(id) || self.power_only.contains(id)
     }

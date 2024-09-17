@@ -26,11 +26,13 @@ strum_macros = "0.26.2"
 thiserror = "1.0.61"
 time = { version = "0.3.36", features = [
     "formatting",
+    "parsing",
     "serde",
     "local-offset",
 ] }
 tsify = { version = "0.4.5", optional = true, features = ["js"] }
 wasm-bindgen = { version = "0.2.92", optional = true }
+tracing = "0.1.40"
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 getrandom = { version = "0.2", features = ["js"] }
@@ -53,4 +55,8 @@ default = []
 tsify = ["dep:tsify", "dep:wasm-bindgen", "stationeers_data/tsify"]
 prefab_database = [
     "stationeers_data/prefab_database",
+] # compile with the prefab database enabled
+
+reagent_database = [
+    "stationeers_data/reagent_database",
 ] # compile with the prefab database enabled

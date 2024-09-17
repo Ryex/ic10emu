@@ -179,7 +179,7 @@ impl From<HumanTemplate> for ObjectTemplate {
 pub struct HumanTemplate {
     pub prefab: PrefabInfo,
     pub species: Species,
-    pub slots: Vec<SlotInfo>,
+    pub slots: BTreeMap<u32, SlotInfo>,
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
@@ -193,21 +193,31 @@ pub struct PrefabInfo {
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
-pub struct SlotInfo {
-    pub name: String,
-    pub typ: Class,
+pub enum SlotInfo {
+    Direct {
+        name: String,
+        class: Class,
+        index: u32,
+    },
+    Proxy {
+        name: String,
+        index: u32,
+    },
 }
 
 #[serde_as]
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct LogicInfo {
-    #[serde_as( as = "BTreeMap<DisplayFromStr, _>")]
-    #[cfg_attr(feature = "tsify", tsify(type = "Map<string, Map<LogicSlotType, MemoryAccess>>"))]
+    #[serde_as(as = "BTreeMap<DisplayFromStr, _>")]
+    #[cfg_attr(
+        feature = "tsify",
+        tsify(type = "Map<string, Map<LogicSlotType, MemoryAccess>>")
+    )]
     pub logic_slot_types: BTreeMap<u32, BTreeMap<LogicSlotType, MemoryAccess>>,
     pub logic_types: BTreeMap<LogicType, MemoryAccess>,
-    #[serde_as( as = "Option<BTreeMap<DisplayFromStr, _>>")]
-    #[cfg_attr(feature = "tsify", tsify(type = "Map<string, string> | undefined"))]
+    #[serde_as(as = "Option<BTreeMap<DisplayFromStr, _>>")]
+    #[cfg_attr(feature = "tsify", tsify(optional, type = "Map<string, string>"))]
     pub modes: Option<BTreeMap<u32, String>>,
     pub transmission_receiver: bool,
     pub wireless_logic: bool,
@@ -218,9 +228,11 @@ pub struct LogicInfo {
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct ItemInfo {
     pub consumable: bool,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub filter_type: Option<GasType>,
     pub ingredient: bool,
     pub max_quantity: u32,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub reagents: Option<BTreeMap<String, f64>>,
     pub slot_class: Class,
     pub sorting_class: SortingClass,
@@ -238,6 +250,7 @@ pub struct ConnectionInfo {
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct DeviceInfo {
     pub connection_list: Vec<ConnectionInfo>,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub device_pins_length: Option<u32>,
     pub has_activate_state: bool,
     pub has_atmosphere: bool,
@@ -254,6 +267,24 @@ pub struct DeviceInfo {
 pub struct ConsumerInfo {
     pub consumed_resources: Vec<String>,
     pub processed_reagents: Vec<i32>,
+}
+
+#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
+pub struct Reagent {
+    pub id: u8,
+    pub name: String,
+    pub hash: i32,
+    pub unit: String,
+    pub is_organic: bool,
+    pub sources: BTreeMap<String, f64>,
+}
+
+impl Reagent {
+    pub fn with_name(mut self, name: impl Into<String>) -> Self {
+        self.name = name.into();
+        self
+    }
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
@@ -276,6 +307,8 @@ pub struct RecipeGasMix {
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct Recipe {
+    pub target_prefab: String,
+    pub target_prefab_hash: i32,
     pub tier: MachineTier,
     pub time: f64,
     pub energy: f64,
@@ -288,9 +321,25 @@ pub struct Recipe {
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
+pub struct RecipeOrder {
+    pub recipe: Recipe,
+    pub quantity: u32,
+}
+
+impl Recipe {
+    pub fn with_target(mut self, prefab: impl Into<String>) -> Self {
+        let prefab: String = prefab.into();
+        self.target_prefab_hash = const_crc32::crc32(prefab.as_bytes()) as i32;
+        self.target_prefab = prefab;
+        self
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct FabricatorInfo {
     pub tier: MachineTier,
-    pub recipes: BTreeMap<String, Recipe>,
+    pub recipes: Vec<Recipe>,
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
@@ -334,6 +383,7 @@ pub struct Instruction {
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct MemoryInfo {
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub instructions: Option<BTreeMap<String, Instruction>>,
     pub memory_access: MemoryAccess,
     pub memory_size: u32,
@@ -364,7 +414,9 @@ pub struct SuitInfo {
 pub struct StructureTemplate {
     pub prefab: PrefabInfo,
     pub structure: StructureInfo,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub thermal_info: Option<ThermalInfo>,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
 }
 
@@ -373,9 +425,11 @@ pub struct StructureTemplate {
 pub struct StructureSlotsTemplate {
     pub prefab: PrefabInfo,
     pub structure: StructureInfo,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub thermal_info: Option<ThermalInfo>,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
-    pub slots: Vec<SlotInfo>,
+    pub slots: BTreeMap<u32, SlotInfo>,
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
@@ -383,10 +437,12 @@ pub struct StructureSlotsTemplate {
 pub struct StructureLogicTemplate {
     pub prefab: PrefabInfo,
     pub structure: StructureInfo,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub thermal_info: Option<ThermalInfo>,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub logic: LogicInfo,
-    pub slots: Vec<SlotInfo>,
+    pub slots: BTreeMap<u32, SlotInfo>,
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
@@ -394,10 +450,12 @@ pub struct StructureLogicTemplate {
 pub struct StructureLogicDeviceTemplate {
     pub prefab: PrefabInfo,
     pub structure: StructureInfo,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub thermal_info: Option<ThermalInfo>,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub logic: LogicInfo,
-    pub slots: Vec<SlotInfo>,
+    pub slots: BTreeMap<u32, SlotInfo>,
     pub device: DeviceInfo,
 }
 
@@ -406,12 +464,15 @@ pub struct StructureLogicDeviceTemplate {
 pub struct StructureLogicDeviceConsumerTemplate {
     pub prefab: PrefabInfo,
     pub structure: StructureInfo,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub thermal_info: Option<ThermalInfo>,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub logic: LogicInfo,
-    pub slots: Vec<SlotInfo>,
+    pub slots: BTreeMap<u32, SlotInfo>,
     pub device: DeviceInfo,
     pub consumer_info: ConsumerInfo,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub fabricator_info: Option<FabricatorInfo>,
 }
 
@@ -420,10 +481,12 @@ pub struct StructureLogicDeviceConsumerTemplate {
 pub struct StructureLogicDeviceMemoryTemplate {
     pub prefab: PrefabInfo,
     pub structure: StructureInfo,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub thermal_info: Option<ThermalInfo>,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub logic: LogicInfo,
-    pub slots: Vec<SlotInfo>,
+    pub slots: BTreeMap<u32, SlotInfo>,
     pub device: DeviceInfo,
     pub memory: MemoryInfo,
 }
@@ -433,10 +496,12 @@ pub struct StructureLogicDeviceMemoryTemplate {
 pub struct StructureCircuitHolderTemplate {
     pub prefab: PrefabInfo,
     pub structure: StructureInfo,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub thermal_info: Option<ThermalInfo>,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub logic: LogicInfo,
-    pub slots: Vec<SlotInfo>,
+    pub slots: BTreeMap<u32, SlotInfo>,
     pub device: DeviceInfo,
 }
 
@@ -445,12 +510,15 @@ pub struct StructureCircuitHolderTemplate {
 pub struct StructureLogicDeviceConsumerMemoryTemplate {
     pub prefab: PrefabInfo,
     pub structure: StructureInfo,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub thermal_info: Option<ThermalInfo>,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub logic: LogicInfo,
-    pub slots: Vec<SlotInfo>,
+    pub slots: BTreeMap<u32, SlotInfo>,
     pub device: DeviceInfo,
     pub consumer_info: ConsumerInfo,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub fabricator_info: Option<FabricatorInfo>,
     pub memory: MemoryInfo,
 }
@@ -460,7 +528,9 @@ pub struct StructureLogicDeviceConsumerMemoryTemplate {
 pub struct ItemTemplate {
     pub prefab: PrefabInfo,
     pub item: ItemInfo,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub thermal_info: Option<ThermalInfo>,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
 }
 
@@ -469,9 +539,11 @@ pub struct ItemTemplate {
 pub struct ItemSlotsTemplate {
     pub prefab: PrefabInfo,
     pub item: ItemInfo,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub thermal_info: Option<ThermalInfo>,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
-    pub slots: Vec<SlotInfo>,
+    pub slots: BTreeMap<u32, SlotInfo>,
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
@@ -479,9 +551,11 @@ pub struct ItemSlotsTemplate {
 pub struct ItemConsumerTemplate {
     pub prefab: PrefabInfo,
     pub item: ItemInfo,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub thermal_info: Option<ThermalInfo>,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
-    pub slots: Vec<SlotInfo>,
+    pub slots: BTreeMap<u32, SlotInfo>,
     pub consumer_info: ConsumerInfo,
 }
 
@@ -490,10 +564,12 @@ pub struct ItemConsumerTemplate {
 pub struct ItemLogicTemplate {
     pub prefab: PrefabInfo,
     pub item: ItemInfo,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub thermal_info: Option<ThermalInfo>,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub logic: LogicInfo,
-    pub slots: Vec<SlotInfo>,
+    pub slots: BTreeMap<u32, SlotInfo>,
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
@@ -501,10 +577,12 @@ pub struct ItemLogicTemplate {
 pub struct ItemLogicMemoryTemplate {
     pub prefab: PrefabInfo,
     pub item: ItemInfo,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub thermal_info: Option<ThermalInfo>,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub logic: LogicInfo,
-    pub slots: Vec<SlotInfo>,
+    pub slots: BTreeMap<u32, SlotInfo>,
     pub memory: MemoryInfo,
 }
 
@@ -513,10 +591,12 @@ pub struct ItemLogicMemoryTemplate {
 pub struct ItemCircuitHolderTemplate {
     pub prefab: PrefabInfo,
     pub item: ItemInfo,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub thermal_info: Option<ThermalInfo>,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub logic: LogicInfo,
-    pub slots: Vec<SlotInfo>,
+    pub slots: BTreeMap<u32, SlotInfo>,
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
@@ -524,9 +604,11 @@ pub struct ItemCircuitHolderTemplate {
 pub struct ItemSuitTemplate {
     pub prefab: PrefabInfo,
     pub item: ItemInfo,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub thermal_info: Option<ThermalInfo>,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
-    pub slots: Vec<SlotInfo>,
+    pub slots: BTreeMap<u32, SlotInfo>,
     pub suit_info: SuitInfo,
 }
 
@@ -535,10 +617,12 @@ pub struct ItemSuitTemplate {
 pub struct ItemSuitLogicTemplate {
     pub prefab: PrefabInfo,
     pub item: ItemInfo,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub thermal_info: Option<ThermalInfo>,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub logic: LogicInfo,
-    pub slots: Vec<SlotInfo>,
+    pub slots: BTreeMap<u32, SlotInfo>,
     pub suit_info: SuitInfo,
 }
 
@@ -547,10 +631,12 @@ pub struct ItemSuitLogicTemplate {
 pub struct ItemSuitCircuitHolderTemplate {
     pub prefab: PrefabInfo,
     pub item: ItemInfo,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub thermal_info: Option<ThermalInfo>,
+    #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub logic: LogicInfo,
-    pub slots: Vec<SlotInfo>,
+    pub slots: BTreeMap<u32, SlotInfo>,
     pub suit_info: SuitInfo,
     pub memory: MemoryInfo,
 }

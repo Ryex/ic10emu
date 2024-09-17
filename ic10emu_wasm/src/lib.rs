@@ -478,6 +478,7 @@ impl Default for VMRef {
 #[wasm_bindgen]
 pub fn init() -> VMRef {
     utils::set_panic_hook();
+    tracing_wasm::set_as_global_default();
     let vm = VMRef::new();
     log!("Hello from ic10emu!");
     vm

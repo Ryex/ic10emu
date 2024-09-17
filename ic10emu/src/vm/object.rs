@@ -122,27 +122,30 @@ pub struct SlotOccupantInfo {
     pub id: ObjectID,
 }
 
+#[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct Slot {
     pub parent: ObjectID,
     pub index: usize,
     pub name: String,
-    pub typ: Class,
+    pub class: Class,
     pub readable_logic: Vec<LogicSlotType>,
     pub writeable_logic: Vec<LogicSlotType>,
     pub occupant: Option<SlotOccupantInfo>,
+    pub proxy: bool,
 }
 
 impl Slot {
     #[must_use]
-    pub fn new(parent: ObjectID, index: usize, name: String, typ: Class) -> Self {
+    pub fn new(parent: ObjectID, index: usize, name: String, class: Class) -> Self {
         Slot {
             parent,
             index,
             name,
-            typ,
-            readable_logic: vec![
+            class,
+            readable_logic:
+             vec![
                 LogicSlotType::Class,
                 LogicSlotType::Damage,
                 LogicSlotType::MaxQuantity,
@@ -155,6 +158,7 @@ impl Slot {
             ],
             writeable_logic: vec![],
             occupant: None,
+            proxy: false,
         }
     }
 }

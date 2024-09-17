@@ -54,7 +54,7 @@ pub struct GenericStorage {
     pub thermal_info: Option<ThermalInfo>,
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub small_grid: bool,
-    pub slots: Vec<Slot>,
+    pub slots: BTreeMap<u32, Slot>,
 }
 
 #[derive(
@@ -79,7 +79,7 @@ pub struct GenericLogicable {
     pub thermal_info: Option<ThermalInfo>,
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub small_grid: bool,
-    pub slots: Vec<Slot>,
+    pub slots: BTreeMap<u32, Slot>,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub modes: Option<BTreeMap<u32, String>>,
 }
@@ -107,13 +107,13 @@ pub struct GenericLogicableDevice {
     pub thermal_info: Option<ThermalInfo>,
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub small_grid: bool,
-    pub slots: Vec<Slot>,
+    pub slots: BTreeMap<u32, Slot>,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub modes: Option<BTreeMap<u32, String>>,
     pub device_info: DeviceInfo,
     pub connections: Vec<Connection>,
     pub pins: Option<Vec<Option<ObjectID>>>,
-    pub reagents: Option<BTreeMap<i32, f64>>,
+    pub reagents: Option<BTreeMap<u8, f64>>,
 }
 
 #[derive(
@@ -140,13 +140,13 @@ pub struct GenericCircuitHolder {
     pub thermal_info: Option<ThermalInfo>,
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub small_grid: bool,
-    pub slots: Vec<Slot>,
+    pub slots: BTreeMap<u32, Slot>,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub modes: Option<BTreeMap<u32, String>>,
     pub device_info: DeviceInfo,
     pub connections: Vec<Connection>,
     pub pins: Option<Vec<Option<ObjectID>>>,
-    pub reagents: Option<BTreeMap<i32, f64>>,
+    pub reagents: Option<BTreeMap<u8, f64>>,
     pub error: i32,
 }
 
@@ -154,12 +154,12 @@ pub struct GenericCircuitHolder {
     ObjectInterface!,
     GWThermal!, GWInternalAtmo!,
     GWStructure!, GWStorage!, GWLogicable!,
-    GWDevice!
+    GWDevice!, GWReagentConsumer!,
 )]
 #[custom(implements(Object {
     Thermal[GWThermal::is_thermal],
     InternalAtmosphere[GWInternalAtmo::is_internal_atmo],
-    Structure, Storage, Logicable, Device
+    Structure, Storage, Logicable, Device, ReagentConsumer
 }))]
 pub struct GenericLogicableDeviceConsumer {
     #[custom(object_id)]
@@ -173,13 +173,13 @@ pub struct GenericLogicableDeviceConsumer {
     pub thermal_info: Option<ThermalInfo>,
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub small_grid: bool,
-    pub slots: Vec<Slot>,
+    pub slots: BTreeMap<u32, Slot>,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub modes: Option<BTreeMap<u32, String>>,
     pub device_info: DeviceInfo,
     pub connections: Vec<Connection>,
     pub pins: Option<Vec<Option<ObjectID>>>,
-    pub reagents: Option<BTreeMap<i32, f64>>,
+    pub reagents: Option<BTreeMap<u8, f64>>,
     pub consumer_info: ConsumerInfo,
 }
 
@@ -207,13 +207,13 @@ pub struct GenericLogicableDeviceMemoryReadable {
     pub thermal_info: Option<ThermalInfo>,
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub small_grid: bool,
-    pub slots: Vec<Slot>,
+    pub slots: BTreeMap<u32, Slot>,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub modes: Option<BTreeMap<u32, String>>,
     pub device_info: DeviceInfo,
     pub connections: Vec<Connection>,
     pub pins: Option<Vec<Option<ObjectID>>>,
-    pub reagents: Option<BTreeMap<i32, f64>>,
+    pub reagents: Option<BTreeMap<u8, f64>>,
     pub memory: Vec<f64>,
 }
 
@@ -221,12 +221,15 @@ pub struct GenericLogicableDeviceMemoryReadable {
     ObjectInterface!,
     GWThermal!, GWInternalAtmo!,
     GWStructure!, GWStorage!, GWLogicable!,
-    GWDevice!, GWMemoryReadable!, GWMemoryWritable!
+    GWDevice!, GWMemoryReadable!, GWMemoryWritable!,
+    GWReagentConsumer!, GWReagentRequirer!, GWFabricator!,
 )]
 #[custom(implements(Object {
     Thermal[GWThermal::is_thermal],
     InternalAtmosphere[GWInternalAtmo::is_internal_atmo],
-    Structure, Storage, Logicable, Device, MemoryReadable
+    Structure, Storage, Logicable, Device, MemoryReadable,
+    ReagentConsumer, ReagentRequirer,
+    Fabricator[GWFabricator::is_fabricator]
 }))]
 pub struct GenericLogicableDeviceConsumerMemoryReadable {
     #[custom(object_id)]
@@ -240,15 +243,17 @@ pub struct GenericLogicableDeviceConsumerMemoryReadable {
     pub thermal_info: Option<ThermalInfo>,
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub small_grid: bool,
-    pub slots: Vec<Slot>,
+    pub slots: BTreeMap<u32, Slot>,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub modes: Option<BTreeMap<u32, String>>,
     pub device_info: DeviceInfo,
     pub connections: Vec<Connection>,
     pub pins: Option<Vec<Option<ObjectID>>>,
-    pub reagents: Option<BTreeMap<i32, f64>>,
+    pub reagents: Option<BTreeMap<u8, f64>>,
     pub consumer_info: ConsumerInfo,
     pub fabricator_info: Option<FabricatorInfo>,
+    /// (fabricator_info.recipes index, quantity)
+    pub current_recipe: Option<(u32, u32)>,
     pub memory: Vec<f64>,
 }
 
@@ -275,13 +280,13 @@ pub struct GenericLogicableDeviceMemoryReadWriteable {
     pub thermal_info: Option<ThermalInfo>,
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub small_grid: bool,
-    pub slots: Vec<Slot>,
+    pub slots: BTreeMap<u32, Slot>,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub modes: Option<BTreeMap<u32, String>>,
     pub device_info: DeviceInfo,
     pub connections: Vec<Connection>,
     pub pins: Option<Vec<Option<ObjectID>>>,
-    pub reagents: Option<BTreeMap<i32, f64>>,
+    pub reagents: Option<BTreeMap<u8, f64>>,
     pub memory: Vec<f64>,
 }
 
@@ -289,12 +294,15 @@ pub struct GenericLogicableDeviceMemoryReadWriteable {
     ObjectInterface!,
     GWThermal!, GWInternalAtmo!,
     GWStructure!, GWStorage!, GWLogicable!,
-    GWDevice!, GWMemoryReadable!, GWMemoryWritable!
+    GWDevice!, GWMemoryReadable!, GWMemoryWritable!,
+    GWReagentConsumer!, GWReagentRequirer!, GWFabricator!,
 )]
 #[custom(implements(Object {
     Thermal[GWThermal::is_thermal],
     InternalAtmosphere[GWInternalAtmo::is_internal_atmo],
-    Structure, Storage, Logicable, Device, MemoryReadable, MemoryWritable
+    Structure, Storage, Logicable, Device, MemoryReadable, MemoryWritable,
+    ReagentConsumer, ReagentRequirer,
+    Fabricator[GWFabricator::is_fabricator]
 }))]
 pub struct GenericLogicableDeviceConsumerMemoryReadWriteable {
     #[custom(object_id)]
@@ -308,15 +316,17 @@ pub struct GenericLogicableDeviceConsumerMemoryReadWriteable {
     pub thermal_info: Option<ThermalInfo>,
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub small_grid: bool,
-    pub slots: Vec<Slot>,
+    pub slots: BTreeMap<u32, Slot>,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub modes: Option<BTreeMap<u32, String>>,
     pub device_info: DeviceInfo,
     pub connections: Vec<Connection>,
     pub pins: Option<Vec<Option<ObjectID>>>,
-    pub reagents: Option<BTreeMap<i32, f64>>,
+    pub reagents: Option<BTreeMap<u8, f64>>,
     pub consumer_info: ConsumerInfo,
     pub fabricator_info: Option<FabricatorInfo>,
+    // index of target recipe in fabricator_info
+    pub current_recipe: Option<(u32, u32)>,
     pub memory: Vec<f64>,
 }
 
@@ -362,14 +372,18 @@ pub struct GenericItemStorage {
     pub item_info: ItemInfo,
     pub parent_slot: Option<ParentSlotInfo>,
     pub damage: Option<f32>,
-    pub slots: Vec<Slot>,
+    pub slots: BTreeMap<u32, Slot>,
 }
 
-#[derive(ObjectInterface!, GWThermal!, GWInternalAtmo!, GWItem!, GWStorage! )]
+#[derive(
+    ObjectInterface!, GWThermal!,
+    GWInternalAtmo!, GWItem!, GWStorage!,
+    GWReagentConsumer!
+ )]
 #[custom(implements(Object {
     Thermal[GWThermal::is_thermal],
     InternalAtmosphere[GWInternalAtmo::is_internal_atmo],
-    Item, Storage
+    Item, Storage, ReagentConsumer
 }))]
 pub struct GenericItemConsumer {
     #[custom(object_id)]
@@ -385,7 +399,7 @@ pub struct GenericItemConsumer {
     pub item_info: ItemInfo,
     pub parent_slot: Option<ParentSlotInfo>,
     pub damage: Option<f32>,
-    pub slots: Vec<Slot>,
+    pub slots: BTreeMap<u32, Slot>,
     pub consumer_info: ConsumerInfo,
 }
 
@@ -413,7 +427,7 @@ pub struct GenericItemLogicable {
     pub item_info: ItemInfo,
     pub parent_slot: Option<ParentSlotInfo>,
     pub damage: Option<f32>,
-    pub slots: Vec<Slot>,
+    pub slots: BTreeMap<u32, Slot>,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub modes: Option<BTreeMap<u32, String>>,
 }
@@ -443,7 +457,7 @@ pub struct GenericItemLogicableMemoryReadable {
     pub item_info: ItemInfo,
     pub parent_slot: Option<ParentSlotInfo>,
     pub damage: Option<f32>,
-    pub slots: Vec<Slot>,
+    pub slots: BTreeMap<u32, Slot>,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub modes: Option<BTreeMap<u32, String>>,
     pub memory: Vec<f64>,
@@ -474,7 +488,7 @@ pub struct GenericItemLogicableMemoryReadWriteable {
     pub item_info: ItemInfo,
     pub parent_slot: Option<ParentSlotInfo>,
     pub damage: Option<f32>,
-    pub slots: Vec<Slot>,
+    pub slots: BTreeMap<u32, Slot>,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub modes: Option<BTreeMap<u32, String>>,
     pub memory: Vec<f64>,
@@ -506,7 +520,7 @@ pub struct GenericItemCircuitHolder {
     pub item_info: ItemInfo,
     pub parent_slot: Option<ParentSlotInfo>,
     pub damage: Option<f32>,
-    pub slots: Vec<Slot>,
+    pub slots: BTreeMap<u32, Slot>,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub modes: Option<BTreeMap<u32, String>>,
     pub error: i32,
@@ -537,7 +551,7 @@ pub struct GenericItemSuitLogic {
     pub item_info: ItemInfo,
     pub parent_slot: Option<ParentSlotInfo>,
     pub damage: Option<f32>,
-    pub slots: Vec<Slot>,
+    pub slots: BTreeMap<u32, Slot>,
     pub suit_info: SuitInfo,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub modes: Option<BTreeMap<u32, String>>,
@@ -570,7 +584,7 @@ pub struct GenericItemSuitCircuitHolder {
     pub item_info: ItemInfo,
     pub parent_slot: Option<ParentSlotInfo>,
     pub damage: Option<f32>,
-    pub slots: Vec<Slot>,
+    pub slots: BTreeMap<u32, Slot>,
     pub suit_info: SuitInfo,
     pub fields: BTreeMap<LogicType, LogicField>,
     pub modes: Option<BTreeMap<u32, String>>,
@@ -602,6 +616,6 @@ pub struct GenericItemSuit {
     pub item_info: ItemInfo,
     pub parent_slot: Option<ParentSlotInfo>,
     pub damage: Option<f32>,
-    pub slots: Vec<Slot>,
+    pub slots: BTreeMap<u32, Slot>,
     pub suit_info: SuitInfo,
 }

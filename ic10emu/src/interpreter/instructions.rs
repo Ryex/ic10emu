@@ -2485,6 +2485,7 @@ impl<T: IC10Marker> LrInstruction for T {
             indirection,
             target,
         } = r.as_register(self)?;
+        let vm = self.get_vm();
         let (device, connection) = d.as_device(self)?;
         let reagent_mode = reagent_mode.as_reagent_mode(self)?;
         let int = int.as_value(self)?;
@@ -2526,7 +2527,7 @@ impl<T: IC10Marker> LrInstruction for T {
                                 }
                                 LogicReagentMode::Required => {
                                     let reagent_interface = logicable
-                                        .as_reagent_interface()
+                                        .as_reagent_requirer()
                                         .ok_or(ICError::NotReagentReadable(*logicable.get_id()))?;
                                     reagent_interface
                                         .get_current_required()
@@ -2537,13 +2538,26 @@ impl<T: IC10Marker> LrInstruction for T {
                                 }
                                 LogicReagentMode::Recipe => {
                                     let reagent_interface = logicable
-                                        .as_reagent_interface()
+                                        .as_reagent_requirer()
                                         .ok_or(ICError::NotReagentReadable(*logicable.get_id()))?;
                                     reagent_interface
                                         .get_current_recipe()
-                                        .iter()
-                                        .find(|(hash, _)| *hash as f64 == int)
-                                        .map(|(_, quantity)| *quantity)
+                                        .and_then(|recipe_order| {
+                                            recipe_order
+                                                .recipe
+                                                .reagents
+                                                .iter()
+                                                .map(|(name, quantity)| {
+                                                    (
+                                                        vm.lookup_reagent_by_name(name)
+                                                            .map(|reagent| reagent.hash)
+                                                            .unwrap_or(0),
+                                                        quantity,
+                                                    )
+                                                })
+                                                .find(|(hash, _)| *hash as f64 == int)
+                                                .map(|(_, quantity)| *quantity)
+                                        })
                                         .unwrap_or(0.0)
                                 }
                             };
@@ -2709,6 +2723,34 @@ impl<T: IC10Marker> RmapInstruction for T {
         d: &crate::vm::instructions::operands::InstOperand,
         reagent_hash: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError> {
-        todo!()
+        let RegisterSpec {
+            indirection,
+            target,
+        } = r.as_register(self)?;
+        let (device, connection) = d.as_device(self)?;
+
+        let reagent_hash = reagent_hash.as_value_i32(self, true)?;
+        let val = self
+            .get_circuit_holder()
+            .ok_or(ICError::NoCircuitHolder(*self.get_id()))?
+            .borrow()
+            .as_circuit_holder()
+            .ok_or(ICError::CircuitHolderNotLogicable(*self.get_id()))?
+            .get_logicable_from_index(device, connection)
+            .ok_or(ICError::DeviceNotSet)
+            .and_then(|obj| {
+                obj.map(|obj_ref| {
+                    obj_ref
+                        .as_reagent_requirer()
+                        .ok_or(ICError::NotReagentReadable(*obj_ref.get_id()))
+                        .map(|reagent_interface| {
+                            reagent_interface
+                                .get_prefab_hash_from_reagent_hash(reagent_hash)
+                                .unwrap_or(0)
+                        })
+                })
+            })?;
+        self.set_register(indirection, target, val as f64)?;
+        Ok(())
     }
 }

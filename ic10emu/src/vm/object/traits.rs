@@ -13,10 +13,13 @@ use crate::{
         },
     },
 };
-use stationeers_data::enums::{
-    basic::{Class, GasType, SortingClass},
-    script::{LogicSlotType, LogicType},
-    Species,
+use stationeers_data::{
+    enums::{
+        basic::{Class, GasType, SortingClass},
+        script::{LogicSlotType, LogicType},
+        Species,
+    },
+    templates::RecipeOrder,
 };
 use std::{collections::BTreeMap, fmt::Debug};
 #[cfg(feature = "tsify")]
@@ -75,9 +78,9 @@ tag_object_traits! {
         /// Get a mutable reference to a indexed slot
         fn get_slot_mut(&mut self, index: usize) -> Option<&mut Slot>;
         /// Get a vector of references to all an object's slots
-        fn get_slots(&self) -> Vec<&Slot>;
+        fn get_slots(&self) -> Vec<(usize, &Slot)>;
         /// Get a vector a mutable references to all an object's slots
-        fn get_slots_mut(&mut self) -> Vec<&mut Slot>;
+        fn get_slots_mut(&mut self) -> Vec<(usize, &mut Slot)>;
     }
 
     pub trait MemoryReadable {
@@ -394,21 +397,29 @@ tag_object_traits! {
         /// Does the device store reagents
         fn has_reagents(&self) -> bool;
         /// Return vector of (reagent_hash, quantity) pairs
-        fn get_reagents(&self) -> Vec<(i32, f64)>;
+        fn get_reagents(&self) -> Vec<(u8, f64)>;
         /// Overwrite present reagents
-        fn set_reagents(&mut self, reagents: &[(i32, f64)]);
+        fn set_reagents(&mut self, reagents: &[(u8, f64)]);
         /// Adds the reagents to contents
-        fn add_reagents(&mut self, reagents: &[(i32, f64)]);
+        fn add_reagents(&mut self, reagents: &[(u8, f64)]);
     }
 
-    pub trait ReagentInterface: Device {
-        /// Reagents required by current recipe
-        fn get_current_recipe(&self) -> Vec<(i32, f64)>;
+    pub trait ReagentConsumer {
+        fn can_process_reagent(&self, reagent: u8) -> bool;
+        fn get_resources_used(&self) -> Vec<i32>;
+    }
+
+    pub trait ReagentRequirer: Device {
+        /// the currently selected Recipe and Order
+        fn get_current_recipe(&self) -> Option<RecipeOrder>;
         /// Reagents required to complete current recipe
-        fn get_current_required(&self) -> Vec<(i32, f64)>;
+        fn get_current_required(&self) -> Vec<(u8, f64)>;
+        /// Map Reagent hash to Prefab Hash
+        fn get_prefab_hash_from_reagent_hash(&self, reagent_hash: i32) -> Option<i32>;
     }
 
-    pub trait Fabricator: ReagentInterface {}
+    pub trait Fabricator: ReagentRequirer {
+    }
 
     pub trait WirelessTransmit: Logicable {}
 
@@ -493,14 +504,18 @@ impl Debug for dyn Object {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
-            "Object: (ID = {:?}, Type = {})",
+            "Object{{id: {:?}, type: {}, interfaces: {:?}}}",
             self.get_id(),
-            self.type_name()
+            self.type_name(),
+            ObjectInterfaces::from_object(self),
         )
     }
 }
 
 impl<T: CircuitHolder> SourceCode for T {
+    fn debug_source_code(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(f, "source_code: {:?}", self.get_source_code())
+    }
     fn get_line(&self, line: usize) -> Result<Instruction, ICError> {
         let ic = self.get_ic().ok_or(ICError::DeviceHasNoIC)?;
         let result = ic
@@ -546,4 +561,3 @@ impl<T: CircuitHolder> SourceCode for T {
             .unwrap_or_default()
     }
 }
-

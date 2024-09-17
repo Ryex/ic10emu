@@ -173,8 +173,22 @@ pub fn build_prefab_database() -> Option<BTreeMap<i32, templates::ObjectTemplate
     map
 }
 
-#[cfg(feature = "prefab_database")]
+pub fn build_reagent_database() -> Option<BTreeMap<u8, templates::Reagent>> {
+    #[cfg(feature = "reagent_database")]
+    let map = Some(database::build_reagent_database());
+    #[cfg(not(feature = "reagent_database"))]
+    let map = None;
+
+    map
+}
+
 pub mod database {
+    #[cfg(feature = "prefab_database")]
     mod prefab_map;
+    #[cfg(feature = "prefab_database")]
     pub use prefab_map::build_prefab_database;
+    #[cfg(feature = "reagent_database")]
+    mod reagent_map;
+    #[cfg(feature = "reagent_database")]
+    pub use reagent_map::build_reagent_database;
 }

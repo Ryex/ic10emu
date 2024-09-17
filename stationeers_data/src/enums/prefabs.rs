@@ -1255,6 +1255,9 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemWallCooler = -1567752627i32,
+    #[strum(serialize = "StructureLarreDockCargo")]
+    #[strum(props(name = "LARrE Dock (Cargo)", desc = "", value = "-1555459562"))]
+    StructureLarreDockCargo = -1555459562i32,
     #[strum(serialize = "StructureSolarPanel45")]
     #[strum(
         props(
@@ -2153,6 +2156,9 @@ pub enum StationpediaPrefab {
         props(name = "Kitchen Table (Simple Tall)", desc = "", value = "-1068629349")
     )]
     KitchenTableSimpleTall = -1068629349i32,
+    #[strum(serialize = "ItemKitLarreDockCargo")]
+    #[strum(props(name = "Kit (LArRE Dock Cargo)", desc = "", value = "-1067485367"))]
+    ItemKitLarreDockCargo = -1067485367i32,
     #[strum(serialize = "ItemGasFilterOxygenM")]
     #[strum(props(name = "Medium Filter (Oxygen)", desc = "", value = "-1067319543"))]
     ItemGasFilterOxygenM = -1067319543i32,
@@ -2341,6 +2347,9 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemKitElevator")]
     #[strum(props(name = "Kit (Elevator)", desc = "", value = "-945806652"))]
     ItemKitElevator = -945806652i32,
+    #[strum(serialize = "ItemKitLarreDockBypass")]
+    #[strum(props(name = "Kit (LArRE Dock Bypass)", desc = "", value = "-940470326"))]
+    ItemKitLarreDockBypass = -940470326i32,
     #[strum(serialize = "StructureSolarPanelReinforced")]
     #[strum(
         props(
@@ -3086,6 +3095,15 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructurePipeLiquidOneWayValveLever")]
     #[strum(props(name = "One Way Valve (Liquid)", desc = "", value = "-523832822"))]
     StructurePipeLiquidOneWayValveLever = -523832822i32,
+    #[strum(serialize = "StructureLarreDockCollector")]
+    #[strum(
+        props(
+            name = "LARrE Dock (Collector)",
+            desc = "0.Outward\n1.Inward",
+            value = "-522428667"
+        )
+    )]
+    StructureLarreDockCollector = -522428667i32,
     #[strum(serialize = "StructureWaterDigitalValve")]
     #[strum(props(name = "Liquid Digital Valve", desc = "", value = "-517628750"))]
     StructureWaterDigitalValve = -517628750i32,
@@ -4023,6 +4041,9 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "CartridgeTracker")]
     #[strum(props(name = "Cartridge (Tracker)", desc = "", value = "81488783"))]
     CartridgeTracker = 81488783i32,
+    #[strum(serialize = "StructureLarreDockHydroponics")]
+    #[strum(props(name = "LARrE Dock (Hydroponics)", desc = "", value = "85133079"))]
+    StructureLarreDockHydroponics = 85133079i32,
     #[strum(serialize = "ToyLuna")]
     #[strum(props(name = "Toy Luna", desc = "", value = "94730034"))]
     ToyLuna = 94730034i32,
@@ -4604,6 +4625,9 @@ pub enum StationpediaPrefab {
         )
     )]
     StructurePictureFrameThickMountLandscapeSmall = 347154462i32,
+    #[strum(serialize = "ItemKitLarreDockCollector")]
+    #[strum(props(name = "Kit (LArRE Dock Collector)", desc = "", value = "347658127"))]
+    ItemKitLarreDockCollector = 347658127i32,
     #[strum(serialize = "RoverCargo")]
     #[strum(
         props(
@@ -4652,6 +4676,9 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemMiningPackage")]
     #[strum(props(name = "Mining Supplies Package", desc = "", value = "384478267"))]
     ItemMiningPackage = 384478267i32,
+    #[strum(serialize = "ItemKitLarreDockAtmos")]
+    #[strum(props(name = "Kit (LArRE Dock Atmos)", desc = "", value = "385528206"))]
+    ItemKitLarreDockAtmos = 385528206i32,
     #[strum(serialize = "ItemPureIceNitrous")]
     #[strum(
         props(
@@ -5086,6 +5113,11 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemRocketMiningDrillHeadHighSpeedIce = 653461728i32,
+    #[strum(serialize = "ItemKitLarreDockHydroponics")]
+    #[strum(
+        props(name = "Kit (LArRE Dock Hydroponics)", desc = "", value = "656181408")
+    )]
+    ItemKitLarreDockHydroponics = 656181408i32,
     #[strum(serialize = "ItemWreckageStructureWeatherStation007")]
     #[strum(props(name = "Wreckage", desc = "", value = "656649558"))]
     ItemWreckageStructureWeatherStation007 = 656649558i32,
@@ -5724,6 +5756,9 @@ pub enum StationpediaPrefab {
         )
     )]
     EntityChickenWhite = 1010807532i32,
+    #[strum(serialize = "StructureLarreDockBypass")]
+    #[strum(props(name = "LARrE Dock (Bypass)", desc = "", value = "1011275082"))]
+    StructureLarreDockBypass = 1011275082i32,
     #[strum(serialize = "ItemKitStacker")]
     #[strum(props(name = "Kit (Stacker)", desc = "", value = "1013244511"))]
     ItemKitStacker = 1013244511i32,
@@ -7396,6 +7431,15 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureRoboticArmRailCornerStop")]
     #[strum(props(name = "Linear Rail Corner Station", desc = "", value = "1974053060"))]
     StructureRoboticArmRailCornerStop = 1974053060i32,
+    #[strum(serialize = "StructureLarreDockAtmos")]
+    #[strum(
+        props(
+            name = "LARrE Dock (Atmos)",
+            desc = "0.Outward\n1.Inward",
+            value = "1978422481"
+        )
+    )]
+    StructureLarreDockAtmos = 1978422481i32,
     #[strum(serialize = "StructureWallGeometryCorner")]
     #[strum(props(name = "Wall (Geometry Corner)", desc = "", value = "1979212240"))]
     StructureWallGeometryCorner = 1979212240i32,

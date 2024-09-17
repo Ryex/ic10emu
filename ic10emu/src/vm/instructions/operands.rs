@@ -26,6 +26,7 @@ pub struct RegisterSpec {
     pub target: u32,
 }
 
+#[serde_with::skip_serializing_none]
 #[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct DeviceSpec {
@@ -50,6 +51,7 @@ pub enum Number {
     Enum(f64),
 }
 
+#[serde_with::skip_serializing_none]
 #[derive(PartialEq, Debug, Clone, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub enum Operand {
@@ -133,32 +135,36 @@ impl InstOperand {
                         .get_str("value")
                         .ok_or_else(|| ICError::NoGeneratedValue(lt.to_string()))?
                         .parse::<u16>()
-                        .map_err(|_| {
-                            ICError::BadGeneratedValueParse(lt.to_string(), "u16".to_owned())
+                        .map_err(|_| ICError::BadGeneratedValueParse {
+                            enum_name: lt.to_string(),
+                            parse_type: "u16".to_owned(),
                         })? as f64)
                 } else if let Some(slt) = slot_logic_type {
                     Ok(slt
                         .get_str("value")
                         .ok_or_else(|| ICError::NoGeneratedValue(slt.to_string()))?
                         .parse::<u8>()
-                        .map_err(|_| {
-                            ICError::BadGeneratedValueParse(slt.to_string(), "u8".to_owned())
+                        .map_err(|_| ICError::BadGeneratedValueParse {
+                            enum_name: slt.to_string(),
+                            parse_type: "u8".to_owned(),
                         })? as f64)
                 } else if let Some(bm) = batch_mode {
                     Ok(bm
                         .get_str("value")
                         .ok_or_else(|| ICError::NoGeneratedValue(bm.to_string()))?
                         .parse::<u8>()
-                        .map_err(|_| {
-                            ICError::BadGeneratedValueParse(bm.to_string(), "u8".to_owned())
+                        .map_err(|_| ICError::BadGeneratedValueParse {
+                            enum_name: bm.to_string(),
+                            parse_type: "u8".to_owned(),
                         })? as f64)
                 } else if let Some(rm) = reagent_mode {
                     Ok(rm
                         .get_str("value")
                         .ok_or_else(|| ICError::NoGeneratedValue(rm.to_string()))?
                         .parse::<u8>()
-                        .map_err(|_| {
-                            ICError::BadGeneratedValueParse(rm.to_string(), "u8".to_owned())
+                        .map_err(|_| ICError::BadGeneratedValueParse {
+                            enum_name: rm.to_string(),
+                            parse_type: "u8".to_owned(),
                         })? as f64)
                 } else {
                     Err(ICError::TypeValueNotKnown)

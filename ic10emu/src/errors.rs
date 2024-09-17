@@ -35,7 +35,7 @@ pub enum VMError {
     IdInUse(u32),
     #[error("device(s) with ids {0:?} already exist")]
     IdsInUse(Vec<u32>),
-    #[error("atempt to use a set of id's with duplicates: id(s) {0:?} exsist more than once")]
+    #[error("attempt to use a set of id's with duplicates: id(s) {0:?} exist more than once")]
     DuplicateIds(Vec<u32>),
     #[error("object {0} is not a device")]
     NotADevice(ObjectID),
@@ -64,7 +64,7 @@ pub enum VMError {
     #[error("object {0} is not logicable")]
     NotLogicable(ObjectID),
     #[error("network object {0} is not a network")]
-    NonNetworkNetwork(ObjectID)
+    NonNetworkNetwork(ObjectID),
 }
 
 #[derive(Error, Debug, Serialize, Deserialize)]
@@ -81,8 +81,7 @@ pub enum TemplateError {
     #[error("incorrect template for concrete impl {0} from prefab {1}: {2:?}")]
     IncorrectTemplate(String, Prefab, ObjectTemplate),
     #[error("frozen memory size error: {0} is not {1}")]
-    MemorySize(usize, usize)
-
+    MemorySize(usize, usize),
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -90,6 +89,7 @@ pub enum TemplateError {
 pub struct LineError {
     pub error: ICError,
     pub line: u32,
+    pub msg: String,
 }
 
 impl Display for LineError {
@@ -154,6 +154,7 @@ impl ParseError {
 }
 
 #[derive(Debug, Error, Clone, Serialize, Deserialize)]
+#[serde(tag = "typ")]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub enum ICError {
     #[error("error compiling code: {0}")]
@@ -162,8 +163,12 @@ pub enum ICError {
     LogicError(#[from] LogicError),
     #[error("{0}")]
     MemoryError(#[from] MemoryError),
-    #[error("duplicate label {0}")]
-    DuplicateLabel(String),
+    #[error("duplicate label {label}: first encountered on line {source_line}")]
+    DuplicateLabel {
+        label: String,
+        line: u32,
+        source_line: u32,
+    },
     #[error("instruction pointer out of range: '{0}'")]
     InstructionPointerOutOfRange(usize),
     #[error("register pointer out of range: '{0}'")]
@@ -176,8 +181,8 @@ pub enum ICError {
     SlotIndexOutOfRange(f64),
     #[error("pin index {0} out of range 0-6")]
     PinIndexOutOfRange(usize),
-    #[error("connection index {0} out of range {1}")]
-    ConnectionIndexOutOfRange(usize, usize),
+    #[error("connection index {index} out of range {range}")]
+    ConnectionIndexOutOfRange { index: usize, range: usize },
     #[error("unknown device ID '{0}'")]
     UnknownDeviceID(f64),
     #[error("too few operands!: provide: '{provided}', desired: '{desired}'")]
@@ -240,11 +245,16 @@ pub enum ICError {
     SlotNotOccupied,
     #[error("generated Enum {0} has no value attached. Report this error.")]
     NoGeneratedValue(String),
-    #[error("generated Enum {0}'s value does not parse as {1} . Report this error.")]
-    BadGeneratedValueParse(String, String),
-    #[error("IC with id {0} is not sloted into a circuit holder")]
+    #[error(
+        "generated Enum {enum_name}'s value does not parse as {parse_type} . Report this error."
+    )]
+    BadGeneratedValueParse {
+        enum_name: String,
+        parse_type: String,
+    },
+    #[error("IC with id {0} is not slotted into a circuit holder")]
     NoCircuitHolder(ObjectID),
-    #[error("IC with id {0} is sloted into a circuit holder with no logic interface?")]
+    #[error("IC with id {0} is slotted into a circuit holder with no logic interface?")]
     CircuitHolderNotLogicable(ObjectID),
     #[error("object {0} is not slot writeable")]
     NotSlotWriteable(ObjectID),
@@ -254,8 +264,12 @@ pub enum ICError {
     NotLogicable(ObjectID),
     #[error("{0} is not a valid number of sleep seconds")]
     SleepDurationError(f64),
-    #[error("{0} can not be added to {1} ")]
-    SleepAddtionError(time::Duration, #[cfg_attr(feature = "tsify", tsify(type = "Date"))] time::OffsetDateTime),
+    #[error("{duration} can not be added to {time} ")]
+    SleepAdditionError {
+        duration: time::Duration,
+        #[cfg_attr(feature = "tsify", tsify(type = "Date"))]
+        time: time::OffsetDateTime,
+    },
 }
 
 impl ICError {

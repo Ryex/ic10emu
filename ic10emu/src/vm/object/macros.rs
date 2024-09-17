@@ -55,6 +55,15 @@ macro_rules! object_trait {
                 }
             }
 
+            impl<'a> Debug for [<$trait_name Interfaces>]<'a> {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    $(
+                        write!(f, "{}: {:?}, ", stringify!([<$trt:snake>]), &self.[<$trt:snake>])?;
+                    )*
+                    write!(f, "")
+                }
+            }
+
             pub enum [<$trait_name Ref>]<'a> {
                 DynRef(&'a dyn $trait_name),
                 VMObject(crate::vm::object::VMObject),
@@ -524,6 +533,20 @@ macro_rules! tag_object_traits {
         $(#[$attr])*
         $viz trait $trt : $( $trt_bound_first $(+ $trt_bound_others)* +)? $trt_name {
             $($tbody)*
+            paste::paste! {
+                fn [<debug_ $trt:snake>](&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result;
+            }
+        }
+
+        impl<'a> Debug for dyn $trt + 'a {
+            fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                write!(f, "{}{{", stringify!($trt))?;
+
+            paste::paste! {
+                self.[<debug_ $trt:snake>](f)?;
+            }
+                write!(f, "}}")
+            }
         }
 
         $crate::vm::object::macros::tag_object_traits!{
