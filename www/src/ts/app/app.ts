@@ -9,6 +9,7 @@ import { IC10Editor } from "../editor";
 import { Session } from "../session";
 import { VirtualMachine } from "../virtualMachine";
 import { openFile, saveFile } from "../utils";
+import * as log from "log";
 
 import "../virtualMachine/ui";
 import "./save";
@@ -103,8 +104,8 @@ export class App extends BaseElement {
         <app-nav appVer=${this.appVersion} gitVer=${this.gitVer} buildDate=${this.buildDate} ></app-nav>
         <div class="app-body">
           ${until(
-            mainBody,
-            html`
+      mainBody,
+      html`
               <div class="w-full h-full place-content-center">
                 <div class="w-full h-fit justify-center">
                   <p class="mt-auto mr-auto ml-auto w-fit text-2xl">
@@ -115,7 +116,7 @@ export class App extends BaseElement {
                 </div>
               </div>
             `
-          )}
+    )}
         </div>
         <session-share-dialog></session-share-dialog>
         <save-dialog></save-dialog>
@@ -138,7 +139,7 @@ export class App extends BaseElement {
         const saved = JSON.parse(seenVersionsStr);
         seenVersions = saved;
       } catch (e) {
-        console.log("error pulling seen versions", e);
+        log.error("error pulling seen versions", e);
       }
     }
     const ourVer = `${this.appVersion}_${this.gitVer}_${this.buildDate}`;
@@ -155,7 +156,7 @@ export class App extends BaseElement {
         const saved = JSON.parse(seenVersionsStr);
         seenVersions.concat(saved);
       } catch (e) {
-        console.log("error pulling seen versions", e);
+        log.error("error pulling seen versions", e);
       }
     }
     const unique = new Set(seenVersions);

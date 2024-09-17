@@ -1,5 +1,6 @@
 import { Ace } from "ace-builds";
 import { TransferHandler } from "comlink";
+import * as log from "log";
 
 export function isSome<T>(object: T | null | undefined): object is T {
   return typeof object !== "undefined" && object !== null;
@@ -230,7 +231,7 @@ export function makeRequest(opts: {
 export async function saveFile(content: BlobPart) {
   const blob = new Blob([content], { type: "text/plain" });
   if (typeof window.showSaveFilePicker !== "undefined") {
-    console.log("Saving via FileSystem API");
+    log.info("Saving via FileSystem API");
     try {
       const saveHandle = await window.showSaveFilePicker({
         types: [
@@ -247,10 +248,10 @@ export async function saveFile(content: BlobPart) {
       await ws.write(blob);
       await ws.close();
     } catch (e) {
-      console.log(e);
+      log.error(e);
     }
   } else {
-    console.log("saving file via hidden link event");
+    log.info("saving file via hidden link event");
     var a = document.createElement("a");
     const date = new Date().valueOf().toString(16);
     a.download = `code_${date}.ic10`;
@@ -261,7 +262,7 @@ export async function saveFile(content: BlobPart) {
 
 export async function openFile(editor: Ace.Editor) {
   if (typeof window.showOpenFilePicker !== "undefined") {
-    console.log("opening file via FileSystem Api");
+    log.info("opening file via FileSystem Api");
     try {
       const [fileHandle] = await window.showOpenFilePicker();
       const file = await fileHandle.getFile();
@@ -269,16 +270,16 @@ export async function openFile(editor: Ace.Editor) {
       const session = editor.getSession();
       session.setValue(contents);
     } catch (e) {
-      console.log(e);
+      log.error(e);
     }
   } else {
-    console.log("opening file via hidden input event");
+    log.info("opening file via hidden input event");
     let input = document.createElement("input");
     input.type = "file";
     input.accept = ".txt,.ic10,.mips,text/*";
     input.onchange = (_) => {
       const files = Array.from(input.files!);
-      console.log(files);
+      log.trace(files);
       const file = files[0];
       var reader = new FileReader();
       reader.onload = (e) => {

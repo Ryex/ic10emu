@@ -82,8 +82,8 @@ export class VMSlotAddDialog extends VMObjectMixin(BaseElement) {
       const obj = this.vm.value?.state.getObject(this.objectIDSignal.value).value;
       if (isSome(obj)) {
         const template = obj.template;
-        const slot = "slots" in template ? template.slots[this.slotIndex.value] : null;
-        const typ = slot?.typ;
+        const slot = "slots" in template ? template.slots.get(this.slotIndex.value.toString()) : null;
+        const typ = typeof slot === "object" && "Direct" in slot ? slot.Direct.class : null;
 
         if (typeof typ === "string" && typ !== "None") {
           filtered = Array.from(Object.values(this.items.value)).filter(

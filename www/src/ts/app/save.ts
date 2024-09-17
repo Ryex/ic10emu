@@ -2,6 +2,7 @@ import { html, css} from "lit";
 import { customElement, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
 import { SessionDB } from "sessionDB";
+import * as log from "log";
 
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
 import { repeat } from "lit/directives/repeat.js";
@@ -256,7 +257,7 @@ export class SaveDialog extends BaseElement {
   async _handleSaveButtonClick(_e: CustomEvent) {
     const name = this.saveInput.value;
     const app = await window.App.get();
-    console.log(app);
+    log.debug(app);
     await app.session.saveLocal(name);
     this.saveDialog.hide();
   }

@@ -113,16 +113,22 @@ impl VM {
 
     /// Take ownership of an iterable that produces (prefab hash, ObjectTemplate) pairs and build a prefab
     /// database
+    #[tracing::instrument(skip(db))]
     pub fn import_template_database(
         self: &Rc<Self>,
         db: impl IntoIterator<Item = (i32, ObjectTemplate)>,
     ) {
+        tracing::info!("importing new template database");
         self.template_database
             .borrow_mut()
             .replace(db.into_iter().collect());
     }
 
+    /// Take ownership of an iterable that produces (reagent id, Reagent) pairs and build a reagent
+    /// database
+    #[tracing::instrument(skip(db))]
     pub fn import_reagent_database(self: &Rc<Self>, db: impl IntoIterator<Item = (u8, Reagent)>) {
+        tracing::info!("importing new reagent database");
         self.reagent_database
             .borrow_mut()
             .replace(db.into_iter().collect());
@@ -192,6 +198,7 @@ impl VM {
     /// Add an number of object to the VM state using Frozen Object structs.
     /// See also `add_objects_frozen`
     /// Returns the built objects' IDs
+    #[tracing::instrument(skip(frozen_objects))]
     pub fn add_objects_frozen(
         self: &Rc<Self>,
         frozen_objects: impl IntoIterator<Item = FrozenObject>,
@@ -249,6 +256,7 @@ impl VM {
     /// current database.
     /// Errors if the object can not be built do to a template error
     /// Returns the built object's ID
+    #[tracing::instrument]
     pub fn add_object_frozen(self: &Rc<Self>, frozen: FrozenObject) -> Result<ObjectID, VMError> {
         let mut transaction = VMTransaction::new(self);
 
@@ -295,6 +303,7 @@ impl VM {
     }
 
     /// Creates a new network adn return it's ID
+    #[tracing::instrument]
     pub fn add_network(self: &Rc<Self>) -> ObjectID {
         let next_id = self.network_id_space.borrow_mut().next();
         self.networks.borrow_mut().insert(
@@ -322,6 +331,7 @@ impl VM {
     ///
     /// Iterates over all objects borrowing them mutably, never call unless VM is not currently
     /// stepping or you'll get reborrow panics
+    #[tracing::instrument]
     pub fn change_device_id(
         self: &Rc<Self>,
         old_id: ObjectID,
@@ -385,6 +395,7 @@ impl VM {
 
     /// Set program code if it's valid
     /// Object Id is the programmable Id or the circuit holder's id
+    #[tracing::instrument]
     pub fn set_code(self: &Rc<Self>, id: ObjectID, code: &str) -> Result<bool, VMError> {
         let obj = self
             .objects
@@ -420,6 +431,7 @@ impl VM {
 
     /// Set program code and translate invalid lines to Nop, collecting errors
     /// Object Id is the programmable Id or the circuit holder's id
+    #[tracing::instrument]
     pub fn set_code_invalid(self: &Rc<Self>, id: ObjectID, code: &str) -> Result<bool, VMError> {
         let obj = self
             .objects
@@ -455,6 +467,7 @@ impl VM {
 
     /// Get program code
     /// Object Id is the programmable Id or the circuit holder's id
+    #[tracing::instrument]
     pub fn get_code(self: &Rc<Self>, id: ObjectID) -> Result<String, VMError> {
         let obj = self
             .objects
@@ -488,6 +501,7 @@ impl VM {
 
     /// Get a vector of any errors compiling the source code
     /// Object Id is the programmable Id or the circuit holder's id
+    #[tracing::instrument]
     pub fn get_compile_errors(self: &Rc<Self>, id: ObjectID) -> Result<Vec<ICError>, VMError> {
         let obj = self
             .objects
@@ -521,6 +535,7 @@ impl VM {
 
     /// Set register of integrated circuit
     /// Object Id is the circuit Id or the circuit holder's id
+    #[tracing::instrument]
     pub fn set_register(
         self: &Rc<Self>,
         id: ObjectID,
@@ -561,6 +576,7 @@ impl VM {
 
     /// Set memory at address of object with memory
     /// Object Id is the memory writable Id or the circuit holder's id
+    #[tracing::instrument]
     pub fn set_memory(
         self: &Rc<Self>,
         id: ObjectID,
@@ -610,6 +626,7 @@ impl VM {
     }
 
     /// Set logic field on a logicable object
+    #[tracing::instrument]
     pub fn set_logic_field(
         self: &Rc<Self>,
         id: ObjectID,
@@ -634,6 +651,7 @@ impl VM {
     }
 
     /// Set slot logic filed on device object
+    #[tracing::instrument]
     pub fn set_slot_logic_field(
         self: &Rc<Self>,
         id: ObjectID,
@@ -661,6 +679,7 @@ impl VM {
         self.operation_modified.borrow().clone()
     }
 
+    #[tracing::instrument]
     pub fn step_programmable(
         self: &Rc<Self>,
         id: ObjectID,
@@ -705,6 +724,7 @@ impl VM {
     }
 
     /// returns true if executed 128 lines, false if returned early.
+    #[tracing::instrument]
     pub fn run_programmable(
         self: &Rc<Self>,
         id: ObjectID,
@@ -816,10 +836,12 @@ impl VM {
         Err(VMError::NoIC(id))
     }
 
+    #[tracing::instrument]
     pub fn get_object(self: &Rc<Self>, id: ObjectID) -> Option<VMObject> {
         self.objects.borrow().get(&id).cloned()
     }
 
+    #[tracing::instrument]
     pub fn batch_device(
         self: &Rc<Self>,
         source: ObjectID,
@@ -850,6 +872,7 @@ impl VM {
             .into_iter()
     }
 
+    #[tracing::instrument]
     pub fn get_device_same_network(
         self: &Rc<Self>,
         source: ObjectID,
@@ -862,6 +885,7 @@ impl VM {
         }
     }
 
+    #[tracing::instrument]
     pub fn get_network_channel(
         self: &Rc<Self>,
         id: ObjectID,
@@ -887,6 +911,7 @@ impl VM {
         }
     }
 
+    #[tracing::instrument]
     pub fn set_network_channel(
         self: &Rc<Self>,
         id: ObjectID,
@@ -913,6 +938,7 @@ impl VM {
         }
     }
 
+    #[tracing::instrument]
     pub fn devices_on_same_network(self: &Rc<Self>, ids: &[ObjectID]) -> bool {
         for net in self.networks.borrow().values() {
             if net
@@ -928,6 +954,7 @@ impl VM {
     }
 
     /// return a vector with the device ids the source id can see via it's connected networks
+    #[tracing::instrument]
     pub fn visible_devices(self: &Rc<Self>, source: ObjectID) -> Vec<ObjectID> {
         self.networks
             .borrow()
@@ -944,6 +971,7 @@ impl VM {
             .concat()
     }
 
+    #[tracing::instrument]
     pub fn set_pin(
         self: &Rc<Self>,
         id: ObjectID,
@@ -976,6 +1004,7 @@ impl VM {
         }
     }
 
+    #[tracing::instrument]
     pub fn set_device_connection(
         self: &Rc<Self>,
         id: ObjectID,
@@ -1076,6 +1105,7 @@ impl VM {
         Ok(true)
     }
 
+    #[tracing::instrument]
     pub fn remove_device_from_network(
         self: &Rc<Self>,
         id: ObjectID,
@@ -1108,6 +1138,7 @@ impl VM {
         }
     }
 
+    #[tracing::instrument]
     pub fn set_batch_device_field(
         self: &Rc<Self>,
         source: ObjectID,
@@ -1129,6 +1160,7 @@ impl VM {
             .try_collect()
     }
 
+    #[tracing::instrument]
     pub fn set_batch_device_slot_field(
         self: &Rc<Self>,
         source: ObjectID,
@@ -1151,6 +1183,7 @@ impl VM {
             .try_collect()
     }
 
+    #[tracing::instrument]
     pub fn set_batch_name_device_field(
         self: &Rc<Self>,
         source: ObjectID,
@@ -1173,6 +1206,7 @@ impl VM {
             .try_collect()
     }
 
+    #[tracing::instrument]
     pub fn get_batch_device_field(
         self: &Rc<Self>,
         source: ObjectID,
@@ -1195,6 +1229,7 @@ impl VM {
         Ok(LogicBatchMethodWrapper(mode).apply(&samples))
     }
 
+    #[tracing::instrument]
     pub fn get_batch_name_device_field(
         self: &Rc<Self>,
         source: ObjectID,
@@ -1218,6 +1253,7 @@ impl VM {
         Ok(LogicBatchMethodWrapper(mode).apply(&samples))
     }
 
+    #[tracing::instrument]
     pub fn get_batch_name_device_slot_field(
         self: &Rc<Self>,
         source: ObjectID,
@@ -1242,6 +1278,7 @@ impl VM {
         Ok(LogicBatchMethodWrapper(mode).apply(&samples))
     }
 
+    #[tracing::instrument]
     pub fn get_batch_device_slot_field(
         self: &Rc<Self>,
         source: ObjectID,
@@ -1265,6 +1302,7 @@ impl VM {
         Ok(LogicBatchMethodWrapper(mode).apply(&samples))
     }
 
+    #[tracing::instrument]
     pub fn remove_object(self: &Rc<Self>, id: ObjectID) -> Result<(), VMError> {
         let Some(obj) = self.objects.borrow_mut().remove(&id) else {
             return Err(VMError::UnknownId(id));
@@ -1294,6 +1332,7 @@ impl VM {
     /// object must already be added to the VM
     /// does not clean up previous object
     /// returns the id of any former occupant
+    #[tracing::instrument]
     pub fn set_slot_occupant(
         self: &Rc<Self>,
         id: ObjectID,
@@ -1348,6 +1387,7 @@ impl VM {
     }
 
     /// returns former occupant id if any
+    #[tracing::instrument]
     pub fn remove_slot_occupant(
         self: &Rc<Self>,
         id: ObjectID,
@@ -1368,6 +1408,7 @@ impl VM {
         Ok(last)
     }
 
+    #[tracing::instrument]
     pub fn freeze_object(self: &Rc<Self>, id: ObjectID) -> Result<FrozenObjectFull, VMError> {
         let Some(obj) = self.objects.borrow().get(&id).cloned() else {
             return Err(VMError::UnknownId(id));
@@ -1375,6 +1416,7 @@ impl VM {
         Ok(FrozenObject::freeze_object(&obj, self)?)
     }
 
+    #[tracing::instrument(skip(ids))]
     pub fn freeze_objects(
         self: &Rc<Self>,
         ids: impl IntoIterator<Item = ObjectID>,
@@ -1389,6 +1431,7 @@ impl VM {
             .collect()
     }
 
+    #[tracing::instrument]
     pub fn freeze_network(self: &Rc<Self>, id: ObjectID) -> Result<FrozenCableNetwork, VMError> {
         Ok(self
             .networks
@@ -1401,6 +1444,7 @@ impl VM {
             .into())
     }
 
+    #[tracing::instrument(skip(ids))]
     pub fn freeze_networks(
         self: &Rc<Self>,
         ids: impl IntoIterator<Item = ObjectID>,
@@ -1420,7 +1464,9 @@ impl VM {
             .collect::<Result<Vec<FrozenCableNetwork>, VMError>>()
     }
 
+    #[tracing::instrument]
     pub fn save_vm_state(self: &Rc<Self>) -> Result<FrozenVM, VMError> {
+        tracing::trace!("saving vm state");
         Ok(FrozenVM {
             objects: self
                 .objects
@@ -1449,7 +1495,9 @@ impl VM {
         })
     }
 
+    #[tracing::instrument]
     pub fn restore_vm_state(self: &Rc<Self>, state: FrozenVM) -> Result<(), VMError> {
+        tracing::trace!("restoring vm state from {:?}", &state);
         let mut transaction_network_id_space = IdSpace::new();
         transaction_network_id_space
             .use_ids(&state.networks.iter().map(|net| net.id).collect_vec())?;
@@ -1624,6 +1672,7 @@ impl VMTransaction {
     }
 
     pub fn finalize(&mut self) -> Result<(), VMError> {
+        tracing::trace!("finalizing vm transaction: {:?}", &self);
         for (child, (slot, parent)) in &self.object_parents {
             let child_obj = self
                 .objects

@@ -18,7 +18,7 @@ use serde_derive::{Deserialize, Serialize};
 
 use stationeers_data::{
     enums::script::{LogicSlotType, LogicType},
-    templates::ObjectTemplate,
+    templates::{ObjectTemplate, Reagent},
 };
 
 use std::{collections::BTreeMap, rc::Rc};
@@ -55,6 +55,18 @@ pub struct TemplateDatabase(BTreeMap<i32, ObjectTemplate>);
 impl IntoIterator for TemplateDatabase {
     type Item = (i32, ObjectTemplate);
     type IntoIter = std::collections::btree_map::IntoIter<i32, ObjectTemplate>;
+    fn into_iter(self) -> Self::IntoIter {
+        self.0.into_iter()
+    }
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize, Tsify)]
+#[tsify(into_wasm_abi, from_wasm_abi)]
+pub struct ReagentDatabase(BTreeMap<u8, Reagent>);
+
+impl IntoIterator for ReagentDatabase {
+    type Item = (u8, Reagent);
+    type IntoIter = std::collections::btree_map::IntoIter<u8, Reagent>;
     fn into_iter(self) -> Self::IntoIter {
         self.0.into_iter()
     }
@@ -115,7 +127,7 @@ pub fn parse_value<'a, T: serde::Deserialize<'a>>(
     let mut track = serde_path_to_error::Track::new();
     let path = serde_path_to_error::Deserializer::new(jd, &mut track);
     let mut fun = |path: serde_ignored::Path| {
-        log!("Found ignored key: {path}");
+        tracing::warn!("Found ignored key: {path}");
     };
     serde_ignored::deserialize(path, &mut fun).map_err(|e| {
         eyre::eyre!(
@@ -125,6 +137,7 @@ pub fn parse_value<'a, T: serde::Deserialize<'a>>(
     })
 }
 
+#[allow(non_snake_case)]
 #[wasm_bindgen]
 impl VMRef {
     #[wasm_bindgen(constructor)]
@@ -135,6 +148,11 @@ impl VMRef {
     #[wasm_bindgen(js_name = "importTemplateDatabase")]
     pub fn import_template_database(&self, db: TemplateDatabase) {
         self.vm.import_template_database(db);
+    }
+
+    #[wasm_bindgen(js_name = "importReagentDatabase")]
+    pub fn import_reagent_database(&self, db: ReagentDatabase) {
+        self.vm.import_reagent_database(db);
     }
 
     #[wasm_bindgen(js_name = "importTemplateDatabaseSerdeWasm")]
@@ -480,6 +498,6 @@ pub fn init() -> VMRef {
     utils::set_panic_hook();
     tracing_wasm::set_as_global_default();
     let vm = VMRef::new();
-    log!("Hello from ic10emu!");
+    tracing::info!("Hello from ic10emu!");
     vm
 }

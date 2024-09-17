@@ -6,7 +6,7 @@ import { isSome } from "utils";
 export type PrefabName = keyof typeof prefabDatabase.prefabs;
 export type Prefab<K extends PrefabName> = typeof prefabDatabase.prefabs[K]
 export type ReagentName = keyof typeof prefabDatabase.reagents;
-export type ReagentHash = (typeof prefabDatabase.reagents)[ReagentName]["Hash"]
+export type ReagentHash = (typeof prefabDatabase.reagents)[ReagentName]["hash"]
 export type NetworkChannels = [number, number, number, number, number, number, number, number]
 
 export const validCircuitPrefabsNames = ["ItemIntegratedCircuit10"] as const;
@@ -25,7 +25,7 @@ export interface ObjectFromTemplateOptions<K extends PrefabName> {
     obj: ObjectID,
     slot: number,
   } : never,
-  slots?: Prefab<K> extends { slots: readonly unknown[] } ? Record<number, {
+  slots?: Prefab<K> extends { slots: {} } ? Record<number, {
     quantity: number,
     occupant: ObjectID
   }> : never,
@@ -102,7 +102,7 @@ export function objectFromTemplate<K extends PrefabName>(
     }
     if (isSome(options?.reagents)) {
       frozen.obj_info.reagents = new Map(Object.entries(options.reagents).map(([reagent, value]: [ReagentName, number]) => {
-        return [prefabDatabase.reagents[reagent].Hash, value]
+        return [prefabDatabase.reagents[reagent].hash, value]
       }))
     }
 

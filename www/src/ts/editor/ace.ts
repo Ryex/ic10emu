@@ -10,7 +10,7 @@ import { Mode as TextMode } from "ace-builds/src-noconflict/mode-text";
 
 export async function setupLspWorker() {
   // Create a web worker
-  let worker = new Worker(new URL("./lspWorker.ts", import.meta.url));
+  let worker = new Worker(new URL("./lspWorker.ts", import.meta.url), { name: "ic10lsp-Worker" });
 
   const loaded = (w: Worker) =>
     new Promise((r) => w.addEventListener("message", r, { once: true }));

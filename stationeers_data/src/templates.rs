@@ -174,11 +174,14 @@ impl From<HumanTemplate> for ObjectTemplate {
     }
 }
 
+#[serde_as]
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct HumanTemplate {
     pub prefab: PrefabInfo,
     pub species: Species,
+    #[serde_as(as = "BTreeMap<DisplayFromStr, _>")]
+    #[cfg_attr(feature = "tsify", tsify(type = "Map<string, SlotInfo>"))]
     pub slots: BTreeMap<u32, SlotInfo>,
 }
 
@@ -420,6 +423,7 @@ pub struct StructureTemplate {
     pub internal_atmo_info: Option<InternalAtmoInfo>,
 }
 
+#[serde_as]
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct StructureSlotsTemplate {
@@ -429,9 +433,12 @@ pub struct StructureSlotsTemplate {
     pub thermal_info: Option<ThermalInfo>,
     #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
+    #[serde_as(as = "BTreeMap<DisplayFromStr, _>")]
+    #[cfg_attr(feature = "tsify", tsify(type = "Map<string, SlotInfo>"))]
     pub slots: BTreeMap<u32, SlotInfo>,
 }
 
+#[serde_as]
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct StructureLogicTemplate {
@@ -442,9 +449,12 @@ pub struct StructureLogicTemplate {
     #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub logic: LogicInfo,
+    #[serde_as(as = "BTreeMap<DisplayFromStr, _>")]
+    #[cfg_attr(feature = "tsify", tsify(type = "Map<string, SlotInfo>"))]
     pub slots: BTreeMap<u32, SlotInfo>,
 }
 
+#[serde_as]
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct StructureLogicDeviceTemplate {
@@ -455,10 +465,13 @@ pub struct StructureLogicDeviceTemplate {
     #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub logic: LogicInfo,
+    #[serde_as(as = "BTreeMap<DisplayFromStr, _>")]
+    #[cfg_attr(feature = "tsify", tsify(type = "Map<string, SlotInfo>"))]
     pub slots: BTreeMap<u32, SlotInfo>,
     pub device: DeviceInfo,
 }
 
+#[serde_as]
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct StructureLogicDeviceConsumerTemplate {
@@ -469,6 +482,8 @@ pub struct StructureLogicDeviceConsumerTemplate {
     #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub logic: LogicInfo,
+    #[serde_as(as = "BTreeMap<DisplayFromStr, _>")]
+    #[cfg_attr(feature = "tsify", tsify(type = "Map<string, SlotInfo>"))]
     pub slots: BTreeMap<u32, SlotInfo>,
     pub device: DeviceInfo,
     pub consumer_info: ConsumerInfo,
@@ -476,6 +491,7 @@ pub struct StructureLogicDeviceConsumerTemplate {
     pub fabricator_info: Option<FabricatorInfo>,
 }
 
+#[serde_as]
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct StructureLogicDeviceMemoryTemplate {
@@ -486,11 +502,14 @@ pub struct StructureLogicDeviceMemoryTemplate {
     #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub logic: LogicInfo,
+    #[serde_as(as = "BTreeMap<DisplayFromStr, _>")]
+    #[cfg_attr(feature = "tsify", tsify(type = "Map<string, SlotInfo>"))]
     pub slots: BTreeMap<u32, SlotInfo>,
     pub device: DeviceInfo,
     pub memory: MemoryInfo,
 }
 
+#[serde_as]
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct StructureCircuitHolderTemplate {
@@ -501,10 +520,13 @@ pub struct StructureCircuitHolderTemplate {
     #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub logic: LogicInfo,
+    #[serde_as(as = "BTreeMap<DisplayFromStr, _>")]
+    #[cfg_attr(feature = "tsify", tsify(type = "Map<string, SlotInfo>"))]
     pub slots: BTreeMap<u32, SlotInfo>,
     pub device: DeviceInfo,
 }
 
+#[serde_as]
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct StructureLogicDeviceConsumerMemoryTemplate {
@@ -515,6 +537,8 @@ pub struct StructureLogicDeviceConsumerMemoryTemplate {
     #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub logic: LogicInfo,
+    #[serde_as(as = "BTreeMap<DisplayFromStr, _>")]
+    #[cfg_attr(feature = "tsify", tsify(type = "Map<string, SlotInfo>"))]
     pub slots: BTreeMap<u32, SlotInfo>,
     pub device: DeviceInfo,
     pub consumer_info: ConsumerInfo,
@@ -534,6 +558,7 @@ pub struct ItemTemplate {
     pub internal_atmo_info: Option<InternalAtmoInfo>,
 }
 
+#[serde_as]
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct ItemSlotsTemplate {
@@ -543,9 +568,12 @@ pub struct ItemSlotsTemplate {
     pub thermal_info: Option<ThermalInfo>,
     #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
+    #[serde_as(as = "BTreeMap<DisplayFromStr, _>")]
+    #[cfg_attr(feature = "tsify", tsify(type = "Map<string, SlotInfo>"))]
     pub slots: BTreeMap<u32, SlotInfo>,
 }
 
+#[serde_as]
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct ItemConsumerTemplate {
@@ -555,10 +583,13 @@ pub struct ItemConsumerTemplate {
     pub thermal_info: Option<ThermalInfo>,
     #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
+    #[serde_as(as = "BTreeMap<DisplayFromStr, _>")]
+    #[cfg_attr(feature = "tsify", tsify(type = "Map<string, SlotInfo>"))]
     pub slots: BTreeMap<u32, SlotInfo>,
     pub consumer_info: ConsumerInfo,
 }
 
+#[serde_as]
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct ItemLogicTemplate {
@@ -569,9 +600,12 @@ pub struct ItemLogicTemplate {
     #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub logic: LogicInfo,
+    #[serde_as(as = "BTreeMap<DisplayFromStr, _>")]
+    #[cfg_attr(feature = "tsify", tsify(type = "Map<string, SlotInfo>"))]
     pub slots: BTreeMap<u32, SlotInfo>,
 }
 
+#[serde_as]
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct ItemLogicMemoryTemplate {
@@ -582,10 +616,13 @@ pub struct ItemLogicMemoryTemplate {
     #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub logic: LogicInfo,
+    #[serde_as(as = "BTreeMap<DisplayFromStr, _>")]
+    #[cfg_attr(feature = "tsify", tsify(type = "Map<string, SlotInfo>"))]
     pub slots: BTreeMap<u32, SlotInfo>,
     pub memory: MemoryInfo,
 }
 
+#[serde_as]
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct ItemCircuitHolderTemplate {
@@ -596,9 +633,12 @@ pub struct ItemCircuitHolderTemplate {
     #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub logic: LogicInfo,
+    #[serde_as(as = "BTreeMap<DisplayFromStr, _>")]
+    #[cfg_attr(feature = "tsify", tsify(type = "Map<string, SlotInfo>"))]
     pub slots: BTreeMap<u32, SlotInfo>,
 }
 
+#[serde_as]
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct ItemSuitTemplate {
@@ -608,10 +648,13 @@ pub struct ItemSuitTemplate {
     pub thermal_info: Option<ThermalInfo>,
     #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
+    #[serde_as(as = "BTreeMap<DisplayFromStr, _>")]
+    #[cfg_attr(feature = "tsify", tsify(type = "Map<string, SlotInfo>"))]
     pub slots: BTreeMap<u32, SlotInfo>,
     pub suit_info: SuitInfo,
 }
 
+#[serde_as]
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct ItemSuitLogicTemplate {
@@ -622,10 +665,13 @@ pub struct ItemSuitLogicTemplate {
     #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub logic: LogicInfo,
+    #[serde_as(as = "BTreeMap<DisplayFromStr, _>")]
+    #[cfg_attr(feature = "tsify", tsify(type = "Map<string, SlotInfo>"))]
     pub slots: BTreeMap<u32, SlotInfo>,
     pub suit_info: SuitInfo,
 }
 
+#[serde_as]
 #[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
 #[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
 pub struct ItemSuitCircuitHolderTemplate {
@@ -636,6 +682,8 @@ pub struct ItemSuitCircuitHolderTemplate {
     #[cfg_attr(feature = "tsify", tsify(optional))]
     pub internal_atmo_info: Option<InternalAtmoInfo>,
     pub logic: LogicInfo,
+    #[serde_as(as = "BTreeMap<DisplayFromStr, _>")]
+    #[cfg_attr(feature = "tsify", tsify(type = "Map<string, SlotInfo>"))]
     pub slots: BTreeMap<u32, SlotInfo>,
     pub suit_info: SuitInfo,
     pub memory: MemoryInfo,

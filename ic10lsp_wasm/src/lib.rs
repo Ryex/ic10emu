@@ -30,8 +30,9 @@ impl ServerConfig {
 #[wasm_bindgen]
 pub async fn serve(config: ServerConfig) -> Result<(), JsValue> {
     console_error_panic_hook::set_once();
+    tracing_wasm::set_as_global_default();
 
-    web_sys::console::log_1(&"server::serve".into());
+    tracing::trace!("server::serv error:");
 
     let ServerConfig {
         into_server,
@@ -51,6 +52,7 @@ pub async fn serve(config: ServerConfig) -> Result<(), JsValue> {
         })
         .map_err(|err| {
             web_sys::console::log_2(&"server::input Error: ".into(), &err);
+            tracing::error!("server::input error: {:?}", &err);
 
             std::io::Error::from(std::io::ErrorKind::Other)
         })
@@ -67,7 +69,7 @@ pub async fn serve(config: ServerConfig) -> Result<(), JsValue> {
     });
     Server::new(input, output, messages).serve(service).await;
 
-    web_sys::console::log_1(&"server::serve ic10lsp started".into());
+    tracing::info!("server::serve ic10lsp started");
 
     Ok(())
 }

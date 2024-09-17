@@ -40,6 +40,8 @@ import { VirtualMachine } from "virtualMachine";
 import { isSome } from "utils";
 import { Session } from "session";
 
+import * as log from "log";
+
 interface SessionStateExtension {
   state?: {
     errorMarkers?: Ace.MarkerGroup;
@@ -108,7 +110,7 @@ export class IC10Editor extends BaseElement {
 
   constructor() {
     super();
-    console.log("constructing editor");
+    log.trace("constructing editor");
 
     window.Editor = this;
   }
@@ -158,7 +160,7 @@ export class IC10Editor extends BaseElement {
   async firstUpdated() {
     await this.setupApp();
 
-    console.log("editor firstUpdated");
+    log.trace("editor firstUpdated");
     if (!ace.require("ace/ext/language_tools")) {
       await import("ace-builds/src-noconflict/ext-language_tools");
     }
@@ -608,7 +610,7 @@ export class IC10Editor extends BaseElement {
         const temp = Object.assign({}, this.settings, saved);
         Object.assign(this.settings, temp);
       } catch (e) {
-        console.log("error loading editor settings", e);
+        log.error("error loading editor settings", e);
       }
     }
   }

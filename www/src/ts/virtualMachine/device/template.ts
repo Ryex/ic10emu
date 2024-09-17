@@ -151,8 +151,7 @@ export class VmObjectTemplate extends VMObjectMixin(
     ).map(
       (slot, _index) =>
         ({
-          typ: slot.class
-,
+          typ: typeof slot === "object" && "Direct" in slot ? slot.Direct.class : null,
           quantity: 0,
         }) as SlotTemplate,
     );

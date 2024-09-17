@@ -28,6 +28,8 @@ import {
 import { getJsonContext } from "./jsonErrorUtils";
 import { VMState } from "./state";
 
+import * as log from "log";
+
 export interface VirtualMachineEventMap {
   "vm-template-db-loaded": CustomEvent<TemplateDatabase>;
   "vm-objects-update": CustomEvent<number[]>;
@@ -62,11 +64,11 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap, typeof Eve
 
   async setupVM() {
 
-    this.vmWorker = new Worker(new URL("./vmWorker.ts", import.meta.url));
+    this.vmWorker = new Worker(new URL("./vmWorker.ts", import.meta.url), { name: "ic10emu-Worker"});
     const loaded = (w: Worker) =>
       new Promise((r) => w.addEventListener("message", r, { once: true }));
     await Promise.all([loaded(this.vmWorker)]);
-    console.info("VM Worker loaded");
+    log.info("VM Worker loaded");
     const vm = Comlink.wrap<VMRef>(this.vmWorker);
     this.ic10vm = vm;
     this.state.vm.value = await this.ic10vm.saveVMState();
@@ -133,11 +135,11 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap, typeof Eve
 
   handleVmError(err: Error, args: { context?: string, jsonContext?: string, trace?: boolean } = {}) {
     const message = args.context ? `Error in Virtual Machine {${args.context}}` : "Error in Virtual Machine";
-    console.log(message, err);
+    log.error(message, err);
     if (args.jsonContext != null) {
       const jsonTypeError = err.message.match(jsonErrorRegex)
       if (jsonTypeError) {
-        console.log(
+        log.debug(
           "Json Error context",
           getJsonContext(
             parseInt(jsonTypeError.groups["errorLine"]),
@@ -307,14 +309,14 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap, typeof Eve
 
   setupTemplateDatabase(db: TemplateDatabase) {
     this.state.templateDB.value = db;
-    console.log("Loaded Template Database", this.state.templateDB.value);
+    log.debug("Loaded Template Database", this.state.templateDB.value);
     this.dispatchCustomEvent("vm-template-db-loaded", this.state.templateDB.value);
   }
 
   async addObjectFrozen(frozen: FrozenObject): Promise<ObjectID | undefined> {
     let id = undefined;
     try {
-      console.log("adding device", frozen);
+      log.trace("adding device", frozen);
       id = await this.ic10vm.addObjectFrozen(frozen);
     } catch (err) {
       this.handleVmError(err);
@@ -329,7 +331,7 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap, typeof Eve
   ): Promise<ObjectID[] | undefined> {
     let ids = undefined;
     try {
-      console.log("adding devices", frozenObjects);
+      log.trace("adding devices", frozenObjects);
       ids = await this.ic10vm.addObjectsFrozen(frozenObjects);
     } catch (err) {
       this.handleVmError(err);
@@ -357,7 +359,7 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap, typeof Eve
     quantity: number,
   ): Promise<boolean> {
     try {
-      console.log("setting slot occupant", frozen);
+      log.trace("setting slot occupant", frozen);
       await this.ic10vm.setSlotOccupant(id, index, frozen, quantity);
     } catch (err) {
       this.handleVmError(err);
@@ -384,7 +386,7 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap, typeof Eve
 
   async restoreVMState(state: FrozenVM) {
     try {
-      console.info("Restoring VM State from", state);
+      log.info("Restoring VM State from", state);
       await this.ic10vm.restoreVMState(state);
     } catch (e) {
       this.handleVmError(e, { jsonContext: JSON.stringify(state) });

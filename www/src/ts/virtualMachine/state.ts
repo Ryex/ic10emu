@@ -2,6 +2,8 @@ import { computed, ReadonlySignal, signal, Signal } from "@lit-labs/preact-signa
 import { Class, Connection, FrozenCableNetwork, FrozenObject, FrozenVM, ICInfo, ICState, LineError, LogicField, LogicSlotType, LogicType, ObjectID, Operand, Slot, TemplateDatabase } from "ic10emu_wasm";
 import { isSome, structuralEqual } from "utils";
 
+import * as log from "log";
+
 
 export interface ObjectSlotInfo {
   parent: ObjectID;
@@ -232,7 +234,7 @@ export class VMState {
       const s = computed((): number => {
         const obj = this.getObject(id).value;
         const template = obj?.template;
-        return isSome(template) && "slots" in template ? template.slots.length : 0
+        return isSome(template) && "slots" in template ? template.slots.size : 0
       });
       this.signalCacheSet(key, s);
       return s;
@@ -248,13 +250,15 @@ export class VMState {
         const obj = this.getObject(id).value;
         const info = obj?.obj_info.slots.get(index);
         const template = obj?.template;
-        const slotTemplate = isSome(template) && "slots" in template ? template.slots[index] : null;
+        const slotTemplate = isSome(template) && "slots" in template ? template.slots.get(index.toString()) : null;
+        const name = typeof slotTemplate === "object" && "Direct" in slotTemplate ? slotTemplate.Direct.name : slotTemplate?.Proxy.name;
+        const typ = typeof slotTemplate === "object" && "Direct" in slotTemplate ? slotTemplate.Direct.class : null;
         if (isSome(obj)) {
           const next = {
             parent: obj?.obj_info.id,
             index,
-            name: slotTemplate?.name,
-            typ: slotTemplate?.typ,
+            name,
+            typ,
             quantity: info?.quantity,
             occupant: info?.id
           }
@@ -713,7 +717,7 @@ export class VMState {
         } else if (this.programHolderIds.value?.includes(id)) {
           return this.getObject(id).value?.obj_info.source_code ?? null;
         } else {
-          console.error(`(objectId: ${id}) does not refer to a object with a known program interface`)
+          log.error(`(objectId: ${id}) does not refer to a object with a known program interface`)
           return null;
         }
       })
@@ -735,7 +739,7 @@ export class VMState {
         } else if (this.programHolderIds.value?.includes(id)) {
           ic = this.getObject(id).value ?? null;
         } else {
-          console.error(`(objectId: ${id}) does not refer to a object with a known program interface`)
+          log.error(`(objectId: ${id}) does not refer to a object with a known program interface`)
           return null;
         }
         const errors = ic?.obj_info.compile_errors?.flatMap((error): LineError[] => {

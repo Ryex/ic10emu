@@ -15,6 +15,8 @@ import { repeat } from "lit/directives/repeat.js";
 import { Connection } from "ic10emu_wasm";
 import { createRef, ref, Ref } from "lit/directives/ref.js";
 
+import * as log from "log";
+
 export type CardTab = "fields" | "slots" | "reagents" | "networks" | "pins";
 
 @customElement("vm-device-card")
@@ -119,7 +121,7 @@ export class VMDeviceCard extends VMObjectMixin(BaseElement) {
 
   onImageErr(e: Event) {
     this.image_err = true;
-    console.log("Image load error", e);
+    log.error("Image load error", e);
   }
 
   thisIsActiveIc = computed(() => {
@@ -327,7 +329,7 @@ export class VMDeviceCard extends VMObjectMixin(BaseElement) {
       });
 
       const connectionSelectRef = this.getConnectionSelectRef(index);
-      selectOptions.subscribe(() => {this.forceSelectUpdate(connectionSelectRef)})
+      selectOptions.subscribe(() => { this.forceSelectUpdate(connectionSelectRef) })
 
       connNet.subscribe((net) => {
         if (isSome(connectionSelectRef.value)) {

@@ -1,6 +1,7 @@
 import { HTMLTemplateResult, html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
+import * as log from "log";
 
 import SlMenuItem from "@shoelace-style/shoelace/dist/components/menu-item/menu-item.js";
 
@@ -213,7 +214,7 @@ export class Nav extends BaseElement {
     `;
   }
 
-  firstUpdated(): void {}
+  firstUpdated(): void { }
 
   _menuClickHandler(e: CustomEvent) {
     const item = e.detail.item as SlMenuItem;
@@ -248,7 +249,7 @@ export class Nav extends BaseElement {
         this.dispatchEvent(new CustomEvent("app-changelog", { bubbles: true }));
         break;
       default:
-        console.log("Unknown main menu item", item.value);
+        log.debug("Unknown main menu item", item.value);
     }
   }
 }

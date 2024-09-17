@@ -10,6 +10,8 @@ import {
   toJson,
 } from "./utils";
 
+import * as log from "log";
+
 import * as presets from "./presets";
 import { computed, signal, Signal } from "@lit-labs/preact-signals";
 import { SessionDB } from "sessionDB";
@@ -97,7 +99,7 @@ export class Session extends TypedEventTarget<SessionEventMap, typeof EventTarge
       const fragment = base64url_encode(c_bytes);
       window.history.replaceState(null, "", `#${fragment}`);
     } catch (e) {
-      console.log("Error compressing content fragment:", e);
+      log.error("Error compressing content fragment:", e);
       return;
     }
   }
@@ -144,7 +146,7 @@ export class Session extends TypedEventTarget<SessionEventMap, typeof EventTarge
         } else if ("vm" in data && "activeIC" in data) {
           this.load(data as SessionDB.CurrentDBVmState);
         } else {
-          console.log("Bad session data:", data);
+          log.error("Bad session data:", data);
         }
       }
     } else {
@@ -280,11 +282,11 @@ function guessFormat(bytes: ArrayBuffer): CompressionFormat {
 async function decompressFragment(c_bytes: ArrayBuffer) {
   try {
     const format = guessFormat(c_bytes);
-    console.log("Decompressing fragment with:", format);
+    log.info("Decompressing fragment with:", format);
     const bytes = await decompress(c_bytes, format);
     return bytes;
   } catch (e) {
-    console.log("Error decompressing content fragment:", e);
+    log.error("Error decompressing content fragment:", e);
     return null;
   }
 }
