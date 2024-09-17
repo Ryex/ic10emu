@@ -29,7 +29,7 @@ export class AceKeyboardShortcuts extends BaseElement {
   ];
 
   editor?: Ace.Editor;
-  @query(".drawer") drawer: SlDrawer;
+  @query(".drawer") accessor drawer: SlDrawer;
 
   constructor() {
     super();
@@ -48,10 +48,10 @@ export class AceKeyboardShortcuts extends BaseElement {
   protected render() {
     var kbs: any[] = [];
     if (this.editor) {
-      const getEditorKeybordShortcuts = ace.require(
+      const getEditorKeyboardShortcuts = ace.require(
         "ace/ext/menu_tools/get_editor_keyboard_shortcuts",
-      ).getEditorKeybordShortcuts;
-      kbs = getEditorKeybordShortcuts(this.editor);
+      ).getEditorKeyboardShortcuts;
+      kbs = getEditorKeyboardShortcuts(this.editor);
     }
     return html`
       <sl-drawer label="Editor Keyboard Shortcuts" class="drawer">

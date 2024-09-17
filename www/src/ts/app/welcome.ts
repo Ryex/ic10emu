@@ -20,15 +20,15 @@ export class AppWelcome extends BaseElement {
     `,
   ];
 
-  @property({ type: Boolean }) dontShowAgain: boolean;
+  @property({ type: Boolean }) accessor dontShowAgain: boolean;
 
   constructor() {
     super();
     this.dontShowAgain = true;
   }
 
-  @query("sl-dialog.welcome-dialog") dialog: SlDialog;
-  @query("sl-switch.dont-show-switch") dontShowSwitch: SlSwitch;
+  @query("sl-dialog.welcome-dialog") accessor dialog: SlDialog;
+  @query("sl-switch.dont-show-switch") accessor dontShowSwitch: SlSwitch;
 
   hide() {
     this.dialog?.hide();

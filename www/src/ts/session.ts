@@ -1,122 +1,69 @@
-import type { ICError, FrozenVM, SlotType } from "ic10emu_wasm";
+import type {
+  ObjectID,
+} from "ic10emu_wasm";
 import { App } from "./app";
 
-import { openDB, DBSchema } from "idb";
-import { fromJson, toJson } from "./utils";
+import { openDB, IDBPTransaction } from "idb";
+import {
+  TypedEventTarget,
+  fromJson,
+  toJson,
+} from "./utils";
+
+import * as log from "log";
 
 import * as presets from "./presets";
+import { computed, signal, Signal } from "@lit-labs/preact-signals";
+import { SessionDB } from "sessionDB";
+import { VMState } from "virtualMachine/state";
 const { demoVMState } = presets;
 
-const LOCAL_DB_VERSION = 1;
+export interface SessionEventMap {
+  "sessions-local-update": CustomEvent;
+  "session-active-ic": CustomEvent<ObjectID>;
+  "session-id-change": CustomEvent<{ old: ObjectID; new: ObjectID }>;
+  "session-errors": CustomEvent<ObjectID[]>;
+  "session-load": CustomEvent<Session>;
+  "active-line": CustomEvent<ObjectID>;
+}
 
-export class Session extends EventTarget {
-  private _programs: Map<number, string>;
-  private _errors: Map<number, ICError[]>;
-  private _activeIC: number;
-  private _activeLines: Map<number, number>;
-  private _save_timeout?: ReturnType<typeof setTimeout>;
-  private _vm_state: FrozenVM;
-
+export class Session extends TypedEventTarget<SessionEventMap, typeof EventTarget>(EventTarget) {
+  private _activeIC: Signal<ObjectID> = signal(null);
+  private _activeEditorSession: Signal<ObjectID> = signal(null);
+  private _save_timeout?: ReturnType<typeof setTimeout> = undefined;
   private app: App;
+
+  vmState: Signal<VMState> = signal(null);
 
   constructor(app: App) {
     super();
     this.app = app;
-    this._programs = new Map();
-    this._errors = new Map();
-    this._save_timeout = undefined;
-    this._activeIC = 1;
-    this._activeLines = new Map();
-    this._vm_state = undefined;
     this.loadFromFragment();
 
-    const that = this;
     window.addEventListener("hashchange", (_event) => {
-      that.loadFromFragment();
+      this.loadFromFragment();
     });
   }
 
-  get programs(): Map<number, string> {
-    return this._programs;
-  }
-
-  set programs(programs: Iterable<[number, string]>) {
-    this._programs = new Map([...programs]);
-    this._fireOnLoad();
-  }
-
-  get activeIC() {
+  get activeIC(): Signal<ObjectID> {
     return this._activeIC;
   }
 
-  set activeIC(val: number) {
-    this._activeIC = val;
-    this.dispatchEvent(
-      new CustomEvent("session-active-ic", { detail: this.activeIC }),
-    );
+  set activeIC(val: ObjectID) {
+    this._activeIC.value = val;
+    this.dispatchCustomEvent("session-active-ic", this.activeIC.peek());
   }
 
-  changeID(oldID: number, newID: number) {
-    if (this.programs.has(oldID)) {
-      this.programs.set(newID, this.programs.get(oldID));
-      this.programs.delete(oldID);
-    }
-    this.dispatchEvent(
-      new CustomEvent("session-id-change", {
-        detail: { old: oldID, new: newID },
-      }),
-    );
+  get activeEditorSession(): Signal<ObjectID> {
+    return this._activeEditorSession;
   }
 
-  onIDChange(
-    callback: (e: CustomEvent<{ old: number; new: number }>) => any,
-  ) {
-    this.addEventListener("session-id-change", callback);
+  set activeEditorSession(val: ObjectID) {
+    this._activeEditorSession.value = val;
   }
 
-  onActiveIc(callback: (e: CustomEvent<number>) => any,) {
+  onActiveIc(callback: (e: CustomEvent<ObjectID>) => any) {
     this.addEventListener("session-active-ic", callback);
-  }
-
-  get errors() {
-    return this._errors;
-  }
-
-  getActiveLine(id: number) {
-    return this._activeLines.get(id);
-  }
-
-  setActiveLine(id: number, line: number) {
-    const last = this._activeLines.get(id);
-    if (last !== line) {
-      this._activeLines.set(id, line);
-      this._fireOnActiveLine(id);
-    }
-  }
-
-  setProgramCode(id: number, code: string) {
-    this._programs.set(id, code);
-    if (this.app.vm) {
-      this.app.vm.updateCode();
-    }
-    this.save();
-  }
-
-  setProgramErrors(id: number, errors: ICError[]) {
-    this._errors.set(id, errors);
-    this._fireOnErrors([id]);
-  }
-
-  _fireOnErrors(ids: number[]) {
-    this.dispatchEvent(
-      new CustomEvent("session-errors", {
-        detail: ids,
-      }),
-    );
-  }
-
-  onErrors(callback: (e: CustomEvent<number[]>) => any) {
-    this.addEventListener("session-errors", callback);
   }
 
   onLoad(callback: (e: CustomEvent<Session>) => any) {
@@ -124,23 +71,15 @@ export class Session extends EventTarget {
   }
 
   _fireOnLoad() {
-    this.dispatchEvent(
-      new CustomEvent("session-load", {
-        detail: this,
-      }),
-    );
+    this.dispatchCustomEvent("session-load", this);
   }
 
-  onActiveLine(callback: (e: CustomEvent<number>) => any) {
+  onActiveLine(callback: (e: CustomEvent<ObjectID>) => any) {
     this.addEventListener("active-line", callback);
   }
 
   _fireOnActiveLine(id: number) {
-    this.dispatchEvent(
-      new CustomEvent("active-line", {
-        detail: id,
-      }),
-    );
+    this.dispatchCustomEvent("active-line", id);
   }
 
   save() {
@@ -152,35 +91,33 @@ export class Session extends EventTarget {
   }
 
   async saveToFragment() {
-    const toSave = { vm: this.app.vm.saveVMState(), activeIC: this.activeIC };
+    const vm = await window.VM.get()
+    const toSave = { vm: vm.state.vm.value, activeIC: this.activeIC };
     const bytes = new TextEncoder().encode(toJson(toSave));
     try {
       const c_bytes = await compress(bytes, defaultCompression);
       const fragment = base64url_encode(c_bytes);
       window.history.replaceState(null, "", `#${fragment}`);
     } catch (e) {
-      console.log("Error compressing content fragment:", e);
+      log.error("Error compressing content fragment:", e);
       return;
     }
   }
 
-  async load(data: VMState | OldPrograms | string) {
+  async load(data: SessionDB.CurrentDBVmState | OldPrograms | string) {
+    const vm = await window.VM.get()
     if (typeof data === "string") {
-      this._activeIC = 1;
-      this.app.vm.restoreVMState(demoVMState.vm);
-      this._programs = new Map([[1, data]]);
+      this.activeIC = 1;
+      await vm.restoreVMState(demoVMState.vm);
     } else if ("programs" in data) {
-      this._activeIC = 1;
-      this.app.vm.restoreVMState(demoVMState.vm);
-      this._programs = new Map(data.programs);
+      this.activeIC = 1;
+      await vm.restoreVMState(demoVMState.vm);
     } else if ("vm" in data) {
-      this._programs = new Map();
       const state = data.vm;
       // assign first so it's present when the
       // vm fires events
-      this._activeIC = data.activeIC;
-      this.app.vm.restoreVMState(state);
-      this.programs = this.app.vm.getPrograms();
+      this._activeIC.value = data.activeIC;
+      await vm.restoreVMState(state);
       // assign again to fire event
       this.activeIC = data.activeIC;
     }
@@ -207,49 +144,77 @@ export class Session extends EventTarget {
           this.load(data as OldPrograms);
           return;
         } else if ("vm" in data && "activeIC" in data) {
-          this.load(data as VMState);
+          this.load(data as SessionDB.CurrentDBVmState);
         } else {
-          console.log("Bad session data:", data);
+          log.error("Bad session data:", data);
         }
       }
+    } else {
+      this.load(presets.defaultVMState);
     }
   }
 
   async openIndexDB() {
-    return await openDB<AppDBSchemaV1>("ic10-vm-sessions", LOCAL_DB_VERSION, {
-      upgrade(db, oldVersion, newVersion, transaction, event) {
-        // only db verison currently known is v1
-        if (oldVersion < 1) {
-          const sessionStore = db.createObjectStore("sessions");
-          sessionStore.createIndex("by-date", "date");
-          sessionStore.createIndex("by-name", "name");
-        }
+    return await openDB<SessionDB.CurrentDBSchema>(
+      "ic10-vm-sessions",
+      SessionDB.LOCAL_DB_VERSION,
+      {
+        async upgrade(db, oldVersion, newVersion, transaction, event) {
+          if (oldVersion < SessionDB.DBVersion.V1) {
+            const sessionStore = db.createObjectStore("sessions");
+            sessionStore.createIndex("by-date", "date");
+            sessionStore.createIndex("by-name", "name");
+          }
+          if (oldVersion < SessionDB.DBVersion.V2) {
+            const v1Transaction =
+              transaction as unknown as IDBPTransaction<SessionDB.AppDBSchemaV1>;
+            const v1SessionStore = v1Transaction.objectStore("sessions");
+            const v1Sessions = await v1SessionStore.getAll();
+            const v2SessionStore = db.createObjectStore("sessionsV2");
+            v2SessionStore.createIndex("by-date", "date");
+            v2SessionStore.createIndex("by-name", "name");
+            for (const v1Session of v1Sessions) {
+              await v2SessionStore.add({
+                name: v1Session.name,
+                date: v1Session.date,
+                version: SessionDB.DBVersion.V2,
+                session: SessionDB.V2.fromV1State(v1Session.session),
+              });
+            }
+          }
+        },
       },
-    });
+    );
   }
 
   async saveLocal(name: string) {
-    const state: VMState = {
-      vm: (await window.VM.get()).ic10vm.saveVMState(),
-      activeIC: this.activeIC,
+    const state: SessionDB.CurrentDBVmState = {
+      vm: await (await window.VM.get()).ic10vm.saveVMState(),
+      activeIC: this.activeIC.peek(),
     };
     const db = await this.openIndexDB();
-    const transaction = db.transaction(["sessions"], "readwrite");
-    const sessionStore = transaction.objectStore("sessions");
+    const transaction = db.transaction(
+      [SessionDB.LOCAL_DB_SESSION_STORE],
+      "readwrite",
+    );
+    const sessionStore = transaction.objectStore(
+      SessionDB.LOCAL_DB_SESSION_STORE,
+    );
     await sessionStore.put(
       {
         name,
         date: new Date(),
+        version: SessionDB.LOCAL_DB_VERSION,
         session: state,
       },
       name,
     );
-    this.dispatchEvent(new CustomEvent("sessions-local-update"));
+    this.dispatchCustomEvent("sessions-local-update");
   }
 
   async loadFromLocal(name: string) {
     const db = await this.openIndexDB();
-    const save = await db.get("sessions", name);
+    const save = await db.get(SessionDB.LOCAL_DB_SESSION_STORE, name);
     if (typeof save !== "undefined") {
       const { session } = save;
       this.load(session);
@@ -258,37 +223,23 @@ export class Session extends EventTarget {
 
   async deleteLocalSave(name: string) {
     const db = await this.openIndexDB();
-    const transaction = db.transaction(["sessions"], "readwrite");
-    const sessionStore = transaction.objectStore("sessions");
+    const transaction = db.transaction(
+      [SessionDB.LOCAL_DB_SESSION_STORE],
+      "readwrite",
+    );
+    const sessionStore = transaction.objectStore(
+      SessionDB.LOCAL_DB_SESSION_STORE,
+    );
     await sessionStore.delete(name);
-    this.dispatchEvent(new CustomEvent("sessions-local-update"));
+    this.dispatchCustomEvent("sessions-local-update");
   }
   async getLocalSaved() {
     const db = await this.openIndexDB();
-    const sessions = await db.getAll("sessions");
+    const sessions = await db.getAll(SessionDB.LOCAL_DB_SESSION_STORE);
     return sessions;
   }
 }
 
-export interface VMState {
-  activeIC: number;
-  vm: FrozenVM;
-}
-
-interface AppDBSchemaV1 extends DBSchema {
-  sessions: {
-    key: string;
-    value: {
-      name: string;
-      date: Date;
-      session: VMState;
-    };
-    indexes: {
-      "by-date": Date;
-      "by-name": string;
-    };
-  };
-}
 
 export interface OldPrograms {
   programs: [number, string][];
@@ -331,11 +282,11 @@ function guessFormat(bytes: ArrayBuffer): CompressionFormat {
 async function decompressFragment(c_bytes: ArrayBuffer) {
   try {
     const format = guessFormat(c_bytes);
-    console.log("Decompressing fragment with:", format);
+    log.info("Decompressing fragment with:", format);
     const bytes = await decompress(c_bytes, format);
     return bytes;
   } catch (e) {
-    console.log("Error decompressing content fragment:", e);
+    log.error("Error decompressing content fragment:", e);
     return null;
   }
 }

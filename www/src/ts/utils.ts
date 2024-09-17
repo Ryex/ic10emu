@@ -1,4 +1,18 @@
 import { Ace } from "ace-builds";
+import { TransferHandler } from "comlink";
+import * as log from "log";
+
+export function isSome<T>(object: T | null | undefined): object is T {
+  return typeof object !== "undefined" && object !== null;
+}
+
+export function range(size: number, start: number = 0): number[] {
+  const base = [...Array(size ?? 0).keys()]
+  if (start != 0) {
+    return base.map(i => i + start);
+  }
+  return base
+}
 
 export function docReady(fn: () => void) {
   // see if DOM is already available
@@ -13,12 +27,36 @@ export function docReady(fn: () => void) {
 }
 
 function isZeroNegative(zero: number) {
-  return Object.is(zero, -0)
+  return Object.is(zero, -0);
+}
+
+function makeCRCTable() {
+  let c;
+  const crcTable = [];
+  for (let n = 0; n < 256; n++) {
+    c = n;
+    for (let k = 0; k < 8; k++) {
+      c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+    }
+    crcTable[n] = c;
+  }
+  return crcTable;
+}
+
+const crcTable = makeCRCTable();
+
+// Signed crc32 for string
+export function crc32(str: string): number {
+  let crc = 0 ^ -1;
+  for (let i = 0, len = str.length; i < len; i++) {
+    crc = (crc >>> 8) ^ crcTable[(crc ^ str.charCodeAt(i)) & 0xff];
+  }
+  return crc ^ -1;
 }
 
 export function numberToString(n: number): string {
   if (isZeroNegative(n)) return "-0";
-  return n.toString();
+  return n?.toString() ?? `${n}`;
 }
 export function displayNumber(n: number): string {
   return numberToString(n).replace("Infinity", "∞");
@@ -38,6 +76,11 @@ function replacer(_key: any, value: any) {
       dataType: "Number",
       value: numberToString(value),
     };
+  } else if (typeof value === "bigint") {
+    return {
+      dataType: "BigInt",
+      value: value.toString(),
+    }
   } else if (typeof value === "undefined") {
     return {
       dataType: "undefined",
@@ -53,6 +96,8 @@ function reviver(_key: any, value: any) {
       return new Map(value.value);
     } else if (value.dataType === "Number") {
       return parseFloat(value.value);
+    } else if (value.dataType === "BigInt") {
+      return BigInt(value.value);
     } else if (value.dataType === "undefined") {
       return undefined;
     }
@@ -68,10 +113,74 @@ export function fromJson(value: string): any {
   return JSON.parse(value, reviver);
 }
 
+// this is a hack that *may* not be needed
+type SuitableForSpecialJson = any;
+export const comlinkSpecialJsonTransferHandler: TransferHandler<any, string> = {
+  canHandle: (obj: unknown): obj is SuitableForSpecialJson => {
+    return typeof obj === "object"
+      || (
+        typeof obj === "number"
+        && (!Number.isFinite(obj) || Number.isNaN(obj) || isZeroNegative(obj))
+      )
+      || typeof obj === "undefined";
+  },
+  serialize: (obj: SuitableForSpecialJson) => {
+    const sJson = toJson(obj);
+    return [
+      sJson,
+      [],
+    ]
+  },
+  deserialize: (obj: string) => fromJson(obj)
+};
+
+export function compareMaps(map1: Map<any, any>, map2: Map<any, any>): boolean {
+  let testVal;
+  if (map1.size !== map2.size) {
+    return false;
+  }
+  for (let [key, val] of map1) {
+    testVal = map2.get(key);
+    if ((testVal === undefined && !map2.has(key)) || !structuralEqual(val, testVal)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+export function compareArrays(array1: any[], array2: any[]): boolean {
+  if (array1.length !== array2.length) {
+    return false;
+  }
+  for (let i = 0, len = array1.length; i < len; i++) {
+    if (!structuralEqual(array1[i], array2[i])) {
+      return false;
+    }
+  }
+  return true;
+}
+
+export function compareStructuralObjects(a: object, b: object): boolean {
+  const aProps = new Map(Object.entries(a));
+  const bProps = new Map(Object.entries(b));
+  return compareMaps(aProps, bProps);
+}
 export function structuralEqual(a: any, b: any): boolean {
-  const _a = JSON.stringify(a, replacer);
-  const _b = JSON.stringify(b, replacer);
-  return _a === _b;
+  const aType = typeof a;
+  const bType = typeof b;
+  if (aType !== typeof bType) {
+    return false;
+  }
+  if (a instanceof Map && b instanceof Map) {
+    return compareMaps(a, b);
+  }
+  if (Array.isArray(a) && Array.isArray(b)) {
+    return compareArrays(a, b);
+  }
+  if (aType === "object" && bType === "object") {
+    return compareStructuralObjects(a, b);
+  }
+  return a !== b;
 }
 
 // probably not needed, fetch() exists now
@@ -122,7 +231,7 @@ export function makeRequest(opts: {
 export async function saveFile(content: BlobPart) {
   const blob = new Blob([content], { type: "text/plain" });
   if (typeof window.showSaveFilePicker !== "undefined") {
-    console.log("Saving via FileSystem API");
+    log.info("Saving via FileSystem API");
     try {
       const saveHandle = await window.showSaveFilePicker({
         types: [
@@ -139,12 +248,12 @@ export async function saveFile(content: BlobPart) {
       await ws.write(blob);
       await ws.close();
     } catch (e) {
-      console.log(e);
+      log.error(e);
     }
   } else {
-    console.log("saving file via hidden link event");
+    log.info("saving file via hidden link event");
     var a = document.createElement("a");
-    const date = new Date().valueOf().toString(16) ;
+    const date = new Date().valueOf().toString(16);
     a.download = `code_${date}.ic10`;
     a.href = window.URL.createObjectURL(blob);
     a.click();
@@ -153,7 +262,7 @@ export async function saveFile(content: BlobPart) {
 
 export async function openFile(editor: Ace.Editor) {
   if (typeof window.showOpenFilePicker !== "undefined") {
-    console.log("opening file via FileSystem Api");
+    log.info("opening file via FileSystem Api");
     try {
       const [fileHandle] = await window.showOpenFilePicker();
       const file = await fileHandle.getFile();
@@ -161,16 +270,16 @@ export async function openFile(editor: Ace.Editor) {
       const session = editor.getSession();
       session.setValue(contents);
     } catch (e) {
-      console.log(e);
+      log.error(e);
     }
   } else {
-    console.log("opening file via hidden input event");
+    log.info("opening file via hidden input event");
     let input = document.createElement("input");
     input.type = "file";
     input.accept = ".txt,.ic10,.mips,text/*";
     input.onchange = (_) => {
       const files = Array.from(input.files!);
-      console.log(files);
+      log.trace(files);
       const file = files[0];
       var reader = new FileReader();
       reader.onload = (e) => {
@@ -243,6 +352,80 @@ export function parseIntWithHexOrBinary(s: string): number {
   return parseInt(s);
 }
 
-export function clamp (val: number, min: number, max: number) {
+export function clamp(val: number, min: number, max: number) {
   return Math.min(Math.max(val, min), max);
+}
+
+type Constructor<T = {}> = new (...args: any[]) => T
+export const TypedEventTarget = <
+  EventMap extends object,
+  T extends Constructor<EventTarget>
+>(
+  superClass: T,
+) => {
+  class TypedEventTargetClass extends superClass {
+    dispatchCustomEvent<K extends keyof EventMap>(
+      type: K,
+      data?: EventMap[K] extends CustomEvent<infer DetailData> ? DetailData : never,
+      eventInitDict?: EventInit,
+    ): boolean {
+      return this.dispatchEvent(new CustomEvent(type as string, {
+        detail: data,
+        bubbles: eventInitDict?.bubbles,
+        cancelable: eventInitDict?.cancelable,
+        composed: eventInitDict?.composed
+      }))
+    }
+  }
+  return TypedEventTargetClass as Constructor<TypedEventTargetInterface<EventMap>> & T;
+}
+
+interface TypedEventTargetInterface<EventMap> extends EventTarget {
+  addEventListener<K extends keyof EventMap>(
+    type: K,
+    callback: (
+      event: EventMap[K] extends Event ? EventMap[K] : never,
+    ) => EventMap[K] extends Event ? void : never,
+    options?: boolean | AddEventListenerOptions,
+  ): void;
+
+  removeEventListener<K extends keyof EventMap>(
+    type: K,
+    callback: (
+      event: EventMap[K] extends Event ? EventMap[K] : never,
+    ) => EventMap[K] extends Event ? void : never,
+    options?: boolean | AddEventListenerOptions,
+  ): void;
+
+  /**
+   * @deprecated This method is untyped because the event name is not present in the event map
+   */
+  addEventListener(
+    type: string,
+    callback: EventListenerOrEventListenerObject | null,
+    options?: EventListenerOptions | boolean,
+  ): void;
+
+  /**
+   * @deprecated This method is untyped because the event name is not present in the event map
+   */
+  removeEventListener(
+    type: string,
+    callback: EventListenerOrEventListenerObject | null,
+    options?: EventListenerOptions | boolean,
+  ): void;
+
+  dispatchCustomEvent<K extends keyof EventMap>(
+    type: K,
+    data?: EventMap[K] extends CustomEvent<infer DetailData> ? DetailData : never,
+    eventInitDict?: EventInit,
+  ): boolean;
+}
+
+export function dispatchTypedEvent<EventMap, K extends keyof EventMap>(
+  target: TypedEventTargetInterface<EventMap>,
+  type: K,
+  data: EventMap[K] extends CustomEvent<infer DetailData> ? DetailData : never
+): boolean {
+  return target.dispatchEvent(new CustomEvent(type as string, { detail: data }))
 }

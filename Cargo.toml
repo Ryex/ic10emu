@@ -1,5 +1,11 @@
 [workspace]
-members = ["ic10lsp_wasm", "ic10emu_wasm", "ic10emu", "xtask"]
+members = [
+  "ic10lsp_wasm",
+  "stationeers_data",
+  "ic10emu",
+  "ic10emu_wasm",
+  "xtask",
+]
 resolver = "2"
 
 [workspace.package]

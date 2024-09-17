@@ -1,7 +1,8 @@
-import { HTMLTemplateResult, html, css, CSSResultGroup } from "lit";
-import { customElement, property, query, state } from "lit/decorators.js";
+import { html, css} from "lit";
+import { customElement, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
-import { VMState } from "session";
+import { SessionDB } from "sessionDB";
+import * as log from "log";
 
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.js";
 import { repeat } from "lit/directives/repeat.js";
@@ -34,21 +35,21 @@ export class SaveDialog extends BaseElement {
     `,
   ];
 
-  private _saves: { name: string; date: Date; session: VMState }[];
+  private _saves: { name: string; date: Date; session: SessionDB.CurrentDBVmState }[];
 
   get saves() {
     return this._saves;
   }
 
   @state()
-  set saves(val: { name: string; date: Date; session: VMState }[]) {
+  set saves(val: { name: string; date: Date; session: SessionDB.CurrentDBVmState }[]) {
     this._saves = val;
     this.performSearch();
   }
 
-  @state() mode: SaveDialogMode;
+  @state() accessor mode: SaveDialogMode;
 
-  private searchResults: { name: string; date: Date; session: VMState }[];
+  private searchResults: { name: string; date: Date; session: SessionDB.CurrentDBVmState }[];
 
   constructor() {
     super();
@@ -63,21 +64,21 @@ export class SaveDialog extends BaseElement {
         this._handleSessionsUpdate.bind(this),
       ),
     );
-    this.loadsaves();
+    this.loadSaves();
   }
 
   _handleSessionsUpdate() {
-    this.loadsaves();
+    this.loadSaves();
   }
 
-  loadsaves() {
+  loadSaves() {
     window.App.get().then(async (app) => {
       const saves = await app.session.getLocalSaved();
       this.saves = saves;
     });
   }
 
-  @query("sl-dialog.save-dialog") saveDialog: SlDialog;
+  @query("sl-dialog.save-dialog") accessor saveDialog: SlDialog;
 
   show(mode: SaveDialogMode) {
     this.mode = mode;
@@ -223,7 +224,7 @@ export class SaveDialog extends BaseElement {
     `;
   }
 
-  @query("sl-dialog.delete-dialog") deleteDialog: SlDialog;
+  @query("sl-dialog.delete-dialog") accessor deleteDialog: SlDialog;
   private _toDelete: string | undefined;
 
   _preventOverlayClose(event: CustomEvent) {
@@ -249,14 +250,14 @@ export class SaveDialog extends BaseElement {
     this._filter = undefined;
   }
 
-  @query(".save-name-input") saveInput: SlInput;
-  @query(".filter-input") filterInput: SlInput;
-  @query(".save-button") saveButton: SlButton;
+  @query(".save-name-input") accessor saveInput: SlInput;
+  @query(".filter-input") accessor filterInput: SlInput;
+  @query(".save-button") accessor saveButton: SlButton;
 
   async _handleSaveButtonClick(_e: CustomEvent) {
     const name = this.saveInput.value;
     const app = await window.App.get();
-    console.log(app);
+    log.debug(app);
     await app.session.saveLocal(name);
     this.saveDialog.hide();
   }

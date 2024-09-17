@@ -19,19 +19,23 @@ $accordion-icon-color-dark: #dee2e6;
 $accordion-icon-active-color-dark: #dee2e6;
 $accordion-button-padding-y: 0.5rem;
 
-// Required
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/variables-dark";
-@import "bootstrap/scss/maps";
-@import "bootstrap/scss/mixins";
-@import "bootstrap/scss/utilities";
-@import "bootstrap/scss/root";
-@import "bootstrap/scss/reboot";
+// // Required
+// @import "bootstrap/scss/variables";
+// @import "bootstrap/scss/variables-dark";
+// @import "bootstrap/scss/maps";
+// @import "bootstrap/scss/mixins";
+// @import "bootstrap/scss/utilities";
+// @import "bootstrap/scss/root";
+// @import "bootstrap/scss/reboot";
+//
+// @import "bootstrap/scss/type";
+// // @import "bootstrap/scss/images";
+// @import "bootstrap/scss/containers";
+// @import "bootstrap/scss/grid";
 
-@import "bootstrap/scss/type";
-// @import "bootstrap/scss/images";
-@import "bootstrap/scss/containers";
-@import "bootstrap/scss/grid";
+
+
+
 // @import "bootstrap/scss/tables";
 // @import "bootstrap/scss/forms";
 // @import "bootstrap/scss/buttons";
@@ -59,15 +63,17 @@ $accordion-button-padding-y: 0.5rem;
 // @import "bootstrap/scss/offcanvas"; // Requires transitions
 // @import "bootstrap/scss/placeholders";
 
-// Helpers
-@import "bootstrap/scss/helpers";
+// // Helpers
+// @import "bootstrap/scss/helpers";
 
-// Utilities
-@import "bootstrap/scss/utilities/api";
+// // Utilities
+// @import "bootstrap/scss/utilities/api";
 
 // Sholace theme
 @import "@shoelace-style/shoelace/dist/themes/dark.css";
 
+// Ace marker classes
+@import "./ace_markers.scss";
 
 //
 // Custom styles

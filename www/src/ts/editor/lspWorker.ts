@@ -1,5 +1,7 @@
 import { ServerConfig, serve } from "ic10lsp_wasm";
 
+import * as log from "log";
+
 export const encoder = new TextEncoder();
 export const decoder = new TextDecoder();
 
@@ -120,9 +122,7 @@ export class AsyncStreamQueueUint8Array
 
   async next(): Promise<IteratorResult<Uint8Array>> {
     const done = false;
-    // console.log(`AsyncStream(${this.tag}) waiting for message`)
     const value = await this.dequeue();
-    // console.log(`AsyncStream(${this.tag}) got message`, decoder.decode(value))
     return { done, value };
   }
 
@@ -194,7 +194,7 @@ function sendClient(data: any) {
 async function listen() {
   let contentLength: number | null = null;
   let buffer = new Uint8Array();
-  console.log("Worker: listening for lsp messages...");
+  log.trace("Worker: listening for lsp messages...");
   for await (const bytes of serverMsgStream) {
     buffer = Bytes.append(Uint8Array, buffer, bytes);
     let waitingForFullContent = false;
@@ -236,18 +236,18 @@ async function listen() {
 
       try {
         const message = JSON.parse(delimited);
-        console.log(
+        log.debug(
           "Lsp Message:",
           `| This Loop: ${messagesThisLoop} |`,
           message,
         );
         postMessage(message);
       } catch (e) {
-        console.log("Error parsing Lsp Message:", e);
+        log.error("Error parsing Lsp Message:", e);
       }
     }
   }
-  console.log("Worker: lsp message queue done?");
+  log.debug("Worker: lsp message queue done?");
 }
 
 listen();
@@ -255,9 +255,9 @@ listen();
 postMessage("ready");
 
 onmessage = function (e) {
-  console.log("Client Message:", e.data);
+  log.debug("Client Message:", e.data);
   sendClient(e.data);
 };
 
-console.log("Starting LSP...");
+log.trace("Starting LSP...");
 start();

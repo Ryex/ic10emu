@@ -39,7 +39,7 @@ import "@shoelace-style/shoelace/dist/components/relative-time/relative-time.js"
 import "ace-builds";
 import "ace-builds/esm-resolver";
 
-class DeferedApp {
+class DeferredApp {
 
   app: App;
   private resolvers: ((value: App) => void)[];
@@ -69,7 +69,7 @@ class DeferedApp {
 
 }
 
-class DeferedVM {
+class DeferredVM {
 
   vm: VirtualMachine;
   private resolvers: ((value: VirtualMachine) => void)[];
@@ -102,15 +102,15 @@ class DeferedVM {
 declare global {
   interface Window
  {
-    App: DeferedApp;
-    VM: DeferedVM;
+    App: DeferredApp;
+    VM: DeferredVM;
   }
 }
 
-window.App = new DeferedApp();
-window.VM = new DeferedVM();
+window.App = new DeferredApp();
+window.VM = new DeferredVM();
 
 import type { App } from "./app";
-import type { VirtualMachine } from "./virtual_machine";
+import type { VirtualMachine } from "./virtualMachine";
 
 import("./app");

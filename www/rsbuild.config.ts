@@ -1,6 +1,7 @@
 import { defineConfig } from "@rsbuild/core";
 import { pluginTypeCheck } from "@rsbuild/plugin-type-check";
 import { pluginImageCompress } from "@rsbuild/plugin-image-compress";
+import { pluginSass } from "@rsbuild/plugin-sass";
 
 const rspack = require("@rspack/core");
 const { CssExtractRspackPlugin } = require("@rspack/core");
@@ -12,13 +13,22 @@ const commitHash = require("child_process")
   .trim();
 
 export default defineConfig({
-  output: {
-    targets: ["web"],
+  environments: {
+    web: {
+      output: {
+        target: 'web',
+      }
+    }
   },
   source: {
     entry: {
-      index: "./src/ts/index.ts",
+      index: path.resolve(__dirname, "./src/ts/index.ts"),
     },
+  },
+  html: {
+    appIcon: {
+      icons: [],
+    }
   },
   tools: {
     rspack: {
@@ -57,20 +67,16 @@ export default defineConfig({
       jsc: {
         parser: {
           syntax: "typescript",
-          // dynamicImport: true,
           decorators: true,
         },
         transform: {
-          legacyDecorator: true,
           decoratorMetadata: true,
-          // decoratorVersion: "2022-03",
         },
-        // target: "es2021",
       },
     },
     htmlPlugin: {
       template: "./src/index.html",
     },
   },
-  plugins: [pluginTypeCheck(), pluginImageCompress()],
+  plugins: [pluginSass(), pluginTypeCheck(), pluginImageCompress()],
 });

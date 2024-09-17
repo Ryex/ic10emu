@@ -1,0 +1,6 @@
+{
+  "rust-analyzer.cargo.features": [
+    "tsify",
+    "prefab_database"
+  ]
+}
