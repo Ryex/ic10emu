@@ -243,12 +243,12 @@ export class VMAddDeviceButton extends VMObjectMixin(BaseElement) {
           (result) => result.entry.prefab.prefab_name,
           (result) =>
             html`
-          <vm-device-template
+          <vm-object-template
             prefabName=${result.entry.prefab.prefab_name}
             class="card"
-            @add-device-template=${this._handleDeviceAdd}
+            @add-object-template=${this._handleDeviceAdd}
           >
-          </vm-device-template>
+          </vm-object-template>
         `,
         );
       } else {

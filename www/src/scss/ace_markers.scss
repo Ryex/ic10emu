@@ -1,0 +1,27 @@
+.vm_ic_active_line {
+  position: absolute;
+  background: rgba(121, 82, 179, 0.4);
+  z-index: 2000;
+}
+
+.ic10_editor_error_parse {
+  position: absolute;
+  border-bottom: dotted 1px #e00404;
+  z-index: 2000;
+  border-radius: 0;
+}
+
+.ic10_editor_error_duplicate_label {
+  position: absolute;
+  border-bottom: solid 1px #DDC50F;
+  z-index: 2000;
+  border-radius: 0;
+}
+
+.ic10_editor_error_runtime {
+  position: absolute;
+  border-bottom: dotted 1px #e00404;
+  z-index: 2000;
+  border-radius: 0;
+  background: rgba(179, 82, 82, 0.4);
+}

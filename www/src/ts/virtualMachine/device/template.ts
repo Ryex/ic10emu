@@ -20,7 +20,7 @@ import { customElement, property, query, state } from "lit/decorators.js";
 import { BaseElement, defaultCss } from "components";
 
 import { connectionFromConnectionInfo } from "./dbutils";
-import { crc32, displayNumber, isSome, parseNumber, structuralEqual } from "utils";
+import { crc32, displayNumber, isSome, parseNumber, structuralEqual, TypedEventTarget } from "utils";
 import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js";
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js";
 import { VMDeviceCard } from "./card";
@@ -42,8 +42,17 @@ export interface ConnectionCableNetwork {
   };
 }
 
-@customElement("vm-device-template")
-export class VmObjectTemplate extends VMObjectMixin(BaseElement) {
+export interface VmObjectTemplateEventMap {
+  "add-object-template": CustomEvent<null>
+}
+
+@customElement("vm-object-template")
+export class VmObjectTemplate extends VMObjectMixin(
+  TypedEventTarget<
+    VmObjectTemplateEventMap,
+    typeof BaseElement
+  >(BaseElement)
+) {
   static styles = [
     ...defaultCss,
     css`
@@ -142,7 +151,8 @@ export class VmObjectTemplate extends VMObjectMixin(BaseElement) {
     ).map(
       (slot, _index) =>
         ({
-          typ: slot.typ,
+          typ: slot.class
+,
           quantity: 0,
         }) as SlotTemplate,
     );
@@ -219,7 +229,7 @@ export class VmObjectTemplate extends VMObjectMixin(BaseElement) {
   }
 
   renderSlots(): HTMLTemplateResult {
-    return html`<div clas="slots"></div>`;
+    return html`<div class="slots"></div>`;
   }
 
   renderReagents(): HTMLTemplateResult {
@@ -408,15 +418,13 @@ export class VmObjectTemplate extends VMObjectMixin(BaseElement) {
     `;
   }
   async _handleAddButtonClick() {
-    this.dispatchEvent(
-      new CustomEvent("add-device-template", { bubbles: true }),
-    );
-    // Typescript doesn't like  fileds defined as  `X | undefined` not being present, hence cast
+    this.dispatchCustomEvent("add-object-template", null, { bubbles: true });
+
     const objInfo: ObjectInfo = {
-      id: this.objectIDSignal.value,
+      id: (this.objectIDSignal.value ?? 0) > 0 ? this.objectIDSignal.value : undefined,
       name: this.objectName.value,
       prefab: this.prefabName,
-    } as ObjectInfo;
+    };
 
     if (this.slots.value.length > 0) {
       const slotOccupants: [FrozenObject, number][] = this.slots.value.flatMap(
@@ -459,12 +467,14 @@ export class VmObjectTemplate extends VMObjectMixin(BaseElement) {
 
     if (this.connections.value.length > 0) {
       objInfo.connections = new Map(
-        this.connections.value.flatMap((conn, index) => {
-          return typeof conn === "object" &&
-            "CableNetwork" in conn &&
-            typeof conn.CableNetwork.net !== "undefined"
-            ? ([[index, conn.CableNetwork.net]] as [number, number][])
-            : ([] as [number, number][]);
+        this.connections.value.flatMap((conn, index): [number, ObjectID][] => {
+          return (
+            typeof conn === "object" &&
+              "CableNetwork" in conn &&
+              typeof conn.CableNetwork.net !== "undefined"
+              ? ([[index, conn.CableNetwork.net]])
+              : ([])
+          );
         }),
       );
     }
@@ -476,7 +486,6 @@ export class VmObjectTemplate extends VMObjectMixin(BaseElement) {
     const template: FrozenObject = {
       obj_info: objInfo,
       database_template: true,
-      template: undefined,
     };
     await window.VM.vm.addObjectFrozen(template);
 

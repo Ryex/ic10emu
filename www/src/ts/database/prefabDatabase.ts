@@ -207,12 +207,15 @@ export default {
         "slot_class": "Appliance",
         "sorting_class": "Appliances"
       },
-      "slots": [
-        {
-          "name": "Output",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Output",
+            "class": "None",
+            "index": 0
+          }
         }
-      ],
+      },
       "consumer_info": {
         "consumed_resources": [
           "ItemCharcoal",
@@ -272,12 +275,15 @@ export default {
         "slot_class": "Appliance",
         "sorting_class": "Appliances"
       },
-      "slots": [
-        {
-          "name": "Output",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Output",
+            "class": "None",
+            "index": 0
+          }
         }
-      ],
+      },
       "consumer_info": {
         "consumed_resources": [
           "ItemCorn",
@@ -315,12 +321,15 @@ export default {
         "slot_class": "Appliance",
         "sorting_class": "Appliances"
       },
-      "slots": [
-        {
-          "name": "Export",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 0
+          }
         }
-      ],
+      },
       "consumer_info": {
         "consumed_resources": [
           "ItemCookedCondensedMilk",
@@ -354,12 +363,15 @@ export default {
         "slot_class": "Appliance",
         "sorting_class": "Appliances"
       },
-      "slots": [
-        {
-          "name": "Output",
-          "typ": "Bottle"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Output",
+            "class": "Bottle",
+            "index": 0
+          }
         }
-      ],
+      },
       "consumer_info": {
         "consumed_resources": [
           "ItemSoyOil",
@@ -387,12 +399,15 @@ export default {
         "slot_class": "Appliance",
         "sorting_class": "Appliances"
       },
-      "slots": [
-        {
-          "name": "Input",
-          "typ": "Tool"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Input",
+            "class": "Tool",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "AppliancePlantGeneticSplicer": {
       "templateType": "ItemSlots",
@@ -409,16 +424,22 @@ export default {
         "slot_class": "Appliance",
         "sorting_class": "Appliances"
       },
-      "slots": [
-        {
-          "name": "Source Plant",
-          "typ": "Plant"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Source Plant",
+            "class": "Plant",
+            "index": 0
+          }
         },
-        {
-          "name": "Target Plant",
-          "typ": "Plant"
+        "1": {
+          "Direct": {
+            "name": "Target Plant",
+            "class": "Plant",
+            "index": 1
+          }
         }
-      ]
+      }
     },
     "AppliancePlantGeneticStabilizer": {
       "templateType": "ItemSlots",
@@ -435,12 +456,15 @@ export default {
         "slot_class": "Appliance",
         "sorting_class": "Appliances"
       },
-      "slots": [
-        {
-          "name": "Plant",
-          "typ": "Plant"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ApplianceReagentProcessor": {
       "templateType": "ItemConsumer",
@@ -457,16 +481,22 @@ export default {
         "slot_class": "Appliance",
         "sorting_class": "Appliances"
       },
-      "slots": [
-        {
-          "name": "Input",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Input",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "Output",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Output",
+            "class": "None",
+            "index": 1
+          }
         }
-      ],
+      },
       "consumer_info": {
         "consumed_resources": [
           "ItemWheat",
@@ -497,56 +527,92 @@ export default {
         "slot_class": "Appliance",
         "sorting_class": "Appliances"
       },
-      "slots": [
-        {
-          "name": "Plant",
-          "typ": "Plant"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 0
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "1": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 1
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "2": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 2
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "3": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 3
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "4": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 4
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "5": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 5
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "6": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 6
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "7": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 7
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "8": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 8
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "9": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 9
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "10": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 10
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "11": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 11
+          }
         }
-      ]
+      }
     },
     "ApplianceTabletDock": {
       "templateType": "ItemSlots",
@@ -563,12 +629,15 @@ export default {
         "slot_class": "Appliance",
         "sorting_class": "Appliances"
       },
-      "slots": [
-        {
-          "name": "<N:EN:Tablet>",
-          "typ": "Tool"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "<N:EN:Tablet>",
+            "class": "Tool",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "AutolathePrinterMod": {
       "templateType": "Item",
@@ -620,7 +689,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": []
+      "slots": {}
     },
     "Battery_Wireless_cell_Big": {
       "templateType": "ItemLogic",
@@ -656,7 +725,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": []
+      "slots": {}
     },
     "CardboardBox": {
       "templateType": "ItemSlots",
@@ -673,32 +742,50 @@ export default {
         "slot_class": "None",
         "sorting_class": "Storage"
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 5
+          }
         }
-      ]
+      }
     },
     "CartridgeAccessController": {
       "templateType": "Item",
@@ -1116,7 +1203,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -1144,48 +1231,78 @@ export default {
         "slot_class": "Crate",
         "sorting_class": "Storage"
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 5
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "6": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 6
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "7": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 7
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "8": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 8
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "9": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 9
+          }
         }
-      ]
+      }
     },
     "DecayedFood": {
       "templateType": "Item",
@@ -1240,7 +1357,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -1421,7 +1538,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -1462,16 +1579,22 @@ export default {
         "convection_factor": 0.0,
         "radiation_factor": 0.0
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         },
-        {
-          "name": "Liquid Canister",
-          "typ": "LiquidCanister"
+        "1": {
+          "Direct": {
+            "name": "Liquid Canister",
+            "class": "LiquidCanister",
+            "index": 1
+          }
         }
-      ]
+      }
     },
     "DynamicCrate": {
       "templateType": "ItemSlots",
@@ -1488,48 +1611,78 @@ export default {
         "slot_class": "Crate",
         "sorting_class": "Storage"
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 5
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "6": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 6
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "7": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 7
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "8": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 8
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "9": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 9
+          }
         }
-      ]
+      }
     },
     "DynamicGPR": {
       "templateType": "ItemLogic",
@@ -1570,12 +1723,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "DynamicGasCanisterAir": {
       "templateType": "ItemSlots",
@@ -1596,12 +1752,15 @@ export default {
         "convection_factor": 0.025,
         "radiation_factor": 0.025
       },
-      "slots": [
-        {
-          "name": "Gas Canister",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Gas Canister",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "DynamicGasCanisterCarbonDioxide": {
       "templateType": "ItemSlots",
@@ -1622,12 +1781,15 @@ export default {
         "convection_factor": 0.025,
         "radiation_factor": 0.025
       },
-      "slots": [
-        {
-          "name": "Gas Canister",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Gas Canister",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "DynamicGasCanisterEmpty": {
       "templateType": "ItemSlots",
@@ -1648,12 +1810,15 @@ export default {
         "convection_factor": 0.025,
         "radiation_factor": 0.025
       },
-      "slots": [
-        {
-          "name": "Gas Canister",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Gas Canister",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "DynamicGasCanisterFuel": {
       "templateType": "ItemSlots",
@@ -1674,12 +1839,15 @@ export default {
         "convection_factor": 0.025,
         "radiation_factor": 0.025
       },
-      "slots": [
-        {
-          "name": "Gas Canister",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Gas Canister",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "DynamicGasCanisterNitrogen": {
       "templateType": "ItemSlots",
@@ -1700,12 +1868,15 @@ export default {
         "convection_factor": 0.025,
         "radiation_factor": 0.025
       },
-      "slots": [
-        {
-          "name": "Gas Canister",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Gas Canister",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "DynamicGasCanisterNitrousOxide": {
       "templateType": "ItemSlots",
@@ -1726,12 +1897,15 @@ export default {
         "convection_factor": 0.025,
         "radiation_factor": 0.025
       },
-      "slots": [
-        {
-          "name": "Gas Canister",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Gas Canister",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "DynamicGasCanisterOxygen": {
       "templateType": "ItemSlots",
@@ -1752,12 +1926,15 @@ export default {
         "convection_factor": 0.025,
         "radiation_factor": 0.025
       },
-      "slots": [
-        {
-          "name": "Gas Canister",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Gas Canister",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "DynamicGasCanisterPollutants": {
       "templateType": "ItemSlots",
@@ -1778,12 +1955,15 @@ export default {
         "convection_factor": 0.025,
         "radiation_factor": 0.025
       },
-      "slots": [
-        {
-          "name": "Gas Canister",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Gas Canister",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "DynamicGasCanisterRocketFuel": {
       "templateType": "ItemSlots",
@@ -1804,12 +1984,15 @@ export default {
         "convection_factor": 0.025,
         "radiation_factor": 0.025
       },
-      "slots": [
-        {
-          "name": "Gas Canister",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Gas Canister",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "DynamicGasCanisterVolatiles": {
       "templateType": "ItemSlots",
@@ -1830,12 +2013,15 @@ export default {
         "convection_factor": 0.025,
         "radiation_factor": 0.025
       },
-      "slots": [
-        {
-          "name": "Gas Canister",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Gas Canister",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "DynamicGasCanisterWater": {
       "templateType": "ItemSlots",
@@ -1856,12 +2042,15 @@ export default {
         "convection_factor": 0.025,
         "radiation_factor": 0.025
       },
-      "slots": [
-        {
-          "name": "Gas Canister",
-          "typ": "LiquidCanister"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Gas Canister",
+            "class": "LiquidCanister",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "DynamicGasTankAdvanced": {
       "templateType": "ItemSlots",
@@ -1882,12 +2071,15 @@ export default {
         "convection_factor": 0.0,
         "radiation_factor": 0.0
       },
-      "slots": [
-        {
-          "name": "Gas Canister",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Gas Canister",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "DynamicGasTankAdvancedOxygen": {
       "templateType": "ItemSlots",
@@ -1908,12 +2100,15 @@ export default {
         "convection_factor": 0.0,
         "radiation_factor": 0.0
       },
-      "slots": [
-        {
-          "name": "Gas Canister",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Gas Canister",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "DynamicGenerator": {
       "templateType": "ItemSlots",
@@ -1934,16 +2129,22 @@ export default {
         "convection_factor": 0.0,
         "radiation_factor": 0.0
       },
-      "slots": [
-        {
-          "name": "Gas Canister",
-          "typ": "GasCanister"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Gas Canister",
+            "class": "GasCanister",
+            "index": 0
+          }
         },
-        {
-          "name": "Battery",
-          "typ": "Battery"
+        "1": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 1
+          }
         }
-      ]
+      }
     },
     "DynamicHydroponics": {
       "templateType": "ItemSlots",
@@ -1964,44 +2165,71 @@ export default {
         "convection_factor": 0.05,
         "radiation_factor": 0.05
       },
-      "slots": [
-        {
-          "name": "Plant",
-          "typ": "Plant"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 0
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "1": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 1
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "2": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 2
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "3": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 3
+          }
         },
-        {
-          "name": "Liquid Canister",
-          "typ": "LiquidCanister"
+        "4": {
+          "Direct": {
+            "name": "Liquid Canister",
+            "class": "LiquidCanister",
+            "index": 4
+          }
         },
-        {
-          "name": "Liquid Canister",
-          "typ": "Plant"
+        "5": {
+          "Direct": {
+            "name": "Liquid Canister",
+            "class": "Plant",
+            "index": 5
+          }
         },
-        {
-          "name": "Liquid Canister",
-          "typ": "Plant"
+        "6": {
+          "Direct": {
+            "name": "Liquid Canister",
+            "class": "Plant",
+            "index": 6
+          }
         },
-        {
-          "name": "Liquid Canister",
-          "typ": "Plant"
+        "7": {
+          "Direct": {
+            "name": "Liquid Canister",
+            "class": "Plant",
+            "index": 7
+          }
         },
-        {
-          "name": "Liquid Canister",
-          "typ": "Plant"
+        "8": {
+          "Direct": {
+            "name": "Liquid Canister",
+            "class": "Plant",
+            "index": 8
+          }
         }
-      ]
+      }
     },
     "DynamicLight": {
       "templateType": "ItemLogic",
@@ -2043,12 +2271,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "DynamicLiquidCanisterEmpty": {
       "templateType": "ItemSlots",
@@ -2069,12 +2300,15 @@ export default {
         "convection_factor": 0.025,
         "radiation_factor": 0.025
       },
-      "slots": [
-        {
-          "name": "Liquid Canister",
-          "typ": "LiquidCanister"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Liquid Canister",
+            "class": "LiquidCanister",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "DynamicMKIILiquidCanisterEmpty": {
       "templateType": "ItemSlots",
@@ -2095,12 +2329,15 @@ export default {
         "convection_factor": 0.0,
         "radiation_factor": 0.0
       },
-      "slots": [
-        {
-          "name": "Liquid Canister",
-          "typ": "LiquidCanister"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Liquid Canister",
+            "class": "LiquidCanister",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "DynamicMKIILiquidCanisterWater": {
       "templateType": "ItemSlots",
@@ -2121,12 +2358,15 @@ export default {
         "convection_factor": 0.0,
         "radiation_factor": 0.0
       },
-      "slots": [
-        {
-          "name": "Liquid Canister",
-          "typ": "LiquidCanister"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Liquid Canister",
+            "class": "LiquidCanister",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "DynamicScrubber": {
       "templateType": "ItemSlots",
@@ -2147,20 +2387,29 @@ export default {
         "convection_factor": 0.0,
         "radiation_factor": 0.0
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         },
-        {
-          "name": "Gas Filter",
-          "typ": "GasFilter"
+        "1": {
+          "Direct": {
+            "name": "Gas Filter",
+            "class": "GasFilter",
+            "index": 1
+          }
         },
-        {
-          "name": "Gas Filter",
-          "typ": "GasFilter"
+        "2": {
+          "Direct": {
+            "name": "Gas Filter",
+            "class": "GasFilter",
+            "index": 2
+          }
         }
-      ]
+      }
     },
     "DynamicSkeleton": {
       "templateType": "Item",
@@ -2229,12 +2478,15 @@ export default {
         "convection_factor": 0.1,
         "radiation_factor": 0.1
       },
-      "slots": [
-        {
-          "name": "Brain",
-          "typ": "Organ"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Brain",
+            "class": "Organ",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "EntityChickenBrown": {
       "templateType": "ItemSlots",
@@ -2255,12 +2507,15 @@ export default {
         "convection_factor": 0.1,
         "radiation_factor": 0.1
       },
-      "slots": [
-        {
-          "name": "Brain",
-          "typ": "Organ"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Brain",
+            "class": "Organ",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "EntityChickenWhite": {
       "templateType": "ItemSlots",
@@ -2281,12 +2536,15 @@ export default {
         "convection_factor": 0.1,
         "radiation_factor": 0.1
       },
-      "slots": [
-        {
-          "name": "Brain",
-          "typ": "Organ"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Brain",
+            "class": "Organ",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "EntityRoosterBlack": {
       "templateType": "ItemSlots",
@@ -2307,12 +2565,15 @@ export default {
         "convection_factor": 0.1,
         "radiation_factor": 0.1
       },
-      "slots": [
-        {
-          "name": "Brain",
-          "typ": "Organ"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Brain",
+            "class": "Organ",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "EntityRoosterBrown": {
       "templateType": "ItemSlots",
@@ -2333,12 +2594,15 @@ export default {
         "convection_factor": 0.1,
         "radiation_factor": 0.1
       },
-      "slots": [
-        {
-          "name": "Brain",
-          "typ": "Organ"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Brain",
+            "class": "Organ",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "Fertilizer": {
       "templateType": "Item",
@@ -2371,12 +2635,15 @@ export default {
         "slot_class": "None",
         "sorting_class": "Tools"
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "Magazine"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "Magazine",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "Flag_ODA_10m": {
       "templateType": "Structure",
@@ -2441,16 +2708,22 @@ export default {
         "slot_class": "Tool",
         "sorting_class": "Tools"
       },
-      "slots": [
-        {
-          "name": "Magazine",
-          "typ": "Flare"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Magazine",
+            "class": "Flare",
+            "index": 0
+          }
         },
-        {
-          "name": "<N:EN:Chamber>",
-          "typ": "Blocked"
+        "1": {
+          "Direct": {
+            "name": "<N:EN:Chamber>",
+            "class": "Blocked",
+            "index": 1
+          }
         }
-      ]
+      }
     },
     "H2Combustor": {
       "templateType": "StructureCircuitHolder",
@@ -2552,12 +2825,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": true
       },
-      "slots": [
-        {
-          "name": "Programmable Chip",
-          "typ": "ProgrammableChip"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Programmable Chip",
+            "class": "ProgrammableChip",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -2603,12 +2879,15 @@ export default {
         "slot_class": "None",
         "sorting_class": "Tools"
       },
-      "slots": [
-        {
-          "name": "Magazine",
-          "typ": "Magazine"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Magazine",
+            "class": "Magazine",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "HandgunMagazine": {
       "templateType": "Item",
@@ -2763,24 +3042,36 @@ export default {
         "wireless_logic": true,
         "circuit_holder": true
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         },
-        {
-          "name": "Cartridge",
-          "typ": "Cartridge"
+        "1": {
+          "Direct": {
+            "name": "Cartridge",
+            "class": "Cartridge",
+            "index": 1
+          }
         },
-        {
-          "name": "Cartridge1",
-          "typ": "Cartridge"
+        "2": {
+          "Direct": {
+            "name": "Cartridge1",
+            "class": "Cartridge",
+            "index": 2
+          }
         },
-        {
-          "name": "Programmable Chip",
-          "typ": "ProgrammableChip"
+        "3": {
+          "Direct": {
+            "name": "Programmable Chip",
+            "class": "ProgrammableChip",
+            "index": 3
+          }
         }
-      ]
+      }
     },
     "ItemAlienMushroom": {
       "templateType": "Item",
@@ -2852,12 +3143,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemArcWelder": {
       "templateType": "ItemLogic",
@@ -2897,12 +3191,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemAreaPowerControl": {
       "templateType": "Item",
@@ -3037,7 +3334,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": []
+      "slots": {}
     },
     "ItemBatteryCellLarge": {
       "templateType": "ItemLogic",
@@ -3073,7 +3370,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": []
+      "slots": {}
     },
     "ItemBatteryCellNuclear": {
       "templateType": "ItemLogic",
@@ -3109,7 +3406,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": []
+      "slots": {}
     },
     "ItemBatteryCharger": {
       "templateType": "Item",
@@ -3182,12 +3479,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemBiomass": {
       "templateType": "Item",
@@ -3399,32 +3699,50 @@ export default {
         "slot_class": "None",
         "sorting_class": "Storage"
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 5
+          }
         }
-      ]
+      }
     },
     "ItemCerealBarBox": {
       "templateType": "ItemSlots",
@@ -3441,32 +3759,50 @@ export default {
         "slot_class": "None",
         "sorting_class": "Storage"
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 5
+          }
         }
-      ]
+      }
     },
     "ItemCharcoal": {
       "templateType": "Item",
@@ -4101,12 +4437,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemDuctTape": {
       "templateType": "Item",
@@ -4171,32 +4510,50 @@ export default {
         "slot_class": "None",
         "sorting_class": "Storage"
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "Egg"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "Egg",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "Egg"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "Egg",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "Egg"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "Egg",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "Egg"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "Egg",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "Egg"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "Egg",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "Egg"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "Egg",
+            "index": 5
+          }
         }
-      ]
+      }
     },
     "ItemElectronicParts": {
       "templateType": "Item",
@@ -4271,12 +4628,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemEmergencyArcWelder": {
       "templateType": "ItemLogic",
@@ -4316,12 +4676,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemEmergencyCrowbar": {
       "templateType": "Item",
@@ -4377,12 +4740,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemEmergencyEvaSuit": {
       "templateType": "ItemSuit",
@@ -4406,32 +4772,50 @@ export default {
       "internal_atmo_info": {
         "volume": 10.0
       },
-      "slots": [
-        {
-          "name": "Air Tank",
-          "typ": "GasCanister"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Air Tank",
+            "class": "GasCanister",
+            "index": 0
+          }
         },
-        {
-          "name": "Waste Tank",
-          "typ": "GasCanister"
+        "1": {
+          "Direct": {
+            "name": "Waste Tank",
+            "class": "GasCanister",
+            "index": 1
+          }
         },
-        {
-          "name": "Life Support",
-          "typ": "Battery"
+        "2": {
+          "Direct": {
+            "name": "Life Support",
+            "class": "Battery",
+            "index": 2
+          }
         },
-        {
-          "name": "Filter",
-          "typ": "GasFilter"
+        "3": {
+          "Direct": {
+            "name": "Filter",
+            "class": "GasFilter",
+            "index": 3
+          }
         },
-        {
-          "name": "Filter",
-          "typ": "GasFilter"
+        "4": {
+          "Direct": {
+            "name": "Filter",
+            "class": "GasFilter",
+            "index": 4
+          }
         },
-        {
-          "name": "Filter",
-          "typ": "GasFilter"
+        "5": {
+          "Direct": {
+            "name": "Filter",
+            "class": "GasFilter",
+            "index": 5
+          }
         }
-      ],
+      },
       "suit_info": {
         "hygiene_reduction_multiplier": 1.0,
         "waste_max_pressure": 4053.0
@@ -4528,7 +4912,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": []
+      "slots": {}
     },
     "ItemEmergencySuppliesBox": {
       "templateType": "ItemSlots",
@@ -4545,32 +4929,50 @@ export default {
         "slot_class": "None",
         "sorting_class": "Default"
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 5
+          }
         }
-      ]
+      }
     },
     "ItemEmergencyToolBelt": {
       "templateType": "ItemSlots",
@@ -4587,40 +4989,64 @@ export default {
         "slot_class": "Belt",
         "sorting_class": "Clothing"
       },
-      "slots": [
-        {
-          "name": "Tool",
-          "typ": "Tool"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 0
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "1": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 1
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "2": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 2
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "3": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 3
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "4": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 4
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "5": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 5
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "6": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 6
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "7": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 7
+          }
         }
-      ]
+      }
     },
     "ItemEmergencyWireCutters": {
       "templateType": "Item",
@@ -4695,32 +5121,50 @@ export default {
       "internal_atmo_info": {
         "volume": 10.0
       },
-      "slots": [
-        {
-          "name": "Air Tank",
-          "typ": "GasCanister"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Air Tank",
+            "class": "GasCanister",
+            "index": 0
+          }
         },
-        {
-          "name": "Waste Tank",
-          "typ": "GasCanister"
+        "1": {
+          "Direct": {
+            "name": "Waste Tank",
+            "class": "GasCanister",
+            "index": 1
+          }
         },
-        {
-          "name": "Life Support",
-          "typ": "Battery"
+        "2": {
+          "Direct": {
+            "name": "Life Support",
+            "class": "Battery",
+            "index": 2
+          }
         },
-        {
-          "name": "Filter",
-          "typ": "GasFilter"
+        "3": {
+          "Direct": {
+            "name": "Filter",
+            "class": "GasFilter",
+            "index": 3
+          }
         },
-        {
-          "name": "Filter",
-          "typ": "GasFilter"
+        "4": {
+          "Direct": {
+            "name": "Filter",
+            "class": "GasFilter",
+            "index": 4
+          }
         },
-        {
-          "name": "Filter",
-          "typ": "GasFilter"
+        "5": {
+          "Direct": {
+            "name": "Filter",
+            "class": "GasFilter",
+            "index": 5
+          }
         }
-      ],
+      },
       "suit_info": {
         "hygiene_reduction_multiplier": 1.0,
         "waste_max_pressure": 4053.0
@@ -4871,12 +5315,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemFlour": {
       "templateType": "Item",
@@ -5982,56 +6429,92 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 5
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "6": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 6
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "7": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 7
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "8": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 8
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "9": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 9
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "10": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 10
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "11": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 11
+          }
         }
-      ]
+      }
     },
     "ItemHardJetpack": {
       "templateType": "ItemLogic",
@@ -6197,68 +6680,113 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Propellant",
-          "typ": "GasCanister"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Propellant",
+            "class": "GasCanister",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 5
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "6": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 6
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "7": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 7
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "8": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 8
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "9": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 9
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "10": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 10
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "11": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 11
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "12": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 12
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "13": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 13
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "14": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 14
+          }
         }
-      ]
+      }
     },
     "ItemHardMiningBackPack": {
       "templateType": "ItemSlots",
@@ -6275,120 +6803,204 @@ export default {
         "slot_class": "Back",
         "sorting_class": "Clothing"
       },
-      "slots": [
-        {
-          "name": "Ore",
-          "typ": "Ore"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 0
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "1": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 1
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "2": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 2
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "3": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 3
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "4": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 4
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "5": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 5
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "6": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 6
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "7": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 7
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "8": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 8
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "9": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 9
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "10": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 10
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "11": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 11
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "12": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 12
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "13": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 13
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "14": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 14
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "15": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 15
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "16": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 16
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "17": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 17
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "18": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 18
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "19": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 19
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "20": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 20
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "21": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 21
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "22": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 22
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "23": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 23
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "24": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 24
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "25": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 25
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "26": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 26
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "27": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 27
+          }
         }
-      ]
+      }
     },
     "ItemHardSuit": {
       "templateType": "ItemSuitCircuitHolder",
@@ -6554,40 +7166,64 @@ export default {
         "wireless_logic": true,
         "circuit_holder": true
       },
-      "slots": [
-        {
-          "name": "Air Tank",
-          "typ": "GasCanister"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Air Tank",
+            "class": "GasCanister",
+            "index": 0
+          }
         },
-        {
-          "name": "Waste Tank",
-          "typ": "GasCanister"
+        "1": {
+          "Direct": {
+            "name": "Waste Tank",
+            "class": "GasCanister",
+            "index": 1
+          }
         },
-        {
-          "name": "Life Support",
-          "typ": "Battery"
+        "2": {
+          "Direct": {
+            "name": "Life Support",
+            "class": "Battery",
+            "index": 2
+          }
         },
-        {
-          "name": "Programmable Chip",
-          "typ": "ProgrammableChip"
+        "3": {
+          "Direct": {
+            "name": "Programmable Chip",
+            "class": "ProgrammableChip",
+            "index": 3
+          }
         },
-        {
-          "name": "Filter",
-          "typ": "GasFilter"
+        "4": {
+          "Direct": {
+            "name": "Filter",
+            "class": "GasFilter",
+            "index": 4
+          }
         },
-        {
-          "name": "Filter",
-          "typ": "GasFilter"
+        "5": {
+          "Direct": {
+            "name": "Filter",
+            "class": "GasFilter",
+            "index": 5
+          }
         },
-        {
-          "name": "Filter",
-          "typ": "GasFilter"
+        "6": {
+          "Direct": {
+            "name": "Filter",
+            "class": "GasFilter",
+            "index": 6
+          }
         },
-        {
-          "name": "Filter",
-          "typ": "GasFilter"
+        "7": {
+          "Direct": {
+            "name": "Filter",
+            "class": "GasFilter",
+            "index": 7
+          }
         }
-      ],
+      },
       "suit_info": {
         "hygiene_reduction_multiplier": 1.5,
         "waste_max_pressure": 4053.0
@@ -6656,7 +7292,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": []
+      "slots": {}
     },
     "ItemHastelloyIngot": {
       "templateType": "Item",
@@ -6731,48 +7367,78 @@ export default {
         "slot_class": "Belt",
         "sorting_class": "Clothing"
       },
-      "slots": [
-        {
-          "name": "Tool",
-          "typ": "Tool"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 0
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "1": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 1
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "2": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 2
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "3": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 3
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "4": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 4
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "5": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 5
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "6": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 6
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "7": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 7
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "8": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 8
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "9": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 9
+          }
         }
-      ]
+      }
     },
     "ItemHydroponicTray": {
       "templateType": "Item",
@@ -6856,12 +7522,15 @@ export default {
         "slot_class": "None",
         "sorting_class": "Default"
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemInsulation": {
       "templateType": "Item",
@@ -6904,7 +7573,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "memory": {
         "memory_access": "ReadWrite",
         "memory_size": 512
@@ -7118,48 +7787,78 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Propellant",
-          "typ": "GasCanister"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Propellant",
+            "class": "GasCanister",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 5
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "6": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 6
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "7": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 7
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "8": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 8
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "9": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 9
+          }
         }
-      ]
+      }
     },
     "ItemKitAIMeE": {
       "templateType": "Item",
@@ -8384,6 +9083,86 @@ export default {
         "prefab_hash": -2039971217,
         "desc": "",
         "name": "Kit (Large Satellite Dish)"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "None",
+        "sorting_class": "Kits"
+      }
+    },
+    "ItemKitLarreDockAtmos": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "ItemKitLarreDockAtmos",
+        "prefab_hash": 385528206,
+        "desc": "",
+        "name": "Kit (LArRE Dock Atmos)"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "None",
+        "sorting_class": "Kits"
+      }
+    },
+    "ItemKitLarreDockBypass": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "ItemKitLarreDockBypass",
+        "prefab_hash": -940470326,
+        "desc": "",
+        "name": "Kit (LArRE Dock Bypass)"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "None",
+        "sorting_class": "Kits"
+      }
+    },
+    "ItemKitLarreDockCargo": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "ItemKitLarreDockCargo",
+        "prefab_hash": -1067485367,
+        "desc": "",
+        "name": "Kit (LArRE Dock Cargo)"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "None",
+        "sorting_class": "Kits"
+      }
+    },
+    "ItemKitLarreDockCollector": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "ItemKitLarreDockCollector",
+        "prefab_hash": 347658127,
+        "desc": "",
+        "name": "Kit (LArRE Dock Collector)"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "None",
+        "sorting_class": "Kits"
+      }
+    },
+    "ItemKitLarreDockHydroponics": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "ItemKitLarreDockHydroponics",
+        "prefab_hash": 656181408,
+        "desc": "",
+        "name": "Kit (LArRE Dock Hydroponics)"
       },
       "item": {
         "consumable": false,
@@ -10080,12 +10859,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemLaptop": {
       "templateType": "ItemCircuitHolder",
@@ -10149,20 +10931,29 @@ export default {
         "wireless_logic": true,
         "circuit_holder": true
       },
-      "slots": [
-        {
-          "name": "Programmable Chip",
-          "typ": "ProgrammableChip"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Programmable Chip",
+            "class": "ProgrammableChip",
+            "index": 0
+          }
         },
-        {
-          "name": "Battery",
-          "typ": "Battery"
+        "1": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 1
+          }
         },
-        {
-          "name": "Motherboard",
-          "typ": "Motherboard"
+        "2": {
+          "Direct": {
+            "name": "Motherboard",
+            "class": "Motherboard",
+            "index": 2
+          }
         }
-      ]
+      }
     },
     "ItemLeadIngot": {
       "templateType": "Item",
@@ -10398,12 +11189,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemMKIIArcWelder": {
       "templateType": "ItemLogic",
@@ -10443,12 +11237,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemMKIICrowbar": {
       "templateType": "Item",
@@ -10504,12 +11301,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemMKIIDuctTape": {
       "templateType": "Item",
@@ -10572,12 +11372,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemMKIIScrewdriver": {
       "templateType": "Item",
@@ -10642,24 +11445,36 @@ export default {
         "slot_class": "Suit",
         "sorting_class": "Clothing"
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         }
-      ]
+      }
     },
     "ItemMarineHelmet": {
       "templateType": "ItemSlots",
@@ -10676,12 +11491,15 @@ export default {
         "slot_class": "Helmet",
         "sorting_class": "Clothing"
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemMilk": {
       "templateType": "Item",
@@ -10717,104 +11535,176 @@ export default {
         "slot_class": "Back",
         "sorting_class": "Clothing"
       },
-      "slots": [
-        {
-          "name": "Ore",
-          "typ": "Ore"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 0
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "1": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 1
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "2": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 2
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "3": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 3
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "4": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 4
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "5": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 5
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "6": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 6
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "7": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 7
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "8": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 8
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "9": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 9
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "10": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 10
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "11": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 11
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "12": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 12
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "13": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 13
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "14": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 14
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "15": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 15
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "16": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 16
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "17": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 17
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "18": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 18
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "19": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 19
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "20": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 20
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "21": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 21
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "22": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 22
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "23": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 23
+          }
         }
-      ]
+      }
     },
     "ItemMiningBelt": {
       "templateType": "ItemSlots",
@@ -10831,48 +11721,78 @@ export default {
         "slot_class": "Belt",
         "sorting_class": "Clothing"
       },
-      "slots": [
-        {
-          "name": "Tool",
-          "typ": "Tool"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 0
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "1": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 1
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "2": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 2
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "3": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 3
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "4": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 4
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "5": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 5
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "6": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 6
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "7": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 7
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "8": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 8
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "9": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 9
+          }
         }
-      ]
+      }
     },
     "ItemMiningBeltMKII": {
       "templateType": "ItemLogic",
@@ -11034,68 +11954,113 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Tool",
-          "typ": "Tool"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 0
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "1": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 1
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "2": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 2
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "3": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 3
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "4": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 4
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "5": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 5
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "6": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 6
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "7": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 7
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "8": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 8
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "9": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 9
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "10": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 10
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "11": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 11
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "12": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 12
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "13": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 13
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "14": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 14
+          }
         }
-      ]
+      }
     },
     "ItemMiningCharge": {
       "templateType": "Item",
@@ -11158,12 +12123,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemMiningDrillHeavy": {
       "templateType": "ItemLogic",
@@ -11210,12 +12178,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemMiningDrillPneumatic": {
       "templateType": "ItemSlots",
@@ -11232,12 +12203,15 @@ export default {
         "slot_class": "Tool",
         "sorting_class": "Tools"
       },
-      "slots": [
-        {
-          "name": "Gas Canister",
-          "typ": "GasCanister"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Gas Canister",
+            "class": "GasCanister",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemMiningPackage": {
       "templateType": "ItemSlots",
@@ -11254,32 +12228,50 @@ export default {
         "slot_class": "None",
         "sorting_class": "Storage"
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 5
+          }
         }
-      ]
+      }
     },
     "ItemMkIIToolbelt": {
       "templateType": "ItemLogic",
@@ -11414,56 +12406,92 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Tool",
-          "typ": "Tool"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 0
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "1": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 1
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "2": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 2
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "3": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 3
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "4": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 4
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "5": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 5
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "6": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 6
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "7": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 7
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "8": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 8
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "9": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 9
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "10": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 10
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "11": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 11
+          }
         }
-      ]
+      }
     },
     "ItemMuffin": {
       "templateType": "Item",
@@ -11539,12 +12567,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemNickelIngot": {
       "templateType": "Item",
@@ -12012,12 +13043,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemPlantSwitchGrass": {
       "templateType": "Item",
@@ -12114,32 +13148,50 @@ export default {
         "slot_class": "None",
         "sorting_class": "Storage"
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 5
+          }
         }
-      ]
+      }
     },
     "ItemPotato": {
       "templateType": "Item",
@@ -12612,12 +13664,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemResidentialPackage": {
       "templateType": "ItemSlots",
@@ -12634,32 +13689,50 @@ export default {
         "slot_class": "None",
         "sorting_class": "Storage"
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 5
+          }
         }
-      ]
+      }
     },
     "ItemReusableFireExtinguisher": {
       "templateType": "ItemSlots",
@@ -12676,12 +13749,15 @@ export default {
         "slot_class": "Tool",
         "sorting_class": "Tools"
       },
-      "slots": [
-        {
-          "name": "Liquid  Canister",
-          "typ": "LiquidCanister"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Liquid  Canister",
+            "class": "LiquidCanister",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemRice": {
       "templateType": "Item",
@@ -12941,16 +14017,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         },
-        {
-          "name": "Sensor Processing Unit",
-          "typ": "SensorProcessingUnit"
+        "1": {
+          "Direct": {
+            "name": "Sensor Processing Unit",
+            "class": "SensorProcessingUnit",
+            "index": 1
+          }
         }
-      ]
+      }
     },
     "ItemSensorProcessingUnitCelestialScanner": {
       "templateType": "Item",
@@ -13291,7 +14373,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": []
+      "slots": {}
     },
     "ItemSpaceIce": {
       "templateType": "Item",
@@ -13444,48 +14526,78 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Propellant",
-          "typ": "GasCanister"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Propellant",
+            "class": "GasCanister",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 5
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "6": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 6
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "7": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 7
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "8": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 8
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "9": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 9
+          }
         }
-      ]
+      }
     },
     "ItemSprayCanBlack": {
       "templateType": "Item",
@@ -13694,12 +14806,15 @@ export default {
         "slot_class": "Tool",
         "sorting_class": "Tools"
       },
-      "slots": [
-        {
-          "name": "Spray Can",
-          "typ": "Bottle"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Spray Can",
+            "class": "Bottle",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemSteelFrames": {
       "templateType": "Item",
@@ -13889,16 +15004,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         },
-        {
-          "name": "Cartridge",
-          "typ": "Cartridge"
+        "1": {
+          "Direct": {
+            "name": "Cartridge",
+            "class": "Cartridge",
+            "index": 1
+          }
         }
-      ]
+      }
     },
     "ItemTerrainManipulator": {
       "templateType": "ItemLogic",
@@ -13954,16 +15075,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         },
-        {
-          "name": "Dirt Canister",
-          "typ": "Ore"
+        "1": {
+          "Direct": {
+            "name": "Dirt Canister",
+            "class": "Ore",
+            "index": 1
+          }
         }
-      ]
+      }
     },
     "ItemTomato": {
       "templateType": "Item",
@@ -14015,40 +15142,64 @@ export default {
         "slot_class": "Belt",
         "sorting_class": "Clothing"
       },
-      "slots": [
-        {
-          "name": "Tool",
-          "typ": "Tool"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 0
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "1": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 1
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "2": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 2
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "3": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 3
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "4": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 4
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "5": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 5
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "6": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 6
+          }
         },
-        {
-          "name": "Tool",
-          "typ": "Tool"
+        "7": {
+          "Direct": {
+            "name": "Tool",
+            "class": "Tool",
+            "index": 7
+          }
         }
-      ]
+      }
     },
     "ItemTropicalPlant": {
       "templateType": "Item",
@@ -14199,32 +15350,50 @@ export default {
         "slot_class": "None",
         "sorting_class": "Storage"
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 5
+          }
         }
-      ]
+      }
     },
     "ItemWaterBottlePackage": {
       "templateType": "ItemSlots",
@@ -14241,32 +15410,50 @@ export default {
         "slot_class": "None",
         "sorting_class": "Storage"
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 5
+          }
         }
-      ]
+      }
     },
     "ItemWaterPipeDigitalValve": {
       "templateType": "Item",
@@ -14354,12 +15541,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemWeldingTorch": {
       "templateType": "ItemSlots",
@@ -14380,12 +15570,15 @@ export default {
         "convection_factor": 0.5,
         "radiation_factor": 0.5
       },
-      "slots": [
-        {
-          "name": "Gas Canister",
-          "typ": "GasCanister"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Gas Canister",
+            "class": "GasCanister",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "ItemWheat": {
       "templateType": "Item",
@@ -14456,7 +15649,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": []
+      "slots": {}
     },
     "ItemWreckageAirConditioner1": {
       "templateType": "Item",
@@ -14857,44 +16050,71 @@ export default {
         "slot_class": "None",
         "sorting_class": "Default"
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "Crate"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "Crate",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "Crate"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "Crate",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "Crate"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "Crate",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "Crate"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "Crate",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "Crate"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "Crate",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "Crate"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "Crate",
+            "index": 5
+          }
         },
-        {
-          "name": "",
-          "typ": "Portables"
+        "6": {
+          "Direct": {
+            "name": "",
+            "class": "Portables",
+            "index": 6
+          }
         },
-        {
-          "name": "",
-          "typ": "Portables"
+        "7": {
+          "Direct": {
+            "name": "",
+            "class": "Portables",
+            "index": 7
+          }
         },
-        {
-          "name": "",
-          "typ": "Crate"
+        "8": {
+          "Direct": {
+            "name": "",
+            "class": "Crate",
+            "index": 8
+          }
         }
-      ]
+      }
     },
     "Landingpad_2x2CenterPiece01": {
       "templateType": "StructureLogic",
@@ -14914,7 +16134,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": []
+      "slots": {}
     },
     "Landingpad_BlankPiece": {
       "templateType": "Structure",
@@ -14953,7 +16173,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": []
+      "slots": {}
     },
     "Landingpad_CrossPiece": {
       "templateType": "Structure",
@@ -15025,7 +16245,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -15121,7 +16341,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -15205,7 +16425,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -15301,7 +16521,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -15385,7 +16605,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -15492,7 +16712,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -15571,12 +16791,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Sound Cartridge",
-          "typ": "SoundCartridge"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Sound Cartridge",
+            "class": "SoundCartridge",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -15765,16 +16988,22 @@ export default {
         "convection_factor": 0.1,
         "radiation_factor": 0.1
       },
-      "slots": [
-        {
-          "name": "Brain",
-          "typ": "Organ"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Brain",
+            "class": "Organ",
+            "index": 0
+          }
         },
-        {
-          "name": "Lungs",
-          "typ": "Organ"
+        "1": {
+          "Direct": {
+            "name": "Lungs",
+            "class": "Organ",
+            "index": 1
+          }
         }
-      ]
+      }
     },
     "NpcChicken": {
       "templateType": "ItemSlots",
@@ -15795,16 +17024,22 @@ export default {
         "convection_factor": 0.1,
         "radiation_factor": 0.1
       },
-      "slots": [
-        {
-          "name": "Brain",
-          "typ": "Organ"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Brain",
+            "class": "Organ",
+            "index": 0
+          }
         },
-        {
-          "name": "Lungs",
-          "typ": "Organ"
+        "1": {
+          "Direct": {
+            "name": "Lungs",
+            "class": "Organ",
+            "index": 1
+          }
         }
-      ]
+      }
     },
     "PassiveSpeaker": {
       "templateType": "StructureLogicDevice",
@@ -15830,7 +17065,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -15879,24 +17114,36 @@ export default {
         "slot_class": "None",
         "sorting_class": "Default"
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "Battery"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "Battery",
+            "index": 2
+          }
         },
-        {
-          "name": "Liquid Canister",
-          "typ": "LiquidCanister"
+        "3": {
+          "Direct": {
+            "name": "Liquid Canister",
+            "class": "LiquidCanister",
+            "index": 3
+          }
         }
-      ]
+      }
     },
     "PortableSolarPanel": {
       "templateType": "ItemLogic",
@@ -15935,12 +17182,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "RailingElegant01": {
       "templateType": "Structure",
@@ -16248,48 +17498,78 @@ export default {
         "wireless_logic": true,
         "circuit_holder": true
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         },
-        {
-          "name": "Programmable Chip",
-          "typ": "ProgrammableChip"
+        "1": {
+          "Direct": {
+            "name": "Programmable Chip",
+            "class": "ProgrammableChip",
+            "index": 1
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "2": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 2
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "3": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 3
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "4": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 4
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "5": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 5
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "6": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 6
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "7": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 7
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "8": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 8
+          }
         },
-        {
-          "name": "Ore",
-          "typ": "Ore"
+        "9": {
+          "Direct": {
+            "name": "Ore",
+            "class": "Ore",
+            "index": 9
+          }
         }
-      ]
+      }
     },
     "RoverCargo": {
       "templateType": "ItemLogic",
@@ -16504,72 +17784,120 @@ export default {
         "wireless_logic": true,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Entity",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Entity",
+            "class": "Entity",
+            "index": 0
+          }
         },
-        {
-          "name": "Entity",
-          "typ": "Entity"
+        "1": {
+          "Direct": {
+            "name": "Entity",
+            "class": "Entity",
+            "index": 1
+          }
         },
-        {
-          "name": "Gas Filter",
-          "typ": "GasFilter"
+        "2": {
+          "Direct": {
+            "name": "Gas Filter",
+            "class": "GasFilter",
+            "index": 2
+          }
         },
-        {
-          "name": "Gas Filter",
-          "typ": "GasFilter"
+        "3": {
+          "Direct": {
+            "name": "Gas Filter",
+            "class": "GasFilter",
+            "index": 3
+          }
         },
-        {
-          "name": "Gas Filter",
-          "typ": "GasFilter"
+        "4": {
+          "Direct": {
+            "name": "Gas Filter",
+            "class": "GasFilter",
+            "index": 4
+          }
         },
-        {
-          "name": "Gas Canister",
-          "typ": "GasCanister"
+        "5": {
+          "Direct": {
+            "name": "Gas Canister",
+            "class": "GasCanister",
+            "index": 5
+          }
         },
-        {
-          "name": "Gas Canister",
-          "typ": "GasCanister"
+        "6": {
+          "Direct": {
+            "name": "Gas Canister",
+            "class": "GasCanister",
+            "index": 6
+          }
         },
-        {
-          "name": "Gas Canister",
-          "typ": "GasCanister"
+        "7": {
+          "Direct": {
+            "name": "Gas Canister",
+            "class": "GasCanister",
+            "index": 7
+          }
         },
-        {
-          "name": "Gas Canister",
-          "typ": "GasCanister"
+        "8": {
+          "Direct": {
+            "name": "Gas Canister",
+            "class": "GasCanister",
+            "index": 8
+          }
         },
-        {
-          "name": "Battery",
-          "typ": "Battery"
+        "9": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 9
+          }
         },
-        {
-          "name": "Battery",
-          "typ": "Battery"
+        "10": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 10
+          }
         },
-        {
-          "name": "Battery",
-          "typ": "Battery"
+        "11": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 11
+          }
         },
-        {
-          "name": "Container Slot",
-          "typ": "None"
+        "12": {
+          "Direct": {
+            "name": "Container Slot",
+            "class": "None",
+            "index": 12
+          }
         },
-        {
-          "name": "Container Slot",
-          "typ": "None"
+        "13": {
+          "Direct": {
+            "name": "Container Slot",
+            "class": "None",
+            "index": 13
+          }
         },
-        {
-          "name": "<N:EN:GasTank>",
-          "typ": "None"
+        "14": {
+          "Direct": {
+            "name": "<N:EN:GasTank>",
+            "class": "None",
+            "index": 14
+          }
         },
-        {
-          "name": "<N:EN:GasTank>",
-          "typ": "None"
+        "15": {
+          "Direct": {
+            "name": "<N:EN:GasTank>",
+            "class": "None",
+            "index": 15
+          }
         }
-      ]
+      }
     },
     "Rover_MkI": {
       "templateType": "ItemLogic",
@@ -16728,52 +18056,85 @@ export default {
         "wireless_logic": true,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Entity",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Entity",
+            "class": "Entity",
+            "index": 0
+          }
         },
-        {
-          "name": "Entity",
-          "typ": "Entity"
+        "1": {
+          "Direct": {
+            "name": "Entity",
+            "class": "Entity",
+            "index": 1
+          }
         },
-        {
-          "name": "Battery",
-          "typ": "Battery"
+        "2": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 2
+          }
         },
-        {
-          "name": "Battery",
-          "typ": "Battery"
+        "3": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 3
+          }
         },
-        {
-          "name": "Battery",
-          "typ": "Battery"
+        "4": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 4
+          }
         },
-        {
-          "name": "<N:EN:ContainerConnection>",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "<N:EN:ContainerConnection>",
+            "class": "None",
+            "index": 5
+          }
         },
-        {
-          "name": "<N:EN:ContainerConnection>",
-          "typ": "None"
+        "6": {
+          "Direct": {
+            "name": "<N:EN:ContainerConnection>",
+            "class": "None",
+            "index": 6
+          }
         },
-        {
-          "name": "<N:EN:GasTankConnection>",
-          "typ": "None"
+        "7": {
+          "Direct": {
+            "name": "<N:EN:GasTankConnection>",
+            "class": "None",
+            "index": 7
+          }
         },
-        {
-          "name": "<N:EN:GasTankConnection>",
-          "typ": "None"
+        "8": {
+          "Direct": {
+            "name": "<N:EN:GasTankConnection>",
+            "class": "None",
+            "index": 8
+          }
         },
-        {
-          "name": "<N:EN:GasTankConnection>",
-          "typ": "None"
+        "9": {
+          "Direct": {
+            "name": "<N:EN:GasTankConnection>",
+            "class": "None",
+            "index": 9
+          }
         },
-        {
-          "name": "<N:EN:GasTankConnection>",
-          "typ": "None"
+        "10": {
+          "Direct": {
+            "name": "<N:EN:GasTankConnection>",
+            "class": "None",
+            "index": 10
+          }
         }
-      ]
+      }
     },
     "Rover_MkI_build_states": {
       "templateType": "Structure",
@@ -17010,20 +18371,29 @@ export default {
         "slot_class": "None",
         "sorting_class": "Default"
       },
-      "slots": [
-        {
-          "name": "Captain's Seat",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Captain's Seat",
+            "class": "Entity",
+            "index": 0
+          }
         },
-        {
-          "name": "Passenger Seat Left",
-          "typ": "Entity"
+        "1": {
+          "Direct": {
+            "name": "Passenger Seat Left",
+            "class": "Entity",
+            "index": 1
+          }
         },
-        {
-          "name": "Passenger Seat Right",
-          "typ": "Entity"
+        "2": {
+          "Direct": {
+            "name": "Passenger Seat Right",
+            "class": "Entity",
+            "index": 2
+          }
         }
-      ]
+      }
     },
     "StopWatch": {
       "templateType": "StructureLogicDevice",
@@ -17053,7 +18423,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -17103,7 +18473,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -17175,12 +18545,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "DataDisk"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "DataDisk",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -17246,16 +18619,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -17365,16 +18744,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -17454,16 +18839,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -17511,34 +18902,10 @@ export default {
       },
       "fabricator_info": {
         "tier": "Undefined",
-        "recipes": {
-          "ItemCannedCondensedMilk": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 0.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Milk": 200.0,
-              "Steel": 1.0
-            }
-          },
-          "ItemCannedEdamame": {
+        "recipes": [
+          {
+            "target_prefab": "ItemTomatoSoup",
+            "target_prefab_hash": 688734890,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 0.0,
@@ -17561,146 +18928,13 @@ export default {
             "count_types": 3,
             "reagents": {
               "Oil": 1.0,
-              "Soy": 15.0,
-              "Steel": 1.0
+              "Steel": 1.0,
+              "Tomato": 5.0
             }
           },
-          "ItemCannedMushroom": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 0.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Mushroom": 5.0,
-              "Oil": 1.0,
-              "Steel": 1.0
-            }
-          },
-          "ItemCannedPowderedEggs": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 0.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Egg": 5.0,
-              "Oil": 1.0,
-              "Steel": 1.0
-            }
-          },
-          "ItemCannedRicePudding": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 0.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Oil": 1.0,
-              "Rice": 5.0,
-              "Steel": 1.0
-            }
-          },
-          "ItemCornSoup": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 0.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Corn": 5.0,
-              "Oil": 1.0,
-              "Steel": 1.0
-            }
-          },
-          "ItemFrenchFries": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 0.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Oil": 1.0,
-              "Potato": 1.0,
-              "Steel": 1.0
-            }
-          },
-          "ItemPumpkinSoup": {
+          {
+            "target_prefab": "ItemPumpkinSoup",
+            "target_prefab_hash": 1277979876,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 0.0,
@@ -17727,7 +18961,96 @@ export default {
               "Steel": 1.0
             }
           },
-          "ItemTomatoSoup": {
+          {
+            "target_prefab": "ItemCornSoup",
+            "target_prefab_hash": 545034114,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 0.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Corn": 5.0,
+              "Oil": 1.0,
+              "Steel": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemCannedMushroom",
+            "target_prefab_hash": -1344601965,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 0.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Mushroom": 5.0,
+              "Oil": 1.0,
+              "Steel": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemCannedPowderedEggs",
+            "target_prefab_hash": 1161510063,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 0.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Egg": 5.0,
+              "Oil": 1.0,
+              "Steel": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemFrenchFries",
+            "target_prefab_hash": -57608687,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 0.0,
@@ -17750,11 +19073,97 @@ export default {
             "count_types": 3,
             "reagents": {
               "Oil": 1.0,
-              "Steel": 1.0,
-              "Tomato": 5.0
+              "Potato": 1.0,
+              "Steel": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemCannedRicePudding",
+            "target_prefab_hash": -1185552595,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 0.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Oil": 1.0,
+              "Rice": 5.0,
+              "Steel": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemCannedCondensedMilk",
+            "target_prefab_hash": -2104175091,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 0.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Milk": 200.0,
+              "Steel": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemCannedEdamame",
+            "target_prefab_hash": -999714082,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 0.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Oil": 1.0,
+              "Soy": 15.0,
+              "Steel": 1.0
             }
           }
-        }
+        ]
       },
       "memory": {
         "instructions": {
@@ -18204,12 +19613,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": true
       },
-      "slots": [
-        {
-          "name": "Programmable Chip",
-          "typ": "ProgrammableChip"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Programmable Chip",
+            "class": "ProgrammableChip",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -18278,7 +19690,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -18334,7 +19746,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -18390,12 +19802,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Seat",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Seat",
+            "class": "Entity",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -18465,16 +19880,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "Ore"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "Ore",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "Ingot"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "Ingot",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -18570,16 +19991,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         },
-        {
-          "name": "Data Disk",
-          "typ": "DataDisk"
+        "1": {
+          "Direct": {
+            "name": "Data Disk",
+            "class": "DataDisk",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -18667,16 +20094,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         },
-        {
-          "name": "Data Disk",
-          "typ": "DataDisk"
+        "1": {
+          "Direct": {
+            "name": "Data Disk",
+            "class": "DataDisk",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -18732,16 +20165,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -18809,16 +20248,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "Ingot"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "Ingot",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -18873,209 +20318,10 @@ export default {
       },
       "fabricator_info": {
         "tier": "Undefined",
-        "recipes": {
-          "CardboardBox": {
-            "tier": "TierOne",
-            "time": 2.0,
-            "energy": 120.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 2.0
-            }
-          },
-          "ItemAstroloySheets": {
-            "tier": "TierOne",
-            "time": 3.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Astroloy": 3.0
-            }
-          },
-          "ItemCableCoil": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 200.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Copper": 0.5
-            }
-          },
-          "ItemCoffeeMug": {
-            "tier": "TierOne",
-            "time": 1.0,
-            "energy": 70.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 1.0
-            }
-          },
-          "ItemEggCarton": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 2.0
-            }
-          },
-          "ItemEmptyCan": {
-            "tier": "TierOne",
-            "time": 1.0,
-            "energy": 70.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Steel": 1.0
-            }
-          },
-          "ItemEvaSuit": {
-            "tier": "TierOne",
-            "time": 15.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Iron": 5.0
-            }
-          },
-          "ItemGlassSheets": {
-            "tier": "TierOne",
-            "time": 1.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 2.0
-            }
-          },
-          "ItemIronFrames": {
+        "recipes": [
+          {
+            "target_prefab": "ItemIronFrames",
+            "target_prefab_hash": 1225836666,
             "tier": "TierOne",
             "time": 4.0,
             "energy": 200.0,
@@ -19100,7 +20346,9 @@ export default {
               "Iron": 4.0
             }
           },
-          "ItemIronSheets": {
+          {
+            "target_prefab": "ItemIronSheets",
+            "target_prefab_hash": -487378546,
             "tier": "TierOne",
             "time": 1.0,
             "energy": 200.0,
@@ -19125,10 +20373,12 @@ export default {
               "Iron": 1.0
             }
           },
-          "ItemKitAccessBridge": {
+          {
+            "target_prefab": "ItemPlasticSheets",
+            "target_prefab_hash": 662053345,
             "tier": "TierOne",
-            "time": 30.0,
-            "energy": 15000.0,
+            "time": 1.0,
+            "energy": 200.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -19145,14 +20395,422 @@ export default {
               "is_any_to_remove": false,
               "reagents": {}
             },
-            "count_types": 3,
+            "count_types": 1,
             "reagents": {
-              "Copper": 2.0,
-              "Solder": 2.0,
-              "Steel": 10.0
+              "Silicon": 0.5
             }
           },
-          "ItemKitArcFurnace": {
+          {
+            "target_prefab": "ItemGlassSheets",
+            "target_prefab_hash": 1588896491,
+            "tier": "TierOne",
+            "time": 1.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemStelliteGlassSheets",
+            "target_prefab_hash": -2038663432,
+            "tier": "TierOne",
+            "time": 1.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Silicon": 2.0,
+              "Stellite": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemSteelSheets",
+            "target_prefab_hash": 38555961,
+            "tier": "TierOne",
+            "time": 3.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Steel": 0.5
+            }
+          },
+          {
+            "target_prefab": "ItemAstroloySheets",
+            "target_prefab_hash": -1662476145,
+            "tier": "TierOne",
+            "time": 3.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Astroloy": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemSteelFrames",
+            "target_prefab_hash": -1448105779,
+            "tier": "TierOne",
+            "time": 7.0,
+            "energy": 800.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Steel": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitWallIron",
+            "target_prefab_hash": -524546923,
+            "tier": "TierOne",
+            "time": 1.0,
+            "energy": 200.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitRailing",
+            "target_prefab_hash": 750176282,
+            "tier": "TierOne",
+            "time": 1.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitCompositeCladding",
+            "target_prefab_hash": -1470820996,
+            "tier": "TierOne",
+            "time": 1.0,
+            "energy": 200.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitWall",
+            "target_prefab_hash": -1826855889,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Steel": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitReinforcedWindows",
+            "target_prefab_hash": 1459985302,
+            "tier": "TierOne",
+            "time": 7.0,
+            "energy": 700.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Astroloy": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitWindowShutter",
+            "target_prefab_hash": 1779979754,
+            "tier": "TierOne",
+            "time": 7.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Solder": 1.0,
+              "Steel": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitLadder",
+            "target_prefab_hash": 489494578,
+            "tier": "TierOne",
+            "time": 3.0,
+            "energy": 200.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitPipe",
+            "target_prefab_hash": -1619793705,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 200.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 0.5
+            }
+          },
+          {
+            "target_prefab": "ItemCableCoil",
+            "target_prefab_hash": -466050668,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 200.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Copper": 0.5
+            }
+          },
+          {
+            "target_prefab": "ItemKitFurnace",
+            "target_prefab_hash": -806743925,
+            "tier": "TierOne",
+            "time": 120.0,
+            "energy": 12000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 10.0,
+              "Iron": 30.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitArcFurnace",
+            "target_prefab_hash": -98995857,
             "tier": "TierOne",
             "time": 60.0,
             "energy": 6000.0,
@@ -19178,7 +20836,323 @@ export default {
               "Iron": 20.0
             }
           },
-          "ItemKitAutolathe": {
+          {
+            "target_prefab": "ItemKitElectronicsPrinter",
+            "target_prefab_hash": -1181922382,
+            "tier": "TierOne",
+            "time": 120.0,
+            "energy": 12000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 10.0,
+              "Gold": 2.0,
+              "Iron": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitRocketManufactory",
+            "target_prefab_hash": -636127860,
+            "tier": "TierOne",
+            "time": 120.0,
+            "energy": 12000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 10.0,
+              "Gold": 2.0,
+              "Iron": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitSecurityPrinter",
+            "target_prefab_hash": 578078533,
+            "tier": "TierOne",
+            "time": 180.0,
+            "energy": 36000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 20.0,
+              "Gold": 20.0,
+              "Steel": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitBlastDoor",
+            "target_prefab_hash": -1755116240,
+            "tier": "TierTwo",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 3.0,
+              "Steel": 15.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitRobotArmDoor",
+            "target_prefab_hash": -753675589,
+            "tier": "TierTwo",
+            "time": 10.0,
+            "energy": 400.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 3.0,
+              "Steel": 12.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitFurniture",
+            "target_prefab_hash": 1162905029,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Iron": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitTables",
+            "target_prefab_hash": -1361598922,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Iron": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitChairs",
+            "target_prefab_hash": -1394008073,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Iron": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitBeds",
+            "target_prefab_hash": -1241256797,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Iron": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitSorter",
+            "target_prefab_hash": 969522478,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 1.0,
+              "Iron": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitHydraulicPipeBender",
+            "target_prefab_hash": -2098556089,
+            "tier": "TierOne",
+            "time": 180.0,
+            "energy": 18000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 10.0,
+              "Gold": 2.0,
+              "Iron": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitAutolathe",
+            "target_prefab_hash": -1753893214,
             "tier": "TierOne",
             "time": 180.0,
             "energy": 36000.0,
@@ -19205,7 +21179,9 @@ export default {
               "Iron": 20.0
             }
           },
-          "ItemKitBeds": {
+          {
+            "target_prefab": "ItemKitDoor",
+            "target_prefab_hash": 168615924,
             "tier": "TierOne",
             "time": 10.0,
             "energy": 500.0,
@@ -19227,12 +21203,14 @@ export default {
             },
             "count_types": 2,
             "reagents": {
-              "Copper": 5.0,
-              "Iron": 20.0
+              "Copper": 3.0,
+              "Iron": 7.0
             }
           },
-          "ItemKitBlastDoor": {
-            "tier": "TierTwo",
+          {
+            "target_prefab": "ItemKitInteriorDoors",
+            "target_prefab_hash": 1935945891,
+            "tier": "TierOne",
             "time": 10.0,
             "energy": 500.0,
             "temperature": {
@@ -19254,10 +21232,534 @@ export default {
             "count_types": 2,
             "reagents": {
               "Copper": 3.0,
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemWallLight",
+            "target_prefab_hash": 1108423476,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 2.0,
+              "Iron": 1.0,
+              "Silicon": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitWallArch",
+            "target_prefab_hash": 1625214531,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Steel": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitWallFlat",
+            "target_prefab_hash": -846838195,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Steel": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitWallGeometry",
+            "target_prefab_hash": -784733231,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Steel": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitWallPadded",
+            "target_prefab_hash": -821868990,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Steel": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitLocker",
+            "target_prefab_hash": 882301399,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitSign",
+            "target_prefab_hash": 529996327,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitStairs",
+            "target_prefab_hash": 170878959,
+            "tier": "TierOne",
+            "time": 20.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 15.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitStairwell",
+            "target_prefab_hash": -1868555784,
+            "tier": "TierOne",
+            "time": 20.0,
+            "energy": 6000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 15.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitStacker",
+            "target_prefab_hash": 1013244511,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 2.0,
+              "Iron": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemEmptyCan",
+            "target_prefab_hash": 1013818348,
+            "tier": "TierOne",
+            "time": 1.0,
+            "energy": 70.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Steel": 1.0
+            }
+          },
+          {
+            "target_prefab": "CardboardBox",
+            "target_prefab_hash": -1976947556,
+            "tier": "TierOne",
+            "time": 2.0,
+            "energy": 120.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitChute",
+            "target_prefab_hash": 1025254665,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitStandardChute",
+            "target_prefab_hash": 2133035682,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Constantan": 2.0,
+              "Electrum": 2.0,
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitSDBHopper",
+            "target_prefab_hash": 323957548,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 700.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 15.0
+            }
+          },
+          {
+            "target_prefab": "KitSDBSilo",
+            "target_prefab_hash": 1932952652,
+            "tier": "TierOne",
+            "time": 120.0,
+            "energy": 24000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 10.0,
+              "Gold": 20.0,
               "Steel": 15.0
             }
           },
-          "ItemKitCentrifuge": {
+          {
+            "target_prefab": "ItemKitCompositeFloorGrating",
+            "target_prefab_hash": 1182412869,
+            "tier": "TierOne",
+            "time": 3.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitToolManufactory",
+            "target_prefab_hash": 529137748,
+            "tier": "TierOne",
+            "time": 120.0,
+            "energy": 24000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 10.0,
+              "Iron": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitRecycler",
+            "target_prefab_hash": 849148192,
+            "tier": "TierOne",
+            "time": 60.0,
+            "energy": 12000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 10.0,
+              "Iron": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitCentrifuge",
+            "target_prefab_hash": 578182956,
             "tier": "TierOne",
             "time": 60.0,
             "energy": 18000.0,
@@ -19283,136 +21785,12 @@ export default {
               "Iron": 20.0
             }
           },
-          "ItemKitChairs": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Iron": 20.0
-            }
-          },
-          "ItemKitChute": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 3.0
-            }
-          },
-          "ItemKitCompositeCladding": {
-            "tier": "TierOne",
-            "time": 1.0,
-            "energy": 200.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 1.0
-            }
-          },
-          "ItemKitCompositeFloorGrating": {
-            "tier": "TierOne",
-            "time": 3.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 1.0
-            }
-          },
-          "ItemKitCrate": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 200.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 10.0
-            }
-          },
-          "ItemKitCrateMkII": {
+          {
+            "target_prefab": "KitStructureCombustionCentrifuge",
+            "target_prefab_hash": 231903234,
             "tier": "TierTwo",
-            "time": 10.0,
-            "energy": 200.0,
+            "time": 120.0,
+            "energy": 24000.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -19429,38 +21807,16 @@ export default {
               "is_any_to_remove": false,
               "reagents": {}
             },
-            "count_types": 2,
+            "count_types": 3,
             "reagents": {
-              "Gold": 5.0,
-              "Iron": 10.0
+              "Constantan": 5.0,
+              "Invar": 10.0,
+              "Steel": 20.0
             }
           },
-          "ItemKitCrateMount": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 10.0
-            }
-          },
-          "ItemKitDeepMiner": {
+          {
+            "target_prefab": "ItemKitDeepMiner",
+            "target_prefab_hash": -1935075707,
             "tier": "TierTwo",
             "time": 180.0,
             "energy": 72000.0,
@@ -19488,63 +21844,12 @@ export default {
               "Steel": 50.0
             }
           },
-          "ItemKitDoor": {
+          {
+            "target_prefab": "ItemKitCrateMount",
+            "target_prefab_hash": -551612946,
             "tier": "TierOne",
             "time": 10.0,
             "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 3.0,
-              "Iron": 7.0
-            }
-          },
-          "ItemKitElectronicsPrinter": {
-            "tier": "TierOne",
-            "time": 120.0,
-            "energy": 12000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 10.0,
-              "Gold": 2.0,
-              "Iron": 20.0
-            }
-          },
-          "ItemKitFlagODA": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -19563,117 +21868,14 @@ export default {
             },
             "count_types": 1,
             "reagents": {
-              "Iron": 8.0
+              "Iron": 10.0
             }
           },
-          "ItemKitFurnace": {
-            "tier": "TierOne",
-            "time": 120.0,
-            "energy": 12000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 10.0,
-              "Iron": 30.0
-            }
-          },
-          "ItemKitFurniture": {
+          {
+            "target_prefab": "ItemKitCrate",
+            "target_prefab_hash": 429365598,
             "tier": "TierOne",
             "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Iron": 20.0
-            }
-          },
-          "ItemKitHydraulicPipeBender": {
-            "tier": "TierOne",
-            "time": 180.0,
-            "energy": 18000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 10.0,
-              "Gold": 2.0,
-              "Iron": 20.0
-            }
-          },
-          "ItemKitInteriorDoors": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 3.0,
-              "Iron": 5.0
-            }
-          },
-          "ItemKitLadder": {
-            "tier": "TierOne",
-            "time": 3.0,
             "energy": 200.0,
             "temperature": {
               "start": 1.0,
@@ -19693,577 +21895,14 @@ export default {
             },
             "count_types": 1,
             "reagents": {
-              "Iron": 2.0
+              "Iron": 10.0
             }
           },
-          "ItemKitLocker": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 5.0
-            }
-          },
-          "ItemKitPipe": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 200.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 0.5
-            }
-          },
-          "ItemKitRailing": {
-            "tier": "TierOne",
-            "time": 1.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 1.0
-            }
-          },
-          "ItemKitRecycler": {
-            "tier": "TierOne",
-            "time": 60.0,
-            "energy": 12000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 10.0,
-              "Iron": 20.0
-            }
-          },
-          "ItemKitReinforcedWindows": {
-            "tier": "TierOne",
-            "time": 7.0,
-            "energy": 700.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Astroloy": 2.0
-            }
-          },
-          "ItemKitRespawnPointWallMounted": {
-            "tier": "TierOne",
-            "time": 20.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 1.0,
-              "Iron": 3.0
-            }
-          },
-          "ItemKitRobotArmDoor": {
+          {
+            "target_prefab": "ItemKitCrateMkII",
+            "target_prefab_hash": -1585956426,
             "tier": "TierTwo",
             "time": 10.0,
-            "energy": 400.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 3.0,
-              "Steel": 12.0
-            }
-          },
-          "ItemKitRocketManufactory": {
-            "tier": "TierOne",
-            "time": 120.0,
-            "energy": 12000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 10.0,
-              "Gold": 2.0,
-              "Iron": 20.0
-            }
-          },
-          "ItemKitSDBHopper": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 700.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 15.0
-            }
-          },
-          "ItemKitSecurityPrinter": {
-            "tier": "TierOne",
-            "time": 180.0,
-            "energy": 36000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 20.0,
-              "Gold": 20.0,
-              "Steel": 20.0
-            }
-          },
-          "ItemKitSign": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 3.0
-            }
-          },
-          "ItemKitSorter": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 1.0,
-              "Iron": 10.0
-            }
-          },
-          "ItemKitStacker": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 2.0,
-              "Iron": 10.0
-            }
-          },
-          "ItemKitStairs": {
-            "tier": "TierOne",
-            "time": 20.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 15.0
-            }
-          },
-          "ItemKitStairwell": {
-            "tier": "TierOne",
-            "time": 20.0,
-            "energy": 6000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 15.0
-            }
-          },
-          "ItemKitStandardChute": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Constantan": 2.0,
-              "Electrum": 2.0,
-              "Iron": 3.0
-            }
-          },
-          "ItemKitTables": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Iron": 20.0
-            }
-          },
-          "ItemKitToolManufactory": {
-            "tier": "TierOne",
-            "time": 120.0,
-            "energy": 24000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 10.0,
-              "Iron": 20.0
-            }
-          },
-          "ItemKitWall": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Steel": 1.0
-            }
-          },
-          "ItemKitWallArch": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Steel": 1.0
-            }
-          },
-          "ItemKitWallFlat": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Steel": 1.0
-            }
-          },
-          "ItemKitWallGeometry": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Steel": 1.0
-            }
-          },
-          "ItemKitWallIron": {
-            "tier": "TierOne",
-            "time": 1.0,
             "energy": 200.0,
             "temperature": {
               "start": 1.0,
@@ -20281,88 +21920,15 @@ export default {
               "is_any_to_remove": false,
               "reagents": {}
             },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 1.0
-            }
-          },
-          "ItemKitWallPadded": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Steel": 1.0
-            }
-          },
-          "ItemKitWindowShutter": {
-            "tier": "TierOne",
-            "time": 7.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
             "count_types": 2,
             "reagents": {
-              "Solder": 1.0,
-              "Steel": 2.0
+              "Gold": 5.0,
+              "Iron": 10.0
             }
           },
-          "ItemPlasticSheets": {
-            "tier": "TierOne",
-            "time": 1.0,
-            "energy": 200.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 0.5
-            }
-          },
-          "ItemSpaceHelmet": {
+          {
+            "target_prefab": "ItemSpaceHelmet",
+            "target_prefab_hash": 714830451,
             "tier": "TierOne",
             "time": 15.0,
             "energy": 500.0,
@@ -20388,59 +21954,11 @@ export default {
               "Gold": 2.0
             }
           },
-          "ItemSteelFrames": {
+          {
+            "target_prefab": "ItemEvaSuit",
+            "target_prefab_hash": 1677018918,
             "tier": "TierOne",
-            "time": 7.0,
-            "energy": 800.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Steel": 2.0
-            }
-          },
-          "ItemSteelSheets": {
-            "tier": "TierOne",
-            "time": 3.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Steel": 0.5
-            }
-          },
-          "ItemStelliteGlassSheets": {
-            "tier": "TierOne",
-            "time": 1.0,
+            "time": 15.0,
             "energy": 500.0,
             "temperature": {
               "start": 1.0,
@@ -20460,14 +21978,125 @@ export default {
             },
             "count_types": 2,
             "reagents": {
-              "Silicon": 2.0,
-              "Stellite": 1.0
+              "Copper": 5.0,
+              "Iron": 5.0
             }
           },
-          "ItemWallLight": {
+          {
+            "target_prefab": "ItemEggCarton",
+            "target_prefab_hash": -524289310,
             "tier": "TierOne",
             "time": 10.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemCoffeeMug",
+            "target_prefab_hash": 1800622698,
+            "tier": "TierOne",
+            "time": 1.0,
+            "energy": 70.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitFlagODA",
+            "target_prefab_hash": 1701764190,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 8.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitRespawnPointWallMounted",
+            "target_prefab_hash": 1574688481,
+            "tier": "TierOne",
+            "time": 20.0,
             "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 1.0,
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitAccessBridge",
+            "target_prefab_hash": 513258369,
+            "tier": "TierOne",
+            "time": 30.0,
+            "energy": 15000.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -20487,65 +22116,11 @@ export default {
             "count_types": 3,
             "reagents": {
               "Copper": 2.0,
-              "Iron": 1.0,
-              "Silicon": 1.0
-            }
-          },
-          "KitSDBSilo": {
-            "tier": "TierOne",
-            "time": 120.0,
-            "energy": 24000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 10.0,
-              "Gold": 20.0,
-              "Steel": 15.0
-            }
-          },
-          "KitStructureCombustionCentrifuge": {
-            "tier": "TierTwo",
-            "time": 120.0,
-            "energy": 24000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Constantan": 5.0,
-              "Invar": 10.0,
-              "Steel": 20.0
+              "Solder": 2.0,
+              "Steel": 10.0
             }
           }
-        }
+        ]
       },
       "memory": {
         "instructions": {
@@ -20934,16 +22509,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -20995,8 +22576,121 @@ export default {
       },
       "fabricator_info": {
         "tier": "TierOne",
-        "recipes": {
-          "ItemBreadLoaf": {
+        "recipes": [
+          {
+            "target_prefab": "ItemMuffin",
+            "target_prefab_hash": -1864982322,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 0.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Egg": 1.0,
+              "Flour": 50.0,
+              "Milk": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemCerealBar",
+            "target_prefab_hash": 791746840,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 0.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Flour": 50.0
+            }
+          },
+          {
+            "target_prefab": "ItemChocolateCerealBar",
+            "target_prefab_hash": 860793245,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 0.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Cocoa": 1.0,
+              "Flour": 50.0
+            }
+          },
+          {
+            "target_prefab": "ItemPotatoBaked",
+            "target_prefab_hash": -2111886401,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 0.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Potato": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemBreadLoaf",
+            "target_prefab_hash": 893514943,
             "tier": "TierOne",
             "time": 10.0,
             "energy": 0.0,
@@ -21022,7 +22716,67 @@ export default {
               "Oil": 5.0
             }
           },
-          "ItemCerealBar": {
+          {
+            "target_prefab": "ItemFries",
+            "target_prefab_hash": 1371786091,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 0.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Oil": 5.0,
+              "Potato": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemPumpkinPie",
+            "target_prefab_hash": 62768076,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 0.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Egg": 1.0,
+              "Flour": 100.0,
+              "Milk": 10.0,
+              "Pumpkin": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemCookedTomato",
+            "target_prefab_hash": -709086714,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 0.0,
@@ -21044,10 +22798,201 @@ export default {
             },
             "count_types": 1,
             "reagents": {
-              "Flour": 50.0
+              "Tomato": 1.0
             }
           },
-          "ItemChocolateBar": {
+          {
+            "target_prefab": "ItemCookedMushroom",
+            "target_prefab_hash": -1076892658,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 0.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Mushroom": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemCookedCorn",
+            "target_prefab_hash": 1344773148,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 0.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Corn": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemCookedRice",
+            "target_prefab_hash": 2013539020,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 0.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Rice": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemCookedPumpkin",
+            "target_prefab_hash": 1849281546,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 0.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Pumpkin": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemCookedPowderedEggs",
+            "target_prefab_hash": -1712264413,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 0.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Egg": 4.0
+            }
+          },
+          {
+            "target_prefab": "ItemCookedCondensedMilk",
+            "target_prefab_hash": 1715917521,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 0.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Milk": 100.0
+            }
+          },
+          {
+            "target_prefab": "ItemCookedSoybean",
+            "target_prefab_hash": 1353449022,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 0.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Soy": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemChocolateBar",
+            "target_prefab_hash": 234601764,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 0.0,
@@ -21073,7 +23018,39 @@ export default {
               "Sugar": 10.0
             }
           },
-          "ItemChocolateCake": {
+          {
+            "target_prefab": "ItemPlainCake",
+            "target_prefab_hash": -1108244510,
+            "tier": "TierOne",
+            "time": 30.0,
+            "energy": 0.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Egg": 1.0,
+              "Flour": 50.0,
+              "Milk": 5.0,
+              "Sugar": 50.0
+            }
+          },
+          {
+            "target_prefab": "ItemChocolateCake",
+            "target_prefab_hash": -261575861,
             "tier": "TierOne",
             "time": 30.0,
             "energy": 0.0,
@@ -21101,368 +23078,8 @@ export default {
               "Milk": 5.0,
               "Sugar": 50.0
             }
-          },
-          "ItemChocolateCerealBar": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 0.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Cocoa": 1.0,
-              "Flour": 50.0
-            }
-          },
-          "ItemCookedCondensedMilk": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 0.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Milk": 100.0
-            }
-          },
-          "ItemCookedCorn": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 0.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Corn": 1.0
-            }
-          },
-          "ItemCookedMushroom": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 0.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Mushroom": 1.0
-            }
-          },
-          "ItemCookedPowderedEggs": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 0.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Egg": 4.0
-            }
-          },
-          "ItemCookedPumpkin": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 0.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Pumpkin": 1.0
-            }
-          },
-          "ItemCookedRice": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 0.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Rice": 1.0
-            }
-          },
-          "ItemCookedSoybean": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 0.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Soy": 1.0
-            }
-          },
-          "ItemCookedTomato": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 0.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Tomato": 1.0
-            }
-          },
-          "ItemFries": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 0.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Oil": 5.0,
-              "Potato": 1.0
-            }
-          },
-          "ItemMuffin": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 0.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Egg": 1.0,
-              "Flour": 50.0,
-              "Milk": 10.0
-            }
-          },
-          "ItemPlainCake": {
-            "tier": "TierOne",
-            "time": 30.0,
-            "energy": 0.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Egg": 1.0,
-              "Flour": 50.0,
-              "Milk": 5.0,
-              "Sugar": 50.0
-            }
-          },
-          "ItemPotatoBaked": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 0.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Potato": 1.0
-            }
-          },
-          "ItemPumpkinPie": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 0.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Egg": 1.0,
-              "Flour": 100.0,
-              "Milk": 10.0,
-              "Pumpkin": 10.0
-            }
           }
-        }
+        ]
       },
       "memory": {
         "instructions": {
@@ -21843,7 +23460,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -21899,7 +23516,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -21952,7 +23569,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -22015,7 +23632,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -22134,28 +23751,43 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         },
-        {
-          "name": "Battery",
-          "typ": "Battery"
+        "1": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 1
+          }
         },
-        {
-          "name": "Battery",
-          "typ": "Battery"
+        "2": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 2
+          }
         },
-        {
-          "name": "Battery",
-          "typ": "Battery"
+        "3": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 3
+          }
         },
-        {
-          "name": "Battery",
-          "typ": "Battery"
+        "4": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 4
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -22231,16 +23863,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         },
-        {
-          "name": "Battery",
-          "typ": "Battery"
+        "1": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -22299,7 +23937,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -22364,7 +24002,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -22429,7 +24067,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -22483,7 +24121,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -22556,16 +24194,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Appliance 1",
-          "typ": "Appliance"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Appliance 1",
+            "class": "Appliance",
+            "index": 0
+          }
         },
-        {
-          "name": "Appliance 2",
-          "typ": "Appliance"
+        "1": {
+          "Direct": {
+            "name": "Appliance 2",
+            "class": "Appliance",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -22638,16 +24282,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Appliance 1",
-          "typ": "Appliance"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Appliance 1",
+            "class": "Appliance",
+            "index": 0
+          }
         },
-        {
-          "name": "Appliance 2",
-          "typ": "Appliance"
+        "1": {
+          "Direct": {
+            "name": "Appliance 2",
+            "class": "Appliance",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -22720,16 +24370,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Appliance 1",
-          "typ": "Appliance"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Appliance 1",
+            "class": "Appliance",
+            "index": 0
+          }
         },
-        {
-          "name": "Appliance 2",
-          "typ": "Appliance"
+        "1": {
+          "Direct": {
+            "name": "Appliance 2",
+            "class": "Appliance",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -22802,16 +24458,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Appliance 1",
-          "typ": "Appliance"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Appliance 1",
+            "class": "Appliance",
+            "index": 0
+          }
         },
-        {
-          "name": "Appliance 2",
-          "typ": "Appliance"
+        "1": {
+          "Direct": {
+            "name": "Appliance 2",
+            "class": "Appliance",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -22884,16 +24546,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Appliance 1",
-          "typ": "Appliance"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Appliance 1",
+            "class": "Appliance",
+            "index": 0
+          }
         },
-        {
-          "name": "Appliance 2",
-          "typ": "Appliance"
+        "1": {
+          "Direct": {
+            "name": "Appliance 2",
+            "class": "Appliance",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -22949,7 +24617,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -23010,12 +24678,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Bed",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Bed",
+            "class": "Entity",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -23070,7 +24741,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -23254,7 +24925,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -23289,7 +24960,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -23324,7 +24995,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -23359,7 +25030,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -23640,7 +25311,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -23710,7 +25381,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -23784,7 +25455,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -23942,416 +25613,722 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
-        },
-        {
-          "name": "Export",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
+        },
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
+        },
+        "2": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 2
+          }
+        },
+        "3": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 3
+          }
+        },
+        "4": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 4
+          }
+        },
+        "5": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 5
+          }
+        },
+        "6": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 6
+          }
+        },
+        "7": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 7
+          }
+        },
+        "8": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 8
+          }
+        },
+        "9": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 9
+          }
+        },
+        "10": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 10
+          }
+        },
+        "11": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 11
+          }
+        },
+        "12": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 12
+          }
+        },
+        "13": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 13
+          }
+        },
+        "14": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 14
+          }
+        },
+        "15": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 15
+          }
+        },
+        "16": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 16
+          }
+        },
+        "17": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 17
+          }
+        },
+        "18": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 18
+          }
+        },
+        "19": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 19
+          }
+        },
+        "20": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 20
+          }
+        },
+        "21": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 21
+          }
+        },
+        "22": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 22
+          }
+        },
+        "23": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 23
+          }
+        },
+        "24": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 24
+          }
+        },
+        "25": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 25
+          }
+        },
+        "26": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 26
+          }
+        },
+        "27": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 27
+          }
+        },
+        "28": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 28
+          }
+        },
+        "29": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 29
+          }
+        },
+        "30": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 30
+          }
+        },
+        "31": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 31
+          }
+        },
+        "32": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 32
+          }
+        },
+        "33": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 33
+          }
+        },
+        "34": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 34
+          }
+        },
+        "35": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 35
+          }
+        },
+        "36": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 36
+          }
+        },
+        "37": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 37
+          }
+        },
+        "38": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 38
+          }
+        },
+        "39": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 39
+          }
+        },
+        "40": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 40
+          }
+        },
+        "41": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 41
+          }
+        },
+        "42": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 42
+          }
+        },
+        "43": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 43
+          }
+        },
+        "44": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 44
+          }
+        },
+        "45": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 45
+          }
+        },
+        "46": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 46
+          }
+        },
+        "47": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 47
+          }
+        },
+        "48": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 48
+          }
+        },
+        "49": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 49
+          }
+        },
+        "50": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 50
+          }
+        },
+        "51": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 51
+          }
+        },
+        "52": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 52
+          }
+        },
+        "53": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 53
+          }
+        },
+        "54": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 54
+          }
+        },
+        "55": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 55
+          }
+        },
+        "56": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 56
+          }
+        },
+        "57": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 57
+          }
+        },
+        "58": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 58
+          }
+        },
+        "59": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 59
+          }
+        },
+        "60": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 60
+          }
+        },
+        "61": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 61
+          }
+        },
+        "62": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 62
+          }
+        },
+        "63": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 63
+          }
+        },
+        "64": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 64
+          }
+        },
+        "65": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 65
+          }
+        },
+        "66": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 66
+          }
+        },
+        "67": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 67
+          }
+        },
+        "68": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 68
+          }
+        },
+        "69": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 69
+          }
+        },
+        "70": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 70
+          }
+        },
+        "71": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 71
+          }
+        },
+        "72": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 72
+          }
+        },
+        "73": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 73
+          }
+        },
+        "74": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 74
+          }
+        },
+        "75": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 75
+          }
+        },
+        "76": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 76
+          }
+        },
+        "77": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 77
+          }
+        },
+        "78": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 78
+          }
+        },
+        "79": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 79
+          }
+        },
+        "80": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 80
+          }
+        },
+        "81": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 81
+          }
+        },
+        "82": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 82
+          }
+        },
+        "83": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 83
+          }
+        },
+        "84": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 84
+          }
+        },
+        "85": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 85
+          }
+        },
+        "86": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 86
+          }
+        },
+        "87": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 87
+          }
+        },
+        "88": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 88
+          }
+        },
+        "89": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 89
+          }
+        },
+        "90": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 90
+          }
+        },
+        "91": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 91
+          }
+        },
+        "92": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 92
+          }
+        },
+        "93": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 93
+          }
+        },
+        "94": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 94
+          }
+        },
+        "95": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 95
+          }
+        },
+        "96": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 96
+          }
+        },
+        "97": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 97
+          }
+        },
+        "98": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 98
+          }
+        },
+        "99": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 99
+          }
+        },
+        "100": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 100
+          }
+        },
+        "101": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 101
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -24983,216 +26960,372 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 4
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 5
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "6": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 6
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "7": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 7
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "8": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 8
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "9": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 9
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "10": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 10
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "11": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 11
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "12": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 12
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "13": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 13
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "14": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 14
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "15": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 15
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "16": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 16
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "17": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 17
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "18": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 18
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "19": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 19
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "20": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 20
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "21": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 21
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "22": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 22
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "23": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 23
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "24": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 24
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "25": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 25
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "26": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 26
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "27": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 27
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "28": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 28
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "29": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 29
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "30": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 30
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "31": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 31
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "32": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 32
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "33": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 33
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "34": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 34
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "35": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 35
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "36": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 36
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "37": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 37
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "38": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 38
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "39": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 39
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "40": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 40
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "41": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 41
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "42": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 42
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "43": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 43
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "44": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 44
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "45": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 45
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "46": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 46
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "47": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 47
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "48": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 48
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "49": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 49
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "50": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 50
+          }
         },
-        {
-          "name": "Storage",
-          "typ": "None"
+        "51": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 51
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -25252,16 +27385,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -25325,12 +27464,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Seat",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Seat",
+            "class": "Entity",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -25377,12 +27519,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Seat",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Seat",
+            "class": "Entity",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -25429,12 +27574,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Seat",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Seat",
+            "class": "Entity",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -25481,12 +27629,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Seat",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Seat",
+            "class": "Entity",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -25533,12 +27684,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Seat",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Seat",
+            "class": "Entity",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -25585,12 +27739,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Seat",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Seat",
+            "class": "Entity",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -25637,12 +27794,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Seat",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Seat",
+            "class": "Entity",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -25689,12 +27849,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Seat",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Seat",
+            "class": "Entity",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -25741,12 +27904,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Seat",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Seat",
+            "class": "Entity",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -25799,12 +27965,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Input",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Input",
+            "class": "None",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -25837,12 +28006,15 @@ export default {
       "structure": {
         "small_grid": true
       },
-      "slots": [
-        {
-          "name": "Transport Slot",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Transport Slot",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "StructureChuteDigitalFlipFlopSplitterLeft": {
       "templateType": "StructureLogicDevice",
@@ -25889,12 +28061,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Transport Slot",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Transport Slot",
+            "class": "None",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -25969,12 +28144,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Transport Slot",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Transport Slot",
+            "class": "None",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -26045,12 +28223,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Transport Slot",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Transport Slot",
+            "class": "None",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -26117,12 +28298,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Transport Slot",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Transport Slot",
+            "class": "None",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -26188,12 +28372,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Input",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Input",
+            "class": "None",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -26226,12 +28413,15 @@ export default {
       "structure": {
         "small_grid": true
       },
-      "slots": [
-        {
-          "name": "Transport Slot",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Transport Slot",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "StructureChuteInlet": {
       "templateType": "StructureLogicDevice",
@@ -26270,12 +28460,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -26308,12 +28501,15 @@ export default {
       "structure": {
         "small_grid": true
       },
-      "slots": [
-        {
-          "name": "Transport Slot",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Transport Slot",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "StructureChuteOutlet": {
       "templateType": "StructureLogicDevice",
@@ -26353,12 +28549,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Export",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -26391,12 +28590,15 @@ export default {
       "structure": {
         "small_grid": true
       },
-      "slots": [
-        {
-          "name": "Transport Slot",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Transport Slot",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "StructureChuteStraight": {
       "templateType": "StructureSlots",
@@ -26409,12 +28611,15 @@ export default {
       "structure": {
         "small_grid": true
       },
-      "slots": [
-        {
-          "name": "Transport Slot",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Transport Slot",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "StructureChuteUmbilicalFemale": {
       "templateType": "StructureLogicDevice",
@@ -26450,12 +28655,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Transport Slot",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Transport Slot",
+            "class": "None",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -26507,12 +28715,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Transport Slot",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Transport Slot",
+            "class": "None",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -26576,12 +28787,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Transport Slot",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Transport Slot",
+            "class": "None",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -26614,12 +28828,15 @@ export default {
       "structure": {
         "small_grid": true
       },
-      "slots": [
-        {
-          "name": "Transport Slot",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Transport Slot",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "StructureChuteWindow": {
       "templateType": "StructureSlots",
@@ -26632,12 +28849,15 @@ export default {
       "structure": {
         "small_grid": true
       },
-      "slots": [
-        {
-          "name": "Transport Slot",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Transport Slot",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "StructureCircuitHousing": {
       "templateType": "StructureCircuitHolder",
@@ -26680,12 +28900,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": true
       },
-      "slots": [
-        {
-          "name": "Programmable Chip",
-          "typ": "ProgrammableChip"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Programmable Chip",
+            "class": "ProgrammableChip",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -26809,20 +29032,29 @@ export default {
         "wireless_logic": false,
         "circuit_holder": true
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "Programmable Chip",
-          "typ": "ProgrammableChip"
+        "2": {
+          "Direct": {
+            "name": "Programmable Chip",
+            "class": "ProgrammableChip",
+            "index": 2
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -27111,7 +29343,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -27329,7 +29561,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -27383,20 +29615,29 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Data Disk",
-          "typ": "DataDisk"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Data Disk",
+            "class": "DataDisk",
+            "index": 0
+          }
         },
-        {
-          "name": "Data Disk",
-          "typ": "DataDisk"
+        "1": {
+          "Direct": {
+            "name": "Data Disk",
+            "class": "DataDisk",
+            "index": 1
+          }
         },
-        {
-          "name": "Motherboard",
-          "typ": "Motherboard"
+        "2": {
+          "Direct": {
+            "name": "Motherboard",
+            "class": "Motherboard",
+            "index": 2
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -27450,20 +29691,29 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Data Disk",
-          "typ": "DataDisk"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Data Disk",
+            "class": "DataDisk",
+            "index": 0
+          }
         },
-        {
-          "name": "Data Disk",
-          "typ": "DataDisk"
+        "1": {
+          "Direct": {
+            "name": "Data Disk",
+            "class": "DataDisk",
+            "index": 1
+          }
         },
-        {
-          "name": "Motherboard",
-          "typ": "Motherboard"
+        "2": {
+          "Direct": {
+            "name": "Motherboard",
+            "class": "Motherboard",
+            "index": 2
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -27541,7 +29791,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -27601,7 +29851,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -27654,16 +29904,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Circuit Board",
-          "typ": "Circuitboard"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Circuit Board",
+            "class": "Circuitboard",
+            "index": 0
+          }
         },
-        {
-          "name": "Data Disk",
-          "typ": "DataDisk"
+        "1": {
+          "Direct": {
+            "name": "Data Disk",
+            "class": "DataDisk",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -27712,16 +29968,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Circuit Board",
-          "typ": "Circuitboard"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Circuit Board",
+            "class": "Circuitboard",
+            "index": 0
+          }
         },
-        {
-          "name": "Data Disk",
-          "typ": "DataDisk"
+        "1": {
+          "Direct": {
+            "name": "Data Disk",
+            "class": "DataDisk",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -27777,7 +30039,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -27829,7 +30091,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -27881,7 +30143,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -27930,16 +30192,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Circuit Board",
-          "typ": "Circuitboard"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Circuit Board",
+            "class": "Circuitboard",
+            "index": 0
+          }
         },
-        {
-          "name": "Data Disk",
-          "typ": "DataDisk"
+        "1": {
+          "Direct": {
+            "name": "Data Disk",
+            "class": "DataDisk",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -28035,12 +30303,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Entity",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Entity",
+            "class": "Entity",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -28153,32 +30424,50 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 5
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -28202,12 +30491,15 @@ export default {
       "structure": {
         "small_grid": true
       },
-      "slots": [
-        {
-          "name": "Container Slot",
-          "typ": "Crate"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Container Slot",
+            "class": "Crate",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "StructureCryoTube": {
       "templateType": "StructureLogicDevice",
@@ -28260,12 +30552,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Bed",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Bed",
+            "class": "Entity",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -28332,12 +30627,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Player",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Player",
+            "class": "Entity",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -28404,12 +30702,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Player",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Player",
+            "class": "Entity",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -28469,7 +30770,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -28521,12 +30822,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Export",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -28582,7 +30886,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -28635,7 +30939,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -28680,7 +30984,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -28727,7 +31031,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -28775,7 +31079,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -28897,12 +31201,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": true
       },
-      "slots": [
-        {
-          "name": "Programmable Chip",
-          "typ": "ProgrammableChip"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Programmable Chip",
+            "class": "ProgrammableChip",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -28971,16 +31278,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "Ingot"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "Ingot",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -29035,37 +31348,12 @@ export default {
       },
       "fabricator_info": {
         "tier": "Undefined",
-        "recipes": {
-          "ApplianceChemistryStation": {
+        "recipes": [
+          {
+            "target_prefab": "DynamicLight",
+            "target_prefab_hash": -21970188,
             "tier": "TierOne",
-            "time": 45.0,
-            "energy": 1500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 1.0,
-              "Steel": 5.0
-            }
-          },
-          "ApplianceDeskLampLeft": {
-            "tier": "TierOne",
-            "time": 10.0,
+            "time": 20.0,
             "energy": 500.0,
             "temperature": {
               "start": 1.0,
@@ -29084,65 +31372,14 @@ export default {
               "reagents": {}
             },
             "count_types": 2,
-            "reagents": {
-              "Iron": 2.0,
-              "Silicon": 1.0
-            }
-          },
-          "ApplianceDeskLampRight": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Iron": 2.0,
-              "Silicon": 1.0
-            }
-          },
-          "ApplianceMicrowave": {
-            "tier": "TierOne",
-            "time": 45.0,
-            "energy": 1500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
             "reagents": {
               "Copper": 2.0,
-              "Gold": 1.0,
               "Iron": 5.0
             }
           },
-          "AppliancePackagingMachine": {
+          {
+            "target_prefab": "ItemKitGrowLight",
+            "target_prefab_hash": 341030083,
             "tier": "TierOne",
             "time": 30.0,
             "energy": 500.0,
@@ -29164,15 +31401,17 @@ export default {
             },
             "count_types": 3,
             "reagents": {
-              "Copper": 2.0,
-              "Gold": 1.0,
-              "Iron": 10.0
+              "Copper": 5.0,
+              "Electrum": 10.0,
+              "Steel": 5.0
             }
           },
-          "AppliancePaintMixer": {
+          {
+            "target_prefab": "ItemBatteryCell",
+            "target_prefab_hash": 700133157,
             "tier": "TierOne",
-            "time": 45.0,
-            "energy": 1500.0,
+            "time": 10.0,
+            "energy": 1000.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -29192,14 +31431,16 @@ export default {
             "count_types": 3,
             "reagents": {
               "Copper": 5.0,
-              "Gold": 1.0,
-              "Steel": 5.0
+              "Gold": 2.0,
+              "Iron": 2.0
             }
           },
-          "AppliancePlantGeneticAnalyzer": {
+          {
+            "target_prefab": "ItemBatteryCellLarge",
+            "target_prefab_hash": -459827268,
             "tier": "TierOne",
-            "time": 45.0,
-            "energy": 4500.0,
+            "time": 20.0,
+            "energy": 20000.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -29218,147 +31459,14 @@ export default {
             },
             "count_types": 3,
             "reagents": {
-              "Copper": 5.0,
-              "Gold": 1.0,
+              "Copper": 10.0,
+              "Gold": 5.0,
               "Steel": 5.0
             }
           },
-          "AppliancePlantGeneticSplicer": {
-            "tier": "TierOne",
-            "time": 50.0,
-            "energy": 5000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Inconel": 10.0,
-              "Stellite": 20.0
-            }
-          },
-          "AppliancePlantGeneticStabilizer": {
-            "tier": "TierOne",
-            "time": 50.0,
-            "energy": 5000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Inconel": 10.0,
-              "Stellite": 20.0
-            }
-          },
-          "ApplianceReagentProcessor": {
-            "tier": "TierOne",
-            "time": 45.0,
-            "energy": 1500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 2.0,
-              "Gold": 1.0,
-              "Iron": 5.0
-            }
-          },
-          "ApplianceTabletDock": {
-            "tier": "TierOne",
-            "time": 30.0,
-            "energy": 750.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Copper": 2.0,
-              "Gold": 1.0,
-              "Iron": 5.0,
-              "Silicon": 1.0
-            }
-          },
-          "AutolathePrinterMod": {
-            "tier": "TierTwo",
-            "time": 180.0,
-            "energy": 72000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Constantan": 8.0,
-              "Electrum": 8.0,
-              "Solder": 8.0,
-              "Steel": 35.0
-            }
-          },
-          "Battery_Wireless_cell": {
+          {
+            "target_prefab": "Battery_Wireless_cell",
+            "target_prefab_hash": -462415758,
             "tier": "TierOne",
             "time": 10.0,
             "energy": 10000.0,
@@ -29385,7 +31493,9 @@ export default {
               "Iron": 2.0
             }
           },
-          "Battery_Wireless_cell_Big": {
+          {
+            "target_prefab": "Battery_Wireless_cell_Big",
+            "target_prefab_hash": -41519077,
             "tier": "TierOne",
             "time": 20.0,
             "energy": 20000.0,
@@ -29412,7 +31522,183 @@ export default {
               "Steel": 5.0
             }
           },
-          "CartridgeAtmosAnalyser": {
+          {
+            "target_prefab": "ItemKitPowerTransmitter",
+            "target_prefab_hash": 291368213,
+            "tier": "TierOne",
+            "time": 20.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 7.0,
+              "Gold": 5.0,
+              "Steel": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitPowerTransmitterOmni",
+            "target_prefab_hash": -831211676,
+            "tier": "TierOne",
+            "time": 20.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 8.0,
+              "Gold": 4.0,
+              "Steel": 4.0
+            }
+          },
+          {
+            "target_prefab": "ItemBatteryCellNuclear",
+            "target_prefab_hash": 544617306,
+            "tier": "TierTwo",
+            "time": 180.0,
+            "energy": 360000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Astroloy": 10.0,
+              "Inconel": 5.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemHEMDroidRepairKit",
+            "target_prefab_hash": 470636008,
+            "tier": "TierTwo",
+            "time": 40.0,
+            "energy": 1500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Electrum": 10.0,
+              "Inconel": 5.0,
+              "Solder": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemBatteryCharger",
+            "target_prefab_hash": -1866880307,
+            "tier": "TierOne",
+            "time": 1.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 5.0,
+              "Iron": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemBatteryChargerSmall",
+            "target_prefab_hash": 1008295833,
+            "tier": "TierOne",
+            "time": 1.0,
+            "energy": 250.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 2.0,
+              "Gold": 2.0,
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "CartridgeAtmosAnalyser",
+            "target_prefab_hash": -1550278665,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 100.0,
@@ -29439,7 +31725,9 @@ export default {
               "Iron": 1.0
             }
           },
-          "CartridgeConfiguration": {
+          {
+            "target_prefab": "CartridgePlantAnalyser",
+            "target_prefab_hash": 1101328282,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 100.0,
@@ -29466,7 +31754,9 @@ export default {
               "Iron": 1.0
             }
           },
-          "CartridgeElectronicReader": {
+          {
+            "target_prefab": "CartridgeElectronicReader",
+            "target_prefab_hash": -1462180176,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 100.0,
@@ -29493,7 +31783,9 @@ export default {
               "Iron": 1.0
             }
           },
-          "CartridgeGPS": {
+          {
+            "target_prefab": "CartridgeMedicalAnalyser",
+            "target_prefab_hash": -1116110181,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 100.0,
@@ -29520,7 +31812,9 @@ export default {
               "Iron": 1.0
             }
           },
-          "CartridgeMedicalAnalyser": {
+          {
+            "target_prefab": "CartridgeNetworkAnalyser",
+            "target_prefab_hash": 1606989119,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 100.0,
@@ -29547,7 +31841,9 @@ export default {
               "Iron": 1.0
             }
           },
-          "CartridgeNetworkAnalyser": {
+          {
+            "target_prefab": "CartridgeOreScanner",
+            "target_prefab_hash": -1768732546,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 100.0,
@@ -29574,7 +31870,9 @@ export default {
               "Iron": 1.0
             }
           },
-          "CartridgeOreScanner": {
+          {
+            "target_prefab": "ItemSoundCartridgeBass",
+            "target_prefab_hash": -1883441704,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 100.0,
@@ -29596,12 +31894,101 @@ export default {
             },
             "count_types": 3,
             "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0,
-              "Iron": 1.0
+              "Copper": 2.0,
+              "Gold": 2.0,
+              "Silicon": 2.0
             }
           },
-          "CartridgeOreScannerColor": {
+          {
+            "target_prefab": "ItemSoundCartridgeDrums",
+            "target_prefab_hash": -1901500508,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 2.0,
+              "Gold": 2.0,
+              "Silicon": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemSoundCartridgeLeads",
+            "target_prefab_hash": -1174735962,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 2.0,
+              "Gold": 2.0,
+              "Silicon": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemSoundCartridgeSynth",
+            "target_prefab_hash": -1971419310,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 2.0,
+              "Gold": 2.0,
+              "Silicon": 2.0
+            }
+          },
+          {
+            "target_prefab": "CartridgeOreScannerColor",
+            "target_prefab_hash": 1738236580,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 100.0,
@@ -29629,860 +32016,9 @@ export default {
               "Silicon": 5.0
             }
           },
-          "CartridgePlantAnalyser": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0,
-              "Iron": 1.0
-            }
-          },
-          "CartridgeTracker": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0,
-              "Iron": 1.0
-            }
-          },
-          "CircuitboardAdvAirlockControl": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0,
-              "Iron": 1.0
-            }
-          },
-          "CircuitboardAirControl": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0
-            }
-          },
-          "CircuitboardAirlockControl": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0,
-              "Iron": 1.0
-            }
-          },
-          "CircuitboardDoorControl": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0
-            }
-          },
-          "CircuitboardGasDisplay": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0,
-              "Iron": 1.0
-            }
-          },
-          "CircuitboardGraphDisplay": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0
-            }
-          },
-          "CircuitboardHashDisplay": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0
-            }
-          },
-          "CircuitboardModeControl": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0
-            }
-          },
-          "CircuitboardPowerControl": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0
-            }
-          },
-          "CircuitboardShipDisplay": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0
-            }
-          },
-          "CircuitboardSolarControl": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0
-            }
-          },
-          "DynamicLight": {
-            "tier": "TierOne",
-            "time": 20.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 2.0,
-              "Iron": 5.0
-            }
-          },
-          "ElectronicPrinterMod": {
-            "tier": "TierOne",
-            "time": 180.0,
-            "energy": 72000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Constantan": 8.0,
-              "Electrum": 8.0,
-              "Solder": 8.0,
-              "Steel": 35.0
-            }
-          },
-          "ItemAdvancedTablet": {
-            "tier": "TierTwo",
-            "time": 60.0,
-            "energy": 12000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 6,
-            "reagents": {
-              "Copper": 5.5,
-              "Electrum": 1.0,
-              "Gold": 12.0,
-              "Iron": 3.0,
-              "Solder": 5.0,
-              "Steel": 2.0
-            }
-          },
-          "ItemAreaPowerControl": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 5000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 2.0,
-              "Iron": 5.0,
-              "Solder": 3.0
-            }
-          },
-          "ItemBatteryCell": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 1000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 2.0,
-              "Iron": 2.0
-            }
-          },
-          "ItemBatteryCellLarge": {
-            "tier": "TierOne",
-            "time": 20.0,
-            "energy": 20000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 10.0,
-              "Gold": 5.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemBatteryCellNuclear": {
-            "tier": "TierTwo",
-            "time": 180.0,
-            "energy": 360000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Astroloy": 10.0,
-              "Inconel": 5.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemBatteryCharger": {
-            "tier": "TierOne",
-            "time": 1.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0,
-              "Iron": 10.0
-            }
-          },
-          "ItemBatteryChargerSmall": {
-            "tier": "TierOne",
-            "time": 1.0,
-            "energy": 250.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 2.0,
-              "Gold": 2.0,
-              "Iron": 5.0
-            }
-          },
-          "ItemCableAnalyser": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 2.0,
-              "Iron": 1.0,
-              "Silicon": 2.0
-            }
-          },
-          "ItemCableCoil": {
-            "tier": "TierOne",
-            "time": 1.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Copper": 0.5
-            }
-          },
-          "ItemCableCoilHeavy": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 0.5,
-              "Gold": 0.5
-            }
-          },
-          "ItemCableFuse": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Iron": 5.0
-            }
-          },
-          "ItemCreditCard": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 200.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 2.0,
-              "Silicon": 5.0
-            }
-          },
-          "ItemDataDisk": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0
-            }
-          },
-          "ItemElectronicParts": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 10.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 3.0,
-              "Gold": 2.0,
-              "Iron": 3.0
-            }
-          },
-          "ItemFlashingLight": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 3.0,
-              "Iron": 2.0
-            }
-          },
-          "ItemHEMDroidRepairKit": {
-            "tier": "TierTwo",
-            "time": 40.0,
-            "energy": 1500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Electrum": 10.0,
-              "Inconel": 5.0,
-              "Solder": 5.0
-            }
-          },
-          "ItemIntegratedCircuit10": {
-            "tier": "TierOne",
-            "time": 40.0,
-            "energy": 4000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Electrum": 5.0,
-              "Gold": 10.0,
-              "Solder": 2.0,
-              "Steel": 4.0
-            }
-          },
-          "ItemKitAIMeE": {
+          {
+            "target_prefab": "ItemKitAIMeE",
+            "target_prefab_hash": 496830914,
             "tier": "TierTwo",
             "time": 25.0,
             "energy": 2200.0,
@@ -30513,10 +32049,41 @@ export default {
               "Steel": 22.0
             }
           },
-          "ItemKitAdvancedComposter": {
-            "tier": "TierTwo",
-            "time": 55.0,
-            "energy": 20000.0,
+          {
+            "target_prefab": "ItemKitFridgeSmall",
+            "target_prefab_hash": 1661226524,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 2.0,
+              "Iron": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitFridgeBig",
+            "target_prefab_hash": -1168199498,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 100.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -30535,74 +32102,18 @@ export default {
             },
             "count_types": 4,
             "reagents": {
-              "Copper": 15.0,
-              "Electrum": 20.0,
-              "Solder": 5.0,
-              "Steel": 30.0
-            }
-          },
-          "ItemKitAdvancedFurnace": {
-            "tier": "TierTwo",
-            "time": 180.0,
-            "energy": 36000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 6,
-            "reagents": {
-              "Copper": 25.0,
-              "Electrum": 15.0,
-              "Gold": 5.0,
-              "Silicon": 6.0,
-              "Solder": 8.0,
-              "Steel": 30.0
-            }
-          },
-          "ItemKitAdvancedPackagingMachine": {
-            "tier": "TierTwo",
-            "time": 60.0,
-            "energy": 18000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Constantan": 10.0,
               "Copper": 10.0,
-              "Electrum": 15.0,
-              "Steel": 20.0
+              "Gold": 5.0,
+              "Iron": 20.0,
+              "Steel": 15.0
             }
           },
-          "ItemKitAutoMinerSmall": {
-            "tier": "TierTwo",
-            "time": 90.0,
-            "energy": 9000.0,
+          {
+            "target_prefab": "CartridgeConfiguration",
+            "target_prefab_hash": -932136011,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -30619,19 +32130,19 @@ export default {
               "is_any_to_remove": false,
               "reagents": {}
             },
-            "count_types": 5,
+            "count_types": 3,
             "reagents": {
-              "Copper": 15.0,
-              "Electrum": 50.0,
-              "Invar": 25.0,
-              "Iron": 15.0,
-              "Steel": 100.0
+              "Copper": 5.0,
+              "Gold": 5.0,
+              "Iron": 1.0
             }
           },
-          "ItemKitAutomatedOven": {
-            "tier": "TierTwo",
-            "time": 50.0,
-            "energy": 15000.0,
+          {
+            "target_prefab": "CartridgeTracker",
+            "target_prefab_hash": 81488783,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -30648,16 +32159,553 @@ export default {
               "is_any_to_remove": false,
               "reagents": {}
             },
-            "count_types": 5,
+            "count_types": 3,
             "reagents": {
-              "Constantan": 5.0,
-              "Copper": 15.0,
-              "Gold": 10.0,
-              "Solder": 10.0,
-              "Steel": 25.0
+              "Copper": 5.0,
+              "Gold": 5.0,
+              "Iron": 1.0
             }
           },
-          "ItemKitBattery": {
+          {
+            "target_prefab": "CartridgeGPS",
+            "target_prefab_hash": -1957063345,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 5.0,
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "CircuitboardAirControl",
+            "target_prefab_hash": 1618019559,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 5.0
+            }
+          },
+          {
+            "target_prefab": "CircuitboardAdvAirlockControl",
+            "target_prefab_hash": 1633663176,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 5.0,
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "CircuitboardAirlockControl",
+            "target_prefab_hash": 912176135,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 5.0,
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "CircuitboardDoorControl",
+            "target_prefab_hash": 855694771,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 5.0
+            }
+          },
+          {
+            "target_prefab": "CircuitboardGasDisplay",
+            "target_prefab_hash": -82343730,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 5.0,
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "CircuitboardModeControl",
+            "target_prefab_hash": -1134148135,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 5.0
+            }
+          },
+          {
+            "target_prefab": "CircuitboardPowerControl",
+            "target_prefab_hash": -1923778429,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 5.0
+            }
+          },
+          {
+            "target_prefab": "CircuitboardShipDisplay",
+            "target_prefab_hash": -2044446819,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 5.0
+            }
+          },
+          {
+            "target_prefab": "CircuitboardSolarControl",
+            "target_prefab_hash": 2020180320,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 5.0
+            }
+          },
+          {
+            "target_prefab": "CircuitboardGraphDisplay",
+            "target_prefab_hash": 1344368806,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 5.0
+            }
+          },
+          {
+            "target_prefab": "CircuitboardHashDisplay",
+            "target_prefab_hash": 1633074601,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemAreaPowerControl",
+            "target_prefab_hash": 1757673317,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 5000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 2.0,
+              "Iron": 5.0,
+              "Solder": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemCableAnalyser",
+            "target_prefab_hash": -1792787349,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 2.0,
+              "Iron": 1.0,
+              "Silicon": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemCableCoil",
+            "target_prefab_hash": -466050668,
+            "tier": "TierOne",
+            "time": 1.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Copper": 0.5
+            }
+          },
+          {
+            "target_prefab": "ItemCableCoilHeavy",
+            "target_prefab_hash": 2060134443,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 0.5,
+              "Gold": 0.5
+            }
+          },
+          {
+            "target_prefab": "ItemCableFuse",
+            "target_prefab_hash": 195442047,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemDataDisk",
+            "target_prefab_hash": 1005843700,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemFlashingLight",
+            "target_prefab_hash": -2107840748,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 3.0,
+              "Iron": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitBattery",
+            "target_prefab_hash": 1406656973,
             "tier": "TierOne",
             "time": 120.0,
             "energy": 12000.0,
@@ -30684,7 +32732,9 @@ export default {
               "Steel": 20.0
             }
           },
-          "ItemKitBatteryLarge": {
+          {
+            "target_prefab": "ItemKitBatteryLarge",
+            "target_prefab_hash": -21225041,
             "tier": "TierTwo",
             "time": 240.0,
             "energy": 96000.0,
@@ -30714,35 +32764,9 @@ export default {
               "Stellite": 2.0
             }
           },
-          "ItemKitBeacon": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Copper": 2.0,
-              "Gold": 4.0,
-              "Solder": 2.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemKitComputer": {
+          {
+            "target_prefab": "ItemKitComputer",
+            "target_prefab_hash": 1990225489,
             "tier": "TierOne",
             "time": 60.0,
             "energy": 6000.0,
@@ -30769,7 +32793,9 @@ export default {
               "Iron": 5.0
             }
           },
-          "ItemKitConsole": {
+          {
+            "target_prefab": "ItemKitConsole",
+            "target_prefab_hash": -1241851179,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 100.0,
@@ -30796,441 +32822,9 @@ export default {
               "Iron": 2.0
             }
           },
-          "ItemKitDynamicGenerator": {
-            "tier": "TierOne",
-            "time": 120.0,
-            "energy": 5000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Gold": 15.0,
-              "Nickel": 15.0,
-              "Solder": 5.0,
-              "Steel": 20.0
-            }
-          },
-          "ItemKitElevator": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Copper": 2.0,
-              "Gold": 4.0,
-              "Solder": 2.0,
-              "Steel": 2.0
-            }
-          },
-          "ItemKitFridgeBig": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Copper": 10.0,
-              "Gold": 5.0,
-              "Iron": 20.0,
-              "Steel": 15.0
-            }
-          },
-          "ItemKitFridgeSmall": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 2.0,
-              "Iron": 10.0
-            }
-          },
-          "ItemKitGasGenerator": {
-            "tier": "TierOne",
-            "time": 120.0,
-            "energy": 1000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 10.0,
-              "Iron": 50.0
-            }
-          },
-          "ItemKitGroundTelescope": {
-            "tier": "TierOne",
-            "time": 150.0,
-            "energy": 24000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Electrum": 15.0,
-              "Solder": 10.0,
-              "Steel": 25.0
-            }
-          },
-          "ItemKitGrowLight": {
-            "tier": "TierOne",
-            "time": 30.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 5.0,
-              "Electrum": 10.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemKitHarvie": {
-            "tier": "TierOne",
-            "time": 60.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 5,
-            "reagents": {
-              "Copper": 15.0,
-              "Electrum": 10.0,
-              "Silicon": 5.0,
-              "Solder": 5.0,
-              "Steel": 10.0
-            }
-          },
-          "ItemKitHorizontalAutoMiner": {
-            "tier": "TierTwo",
-            "time": 60.0,
-            "energy": 60000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 5,
-            "reagents": {
-              "Copper": 7.0,
-              "Electrum": 25.0,
-              "Invar": 15.0,
-              "Iron": 8.0,
-              "Steel": 60.0
-            }
-          },
-          "ItemKitHydroponicStation": {
-            "tier": "TierOne",
-            "time": 120.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Copper": 20.0,
-              "Gold": 5.0,
-              "Nickel": 5.0,
-              "Steel": 10.0
-            }
-          },
-          "ItemKitLandingPadAtmos": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 1000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 1.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemKitLandingPadBasic": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 1000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 1.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemKitLandingPadWaypoint": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 1000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 1.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemKitLargeSatelliteDish": {
-            "tier": "TierOne",
-            "time": 240.0,
-            "energy": 72000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Astroloy": 100.0,
-              "Inconel": 50.0,
-              "Waspaloy": 20.0
-            }
-          },
-          "ItemKitLinearRail": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Steel": 3.0
-            }
-          },
-          "ItemKitLogicCircuit": {
-            "tier": "TierOne",
-            "time": 40.0,
-            "energy": 2000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 10.0,
-              "Solder": 2.0,
-              "Steel": 4.0
-            }
-          },
-          "ItemKitLogicInputOutput": {
+          {
+            "target_prefab": "ItemKitLogicInputOutput",
+            "target_prefab_hash": 1997293610,
             "tier": "TierOne",
             "time": 10.0,
             "energy": 1000.0,
@@ -31256,7 +32850,9 @@ export default {
               "Gold": 1.0
             }
           },
-          "ItemKitLogicMemory": {
+          {
+            "target_prefab": "ItemKitLogicMemory",
+            "target_prefab_hash": -2098214189,
             "tier": "TierOne",
             "time": 10.0,
             "energy": 1000.0,
@@ -31282,7 +32878,38 @@ export default {
               "Gold": 1.0
             }
           },
-          "ItemKitLogicProcessor": {
+          {
+            "target_prefab": "ItemKitSpeaker",
+            "target_prefab_hash": -126038526,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 1000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 1.0,
+              "Gold": 1.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitLogicProcessor",
+            "target_prefab_hash": 220644373,
             "tier": "TierOne",
             "time": 10.0,
             "energy": 1000.0,
@@ -31308,7 +32935,9 @@ export default {
               "Gold": 2.0
             }
           },
-          "ItemKitLogicSwitch": {
+          {
+            "target_prefab": "ItemKitMusicMachines",
+            "target_prefab_hash": -2038889137,
             "tier": "TierOne",
             "time": 10.0,
             "energy": 1000.0,
@@ -31330,11 +32959,13 @@ export default {
             },
             "count_types": 2,
             "reagents": {
-              "Copper": 1.0,
-              "Gold": 1.0
+              "Copper": 2.0,
+              "Gold": 2.0
             }
           },
-          "ItemKitLogicTransmitter": {
+          {
+            "target_prefab": "ItemKitLogicTransmitter",
+            "target_prefab_hash": 1005397063,
             "tier": "TierOne",
             "time": 10.0,
             "energy": 1000.0,
@@ -31362,7 +32993,9 @@ export default {
               "Silicon": 5.0
             }
           },
-          "ItemKitMusicMachines": {
+          {
+            "target_prefab": "ItemKitLogicSwitch",
+            "target_prefab_hash": 124499454,
             "tier": "TierOne",
             "time": 10.0,
             "energy": 1000.0,
@@ -31384,14 +33017,16 @@ export default {
             },
             "count_types": 2,
             "reagents": {
-              "Copper": 2.0,
-              "Gold": 2.0
+              "Copper": 1.0,
+              "Gold": 1.0
             }
           },
-          "ItemKitPowerTransmitter": {
+          {
+            "target_prefab": "ItemIntegratedCircuit10",
+            "target_prefab_hash": -744098481,
             "tier": "TierOne",
-            "time": 20.0,
-            "energy": 500.0,
+            "time": 40.0,
+            "energy": 4000.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -31408,41 +33043,75 @@ export default {
               "is_any_to_remove": false,
               "reagents": {}
             },
-            "count_types": 3,
+            "count_types": 4,
             "reagents": {
-              "Copper": 7.0,
-              "Gold": 5.0,
-              "Steel": 3.0
-            }
-          },
-          "ItemKitPowerTransmitterOmni": {
-            "tier": "TierOne",
-            "time": 20.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 8.0,
-              "Gold": 4.0,
+              "Electrum": 5.0,
+              "Gold": 10.0,
+              "Solder": 2.0,
               "Steel": 4.0
             }
           },
-          "ItemKitPressurePlate": {
+          {
+            "target_prefab": "ItemKitLogicCircuit",
+            "target_prefab_hash": 1512322581,
+            "tier": "TierOne",
+            "time": 40.0,
+            "energy": 2000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 10.0,
+              "Solder": 2.0,
+              "Steel": 4.0
+            }
+          },
+          {
+            "target_prefab": "ItemPowerConnector",
+            "target_prefab_hash": 839924019,
+            "tier": "TierOne",
+            "time": 1.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 3.0,
+              "Iron": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitPressurePlate",
+            "target_prefab_hash": 123504691,
             "tier": "TierOne",
             "time": 10.0,
             "energy": 1000.0,
@@ -31468,64 +33137,12 @@ export default {
               "Gold": 2.0
             }
           },
-          "ItemKitResearchMachine": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 10.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 3.0,
-              "Gold": 2.0,
-              "Iron": 9.0
-            }
-          },
-          "ItemKitRoboticArm": {
-            "tier": "TierOne",
-            "time": 150.0,
-            "energy": 10000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Astroloy": 15.0,
-              "Hastelloy": 5.0,
-              "Inconel": 10.0
-            }
-          },
-          "ItemKitSatelliteDish": {
+          {
+            "target_prefab": "ItemKitSolidGenerator",
+            "target_prefab_hash": 1293995736,
             "tier": "TierOne",
             "time": 120.0,
-            "energy": 24000.0,
+            "energy": 1000.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -31542,14 +33159,43 @@ export default {
               "is_any_to_remove": false,
               "reagents": {}
             },
-            "count_types": 3,
+            "count_types": 2,
             "reagents": {
-              "Electrum": 15.0,
-              "Solder": 10.0,
-              "Steel": 20.0
+              "Copper": 10.0,
+              "Iron": 50.0
             }
           },
-          "ItemKitSensor": {
+          {
+            "target_prefab": "ItemKitGasGenerator",
+            "target_prefab_hash": 377745425,
+            "tier": "TierOne",
+            "time": 120.0,
+            "energy": 1000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 10.0,
+              "Iron": 50.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitSensor",
+            "target_prefab_hash": -1776897113,
             "tier": "TierOne",
             "time": 10.0,
             "energy": 500.0,
@@ -31576,252 +33222,12 @@ export default {
               "Iron": 3.0
             }
           },
-          "ItemKitSmallSatelliteDish": {
-            "tier": "TierOne",
-            "time": 60.0,
-            "energy": 6000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 10.0,
-              "Gold": 5.0
-            }
-          },
-          "ItemKitSolarPanel": {
-            "tier": "TierOne",
-            "time": 60.0,
-            "energy": 6000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 20.0,
-              "Gold": 5.0,
-              "Steel": 15.0
-            }
-          },
-          "ItemKitSolarPanelBasic": {
-            "tier": "TierOne",
-            "time": 30.0,
-            "energy": 1000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 10.0,
-              "Gold": 2.0,
-              "Iron": 10.0
-            }
-          },
-          "ItemKitSolarPanelBasicReinforced": {
-            "tier": "TierTwo",
-            "time": 120.0,
-            "energy": 24000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Copper": 10.0,
-              "Electrum": 2.0,
-              "Invar": 10.0,
-              "Steel": 10.0
-            }
-          },
-          "ItemKitSolarPanelReinforced": {
-            "tier": "TierTwo",
-            "time": 120.0,
-            "energy": 24000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Astroloy": 15.0,
-              "Copper": 20.0,
-              "Electrum": 5.0,
-              "Steel": 10.0
-            }
-          },
-          "ItemKitSolidGenerator": {
-            "tier": "TierOne",
-            "time": 120.0,
-            "energy": 1000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 10.0,
-              "Iron": 50.0
-            }
-          },
-          "ItemKitSpeaker": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 1000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 1.0,
-              "Gold": 1.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemKitStirlingEngine": {
-            "tier": "TierOne",
-            "time": 60.0,
-            "energy": 6000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 20.0,
-              "Gold": 5.0,
-              "Steel": 30.0
-            }
-          },
-          "ItemKitTransformer": {
-            "tier": "TierOne",
-            "time": 60.0,
-            "energy": 12000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Electrum": 5.0,
-              "Steel": 10.0
-            }
-          },
-          "ItemKitTransformerSmall": {
+          {
+            "target_prefab": "ItemElectronicParts",
+            "target_prefab_hash": 731250882,
             "tier": "TierOne",
             "time": 5.0,
-            "energy": 500.0,
+            "energy": 10.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -31841,42 +33247,16 @@ export default {
             "count_types": 3,
             "reagents": {
               "Copper": 3.0,
-              "Gold": 1.0,
-              "Iron": 10.0
+              "Gold": 2.0,
+              "Iron": 3.0
             }
           },
-          "ItemKitTurbineGenerator": {
+          {
+            "target_prefab": "ItemKitResearchMachine",
+            "target_prefab_hash": 724776762,
             "tier": "TierOne",
-            "time": 60.0,
-            "energy": 6000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Copper": 2.0,
-              "Gold": 4.0,
-              "Iron": 5.0,
-              "Solder": 4.0
-            }
-          },
-          "ItemKitUprightWindTurbine": {
-            "tier": "TierOne",
-            "time": 60.0,
-            "energy": 12000.0,
+            "time": 5.0,
+            "energy": 10.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -31895,68 +33275,14 @@ export default {
             },
             "count_types": 3,
             "reagents": {
-              "Copper": 10.0,
-              "Gold": 5.0,
-              "Iron": 10.0
+              "Copper": 3.0,
+              "Gold": 2.0,
+              "Iron": 9.0
             }
           },
-          "ItemKitVendingMachine": {
-            "tier": "TierOne",
-            "time": 60.0,
-            "energy": 15000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Electrum": 50.0,
-              "Gold": 50.0,
-              "Solder": 10.0,
-              "Steel": 20.0
-            }
-          },
-          "ItemKitVendingMachineRefrigerated": {
-            "tier": "TierTwo",
-            "time": 60.0,
-            "energy": 25000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Electrum": 80.0,
-              "Gold": 60.0,
-              "Solder": 30.0,
-              "Steel": 40.0
-            }
-          },
-          "ItemKitWeatherStation": {
+          {
+            "target_prefab": "ItemKitWeatherStation",
+            "target_prefab_hash": 337505889,
             "tier": "TierOne",
             "time": 60.0,
             "energy": 12000.0,
@@ -31984,10 +33310,130 @@ export default {
               "Steel": 3.0
             }
           },
-          "ItemKitWindTurbine": {
-            "tier": "TierTwo",
-            "time": 60.0,
-            "energy": 12000.0,
+          {
+            "target_prefab": "ItemResearchCapsuleRed",
+            "target_prefab_hash": 954947943,
+            "tier": "TierOne",
+            "time": 8.0,
+            "energy": 50.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 3.0,
+              "Gold": 2.0,
+              "Iron": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemResearchCapsule",
+            "target_prefab_hash": 819096942,
+            "tier": "TierOne",
+            "time": 3.0,
+            "energy": 400.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 3.0,
+              "Gold": 2.0,
+              "Iron": 9.0
+            }
+          },
+          {
+            "target_prefab": "ItemResearchCapsuleGreen",
+            "target_prefab_hash": -1352732550,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 10.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Astroloy": 2.0,
+              "Copper": 3.0,
+              "Gold": 2.0,
+              "Iron": 9.0
+            }
+          },
+          {
+            "target_prefab": "ItemResearchCapsuleYellow",
+            "target_prefab_hash": 750952701,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 1000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Astroloy": 3.0,
+              "Copper": 3.0,
+              "Gold": 2.0,
+              "Iron": 9.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitSolarPanelBasic",
+            "target_prefab_hash": 844961456,
+            "tier": "TierOne",
+            "time": 30.0,
+            "energy": 1000.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -32007,14 +33453,16 @@ export default {
             "count_types": 3,
             "reagents": {
               "Copper": 10.0,
-              "Electrum": 5.0,
-              "Steel": 20.0
+              "Gold": 2.0,
+              "Iron": 10.0
             }
           },
-          "ItemLabeller": {
+          {
+            "target_prefab": "ItemKitSolarPanel",
+            "target_prefab_hash": -1924492105,
             "tier": "TierOne",
-            "time": 15.0,
-            "energy": 800.0,
+            "time": 60.0,
+            "energy": 6000.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -32033,12 +33481,250 @@ export default {
             },
             "count_types": 3,
             "reagents": {
-              "Copper": 2.0,
-              "Gold": 1.0,
-              "Iron": 3.0
+              "Copper": 20.0,
+              "Gold": 5.0,
+              "Steel": 15.0
             }
           },
-          "ItemLaptop": {
+          {
+            "target_prefab": "ItemKitStirlingEngine",
+            "target_prefab_hash": -1821571150,
+            "tier": "TierOne",
+            "time": 60.0,
+            "energy": 6000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 20.0,
+              "Gold": 5.0,
+              "Steel": 30.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitSolarPanelBasicReinforced",
+            "target_prefab_hash": -528695432,
+            "tier": "TierTwo",
+            "time": 120.0,
+            "energy": 24000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Copper": 10.0,
+              "Electrum": 2.0,
+              "Invar": 10.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitSolarPanelReinforced",
+            "target_prefab_hash": -364868685,
+            "tier": "TierTwo",
+            "time": 120.0,
+            "energy": 24000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Astroloy": 15.0,
+              "Copper": 20.0,
+              "Electrum": 5.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "PortableSolarPanel",
+            "target_prefab_hash": 2043318949,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 200.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 3.0,
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitTransformer",
+            "target_prefab_hash": -453039435,
+            "tier": "TierOne",
+            "time": 60.0,
+            "energy": 12000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Electrum": 5.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitTransformerSmall",
+            "target_prefab_hash": 665194284,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 3.0,
+              "Gold": 1.0,
+              "Iron": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemTablet",
+            "target_prefab_hash": -229808600,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 3.0,
+              "Gold": 2.0,
+              "Solder": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemAdvancedTablet",
+            "target_prefab_hash": 1722785341,
+            "tier": "TierTwo",
+            "time": 60.0,
+            "energy": 12000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 6,
+            "reagents": {
+              "Copper": 5.5,
+              "Electrum": 1.0,
+              "Gold": 12.0,
+              "Iron": 3.0,
+              "Solder": 5.0,
+              "Steel": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemLaptop",
+            "target_prefab_hash": 141535121,
             "tier": "TierTwo",
             "time": 60.0,
             "energy": 18000.0,
@@ -32067,279 +33753,9 @@ export default {
               "Steel": 2.0
             }
           },
-          "ItemPowerConnector": {
-            "tier": "TierOne",
-            "time": 1.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 3.0,
-              "Iron": 10.0
-            }
-          },
-          "ItemResearchCapsule": {
-            "tier": "TierOne",
-            "time": 3.0,
-            "energy": 400.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 3.0,
-              "Gold": 2.0,
-              "Iron": 9.0
-            }
-          },
-          "ItemResearchCapsuleGreen": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 10.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Astroloy": 2.0,
-              "Copper": 3.0,
-              "Gold": 2.0,
-              "Iron": 9.0
-            }
-          },
-          "ItemResearchCapsuleRed": {
-            "tier": "TierOne",
-            "time": 8.0,
-            "energy": 50.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 3.0,
-              "Gold": 2.0,
-              "Iron": 2.0
-            }
-          },
-          "ItemResearchCapsuleYellow": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 1000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Astroloy": 3.0,
-              "Copper": 3.0,
-              "Gold": 2.0,
-              "Iron": 9.0
-            }
-          },
-          "ItemSoundCartridgeBass": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 2.0,
-              "Gold": 2.0,
-              "Silicon": 2.0
-            }
-          },
-          "ItemSoundCartridgeDrums": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 2.0,
-              "Gold": 2.0,
-              "Silicon": 2.0
-            }
-          },
-          "ItemSoundCartridgeLeads": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 2.0,
-              "Gold": 2.0,
-              "Silicon": 2.0
-            }
-          },
-          "ItemSoundCartridgeSynth": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 2.0,
-              "Gold": 2.0,
-              "Silicon": 2.0
-            }
-          },
-          "ItemTablet": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 3.0,
-              "Gold": 2.0,
-              "Solder": 5.0
-            }
-          },
-          "ItemWallLight": {
+          {
+            "target_prefab": "ItemWallLight",
+            "target_prefab_hash": 1108423476,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 10.0,
@@ -32365,7 +33781,121 @@ export default {
               "Iron": 1.0
             }
           },
-          "MotherboardComms": {
+          {
+            "target_prefab": "MotherboardLogic",
+            "target_prefab_hash": 502555944,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 5.0
+            }
+          },
+          {
+            "target_prefab": "MotherboardRockets",
+            "target_prefab_hash": -806986392,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Electrum": 5.0,
+              "Solder": 5.0
+            }
+          },
+          {
+            "target_prefab": "MotherboardProgrammableChip",
+            "target_prefab_hash": -161107071,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 5.0
+            }
+          },
+          {
+            "target_prefab": "MotherboardSorter",
+            "target_prefab_hash": -1908268220,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Gold": 5.0,
+              "Silver": 5.0
+            }
+          },
+          {
+            "target_prefab": "MotherboardComms",
+            "target_prefab_hash": -337075633,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 500.0,
@@ -32393,114 +33923,12 @@ export default {
               "Silver": 5.0
             }
           },
-          "MotherboardLogic": {
+          {
+            "target_prefab": "ItemKitBeacon",
+            "target_prefab_hash": 249073136,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0
-            }
-          },
-          "MotherboardProgrammableChip": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0
-            }
-          },
-          "MotherboardRockets": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Electrum": 5.0,
-              "Solder": 5.0
-            }
-          },
-          "MotherboardSorter": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Gold": 5.0,
-              "Silver": 5.0
-            }
-          },
-          "PipeBenderMod": {
-            "tier": "TierTwo",
-            "time": 180.0,
-            "energy": 72000.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -32519,13 +33947,457 @@ export default {
             },
             "count_types": 4,
             "reagents": {
-              "Constantan": 8.0,
-              "Electrum": 8.0,
-              "Solder": 8.0,
-              "Steel": 35.0
+              "Copper": 2.0,
+              "Gold": 4.0,
+              "Solder": 2.0,
+              "Steel": 5.0
             }
           },
-          "PortableComposter": {
+          {
+            "target_prefab": "ItemKitElevator",
+            "target_prefab_hash": -945806652,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Copper": 2.0,
+              "Gold": 4.0,
+              "Solder": 2.0,
+              "Steel": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitHydroponicStation",
+            "target_prefab_hash": 2057179799,
+            "tier": "TierOne",
+            "time": 120.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Copper": 20.0,
+              "Gold": 5.0,
+              "Nickel": 5.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitSmallSatelliteDish",
+            "target_prefab_hash": 1960952220,
+            "tier": "TierOne",
+            "time": 60.0,
+            "energy": 6000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 10.0,
+              "Gold": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitSatelliteDish",
+            "target_prefab_hash": 178422810,
+            "tier": "TierOne",
+            "time": 120.0,
+            "energy": 24000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Electrum": 15.0,
+              "Solder": 10.0,
+              "Steel": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitLargeSatelliteDish",
+            "target_prefab_hash": -2039971217,
+            "tier": "TierOne",
+            "time": 240.0,
+            "energy": 72000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Astroloy": 100.0,
+              "Inconel": 50.0,
+              "Waspaloy": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitLandingPadBasic",
+            "target_prefab_hash": 293581318,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 1000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 1.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitLandingPadAtmos",
+            "target_prefab_hash": 1817007843,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 1000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 1.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitLandingPadWaypoint",
+            "target_prefab_hash": -1267511065,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 1000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 1.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitHarvie",
+            "target_prefab_hash": -1022693454,
+            "tier": "TierOne",
+            "time": 60.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 5,
+            "reagents": {
+              "Copper": 15.0,
+              "Electrum": 10.0,
+              "Silicon": 5.0,
+              "Solder": 5.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitDynamicGenerator",
+            "target_prefab_hash": -732720413,
+            "tier": "TierOne",
+            "time": 120.0,
+            "energy": 5000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Gold": 15.0,
+              "Nickel": 15.0,
+              "Solder": 5.0,
+              "Steel": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitVendingMachine",
+            "target_prefab_hash": -2038384332,
+            "tier": "TierOne",
+            "time": 60.0,
+            "energy": 15000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Electrum": 50.0,
+              "Gold": 50.0,
+              "Solder": 10.0,
+              "Steel": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitVendingMachineRefrigerated",
+            "target_prefab_hash": -1867508561,
+            "tier": "TierTwo",
+            "time": 60.0,
+            "energy": 25000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Electrum": 80.0,
+              "Gold": 60.0,
+              "Solder": 30.0,
+              "Steel": 40.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitAutomatedOven",
+            "target_prefab_hash": -1931958659,
+            "tier": "TierTwo",
+            "time": 50.0,
+            "energy": 15000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 5,
+            "reagents": {
+              "Constantan": 5.0,
+              "Copper": 15.0,
+              "Gold": 10.0,
+              "Solder": 10.0,
+              "Steel": 25.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitAdvancedPackagingMachine",
+            "target_prefab_hash": -598545233,
+            "tier": "TierTwo",
+            "time": 60.0,
+            "energy": 18000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Constantan": 10.0,
+              "Copper": 10.0,
+              "Electrum": 15.0,
+              "Steel": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitAdvancedComposter",
+            "target_prefab_hash": -1431998347,
+            "tier": "TierTwo",
+            "time": 55.0,
+            "energy": 20000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Copper": 15.0,
+              "Electrum": 20.0,
+              "Solder": 5.0,
+              "Steel": 30.0
+            }
+          },
+          {
+            "target_prefab": "PortableComposter",
+            "target_prefab_hash": -1958705204,
             "tier": "TierOne",
             "time": 55.0,
             "energy": 20000.0,
@@ -32551,10 +34423,42 @@ export default {
               "Steel": 10.0
             }
           },
-          "PortableSolarPanel": {
+          {
+            "target_prefab": "ItemKitTurbineGenerator",
+            "target_prefab_hash": -1590715731,
             "tier": "TierOne",
-            "time": 5.0,
-            "energy": 200.0,
+            "time": 60.0,
+            "energy": 6000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Copper": 2.0,
+              "Gold": 4.0,
+              "Iron": 5.0,
+              "Solder": 4.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitUprightWindTurbine",
+            "target_prefab_hash": -1798044015,
+            "tier": "TierOne",
+            "time": 60.0,
+            "energy": 12000.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -32573,12 +34477,102 @@ export default {
             },
             "count_types": 3,
             "reagents": {
-              "Copper": 5.0,
-              "Gold": 3.0,
-              "Iron": 5.0
+              "Copper": 10.0,
+              "Gold": 5.0,
+              "Iron": 10.0
             }
           },
-          "ToolPrinterMod": {
+          {
+            "target_prefab": "ItemKitWindTurbine",
+            "target_prefab_hash": -868916503,
+            "tier": "TierTwo",
+            "time": 60.0,
+            "energy": 12000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 10.0,
+              "Electrum": 5.0,
+              "Steel": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemLabeller",
+            "target_prefab_hash": -743968726,
+            "tier": "TierOne",
+            "time": 15.0,
+            "energy": 800.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 2.0,
+              "Gold": 1.0,
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ElectronicPrinterMod",
+            "target_prefab_hash": -311170652,
+            "tier": "TierOne",
+            "time": 180.0,
+            "energy": 72000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Constantan": 8.0,
+              "Electrum": 8.0,
+              "Solder": 8.0,
+              "Steel": 35.0
+            }
+          },
+          {
+            "target_prefab": "AutolathePrinterMod",
+            "target_prefab_hash": 221058307,
             "tier": "TierTwo",
             "time": 180.0,
             "energy": 72000.0,
@@ -32605,8 +34599,591 @@ export default {
               "Solder": 8.0,
               "Steel": 35.0
             }
+          },
+          {
+            "target_prefab": "ToolPrinterMod",
+            "target_prefab_hash": 1700018136,
+            "tier": "TierTwo",
+            "time": 180.0,
+            "energy": 72000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Constantan": 8.0,
+              "Electrum": 8.0,
+              "Solder": 8.0,
+              "Steel": 35.0
+            }
+          },
+          {
+            "target_prefab": "PipeBenderMod",
+            "target_prefab_hash": 443947415,
+            "tier": "TierTwo",
+            "time": 180.0,
+            "energy": 72000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Constantan": 8.0,
+              "Electrum": 8.0,
+              "Solder": 8.0,
+              "Steel": 35.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitAdvancedFurnace",
+            "target_prefab_hash": -616758353,
+            "tier": "TierTwo",
+            "time": 180.0,
+            "energy": 36000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 6,
+            "reagents": {
+              "Copper": 25.0,
+              "Electrum": 15.0,
+              "Gold": 5.0,
+              "Silicon": 6.0,
+              "Solder": 8.0,
+              "Steel": 30.0
+            }
+          },
+          {
+            "target_prefab": "ApplianceMicrowave",
+            "target_prefab_hash": -1136173965,
+            "tier": "TierOne",
+            "time": 45.0,
+            "energy": 1500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 2.0,
+              "Gold": 1.0,
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ApplianceTabletDock",
+            "target_prefab_hash": 1853941363,
+            "tier": "TierOne",
+            "time": 30.0,
+            "energy": 750.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Copper": 2.0,
+              "Gold": 1.0,
+              "Iron": 5.0,
+              "Silicon": 1.0
+            }
+          },
+          {
+            "target_prefab": "AppliancePackagingMachine",
+            "target_prefab_hash": -749191906,
+            "tier": "TierOne",
+            "time": 30.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 2.0,
+              "Gold": 1.0,
+              "Iron": 10.0
+            }
+          },
+          {
+            "target_prefab": "ApplianceDeskLampRight",
+            "target_prefab_hash": 1174360780,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Iron": 2.0,
+              "Silicon": 1.0
+            }
+          },
+          {
+            "target_prefab": "ApplianceDeskLampLeft",
+            "target_prefab_hash": -1683849799,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Iron": 2.0,
+              "Silicon": 1.0
+            }
+          },
+          {
+            "target_prefab": "ApplianceReagentProcessor",
+            "target_prefab_hash": 1260918085,
+            "tier": "TierOne",
+            "time": 45.0,
+            "energy": 1500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 2.0,
+              "Gold": 1.0,
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ApplianceChemistryStation",
+            "target_prefab_hash": 1365789392,
+            "tier": "TierOne",
+            "time": 45.0,
+            "energy": 1500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 1.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "AppliancePaintMixer",
+            "target_prefab_hash": -1339716113,
+            "tier": "TierOne",
+            "time": 45.0,
+            "energy": 1500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 1.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitAutoMinerSmall",
+            "target_prefab_hash": 1668815415,
+            "tier": "TierTwo",
+            "time": 90.0,
+            "energy": 9000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 5,
+            "reagents": {
+              "Copper": 15.0,
+              "Electrum": 50.0,
+              "Invar": 25.0,
+              "Iron": 15.0,
+              "Steel": 100.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitHorizontalAutoMiner",
+            "target_prefab_hash": 844391171,
+            "tier": "TierTwo",
+            "time": 60.0,
+            "energy": 60000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 5,
+            "reagents": {
+              "Copper": 7.0,
+              "Electrum": 25.0,
+              "Invar": 15.0,
+              "Iron": 8.0,
+              "Steel": 60.0
+            }
+          },
+          {
+            "target_prefab": "ItemCreditCard",
+            "target_prefab_hash": -1756772618,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 200.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 2.0,
+              "Silicon": 5.0
+            }
+          },
+          {
+            "target_prefab": "AppliancePlantGeneticAnalyzer",
+            "target_prefab_hash": -1303038067,
+            "tier": "TierOne",
+            "time": 45.0,
+            "energy": 4500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 1.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "AppliancePlantGeneticSplicer",
+            "target_prefab_hash": -1094868323,
+            "tier": "TierOne",
+            "time": 50.0,
+            "energy": 5000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Inconel": 10.0,
+              "Stellite": 20.0
+            }
+          },
+          {
+            "target_prefab": "AppliancePlantGeneticStabilizer",
+            "target_prefab_hash": 871432335,
+            "tier": "TierOne",
+            "time": 50.0,
+            "energy": 5000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Inconel": 10.0,
+              "Stellite": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitGroundTelescope",
+            "target_prefab_hash": -2140672772,
+            "tier": "TierOne",
+            "time": 150.0,
+            "energy": 24000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Electrum": 15.0,
+              "Solder": 10.0,
+              "Steel": 25.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitLinearRail",
+            "target_prefab_hash": -441759975,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Steel": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitRoboticArm",
+            "target_prefab_hash": -1228287398,
+            "tier": "TierOne",
+            "time": 150.0,
+            "energy": 10000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Astroloy": 15.0,
+              "Hastelloy": 5.0,
+              "Inconel": 10.0
+            }
           }
-        }
+        ]
       },
       "memory": {
         "instructions": {
@@ -32988,7 +35565,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -33049,7 +35626,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -33098,7 +35675,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -33152,7 +35729,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -33204,7 +35781,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -33294,7 +35871,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -33354,7 +35931,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -33506,20 +36083,29 @@ export default {
         "wireless_logic": false,
         "circuit_holder": true
       },
-      "slots": [
-        {
-          "name": "Gas Filter",
-          "typ": "GasFilter"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Gas Filter",
+            "class": "GasFilter",
+            "index": 0
+          }
         },
-        {
-          "name": "Gas Filter",
-          "typ": "GasFilter"
+        "1": {
+          "Direct": {
+            "name": "Gas Filter",
+            "class": "GasFilter",
+            "index": 1
+          }
         },
-        {
-          "name": "Programmable Chip",
-          "typ": "ProgrammableChip"
+        "2": {
+          "Direct": {
+            "name": "Programmable Chip",
+            "class": "ProgrammableChip",
+            "index": 2
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -33592,7 +36178,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -33644,12 +36230,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Seat",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Seat",
+            "class": "Entity",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -33959,68 +36548,113 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 5
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "6": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 6
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "7": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 7
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "8": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 8
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "9": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 9
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "10": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 10
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "11": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 11
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "12": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 12
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "13": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 13
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "14": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 14
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -34116,16 +36750,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -34209,16 +36849,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -34359,7 +37005,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -34419,7 +37065,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -34491,7 +37137,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -34557,12 +37203,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Gas Canister",
-          "typ": "GasCanister"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Gas Canister",
+            "class": "GasCanister",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -34609,7 +37258,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -34652,7 +37301,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -34707,7 +37356,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -34763,7 +37412,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -34834,7 +37483,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -34899,7 +37548,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -34947,7 +37596,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -35043,20 +37692,29 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "Plant"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "Plant",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "Hand",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "Hand",
+            "class": "None",
+            "index": 2
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -35107,7 +37765,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -35162,7 +37820,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -35217,7 +37875,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -35286,16 +37944,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -35363,16 +38027,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "Ingot"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "Ingot",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -35427,11 +38097,13 @@ export default {
       },
       "fabricator_info": {
         "tier": "Undefined",
-        "recipes": {
-          "ApplianceSeedTray": {
+        "recipes": [
+          {
+            "target_prefab": "ItemKitDynamicCanister",
+            "target_prefab_hash": -1061945368,
             "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
+            "time": 20.0,
+            "energy": 1000.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -35448,14 +38120,101 @@ export default {
               "is_any_to_remove": false,
               "reagents": {}
             },
-            "count_types": 3,
+            "count_types": 1,
             "reagents": {
-              "Copper": 5.0,
-              "Iron": 10.0,
-              "Silicon": 15.0
+              "Iron": 20.0
             }
           },
-          "ItemActiveVent": {
+          {
+            "target_prefab": "ItemKitDynamicGasTankAdvanced",
+            "target_prefab_hash": 1533501495,
+            "tier": "TierTwo",
+            "time": 40.0,
+            "energy": 2000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Copper": 5.0,
+              "Iron": 20.0,
+              "Silicon": 5.0,
+              "Steel": 15.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitDynamicLiquidCanister",
+            "target_prefab_hash": 375541286,
+            "tier": "TierOne",
+            "time": 20.0,
+            "energy": 1000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitDynamicMKIILiquidCanister",
+            "target_prefab_hash": -638019974,
+            "tier": "TierTwo",
+            "time": 40.0,
+            "energy": 2000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Copper": 5.0,
+              "Iron": 20.0,
+              "Silicon": 5.0,
+              "Steel": 15.0
+            }
+          },
+          {
+            "target_prefab": "ItemActiveVent",
+            "target_prefab_hash": -842048328,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 500.0,
@@ -35482,89 +38241,9 @@ export default {
               "Iron": 5.0
             }
           },
-          "ItemAdhesiveInsulation": {
-            "tier": "TierOne",
-            "time": 2.0,
-            "energy": 200.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Silicon": 1.0,
-              "Steel": 0.5
-            }
-          },
-          "ItemDynamicAirCon": {
-            "tier": "TierOne",
-            "time": 60.0,
-            "energy": 5000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Gold": 5.0,
-              "Silver": 5.0,
-              "Solder": 5.0,
-              "Steel": 20.0
-            }
-          },
-          "ItemDynamicScrubber": {
-            "tier": "TierOne",
-            "time": 30.0,
-            "energy": 5000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Gold": 5.0,
-              "Invar": 5.0,
-              "Solder": 5.0,
-              "Steel": 20.0
-            }
-          },
-          "ItemGasCanisterEmpty": {
+          {
+            "target_prefab": "ItemGasCanisterEmpty",
+            "target_prefab_hash": 42280099,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 500.0,
@@ -35589,7 +38268,95 @@ export default {
               "Iron": 5.0
             }
           },
-          "ItemGasCanisterSmart": {
+          {
+            "target_prefab": "ItemKitWaterBottleFiller",
+            "target_prefab_hash": 159886536,
+            "tier": "TierOne",
+            "time": 7.0,
+            "energy": 620.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 3.0,
+              "Iron": 5.0,
+              "Silicon": 8.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitDrinkingFountain",
+            "target_prefab_hash": -1743663875,
+            "tier": "TierOne",
+            "time": 20.0,
+            "energy": 620.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 3.0,
+              "Iron": 5.0,
+              "Silicon": 8.0
+            }
+          },
+          {
+            "target_prefab": "ItemWaterBottle",
+            "target_prefab_hash": 107741229,
+            "tier": "TierOne",
+            "time": 4.0,
+            "energy": 120.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Iron": 2.0,
+              "Silicon": 4.0
+            }
+          },
+          {
+            "target_prefab": "ItemGasCanisterSmart",
+            "target_prefab_hash": -668314371,
             "tier": "TierTwo",
             "time": 10.0,
             "energy": 1000.0,
@@ -35616,7 +38383,38 @@ export default {
               "Steel": 15.0
             }
           },
-          "ItemGasFilterCarbonDioxide": {
+          {
+            "target_prefab": "ItemLiquidCanisterSmart",
+            "target_prefab_hash": 777684475,
+            "tier": "TierTwo",
+            "time": 10.0,
+            "energy": 1000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 2.0,
+              "Silicon": 2.0,
+              "Steel": 15.0
+            }
+          },
+          {
+            "target_prefab": "ItemLiquidCanisterEmpty",
+            "target_prefab_hash": -185207387,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 500.0,
@@ -35641,10 +38439,12 @@ export default {
               "Iron": 5.0
             }
           },
-          "ItemGasFilterCarbonDioxideL": {
-            "tier": "TierTwo",
-            "time": 45.0,
-            "energy": 4000.0,
+          {
+            "target_prefab": "ItemKitSuitStorage",
+            "target_prefab_hash": 1088892825,
+            "tier": "TierOne",
+            "time": 30.0,
+            "energy": 500.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -35663,12 +38463,203 @@ export default {
             },
             "count_types": 3,
             "reagents": {
-              "Invar": 1.0,
-              "Steel": 5.0,
-              "Stellite": 1.0
+              "Copper": 5.0,
+              "Iron": 15.0,
+              "Silver": 5.0
             }
           },
-          "ItemGasFilterCarbonDioxideM": {
+          {
+            "target_prefab": "ItemGasFilterCarbonDioxide",
+            "target_prefab_hash": 1635000764,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemGasFilterPollutants",
+            "target_prefab_hash": 1915566057,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemGasFilterNitrogen",
+            "target_prefab_hash": 632853248,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemGasFilterOxygen",
+            "target_prefab_hash": -721824748,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemGasFilterVolatiles",
+            "target_prefab_hash": 15011598,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemGasFilterNitrousOxide",
+            "target_prefab_hash": -1247674305,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemGasFilterWater",
+            "target_prefab_hash": -1993197973,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemGasFilterCarbonDioxideM",
+            "target_prefab_hash": 416897318,
             "tier": "TierOne",
             "time": 20.0,
             "energy": 2500.0,
@@ -35695,59 +38686,9 @@ export default {
               "Silver": 5.0
             }
           },
-          "ItemGasFilterNitrogen": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 5.0
-            }
-          },
-          "ItemGasFilterNitrogenL": {
-            "tier": "TierTwo",
-            "time": 45.0,
-            "energy": 4000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Invar": 1.0,
-              "Steel": 5.0,
-              "Stellite": 1.0
-            }
-          },
-          "ItemGasFilterNitrogenM": {
+          {
+            "target_prefab": "ItemGasFilterPollutantsM",
+            "target_prefab_hash": 63677771,
             "tier": "TierOne",
             "time": 20.0,
             "energy": 2500.0,
@@ -35774,59 +38715,9 @@ export default {
               "Silver": 5.0
             }
           },
-          "ItemGasFilterNitrousOxide": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 5.0
-            }
-          },
-          "ItemGasFilterNitrousOxideL": {
-            "tier": "TierTwo",
-            "time": 45.0,
-            "energy": 4000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Invar": 1.0,
-              "Steel": 5.0,
-              "Stellite": 1.0
-            }
-          },
-          "ItemGasFilterNitrousOxideM": {
+          {
+            "target_prefab": "ItemGasFilterNitrogenM",
+            "target_prefab_hash": -632657357,
             "tier": "TierOne",
             "time": 20.0,
             "energy": 2500.0,
@@ -35853,59 +38744,9 @@ export default {
               "Silver": 5.0
             }
           },
-          "ItemGasFilterOxygen": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 5.0
-            }
-          },
-          "ItemGasFilterOxygenL": {
-            "tier": "TierTwo",
-            "time": 45.0,
-            "energy": 4000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Invar": 1.0,
-              "Steel": 5.0,
-              "Stellite": 1.0
-            }
-          },
-          "ItemGasFilterOxygenM": {
+          {
+            "target_prefab": "ItemGasFilterOxygenM",
+            "target_prefab_hash": -1067319543,
             "tier": "TierOne",
             "time": 20.0,
             "energy": 2500.0,
@@ -35932,59 +38773,9 @@ export default {
               "Silver": 5.0
             }
           },
-          "ItemGasFilterPollutants": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 5.0
-            }
-          },
-          "ItemGasFilterPollutantsL": {
-            "tier": "TierTwo",
-            "time": 45.0,
-            "energy": 4000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Invar": 1.0,
-              "Steel": 5.0,
-              "Stellite": 1.0
-            }
-          },
-          "ItemGasFilterPollutantsM": {
+          {
+            "target_prefab": "ItemGasFilterVolatilesM",
+            "target_prefab_hash": 1037507240,
             "tier": "TierOne",
             "time": 20.0,
             "energy": 2500.0,
@@ -36011,59 +38802,9 @@ export default {
               "Silver": 5.0
             }
           },
-          "ItemGasFilterVolatiles": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 5.0
-            }
-          },
-          "ItemGasFilterVolatilesL": {
-            "tier": "TierTwo",
-            "time": 45.0,
-            "energy": 4000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Invar": 1.0,
-              "Steel": 5.0,
-              "Stellite": 1.0
-            }
-          },
-          "ItemGasFilterVolatilesM": {
+          {
+            "target_prefab": "ItemGasFilterNitrousOxideM",
+            "target_prefab_hash": 1824284061,
             "tier": "TierOne",
             "time": 20.0,
             "energy": 2500.0,
@@ -36090,59 +38831,9 @@ export default {
               "Silver": 5.0
             }
           },
-          "ItemGasFilterWater": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 5.0
-            }
-          },
-          "ItemGasFilterWaterL": {
-            "tier": "TierTwo",
-            "time": 45.0,
-            "energy": 4000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Invar": 1.0,
-              "Steel": 5.0,
-              "Stellite": 1.0
-            }
-          },
-          "ItemGasFilterWaterM": {
+          {
+            "target_prefab": "ItemGasFilterWaterM",
+            "target_prefab_hash": 8804422,
             "tier": "TierOne",
             "time": 20.0,
             "energy": 2500.0,
@@ -36169,7 +38860,350 @@ export default {
               "Silver": 5.0
             }
           },
-          "ItemHydroponicTray": {
+          {
+            "target_prefab": "ItemGasFilterCarbonDioxideL",
+            "target_prefab_hash": 1876847024,
+            "tier": "TierTwo",
+            "time": 45.0,
+            "energy": 4000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Invar": 1.0,
+              "Steel": 5.0,
+              "Stellite": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemGasFilterPollutantsL",
+            "target_prefab_hash": 1959564765,
+            "tier": "TierTwo",
+            "time": 45.0,
+            "energy": 4000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Invar": 1.0,
+              "Steel": 5.0,
+              "Stellite": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemGasFilterNitrogenL",
+            "target_prefab_hash": -1387439451,
+            "tier": "TierTwo",
+            "time": 45.0,
+            "energy": 4000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Invar": 1.0,
+              "Steel": 5.0,
+              "Stellite": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemGasFilterOxygenL",
+            "target_prefab_hash": -1217998945,
+            "tier": "TierTwo",
+            "time": 45.0,
+            "energy": 4000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Invar": 1.0,
+              "Steel": 5.0,
+              "Stellite": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemGasFilterVolatilesL",
+            "target_prefab_hash": 1255156286,
+            "tier": "TierTwo",
+            "time": 45.0,
+            "energy": 4000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Invar": 1.0,
+              "Steel": 5.0,
+              "Stellite": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemGasFilterNitrousOxideL",
+            "target_prefab_hash": 465267979,
+            "tier": "TierTwo",
+            "time": 45.0,
+            "energy": 4000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Invar": 1.0,
+              "Steel": 5.0,
+              "Stellite": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemGasFilterWaterL",
+            "target_prefab_hash": 2004969680,
+            "tier": "TierTwo",
+            "time": 45.0,
+            "energy": 4000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Invar": 1.0,
+              "Steel": 5.0,
+              "Stellite": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitPipeUtility",
+            "target_prefab_hash": 1934508338,
+            "tier": "TierOne",
+            "time": 15.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitPipeUtilityLiquid",
+            "target_prefab_hash": 595478589,
+            "tier": "TierOne",
+            "time": 15.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemAdhesiveInsulation",
+            "target_prefab_hash": 1871048978,
+            "tier": "TierOne",
+            "time": 2.0,
+            "energy": 200.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Silicon": 1.0,
+              "Steel": 0.5
+            }
+          },
+          {
+            "target_prefab": "ItemKitInsulatedPipeUtility",
+            "target_prefab_hash": -27284803,
+            "tier": "TierOne",
+            "time": 15.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Silicon": 1.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitInsulatedPipeUtilityLiquid",
+            "target_prefab_hash": -1831558953,
+            "tier": "TierOne",
+            "time": 15.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Silicon": 1.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemHydroponicTray",
+            "target_prefab_hash": -1193543727,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 500.0,
@@ -36194,7 +39228,36 @@ export default {
               "Iron": 10.0
             }
           },
-          "ItemKitAirlock": {
+          {
+            "target_prefab": "ItemKitPlanter",
+            "target_prefab_hash": 119096484,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitAirlock",
+            "target_prefab_hash": 964043875,
             "tier": "TierOne",
             "time": 50.0,
             "energy": 5000.0,
@@ -36221,7 +39284,9 @@ export default {
               "Steel": 15.0
             }
           },
-          "ItemKitAirlockGate": {
+          {
+            "target_prefab": "ItemKitAirlockGate",
+            "target_prefab_hash": 682546947,
             "tier": "TierOne",
             "time": 60.0,
             "energy": 6000.0,
@@ -36248,7 +39313,9 @@ export default {
               "Steel": 25.0
             }
           },
-          "ItemKitAtmospherics": {
+          {
+            "target_prefab": "ItemKitAtmospherics",
+            "target_prefab_hash": 1222286371,
             "tier": "TierOne",
             "time": 30.0,
             "energy": 6000.0,
@@ -36275,7 +39342,38 @@ export default {
               "Iron": 10.0
             }
           },
-          "ItemKitChute": {
+          {
+            "target_prefab": "ItemKitWaterPurifier",
+            "target_prefab_hash": 611181283,
+            "tier": "TierOne",
+            "time": 30.0,
+            "energy": 6000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 20.0,
+              "Gold": 5.0,
+              "Iron": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitChute",
+            "target_prefab_hash": 1025254665,
             "tier": "TierOne",
             "time": 2.0,
             "energy": 500.0,
@@ -36300,7 +39398,1374 @@ export default {
               "Iron": 3.0
             }
           },
-          "ItemKitCryoTube": {
+          {
+            "target_prefab": "ItemKitStandardChute",
+            "target_prefab_hash": 2133035682,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Constantan": 2.0,
+              "Electrum": 2.0,
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitPipe",
+            "target_prefab_hash": -1619793705,
+            "tier": "TierOne",
+            "time": 2.0,
+            "energy": 200.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 0.5
+            }
+          },
+          {
+            "target_prefab": "ItemKitInsulatedPipe",
+            "target_prefab_hash": 452636699,
+            "tier": "TierOne",
+            "time": 4.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Silicon": 1.0,
+              "Steel": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitInsulatedLiquidPipe",
+            "target_prefab_hash": 2067655311,
+            "tier": "TierOne",
+            "time": 4.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Silicon": 1.0,
+              "Steel": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitPipeLiquid",
+            "target_prefab_hash": -1166461357,
+            "tier": "TierOne",
+            "time": 2.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 0.5
+            }
+          },
+          {
+            "target_prefab": "ItemKitRegulator",
+            "target_prefab_hash": 1181371795,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 2.0,
+              "Gold": 1.0,
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitLiquidRegulator",
+            "target_prefab_hash": 1951126161,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 2.0,
+              "Gold": 1.0,
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitTank",
+            "target_prefab_hash": 771439840,
+            "tier": "TierOne",
+            "time": 20.0,
+            "energy": 2000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Steel": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitLiquidTank",
+            "target_prefab_hash": -799849305,
+            "tier": "TierOne",
+            "time": 20.0,
+            "energy": 2000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Steel": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitTankInsulated",
+            "target_prefab_hash": 1021053608,
+            "tier": "TierOne",
+            "time": 30.0,
+            "energy": 6000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 5.0,
+              "Silicon": 30.0,
+              "Steel": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitLiquidTankInsulated",
+            "target_prefab_hash": 617773453,
+            "tier": "TierOne",
+            "time": 30.0,
+            "energy": 6000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 5.0,
+              "Silicon": 30.0,
+              "Steel": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemPassiveVent",
+            "target_prefab_hash": 238631271,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemPassiveVentInsulated",
+            "target_prefab_hash": -1397583760,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Silicon": 5.0,
+              "Steel": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemPipeCowl",
+            "target_prefab_hash": -38898376,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemPipeAnalyizer",
+            "target_prefab_hash": -767597887,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Electrum": 2.0,
+              "Gold": 2.0,
+              "Iron": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemPipeIgniter",
+            "target_prefab_hash": 1366030599,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Electrum": 2.0,
+              "Iron": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemLiquidPipeAnalyzer",
+            "target_prefab_hash": 226055671,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Electrum": 2.0,
+              "Gold": 2.0,
+              "Iron": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemPipeDigitalValve",
+            "target_prefab_hash": -1532448832,
+            "tier": "TierOne",
+            "time": 15.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 2.0,
+              "Invar": 3.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemWaterPipeDigitalValve",
+            "target_prefab_hash": 309693520,
+            "tier": "TierOne",
+            "time": 15.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 2.0,
+              "Invar": 3.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemPipeGasMixer",
+            "target_prefab_hash": -1134459463,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 2.0,
+              "Gold": 2.0,
+              "Iron": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemPipeLabel",
+            "target_prefab_hash": 391769637,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemPipeMeter",
+            "target_prefab_hash": 1207939683,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 2.0,
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemWaterPipeMeter",
+            "target_prefab_hash": -90898877,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 2.0,
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemLiquidDrain",
+            "target_prefab_hash": 2036225202,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 2.0,
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitPipeRadiator",
+            "target_prefab_hash": 920411066,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Gold": 3.0,
+              "Steel": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitLargeExtendableRadiator",
+            "target_prefab_hash": 847430620,
+            "tier": "TierTwo",
+            "time": 30.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 10.0,
+              "Invar": 10.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitPassiveLargeRadiatorLiquid",
+            "target_prefab_hash": 1453961898,
+            "tier": "TierTwo",
+            "time": 30.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 5.0,
+              "Invar": 5.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitPassiveLargeRadiatorGas",
+            "target_prefab_hash": -1752768283,
+            "tier": "TierTwo",
+            "time": 30.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 5.0,
+              "Invar": 5.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitPoweredVent",
+            "target_prefab_hash": 2015439334,
+            "tier": "TierTwo",
+            "time": 20.0,
+            "energy": 1000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Electrum": 5.0,
+              "Invar": 2.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitHeatExchanger",
+            "target_prefab_hash": -1710540039,
+            "tier": "TierTwo",
+            "time": 30.0,
+            "energy": 1000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Invar": 10.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitLargeDirectHeatExchanger",
+            "target_prefab_hash": 450164077,
+            "tier": "TierTwo",
+            "time": 30.0,
+            "energy": 1000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Invar": 10.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitPassthroughHeatExchanger",
+            "target_prefab_hash": 636112787,
+            "tier": "TierTwo",
+            "time": 30.0,
+            "energy": 1000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Invar": 10.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitSmallDirectHeatExchanger",
+            "target_prefab_hash": -1332682164,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Steel": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitEvaporationChamber",
+            "target_prefab_hash": 1587787610,
+            "tier": "TierOne",
+            "time": 30.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 10.0,
+              "Silicon": 5.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitPipeRadiatorLiquid",
+            "target_prefab_hash": -1697302609,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Gold": 3.0,
+              "Steel": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemPipeValve",
+            "target_prefab_hash": 799323450,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 2.0,
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemLiquidPipeValve",
+            "target_prefab_hash": -2126113312,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 2.0,
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemPipeVolumePump",
+            "target_prefab_hash": -1766301997,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 3.0,
+              "Gold": 2.0,
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitTurboVolumePump",
+            "target_prefab_hash": -1248429712,
+            "tier": "TierTwo",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Copper": 4.0,
+              "Electrum": 5.0,
+              "Gold": 4.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitLiquidTurboVolumePump",
+            "target_prefab_hash": -1805020897,
+            "tier": "TierTwo",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Copper": 4.0,
+              "Electrum": 5.0,
+              "Gold": 4.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemLiquidPipeVolumePump",
+            "target_prefab_hash": -2106280569,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 3.0,
+              "Gold": 2.0,
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemLiquidPipeHeater",
+            "target_prefab_hash": -248475032,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 3.0,
+              "Gold": 3.0,
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemPipeHeater",
+            "target_prefab_hash": -1751627006,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 3.0,
+              "Gold": 3.0,
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitPortablesConnector",
+            "target_prefab_hash": 1041148999,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemWallCooler",
+            "target_prefab_hash": -1567752627,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 3.0,
+              "Gold": 1.0,
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemWaterWallCooler",
+            "target_prefab_hash": -1721846327,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 3.0,
+              "Gold": 1.0,
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemWallHeater",
+            "target_prefab_hash": 1880134612,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 3.0,
+              "Gold": 1.0,
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitSleeper",
+            "target_prefab_hash": 326752036,
+            "tier": "TierOne",
+            "time": 60.0,
+            "energy": 6000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 10.0,
+              "Gold": 10.0,
+              "Steel": 25.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitCryoTube",
+            "target_prefab_hash": -545234195,
             "tier": "TierTwo",
             "time": 120.0,
             "energy": 24000.0,
@@ -36328,62 +40793,12 @@ export default {
               "Steel": 35.0
             }
           },
-          "ItemKitDrinkingFountain": {
+          {
+            "target_prefab": "ItemDynamicAirCon",
+            "target_prefab_hash": 1072914031,
             "tier": "TierOne",
-            "time": 20.0,
-            "energy": 620.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 3.0,
-              "Iron": 5.0,
-              "Silicon": 8.0
-            }
-          },
-          "ItemKitDynamicCanister": {
-            "tier": "TierOne",
-            "time": 20.0,
-            "energy": 1000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 20.0
-            }
-          },
-          "ItemKitDynamicGasTankAdvanced": {
-            "tier": "TierTwo",
-            "time": 40.0,
-            "energy": 2000.0,
+            "time": 60.0,
+            "energy": 5000.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -36402,13 +40817,45 @@ export default {
             },
             "count_types": 4,
             "reagents": {
-              "Copper": 5.0,
-              "Iron": 20.0,
-              "Silicon": 5.0,
-              "Steel": 15.0
+              "Gold": 5.0,
+              "Silver": 5.0,
+              "Solder": 5.0,
+              "Steel": 20.0
             }
           },
-          "ItemKitDynamicHydroponics": {
+          {
+            "target_prefab": "ItemDynamicScrubber",
+            "target_prefab_hash": -971920158,
+            "tier": "TierOne",
+            "time": 30.0,
+            "energy": 5000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Gold": 5.0,
+              "Invar": 5.0,
+              "Solder": 5.0,
+              "Steel": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitDynamicHydroponics",
+            "target_prefab_hash": -1861154222,
             "tier": "TierOne",
             "time": 30.0,
             "energy": 1000.0,
@@ -36435,10 +40882,12 @@ export default {
               "Steel": 20.0
             }
           },
-          "ItemKitDynamicLiquidCanister": {
+          {
+            "target_prefab": "ItemKitPipeOrgan",
+            "target_prefab_hash": -827125300,
             "tier": "TierOne",
-            "time": 20.0,
-            "energy": 1000.0,
+            "time": 5.0,
+            "energy": 100.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -36457,91 +40906,12 @@ export default {
             },
             "count_types": 1,
             "reagents": {
-              "Iron": 20.0
+              "Iron": 3.0
             }
           },
-          "ItemKitDynamicMKIILiquidCanister": {
-            "tier": "TierTwo",
-            "time": 40.0,
-            "energy": 2000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Copper": 5.0,
-              "Iron": 20.0,
-              "Silicon": 5.0,
-              "Steel": 15.0
-            }
-          },
-          "ItemKitEvaporationChamber": {
-            "tier": "TierOne",
-            "time": 30.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 10.0,
-              "Silicon": 5.0,
-              "Steel": 10.0
-            }
-          },
-          "ItemKitHeatExchanger": {
-            "tier": "TierTwo",
-            "time": 30.0,
-            "energy": 1000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Invar": 10.0,
-              "Steel": 10.0
-            }
-          },
-          "ItemKitIceCrusher": {
+          {
+            "target_prefab": "ItemKitIceCrusher",
+            "target_prefab_hash": 288111533,
             "tier": "TierOne",
             "time": 30.0,
             "energy": 3000.0,
@@ -36568,633 +40938,9 @@ export default {
               "Iron": 3.0
             }
           },
-          "ItemKitInsulatedLiquidPipe": {
-            "tier": "TierOne",
-            "time": 4.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Silicon": 1.0,
-              "Steel": 1.0
-            }
-          },
-          "ItemKitInsulatedPipe": {
-            "tier": "TierOne",
-            "time": 4.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Silicon": 1.0,
-              "Steel": 1.0
-            }
-          },
-          "ItemKitInsulatedPipeUtility": {
-            "tier": "TierOne",
-            "time": 15.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Silicon": 1.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemKitInsulatedPipeUtilityLiquid": {
-            "tier": "TierOne",
-            "time": 15.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Silicon": 1.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemKitLargeDirectHeatExchanger": {
-            "tier": "TierTwo",
-            "time": 30.0,
-            "energy": 1000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Invar": 10.0,
-              "Steel": 10.0
-            }
-          },
-          "ItemKitLargeExtendableRadiator": {
-            "tier": "TierTwo",
-            "time": 30.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 10.0,
-              "Invar": 10.0,
-              "Steel": 10.0
-            }
-          },
-          "ItemKitLiquidRegulator": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 2.0,
-              "Gold": 1.0,
-              "Iron": 5.0
-            }
-          },
-          "ItemKitLiquidTank": {
-            "tier": "TierOne",
-            "time": 20.0,
-            "energy": 2000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Steel": 20.0
-            }
-          },
-          "ItemKitLiquidTankInsulated": {
-            "tier": "TierOne",
-            "time": 30.0,
-            "energy": 6000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 5.0,
-              "Silicon": 30.0,
-              "Steel": 20.0
-            }
-          },
-          "ItemKitLiquidTurboVolumePump": {
-            "tier": "TierTwo",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Copper": 4.0,
-              "Electrum": 5.0,
-              "Gold": 4.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemKitPassiveLargeRadiatorGas": {
-            "tier": "TierTwo",
-            "time": 30.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 5.0,
-              "Invar": 5.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemKitPassiveLargeRadiatorLiquid": {
-            "tier": "TierTwo",
-            "time": 30.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 5.0,
-              "Invar": 5.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemKitPassthroughHeatExchanger": {
-            "tier": "TierTwo",
-            "time": 30.0,
-            "energy": 1000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Invar": 10.0,
-              "Steel": 10.0
-            }
-          },
-          "ItemKitPipe": {
-            "tier": "TierOne",
-            "time": 2.0,
-            "energy": 200.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 0.5
-            }
-          },
-          "ItemKitPipeLiquid": {
-            "tier": "TierOne",
-            "time": 2.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 0.5
-            }
-          },
-          "ItemKitPipeOrgan": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 3.0
-            }
-          },
-          "ItemKitPipeRadiator": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Gold": 3.0,
-              "Steel": 2.0
-            }
-          },
-          "ItemKitPipeRadiatorLiquid": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Gold": 3.0,
-              "Steel": 2.0
-            }
-          },
-          "ItemKitPipeUtility": {
-            "tier": "TierOne",
-            "time": 15.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 5.0
-            }
-          },
-          "ItemKitPipeUtilityLiquid": {
-            "tier": "TierOne",
-            "time": 15.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 5.0
-            }
-          },
-          "ItemKitPlanter": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 10.0
-            }
-          },
-          "ItemKitPortablesConnector": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 5.0
-            }
-          },
-          "ItemKitPoweredVent": {
-            "tier": "TierTwo",
-            "time": 20.0,
-            "energy": 1000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Electrum": 5.0,
-              "Invar": 2.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemKitRegulator": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 2.0,
-              "Gold": 1.0,
-              "Iron": 5.0
-            }
-          },
-          "ItemKitShower": {
+          {
+            "target_prefab": "ItemKitShower",
+            "target_prefab_hash": 735858725,
             "tier": "TierOne",
             "time": 30.0,
             "energy": 3000.0,
@@ -37221,89 +40967,11 @@ export default {
               "Silicon": 5.0
             }
           },
-          "ItemKitSleeper": {
-            "tier": "TierOne",
-            "time": 60.0,
-            "energy": 6000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 10.0,
-              "Gold": 10.0,
-              "Steel": 25.0
-            }
-          },
-          "ItemKitSmallDirectHeatExchanger": {
+          {
+            "target_prefab": "ApplianceSeedTray",
+            "target_prefab_hash": 142831994,
             "tier": "TierOne",
             "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Steel": 3.0
-            }
-          },
-          "ItemKitStandardChute": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Constantan": 2.0,
-              "Electrum": 2.0,
-              "Iron": 3.0
-            }
-          },
-          "ItemKitSuitStorage": {
-            "tier": "TierOne",
-            "time": 30.0,
             "energy": 500.0,
             "temperature": {
               "start": 1.0,
@@ -37324,805 +40992,11 @@ export default {
             "count_types": 3,
             "reagents": {
               "Copper": 5.0,
-              "Iron": 15.0,
-              "Silver": 5.0
-            }
-          },
-          "ItemKitTank": {
-            "tier": "TierOne",
-            "time": 20.0,
-            "energy": 2000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Steel": 20.0
-            }
-          },
-          "ItemKitTankInsulated": {
-            "tier": "TierOne",
-            "time": 30.0,
-            "energy": 6000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 5.0,
-              "Silicon": 30.0,
-              "Steel": 20.0
-            }
-          },
-          "ItemKitTurboVolumePump": {
-            "tier": "TierTwo",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Copper": 4.0,
-              "Electrum": 5.0,
-              "Gold": 4.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemKitWaterBottleFiller": {
-            "tier": "TierOne",
-            "time": 7.0,
-            "energy": 620.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 3.0,
-              "Iron": 5.0,
-              "Silicon": 8.0
-            }
-          },
-          "ItemKitWaterPurifier": {
-            "tier": "TierOne",
-            "time": 30.0,
-            "energy": 6000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 20.0,
-              "Gold": 5.0,
-              "Iron": 10.0
-            }
-          },
-          "ItemLiquidCanisterEmpty": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 5.0
-            }
-          },
-          "ItemLiquidCanisterSmart": {
-            "tier": "TierTwo",
-            "time": 10.0,
-            "energy": 1000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 2.0,
-              "Silicon": 2.0,
-              "Steel": 15.0
-            }
-          },
-          "ItemLiquidDrain": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 2.0,
-              "Iron": 5.0
-            }
-          },
-          "ItemLiquidPipeAnalyzer": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Electrum": 2.0,
-              "Gold": 2.0,
-              "Iron": 2.0
-            }
-          },
-          "ItemLiquidPipeHeater": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 3.0,
-              "Gold": 3.0,
-              "Iron": 5.0
-            }
-          },
-          "ItemLiquidPipeValve": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 2.0,
-              "Iron": 3.0
-            }
-          },
-          "ItemLiquidPipeVolumePump": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 3.0,
-              "Gold": 2.0,
-              "Iron": 5.0
-            }
-          },
-          "ItemPassiveVent": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 3.0
-            }
-          },
-          "ItemPassiveVentInsulated": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Silicon": 5.0,
-              "Steel": 1.0
-            }
-          },
-          "ItemPipeAnalyizer": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Electrum": 2.0,
-              "Gold": 2.0,
-              "Iron": 2.0
-            }
-          },
-          "ItemPipeCowl": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 3.0
-            }
-          },
-          "ItemPipeDigitalValve": {
-            "tier": "TierOne",
-            "time": 15.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 2.0,
-              "Invar": 3.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemPipeGasMixer": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 2.0,
-              "Gold": 2.0,
-              "Iron": 2.0
-            }
-          },
-          "ItemPipeHeater": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 3.0,
-              "Gold": 3.0,
-              "Iron": 5.0
-            }
-          },
-          "ItemPipeIgniter": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Electrum": 2.0,
-              "Iron": 2.0
-            }
-          },
-          "ItemPipeLabel": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 1.0
-            }
-          },
-          "ItemPipeMeter": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 2.0,
-              "Iron": 3.0
-            }
-          },
-          "ItemPipeValve": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 2.0,
-              "Iron": 3.0
-            }
-          },
-          "ItemPipeVolumePump": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 3.0,
-              "Gold": 2.0,
-              "Iron": 5.0
-            }
-          },
-          "ItemWallCooler": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 3.0,
-              "Gold": 1.0,
-              "Iron": 3.0
-            }
-          },
-          "ItemWallHeater": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 3.0,
-              "Gold": 1.0,
-              "Iron": 3.0
-            }
-          },
-          "ItemWaterBottle": {
-            "tier": "TierOne",
-            "time": 4.0,
-            "energy": 120.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Iron": 2.0,
-              "Silicon": 4.0
-            }
-          },
-          "ItemWaterPipeDigitalValve": {
-            "tier": "TierOne",
-            "time": 15.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 2.0,
-              "Invar": 3.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemWaterPipeMeter": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 2.0,
-              "Iron": 3.0
-            }
-          },
-          "ItemWaterWallCooler": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 3.0,
-              "Gold": 1.0,
-              "Iron": 3.0
+              "Iron": 10.0,
+              "Silicon": 15.0
             }
           }
-        }
+        ]
       },
       "memory": {
         "instructions": {
@@ -38648,40 +41522,64 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Plant",
-          "typ": "Plant"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 0
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "1": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 1
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "2": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 2
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "3": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 3
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "4": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 4
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "5": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 5
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "6": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 6
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "7": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 7
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -38722,16 +41620,22 @@ export default {
         "convection_factor": 0.010000001,
         "radiation_factor": 0.0005
       },
-      "slots": [
-        {
-          "name": "Plant",
-          "typ": "Plant"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 0
+          }
         },
-        {
-          "name": "Fertiliser",
-          "typ": "Plant"
+        "1": {
+          "Direct": {
+            "name": "Fertiliser",
+            "class": "Plant",
+            "index": 1
+          }
         }
-      ]
+      }
     },
     "StructureHydroponicsTrayData": {
       "templateType": "StructureLogicDevice",
@@ -38808,16 +41712,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Plant",
-          "typ": "Plant"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 0
+          }
         },
-        {
-          "name": "Fertiliser",
-          "typ": "Plant"
+        "1": {
+          "Direct": {
+            "name": "Fertiliser",
+            "class": "Plant",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -38882,12 +41792,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "Ore"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "Ore",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -38944,7 +41857,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -39345,12 +42258,15 @@ export default {
         "convection_factor": 0.0,
         "radiation_factor": 0.0
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "StructureInsulatedTankConnectorLiquid": {
       "templateType": "StructureSlots",
@@ -39367,12 +42283,15 @@ export default {
         "convection_factor": 0.0,
         "radiation_factor": 0.0
       },
-      "slots": [
-        {
-          "name": "Portable Slot",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Portable Slot",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "StructureInteriorDoorGlass": {
       "templateType": "StructureLogicDevice",
@@ -39408,7 +42327,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -39455,7 +42374,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -39502,7 +42421,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -39549,7 +42468,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -39638,7 +42557,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -39705,7 +42624,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -39752,7 +42671,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -39799,7 +42718,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -39853,7 +42772,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -39913,7 +42832,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -39976,7 +42895,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -39995,6 +42914,539 @@ export default {
         "has_mode_state": false,
         "has_on_off_state": true,
         "has_open_state": false,
+        "has_reagents": false
+      }
+    },
+    "StructureLarreDockAtmos": {
+      "templateType": "StructureLogicDevice",
+      "prefab": {
+        "prefab_name": "StructureLarreDockAtmos",
+        "prefab_hash": 1978422481,
+        "desc": "0.Outward\n1.Inward",
+        "name": "LARrE Dock (Atmos)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "thermal_info": {
+        "convection_factor": 0.1,
+        "radiation_factor": 0.1
+      },
+      "logic": {
+        "logic_slot_types": {
+          "0": {}
+        },
+        "logic_types": {
+          "Power": "Read",
+          "Open": "ReadWrite",
+          "Mode": "ReadWrite",
+          "Error": "Read",
+          "Pressure": "Read",
+          "Temperature": "Read",
+          "PressureExternal": "ReadWrite",
+          "PressureInternal": "ReadWrite",
+          "Activate": "ReadWrite",
+          "Setting": "ReadWrite",
+          "RatioOxygen": "Read",
+          "RatioCarbonDioxide": "Read",
+          "RatioNitrogen": "Read",
+          "RatioPollutant": "Read",
+          "RatioVolatiles": "Read",
+          "RatioWater": "Read",
+          "On": "ReadWrite",
+          "RequiredPower": "Read",
+          "Idle": "Read",
+          "TotalMoles": "Read",
+          "RatioNitrousOxide": "Read",
+          "PrefabHash": "Read",
+          "Combustion": "Read",
+          "RatioLiquidNitrogen": "Read",
+          "RatioLiquidOxygen": "Read",
+          "RatioLiquidVolatiles": "Read",
+          "RatioSteam": "Read",
+          "RatioLiquidCarbonDioxide": "Read",
+          "RatioLiquidPollutant": "Read",
+          "RatioLiquidNitrousOxide": "Read",
+          "ReferenceId": "Read",
+          "Index": "Read",
+          "RatioHydrogen": "Read",
+          "RatioLiquidHydrogen": "Read",
+          "RatioPollutedWater": "Read",
+          "NameHash": "Read"
+        },
+        "modes": {
+          "0": "Outward",
+          "1": "Inward"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Filter",
+            "class": "GasFilter",
+            "index": 0
+          }
+        }
+      },
+      "device": {
+        "connection_list": [
+          {
+            "typ": "RoboticArmRail",
+            "role": "None"
+          },
+          {
+            "typ": "RoboticArmRail",
+            "role": "None"
+          },
+          {
+            "typ": "PowerAndData",
+            "role": "None"
+          }
+        ],
+        "has_activate_state": true,
+        "has_atmosphere": true,
+        "has_color_state": false,
+        "has_lock_state": false,
+        "has_mode_state": true,
+        "has_on_off_state": true,
+        "has_open_state": true,
+        "has_reagents": false
+      }
+    },
+    "StructureLarreDockBypass": {
+      "templateType": "StructureLogicDevice",
+      "prefab": {
+        "prefab_name": "StructureLarreDockBypass",
+        "prefab_hash": 1011275082,
+        "desc": "",
+        "name": "LARrE Dock (Bypass)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "logic": {
+        "logic_slot_types": {},
+        "logic_types": {
+          "Power": "Read",
+          "Open": "ReadWrite",
+          "On": "ReadWrite",
+          "RequiredPower": "Read",
+          "PrefabHash": "Read",
+          "ReferenceId": "Read",
+          "NameHash": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": {},
+      "device": {
+        "connection_list": [
+          {
+            "typ": "RoboticArmRail",
+            "role": "None"
+          },
+          {
+            "typ": "RoboticArmRail",
+            "role": "None"
+          },
+          {
+            "typ": "PowerAndData",
+            "role": "None"
+          }
+        ],
+        "has_activate_state": false,
+        "has_atmosphere": false,
+        "has_color_state": false,
+        "has_lock_state": false,
+        "has_mode_state": false,
+        "has_on_off_state": true,
+        "has_open_state": true,
+        "has_reagents": false
+      }
+    },
+    "StructureLarreDockCargo": {
+      "templateType": "StructureLogicDevice",
+      "prefab": {
+        "prefab_name": "StructureLarreDockCargo",
+        "prefab_hash": -1555459562,
+        "desc": "",
+        "name": "LARrE Dock (Cargo)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "logic": {
+        "logic_slot_types": {
+          "0": {}
+        },
+        "logic_types": {
+          "Power": "Read",
+          "Open": "ReadWrite",
+          "Error": "Read",
+          "Activate": "ReadWrite",
+          "Setting": "ReadWrite",
+          "On": "ReadWrite",
+          "RequiredPower": "Read",
+          "Idle": "Read",
+          "PrefabHash": "Read",
+          "ReferenceId": "Read",
+          "Index": "Read",
+          "NameHash": "Read",
+          "TargetSlotIndex": "ReadWrite",
+          "TargetPrefabHash": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Arm Slot",
+            "class": "None",
+            "index": 0
+          }
+        },
+        "255": {
+          "Proxy": {
+            "name": "Target Slot",
+            "index": 255
+          }
+        }
+      },
+      "device": {
+        "connection_list": [
+          {
+            "typ": "RoboticArmRail",
+            "role": "None"
+          },
+          {
+            "typ": "RoboticArmRail",
+            "role": "None"
+          },
+          {
+            "typ": "PowerAndData",
+            "role": "None"
+          }
+        ],
+        "has_activate_state": true,
+        "has_atmosphere": false,
+        "has_color_state": false,
+        "has_lock_state": false,
+        "has_mode_state": false,
+        "has_on_off_state": true,
+        "has_open_state": true,
+        "has_reagents": false
+      }
+    },
+    "StructureLarreDockCollector": {
+      "templateType": "StructureLogicDevice",
+      "prefab": {
+        "prefab_name": "StructureLarreDockCollector",
+        "prefab_hash": -522428667,
+        "desc": "0.Outward\n1.Inward",
+        "name": "LARrE Dock (Collector)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "logic": {
+        "logic_slot_types": {
+          "0": {},
+          "1": {},
+          "2": {},
+          "3": {},
+          "4": {},
+          "5": {},
+          "6": {},
+          "7": {},
+          "8": {},
+          "9": {},
+          "10": {},
+          "11": {},
+          "12": {},
+          "13": {},
+          "14": {},
+          "15": {},
+          "16": {},
+          "17": {},
+          "18": {},
+          "19": {}
+        },
+        "logic_types": {
+          "Power": "Read",
+          "Open": "ReadWrite",
+          "Mode": "ReadWrite",
+          "Error": "Read",
+          "Activate": "ReadWrite",
+          "Setting": "ReadWrite",
+          "On": "ReadWrite",
+          "RequiredPower": "Read",
+          "Idle": "Read",
+          "PrefabHash": "Read",
+          "ReferenceId": "Read",
+          "Index": "Read",
+          "NameHash": "Read"
+        },
+        "modes": {
+          "0": "Outward",
+          "1": "Inward"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "<N:EN:Storage_0>",
+            "class": "None",
+            "index": 0
+          }
+        },
+        "1": {
+          "Direct": {
+            "name": "<N:EN:Storage_1>",
+            "class": "None",
+            "index": 1
+          }
+        },
+        "2": {
+          "Direct": {
+            "name": "<N:EN:Storage_2>",
+            "class": "None",
+            "index": 2
+          }
+        },
+        "3": {
+          "Direct": {
+            "name": "<N:EN:Storage_3>",
+            "class": "None",
+            "index": 3
+          }
+        },
+        "4": {
+          "Direct": {
+            "name": "<N:EN:Storage_4>",
+            "class": "None",
+            "index": 4
+          }
+        },
+        "5": {
+          "Direct": {
+            "name": "<N:EN:Storage_5>",
+            "class": "None",
+            "index": 5
+          }
+        },
+        "6": {
+          "Direct": {
+            "name": "<N:EN:Storage_6>",
+            "class": "None",
+            "index": 6
+          }
+        },
+        "7": {
+          "Direct": {
+            "name": "<N:EN:Storage_7>",
+            "class": "None",
+            "index": 7
+          }
+        },
+        "8": {
+          "Direct": {
+            "name": "<N:EN:Storage_8>",
+            "class": "None",
+            "index": 8
+          }
+        },
+        "9": {
+          "Direct": {
+            "name": "<N:EN:Storage_9>",
+            "class": "None",
+            "index": 9
+          }
+        },
+        "10": {
+          "Direct": {
+            "name": "<N:EN:Storage_10>",
+            "class": "None",
+            "index": 10
+          }
+        },
+        "11": {
+          "Direct": {
+            "name": "<N:EN:Storage_11>",
+            "class": "None",
+            "index": 11
+          }
+        },
+        "12": {
+          "Direct": {
+            "name": "<N:EN:Storage_12>",
+            "class": "None",
+            "index": 12
+          }
+        },
+        "13": {
+          "Direct": {
+            "name": "<N:EN:Storage_13>",
+            "class": "None",
+            "index": 13
+          }
+        },
+        "14": {
+          "Direct": {
+            "name": "<N:EN:Storage_14>",
+            "class": "None",
+            "index": 14
+          }
+        },
+        "15": {
+          "Direct": {
+            "name": "<N:EN:Storage_15>",
+            "class": "None",
+            "index": 15
+          }
+        },
+        "16": {
+          "Direct": {
+            "name": "<N:EN:Storage_16>",
+            "class": "None",
+            "index": 16
+          }
+        },
+        "17": {
+          "Direct": {
+            "name": "<N:EN:Storage_17>",
+            "class": "None",
+            "index": 17
+          }
+        },
+        "18": {
+          "Direct": {
+            "name": "<N:EN:Storage_18>",
+            "class": "None",
+            "index": 18
+          }
+        },
+        "19": {
+          "Direct": {
+            "name": "<N:EN:Storage_19>",
+            "class": "None",
+            "index": 19
+          }
+        }
+      },
+      "device": {
+        "connection_list": [
+          {
+            "typ": "RoboticArmRail",
+            "role": "None"
+          },
+          {
+            "typ": "RoboticArmRail",
+            "role": "None"
+          },
+          {
+            "typ": "PowerAndData",
+            "role": "None"
+          }
+        ],
+        "has_activate_state": true,
+        "has_atmosphere": false,
+        "has_color_state": false,
+        "has_lock_state": false,
+        "has_mode_state": true,
+        "has_on_off_state": true,
+        "has_open_state": true,
+        "has_reagents": false
+      }
+    },
+    "StructureLarreDockHydroponics": {
+      "templateType": "StructureLogicDevice",
+      "prefab": {
+        "prefab_name": "StructureLarreDockHydroponics",
+        "prefab_hash": 85133079,
+        "desc": "",
+        "name": "LARrE Dock (Hydroponics)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "logic": {
+        "logic_slot_types": {
+          "0": {},
+          "1": {}
+        },
+        "logic_types": {
+          "Power": "Read",
+          "Open": "ReadWrite",
+          "Error": "Read",
+          "Activate": "ReadWrite",
+          "Setting": "ReadWrite",
+          "On": "ReadWrite",
+          "RequiredPower": "Read",
+          "Idle": "Read",
+          "PrefabHash": "Read",
+          "ReferenceId": "Read",
+          "Index": "Read",
+          "NameHash": "Read",
+          "TargetSlotIndex": "Read",
+          "TargetPrefabHash": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Arm Slot",
+            "class": "None",
+            "index": 0
+          }
+        },
+        "1": {
+          "Direct": {
+            "name": "Arm Slot",
+            "class": "None",
+            "index": 1
+          }
+        },
+        "255": {
+          "Proxy": {
+            "name": "Target Slot",
+            "index": 255
+          }
+        }
+      },
+      "device": {
+        "connection_list": [
+          {
+            "typ": "RoboticArmRail",
+            "role": "None"
+          },
+          {
+            "typ": "RoboticArmRail",
+            "role": "None"
+          },
+          {
+            "typ": "PowerAndData",
+            "role": "None"
+          }
+        ],
+        "has_activate_state": true,
+        "has_atmosphere": false,
+        "has_color_state": false,
+        "has_lock_state": false,
+        "has_mode_state": false,
+        "has_on_off_state": true,
+        "has_open_state": true,
         "has_reagents": false
       }
     },
@@ -40036,7 +43488,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -40080,7 +43532,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -40124,7 +43576,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -40168,7 +43620,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -40212,7 +43664,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -40256,7 +43708,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -40304,7 +43756,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -40380,7 +43832,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -40425,7 +43877,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -40473,7 +43925,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -40516,7 +43968,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -40594,7 +44046,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -40668,7 +44120,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -40742,7 +44194,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -40816,7 +44268,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -40886,12 +44338,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Liquid Canister",
-          "typ": "LiquidCanister"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Liquid Canister",
+            "class": "LiquidCanister",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -40948,7 +44403,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -41003,7 +44458,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -41046,7 +44501,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -41101,7 +44556,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -41149,7 +44604,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -41201,7 +44656,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -41296,24 +44751,36 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -41353,7 +44820,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -41406,7 +44873,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -41459,7 +44926,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -41510,7 +44977,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -41566,7 +45033,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -41621,7 +45088,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -41675,7 +45142,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -41728,7 +45195,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -41788,7 +45255,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -41863,7 +45330,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -41912,7 +45379,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -41966,7 +45433,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -42014,7 +45481,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -42067,7 +45534,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -42120,7 +45587,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -42170,7 +45637,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -42214,7 +45681,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -42270,7 +45737,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -42327,7 +45794,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -42434,24 +45901,36 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "Export 2",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "Export 2",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "Data Disk",
-          "typ": "DataDisk"
+        "3": {
+          "Direct": {
+            "name": "Data Disk",
+            "class": "DataDisk",
+            "index": 3
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -42764,7 +46243,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -42811,7 +46290,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -42855,7 +46334,7 @@ export default {
         "wireless_logic": true,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -42912,7 +46391,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -42966,7 +46445,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -43026,7 +46505,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -43068,7 +46547,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -43119,7 +46598,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -43175,7 +46654,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -43226,7 +46705,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -43277,7 +46756,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -43351,7 +46830,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -43425,7 +46904,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -43472,7 +46951,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -43617,12 +47096,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": true
       },
-      "slots": [
-        {
-          "name": "Programmable Chip",
-          "typ": "ProgrammableChip"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Programmable Chip",
+            "class": "ProgrammableChip",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -43681,7 +47163,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -43746,16 +47228,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -43903,48 +47391,78 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 5
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "6": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 6
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "7": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 7
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "8": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 8
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "9": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 9
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -43986,7 +47504,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -44037,7 +47555,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -44081,7 +47599,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -44151,7 +47669,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -44206,7 +47724,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -44261,7 +47779,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -44533,7 +48051,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -44690,7 +48208,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -44738,7 +48256,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -44794,7 +48312,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -44929,7 +48447,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -45005,7 +48523,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -45044,7 +48562,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -45108,7 +48626,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -45147,7 +48665,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -45186,7 +48704,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -45246,16 +48764,22 @@ export default {
         "convection_factor": 0.010000001,
         "radiation_factor": 0.0005
       },
-      "slots": [
-        {
-          "name": "Plant",
-          "typ": "Plant"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 0
+          }
         },
-        {
-          "name": "Plant",
-          "typ": "Plant"
+        "1": {
+          "Direct": {
+            "name": "Plant",
+            "class": "Plant",
+            "index": 1
+          }
         }
-      ]
+      }
     },
     "StructurePlatformLadderOpen": {
       "templateType": "Structure",
@@ -45280,12 +48804,15 @@ export default {
       "structure": {
         "small_grid": true
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "StructurePortablesConnector": {
       "templateType": "StructureLogicDevice",
@@ -45325,12 +48852,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Portables",
-          "typ": "Portables"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Portables",
+            "class": "Portables",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -45387,12 +48917,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Portable Slot",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Portable Slot",
+            "class": "None",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -45449,7 +48982,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -45497,7 +49030,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -45558,7 +49091,7 @@ export default {
         "wireless_logic": true,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -45602,7 +49135,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -45642,7 +49175,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -45694,7 +49227,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -45749,7 +49282,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -45808,7 +49341,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -45864,7 +49397,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -45939,7 +49472,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -46017,7 +49550,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -46066,7 +49599,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -46111,7 +49644,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -46156,7 +49689,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -46208,7 +49741,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -46259,7 +49792,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -46329,7 +49862,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -46385,7 +49918,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -46477,16 +50010,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -46679,416 +50218,722 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
-        },
-        {
-          "name": "Export",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
+        },
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
+        },
+        "2": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 2
+          }
+        },
+        "3": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 3
+          }
+        },
+        "4": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 4
+          }
+        },
+        "5": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 5
+          }
+        },
+        "6": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 6
+          }
+        },
+        "7": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 7
+          }
+        },
+        "8": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 8
+          }
+        },
+        "9": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 9
+          }
+        },
+        "10": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 10
+          }
+        },
+        "11": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 11
+          }
+        },
+        "12": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 12
+          }
+        },
+        "13": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 13
+          }
+        },
+        "14": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 14
+          }
+        },
+        "15": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 15
+          }
+        },
+        "16": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 16
+          }
+        },
+        "17": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 17
+          }
+        },
+        "18": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 18
+          }
+        },
+        "19": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 19
+          }
+        },
+        "20": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 20
+          }
+        },
+        "21": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 21
+          }
+        },
+        "22": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 22
+          }
+        },
+        "23": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 23
+          }
+        },
+        "24": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 24
+          }
+        },
+        "25": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 25
+          }
+        },
+        "26": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 26
+          }
+        },
+        "27": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 27
+          }
+        },
+        "28": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 28
+          }
+        },
+        "29": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 29
+          }
+        },
+        "30": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 30
+          }
+        },
+        "31": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 31
+          }
+        },
+        "32": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 32
+          }
+        },
+        "33": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 33
+          }
+        },
+        "34": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 34
+          }
+        },
+        "35": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 35
+          }
+        },
+        "36": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 36
+          }
+        },
+        "37": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 37
+          }
+        },
+        "38": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 38
+          }
+        },
+        "39": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 39
+          }
+        },
+        "40": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 40
+          }
+        },
+        "41": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 41
+          }
+        },
+        "42": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 42
+          }
+        },
+        "43": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 43
+          }
+        },
+        "44": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 44
+          }
+        },
+        "45": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 45
+          }
+        },
+        "46": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 46
+          }
+        },
+        "47": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 47
+          }
+        },
+        "48": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 48
+          }
+        },
+        "49": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 49
+          }
+        },
+        "50": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 50
+          }
+        },
+        "51": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 51
+          }
+        },
+        "52": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 52
+          }
+        },
+        "53": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 53
+          }
+        },
+        "54": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 54
+          }
+        },
+        "55": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 55
+          }
+        },
+        "56": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 56
+          }
+        },
+        "57": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 57
+          }
+        },
+        "58": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 58
+          }
+        },
+        "59": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 59
+          }
+        },
+        "60": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 60
+          }
+        },
+        "61": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 61
+          }
+        },
+        "62": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 62
+          }
+        },
+        "63": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 63
+          }
+        },
+        "64": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 64
+          }
+        },
+        "65": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 65
+          }
+        },
+        "66": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 66
+          }
+        },
+        "67": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 67
+          }
+        },
+        "68": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 68
+          }
+        },
+        "69": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 69
+          }
+        },
+        "70": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 70
+          }
+        },
+        "71": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 71
+          }
+        },
+        "72": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 72
+          }
+        },
+        "73": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 73
+          }
+        },
+        "74": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 74
+          }
+        },
+        "75": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 75
+          }
+        },
+        "76": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 76
+          }
+        },
+        "77": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 77
+          }
+        },
+        "78": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 78
+          }
+        },
+        "79": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 79
+          }
+        },
+        "80": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 80
+          }
+        },
+        "81": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 81
+          }
+        },
+        "82": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 82
+          }
+        },
+        "83": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 83
+          }
+        },
+        "84": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 84
+          }
+        },
+        "85": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 85
+          }
+        },
+        "86": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 86
+          }
+        },
+        "87": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 87
+          }
+        },
+        "88": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 88
+          }
+        },
+        "89": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 89
+          }
+        },
+        "90": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 90
+          }
+        },
+        "91": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 91
+          }
+        },
+        "92": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 92
+          }
+        },
+        "93": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 93
+          }
+        },
+        "94": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 94
+          }
+        },
+        "95": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 95
+          }
+        },
+        "96": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 96
+          }
+        },
+        "97": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 97
+          }
+        },
+        "98": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 98
+          }
+        },
+        "99": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 99
+          }
+        },
+        "100": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 100
+          }
+        },
+        "101": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 101
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -47203,7 +51048,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -47267,12 +51112,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Arm Slot",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Arm Slot",
+            "class": "None",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -47455,7 +51303,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -47503,7 +51351,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -47622,12 +51470,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": true
       },
-      "slots": [
-        {
-          "name": "Programmable Chip",
-          "typ": "ProgrammableChip"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Programmable Chip",
+            "class": "ProgrammableChip",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -47701,7 +51552,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -47761,16 +51612,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "Ingot"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "Ingot",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -47825,8 +51682,459 @@ export default {
       },
       "fabricator_info": {
         "tier": "Undefined",
-        "recipes": {
-          "ItemKitAccessBridge": {
+        "recipes": [
+          {
+            "target_prefab": "ItemKitFuselage",
+            "target_prefab_hash": -366262681,
+            "tier": "TierOne",
+            "time": 120.0,
+            "energy": 60000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Steel": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitLaunchTower",
+            "target_prefab_hash": -174523552,
+            "tier": "TierOne",
+            "time": 30.0,
+            "energy": 30000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitLaunchMount",
+            "target_prefab_hash": -1854167549,
+            "tier": "TierOne",
+            "time": 240.0,
+            "energy": 120000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Steel": 60.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitChuteUmbilical",
+            "target_prefab_hash": -876560854,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 2500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 3.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitElectricUmbilical",
+            "target_prefab_hash": 1603046970,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 2500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Gold": 5.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitLiquidUmbilical",
+            "target_prefab_hash": 1571996765,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 2500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitGasUmbilical",
+            "target_prefab_hash": -1867280568,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 2500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitRocketBattery",
+            "target_prefab_hash": -314072139,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 10000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Electrum": 5.0,
+              "Solder": 5.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitRocketGasFuelTank",
+            "target_prefab_hash": -1629347579,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 5000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitRocketLiquidFuelTank",
+            "target_prefab_hash": 2032027950,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 5000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Steel": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitRocketAvionics",
+            "target_prefab_hash": 1396305045,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 2500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Electrum": 2.0,
+              "Solder": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitRocketDatalink",
+            "target_prefab_hash": -1256996603,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 2500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Electrum": 2.0,
+              "Solder": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitRocketCelestialTracker",
+            "target_prefab_hash": -303008602,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 2500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Electrum": 5.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitRocketCircuitHousing",
+            "target_prefab_hash": 721251202,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 2500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Electrum": 2.0,
+              "Solder": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitRocketCargoStorage",
+            "target_prefab_hash": 479850239,
+            "tier": "TierOne",
+            "time": 30.0,
+            "energy": 30000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Constantan": 10.0,
+              "Invar": 5.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitRocketMiner",
+            "target_prefab_hash": -867969909,
+            "tier": "TierOne",
+            "time": 60.0,
+            "energy": 60000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Constantan": 10.0,
+              "Electrum": 5.0,
+              "Invar": 5.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitAccessBridge",
+            "target_prefab_hash": 513258369,
             "tier": "TierOne",
             "time": 30.0,
             "energy": 9000.0,
@@ -47853,10 +52161,67 @@ export default {
               "Steel": 10.0
             }
           },
-          "ItemKitChuteUmbilical": {
+          {
+            "target_prefab": "ItemKitStairwell",
+            "target_prefab_hash": -1868555784,
             "tier": "TierOne",
-            "time": 5.0,
-            "energy": 2500.0,
+            "time": 20.0,
+            "energy": 6000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 15.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitRocketScanner",
+            "target_prefab_hash": 1753647154,
+            "tier": "TierOne",
+            "time": 60.0,
+            "energy": 60000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 10.0,
+              "Gold": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemRocketScanningHead",
+            "target_prefab_hash": -1198702771,
+            "tier": "TierOne",
+            "time": 60.0,
+            "energy": 60000.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -47876,39 +52241,15 @@ export default {
             "count_types": 2,
             "reagents": {
               "Copper": 3.0,
-              "Steel": 10.0
+              "Gold": 2.0
             }
           },
-          "ItemKitElectricUmbilical": {
+          {
+            "target_prefab": "ItemRocketMiningDrillHead",
+            "target_prefab_hash": 2109945337,
             "tier": "TierOne",
-            "time": 5.0,
-            "energy": 2500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Gold": 5.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemKitFuselage": {
-            "tier": "TierOne",
-            "time": 120.0,
-            "energy": 60000.0,
+            "time": 30.0,
+            "energy": 5000.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -47927,13 +52268,15 @@ export default {
             },
             "count_types": 1,
             "reagents": {
-              "Steel": 20.0
+              "Iron": 20.0
             }
           },
-          "ItemKitGasUmbilical": {
+          {
+            "target_prefab": "ItemRocketMiningDrillHeadMineral",
+            "target_prefab_hash": 1083675581,
             "tier": "TierOne",
-            "time": 5.0,
-            "energy": 2500.0,
+            "time": 30.0,
+            "energy": 5000.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -47952,11 +52295,153 @@ export default {
             },
             "count_types": 2,
             "reagents": {
-              "Copper": 5.0,
-              "Steel": 5.0
+              "Iron": 10.0,
+              "Steel": 10.0
             }
           },
-          "ItemKitGovernedGasRocketEngine": {
+          {
+            "target_prefab": "ItemRocketMiningDrillHeadIce",
+            "target_prefab_hash": -380904592,
+            "tier": "TierOne",
+            "time": 30.0,
+            "energy": 5000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Iron": 10.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemRocketMiningDrillHeadDurable",
+            "target_prefab_hash": 1530764483,
+            "tier": "TierOne",
+            "time": 30.0,
+            "energy": 5000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Iron": 10.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemRocketMiningDrillHeadLongTerm",
+            "target_prefab_hash": -684020753,
+            "tier": "TierOne",
+            "time": 30.0,
+            "energy": 5000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Invar": 5.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemRocketMiningDrillHeadHighSpeedIce",
+            "target_prefab_hash": 653461728,
+            "tier": "TierOne",
+            "time": 30.0,
+            "energy": 5000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Invar": 5.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemRocketMiningDrillHeadHighSpeedMineral",
+            "target_prefab_hash": 1440678625,
+            "tier": "TierOne",
+            "time": 30.0,
+            "energy": 5000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Invar": 5.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitGovernedGasRocketEngine",
+            "target_prefab_hash": 206848766,
             "tier": "TierOne",
             "time": 60.0,
             "energy": 60000.0,
@@ -47983,83 +52468,9 @@ export default {
               "Iron": 15.0
             }
           },
-          "ItemKitLaunchMount": {
-            "tier": "TierOne",
-            "time": 240.0,
-            "energy": 120000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Steel": 60.0
-            }
-          },
-          "ItemKitLaunchTower": {
-            "tier": "TierOne",
-            "time": 30.0,
-            "energy": 30000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Steel": 10.0
-            }
-          },
-          "ItemKitLiquidUmbilical": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 2500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemKitPressureFedGasEngine": {
+          {
+            "target_prefab": "ItemKitPressureFedGasEngine",
+            "target_prefab_hash": -121514007,
             "tier": "TierOne",
             "time": 60.0,
             "energy": 60000.0,
@@ -48087,7 +52498,9 @@ export default {
               "Steel": 20.0
             }
           },
-          "ItemKitPressureFedLiquidEngine": {
+          {
+            "target_prefab": "ItemKitPressureFedLiquidEngine",
+            "target_prefab_hash": -99091572,
             "tier": "TierOne",
             "time": 60.0,
             "energy": 60000.0,
@@ -48114,7 +52527,9 @@ export default {
               "Waspaloy": 15.0
             }
           },
-          "ItemKitPumpedLiquidEngine": {
+          {
+            "target_prefab": "ItemKitPumpedLiquidEngine",
+            "target_prefab_hash": 1921918951,
             "tier": "TierOne",
             "time": 60.0,
             "energy": 60000.0,
@@ -48141,271 +52556,9 @@ export default {
               "Steel": 15.0
             }
           },
-          "ItemKitRocketAvionics": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 2500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Electrum": 2.0,
-              "Solder": 3.0
-            }
-          },
-          "ItemKitRocketBattery": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 10000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Electrum": 5.0,
-              "Solder": 5.0,
-              "Steel": 10.0
-            }
-          },
-          "ItemKitRocketCargoStorage": {
-            "tier": "TierOne",
-            "time": 30.0,
-            "energy": 30000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Constantan": 10.0,
-              "Invar": 5.0,
-              "Steel": 10.0
-            }
-          },
-          "ItemKitRocketCelestialTracker": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 2500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Electrum": 5.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemKitRocketCircuitHousing": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 2500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Electrum": 2.0,
-              "Solder": 3.0
-            }
-          },
-          "ItemKitRocketDatalink": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 2500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Electrum": 2.0,
-              "Solder": 3.0
-            }
-          },
-          "ItemKitRocketGasFuelTank": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 5000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Steel": 10.0
-            }
-          },
-          "ItemKitRocketLiquidFuelTank": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 5000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Steel": 20.0
-            }
-          },
-          "ItemKitRocketMiner": {
-            "tier": "TierOne",
-            "time": 60.0,
-            "energy": 60000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Constantan": 10.0,
-              "Electrum": 5.0,
-              "Invar": 5.0,
-              "Steel": 10.0
-            }
-          },
-          "ItemKitRocketScanner": {
-            "tier": "TierOne",
-            "time": 60.0,
-            "energy": 60000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 10.0,
-              "Gold": 10.0
-            }
-          },
-          "ItemKitRocketTransformerSmall": {
+          {
+            "target_prefab": "ItemKitRocketTransformerSmall",
+            "target_prefab_hash": -932335800,
             "tier": "TierOne",
             "time": 60.0,
             "energy": 12000.0,
@@ -48430,240 +52583,8 @@ export default {
               "Electrum": 5.0,
               "Steel": 10.0
             }
-          },
-          "ItemKitStairwell": {
-            "tier": "TierOne",
-            "time": 20.0,
-            "energy": 6000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 15.0
-            }
-          },
-          "ItemRocketMiningDrillHead": {
-            "tier": "TierOne",
-            "time": 30.0,
-            "energy": 5000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 20.0
-            }
-          },
-          "ItemRocketMiningDrillHeadDurable": {
-            "tier": "TierOne",
-            "time": 30.0,
-            "energy": 5000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Iron": 10.0,
-              "Steel": 10.0
-            }
-          },
-          "ItemRocketMiningDrillHeadHighSpeedIce": {
-            "tier": "TierOne",
-            "time": 30.0,
-            "energy": 5000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Invar": 5.0,
-              "Steel": 10.0
-            }
-          },
-          "ItemRocketMiningDrillHeadHighSpeedMineral": {
-            "tier": "TierOne",
-            "time": 30.0,
-            "energy": 5000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Invar": 5.0,
-              "Steel": 10.0
-            }
-          },
-          "ItemRocketMiningDrillHeadIce": {
-            "tier": "TierOne",
-            "time": 30.0,
-            "energy": 5000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Iron": 10.0,
-              "Steel": 10.0
-            }
-          },
-          "ItemRocketMiningDrillHeadLongTerm": {
-            "tier": "TierOne",
-            "time": 30.0,
-            "energy": 5000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Invar": 5.0,
-              "Steel": 10.0
-            }
-          },
-          "ItemRocketMiningDrillHeadMineral": {
-            "tier": "TierOne",
-            "time": 30.0,
-            "energy": 5000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Iron": 10.0,
-              "Steel": 10.0
-            }
-          },
-          "ItemRocketScanningHead": {
-            "tier": "TierOne",
-            "time": 60.0,
-            "energy": 60000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 3.0,
-              "Gold": 2.0
-            }
           }
-        }
+        ]
       },
       "memory": {
         "instructions": {
@@ -49049,16 +52970,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Export",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "Drill Head Slot",
-          "typ": "DrillHead"
+        "1": {
+          "Direct": {
+            "name": "Drill Head Slot",
+            "class": "DrillHead",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -49109,12 +53036,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Scanner Head Slot",
-          "typ": "ScanningHead"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Scanner Head Slot",
+            "class": "ScanningHead",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -49174,7 +53104,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -49239,12 +53169,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -49294,12 +53227,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -49366,16 +53302,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -49446,7 +53388,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -49506,16 +53448,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "Ingot"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "Ingot",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -49570,332 +53518,10 @@ export default {
       },
       "fabricator_info": {
         "tier": "Undefined",
-        "recipes": {
-          "AccessCardBlack": {
-            "tier": "TierOne",
-            "time": 2.0,
-            "energy": 200.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 1.0,
-              "Gold": 1.0,
-              "Iron": 1.0
-            }
-          },
-          "AccessCardBlue": {
-            "tier": "TierOne",
-            "time": 2.0,
-            "energy": 200.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 1.0,
-              "Gold": 1.0,
-              "Iron": 1.0
-            }
-          },
-          "AccessCardBrown": {
-            "tier": "TierOne",
-            "time": 2.0,
-            "energy": 200.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 1.0,
-              "Gold": 1.0,
-              "Iron": 1.0
-            }
-          },
-          "AccessCardGray": {
-            "tier": "TierOne",
-            "time": 2.0,
-            "energy": 200.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 1.0,
-              "Gold": 1.0,
-              "Iron": 1.0
-            }
-          },
-          "AccessCardGreen": {
-            "tier": "TierOne",
-            "time": 2.0,
-            "energy": 200.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 1.0,
-              "Gold": 1.0,
-              "Iron": 1.0
-            }
-          },
-          "AccessCardKhaki": {
-            "tier": "TierOne",
-            "time": 2.0,
-            "energy": 200.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 1.0,
-              "Gold": 1.0,
-              "Iron": 1.0
-            }
-          },
-          "AccessCardOrange": {
-            "tier": "TierOne",
-            "time": 2.0,
-            "energy": 200.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 1.0,
-              "Gold": 1.0,
-              "Iron": 1.0
-            }
-          },
-          "AccessCardPink": {
-            "tier": "TierOne",
-            "time": 2.0,
-            "energy": 200.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 1.0,
-              "Gold": 1.0,
-              "Iron": 1.0
-            }
-          },
-          "AccessCardPurple": {
-            "tier": "TierOne",
-            "time": 2.0,
-            "energy": 200.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 1.0,
-              "Gold": 1.0,
-              "Iron": 1.0
-            }
-          },
-          "AccessCardRed": {
-            "tier": "TierOne",
-            "time": 2.0,
-            "energy": 200.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 1.0,
-              "Gold": 1.0,
-              "Iron": 1.0
-            }
-          },
-          "AccessCardWhite": {
-            "tier": "TierOne",
-            "time": 2.0,
-            "energy": 200.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 1.0,
-              "Gold": 1.0,
-              "Iron": 1.0
-            }
-          },
-          "AccessCardYellow": {
-            "tier": "TierOne",
-            "time": 2.0,
-            "energy": 200.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 1.0,
-              "Gold": 1.0,
-              "Iron": 1.0
-            }
-          },
-          "CartridgeAccessController": {
+        "recipes": [
+          {
+            "target_prefab": "CartridgeAccessController",
+            "target_prefab_hash": -1634532552,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 100.0,
@@ -49922,7 +53548,357 @@ export default {
               "Iron": 1.0
             }
           },
-          "FireArmSMG": {
+          {
+            "target_prefab": "AccessCardBlack",
+            "target_prefab_hash": -1330388999,
+            "tier": "TierOne",
+            "time": 2.0,
+            "energy": 200.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 1.0,
+              "Gold": 1.0,
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "AccessCardBlue",
+            "target_prefab_hash": -1411327657,
+            "tier": "TierOne",
+            "time": 2.0,
+            "energy": 200.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 1.0,
+              "Gold": 1.0,
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "AccessCardBrown",
+            "target_prefab_hash": 1412428165,
+            "tier": "TierOne",
+            "time": 2.0,
+            "energy": 200.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 1.0,
+              "Gold": 1.0,
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "AccessCardGray",
+            "target_prefab_hash": -1339479035,
+            "tier": "TierOne",
+            "time": 2.0,
+            "energy": 200.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 1.0,
+              "Gold": 1.0,
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "AccessCardGreen",
+            "target_prefab_hash": -374567952,
+            "tier": "TierOne",
+            "time": 2.0,
+            "energy": 200.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 1.0,
+              "Gold": 1.0,
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "AccessCardKhaki",
+            "target_prefab_hash": 337035771,
+            "tier": "TierOne",
+            "time": 2.0,
+            "energy": 200.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 1.0,
+              "Gold": 1.0,
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "AccessCardOrange",
+            "target_prefab_hash": -332896929,
+            "tier": "TierOne",
+            "time": 2.0,
+            "energy": 200.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 1.0,
+              "Gold": 1.0,
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "AccessCardPink",
+            "target_prefab_hash": 431317557,
+            "tier": "TierOne",
+            "time": 2.0,
+            "energy": 200.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 1.0,
+              "Gold": 1.0,
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "AccessCardPurple",
+            "target_prefab_hash": 459843265,
+            "tier": "TierOne",
+            "time": 2.0,
+            "energy": 200.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 1.0,
+              "Gold": 1.0,
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "AccessCardRed",
+            "target_prefab_hash": -1713748313,
+            "tier": "TierOne",
+            "time": 2.0,
+            "energy": 200.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 1.0,
+              "Gold": 1.0,
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "AccessCardWhite",
+            "target_prefab_hash": 2079959157,
+            "tier": "TierOne",
+            "time": 2.0,
+            "energy": 200.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 1.0,
+              "Gold": 1.0,
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "AccessCardYellow",
+            "target_prefab_hash": 568932536,
+            "tier": "TierOne",
+            "time": 2.0,
+            "energy": 200.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 1.0,
+              "Gold": 1.0,
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "Handgun",
+            "target_prefab_hash": 247238062,
             "tier": "TierOne",
             "time": 120.0,
             "energy": 3000.0,
@@ -49948,33 +53924,9 @@ export default {
               "Steel": 30.0
             }
           },
-          "Handgun": {
-            "tier": "TierOne",
-            "time": 120.0,
-            "energy": 3000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Nickel": 10.0,
-              "Steel": 30.0
-            }
-          },
-          "HandgunMagazine": {
+          {
+            "target_prefab": "HandgunMagazine",
+            "target_prefab_hash": 1254383185,
             "tier": "TierOne",
             "time": 60.0,
             "energy": 500.0,
@@ -50001,7 +53953,9 @@ export default {
               "Steel": 3.0
             }
           },
-          "ItemAmmoBox": {
+          {
+            "target_prefab": "ItemAmmoBox",
+            "target_prefab_hash": -9559091,
             "tier": "TierOne",
             "time": 120.0,
             "energy": 3000.0,
@@ -50028,34 +53982,9 @@ export default {
               "Steel": 30.0
             }
           },
-          "ItemExplosive": {
-            "tier": "TierTwo",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Electrum": 1.0,
-              "Silicon": 3.0,
-              "Solder": 1.0
-            }
-          },
-          "ItemGrenade": {
+          {
+            "target_prefab": "ItemGrenade",
+            "target_prefab_hash": 1544275894,
             "tier": "TierOne",
             "time": 90.0,
             "energy": 2900.0,
@@ -50083,7 +54012,38 @@ export default {
               "Steel": 25.0
             }
           },
-          "ItemMiningCharge": {
+          {
+            "target_prefab": "ItemExplosive",
+            "target_prefab_hash": 235361649,
+            "tier": "TierTwo",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Electrum": 1.0,
+              "Silicon": 3.0,
+              "Solder": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemMiningCharge",
+            "target_prefab_hash": 15829510,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 200.0,
@@ -50110,34 +54070,9 @@ export default {
               "Silicon": 3.0
             }
           },
-          "SMGMagazine": {
-            "tier": "TierOne",
-            "time": 60.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 3.0,
-              "Lead": 1.0,
-              "Steel": 3.0
-            }
-          },
-          "WeaponPistolEnergy": {
+          {
+            "target_prefab": "WeaponPistolEnergy",
+            "target_prefab_hash": -385323479,
             "tier": "TierTwo",
             "time": 120.0,
             "energy": 3000.0,
@@ -50165,7 +54100,9 @@ export default {
               "Steel": 10.0
             }
           },
-          "WeaponRifleEnergy": {
+          {
+            "target_prefab": "WeaponRifleEnergy",
+            "target_prefab_hash": 1154745374,
             "tier": "TierTwo",
             "time": 240.0,
             "energy": 10000.0,
@@ -50194,8 +54131,65 @@ export default {
               "Solder": 10.0,
               "Steel": 20.0
             }
+          },
+          {
+            "target_prefab": "FireArmSMG",
+            "target_prefab_hash": -86315541,
+            "tier": "TierOne",
+            "time": 120.0,
+            "energy": 3000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Nickel": 10.0,
+              "Steel": 30.0
+            }
+          },
+          {
+            "target_prefab": "SMGMagazine",
+            "target_prefab_hash": -256607540,
+            "tier": "TierOne",
+            "time": 60.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 3.0,
+              "Lead": 1.0,
+              "Steel": 3.0
+            }
           }
-        }
+        ]
       },
       "memory": {
         "instructions": {
@@ -50557,28 +54551,43 @@ export default {
       "structure": {
         "small_grid": true
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 4
+          }
         }
-      ]
+      }
     },
     "StructureShelfMedium": {
       "templateType": "StructureLogicDevice",
@@ -50769,68 +54778,113 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 5
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "6": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 6
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "7": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 7
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "8": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 8
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "9": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 9
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "10": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 10
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "11": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 11
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "12": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 12
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "13": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 13
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "14": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 14
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -50890,16 +54944,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -51047,48 +55107,78 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 5
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "6": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 6
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "7": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 7
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "8": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 8
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "9": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 9
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -51128,7 +55218,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -51177,7 +55267,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -51229,7 +55319,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -51264,7 +55354,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -51311,12 +55401,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Bed",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Bed",
+            "class": "Entity",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -51378,12 +55471,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Bed",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Bed",
+            "class": "Entity",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -51454,12 +55550,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Player",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Player",
+            "class": "Entity",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -51530,12 +55629,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Player",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Player",
+            "class": "Entity",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -51606,12 +55708,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Player",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Player",
+            "class": "Entity",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -51668,12 +55773,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Player",
-          "typ": "Entity"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Player",
+            "class": "Entity",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -51720,7 +55828,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -51767,7 +55875,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -51814,7 +55922,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -51877,7 +55985,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -52010,7 +56118,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -52055,7 +56163,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -52100,7 +56208,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -52145,7 +56253,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -52194,7 +56302,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -52243,7 +56351,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -52288,7 +56396,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -52333,7 +56441,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -52394,12 +56502,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Input",
-          "typ": "Ore"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Input",
+            "class": "Ore",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -52515,24 +56626,36 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "Export 2",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "Export 2",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "Data Disk",
-          "typ": "DataDisk"
+        "3": {
+          "Direct": {
+            "name": "Data Disk",
+            "class": "DataDisk",
+            "index": 3
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -52634,20 +56757,29 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "Processing",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "Processing",
+            "class": "None",
+            "index": 2
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -52745,20 +56877,29 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 2
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -52977,12 +57118,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Gas Canister",
-          "typ": "GasCanister"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Gas Canister",
+            "class": "GasCanister",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -53367,128 +57511,218 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "2": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 2
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "3": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 3
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "4": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 4
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "5": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 5
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "6": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 6
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "7": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 7
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "8": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 8
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "9": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 9
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "10": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 10
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "11": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 11
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "12": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 12
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "13": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 13
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "14": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 14
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "15": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 15
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "16": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 16
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "17": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 17
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "18": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 18
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "19": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 19
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "20": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 20
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "21": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 21
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "22": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 22
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "23": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 23
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "24": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 24
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "25": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 25
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "26": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 26
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "27": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 27
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "28": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 28
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "29": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 29
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -53578,20 +57812,29 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Helmet",
-          "typ": "Helmet"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Helmet",
+            "class": "Helmet",
+            "index": 0
+          }
         },
-        {
-          "name": "Suit",
-          "typ": "Suit"
+        "1": {
+          "Direct": {
+            "name": "Suit",
+            "class": "Suit",
+            "index": 1
+          }
         },
-        {
-          "name": "Back",
-          "typ": "Back"
+        "2": {
+          "Direct": {
+            "name": "Back",
+            "class": "Back",
+            "index": 2
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -53678,7 +57921,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -53753,7 +57996,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -53790,12 +58033,15 @@ export default {
         "convection_factor": 0.010000001,
         "radiation_factor": 0.0005
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "StructureTankConnectorLiquid": {
       "templateType": "StructureSlots",
@@ -53812,12 +58058,15 @@ export default {
         "convection_factor": 0.010000001,
         "radiation_factor": 0.0005
       },
-      "slots": [
-        {
-          "name": "Portable Slot",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Portable Slot",
+            "class": "None",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "StructureTankSmall": {
       "templateType": "StructureLogicDevice",
@@ -53872,7 +58121,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -53947,7 +58196,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -54022,7 +58271,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -54097,7 +58346,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -54157,16 +58406,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "Ingot"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "Ingot",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -54221,823 +58476,12 @@ export default {
       },
       "fabricator_info": {
         "tier": "Undefined",
-        "recipes": {
-          "FlareGun": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 2000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Iron": 10.0,
-              "Silicon": 10.0
-            }
-          },
-          "ItemAngleGrinder": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 1.0,
-              "Iron": 3.0
-            }
-          },
-          "ItemArcWelder": {
-            "tier": "TierOne",
-            "time": 30.0,
-            "energy": 2500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Electrum": 10.0,
-              "Invar": 5.0,
-              "Solder": 10.0,
-              "Steel": 10.0
-            }
-          },
-          "ItemBasketBall": {
-            "tier": "TierOne",
-            "time": 1.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 1.0
-            }
-          },
-          "ItemBeacon": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 2.0,
-              "Gold": 1.0,
-              "Iron": 2.0
-            }
-          },
-          "ItemChemLightBlue": {
-            "tier": "TierOne",
-            "time": 1.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 1.0
-            }
-          },
-          "ItemChemLightGreen": {
-            "tier": "TierOne",
-            "time": 1.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 1.0
-            }
-          },
-          "ItemChemLightRed": {
-            "tier": "TierOne",
-            "time": 1.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 1.0
-            }
-          },
-          "ItemChemLightWhite": {
-            "tier": "TierOne",
-            "time": 1.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 1.0
-            }
-          },
-          "ItemChemLightYellow": {
-            "tier": "TierOne",
-            "time": 1.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 1.0
-            }
-          },
-          "ItemClothingBagOveralls_Aus": {
+        "recipes": [
+          {
+            "target_prefab": "ItemSprayCanBlack",
+            "target_prefab_hash": -688107795,
             "tier": "TierOne",
             "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 25.0
-            }
-          },
-          "ItemClothingBagOveralls_Brazil": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 25.0
-            }
-          },
-          "ItemClothingBagOveralls_Canada": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 25.0
-            }
-          },
-          "ItemClothingBagOveralls_China": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 25.0
-            }
-          },
-          "ItemClothingBagOveralls_EU": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 25.0
-            }
-          },
-          "ItemClothingBagOveralls_France": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 25.0
-            }
-          },
-          "ItemClothingBagOveralls_Germany": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 25.0
-            }
-          },
-          "ItemClothingBagOveralls_Japan": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 25.0
-            }
-          },
-          "ItemClothingBagOveralls_Korea": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 25.0
-            }
-          },
-          "ItemClothingBagOveralls_NZ": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 25.0
-            }
-          },
-          "ItemClothingBagOveralls_Russia": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 25.0
-            }
-          },
-          "ItemClothingBagOveralls_SouthAfrica": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 25.0
-            }
-          },
-          "ItemClothingBagOveralls_UK": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 25.0
-            }
-          },
-          "ItemClothingBagOveralls_US": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 25.0
-            }
-          },
-          "ItemClothingBagOveralls_Ukraine": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 25.0
-            }
-          },
-          "ItemCrowbar": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 5.0
-            }
-          },
-          "ItemDirtCanister": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 400.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 3.0
-            }
-          },
-          "ItemDisposableBatteryCharger": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 1000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 2.0,
-              "Iron": 2.0
-            }
-          },
-          "ItemDrill": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Iron": 5.0
-            }
-          },
-          "ItemDuctTape": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 2.0
-            }
-          },
-          "ItemEvaSuit": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 2.0,
-              "Iron": 5.0
-            }
-          },
-          "ItemExplosive": {
-            "tier": "TierTwo",
-            "time": 90.0,
-            "energy": 9000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Electrum": 1.0,
-              "Silicon": 7.0,
-              "Solder": 2.0
-            }
-          },
-          "ItemFlagSmall": {
-            "tier": "TierOne",
-            "time": 1.0,
             "energy": 500.0,
             "temperature": {
               "start": 1.0,
@@ -55060,196 +58504,11 @@ export default {
               "Iron": 1.0
             }
           },
-          "ItemFlashlight": {
+          {
+            "target_prefab": "ItemSprayCanBlue",
+            "target_prefab_hash": -498464883,
             "tier": "TierOne",
-            "time": 15.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 2.0,
-              "Gold": 2.0
-            }
-          },
-          "ItemGlasses": {
-            "tier": "TierOne",
-            "time": 20.0,
-            "energy": 250.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Iron": 15.0,
-              "Silicon": 10.0
-            }
-          },
-          "ItemHardBackpack": {
-            "tier": "TierTwo",
-            "time": 30.0,
-            "energy": 1500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Astroloy": 5.0,
-              "Steel": 15.0,
-              "Stellite": 5.0
-            }
-          },
-          "ItemHardJetpack": {
-            "tier": "TierTwo",
-            "time": 40.0,
-            "energy": 1750.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Astroloy": 8.0,
-              "Steel": 20.0,
-              "Stellite": 8.0,
-              "Waspaloy": 8.0
-            }
-          },
-          "ItemHardMiningBackPack": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 1000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Invar": 1.0,
-              "Steel": 6.0
-            }
-          },
-          "ItemHardSuit": {
-            "tier": "TierTwo",
-            "time": 60.0,
-            "energy": 3000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Astroloy": 10.0,
-              "Steel": 20.0,
-              "Stellite": 2.0
-            }
-          },
-          "ItemHardsuitHelmet": {
-            "tier": "TierTwo",
-            "time": 50.0,
-            "energy": 1750.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Astroloy": 2.0,
-              "Steel": 10.0,
-              "Stellite": 2.0
-            }
-          },
-          "ItemIgniter": {
-            "tier": "TierOne",
-            "time": 1.0,
+            "time": 5.0,
             "energy": 500.0,
             "temperature": {
               "start": 1.0,
@@ -55269,13 +58528,15 @@ export default {
             },
             "count_types": 1,
             "reagents": {
-              "Copper": 3.0
+              "Iron": 1.0
             }
           },
-          "ItemJetpackBasic": {
+          {
+            "target_prefab": "ItemSprayCanBrown",
+            "target_prefab_hash": 845176977,
             "tier": "TierOne",
-            "time": 30.0,
-            "energy": 1500.0,
+            "time": 5.0,
+            "energy": 500.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -55292,16 +58553,259 @@ export default {
               "is_any_to_remove": false,
               "reagents": {}
             },
-            "count_types": 3,
+            "count_types": 1,
             "reagents": {
-              "Gold": 2.0,
-              "Lead": 5.0,
-              "Steel": 10.0
+              "Iron": 1.0
             }
           },
-          "ItemKitBasket": {
+          {
+            "target_prefab": "ItemSprayCanGreen",
+            "target_prefab_hash": -1880941852,
             "tier": "TierOne",
-            "time": 1.0,
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemSprayCanGrey",
+            "target_prefab_hash": -1645266981,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemSprayCanKhaki",
+            "target_prefab_hash": 1918456047,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemSprayCanOrange",
+            "target_prefab_hash": -158007629,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemSprayCanPink",
+            "target_prefab_hash": 1344257263,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemSprayCanPurple",
+            "target_prefab_hash": 30686509,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemSprayCanRed",
+            "target_prefab_hash": 1514393921,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemSprayCanWhite",
+            "target_prefab_hash": 498481505,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemSprayCanYellow",
+            "target_prefab_hash": 995468116,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemMKIICrowbar",
+            "target_prefab_hash": 1440775434,
+            "tier": "TierTwo",
+            "time": 10.0,
             "energy": 500.0,
             "temperature": {
               "start": 1.0,
@@ -55321,12 +58825,42 @@ export default {
             },
             "count_types": 2,
             "reagents": {
-              "Copper": 2.0,
+              "Electrum": 5.0,
               "Iron": 5.0
             }
           },
-          "ItemLabeller": {
-            "tier": "TierOne",
+          {
+            "target_prefab": "ItemMKIIWrench",
+            "target_prefab_hash": 1862001680,
+            "tier": "TierTwo",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Electrum": 3.0,
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemMKIIDuctTape",
+            "target_prefab_hash": 388774906,
+            "tier": "TierTwo",
             "time": 5.0,
             "energy": 500.0,
             "temperature": {
@@ -55347,11 +58881,13 @@ export default {
             },
             "count_types": 2,
             "reagents": {
-              "Gold": 1.0,
+              "Electrum": 1.0,
               "Iron": 2.0
             }
           },
-          "ItemMKIIAngleGrinder": {
+          {
+            "target_prefab": "ItemMKIIDrill",
+            "target_prefab_hash": 324791548,
             "tier": "TierTwo",
             "time": 10.0,
             "energy": 500.0,
@@ -55373,12 +58909,42 @@ export default {
             },
             "count_types": 3,
             "reagents": {
-              "Copper": 1.0,
-              "Electrum": 4.0,
-              "Iron": 3.0
+              "Copper": 5.0,
+              "Electrum": 5.0,
+              "Iron": 5.0
             }
           },
-          "ItemMKIIArcWelder": {
+          {
+            "target_prefab": "ItemMKIIScrewdriver",
+            "target_prefab_hash": -2015613246,
+            "tier": "TierTwo",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Electrum": 2.0,
+              "Iron": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemMKIIArcWelder",
+            "target_prefab_hash": -2061979347,
             "tier": "TierTwo",
             "time": 30.0,
             "energy": 2500.0,
@@ -55406,33 +58972,9 @@ export default {
               "Steel": 10.0
             }
           },
-          "ItemMKIICrowbar": {
-            "tier": "TierTwo",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Electrum": 5.0,
-              "Iron": 5.0
-            }
-          },
-          "ItemMKIIDrill": {
+          {
+            "target_prefab": "ItemMKIIAngleGrinder",
+            "target_prefab_hash": 240174650,
             "tier": "TierTwo",
             "time": 10.0,
             "energy": 500.0,
@@ -55454,12 +58996,14 @@ export default {
             },
             "count_types": 3,
             "reagents": {
-              "Copper": 5.0,
-              "Electrum": 5.0,
-              "Iron": 5.0
+              "Copper": 1.0,
+              "Electrum": 4.0,
+              "Iron": 3.0
             }
           },
-          "ItemMKIIDuctTape": {
+          {
+            "target_prefab": "ItemMKIIWireCutters",
+            "target_prefab_hash": -178893251,
             "tier": "TierTwo",
             "time": 5.0,
             "energy": 500.0,
@@ -55481,11 +59025,13 @@ export default {
             },
             "count_types": 2,
             "reagents": {
-              "Electrum": 1.0,
-              "Iron": 2.0
+              "Electrum": 5.0,
+              "Iron": 3.0
             }
           },
-          "ItemMKIIMiningDrill": {
+          {
+            "target_prefab": "ItemMKIIMiningDrill",
+            "target_prefab_hash": -1875271296,
             "tier": "TierTwo",
             "time": 5.0,
             "energy": 500.0,
@@ -55512,88 +59058,12 @@ export default {
               "Iron": 3.0
             }
           },
-          "ItemMKIIScrewdriver": {
+          {
+            "target_prefab": "ItemSprayGun",
+            "target_prefab_hash": 1289723966,
             "tier": "TierTwo",
             "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Electrum": 2.0,
-              "Iron": 2.0
-            }
-          },
-          "ItemMKIIWireCutters": {
-            "tier": "TierTwo",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Electrum": 5.0,
-              "Iron": 3.0
-            }
-          },
-          "ItemMKIIWrench": {
-            "tier": "TierTwo",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Electrum": 3.0,
-              "Iron": 3.0
-            }
-          },
-          "ItemMarineBodyArmor": {
-            "tier": "TierOne",
-            "time": 60.0,
-            "energy": 3000.0,
+            "energy": 2000.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -55612,66 +59082,16 @@ export default {
             },
             "count_types": 3,
             "reagents": {
-              "Nickel": 10.0,
+              "Invar": 5.0,
               "Silicon": 10.0,
-              "Steel": 20.0
+              "Steel": 10.0
             }
           },
-          "ItemMarineHelmet": {
+          {
+            "target_prefab": "ItemCrowbar",
+            "target_prefab_hash": 856108234,
             "tier": "TierOne",
-            "time": 45.0,
-            "energy": 1750.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Gold": 4.0,
-              "Silicon": 4.0,
-              "Steel": 8.0
-            }
-          },
-          "ItemMiningBackPack": {
-            "tier": "TierOne",
-            "time": 8.0,
-            "energy": 800.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 6.0
-            }
-          },
-          "ItemMiningBelt": {
-            "tier": "TierOne",
-            "time": 5.0,
+            "time": 10.0,
             "energy": 500.0,
             "temperature": {
               "start": 1.0,
@@ -55691,11 +59111,69 @@ export default {
             },
             "count_types": 1,
             "reagents": {
-              "Iron": 3.0
+              "Iron": 5.0
             }
           },
-          "ItemMiningBeltMKII": {
-            "tier": "TierTwo",
+          {
+            "target_prefab": "ItemWearLamp",
+            "target_prefab_hash": -598730959,
+            "tier": "TierOne",
+            "time": 15.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 2.0,
+              "Gold": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemFlashlight",
+            "target_prefab_hash": -838472102,
+            "tier": "TierOne",
+            "time": 15.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 2.0,
+              "Gold": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemDisposableBatteryCharger",
+            "target_prefab_hash": -2124435700,
+            "tier": "TierOne",
             "time": 10.0,
             "energy": 1000.0,
             "temperature": {
@@ -55714,13 +59192,437 @@ export default {
               "is_any_to_remove": false,
               "reagents": {}
             },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 2.0,
+              "Iron": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemBeacon",
+            "target_prefab_hash": -869869491,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 2.0,
+              "Gold": 1.0,
+              "Iron": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemWrench",
+            "target_prefab_hash": -1886261558,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemDuctTape",
+            "target_prefab_hash": -1943134693,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemDrill",
+            "target_prefab_hash": 2009673399,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
             "count_types": 2,
             "reagents": {
-              "Constantan": 5.0,
+              "Copper": 5.0,
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ToyLuna",
+            "target_prefab_hash": 94730034,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Gold": 1.0,
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemScrewdriver",
+            "target_prefab_hash": 687940869,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemArcWelder",
+            "target_prefab_hash": 1385062886,
+            "tier": "TierOne",
+            "time": 30.0,
+            "energy": 2500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Electrum": 10.0,
+              "Invar": 5.0,
+              "Solder": 10.0,
               "Steel": 10.0
             }
           },
-          "ItemMiningCharge": {
+          {
+            "target_prefab": "ItemWeldingTorch",
+            "target_prefab_hash": -2066892079,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 1.0,
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemAngleGrinder",
+            "target_prefab_hash": 201215010,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 1.0,
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemTerrainManipulator",
+            "target_prefab_hash": 111280987,
+            "tier": "TierOne",
+            "time": 15.0,
+            "energy": 600.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 3.0,
+              "Gold": 2.0,
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemDirtCanister",
+            "target_prefab_hash": 902565329,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 400.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemWireCutters",
+            "target_prefab_hash": 1535854074,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemLabeller",
+            "target_prefab_hash": -743968726,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Gold": 1.0,
+              "Iron": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemRemoteDetonator",
+            "target_prefab_hash": 678483886,
+            "tier": "TierTwo",
+            "time": 30.0,
+            "energy": 1500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 5.0,
+              "Solder": 5.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemExplosive",
+            "target_prefab_hash": 235361649,
+            "tier": "TierTwo",
+            "time": 90.0,
+            "energy": 9000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Electrum": 1.0,
+              "Silicon": 7.0,
+              "Solder": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemMiningCharge",
+            "target_prefab_hash": 15829510,
             "tier": "TierOne",
             "time": 60.0,
             "energy": 6000.0,
@@ -55747,7 +59649,9 @@ export default {
               "Silicon": 5.0
             }
           },
-          "ItemMiningDrill": {
+          {
+            "target_prefab": "ItemMiningDrill",
+            "target_prefab_hash": 1055173191,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 500.0,
@@ -55773,7 +59677,38 @@ export default {
               "Iron": 3.0
             }
           },
-          "ItemMiningDrillHeavy": {
+          {
+            "target_prefab": "ItemMiningDrillPneumatic",
+            "target_prefab_hash": 1258187304,
+            "tier": "TierOne",
+            "time": 20.0,
+            "energy": 2000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 4.0,
+              "Solder": 4.0,
+              "Steel": 6.0
+            }
+          },
+          {
+            "target_prefab": "ItemMiningDrillHeavy",
+            "target_prefab_hash": -1663349918,
             "tier": "TierTwo",
             "time": 30.0,
             "energy": 2500.0,
@@ -55801,10 +59736,206 @@ export default {
               "Steel": 10.0
             }
           },
-          "ItemMiningDrillPneumatic": {
+          {
+            "target_prefab": "ItemPickaxe",
+            "target_prefab_hash": -913649823,
             "tier": "TierOne",
-            "time": 20.0,
-            "energy": 2000.0,
+            "time": 1.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 1.0,
+              "Iron": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemMiningBelt",
+            "target_prefab_hash": -676435305,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemMiningBeltMKII",
+            "target_prefab_hash": 1470787934,
+            "tier": "TierTwo",
+            "time": 10.0,
+            "energy": 1000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Constantan": 5.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemMiningBackPack",
+            "target_prefab_hash": -1650383245,
+            "tier": "TierOne",
+            "time": 8.0,
+            "energy": 800.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 6.0
+            }
+          },
+          {
+            "target_prefab": "ItemHardMiningBackPack",
+            "target_prefab_hash": 900366130,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 1000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Invar": 1.0,
+              "Steel": 6.0
+            }
+          },
+          {
+            "target_prefab": "ItemSpaceHelmet",
+            "target_prefab_hash": 714830451,
+            "tier": "TierOne",
+            "time": 15.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 2.0,
+              "Gold": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemSpacepack",
+            "target_prefab_hash": -1260618380,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 2.0,
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemJetpackBasic",
+            "target_prefab_hash": 1969189000,
+            "tier": "TierOne",
+            "time": 30.0,
+            "energy": 1500.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -55823,12 +59954,69 @@ export default {
             },
             "count_types": 3,
             "reagents": {
-              "Copper": 4.0,
-              "Solder": 4.0,
-              "Steel": 6.0
+              "Gold": 2.0,
+              "Lead": 5.0,
+              "Steel": 10.0
             }
           },
-          "ItemMkIIToolbelt": {
+          {
+            "target_prefab": "ItemEvaSuit",
+            "target_prefab_hash": 1677018918,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 2.0,
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemToolBelt",
+            "target_prefab_hash": -355127880,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemMkIIToolbelt",
+            "target_prefab_hash": 1467558064,
             "tier": "TierTwo",
             "time": 5.0,
             "energy": 500.0,
@@ -55854,933 +60042,9 @@ export default {
               "Iron": 3.0
             }
           },
-          "ItemNVG": {
-            "tier": "TierOne",
-            "time": 45.0,
-            "energy": 2750.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Hastelloy": 10.0,
-              "Silicon": 5.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemPickaxe": {
-            "tier": "TierOne",
-            "time": 1.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 1.0,
-              "Iron": 2.0
-            }
-          },
-          "ItemPlantSampler": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Iron": 5.0
-            }
-          },
-          "ItemRemoteDetonator": {
-            "tier": "TierTwo",
-            "time": 30.0,
-            "energy": 1500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 5.0,
-              "Solder": 5.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemReusableFireExtinguisher": {
-            "tier": "TierOne",
-            "time": 20.0,
-            "energy": 1000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Steel": 5.0
-            }
-          },
-          "ItemRoadFlare": {
-            "tier": "TierOne",
-            "time": 1.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 1.0
-            }
-          },
-          "ItemScrewdriver": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 2.0
-            }
-          },
-          "ItemSensorLenses": {
-            "tier": "TierTwo",
-            "time": 45.0,
-            "energy": 3500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Inconel": 5.0,
-              "Silicon": 5.0,
-              "Steel": 5.0
-            }
-          },
-          "ItemSensorProcessingUnitCelestialScanner": {
-            "tier": "TierTwo",
-            "time": 15.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0,
-              "Iron": 5.0,
-              "Silicon": 5.0
-            }
-          },
-          "ItemSensorProcessingUnitMesonScanner": {
-            "tier": "TierTwo",
-            "time": 15.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0,
-              "Iron": 5.0,
-              "Silicon": 5.0
-            }
-          },
-          "ItemSensorProcessingUnitOreScanner": {
-            "tier": "TierTwo",
-            "time": 15.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0,
-              "Iron": 5.0,
-              "Silicon": 5.0
-            }
-          },
-          "ItemSpaceHelmet": {
-            "tier": "TierOne",
-            "time": 15.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 2.0,
-              "Gold": 2.0
-            }
-          },
-          "ItemSpacepack": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 2.0,
-              "Iron": 5.0
-            }
-          },
-          "ItemSprayCanBlack": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 1.0
-            }
-          },
-          "ItemSprayCanBlue": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 1.0
-            }
-          },
-          "ItemSprayCanBrown": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 1.0
-            }
-          },
-          "ItemSprayCanGreen": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 1.0
-            }
-          },
-          "ItemSprayCanGrey": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 1.0
-            }
-          },
-          "ItemSprayCanKhaki": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 1.0
-            }
-          },
-          "ItemSprayCanOrange": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 1.0
-            }
-          },
-          "ItemSprayCanPink": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 1.0
-            }
-          },
-          "ItemSprayCanPurple": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 1.0
-            }
-          },
-          "ItemSprayCanRed": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 1.0
-            }
-          },
-          "ItemSprayCanWhite": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 1.0
-            }
-          },
-          "ItemSprayCanYellow": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 1.0
-            }
-          },
-          "ItemSprayGun": {
-            "tier": "TierTwo",
-            "time": 10.0,
-            "energy": 2000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Invar": 5.0,
-              "Silicon": 10.0,
-              "Steel": 10.0
-            }
-          },
-          "ItemTerrainManipulator": {
-            "tier": "TierOne",
-            "time": 15.0,
-            "energy": 600.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 3.0,
-              "Gold": 2.0,
-              "Iron": 5.0
-            }
-          },
-          "ItemToolBelt": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 3.0
-            }
-          },
-          "ItemWearLamp": {
-            "tier": "TierOne",
-            "time": 15.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 2.0,
-              "Gold": 2.0
-            }
-          },
-          "ItemWeldingTorch": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 1.0,
-              "Iron": 3.0
-            }
-          },
-          "ItemWireCutters": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 3.0
-            }
-          },
-          "ItemWrench": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 3.0
-            }
-          },
-          "ToyLuna": {
-            "tier": "TierOne",
-            "time": 10.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Gold": 1.0,
-              "Iron": 5.0
-            }
-          },
-          "UniformCommander": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 25.0
-            }
-          },
-          "UniformMarine": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 10.0
-            }
-          },
-          "UniformOrangeJumpSuit": {
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Silicon": 10.0
-            }
-          },
-          "WeaponPistolEnergy": {
+          {
+            "target_prefab": "WeaponPistolEnergy",
+            "target_prefab_hash": -385323479,
             "tier": "TierTwo",
             "time": 120.0,
             "energy": 3000.0,
@@ -56808,7 +60072,9 @@ export default {
               "Steel": 10.0
             }
           },
-          "WeaponRifleEnergy": {
+          {
+            "target_prefab": "WeaponRifleEnergy",
+            "target_prefab_hash": 1154745374,
             "tier": "TierTwo",
             "time": 240.0,
             "energy": 10000.0,
@@ -56837,8 +60103,1199 @@ export default {
               "Solder": 10.0,
               "Steel": 20.0
             }
+          },
+          {
+            "target_prefab": "UniformCommander",
+            "target_prefab_hash": -2083426457,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 25.0
+            }
+          },
+          {
+            "target_prefab": "UniformOrangeJumpSuit",
+            "target_prefab_hash": 810053150,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 10.0
+            }
+          },
+          {
+            "target_prefab": "UniformMarine",
+            "target_prefab_hash": -48342840,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemClothingBagOveralls_Aus",
+            "target_prefab_hash": -869697826,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 25.0
+            }
+          },
+          {
+            "target_prefab": "ItemClothingBagOveralls_Brazil",
+            "target_prefab_hash": 611886665,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 25.0
+            }
+          },
+          {
+            "target_prefab": "ItemClothingBagOveralls_Canada",
+            "target_prefab_hash": 1265354377,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 25.0
+            }
+          },
+          {
+            "target_prefab": "ItemClothingBagOveralls_China",
+            "target_prefab_hash": -271773907,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 25.0
+            }
+          },
+          {
+            "target_prefab": "ItemClothingBagOveralls_EU",
+            "target_prefab_hash": 1969872429,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 25.0
+            }
+          },
+          {
+            "target_prefab": "ItemClothingBagOveralls_France",
+            "target_prefab_hash": 670416861,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 25.0
+            }
+          },
+          {
+            "target_prefab": "ItemClothingBagOveralls_Germany",
+            "target_prefab_hash": 1858014029,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 25.0
+            }
+          },
+          {
+            "target_prefab": "ItemClothingBagOveralls_Japan",
+            "target_prefab_hash": -1694123145,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 25.0
+            }
+          },
+          {
+            "target_prefab": "ItemClothingBagOveralls_Korea",
+            "target_prefab_hash": -1309808369,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 25.0
+            }
+          },
+          {
+            "target_prefab": "ItemClothingBagOveralls_NZ",
+            "target_prefab_hash": 102898295,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 25.0
+            }
+          },
+          {
+            "target_prefab": "ItemClothingBagOveralls_Russia",
+            "target_prefab_hash": 520003812,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 25.0
+            }
+          },
+          {
+            "target_prefab": "ItemClothingBagOveralls_SouthAfrica",
+            "target_prefab_hash": -265868019,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 25.0
+            }
+          },
+          {
+            "target_prefab": "ItemClothingBagOveralls_UK",
+            "target_prefab_hash": -979046113,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 25.0
+            }
+          },
+          {
+            "target_prefab": "ItemClothingBagOveralls_Ukraine",
+            "target_prefab_hash": -198158955,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 25.0
+            }
+          },
+          {
+            "target_prefab": "ItemClothingBagOveralls_US",
+            "target_prefab_hash": -691508919,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 25.0
+            }
+          },
+          {
+            "target_prefab": "ItemRoadFlare",
+            "target_prefab_hash": 871811564,
+            "tier": "TierOne",
+            "time": 1.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "FlareGun",
+            "target_prefab_hash": 118685786,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 2000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Iron": 10.0,
+              "Silicon": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemChemLightBlue",
+            "target_prefab_hash": -772542081,
+            "tier": "TierOne",
+            "time": 1.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemChemLightGreen",
+            "target_prefab_hash": -597479390,
+            "tier": "TierOne",
+            "time": 1.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemChemLightRed",
+            "target_prefab_hash": -525810132,
+            "tier": "TierOne",
+            "time": 1.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemChemLightWhite",
+            "target_prefab_hash": 1312166823,
+            "tier": "TierOne",
+            "time": 1.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemChemLightYellow",
+            "target_prefab_hash": 1224819963,
+            "tier": "TierOne",
+            "time": 1.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemIgniter",
+            "target_prefab_hash": 890106742,
+            "tier": "TierOne",
+            "time": 1.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Copper": 3.0
+            }
+          },
+          {
+            "target_prefab": "ItemHardSuit",
+            "target_prefab_hash": -1758310454,
+            "tier": "TierTwo",
+            "time": 60.0,
+            "energy": 3000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Astroloy": 10.0,
+              "Steel": 20.0,
+              "Stellite": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemReusableFireExtinguisher",
+            "target_prefab_hash": -1773192190,
+            "tier": "TierOne",
+            "time": 20.0,
+            "energy": 1000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemHardsuitHelmet",
+            "target_prefab_hash": -84573099,
+            "tier": "TierTwo",
+            "time": 50.0,
+            "energy": 1750.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Astroloy": 2.0,
+              "Steel": 10.0,
+              "Stellite": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemMarineBodyArmor",
+            "target_prefab_hash": 1399098998,
+            "tier": "TierOne",
+            "time": 60.0,
+            "energy": 3000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Nickel": 10.0,
+              "Silicon": 10.0,
+              "Steel": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemMarineHelmet",
+            "target_prefab_hash": 1073631646,
+            "tier": "TierOne",
+            "time": 45.0,
+            "energy": 1750.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Gold": 4.0,
+              "Silicon": 4.0,
+              "Steel": 8.0
+            }
+          },
+          {
+            "target_prefab": "ItemNVG",
+            "target_prefab_hash": 982514123,
+            "tier": "TierOne",
+            "time": 45.0,
+            "energy": 2750.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Hastelloy": 10.0,
+              "Silicon": 5.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemSensorLenses",
+            "target_prefab_hash": -1176140051,
+            "tier": "TierTwo",
+            "time": 45.0,
+            "energy": 3500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Inconel": 5.0,
+              "Silicon": 5.0,
+              "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemSensorProcessingUnitOreScanner",
+            "target_prefab_hash": -1219128491,
+            "tier": "TierTwo",
+            "time": 15.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 5.0,
+              "Iron": 5.0,
+              "Silicon": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemSensorProcessingUnitMesonScanner",
+            "target_prefab_hash": -1730464583,
+            "tier": "TierTwo",
+            "time": 15.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 5.0,
+              "Iron": 5.0,
+              "Silicon": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemSensorProcessingUnitCelestialScanner",
+            "target_prefab_hash": -1154200014,
+            "tier": "TierTwo",
+            "time": 15.0,
+            "energy": 100.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Copper": 5.0,
+              "Gold": 5.0,
+              "Iron": 5.0,
+              "Silicon": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemGlasses",
+            "target_prefab_hash": -1068925231,
+            "tier": "TierOne",
+            "time": 20.0,
+            "energy": 250.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Iron": 15.0,
+              "Silicon": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemHardBackpack",
+            "target_prefab_hash": 374891127,
+            "tier": "TierTwo",
+            "time": 30.0,
+            "energy": 1500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Astroloy": 5.0,
+              "Steel": 15.0,
+              "Stellite": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemHardJetpack",
+            "target_prefab_hash": -412551656,
+            "tier": "TierTwo",
+            "time": 40.0,
+            "energy": 1750.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Astroloy": 8.0,
+              "Steel": 20.0,
+              "Stellite": 8.0,
+              "Waspaloy": 8.0
+            }
+          },
+          {
+            "target_prefab": "ItemFlagSmall",
+            "target_prefab_hash": 2011191088,
+            "tier": "TierOne",
+            "time": 1.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Iron": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemBasketBall",
+            "target_prefab_hash": -1262580790,
+            "tier": "TierOne",
+            "time": 1.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 1,
+            "reagents": {
+              "Silicon": 1.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitBasket",
+            "target_prefab_hash": 148305004,
+            "tier": "TierOne",
+            "time": 1.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 2.0,
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemPlantSampler",
+            "target_prefab_hash": 173023800,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 5.0,
+              "Iron": 5.0
+            }
           }
-        }
+        ]
       },
       "memory": {
         "instructions": {
@@ -57200,40 +61657,64 @@ export default {
       "structure": {
         "small_grid": true
       },
-      "slots": [
-        {
-          "name": "Torpedo",
-          "typ": "Torpedo"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Torpedo",
+            "class": "Torpedo",
+            "index": 0
+          }
         },
-        {
-          "name": "Torpedo",
-          "typ": "Torpedo"
+        "1": {
+          "Direct": {
+            "name": "Torpedo",
+            "class": "Torpedo",
+            "index": 1
+          }
         },
-        {
-          "name": "Torpedo",
-          "typ": "Torpedo"
+        "2": {
+          "Direct": {
+            "name": "Torpedo",
+            "class": "Torpedo",
+            "index": 2
+          }
         },
-        {
-          "name": "Torpedo",
-          "typ": "Torpedo"
+        "3": {
+          "Direct": {
+            "name": "Torpedo",
+            "class": "Torpedo",
+            "index": 3
+          }
         },
-        {
-          "name": "Torpedo",
-          "typ": "Torpedo"
+        "4": {
+          "Direct": {
+            "name": "Torpedo",
+            "class": "Torpedo",
+            "index": 4
+          }
         },
-        {
-          "name": "Torpedo",
-          "typ": "Torpedo"
+        "5": {
+          "Direct": {
+            "name": "Torpedo",
+            "class": "Torpedo",
+            "index": 5
+          }
         },
-        {
-          "name": "Torpedo",
-          "typ": "Torpedo"
+        "6": {
+          "Direct": {
+            "name": "Torpedo",
+            "class": "Torpedo",
+            "index": 6
+          }
         },
-        {
-          "name": "Torpedo",
-          "typ": "Torpedo"
+        "7": {
+          "Direct": {
+            "name": "Torpedo",
+            "class": "Torpedo",
+            "index": 7
+          }
         }
-      ]
+      }
     },
     "StructureTraderWaypoint": {
       "templateType": "StructureLogicDevice",
@@ -57261,7 +61742,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -57309,7 +61790,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -57365,7 +61846,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -57417,7 +61898,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -57469,7 +61950,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -57521,7 +62002,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -57566,7 +62047,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -57623,7 +62104,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -57712,16 +62193,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "Export",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -57770,7 +62257,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -57814,7 +62301,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -57973,416 +62460,722 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "None"
-        },
-        {
-          "name": "Export",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
-        },
-        {
-          "name": "Storage",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
+        },
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
+        },
+        "2": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 2
+          }
+        },
+        "3": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 3
+          }
+        },
+        "4": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 4
+          }
+        },
+        "5": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 5
+          }
+        },
+        "6": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 6
+          }
+        },
+        "7": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 7
+          }
+        },
+        "8": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 8
+          }
+        },
+        "9": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 9
+          }
+        },
+        "10": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 10
+          }
+        },
+        "11": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 11
+          }
+        },
+        "12": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 12
+          }
+        },
+        "13": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 13
+          }
+        },
+        "14": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 14
+          }
+        },
+        "15": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 15
+          }
+        },
+        "16": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 16
+          }
+        },
+        "17": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 17
+          }
+        },
+        "18": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 18
+          }
+        },
+        "19": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 19
+          }
+        },
+        "20": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 20
+          }
+        },
+        "21": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 21
+          }
+        },
+        "22": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 22
+          }
+        },
+        "23": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 23
+          }
+        },
+        "24": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 24
+          }
+        },
+        "25": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 25
+          }
+        },
+        "26": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 26
+          }
+        },
+        "27": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 27
+          }
+        },
+        "28": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 28
+          }
+        },
+        "29": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 29
+          }
+        },
+        "30": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 30
+          }
+        },
+        "31": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 31
+          }
+        },
+        "32": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 32
+          }
+        },
+        "33": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 33
+          }
+        },
+        "34": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 34
+          }
+        },
+        "35": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 35
+          }
+        },
+        "36": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 36
+          }
+        },
+        "37": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 37
+          }
+        },
+        "38": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 38
+          }
+        },
+        "39": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 39
+          }
+        },
+        "40": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 40
+          }
+        },
+        "41": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 41
+          }
+        },
+        "42": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 42
+          }
+        },
+        "43": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 43
+          }
+        },
+        "44": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 44
+          }
+        },
+        "45": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 45
+          }
+        },
+        "46": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 46
+          }
+        },
+        "47": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 47
+          }
+        },
+        "48": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 48
+          }
+        },
+        "49": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 49
+          }
+        },
+        "50": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 50
+          }
+        },
+        "51": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 51
+          }
+        },
+        "52": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 52
+          }
+        },
+        "53": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 53
+          }
+        },
+        "54": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 54
+          }
+        },
+        "55": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 55
+          }
+        },
+        "56": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 56
+          }
+        },
+        "57": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 57
+          }
+        },
+        "58": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 58
+          }
+        },
+        "59": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 59
+          }
+        },
+        "60": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 60
+          }
+        },
+        "61": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 61
+          }
+        },
+        "62": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 62
+          }
+        },
+        "63": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 63
+          }
+        },
+        "64": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 64
+          }
+        },
+        "65": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 65
+          }
+        },
+        "66": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 66
+          }
+        },
+        "67": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 67
+          }
+        },
+        "68": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 68
+          }
+        },
+        "69": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 69
+          }
+        },
+        "70": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 70
+          }
+        },
+        "71": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 71
+          }
+        },
+        "72": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 72
+          }
+        },
+        "73": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 73
+          }
+        },
+        "74": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 74
+          }
+        },
+        "75": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 75
+          }
+        },
+        "76": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 76
+          }
+        },
+        "77": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 77
+          }
+        },
+        "78": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 78
+          }
+        },
+        "79": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 79
+          }
+        },
+        "80": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 80
+          }
+        },
+        "81": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 81
+          }
+        },
+        "82": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 82
+          }
+        },
+        "83": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 83
+          }
+        },
+        "84": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 84
+          }
+        },
+        "85": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 85
+          }
+        },
+        "86": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 86
+          }
+        },
+        "87": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 87
+          }
+        },
+        "88": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 88
+          }
+        },
+        "89": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 89
+          }
+        },
+        "90": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 90
+          }
+        },
+        "91": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 91
+          }
+        },
+        "92": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 92
+          }
+        },
+        "93": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 93
+          }
+        },
+        "94": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 94
+          }
+        },
+        "95": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 95
+          }
+        },
+        "96": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 96
+          }
+        },
+        "97": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 97
+          }
+        },
+        "98": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 98
+          }
+        },
+        "99": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 99
+          }
+        },
+        "100": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 100
+          }
+        },
+        "101": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 101
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -58442,7 +63235,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -58594,12 +63387,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "DataDisk"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "DataDisk",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -58768,12 +63564,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "DataDisk"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "DataDisk",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -58889,7 +63688,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -58947,12 +63746,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -59301,16 +64103,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Bottle Slot",
-          "typ": "LiquidBottle"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Bottle Slot",
+            "class": "LiquidBottle",
+            "index": 0
+          }
         },
-        {
-          "name": "Bottle Slot",
-          "typ": "LiquidBottle"
+        "1": {
+          "Direct": {
+            "name": "Bottle Slot",
+            "class": "LiquidBottle",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -59383,16 +64191,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Bottle Slot",
-          "typ": "LiquidBottle"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Bottle Slot",
+            "class": "LiquidBottle",
+            "index": 0
+          }
         },
-        {
-          "name": "Bottle Slot",
-          "typ": "LiquidBottle"
+        "1": {
+          "Direct": {
+            "name": "Bottle Slot",
+            "class": "LiquidBottle",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -59468,16 +64282,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Bottle Slot",
-          "typ": "LiquidBottle"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Bottle Slot",
+            "class": "LiquidBottle",
+            "index": 0
+          }
         },
-        {
-          "name": "Bottle Slot",
-          "typ": "LiquidBottle"
+        "1": {
+          "Direct": {
+            "name": "Bottle Slot",
+            "class": "LiquidBottle",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -59557,16 +64377,22 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Bottle Slot",
-          "typ": "LiquidBottle"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Bottle Slot",
+            "class": "LiquidBottle",
+            "index": 0
+          }
         },
-        {
-          "name": "Bottle Slot",
-          "typ": "LiquidBottle"
+        "1": {
+          "Direct": {
+            "name": "Bottle Slot",
+            "class": "LiquidBottle",
+            "index": 1
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -59618,7 +64444,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -59666,7 +64492,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [],
         "has_activate_state": false,
@@ -59710,12 +64536,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Import",
-          "typ": "Ore"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "Ore",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -59797,12 +64626,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "DataDisk"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "DataDisk",
+            "index": 0
+          }
         }
-      ],
+      },
       "device": {
         "connection_list": [
           {
@@ -59859,7 +64691,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -59904,7 +64736,7 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [],
+      "slots": {},
       "device": {
         "connection_list": [
           {
@@ -59973,28 +64805,43 @@ export default {
         "slot_class": "Uniform",
         "sorting_class": "Clothing"
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "Access Card",
-          "typ": "AccessCard"
+        "2": {
+          "Direct": {
+            "name": "Access Card",
+            "class": "AccessCard",
+            "index": 2
+          }
         },
-        {
-          "name": "Access Card",
-          "typ": "AccessCard"
+        "3": {
+          "Direct": {
+            "name": "Access Card",
+            "class": "AccessCard",
+            "index": 3
+          }
         },
-        {
-          "name": "Credit Card",
-          "typ": "CreditCard"
+        "4": {
+          "Direct": {
+            "name": "Credit Card",
+            "class": "CreditCard",
+            "index": 4
+          }
         }
-      ]
+      }
     },
     "UniformMarine": {
       "templateType": "ItemSlots",
@@ -60011,24 +64858,36 @@ export default {
         "slot_class": "Uniform",
         "sorting_class": "Clothing"
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "Access Card",
-          "typ": "AccessCard"
+        "2": {
+          "Direct": {
+            "name": "Access Card",
+            "class": "AccessCard",
+            "index": 2
+          }
         },
-        {
-          "name": "Credit Card",
-          "typ": "CreditCard"
+        "3": {
+          "Direct": {
+            "name": "Credit Card",
+            "class": "CreditCard",
+            "index": 3
+          }
         }
-      ]
+      }
     },
     "UniformOrangeJumpSuit": {
       "templateType": "ItemSlots",
@@ -60045,24 +64904,36 @@ export default {
         "slot_class": "Uniform",
         "sorting_class": "Clothing"
       },
-      "slots": [
-        {
-          "name": "",
-          "typ": "None"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 0
+          }
         },
-        {
-          "name": "",
-          "typ": "None"
+        "1": {
+          "Direct": {
+            "name": "",
+            "class": "None",
+            "index": 1
+          }
         },
-        {
-          "name": "Access Card",
-          "typ": "AccessCard"
+        "2": {
+          "Direct": {
+            "name": "Access Card",
+            "class": "AccessCard",
+            "index": 2
+          }
         },
-        {
-          "name": "Credit Card",
-          "typ": "CreditCard"
+        "3": {
+          "Direct": {
+            "name": "Credit Card",
+            "class": "CreditCard",
+            "index": 3
+          }
         }
-      ]
+      }
     },
     "WeaponEnergy": {
       "templateType": "ItemLogic",
@@ -60101,12 +64972,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "WeaponPistolEnergy": {
       "templateType": "ItemLogic",
@@ -60154,12 +65028,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "WeaponRifleEnergy": {
       "templateType": "ItemLogic",
@@ -60207,12 +65084,15 @@ export default {
         "wireless_logic": false,
         "circuit_holder": false
       },
-      "slots": [
-        {
-          "name": "Battery",
-          "typ": "Battery"
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
         }
-      ]
+      }
     },
     "WeaponTorpedo": {
       "templateType": "Item",
@@ -60233,330 +65113,468 @@ export default {
   },
   "reagents": {
     "Alcohol": {
-      "Hash": 1565803737,
-      "Unit": "ml"
+      "id": 20,
+      "name": "Alcohol",
+      "hash": 1565803737,
+      "unit": "ml",
+      "is_organic": true,
+      "sources": {}
     },
     "Astroloy": {
-      "Hash": -1493155787,
-      "Unit": "g",
-      "Sources": {
+      "id": 36,
+      "name": "Astroloy",
+      "hash": -1493155787,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemAstroloyIngot": 1.0
       }
     },
     "Biomass": {
-      "Hash": 925270362,
-      "Unit": "",
-      "Sources": {
+      "id": 40,
+      "name": "Biomass",
+      "hash": 925270362,
+      "unit": "",
+      "is_organic": true,
+      "sources": {
         "ItemBiomass": 1.0
       }
     },
     "Carbon": {
-      "Hash": 1582746610,
-      "Unit": "g",
-      "Sources": {
+      "id": 5,
+      "name": "Carbon",
+      "hash": 1582746610,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "HumanSkull": 1.0,
         "ItemCharcoal": 1.0
       }
     },
     "Cobalt": {
-      "Hash": 1702246124,
-      "Unit": "g",
-      "Sources": {
+      "id": 37,
+      "name": "Cobalt",
+      "hash": 1702246124,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemCobaltOre": 1.0
       }
     },
     "Cocoa": {
-      "Hash": 678781198,
-      "Unit": "g",
-      "Sources": {
+      "id": 44,
+      "name": "Cocoa",
+      "hash": 678781198,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemCocoaPowder": 1.0,
         "ItemCocoaTree": 1.0
       }
     },
     "ColorBlue": {
-      "Hash": 557517660,
-      "Unit": "g",
-      "Sources": {
+      "id": 27,
+      "name": "ColorBlue",
+      "hash": 557517660,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ReagentColorBlue": 10.0
       }
     },
     "ColorGreen": {
-      "Hash": 2129955242,
-      "Unit": "g",
-      "Sources": {
+      "id": 26,
+      "name": "ColorGreen",
+      "hash": 2129955242,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ReagentColorGreen": 10.0
       }
     },
     "ColorOrange": {
-      "Hash": 1728153015,
-      "Unit": "g",
-      "Sources": {
+      "id": 29,
+      "name": "ColorOrange",
+      "hash": 1728153015,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ReagentColorOrange": 10.0
       }
     },
     "ColorRed": {
-      "Hash": 667001276,
-      "Unit": "g",
-      "Sources": {
+      "id": 25,
+      "name": "ColorRed",
+      "hash": 667001276,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ReagentColorRed": 10.0
       }
     },
     "ColorYellow": {
-      "Hash": -1430202288,
-      "Unit": "g",
-      "Sources": {
+      "id": 28,
+      "name": "ColorYellow",
+      "hash": -1430202288,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ReagentColorYellow": 10.0
       }
     },
     "Constantan": {
-      "Hash": 1731241392,
-      "Unit": "g",
-      "Sources": {
+      "id": 15,
+      "name": "Constantan",
+      "hash": 1731241392,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemConstantanIngot": 1.0
       }
     },
     "Copper": {
-      "Hash": -1172078909,
-      "Unit": "g",
-      "Sources": {
+      "id": 7,
+      "name": "Copper",
+      "hash": -1172078909,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemCopperIngot": 1.0,
         "ItemCopperOre": 1.0
       }
     },
     "Corn": {
-      "Hash": 1550709753,
-      "Unit": "",
-      "Sources": {
+      "id": 38,
+      "name": "Corn",
+      "hash": 1550709753,
+      "unit": "",
+      "is_organic": true,
+      "sources": {
         "ItemCookedCorn": 1.0,
         "ItemCorn": 1.0
       }
     },
     "Egg": {
-      "Hash": 1887084450,
-      "Unit": "",
-      "Sources": {
+      "id": 2,
+      "name": "Egg",
+      "hash": 1887084450,
+      "unit": "",
+      "is_organic": true,
+      "sources": {
         "ItemCookedPowderedEggs": 1.0,
         "ItemEgg": 1.0,
         "ItemFertilizedEgg": 1.0
       }
     },
     "Electrum": {
-      "Hash": 478264742,
-      "Unit": "g",
-      "Sources": {
+      "id": 13,
+      "name": "Electrum",
+      "hash": 478264742,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemElectrumIngot": 1.0
       }
     },
     "Fenoxitone": {
-      "Hash": -865687737,
-      "Unit": "g",
-      "Sources": {
+      "id": 24,
+      "name": "Fenoxitone",
+      "hash": -865687737,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemFern": 1.0
       }
     },
     "Flour": {
-      "Hash": -811006991,
-      "Unit": "g",
-      "Sources": {
+      "id": 0,
+      "name": "Flour",
+      "hash": -811006991,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemFlour": 50.0
       }
     },
     "Gold": {
-      "Hash": -409226641,
-      "Unit": "g",
-      "Sources": {
+      "id": 4,
+      "name": "Gold",
+      "hash": -409226641,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemGoldIngot": 1.0,
         "ItemGoldOre": 1.0
       }
     },
     "Hastelloy": {
-      "Hash": 2019732679,
-      "Unit": "g",
-      "Sources": {
+      "id": 35,
+      "name": "Hastelloy",
+      "hash": 2019732679,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemHastelloyIngot": 1.0
       }
     },
     "Hydrocarbon": {
-      "Hash": 2003628602,
-      "Unit": "g",
-      "Sources": {
+      "id": 9,
+      "name": "Hydrocarbon",
+      "hash": 2003628602,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemCoalOre": 1.0,
         "ItemSolidFuel": 1.0
       }
     },
     "Inconel": {
-      "Hash": -586072179,
-      "Unit": "g",
-      "Sources": {
+      "id": 34,
+      "name": "Inconel",
+      "hash": -586072179,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemInconelIngot": 1.0
       }
     },
     "Invar": {
-      "Hash": -626453759,
-      "Unit": "g",
-      "Sources": {
+      "id": 14,
+      "name": "Invar",
+      "hash": -626453759,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemInvarIngot": 1.0
       }
     },
     "Iron": {
-      "Hash": -666742878,
-      "Unit": "g",
-      "Sources": {
+      "id": 3,
+      "name": "Iron",
+      "hash": -666742878,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemIronIngot": 1.0,
         "ItemIronOre": 1.0
       }
     },
     "Lead": {
-      "Hash": -2002530571,
-      "Unit": "g",
-      "Sources": {
+      "id": 12,
+      "name": "Lead",
+      "hash": -2002530571,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemLeadIngot": 1.0,
         "ItemLeadOre": 1.0
       }
     },
     "Milk": {
-      "Hash": 471085864,
-      "Unit": "ml",
-      "Sources": {
+      "id": 1,
+      "name": "Milk",
+      "hash": 471085864,
+      "unit": "ml",
+      "is_organic": true,
+      "sources": {
         "ItemCookedCondensedMilk": 1.0,
         "ItemMilk": 1.0
       }
     },
     "Mushroom": {
-      "Hash": 516242109,
-      "Unit": "g",
-      "Sources": {
+      "id": 42,
+      "name": "Mushroom",
+      "hash": 516242109,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemCookedMushroom": 1.0,
         "ItemMushroom": 1.0
       }
     },
     "Nickel": {
-      "Hash": 556601662,
-      "Unit": "g",
-      "Sources": {
+      "id": 11,
+      "name": "Nickel",
+      "hash": 556601662,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemNickelIngot": 1.0,
         "ItemNickelOre": 1.0
       }
     },
     "Oil": {
-      "Hash": 1958538866,
-      "Unit": "ml",
-      "Sources": {
+      "id": 21,
+      "name": "Oil",
+      "hash": 1958538866,
+      "unit": "ml",
+      "is_organic": true,
+      "sources": {
         "ItemSoyOil": 1.0
       }
     },
     "Plastic": {
-      "Hash": 791382247,
-      "Unit": "g"
+      "id": 17,
+      "name": "Plastic",
+      "hash": 791382247,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {}
     },
     "Potato": {
-      "Hash": -1657266385,
-      "Unit": "",
-      "Sources": {
+      "id": 22,
+      "name": "Potato",
+      "hash": -1657266385,
+      "unit": "",
+      "is_organic": true,
+      "sources": {
         "ItemPotato": 1.0,
         "ItemPotatoBaked": 1.0
       }
     },
     "Pumpkin": {
-      "Hash": -1250164309,
-      "Unit": "",
-      "Sources": {
+      "id": 30,
+      "name": "Pumpkin",
+      "hash": -1250164309,
+      "unit": "",
+      "is_organic": true,
+      "sources": {
         "ItemCookedPumpkin": 1.0,
         "ItemPumpkin": 1.0
       }
     },
     "Rice": {
-      "Hash": 1951286569,
-      "Unit": "g",
-      "Sources": {
+      "id": 31,
+      "name": "Rice",
+      "hash": 1951286569,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemCookedRice": 1.0,
         "ItemRice": 1.0
       }
     },
     "SalicylicAcid": {
-      "Hash": -2086114347,
-      "Unit": "g"
+      "id": 19,
+      "name": "SalicylicAcid",
+      "hash": -2086114347,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {}
     },
     "Silicon": {
-      "Hash": -1195893171,
-      "Unit": "g",
-      "Sources": {
+      "id": 18,
+      "name": "Silicon",
+      "hash": -1195893171,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemSiliconIngot": 0.1,
         "ItemSiliconOre": 1.0
       }
     },
     "Silver": {
-      "Hash": 687283565,
-      "Unit": "g",
-      "Sources": {
+      "id": 10,
+      "name": "Silver",
+      "hash": 687283565,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemSilverIngot": 1.0,
         "ItemSilverOre": 1.0
       }
     },
     "Solder": {
-      "Hash": -1206542381,
-      "Unit": "g",
-      "Sources": {
+      "id": 16,
+      "name": "Solder",
+      "hash": -1206542381,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemSolderIngot": 1.0
       }
     },
     "Soy": {
-      "Hash": 1510471435,
-      "Unit": "",
-      "Sources": {
+      "id": 41,
+      "name": "Soy",
+      "hash": 1510471435,
+      "unit": "",
+      "is_organic": true,
+      "sources": {
         "ItemCookedSoybean": 1.0,
         "ItemSoybean": 1.0
       }
     },
     "Steel": {
-      "Hash": 1331613335,
-      "Unit": "g",
-      "Sources": {
+      "id": 8,
+      "name": "Steel",
+      "hash": 1331613335,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemEmptyCan": 1.0,
         "ItemSteelIngot": 1.0
       }
     },
     "Stellite": {
-      "Hash": -500544800,
-      "Unit": "g",
-      "Sources": {
+      "id": 33,
+      "name": "Stellite",
+      "hash": -500544800,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemStelliteIngot": 1.0
       }
     },
     "Sugar": {
-      "Hash": 1778746875,
-      "Unit": "g",
-      "Sources": {
+      "id": 43,
+      "name": "Sugar",
+      "hash": 1778746875,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemSugar": 10.0,
         "ItemSugarCane": 1.0
       }
     },
     "Tomato": {
-      "Hash": 733496620,
-      "Unit": "",
-      "Sources": {
+      "id": 23,
+      "name": "Tomato",
+      "hash": 733496620,
+      "unit": "",
+      "is_organic": true,
+      "sources": {
         "ItemCookedTomato": 1.0,
         "ItemTomato": 1.0
       }
     },
     "Uranium": {
-      "Hash": -208860272,
-      "Unit": "g",
-      "Sources": {
+      "id": 6,
+      "name": "Uranium",
+      "hash": -208860272,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemUraniumOre": 1.0
       }
     },
     "Waspaloy": {
-      "Hash": 1787814293,
-      "Unit": "g",
-      "Sources": {
+      "id": 32,
+      "name": "Waspaloy",
+      "hash": 1787814293,
+      "unit": "g",
+      "is_organic": true,
+      "sources": {
         "ItemWaspaloyIngot": 1.0
       }
     },
     "Wheat": {
-      "Hash": -686695134,
-      "Unit": "",
-      "Sources": {
+      "id": 39,
+      "name": "Wheat",
+      "hash": -686695134,
+      "unit": "",
+      "is_organic": true,
+      "sources": {
         "ItemWheat": 1.0
       }
     }
@@ -61915,6 +66933,16 @@ export default {
             "value": 158,
             "deprecated": false,
             "description": "The index of the trader landing pad on this devices data network that it will try to call a trader in to land"
+          },
+          "TargetPrefabHash": {
+            "value": 271,
+            "deprecated": false,
+            "description": "The prefab"
+          },
+          "TargetSlotIndex": {
+            "value": 270,
+            "deprecated": false,
+            "description": "The slot index that the target device that this device will try to interact with"
           },
           "TargetX": {
             "value": 88,
@@ -63673,6 +68701,16 @@ export default {
             "deprecated": false,
             "description": "The index of the trader landing pad on this devices data network that it will try to call a trader in to land"
           },
+          "TargetPrefabHash": {
+            "value": 271,
+            "deprecated": false,
+            "description": "The prefab"
+          },
+          "TargetSlotIndex": {
+            "value": 270,
+            "deprecated": false,
+            "description": "The slot index that the target device that this device will try to interact with"
+          },
           "TargetX": {
             "value": 88,
             "deprecated": false,
@@ -64845,6 +69883,7 @@ export default {
     "-1577831321": "StructureRefrigeratedVendingMachine",
     "-1573623434": "ItemFlowerBlue",
     "-1567752627": "ItemWallCooler",
+    "-1555459562": "StructureLarreDockCargo",
     "-1554349863": "StructureSolarPanel45",
     "-1552586384": "ItemGasCanisterPollutants",
     "-1550278665": "CartridgeAtmosAnalyser",
@@ -64995,6 +70034,7 @@ export default {
     "-1076892658": "ItemCookedMushroom",
     "-1068925231": "ItemGlasses",
     "-1068629349": "KitchenTableSimpleTall",
+    "-1067485367": "ItemKitLarreDockCargo",
     "-1067319543": "ItemGasFilterOxygenM",
     "-1065725831": "StructureTransformerMedium",
     "-1061945368": "ItemKitDynamicCanister",
@@ -65023,6 +70063,7 @@ export default {
     "-965741795": "StructureCondensationValve",
     "-958884053": "StructureChuteUmbilicalMale",
     "-945806652": "ItemKitElevator",
+    "-940470326": "ItemKitLarreDockBypass",
     "-934345724": "StructureSolarPanelReinforced",
     "-932335800": "ItemKitRocketTransformerSmall",
     "-932136011": "CartridgeConfiguration",
@@ -65144,6 +70185,7 @@ export default {
     "-524546923": "ItemKitWallIron",
     "-524289310": "ItemEggCarton",
     "-523832822": "StructurePipeLiquidOneWayValveLever",
+    "-522428667": "StructureLarreDockCollector",
     "-517628750": "StructureWaterDigitalValve",
     "-507770416": "StructureSmallDirectHeatExchangeLiquidtoLiquid",
     "-504717121": "ItemWirelessBatteryCellExtraLarge",
@@ -65305,6 +70347,7 @@ export default {
     "73728932": "StructurePipeStraight",
     "77421200": "ItemKitDockingPort",
     "81488783": "CartridgeTracker",
+    "85133079": "StructureLarreDockHydroponics",
     "94730034": "ToyLuna",
     "98602599": "ItemWreckageTurbineGenerator2",
     "101488029": "StructurePowerUmbilicalFemale",
@@ -65408,6 +70451,7 @@ export default {
     "340210934": "StructureStairwellFrontRight",
     "341030083": "ItemKitGrowLight",
     "347154462": "StructurePictureFrameThickMountLandscapeSmall",
+    "347658127": "ItemKitLarreDockCollector",
     "350726273": "RoverCargo",
     "363303270": "StructureInsulatedPipeLiquidCrossJunction4",
     "374891127": "ItemHardBackpack",
@@ -65416,6 +70460,7 @@ export default {
     "378084505": "StructureBlocker",
     "379750958": "StructurePressureFedLiquidEngine",
     "384478267": "ItemMiningPackage",
+    "385528206": "ItemKitLarreDockAtmos",
     "386754635": "ItemPureIceNitrous",
     "386820253": "StructureWallSmallPanelsMonoChrome",
     "388774906": "ItemMKIIDuctTape",
@@ -65494,6 +70539,7 @@ export default {
     "636112787": "ItemKitPassthroughHeatExchanger",
     "648608238": "StructureChuteDigitalValveLeft",
     "653461728": "ItemRocketMiningDrillHeadHighSpeedIce",
+    "656181408": "ItemKitLarreDockHydroponics",
     "656649558": "ItemWreckageStructureWeatherStation007",
     "658916791": "ItemRice",
     "662053345": "ItemPlasticSheets",
@@ -65602,6 +70648,7 @@ export default {
     "1005843700": "ItemDataDisk",
     "1008295833": "ItemBatteryChargerSmall",
     "1010807532": "EntityChickenWhite",
+    "1011275082": "StructureLarreDockBypass",
     "1013244511": "ItemKitStacker",
     "1013514688": "StructureTankSmall",
     "1013818348": "ItemEmptyCan",
@@ -65880,6 +70927,7 @@ export default {
     "1969189000": "ItemJetpackBasic",
     "1969312177": "ItemKitEngineMedium",
     "1974053060": "StructureRoboticArmRailCornerStop",
+    "1978422481": "StructureLarreDockAtmos",
     "1979212240": "StructureWallGeometryCorner",
     "1981698201": "StructureInteriorDoorPaddedThin",
     "1986658780": "StructureWaterBottleFillerPoweredBottom",
@@ -66227,6 +71275,11 @@ export default {
     "StructureLargeExtendableRadiator",
     "StructureLargeHangerDoor",
     "StructureLargeSatelliteDish",
+    "StructureLarreDockAtmos",
+    "StructureLarreDockBypass",
+    "StructureLarreDockCargo",
+    "StructureLarreDockCollector",
+    "StructureLarreDockHydroponics",
     "StructureLaunchMount",
     "StructureLightLong",
     "StructureLightLongAngled",
@@ -66680,6 +71733,11 @@ export default {
     "StructureLargeExtendableRadiator",
     "StructureLargeHangerDoor",
     "StructureLargeSatelliteDish",
+    "StructureLarreDockAtmos",
+    "StructureLarreDockBypass",
+    "StructureLarreDockCargo",
+    "StructureLarreDockCollector",
+    "StructureLarreDockHydroponics",
     "StructureLightLong",
     "StructureLightLongAngled",
     "StructureLightLongWide",
@@ -67202,6 +72260,11 @@ export default {
     "ItemKitLargeDirectHeatExchanger",
     "ItemKitLargeExtendableRadiator",
     "ItemKitLargeSatelliteDish",
+    "ItemKitLarreDockAtmos",
+    "ItemKitLarreDockBypass",
+    "ItemKitLarreDockCargo",
+    "ItemKitLarreDockCollector",
+    "ItemKitLarreDockHydroponics",
     "ItemKitLaunchMount",
     "ItemKitLaunchTower",
     "ItemKitLinearRail",

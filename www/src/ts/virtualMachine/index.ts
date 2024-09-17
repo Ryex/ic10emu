@@ -44,35 +44,34 @@ Comlink.transferHandlers.set("SpecialJson", comlinkSpecialJsonTransferHandler);
 
 const jsonErrorRegex = /((invalid type: .*)|(missing field .*)) at line (?<errorLine>\d+) column (?<errorColumn>\d+)/;
 
-class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
+class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap, typeof EventTarget>(EventTarget) {
   ic10vm: Comlink.Remote<VMRef>;
   templateDBPromise: Promise<TemplateDatabase>;
 
   state: VMState = new VMState();
 
-  private vm_worker: Worker;
-
+  private vmWorker: Worker;
   private app: App;
 
   constructor(app: App) {
     super();
     this.app = app;
     this.setupVM();
+    this.app.session.vmState.value = this.state;
   }
 
   async setupVM() {
 
-    this.vm_worker = new Worker(new URL("./vmWorker.ts", import.meta.url));
+    this.vmWorker = new Worker(new URL("./vmWorker.ts", import.meta.url));
     const loaded = (w: Worker) =>
       new Promise((r) => w.addEventListener("message", r, { once: true }));
-    await Promise.all([loaded(this.vm_worker)]);
+    await Promise.all([loaded(this.vmWorker)]);
     console.info("VM Worker loaded");
-    const vm = Comlink.wrap<VMRef>(this.vm_worker);
+    const vm = Comlink.wrap<VMRef>(this.vmWorker);
     this.ic10vm = vm;
     this.state.vm.value = await this.ic10vm.saveVMState();
     this.templateDBPromise = this.ic10vm.getTemplateDatabase();
     this.templateDBPromise.then((db) => this.setupTemplateDatabase(db));
-    this.updateCode();
 
     window.VM.set(this);
   }
@@ -88,38 +87,11 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
     return ids;
   }
 
-  async updateCode() {
-    const progs = this.app.session.programs;
-    for (const id of progs.keys()) {
-      const attempt = Date.now().toString(16);
-      const vmProg = this.state.getObjectProgramSource(id).peek();
-      const prog = progs.get(id).peek();
-      if (
-        vmProg &&
-        prog &&
-        vmProg !== prog
-      ) {
-        try {
-          console.time(`CompileProgram_${id}_${attempt}`);
-          await this.ic10vm.setCodeInvalid(id, prog);
-          const errors = await this.ic10vm.getCompileErrors(id);
-          this.app.session.setProgramErrors(id, errors);
-          this.dispatchCustomEvent("vm-object-modified", id);
-        } catch (err) {
-          this.handleVmError(err);
-        } finally {
-          console.timeEnd(`CompileProgram_${id}_${attempt}`);
-        }
-      }
-    }
-    this.update(false);
-  }
-
-  async step() {
+  async step(ignoreError: boolean = false) {
     const ic = this.activeIC.peek();
     if (ic) {
       try {
-        await this.ic10vm.stepProgrammable(ic, false);
+        await this.ic10vm.stepProgrammable(ic, ignoreError);
       } catch (err) {
         this.handleVmError(err);
       }
@@ -204,36 +176,51 @@ class VirtualMachine extends TypedEventTarget<VirtualMachineEventMap>() {
       old: oldID,
       new: newID,
     });
-    this.app.session.changeID(oldID, newID);
     return true;
   }
 
-  async setRegister(index: number, val: number): Promise<boolean> {
-    const ic = this.activeIC.peek();
-    if (ic) {
+  async setCode(id: ObjectID, prog: string): Promise<boolean> {
+    const attempt = Date.now().toString(16);
+    const vmProg = this.state.getObjectProgramSource(id).peek();
+    if (
+      vmProg &&
+      prog &&
+      vmProg !== prog
+    ) {
       try {
-        await this.ic10vm.setRegister(ic, index, val);
+        console.time(`CompileProgram_${id}_${attempt}`);
+        await this.ic10vm.setCodeInvalid(id, prog);
       } catch (err) {
         this.handleVmError(err);
         return false;
+      } finally {
+        console.timeEnd(`CompileProgram_${id}_${attempt}`);
       }
       await this.update();
-      return true;
     }
+    return true;
   }
 
-  async setStack(addr: number, val: number): Promise<boolean> {
-    const ic = this.activeIC.peek();
-    if (ic) {
-      try {
-        await this.ic10vm.setMemory(ic, addr, val);
-      } catch (err) {
-        this.handleVmError(err);
-        return false;
-      }
-      await this.update();
-      return true;
+  async setRegister(id: ObjectID, index: number, val: number): Promise<boolean> {
+    try {
+      await this.ic10vm.setRegister(id, index, val);
+    } catch (err) {
+      this.handleVmError(err);
+      return false;
     }
+    await this.update();
+    return true;
+  }
+
+  async setStack(id: ObjectID, addr: number, val: number): Promise<boolean> {
+    try {
+      await this.ic10vm.setMemory(id, addr, val);
+    } catch (err) {
+      this.handleVmError(err);
+      return false;
+    }
+    await this.update();
+    return true;
   }
 
   async setObjectName(id: number, name: string): Promise<boolean> {

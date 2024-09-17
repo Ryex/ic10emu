@@ -1,4 +1,5 @@
 import { SessionDB } from "../sessionDB";
+import { NetworkChannels } from "../database";
 
 export const demoCode = `# Highlighting Demo
 
@@ -77,22 +78,6 @@ export const demoVMState: SessionDB.CurrentDBVmState = {
           connections: new Map([
             [0, 1],
           ]),
-          // unused, provided to make compiler happy
-          name: undefined,
-          prefab_hash: undefined,
-          compile_errors: undefined,
-          parent_slot: undefined,
-          root_parent_human: undefined,
-          damage: undefined,
-          device_pins: undefined,
-          reagents: undefined,
-          logic_values: undefined,
-          slot_logic_values: undefined,
-          entity: undefined,
-          visible_devices: undefined,
-          memory: undefined,
-          source_code: undefined,
-          circuit: undefined,
         },
         template: undefined,
         database_template: true,
@@ -112,23 +97,6 @@ export const demoVMState: SessionDB.CurrentDBVmState = {
             labels: new Map(),
             registers: new Array(18).fill(0),
           },
-
-          // unused, provided to make compiler happy
-          name: undefined,
-          prefab_hash: undefined,
-          compile_errors: undefined,
-          slots: undefined,
-          parent_slot: undefined,
-          root_parent_human: undefined,
-          damage: undefined,
-          device_pins: undefined,
-          connections: undefined,
-          reagents: undefined,
-          logic_values: undefined,
-          slot_logic_values: undefined,
-          entity: undefined,
-          socketed_ic: undefined,
-          visible_devices: undefined,
         },
         template: undefined,
         database_template: true,
@@ -139,16 +107,7 @@ export const demoVMState: SessionDB.CurrentDBVmState = {
         id: 1,
         devices: [1],
         power_only: [],
-        channels: Array(8).fill(NaN) as [
-          number,
-          number,
-          number,
-          number,
-          number,
-          number,
-          number,
-          number,
-        ],
+        channels: Array(8).fill(NaN) as NetworkChannels,
       },
     ],
     program_holders: [2],

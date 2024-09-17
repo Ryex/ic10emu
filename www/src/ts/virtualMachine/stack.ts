@@ -103,6 +103,6 @@ export class VMICStack extends VMObjectMixin(BaseElement) {
     const input = e.target as SlInput;
     const index = parseInt(input.getAttribute("key")!);
     const val = parseNumber(input.value);
-    window.VM.get().then(vm => vm.setStack(index, val));
+    window.VM.get().then(vm => vm.setStack(this.vm.value?.activeIC.value, index, val));
   }
 }

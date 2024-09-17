@@ -5,8 +5,8 @@ import type {
 
 import * as Comlink from "comlink";
 
-import prefabDatabase from "./prefabDatabase";
-import { comlinkSpecialJsonTransferHandler, parseNumber } from "utils";
+import prefabDatabase from "../database/prefabDatabase";
+import { comlinkSpecialJsonTransferHandler } from "utils";
 
 Comlink.transferHandlers.set("SpecialJson", comlinkSpecialJsonTransferHandler);
 

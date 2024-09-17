@@ -1,4 +1,13 @@
-import { ace, Ace, Range, AceLanguageClient, setupLspWorker } from "./ace";
+import {
+  ace,
+  Ace,
+  Range,
+  AceLanguageClient,
+  setupLspWorker,
+  HoverTooltip,
+  AceHidden,
+  MarkerGroup,
+} from "./ace";
 
 import { LanguageProvider } from "ace-linters/types/language-provider";
 
@@ -23,27 +32,55 @@ import {
   LanguageClientConfig,
   ProviderOptions,
 } from "ace-linters/types/types/language-service";
+import { LineError, ObjectID } from "ic10emu_wasm";
+import { marked } from "marked";
+import { effect, signal, Signal } from "@lit-labs/preact-signals";
+import { App } from "app";
+import { VirtualMachine } from "virtualMachine";
+import { isSome } from "utils";
+import { Session } from "session";
+
+interface SessionStateExtension {
+  state?: {
+    errorMarkers?: Ace.MarkerGroup;
+    activeLineMarker?: ReturnType<Ace.EditSession["addMarker"]>;
+    saveTimeout?: ReturnType<typeof setTimeout>;
+  }
+}
+
+interface MarkerGroupItemExtension {
+  tooltipText?: string;
+}
+
+type ExtendedEditSession = Ace.EditSession & SessionStateExtension;
+type ExtendedMarkerGroupItem = Ace.MarkerGroupItem & MarkerGroupItemExtension
 
 @customElement("ace-ic10")
 export class IC10Editor extends BaseElement {
-  mode: string;
+  static styles = [...defaultCss, editorStyles];
+
+  mode: string = "ace/mode/ic10";
+
   settings: {
     keyboard: string;
     cursor: string;
     fontSize: number;
     relativeLineNumbers: boolean;
-  };
-  sessions: Map<number, Ace.EditSession>;
+  } = {
+      keyboard: "ace",
+      cursor: "ace",
+      fontSize: 16,
+      relativeLineNumbers: false,
+    };
 
-  @state() activeSession: number = 1;
+  sessions: Map<number, ExtendedEditSession> = new Map();
 
   activeLineMarkers: Map<number, number | null> = new Map();
   languageProvider?: LanguageProvider;
-  // ui: IC10EditorUI;
 
-  static styles = [...defaultCss, editorStyles];
+  initialInit: boolean = false;
+  aceReady: boolean = false;
 
-  initialInit: boolean;
   editorDiv: HTMLElement;
   editorContainerDiv: HTMLElement;
   editorStatusbarDiv: HTMLElement;
@@ -63,27 +100,25 @@ export class IC10Editor extends BaseElement {
 
   @query(".e-settings-dialog") settingDialog: SlDialog;
 
+  errorTooltip: AceHidden.HoverTooltip = new HoverTooltip();
+  activeLineTooltip: AceHidden.HoverTooltip = new HoverTooltip();
+
+  app: Signal<App> = signal(null);
+  vm: Signal<VirtualMachine> = signal(null);
+
   constructor() {
     super();
     console.log("constructing editor");
 
     window.Editor = this;
-    this.mode = "ace/mode/ic10";
-
-    this.settings = {
-      keyboard: "ace",
-      cursor: "ace",
-      fontSize: 16,
-      relativeLineNumbers: false,
-    };
-
-    this.sessions = new Map();
-    this.activeLineMarkers = new Map();
-
-    // this.ui = new IC10EditorUI(this);
   }
 
-  protected render() {
+  private async setupApp() {
+    this.vm.value = await window.VM.get();
+    this.app.value = await window.App.get();
+  }
+
+  render() {
     const result = html`
       <div id="editorContainer" style="height: 100%; width: 100%; position: relative; z-index: auto;">
         <div id="editor" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 0; isolation: isolate;">
@@ -121,6 +156,8 @@ export class IC10Editor extends BaseElement {
   }
 
   async firstUpdated() {
+    await this.setupApp();
+
     console.log("editor firstUpdated");
     if (!ace.require("ace/ext/language_tools")) {
       await import("ace-builds/src-noconflict/ext-language_tools");
@@ -167,20 +204,19 @@ export class IC10Editor extends BaseElement {
     this.stylesAdded = [];
     const stylesToMove: string[] = ["vimMode"];
     const stylesToCopy: string[] = ["autocompletion.css"];
-    const that = this;
 
     this.stylesObserver = new MutationObserver((_mutations, _observer) => {
       // ace adds <style></style> nodes, ours should  be <link rel="stylesheet">
       for (const sheet of document.head.querySelectorAll("style")) {
-        if (!that.stylesAdded.includes(sheet.id)) {
+        if (!this.stylesAdded.includes(sheet.id)) {
           if (stylesToMove.includes(sheet.id)) {
-            that.shadowRoot?.appendChild(sheet);
-            that.stylesAdded.push(sheet.id);
+            this.shadowRoot?.appendChild(sheet);
+            this.stylesAdded.push(sheet.id);
           } else if (stylesToCopy.includes(sheet.id)) {
             let new_sheet = sheet.cloneNode() as HTMLStyleElement;
             new_sheet.id = `${sheet.id}_clone`;
-            that.shadowRoot?.appendChild(new_sheet);
-            that.stylesAdded.push(sheet.id);
+            this.shadowRoot?.appendChild(new_sheet);
+            this.stylesAdded.push(sheet.id);
           }
         }
       }
@@ -209,22 +245,18 @@ export class IC10Editor extends BaseElement {
     //   characterData: false,
     // });
 
-    this.sessions.set(this.activeSession, this.editor.getSession());
-    this.bindSession(this.activeSession, this.sessions.get(this.activeSession));
-    this.activeLineMarkers.set(this.activeSession, null);
-
     const worker = await setupLspWorker();
     this.setupLsp(worker);
 
     // when the CSS resize Property is added (to a container-div or ace-ic10 )
     // the correct sizing is maintained (after user resize)
-    document.addEventListener("mouseup", function (e) {
-      that.resizeEditor();
+    document.addEventListener("mouseup", (e) => {
+      this.resizeEditor();
     });
 
-    this.observer = new ResizeObserver(function (entries) {
+    this.observer = new ResizeObserver((entries) => {
       for (const _entry of entries) {
-        that.resizeEditor();
+        this.resizeEditor();
       }
     });
 
@@ -237,70 +269,71 @@ export class IC10Editor extends BaseElement {
 
   async initializeEditor() {
     let editor = this.editor;
-    const that = this;
 
-    const app = await window.App.get();
-    app.session.onLoad((_e) => {
-      const session = app.session;
-      const updated_ids: number[] = [];
-      for (const [id, code] of session.programs) {
-        updated_ids.push(id);
-        that.createOrSetSession(id, code.peek());
+    effect(() => {
+      const vm = this.vm.value;
+      const vmState = vm?.state
+      const circuitHolders = vmState?.circuitHolderIds.value ?? [];
+      const seenIds: ObjectID[] = [];
+      for (const id of circuitHolders) {
+        seenIds.push(id);
+        const prog = vmState?.getObjectProgramSource(id);
+        this.createOrSetSession(id, prog?.value ?? "");
       }
-      that.activateSession(that.activeSession);
-      for (const [id, _] of that.sessions) {
-        if (!updated_ids.includes(id)) {
-          that.destroySession(id);
-        }
-      }
-    });
-    app.session.loadFromFragment();
+      const activeSession = this.app.value.session.activeEditorSession.value ?? circuitHolders[0];
 
-    app.session.onActiveLine((e) => {
-      const session = app.session;
-      const id: number = e.detail;
-      const active_line = session.getActiveLine(id);
-      if (typeof active_line !== "undefined") {
-        const marker = that.activeLineMarkers.get(id);
-        if (marker) {
-          that.sessions.get(id)?.removeMarker(marker);
-          that.activeLineMarkers.set(id, null);
-        }
-        const session = that.sessions.get(id);
-        if (session) {
-          that.activeLineMarkers.set(
-            id,
-            session.addMarker(
-              new Range(active_line.value, 0, active_line.value, 1),
-              "vm_ic_active_line",
-              "fullLine",
-              true,
-            ),
-          );
-          if (that.activeSession == id) {
-            // editor.resize(true);
-            // TODO: Scroll to line if vm was stepped
-            //that.editor.scrollToLine(active_line, true, true, ()=>{})
-          }
+      if (isSome(activeSession)) this.activateSession(activeSession);
+      for (const [id, _] of this.sessions) {
+        if (!seenIds.includes(id)) {
+          this.destroySession(id);
         }
       }
     });
 
-    app.session.onIDChange((e) => {
-      const oldID = e.detail.old;
-      const newID = e.detail.new;
-      if (this.sessions.has(oldID)) {
-        this.sessions.set(newID, this.sessions.get(oldID));
-        this.sessions.delete(oldID);
+    // this.app.value.session.loadFromFragment();
+
+    this.errorTooltip.setDataProvider((e, editor) => {
+      const docPos = e.getDocumentPosition();
+      const editorSession: ExtendedEditSession = editor.session;
+      const errorMarker: ExtendedMarkerGroupItem = editorSession.state?.errorMarkers?.getMarkerAtPosition(docPos);
+      if (!errorMarker) return;
+      const range: Ace.Range = errorMarker.range;
+      if (!range) return;
+      if (
+        docPos.row < range.start.row ||
+        docPos.row > range.end.row ||
+        docPos.column < range.start.column ||
+        docPos.column > range.end.column) {
+        return;
       }
-      if (this.activeLineMarkers.has(oldID)) {
-        this.activeLineMarkers.set(newID, this.activeLineMarkers.get(oldID));
-        this.activeLineMarkers.delete(oldID);
-      }
-      if (this.activeSession === oldID) {
-        this.activeSession = newID;
-      }
+      const domNode = document.createElement("div")
+      const tooltipHtml = marked.parseInline(errorMarker.tooltipText?.trim() ?? "", { async: false });
+      domNode.innerHTML = tooltipHtml;
+
+      this.errorTooltip.showForRange(editor, range, domNode, e)
     });
+
+    this.errorTooltip.addToEditor(editor);
+
+    this.activeLineTooltip.setDataProvider((e, editor) => {
+      const docPos = e.getDocumentPosition();
+      const editorSession: ExtendedEditSession = editor.session;
+      const activeLineMarker: Ace.MarkerLike = editorSession.getMarkers(true)[editorSession.state?.activeLineMarker];
+      if (!activeLineMarker || activeLineMarker.clazz !== "vm_ic_active_line") return;
+      const range: Ace.Range = activeLineMarker.range;
+      if (!range) return;
+      if (docPos.row !== range.start.row) return;
+
+      const domNode = document.createElement("div")
+      const activeLine = activeLineMarker.range.start.row;
+      const tooltipHtml = marked.parseInline(`Instruction Pointer: Line ${activeLine}`, { async: false });
+      domNode.innerHTML = tooltipHtml;
+
+      this.activeLineTooltip.showForRange(editor, range, domNode, e)
+    })
+
+    /// not sure a tooltip is needed
+    // this.activeLineTooltip.addToEditor(editor);
 
     // change -> possibility to allow saving the value without having to wait for blur
     editor.on("change", () => this.editorChangeAction());
@@ -335,7 +368,7 @@ export class IC10Editor extends BaseElement {
         // description: "Show settings menu",
         bindKey: { win: "Ctrl-,", mac: "Command-," },
         exec: (_editor: Ace.Editor) => {
-          that.settingDialog.show();
+          this.settingDialog.show();
         },
       },
       {
@@ -345,7 +378,7 @@ export class IC10Editor extends BaseElement {
           mac: "Command-Alt-h",
         },
         exec: (_editor: Ace.Editor) => {
-          that.kbShortcuts.show();
+          this.kbShortcuts.show();
         },
       },
     ]);
@@ -365,25 +398,28 @@ export class IC10Editor extends BaseElement {
     )! as SlSwitch;
 
     keyboardRadio.addEventListener("sl-change", (_e) => {
-      that.settings.keyboard = keyboardRadio.value;
-      that.updateEditorSettings();
-      that.saveEditorSettings();
+      this.settings.keyboard = keyboardRadio.value;
+      this.updateEditorSettings();
+      this.saveEditorSettings();
     });
     cursorRadio?.addEventListener("sl-change", (_e) => {
-      that.settings.cursor = cursorRadio.value;
-      that.updateEditorSettings();
-      that.saveEditorSettings();
+      this.settings.cursor = cursorRadio.value;
+      this.updateEditorSettings();
+      this.saveEditorSettings();
     });
     fontSize?.addEventListener("sl-change", (_e) => {
-      that.settings.fontSize = parseInt(fontSize.value);
-      that.updateEditorSettings();
-      that.saveEditorSettings();
+      this.settings.fontSize = parseInt(fontSize.value);
+      this.updateEditorSettings();
+      this.saveEditorSettings();
     });
     relativeLineNumbers?.addEventListener("sl-change", (_e) => {
-      that.settings.relativeLineNumbers = relativeLineNumbers.checked;
-      that.updateEditorSettings();
-      that.saveEditorSettings();
+      this.settings.relativeLineNumbers = relativeLineNumbers.checked;
+      this.updateEditorSettings();
+      this.saveEditorSettings();
     });
+
+
+    this.dispatchEvent(new CustomEvent("editor-ready", { bubbles: true }))
   }
 
   resizeEditor() {
@@ -396,13 +432,11 @@ export class IC10Editor extends BaseElement {
     }
   }
 
-  /** @private */
-  _resizeEditor() {
+  private _resizeEditor() {
     this.editor.resize();
   }
 
-  /** @private */
-  _vScrollbarHandler() {
+  private _vScrollbarHandler() {
     var vScrollbar = this.shadowRoot?.querySelector(
       ".ace_scrollbar-v",
     ) as HTMLDivElement;
@@ -417,8 +451,7 @@ export class IC10Editor extends BaseElement {
     }
   }
 
-  /** @private */
-  _hScrollbarHandler() {
+  private _hScrollbarHandler() {
     var hScrollbar = this.shadowRoot?.querySelector(
       ".ace_scrollbar-h",
     ) as HTMLDivElement;
@@ -467,24 +500,72 @@ export class IC10Editor extends BaseElement {
     }
   }
 
-  createOrSetSession(session_id: number, content: string) {
-    if (!this.sessions.has(session_id)) {
-      this.newSession(session_id, content);
+  createOrSetSession(id: ObjectID, content: string) {
+    if (!this.sessions.has(id)) {
+      this.newSession(id, content);
     } else {
-      this.sessions.get(session_id).setValue(content);
+      const session = this.sessions.get(id);
+      if (session.getValue() == content) return;
+      session.setValue(content);
     }
   }
 
-  newSession(session_id: number, content?: string) {
-    if (this.sessions.has(session_id)) {
+  newSession(id: ObjectID, content?: string) {
+    if (this.sessions.has(id)) {
       return false;
     }
-    const session = ace.createEditSession(content ?? "", this.mode as any);
+    const session: ExtendedEditSession = ace.createEditSession(content ?? "", this.mode as any);
+    if (!session.state) session.state = {};
+    if (!session.state.errorMarkers) {
+      session.state.errorMarkers = new MarkerGroup(session);
+    }
+
+    effect(() => {
+      const sessionErrors = this.vm.value?.state.getProgramErrors(id).value ?? [];
+
+      session.state.errorMarkers.setMarkers(sessionErrors.map((err: LineError): ExtendedMarkerGroupItem => {
+        const icError = err.error;
+        const lineLength = session.doc.getLine(err.line).length
+        if (icError.typ === "ParseError") {
+          return {
+            range: new Range(icError.line, icError.start, icError.line, icError.end),
+            className: "ic10_editor_error_parse",
+            tooltipText: `Parse Error: ${icError.msg}`
+          };
+        } else if (icError.typ === "DuplicateLabel") {
+          return {
+            range: new Range(icError.line, "label".length + 2, icError.line, "label".length + 2 + icError.label.length),
+            className: "ic10_editor_error_duplicate_label",
+            tooltipText: `Duplicate Label ${icError.label}: first seen on line ${icError.source_line}`
+          };
+        } else {
+          return {
+            range: new Range(err.line, 0, err.line, lineLength),
+            className: "ic10_editor_error_runtime",
+            tooltipText: `Runtime Error: ${err.msg}`
+          };
+        }
+      }))
+    });
+
+    effect(() => {
+      const activeLine = this.vm.value?.state.getCircuitInstructionPointer(id).value ?? 0;
+      if (session.state.activeLineMarker) {
+        session.removeMarker(session.state.activeLineMarker);
+      }
+      session.state.activeLineMarker = session.addMarker(
+        new Range(activeLine, 0, activeLine, 999),
+        "vm_ic_active_line",
+        "fullLine",
+        true,
+      );
+    })
+
     session.setOptions({
       firstLineNumber: 0,
     });
-    this.sessions.set(session_id, session);
-    this.bindSession(session_id, session);
+    this.sessions.set(id, session);
+    this.bindSession(id, session);
   }
 
   setupLsp(lsp_worker: Worker) {
@@ -502,6 +583,9 @@ export class IC10Editor extends BaseElement {
     // Create a language provider for web worker
     this.languageProvider = AceLanguageClient.for(serverData, options);
     this.languageProvider.registerEditor(this.editor);
+    /* TODO: setup a tooltip and marker group for runtime errors
+     * https://github.com/ajaxorg/ace/pull/5113/files
+     */
   }
 
   activateSession(session_id: number) {
@@ -513,7 +597,6 @@ export class IC10Editor extends BaseElement {
     const mode = ace.require(this.mode);
     const options = mode?.options ?? {};
     this.languageProvider?.setSessionOptions(session, options);
-    this.activeSession = session_id;
     return true;
   }
 
@@ -561,20 +644,20 @@ export class IC10Editor extends BaseElement {
     }
     const session = this.sessions.get(session_id);
     this.sessions.delete(session_id);
-    if ((this.activeSession = session_id)) {
-      this.activateSession(this.sessions.entries().next().value);
-    }
     session?.destroy();
     return true;
   }
 
-  bindSession(session_id: number, session?: Ace.EditSession) {
+  bindSession(session_id: number, session?: ExtendedEditSession) {
     if (session) {
       session.on("change", () => {
-        var val = session.getValue();
-        window.App.get().then((app) =>
-          app.session.setProgramCode(session_id, val),
-        );
+        if (session.state?.saveTimeout) {
+          clearTimeout(session.state.saveTimeout);
+        }
+        session.state.saveTimeout = setTimeout(() => {
+          var val = session.getValue();
+          this.vm.value?.setCode(session_id, val);
+        }, 500)
       });
     }
   }

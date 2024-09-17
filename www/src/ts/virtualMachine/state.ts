@@ -1,7 +1,6 @@
 import { computed, ReadonlySignal, signal, Signal } from "@lit-labs/preact-signals";
-import { Obj } from "@popperjs/core";
-import { Class, Connection, FrozenCableNetwork, FrozenNetworks, FrozenObject, FrozenObjectFull, FrozenVM, ICInfo, LogicField, LogicSlotType, LogicType, ObjectID, Operand, Slot, TemplateDatabase } from "ic10emu_wasm";
-import { fromJson, isSome, structuralEqual } from "utils";
+import { Class, Connection, FrozenCableNetwork, FrozenObject, FrozenVM, ICInfo, ICState, LineError, LogicField, LogicSlotType, LogicType, ObjectID, Operand, Slot, TemplateDatabase } from "ic10emu_wasm";
+import { isSome, structuralEqual } from "utils";
 
 
 export interface ObjectSlotInfo {
@@ -18,12 +17,78 @@ export class VMState {
   vm: Signal<FrozenVM> = signal(null);
   templateDB: Signal<TemplateDatabase> = signal(null);
 
-  objectIds: ReadonlySignal<ObjectID[]> = computed(() => this.vm.value?.objects.map((obj) => obj.obj_info.id) ?? []);
-  circuitHolderIds: ReadonlySignal<ObjectID[]> = computed(() => this.vm.value?.circuit_holders ?? []);
-  programHolderIds: ReadonlySignal<ObjectID[]> = computed(() => this.vm.value?.program_holders ?? []);
-  networkIds: ReadonlySignal<ObjectID[]> = computed(() => this.vm.value?.networks.map((net) => net.id) ?? []);
-  wirelessTransmitterIds: ReadonlySignal<ObjectID[]> = computed(() => this.vm.value?.wireless_transmitters ?? []);
-  wirelessReceivers: ReadonlySignal<ObjectID[]> = computed(() => this.vm.value?.wireless_receivers ?? []);
+  objectIds: ReadonlySignal<ObjectID[]> = (() => {
+    let last: ObjectID[] = null;
+    return computed(() => {
+      const ids = this.vm.value?.objects.map((obj) => obj.obj_info.id) ?? [];
+      if (structuralEqual(last, ids)) {
+        return last;
+      }
+      last = ids;
+      return ids;
+    });
+  })();
+
+  circuitHolderIds: ReadonlySignal<ObjectID[]> = (() => {
+    let last: ObjectID[] = null;
+    return computed(() => {
+      const ids = this.vm.value?.circuit_holders ?? [];
+      if (structuralEqual(last, ids)) {
+        return last;
+      }
+      last = ids;
+      return ids;
+    });
+  })();
+
+  programHolderIds: ReadonlySignal<ObjectID[]> = (() => {
+    let last: ObjectID[] = null;
+    return computed(() => {
+      const ids = this.vm.value?.program_holders ?? [];
+      if (structuralEqual(last, ids)) {
+        return last;
+      }
+      last = ids;
+      return ids;
+    });
+  })();
+
+  networkIds: ReadonlySignal<ObjectID[]> = (() => {
+    let last: ObjectID[] = null;
+    return computed(() => {
+      const ids = this.vm.value?.networks.map((net) => net.id) ?? [];
+      if (structuralEqual(last, ids)) {
+        return last;
+      }
+      last = ids;
+      return ids;
+    });
+  })();
+
+  wirelessTransmitterIds: ReadonlySignal<ObjectID[]> = (() => {
+    let last: ObjectID[] = null;
+    return computed(() => {
+      const ids = this.vm.value?.wireless_transmitters ?? [];
+      if (structuralEqual(last, ids)) {
+        return last;
+      }
+      last = ids;
+      return ids;
+    });
+  })();
+
+  wirelessReceivers: ReadonlySignal<ObjectID[]> = (() => {
+    let last: ObjectID[] = null;
+    return computed(() => {
+      const ids = this.vm.value?.wireless_receivers ?? [];
+      if (structuralEqual(last, ids)) {
+        return last;
+      }
+      last = ids;
+      return ids;
+    });
+  })();
+
   defaultNetworkId: ReadonlySignal<ObjectID> = computed(() => this.vm.value?.default_network_key ?? null);
 
   private _signalCache: Map<string, WeakRef<ReadonlySignal<any>>> = new Map();
@@ -521,6 +586,54 @@ export class VMState {
     return this.signalCacheGet(key)
   }
 
+  getCircuitDefines(id: ObjectID): ReadonlySignal<Record<string, number>> {
+    const key = `obj:${id},circuitDefines`;
+    if (!this.signalCacheHas(key)) {
+      let last: Record<string, number> = null;
+      const s = computed((): Record<string, number> => {
+        const circuit = this.getCircuitInfo(id).value;
+        const defines = circuit?.defines
+        const next = Object.fromEntries(defines?.entries() ?? [])
+        if (structuralEqual(last, next)) {
+          return last;
+        }
+        last = next;
+        return next;
+      });
+      this.signalCacheSet(key, s);
+      return s;
+    }
+    return this.signalCacheGet(key);
+  }
+
+  getCircuitInstructionPointer(id: ObjectID): ReadonlySignal<number> {
+    const key = `obj:${id},circuitInstructionPointer`;
+    if (!this.signalCacheHas(key)) {
+      const s = computed((): number => {
+        const circuit = this.getCircuitInfo(id).value;
+        const pointer = circuit?.instruction_pointer
+        return pointer ?? 0;
+      });
+      this.signalCacheSet(key, s);
+      return s;
+    }
+    return this.signalCacheGet(key);
+  }
+
+  getCircuitYieldInstructionCount(id: ObjectID): ReadonlySignal<number> {
+    const key = `obj:${id},circuitYieldInstructionCount`;
+    if (!this.signalCacheHas(key)) {
+      const s = computed((): number => {
+        const circuit = this.getCircuitInfo(id).value;
+        const count = circuit?.yield_instruction_count
+        return count ?? 0;
+      });
+      this.signalCacheSet(key, s);
+      return s;
+    }
+    return this.signalCacheGet(key);
+  }
+
   getDeviceNumPins(id: ObjectID): ReadonlySignal<number> {
     const key = `obj:${id},numPins`;
     if (!this.signalCacheHas(key)) {
@@ -609,6 +722,84 @@ export class VMState {
     }
     return this.signalCacheGet(key)
   }
+
+  getProgramErrors(id: ObjectID): ReadonlySignal<LineError[]> {
+    const key = `obj:${id},programErrors`
+    if (!this.signalCacheHas(key)) {
+      let last: LineError[] = null;
+      const s = computed((): LineError[] => {
+        let ic = null;
+        if (this.circuitHolderIds.value?.includes(id)) {
+          const circuit = this.getObject(id).value;
+          ic = this.getObject(circuit?.obj_info.socketed_ic).value ?? null;
+        } else if (this.programHolderIds.value?.includes(id)) {
+          ic = this.getObject(id).value ?? null;
+        } else {
+          console.error(`(objectId: ${id}) does not refer to a object with a known program interface`)
+          return null;
+        }
+        const errors = ic?.obj_info.compile_errors?.flatMap((error): LineError[] => {
+          if (error.typ === "ParseError") {
+            return [{
+              error,
+              line: error.line,
+              msg: error.msg,
+            }];
+          } else if (error.typ === "DuplicateLabel") {
+            return [{
+              error,
+              line: error.line,
+              msg: `duplicate label ${error.label}: first encountered on line ${error.source_line}`
+            }];
+          } else {
+            return [];
+          }
+        }) ?? [];
+        const icState: ICState = ic?.obj_info.circuit.state;
+        if (typeof icState === "object" && "Error" in icState) {
+          errors.push(icState.Error);
+        }
+        if (structuralEqual(last, errors)) {
+          return last;
+        }
+        last = errors;
+        return errors
+      });
+      this.signalCacheSet(key, s);
+      return s;
+    }
+    return this.signalCacheGet(key);
+  }
+
+  circuitHolderErrors: ReadonlySignal<Record<ObjectID, LineError[]>> = (() => {
+    let last: Record<ObjectID, LineError[]> = null;
+    return computed((): Record<ObjectID, LineError[]> => {
+      const errors: Record<ObjectID, LineError[]> = {}
+      this.circuitHolderIds.value.forEach(id => {
+        errors[id] = this.getProgramErrors(id).value
+      })
+      if (structuralEqual(last, errors)) {
+        return last;
+      }
+      last = errors;
+      return errors;
+    })
+  })();
+
+  circuitHolderActiveLines: ReadonlySignal<Record<ObjectID, number>> = (() => {
+    let last: Record<ObjectID, number> = null;
+    return computed((): Record<ObjectID, number> => {
+      const activeLines: Record<ObjectID, number> = {}
+      this.circuitHolderIds.value.forEach(id => {
+        activeLines[id] = this.getCircuitInstructionPointer(id).value
+      })
+      if (structuralEqual(last, activeLines)) {
+        return last;
+      }
+      last = activeLines;
+      return activeLines;
+    })
+  })();
 
 
 }

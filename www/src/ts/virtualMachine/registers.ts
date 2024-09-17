@@ -124,6 +124,6 @@ export class VMICRegisters extends VMObjectMixin(BaseElement) {
     const input = e.target as SlInput;
     const index = parseInt(input.getAttribute("key")!);
     const val = parseNumber(input.value);
-    window.VM.vm.setRegister(index, val);
+    window.VM.vm.setRegister(this.vm.value?.activeIC.value, index, val);
   }
 }

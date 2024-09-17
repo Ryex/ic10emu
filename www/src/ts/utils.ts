@@ -75,6 +75,11 @@ function replacer(_key: any, value: any) {
       dataType: "Number",
       value: numberToString(value),
     };
+  } else if (typeof value === "bigint") {
+    return {
+      dataType: "BigInt",
+      value: value.toString(),
+    }
   } else if (typeof value === "undefined") {
     return {
       dataType: "undefined",
@@ -90,6 +95,8 @@ function reviver(_key: any, value: any) {
       return new Map(value.value);
     } else if (value.dataType === "Number") {
       return parseFloat(value.value);
+    } else if (value.dataType === "BigInt") {
+      return BigInt(value.value);
     } else if (value.dataType === "undefined") {
       return undefined;
     }
@@ -348,14 +355,14 @@ export function clamp(val: number, min: number, max: number) {
   return Math.min(Math.max(val, min), max);
 }
 
-// export type TypedEventTarget<EventMap extends object> = {
-//   new(): TypedEventTargetInterface<EventMap>;
-// };
-
 type Constructor<T = {}> = new (...args: any[]) => T
-export const TypedEventTarget = <EventMap extends object>(
+export const TypedEventTarget = <
+  EventMap extends object,
+  T extends Constructor<EventTarget>
+>(
+  superClass: T,
 ) => {
-  class TypedEventTargetClass extends EventTarget {
+  class TypedEventTargetClass extends superClass {
     dispatchCustomEvent<K extends keyof EventMap>(
       type: K,
       data?: EventMap[K] extends CustomEvent<infer DetailData> ? DetailData : never,
@@ -369,7 +376,7 @@ export const TypedEventTarget = <EventMap extends object>(
       }))
     }
   }
-  return TypedEventTargetClass as Constructor<TypedEventTargetInterface<EventMap>>;
+  return TypedEventTargetClass as Constructor<TypedEventTargetInterface<EventMap>> & T;
 }
 
 interface TypedEventTargetInterface<EventMap> extends EventTarget {

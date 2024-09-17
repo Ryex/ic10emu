@@ -4,9 +4,10 @@ import { BaseElement, defaultCss } from "components";
 
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.js";
 import { computed, Signal, SignalWatcher, watch } from "@lit-labs/preact-signals";
-import { FrozenObjectFull } from "ic10emu_wasm";
+import { FrozenObjectFull, LineError } from "ic10emu_wasm";
 import { VMObjectMixin } from "./baseDevice";
 import { createRef, Ref, ref } from "lit/directives/ref.js";
+import { isSome, structuralEqual } from "utils";
 
 @customElement("vm-ic-controls")
 export class VMICControls extends VMObjectMixin(SignalWatcher(BaseElement)) {
@@ -90,10 +91,17 @@ export class VMICControls extends VMObjectMixin(SignalWatcher(BaseElement)) {
     return this.vm.value?.state.circuitHolderIds.value ?? [];
   });
 
-  errors = computed(() => {
-    const obj = this.vm.value?.state.getObject(this.activeIC.value).value;
-    return obj?.obj_info.compile_errors ?? [];
-  });
+  errors = (() => {
+    let last: LineError[] = null
+    return computed(() => {
+      const obj = this.vm.value?.state.getProgramErrors(this.activeIC.value).value ?? [];
+      if (structuralEqual(last, obj)) {
+        return last;
+      }
+      last = obj;
+      return obj
+    })
+  })();
 
   icIP = computed(() => {
     const circuit = this.vm.value?.state.getCircuitInfo(this.activeIC.value).value;
@@ -144,18 +152,34 @@ export class VMICControls extends VMObjectMixin(SignalWatcher(BaseElement)) {
     const icErrors = computed(() => {
       return this.errors.value.map(
         (err) =>
-          typeof err === "object"
-            && "ParseError" in err
-            ? html`<div class="hstack">
-                <span>
-                  Line: ${err.ParseError.line} -
-                  ${"ParseError" in err ? err.ParseError.start : "N/A"}:${err.ParseError.end}
-                </span>
-                <span class="ms-auto">${err.ParseError.msg}</span>
-              </div>`
-            : html`${JSON.stringify(err)}`,
+          html`
+            <div class="hstack">
+              <span>
+                Line: ${err.line} ${err.error.typ === "ParseError" ? html`- ${err.error.start}:${err.error.end}` : nothing}
+              </span>
+              <span class="ms-auto">${err.msg}</span>
+            </div>
+          `
       ) ?? nothing;
     });
+
+    const icState = computed(() => {
+      const state = this.icState.value;
+      if (isSome(state) && typeof state === "object") {
+        if ("Sleep" in state) {
+          const date = new Date(state.Sleep[0]);
+          const seconds = state.Sleep[1];
+          date.setSeconds(date.getSeconds() + seconds);
+          return html`
+          <p>Sleeping until <sl-format-date .date=${date} hour="numeric" minute="numeric" second="numeric"></sl-format-date></p>
+          <p><sl-format-number .value=${seconds}></sl-format-number> Seconds</p>
+        `;
+        } else if ("Error" in state) {
+          return html`Error on Line ${state.Error.line}`;
+        }
+      }
+      return state;
+    })
 
     return html`
       <sl-card class="card">
@@ -229,7 +253,7 @@ export class VMICControls extends VMObjectMixin(SignalWatcher(BaseElement)) {
           <sl-divider></sl-divider>
           <div class="hstack">
             <span>Last State</span>
-            <span class="ms-auto">${watch(this.icState)}</span>
+            <span class="ms-auto">${watch(icState)}</span>
           </div>
           <sl-divider></sl-divider>
           <div class="vstack">
@@ -245,7 +269,7 @@ export class VMICControls extends VMObjectMixin(SignalWatcher(BaseElement)) {
     window.VM.get().then((vm) => vm.run());
   }
   _handleStepClick() {
-    window.VM.get().then((vm) => vm.step());
+    window.VM.get().then((vm) => vm.step(true));
   }
   _handleResetClick() {
     window.VM.get().then((vm) => vm.reset());

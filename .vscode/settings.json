@@ -1,4 +1,7 @@
 {
     "rust-analyzer.check.allTargets": false,
-    "rust-analyzer.cargo.target": "wasm32-unknown-unknown"
+    "rust-analyzer.cargo.target": "wasm32-unknown-unknown",
+    "rust-analyzer.cargo.features": [
+        "tsify",
+    ]
 }

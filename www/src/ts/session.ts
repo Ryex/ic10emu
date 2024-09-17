@@ -1,5 +1,4 @@
 import type {
-  ICError,
   ObjectID,
 } from "ic10emu_wasm";
 import { App } from "./app";
@@ -8,13 +7,13 @@ import { openDB, IDBPTransaction } from "idb";
 import {
   TypedEventTarget,
   fromJson,
-  structuralEqual,
   toJson,
 } from "./utils";
 
 import * as presets from "./presets";
 import { computed, signal, Signal } from "@lit-labs/preact-signals";
 import { SessionDB } from "sessionDB";
+import { VMState } from "virtualMachine/state";
 const { demoVMState } = presets;
 
 export interface SessionEventMap {
@@ -26,46 +25,22 @@ export interface SessionEventMap {
   "active-line": CustomEvent<ObjectID>;
 }
 
-export class Session extends TypedEventTarget<SessionEventMap>() {
-  private _programs: Map<ObjectID, Signal<string>>;
-  private _errors: Signal<Map<ObjectID, ICError[]>>;
-  private _activeIC: Signal<ObjectID>;
-  private _activeLines: Signal<Map<ObjectID, number>>;
-  private _save_timeout?: ReturnType<typeof setTimeout>;
-
+export class Session extends TypedEventTarget<SessionEventMap, typeof EventTarget>(EventTarget) {
+  private _activeIC: Signal<ObjectID> = signal(null);
+  private _activeEditorSession: Signal<ObjectID> = signal(null);
+  private _save_timeout?: ReturnType<typeof setTimeout> = undefined;
   private app: App;
+
+  vmState: Signal<VMState> = signal(null);
 
   constructor(app: App) {
     super();
     this.app = app;
-    this._programs = new Map();
-    this._errors = signal(new Map());
-    this._save_timeout = undefined;
-    this._activeIC = signal(null);
-    this._activeLines = signal(new Map());
     this.loadFromFragment();
 
-    const that = this;
     window.addEventListener("hashchange", (_event) => {
-      that.loadFromFragment();
+      this.loadFromFragment();
     });
-  }
-
-  get programs(): Map<ObjectID, Signal<string>> {
-    return this._programs;
-  }
-
-  set programs(programs: Iterable<[ObjectID, string]>) {
-    const seenIds: ObjectID[] = []
-    for (const [id, code] of programs) {
-      this.setProgram(id, code);
-      seenIds.push(id);
-    }
-    for (const id of this._programs.keys()) {
-      if (!seenIds.includes(id)) {
-        this.setProgram(id, null);
-      }
-    }
   }
 
   get activeIC(): Signal<ObjectID> {
@@ -77,72 +52,16 @@ export class Session extends TypedEventTarget<SessionEventMap>() {
     this.dispatchCustomEvent("session-active-ic", this.activeIC.peek());
   }
 
-  changeID(oldID: ObjectID, newID: ObjectID) {
-    if (this._programs.has(oldID)) {
-      this._programs.set(newID, this._programs.get(oldID));
-      this._programs.delete(oldID);
-    }
-    this.dispatchCustomEvent("session-id-change", { old: oldID, new: newID });
+  get activeEditorSession(): Signal<ObjectID> {
+    return this._activeEditorSession;
   }
 
-  onIDChange(callback: (e: CustomEvent<{ old: ObjectID; new: ObjectID }>) => any) {
-    this.addEventListener("session-id-change", callback);
+  set activeEditorSession(val: ObjectID) {
+    this._activeEditorSession.value = val;
   }
 
   onActiveIc(callback: (e: CustomEvent<ObjectID>) => any) {
     this.addEventListener("session-active-ic", callback);
-  }
-
-  get errors() {
-    return this._errors;
-  }
-
-  getActiveLine(id: ObjectID) {
-    return computed(() => this._activeLines.value.get(id));
-  }
-
-  setActiveLine(id: ObjectID, line: number) {
-    const last = this._activeLines.peek().get(id);
-    if (last !== line) {
-      this._activeLines.value = new Map([... this._activeLines.value.entries(), [id, line]]);
-      this._fireOnActiveLine(id);
-    }
-  }
-
-  setProgramCode(id: ObjectID, code: string) {
-    this.setProgram(id, code);
-    if (this.app.vm) {
-      this.app.vm.updateCode();
-    }
-    this.save();
-  }
-
-  getProgram(id: ObjectID): Signal<string> {
-    if (!this._programs.has(id)) {
-      this._programs.set(id, signal(null));
-    }
-    return this._programs.get(id);
-  }
-
-  private setProgram(id: ObjectID, code: string) {
-    if (!this._programs.has(id)) {
-      this._programs.set(id, signal(code));
-    } else {
-      this._programs.get(id).value = code;
-    }
-  }
-
-  setProgramErrors(id: ObjectID, errors: ICError[]) {
-    this._errors.value = new Map([...this._errors.value.entries(), [id, errors]]);
-    this._fireOnErrors([id]);
-  }
-
-  _fireOnErrors(ids: ObjectID[]) {
-    this.dispatchCustomEvent("session-errors", ids);
-  }
-
-  onErrors(callback: (e: CustomEvent<ObjectID[]>) => any) {
-    this.addEventListener("session-errors", callback);
   }
 
   onLoad(callback: (e: CustomEvent<Session>) => any) {
@@ -188,19 +107,15 @@ export class Session extends TypedEventTarget<SessionEventMap>() {
     if (typeof data === "string") {
       this.activeIC = 1;
       await vm.restoreVMState(demoVMState.vm);
-      this.programs = [[1, data]];
     } else if ("programs" in data) {
       this.activeIC = 1;
       await vm.restoreVMState(demoVMState.vm);
-      this.programs = data.programs;
     } else if ("vm" in data) {
-      this.programs = [];
       const state = data.vm;
       // assign first so it's present when the
       // vm fires events
       this._activeIC.value = data.activeIC;
       await vm.restoreVMState(state);
-      this.programs = vm.getPrograms();
       // assign again to fire event
       this.activeIC = data.activeIC;
     }
