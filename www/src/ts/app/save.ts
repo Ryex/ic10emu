@@ -47,7 +47,7 @@ export class SaveDialog extends BaseElement {
     this.performSearch();
   }
 
-  @state() mode: SaveDialogMode;
+  @state() accessor mode: SaveDialogMode;
 
   private searchResults: { name: string; date: Date; session: SessionDB.CurrentDBVmState }[];
 
@@ -64,21 +64,21 @@ export class SaveDialog extends BaseElement {
         this._handleSessionsUpdate.bind(this),
       ),
     );
-    this.loadsaves();
+    this.loadSaves();
   }
 
   _handleSessionsUpdate() {
-    this.loadsaves();
+    this.loadSaves();
   }
 
-  loadsaves() {
+  loadSaves() {
     window.App.get().then(async (app) => {
       const saves = await app.session.getLocalSaved();
       this.saves = saves;
     });
   }
 
-  @query("sl-dialog.save-dialog") saveDialog: SlDialog;
+  @query("sl-dialog.save-dialog") accessor saveDialog: SlDialog;
 
   show(mode: SaveDialogMode) {
     this.mode = mode;
@@ -224,7 +224,7 @@ export class SaveDialog extends BaseElement {
     `;
   }
 
-  @query("sl-dialog.delete-dialog") deleteDialog: SlDialog;
+  @query("sl-dialog.delete-dialog") accessor deleteDialog: SlDialog;
   private _toDelete: string | undefined;
 
   _preventOverlayClose(event: CustomEvent) {
@@ -250,9 +250,9 @@ export class SaveDialog extends BaseElement {
     this._filter = undefined;
   }
 
-  @query(".save-name-input") saveInput: SlInput;
-  @query(".filter-input") filterInput: SlInput;
-  @query(".save-button") saveButton: SlButton;
+  @query(".save-name-input") accessor saveInput: SlInput;
+  @query(".filter-input") accessor filterInput: SlInput;
+  @query(".save-button") accessor saveButton: SlButton;
 
   async _handleSaveButtonClick(_e: CustomEvent) {
     const name = this.saveInput.value;

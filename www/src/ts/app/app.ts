@@ -54,10 +54,10 @@ export class App extends BaseElement {
 
   editorSettings: { fontSize: number; relativeLineNumbers: boolean };
 
-  @query("ace-ic10") editor: IC10Editor;
-  @query("session-share-dialog") shareDialog: ShareSessionDialog;
-  @query("save-dialog") saveDialog: SaveDialog;
-  @query("app-welcome") appWelcome: AppWelcome;
+  @query("ace-ic10") accessor editor: IC10Editor;
+  @query("session-share-dialog") accessor shareDialog: ShareSessionDialog;
+  @query("save-dialog") accessor saveDialog: SaveDialog;
+  @query("app-welcome") accessor appWelcome: AppWelcome;
 
   // get editor() {
   //   return this.renderRoot.querySelector("ace-ic10") as IC10Editor;

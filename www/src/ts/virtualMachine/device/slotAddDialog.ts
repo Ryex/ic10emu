@@ -250,8 +250,8 @@ export class VMSlotAddDialog extends VMObjectMixin(BaseElement) {
     this.hide();
   }
 
-  @query("sl-dialog.slot-add-dialog") dialog: SlDialog;
-  @query(".device-search-input") searchInput: SlInput;
+  @query("sl-dialog.slot-add-dialog") accessor dialog: SlDialog;
+  @query(".device-search-input") accessor searchInput: SlInput;
 
   render() {
    const name = computed(() => {

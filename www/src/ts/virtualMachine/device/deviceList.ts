@@ -140,7 +140,7 @@ export class VMDeviceList extends VMObjectMixin(BaseElement) {
     return result;
   }
 
-  @query("vm-slot-add-dialog") slotDialog: VMSlotAddDialog;
+  @query("vm-slot-add-dialog") accessor slotDialog: VMSlotAddDialog;
 
   _showDeviceSlotDialog(
     e: CustomEvent<SlotModifyEvent>,
@@ -156,7 +156,7 @@ export class VMDeviceList extends VMObjectMixin(BaseElement) {
     }
   }
 
-  @query(".device-filter-input") filterInput: SlInput;
+  @query(".device-filter-input") accessor filterInput: SlInput;
   get filter() {
     return this._filter.value;
   }

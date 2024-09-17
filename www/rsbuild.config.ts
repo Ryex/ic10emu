@@ -13,13 +13,22 @@ const commitHash = require("child_process")
   .trim();
 
 export default defineConfig({
-  output: {
-    targets: ["web"],
+  environments: {
+    web: {
+      output: {
+        target: 'web',
+      }
+    }
   },
   source: {
     entry: {
-      index: "./src/ts/index.ts",
+      index: path.resolve(__dirname, "./src/ts/index.ts"),
     },
+  },
+  html: {
+    appIcon: {
+      icons: [],
+    }
   },
   tools: {
     rspack: {
@@ -58,15 +67,11 @@ export default defineConfig({
       jsc: {
         parser: {
           syntax: "typescript",
-          // dynamicImport: true,
           decorators: true,
         },
         transform: {
-          legacyDecorator: true,
           decoratorMetadata: true,
-          // decoratorVersion: "2022-03",
         },
-        // target: "es2021",
       },
     },
     htmlPlugin: {

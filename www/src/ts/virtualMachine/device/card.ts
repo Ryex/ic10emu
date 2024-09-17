@@ -23,7 +23,7 @@ export type CardTab = "fields" | "slots" | "reagents" | "networks" | "pins";
 export class VMDeviceCard extends VMObjectMixin(BaseElement) {
   image_err: boolean;
 
-  @property({ type: Boolean }) open: boolean;
+  @property({ type: Boolean }) accessor open: boolean;
 
   constructor() {
     super();
@@ -489,7 +489,7 @@ export class VMDeviceCard extends VMObjectMixin(BaseElement) {
     setTimeout(() => this.resolveTab(e.detail.name as CardTab), 100);
   }
 
-  @query(".remove-device-dialog") removeDialog: SlDialog;
+  @query(".remove-device-dialog") accessor removeDialog: SlDialog;
 
   _preventOverlayClose(event: CustomEvent) {
     if (event.detail.source === "overlay") {

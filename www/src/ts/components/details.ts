@@ -8,7 +8,7 @@ import SlDetails from "@shoelace-style/shoelace/dist/components/details/details.
 
 @customElement("ic10-details")
 export class IC10Details extends SlDetails {
-  @query(".details__summary-icon")  summaryIcon: HTMLSpanElement;
+  @query(".details__summary-icon") accessor summaryIcon: HTMLSpanElement;
 
   static styles = [
     SlDetails.styles,

@@ -12,10 +12,9 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "useDefineForClassFields": false,
-    "types": ["@types/wicg-file-system-access", "@types/ace"],
+    "experimentalDecorators": false,
+    "useDefineForClassFields": true,
+    "types": ["@types/wicg-file-system-access"],
     "plugins": [
       {
         "name": "ts-lit-plugin"

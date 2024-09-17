@@ -43,8 +43,8 @@ export class VMAddDeviceButton extends VMObjectMixin(BaseElement) {
     `,
   ];
 
-  @query("sl-drawer") drawer: SlDrawer;
-  @query(".device-search-input") searchInput: SlInput;
+  @query("sl-drawer") accessor drawer: SlDrawer;
+  @query(".device-search-input") accessor searchInput: SlInput;
 
   templateDB = computed(() => {
     return this.vm.value?.state.templateDB.value ?? null;

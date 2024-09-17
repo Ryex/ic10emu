@@ -205,6 +205,10 @@ export declare namespace AceHidden {
     getWidth(): number;
     destroy(): void;
   }
+
+  export interface HoverTooltipConstructor {
+    new(parentNode?: HTMLElement): HoverTooltip
+  }
   export class HoverTooltip extends Tooltip {
     constructor(parentNode?: HTMLElement);
     timeout: number;
@@ -272,9 +276,13 @@ export declare namespace AceHidden {
      */
     doPopupsOverlap(popupA: Tooltip, popupB: Tooltip): boolean;
   }
+
+  export interface MarkerGroupConstructor {
+    new(session: EditSession, options?: { markerType?: "fullLine" | "line" }): Ace.MarkerGroup
+  }
 }
 
-const { HoverTooltip } = ace.require("ace/tooltip");
-const MarkerGroup = ace.require("ace/marker_group").MarkerGroup;
+const HoverTooltip: AceHidden.HoverTooltipConstructor = ace.require("ace/tooltip").HoverTooltip;
+const MarkerGroup: AceHidden.MarkerGroupConstructor = ace.require("ace/marker_group").MarkerGroup;
 
 export { ace, TextMode, Range, AceLanguageClient, HoverTooltip, MarkerGroup }

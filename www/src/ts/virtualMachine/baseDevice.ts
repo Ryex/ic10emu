@@ -30,11 +30,11 @@ export const VMObjectMixin = <T extends Constructor<LitElement>>(
     objectIDSignal: Signal<ObjectID | null> = signal(null);
     vm: Signal<VirtualMachine> = signal(null);
 
-    @property({type: Number})
     get objectID(): number {
       return this.objectIDSignal.peek();
     }
 
+    @property({type: Number})
     set objectID(value: number) {
       this.objectIDSignal.value = value;
     }

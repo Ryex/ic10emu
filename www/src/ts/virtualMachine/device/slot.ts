@@ -31,11 +31,11 @@ export class VMDeviceSlot extends VMObjectMixin(BaseElement) {
 
   slotIndexSignal: Signal<number> = signal(0);
 
-  @property({ type: Number })
   get slotIndex() {
     return this.slotIndexSignal.peek();
   }
 
+  @property({ type: Number })
   set slotIndex(val: number) {
     this.slotIndexSignal.value = val;
   }

@@ -98,9 +98,9 @@ export class IC10Editor extends BaseElement {
   stylesAdded: string[];
   tooltipObserver: MutationObserver;
 
-  @query(".e-kb-shortcuts") kbShortcuts: AceKeyboardShortcuts;
+  @query(".e-kb-shortcuts") accessor kbShortcuts: AceKeyboardShortcuts;
 
-  @query(".e-settings-dialog") settingDialog: SlDialog;
+  @query(".e-settings-dialog") accessor settingDialog: SlDialog;
 
   errorTooltip: AceHidden.HoverTooltip = new HoverTooltip();
   activeLineTooltip: AceHidden.HoverTooltip = new HoverTooltip();
@@ -231,9 +231,9 @@ export class IC10Editor extends BaseElement {
       characterData: false,
     });
 
-    // Fornow this seems uneeded, tooltips seem to work better on the lightdom
+    // For now this seems unneeded, tooltips seem to work better on the lightdom
     // this.tooltipObserver = new MutationObserver((_mutations, _observer) => {
-    //   // we want the toltips on the shadow-dom not the light dom body
+    //   // we want the tooltips on the shadow-dom not the light dom body
     //   for (const node of document.body.querySelectorAll(
     //     ".ace_tooltip, .ace_editor.ace_autocomplete",
     //   )) {
