@@ -29,3 +29,5 @@ proc-macro2 = "1.0.82"
 num-integer = "0.1.46"
 num = "0.4.3"
 uneval = "0.2.4"
+semver = "1.0.23"
+strum = { version = "0.26.3", features = ["derive"] }

@@ -1,6 +1,10 @@
-use std::process::{Command, ExitStatus};
+use std::{
+    ffi::OsString,
+    process::{Command, ExitStatus},
+};
 
-use clap::{Parser, Subcommand};
+use clap::{builder::TypedValueParser, Parser, Subcommand};
+use strum::VariantNames;
 
 mod enums;
 mod generate;
@@ -23,7 +27,6 @@ struct Args {
 }
 
 const PACKAGES: &[&str] = &["ic10lsp_wasm", "ic10emu_wasm"];
-const VALID_VERSION_TYPE: &[&str] = &["patch", "minor", "major"];
 const VALID_GENERATE_TYPE: &[&str] = &["enums", "instructions", "database"];
 const DEFAULT_GENERATE: &[&str] = &["enums"];
 fn parse_generate_modules(s: &str) -> Result<String, String> {
@@ -34,6 +37,18 @@ fn parse_generate_modules(s: &str) -> Result<String, String> {
         ));
     }
     Ok(s.to_string())
+}
+
+#[derive(
+    Debug, Clone, PartialEq, strum::EnumString, strum::Display, strum::VariantNames, strum::AsRefStr,
+)]
+enum VersionBumpType {
+    #[strum(serialize = "patch")]
+    Patch,
+    #[strum(serialize = "minor")]
+    Minor,
+    #[strum(serialize = "major")]
+    Major,
 }
 
 #[derive(Debug, Subcommand)]
@@ -59,11 +74,12 @@ enum Task {
     Deploy {},
     /// bump the cargo.toml and package,json versions
     Version {
-        #[arg(default_value = "patch", value_parser = clap::builder::PossibleValuesParser::new(VALID_VERSION_TYPE))]
-        version: String,
+        #[arg(default_value = "patch", value_parser = clap::builder::PossibleValuesParser::new(VersionBumpType::VARIANTS).map(|s| s.parse::<VersionBumpType>().unwrap()))]
+        bump: VersionBumpType,
     },
-    /// update changelog
+    /// Update changelog
     Changelog {},
+    /// Generate modules and databases from extracted stationeers data
     Generate {
         #[arg(long, short = 'm', value_delimiter = ',', default_values = DEFAULT_GENERATE, value_parser = parse_generate_modules)]
         modules: Vec<String>,
@@ -73,6 +89,11 @@ enum Task {
         /// Otherwise looks for both files in `<workspace>` or `<workspace>/data`.
         /// Can also point directly at a folder containing the two files.
         path: Option<std::ffi::OsString>,
+    },
+    /// Update changelog and tag release, optionally bump the version at the same time
+    Tag {
+        #[arg(value_parser = clap::builder::PossibleValuesParser::new(VersionBumpType::VARIANTS).map(|s| s.parse::<VersionBumpType>().unwrap()))]
+        bump: Option<VersionBumpType>,
     },
 }
 
@@ -130,113 +151,109 @@ fn main() -> color_eyre::Result<()> {
             build(&args, packages, *release, &workspace, rest)?;
         }
         Task::Start {} => {
-            pnpm_install(&args, &workspace)?;
-            eprintln!("Starting server");
-            let mut cmd = Command::new(&args.manager);
-            cmd.current_dir(&workspace.join("www"));
-            cmd.args(["run", "start"]).status().map_err(|e| {
-                Error::Command(format!("{}", cmd.get_program().to_string_lossy()), e)
-            })?;
+            start_server(&args, &workspace)?;
         }
         Task::Deploy {} => {
-            pnpm_install(&args, &workspace)?;
-            eprintln!("Production Build");
-            let mut cmd = Command::new(&args.manager);
-            cmd.current_dir(&workspace.join("www"));
-            cmd.args(["run", "build"]).status().map_err(|e| {
-                Error::Command(format!("{}", cmd.get_program().to_string_lossy()), e)
-            })?;
+            deploy_web(&args, &workspace)?;
         }
-        Task::Version { version } => {
-            let mut cmd = Command::new("cargo");
-            cmd.current_dir(&workspace);
-            cmd.args(["set-version", "--bump", &version])
-                .status()
-                .map_err(|e| {
-                    Error::Command(format!("{}", cmd.get_program().to_string_lossy()), e)
-                })?;
-            let mut cmd = Command::new(&args.manager);
-            cmd.current_dir(&workspace.join("www"));
-            cmd.args(["version", &version]).status().map_err(|e| {
-                Error::Command(format!("{}", cmd.get_program().to_string_lossy()), e)
-            })?;
+        Task::Version { bump } => {
+            bump_version(&args, &workspace, bump)?;
         }
         Task::Changelog {} => {
-            let mut cmd = Command::new("git-changelog");
-            cmd.current_dir(&workspace);
-            cmd.args([
-                "-io",
-                "CHANGELOG.md",
-                "-t",
-                "path:CHANGELOG.md.jinja",
-                "-c",
-                "conventional",
-                "--bump",
-                VERSION.unwrap_or("auto"),
-                "--parse-refs",
-                "--trailers",
-            ])
-            .status()
-            .map_err(|e| Error::Command(format!("{}", cmd.get_program().to_string_lossy()), e))?;
+            update_changelog(&workspace)?;
         }
         Task::Generate { modules, path } => {
-            let path = match path {
-                Some(path) => {
-                    let mut path = std::path::PathBuf::from(path);
-                    if path.exists()
-                        && path
-                            .parent()
-                            .and_then(|p| p.file_name())
-                            .is_some_and(|p| p == "Stationeers")
-                        && path.file_name().is_some_and(|name| {
-                            (std::env::consts::OS == "windows" && name == "rocketstation.exe")
-                                || (name == "rocketstation")
-                                || (name == "rocketstation_Data")
-                        })
-                    {
-                        path = path.parent().unwrap().to_path_buf();
-                    }
-                    if path.is_dir()
-                        && path.file_name().is_some_and(|name| name == "Stationeers")
-                        && path.join("Stationpedia").join("Stationpedia.json").exists()
-                    {
-                        path = path.join("Stationpedia");
-                    }
-                    if path.is_file()
-                        && path
-                            .file_name()
-                            .is_some_and(|name| name == "Stationpedia.json")
-                    {
-                        path = path.parent().unwrap().to_path_buf();
-                    }
-                    path
-                }
-                None => {
-                    let mut path = workspace.clone();
-                    if path.join("data").join("Stationpedia.json").exists()
-                        && path.join("data").join("Enums.json").exists()
-                    {
-                        path = path.join("data")
-                    }
-
-                    path
-                }
-            };
-
-            if path.is_dir()
-                && path.join("Stationpedia.json").exists()
-                && path.join("Enums.json").exists()
-            {
-                generate::generate(
-                    &path,
-                    &workspace,
-                    &modules.iter().map(String::as_str).collect::<Vec<_>>(),
-                )?;
-            } else {
-                return Err(Error::BadStationeersPath(path).into());
-            }
+            generate_data(&workspace, modules, path)?;
+        }
+        Task::Tag { bump } => {
+            tag_release(&args, &workspace, bump.as_ref())?;
         }
     }
+    Ok(())
+}
+
+fn build_command<S, A, I, P>(program: S, args: I, working_dir: P) -> Command
+where
+    S: AsRef<std::ffi::OsStr>,
+    A: AsRef<std::ffi::OsStr>,
+    I: IntoIterator<Item = A>,
+    P: AsRef<std::path::Path>,
+{
+    let mut cmd = Command::new(program);
+    cmd.current_dir(working_dir);
+    cmd.args(args);
+    cmd
+}
+
+fn run_command<S, A, I, P>(
+    program: S,
+    args: I,
+    working_dir: P,
+) -> Result<(ExitStatus, Command), Error>
+where
+    S: AsRef<std::ffi::OsStr>,
+    A: AsRef<std::ffi::OsStr>,
+    I: IntoIterator<Item = A>,
+    P: AsRef<std::path::Path>,
+{
+    let mut cmd = build_command(program, args, working_dir);
+    let status = cmd
+        .status()
+        .map_err(|e| Error::Command(format!("{}", cmd.get_program().to_string_lossy()), e))?;
+    Ok((status, cmd))
+}
+
+fn start_server(args: &Args, workspace: &std::path::Path) -> Result<(), Error> {
+    pnpm_install(&args, &workspace)?;
+    eprintln!("Starting server");
+    run_command(&args.manager, ["run", "start"], &workspace.join("www"))?;
+    Ok(())
+}
+
+fn deploy_web(args: &Args, workspace: &std::path::Path) -> Result<(), Error> {
+    pnpm_install(&args, &workspace)?;
+    eprintln!("Production Build");
+    run_command(&args.manager, ["run", "build"], &workspace.join("www"))?;
+    Ok(())
+}
+
+fn bump_version(
+    args: &Args,
+    workspace: &std::path::Path,
+    bump: &VersionBumpType,
+) -> Result<(), Error> {
+    run_command(
+        "cargo",
+        ["set-version", "--bump", bump.as_ref()],
+        &workspace,
+    )?;
+    run_command(
+        &args.manager,
+        ["version", bump.as_ref()],
+        &workspace.join("www"),
+    )?;
+    Ok(())
+}
+
+fn update_changelog(workspace: &std::path::Path) -> Result<(), Error> {
+    run_command(
+        "git-changelog",
+        [
+            "-io",
+            "CHANGELOG.md",
+            "-t",
+            "path:CHANGELOG.md.jinja",
+            "-c",
+            "conventional",
+            "--sections",
+            "chore,feat,fix,perf,revert",
+            "--bump",
+            VERSION.unwrap_or("auto"),
+            "--parse-refs",
+            "--trailers",
+        ],
+        &workspace,
+    )?;
     Ok(())
 }
 
@@ -260,19 +277,16 @@ fn build<P: AsRef<std::ffi::OsStr> + std::fmt::Debug + std::fmt::Display>(
             package,
             rest.join(std::ffi::OsStr::new(" ")).to_string_lossy(),
         );
-        let mut cmd = Command::new(&args.wasm_pack);
-        cmd.current_dir(workspace);
-        cmd.arg("build");
-        if release {
-            cmd.arg("--release");
-        } else {
-            cmd.arg("--dev");
-        }
-        cmd.arg(package);
-        cmd.args(rest);
-        let status = cmd
-            .status()
-            .map_err(|e| Error::Command(format!("{}", cmd.get_program().to_string_lossy()), e))?;
+        let cmd_args: [std::ffi::OsString; 3] = [
+            "build".into(),
+            if release {
+                "--release".into()
+            } else {
+                "--dev".into()
+            },
+            package.into(),
+        ];
+        let (status, cmd) = run_command(&args.wasm_pack, [&cmd_args, rest].concat(), workspace)?;
         if status.success() {
             eprintln!("{} built successfully", package);
         } else {
@@ -288,9 +302,115 @@ fn build<P: AsRef<std::ffi::OsStr> + std::fmt::Debug + std::fmt::Display>(
 
 fn pnpm_install(args: &Args, workspace: &std::path::Path) -> Result<ExitStatus, Error> {
     eprintln!("Running `pnpm install`");
-    let mut cmd = Command::new(&args.manager);
-    cmd.current_dir(&workspace.join("www"));
-    cmd.args(["install"])
-        .status()
-        .map_err(|e| Error::Command(format!("{}", cmd.get_program().to_string_lossy()), e))
+    let (status, _) = run_command(&args.manager, ["install"], &workspace.join("www"))?;
+    Ok(status)
+}
+
+fn generate_data(
+    workspace: &std::path::Path,
+    modules: &Vec<String>,
+    path: &Option<OsString>,
+) -> color_eyre::Result<()> {
+    let path = match path {
+        Some(path) => {
+            let mut path = std::path::PathBuf::from(path);
+            if path.exists()
+                && path
+                    .parent()
+                    .and_then(|p| p.file_name())
+                    .is_some_and(|p| p == "Stationeers")
+                && path.file_name().is_some_and(|name| {
+                    (std::env::consts::OS == "windows" && name == "rocketstation.exe")
+                        || (name == "rocketstation")
+                        || (name == "rocketstation_Data")
+                })
+            {
+                path = path.parent().unwrap().to_path_buf();
+            }
+            if path.is_dir()
+                && path.file_name().is_some_and(|name| name == "Stationeers")
+                && path.join("Stationpedia").join("Stationpedia.json").exists()
+            {
+                path = path.join("Stationpedia");
+            }
+            if path.is_file()
+                && path
+                    .file_name()
+                    .is_some_and(|name| name == "Stationpedia.json")
+            {
+                path = path.parent().unwrap().to_path_buf();
+            }
+            path
+        }
+        None => {
+            let mut path = workspace.to_path_buf();
+            if path.join("data").join("Stationpedia.json").exists()
+                && path.join("data").join("Enums.json").exists()
+            {
+                path = path.join("data")
+            }
+
+            path
+        }
+    };
+
+    if path.is_dir() && path.join("Stationpedia.json").exists() && path.join("Enums.json").exists()
+    {
+        generate::generate(
+            &path,
+            &workspace,
+            &modules.iter().map(String::as_str).collect::<Vec<_>>(),
+        )?;
+    } else {
+        return Err(Error::BadStationeersPath(path).into());
+    }
+    Ok(())
+}
+
+fn tag_release(
+    args: &Args,
+    workspace: &std::path::Path,
+    bump: Option<&VersionBumpType>,
+) -> Result<(), Error> {
+    let mut version = semver::Version::parse(VERSION.expect("package version to be set"))
+        .expect("package version to parse");
+    if let Some(bump) = bump {
+        eprintln!("Bumping {} version", bump.as_ref());
+        bump_version(args, workspace, bump)?;
+        match bump {
+            &VersionBumpType::Major => {
+                version.major += 1;
+                version.minor = 0;
+                version.patch = 0;
+            }
+            &VersionBumpType::Minor => {
+                version.minor += 1;
+                version.patch = 0;
+            }
+            &VersionBumpType::Patch => {
+                version.patch += 1;
+            }
+        }
+    }
+    update_changelog(workspace)?;
+    let tag_ver = format!("v{}", version);
+    run_command("git", ["add", "."], &workspace)?;
+    run_command(
+        "git",
+        ["commit", "-m", &format!("tagging version {}", &tag_ver)],
+        &workspace,
+    )?;
+    run_command(
+        "git",
+        [
+            "tag",
+            "-f",
+            "-s",
+            &tag_ver,
+            "-m",
+            &format!("Version {}", version),
+        ],
+        &workspace,
+    )?;
+    Ok(())
 }
