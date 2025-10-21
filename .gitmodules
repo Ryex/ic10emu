@@ -1,0 +1,6 @@
+[submodule "ic10lsp"]
+	path = ic10lsp
+	url = https://github.com/Ryex/ic10lsp.git
+[submodule "tree-sitter-ic10"]
+	path = tree-sitter-ic10
+	url = https://github.com/Ryex/tree-sitter-ic10.git
