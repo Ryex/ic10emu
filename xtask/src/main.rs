@@ -5,6 +5,7 @@ use std::{
 
 use clap::{builder::TypedValueParser, Parser, Subcommand};
 use strum::VariantNames;
+use tracing_subscriber::prelude::*;
 
 mod enums;
 mod generate;
@@ -125,6 +126,15 @@ impl std::fmt::Debug for Error {
 const VERSION: Option<&str> = option_env!("CARGO_PKG_VERSION");
 fn main() -> color_eyre::Result<()> {
     color_eyre::install()?;
+
+    tracing_subscriber::registry()
+        .with(
+            tracing_subscriber::fmt::layer()
+                .with_ansi(true) // Enable ANSI colors
+                .compact(), // Or .pretty(), .full(), etc.
+        )
+        .init();
+
     let args = Args::parse();
     let workspace = {
         let out = Command::new("cargo")

@@ -99,7 +99,7 @@ pub fn build_reagent_database() -> std::collections::BTreeMap<
             hash: 557517660i32,
             unit: "g".into(),
             is_organic: true,
-            sources: vec![("ReagentColorBlue".into(), 10f64)].into_iter().collect(),
+            sources: vec![].into_iter().collect(),
         },
     );
     map.insert(
@@ -110,7 +110,7 @@ pub fn build_reagent_database() -> std::collections::BTreeMap<
             hash: 2129955242i32,
             unit: "g".into(),
             is_organic: true,
-            sources: vec![("ReagentColorGreen".into(), 10f64)].into_iter().collect(),
+            sources: vec![].into_iter().collect(),
         },
     );
     map.insert(
@@ -121,7 +121,7 @@ pub fn build_reagent_database() -> std::collections::BTreeMap<
             hash: 1728153015i32,
             unit: "g".into(),
             is_organic: true,
-            sources: vec![("ReagentColorOrange".into(), 10f64)].into_iter().collect(),
+            sources: vec![].into_iter().collect(),
         },
     );
     map.insert(
@@ -132,7 +132,7 @@ pub fn build_reagent_database() -> std::collections::BTreeMap<
             hash: 667001276i32,
             unit: "g".into(),
             is_organic: true,
-            sources: vec![("ReagentColorRed".into(), 10f64)].into_iter().collect(),
+            sources: vec![].into_iter().collect(),
         },
     );
     map.insert(
@@ -143,7 +143,7 @@ pub fn build_reagent_database() -> std::collections::BTreeMap<
             hash: -1430202288i32,
             unit: "g".into(),
             is_organic: true,
-            sources: vec![("ReagentColorYellow".into(), 10f64)].into_iter().collect(),
+            sources: vec![].into_iter().collect(),
         },
     );
     map.insert(

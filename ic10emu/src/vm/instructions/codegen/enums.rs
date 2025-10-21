@@ -136,7 +136,7 @@ pub enum InstructionOp {
     Bapzal,
     #[strum(
         props(
-            example = "bdns d? a(r?|num)",
+            example = "bdns device(d?|r?|id) a(r?|num)",
             desc = "Branch to line a if device d isn't set",
             operands = "2"
         )
@@ -144,7 +144,7 @@ pub enum InstructionOp {
     Bdns,
     #[strum(
         props(
-            example = "bdnsal d? a(r?|num)",
+            example = "bdnsal device(d?|r?|id) a(r?|num)",
             desc = "Jump execution to line a and store next line number if device is not set",
             operands = "2"
         )
@@ -152,7 +152,23 @@ pub enum InstructionOp {
     Bdnsal,
     #[strum(
         props(
-            example = "bdse d? a(r?|num)",
+            example = "bdnvl device(d?|r?|id) logicType a(r?|num)",
+            desc = "Will branch to line a if the provided device not valid for a load instruction for the provided logic type.",
+            operands = "3"
+        )
+    )]
+    Bdnvl,
+    #[strum(
+        props(
+            example = "bdnvs device(d?|r?|id) logicType a(r?|num)",
+            desc = "Will branch to line a if the provided device not valid for a store instruction for the provided logic type.",
+            operands = "3"
+        )
+    )]
+    Bdnvs,
+    #[strum(
+        props(
+            example = "bdse device(d?|r?|id) a(r?|num)",
             desc = "Branch to line a if device d is set",
             operands = "2"
         )
@@ -160,7 +176,7 @@ pub enum InstructionOp {
     Bdse,
     #[strum(
         props(
-            example = "bdseal d? a(r?|num)",
+            example = "bdseal device(d?|r?|id) a(r?|num)",
             desc = "Jump execution to line a and store next line number if device is set",
             operands = "2"
         )
@@ -416,7 +432,7 @@ pub enum InstructionOp {
     Brapz,
     #[strum(
         props(
-            example = "brdns d? a(r?|num)",
+            example = "brdns device(d?|r?|id) a(r?|num)",
             desc = "Relative jump to line a if device is not set",
             operands = "2"
         )
@@ -424,7 +440,7 @@ pub enum InstructionOp {
     Brdns,
     #[strum(
         props(
-            example = "brdse d? a(r?|num)",
+            example = "brdse device(d?|r?|id) a(r?|num)",
             desc = "Relative jump to line a if device is set",
             operands = "2"
         )
@@ -608,6 +624,14 @@ pub enum InstructionOp {
     Exp,
     #[strum(
         props(
+            example = "ext r? a(r?|num) b(r?|num) c(r?|num)",
+            desc = "Extracts a bit field from a, beginning at b for c length and placed in the provided register. Payload cannot exceed 53 bits in final length.",
+            operands = "4"
+        )
+    )]
+    Ext,
+    #[strum(
+        props(
             example = "floor r? a(r?|num)",
             desc = "Register = largest integer less than a",
             operands = "2"
@@ -616,7 +640,7 @@ pub enum InstructionOp {
     Floor,
     #[strum(
         props(
-            example = "get r? d? address(r?|num)",
+            example = "get r? device(d?|r?|id) address(r?|num)",
             desc = "Using the provided device, attempts to read the stack value at the provided address, and places it in the register.",
             operands = "3"
         )
@@ -624,7 +648,7 @@ pub enum InstructionOp {
     Get,
     #[strum(
         props(
-            example = "getd r? id(r?|num) address(r?|num)",
+            example = "getd r? id(r?|id) address(r?|num)",
             desc = "Seeks directly for the provided device id, attempts to read the stack value at the provided address, and places it in the register.",
             operands = "3"
         )
@@ -632,6 +656,14 @@ pub enum InstructionOp {
     Getd,
     #[strum(props(example = "hcf", desc = "Halt and catch fire", operands = "0"))]
     Hcf,
+    #[strum(
+        props(
+            example = "ins r? a(r?|num) b(r?|num) c(r?|num)",
+            desc = "Inserts a bit field of a into the provided register, beginning at b for c length. Payload cannot exceed 53 bits in final length.",
+            operands = "4"
+        )
+    )]
+    Ins,
     #[strum(props(example = "j int", desc = "Jump execution to line a", operands = "1"))]
     J,
     #[strum(
@@ -646,7 +678,7 @@ pub enum InstructionOp {
     Jr,
     #[strum(
         props(
-            example = "l r? d? logicType",
+            example = "l r? device(d?|r?|id) logicType",
             desc = "Loads device LogicType to register by housing index value.",
             operands = "3"
         )
@@ -688,12 +720,20 @@ pub enum InstructionOp {
     Lbs,
     #[strum(
         props(
-            example = "ld r? id(r?|num) logicType",
+            example = "ld r? id(r?|id) logicType",
             desc = "Loads device LogicType to register by direct ID reference.",
             operands = "3"
         )
     )]
     Ld,
+    #[strum(
+        props(
+            example = "lerp r? a(r?|num) b(r?|num) c(r?|num)",
+            desc = "Linearly interpolates between a and b by the ratio c, and places the result in the register provided. The ratio c will be clamped between 0 and 1.",
+            operands = "4"
+        )
+    )]
+    Lerp,
     #[strum(
         props(
             example = "log r? a(r?|num)",
@@ -704,7 +744,7 @@ pub enum InstructionOp {
     Log,
     #[strum(
         props(
-            example = "lr r? d? reagentMode int",
+            example = "lr r? device(d?|r?|id) reagentMode int",
             desc = "Loads reagent of device's ReagentMode where a hash of the reagent type to check for. ReagentMode can be either Contents (0), Required (1), Recipe (2). Can use either the word, or the number.",
             operands = "4"
         )
@@ -712,7 +752,7 @@ pub enum InstructionOp {
     Lr,
     #[strum(
         props(
-            example = "ls r? d? slotIndex logicSlotType",
+            example = "ls r? device(d?|r?|id) slotIndex logicSlotType",
             desc = "Loads slot LogicSlotType on device to register.",
             operands = "4"
         )
@@ -808,6 +848,14 @@ pub enum InstructionOp {
     Pop,
     #[strum(
         props(
+            example = "pow r? a(r?|num) b(r?|num)",
+            desc = "Stores the result of raising a to the power of b in the register. Follows IEEE-754 standard for floating point arithmetic.",
+            operands = "3"
+        )
+    )]
+    Pow,
+    #[strum(
+        props(
             example = "push a(r?|num)",
             desc = "Pushes the value of a to the stack at sp and increments sp",
             operands = "1"
@@ -816,7 +864,7 @@ pub enum InstructionOp {
     Push,
     #[strum(
         props(
-            example = "put d? address(r?|num) value(r?|num)",
+            example = "put device(d?|r?|id) address(r?|num) value(r?|num)",
             desc = "Using the provided device, attempts to write the provided value to the stack at the provided address.",
             operands = "3"
         )
@@ -824,7 +872,7 @@ pub enum InstructionOp {
     Put,
     #[strum(
         props(
-            example = "putd id(r?|num) address(r?|num) value(r?|num)",
+            example = "putd id(r?|id) address(r?|num) value(r?|num)",
             desc = "Seeks directly for the provided device id, attempts to write the provided value to the stack at the provided address.",
             operands = "3"
         )
@@ -856,7 +904,7 @@ pub enum InstructionOp {
     Round,
     #[strum(
         props(
-            example = "s d? logicType r?",
+            example = "s device(d?|r?|id) logicType r?",
             desc = "Stores register value to LogicType on device by housing index value.",
             operands = "3"
         )
@@ -904,7 +952,7 @@ pub enum InstructionOp {
     Sbs,
     #[strum(
         props(
-            example = "sd id(r?|num) logicType r?",
+            example = "sd id(r?|id) logicType r?",
             desc = "Stores register value to LogicType on device by direct ID reference.",
             operands = "3"
         )
@@ -912,7 +960,7 @@ pub enum InstructionOp {
     Sd,
     #[strum(
         props(
-            example = "sdns r? d?",
+            example = "sdns r? device(d?|r?|id)",
             desc = "Register = 1 if device is not set, otherwise 0",
             operands = "2"
         )
@@ -920,7 +968,7 @@ pub enum InstructionOp {
     Sdns,
     #[strum(
         props(
-            example = "sdse r? d?",
+            example = "sdse r? device(d?|r?|id)",
             desc = "Register = 1 if device is set, otherwise 0.",
             operands = "2"
         )
@@ -1120,7 +1168,7 @@ pub enum InstructionOp {
     Srl,
     #[strum(
         props(
-            example = "ss d? slotIndex logicSlotType r?",
+            example = "ss device(d?|r?|id) slotIndex logicSlotType r?",
             desc = "Stores register value to device stored in a slot LogicSlotType on device.",
             operands = "4"
         )
@@ -1231,6 +1279,12 @@ impl InstructionOp {
             }
             Self::Bdns => ic.execute_bdns(&operands[0usize], &operands[1usize]),
             Self::Bdnsal => ic.execute_bdnsal(&operands[0usize], &operands[1usize]),
+            Self::Bdnvl => {
+                ic.execute_bdnvl(&operands[0usize], &operands[1usize], &operands[2usize])
+            }
+            Self::Bdnvs => {
+                ic.execute_bdnvs(&operands[0usize], &operands[1usize], &operands[2usize])
+            }
             Self::Bdse => ic.execute_bdse(&operands[0usize], &operands[1usize]),
             Self::Bdseal => ic.execute_bdseal(&operands[0usize], &operands[1usize]),
             Self::Beq => {
@@ -1366,6 +1420,14 @@ impl InstructionOp {
                 ic.execute_div(&operands[0usize], &operands[1usize], &operands[2usize])
             }
             Self::Exp => ic.execute_exp(&operands[0usize], &operands[1usize]),
+            Self::Ext => {
+                ic.execute_ext(
+                    &operands[0usize],
+                    &operands[1usize],
+                    &operands[2usize],
+                    &operands[3usize],
+                )
+            }
             Self::Floor => ic.execute_floor(&operands[0usize], &operands[1usize]),
             Self::Get => {
                 ic.execute_get(&operands[0usize], &operands[1usize], &operands[2usize])
@@ -1374,6 +1436,14 @@ impl InstructionOp {
                 ic.execute_getd(&operands[0usize], &operands[1usize], &operands[2usize])
             }
             Self::Hcf => ic.execute_hcf(),
+            Self::Ins => {
+                ic.execute_ins(
+                    &operands[0usize],
+                    &operands[1usize],
+                    &operands[2usize],
+                    &operands[3usize],
+                )
+            }
             Self::J => ic.execute_j(&operands[0usize]),
             Self::Jal => ic.execute_jal(&operands[0usize]),
             Self::Jr => ic.execute_jr(&operands[0usize]),
@@ -1420,6 +1490,14 @@ impl InstructionOp {
             Self::Ld => {
                 ic.execute_ld(&operands[0usize], &operands[1usize], &operands[2usize])
             }
+            Self::Lerp => {
+                ic.execute_lerp(
+                    &operands[0usize],
+                    &operands[1usize],
+                    &operands[2usize],
+                    &operands[3usize],
+                )
+            }
             Self::Log => ic.execute_log(&operands[0usize], &operands[1usize]),
             Self::Lr => {
                 ic.execute_lr(
@@ -1460,6 +1538,9 @@ impl InstructionOp {
             Self::Peek => ic.execute_peek(&operands[0usize]),
             Self::Poke => ic.execute_poke(&operands[0usize], &operands[1usize]),
             Self::Pop => ic.execute_pop(&operands[0usize]),
+            Self::Pow => {
+                ic.execute_pow(&operands[0usize], &operands[1usize], &operands[2usize])
+            }
             Self::Push => ic.execute_push(&operands[0usize]),
             Self::Put => {
                 ic.execute_put(&operands[0usize], &operands[1usize], &operands[2usize])

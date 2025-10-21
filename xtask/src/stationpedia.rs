@@ -6,7 +6,9 @@ use std::collections::BTreeMap;
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(rename = "Stationpedia")]
 pub struct Stationpedia {
+    pub version: String,
     pub pages: Vec<Page>,
+    pub core_prefabs: Vec<Prefab>,
     pub reagents: BTreeMap<String, Reagent>,
     #[serde(rename = "scriptCommands")]
     pub script_commands: BTreeMap<String, Command>,
@@ -48,6 +50,8 @@ pub struct Command {
     pub example: String,
 }
 
+use duration_str::deserialize_option_duration;
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Page {
     #[serde(rename = "ConnectionInsert")]
@@ -64,6 +68,8 @@ pub struct Page {
     pub structure: Option<Structure>,
     #[serde(rename = "Key")]
     pub key: String,
+    #[serde(rename = "Slots")]
+    pub slots: Vec<SlotInfo>,
     #[serde(rename = "LogicInfo")]
     pub logic_info: Option<LogicInfo>,
     #[serde(rename = "LogicInsert")]
@@ -102,6 +108,55 @@ pub struct Page {
     pub internal_atmosphere: Option<InternalAtmosphereInfo>,
     #[serde(rename = "Thermal")]
     pub thermal: Option<ThermalInfo>,
+    #[serde(
+        rename = "GrowthTime",
+        deserialize_with = "deserialize_option_duration"
+    )]
+    pub growth_time: Option<std::time::Duration>,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct Prefab {
+    #[serde(rename = "Name")]
+    pub name: String,
+    #[serde(rename = "Device")]
+    pub device: Option<Device>,
+    #[serde(rename = "Item")]
+    pub item: Option<Item>,
+    #[serde(rename = "Structure")]
+    pub structure: Option<Structure>,
+    #[serde(rename = "Slots")]
+    pub slots: Vec<SlotInfo>,
+    #[serde(rename = "LogicInfo")]
+    pub logic_info: Option<LogicInfo>,
+    #[serde(rename = "Memory")]
+    pub memory: Option<Memory>,
+    #[serde(rename = "TransmissionReceiver", default)]
+    pub transmission_receiver: bool,
+    #[serde(rename = "WirelessLogic", default)]
+    pub wireless_logic: bool,
+    #[serde(rename = "CircuitHolder", default)]
+    pub circuit_holder: bool,
+    #[serde(rename = "BasePowerDraw")]
+    pub base_power_draw: Option<String>,
+    #[serde(rename = "MaxPressure")]
+    pub max_pressure: Option<String>,
+    #[serde(rename = "SourceCode", default)]
+    pub source_code: bool,
+    #[serde(rename = "Chargeable")]
+    pub chargeable: Option<Chargeable>,
+    #[serde(rename = "ResourceConsumer")]
+    pub resource_consumer: Option<ResourceConsumer>,
+    #[serde(rename = "InternalAtmosphere")]
+    pub internal_atmosphere: Option<InternalAtmosphereInfo>,
+    #[serde(rename = "Thermal")]
+    pub thermal: Option<ThermalInfo>,
+    #[serde(
+        rename = "GrowthTime",
+        deserialize_with = "deserialize_option_duration",
+        default
+    )]
+    pub growth_time: Option<std::time::Duration>,
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
@@ -157,6 +212,18 @@ pub struct SlotInsert {
     pub slot_name: String,
     #[serde(rename = "SlotType")]
     pub slot_type: String,
+}
+
+#[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
+pub struct SlotInfo {
+    #[serde(rename = "SlotClass")]
+    pub class: String,
+    #[serde(rename = "StringHash")]
+    pub string_hash: i32,
+    #[serde(rename = "StringKey")]
+    pub string_key: String,
+    #[serde(rename = "SlotName")]
+    pub slot_name: String,
 }
 
 #[derive(Clone, Debug, PartialEq, PartialOrd, Eq, Ord, Hash, Serialize, Deserialize)]
@@ -257,6 +324,8 @@ pub struct Item {
     pub wearable: bool,
     #[serde(rename = "Suit", default)]
     pub suit: Option<SuitInfo>,
+    #[serde(rename = "Food", default)]
+    pub food: Option<FoodInfo>,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -265,6 +334,18 @@ pub struct SuitInfo {
     pub hygiene_reduction_multiplier: f32,
     #[serde(rename = "WasteMaxPressure")]
     pub waste_max_pressure: f32,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct FoodInfo {
+    #[serde(rename = "NutritionQuality")]
+    pub nutrition_quality: u32,
+    #[serde(rename = "NutritionValue", default)]
+    pub nutrution_value: f32,
+    #[serde(rename = "MoodBonus", default)]
+    pub mood_bonous: f32,
+    #[serde(rename = "NutritionQualityReadable")]
+    pub nutrition_quality_readable: String,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -367,7 +448,7 @@ pub struct Chargeable {
 pub struct ResourceConsumer {
     #[serde(rename = "ConsumedResources", default)]
     pub consumed_resources: Vec<String>,
-    #[serde(rename = " ProcessedReagents", default)]
+    #[serde(rename = "ProcessedReagents", default)]
     pub processed_reagents: Vec<i32>,
 }
 

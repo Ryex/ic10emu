@@ -192,6 +192,54 @@ export default {
         "sorting_class": "Default"
       }
     },
+    "ApplianceBobbleHeadBasicSuit": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "ApplianceBobbleHeadBasicSuit",
+        "prefab_hash": -1686269127,
+        "desc": "",
+        "name": "Bobble Head (Basic Suit)"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "Appliance",
+        "sorting_class": "Appliances"
+      }
+    },
+    "ApplianceBobbleHeadHardSuit": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "ApplianceBobbleHeadHardSuit",
+        "prefab_hash": -38993607,
+        "desc": "",
+        "name": "Bobble Head (Hard Suit)"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "Appliance",
+        "sorting_class": "Appliances"
+      }
+    },
+    "ApplianceBobbleHeadMarine": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "ApplianceBobbleHeadMarine",
+        "prefab_hash": 142593802,
+        "desc": "",
+        "name": "Bobble Head (Marine)"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "Appliance",
+        "sorting_class": "Appliances"
+      }
+    },
     "ApplianceChemistryStation": {
       "templateType": "ItemConsumer",
       "prefab": {
@@ -220,12 +268,41 @@ export default {
         "consumed_resources": [
           "ItemCharcoal",
           "ItemCobaltOre",
-          "ItemFern",
           "ItemSilverIngot",
           "ItemSilverOre",
-          "ItemSoyOil"
+          "ItemSoyOil",
+          "ItemFern"
         ],
-        "processed_reagents": []
+        "processed_reagents": [
+          -1493155787,
+          925270362,
+          1582746610,
+          1702246124,
+          678781198,
+          1731241392,
+          -1172078909,
+          478264742,
+          -865687737,
+          -811006991,
+          -409226641,
+          2019732679,
+          2003628602,
+          -586072179,
+          -626453759,
+          -666742878,
+          -2002530571,
+          471085864,
+          556601662,
+          1958538866,
+          -1195893171,
+          687283565,
+          -1206542381,
+          1331613335,
+          -500544800,
+          1778746875,
+          -208860272,
+          1787814293
+        ]
       }
     },
     "ApplianceDeskLampLeft": {
@@ -286,24 +363,38 @@ export default {
       },
       "consumer_info": {
         "consumed_resources": [
-          "ItemCorn",
+          "ItemCocoaPowder",
           "ItemEgg",
           "ItemFertilizedEgg",
           "ItemFlour",
           "ItemMilk",
-          "ItemMushroom",
-          "ItemPotato",
-          "ItemPumpkin",
-          "ItemRice",
-          "ItemSoybean",
           "ItemSoyOil",
+          "ItemSugar",
           "ItemTomato",
-          "ItemSugarCane",
+          "ItemPotato",
+          "ItemCorn",
           "ItemCocoaTree",
-          "ItemCocoaPowder",
-          "ItemSugar"
+          "ItemSugarCane",
+          "ItemSoybean",
+          "ItemRice",
+          "ItemPumpkin",
+          "ItemMushroom"
         ],
-        "processed_reagents": []
+        "processed_reagents": [
+          678781198,
+          1550709753,
+          1887084450,
+          -811006991,
+          471085864,
+          516242109,
+          1958538866,
+          -1657266385,
+          -1250164309,
+          1951286569,
+          1510471435,
+          1778746875,
+          733496620
+        ]
       }
     },
     "AppliancePackagingMachine": {
@@ -345,43 +436,19 @@ export default {
           "ItemPotatoBaked",
           "ItemSoyOil"
         ],
-        "processed_reagents": []
-      }
-    },
-    "AppliancePaintMixer": {
-      "templateType": "ItemConsumer",
-      "prefab": {
-        "prefab_name": "AppliancePaintMixer",
-        "prefab_hash": -1339716113,
-        "desc": "",
-        "name": "Paint Mixer"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Appliance",
-        "sorting_class": "Appliances"
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Output",
-            "class": "Bottle",
-            "index": 0
-          }
-        }
-      },
-      "consumer_info": {
-        "consumed_resources": [
-          "ItemSoyOil",
-          "ReagentColorBlue",
-          "ReagentColorGreen",
-          "ReagentColorOrange",
-          "ReagentColorRed",
-          "ReagentColorYellow"
-        ],
-        "processed_reagents": []
+        "processed_reagents": [
+          1550709753,
+          1887084450,
+          471085864,
+          516242109,
+          1958538866,
+          -1657266385,
+          -1250164309,
+          1951286569,
+          1510471435,
+          1331613335,
+          733496620
+        ]
       }
     },
     "AppliancePlantGeneticAnalyzer": {
@@ -502,14 +569,14 @@ export default {
           "ItemWheat",
           "ItemSugarCane",
           "ItemCocoaTree",
-          "ItemSoybean",
-          "ItemFlowerBlue",
-          "ItemFlowerGreen",
-          "ItemFlowerOrange",
-          "ItemFlowerRed",
-          "ItemFlowerYellow"
+          "ItemSoybean"
         ],
-        "processed_reagents": []
+        "processed_reagents": [
+          678781198,
+          1510471435,
+          1778746875,
+          -686695134
+        ]
       }
     },
     "ApplianceSeedTray": {
@@ -632,7 +699,7 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "<N:EN:Tablet>",
+            "name": "Tablet",
             "class": "Tool",
             "index": 0
           }
@@ -660,7 +727,7 @@ export default {
       "prefab": {
         "prefab_name": "Battery_Wireless_cell",
         "prefab_hash": -462415758,
-        "desc": "0.Empty\n1.Critical\n2.VeryLow\n3.Low\n4.Medium\n5.High\n6.Full",
+        "desc": "",
         "name": "Battery Wireless Cell"
       },
       "item": {
@@ -696,7 +763,7 @@ export default {
       "prefab": {
         "prefab_name": "Battery_Wireless_cell_Big",
         "prefab_hash": -41519077,
-        "desc": "0.Empty\n1.Critical\n2.VeryLow\n3.Low\n4.Medium\n5.High\n6.Full",
+        "desc": "",
         "name": "Battery Wireless Cell (Big)"
       },
       "item": {
@@ -745,42 +812,42 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 5
           }
@@ -835,61 +902,13 @@ export default {
         "sorting_class": "Default"
       }
     },
-    "CartridgeElectronicReader": {
+    "CartridgeDeepMiner": {
       "templateType": "Item",
       "prefab": {
-        "prefab_name": "CartridgeElectronicReader",
-        "prefab_hash": -1462180176,
+        "prefab_name": "CartridgeDeepMiner",
+        "prefab_hash": 1006351599,
         "desc": "",
-        "name": "Cartridge (eReader)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Cartridge",
-        "sorting_class": "Default"
-      }
-    },
-    "CartridgeGPS": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "CartridgeGPS",
-        "prefab_hash": -1957063345,
-        "desc": "",
-        "name": "Cartridge (GPS)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Cartridge",
-        "sorting_class": "Default"
-      }
-    },
-    "CartridgeGuide": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "CartridgeGuide",
-        "prefab_hash": 872720793,
-        "desc": "",
-        "name": "Cartridge (Guide)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Cartridge",
-        "sorting_class": "Default"
-      }
-    },
-    "CartridgeMedicalAnalyser": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "CartridgeMedicalAnalyser",
-        "prefab_hash": -1116110181,
-        "desc": "When added to the OreCore <link=ThingItemTablet><color=green>Handheld Tablet</color></link>, <link=Asura><color=#0080FFFF>Asura's</color></link>'s ReadyMed medical analyzer reveals the health, or otherwise, of users various organs. Due to a design flaw, older models were notorious for producing quasar-like levels of x-ray radiation. Recent advances in shielding have more than halved the risk to users.",
-        "name": "Cartridge (Medical Analyzer)"
+        "name": "Cartridge (Deep Miner)"
       },
       "item": {
         "consumable": false,
@@ -1027,22 +1046,6 @@ export default {
         "sorting_class": "Default"
       }
     },
-    "CircuitboardCameraDisplay": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "CircuitboardCameraDisplay",
-        "prefab_hash": -412104504,
-        "desc": "Surveillance is sometimes necessary when building bases in highly hostile environments. The camera display circuit board allows wary Stationeers to turn a <link=ThingStructureConsole><color=green>Console</color></link> into a security display when connected to a <link=ThingStructureCamera><color=green>Camera</color></link>.",
-        "name": "Camera Display"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Circuitboard",
-        "sorting_class": "Default"
-      }
-    },
     "CircuitboardDoorControl": {
       "templateType": "Item",
       "prefab": {
@@ -1139,22 +1142,6 @@ export default {
         "sorting_class": "Default"
       }
     },
-    "CircuitboardShipDisplay": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "CircuitboardShipDisplay",
-        "prefab_hash": -2044446819,
-        "desc": "When the original <link=Stationeers><color=#0080FFFF>Stationeer</color></link> Handbook collapsed under its own weight into a singularity, certain information was irretrievably lost. Amongst this mysterious corpus of knowledge is the exact purpose of the ship display board.",
-        "name": "Ship Display"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Circuitboard",
-        "sorting_class": "Default"
-      }
-    },
     "CircuitboardSolarControl": {
       "templateType": "Item",
       "prefab": {
@@ -1176,7 +1163,7 @@ export default {
       "prefab": {
         "prefab_name": "CompositeRollCover",
         "prefab_hash": 1228794916,
-        "desc": "0.Operate\n1.Logic",
+        "desc": "",
         "name": "Composite Roll Cover"
       },
       "structure": {
@@ -1234,70 +1221,70 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 5
           }
         },
         "6": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 6
           }
         },
         "7": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 7
           }
         },
         "8": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 8
           }
         },
         "9": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 9
           }
@@ -1384,7 +1371,7 @@ export default {
       "prefab": {
         "prefab_name": "DeviceStepUnit",
         "prefab_hash": 1762696475,
-        "desc": "0.C-2\n1.C#-2\n2.D-2\n3.D#-2\n4.E-2\n5.F-2\n6.F#-2\n7.G-2\n8.G#-2\n9.A-2\n10.A#-2\n11.B-2\n12.C-1\n13.C#-1\n14.D-1\n15.D#-1\n16.E-1\n17.F-1\n18.F#-1\n19.G-1\n20.G#-1\n21.A-1\n22.A#-1\n23.B-1\n24.C0\n25.C#0\n26.D0\n27.D#0\n28.E0\n29.F0\n30.F#0\n31.G0\n32.G#0\n33.A0\n34.A#0\n35.B0\n36.C1\n37.C#1\n38.D1\n39.D#1\n40.E1\n41.F1\n42.F#1\n43.G1\n44.G#1\n45.A1\n46.A#1\n47.B1\n48.C2\n49.C#2\n50.D2\n51.D#2\n52.E2\n53.F2\n54.F#2\n55.G2\n56.G#2\n57.A2\n58.A#2\n59.B2\n60.C3\n61.C#3\n62.D3\n63.D#3\n64.E3\n65.F3\n66.F#3\n67.G3\n68.G#3\n69.A3\n70.A#3\n71.B3\n72.C4\n73.C#4\n74.D4\n75.D#4\n76.E4\n77.F4\n78.F#4\n79.G4\n80.G#4\n81.A4\n82.A#4\n83.B4\n84.C5\n85.C#5\n86.D5\n87.D#5\n88.E5\n89.F5\n90.F#5\n91.G5 \n92.G#5\n93.A5\n94.A#5\n95.B5\n96.C6\n97.C#6\n98.D6\n99.D#6\n100.E6\n101.F6\n102.F#6\n103.G6\n104.G#6\n105.A6\n106.A#6\n107.B6\n108.C7\n109.C#7\n110.D7\n111.D#7\n112.E7\n113.F7\n114.F#7\n115.G7\n116.G#7\n117.A7\n118.A#7\n119.B7\n120.C8\n121.C#8\n122.D8\n123.D#8\n124.E8\n125.F8\n126.F#8\n127.G8",
+        "desc": "",
         "name": "Device Step Unit"
       },
       "structure": {
@@ -1614,70 +1601,70 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 5
           }
         },
         "6": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 6
           }
         },
         "7": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 7
           }
         },
         "8": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 8
           }
         },
         "9": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 9
           }
@@ -1689,8 +1676,8 @@ export default {
       "prefab": {
         "prefab_name": "DynamicGPR",
         "prefab_hash": -2085885850,
-        "desc": "<N:EN:DynamicGPR>",
-        "name": "<N:EN:DynamicGPR>"
+        "desc": "",
+        "name": "Dynamic GPR"
       },
       "item": {
         "consumable": false,
@@ -1733,64 +1720,6 @@ export default {
         }
       }
     },
-    "DynamicGasCanisterAir": {
-      "templateType": "ItemSlots",
-      "prefab": {
-        "prefab_name": "DynamicGasCanisterAir",
-        "prefab_hash": -1713611165,
-        "desc": "Portable gas tanks do one thing: store gas. But there's lots you can do with them. To refill the tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or bad things happen. Once it's full, you can refill a <link=ThingItemGasCanisterOxygen><color=green>Canister (Oxygen)</color></link> by attaching it to the tank's striped section. Or you could vent the tank's variable flow rate valve into a room and create an atmosphere. They also attach to rovers and rockets. Alternatively, kick it over and practice barrel rolling. The possibilities are endless.",
-        "name": "Portable Gas Tank (Air)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Portables",
-        "sorting_class": "Atmospherics"
-      },
-      "thermal_info": {
-        "convection_factor": 0.025,
-        "radiation_factor": 0.025
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Gas Canister",
-            "class": "None",
-            "index": 0
-          }
-        }
-      }
-    },
-    "DynamicGasCanisterCarbonDioxide": {
-      "templateType": "ItemSlots",
-      "prefab": {
-        "prefab_name": "DynamicGasCanisterCarbonDioxide",
-        "prefab_hash": -322413931,
-        "desc": "Portable gas tanks do one thing: store gas. To refill the tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or... boom. Once it's full, you can refill a <link=ThingItemGasCanisterCarbonDioxide><color=green>Canister (CO2)</color></link> by attaching it to the tank's striped section. Or you could vent the tank's variable flow rate valve into a room and create an atmosphere... of sorts.",
-        "name": "Portable Gas Tank (CO2)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Portables",
-        "sorting_class": "Default"
-      },
-      "thermal_info": {
-        "convection_factor": 0.025,
-        "radiation_factor": 0.025
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Gas Canister",
-            "class": "None",
-            "index": 0
-          }
-        }
-      }
-    },
     "DynamicGasCanisterEmpty": {
       "templateType": "ItemSlots",
       "prefab": {
@@ -1820,244 +1749,12 @@ export default {
         }
       }
     },
-    "DynamicGasCanisterFuel": {
-      "templateType": "ItemSlots",
-      "prefab": {
-        "prefab_name": "DynamicGasCanisterFuel",
-        "prefab_hash": -817051527,
-        "desc": "Portable tanks store gas. They're good at it. If you need to refill a tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or things get messy. You can refill a <link=ThingItemGasCanisterFuel><color=green>Canister (Fuel)</color></link> by attaching it to the tank's striped section. Or you could use a <link=ThingItemWrench><color=green>Wrench</color></link> to attach it to a rover or rocket for later. It's really up to you.",
-        "name": "Portable Gas Tank (Fuel)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Portables",
-        "sorting_class": "Default"
-      },
-      "thermal_info": {
-        "convection_factor": 0.025,
-        "radiation_factor": 0.025
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Gas Canister",
-            "class": "None",
-            "index": 0
-          }
-        }
-      }
-    },
-    "DynamicGasCanisterNitrogen": {
-      "templateType": "ItemSlots",
-      "prefab": {
-        "prefab_name": "DynamicGasCanisterNitrogen",
-        "prefab_hash": 121951301,
-        "desc": "Portable tanks store gas. If you need to refill a tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or you'll end up with <link=GasNitrogen><color=#44AD83>Nitrogen</color></link> in places you weren't expecting. You can refill a <link=ThingItemGasCanisterNitrogen><color=green>Canister (Nitrogen)</color></link> by attaching it to the tank's striped section. Or you could use a <link=ThingItemWrench><color=green>Wrench</color></link> to attach it to a rover or rocket for later.",
-        "name": "Portable Gas Tank (Nitrogen)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Portables",
-        "sorting_class": "Default"
-      },
-      "thermal_info": {
-        "convection_factor": 0.025,
-        "radiation_factor": 0.025
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Gas Canister",
-            "class": "None",
-            "index": 0
-          }
-        }
-      }
-    },
-    "DynamicGasCanisterNitrousOxide": {
-      "templateType": "ItemSlots",
-      "prefab": {
-        "prefab_name": "DynamicGasCanisterNitrousOxide",
-        "prefab_hash": 30727200,
-        "desc": "",
-        "name": "Portable Gas Tank (Nitrous Oxide)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Portables",
-        "sorting_class": "Default"
-      },
-      "thermal_info": {
-        "convection_factor": 0.025,
-        "radiation_factor": 0.025
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Gas Canister",
-            "class": "None",
-            "index": 0
-          }
-        }
-      }
-    },
-    "DynamicGasCanisterOxygen": {
-      "templateType": "ItemSlots",
-      "prefab": {
-        "prefab_name": "DynamicGasCanisterOxygen",
-        "prefab_hash": 1360925836,
-        "desc": "Portable tanks store gas. If you need to refill a tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or you'll be picking tank shards out of your face. You can refill a <link=ThingItemGasCanisterOxygen><color=green>Canister (Oxygen)</color></link> by attaching it to the tank's striped section. Or you could vent it into a sealed room to create an atmosphere. Or even paint it pink, call it Steve and fill that sad space in your heart.",
-        "name": "Portable Gas Tank (Oxygen)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Portables",
-        "sorting_class": "Default"
-      },
-      "thermal_info": {
-        "convection_factor": 0.025,
-        "radiation_factor": 0.025
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Gas Canister",
-            "class": "None",
-            "index": 0
-          }
-        }
-      }
-    },
-    "DynamicGasCanisterPollutants": {
-      "templateType": "ItemSlots",
-      "prefab": {
-        "prefab_name": "DynamicGasCanisterPollutants",
-        "prefab_hash": 396065382,
-        "desc": "",
-        "name": "Portable Gas Tank (Pollutants)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Portables",
-        "sorting_class": "Default"
-      },
-      "thermal_info": {
-        "convection_factor": 0.025,
-        "radiation_factor": 0.025
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Gas Canister",
-            "class": "None",
-            "index": 0
-          }
-        }
-      }
-    },
-    "DynamicGasCanisterRocketFuel": {
-      "templateType": "ItemSlots",
-      "prefab": {
-        "prefab_name": "DynamicGasCanisterRocketFuel",
-        "prefab_hash": -8883951,
-        "desc": "",
-        "name": "Dynamic Gas Canister Rocket Fuel"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Portables",
-        "sorting_class": "Default"
-      },
-      "thermal_info": {
-        "convection_factor": 0.025,
-        "radiation_factor": 0.025
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Gas Canister",
-            "class": "None",
-            "index": 0
-          }
-        }
-      }
-    },
-    "DynamicGasCanisterVolatiles": {
-      "templateType": "ItemSlots",
-      "prefab": {
-        "prefab_name": "DynamicGasCanisterVolatiles",
-        "prefab_hash": 108086870,
-        "desc": "Portable tanks store gas. To refill one, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link>, then connect it to a pipe network. Don't fill it above 10 MPa, unless you're the sort who loves complicated, flammable emergencies. You can refill a <link=ThingItemGasCanisterVolatiles><color=green>Canister (Volatiles)</color></link> by attaching it to the tank's striped section. Or you could use a <link=ThingItemWrench><color=green>Wrench</color></link> to attach to a rocket and show it around the Solar System.",
-        "name": "Portable Gas Tank (Volatiles)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Portables",
-        "sorting_class": "Default"
-      },
-      "thermal_info": {
-        "convection_factor": 0.025,
-        "radiation_factor": 0.025
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Gas Canister",
-            "class": "None",
-            "index": 0
-          }
-        }
-      }
-    },
-    "DynamicGasCanisterWater": {
-      "templateType": "ItemSlots",
-      "prefab": {
-        "prefab_name": "DynamicGasCanisterWater",
-        "prefab_hash": 197293625,
-        "desc": "This portable tank stores liquid, and liquid only. You just have to fill it up. To do this, bolt one to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link>, then connect it to <link=ThingStructurePipeLiquidStraight><color=green>Liquid Pipe (Straight)</color></link> to supply liquid to a network. \nTry to keep pressure under 10 MPa, or you'll end up wet, hurt and sorry, without any of the fun.\nYou can refill a <link=ThingItemGasCanisterWater><color=green>Liquid Canister (Water)</color></link> by attaching it to the tank's striped section. Or you could use a <link=ThingItemWrench><color=green>Wrench</color></link> to attach it to a rocket and take it somewhere distant and dry, then feel good about yourself.",
-        "name": "Portable Liquid Tank (Water)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Portables",
-        "sorting_class": "Atmospherics"
-      },
-      "thermal_info": {
-        "convection_factor": 0.025,
-        "radiation_factor": 0.025
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Gas Canister",
-            "class": "LiquidCanister",
-            "index": 0
-          }
-        }
-      }
-    },
     "DynamicGasTankAdvanced": {
       "templateType": "ItemSlots",
       "prefab": {
         "prefab_name": "DynamicGasTankAdvanced",
         "prefab_hash": -386375420,
-        "desc": "0.Mode0\n1.Mode1",
+        "desc": "",
         "name": "Gas Tank Mk II"
       },
       "item": {
@@ -2066,35 +1763,6 @@ export default {
         "max_quantity": 1,
         "slot_class": "Portables",
         "sorting_class": "Default"
-      },
-      "thermal_info": {
-        "convection_factor": 0.0,
-        "radiation_factor": 0.0
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Gas Canister",
-            "class": "None",
-            "index": 0
-          }
-        }
-      }
-    },
-    "DynamicGasTankAdvancedOxygen": {
-      "templateType": "ItemSlots",
-      "prefab": {
-        "prefab_name": "DynamicGasTankAdvancedOxygen",
-        "prefab_hash": -1264455519,
-        "desc": "0.Mode0\n1.Mode1",
-        "name": "Portable Gas Tank Mk II (Oxygen)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Portables",
-        "sorting_class": "Atmospherics"
       },
       "thermal_info": {
         "convection_factor": 0.0,
@@ -2459,151 +2127,6 @@ export default {
         "sorting_class": "Default"
       }
     },
-    "EntityChick": {
-      "templateType": "ItemSlots",
-      "prefab": {
-        "prefab_name": "EntityChick",
-        "prefab_hash": 1730165908,
-        "desc": "Once a chick is hatched, it gets hungry. It will eat soybeans, corn, and wheat, and lay eggs. Some will be fertilized, producing further chickens. Some will not.",
-        "name": "Entity Chick"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
-        "sorting_class": "Default"
-      },
-      "thermal_info": {
-        "convection_factor": 0.1,
-        "radiation_factor": 0.1
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Brain",
-            "class": "Organ",
-            "index": 0
-          }
-        }
-      }
-    },
-    "EntityChickenBrown": {
-      "templateType": "ItemSlots",
-      "prefab": {
-        "prefab_name": "EntityChickenBrown",
-        "prefab_hash": 334097180,
-        "desc": "Like so many of its brethren, this is a chicken. A brown one. It will eat soybeans, corn, and wheat, and lay eggs. Some will be fertilized, producing further chickens. Some will not.",
-        "name": "Entity Chicken Brown"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
-        "sorting_class": "Default"
-      },
-      "thermal_info": {
-        "convection_factor": 0.1,
-        "radiation_factor": 0.1
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Brain",
-            "class": "Organ",
-            "index": 0
-          }
-        }
-      }
-    },
-    "EntityChickenWhite": {
-      "templateType": "ItemSlots",
-      "prefab": {
-        "prefab_name": "EntityChickenWhite",
-        "prefab_hash": 1010807532,
-        "desc": "It's a chicken, as white as moondust. It will eat soybeans, corn, and wheat, and lay eggs. Some will be fertilized, producing further chickens. Some will not.",
-        "name": "Entity Chicken White"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
-        "sorting_class": "Default"
-      },
-      "thermal_info": {
-        "convection_factor": 0.1,
-        "radiation_factor": 0.1
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Brain",
-            "class": "Organ",
-            "index": 0
-          }
-        }
-      }
-    },
-    "EntityRoosterBlack": {
-      "templateType": "ItemSlots",
-      "prefab": {
-        "prefab_name": "EntityRoosterBlack",
-        "prefab_hash": 966959649,
-        "desc": "This is a rooster. It is black. There is dignity in this.",
-        "name": "Entity Rooster Black"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
-        "sorting_class": "Default"
-      },
-      "thermal_info": {
-        "convection_factor": 0.1,
-        "radiation_factor": 0.1
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Brain",
-            "class": "Organ",
-            "index": 0
-          }
-        }
-      }
-    },
-    "EntityRoosterBrown": {
-      "templateType": "ItemSlots",
-      "prefab": {
-        "prefab_name": "EntityRoosterBrown",
-        "prefab_hash": -583103395,
-        "desc": "The common brown rooster. Don't let it hear you say that.",
-        "name": "Entity Rooster Brown"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
-        "sorting_class": "Default"
-      },
-      "thermal_info": {
-        "convection_factor": 0.1,
-        "radiation_factor": 0.1
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Brain",
-            "class": "Organ",
-            "index": 0
-          }
-        }
-      }
-    },
     "Fertilizer": {
       "templateType": "Item",
       "prefab": {
@@ -2618,31 +2141,6 @@ export default {
         "max_quantity": 10,
         "slot_class": "Plant",
         "sorting_class": "Default"
-      }
-    },
-    "FireArmSMG": {
-      "templateType": "ItemSlots",
-      "prefab": {
-        "prefab_name": "FireArmSMG",
-        "prefab_hash": -86315541,
-        "desc": "0.Single\n1.Auto",
-        "name": "Fire Arm SMG"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
-        "sorting_class": "Tools"
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "",
-            "class": "Magazine",
-            "index": 0
-          }
-        }
       }
     },
     "Flag_ODA_10m": {
@@ -2718,7 +2216,7 @@ export default {
         },
         "1": {
           "Direct": {
-            "name": "<N:EN:Chamber>",
+            "name": "Chamber",
             "class": "Blocked",
             "index": 1
           }
@@ -2742,7 +2240,17 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -2828,7 +2336,7 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "Programmable Chip",
+            "name": "ProgrammableChip",
             "class": "ProgrammableChip",
             "index": 0
           }
@@ -2864,47 +2372,6 @@ export default {
         "has_reagents": false
       }
     },
-    "Handgun": {
-      "templateType": "ItemSlots",
-      "prefab": {
-        "prefab_name": "Handgun",
-        "prefab_hash": 247238062,
-        "desc": "",
-        "name": "Handgun"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
-        "sorting_class": "Tools"
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Magazine",
-            "class": "Magazine",
-            "index": 0
-          }
-        }
-      }
-    },
-    "HandgunMagazine": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "HandgunMagazine",
-        "prefab_hash": 1254383185,
-        "desc": "",
-        "name": "Handgun Magazine"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Magazine",
-        "sorting_class": "Default"
-      }
-    },
     "HumanSkull": {
       "templateType": "Item",
       "prefab": {
@@ -2918,22 +2385,6 @@ export default {
         "ingredient": false,
         "max_quantity": 1,
         "slot_class": "None",
-        "sorting_class": "Default"
-      }
-    },
-    "ImGuiCircuitboardAirlockControl": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ImGuiCircuitboardAirlockControl",
-        "prefab_hash": -73796547,
-        "desc": "",
-        "name": "Airlock (Experimental)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Circuitboard",
         "sorting_class": "Default"
       }
     },
@@ -3029,6 +2480,7 @@ export default {
           "Power": "Read",
           "Mode": "ReadWrite",
           "Error": "Read",
+          "Activate": "ReadWrite",
           "On": "ReadWrite",
           "Volume": "ReadWrite",
           "SoundAlert": "ReadWrite",
@@ -3066,7 +2518,7 @@ export default {
         },
         "3": {
           "Direct": {
-            "name": "Programmable Chip",
+            "name": "ProgrammableChip",
             "class": "ProgrammableChip",
             "index": 3
           }
@@ -3086,22 +2538,6 @@ export default {
         "ingredient": false,
         "max_quantity": 10,
         "slot_class": "Plant",
-        "sorting_class": "Default"
-      }
-    },
-    "ItemAmmoBox": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemAmmoBox",
-        "prefab_hash": -9559091,
-        "desc": "",
-        "name": "Ammo Box"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
         "sorting_class": "Default"
       }
     },
@@ -3259,22 +2695,6 @@ export default {
         "prefab_hash": 789015045,
         "desc": "",
         "name": "Authoring Tool"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Tool",
-        "sorting_class": "Tools"
-      }
-    },
-    "ItemAuthoringToolRocketNetwork": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemAuthoringToolRocketNetwork",
-        "prefab_hash": -1731627004,
-        "desc": "<N:EN:ItemAuthoringToolRocketNetwork>",
-        "name": "<N:EN:ItemAuthoringToolRocketNetwork>"
       },
       "item": {
         "consumable": false,
@@ -3508,6 +2928,22 @@ export default {
         "sorting_class": "Resources"
       }
     },
+    "ItemBlueberry": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "ItemBlueberry",
+        "prefab_hash": 173826094,
+        "desc": "",
+        "name": "Blueberry"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 10,
+        "slot_class": "Plant",
+        "sorting_class": "Resources"
+      }
+    },
     "ItemBreadLoaf": {
       "templateType": "Item",
       "prefab": {
@@ -3551,7 +2987,7 @@ export default {
       "item": {
         "consumable": false,
         "ingredient": false,
-        "max_quantity": 50,
+        "max_quantity": 250,
         "slot_class": "Tool",
         "sorting_class": "Resources"
       }
@@ -3567,7 +3003,7 @@ export default {
       "item": {
         "consumable": false,
         "ingredient": false,
-        "max_quantity": 50,
+        "max_quantity": 250,
         "slot_class": "Tool",
         "sorting_class": "Resources"
       }
@@ -3702,42 +3138,42 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 5
           }
@@ -3762,42 +3198,42 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 5
           }
@@ -3956,7 +3392,7 @@ export default {
       "prefab": {
         "prefab_name": "ItemCoalOre",
         "prefab_hash": 1724793494,
-        "desc": "Humanity wouldn't have got to space without humble, combustible coal. Burn it in a <link=ThingSolidFuelGenerator><color=green><N:EN:SolidFuelGenerator></color></link>, smelt it in the <link=ThingStructureFurnace><color=green>Furnace</color></link> to create <link=AlloysPage><color=#0080FFFF>alloys</color></link>, or use it in the <link=ThingApplianceReagentProcessor><color=green>Reagent Processor</color></link> to make  <link=ThingItemSprayCanBlack><color=green>Spray Paint (Black)</color></link>.",
+        "desc": "Humanity wouldn't have got to space without humble, combustible coal. Burn it in a <link=ThingStructureSolidFuelGenerator><color=green>Generator (Solid Fuel)</color></link>, smelt it in the <link=ThingStructureFurnace><color=green>Furnace</color></link> to create <link=AlloysPage><color=#0080FFFF>alloys</color></link>, or use it in the <link=ThingApplianceReagentProcessor><color=green>Reagent Processor</color></link> to make  <link=ThingItemSprayCanBlack><color=green>Spray Paint (Black)</color></link>.",
         "name": "Ore (Coal)"
       },
       "item": {
@@ -4379,7 +3815,7 @@ export default {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 50,
-        "slot_class": "None",
+        "slot_class": "Ore",
         "sorting_class": "Ores"
       }
     },
@@ -4513,42 +3949,42 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "<N:EN:>",
             "class": "Egg",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "<N:EN:>",
             "class": "Egg",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "<N:EN:>",
             "class": "Egg",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "<N:EN:>",
             "class": "Egg",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "<N:EN:>",
             "class": "Egg",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "<N:EN:>",
             "class": "Egg",
             "index": 5
           }
@@ -4932,42 +4368,42 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 5
           }
@@ -5210,7 +4646,7 @@ export default {
       "prefab": {
         "prefab_name": "ItemFertilizedEgg",
         "prefab_hash": -383972371,
-        "desc": "To hatch it requires an incubation temperature of between 35 and 45 degrees Celsius and will hatch into a <link=ThingNpcChick><color=green>Chick</color></link>. If the egg is exposed to tepratures below 10 degrees it will no longer be viable.",
+        "desc": "To hatch it requires an incubation temperature of between 35 and 45 degrees Celsius and will hatch into a <link=ThingNpcChick><color=green>Chick</color></link>. If the egg is exposed to temperatures below 10 degrees it will no longer be viable.",
         "name": "Egg"
       },
       "item": {
@@ -5325,6 +4761,22 @@ export default {
         }
       }
     },
+    "ItemFlax": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "ItemFlax",
+        "prefab_hash": -1345959473,
+        "desc": "",
+        "name": "Flax"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 50,
+        "slot_class": "Plant",
+        "sorting_class": "Resources"
+      }
+    },
     "ItemFlour": {
       "templateType": "Item",
       "prefab": {
@@ -5341,86 +4793,6 @@ export default {
           "Flour": 50.0
         },
         "slot_class": "None",
-        "sorting_class": "Resources"
-      }
-    },
-    "ItemFlowerBlue": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemFlowerBlue",
-        "prefab_hash": -1573623434,
-        "desc": "",
-        "name": "Flower (Blue)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 100,
-        "slot_class": "Plant",
-        "sorting_class": "Resources"
-      }
-    },
-    "ItemFlowerGreen": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemFlowerGreen",
-        "prefab_hash": -1513337058,
-        "desc": "",
-        "name": "Flower (Green)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 100,
-        "slot_class": "Plant",
-        "sorting_class": "Resources"
-      }
-    },
-    "ItemFlowerOrange": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemFlowerOrange",
-        "prefab_hash": -1411986716,
-        "desc": "",
-        "name": "Flower (Orange)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 100,
-        "slot_class": "Plant",
-        "sorting_class": "Resources"
-      }
-    },
-    "ItemFlowerRed": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemFlowerRed",
-        "prefab_hash": -81376085,
-        "desc": "",
-        "name": "Flower (Red)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 100,
-        "slot_class": "Plant",
-        "sorting_class": "Resources"
-      }
-    },
-    "ItemFlowerYellow": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemFlowerYellow",
-        "prefab_hash": 1712822019,
-        "desc": "",
-        "name": "Flower (Yellow)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 100,
-        "slot_class": "Plant",
         "sorting_class": "Resources"
       }
     },
@@ -5456,29 +4828,6 @@ export default {
         "sorting_class": "Food"
       }
     },
-    "ItemGasCanisterCarbonDioxide": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemGasCanisterCarbonDioxide",
-        "prefab_hash": -767685874,
-        "desc": "",
-        "name": "Canister (CO2)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "GasCanister",
-        "sorting_class": "Atmospherics"
-      },
-      "thermal_info": {
-        "convection_factor": 0.05,
-        "radiation_factor": 0.05
-      },
-      "internal_atmo_info": {
-        "volume": 64.0
-      }
-    },
     "ItemGasCanisterEmpty": {
       "templateType": "Item",
       "prefab": {
@@ -5502,127 +4851,12 @@ export default {
         "volume": 64.0
       }
     },
-    "ItemGasCanisterFuel": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemGasCanisterFuel",
-        "prefab_hash": -1014695176,
-        "desc": "",
-        "name": "Canister (Fuel)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "GasCanister",
-        "sorting_class": "Atmospherics"
-      },
-      "thermal_info": {
-        "convection_factor": 0.05,
-        "radiation_factor": 0.05
-      },
-      "internal_atmo_info": {
-        "volume": 64.0
-      }
-    },
-    "ItemGasCanisterNitrogen": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemGasCanisterNitrogen",
-        "prefab_hash": 2145068424,
-        "desc": "",
-        "name": "Canister (Nitrogen)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "GasCanister",
-        "sorting_class": "Atmospherics"
-      },
-      "thermal_info": {
-        "convection_factor": 0.05,
-        "radiation_factor": 0.05
-      },
-      "internal_atmo_info": {
-        "volume": 64.0
-      }
-    },
-    "ItemGasCanisterNitrousOxide": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemGasCanisterNitrousOxide",
-        "prefab_hash": -1712153401,
-        "desc": "",
-        "name": "Gas Canister (Sleeping)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "GasCanister",
-        "sorting_class": "Atmospherics"
-      },
-      "thermal_info": {
-        "convection_factor": 0.05,
-        "radiation_factor": 0.05
-      },
-      "internal_atmo_info": {
-        "volume": 64.0
-      }
-    },
-    "ItemGasCanisterOxygen": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemGasCanisterOxygen",
-        "prefab_hash": -1152261938,
-        "desc": "",
-        "name": "Canister (Oxygen)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "GasCanister",
-        "sorting_class": "Atmospherics"
-      },
-      "thermal_info": {
-        "convection_factor": 0.05,
-        "radiation_factor": 0.05
-      },
-      "internal_atmo_info": {
-        "volume": 64.0
-      }
-    },
-    "ItemGasCanisterPollutants": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemGasCanisterPollutants",
-        "prefab_hash": -1552586384,
-        "desc": "",
-        "name": "Canister (Pollutants)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "GasCanister",
-        "sorting_class": "Atmospherics"
-      },
-      "thermal_info": {
-        "convection_factor": 0.05,
-        "radiation_factor": 0.05
-      },
-      "internal_atmo_info": {
-        "volume": 64.0
-      }
-    },
     "ItemGasCanisterSmart": {
       "templateType": "Item",
       "prefab": {
         "prefab_name": "ItemGasCanisterSmart",
         "prefab_hash": -668314371,
-        "desc": "0.Mode0\n1.Mode1",
+        "desc": "",
         "name": "Gas Canister (Smart)"
       },
       "item": {
@@ -5638,52 +4872,6 @@ export default {
       },
       "internal_atmo_info": {
         "volume": 64.0
-      }
-    },
-    "ItemGasCanisterVolatiles": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemGasCanisterVolatiles",
-        "prefab_hash": -472094806,
-        "desc": "",
-        "name": "Canister (Volatiles)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "GasCanister",
-        "sorting_class": "Atmospherics"
-      },
-      "thermal_info": {
-        "convection_factor": 0.05,
-        "radiation_factor": 0.05
-      },
-      "internal_atmo_info": {
-        "volume": 64.0
-      }
-    },
-    "ItemGasCanisterWater": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemGasCanisterWater",
-        "prefab_hash": -1854861891,
-        "desc": "",
-        "name": "Liquid Canister (Water)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "LiquidCanister",
-        "sorting_class": "Atmospherics"
-      },
-      "thermal_info": {
-        "convection_factor": 0.05,
-        "radiation_factor": 0.05
-      },
-      "internal_atmo_info": {
-        "volume": 12.1
       }
     },
     "ItemGasFilterCarbonDioxide": {
@@ -6162,6 +5350,99 @@ export default {
         "sorting_class": "Resources"
       }
     },
+    "ItemGasMask": {
+      "templateType": "ItemLogic",
+      "prefab": {
+        "prefab_name": "ItemGasMask",
+        "prefab_hash": 1716878560,
+        "desc": "This mask will mix with the world atmosphere but filter out the gasses based on the filters in its two slots.",
+        "name": "Gas Mask"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "Helmet",
+        "sorting_class": "Clothing"
+      },
+      "thermal_info": {
+        "convection_factor": 0.1,
+        "radiation_factor": 0.1
+      },
+      "internal_atmo_info": {
+        "volume": 3.0
+      },
+      "logic": {
+        "logic_slot_types": {
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "FilterType": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "FilterType": "Read",
+            "ReferenceId": "Read"
+          }
+        },
+        "logic_types": {
+          "Pressure": "Read",
+          "Temperature": "Read",
+          "RatioOxygen": "Read",
+          "RatioCarbonDioxide": "Read",
+          "RatioNitrogen": "Read",
+          "RatioPollutant": "Read",
+          "RatioVolatiles": "Read",
+          "RatioWater": "Read",
+          "TotalMoles": "Read",
+          "Volume": "ReadWrite",
+          "RatioNitrousOxide": "Read",
+          "Combustion": "Read",
+          "Flush": "Write",
+          "SoundAlert": "ReadWrite",
+          "RatioLiquidNitrogen": "Read",
+          "RatioLiquidOxygen": "Read",
+          "RatioLiquidVolatiles": "Read",
+          "RatioSteam": "Read",
+          "RatioLiquidCarbonDioxide": "Read",
+          "RatioLiquidPollutant": "Read",
+          "RatioLiquidNitrousOxide": "Read",
+          "ReferenceId": "Read",
+          "RatioHydrogen": "Read",
+          "RatioLiquidHydrogen": "Read",
+          "RatioPollutedWater": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Gas Filter",
+            "class": "GasFilter",
+            "index": 0
+          }
+        },
+        "1": {
+          "Direct": {
+            "name": "Gas Filter",
+            "class": "GasFilter",
+            "index": 1
+          }
+        }
+      }
+    },
     "ItemGasSensor": {
       "templateType": "Item",
       "prefab": {
@@ -6262,6 +5543,38 @@ export default {
         },
         "slot_class": "Ore",
         "sorting_class": "Ores"
+      }
+    },
+    "ItemGorse": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "ItemGorse",
+        "prefab_hash": 921641358,
+        "desc": "",
+        "name": "Gorse"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 50,
+        "slot_class": "Plant",
+        "sorting_class": "Resources"
+      }
+    },
+    "ItemGrass": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "ItemGrass",
+        "prefab_hash": 2116552372,
+        "desc": "",
+        "name": "Grass"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 50,
+        "slot_class": "Plant",
+        "sorting_class": "Resources"
       }
     },
     "ItemGrenade": {
@@ -6432,86 +5745,134 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 5
           }
         },
         "6": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 6
           }
         },
         "7": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 7
           }
         },
         "8": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 8
           }
         },
         "9": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 9
           }
         },
         "10": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 10
           }
         },
         "11": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 11
+          }
+        }
+      }
+    },
+    "ItemHardHat": {
+      "templateType": "ItemLogic",
+      "prefab": {
+        "prefab_name": "ItemHardHat",
+        "prefab_hash": -1306016444,
+        "desc": "",
+        "name": "Hard Hat"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "Helmet",
+        "sorting_class": "Clothing"
+      },
+      "logic": {
+        "logic_slot_types": {
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Charge": "Read",
+            "ChargeRatio": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "ReferenceId": "Read"
+          }
+        },
+        "logic_types": {
+          "Power": "Read",
+          "On": "ReadWrite",
+          "ReferenceId": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
           }
         }
       }
@@ -6690,98 +6051,98 @@ export default {
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 5
           }
         },
         "6": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 6
           }
         },
         "7": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 7
           }
         },
         "8": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 8
           }
         },
         "9": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 9
           }
         },
         "10": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 10
           }
         },
         "11": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 11
           }
         },
         "12": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 12
           }
         },
         "13": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 13
           }
         },
         "14": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 14
           }
@@ -7190,7 +6551,7 @@ export default {
         },
         "3": {
           "Direct": {
-            "name": "Programmable Chip",
+            "name": "ProgrammableChip",
             "class": "ProgrammableChip",
             "index": 3
           }
@@ -7313,22 +6674,6 @@ export default {
         "sorting_class": "Resources"
       }
     },
-    "ItemHat": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemHat",
-        "prefab_hash": 299189339,
-        "desc": "As the name suggests, this is a hat.",
-        "name": "Hat"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Helmet",
-        "sorting_class": "Clothing"
-      }
-    },
     "ItemHighVolumeGasCanisterEmpty": {
       "templateType": "Item",
       "prefab": {
@@ -7352,94 +6697,6 @@ export default {
         "volume": 83.0
       }
     },
-    "ItemHorticultureBelt": {
-      "templateType": "ItemSlots",
-      "prefab": {
-        "prefab_name": "ItemHorticultureBelt",
-        "prefab_hash": -1117581553,
-        "desc": "",
-        "name": "Horticulture Belt"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Belt",
-        "sorting_class": "Clothing"
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Tool",
-            "class": "Tool",
-            "index": 0
-          }
-        },
-        "1": {
-          "Direct": {
-            "name": "Tool",
-            "class": "Tool",
-            "index": 1
-          }
-        },
-        "2": {
-          "Direct": {
-            "name": "Plant",
-            "class": "Plant",
-            "index": 2
-          }
-        },
-        "3": {
-          "Direct": {
-            "name": "Plant",
-            "class": "Plant",
-            "index": 3
-          }
-        },
-        "4": {
-          "Direct": {
-            "name": "Plant",
-            "class": "Plant",
-            "index": 4
-          }
-        },
-        "5": {
-          "Direct": {
-            "name": "Plant",
-            "class": "Plant",
-            "index": 5
-          }
-        },
-        "6": {
-          "Direct": {
-            "name": "Plant",
-            "class": "Plant",
-            "index": 6
-          }
-        },
-        "7": {
-          "Direct": {
-            "name": "Plant",
-            "class": "Plant",
-            "index": 7
-          }
-        },
-        "8": {
-          "Direct": {
-            "name": "Plant",
-            "class": "Plant",
-            "index": 8
-          }
-        },
-        "9": {
-          "Direct": {
-            "name": "Plant",
-            "class": "Plant",
-            "index": 9
-          }
-        }
-      }
-    },
     "ItemHydroponicTray": {
       "templateType": "Item",
       "prefab": {
@@ -7454,6 +6711,138 @@ export default {
         "max_quantity": 5,
         "slot_class": "None",
         "sorting_class": "Kits"
+      }
+    },
+    "ItemIcarusHelmet": {
+      "templateType": "ItemLogic",
+      "prefab": {
+        "prefab_name": "ItemIcarusHelmet",
+        "prefab_hash": -1555582482,
+        "desc": "",
+        "name": "Icarus Helmet"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "Helmet",
+        "sorting_class": "Clothing"
+      },
+      "thermal_info": {
+        "convection_factor": 0.0,
+        "radiation_factor": 0.0
+      },
+      "internal_atmo_info": {
+        "volume": 3.0
+      },
+      "logic": {
+        "logic_slot_types": {},
+        "logic_types": {
+          "Power": "Read",
+          "Open": "ReadWrite",
+          "Pressure": "Read",
+          "Temperature": "Read",
+          "Lock": "ReadWrite",
+          "RatioOxygen": "Read",
+          "RatioCarbonDioxide": "Read",
+          "RatioNitrogen": "Read",
+          "RatioPollutant": "Read",
+          "RatioVolatiles": "Read",
+          "RatioWater": "Read",
+          "On": "ReadWrite",
+          "TotalMoles": "Read",
+          "Volume": "ReadWrite",
+          "RatioNitrousOxide": "Read",
+          "Combustion": "Read",
+          "Flush": "Write",
+          "SoundAlert": "ReadWrite",
+          "RatioLiquidNitrogen": "Read",
+          "RatioLiquidOxygen": "Read",
+          "RatioLiquidVolatiles": "Read",
+          "RatioSteam": "Read",
+          "RatioLiquidCarbonDioxide": "Read",
+          "RatioLiquidPollutant": "Read",
+          "RatioLiquidNitrousOxide": "Read",
+          "ReferenceId": "Read",
+          "RatioHydrogen": "Read",
+          "RatioLiquidHydrogen": "Read",
+          "RatioPollutedWater": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": {}
+    },
+    "ItemIcarusSuit": {
+      "templateType": "ItemSuit",
+      "prefab": {
+        "prefab_name": "ItemIcarusSuit",
+        "prefab_hash": -2112405954,
+        "desc": "",
+        "name": "Icarus Suit"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "Suit",
+        "sorting_class": "Clothing"
+      },
+      "thermal_info": {
+        "convection_factor": 0.2,
+        "radiation_factor": 0.2
+      },
+      "internal_atmo_info": {
+        "volume": 10.0
+      },
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Air Tank",
+            "class": "GasCanister",
+            "index": 0
+          }
+        },
+        "1": {
+          "Direct": {
+            "name": "Waste Tank",
+            "class": "GasCanister",
+            "index": 1
+          }
+        },
+        "2": {
+          "Direct": {
+            "name": "Life Support",
+            "class": "Battery",
+            "index": 2
+          }
+        },
+        "3": {
+          "Direct": {
+            "name": "Filter",
+            "class": "GasFilter",
+            "index": 3
+          }
+        },
+        "4": {
+          "Direct": {
+            "name": "Filter",
+            "class": "GasFilter",
+            "index": 4
+          }
+        },
+        "5": {
+          "Direct": {
+            "name": "Filter",
+            "class": "GasFilter",
+            "index": 5
+          }
+        }
+      },
+      "suit_info": {
+        "hygiene_reduction_multiplier": 1.0,
+        "waste_max_pressure": 4053.0
       }
     },
     "ItemIce": {
@@ -7525,27 +6914,11 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         }
-      }
-    },
-    "ItemInsulation": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemInsulation",
-        "prefab_hash": 897176943,
-        "desc": "Mysterious in the extreme, the function of this item is lost to the ages.",
-        "name": "Insulation"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
-        "sorting_class": "Resources"
       }
     },
     "ItemIntegratedCircuit10": {
@@ -7797,63 +7170,63 @@ export default {
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 5
           }
         },
         "6": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 6
           }
         },
         "7": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 7
           }
         },
         "8": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 8
           }
         },
         "9": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 9
           }
@@ -8191,7 +7564,7 @@ export default {
       "item": {
         "consumable": false,
         "ingredient": false,
-        "max_quantity": 10,
+        "max_quantity": 50,
         "slot_class": "None",
         "sorting_class": "Kits"
       }
@@ -8431,7 +7804,7 @@ export default {
       "item": {
         "consumable": false,
         "ingredient": false,
-        "max_quantity": 10,
+        "max_quantity": 5,
         "slot_class": "None",
         "sorting_class": "Default"
       }
@@ -8544,54 +7917,6 @@ export default {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 5,
-        "slot_class": "None",
-        "sorting_class": "Kits"
-      }
-    },
-    "ItemKitEngineLarge": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemKitEngineLarge",
-        "prefab_hash": 755302726,
-        "desc": "",
-        "name": "Kit (Engine Large)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
-        "sorting_class": "Kits"
-      }
-    },
-    "ItemKitEngineMedium": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemKitEngineMedium",
-        "prefab_hash": 1969312177,
-        "desc": "",
-        "name": "Kit (Engine Medium)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 5,
-        "slot_class": "None",
-        "sorting_class": "Kits"
-      }
-    },
-    "ItemKitEngineSmall": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemKitEngineSmall",
-        "prefab_hash": 19645163,
-        "desc": "",
-        "name": "Kit (Engine Small)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 10,
         "slot_class": "None",
         "sorting_class": "Kits"
       }
@@ -8804,22 +8129,6 @@ export default {
         "sorting_class": "Kits"
       }
     },
-    "ItemKitHeatExchanger": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemKitHeatExchanger",
-        "prefab_hash": -1710540039,
-        "desc": "",
-        "name": "Kit Heat Exchanger"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 10,
-        "slot_class": "None",
-        "sorting_class": "Kits"
-      }
-    },
     "ItemKitHorizontalAutoMiner": {
       "templateType": "Item",
       "prefab": {
@@ -8911,7 +8220,7 @@ export default {
       "item": {
         "consumable": false,
         "ingredient": false,
-        "max_quantity": 20,
+        "max_quantity": 100,
         "slot_class": "None",
         "sorting_class": "Kits"
       }
@@ -8927,7 +8236,7 @@ export default {
       "item": {
         "consumable": false,
         "ingredient": false,
-        "max_quantity": 20,
+        "max_quantity": 100,
         "slot_class": "None",
         "sorting_class": "Kits"
       }
@@ -9412,22 +8721,6 @@ export default {
         "sorting_class": "Kits"
       }
     },
-    "ItemKitMotherShipCore": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemKitMotherShipCore",
-        "prefab_hash": -344968335,
-        "desc": "",
-        "name": "Kit (Mothership)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
-        "sorting_class": "Kits"
-      }
-    },
     "ItemKitMusicMachines": {
       "templateType": "Item",
       "prefab": {
@@ -9519,7 +8812,7 @@ export default {
       "item": {
         "consumable": false,
         "ingredient": false,
-        "max_quantity": 20,
+        "max_quantity": 100,
         "slot_class": "None",
         "sorting_class": "Kits"
       }
@@ -9535,7 +8828,7 @@ export default {
       "item": {
         "consumable": false,
         "ingredient": false,
-        "max_quantity": 20,
+        "max_quantity": 100,
         "slot_class": "None",
         "sorting_class": "Kits"
       }
@@ -9828,22 +9121,6 @@ export default {
         "sorting_class": "Kits"
       }
     },
-    "ItemKitResearchMachine": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemKitResearchMachine",
-        "prefab_hash": 724776762,
-        "desc": "",
-        "name": "Kit Research Machine"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 10,
-        "slot_class": "None",
-        "sorting_class": "Default"
-      }
-    },
     "ItemKitRespawnPointWallMounted": {
       "templateType": "Item",
       "prefab": {
@@ -9888,6 +9165,22 @@ export default {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 1,
+        "slot_class": "None",
+        "sorting_class": "Kits"
+      }
+    },
+    "ItemKitRocketAtmospherics": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "ItemKitRocketAtmospherics",
+        "prefab_hash": 925932637,
+        "desc": "",
+        "name": "Kit (Rocket Atmospherics)"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 10,
         "slot_class": "None",
         "sorting_class": "Kits"
       }
@@ -9999,7 +9292,7 @@ export default {
       "item": {
         "consumable": false,
         "ingredient": false,
-        "max_quantity": 5,
+        "max_quantity": 10,
         "slot_class": "None",
         "sorting_class": "Kits"
       }
@@ -10015,7 +9308,7 @@ export default {
       "item": {
         "consumable": false,
         "ingredient": false,
-        "max_quantity": 5,
+        "max_quantity": 10,
         "slot_class": "None",
         "sorting_class": "Kits"
       }
@@ -10080,22 +9373,6 @@ export default {
         "consumable": false,
         "ingredient": false,
         "max_quantity": 5,
-        "slot_class": "None",
-        "sorting_class": "Kits"
-      }
-    },
-    "ItemKitRoverFrame": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemKitRoverFrame",
-        "prefab_hash": 1827215803,
-        "desc": "",
-        "name": "Kit (Rover Frame)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
         "slot_class": "None",
         "sorting_class": "Kits"
       }
@@ -10506,7 +9783,7 @@ export default {
         "prefab_name": "ItemKitTankInsulated",
         "prefab_hash": 1021053608,
         "desc": "",
-        "name": "Kit (Tank Insulated)"
+        "name": "Kit (Insulated Tank)"
       },
       "item": {
         "consumable": false,
@@ -10564,22 +9841,6 @@ export default {
         "sorting_class": "Kits"
       }
     },
-    "ItemKitTurbineGenerator": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemKitTurbineGenerator",
-        "prefab_hash": -1590715731,
-        "desc": "",
-        "name": "Kit (Turbine Generator)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 5,
-        "slot_class": "None",
-        "sorting_class": "Kits"
-      }
-    },
     "ItemKitTurboVolumePump": {
       "templateType": "Item",
       "prefab": {
@@ -10623,7 +9884,7 @@ export default {
       "item": {
         "consumable": false,
         "ingredient": false,
-        "max_quantity": 1,
+        "max_quantity": 5,
         "slot_class": "None",
         "sorting_class": "Kits"
       }
@@ -10934,7 +10195,7 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "Programmable Chip",
+            "name": "ProgrammableChip",
             "class": "ProgrammableChip",
             "index": 0
           }
@@ -10993,22 +10254,6 @@ export default {
         "sorting_class": "Ores"
       }
     },
-    "ItemLightSword": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemLightSword",
-        "prefab_hash": 1949076595,
-        "desc": "A charming, if useless, pseudo-weapon. (Creative only.)",
-        "name": "Light Sword"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
-        "sorting_class": "Default"
-      }
-    },
     "ItemLiquidCanisterEmpty": {
       "templateType": "Item",
       "prefab": {
@@ -11037,7 +10282,7 @@ export default {
       "prefab": {
         "prefab_name": "ItemLiquidCanisterSmart",
         "prefab_hash": 777684475,
-        "desc": "0.Mode0\n1.Mode1",
+        "desc": "",
         "name": "Liquid Canister (Smart)"
       },
       "item": {
@@ -11149,6 +10394,61 @@ export default {
         "max_quantity": 1,
         "slot_class": "None",
         "sorting_class": "Kits"
+      }
+    },
+    "ItemLiquidVacuum": {
+      "templateType": "ItemLogic",
+      "prefab": {
+        "prefab_name": "ItemLiquidVacuum",
+        "prefab_hash": -1152751269,
+        "desc": "When set to Inwards mode the <link=ThingItemLiquidVacuum><color=green>Liquid Vacuum</color></link> removes liquid from the world and into its internal tank. When set to outwards mode it empties its internal tank back into the world. Empty it over <link=ThingStructureFloorDrain><color=green>Passive Liquid Inlet</color></link> to get your liquid back into a pipe.",
+        "name": "Liquid Vacuum"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "Tool",
+        "sorting_class": "Tools"
+      },
+      "logic": {
+        "logic_slot_types": {
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Charge": "Read",
+            "ChargeRatio": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "ReferenceId": "Read"
+          }
+        },
+        "logic_types": {
+          "Power": "Read",
+          "Mode": "ReadWrite",
+          "Error": "Read",
+          "Activate": "ReadWrite",
+          "On": "ReadWrite",
+          "ReferenceId": "Read"
+        },
+        "modes": {
+          "0": "Outward",
+          "1": "Inward"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 0
+          }
+        }
       }
     },
     "ItemMKIIAngleGrinder": {
@@ -11448,28 +10748,28 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
@@ -12193,7 +11493,7 @@ export default {
       "prefab": {
         "prefab_name": "ItemMiningDrillPneumatic",
         "prefab_hash": 1258187304,
-        "desc": "0.Default\n1.Flatten",
+        "desc": "",
         "name": "Pneumatic Mining Drill"
       },
       "item": {
@@ -12231,42 +11531,42 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 5
           }
@@ -12479,14 +11779,14 @@ export default {
         },
         "10": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 10
           }
         },
         "11": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 11
           }
@@ -12951,29 +12251,13 @@ export default {
         "sorting_class": "Food"
       }
     },
-    "ItemPlantEndothermic_Creative": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemPlantEndothermic_Creative",
-        "prefab_hash": -1159179557,
-        "desc": "",
-        "name": "Endothermic Plant Creative"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 10,
-        "slot_class": "Plant",
-        "sorting_class": "Resources"
-      }
-    },
     "ItemPlantEndothermic_Genepool1": {
       "templateType": "Item",
       "prefab": {
         "prefab_name": "ItemPlantEndothermic_Genepool1",
         "prefab_hash": 851290561,
         "desc": "<link=Agrizero><color=#0080FFFF>Agrizero's</color></link> Winterspawn atmospheric bio-processor is a recent addition to their catalog of genespliced environmental decorations. Using ambient heat to split <link=GasWater><color=#44AD83>Water</color></link> into <link=GasVolatiles><color=#44AD83>Volatiles</color></link> and <link=GasOxygen><color=#44AD83>Oxygen</color></link>, the Winterspawn cools its surroundings, when supplied with sufficient <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>. The alpha variant has a peak cooling and electrolysis capacity of 90Watts and is most efficient operating in air temperatures of 0 to 40 Degrees Celsius.",
-        "name": "Winterspawn (Alpha variant)"
+        "name": "Winterspawn (Alpha strain)"
       },
       "item": {
         "consumable": false,
@@ -12989,7 +12273,7 @@ export default {
         "prefab_name": "ItemPlantEndothermic_Genepool2",
         "prefab_hash": -1414203269,
         "desc": "<link=Agrizero><color=#0080FFFF>Agrizero's</color></link> Winterspawn atmospheric bio-processor is a recent addition to their catalog of genespliced environmental decorations. Using ambient heat to split <link=GasWater><color=#44AD83>Water</color></link> into <link=GasVolatiles><color=#44AD83>Volatiles</color></link> and <link=GasOxygen><color=#44AD83>Oxygen</color></link>, the Winterspawn cools its surroundings when supplied with sufficient <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>. The beta variant has a peak cooling and electrolysis capacity of 150Watts and is most efficient operating in air temperatures of 14 to 24 Degrees Celsius.",
-        "name": "Winterspawn (Beta variant)"
+        "name": "Winterspawn (Beta strain)"
       },
       "item": {
         "consumable": false,
@@ -13066,22 +12350,6 @@ export default {
         "ingredient": false,
         "max_quantity": 10,
         "slot_class": "Plant",
-        "sorting_class": "Default"
-      }
-    },
-    "ItemPlantThermogenic_Creative": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemPlantThermogenic_Creative",
-        "prefab_hash": -1208890208,
-        "desc": "",
-        "name": "Thermogenic Plant Creative"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 10,
-        "slot_class": "Plant",
         "sorting_class": "Resources"
       }
     },
@@ -13151,42 +12419,42 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 5
           }
@@ -13623,7 +12891,7 @@ export default {
       "prefab": {
         "prefab_name": "ItemRemoteDetonator",
         "prefab_hash": 678483886,
-        "desc": "0.Mode0\n1.Mode1",
+        "desc": "",
         "name": "Remote Detonator"
       },
       "item": {
@@ -13692,42 +12960,42 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 5
           }
@@ -13752,7 +13020,7 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "Liquid  Canister",
+            "name": "<N:EN:Liquid Canister>",
             "class": "LiquidCanister",
             "index": 0
           }
@@ -13791,6 +13059,22 @@ export default {
         "ingredient": false,
         "max_quantity": 20,
         "slot_class": "Flare",
+        "sorting_class": "Default"
+      }
+    },
+    "ItemRocketDeepScanningHead": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "ItemRocketDeepScanningHead",
+        "prefab_hash": 532208167,
+        "desc": "",
+        "name": "Rocket Deep Scanner Head"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "ScanningHead",
         "sorting_class": "Default"
       }
     },
@@ -13919,22 +13203,6 @@ export default {
         "ingredient": false,
         "max_quantity": 1,
         "slot_class": "ScanningHead",
-        "sorting_class": "Default"
-      }
-    },
-    "ItemScanner": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemScanner",
-        "prefab_hash": 1661270830,
-        "desc": "A mysterious piece of technology, rumored to have Zrillian origins.",
-        "name": "Handheld Scanner"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
         "sorting_class": "Default"
       }
     },
@@ -14298,22 +13566,6 @@ export default {
         "sorting_class": "Resources"
       }
     },
-    "ItemSpaceCleaner": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemSpaceCleaner",
-        "prefab_hash": -1737666461,
-        "desc": "There was a time when humanity really wanted to keep space clean. That time has passed.",
-        "name": "Space Cleaner"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
-        "sorting_class": "Default"
-      }
-    },
     "ItemSpaceHelmet": {
       "templateType": "ItemLogic",
       "prefab": {
@@ -14536,63 +13788,63 @@ export default {
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 5
           }
         },
         "6": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 6
           }
         },
         "7": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 7
           }
         },
         "8": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 8
           }
         },
         "9": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 9
           }
@@ -14902,6 +14154,22 @@ export default {
         "sorting_class": "Resources"
       }
     },
+    "ItemStrawberry": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "ItemStrawberry",
+        "prefab_hash": -906450470,
+        "desc": "",
+        "name": "Strawberry"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 10,
+        "slot_class": "Plant",
+        "sorting_class": "Resources"
+      }
+    },
     "ItemSugar": {
       "templateType": "Item",
       "prefab": {
@@ -14939,6 +14207,326 @@ export default {
         "slot_class": "Plant",
         "sorting_class": "Resources"
       }
+    },
+    "ItemSuitHARM": {
+      "templateType": "ItemSuitCircuitHolder",
+      "prefab": {
+        "prefab_name": "ItemSuitHARM",
+        "prefab_hash": -347191982,
+        "desc": "The HARM Suit is the Stationeer's last resort against hostile environments.\nIt is liquid cooled for superb thermal performance and boasts superior resistance to impacts and lava exposure. While the HARM suit is not compatible with a <link=ThingItemJetpackBasic><color=green>Jetpack Basic</color></link>, Stationeer's are still able to equip a <link=ThingItemHardBackpack><color=green>Hardsuit Backpack</color></link> or <link=ThingItemHardMiningBackPack><color=green>Hard Mining Backpack</color></link>. Due to its extra stability and size, storms do not effect movement speed while in a HARM suit; however, this results in am overall reduction to movement in general operation.\n\nConnects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>",
+        "name": "HARM Suit"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "Suit",
+        "sorting_class": "Clothing"
+      },
+      "thermal_info": {
+        "convection_factor": 0.0,
+        "radiation_factor": 0.025
+      },
+      "internal_atmo_info": {
+        "volume": 300.0
+      },
+      "logic": {
+        "logic_slot_types": {
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Pressure": "Read",
+            "Temperature": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Pressure": "Read",
+            "Temperature": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "ReferenceId": "Read"
+          },
+          "2": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "ReferenceId": "Read"
+          },
+          "3": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Charge": "Read",
+            "ChargeRatio": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "ReferenceId": "Read"
+          },
+          "4": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "ReferenceId": "Read"
+          },
+          "5": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "FilterType": "Read",
+            "ReferenceId": "Read"
+          },
+          "6": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "FilterType": "Read",
+            "ReferenceId": "Read"
+          },
+          "7": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "FilterType": "Read",
+            "ReferenceId": "Read"
+          },
+          "8": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "FilterType": "Read",
+            "ReferenceId": "Read"
+          },
+          "9": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "ReferenceId": "Read"
+          }
+        },
+        "logic_types": {
+          "Power": "Read",
+          "Error": "ReadWrite",
+          "Pressure": "Read",
+          "Temperature": "Read",
+          "PressureExternal": "Read",
+          "Activate": "ReadWrite",
+          "Lock": "ReadWrite",
+          "Setting": "ReadWrite",
+          "RatioOxygen": "Read",
+          "RatioCarbonDioxide": "Read",
+          "RatioNitrogen": "Read",
+          "RatioPollutant": "Read",
+          "RatioVolatiles": "Read",
+          "RatioWater": "Read",
+          "On": "ReadWrite",
+          "TotalMoles": "Read",
+          "Volume": "ReadWrite",
+          "PressureSetting": "ReadWrite",
+          "TemperatureSetting": "ReadWrite",
+          "TemperatureExternal": "Read",
+          "Filtration": "ReadWrite",
+          "AirRelease": "ReadWrite",
+          "PositionX": "Read",
+          "PositionY": "Read",
+          "PositionZ": "Read",
+          "VelocityMagnitude": "Read",
+          "VelocityRelativeX": "Read",
+          "VelocityRelativeY": "Read",
+          "VelocityRelativeZ": "Read",
+          "RatioNitrousOxide": "Read",
+          "Combustion": "Read",
+          "SoundAlert": "ReadWrite",
+          "RatioLiquidNitrogen": "Read",
+          "RatioLiquidOxygen": "Read",
+          "RatioLiquidVolatiles": "Read",
+          "RatioSteam": "Read",
+          "RatioLiquidCarbonDioxide": "Read",
+          "RatioLiquidPollutant": "Read",
+          "RatioLiquidNitrousOxide": "Read",
+          "ReferenceId": "Read",
+          "ForwardX": "Read",
+          "ForwardY": "Read",
+          "ForwardZ": "Read",
+          "Orientation": "Read",
+          "VelocityX": "Read",
+          "VelocityY": "Read",
+          "VelocityZ": "Read",
+          "EntityState": "Read",
+          "RatioHydrogen": "Read",
+          "RatioLiquidHydrogen": "Read",
+          "RatioPollutedWater": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": true,
+        "circuit_holder": true
+      },
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Air Tank",
+            "class": "GasCanister",
+            "index": 0
+          }
+        },
+        "1": {
+          "Direct": {
+            "name": "Waste Tank",
+            "class": "GasCanister",
+            "index": 1
+          }
+        },
+        "2": {
+          "Direct": {
+            "name": "Coolant Tank",
+            "class": "LiquidCanister",
+            "index": 2
+          }
+        },
+        "3": {
+          "Direct": {
+            "name": "Battery",
+            "class": "Battery",
+            "index": 3
+          }
+        },
+        "4": {
+          "Direct": {
+            "name": "Chip",
+            "class": "ProgrammableChip",
+            "index": 4
+          }
+        },
+        "5": {
+          "Direct": {
+            "name": "Filter1",
+            "class": "GasFilter",
+            "index": 5
+          }
+        },
+        "6": {
+          "Direct": {
+            "name": "Filter2",
+            "class": "GasFilter",
+            "index": 6
+          }
+        },
+        "7": {
+          "Direct": {
+            "name": "Filter3",
+            "class": "GasFilter",
+            "index": 7
+          }
+        },
+        "8": {
+          "Direct": {
+            "name": "Filter4",
+            "class": "GasFilter",
+            "index": 8
+          }
+        },
+        "9": {
+          "Direct": {
+            "name": "Back",
+            "class": "Back",
+            "index": 9
+          }
+        }
+      },
+      "suit_info": {
+        "hygiene_reduction_multiplier": 2.5,
+        "waste_max_pressure": 4052.9998
+      }
+    },
+    "ItemSuitHelmetHARM": {
+      "templateType": "ItemLogic",
+      "prefab": {
+        "prefab_name": "ItemSuitHelmetHARM",
+        "prefab_hash": -981522067,
+        "desc": "",
+        "name": "HARM Helmet"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "Helmet",
+        "sorting_class": "Clothing"
+      },
+      "thermal_info": {
+        "convection_factor": 0.0,
+        "radiation_factor": 0.0
+      },
+      "internal_atmo_info": {
+        "volume": 100.0
+      },
+      "logic": {
+        "logic_slot_types": {},
+        "logic_types": {
+          "Power": "Read",
+          "Open": "ReadWrite",
+          "Pressure": "Read",
+          "Temperature": "Read",
+          "Lock": "ReadWrite",
+          "RatioOxygen": "Read",
+          "RatioCarbonDioxide": "Read",
+          "RatioNitrogen": "Read",
+          "RatioPollutant": "Read",
+          "RatioVolatiles": "Read",
+          "RatioWater": "Read",
+          "On": "ReadWrite",
+          "TotalMoles": "Read",
+          "Volume": "ReadWrite",
+          "RatioNitrousOxide": "Read",
+          "Combustion": "Read",
+          "Flush": "Write",
+          "SoundAlert": "ReadWrite",
+          "RatioLiquidNitrogen": "Read",
+          "RatioLiquidOxygen": "Read",
+          "RatioLiquidVolatiles": "Read",
+          "RatioSteam": "Read",
+          "RatioLiquidCarbonDioxide": "Read",
+          "RatioLiquidPollutant": "Read",
+          "RatioLiquidNitrousOxide": "Read",
+          "ReferenceId": "Read",
+          "RatioHydrogen": "Read",
+          "RatioLiquidHydrogen": "Read",
+          "RatioPollutedWater": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": {}
     },
     "ItemSuitModCryogenicUpgrade": {
       "templateType": "Item",
@@ -15026,7 +14614,7 @@ export default {
       "prefab": {
         "prefab_name": "ItemTerrainManipulator",
         "prefab_hash": 111280987,
-        "desc": "0.Mode0\n1.Mode1",
+        "desc": "",
         "name": "Terrain Manipulator"
       },
       "item": {
@@ -15353,42 +14941,42 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 5
           }
@@ -15413,42 +15001,42 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 5
           }
@@ -15501,6 +15089,22 @@ export default {
         "max_quantity": 5,
         "slot_class": "None",
         "sorting_class": "Kits"
+      }
+    },
+    "ItemWatermelon": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "ItemWatermelon",
+        "prefab_hash": -1392622903,
+        "desc": "",
+        "name": "Watermelon"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 10,
+        "slot_class": "Plant",
+        "sorting_class": "Resources"
       }
     },
     "ItemWearLamp": {
@@ -15593,10 +15197,10 @@ export default {
         "ingredient": true,
         "max_quantity": 100,
         "reagents": {
-          "Carbon": 1.0
+          "Wheat": 1.0
         },
         "slot_class": "Plant",
-        "sorting_class": "Default"
+        "sorting_class": "Resources"
       }
     },
     "ItemWireCutters": {
@@ -15620,7 +15224,7 @@ export default {
       "prefab": {
         "prefab_name": "ItemWirelessBatteryCellExtraLarge",
         "prefab_hash": -504717121,
-        "desc": "0.Empty\n1.Critical\n2.VeryLow\n3.Low\n4.Medium\n5.High\n6.Full",
+        "desc": "",
         "name": "Wireless Battery Cell Extra Large"
       },
       "item": {
@@ -15651,11 +15255,11 @@ export default {
       },
       "slots": {}
     },
-    "ItemWreckageAirConditioner1": {
+    "ItemWreckageLargeExtendableRadiator": {
       "templateType": "Item",
       "prefab": {
-        "prefab_name": "ItemWreckageAirConditioner1",
-        "prefab_hash": -1826023284,
+        "prefab_name": "ItemWreckageLargeExtendableRadiator",
+        "prefab_hash": -964363642,
         "desc": "",
         "name": "Wreckage"
       },
@@ -15667,11 +15271,11 @@ export default {
         "sorting_class": "Default"
       }
     },
-    "ItemWreckageAirConditioner2": {
+    "ItemWreckageSmallFan": {
       "templateType": "Item",
       "prefab": {
-        "prefab_name": "ItemWreckageAirConditioner2",
-        "prefab_hash": 169888054,
+        "prefab_name": "ItemWreckageSmallFan",
+        "prefab_hash": -2120466121,
         "desc": "",
         "name": "Wreckage"
       },
@@ -15683,11 +15287,27 @@ export default {
         "sorting_class": "Default"
       }
     },
-    "ItemWreckageHydroponicsTray1": {
+    "ItemWreckageSteelCornerSmall": {
       "templateType": "Item",
       "prefab": {
-        "prefab_name": "ItemWreckageHydroponicsTray1",
-        "prefab_hash": -310178617,
+        "prefab_name": "ItemWreckageSteelCornerSmall",
+        "prefab_hash": 1335155606,
+        "desc": "<N:EN:ItemWreckageSteelCornerSmall>",
+        "name": "<N:EN:ItemWreckageSteelCornerSmall>"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 10,
+        "slot_class": "Wreckage",
+        "sorting_class": "Default"
+      }
+    },
+    "ItemWreckageSteelFragmentSmall": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "ItemWreckageSteelFragmentSmall",
+        "prefab_hash": -178735543,
         "desc": "",
         "name": "Wreckage"
       },
@@ -15699,235 +15319,11 @@ export default {
         "sorting_class": "Default"
       }
     },
-    "ItemWreckageLargeExtendableRadiator01": {
+    "ItemWreckageStructureWeatherStation": {
       "templateType": "Item",
       "prefab": {
-        "prefab_name": "ItemWreckageLargeExtendableRadiator01",
-        "prefab_hash": -997763,
-        "desc": "",
-        "name": "Wreckage"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 10,
-        "slot_class": "Wreckage",
-        "sorting_class": "Default"
-      }
-    },
-    "ItemWreckageStructureRTG1": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemWreckageStructureRTG1",
-        "prefab_hash": 391453348,
-        "desc": "",
-        "name": "Wreckage"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 10,
-        "slot_class": "Wreckage",
-        "sorting_class": "Default"
-      }
-    },
-    "ItemWreckageStructureWeatherStation001": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemWreckageStructureWeatherStation001",
-        "prefab_hash": -834664349,
-        "desc": "",
-        "name": "Wreckage"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 10,
-        "slot_class": "Wreckage",
-        "sorting_class": "Default"
-      }
-    },
-    "ItemWreckageStructureWeatherStation002": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemWreckageStructureWeatherStation002",
-        "prefab_hash": 1464424921,
-        "desc": "",
-        "name": "Wreckage"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 10,
-        "slot_class": "Wreckage",
-        "sorting_class": "Default"
-      }
-    },
-    "ItemWreckageStructureWeatherStation003": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemWreckageStructureWeatherStation003",
-        "prefab_hash": 542009679,
-        "desc": "",
-        "name": "Wreckage"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 10,
-        "slot_class": "Wreckage",
-        "sorting_class": "Default"
-      }
-    },
-    "ItemWreckageStructureWeatherStation004": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemWreckageStructureWeatherStation004",
-        "prefab_hash": -1104478996,
-        "desc": "",
-        "name": "Wreckage"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 10,
-        "slot_class": "Wreckage",
-        "sorting_class": "Default"
-      }
-    },
-    "ItemWreckageStructureWeatherStation005": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemWreckageStructureWeatherStation005",
-        "prefab_hash": -919745414,
-        "desc": "",
-        "name": "Wreckage"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 10,
-        "slot_class": "Wreckage",
-        "sorting_class": "Default"
-      }
-    },
-    "ItemWreckageStructureWeatherStation006": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemWreckageStructureWeatherStation006",
-        "prefab_hash": 1344576960,
-        "desc": "",
-        "name": "Wreckage"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 10,
-        "slot_class": "Wreckage",
-        "sorting_class": "Default"
-      }
-    },
-    "ItemWreckageStructureWeatherStation007": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemWreckageStructureWeatherStation007",
-        "prefab_hash": 656649558,
-        "desc": "",
-        "name": "Wreckage"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 10,
-        "slot_class": "Wreckage",
-        "sorting_class": "Default"
-      }
-    },
-    "ItemWreckageStructureWeatherStation008": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemWreckageStructureWeatherStation008",
-        "prefab_hash": -1214467897,
-        "desc": "",
-        "name": "Wreckage"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 10,
-        "slot_class": "Wreckage",
-        "sorting_class": "Default"
-      }
-    },
-    "ItemWreckageTurbineGenerator1": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemWreckageTurbineGenerator1",
-        "prefab_hash": -1662394403,
-        "desc": "",
-        "name": "Wreckage"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 10,
-        "slot_class": "Wreckage",
-        "sorting_class": "Default"
-      }
-    },
-    "ItemWreckageTurbineGenerator2": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemWreckageTurbineGenerator2",
-        "prefab_hash": 98602599,
-        "desc": "",
-        "name": "Wreckage"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 10,
-        "slot_class": "Wreckage",
-        "sorting_class": "Default"
-      }
-    },
-    "ItemWreckageTurbineGenerator3": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemWreckageTurbineGenerator3",
-        "prefab_hash": 1927790321,
-        "desc": "",
-        "name": "Wreckage"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 10,
-        "slot_class": "Wreckage",
-        "sorting_class": "Default"
-      }
-    },
-    "ItemWreckageWallCooler1": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemWreckageWallCooler1",
-        "prefab_hash": -1682930158,
-        "desc": "",
-        "name": "Wreckage"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 10,
-        "slot_class": "Wreckage",
-        "sorting_class": "Default"
-      }
-    },
-    "ItemWreckageWallCooler2": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ItemWreckageWallCooler2",
-        "prefab_hash": 45733800,
+        "prefab_name": "ItemWreckageStructureWeatherStation",
+        "prefab_hash": 1013894259,
         "desc": "",
         "name": "Wreckage"
       },
@@ -16053,65 +15449,160 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "Crate Slot",
             "class": "Crate",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "Crate Slot",
             "class": "Crate",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "Crate Slot",
             "class": "Crate",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "Crate Slot",
             "class": "Crate",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "Crate Slot",
             "class": "Crate",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "Crate Slot",
             "class": "Crate",
             "index": 5
           }
         },
         "6": {
           "Direct": {
-            "name": "",
+            "name": "Portable Slot",
             "class": "Portables",
             "index": 6
           }
         },
         "7": {
           "Direct": {
-            "name": "",
+            "name": "Portable Slot",
             "class": "Portables",
             "index": 7
           }
         },
         "8": {
           "Direct": {
-            "name": "",
+            "name": "Crate Slot",
             "class": "Crate",
             "index": 8
+          }
+        }
+      }
+    },
+    "LanderMkII": {
+      "templateType": "ItemSlots",
+      "prefab": {
+        "prefab_name": "LanderMkII",
+        "prefab_hash": 1323320543,
+        "desc": "",
+        "name": "Lander Mk II"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 1,
+        "slot_class": "None",
+        "sorting_class": "Default"
+      },
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Crate Slot",
+            "class": "Crate",
+            "index": 0
+          }
+        },
+        "1": {
+          "Direct": {
+            "name": "Crate Slot",
+            "class": "Crate",
+            "index": 1
+          }
+        },
+        "2": {
+          "Direct": {
+            "name": "Crate Slot",
+            "class": "Crate",
+            "index": 2
+          }
+        },
+        "3": {
+          "Direct": {
+            "name": "Crate Slot",
+            "class": "Crate",
+            "index": 3
+          }
+        },
+        "4": {
+          "Direct": {
+            "name": "Crate Slot",
+            "class": "Crate",
+            "index": 4
+          }
+        },
+        "5": {
+          "Direct": {
+            "name": "Crate Slot",
+            "class": "Crate",
+            "index": 5
+          }
+        },
+        "6": {
+          "Direct": {
+            "name": "Crate Slot",
+            "class": "Crate",
+            "index": 6
+          }
+        },
+        "7": {
+          "Direct": {
+            "name": "Portable Slot",
+            "class": "Portables",
+            "index": 7
+          }
+        },
+        "8": {
+          "Direct": {
+            "name": "Portable Slot",
+            "class": "Portables",
+            "index": 8
+          }
+        },
+        "9": {
+          "Direct": {
+            "name": "Portable Slot",
+            "class": "Portables",
+            "index": 9
+          }
+        },
+        "10": {
+          "Direct": {
+            "name": "Portable Slot",
+            "class": "Portables",
+            "index": 10
           }
         }
       }
@@ -16380,7 +15871,7 @@ export default {
       "prefab": {
         "prefab_name": "Landingpad_GasConnectorOutwardPiece",
         "prefab_hash": -1100218307,
-        "desc": "Pumps gas purchased from a trader out of the landing pad. You can increase the landing pad's gas storage capacity by adding more <link=ThingLandingpad_GasCylinderTankPiece><color=green>Landingpad Gas Storage</color></link> to the landing pad.",
+        "desc": "Pumps gas purchased from a trader out of the landing pad. You can increase the landing pad's gas storage capacity by adding more <link=ThingLandingpad_GasCylinderTankPiece><color=green>Landingpad Tank (Small)</color></link> to the landing pad.",
         "name": "Landingpad Gas Output"
       },
       "structure": {
@@ -16465,7 +15956,19 @@ export default {
         "prefab_name": "Landingpad_GasCylinderTankPiece",
         "prefab_hash": 170818567,
         "desc": "Increases the volume of the landing pads gas storage capacity. This volume is used for buying and selling gas to traders.",
-        "name": "Landingpad Gas Storage"
+        "name": "Landingpad Tank (Small)"
+      },
+      "structure": {
+        "small_grid": true
+      }
+    },
+    "Landingpad_LargeTank": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "Landingpad_LargeTank",
+        "prefab_hash": -1621116858,
+        "desc": "Increases the volume of the landing pads gas storage capacity. This volume is used for buying and selling gas to traders.",
+        "name": "Landingpad Tank (Large)"
       },
       "structure": {
         "small_grid": true
@@ -16560,7 +16063,7 @@ export default {
       "prefab": {
         "prefab_name": "Landingpad_LiquidConnectorOutwardPiece",
         "prefab_hash": -1788929869,
-        "desc": "Pumps liquid purchased from a trader out of the landing pad. You can increase the landing pad's liquid storage capacity by adding more <link=ThingLandingpad_GasCylinderTankPiece><color=green>Landingpad Gas Storage</color></link> to the landing pad.",
+        "desc": "Pumps liquid purchased from a trader out of the landing pad. You can increase the landing pad's liquid storage capacity by adding more <link=ThingLandingpad_GasCylinderTankPiece><color=green>Landingpad Tank (Small)</color></link> to the landing pad.",
         "name": "Landingpad Liquid Output"
       },
       "structure": {
@@ -16794,7 +16297,7 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "Sound Cartridge",
+            "name": "SoundCartridge",
             "class": "SoundCartridge",
             "index": 0
           }
@@ -16823,38 +16326,6 @@ export default {
         "has_on_off_state": true,
         "has_open_state": false,
         "has_reagents": false
-      }
-    },
-    "Meteorite": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "Meteorite",
-        "prefab_hash": -99064335,
-        "desc": "",
-        "name": "Meteorite"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
-        "sorting_class": "Default"
-      }
-    },
-    "MonsterEgg": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "MonsterEgg",
-        "prefab_hash": -1667675295,
-        "desc": "<N:EN:MonsterEgg>",
-        "name": "<N:EN:MonsterEgg>"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
-        "sorting_class": "Default"
       }
     },
     "MotherboardComms": {
@@ -16889,13 +16360,13 @@ export default {
         "sorting_class": "Default"
       }
     },
-    "MotherboardMissionControl": {
+    "MotherboardMap": {
       "templateType": "Item",
       "prefab": {
-        "prefab_name": "MotherboardMissionControl",
-        "prefab_hash": -127121474,
-        "desc": "<N:EN:MotherboardMissionControl>",
-        "name": "<N:EN:MotherboardMissionControl>"
+        "prefab_name": "MotherboardMap",
+        "prefab_hash": 1708439824,
+        "desc": "",
+        "name": "Map Motherboard"
       },
       "item": {
         "consumable": false,
@@ -16950,22 +16421,6 @@ export default {
         "ingredient": false,
         "max_quantity": 1,
         "slot_class": "Motherboard",
-        "sorting_class": "Default"
-      }
-    },
-    "MothershipCore": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "MothershipCore",
-        "prefab_hash": -1930442922,
-        "desc": "A relic of from an earlier era of space ambition, <link=Sinotai><color=#0080FFFF>Sinotai's</color></link> mothership cores formed the central element of a generation's space-going creations. While Sinotai's pivot to smaller, modular craft upset some purists, motherships continue to be built and maintained by dedicated enthusiasts.",
-        "name": "Mothership Core"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
         "sorting_class": "Default"
       }
     },
@@ -17117,21 +16572,21 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "Battery",
             "class": "Battery",
             "index": 2
           }
@@ -17226,101 +16681,6 @@ export default {
       },
       "structure": {
         "small_grid": false
-      }
-    },
-    "ReagentColorBlue": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ReagentColorBlue",
-        "prefab_hash": 980054869,
-        "desc": "",
-        "name": "Color Dye (Blue)"
-      },
-      "item": {
-        "consumable": true,
-        "ingredient": true,
-        "max_quantity": 100,
-        "reagents": {
-          "ColorBlue": 10.0
-        },
-        "slot_class": "None",
-        "sorting_class": "Resources"
-      }
-    },
-    "ReagentColorGreen": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ReagentColorGreen",
-        "prefab_hash": 120807542,
-        "desc": "",
-        "name": "Color Dye (Green)"
-      },
-      "item": {
-        "consumable": true,
-        "ingredient": true,
-        "max_quantity": 100,
-        "reagents": {
-          "ColorGreen": 10.0
-        },
-        "slot_class": "None",
-        "sorting_class": "Resources"
-      }
-    },
-    "ReagentColorOrange": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ReagentColorOrange",
-        "prefab_hash": -400696159,
-        "desc": "",
-        "name": "Color Dye (Orange)"
-      },
-      "item": {
-        "consumable": true,
-        "ingredient": true,
-        "max_quantity": 100,
-        "reagents": {
-          "ColorOrange": 10.0
-        },
-        "slot_class": "None",
-        "sorting_class": "Resources"
-      }
-    },
-    "ReagentColorRed": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ReagentColorRed",
-        "prefab_hash": 1998377961,
-        "desc": "",
-        "name": "Color Dye (Red)"
-      },
-      "item": {
-        "consumable": true,
-        "ingredient": true,
-        "max_quantity": 100,
-        "reagents": {
-          "ColorRed": 10.0
-        },
-        "slot_class": "None",
-        "sorting_class": "Resources"
-      }
-    },
-    "ReagentColorYellow": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "ReagentColorYellow",
-        "prefab_hash": 635208006,
-        "desc": "",
-        "name": "Color Dye (Yellow)"
-      },
-      "item": {
-        "consumable": true,
-        "ingredient": true,
-        "max_quantity": 100,
-        "reagents": {
-          "ColorYellow": 10.0
-        },
-        "slot_class": "None",
-        "sorting_class": "Resources"
       }
     },
     "RespawnPoint": {
@@ -17508,7 +16868,7 @@ export default {
         },
         "1": {
           "Direct": {
-            "name": "Programmable Chip",
+            "name": "ProgrammableChip",
             "class": "ProgrammableChip",
             "index": 1
           }
@@ -17567,334 +16927,6 @@ export default {
             "name": "Ore",
             "class": "Ore",
             "index": 9
-          }
-        }
-      }
-    },
-    "RoverCargo": {
-      "templateType": "ItemLogic",
-      "prefab": {
-        "prefab_name": "RoverCargo",
-        "prefab_hash": 350726273,
-        "desc": "Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>",
-        "name": "Rover (Cargo)"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
-        "sorting_class": "Default"
-      },
-      "thermal_info": {
-        "convection_factor": 0.01,
-        "radiation_factor": 0.01
-      },
-      "logic": {
-        "logic_slot_types": {
-          "0": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "ReferenceId": "Read"
-          },
-          "1": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "ReferenceId": "Read"
-          },
-          "2": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "FilterType": "Read",
-            "ReferenceId": "Read"
-          },
-          "3": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "FilterType": "Read",
-            "ReferenceId": "Read"
-          },
-          "4": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "FilterType": "Read",
-            "ReferenceId": "Read"
-          },
-          "5": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Pressure": "Read",
-            "Temperature": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "ReferenceId": "Read"
-          },
-          "6": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Pressure": "Read",
-            "Temperature": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "ReferenceId": "Read"
-          },
-          "7": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Pressure": "Read",
-            "Temperature": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "ReferenceId": "Read"
-          },
-          "8": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Pressure": "Read",
-            "Temperature": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "ReferenceId": "Read"
-          },
-          "9": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Charge": "Read",
-            "ChargeRatio": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "ReferenceId": "Read"
-          },
-          "10": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Charge": "Read",
-            "ChargeRatio": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "ReferenceId": "Read"
-          },
-          "11": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Charge": "Read",
-            "ChargeRatio": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "ReferenceId": "Read"
-          },
-          "12": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "ReferenceId": "Read"
-          },
-          "13": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "ReferenceId": "Read"
-          },
-          "14": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "ReferenceId": "Read"
-          },
-          "15": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "ReferenceId": "Read"
-          }
-        },
-        "logic_types": {
-          "Power": "Read",
-          "Pressure": "Read",
-          "Temperature": "Read",
-          "RatioOxygen": "Read",
-          "RatioCarbonDioxide": "Read",
-          "RatioNitrogen": "Read",
-          "RatioPollutant": "Read",
-          "RatioVolatiles": "Read",
-          "RatioWater": "Read",
-          "On": "ReadWrite",
-          "TotalMoles": "Read",
-          "RatioNitrousOxide": "Read",
-          "Combustion": "Read",
-          "RatioLiquidNitrogen": "Read",
-          "RatioLiquidOxygen": "Read",
-          "RatioLiquidVolatiles": "Read",
-          "RatioSteam": "Read",
-          "RatioLiquidCarbonDioxide": "Read",
-          "RatioLiquidPollutant": "Read",
-          "RatioLiquidNitrousOxide": "Read",
-          "ReferenceId": "Read",
-          "RatioHydrogen": "Read",
-          "RatioLiquidHydrogen": "Read",
-          "RatioPollutedWater": "Read"
-        },
-        "transmission_receiver": false,
-        "wireless_logic": true,
-        "circuit_holder": false
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Entity",
-            "class": "Entity",
-            "index": 0
-          }
-        },
-        "1": {
-          "Direct": {
-            "name": "Entity",
-            "class": "Entity",
-            "index": 1
-          }
-        },
-        "2": {
-          "Direct": {
-            "name": "Gas Filter",
-            "class": "GasFilter",
-            "index": 2
-          }
-        },
-        "3": {
-          "Direct": {
-            "name": "Gas Filter",
-            "class": "GasFilter",
-            "index": 3
-          }
-        },
-        "4": {
-          "Direct": {
-            "name": "Gas Filter",
-            "class": "GasFilter",
-            "index": 4
-          }
-        },
-        "5": {
-          "Direct": {
-            "name": "Gas Canister",
-            "class": "GasCanister",
-            "index": 5
-          }
-        },
-        "6": {
-          "Direct": {
-            "name": "Gas Canister",
-            "class": "GasCanister",
-            "index": 6
-          }
-        },
-        "7": {
-          "Direct": {
-            "name": "Gas Canister",
-            "class": "GasCanister",
-            "index": 7
-          }
-        },
-        "8": {
-          "Direct": {
-            "name": "Gas Canister",
-            "class": "GasCanister",
-            "index": 8
-          }
-        },
-        "9": {
-          "Direct": {
-            "name": "Battery",
-            "class": "Battery",
-            "index": 9
-          }
-        },
-        "10": {
-          "Direct": {
-            "name": "Battery",
-            "class": "Battery",
-            "index": 10
-          }
-        },
-        "11": {
-          "Direct": {
-            "name": "Battery",
-            "class": "Battery",
-            "index": 11
-          }
-        },
-        "12": {
-          "Direct": {
-            "name": "Container Slot",
-            "class": "None",
-            "index": 12
-          }
-        },
-        "13": {
-          "Direct": {
-            "name": "Container Slot",
-            "class": "None",
-            "index": 13
-          }
-        },
-        "14": {
-          "Direct": {
-            "name": "<N:EN:GasTank>",
-            "class": "None",
-            "index": 14
-          }
-        },
-        "15": {
-          "Direct": {
-            "name": "<N:EN:GasTank>",
-            "class": "None",
-            "index": 15
           }
         }
       }
@@ -18028,29 +17060,8 @@ export default {
         },
         "logic_types": {
           "Power": "Read",
-          "Pressure": "Read",
-          "Temperature": "Read",
-          "RatioOxygen": "Read",
-          "RatioCarbonDioxide": "Read",
-          "RatioNitrogen": "Read",
-          "RatioPollutant": "Read",
-          "RatioVolatiles": "Read",
-          "RatioWater": "Read",
           "On": "ReadWrite",
-          "TotalMoles": "Read",
-          "RatioNitrousOxide": "Read",
-          "Combustion": "Read",
-          "RatioLiquidNitrogen": "Read",
-          "RatioLiquidOxygen": "Read",
-          "RatioLiquidVolatiles": "Read",
-          "RatioSteam": "Read",
-          "RatioLiquidCarbonDioxide": "Read",
-          "RatioLiquidPollutant": "Read",
-          "RatioLiquidNitrousOxide": "Read",
-          "ReferenceId": "Read",
-          "RatioHydrogen": "Read",
-          "RatioLiquidHydrogen": "Read",
-          "RatioPollutedWater": "Read"
+          "ReferenceId": "Read"
         },
         "transmission_receiver": false,
         "wireless_logic": true,
@@ -18148,20 +17159,20 @@ export default {
         "small_grid": false
       }
     },
-    "SMGMagazine": {
+    "SeedBag_Blueberry": {
       "templateType": "Item",
       "prefab": {
-        "prefab_name": "SMGMagazine",
-        "prefab_hash": -256607540,
+        "prefab_name": "SeedBag_Blueberry",
+        "prefab_hash": 897717596,
         "desc": "",
-        "name": "SMG Magazine"
+        "name": "Blueberry Seeds"
       },
       "item": {
         "consumable": false,
         "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Magazine",
-        "sorting_class": "Default"
+        "max_quantity": 10,
+        "slot_class": "Plant",
+        "sorting_class": "Food"
       }
     },
     "SeedBag_Cocoa": {
@@ -18196,6 +17207,22 @@ export default {
         "sorting_class": "Food"
       }
     },
+    "SeedBag_DargaFern": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "SeedBag_DargaFern",
+        "prefab_hash": 980397232,
+        "desc": "",
+        "name": "Darga Fern Seeds"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 10,
+        "slot_class": "Plant",
+        "sorting_class": "Food"
+      }
+    },
     "SeedBag_Fern": {
       "templateType": "Item",
       "prefab": {
@@ -18203,6 +17230,38 @@ export default {
         "prefab_hash": -1990600883,
         "desc": "Grow a <link=ThingItemFern><color=green>Fern</color></link>.",
         "name": "Fern Seeds"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 10,
+        "slot_class": "Plant",
+        "sorting_class": "Food"
+      }
+    },
+    "SeedBag_HadesAlpha": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "SeedBag_HadesAlpha",
+        "prefab_hash": -1066145654,
+        "desc": "",
+        "name": "Hades Seed (Alpha strain)"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 10,
+        "slot_class": "Plant",
+        "sorting_class": "Food"
+      }
+    },
+    "SeedBag_HadesBeta": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "SeedBag_HadesBeta",
+        "prefab_hash": -969228551,
+        "desc": "",
+        "name": "Hades Seed (Beta strain)"
       },
       "item": {
         "consumable": false,
@@ -18292,6 +17351,22 @@ export default {
         "sorting_class": "Food"
       }
     },
+    "SeedBag_Strawberry": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "SeedBag_Strawberry",
+        "prefab_hash": 2009884607,
+        "desc": "",
+        "name": "Strawberry Seeds"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 10,
+        "slot_class": "Plant",
+        "sorting_class": "Food"
+      }
+    },
     "SeedBag_SugarCane": {
       "templateType": "Item",
       "prefab": {
@@ -18340,6 +17415,22 @@ export default {
         "sorting_class": "Food"
       }
     },
+    "SeedBag_Watermelon": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "SeedBag_Watermelon",
+        "prefab_hash": 315264172,
+        "desc": "",
+        "name": "Watermelon Seeds"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 10,
+        "slot_class": "Plant",
+        "sorting_class": "Food"
+      }
+    },
     "SeedBag_Wheet": {
       "templateType": "Item",
       "prefab": {
@@ -18356,13 +17447,45 @@ export default {
         "sorting_class": "Food"
       }
     },
-    "SpaceShuttle": {
+    "SeedBag_WinterspawnAlpha": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "SeedBag_WinterspawnAlpha",
+        "prefab_hash": -1740754636,
+        "desc": "",
+        "name": "Winterspawn Seed (Alpha strain)"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 10,
+        "slot_class": "Plant",
+        "sorting_class": "Food"
+      }
+    },
+    "SeedBag_WinterspawnBeta": {
+      "templateType": "Item",
+      "prefab": {
+        "prefab_name": "SeedBag_WinterspawnBeta",
+        "prefab_hash": -475065916,
+        "desc": "",
+        "name": "Winterspawn Seed (Beta strain)"
+      },
+      "item": {
+        "consumable": false,
+        "ingredient": false,
+        "max_quantity": 10,
+        "slot_class": "Plant",
+        "sorting_class": "Food"
+      }
+    },
+    "ShuttlecraftMkII": {
       "templateType": "ItemSlots",
       "prefab": {
-        "prefab_name": "SpaceShuttle",
-        "prefab_hash": -1991297271,
-        "desc": "An antiquated <link=Sinotai><color=#0080FFFF>Sinotai</color></link> transport craft, long since decommissioned.",
-        "name": "Space Shuttle"
+        "prefab_name": "ShuttlecraftMkII",
+        "prefab_hash": -1447924975,
+        "desc": "<N:EN:ShuttlecraftMkII>",
+        "name": "<N:EN:ShuttlecraftMkII>"
       },
       "item": {
         "consumable": false,
@@ -18374,23 +17497,16 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "Captain's Seat",
+            "name": "Entity",
             "class": "Entity",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "Passenger Seat Left",
+            "name": "Entity",
             "class": "Entity",
             "index": 1
-          }
-        },
-        "2": {
-          "Direct": {
-            "name": "Passenger Seat Right",
-            "class": "Entity",
-            "index": 2
           }
         }
       }
@@ -18534,6 +17650,17 @@ export default {
           "On": "ReadWrite",
           "RequiredPower": "Read",
           "PrefabHash": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "ReferenceId": "Read",
           "NameHash": "Read"
         },
@@ -18548,7 +17675,7 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "Data Disk",
             "class": "DataDisk",
             "index": 0
           }
@@ -18588,8 +17715,28 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -18638,10 +17785,6 @@ export default {
       "device": {
         "connection_list": [
           {
-            "typ": "Chute",
-            "role": "Output"
-          },
-          {
             "typ": "Data",
             "role": "None"
           },
@@ -18673,7 +17816,7 @@ export default {
       }
     },
     "StructureAdvancedFurnace": {
-      "templateType": "StructureLogicDevice",
+      "templateType": "StructureLogicDeviceConsumer",
       "prefab": {
         "prefab_name": "StructureAdvancedFurnace",
         "prefab_hash": 545937711,
@@ -18689,8 +17832,28 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -18799,6 +17962,61 @@ export default {
         "has_on_off_state": true,
         "has_open_state": true,
         "has_reagents": true
+      },
+      "consumer_info": {
+        "consumed_resources": [
+          "ItemBiomass",
+          "ItemCharcoal",
+          "ItemCoalOre",
+          "ItemCobaltOre",
+          "ItemCopperOre",
+          "ItemDirtyOre",
+          "ItemGoldOre",
+          "ItemIce",
+          "ItemIronOre",
+          "ItemLeadOre",
+          "ItemNickelOre",
+          "ItemNitrice",
+          "ItemOxite",
+          "ItemPureIce",
+          "ItemPureIceCarbonDioxide",
+          "ItemPureIceHydrogen",
+          "ItemPureIceLiquidCarbonDioxide",
+          "ItemPureIceLiquidHydrogen",
+          "ItemPureIceLiquidNitrogen",
+          "ItemPureIceLiquidNitrous",
+          "ItemPureIceLiquidOxygen",
+          "ItemPureIceLiquidPollutant",
+          "ItemPureIceLiquidVolatiles",
+          "ItemPureIceNitrogen",
+          "ItemPureIceNitrous",
+          "ItemPureIceOxygen",
+          "ItemPureIcePollutant",
+          "ItemPureIcePollutedWater",
+          "ItemPureIceSteam",
+          "ItemPureIceVolatiles",
+          "ItemReagentMix",
+          "ItemSiliconOre",
+          "ItemSilverOre",
+          "ItemSpaceIce",
+          "ItemSpaceOre",
+          "ItemUraniumOre",
+          "ItemVolatiles"
+        ],
+        "processed_reagents": [
+          925270362,
+          1582746610,
+          1702246124,
+          -1172078909,
+          -409226641,
+          2003628602,
+          -666742878,
+          -2002530571,
+          556601662,
+          -1195893171,
+          687283565,
+          -208860272
+        ]
       }
     },
     "StructureAdvancedPackagingMachine": {
@@ -18814,8 +18032,28 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -18833,7 +18071,8 @@ export default {
           "ImportCount": "Read",
           "PrefabHash": "Read",
           "ReferenceId": "Read",
-          "NameHash": "Read"
+          "NameHash": "Read",
+          "StackSize": "Read"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -18898,7 +18137,19 @@ export default {
           "ItemPotatoBaked",
           "ItemSoyOil"
         ],
-        "processed_reagents": []
+        "processed_reagents": [
+          1550709753,
+          1887084450,
+          471085864,
+          516242109,
+          1958538866,
+          -1657266385,
+          -1250164309,
+          1951286569,
+          1510471435,
+          1331613335,
+          733496620
+        ]
       },
       "fabricator_info": {
         "tier": "Undefined",
@@ -19531,7 +18782,17 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -19616,7 +18877,7 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "Programmable Chip",
+            "name": "ProgrammableChip",
             "class": "ProgrammableChip",
             "index": 0
           }
@@ -19768,6 +19029,62 @@ export default {
         "has_reagents": false
       }
     },
+    "StructureAirlockWide": {
+      "templateType": "StructureLogicDevice",
+      "prefab": {
+        "prefab_name": "StructureAirlockWide",
+        "prefab_hash": 1941072263,
+        "desc": "",
+        "name": "Airlock Wide"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "logic": {
+        "logic_slot_types": {},
+        "logic_types": {
+          "Power": "Read",
+          "Open": "ReadWrite",
+          "Mode": "ReadWrite",
+          "Lock": "ReadWrite",
+          "Setting": "ReadWrite",
+          "On": "ReadWrite",
+          "RequiredPower": "Read",
+          "Idle": "Read",
+          "PrefabHash": "Read",
+          "ReferenceId": "Read",
+          "NameHash": "Read"
+        },
+        "modes": {
+          "0": "Operate",
+          "1": "Logic"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": {},
+      "device": {
+        "connection_list": [
+          {
+            "typ": "Data",
+            "role": "None"
+          },
+          {
+            "typ": "Power",
+            "role": "None"
+          }
+        ],
+        "has_activate_state": false,
+        "has_atmosphere": false,
+        "has_color_state": false,
+        "has_lock_state": true,
+        "has_mode_state": true,
+        "has_on_off_state": true,
+        "has_open_state": true,
+        "has_reagents": false
+      }
+    },
     "StructureAngledBench": {
       "templateType": "StructureLogicDevice",
       "prefab": {
@@ -19824,7 +19141,7 @@ export default {
       }
     },
     "StructureArcFurnace": {
-      "templateType": "StructureLogicDevice",
+      "templateType": "StructureLogicDeviceConsumer",
       "prefab": {
         "prefab_name": "StructureArcFurnace",
         "prefab_hash": -247344692,
@@ -19923,6 +19240,32 @@ export default {
         "has_on_off_state": true,
         "has_open_state": false,
         "has_reagents": true
+      },
+      "consumer_info": {
+        "consumed_resources": [
+          "ItemBiomass",
+          "ItemCopperOre",
+          "ItemGoldOre",
+          "ItemIronOre",
+          "ItemLeadOre",
+          "ItemNickelOre",
+          "ItemSiliconOre",
+          "ItemSilverOre"
+        ],
+        "processed_reagents": [
+          925270362,
+          1582746610,
+          1702246124,
+          -1172078909,
+          -409226641,
+          2003628602,
+          -666742878,
+          -2002530571,
+          556601662,
+          -1195893171,
+          687283565,
+          -208860272
+        ]
       }
     },
     "StructureAreaPowerControl": {
@@ -20034,7 +19377,7 @@ export default {
         "prefab_name": "StructureAreaPowerControlReversed",
         "prefab_hash": -1032513487,
         "desc": "An Area Power Control (APC) has three main functions. \nIts primary purpose is to regulate power flow, ensuring uninterrupted performance from devices and machinery, especially those with a fluctuating draw. \nAPCs also create sub-networks, as no devices on the far side of an APC are visible on the main network. \nLastly, an APC charges batteries, which can provide backup power to the sub-network in the case of an outage. Note that an APC requires a battery to stabilize power draw. It also has two variants, each allowing power to flow in one direction only.",
-        "name": "Area Power Control"
+        "name": "Area Power Control (Reversed)"
       },
       "structure": {
         "small_grid": true
@@ -20144,8 +19487,28 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -20223,8 +19586,28 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -20242,7 +19625,8 @@ export default {
           "ImportCount": "Read",
           "PrefabHash": "Read",
           "ReferenceId": "Read",
-          "NameHash": "Read"
+          "NameHash": "Read",
+          "StackSize": "Read"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -20252,7 +19636,7 @@ export default {
         "0": {
           "Direct": {
             "name": "Import",
-            "class": "Ingot",
+            "class": "None",
             "index": 0
           }
         },
@@ -20311,10 +19695,28 @@ export default {
           "ItemSolidFuel",
           "ItemSteelIngot",
           "ItemStelliteIngot",
-          "ItemWaspaloyIngot",
-          "ItemWasteIngot"
+          "ItemWaspaloyIngot"
         ],
-        "processed_reagents": []
+        "processed_reagents": [
+          -1493155787,
+          1731241392,
+          -1172078909,
+          478264742,
+          -409226641,
+          2019732679,
+          2003628602,
+          -586072179,
+          -626453759,
+          -666742878,
+          -2002530571,
+          556601662,
+          -1195893171,
+          687283565,
+          -1206542381,
+          1331613335,
+          -500544800,
+          1787814293
+        ]
       },
       "fabricator_info": {
         "tier": "Undefined",
@@ -22119,6 +21521,90 @@ export default {
               "Solder": 2.0,
               "Steel": 10.0
             }
+          },
+          {
+            "target_prefab": "ApplianceBobbleHeadBasicSuit",
+            "target_prefab_hash": -1686269127,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Gold": 1.0,
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ApplianceBobbleHeadHardSuit",
+            "target_prefab_hash": -38993607,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Gold": 1.0,
+              "Iron": 5.0
+            }
+          },
+          {
+            "target_prefab": "ApplianceBobbleHeadMarine",
+            "target_prefab_hash": 142593802,
+            "tier": "TierOne",
+            "time": 10.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Gold": 1.0,
+              "Iron": 5.0
+            }
           }
         ]
       },
@@ -22484,8 +21970,28 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -22503,7 +22009,8 @@ export default {
           "ImportCount": "Read",
           "PrefabHash": "Read",
           "ReferenceId": "Read",
-          "NameHash": "Read"
+          "NameHash": "Read",
+          "StackSize": "Read"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -22555,24 +22062,38 @@ export default {
       },
       "consumer_info": {
         "consumed_resources": [
-          "ItemCorn",
+          "ItemCocoaPowder",
           "ItemEgg",
           "ItemFertilizedEgg",
           "ItemFlour",
           "ItemMilk",
-          "ItemMushroom",
-          "ItemPotato",
-          "ItemPumpkin",
-          "ItemRice",
-          "ItemSoybean",
           "ItemSoyOil",
+          "ItemSugar",
           "ItemTomato",
-          "ItemSugarCane",
+          "ItemPotato",
+          "ItemCorn",
           "ItemCocoaTree",
-          "ItemCocoaPowder",
-          "ItemSugar"
+          "ItemSugarCane",
+          "ItemSoybean",
+          "ItemRice",
+          "ItemPumpkin",
+          "ItemMushroom"
         ],
-        "processed_reagents": []
+        "processed_reagents": [
+          678781198,
+          1550709753,
+          1887084450,
+          -811006991,
+          471085864,
+          516242109,
+          1958538866,
+          -1657266385,
+          -1250164309,
+          1951286569,
+          1510471435,
+          1778746875,
+          733496620
+        ]
       },
       "fabricator_info": {
         "tier": "TierOne",
@@ -23882,7 +23403,7 @@ export default {
       "device": {
         "connection_list": [
           {
-            "typ": "Power",
+            "typ": "PowerAndData",
             "role": "None"
           }
         ],
@@ -23968,7 +23489,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureBatteryMedium",
         "prefab_hash": -1125305264,
-        "desc": "0.Empty\n1.Critical\n2.VeryLow\n3.Low\n4.Medium\n5.High\n6.Full",
+        "desc": "",
         "name": "Battery (Medium)"
       },
       "structure": {
@@ -24033,7 +23554,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureBatterySmall",
         "prefab_hash": -2123455080,
-        "desc": "0.Empty\n1.Critical\n2.VeryLow\n3.Low\n4.Medium\n5.High\n6.Full",
+        "desc": "",
         "name": "Auxiliary Rocket Battery "
       },
       "structure": {
@@ -24800,8 +24321,8 @@ export default {
       "prefab": {
         "prefab_name": "StructureCableCorner3HBurnt",
         "prefab_hash": 2393826,
-        "desc": "<N:EN:StructureCableCorner3HBurnt>",
-        "name": "<N:EN:StructureCableCorner3HBurnt>"
+        "desc": "",
+        "name": "Cable"
       },
       "structure": {
         "small_grid": true
@@ -25363,6 +24884,17 @@ export default {
           "RatioNitrousOxide": "Read",
           "PrefabHash": "Read",
           "Combustion": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "RatioLiquidNitrogen": "Read",
           "VolumeOfLiquid": "Read",
           "RatioLiquidOxygen": "Read",
@@ -25437,6 +24969,17 @@ export default {
           "RatioNitrousOxide": "Read",
           "PrefabHash": "Read",
           "Combustion": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "RatioLiquidNitrogen": "Read",
           "VolumeOfLiquid": "Read",
           "RatioLiquidOxygen": "Read",
@@ -25490,108 +25033,1128 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {},
-          "2": {},
-          "3": {},
-          "4": {},
-          "5": {},
-          "6": {},
-          "7": {},
-          "8": {},
-          "9": {},
-          "10": {},
-          "11": {},
-          "12": {},
-          "13": {},
-          "14": {},
-          "15": {},
-          "16": {},
-          "17": {},
-          "18": {},
-          "19": {},
-          "20": {},
-          "21": {},
-          "22": {},
-          "23": {},
-          "24": {},
-          "25": {},
-          "26": {},
-          "27": {},
-          "28": {},
-          "29": {},
-          "30": {},
-          "31": {},
-          "32": {},
-          "33": {},
-          "34": {},
-          "35": {},
-          "36": {},
-          "37": {},
-          "38": {},
-          "39": {},
-          "40": {},
-          "41": {},
-          "42": {},
-          "43": {},
-          "44": {},
-          "45": {},
-          "46": {},
-          "47": {},
-          "48": {},
-          "49": {},
-          "50": {},
-          "51": {},
-          "52": {},
-          "53": {},
-          "54": {},
-          "55": {},
-          "56": {},
-          "57": {},
-          "58": {},
-          "59": {},
-          "60": {},
-          "61": {},
-          "62": {},
-          "63": {},
-          "64": {},
-          "65": {},
-          "66": {},
-          "67": {},
-          "68": {},
-          "69": {},
-          "70": {},
-          "71": {},
-          "72": {},
-          "73": {},
-          "74": {},
-          "75": {},
-          "76": {},
-          "77": {},
-          "78": {},
-          "79": {},
-          "80": {},
-          "81": {},
-          "82": {},
-          "83": {},
-          "84": {},
-          "85": {},
-          "86": {},
-          "87": {},
-          "88": {},
-          "89": {},
-          "90": {},
-          "91": {},
-          "92": {},
-          "93": {},
-          "94": {},
-          "95": {},
-          "96": {},
-          "97": {},
-          "98": {},
-          "99": {},
-          "100": {},
-          "101": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "2": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "3": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "4": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "5": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "6": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "7": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "8": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "9": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "10": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "11": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "12": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "13": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "14": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "15": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "16": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "17": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "18": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "19": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "20": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "21": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "22": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "23": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "24": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "25": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "26": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "27": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "28": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "29": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "30": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "31": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "32": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "33": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "34": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "35": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "36": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "37": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "38": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "39": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "40": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "41": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "42": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "43": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "44": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "45": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "46": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "47": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "48": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "49": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "50": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "51": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "52": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "53": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "54": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "55": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "56": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "57": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "58": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "59": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "60": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "61": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "62": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "63": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "64": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "65": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "66": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "67": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "68": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "69": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "70": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "71": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "72": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "73": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "74": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "75": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "76": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "77": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "78": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "79": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "80": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "81": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "82": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "83": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "84": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "85": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "86": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "87": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "88": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "89": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "90": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "91": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "92": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "93": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "94": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "95": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "96": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "97": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "98": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "99": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "100": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "101": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -27364,8 +27927,28 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -28621,6 +29204,69 @@ export default {
         }
       }
     },
+    "StructureChuteStraight10": {
+      "templateType": "StructureSlots",
+      "prefab": {
+        "prefab_name": "StructureChuteStraight10",
+        "prefab_hash": -1154376263,
+        "desc": "Chutes act as pipes for items. Use them to connect various <link=ImportExportPage><color=#0080FFFF>import/export</color></link> equipment together such as the <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link> and printers like the <link=ThingStructureAutolathe><color=green>Autolathe</color></link>.\n        The aim for any <link=Stationeers><color=#0080FFFF>Stationeer</color></link> is to make off-world survival less of a struggle for themselves, and those who will follow in their footsteps.\n        Chutes are fundamental components of chute networks, which allow the transport of items between any machine or device with an <link=ImportExportPage><color=#0080FFFF>import/export</color></link> slot.",
+        "name": "Chute (Straight 10)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Transport Slot",
+            "class": "None",
+            "index": 0
+          }
+        }
+      }
+    },
+    "StructureChuteStraight3": {
+      "templateType": "StructureSlots",
+      "prefab": {
+        "prefab_name": "StructureChuteStraight3",
+        "prefab_hash": -608261233,
+        "desc": "Chutes act as pipes for items. Use them to connect various <link=ImportExportPage><color=#0080FFFF>import/export</color></link> equipment together such as the <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link> and printers like the <link=ThingStructureAutolathe><color=green>Autolathe</color></link>.\n        The aim for any <link=Stationeers><color=#0080FFFF>Stationeer</color></link> is to make off-world survival less of a struggle for themselves, and those who will follow in their footsteps.\n        Chutes are fundamental components of chute networks, which allow the transport of items between any machine or device with an <link=ImportExportPage><color=#0080FFFF>import/export</color></link> slot.",
+        "name": "Chute (Straight 3)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Transport Slot",
+            "class": "None",
+            "index": 0
+          }
+        }
+      }
+    },
+    "StructureChuteStraight5": {
+      "templateType": "StructureSlots",
+      "prefab": {
+        "prefab_name": "StructureChuteStraight5",
+        "prefab_hash": 853348026,
+        "desc": "Chutes act as pipes for items. Use them to connect various <link=ImportExportPage><color=#0080FFFF>import/export</color></link> equipment together such as the <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link> and printers like the <link=ThingStructureAutolathe><color=green>Autolathe</color></link>.\n        The aim for any <link=Stationeers><color=#0080FFFF>Stationeer</color></link> is to make off-world survival less of a struggle for themselves, and those who will follow in their footsteps.\n        Chutes are fundamental components of chute networks, which allow the transport of items between any machine or device with an <link=ImportExportPage><color=#0080FFFF>import/export</color></link> slot.",
+        "name": "Chute (Straight 5)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Transport Slot",
+            "class": "None",
+            "index": 0
+          }
+        }
+      }
+    },
     "StructureChuteUmbilicalFemale": {
       "templateType": "StructureLogicDevice",
       "prefab": {
@@ -28746,7 +29392,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureChuteUmbilicalMale",
         "prefab_hash": -958884053,
-        "desc": "0.Left\n1.Center\n2.Right",
+        "desc": "",
         "name": "Umbilical (Chute)"
       },
       "structure": {
@@ -28864,7 +29510,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureCircuitHousing",
         "prefab_hash": -128473777,
-        "desc": "",
+        "desc": "Used to house a <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> to run complex logic code.",
         "name": "IC Housing"
       },
       "structure": {
@@ -28887,6 +29533,7 @@ export default {
         },
         "logic_types": {
           "Power": "Read",
+          "Mode": "ReadWrite",
           "Error": "Read",
           "Setting": "ReadWrite",
           "On": "ReadWrite",
@@ -28894,7 +29541,12 @@ export default {
           "PrefabHash": "Read",
           "LineNumber": "ReadWrite",
           "ReferenceId": "Read",
-          "NameHash": "Read"
+          "NameHash": "Read",
+          "StackSize": "Read"
+        },
+        "modes": {
+          "0": "Number",
+          "1": "String"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -28903,7 +29555,7 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "Programmable Chip",
+            "name": "ProgrammableChip",
             "class": "ProgrammableChip",
             "index": 0
           }
@@ -28925,7 +29577,81 @@ export default {
         "has_atmosphere": false,
         "has_color_state": false,
         "has_lock_state": false,
-        "has_mode_state": false,
+        "has_mode_state": true,
+        "has_on_off_state": true,
+        "has_open_state": false,
+        "has_reagents": false
+      }
+    },
+    "StructureCircuitHousingCompact": {
+      "templateType": "StructureCircuitHolder",
+      "prefab": {
+        "prefab_name": "StructureCircuitHousingCompact",
+        "prefab_hash": 2037291645,
+        "desc": "Used to house a <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> to run complex logic code.",
+        "name": "IC Housing (Compact)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "logic": {
+        "logic_slot_types": {
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "LineNumber": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
+        },
+        "logic_types": {
+          "Power": "Read",
+          "Mode": "ReadWrite",
+          "Error": "Read",
+          "Setting": "ReadWrite",
+          "On": "ReadWrite",
+          "RequiredPower": "Read",
+          "PrefabHash": "Read",
+          "LineNumber": "ReadWrite",
+          "ReferenceId": "Read",
+          "NameHash": "Read",
+          "StackSize": "Read"
+        },
+        "modes": {
+          "0": "Number",
+          "1": "String"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": true
+      },
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "ProgrammableChip",
+            "class": "ProgrammableChip",
+            "index": 0
+          }
+        }
+      },
+      "device": {
+        "connection_list": [
+          {
+            "typ": "PowerAndData",
+            "role": "Input"
+          }
+        ],
+        "device_pins_length": 6,
+        "has_activate_state": false,
+        "has_atmosphere": false,
+        "has_color_state": false,
+        "has_lock_state": false,
+        "has_mode_state": true,
         "has_on_off_state": true,
         "has_open_state": false,
         "has_reagents": false
@@ -28948,9 +29674,39 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {},
-          "2": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "2": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -29049,7 +29805,7 @@ export default {
         },
         "2": {
           "Direct": {
-            "name": "Programmable Chip",
+            "name": "ProgrammableChip",
             "class": "ProgrammableChip",
             "index": 2
           }
@@ -29596,9 +30352,39 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {},
-          "2": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "2": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -29659,6 +30445,146 @@ export default {
         "has_reagents": false
       }
     },
+    "StructureComputerBigScreen": {
+      "templateType": "StructureLogicDevice",
+      "prefab": {
+        "prefab_name": "StructureComputerBigScreen",
+        "prefab_hash": 1952395881,
+        "desc": "",
+        "name": "Computer (Big Screen)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "logic": {
+        "logic_slot_types": {
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
+        },
+        "logic_types": {
+          "Power": "Read",
+          "Open": "ReadWrite",
+          "Error": "Read",
+          "Lock": "ReadWrite",
+          "On": "ReadWrite",
+          "RequiredPower": "Read",
+          "PrefabHash": "Read",
+          "ReferenceId": "Read",
+          "NameHash": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Motherboard",
+            "class": "Motherboard",
+            "index": 0
+          }
+        }
+      },
+      "device": {
+        "connection_list": [
+          {
+            "typ": "Data",
+            "role": "None"
+          },
+          {
+            "typ": "Power",
+            "role": "None"
+          }
+        ],
+        "has_activate_state": false,
+        "has_atmosphere": false,
+        "has_color_state": false,
+        "has_lock_state": true,
+        "has_mode_state": false,
+        "has_on_off_state": true,
+        "has_open_state": true,
+        "has_reagents": false
+      }
+    },
+    "StructureComputerBigScreenWallMounted": {
+      "templateType": "StructureLogicDevice",
+      "prefab": {
+        "prefab_name": "StructureComputerBigScreenWallMounted",
+        "prefab_hash": -868055390,
+        "desc": "",
+        "name": "Computer (Big Screen Wall Mounted)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "logic": {
+        "logic_slot_types": {
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
+        },
+        "logic_types": {
+          "Power": "Read",
+          "Open": "ReadWrite",
+          "Error": "Read",
+          "Lock": "ReadWrite",
+          "On": "ReadWrite",
+          "RequiredPower": "Read",
+          "PrefabHash": "Read",
+          "ReferenceId": "Read",
+          "NameHash": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Motherboard",
+            "class": "Motherboard",
+            "index": 0
+          }
+        }
+      },
+      "device": {
+        "connection_list": [
+          {
+            "typ": "Power",
+            "role": "None"
+          },
+          {
+            "typ": "Data",
+            "role": "None"
+          }
+        ],
+        "has_activate_state": false,
+        "has_atmosphere": false,
+        "has_color_state": false,
+        "has_lock_state": true,
+        "has_mode_state": false,
+        "has_on_off_state": true,
+        "has_open_state": true,
+        "has_reagents": false
+      }
+    },
     "StructureComputerUpright": {
       "templateType": "StructureLogicDevice",
       "prefab": {
@@ -29672,9 +30598,39 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {},
-          "2": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "2": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -29886,8 +30842,30 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read",
+            "Mode": "ReadWrite"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read",
+            "Mode": "ReadWrite"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -29907,7 +30885,7 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "Circuit Board",
+            "name": "Circuitboard",
             "class": "Circuitboard",
             "index": 0
           }
@@ -29950,8 +30928,30 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read",
+            "Mode": "ReadWrite"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read",
+            "Mode": "ReadWrite"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -29971,7 +30971,7 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "Circuit Board",
+            "name": "Circuitboard",
             "class": "Circuitboard",
             "index": 0
           }
@@ -30010,7 +31010,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureConsoleLED1x2",
         "prefab_hash": -53151617,
-        "desc": "0.Default\n1.Percent\n2.Power",
+        "desc": "",
         "name": "LED Display (Medium)"
       },
       "structure": {
@@ -30033,7 +31033,19 @@ export default {
         "modes": {
           "0": "Default",
           "1": "Percent",
-          "2": "Power"
+          "2": "Power",
+          "3": "Kelvin",
+          "4": "Celsius",
+          "5": "Meters",
+          "6": "Credits",
+          "7": "Seconds",
+          "8": "Minutes",
+          "9": "Days",
+          "10": "String",
+          "11": "Fahrenheit",
+          "12": "Litres",
+          "13": "Mol",
+          "14": "Pa"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -30062,7 +31074,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureConsoleLED1x3",
         "prefab_hash": -1949054743,
-        "desc": "0.Default\n1.Percent\n2.Power",
+        "desc": "",
         "name": "LED Display (Large)"
       },
       "structure": {
@@ -30085,7 +31097,19 @@ export default {
         "modes": {
           "0": "Default",
           "1": "Percent",
-          "2": "Power"
+          "2": "Power",
+          "3": "Kelvin",
+          "4": "Celsius",
+          "5": "Meters",
+          "6": "Credits",
+          "7": "Seconds",
+          "8": "Minutes",
+          "9": "Days",
+          "10": "String",
+          "11": "Fahrenheit",
+          "12": "Litres",
+          "13": "Mol",
+          "14": "Pa"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -30114,7 +31138,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureConsoleLED5",
         "prefab_hash": -815193061,
-        "desc": "0.Default\n1.Percent\n2.Power",
+        "desc": "This LED console normally displays the raw numeric value of its setting. When you switch to String Mode, it treats that value as up to six ASCII characters, each packed in one byte by repeated 8-bit shifts and OR operations and renders them as text. Other modes offer alternative visualizations of the same underlying value.",
         "name": "LED Display (Small)"
       },
       "structure": {
@@ -30137,7 +31161,19 @@ export default {
         "modes": {
           "0": "Default",
           "1": "Percent",
-          "2": "Power"
+          "2": "Power",
+          "3": "Kelvin",
+          "4": "Celsius",
+          "5": "Meters",
+          "6": "Credits",
+          "7": "Seconds",
+          "8": "Minutes",
+          "9": "Days",
+          "10": "String",
+          "11": "Fahrenheit",
+          "12": "Litres",
+          "13": "Mol",
+          "14": "Pa"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -30174,8 +31210,30 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read",
+            "Mode": "ReadWrite"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read",
+            "Mode": "ReadWrite"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -30195,7 +31253,7 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "Circuit Board",
+            "name": "Circuitboard",
             "class": "Circuitboard",
             "index": 0
           }
@@ -30222,114 +31280,6 @@ export default {
         "has_mode_state": false,
         "has_on_off_state": true,
         "has_open_state": true,
-        "has_reagents": false
-      }
-    },
-    "StructureControlChair": {
-      "templateType": "StructureLogicDevice",
-      "prefab": {
-        "prefab_name": "StructureControlChair",
-        "prefab_hash": -1961153710,
-        "desc": "Once, these chairs were the heart of space-going behemoths. Now, they're items of nostalgia built only by a handful of Stationeers with a sense of history. In other words, kitsch.",
-        "name": "Control Chair"
-      },
-      "structure": {
-        "small_grid": true
-      },
-      "thermal_info": {
-        "convection_factor": 0.1,
-        "radiation_factor": 0.1
-      },
-      "logic": {
-        "logic_slot_types": {
-          "0": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "PrefabHash": "Read",
-            "SortingClass": "Read",
-            "ReferenceId": "Read"
-          }
-        },
-        "logic_types": {
-          "Power": "Read",
-          "Mode": "ReadWrite",
-          "Error": "Read",
-          "Pressure": "Read",
-          "Temperature": "Read",
-          "Setting": "ReadWrite",
-          "RatioOxygen": "Read",
-          "RatioCarbonDioxide": "Read",
-          "RatioNitrogen": "Read",
-          "RatioPollutant": "Read",
-          "RatioVolatiles": "Read",
-          "RatioWater": "Read",
-          "Maximum": "Read",
-          "Ratio": "Read",
-          "On": "ReadWrite",
-          "RequiredPower": "Read",
-          "TotalMoles": "Read",
-          "PositionX": "Read",
-          "PositionY": "Read",
-          "PositionZ": "Read",
-          "VelocityMagnitude": "Read",
-          "VelocityRelativeX": "Read",
-          "VelocityRelativeY": "Read",
-          "VelocityRelativeZ": "Read",
-          "RatioNitrousOxide": "Read",
-          "PrefabHash": "Read",
-          "Combustion": "Read",
-          "RatioLiquidNitrogen": "Read",
-          "RatioLiquidOxygen": "Read",
-          "RatioLiquidVolatiles": "Read",
-          "RatioSteam": "Read",
-          "RatioLiquidCarbonDioxide": "Read",
-          "RatioLiquidPollutant": "Read",
-          "RatioLiquidNitrousOxide": "Read",
-          "ReferenceId": "Read",
-          "RatioHydrogen": "Read",
-          "RatioLiquidHydrogen": "Read",
-          "RatioPollutedWater": "Read",
-          "NameHash": "Read"
-        },
-        "modes": {
-          "0": "Mode0",
-          "1": "Mode1"
-        },
-        "transmission_receiver": false,
-        "wireless_logic": false,
-        "circuit_holder": false
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Entity",
-            "class": "Entity",
-            "index": 0
-          }
-        }
-      },
-      "device": {
-        "connection_list": [
-          {
-            "typ": "Data",
-            "role": "None"
-          },
-          {
-            "typ": "Power",
-            "role": "None"
-          }
-        ],
-        "has_activate_state": false,
-        "has_atmosphere": true,
-        "has_color_state": false,
-        "has_lock_state": false,
-        "has_mode_state": true,
-        "has_on_off_state": true,
-        "has_open_state": false,
         "has_reagents": false
       }
     },
@@ -30427,42 +31377,42 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 5
           }
@@ -30501,20 +31451,20 @@ export default {
         }
       }
     },
-    "StructureCryoTube": {
+    "StructureCryoTubeHorizontal": {
       "templateType": "StructureLogicDevice",
       "prefab": {
-        "prefab_name": "StructureCryoTube",
-        "prefab_hash": 1938254586,
-        "desc": "The exact operation of the Longsleep cryotube remains a commercial secret, with <link=Norsec><color=#0080FFFF>Norsec</color></link> merely licensing the design. Able to regenerate organ damage when supplied with power and an atmosphere, the Longsleep is a minor miracle of modern medical technology.",
-        "name": "CryoTube"
+        "prefab_name": "StructureCryoTubeHorizontal",
+        "prefab_hash": 1443059329,
+        "desc": "The exact operation of the Longsleep cryotube remains a commercial secret, with <link=Norsec><color=#0080FFFF>Norsec</color></link> merely licensing the design. A pipe connection is provided to maintain suitable internal atmosphere connected to the occupant via breathing tubes. When the liquid pipe connection is supplied super cooled <link=GasLiquidNitrogen><color=#44AD83>Liquid Nitrogen</color></link> occupants will regenerate organs and even revive if deceased. Nothing can be worn when entering the device.",
+        "name": "Cryo Tube Horizontal"
       },
       "structure": {
         "small_grid": true
       },
       "thermal_info": {
-        "convection_factor": 0.1,
-        "radiation_factor": 0.1
+        "convection_factor": 0.005,
+        "radiation_factor": 0.005
       },
       "logic": {
         "logic_slot_types": {
@@ -30528,11 +31478,26 @@ export default {
             "PrefabHash": "Read",
             "SortingClass": "Read",
             "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "Open": "Read",
+            "On": "Read",
+            "Lock": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
           }
         },
         "logic_types": {
           "Power": "Read",
           "Open": "ReadWrite",
+          "Mode": "ReadWrite",
           "Error": "Read",
           "Pressure": "Read",
           "Temperature": "Read",
@@ -30548,80 +31513,12 @@ export default {
           "EntityState": "Read",
           "NameHash": "Read"
         },
-        "transmission_receiver": false,
-        "wireless_logic": false,
-        "circuit_holder": false
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Bed",
-            "class": "Entity",
-            "index": 0
-          }
-        }
-      },
-      "device": {
-        "connection_list": [
-          {
-            "typ": "Data",
-            "role": "None"
-          },
-          {
-            "typ": "Pipe",
-            "role": "None"
-          },
-          {
-            "typ": "Power",
-            "role": "None"
-          }
-        ],
-        "has_activate_state": true,
-        "has_atmosphere": false,
-        "has_color_state": false,
-        "has_lock_state": true,
-        "has_mode_state": false,
-        "has_on_off_state": true,
-        "has_open_state": true,
-        "has_reagents": false
-      }
-    },
-    "StructureCryoTubeHorizontal": {
-      "templateType": "StructureLogicDevice",
-      "prefab": {
-        "prefab_name": "StructureCryoTubeHorizontal",
-        "prefab_hash": 1443059329,
-        "desc": "The horizontal variant of the cryo tube. Will heal players and organs as well as revive dead players when provided with an atmosphere of Nitrogen below -150C.",
-        "name": "Cryo Tube Horizontal"
-      },
-      "structure": {
-        "small_grid": true
-      },
-      "thermal_info": {
-        "convection_factor": 0.005,
-        "radiation_factor": 0.005
-      },
-      "logic": {
-        "logic_slot_types": {
-          "0": {}
-        },
-        "logic_types": {
-          "Power": "Read",
-          "Open": "ReadWrite",
-          "Error": "Read",
-          "Pressure": "Read",
-          "Temperature": "Read",
-          "Activate": "ReadWrite",
-          "Lock": "ReadWrite",
-          "Setting": "ReadWrite",
-          "Maximum": "Read",
-          "Ratio": "Read",
-          "On": "ReadWrite",
-          "RequiredPower": "Read",
-          "PrefabHash": "Read",
-          "ReferenceId": "Read",
-          "EntityState": "Read",
-          "NameHash": "Read"
+        "modes": {
+          "0": "Standby",
+          "1": "Error",
+          "2": "Inactive",
+          "3": "Occupied",
+          "4": "Dead"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -30633,6 +31530,13 @@ export default {
             "name": "Player",
             "class": "Entity",
             "index": 0
+          }
+        },
+        "1": {
+          "Direct": {
+            "name": "<N:EN:Mask>",
+            "class": "Helmet",
+            "index": 1
           }
         }
       },
@@ -30649,13 +31553,17 @@ export default {
           {
             "typ": "Power",
             "role": "None"
+          },
+          {
+            "typ": "PipeLiquid",
+            "role": "Input2"
           }
         ],
         "has_activate_state": true,
         "has_atmosphere": false,
         "has_color_state": false,
         "has_lock_state": true,
-        "has_mode_state": false,
+        "has_mode_state": true,
         "has_on_off_state": true,
         "has_open_state": true,
         "has_reagents": false
@@ -30666,7 +31574,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureCryoTubeVertical",
         "prefab_hash": -1381321828,
-        "desc": "The vertical variant of the cryo tube. Will heal players and organs as well as revive dead players when provided with an atmosphere of Nitrogen below -150C.",
+        "desc": "The exact operation of the Longsleep cryotube remains a commercial secret, with <link=Norsec><color=#0080FFFF>Norsec</color></link> merely licensing the design. A pipe connection is provided to maintain suitable internal atmosphere connected to the occupant via breathing tubes. When the liquid pipe connection is supplied super cooled <link=GasLiquidNitrogen><color=#44AD83>Liquid Nitrogen</color></link> occupants will regenerate organs and even revive if deceased. Nothing can be worn when entering the device.",
         "name": "Cryo Tube Vertical"
       },
       "structure": {
@@ -30678,11 +31586,36 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "Open": "Read",
+            "On": "Read",
+            "Lock": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
           "Open": "ReadWrite",
+          "Mode": "ReadWrite",
           "Error": "Read",
           "Pressure": "Read",
           "Temperature": "Read",
@@ -30698,6 +31631,13 @@ export default {
           "EntityState": "Read",
           "NameHash": "Read"
         },
+        "modes": {
+          "0": "Standby",
+          "1": "Error",
+          "2": "Inactive",
+          "3": "Occupied",
+          "4": "Dead"
+        },
         "transmission_receiver": false,
         "wireless_logic": false,
         "circuit_holder": false
@@ -30708,6 +31648,13 @@ export default {
             "name": "Player",
             "class": "Entity",
             "index": 0
+          }
+        },
+        "1": {
+          "Direct": {
+            "name": "<N:EN:Mask>",
+            "class": "Helmet",
+            "index": 1
           }
         }
       },
@@ -30722,6 +31669,10 @@ export default {
             "role": "Input"
           },
           {
+            "typ": "PipeLiquid",
+            "role": "Input2"
+          },
+          {
             "typ": "Power",
             "role": "None"
           }
@@ -30730,7 +31681,7 @@ export default {
         "has_atmosphere": false,
         "has_color_state": false,
         "has_lock_state": true,
-        "has_mode_state": false,
+        "has_mode_state": true,
         "has_on_off_state": true,
         "has_open_state": true,
         "has_reagents": false
@@ -30801,7 +31752,17 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -30891,11 +31852,11 @@ export default {
         "connection_list": [
           {
             "typ": "Pipe",
-            "role": "Output"
+            "role": "None"
           },
           {
             "typ": "Pipe",
-            "role": "Input"
+            "role": "None"
           },
           {
             "typ": "PowerAndData",
@@ -31002,57 +31963,6 @@ export default {
         "has_reagents": false
       }
     },
-    "StructureDockPortSide": {
-      "templateType": "StructureLogicDevice",
-      "prefab": {
-        "prefab_name": "StructureDockPortSide",
-        "prefab_hash": -137465079,
-        "desc": "",
-        "name": "Dock (Port Side)"
-      },
-      "structure": {
-        "small_grid": true
-      },
-      "logic": {
-        "logic_slot_types": {},
-        "logic_types": {
-          "Power": "Read",
-          "Open": "ReadWrite",
-          "Lock": "ReadWrite",
-          "Setting": "ReadWrite",
-          "On": "ReadWrite",
-          "RequiredPower": "Read",
-          "Idle": "Read",
-          "PrefabHash": "Read",
-          "ReferenceId": "Read",
-          "NameHash": "Read"
-        },
-        "transmission_receiver": false,
-        "wireless_logic": false,
-        "circuit_holder": false
-      },
-      "slots": {},
-      "device": {
-        "connection_list": [
-          {
-            "typ": "Power",
-            "role": "None"
-          },
-          {
-            "typ": "Data",
-            "role": "None"
-          }
-        ],
-        "has_activate_state": false,
-        "has_atmosphere": false,
-        "has_color_state": false,
-        "has_lock_state": true,
-        "has_mode_state": false,
-        "has_on_off_state": true,
-        "has_open_state": true,
-        "has_reagents": false
-      }
-    },
     "StructureDrinkingFountain": {
       "templateType": "StructureLogicDevice",
       "prefab": {
@@ -31118,7 +32028,17 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -31204,7 +32124,7 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "Programmable Chip",
+            "name": "ProgrammableChip",
             "class": "ProgrammableChip",
             "index": 0
           }
@@ -31253,8 +32173,28 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -31272,7 +32212,8 @@ export default {
           "ImportCount": "Read",
           "PrefabHash": "Read",
           "ReferenceId": "Read",
-          "NameHash": "Read"
+          "NameHash": "Read",
+          "StackSize": "Read"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -31282,7 +32223,7 @@ export default {
         "0": {
           "Direct": {
             "name": "Import",
-            "class": "Ingot",
+            "class": "None",
             "index": 0
           }
         },
@@ -31341,10 +32282,28 @@ export default {
           "ItemSolidFuel",
           "ItemSteelIngot",
           "ItemStelliteIngot",
-          "ItemWaspaloyIngot",
-          "ItemWasteIngot"
+          "ItemWaspaloyIngot"
         ],
-        "processed_reagents": []
+        "processed_reagents": [
+          -1493155787,
+          1731241392,
+          -1172078909,
+          478264742,
+          -409226641,
+          2019732679,
+          2003628602,
+          -586072179,
+          -626453759,
+          -666742878,
+          -2002530571,
+          556601662,
+          -1195893171,
+          687283565,
+          -1206542381,
+          1331613335,
+          -500544800,
+          1787814293
+        ]
       },
       "fabricator_info": {
         "tier": "Undefined",
@@ -31755,64 +32714,6 @@ export default {
             }
           },
           {
-            "target_prefab": "CartridgeElectronicReader",
-            "target_prefab_hash": -1462180176,
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0,
-              "Iron": 1.0
-            }
-          },
-          {
-            "target_prefab": "CartridgeMedicalAnalyser",
-            "target_prefab_hash": -1116110181,
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0,
-              "Iron": 1.0
-            }
-          },
-          {
             "target_prefab": "CartridgeNetworkAnalyser",
             "target_prefab_hash": 1606989119,
             "tier": "TierOne",
@@ -32167,8 +33068,8 @@ export default {
             }
           },
           {
-            "target_prefab": "CartridgeGPS",
-            "target_prefab_hash": -1957063345,
+            "target_prefab": "CartridgeDeepMiner",
+            "target_prefab_hash": 1006351599,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 100.0,
@@ -32369,34 +33270,6 @@ export default {
           {
             "target_prefab": "CircuitboardPowerControl",
             "target_prefab_hash": -1923778429,
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 100.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0
-            }
-          },
-          {
-            "target_prefab": "CircuitboardShipDisplay",
-            "target_prefab_hash": -2044446819,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 100.0,
@@ -33187,10 +34060,11 @@ export default {
               "is_any_to_remove": false,
               "reagents": {}
             },
-            "count_types": 2,
+            "count_types": 3,
             "reagents": {
-              "Copper": 10.0,
-              "Iron": 50.0
+              "Constantan": 10.0,
+              "Electrum": 5.0,
+              "Steel": 30.0
             }
           },
           {
@@ -33252,35 +34126,6 @@ export default {
             }
           },
           {
-            "target_prefab": "ItemKitResearchMachine",
-            "target_prefab_hash": 724776762,
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 10.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 3.0,
-              "Gold": 2.0,
-              "Iron": 9.0
-            }
-          },
-          {
             "target_prefab": "ItemKitWeatherStation",
             "target_prefab_hash": 337505889,
             "tier": "TierOne",
@@ -33308,124 +34153,6 @@ export default {
               "Gold": 3.0,
               "Iron": 8.0,
               "Steel": 3.0
-            }
-          },
-          {
-            "target_prefab": "ItemResearchCapsuleRed",
-            "target_prefab_hash": 954947943,
-            "tier": "TierOne",
-            "time": 8.0,
-            "energy": 50.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 3.0,
-              "Gold": 2.0,
-              "Iron": 2.0
-            }
-          },
-          {
-            "target_prefab": "ItemResearchCapsule",
-            "target_prefab_hash": 819096942,
-            "tier": "TierOne",
-            "time": 3.0,
-            "energy": 400.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 3.0,
-              "Gold": 2.0,
-              "Iron": 9.0
-            }
-          },
-          {
-            "target_prefab": "ItemResearchCapsuleGreen",
-            "target_prefab_hash": -1352732550,
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 10.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Astroloy": 2.0,
-              "Copper": 3.0,
-              "Gold": 2.0,
-              "Iron": 9.0
-            }
-          },
-          {
-            "target_prefab": "ItemResearchCapsuleYellow",
-            "target_prefab_hash": 750952701,
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 1000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Astroloy": 3.0,
-              "Copper": 3.0,
-              "Gold": 2.0,
-              "Iron": 9.0
             }
           },
           {
@@ -33812,6 +34539,34 @@ export default {
           {
             "target_prefab": "MotherboardRockets",
             "target_prefab_hash": -806986392,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Electrum": 5.0,
+              "Solder": 5.0
+            }
+          },
+          {
+            "target_prefab": "MotherboardMap",
+            "target_prefab_hash": 1708439824,
             "tier": "TierOne",
             "time": 5.0,
             "energy": 500.0,
@@ -34248,8 +35003,8 @@ export default {
             "target_prefab": "ItemKitVendingMachine",
             "target_prefab_hash": -2038384332,
             "tier": "TierOne",
-            "time": 60.0,
-            "energy": 15000.0,
+            "time": 30.0,
+            "energy": 7500.0,
             "temperature": {
               "start": 1.0,
               "stop": 80000.0,
@@ -34268,10 +35023,10 @@ export default {
             },
             "count_types": 4,
             "reagents": {
-              "Electrum": 50.0,
-              "Gold": 50.0,
-              "Solder": 10.0,
-              "Steel": 20.0
+              "Electrum": 25.0,
+              "Gold": 25.0,
+              "Solder": 5.0,
+              "Steel": 10.0
             }
           },
           {
@@ -34421,36 +35176,6 @@ export default {
             "reagents": {
               "Copper": 15.0,
               "Steel": 10.0
-            }
-          },
-          {
-            "target_prefab": "ItemKitTurbineGenerator",
-            "target_prefab_hash": -1590715731,
-            "tier": "TierOne",
-            "time": 60.0,
-            "energy": 6000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Copper": 2.0,
-              "Gold": 4.0,
-              "Iron": 5.0,
-              "Solder": 4.0
             }
           },
           {
@@ -34895,35 +35620,6 @@ export default {
             }
           },
           {
-            "target_prefab": "AppliancePaintMixer",
-            "target_prefab_hash": -1339716113,
-            "tier": "TierOne",
-            "time": 45.0,
-            "energy": 1500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 5.0,
-              "Gold": 1.0,
-              "Steel": 5.0
-            }
-          },
-          {
             "target_prefab": "ItemKitAutoMinerSmall",
             "target_prefab_hash": 1668815415,
             "tier": "TierTwo",
@@ -35181,6 +35877,181 @@ export default {
               "Astroloy": 15.0,
               "Hastelloy": 5.0,
               "Inconel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitLarreDockAtmos",
+            "target_prefab_hash": 385528206,
+            "tier": "TierOne",
+            "time": 150.0,
+            "energy": 10000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Astroloy": 15.0,
+              "Hastelloy": 5.0,
+              "Inconel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitLarreDockBypass",
+            "target_prefab_hash": -940470326,
+            "tier": "TierOne",
+            "time": 150.0,
+            "energy": 10000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Astroloy": 15.0,
+              "Hastelloy": 5.0,
+              "Inconel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitLarreDockCargo",
+            "target_prefab_hash": -1067485367,
+            "tier": "TierOne",
+            "time": 150.0,
+            "energy": 10000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Astroloy": 15.0,
+              "Hastelloy": 5.0,
+              "Inconel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitLarreDockCollector",
+            "target_prefab_hash": 347658127,
+            "tier": "TierOne",
+            "time": 150.0,
+            "energy": 10000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Astroloy": 15.0,
+              "Hastelloy": 5.0,
+              "Inconel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitLarreDockHydroponics",
+            "target_prefab_hash": 656181408,
+            "tier": "TierOne",
+            "time": 150.0,
+            "energy": 10000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Astroloy": 15.0,
+              "Hastelloy": 5.0,
+              "Inconel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitRoverMKI",
+            "target_prefab_hash": 197243872,
+            "tier": "TierTwo",
+            "time": 90.0,
+            "energy": 2000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Constantan": 5.0,
+              "Copper": 15.0,
+              "Electrum": 10.0,
+              "Steel": 80.0
             }
           }
         ]
@@ -36002,9 +36873,41 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {},
-          "2": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "FilterType": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "FilterType": "Read",
+            "ReferenceId": "Read"
+          },
+          "2": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -36100,7 +37003,7 @@ export default {
         },
         "2": {
           "Direct": {
-            "name": "Programmable Chip",
+            "name": "ProgrammableChip",
             "class": "ProgrammableChip",
             "index": 2
           }
@@ -36138,6 +37041,27 @@ export default {
         "has_on_off_state": true,
         "has_open_state": true,
         "has_reagents": false
+      }
+    },
+    "StructureFireExtinguisherStorage": {
+      "templateType": "StructureSlots",
+      "prefab": {
+        "prefab_name": "StructureFireExtinguisherStorage",
+        "prefab_hash": -1127127263,
+        "desc": "The Fire Extinguisher Storage is a designated shelf specifically designed to hold a fire extinguisher.",
+        "name": "Fire Extinguisher Storage"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Fire Extinguisher",
+            "class": "None",
+            "index": 0
+          }
+        }
       }
     },
     "StructureFlagSmall": {
@@ -36256,7 +37180,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureFloorDrain",
         "prefab_hash": 1048813293,
-        "desc": "A passive liquid floor inlet that quickly removes liquids in one direction from the world into the connected pipe network. It will equalise gasses with the world atmosphere also.",
+        "desc": "A passive liquid floor inlet that quickly removes liquids in one direction from the world into the connected pipe network and equalises gasses with the world atmosphere. \n        It will remove liquids from grids at the same level up to 6 Grids away.",
         "name": "Passive Liquid Inlet"
       },
       "structure": {
@@ -36296,7 +37220,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureFrameCornerCut",
         "prefab_hash": 271315669,
-        "desc": "0.Mode0\n1.Mode1",
+        "desc": "",
         "name": "Steel Frame (Corner Cut)"
       },
       "structure": {
@@ -36531,6 +37455,17 @@ export default {
           "RatioNitrousOxide": "Read",
           "PrefabHash": "Read",
           "Combustion": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "RatioLiquidNitrogen": "Read",
           "RatioLiquidOxygen": "Read",
           "RatioLiquidVolatiles": "Read",
@@ -36551,105 +37486,105 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 5
           }
         },
         "6": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 6
           }
         },
         "7": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 7
           }
         },
         "8": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 8
           }
         },
         "9": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 9
           }
         },
         "10": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 10
           }
         },
         "11": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 11
           }
         },
         "12": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 12
           }
         },
         "13": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 13
           }
         },
         "14": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 14
           }
@@ -36733,6 +37668,17 @@ export default {
           "RatioNitrousOxide": "Read",
           "PrefabHash": "Read",
           "Combustion": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "RatioLiquidNitrogen": "Read",
           "RatioLiquidOxygen": "Read",
           "RatioLiquidVolatiles": "Read",
@@ -36753,14 +37699,14 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
@@ -36784,7 +37730,7 @@ export default {
       }
     },
     "StructureFurnace": {
-      "templateType": "StructureLogicDevice",
+      "templateType": "StructureLogicDeviceConsumer",
       "prefab": {
         "prefab_name": "StructureFurnace",
         "prefab_hash": 1947944864,
@@ -36800,8 +37746,28 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Open": "ReadWrite",
@@ -36900,6 +37866,73 @@ export default {
         "has_on_off_state": false,
         "has_open_state": true,
         "has_reagents": true
+      },
+      "consumer_info": {
+        "consumed_resources": [
+          "ItemBiomass",
+          "ItemCharcoal",
+          "ItemCoalOre",
+          "ItemCobaltOre",
+          "ItemCopperOre",
+          "ItemDirtyOre",
+          "ItemGoldOre",
+          "ItemIce",
+          "ItemIronOre",
+          "ItemLeadOre",
+          "ItemNickelOre",
+          "ItemNitrice",
+          "ItemOxite",
+          "ItemPureIce",
+          "ItemPureIceCarbonDioxide",
+          "ItemPureIceHydrogen",
+          "ItemPureIceLiquidCarbonDioxide",
+          "ItemPureIceLiquidHydrogen",
+          "ItemPureIceLiquidNitrogen",
+          "ItemPureIceLiquidNitrous",
+          "ItemPureIceLiquidOxygen",
+          "ItemPureIceLiquidPollutant",
+          "ItemPureIceLiquidVolatiles",
+          "ItemPureIceNitrogen",
+          "ItemPureIceNitrous",
+          "ItemPureIceOxygen",
+          "ItemPureIcePollutant",
+          "ItemPureIcePollutedWater",
+          "ItemPureIceSteam",
+          "ItemPureIceVolatiles",
+          "ItemReagentMix",
+          "ItemSiliconOre",
+          "ItemSilverOre",
+          "ItemSpaceIce",
+          "ItemSpaceOre",
+          "ItemUraniumOre",
+          "ItemVolatiles"
+        ],
+        "processed_reagents": [
+          925270362,
+          1582746610,
+          1702246124,
+          -1172078909,
+          -409226641,
+          2003628602,
+          -666742878,
+          -2002530571,
+          556601662,
+          -1195893171,
+          687283565,
+          -208860272
+        ]
+      }
+    },
+    "StructureFuselageDoorsDual": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructureFuselageDoorsDual",
+        "prefab_hash": -1965275716,
+        "desc": "A standard fuselage for a rocket with doors to allow easy access to contents without fairing removal",
+        "name": "Fuselage Doors"
+      },
+      "structure": {
+        "small_grid": false
       }
     },
     "StructureFuselageTypeA1": {
@@ -37033,6 +38066,27 @@ export default {
         "has_on_off_state": true,
         "has_open_state": false,
         "has_reagents": false
+      }
+    },
+    "StructureGasMaskStorage": {
+      "templateType": "StructureSlots",
+      "prefab": {
+        "prefab_name": "StructureGasMaskStorage",
+        "prefab_hash": -377716086,
+        "desc": "The Gas Mask Storage is a designated shelf specifically designed to hold a gas mask.",
+        "name": "Gas Mask Storage"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Gas Mask",
+            "class": "None",
+            "index": 0
+          }
+        }
       }
     },
     "StructureGasMixer": {
@@ -37324,7 +38378,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureGasUmbilicalMale",
         "prefab_hash": -1814939203,
-        "desc": "0.Left\n1.Center\n2.Right",
+        "desc": "",
         "name": "Umbilical (Gas)"
       },
       "structure": {
@@ -37383,7 +38437,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureGlassDoor",
         "prefab_hash": -324331872,
-        "desc": "0.Operate\n1.Logic",
+        "desc": "",
         "name": "Glass Door"
       },
       "structure": {
@@ -37740,171 +38794,6 @@ export default {
         "has_reagents": false
       }
     },
-    "StructureHeatExchangeLiquidtoGas": {
-      "templateType": "StructureLogicDevice",
-      "prefab": {
-        "prefab_name": "StructureHeatExchangeLiquidtoGas",
-        "prefab_hash": 944685608,
-        "desc": "The original specs for the N Series Flow-P heat exchanger were rumored to have been scrawled on the back of a burger receipt by a bored <link=Sinotai><color=#0080FFFF>Sinotai</color></link> designer riding up the Brazilian space elevator, but that hasn't stopped it becoming one of the most widely-copied heat exchanger designs in the Solar System.\nThe 'N Flow-P' has four connections, allowing you to pass separate liquid and gas networks into the unit, which then works to equalize temperature across the two separate networks.\nAs the N Flow-P is a passive system, it equalizes pressure across the entire of each individual network, unless connected to devices like a <link=ThingStructureVolumePump><color=green>Volume Pump</color></link> or a <link=ThingStructureBackLiquidPressureRegulator><color=green>Liquid Back Volume Regulator</color></link>.",
-        "name": "Heat Exchanger - Liquid + Gas"
-      },
-      "structure": {
-        "small_grid": true
-      },
-      "logic": {
-        "logic_slot_types": {},
-        "logic_types": {
-          "Setting": "ReadWrite",
-          "Maximum": "Read",
-          "Ratio": "Read",
-          "PrefabHash": "Read",
-          "ReferenceId": "Read",
-          "NameHash": "Read"
-        },
-        "transmission_receiver": false,
-        "wireless_logic": false,
-        "circuit_holder": false
-      },
-      "slots": {},
-      "device": {
-        "connection_list": [
-          {
-            "typ": "Pipe",
-            "role": "Input"
-          },
-          {
-            "typ": "Pipe",
-            "role": "Output"
-          },
-          {
-            "typ": "PipeLiquid",
-            "role": "Input"
-          },
-          {
-            "typ": "PipeLiquid",
-            "role": "Output"
-          }
-        ],
-        "has_activate_state": false,
-        "has_atmosphere": false,
-        "has_color_state": false,
-        "has_lock_state": false,
-        "has_mode_state": false,
-        "has_on_off_state": false,
-        "has_open_state": false,
-        "has_reagents": false
-      }
-    },
-    "StructureHeatExchangerGastoGas": {
-      "templateType": "StructureLogicDevice",
-      "prefab": {
-        "prefab_name": "StructureHeatExchangerGastoGas",
-        "prefab_hash": 21266291,
-        "desc": "The original specs for the N Series Flow-P heat exchanger were rumored to have been scrawled on the back of a burger receipt by a bored <link=Sinotai><color=#0080FFFF>Sinotai</color></link> designer riding up the Brazilian space elevator, but that hasn't stopped it becoming one of the most widely-copied heat exchanger designs in the Solar System.\nThe 'N Flow-P' has four connections, allowing you to pass two gas networks into the unit, which then works to equalize temperature across the two separate networks.\nAs the N Flow-P is a passive system, it equalizes pressure across the entire of each individual network, unless connected to gas management devices like a <link=ThingStructureVolumePump><color=green>Volume Pump</color></link> or a <link=ThingStructureBackPressureRegulator><color=green>Back Pressure Regulator</color></link>.",
-        "name": "Heat Exchanger - Gas"
-      },
-      "structure": {
-        "small_grid": true
-      },
-      "logic": {
-        "logic_slot_types": {},
-        "logic_types": {
-          "Setting": "ReadWrite",
-          "Maximum": "Read",
-          "Ratio": "Read",
-          "PrefabHash": "Read",
-          "ReferenceId": "Read",
-          "NameHash": "Read"
-        },
-        "transmission_receiver": false,
-        "wireless_logic": false,
-        "circuit_holder": false
-      },
-      "slots": {},
-      "device": {
-        "connection_list": [
-          {
-            "typ": "Pipe",
-            "role": "Input"
-          },
-          {
-            "typ": "Pipe",
-            "role": "Input"
-          },
-          {
-            "typ": "Pipe",
-            "role": "Output"
-          },
-          {
-            "typ": "Pipe",
-            "role": "Output"
-          }
-        ],
-        "has_activate_state": false,
-        "has_atmosphere": false,
-        "has_color_state": false,
-        "has_lock_state": false,
-        "has_mode_state": false,
-        "has_on_off_state": false,
-        "has_open_state": false,
-        "has_reagents": false
-      }
-    },
-    "StructureHeatExchangerLiquidtoLiquid": {
-      "templateType": "StructureLogicDevice",
-      "prefab": {
-        "prefab_name": "StructureHeatExchangerLiquidtoLiquid",
-        "prefab_hash": -613784254,
-        "desc": "The original specs for the N Series Flow-P heat exchanger were rumored to have been scrawled on the back of a burger receipt by a bored <link=Sinotai><color=#0080FFFF>Sinotai</color></link> designer riding up the Brazilian space elevator, but that hasn't stopped it becoming one of the most widely-copied heat exchanger designs in the Solar System.\nThe 'N Flow-P' has four connections, allowing you to pass two liquid networks into the unit, which then works to equalize temperature across the two separate networks.\nAs the N Flow-P is a passive system, it equalizes pressure across the entire of each individual network, unless connected to liquid management devices like a <link=ThingStructureLiquidVolumePump><color=green>Liquid Volume Pump</color></link> or a <link=ThingStructureBackLiquidPressureRegulator><color=green>Liquid Back Volume Regulator</color></link>.\n",
-        "name": "Heat Exchanger - Liquid"
-      },
-      "structure": {
-        "small_grid": true
-      },
-      "logic": {
-        "logic_slot_types": {},
-        "logic_types": {
-          "Setting": "ReadWrite",
-          "Maximum": "Read",
-          "Ratio": "Read",
-          "PrefabHash": "Read",
-          "ReferenceId": "Read",
-          "NameHash": "Read"
-        },
-        "transmission_receiver": false,
-        "wireless_logic": false,
-        "circuit_holder": false
-      },
-      "slots": {},
-      "device": {
-        "connection_list": [
-          {
-            "typ": "PipeLiquid",
-            "role": "Input"
-          },
-          {
-            "typ": "PipeLiquid",
-            "role": "Input"
-          },
-          {
-            "typ": "PipeLiquid",
-            "role": "Output"
-          },
-          {
-            "typ": "PipeLiquid",
-            "role": "Output"
-          }
-        ],
-        "has_activate_state": false,
-        "has_atmosphere": false,
-        "has_color_state": false,
-        "has_lock_state": false,
-        "has_mode_state": false,
-        "has_on_off_state": false,
-        "has_open_state": false,
-        "has_reagents": false
-      }
-    },
     "StructureHorizontalAutoMiner": {
       "templateType": "StructureLogicDevice",
       "prefab": {
@@ -37918,8 +38807,28 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -38002,8 +38911,28 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -38021,7 +38950,8 @@ export default {
           "ImportCount": "Read",
           "PrefabHash": "Read",
           "ReferenceId": "Read",
-          "NameHash": "Read"
+          "NameHash": "Read",
+          "StackSize": "Read"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -38031,7 +38961,7 @@ export default {
         "0": {
           "Direct": {
             "name": "Import",
-            "class": "Ingot",
+            "class": "None",
             "index": 0
           }
         },
@@ -38090,10 +39020,28 @@ export default {
           "ItemSolidFuel",
           "ItemSteelIngot",
           "ItemStelliteIngot",
-          "ItemWaspaloyIngot",
-          "ItemWasteIngot"
+          "ItemWaspaloyIngot"
         ],
-        "processed_reagents": []
+        "processed_reagents": [
+          -1493155787,
+          1731241392,
+          -1172078909,
+          478264742,
+          -409226641,
+          2019732679,
+          2003628602,
+          -586072179,
+          -626453759,
+          -666742878,
+          -2002530571,
+          556601662,
+          -1195893171,
+          687283565,
+          -1206542381,
+          1331613335,
+          -500544800,
+          1787814293
+        ]
       },
       "fabricator_info": {
         "tier": "Undefined",
@@ -40220,34 +41168,6 @@ export default {
             }
           },
           {
-            "target_prefab": "ItemKitHeatExchanger",
-            "target_prefab_hash": -1710540039,
-            "tier": "TierTwo",
-            "time": 30.0,
-            "energy": 1000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Invar": 10.0,
-              "Steel": 10.0
-            }
-          },
-          {
             "target_prefab": "ItemKitLargeDirectHeatExchanger",
             "target_prefab_hash": 450164077,
             "tier": "TierTwo",
@@ -41376,8 +42296,11 @@ export default {
             "MaxQuantity": "Read",
             "Mature": "Read",
             "PrefabHash": "Read",
+            "Seeding": "Read",
             "SortingClass": "Read",
-            "ReferenceId": "Read"
+            "ReferenceId": "Read",
+            "MaturityRatio": "Read",
+            "SeedingRatio": "Read"
           },
           "1": {
             "Occupied": "Read",
@@ -41391,8 +42314,11 @@ export default {
             "MaxQuantity": "Read",
             "Mature": "Read",
             "PrefabHash": "Read",
+            "Seeding": "Read",
             "SortingClass": "Read",
-            "ReferenceId": "Read"
+            "ReferenceId": "Read",
+            "MaturityRatio": "Read",
+            "SeedingRatio": "Read"
           },
           "2": {
             "Occupied": "Read",
@@ -41406,8 +42332,11 @@ export default {
             "MaxQuantity": "Read",
             "Mature": "Read",
             "PrefabHash": "Read",
+            "Seeding": "Read",
             "SortingClass": "Read",
-            "ReferenceId": "Read"
+            "ReferenceId": "Read",
+            "MaturityRatio": "Read",
+            "SeedingRatio": "Read"
           },
           "3": {
             "Occupied": "Read",
@@ -41421,8 +42350,11 @@ export default {
             "MaxQuantity": "Read",
             "Mature": "Read",
             "PrefabHash": "Read",
+            "Seeding": "Read",
             "SortingClass": "Read",
-            "ReferenceId": "Read"
+            "ReferenceId": "Read",
+            "MaturityRatio": "Read",
+            "SeedingRatio": "Read"
           },
           "4": {
             "Occupied": "Read",
@@ -41436,8 +42368,11 @@ export default {
             "MaxQuantity": "Read",
             "Mature": "Read",
             "PrefabHash": "Read",
+            "Seeding": "Read",
             "SortingClass": "Read",
-            "ReferenceId": "Read"
+            "ReferenceId": "Read",
+            "MaturityRatio": "Read",
+            "SeedingRatio": "Read"
           },
           "5": {
             "Occupied": "Read",
@@ -41451,8 +42386,11 @@ export default {
             "MaxQuantity": "Read",
             "Mature": "Read",
             "PrefabHash": "Read",
+            "Seeding": "Read",
             "SortingClass": "Read",
-            "ReferenceId": "Read"
+            "ReferenceId": "Read",
+            "MaturityRatio": "Read",
+            "SeedingRatio": "Read"
           },
           "6": {
             "Occupied": "Read",
@@ -41466,8 +42404,11 @@ export default {
             "MaxQuantity": "Read",
             "Mature": "Read",
             "PrefabHash": "Read",
+            "Seeding": "Read",
             "SortingClass": "Read",
-            "ReferenceId": "Read"
+            "ReferenceId": "Read",
+            "MaturityRatio": "Read",
+            "SeedingRatio": "Read"
           },
           "7": {
             "Occupied": "Read",
@@ -41481,8 +42422,11 @@ export default {
             "MaxQuantity": "Read",
             "Mature": "Read",
             "PrefabHash": "Read",
+            "Seeding": "Read",
             "SortingClass": "Read",
-            "ReferenceId": "Read"
+            "ReferenceId": "Read",
+            "MaturityRatio": "Read",
+            "SeedingRatio": "Read"
           }
         },
         "logic_types": {
@@ -41505,6 +42449,17 @@ export default {
           "RatioNitrousOxide": "Read",
           "PrefabHash": "Read",
           "Combustion": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "RatioLiquidNitrogen": "Read",
           "RatioLiquidOxygen": "Read",
           "RatioLiquidVolatiles": "Read",
@@ -41668,7 +42623,9 @@ export default {
             "PrefabHash": "Read",
             "Seeding": "Read",
             "SortingClass": "Read",
-            "ReferenceId": "Read"
+            "ReferenceId": "Read",
+            "MaturityRatio": "Read",
+            "SeedingRatio": "Read"
           },
           "1": {
             "Occupied": "Read",
@@ -41770,7 +42727,17 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -41945,7 +42912,7 @@ export default {
         "prefab_name": "StructureInsulatedInLineTankGas1x1",
         "prefab_hash": 1818267386,
         "desc": "",
-        "name": "Insulated In-Line Tank Small Gas"
+        "name": "In-Line Tank Small Gas (Insulated)"
       },
       "structure": {
         "small_grid": true
@@ -41961,7 +42928,7 @@ export default {
         "prefab_name": "StructureInsulatedInLineTankGas1x2",
         "prefab_hash": -177610944,
         "desc": "",
-        "name": "Insulated In-Line Tank Gas"
+        "name": "In-Line Tank Gas (Insulated)"
       },
       "structure": {
         "small_grid": true
@@ -41977,7 +42944,7 @@ export default {
         "prefab_name": "StructureInsulatedInLineTankLiquid1x1",
         "prefab_hash": -813426145,
         "desc": "",
-        "name": "Insulated In-Line Tank Small Liquid"
+        "name": "In-Line Liquid (Insulated)"
       },
       "structure": {
         "small_grid": true
@@ -41993,7 +42960,7 @@ export default {
         "prefab_name": "StructureInsulatedInLineTankLiquid1x2",
         "prefab_hash": 1452100517,
         "desc": "",
-        "name": "Insulated In-Line Tank Liquid"
+        "name": "In-Line Tank Liquid (Insulated)"
       },
       "structure": {
         "small_grid": true
@@ -42195,6 +43162,54 @@ export default {
         "radiation_factor": 0.0
       }
     },
+    "StructureInsulatedPipeLiquidStraight10": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructureInsulatedPipeLiquidStraight10",
+        "prefab_hash": -1331405428,
+        "desc": "Long variant of liquid piping with very low temperature loss or gain. These variants cannot be merged.",
+        "name": "Insulated Liquid Pipe (Straight 10)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "thermal_info": {
+        "convection_factor": 0.0,
+        "radiation_factor": 0.0
+      }
+    },
+    "StructureInsulatedPipeLiquidStraight3": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructureInsulatedPipeLiquidStraight3",
+        "prefab_hash": -1784561856,
+        "desc": "Long variant of liquid piping with very low temperature loss or gain. These variants cannot be merged.",
+        "name": "Insulated Liquid Pipe (Straight 3)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "thermal_info": {
+        "convection_factor": 0.0,
+        "radiation_factor": 0.0
+      }
+    },
+    "StructureInsulatedPipeLiquidStraight5": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructureInsulatedPipeLiquidStraight5",
+        "prefab_hash": 2093095541,
+        "desc": "Long variant of liquid piping with very low temperature loss or gain. These variants cannot be merged.",
+        "name": "Insulated Liquid Pipe (Straight 5)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "thermal_info": {
+        "convection_factor": 0.0,
+        "radiation_factor": 0.0
+      }
+    },
     "StructureInsulatedPipeLiquidTJunction": {
       "templateType": "Structure",
       "prefab": {
@@ -42218,6 +43233,54 @@ export default {
         "prefab_hash": 2134172356,
         "desc": "Insulated pipes greatly reduce heat loss from gases stored in them.",
         "name": "Insulated Pipe (Straight)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "thermal_info": {
+        "convection_factor": 0.0,
+        "radiation_factor": 0.0
+      }
+    },
+    "StructureInsulatedPipeStraight10": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructureInsulatedPipeStraight10",
+        "prefab_hash": 1087359947,
+        "desc": "Long variant of the straight pipe. These variants cannot be merged. Insulated pipes greatly reduce heat loss from gases stored in them.",
+        "name": "Insulated Pipe (Straight 10)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "thermal_info": {
+        "convection_factor": 0.0,
+        "radiation_factor": 0.0
+      }
+    },
+    "StructureInsulatedPipeStraight3": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructureInsulatedPipeStraight3",
+        "prefab_hash": -240862000,
+        "desc": "Long variant of the straight pipe. These variants cannot be merged. Insulated pipes greatly reduce heat loss from gases stored in them.",
+        "name": "Insulated Pipe (Straight 3)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "thermal_info": {
+        "convection_factor": 0.0,
+        "radiation_factor": 0.0
+      }
+    },
+    "StructureInsulatedPipeStraight5": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructureInsulatedPipeStraight5",
+        "prefab_hash": 415701477,
+        "desc": "Long variant of the straight pipe. These variants cannot be merged. Insulated pipes greatly reduce heat loss from gases stored in them.",
+        "name": "Insulated Pipe (Straight 5)"
       },
       "structure": {
         "small_grid": true
@@ -42261,7 +43324,7 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "Portable slot",
             "class": "None",
             "index": 0
           }
@@ -42286,7 +43349,7 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "Portable Slot",
+            "name": "Portable slot",
             "class": "None",
             "index": 0
           }
@@ -42298,7 +43361,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureInteriorDoorGlass",
         "prefab_hash": -2096421875,
-        "desc": "0.Operate\n1.Logic",
+        "desc": "",
         "name": "Interior Door Glass"
       },
       "structure": {
@@ -42345,7 +43408,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureInteriorDoorPadded",
         "prefab_hash": 847461335,
-        "desc": "0.Operate\n1.Logic",
+        "desc": "",
         "name": "Interior Door Padded"
       },
       "structure": {
@@ -42392,7 +43455,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureInteriorDoorPaddedThin",
         "prefab_hash": 1981698201,
-        "desc": "0.Operate\n1.Logic",
+        "desc": "",
         "name": "Interior Door Padded Thin"
       },
       "structure": {
@@ -42439,7 +43502,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureInteriorDoorTriangle",
         "prefab_hash": -1182923101,
-        "desc": "0.Operate\n1.Logic",
+        "desc": "",
         "name": "Interior Door Triangle"
       },
       "structure": {
@@ -42745,7 +43808,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureLargeExtendableRadiator",
         "prefab_hash": -566775170,
-        "desc": "Omptimised for radiating heat in vacuum and low pressure environments. If pointed at the sun it will heat its contents rapidly via solar heating. The panels can fold away to stop all heat radiation/solar heating and protect them from storms.",
+        "desc": "Optimized for radiating heat in vacuum and low pressure environments. If pointed at the sun it will heat its contents rapidly via solar heating. The panels can fold away to stop all heat radiation/solar heating and protect them from storms.",
         "name": "Large Extendable Radiator"
       },
       "structure": {
@@ -42854,6 +43917,176 @@ export default {
         "has_reagents": false
       }
     },
+    "StructureLargeRocketGasFuelTank": {
+      "templateType": "StructureLogicDevice",
+      "prefab": {
+        "prefab_name": "StructureLargeRocketGasFuelTank",
+        "prefab_hash": -988382953,
+        "desc": "",
+        "name": "Gas Capsule Tank Large"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "thermal_info": {
+        "convection_factor": 0.05,
+        "radiation_factor": 0.002
+      },
+      "logic": {
+        "logic_slot_types": {},
+        "logic_types": {
+          "Pressure": "Read",
+          "Temperature": "Read",
+          "Setting": "ReadWrite",
+          "RatioOxygen": "Read",
+          "RatioCarbonDioxide": "Read",
+          "RatioNitrogen": "Read",
+          "RatioPollutant": "Read",
+          "RatioVolatiles": "Read",
+          "RatioWater": "Read",
+          "Maximum": "Read",
+          "Ratio": "Read",
+          "TotalMoles": "Read",
+          "Volume": "Read",
+          "RatioNitrousOxide": "Read",
+          "PrefabHash": "Read",
+          "Combustion": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
+          "RatioLiquidNitrogen": "Read",
+          "VolumeOfLiquid": "Read",
+          "RatioLiquidOxygen": "Read",
+          "RatioLiquidVolatiles": "Read",
+          "RatioSteam": "Read",
+          "RatioLiquidCarbonDioxide": "Read",
+          "RatioLiquidPollutant": "Read",
+          "RatioLiquidNitrousOxide": "Read",
+          "ReferenceId": "Read",
+          "RatioHydrogen": "Read",
+          "RatioLiquidHydrogen": "Read",
+          "RatioPollutedWater": "Read",
+          "NameHash": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": {},
+      "device": {
+        "connection_list": [
+          {
+            "typ": "Data",
+            "role": "Output"
+          },
+          {
+            "typ": "Pipe",
+            "role": "Input"
+          }
+        ],
+        "has_activate_state": false,
+        "has_atmosphere": true,
+        "has_color_state": false,
+        "has_lock_state": false,
+        "has_mode_state": false,
+        "has_on_off_state": false,
+        "has_open_state": false,
+        "has_reagents": false
+      }
+    },
+    "StructureLargeRocketLiquidFuelTank": {
+      "templateType": "StructureLogicDevice",
+      "prefab": {
+        "prefab_name": "StructureLargeRocketLiquidFuelTank",
+        "prefab_hash": -1374757070,
+        "desc": "",
+        "name": "Liquid Capsule Tank Large"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "thermal_info": {
+        "convection_factor": 0.05,
+        "radiation_factor": 0.002
+      },
+      "logic": {
+        "logic_slot_types": {},
+        "logic_types": {
+          "Pressure": "Read",
+          "Temperature": "Read",
+          "Setting": "ReadWrite",
+          "RatioOxygen": "Read",
+          "RatioCarbonDioxide": "Read",
+          "RatioNitrogen": "Read",
+          "RatioPollutant": "Read",
+          "RatioVolatiles": "Read",
+          "RatioWater": "Read",
+          "Maximum": "Read",
+          "Ratio": "Read",
+          "TotalMoles": "Read",
+          "Volume": "Read",
+          "RatioNitrousOxide": "Read",
+          "PrefabHash": "Read",
+          "Combustion": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
+          "RatioLiquidNitrogen": "Read",
+          "VolumeOfLiquid": "Read",
+          "RatioLiquidOxygen": "Read",
+          "RatioLiquidVolatiles": "Read",
+          "RatioSteam": "Read",
+          "RatioLiquidCarbonDioxide": "Read",
+          "RatioLiquidPollutant": "Read",
+          "RatioLiquidNitrousOxide": "Read",
+          "ReferenceId": "Read",
+          "RatioHydrogen": "Read",
+          "RatioLiquidHydrogen": "Read",
+          "RatioPollutedWater": "Read",
+          "NameHash": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": {},
+      "device": {
+        "connection_list": [
+          {
+            "typ": "Data",
+            "role": "Output"
+          },
+          {
+            "typ": "PipeLiquid",
+            "role": "Input"
+          }
+        ],
+        "has_activate_state": false,
+        "has_atmosphere": true,
+        "has_color_state": false,
+        "has_lock_state": false,
+        "has_mode_state": false,
+        "has_on_off_state": false,
+        "has_open_state": false,
+        "has_reagents": false
+      }
+    },
     "StructureLargeSatelliteDish": {
       "templateType": "StructureLogicDevice",
       "prefab": {
@@ -42922,19 +44155,30 @@ export default {
       "prefab": {
         "prefab_name": "StructureLarreDockAtmos",
         "prefab_hash": 1978422481,
-        "desc": "0.Outward\n1.Inward",
-        "name": "LARrE Dock (Atmos)"
+        "desc": "The atmospherics LArRE can pump gas into and out of its storage canister. When lowered over a <link=ThingStructurePassiveVent><color=green>Passive Vent</color></link>, the atmospherics LArRE will connect with it and pump gas into and out of the connected pipe network.\n\nPressing the activate button while the LArRE arm is at its home dock will move the arm off the main rail. This allows other arms on the same rail to pass by. \n        \nThe base atmospheric logic values point to LArRE's internal gas storage. The Input atmospheric logic values point to the grid that LArRE is in OR the pipe network that LArRE is docked to via a <link=ThingStructurePassiveVent><color=green>Passive Vent</color></link>",
+        "name": "LArRE Dock (Atmos)"
       },
       "structure": {
         "small_grid": true
       },
       "thermal_info": {
-        "convection_factor": 0.1,
-        "radiation_factor": 0.1
+        "convection_factor": 0.0,
+        "radiation_factor": 0.0
       },
       "logic": {
         "logic_slot_types": {
-          "0": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "FilterType": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -42957,22 +44201,41 @@ export default {
           "RequiredPower": "Read",
           "Idle": "Read",
           "TotalMoles": "Read",
+          "PositionX": "Read",
           "RatioNitrousOxide": "Read",
           "PrefabHash": "Read",
           "Combustion": "Read",
+          "PressureInput": "Read",
+          "TemperatureInput": "Read",
+          "RatioOxygenInput": "Read",
+          "RatioCarbonDioxideInput": "Read",
+          "RatioNitrogenInput": "Read",
+          "RatioPollutantInput": "Read",
+          "RatioVolatilesInput": "Read",
+          "RatioWaterInput": "Read",
+          "RatioNitrousOxideInput": "Read",
+          "TotalMolesInput": "Read",
+          "CombustionInput": "Read",
           "RatioLiquidNitrogen": "Read",
+          "RatioLiquidNitrogenInput": "Read",
           "RatioLiquidOxygen": "Read",
+          "RatioLiquidOxygenInput": "Read",
           "RatioLiquidVolatiles": "Read",
+          "RatioLiquidVolatilesInput": "Read",
           "RatioSteam": "Read",
+          "RatioSteamInput": "Read",
           "RatioLiquidCarbonDioxide": "Read",
+          "RatioLiquidCarbonDioxideInput": "Read",
           "RatioLiquidPollutant": "Read",
+          "RatioLiquidPollutantInput": "Read",
           "RatioLiquidNitrousOxide": "Read",
+          "RatioLiquidNitrousOxideInput": "Read",
           "ReferenceId": "Read",
-          "Index": "Read",
           "RatioHydrogen": "Read",
           "RatioLiquidHydrogen": "Read",
           "RatioPollutedWater": "Read",
-          "NameHash": "Read"
+          "NameHash": "Read",
+          "Extended": "Read"
         },
         "modes": {
           "0": "Outward",
@@ -43021,8 +44284,8 @@ export default {
       "prefab": {
         "prefab_name": "StructureLarreDockBypass",
         "prefab_hash": 1011275082,
-        "desc": "",
-        "name": "LARrE Dock (Bypass)"
+        "desc": "The bypass dock allows LArRE arms to move off the main rail so that others may pass. Pressing activate on a dock while its arm is at a bypass will cause the arm to move into the bypass' off-rail position.",
+        "name": "LArRE Dock (Bypass)"
       },
       "structure": {
         "small_grid": true
@@ -43073,15 +44336,25 @@ export default {
       "prefab": {
         "prefab_name": "StructureLarreDockCargo",
         "prefab_hash": -1555459562,
-        "desc": "",
-        "name": "LARrE Dock (Cargo)"
+        "desc": "The cargo LArRE can take things out of and put things into slots on devices. The dial on the front panel indicates which slot on the device to interact with. The slot variables of the item in the target slot can be read using the Proxy Slot Index (255)\n\nPressing the activate button while the LArRE arm is at its home dock will move the arm off the main rail. This allows other arms on the same rail to pass by.",
+        "name": "LArRE Dock (Cargo)"
       },
       "structure": {
         "small_grid": true
       },
       "logic": {
         "logic_slot_types": {
-          "0": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -43092,12 +44365,13 @@ export default {
           "On": "ReadWrite",
           "RequiredPower": "Read",
           "Idle": "Read",
+          "PositionX": "Read",
           "PrefabHash": "Read",
           "ReferenceId": "Read",
-          "Index": "Read",
           "NameHash": "Read",
           "TargetSlotIndex": "ReadWrite",
-          "TargetPrefabHash": "Read"
+          "TargetPrefabHash": "Read",
+          "Extended": "Read"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -43148,34 +44422,234 @@ export default {
       "prefab": {
         "prefab_name": "StructureLarreDockCollector",
         "prefab_hash": -522428667,
-        "desc": "0.Outward\n1.Inward",
-        "name": "LARrE Dock (Collector)"
+        "desc": "The collector LArRE can suck up nearby loose items when its mode is set to inward and eject stored items when its mode is set to outward. When set to suck up items, the collector LArRE will automatically stop and retract when full. \n\nPressing the activate button while the LArRE arm is at its home dock will move the arm off the main rail. This allows other arms on the same rail to pass by.",
+        "name": "LArRE Dock (Collector)"
       },
       "structure": {
         "small_grid": true
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {},
-          "2": {},
-          "3": {},
-          "4": {},
-          "5": {},
-          "6": {},
-          "7": {},
-          "8": {},
-          "9": {},
-          "10": {},
-          "11": {},
-          "12": {},
-          "13": {},
-          "14": {},
-          "15": {},
-          "16": {},
-          "17": {},
-          "18": {},
-          "19": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "2": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "3": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "4": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "5": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "6": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "7": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "8": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "9": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "10": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "11": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "12": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "13": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "14": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "15": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "16": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "17": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "18": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "19": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -43184,13 +44658,16 @@ export default {
           "Error": "Read",
           "Activate": "ReadWrite",
           "Setting": "ReadWrite",
+          "Ratio": "Read",
+          "Quantity": "Read",
           "On": "ReadWrite",
           "RequiredPower": "Read",
           "Idle": "Read",
+          "PositionX": "Read",
           "PrefabHash": "Read",
           "ReferenceId": "Read",
-          "Index": "Read",
-          "NameHash": "Read"
+          "NameHash": "Read",
+          "Extended": "Read"
         },
         "modes": {
           "0": "Outward",
@@ -43203,140 +44680,140 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "<N:EN:Storage_0>",
+            "name": "Storage",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "<N:EN:Storage_1>",
+            "name": "Storage",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "<N:EN:Storage_2>",
+            "name": "Storage",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "<N:EN:Storage_3>",
+            "name": "Storage",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "<N:EN:Storage_4>",
+            "name": "Storage",
             "class": "None",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "<N:EN:Storage_5>",
+            "name": "Storage",
             "class": "None",
             "index": 5
           }
         },
         "6": {
           "Direct": {
-            "name": "<N:EN:Storage_6>",
+            "name": "Storage",
             "class": "None",
             "index": 6
           }
         },
         "7": {
           "Direct": {
-            "name": "<N:EN:Storage_7>",
+            "name": "Storage",
             "class": "None",
             "index": 7
           }
         },
         "8": {
           "Direct": {
-            "name": "<N:EN:Storage_8>",
+            "name": "Storage",
             "class": "None",
             "index": 8
           }
         },
         "9": {
           "Direct": {
-            "name": "<N:EN:Storage_9>",
+            "name": "Storage",
             "class": "None",
             "index": 9
           }
         },
         "10": {
           "Direct": {
-            "name": "<N:EN:Storage_10>",
+            "name": "Storage",
             "class": "None",
             "index": 10
           }
         },
         "11": {
           "Direct": {
-            "name": "<N:EN:Storage_11>",
+            "name": "Storage",
             "class": "None",
             "index": 11
           }
         },
         "12": {
           "Direct": {
-            "name": "<N:EN:Storage_12>",
+            "name": "Storage",
             "class": "None",
             "index": 12
           }
         },
         "13": {
           "Direct": {
-            "name": "<N:EN:Storage_13>",
+            "name": "Storage",
             "class": "None",
             "index": 13
           }
         },
         "14": {
           "Direct": {
-            "name": "<N:EN:Storage_14>",
+            "name": "Storage",
             "class": "None",
             "index": 14
           }
         },
         "15": {
           "Direct": {
-            "name": "<N:EN:Storage_15>",
+            "name": "Storage",
             "class": "None",
             "index": 15
           }
         },
         "16": {
           "Direct": {
-            "name": "<N:EN:Storage_16>",
+            "name": "Storage",
             "class": "None",
             "index": 16
           }
         },
         "17": {
           "Direct": {
-            "name": "<N:EN:Storage_17>",
+            "name": "Storage",
             "class": "None",
             "index": 17
           }
         },
         "18": {
           "Direct": {
-            "name": "<N:EN:Storage_18>",
+            "name": "Storage",
             "class": "None",
             "index": 18
           }
         },
         "19": {
           "Direct": {
-            "name": "<N:EN:Storage_19>",
+            "name": "Storage",
             "class": "None",
             "index": 19
           }
@@ -43372,16 +44849,36 @@ export default {
       "prefab": {
         "prefab_name": "StructureLarreDockHydroponics",
         "prefab_hash": 85133079,
-        "desc": "",
-        "name": "LARrE Dock (Hydroponics)"
+        "desc": "The hydroponics LArRE can plant and harvest plants as well as place fertiliser into plant trays. It has an additional hopper slot which will feed items into the 'hand' slot when the hand slot is empty. Harvesting a different plant while the hand slot is full will be possible if the hopper slot is empty. In which case the plant in the hand will be moved into the hopper slot and the new plant will be harvested into the hand slot.\n        The slot variables of a plant in the plant tray below can be read using the Proxy Slot Index (255).\nPressing the activate button while the LArRE arm is at its home dock will move the arm off the main rail. This allows other arms on the same rail to pass by.",
+        "name": "LArRE Dock (Hydroponics)"
       },
       "structure": {
         "small_grid": true
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -43392,12 +44889,13 @@ export default {
           "On": "ReadWrite",
           "RequiredPower": "Read",
           "Idle": "Read",
+          "PositionX": "Read",
           "PrefabHash": "Read",
           "ReferenceId": "Read",
-          "Index": "Read",
           "NameHash": "Read",
           "TargetSlotIndex": "Read",
-          "TargetPrefabHash": "Read"
+          "TargetPrefabHash": "Read",
+          "Extended": "Read"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -43413,7 +44911,7 @@ export default {
         },
         "1": {
           "Direct": {
-            "name": "Arm Slot",
+            "name": "Hopper Slot",
             "class": "None",
             "index": 1
           }
@@ -43455,7 +44953,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureLaunchMount",
         "prefab_hash": -558953231,
-        "desc": "The first piece to place whern building a rocket. Rockets can be constructed and/or landed here. Each Launch Mount will be allocated a slot on the Space Map and assigned a Location Code.",
+        "desc": "The first piece to place when building a rocket. Rockets can be constructed and/or landed here. Each Launch Mount will be allocated a slot on the Space Map and assigned a Location Code.",
         "name": "Launch Mount"
       },
       "structure": {
@@ -43749,6 +45247,17 @@ export default {
           "On": "ReadWrite",
           "RequiredPower": "Read",
           "PrefabHash": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "ReferenceId": "Read",
           "NameHash": "Read"
         },
@@ -43826,7 +45335,8 @@ export default {
           "RatioHydrogen": "Read",
           "RatioLiquidHydrogen": "Read",
           "RatioPollutedWater": "Read",
-          "NameHash": "Read"
+          "NameHash": "Read",
+          "NetworkFault": "Read"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -44028,6 +45538,17 @@ export default {
           "RatioNitrousOxide": "Read",
           "PrefabHash": "Read",
           "Combustion": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "RatioLiquidNitrogen": "Read",
           "VolumeOfLiquid": "Read",
           "RatioLiquidOxygen": "Read",
@@ -44074,7 +45595,7 @@ export default {
         "prefab_name": "StructureLiquidTankBigInsulated",
         "prefab_hash": -1430440215,
         "desc": "",
-        "name": "Insulated Liquid Tank Big"
+        "name": "Liquid Tank Big (Insulated)"
       },
       "structure": {
         "small_grid": true
@@ -44102,6 +45623,17 @@ export default {
           "RatioNitrousOxide": "Read",
           "PrefabHash": "Read",
           "Combustion": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "RatioLiquidNitrogen": "Read",
           "VolumeOfLiquid": "Read",
           "RatioLiquidOxygen": "Read",
@@ -44176,6 +45708,17 @@ export default {
           "RatioNitrousOxide": "Read",
           "PrefabHash": "Read",
           "Combustion": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "RatioLiquidNitrogen": "Read",
           "VolumeOfLiquid": "Read",
           "RatioLiquidOxygen": "Read",
@@ -44222,7 +45765,7 @@ export default {
         "prefab_name": "StructureLiquidTankSmallInsulated",
         "prefab_hash": 608607718,
         "desc": "",
-        "name": "Insulated Liquid Tank Small"
+        "name": "Liquid Tank Small (Insulated)"
       },
       "structure": {
         "small_grid": true
@@ -44250,6 +45793,17 @@ export default {
           "RatioNitrousOxide": "Read",
           "PrefabHash": "Read",
           "Combustion": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "RatioLiquidNitrogen": "Read",
           "VolumeOfLiquid": "Read",
           "RatioLiquidOxygen": "Read",
@@ -44524,7 +46078,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureLiquidUmbilicalMale",
         "prefab_hash": -1798420047,
-        "desc": "0.Left\n1.Center\n2.Right",
+        "desc": "",
         "name": "Umbilical (Liquid)"
       },
       "structure": {
@@ -44754,28 +46308,28 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
@@ -45004,7 +46558,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureLogicCompare",
         "prefab_hash": -1489728908,
-        "desc": "0.Equals\n1.Greater\n2.Less\n3.NotEquals",
+        "desc": "",
         "name": "Logic Compare"
       },
       "structure": {
@@ -45222,7 +46776,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureLogicMath",
         "prefab_hash": 1657691323,
-        "desc": "0.Add\n1.Subtract\n2.Multiply\n3.Divide\n4.Mod\n5.Atan2\n6.Pow\n7.Log",
+        "desc": "",
         "name": "Logic Math"
       },
       "structure": {
@@ -45290,7 +46844,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureLogicMathUnary",
         "prefab_hash": -1160020195,
-        "desc": "0.Ceil\n1.Floor\n2.Abs\n3.Log\n4.Exp\n5.Round\n6.Rand\n7.Sqrt\n8.Sin\n9.Cos\n10.Tan\n11.Asin\n12.Acos\n13.Atan\n14.Not",
+        "desc": "",
         "name": "Math Unary"
       },
       "structure": {
@@ -45406,7 +46960,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureLogicMinMax",
         "prefab_hash": 929022276,
-        "desc": "0.Greater\n1.Less",
+        "desc": "",
         "name": "Logic Min/Max"
       },
       "structure": {
@@ -45491,6 +47045,66 @@ export default {
           {
             "typ": "Data",
             "role": "Output"
+          },
+          {
+            "typ": "Power",
+            "role": "None"
+          }
+        ],
+        "has_activate_state": false,
+        "has_atmosphere": false,
+        "has_color_state": false,
+        "has_lock_state": false,
+        "has_mode_state": false,
+        "has_on_off_state": true,
+        "has_open_state": false,
+        "has_reagents": false
+      }
+    },
+    "StructureLogicPidController": {
+      "templateType": "StructureLogicDevice",
+      "prefab": {
+        "prefab_name": "StructureLogicPidController",
+        "prefab_hash": -1905534007,
+        "desc": "A PID (Proportional Integral Derivative) controller that provides a closed-loop feedback mechanism that can be used to automatically regulate a process variable (like temperature, speed, position, and similar) so that it tracks a desired setpoint. It does this by continually computing an error signal e(t) = setpoint – measurement, then applying three corrective actions as the Proportional, Integral, and Derivative.",
+        "name": "PID Controller"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "logic": {
+        "logic_slot_types": {},
+        "logic_types": {
+          "Power": "Read",
+          "Error": "Read",
+          "Setting": "Read",
+          "Maximum": "ReadWrite",
+          "On": "ReadWrite",
+          "RequiredPower": "Read",
+          "PrefabHash": "Read",
+          "ReferenceId": "Read",
+          "NameHash": "Read",
+          "ProportionalGain": "ReadWrite",
+          "IntegralGain": "ReadWrite",
+          "DerivativeGain": "ReadWrite",
+          "Minimum": "ReadWrite",
+          "Setpoint": "ReadWrite",
+          "Reset": "Write"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": {},
+      "device": {
+        "connection_list": [
+          {
+            "typ": "Data",
+            "role": "None"
+          },
+          {
+            "typ": "Data",
+            "role": "None"
           },
           {
             "typ": "Power",
@@ -45708,7 +47322,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureLogicSelect",
         "prefab_hash": 1822736084,
-        "desc": "0.Equals\n1.Greater\n2.Less\n3.NotEquals",
+        "desc": "",
         "name": "Logic Select"
       },
       "structure": {
@@ -45890,7 +47504,8 @@ export default {
           "ImportCount": "Read",
           "PrefabHash": "Read",
           "ReferenceId": "Read",
-          "NameHash": "Read"
+          "NameHash": "Read",
+          "StackSize": "Read"
         },
         "modes": {
           "0": "All",
@@ -46471,6 +48086,45 @@ export default {
         "has_reagents": false
       }
     },
+    "StructureManualFloorHatch": {
+      "templateType": "StructureLogicDevice",
+      "prefab": {
+        "prefab_name": "StructureManualFloorHatch",
+        "prefab_hash": 1435578852,
+        "desc": "",
+        "name": "Manual Floor Hatch"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "logic": {
+        "logic_slot_types": {},
+        "logic_types": {
+          "Open": "ReadWrite",
+          "Lock": "ReadWrite",
+          "Setting": "ReadWrite",
+          "Idle": "Read",
+          "PrefabHash": "Read",
+          "ReferenceId": "Read",
+          "NameHash": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": {},
+      "device": {
+        "connection_list": [],
+        "has_activate_state": false,
+        "has_atmosphere": false,
+        "has_color_state": false,
+        "has_lock_state": true,
+        "has_mode_state": false,
+        "has_on_off_state": false,
+        "has_open_state": true,
+        "has_reagents": false
+      }
+    },
     "StructureManualHatch": {
       "templateType": "StructureLogicDevice",
       "prefab": {
@@ -46812,6 +48466,17 @@ export default {
           "RatioNitrousOxide": "Read",
           "PrefabHash": "Read",
           "Combustion": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "RatioLiquidNitrogen": "Read",
           "VolumeOfLiquid": "Read",
           "RatioLiquidOxygen": "Read",
@@ -46886,6 +48551,17 @@ export default {
           "RatioNitrousOxide": "Read",
           "PrefabHash": "Read",
           "Combustion": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "RatioLiquidNitrogen": "Read",
           "VolumeOfLiquid": "Read",
           "RatioLiquidOxygen": "Read",
@@ -47099,7 +48775,7 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "Programmable Chip",
+            "name": "ProgrammableChip",
             "class": "ProgrammableChip",
             "index": 0
           }
@@ -47231,14 +48907,14 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
@@ -47394,70 +49070,70 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 5
           }
         },
         "6": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 6
           }
         },
         "7": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 7
           }
         },
         "8": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 8
           }
         },
         "9": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 9
           }
@@ -47642,6 +49318,22 @@ export default {
       "thermal_info": {
         "convection_factor": 0.0,
         "radiation_factor": 0.0
+      }
+    },
+    "StructurePassiveVentValve": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructurePassiveVentValve",
+        "prefab_hash": -75599100,
+        "desc": "Passive vents (Valve) allow gasses to move into and out of pipe networks, which are closed systems unless connected to a device or structure. Passive vents are not powered, but allow the user to choose when to allow gases in an enclosed space to mix inside a pipe network.",
+        "name": "Passive Vent (Valve)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "thermal_info": {
+        "convection_factor": 0.010000001,
+        "radiation_factor": 0.0005
       }
     },
     "StructurePassthroughHeatExchangerGasToGas": {
@@ -48045,7 +49737,8 @@ export default {
           "RatioHydrogen": "Read",
           "RatioLiquidHydrogen": "Read",
           "RatioPollutedWater": "Read",
-          "NameHash": "Read"
+          "NameHash": "Read",
+          "NetworkFault": "Read"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -48091,7 +49784,7 @@ export default {
         "prefab_name": "StructurePipeCowl",
         "prefab_hash": 465816159,
         "desc": "",
-        "name": "Pipe Cowl"
+        "name": "Passive Vent (Pipe Cowl)"
       },
       "structure": {
         "small_grid": true
@@ -48485,6 +50178,54 @@ export default {
         "radiation_factor": 0.0005
       }
     },
+    "StructurePipeLiquidStraight10": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructurePipeLiquidStraight10",
+        "prefab_hash": -1941415400,
+        "desc": "Long variant of liquid piping. These variants cannot be merged or upgraded with insulation.",
+        "name": "Liquid Pipe (Straight 10)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "thermal_info": {
+        "convection_factor": 0.010000001,
+        "radiation_factor": 0.0005
+      }
+    },
+    "StructurePipeLiquidStraight3": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructurePipeLiquidStraight3",
+        "prefab_hash": 2051209828,
+        "desc": "Long variant of liquid piping. These variants cannot be merged or upgraded with insulation.",
+        "name": "Liquid Pipe (Straight 3)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "thermal_info": {
+        "convection_factor": 0.010000001,
+        "radiation_factor": 0.0005
+      }
+    },
+    "StructurePipeLiquidStraight5": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructurePipeLiquidStraight5",
+        "prefab_hash": -1826529455,
+        "desc": "Long variant of liquid piping. These variants cannot be merged or upgraded with insulation.",
+        "name": "Liquid Pipe (Straight 5)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "thermal_info": {
+        "convection_factor": 0.010000001,
+        "radiation_factor": 0.0005
+      }
+    },
     "StructurePipeLiquidTJunction": {
       "templateType": "Structure",
       "prefab": {
@@ -48733,6 +50474,54 @@ export default {
         "radiation_factor": 0.0005
       }
     },
+    "StructurePipeStraight10": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructurePipeStraight10",
+        "prefab_hash": -230749741,
+        "desc": "Long variant of the straight pipe. These variants cannot be merged or upgraded with insulation.",
+        "name": "Pipe (Straight 10)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "thermal_info": {
+        "convection_factor": 0.0,
+        "radiation_factor": 0.0
+      }
+    },
+    "StructurePipeStraight3": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructurePipeStraight3",
+        "prefab_hash": -1133671319,
+        "desc": "Long variant of the straight pipe. These variants cannot be merged or upgraded with insulation.",
+        "name": "Pipe (Straight 3)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "thermal_info": {
+        "convection_factor": 0.0,
+        "radiation_factor": 0.0
+      }
+    },
+    "StructurePipeStraight5": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructurePipeStraight5",
+        "prefab_hash": 1426991452,
+        "desc": "Long variant of the straight pipe. These variants cannot be merged or upgraded with insulation.",
+        "name": "Pipe (Straight 5)"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "thermal_info": {
+        "convection_factor": 0.0,
+        "radiation_factor": 0.0
+      }
+    },
     "StructurePipeTJunction": {
       "templateType": "Structure",
       "prefab": {
@@ -48807,7 +50596,7 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
@@ -48855,7 +50644,7 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "Portables",
+            "name": "Portable Slot",
             "class": "Portables",
             "index": 0
           }
@@ -48920,7 +50709,7 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "Portable Slot",
+            "name": "Portable slot",
             "class": "None",
             "index": 0
           }
@@ -49198,7 +50987,7 @@ export default {
       "prefab": {
         "prefab_name": "StructurePowerUmbilicalMale",
         "prefab_hash": 1529453938,
-        "desc": "0.Left\n1.Center\n2.Right",
+        "desc": "",
         "name": "Umbilical (Power)"
       },
       "structure": {
@@ -49271,6 +51060,17 @@ export default {
           "On": "ReadWrite",
           "RequiredPower": "Read",
           "PrefabHash": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "ReferenceId": "Read",
           "NameHash": "Read"
         },
@@ -49330,6 +51130,17 @@ export default {
           "On": "ReadWrite",
           "RequiredPower": "Read",
           "PrefabHash": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "ReferenceId": "Read",
           "NameHash": "Read"
         },
@@ -50072,108 +51883,1128 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {},
-          "2": {},
-          "3": {},
-          "4": {},
-          "5": {},
-          "6": {},
-          "7": {},
-          "8": {},
-          "9": {},
-          "10": {},
-          "11": {},
-          "12": {},
-          "13": {},
-          "14": {},
-          "15": {},
-          "16": {},
-          "17": {},
-          "18": {},
-          "19": {},
-          "20": {},
-          "21": {},
-          "22": {},
-          "23": {},
-          "24": {},
-          "25": {},
-          "26": {},
-          "27": {},
-          "28": {},
-          "29": {},
-          "30": {},
-          "31": {},
-          "32": {},
-          "33": {},
-          "34": {},
-          "35": {},
-          "36": {},
-          "37": {},
-          "38": {},
-          "39": {},
-          "40": {},
-          "41": {},
-          "42": {},
-          "43": {},
-          "44": {},
-          "45": {},
-          "46": {},
-          "47": {},
-          "48": {},
-          "49": {},
-          "50": {},
-          "51": {},
-          "52": {},
-          "53": {},
-          "54": {},
-          "55": {},
-          "56": {},
-          "57": {},
-          "58": {},
-          "59": {},
-          "60": {},
-          "61": {},
-          "62": {},
-          "63": {},
-          "64": {},
-          "65": {},
-          "66": {},
-          "67": {},
-          "68": {},
-          "69": {},
-          "70": {},
-          "71": {},
-          "72": {},
-          "73": {},
-          "74": {},
-          "75": {},
-          "76": {},
-          "77": {},
-          "78": {},
-          "79": {},
-          "80": {},
-          "81": {},
-          "82": {},
-          "83": {},
-          "84": {},
-          "85": {},
-          "86": {},
-          "87": {},
-          "88": {},
-          "89": {},
-          "90": {},
-          "91": {},
-          "92": {},
-          "93": {},
-          "94": {},
-          "95": {},
-          "96": {},
-          "97": {},
-          "98": {},
-          "99": {},
-          "100": {},
-          "101": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "2": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "3": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "4": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "5": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "6": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "7": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "8": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "9": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "10": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "11": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "12": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "13": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "14": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "15": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "16": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "17": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "18": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "19": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "20": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "21": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "22": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "23": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "24": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "25": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "26": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "27": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "28": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "29": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "30": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "31": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "32": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "33": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "34": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "35": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "36": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "37": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "38": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "39": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "40": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "41": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "42": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "43": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "44": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "45": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "46": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "47": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "48": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "49": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "50": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "51": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "52": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "53": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "54": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "55": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "56": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "57": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "58": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "59": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "60": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "61": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "62": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "63": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "64": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "65": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "66": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "67": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "68": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "69": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "70": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "71": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "72": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "73": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "74": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "75": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "76": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "77": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "78": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "79": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "80": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "81": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "82": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "83": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "84": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "85": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "86": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "87": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "88": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "89": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "90": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "91": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "92": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "93": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "94": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "95": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "96": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "97": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "98": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "99": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "100": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "101": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -51028,7 +53859,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureRobotArmDoor",
         "prefab_hash": -2131782367,
-        "desc": "",
+        "desc": "The linear rail door allows LArRE arms to pass through while travelling along a rail network.",
         "name": "Linear Rail Door"
       },
       "structure": {
@@ -51103,10 +53934,11 @@ export default {
           "On": "ReadWrite",
           "RequiredPower": "Read",
           "Idle": "Read",
+          "PositionX": "Read",
           "PrefabHash": "Read",
           "ReferenceId": "Read",
-          "Index": "Read",
-          "NameHash": "Read"
+          "NameHash": "Read",
+          "Extended": "Read"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -51151,7 +53983,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureRoboticArmRailCorner",
         "prefab_hash": -1323992709,
-        "desc": "",
+        "desc": "A component of a linear rail network to be used in conjunction with LArRE docks.",
         "name": "Linear Rail Corner"
       },
       "structure": {
@@ -51163,7 +53995,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureRoboticArmRailCornerStop",
         "prefab_hash": 1974053060,
-        "desc": "",
+        "desc": "A component of a linear rail network to be used in conjunction with LArRE docks. The corner station creates a stopping point for LArRE arms along the rail.",
         "name": "Linear Rail Corner Station"
       },
       "structure": {
@@ -51175,7 +54007,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureRoboticArmRailInnerCorner",
         "prefab_hash": -267108827,
-        "desc": "",
+        "desc": "A component of a linear rail network to be used in conjunction with LArRE docks.",
         "name": "Linear Rail Inner Corner"
       },
       "structure": {
@@ -51187,8 +54019,32 @@ export default {
       "prefab": {
         "prefab_name": "StructureRoboticArmRailOuterCorner",
         "prefab_hash": -33470826,
-        "desc": "",
+        "desc": "A component of a linear rail network to be used in conjunction with LArRE docks.",
         "name": "Linear Rail Outer Corner"
+      },
+      "structure": {
+        "small_grid": true
+      }
+    },
+    "StructureRoboticArmRailScrewLeft": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructureRoboticArmRailScrewLeft",
+        "prefab_hash": -2056592380,
+        "desc": "A component of a linear rail network to be used in conjunction with LArRE docks.",
+        "name": "Linear Rail Screw Left"
+      },
+      "structure": {
+        "small_grid": true
+      }
+    },
+    "StructureRoboticArmRailScrewRight": {
+      "templateType": "Structure",
+      "prefab": {
+        "prefab_name": "StructureRoboticArmRailScrewRight",
+        "prefab_hash": -265202332,
+        "desc": "A component of a linear rail network to be used in conjunction with LArRE docks.",
+        "name": "Linear Rail Screw Right"
       },
       "structure": {
         "small_grid": true
@@ -51199,7 +54055,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureRoboticArmRailStraight",
         "prefab_hash": -1785844184,
-        "desc": "",
+        "desc": "A component of a linear rail network to be used in conjunction with LArRE docks.",
         "name": "Linear Rail Straight"
       },
       "structure": {
@@ -51211,7 +54067,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureRoboticArmRailStraightStop",
         "prefab_hash": 1800701885,
-        "desc": "",
+        "desc": "A component of a linear rail network to be used in conjunction with LArRE docks. The straight station creates a stopping point for LArRE arms along the rail.",
         "name": "Linear Rail Straight Station"
       },
       "structure": {
@@ -51219,7 +54075,7 @@ export default {
       }
     },
     "StructureRocketAvionics": {
-      "templateType": "StructureLogicDevice",
+      "templateType": "StructureLogicDeviceMemory",
       "prefab": {
         "prefab_name": "StructureRocketAvionics",
         "prefab_hash": 808389066,
@@ -51289,7 +54145,8 @@ export default {
           "TotalQuantity": "Read",
           "MinedQuantity": "Read",
           "NameHash": "Read",
-          "Altitude": "Read"
+          "Altitude": "Read",
+          "StackSize": "Read"
         },
         "modes": {
           "0": "Invalid",
@@ -51297,7 +54154,8 @@ export default {
           "2": "Mine",
           "3": "Survey",
           "4": "Discover",
-          "5": "Chart"
+          "5": "Chart",
+          "6": "Deploy"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -51319,6 +54177,172 @@ export default {
         "has_on_off_state": true,
         "has_open_state": false,
         "has_reagents": true
+      },
+      "memory": {
+        "instructions": {
+          "ChildResourceSite": {
+            "description": "| <color=grey>VALID ONLY AT ADDRESSES 54 TO 62</color>                     |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>RESOURCE_TYPE</color>                | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-23 </color>   | <color=yellow>DENSITY_RATIO_10</color>             | <color=orange>BYTE_8</color>     |\r\n| <color=red>24-31 </color>   | <color=yellow>RICHNESS_RATIO_10</color>            | <color=orange>BYTE_8</color>     |\r\n| <color=red>32-39 </color>   | <color=yellow>SIZE_RATIO_10</color>                | <color=orange>BYTE_8</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 54 TO 62                     |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | RESOURCE_TYPE                | BYTE_8     |\r\n| 16-23    | DENSITY_RATIO_10             | BYTE_8     |\r\n| 24-31    | RICHNESS_RATIO_10            | BYTE_8     |\r\n| 32-39    | SIZE_RATIO_10                | BYTE_8     |\r\n| 40-63    | UNUSED                       | 24         |",
+            "typ": "RocketAvionicsInstruction",
+            "value": 5,
+            "valid": [
+              54,
+              62
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "RESOURCE_TYPE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  40,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 24
+                }
+              }
+            ]
+          },
+          "ChildSurveySite": {
+            "description": "| <color=grey>VALID ONLY AT ADDRESSES 54 TO 62</color>                     |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>RESOURCE_TYPE</color>                | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-31 </color>   | <color=yellow>SURVEY_PROGRESS</color>              | <color=orange>USHORT_16</color>  |\r\n| <color=grey>32-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>32</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 54 TO 62                     |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | RESOURCE_TYPE                | BYTE_8     |\r\n| 16-31    | SURVEY_PROGRESS              | USHORT_16  |\r\n| 32-63    | UNUSED                       | 32         |",
+            "typ": "RocketAvionicsInstruction",
+            "value": 6,
+            "valid": [
+              54,
+              62
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "RESOURCE_TYPE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  31
+                ],
+                "name": "SURVEY_PROGRESS",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  32,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 32
+                }
+              }
+            ]
+          },
+          "JumpToAddress": {
+            "description": "| <color=grey>VALID ONLY AT ADDRESSES 0 TO 53</color>                      |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>STACK_ADDRESS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESSES 0 TO 53                      |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | STACK_ADDRESS                | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
+            "typ": "RocketAvionicsInstruction",
+            "value": 4,
+            "valid": [
+              0,
+              53
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "STACK_ADDRESS",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
+          },
+          "StackPointer": {
+            "description": "| <color=grey>VALID ONLY AT ADDRESS 63</color>                             |\r\n<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>INDEX</color>                        | <color=orange>USHORT_16</color>  |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| VALID ONLY AT ADDRESS 63                             |\r\n| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | INDEX                        | USHORT_16  |\r\n| 24-63    | UNUSED                       | 40         |",
+            "typ": "RocketAvionicsInstruction",
+            "value": 1,
+            "valid": [
+              63,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "INDEX",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
+          }
+        },
+        "memory_access": "ReadWrite",
+        "memory_size": 64
       }
     },
     "StructureRocketCelestialTracker": {
@@ -51345,7 +54369,8 @@ export default {
           "ReferenceId": "Read",
           "Index": "ReadWrite",
           "CelestialHash": "Read",
-          "NameHash": "Read"
+          "NameHash": "Read",
+          "StackSize": "Read"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -51457,6 +54482,7 @@ export default {
         },
         "logic_types": {
           "Power": "Read",
+          "Mode": "ReadWrite",
           "Error": "Read",
           "Setting": "ReadWrite",
           "On": "ReadWrite",
@@ -51464,7 +54490,12 @@ export default {
           "PrefabHash": "Read",
           "LineNumber": "ReadWrite",
           "ReferenceId": "Read",
-          "NameHash": "Read"
+          "NameHash": "Read",
+          "StackSize": "Read"
+        },
+        "modes": {
+          "0": "Number",
+          "1": "String"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -51473,7 +54504,7 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "Programmable Chip",
+            "name": "ProgrammableChip",
             "class": "ProgrammableChip",
             "index": 0
           }
@@ -51491,7 +54522,7 @@ export default {
         "has_atmosphere": false,
         "has_color_state": false,
         "has_lock_state": false,
-        "has_mode_state": false,
+        "has_mode_state": true,
         "has_on_off_state": true,
         "has_open_state": false,
         "has_reagents": false
@@ -51517,18 +54548,218 @@ export default {
         "logic_types": {
           "Power": "Read",
           "Error": "Read",
+          "Lock": "ReadWrite",
+          "Setting": "ReadWrite",
+          "Maximum": "Read",
+          "Ratio": "Read",
+          "On": "ReadWrite",
+          "RequiredPower": "Read",
+          "PrefabHash": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
+          "ReferenceId": "Read",
+          "NameHash": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": {},
+      "device": {
+        "connection_list": [
+          {
+            "typ": "Pipe",
+            "role": "Input"
+          },
+          {
+            "typ": "PowerAndData",
+            "role": "None"
+          }
+        ],
+        "has_activate_state": false,
+        "has_atmosphere": false,
+        "has_color_state": false,
+        "has_lock_state": true,
+        "has_mode_state": false,
+        "has_on_off_state": true,
+        "has_open_state": false,
+        "has_reagents": false
+      }
+    },
+    "StructureRocketFiltrationGas": {
+      "templateType": "StructureCircuitHolder",
+      "prefab": {
+        "prefab_name": "StructureRocketFiltrationGas",
+        "prefab_hash": -1061194321,
+        "desc": "Allows for basic gas filtration onboard a Rocket.",
+        "name": "Rocket Gas Filtration"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "logic": {
+        "logic_slot_types": {
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "FilterType": "Read",
+            "ReferenceId": "Read"
+          }
+        },
+        "logic_types": {
+          "Power": "Read",
+          "Mode": "ReadWrite",
+          "Error": "Read",
+          "Lock": "ReadWrite",
+          "Setting": "ReadWrite",
+          "Maximum": "Read",
+          "Ratio": "Read",
+          "On": "ReadWrite",
+          "RequiredPower": "Read",
+          "PrefabHash": "Read",
+          "PressureInput": "Read",
+          "TemperatureInput": "Read",
+          "RatioOxygenInput": "Read",
+          "RatioCarbonDioxideInput": "Read",
+          "RatioNitrogenInput": "Read",
+          "RatioPollutantInput": "Read",
+          "RatioVolatilesInput": "Read",
+          "RatioWaterInput": "Read",
+          "RatioNitrousOxideInput": "Read",
+          "TotalMolesInput": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "PressureOutput2": "Read",
+          "TemperatureOutput2": "Read",
+          "RatioOxygenOutput2": "Read",
+          "RatioCarbonDioxideOutput2": "Read",
+          "RatioNitrogenOutput2": "Read",
+          "RatioPollutantOutput2": "Read",
+          "RatioVolatilesOutput2": "Read",
+          "RatioWaterOutput2": "Read",
+          "RatioNitrousOxideOutput2": "Read",
+          "TotalMolesOutput2": "Read",
+          "CombustionInput": "Read",
+          "CombustionOutput": "Read",
+          "CombustionOutput2": "Read",
+          "RatioLiquidNitrogenInput": "Read",
+          "RatioLiquidNitrogenOutput": "Read",
+          "RatioLiquidNitrogenOutput2": "Read",
+          "RatioLiquidOxygenInput": "Read",
+          "RatioLiquidOxygenOutput": "Read",
+          "RatioLiquidOxygenOutput2": "Read",
+          "RatioLiquidVolatilesInput": "Read",
+          "RatioLiquidVolatilesOutput": "Read",
+          "RatioLiquidVolatilesOutput2": "Read",
+          "RatioSteamInput": "Read",
+          "RatioSteamOutput": "Read",
+          "RatioSteamOutput2": "Read",
+          "RatioLiquidCarbonDioxideInput": "Read",
+          "RatioLiquidCarbonDioxideOutput": "Read",
+          "RatioLiquidCarbonDioxideOutput2": "Read",
+          "RatioLiquidPollutantInput": "Read",
+          "RatioLiquidPollutantOutput": "Read",
+          "RatioLiquidPollutantOutput2": "Read",
+          "RatioLiquidNitrousOxideInput": "Read",
+          "RatioLiquidNitrousOxideOutput": "Read",
+          "RatioLiquidNitrousOxideOutput2": "Read",
+          "ReferenceId": "Read",
+          "NameHash": "Read"
+        },
+        "modes": {
+          "0": "Idle",
+          "1": "Active"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": true
+      },
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Gas Filter",
+            "class": "GasFilter",
+            "index": 0
+          }
+        }
+      },
+      "device": {
+        "connection_list": [
+          {
+            "typ": "Pipe",
+            "role": "Input"
+          },
+          {
+            "typ": "Pipe",
+            "role": "Output"
+          },
+          {
+            "typ": "Pipe",
+            "role": "Waste"
+          },
+          {
+            "typ": "PowerAndData",
+            "role": "None"
+          }
+        ],
+        "device_pins_length": 2,
+        "has_activate_state": false,
+        "has_atmosphere": false,
+        "has_color_state": false,
+        "has_lock_state": true,
+        "has_mode_state": true,
+        "has_on_off_state": true,
+        "has_open_state": false,
+        "has_reagents": false
+      }
+    },
+    "StructureRocketGasCollector": {
+      "templateType": "StructureLogicDevice",
+      "prefab": {
+        "prefab_name": "StructureRocketGasCollector",
+        "prefab_hash": -1720125735,
+        "desc": "When fitted on a Rocket, this device will allow the collection of gaseous atmospheres from various planetoids.",
+        "name": "Rocket Gas Collector"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "logic": {
+        "logic_slot_types": {},
+        "logic_types": {
+          "Power": "Read",
           "Pressure": "Read",
           "Temperature": "Read",
           "Lock": "ReadWrite",
-          "Setting": "ReadWrite",
           "RatioOxygen": "Read",
           "RatioCarbonDioxide": "Read",
           "RatioNitrogen": "Read",
           "RatioPollutant": "Read",
           "RatioVolatiles": "Read",
           "RatioWater": "Read",
-          "Maximum": "Read",
-          "Ratio": "Read",
           "On": "ReadWrite",
           "RequiredPower": "Read",
           "TotalMoles": "Read",
@@ -51557,7 +54788,7 @@ export default {
         "connection_list": [
           {
             "typ": "Pipe",
-            "role": "Input"
+            "role": "Output"
           },
           {
             "typ": "PowerAndData",
@@ -51587,8 +54818,28 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -51606,7 +54857,8 @@ export default {
           "ImportCount": "Read",
           "PrefabHash": "Read",
           "ReferenceId": "Read",
-          "NameHash": "Read"
+          "NameHash": "Read",
+          "StackSize": "Read"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -51616,7 +54868,7 @@ export default {
         "0": {
           "Direct": {
             "name": "Import",
-            "class": "Ingot",
+            "class": "None",
             "index": 0
           }
         },
@@ -51675,10 +54927,28 @@ export default {
           "ItemSolidFuel",
           "ItemSteelIngot",
           "ItemStelliteIngot",
-          "ItemWaspaloyIngot",
-          "ItemWasteIngot"
+          "ItemWaspaloyIngot"
         ],
-        "processed_reagents": []
+        "processed_reagents": [
+          -1493155787,
+          1731241392,
+          -1172078909,
+          478264742,
+          -409226641,
+          2019732679,
+          2003628602,
+          -586072179,
+          -626453759,
+          -666742878,
+          -2002530571,
+          556601662,
+          -1195893171,
+          687283565,
+          -1206542381,
+          1331613335,
+          -500544800,
+          1787814293
+        ]
       },
       "fabricator_info": {
         "tier": "Undefined",
@@ -51990,34 +55260,6 @@ export default {
             }
           },
           {
-            "target_prefab": "ItemKitRocketDatalink",
-            "target_prefab_hash": -1256996603,
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 2500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Electrum": 2.0,
-              "Solder": 3.0
-            }
-          },
-          {
             "target_prefab": "ItemKitRocketCelestialTracker",
             "target_prefab_hash": -303008602,
             "tier": "TierOne",
@@ -52043,6 +55285,34 @@ export default {
             "reagents": {
               "Electrum": 5.0,
               "Steel": 5.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitRocketDatalink",
+            "target_prefab_hash": -1256996603,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 2500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Electrum": 2.0,
+              "Solder": 3.0
             }
           },
           {
@@ -52245,6 +55515,34 @@ export default {
             }
           },
           {
+            "target_prefab": "ItemRocketDeepScanningHead",
+            "target_prefab_hash": 532208167,
+            "tier": "TierOne",
+            "time": 60.0,
+            "energy": 60000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 3.0,
+              "Gold": 2.0
+            }
+          },
+          {
             "target_prefab": "ItemRocketMiningDrillHead",
             "target_prefab_hash": 2109945337,
             "tier": "TierOne",
@@ -52268,7 +55566,7 @@ export default {
             },
             "count_types": 1,
             "reagents": {
-              "Iron": 20.0
+              "Steel": 20.0
             }
           },
           {
@@ -52295,8 +55593,8 @@ export default {
             },
             "count_types": 2,
             "reagents": {
-              "Iron": 10.0,
-              "Steel": 10.0
+              "Constantan": 10.0,
+              "Steel": 20.0
             }
           },
           {
@@ -52323,8 +55621,8 @@ export default {
             },
             "count_types": 2,
             "reagents": {
-              "Iron": 10.0,
-              "Steel": 10.0
+              "Electrum": 10.0,
+              "Steel": 20.0
             }
           },
           {
@@ -52349,10 +55647,9 @@ export default {
               "is_any_to_remove": false,
               "reagents": {}
             },
-            "count_types": 2,
+            "count_types": 1,
             "reagents": {
-              "Iron": 10.0,
-              "Steel": 10.0
+              "Steel": 20.0
             }
           },
           {
@@ -52379,8 +55676,8 @@ export default {
             },
             "count_types": 2,
             "reagents": {
-              "Invar": 5.0,
-              "Steel": 10.0
+              "Invar": 10.0,
+              "Steel": 20.0
             }
           },
           {
@@ -52407,8 +55704,8 @@ export default {
             },
             "count_types": 2,
             "reagents": {
-              "Invar": 5.0,
-              "Steel": 10.0
+              "Invar": 10.0,
+              "Steel": 20.0
             }
           },
           {
@@ -52435,8 +55732,8 @@ export default {
             },
             "count_types": 2,
             "reagents": {
-              "Invar": 5.0,
-              "Steel": 10.0
+              "Invar": 10.0,
+              "Steel": 20.0
             }
           },
           {
@@ -52465,7 +55762,7 @@ export default {
             "reagents": {
               "Copper": 10.0,
               "Gold": 5.0,
-              "Iron": 15.0
+              "Steel": 15.0
             }
           },
           {
@@ -52580,6 +55877,35 @@ export default {
             },
             "count_types": 2,
             "reagents": {
+              "Electrum": 5.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemKitRocketAtmospherics",
+            "target_prefab_hash": 925932637,
+            "tier": "TierOne",
+            "time": 30.0,
+            "energy": 9000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 20.0,
               "Electrum": 5.0,
               "Steel": 10.0
             }
@@ -52940,7 +56266,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureRocketMiner",
         "prefab_hash": -2087223687,
-        "desc": "Gathers available resources at the rocket's current space location.",
+        "desc": "Gathers available resources at the rocket's current space location. Mining also generates a small trickle of survey points at the location.",
         "name": "Rocket Miner"
       },
       "structure": {
@@ -52948,8 +56274,28 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -53020,7 +56366,17 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -53049,7 +56405,7 @@ export default {
         "connection_list": [
           {
             "typ": "PowerAndData",
-            "role": "None"
+            "role": "Output"
           }
         ],
         "has_activate_state": false,
@@ -53130,18 +56486,6 @@ export default {
         "has_reagents": false
       }
     },
-    "StructureRover": {
-      "templateType": "Structure",
-      "prefab": {
-        "prefab_name": "StructureRover",
-        "prefab_hash": 806513938,
-        "desc": "",
-        "name": "Rover Frame"
-      },
-      "structure": {
-        "small_grid": false
-      }
-    },
     "StructureSDBHopper": {
       "templateType": "StructureLogicDevice",
       "prefab": {
@@ -53155,7 +56499,17 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Open": "ReadWrite",
@@ -53212,7 +56566,17 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Open": "ReadWrite",
@@ -53274,8 +56638,28 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -53348,7 +56732,7 @@ export default {
       }
     },
     "StructureSatelliteDish": {
-      "templateType": "StructureLogicDevice",
+      "templateType": "StructureLogicDeviceMemory",
       "prefab": {
         "prefab_name": "StructureSatelliteDish",
         "prefab_hash": 439026183,
@@ -53382,7 +56766,8 @@ export default {
           "ContactTypeId": "Read",
           "ReferenceId": "Read",
           "BestContactFilter": "ReadWrite",
-          "NameHash": "Read"
+          "NameHash": "Read",
+          "StackSize": "Read"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -53408,6 +56793,800 @@ export default {
         "has_on_off_state": true,
         "has_open_state": false,
         "has_reagents": false
+      },
+      "memory": {
+        "instructions": {
+          "FilterGasContains": {
+            "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>GAS_TYPES_BITFLAG</color>            | <color=orange>UINT_32</color>    |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | GAS_TYPES_BITFLAG            | UINT_32    |\r\n| 40-63    | UNUSED                       | 24         |",
+            "typ": "TraderInstruction",
+            "value": 17,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  39
+                ],
+                "name": "GAS_TYPES_BITFLAG",
+                "typ": "UInt32"
+              },
+              {
+                "range": [
+                  40,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 24
+                }
+              }
+            ]
+          },
+          "FilterGasNotContains": {
+            "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>GAS_TYPES_BITFLAG</color>            | <color=orange>UINT_32</color>    |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | GAS_TYPES_BITFLAG            | UINT_32    |\r\n| 40-63    | UNUSED                       | 24         |",
+            "typ": "TraderInstruction",
+            "value": 18,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  39
+                ],
+                "name": "GAS_TYPES_BITFLAG",
+                "typ": "UInt32"
+              },
+              {
+                "range": [
+                  40,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 24
+                }
+              }
+            ]
+          },
+          "FilterPrefabHashEquals": {
+            "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | PREFAB_HASH                  | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |",
+            "typ": "TraderInstruction",
+            "value": 13,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  39
+                ],
+                "name": "PREFAB_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  40,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 24
+                }
+              }
+            ]
+          },
+          "FilterPrefabHashNotEquals": {
+            "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | PREFAB_HASH                  | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |",
+            "typ": "TraderInstruction",
+            "value": 14,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  39
+                ],
+                "name": "PREFAB_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  40,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 24
+                }
+              }
+            ]
+          },
+          "FilterQuantityCompare": {
+            "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>CONDITION_OPERATION</color>          | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-31 </color>   | <color=yellow>QUANTITY</color>                     | <color=orange>USHORT_16</color>  |\r\n| <color=grey>32-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>32</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | CONDITION_OPERATION          | BYTE_8     |\r\n| 16-31    | QUANTITY                     | USHORT_16  |\r\n| 32-63    | UNUSED                       | 32         |",
+            "typ": "TraderInstruction",
+            "value": 16,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "CONDITION_OPERATION",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  31
+                ],
+                "name": "QUANTITY",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  32,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 32
+                }
+              }
+            ]
+          },
+          "FilterSortingClassCompare": {
+            "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>CONDITION_OPERATION</color>          | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-31 </color>   | <color=yellow>SORTING_CLASS</color>                | <color=orange>USHORT_16</color>  |\r\n| <color=grey>32-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>32</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | CONDITION_OPERATION          | BYTE_8     |\r\n| 16-31    | SORTING_CLASS                | USHORT_16  |\r\n| 32-63    | UNUSED                       | 32         |",
+            "typ": "TraderInstruction",
+            "value": 15,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "CONDITION_OPERATION",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  31
+                ],
+                "name": "SORTING_CLASS",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  32,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 32
+                }
+              }
+            ]
+          },
+          "StrongestContactIdHash": {
+            "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-39 </color>    | <color=yellow>TRADER_ID_HASH</color>               | <color=orange>INT_32</color>     |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-39     | TRADER_ID_HASH               | INT_32     |\r\n| 40-63    | UNUSED                       | 24         |",
+            "typ": "TraderInstruction",
+            "value": 2,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  39
+                ],
+                "name": "TRADER_ID_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  40,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 24
+                }
+              }
+            ]
+          },
+          "StrongestContactMetaData": {
+            "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>SHUTTLE_TYPE</color>                 | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-23 </color>   | <color=yellow>CONTACT_TIER</color>                 | <color=orange>BYTE_8</color>     |\r\n| <color=red>24-31 </color>   | <color=yellow>CONTACTED</color>                    | <color=orange>BOOL_8</color>     |\r\n| <color=grey>32-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>32</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | SHUTTLE_TYPE                 | BYTE_8     |\r\n| 16-23    | CONTACT_TIER                 | BYTE_8     |\r\n| 24-31    | CONTACTED                    | BOOL_8     |\r\n| 32-63    | UNUSED                       | 32         |",
+            "typ": "TraderInstruction",
+            "value": 3,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "SHUTTLE_TYPE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  23
+                ],
+                "name": "CONTACT_TIER",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  24,
+                  31
+                ],
+                "name": "CONTACTED",
+                "typ": "Bool8"
+              },
+              {
+                "range": [
+                  32,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 32
+                }
+              }
+            ]
+          },
+          "StrongestContactSignalData": {
+            "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-23 </color>    | <color=yellow>WATTS_TO_RESOLVE</color>             | <color=orange>USHORT_16</color>  |\r\n| <color=red>24-39 </color>   | <color=yellow>LIFETIME</color>                     | <color=orange>USHORT_16</color>  |\r\n| <color=grey>40-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>24</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-23     | WATTS_TO_RESOLVE             | USHORT_16  |\r\n| 24-39    | LIFETIME                     | USHORT_16  |\r\n| 40-63    | UNUSED                       | 24         |",
+            "typ": "TraderInstruction",
+            "value": 4,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  23
+                ],
+                "name": "WATTS_TO_RESOLVE",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  24,
+                  39
+                ],
+                "name": "LIFETIME",
+                "typ": "UShort16"
+              },
+              {
+                "range": [
+                  40,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 24
+                }
+              }
+            ]
+          },
+          "TraderBuyGasData": {
+            "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY</color>                     | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>GAS_TYPES_BITFLAG</color>            | <color=orange>UINT_32</color>    |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY                     | BYTE_8     |\r\n| 16-47    | GAS_TYPES_BITFLAG            | UINT_32    |\r\n| 48-63    | UNUSED                       | 16         |",
+            "typ": "TraderInstruction",
+            "value": 9,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "QUANTITY",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  47
+                ],
+                "name": "GAS_TYPES_BITFLAG",
+                "typ": "UInt32"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
+          },
+          "TraderBuyThingChildData": {
+            "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY</color>                     | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY                     | BYTE_8     |\r\n| 16-47    | PREFAB_HASH                  | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |",
+            "typ": "TraderInstruction",
+            "value": 8,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "QUANTITY",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  47
+                ],
+                "name": "PREFAB_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
+          },
+          "TraderBuyThingData": {
+            "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY</color>                     | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY                     | BYTE_8     |\r\n| 16-47    | PREFAB_HASH                  | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |",
+            "typ": "TraderInstruction",
+            "value": 7,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "QUANTITY",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  47
+                ],
+                "name": "PREFAB_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
+          },
+          "TraderSellGasData": {
+            "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY</color>                     | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>GAS_TYPES_BITFLAG</color>            | <color=orange>UINT_32</color>    |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY                     | BYTE_8     |\r\n| 16-47    | GAS_TYPES_BITFLAG            | UINT_32    |\r\n| 48-63    | UNUSED                       | 16         |",
+            "typ": "TraderInstruction",
+            "value": 11,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "QUANTITY",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  47
+                ],
+                "name": "GAS_TYPES_BITFLAG",
+                "typ": "UInt32"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
+          },
+          "TraderSellThingChildData": {
+            "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY</color>                     | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY                     | BYTE_8     |\r\n| 16-47    | PREFAB_HASH                  | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |",
+            "typ": "TraderInstruction",
+            "value": 12,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "QUANTITY",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  47
+                ],
+                "name": "PREFAB_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
+          },
+          "TraderSellThingData": {
+            "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>QUANTITY</color>                     | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-47 </color>   | <color=yellow>PREFAB_HASH</color>                  | <color=orange>INT_32</color>     |\r\n| <color=grey>48-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>16</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | QUANTITY                     | BYTE_8     |\r\n| 16-47    | PREFAB_HASH                  | INT_32     |\r\n| 48-63    | UNUSED                       | 16         |",
+            "typ": "TraderInstruction",
+            "value": 10,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "QUANTITY",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  47
+                ],
+                "name": "PREFAB_HASH",
+                "typ": "Int32"
+              },
+              {
+                "range": [
+                  48,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 16
+                }
+              }
+            ]
+          },
+          "WriteTraderBuyData": {
+            "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>WRITE_INDEX</color>                  | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-23 </color>   | <color=yellow>WRITE_COUNT</color>                  | <color=orange>BYTE_8</color>     |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | WRITE_INDEX                  | BYTE_8     |\r\n| 16-23    | WRITE_COUNT                  | BYTE_8     |\r\n| 24-63    | UNUSED                       | 40         |",
+            "typ": "TraderInstruction",
+            "value": 5,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "WRITE_INDEX",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  23
+                ],
+                "name": "WRITE_COUNT",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
+          },
+          "WriteTraderData": {
+            "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>WRITE_INDEX</color>                  | <color=orange>BYTE_8</color>     |\r\n| <color=grey>16-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>48</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | WRITE_INDEX                  | BYTE_8     |\r\n| 16-63    | UNUSED                       | 48         |",
+            "typ": "TraderInstruction",
+            "value": 1,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "WRITE_INDEX",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 48
+                }
+              }
+            ]
+          },
+          "WriteTraderSellData": {
+            "description": "<color=white>| <color=red>0-7 </color>     | <color=yellow>OP_CODE</color>                      | <color=orange>BYTE_8</color>     |\r\n| <color=red>8-15 </color>    | <color=yellow>WRITE_INDEX</color>                  | <color=orange>BYTE_8</color>     |\r\n| <color=red>16-23 </color>   | <color=yellow>WRITE_COUNT</color>                  | <color=orange>BYTE_8</color>     |\r\n| <color=grey>24-63 </color>   | <color=grey>UNUSED</color>                       | <color=grey>40</color>         |</color>",
+            "description_stripped": "| 0-7      | OP_CODE                      | BYTE_8     |\r\n| 8-15     | WRITE_INDEX                  | BYTE_8     |\r\n| 16-23    | WRITE_COUNT                  | BYTE_8     |\r\n| 24-63    | UNUSED                       | 40         |",
+            "typ": "TraderInstruction",
+            "value": 6,
+            "valid": [
+              0,
+              null
+            ],
+            "parts": [
+              {
+                "range": [
+                  0,
+                  7
+                ],
+                "name": "OP_CODE",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  8,
+                  15
+                ],
+                "name": "WRITE_INDEX",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  16,
+                  23
+                ],
+                "name": "WRITE_COUNT",
+                "typ": "Byte8"
+              },
+              {
+                "range": [
+                  24,
+                  63
+                ],
+                "name": "UNUSED",
+                "typ": {
+                  "Unused": 40
+                }
+              }
+            ]
+          }
+        },
+        "memory_access": "ReadWrite",
+        "memory_size": 32
       }
     },
     "StructureSecurityPrinter": {
@@ -53423,8 +57602,28 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -53442,7 +57641,8 @@ export default {
           "ImportCount": "Read",
           "PrefabHash": "Read",
           "ReferenceId": "Read",
-          "NameHash": "Read"
+          "NameHash": "Read",
+          "StackSize": "Read"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -53452,7 +57652,7 @@ export default {
         "0": {
           "Direct": {
             "name": "Import",
-            "class": "Ingot",
+            "class": "None",
             "index": 0
           }
         },
@@ -53511,10 +57711,28 @@ export default {
           "ItemSolidFuel",
           "ItemSteelIngot",
           "ItemStelliteIngot",
-          "ItemWaspaloyIngot",
-          "ItemWasteIngot"
+          "ItemWaspaloyIngot"
         ],
-        "processed_reagents": []
+        "processed_reagents": [
+          -1493155787,
+          1731241392,
+          -1172078909,
+          478264742,
+          -409226641,
+          2019732679,
+          2003628602,
+          -586072179,
+          -626453759,
+          -666742878,
+          -2002530571,
+          556601662,
+          -1195893171,
+          687283565,
+          -1206542381,
+          1331613335,
+          -500544800,
+          1787814293
+        ]
       },
       "fabricator_info": {
         "tier": "Undefined",
@@ -53897,122 +58115,6 @@ export default {
             }
           },
           {
-            "target_prefab": "Handgun",
-            "target_prefab_hash": 247238062,
-            "tier": "TierOne",
-            "time": 120.0,
-            "energy": 3000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Nickel": 10.0,
-              "Steel": 30.0
-            }
-          },
-          {
-            "target_prefab": "HandgunMagazine",
-            "target_prefab_hash": 1254383185,
-            "tier": "TierOne",
-            "time": 60.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 3.0,
-              "Lead": 1.0,
-              "Steel": 3.0
-            }
-          },
-          {
-            "target_prefab": "ItemAmmoBox",
-            "target_prefab_hash": -9559091,
-            "tier": "TierOne",
-            "time": 120.0,
-            "energy": 3000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 30.0,
-              "Lead": 50.0,
-              "Steel": 30.0
-            }
-          },
-          {
-            "target_prefab": "ItemGrenade",
-            "target_prefab_hash": 1544275894,
-            "tier": "TierOne",
-            "time": 90.0,
-            "energy": 2900.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Copper": 15.0,
-              "Gold": 1.0,
-              "Lead": 25.0,
-              "Steel": 25.0
-            }
-          },
-          {
             "target_prefab": "ItemExplosive",
             "target_prefab_hash": 235361649,
             "tier": "TierTwo",
@@ -54068,125 +58170,6 @@ export default {
               "Gold": 1.0,
               "Iron": 1.0,
               "Silicon": 3.0
-            }
-          },
-          {
-            "target_prefab": "WeaponPistolEnergy",
-            "target_prefab_hash": -385323479,
-            "tier": "TierTwo",
-            "time": 120.0,
-            "energy": 3000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Electrum": 20.0,
-              "Gold": 10.0,
-              "Solder": 10.0,
-              "Steel": 10.0
-            }
-          },
-          {
-            "target_prefab": "WeaponRifleEnergy",
-            "target_prefab_hash": 1154745374,
-            "tier": "TierTwo",
-            "time": 240.0,
-            "energy": 10000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 6,
-            "reagents": {
-              "Constantan": 10.0,
-              "Electrum": 20.0,
-              "Gold": 10.0,
-              "Invar": 10.0,
-              "Solder": 10.0,
-              "Steel": 20.0
-            }
-          },
-          {
-            "target_prefab": "FireArmSMG",
-            "target_prefab_hash": -86315541,
-            "tier": "TierOne",
-            "time": 120.0,
-            "energy": 3000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 2,
-            "reagents": {
-              "Nickel": 10.0,
-              "Steel": 30.0
-            }
-          },
-          {
-            "target_prefab": "SMGMagazine",
-            "target_prefab_hash": -256607540,
-            "tier": "TierOne",
-            "time": 60.0,
-            "energy": 500.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 3.0,
-              "Lead": 1.0,
-              "Steel": 3.0
             }
           }
         ]
@@ -54554,35 +58537,35 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 4
           }
@@ -54781,105 +58764,105 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 5
           }
         },
         "6": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 6
           }
         },
         "7": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 7
           }
         },
         "8": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 8
           }
         },
         "9": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 9
           }
         },
         "10": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 10
           }
         },
         "11": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 11
           }
         },
         "12": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 12
           }
         },
         "13": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 13
           }
         },
         "14": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 14
           }
@@ -54947,14 +58930,14 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
@@ -55110,70 +59093,70 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 5
           }
         },
         "6": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 6
           }
         },
         "7": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 7
           }
         },
         "8": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 8
           }
         },
         "9": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 9
           }
@@ -55196,7 +59179,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureShower",
         "prefab_hash": -775128944,
-        "desc": "",
+        "desc": "The fastest way to remove low hygiene. You must remove your <link=ThingUniformOrangeJumpSuit><color=green>Jump Suit (Orange)</color></link> and <link=ThingItemEvaSuit><color=green>Eva Suit</color></link> when using the <link=ThingStructureShower><color=green>Shower</color></link>. It outputs <link=GasPollutedWater><color=#44AD83>Polluted Water</color></link> when in use. <link=GasPollutedWater><color=#44AD83>Polluted Water</color></link> will interfere with many other <link=GasWater><color=#44AD83>Water</color></link> systems so make sure to collect and treat it using a <link=ThingStructureWaterPurifier><color=green>Water Purifier</color></link> or dump it.",
         "name": "Shower"
       },
       "structure": {
@@ -55245,7 +59228,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureShowerPowered",
         "prefab_hash": -1081797501,
-        "desc": "",
+        "desc": "The fastest way to remove low hygiene. You must remove your <link=ThingUniformOrangeJumpSuit><color=green>Jump Suit (Orange)</color></link> and <link=ThingItemEvaSuit><color=green>Eva Suit</color></link> when using the <link=ThingStructureShowerPowered><color=green>Shower (Powered)</color></link>. It outputs <link=GasPollutedWater><color=#44AD83>Polluted Water</color></link> when in use. <link=GasPollutedWater><color=#44AD83>Polluted Water</color></link> will interfere with many other <link=GasWater><color=#44AD83>Water</color></link> systems so make sure to collect and treat it using a <link=ThingStructureWaterPurifier><color=green>Water Purifier</color></link> or dump it.",
         "name": "Shower (Powered)"
       },
       "structure": {
@@ -55522,7 +59505,17 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -55542,9 +59535,11 @@ export default {
           "NameHash": "Read"
         },
         "modes": {
-          "0": "Safe",
-          "1": "Unsafe",
-          "2": "Unpowered"
+          "0": "Standby",
+          "1": "Error",
+          "2": "Inactive",
+          "3": "Occupied",
+          "4": "Dead"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -55601,7 +59596,17 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -55621,9 +59626,11 @@ export default {
           "NameHash": "Read"
         },
         "modes": {
-          "0": "Safe",
-          "1": "Unsafe",
-          "2": "Unpowered"
+          "0": "Standby",
+          "1": "Error",
+          "2": "Inactive",
+          "3": "Occupied",
+          "4": "Dead"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -55680,7 +59687,17 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -55700,9 +59717,11 @@ export default {
           "NameHash": "Read"
         },
         "modes": {
-          "0": "Safe",
-          "1": "Unsafe",
-          "2": "Unpowered"
+          "0": "Standby",
+          "1": "Error",
+          "2": "Inactive",
+          "3": "Occupied",
+          "4": "Dead"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -55755,7 +59774,17 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -56541,7 +60570,10 @@ export default {
           "ItemCoalOre",
           "ItemSolidFuel"
         ],
-        "processed_reagents": []
+        "processed_reagents": [
+          1582746610,
+          2003628602
+        ]
       }
     },
     "StructureSorter": {
@@ -56894,7 +60926,7 @@ export default {
         },
         "2": {
           "Direct": {
-            "name": "Export",
+            "name": "Processing",
             "class": "None",
             "index": 2
           }
@@ -57074,7 +61106,21 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Pressure": "Read",
+            "Temperature": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "Volume": "Read",
+            "Open": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -57514,210 +61560,210 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
         },
         "2": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 2
           }
         },
         "3": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 3
           }
         },
         "4": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 4
           }
         },
         "5": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 5
           }
         },
         "6": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 6
           }
         },
         "7": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 7
           }
         },
         "8": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 8
           }
         },
         "9": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 9
           }
         },
         "10": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 10
           }
         },
         "11": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 11
           }
         },
         "12": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 12
           }
         },
         "13": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 13
           }
         },
         "14": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 14
           }
         },
         "15": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 15
           }
         },
         "16": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 16
           }
         },
         "17": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 17
           }
         },
         "18": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 18
           }
         },
         "19": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 19
           }
         },
         "20": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 20
           }
         },
         "21": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 21
           }
         },
         "22": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 22
           }
         },
         "23": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 23
           }
         },
         "24": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 24
           }
         },
         "25": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 25
           }
         },
         "26": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 26
           }
         },
         "27": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 27
           }
         },
         "28": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 28
           }
         },
         "29": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 29
           }
@@ -57740,8 +61786,274 @@ export default {
       "prefab": {
         "prefab_name": "StructureSuitStorage",
         "prefab_hash": 255034731,
-        "desc": "As tidy as it is useful, the suit storage rack holds an <link=ThingItemEvaSuit><color=green>Eva Suit</color></link>, <link=ThingItemSpaceHelmet><color=green>Space Helmet</color></link> and a <link=ThingItemJetpackBasic><color=green>Jetpack Basic</color></link>.\nWhen powered and connected to <link=ThingOxygen><color=green><N:EN:Oxygen></color></link> and <link=ThingPropellant><color=green><N:EN:Propellant></color></link>, it will recharge the suit's batteries, refill the <link=ThingItemGasCanisterOxygen><color=green>Canister (Oxygen)</color></link> and your <link=ThingItemGasFilterNitrogen><color=green>Filter (Nitrogen)</color></link> <link=SlotGasCanister><color=orange>Gas Canister</color></link>. The wastetank will be pumped out to the pipe connected to the waste outlet.\nAll the rack's pipes must be connected or the unit will show an error state, but it will still charge the battery.",
+        "desc": "As tidy as it is useful, the suit storage rack holds an <link=ThingItemEvaSuit><color=green>Eva Suit</color></link>, <link=ThingItemSpaceHelmet><color=green>Space Helmet</color></link> and a <link=ThingItemJetpackBasic><color=green>Jetpack Basic</color></link>.\nWhen powered and connected to <link=GasOxygen><color=#44AD83>Oxygen</color></link> and <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>, it will recharge the suit's batteries, refill the <link=ThingItemGasCanisterOxygen><color=green>Canister (Oxygen)</color></link> and your <link=ThingItemGasCanisterNitrogen><color=green>Canister (Nitrogen)</color></link> <link=SlotGasCanister><color=orange>Gas Canister</color></link>. The wastetank will be pumped out to the pipe connected to the waste outlet.\nAll the rack's pipes must be connected or the unit will show an error state, but it will still charge the battery.",
         "name": "Suit Storage"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "logic": {
+        "logic_slot_types": {
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Pressure": "Read",
+            "Charge": "Read",
+            "ChargeRatio": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "Open": "ReadWrite",
+            "On": "ReadWrite",
+            "Lock": "ReadWrite",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Pressure": "Read",
+            "Charge": "Read",
+            "ChargeRatio": "Read",
+            "Class": "Read",
+            "PressureWaste": "Read",
+            "PressureAir": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "2": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Pressure": "Read",
+            "Charge": "Read",
+            "ChargeRatio": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
+        },
+        "logic_types": {
+          "Power": "Read",
+          "Error": "Read",
+          "Setting": "ReadWrite",
+          "Maximum": "Read",
+          "Ratio": "Read",
+          "On": "ReadWrite",
+          "RequiredPower": "Read",
+          "PrefabHash": "Read",
+          "ReferenceId": "Read",
+          "NameHash": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Helmet",
+            "class": "Helmet",
+            "index": 0
+          }
+        },
+        "1": {
+          "Direct": {
+            "name": "Suit",
+            "class": "Suit",
+            "index": 1
+          }
+        },
+        "2": {
+          "Direct": {
+            "name": "Back",
+            "class": "Back",
+            "index": 2
+          }
+        }
+      },
+      "device": {
+        "connection_list": [
+          {
+            "typ": "Data",
+            "role": "None"
+          },
+          {
+            "typ": "Power",
+            "role": "None"
+          },
+          {
+            "typ": "Pipe",
+            "role": "Input"
+          },
+          {
+            "typ": "Pipe",
+            "role": "Input2"
+          },
+          {
+            "typ": "Pipe",
+            "role": "Output"
+          }
+        ],
+        "has_activate_state": false,
+        "has_atmosphere": false,
+        "has_color_state": false,
+        "has_lock_state": false,
+        "has_mode_state": false,
+        "has_on_off_state": true,
+        "has_open_state": false,
+        "has_reagents": false
+      }
+    },
+    "StructureSuitStorageFrame": {
+      "templateType": "StructureLogicDevice",
+      "prefab": {
+        "prefab_name": "StructureSuitStorageFrame",
+        "prefab_hash": -504802150,
+        "desc": "As tidy as it is useful, the suit storage rack holds an <link=ThingItemEvaSuit><color=green>Eva Suit</color></link>, <link=ThingItemSpaceHelmet><color=green>Space Helmet</color></link> and a <link=ThingItemJetpackBasic><color=green>Jetpack Basic</color></link>. \nWhen powered and connected to <link=GasOxygen><color=#44AD83>Oxygen</color></link> and <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>, it will recharge the suit's batteries, refill the <link=ThingItemGasCanisterOxygen><color=green>Canister (Oxygen)</color></link> and your <link=ThingItemGasCanisterNitrogen><color=green>Canister (Nitrogen)</color></link> <link=SlotGasCanister><color=orange>Gas Canister</color></link>. The wastetank will be pumped out to the pipe connected to the waste outlet.\nAll the rack's pipes must be connected or the unit will show an error state, but it will still charge the battery.",
+        "name": "Suit Storage Frame"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "logic": {
+        "logic_slot_types": {
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Pressure": "Read",
+            "Charge": "Read",
+            "ChargeRatio": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "Open": "ReadWrite",
+            "On": "ReadWrite",
+            "Lock": "ReadWrite",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Pressure": "Read",
+            "Charge": "Read",
+            "ChargeRatio": "Read",
+            "Class": "Read",
+            "PressureWaste": "Read",
+            "PressureAir": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "2": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Pressure": "Read",
+            "Charge": "Read",
+            "ChargeRatio": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
+        },
+        "logic_types": {
+          "Power": "Read",
+          "Error": "Read",
+          "Setting": "ReadWrite",
+          "Maximum": "Read",
+          "Ratio": "Read",
+          "On": "ReadWrite",
+          "RequiredPower": "Read",
+          "PrefabHash": "Read",
+          "ReferenceId": "Read",
+          "NameHash": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Helmet",
+            "class": "Helmet",
+            "index": 0
+          }
+        },
+        "1": {
+          "Direct": {
+            "name": "Suit",
+            "class": "Suit",
+            "index": 1
+          }
+        },
+        "2": {
+          "Direct": {
+            "name": "Back",
+            "class": "Back",
+            "index": 2
+          }
+        }
+      },
+      "device": {
+        "connection_list": [
+          {
+            "typ": "Data",
+            "role": "None"
+          },
+          {
+            "typ": "Power",
+            "role": "None"
+          },
+          {
+            "typ": "Pipe",
+            "role": "Input"
+          },
+          {
+            "typ": "Pipe",
+            "role": "Input2"
+          },
+          {
+            "typ": "Pipe",
+            "role": "Output"
+          }
+        ],
+        "has_activate_state": false,
+        "has_atmosphere": false,
+        "has_color_state": false,
+        "has_lock_state": false,
+        "has_mode_state": false,
+        "has_on_off_state": true,
+        "has_open_state": false,
+        "has_reagents": false
+      }
+    },
+    "StructureSuitStorageLocker": {
+      "templateType": "StructureLogicDevice",
+      "prefab": {
+        "prefab_name": "StructureSuitStorageLocker",
+        "prefab_hash": -346183425,
+        "desc": "As tidy as it is useful, the suit storage rack holds an <link=ThingItemEvaSuit><color=green>Eva Suit</color></link>, <link=ThingItemSpaceHelmet><color=green>Space Helmet</color></link> and a <link=ThingItemJetpackBasic><color=green>Jetpack Basic</color></link>.\nWhen powered and connected to <link=GasOxygen><color=#44AD83>Oxygen</color></link> and <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>, it will recharge the suit's batteries, refill the <link=ThingItemGasCanisterOxygen><color=green>Canister (Oxygen)</color></link> and your <link=ThingItemGasCanisterNitrogen><color=green>Canister (Nitrogen)</color></link> <link=SlotGasCanister><color=orange>Gas Canister</color></link>. The wastetank will be pumped out to the pipe connected to the waste outlet.\nAll the rack's pipes must be connected or the unit will show an error state, but it will still charge the battery.",
+        "name": "Suit Storage Locker"
       },
       "structure": {
         "small_grid": true
@@ -57903,6 +62215,17 @@ export default {
           "RatioNitrousOxide": "Read",
           "PrefabHash": "Read",
           "Combustion": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "RatioLiquidNitrogen": "Read",
           "VolumeOfLiquid": "Read",
           "RatioLiquidOxygen": "Read",
@@ -57978,6 +62301,17 @@ export default {
           "RatioNitrousOxide": "Read",
           "PrefabHash": "Read",
           "Combustion": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "RatioLiquidNitrogen": "Read",
           "VolumeOfLiquid": "Read",
           "RatioLiquidOxygen": "Read",
@@ -58018,56 +62352,6 @@ export default {
         "has_reagents": false
       }
     },
-    "StructureTankConnector": {
-      "templateType": "StructureSlots",
-      "prefab": {
-        "prefab_name": "StructureTankConnector",
-        "prefab_hash": -1276379454,
-        "desc": "Tank connectors are basic mounting devices that allow you to attach a <link=ThingDynamicGasCanisterEmpty><color=green>Portable Gas Tank</color></link> to a gas pipe network.",
-        "name": "Tank Connector"
-      },
-      "structure": {
-        "small_grid": true
-      },
-      "thermal_info": {
-        "convection_factor": 0.010000001,
-        "radiation_factor": 0.0005
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "",
-            "class": "None",
-            "index": 0
-          }
-        }
-      }
-    },
-    "StructureTankConnectorLiquid": {
-      "templateType": "StructureSlots",
-      "prefab": {
-        "prefab_name": "StructureTankConnectorLiquid",
-        "prefab_hash": 1331802518,
-        "desc": "These basic mounting devices allow you to attach a <link=ThingDynamicLiquidCanisterEmpty><color=green>Portable Liquid Tank</color></link> to a liquid pipe network.",
-        "name": "Liquid Tank Connector"
-      },
-      "structure": {
-        "small_grid": true
-      },
-      "thermal_info": {
-        "convection_factor": 0.010000001,
-        "radiation_factor": 0.0005
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Portable Slot",
-            "class": "None",
-            "index": 0
-          }
-        }
-      }
-    },
     "StructureTankSmall": {
       "templateType": "StructureLogicDevice",
       "prefab": {
@@ -58103,6 +62387,17 @@ export default {
           "RatioNitrousOxide": "Read",
           "PrefabHash": "Read",
           "Combustion": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "RatioLiquidNitrogen": "Read",
           "VolumeOfLiquid": "Read",
           "RatioLiquidOxygen": "Read",
@@ -58178,6 +62473,17 @@ export default {
           "RatioNitrousOxide": "Read",
           "PrefabHash": "Read",
           "Combustion": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "RatioLiquidNitrogen": "Read",
           "VolumeOfLiquid": "Read",
           "RatioLiquidOxygen": "Read",
@@ -58253,6 +62559,17 @@ export default {
           "RatioNitrousOxide": "Read",
           "PrefabHash": "Read",
           "Combustion": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "RatioLiquidNitrogen": "Read",
           "VolumeOfLiquid": "Read",
           "RatioLiquidOxygen": "Read",
@@ -58328,6 +62645,17 @@ export default {
           "RatioNitrousOxide": "Read",
           "PrefabHash": "Read",
           "Combustion": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "RatioLiquidNitrogen": "Read",
           "VolumeOfLiquid": "Read",
           "RatioLiquidOxygen": "Read",
@@ -58381,8 +62709,28 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -58400,7 +62748,8 @@ export default {
           "ImportCount": "Read",
           "PrefabHash": "Read",
           "ReferenceId": "Read",
-          "NameHash": "Read"
+          "NameHash": "Read",
+          "StackSize": "Read"
         },
         "transmission_receiver": false,
         "wireless_logic": false,
@@ -58410,7 +62759,7 @@ export default {
         "0": {
           "Direct": {
             "name": "Import",
-            "class": "Ingot",
+            "class": "None",
             "index": 0
           }
         },
@@ -58469,10 +62818,28 @@ export default {
           "ItemSolidFuel",
           "ItemSteelIngot",
           "ItemStelliteIngot",
-          "ItemWaspaloyIngot",
-          "ItemWasteIngot"
+          "ItemWaspaloyIngot"
         ],
-        "processed_reagents": []
+        "processed_reagents": [
+          -1493155787,
+          1731241392,
+          -1172078909,
+          478264742,
+          -409226641,
+          2019732679,
+          2003628602,
+          -586072179,
+          -626453759,
+          -666742878,
+          -2002530571,
+          556601662,
+          -1195893171,
+          687283565,
+          -1206542381,
+          1331613335,
+          -500544800,
+          1787814293
+        ]
       },
       "fabricator_info": {
         "tier": "Undefined",
@@ -59452,62 +63819,6 @@ export default {
             }
           },
           {
-            "target_prefab": "ItemTerrainManipulator",
-            "target_prefab_hash": 111280987,
-            "tier": "TierOne",
-            "time": 15.0,
-            "energy": 600.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 3,
-            "reagents": {
-              "Copper": 3.0,
-              "Gold": 2.0,
-              "Iron": 5.0
-            }
-          },
-          {
-            "target_prefab": "ItemDirtCanister",
-            "target_prefab_hash": 902565329,
-            "tier": "TierOne",
-            "time": 5.0,
-            "energy": 400.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 1,
-            "reagents": {
-              "Iron": 3.0
-            }
-          },
-          {
             "target_prefab": "ItemWireCutters",
             "target_prefab_hash": 1535854074,
             "tier": "TierOne",
@@ -59707,6 +64018,36 @@ export default {
             }
           },
           {
+            "target_prefab": "ItemLiquidVacuum",
+            "target_prefab_hash": -1152751269,
+            "tier": "TierTwo",
+            "time": 30.0,
+            "energy": 2500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Electrum": 5.0,
+              "Invar": 10.0,
+              "Solder": 10.0,
+              "Steel": 10.0
+            }
+          },
+          {
             "target_prefab": "ItemMiningDrillHeavy",
             "target_prefab_hash": -1663349918,
             "tier": "TierTwo",
@@ -59875,8 +64216,152 @@ export default {
             }
           },
           {
+            "target_prefab": "ItemTerrainManipulator",
+            "target_prefab_hash": 111280987,
+            "tier": "TierOne",
+            "time": 15.0,
+            "energy": 1800.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Electrum": 2.0,
+              "Invar": 1.0,
+              "Solder": 5.0,
+              "Steel": 10.0
+            }
+          },
+          {
+            "target_prefab": "ItemDirtCanister",
+            "target_prefab_hash": 902565329,
+            "tier": "TierOne",
+            "time": 15.0,
+            "energy": 1800.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Electrum": 2.0,
+              "Iron": 10.0,
+              "Solder": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemGasMask",
+            "target_prefab_hash": 1716878560,
+            "tier": "TierOne",
+            "time": 15.0,
+            "energy": 400.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Silicon": 1.0,
+              "Steel": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemHardHat",
+            "target_prefab_hash": -1306016444,
+            "tier": "TierOne",
+            "time": 15.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 3,
+            "reagents": {
+              "Copper": 2.0,
+              "Gold": 2.0,
+              "Silicon": 2.0
+            }
+          },
+          {
             "target_prefab": "ItemSpaceHelmet",
             "target_prefab_hash": 714830451,
+            "tier": "TierOne",
+            "time": 15.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 2.0,
+              "Gold": 2.0
+            }
+          },
+          {
+            "target_prefab": "ItemIcarusHelmet",
+            "target_prefab_hash": -1555582482,
             "tier": "TierOne",
             "time": 15.0,
             "energy": 500.0,
@@ -59988,6 +64473,34 @@ export default {
             }
           },
           {
+            "target_prefab": "ItemIcarusSuit",
+            "target_prefab_hash": -2112405954,
+            "tier": "TierOne",
+            "time": 5.0,
+            "energy": 500.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 2,
+            "reagents": {
+              "Copper": 2.0,
+              "Iron": 5.0
+            }
+          },
+          {
             "target_prefab": "ItemToolBelt",
             "target_prefab_hash": -355127880,
             "tier": "TierOne",
@@ -60040,68 +64553,6 @@ export default {
             "reagents": {
               "Constantan": 5.0,
               "Iron": 3.0
-            }
-          },
-          {
-            "target_prefab": "WeaponPistolEnergy",
-            "target_prefab_hash": -385323479,
-            "tier": "TierTwo",
-            "time": 120.0,
-            "energy": 3000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 4,
-            "reagents": {
-              "Electrum": 20.0,
-              "Gold": 10.0,
-              "Solder": 10.0,
-              "Steel": 10.0
-            }
-          },
-          {
-            "target_prefab": "WeaponRifleEnergy",
-            "target_prefab_hash": 1154745374,
-            "tier": "TierTwo",
-            "time": 240.0,
-            "energy": 10000.0,
-            "temperature": {
-              "start": 1.0,
-              "stop": 80000.0,
-              "is_valid": false
-            },
-            "pressure": {
-              "start": 0.0,
-              "stop": 1000000.0,
-              "is_valid": false
-            },
-            "required_mix": {
-              "rule": 0,
-              "is_any": true,
-              "is_any_to_remove": false,
-              "reagents": {}
-            },
-            "count_types": 6,
-            "reagents": {
-              "Constantan": 10.0,
-              "Electrum": 20.0,
-              "Gold": 10.0,
-              "Invar": 10.0,
-              "Solder": 10.0,
-              "Steel": 20.0
             }
           },
           {
@@ -60837,6 +65288,66 @@ export default {
             }
           },
           {
+            "target_prefab": "ItemSuitHARM",
+            "target_prefab_hash": -347191982,
+            "tier": "TierTwo",
+            "time": 120.0,
+            "energy": 150000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Astroloy": 20.0,
+              "Hastelloy": 20.0,
+              "Steel": 5.0,
+              "Stellite": 20.0
+            }
+          },
+          {
+            "target_prefab": "ItemSuitHelmetHARM",
+            "target_prefab_hash": -981522067,
+            "tier": "TierTwo",
+            "time": 50.0,
+            "energy": 75000.0,
+            "temperature": {
+              "start": 1.0,
+              "stop": 80000.0,
+              "is_valid": false
+            },
+            "pressure": {
+              "start": 0.0,
+              "stop": 1000000.0,
+              "is_valid": false
+            },
+            "required_mix": {
+              "rule": 0,
+              "is_any": true,
+              "is_any_to_remove": false,
+              "reagents": {}
+            },
+            "count_types": 4,
+            "reagents": {
+              "Astroloy": 5.0,
+              "Gold": 5.0,
+              "Steel": 5.0,
+              "Stellite": 5.0
+            }
+          },
+          {
             "target_prefab": "ItemReusableFireExtinguisher",
             "target_prefab_hash": -1773192190,
             "tier": "TierOne",
@@ -61030,12 +65541,11 @@ export default {
               "is_any_to_remove": false,
               "reagents": {}
             },
-            "count_types": 4,
+            "count_types": 3,
             "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0,
-              "Iron": 5.0,
-              "Silicon": 5.0
+              "Electrum": 5.0,
+              "Silicon": 5.0,
+              "Waspaloy": 5.0
             }
           },
           {
@@ -61062,10 +65572,10 @@ export default {
             },
             "count_types": 4,
             "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0,
+              "Electrum": 5.0,
               "Iron": 5.0,
-              "Silicon": 5.0
+              "Silicon": 5.0,
+              "Waspaloy": 5.0
             }
           },
           {
@@ -61092,10 +65602,10 @@ export default {
             },
             "count_types": 4,
             "reagents": {
-              "Copper": 5.0,
-              "Gold": 5.0,
+              "Electrum": 5.0,
               "Iron": 5.0,
-              "Silicon": 5.0
+              "Silicon": 5.0,
+              "Waspaloy": 5.0
             }
           },
           {
@@ -61646,76 +66156,6 @@ export default {
         "memory_size": 64
       }
     },
-    "StructureTorpedoRack": {
-      "templateType": "StructureSlots",
-      "prefab": {
-        "prefab_name": "StructureTorpedoRack",
-        "prefab_hash": 1473807953,
-        "desc": "",
-        "name": "Torpedo Rack"
-      },
-      "structure": {
-        "small_grid": true
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Torpedo",
-            "class": "Torpedo",
-            "index": 0
-          }
-        },
-        "1": {
-          "Direct": {
-            "name": "Torpedo",
-            "class": "Torpedo",
-            "index": 1
-          }
-        },
-        "2": {
-          "Direct": {
-            "name": "Torpedo",
-            "class": "Torpedo",
-            "index": 2
-          }
-        },
-        "3": {
-          "Direct": {
-            "name": "Torpedo",
-            "class": "Torpedo",
-            "index": 3
-          }
-        },
-        "4": {
-          "Direct": {
-            "name": "Torpedo",
-            "class": "Torpedo",
-            "index": 4
-          }
-        },
-        "5": {
-          "Direct": {
-            "name": "Torpedo",
-            "class": "Torpedo",
-            "index": 5
-          }
-        },
-        "6": {
-          "Direct": {
-            "name": "Torpedo",
-            "class": "Torpedo",
-            "index": 6
-          }
-        },
-        "7": {
-          "Direct": {
-            "name": "Torpedo",
-            "class": "Torpedo",
-            "index": 7
-          }
-        }
-      }
-    },
     "StructureTraderWaypoint": {
       "templateType": "StructureLogicDevice",
       "prefab": {
@@ -61868,58 +66308,6 @@ export default {
         "has_reagents": false
       }
     },
-    "StructureTransformerMediumReversed": {
-      "templateType": "StructureLogicDevice",
-      "prefab": {
-        "prefab_name": "StructureTransformerMediumReversed",
-        "prefab_hash": 833912764,
-        "desc": "Transformers control the maximum power that will flow down a sub-network of cables, to prevent overloading <link=ElectronicPage><color=#0080FFFF>electrical</color></link> systems. \nMedium transformers are used in larger setups where more than 5000W is required, with output that can be set to a maximum of 25000W.\nNote that transformers also operate as data isolators, preventing data flowing into any network beyond it.",
-        "name": "Transformer Reversed (Medium)"
-      },
-      "structure": {
-        "small_grid": true
-      },
-      "logic": {
-        "logic_slot_types": {},
-        "logic_types": {
-          "Power": "Read",
-          "Error": "Read",
-          "Lock": "ReadWrite",
-          "Setting": "ReadWrite",
-          "Maximum": "Read",
-          "Ratio": "Read",
-          "On": "ReadWrite",
-          "RequiredPower": "Read",
-          "PrefabHash": "Read",
-          "ReferenceId": "Read",
-          "NameHash": "Read"
-        },
-        "transmission_receiver": false,
-        "wireless_logic": false,
-        "circuit_holder": false
-      },
-      "slots": {},
-      "device": {
-        "connection_list": [
-          {
-            "typ": "Power",
-            "role": "Output"
-          },
-          {
-            "typ": "PowerAndData",
-            "role": "Input"
-          }
-        ],
-        "has_activate_state": false,
-        "has_atmosphere": false,
-        "has_color_state": false,
-        "has_lock_state": true,
-        "has_mode_state": false,
-        "has_on_off_state": true,
-        "has_open_state": false,
-        "has_reagents": false
-      }
-    },
     "StructureTransformerSmall": {
       "templateType": "StructureLogicDevice",
       "prefab": {
@@ -62020,51 +66408,6 @@ export default {
         "has_lock_state": true,
         "has_mode_state": false,
         "has_on_off_state": true,
-        "has_open_state": false,
-        "has_reagents": false
-      }
-    },
-    "StructureTurbineGenerator": {
-      "templateType": "StructureLogicDevice",
-      "prefab": {
-        "prefab_name": "StructureTurbineGenerator",
-        "prefab_hash": 1282191063,
-        "desc": "",
-        "name": "Turbine Generator"
-      },
-      "structure": {
-        "small_grid": true
-      },
-      "logic": {
-        "logic_slot_types": {},
-        "logic_types": {
-          "PowerGeneration": "Read",
-          "PrefabHash": "Read",
-          "ReferenceId": "Read",
-          "NameHash": "Read"
-        },
-        "transmission_receiver": false,
-        "wireless_logic": false,
-        "circuit_holder": false
-      },
-      "slots": {},
-      "device": {
-        "connection_list": [
-          {
-            "typ": "Data",
-            "role": "None"
-          },
-          {
-            "typ": "Power",
-            "role": "None"
-          }
-        ],
-        "has_activate_state": false,
-        "has_atmosphere": false,
-        "has_color_state": false,
-        "has_lock_state": false,
-        "has_mode_state": false,
-        "has_on_off_state": false,
         "has_open_state": false,
         "has_reagents": false
       }
@@ -62261,7 +66604,7 @@ export default {
       "device": {
         "connection_list": [
           {
-            "typ": "Power",
+            "typ": "PowerAndData",
             "role": "None"
           }
         ],
@@ -62336,108 +66679,1128 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {},
-          "1": {},
-          "2": {},
-          "3": {},
-          "4": {},
-          "5": {},
-          "6": {},
-          "7": {},
-          "8": {},
-          "9": {},
-          "10": {},
-          "11": {},
-          "12": {},
-          "13": {},
-          "14": {},
-          "15": {},
-          "16": {},
-          "17": {},
-          "18": {},
-          "19": {},
-          "20": {},
-          "21": {},
-          "22": {},
-          "23": {},
-          "24": {},
-          "25": {},
-          "26": {},
-          "27": {},
-          "28": {},
-          "29": {},
-          "30": {},
-          "31": {},
-          "32": {},
-          "33": {},
-          "34": {},
-          "35": {},
-          "36": {},
-          "37": {},
-          "38": {},
-          "39": {},
-          "40": {},
-          "41": {},
-          "42": {},
-          "43": {},
-          "44": {},
-          "45": {},
-          "46": {},
-          "47": {},
-          "48": {},
-          "49": {},
-          "50": {},
-          "51": {},
-          "52": {},
-          "53": {},
-          "54": {},
-          "55": {},
-          "56": {},
-          "57": {},
-          "58": {},
-          "59": {},
-          "60": {},
-          "61": {},
-          "62": {},
-          "63": {},
-          "64": {},
-          "65": {},
-          "66": {},
-          "67": {},
-          "68": {},
-          "69": {},
-          "70": {},
-          "71": {},
-          "72": {},
-          "73": {},
-          "74": {},
-          "75": {},
-          "76": {},
-          "77": {},
-          "78": {},
-          "79": {},
-          "80": {},
-          "81": {},
-          "82": {},
-          "83": {},
-          "84": {},
-          "85": {},
-          "86": {},
-          "87": {},
-          "88": {},
-          "89": {},
-          "90": {},
-          "91": {},
-          "92": {},
-          "93": {},
-          "94": {},
-          "95": {},
-          "96": {},
-          "97": {},
-          "98": {},
-          "99": {},
-          "100": {},
-          "101": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "2": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "3": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "4": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "5": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "6": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "7": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "8": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "9": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "10": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "11": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "12": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "13": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "14": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "15": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "16": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "17": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "18": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "19": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "20": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "21": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "22": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "23": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "24": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "25": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "26": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "27": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "28": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "29": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "30": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "31": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "32": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "33": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "34": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "35": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "36": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "37": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "38": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "39": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "40": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "41": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "42": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "43": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "44": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "45": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "46": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "47": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "48": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "49": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "50": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "51": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "52": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "53": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "54": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "55": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "56": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "57": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "58": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "59": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "60": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "61": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "62": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "63": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "64": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "65": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "66": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "67": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "68": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "69": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "70": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "71": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "72": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "73": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "74": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "75": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "76": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "77": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "78": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "79": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "80": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "81": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "82": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "83": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "84": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "85": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "86": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "87": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "88": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "89": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "90": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "91": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "92": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "93": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "94": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "95": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "96": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "97": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "98": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "99": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "100": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "101": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -63205,6 +68568,284 @@ export default {
         "has_reagents": false
       }
     },
+    "StructureVendingMachineSmall": {
+      "templateType": "StructureLogicDevice",
+      "prefab": {
+        "prefab_name": "StructureVendingMachineSmall",
+        "prefab_hash": 19591354,
+        "desc": "",
+        "name": "Vending Machine Small"
+      },
+      "structure": {
+        "small_grid": true
+      },
+      "logic": {
+        "logic_slot_types": {
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "1": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "2": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "3": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "4": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "5": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "6": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "7": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "8": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "9": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "10": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          },
+          "11": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
+        },
+        "logic_types": {
+          "Power": "Read",
+          "Error": "Read",
+          "Activate": "ReadWrite",
+          "Lock": "ReadWrite",
+          "Ratio": "Read",
+          "Quantity": "Read",
+          "On": "ReadWrite",
+          "RequiredPower": "Read",
+          "RequestHash": "ReadWrite",
+          "ClearMemory": "Write",
+          "ExportCount": "Read",
+          "ImportCount": "Read",
+          "PrefabHash": "Read",
+          "ReferenceId": "Read",
+          "NameHash": "Read"
+        },
+        "transmission_receiver": false,
+        "wireless_logic": false,
+        "circuit_holder": false
+      },
+      "slots": {
+        "0": {
+          "Direct": {
+            "name": "Import",
+            "class": "None",
+            "index": 0
+          }
+        },
+        "1": {
+          "Direct": {
+            "name": "Export",
+            "class": "None",
+            "index": 1
+          }
+        },
+        "2": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 2
+          }
+        },
+        "3": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 3
+          }
+        },
+        "4": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 4
+          }
+        },
+        "5": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 5
+          }
+        },
+        "6": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 6
+          }
+        },
+        "7": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 7
+          }
+        },
+        "8": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 8
+          }
+        },
+        "9": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 9
+          }
+        },
+        "10": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 10
+          }
+        },
+        "11": {
+          "Direct": {
+            "name": "Storage",
+            "class": "None",
+            "index": 11
+          }
+        }
+      },
+      "device": {
+        "connection_list": [
+          {
+            "typ": "Chute",
+            "role": "Input"
+          },
+          {
+            "typ": "Chute",
+            "role": "Output"
+          },
+          {
+            "typ": "PowerAndData",
+            "role": "None"
+          }
+        ],
+        "has_activate_state": true,
+        "has_atmosphere": false,
+        "has_color_state": false,
+        "has_lock_state": true,
+        "has_mode_state": false,
+        "has_on_off_state": true,
+        "has_open_state": false,
+        "has_reagents": false
+      }
+    },
     "StructureVolumePump": {
       "templateType": "StructureLogicDevice",
       "prefab": {
@@ -63380,6 +69021,17 @@ export default {
           "On": "ReadWrite",
           "RequiredPower": "Read",
           "PrefabHash": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "ReferenceId": "Read",
           "NameHash": "Read"
         },
@@ -63390,7 +69042,7 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "Data Disk",
             "class": "DataDisk",
             "index": 0
           }
@@ -63567,7 +69219,7 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "Data Disk",
             "class": "DataDisk",
             "index": 0
           }
@@ -64042,186 +69694,10 @@ export default {
         "prefab_name": "StructureWallVent",
         "prefab_hash": -1177469307,
         "desc": "Used to mix atmospheres passively between two walls.",
-        "name": "Wall Vent"
+        "name": "Passive Vent (Passthrough)"
       },
       "structure": {
         "small_grid": true
-      }
-    },
-    "StructureWaterBottleFiller": {
-      "templateType": "StructureLogicDevice",
-      "prefab": {
-        "prefab_name": "StructureWaterBottleFiller",
-        "prefab_hash": -1178961954,
-        "desc": "",
-        "name": "Water Bottle Filler"
-      },
-      "structure": {
-        "small_grid": true
-      },
-      "logic": {
-        "logic_slot_types": {
-          "0": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Pressure": "Read",
-            "Temperature": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "PrefabHash": "Read",
-            "Volume": "Read",
-            "Open": "ReadWrite",
-            "SortingClass": "Read",
-            "ReferenceId": "Read"
-          },
-          "1": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Pressure": "Read",
-            "Temperature": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "PrefabHash": "Read",
-            "Volume": "Read",
-            "Open": "ReadWrite",
-            "SortingClass": "Read",
-            "ReferenceId": "Read"
-          }
-        },
-        "logic_types": {
-          "Error": "Read",
-          "Activate": "ReadWrite",
-          "PrefabHash": "Read",
-          "ReferenceId": "Read",
-          "NameHash": "Read"
-        },
-        "transmission_receiver": false,
-        "wireless_logic": false,
-        "circuit_holder": false
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Bottle Slot",
-            "class": "LiquidBottle",
-            "index": 0
-          }
-        },
-        "1": {
-          "Direct": {
-            "name": "Bottle Slot",
-            "class": "LiquidBottle",
-            "index": 1
-          }
-        }
-      },
-      "device": {
-        "connection_list": [
-          {
-            "typ": "PipeLiquid",
-            "role": "Input"
-          }
-        ],
-        "has_activate_state": true,
-        "has_atmosphere": false,
-        "has_color_state": false,
-        "has_lock_state": false,
-        "has_mode_state": false,
-        "has_on_off_state": false,
-        "has_open_state": false,
-        "has_reagents": false
-      }
-    },
-    "StructureWaterBottleFillerBottom": {
-      "templateType": "StructureLogicDevice",
-      "prefab": {
-        "prefab_name": "StructureWaterBottleFillerBottom",
-        "prefab_hash": 1433754995,
-        "desc": "",
-        "name": "Water Bottle Filler Bottom"
-      },
-      "structure": {
-        "small_grid": true
-      },
-      "logic": {
-        "logic_slot_types": {
-          "0": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Pressure": "Read",
-            "Temperature": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "PrefabHash": "Read",
-            "Volume": "Read",
-            "Open": "ReadWrite",
-            "SortingClass": "Read",
-            "ReferenceId": "Read"
-          },
-          "1": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Pressure": "Read",
-            "Temperature": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "PrefabHash": "Read",
-            "Volume": "Read",
-            "Open": "ReadWrite",
-            "SortingClass": "Read",
-            "ReferenceId": "Read"
-          }
-        },
-        "logic_types": {
-          "Error": "Read",
-          "Activate": "ReadWrite",
-          "PrefabHash": "Read",
-          "ReferenceId": "Read",
-          "NameHash": "Read"
-        },
-        "transmission_receiver": false,
-        "wireless_logic": false,
-        "circuit_holder": false
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Bottle Slot",
-            "class": "LiquidBottle",
-            "index": 0
-          }
-        },
-        "1": {
-          "Direct": {
-            "name": "Bottle Slot",
-            "class": "LiquidBottle",
-            "index": 1
-          }
-        }
-      },
-      "device": {
-        "connection_list": [
-          {
-            "typ": "PipeLiquid",
-            "role": "Input"
-          }
-        ],
-        "has_activate_state": true,
-        "has_atmosphere": false,
-        "has_color_state": false,
-        "has_lock_state": false,
-        "has_mode_state": false,
-        "has_on_off_state": false,
-        "has_open_state": false,
-        "has_reagents": false
       }
     },
     "StructureWaterBottleFillerPowered": {
@@ -64449,11 +69925,11 @@ export default {
         "connection_list": [
           {
             "typ": "PipeLiquid",
-            "role": "Output"
+            "role": "None"
           },
           {
             "typ": "PipeLiquid",
-            "role": "Input"
+            "role": "None"
           },
           {
             "typ": "PowerAndData",
@@ -64518,7 +69994,17 @@ export default {
       },
       "logic": {
         "logic_slot_types": {
-          "0": {}
+          "0": {
+            "Occupied": "Read",
+            "OccupantHash": "Read",
+            "Quantity": "Read",
+            "Damage": "Read",
+            "Class": "Read",
+            "MaxQuantity": "Read",
+            "PrefabHash": "Read",
+            "SortingClass": "Read",
+            "ReferenceId": "Read"
+          }
         },
         "logic_types": {
           "Power": "Read",
@@ -64581,7 +70067,9 @@ export default {
         "consumed_resources": [
           "ItemCharcoal"
         ],
-        "processed_reagents": []
+        "processed_reagents": [
+          1582746610
+        ]
       }
     },
     "StructureWaterWallCooler": {
@@ -64619,6 +70107,17 @@ export default {
           "On": "ReadWrite",
           "RequiredPower": "Read",
           "PrefabHash": "Read",
+          "PressureOutput": "Read",
+          "TemperatureOutput": "Read",
+          "RatioOxygenOutput": "Read",
+          "RatioCarbonDioxideOutput": "Read",
+          "RatioNitrogenOutput": "Read",
+          "RatioPollutantOutput": "Read",
+          "RatioVolatilesOutput": "Read",
+          "RatioWaterOutput": "Read",
+          "RatioNitrousOxideOutput": "Read",
+          "TotalMolesOutput": "Read",
+          "CombustionOutput": "Read",
           "ReferenceId": "Read",
           "NameHash": "Read"
         },
@@ -64629,7 +70128,7 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "Data Disk",
             "class": "DataDisk",
             "index": 0
           }
@@ -64661,7 +70160,7 @@ export default {
       "prefab": {
         "prefab_name": "StructureWeatherStation",
         "prefab_hash": 1997212478,
-        "desc": "0.NoStorm\n1.StormIncoming\n2.InStorm",
+        "desc": "",
         "name": "Weather Station"
       },
       "structure": {
@@ -64808,14 +70307,14 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
@@ -64861,14 +70360,14 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
@@ -64907,14 +70406,14 @@ export default {
       "slots": {
         "0": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 0
           }
         },
         "1": {
           "Direct": {
-            "name": "",
+            "name": "None",
             "class": "None",
             "index": 1
           }
@@ -64933,181 +70432,6 @@ export default {
             "index": 3
           }
         }
-      }
-    },
-    "WeaponEnergy": {
-      "templateType": "ItemLogic",
-      "prefab": {
-        "prefab_name": "WeaponEnergy",
-        "prefab_hash": 789494694,
-        "desc": "",
-        "name": "Weapon Energy"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
-        "sorting_class": "Tools"
-      },
-      "logic": {
-        "logic_slot_types": {
-          "0": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Charge": "Read",
-            "ChargeRatio": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "ReferenceId": "Read"
-          }
-        },
-        "logic_types": {
-          "On": "ReadWrite",
-          "ReferenceId": "Read"
-        },
-        "transmission_receiver": false,
-        "wireless_logic": false,
-        "circuit_holder": false
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Battery",
-            "class": "Battery",
-            "index": 0
-          }
-        }
-      }
-    },
-    "WeaponPistolEnergy": {
-      "templateType": "ItemLogic",
-      "prefab": {
-        "prefab_name": "WeaponPistolEnergy",
-        "prefab_hash": -385323479,
-        "desc": "0.Stun\n1.Kill",
-        "name": "Energy Pistol"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
-        "sorting_class": "Tools"
-      },
-      "logic": {
-        "logic_slot_types": {
-          "0": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Charge": "Read",
-            "ChargeRatio": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "ReferenceId": "Read"
-          }
-        },
-        "logic_types": {
-          "Power": "Read",
-          "Open": "ReadWrite",
-          "Mode": "ReadWrite",
-          "Error": "Read",
-          "Lock": "ReadWrite",
-          "On": "ReadWrite",
-          "ReferenceId": "Read"
-        },
-        "modes": {
-          "0": "Stun",
-          "1": "Kill"
-        },
-        "transmission_receiver": false,
-        "wireless_logic": false,
-        "circuit_holder": false
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Battery",
-            "class": "Battery",
-            "index": 0
-          }
-        }
-      }
-    },
-    "WeaponRifleEnergy": {
-      "templateType": "ItemLogic",
-      "prefab": {
-        "prefab_name": "WeaponRifleEnergy",
-        "prefab_hash": 1154745374,
-        "desc": "0.Stun\n1.Kill",
-        "name": "Energy Rifle"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "None",
-        "sorting_class": "Tools"
-      },
-      "logic": {
-        "logic_slot_types": {
-          "0": {
-            "Occupied": "Read",
-            "OccupantHash": "Read",
-            "Quantity": "Read",
-            "Damage": "Read",
-            "Charge": "Read",
-            "ChargeRatio": "Read",
-            "Class": "Read",
-            "MaxQuantity": "Read",
-            "ReferenceId": "Read"
-          }
-        },
-        "logic_types": {
-          "Power": "Read",
-          "Open": "ReadWrite",
-          "Mode": "ReadWrite",
-          "Error": "Read",
-          "Lock": "ReadWrite",
-          "On": "ReadWrite",
-          "ReferenceId": "Read"
-        },
-        "modes": {
-          "0": "Stun",
-          "1": "Kill"
-        },
-        "transmission_receiver": false,
-        "wireless_logic": false,
-        "circuit_holder": false
-      },
-      "slots": {
-        "0": {
-          "Direct": {
-            "name": "Battery",
-            "class": "Battery",
-            "index": 0
-          }
-        }
-      }
-    },
-    "WeaponTorpedo": {
-      "templateType": "Item",
-      "prefab": {
-        "prefab_name": "WeaponTorpedo",
-        "prefab_hash": -1102977898,
-        "desc": "",
-        "name": "Torpedo"
-      },
-      "item": {
-        "consumable": false,
-        "ingredient": false,
-        "max_quantity": 1,
-        "slot_class": "Torpedo",
-        "sorting_class": "Default"
       }
     }
   },
@@ -65178,9 +70502,7 @@ export default {
       "hash": 557517660,
       "unit": "g",
       "is_organic": true,
-      "sources": {
-        "ReagentColorBlue": 10.0
-      }
+      "sources": {}
     },
     "ColorGreen": {
       "id": 26,
@@ -65188,9 +70510,7 @@ export default {
       "hash": 2129955242,
       "unit": "g",
       "is_organic": true,
-      "sources": {
-        "ReagentColorGreen": 10.0
-      }
+      "sources": {}
     },
     "ColorOrange": {
       "id": 29,
@@ -65198,9 +70518,7 @@ export default {
       "hash": 1728153015,
       "unit": "g",
       "is_organic": true,
-      "sources": {
-        "ReagentColorOrange": 10.0
-      }
+      "sources": {}
     },
     "ColorRed": {
       "id": 25,
@@ -65208,9 +70526,7 @@ export default {
       "hash": 667001276,
       "unit": "g",
       "is_organic": true,
-      "sources": {
-        "ReagentColorRed": 10.0
-      }
+      "sources": {}
     },
     "ColorYellow": {
       "id": 28,
@@ -65218,9 +70534,7 @@ export default {
       "hash": -1430202288,
       "unit": "g",
       "is_organic": true,
-      "sources": {
-        "ReagentColorYellow": 10.0
-      }
+      "sources": {}
     },
     "Constantan": {
       "id": 15,
@@ -65669,10 +70983,15 @@ export default {
             "deprecated": false,
             "description": "returns the current growth state of the plant in the slot"
           },
+          "HarvestedHash": {
+            "value": 27,
+            "deprecated": false,
+            "description": "No description available"
+          },
           "Health": {
             "value": 6,
             "deprecated": false,
-            "description": "returns the health of the plant in the slot"
+            "description": "Returns the health of the plant in the slot"
           },
           "LineNumber": {
             "value": 19,
@@ -65689,10 +71008,20 @@ export default {
             "deprecated": false,
             "description": "returns 1 if the plant in this slot is mature, 0 when it isn't"
           },
+          "MaturityRatio": {
+            "value": 29,
+            "deprecated": false,
+            "description": "How far the plant is towards maturity represented as a fraction between 0 and 1, with 1 being mature and ready for harvest."
+          },
           "MaxQuantity": {
             "value": 15,
             "deprecated": false,
             "description": "returns the max stack size of the item in the slot"
+          },
+          "Mode": {
+            "value": 28,
+            "deprecated": false,
+            "description": "No description available"
           },
           "None": {
             "value": 0,
@@ -65753,6 +71082,11 @@ export default {
             "value": 18,
             "deprecated": false,
             "description": "Whether a plant is seeding (ready to harvest seeds from). Returns 1 if seeding or 0 if not."
+          },
+          "SeedingRatio": {
+            "value": 30,
+            "deprecated": false,
+            "description": "How far the plant is towards seeding represented as a fraction between 0 and 1, with 1 being seeding and will supply seeds when harvested."
           },
           "SortingClass": {
             "value": 24,
@@ -65964,6 +71298,11 @@ export default {
             "deprecated": false,
             "description": "The density of the rocket's target site's mine-able deposit."
           },
+          "DerivativeGain": {
+            "value": 276,
+            "deprecated": false,
+            "description": "The derivative gain of the PID controller. This value determines how much the controller responds to the rate of change of the error. A higher value can help dampen oscillations and improve stability, but may also lead to noise amplification."
+          },
           "DestinationCode": {
             "value": 215,
             "deprecated": false,
@@ -66048,6 +71387,11 @@ export default {
             "value": 32,
             "deprecated": true,
             "description": "DEPRECATED"
+          },
+          "Extended": {
+            "value": 272,
+            "deprecated": false,
+            "description": "Extended"
           },
           "Filtration": {
             "value": 74,
@@ -66139,6 +71483,11 @@ export default {
             "deprecated": false,
             "description": "The current index for the device."
           },
+          "IntegralGain": {
+            "value": 275,
+            "deprecated": false,
+            "description": "The integral gain of the PID controller. This value determines how much the controller responds to the accumulated error over time. A higher value can help eliminate steady-state errors but may also lead to oscillations or instability."
+          },
           "InterrogationProgress": {
             "value": 157,
             "deprecated": false,
@@ -66184,6 +71533,11 @@ export default {
             "deprecated": false,
             "description": "The total number of resources that have been mined at the rocket's target Space Map Site."
           },
+          "Minimum": {
+            "value": 277,
+            "deprecated": false,
+            "description": "Minimum value for provided logic device."
+          },
           "MinimumWattsToContact": {
             "value": 163,
             "deprecated": false,
@@ -66203,6 +71557,11 @@ export default {
             "value": 258,
             "deprecated": false,
             "description": "The number of NavPoints at the rocket's target Space Map Location."
+          },
+          "NetworkFault": {
+            "value": 273,
+            "deprecated": false,
+            "description": "Attached network is experiencing a fault, such as a pipe burst or other failure."
           },
           "NextWeatherEventTime": {
             "value": 97,
@@ -66392,7 +71751,7 @@ export default {
           "PressureExternal": {
             "value": 7,
             "deprecated": false,
-            "description": "Setting for external pressure safety, in KPa"
+            "description": "Setting for external pressure safety, in KPa. Represents the target pressure of the external atmosphere."
           },
           "PressureInput": {
             "value": 106,
@@ -66407,7 +71766,7 @@ export default {
           "PressureInternal": {
             "value": 8,
             "deprecated": false,
-            "description": "Setting for internal pressure safety, in KPa"
+            "description": "Setting for internal pressure safety, in KPa. Represents the target pressure of the atmosphere inside the connected pipe network."
           },
           "PressureOutput": {
             "value": 126,
@@ -66428,6 +71787,11 @@ export default {
             "value": 214,
             "deprecated": false,
             "description": "Progress of the rocket to the next node on the map expressed as a value between 0-1."
+          },
+          "ProportionalGain": {
+            "value": 274,
+            "deprecated": false,
+            "description": "The proportional gain of the PID controller. This value determines how aggressively the controller responds to the error between the setpoint and the process variable. A higher value results in a faster response but may lead to overshoot or instability."
           },
           "Quantity": {
             "value": 27,
@@ -66827,12 +72191,17 @@ export default {
           "RequestHash": {
             "value": 60,
             "deprecated": false,
-            "description": "When set to the unique identifier, requests an item of the provided type from the device"
+            "description": "When set to the unique identifier, re quests an item of the provided type from the device"
           },
           "RequiredPower": {
             "value": 33,
             "deprecated": false,
             "description": "Idle operating power quantity, does not necessarily include extra demand power"
+          },
+          "Reset": {
+            "value": 279,
+            "deprecated": false,
+            "description": "Resets the PID controller's internal state, clearing any accumulated error and resetting the output to zero. This is useful for starting fresh or recovering from an unstable state."
           },
           "ReturnFuelCost": {
             "value": 100,
@@ -66854,6 +72223,11 @@ export default {
             "deprecated": false,
             "description": "The longest radius of an elliptical orbit in astronomical units, measuring half the major axis. Determines the size of the orbit."
           },
+          "Setpoint": {
+            "value": 278,
+            "deprecated": false,
+            "description": "The desired value that the PID controller aims to achieve. This is the target value for the process variable, and the controller will adjust its output to minimize the difference between the setpoint and the process variable."
+          },
           "Setting": {
             "value": 12,
             "deprecated": false,
@@ -66862,12 +72236,12 @@ export default {
           "SettingInput": {
             "value": 91,
             "deprecated": false,
-            "description": "<A:EN:-1139210406>"
+            "description": "The input setting for the device"
           },
           "SettingOutput": {
             "value": 92,
             "deprecated": false,
-            "description": "<A:EN:1605622326>"
+            "description": "The output setting for the device"
           },
           "SignalID": {
             "value": 87,
@@ -66912,12 +72286,17 @@ export default {
           "SolarIrradiance": {
             "value": 176,
             "deprecated": false,
-            "description": "<A:EN:-1627927313>"
+            "description": "The current solar irradiance."
           },
           "SoundAlert": {
             "value": 175,
             "deprecated": false,
             "description": "Plays a sound alert on the devices speaker"
+          },
+          "StackSize": {
+            "value": 280,
+            "deprecated": false,
+            "description": "Returns the stack size of the devices internal memory."
           },
           "Stress": {
             "value": 156,
@@ -67238,6 +72617,26 @@ export default {
           }
         }
       },
+      "ContactTier": {
+        "enumName": "ContactTier",
+        "values": {
+          "Close": {
+            "value": 0,
+            "deprecated": false,
+            "description": ""
+          },
+          "Far": {
+            "value": 2,
+            "deprecated": false,
+            "description": ""
+          },
+          "Medium": {
+            "value": 1,
+            "deprecated": false,
+            "description": ""
+          }
+        }
+      },
       "DaylightSensorMode": {
         "enumName": "DaylightSensorMode",
         "values": {
@@ -67253,6 +72652,86 @@ export default {
           },
           "Vertical": {
             "value": 2,
+            "deprecated": false,
+            "description": ""
+          }
+        }
+      },
+      "DisplayMode": {
+        "enumName": "DisplayMode",
+        "values": {
+          "Celsius": {
+            "value": 4,
+            "deprecated": false,
+            "description": ""
+          },
+          "Credits": {
+            "value": 6,
+            "deprecated": false,
+            "description": ""
+          },
+          "Days": {
+            "value": 9,
+            "deprecated": false,
+            "description": ""
+          },
+          "Default": {
+            "value": 0,
+            "deprecated": false,
+            "description": ""
+          },
+          "Fahrenheit": {
+            "value": 11,
+            "deprecated": false,
+            "description": ""
+          },
+          "Kelvin": {
+            "value": 3,
+            "deprecated": false,
+            "description": ""
+          },
+          "Litres": {
+            "value": 12,
+            "deprecated": false,
+            "description": ""
+          },
+          "Meters": {
+            "value": 5,
+            "deprecated": false,
+            "description": ""
+          },
+          "Minutes": {
+            "value": 8,
+            "deprecated": false,
+            "description": ""
+          },
+          "Mol": {
+            "value": 13,
+            "deprecated": false,
+            "description": ""
+          },
+          "Pa": {
+            "value": 14,
+            "deprecated": false,
+            "description": ""
+          },
+          "Percent": {
+            "value": 1,
+            "deprecated": false,
+            "description": ""
+          },
+          "Power": {
+            "value": 2,
+            "deprecated": false,
+            "description": ""
+          },
+          "Seconds": {
+            "value": 7,
+            "deprecated": false,
+            "description": ""
+          },
+          "String": {
+            "value": 10,
             "deprecated": false,
             "description": ""
           }
@@ -67306,8 +72785,18 @@ export default {
       "GasType": {
         "enumName": "GasType",
         "values": {
+          "Air": {
+            "value": 3,
+            "deprecated": false,
+            "description": ""
+          },
           "CarbonDioxide": {
             "value": 4,
+            "deprecated": false,
+            "description": ""
+          },
+          "Fuel": {
+            "value": 9,
             "deprecated": false,
             "description": ""
           },
@@ -67398,6 +72887,21 @@ export default {
           }
         }
       },
+      "HashType": {
+        "enumName": "HashType",
+        "values": {
+          "GasLiquid": {
+            "value": 1,
+            "deprecated": false,
+            "description": ""
+          },
+          "Prefab": {
+            "value": 0,
+            "deprecated": false,
+            "description": ""
+          }
+        }
+      },
       "LogicSlotType": {
         "enumName": "LogicSlotType",
         "values": {
@@ -67436,10 +72940,15 @@ export default {
             "deprecated": false,
             "description": "returns the current growth state of the plant in the slot"
           },
+          "HarvestedHash": {
+            "value": 27,
+            "deprecated": false,
+            "description": "No description available"
+          },
           "Health": {
             "value": 6,
             "deprecated": false,
-            "description": "returns the health of the plant in the slot"
+            "description": "Returns the health of the plant in the slot"
           },
           "LineNumber": {
             "value": 19,
@@ -67456,10 +72965,20 @@ export default {
             "deprecated": false,
             "description": "returns 1 if the plant in this slot is mature, 0 when it isn't"
           },
+          "MaturityRatio": {
+            "value": 29,
+            "deprecated": false,
+            "description": "How far the plant is towards maturity represented as a fraction between 0 and 1, with 1 being mature and ready for harvest."
+          },
           "MaxQuantity": {
             "value": 15,
             "deprecated": false,
             "description": "returns the max stack size of the item in the slot"
+          },
+          "Mode": {
+            "value": 28,
+            "deprecated": false,
+            "description": "No description available"
           },
           "None": {
             "value": 0,
@@ -67520,6 +73039,11 @@ export default {
             "value": 18,
             "deprecated": false,
             "description": "Whether a plant is seeding (ready to harvest seeds from). Returns 1 if seeding or 0 if not."
+          },
+          "SeedingRatio": {
+            "value": 30,
+            "deprecated": false,
+            "description": "How far the plant is towards seeding represented as a fraction between 0 and 1, with 1 being seeding and will supply seeds when harvested."
           },
           "SortingClass": {
             "value": 24,
@@ -67731,6 +73255,11 @@ export default {
             "deprecated": false,
             "description": "The density of the rocket's target site's mine-able deposit."
           },
+          "DerivativeGain": {
+            "value": 276,
+            "deprecated": false,
+            "description": "The derivative gain of the PID controller. This value determines how much the controller responds to the rate of change of the error. A higher value can help dampen oscillations and improve stability, but may also lead to noise amplification."
+          },
           "DestinationCode": {
             "value": 215,
             "deprecated": false,
@@ -67815,6 +73344,11 @@ export default {
             "value": 32,
             "deprecated": true,
             "description": "DEPRECATED"
+          },
+          "Extended": {
+            "value": 272,
+            "deprecated": false,
+            "description": "Extended"
           },
           "Filtration": {
             "value": 74,
@@ -67906,6 +73440,11 @@ export default {
             "deprecated": false,
             "description": "The current index for the device."
           },
+          "IntegralGain": {
+            "value": 275,
+            "deprecated": false,
+            "description": "The integral gain of the PID controller. This value determines how much the controller responds to the accumulated error over time. A higher value can help eliminate steady-state errors but may also lead to oscillations or instability."
+          },
           "InterrogationProgress": {
             "value": 157,
             "deprecated": false,
@@ -67951,6 +73490,11 @@ export default {
             "deprecated": false,
             "description": "The total number of resources that have been mined at the rocket's target Space Map Site."
           },
+          "Minimum": {
+            "value": 277,
+            "deprecated": false,
+            "description": "Minimum value for provided logic device."
+          },
           "MinimumWattsToContact": {
             "value": 163,
             "deprecated": false,
@@ -67970,6 +73514,11 @@ export default {
             "value": 258,
             "deprecated": false,
             "description": "The number of NavPoints at the rocket's target Space Map Location."
+          },
+          "NetworkFault": {
+            "value": 273,
+            "deprecated": false,
+            "description": "Attached network is experiencing a fault, such as a pipe burst or other failure."
           },
           "NextWeatherEventTime": {
             "value": 97,
@@ -68159,7 +73708,7 @@ export default {
           "PressureExternal": {
             "value": 7,
             "deprecated": false,
-            "description": "Setting for external pressure safety, in KPa"
+            "description": "Setting for external pressure safety, in KPa. Represents the target pressure of the external atmosphere."
           },
           "PressureInput": {
             "value": 106,
@@ -68174,7 +73723,7 @@ export default {
           "PressureInternal": {
             "value": 8,
             "deprecated": false,
-            "description": "Setting for internal pressure safety, in KPa"
+            "description": "Setting for internal pressure safety, in KPa. Represents the target pressure of the atmosphere inside the connected pipe network."
           },
           "PressureOutput": {
             "value": 126,
@@ -68195,6 +73744,11 @@ export default {
             "value": 214,
             "deprecated": false,
             "description": "Progress of the rocket to the next node on the map expressed as a value between 0-1."
+          },
+          "ProportionalGain": {
+            "value": 274,
+            "deprecated": false,
+            "description": "The proportional gain of the PID controller. This value determines how aggressively the controller responds to the error between the setpoint and the process variable. A higher value results in a faster response but may lead to overshoot or instability."
           },
           "Quantity": {
             "value": 27,
@@ -68594,12 +74148,17 @@ export default {
           "RequestHash": {
             "value": 60,
             "deprecated": false,
-            "description": "When set to the unique identifier, requests an item of the provided type from the device"
+            "description": "When set to the unique identifier, re quests an item of the provided type from the device"
           },
           "RequiredPower": {
             "value": 33,
             "deprecated": false,
             "description": "Idle operating power quantity, does not necessarily include extra demand power"
+          },
+          "Reset": {
+            "value": 279,
+            "deprecated": false,
+            "description": "Resets the PID controller's internal state, clearing any accumulated error and resetting the output to zero. This is useful for starting fresh or recovering from an unstable state."
           },
           "ReturnFuelCost": {
             "value": 100,
@@ -68621,6 +74180,11 @@ export default {
             "deprecated": false,
             "description": "The longest radius of an elliptical orbit in astronomical units, measuring half the major axis. Determines the size of the orbit."
           },
+          "Setpoint": {
+            "value": 278,
+            "deprecated": false,
+            "description": "The desired value that the PID controller aims to achieve. This is the target value for the process variable, and the controller will adjust its output to minimize the difference between the setpoint and the process variable."
+          },
           "Setting": {
             "value": 12,
             "deprecated": false,
@@ -68629,12 +74193,12 @@ export default {
           "SettingInput": {
             "value": 91,
             "deprecated": false,
-            "description": "<A:EN:-1139210406>"
+            "description": "The input setting for the device"
           },
           "SettingOutput": {
             "value": 92,
             "deprecated": false,
-            "description": "<A:EN:1605622326>"
+            "description": "The output setting for the device"
           },
           "SignalID": {
             "value": 87,
@@ -68679,12 +74243,17 @@ export default {
           "SolarIrradiance": {
             "value": 176,
             "deprecated": false,
-            "description": "<A:EN:-1627927313>"
+            "description": "The current solar irradiance."
           },
           "SoundAlert": {
             "value": 175,
             "deprecated": false,
             "description": "Plays a sound alert on the devices speaker"
+          },
+          "StackSize": {
+            "value": 280,
+            "deprecated": false,
+            "description": "Returns the stack size of the devices internal memory."
           },
           "Stress": {
             "value": 156,
@@ -69061,6 +74630,11 @@ export default {
             "deprecated": false,
             "description": ""
           },
+          "Deploy": {
+            "value": 6,
+            "deprecated": false,
+            "description": ""
+          },
           "Discover": {
             "value": 4,
             "deprecated": false,
@@ -69083,6 +74657,71 @@ export default {
           },
           "Survey": {
             "value": 3,
+            "deprecated": false,
+            "description": ""
+          }
+        }
+      },
+      "SettingDisplayMode": {
+        "enumName": "SettingDisplayMode",
+        "values": {
+          "Number": {
+            "value": 0,
+            "deprecated": false,
+            "description": ""
+          },
+          "String": {
+            "value": 1,
+            "deprecated": false,
+            "description": ""
+          }
+        }
+      },
+      "ShuttleType": {
+        "enumName": "ShuttleType",
+        "values": {
+          "Large": {
+            "value": 5,
+            "deprecated": false,
+            "description": ""
+          },
+          "LargeGas": {
+            "value": 6,
+            "deprecated": false,
+            "description": ""
+          },
+          "LargePlane": {
+            "value": 8,
+            "deprecated": false,
+            "description": ""
+          },
+          "Medium": {
+            "value": 3,
+            "deprecated": false,
+            "description": ""
+          },
+          "MediumGas": {
+            "value": 4,
+            "deprecated": false,
+            "description": ""
+          },
+          "MediumPlane": {
+            "value": 7,
+            "deprecated": false,
+            "description": ""
+          },
+          "None": {
+            "value": 0,
+            "deprecated": false,
+            "description": ""
+          },
+          "Small": {
+            "value": 1,
+            "deprecated": false,
+            "description": ""
+          },
+          "SmallGas": {
+            "value": 2,
             "deprecated": false,
             "description": ""
           }
@@ -69253,6 +74892,11 @@ export default {
           },
           "ProgrammableChip": {
             "value": 26,
+            "deprecated": false,
+            "description": ""
+          },
+          "RocketPayload": {
+            "value": 42,
             "deprecated": false,
             "description": ""
           },
@@ -69638,6 +75282,106 @@ export default {
           }
         }
       },
+      "TraderInstruction": {
+        "enumName": "TraderInstruction",
+        "values": {
+          "FilterGasContains": {
+            "value": 17,
+            "deprecated": false,
+            "description": ""
+          },
+          "FilterGasNotContains": {
+            "value": 18,
+            "deprecated": false,
+            "description": ""
+          },
+          "FilterPrefabHashEquals": {
+            "value": 13,
+            "deprecated": false,
+            "description": ""
+          },
+          "FilterPrefabHashNotEquals": {
+            "value": 14,
+            "deprecated": false,
+            "description": ""
+          },
+          "FilterQuantityCompare": {
+            "value": 16,
+            "deprecated": false,
+            "description": ""
+          },
+          "FilterSortingClassCompare": {
+            "value": 15,
+            "deprecated": false,
+            "description": ""
+          },
+          "None": {
+            "value": 0,
+            "deprecated": false,
+            "description": ""
+          },
+          "StrongestContactIdHash": {
+            "value": 2,
+            "deprecated": false,
+            "description": ""
+          },
+          "StrongestContactMetaData": {
+            "value": 3,
+            "deprecated": false,
+            "description": ""
+          },
+          "StrongestContactSignalData": {
+            "value": 4,
+            "deprecated": false,
+            "description": ""
+          },
+          "TraderBuyGasData": {
+            "value": 9,
+            "deprecated": false,
+            "description": ""
+          },
+          "TraderBuyThingChildData": {
+            "value": 8,
+            "deprecated": false,
+            "description": ""
+          },
+          "TraderBuyThingData": {
+            "value": 7,
+            "deprecated": false,
+            "description": ""
+          },
+          "TraderSellGasData": {
+            "value": 11,
+            "deprecated": false,
+            "description": ""
+          },
+          "TraderSellThingChildData": {
+            "value": 12,
+            "deprecated": false,
+            "description": ""
+          },
+          "TraderSellThingData": {
+            "value": 10,
+            "deprecated": false,
+            "description": ""
+          },
+          "WriteTraderBuyData": {
+            "value": 5,
+            "deprecated": false,
+            "description": ""
+          },
+          "WriteTraderData": {
+            "value": 1,
+            "deprecated": false,
+            "description": ""
+          },
+          "WriteTraderSellData": {
+            "value": 6,
+            "deprecated": false,
+            "description": ""
+          }
+        }
+      },
       "TransmitterMode": {
         "enumName": "LogicTransmitterMode",
         "values": {
@@ -69704,8 +75448,10 @@ export default {
     "-2126113312": "ItemLiquidPipeValve",
     "-2124435700": "ItemDisposableBatteryCharger",
     "-2123455080": "StructureBatterySmall",
+    "-2120466121": "ItemWreckageSmallFan",
     "-2113838091": "StructureLiquidPipeAnalyzer",
     "-2113012215": "ItemGasTankStorage",
+    "-2112405954": "ItemIcarusSuit",
     "-2112390778": "StructureFrameCorner",
     "-2111886401": "ItemPotatoBaked",
     "-2107840748": "ItemFlashingLight",
@@ -69731,10 +75477,10 @@ export default {
     "-2062364768": "ItemKitPictureFrame",
     "-2061979347": "ItemMKIIArcWelder",
     "-2060571986": "StructureCompositeWindow",
+    "-2056592380": "StructureRoboticArmRailScrewLeft",
     "-2052458905": "ItemEmergencyDrill",
     "-2049946335": "Rover_MkI",
     "-2045627372": "StructureSolarPanel",
-    "-2044446819": "CircuitboardShipDisplay",
     "-2042448192": "StructureBench",
     "-2041566697": "StructurePictureFrameThickLandscapeSmall",
     "-2039971217": "ItemKitLargeSatelliteDish",
@@ -69748,23 +75494,21 @@ export default {
     "-2008706143": "StructurePressurePlateLarge",
     "-2006384159": "StructurePipeLiquidCrossJunction5",
     "-1993197973": "ItemGasFilterWater",
-    "-1991297271": "SpaceShuttle",
     "-1990600883": "SeedBag_Fern",
     "-1981101032": "ItemSecurityCamera",
     "-1976947556": "CardboardBox",
     "-1971419310": "ItemSoundCartridgeSynth",
     "-1968255729": "StructureCornerLocker",
     "-1967711059": "StructureInsulatedPipeCorner",
+    "-1965275716": "StructureFuselageDoorsDual",
     "-1963016580": "StructureWallArchCornerSquare",
-    "-1961153710": "StructureControlChair",
     "-1958705204": "PortableComposter",
-    "-1957063345": "CartridgeGPS",
     "-1949054743": "StructureConsoleLED1x3",
     "-1943134693": "ItemDuctTape",
+    "-1941415400": "StructurePipeLiquidStraight10",
     "-1939209112": "DynamicLiquidCanisterEmpty",
     "-1935075707": "ItemKitDeepMiner",
     "-1931958659": "ItemKitAutomatedOven",
-    "-1930442922": "MothershipCore",
     "-1924492105": "ItemKitSolarPanel",
     "-1923778429": "CircuitboardPowerControl",
     "-1922066841": "SeedBag_Tomato",
@@ -69772,6 +75516,7 @@ export default {
     "-1918215845": "StructureMediumConvectionRadiator",
     "-1916176068": "ItemGasFilterVolatilesInfinite",
     "-1908268220": "MotherboardSorter",
+    "-1905534007": "StructureLogicPidController",
     "-1901500508": "ItemSoundCartridgeDrums",
     "-1900541738": "StructureFairingTypeA3",
     "-1898247915": "RailingElegant02",
@@ -69794,7 +75539,6 @@ export default {
     "-1861154222": "ItemKitDynamicHydroponics",
     "-1860064656": "StructureWallLight",
     "-1856720921": "StructurePipeLiquidCorner",
-    "-1854861891": "ItemGasCanisterWater",
     "-1854167549": "ItemKitLaunchMount",
     "-1844430312": "DeviceLfoVolume",
     "-1843379322": "StructureCableCornerH3",
@@ -69802,7 +75546,7 @@ export default {
     "-1841632400": "StructureHydroponicsTrayData",
     "-1831558953": "ItemKitInsulatedPipeUtilityLiquid",
     "-1826855889": "ItemKitWall",
-    "-1826023284": "ItemWreckageAirConditioner1",
+    "-1826529455": "StructurePipeLiquidStraight5",
     "-1821571150": "ItemKitStirlingEngine",
     "-1818718810": "StructureRoboticArmDock",
     "-1814939203": "StructureGasUmbilicalMale",
@@ -69819,6 +75563,7 @@ export default {
     "-1788929869": "Landingpad_LiquidConnectorOutwardPiece",
     "-1785844184": "StructureRoboticArmRailStraight",
     "-1785673561": "StructurePipeCorner",
+    "-1784561856": "StructureInsulatedPipeLiquidStraight3",
     "-1776897113": "ItemKitSensor",
     "-1773192190": "ItemReusableFireExtinguisher",
     "-1768732546": "CartridgeOreScanner",
@@ -69836,33 +75581,28 @@ export default {
     "-1748926678": "ItemPureIceLiquidPollutant",
     "-1743663875": "ItemKitDrinkingFountain",
     "-1741267161": "DynamicGasCanisterEmpty",
-    "-1737666461": "ItemSpaceCleaner",
-    "-1731627004": "ItemAuthoringToolRocketNetwork",
+    "-1740754636": "SeedBag_WinterspawnAlpha",
     "-1730464583": "ItemSensorProcessingUnitMesonScanner",
     "-1721846327": "ItemWaterWallCooler",
+    "-1720125735": "StructureRocketGasCollector",
     "-1715945725": "ItemPureIceLiquidCarbonDioxide",
     "-1713748313": "AccessCardRed",
-    "-1713611165": "DynamicGasCanisterAir",
     "-1713470563": "StructureMotionSensor",
     "-1712264413": "ItemCookedPowderedEggs",
-    "-1712153401": "ItemGasCanisterNitrousOxide",
-    "-1710540039": "ItemKitHeatExchanger",
     "-1708395413": "ItemPureIceNitrogen",
     "-1697302609": "ItemKitPipeRadiatorLiquid",
     "-1693382705": "StructureInLineTankGas1x1",
     "-1691151239": "SeedBag_Rice",
     "-1686949570": "StructurePictureFrameThickPortraitLarge",
+    "-1686269127": "ApplianceBobbleHeadBasicSuit",
     "-1683849799": "ApplianceDeskLampLeft",
-    "-1682930158": "ItemWreckageWallCooler1",
     "-1680477930": "StructureGasUmbilicalFemale",
     "-1678456554": "ItemGasFilterWaterInfinite",
     "-1674187440": "StructurePassthroughHeatExchangerGasToGas",
     "-1672404896": "StructureAutomatedOven",
     "-1668992663": "StructureElectrolyzer",
-    "-1667675295": "MonsterEgg",
     "-1663349918": "ItemMiningDrillHeavy",
     "-1662476145": "ItemAstroloySheets",
-    "-1662394403": "ItemWreckageTurbineGenerator1",
     "-1650383245": "ItemMiningBackPack",
     "-1645266981": "ItemSprayCanGrey",
     "-1641500434": "ItemReagentMix",
@@ -69871,6 +75611,7 @@ export default {
     "-1633000411": "StructureSmallTableBacklessDouble",
     "-1629347579": "ItemKitRocketGasFuelTank",
     "-1625452928": "StructureStairwellFrontPassthrough",
+    "-1621116858": "Landingpad_LargeTank",
     "-1620686196": "StructureCableJunctionBurnt",
     "-1619793705": "ItemKitPipe",
     "-1616308158": "ItemPureIce",
@@ -69878,14 +75619,12 @@ export default {
     "-1611559100": "StructureWallPaddedThinNoBorder",
     "-1606848156": "StructureTankBig",
     "-1602030414": "StructureInsulatedTankConnectorLiquid",
-    "-1590715731": "ItemKitTurbineGenerator",
     "-1585956426": "ItemKitCrateMkII",
     "-1577831321": "StructureRefrigeratedVendingMachine",
-    "-1573623434": "ItemFlowerBlue",
     "-1567752627": "ItemWallCooler",
+    "-1555582482": "ItemIcarusHelmet",
     "-1555459562": "StructureLarreDockCargo",
     "-1554349863": "StructureSolarPanel45",
-    "-1552586384": "ItemGasCanisterPollutants",
     "-1550278665": "CartridgeAtmosAnalyser",
     "-1546743960": "StructureWallPaddedArchLightsFittings",
     "-1545574413": "StructureSolarPanelDualReinforced",
@@ -69899,7 +75638,6 @@ export default {
     "-1527229051": "StopWatch",
     "-1516581844": "ItemUraniumOre",
     "-1514298582": "Landingpad_ThreshholdPiece",
-    "-1513337058": "ItemFlowerGreen",
     "-1513030150": "StructureCompositeCladdingAngled",
     "-1510009608": "StructureChairThickSingle",
     "-1505147578": "StructureInsulatedPipeCrossJunction5",
@@ -69911,9 +75649,9 @@ export default {
     "-1470820996": "ItemKitCompositeCladding",
     "-1469588766": "StructureChuteInlet",
     "-1467449329": "StructureSleeper",
-    "-1462180176": "CartridgeElectronicReader",
     "-1459641358": "StructurePictureFrameThickMountPortraitLarge",
     "-1448105779": "ItemSteelFrames",
+    "-1447924975": "ShuttlecraftMkII",
     "-1446854725": "StructureChuteFlipFlopSplitter",
     "-1434523206": "StructurePictureFrameThickLandscapeLarge",
     "-1431998347": "ItemKitAdvancedComposter",
@@ -69926,7 +75664,6 @@ export default {
     "-1418288625": "StructurePictureFrameThinLandscapeLarge",
     "-1417912632": "StructureCompositeCladdingAngledCornerInnerLong",
     "-1414203269": "ItemPlantEndothermic_Genepool2",
-    "-1411986716": "ItemFlowerOrange",
     "-1411327657": "AccessCardBlue",
     "-1407480603": "StructureWallSmallPanelsOpen",
     "-1406385572": "ItemNickelIngot",
@@ -69934,21 +75671,24 @@ export default {
     "-1404690610": "StructureCableJunction6",
     "-1397583760": "ItemPassiveVentInsulated",
     "-1394008073": "ItemKitChairs",
+    "-1392622903": "ItemWatermelon",
     "-1388288459": "StructureBatteryLarge",
     "-1387439451": "ItemGasFilterNitrogenL",
     "-1386237782": "KitchenTableTall",
     "-1385712131": "StructureCapsuleTankGas",
     "-1381321828": "StructureCryoTubeVertical",
+    "-1374757070": "StructureLargeRocketLiquidFuelTank",
     "-1369060582": "StructureWaterWallCooler",
     "-1361598922": "ItemKitTables",
     "-1351081801": "StructureLargeHangerDoor",
     "-1348105509": "ItemGoldOre",
+    "-1345959473": "ItemFlax",
     "-1344601965": "ItemCannedMushroom",
-    "-1339716113": "AppliancePaintMixer",
     "-1339479035": "AccessCardGray",
     "-1337091041": "StructureChuteDigitalValveRight",
     "-1335056202": "ItemSugarCane",
     "-1332682164": "ItemKitSmallDirectHeatExchanger",
+    "-1331405428": "StructureInsulatedPipeLiquidStraight10",
     "-1330388999": "AccessCardBlack",
     "-1326019434": "StructureLogicWriter",
     "-1323992709": "StructureRoboticArmRailCorner",
@@ -69956,16 +75696,15 @@ export default {
     "-1309433134": "StructureWallIron04",
     "-1306628937": "ItemPureIceLiquidVolatiles",
     "-1306415132": "StructureWallLightBattery",
+    "-1306016444": "ItemHardHat",
     "-1303038067": "AppliancePlantGeneticAnalyzer",
     "-1301215609": "ItemIronIngot",
     "-1300059018": "StructureSleeperVertical",
     "-1295222317": "Landingpad_2x2CenterPiece01",
     "-1290755415": "SeedBag_Corn",
     "-1280984102": "StructureDigitalValve",
-    "-1276379454": "StructureTankConnector",
     "-1274308304": "ItemSuitModCryogenicUpgrade",
     "-1267511065": "ItemKitLandingPadWaypoint",
-    "-1264455519": "DynamicGasTankAdvancedOxygen",
     "-1262580790": "ItemBasketBall",
     "-1260618380": "ItemSpacepack",
     "-1256996603": "ItemKitRocketDatalink",
@@ -69985,8 +75724,6 @@ export default {
     "-1218579821": "StructurePictureFrameThickPortraitSmall",
     "-1217998945": "ItemGasFilterOxygenL",
     "-1216167727": "Landingpad_LiquidConnectorInwardPiece",
-    "-1214467897": "ItemWreckageStructureWeatherStation008",
-    "-1208890208": "ItemPlantThermogenic_Creative",
     "-1198702771": "ItemRocketScanningHead",
     "-1196981113": "StructureCableStraightBurnt",
     "-1193543727": "ItemHydroponicTray",
@@ -69994,7 +75731,6 @@ export default {
     "-1183969663": "StructureInLineTankLiquid1x2",
     "-1182923101": "StructureInteriorDoorTriangle",
     "-1181922382": "ItemKitElectronicsPrinter",
-    "-1178961954": "StructureWaterBottleFiller",
     "-1177469307": "StructureWallVent",
     "-1176140051": "ItemSensorLenses",
     "-1174735962": "ItemSoundCartridgeLeads",
@@ -70003,10 +75739,10 @@ export default {
     "-1166461357": "ItemKitPipeLiquid",
     "-1161662836": "StructureWallFlatCornerTriangleFlat",
     "-1160020195": "StructureLogicMathUnary",
-    "-1159179557": "ItemPlantEndothermic_Creative",
+    "-1154376263": "StructureChuteStraight10",
     "-1154200014": "ItemSensorProcessingUnitCelestialScanner",
     "-1152812099": "StructureChairRectangleDouble",
-    "-1152261938": "ItemGasCanisterOxygen",
+    "-1152751269": "ItemLiquidVacuum",
     "-1150448260": "ItemPureIceOxygen",
     "-1149857558": "StructureBackPressureRegulator",
     "-1146760430": "StructurePictureFrameThinMountLandscapeLarge",
@@ -70014,17 +75750,15 @@ export default {
     "-1136173965": "ApplianceMicrowave",
     "-1134459463": "ItemPipeGasMixer",
     "-1134148135": "CircuitboardModeControl",
+    "-1133671319": "StructurePipeStraight3",
     "-1129453144": "StructureActiveVent",
+    "-1127127263": "StructureFireExtinguisherStorage",
     "-1126688298": "StructureWallPaddedArchCorner",
     "-1125641329": "StructurePlanter",
     "-1125305264": "StructureBatteryMedium",
-    "-1117581553": "ItemHorticultureBelt",
-    "-1116110181": "CartridgeMedicalAnalyser",
     "-1113471627": "StructureCompositeFloorGrating3",
     "-1108244510": "ItemPlainCake",
-    "-1104478996": "ItemWreckageStructureWeatherStation004",
     "-1103727120": "StructureCableFuse1k",
-    "-1102977898": "WeaponTorpedo",
     "-1102403554": "StructureWallPaddingThin",
     "-1100218307": "Landingpad_GasConnectorOutwardPiece",
     "-1094868323": "AppliancePlantGeneticSplicer",
@@ -70036,9 +75770,11 @@ export default {
     "-1068629349": "KitchenTableSimpleTall",
     "-1067485367": "ItemKitLarreDockCargo",
     "-1067319543": "ItemGasFilterOxygenM",
+    "-1066145654": "SeedBag_HadesAlpha",
     "-1065725831": "StructureTransformerMedium",
     "-1061945368": "ItemKitDynamicCanister",
     "-1061510408": "ItemEmergencyPickaxe",
+    "-1061194321": "StructureRocketFiltrationGas",
     "-1057658015": "ItemWheat",
     "-1056029600": "ItemEmergencyArcWelder",
     "-1055451111": "ItemGasFilterOxygenInfinite",
@@ -70048,19 +75784,22 @@ export default {
     "-1032513487": "StructureAreaPowerControlReversed",
     "-1022714809": "StructureChuteOutlet",
     "-1022693454": "ItemKitHarvie",
-    "-1014695176": "ItemGasCanisterFuel",
     "-1011701267": "StructureCompositeWall04",
     "-1009150565": "StructureSorter",
     "-999721119": "StructurePipeLabel",
     "-999714082": "ItemCannedEdamame",
     "-998592080": "ItemTomato",
+    "-988382953": "StructureLargeRocketGasFuelTank",
     "-983091249": "ItemCobaltOre",
+    "-981522067": "ItemSuitHelmetHARM",
     "-981223316": "StructureCableCorner4HBurnt",
     "-976273247": "Landingpad_StraightPiece01",
     "-975966237": "StructureMediumRadiator",
     "-971920158": "ItemDynamicScrubber",
     "-971586619": "ItemWaterBottlePackage",
+    "-969228551": "SeedBag_HadesBeta",
     "-965741795": "StructureCondensationValve",
+    "-964363642": "ItemWreckageLargeExtendableRadiator",
     "-958884053": "StructureChuteUmbilicalMale",
     "-945806652": "ItemKitElevator",
     "-940470326": "ItemKitLarreDockBypass",
@@ -70070,11 +75809,11 @@ export default {
     "-929742000": "ItemSilverIngot",
     "-927931558": "ItemKitHydroponicAutomated",
     "-924678969": "StructureSmallTableRectangleSingle",
-    "-919745414": "ItemWreckageStructureWeatherStation005",
     "-916518678": "ItemSilverOre",
     "-913817472": "StructurePipeTJunction",
     "-913649823": "ItemPickaxe",
     "-906521320": "ItemPipeLiquidRadiator",
+    "-906450470": "ItemStrawberry",
     "-899013427": "StructurePortablesConnector",
     "-895027741": "StructureCompositeFloorGrating2",
     "-890946730": "StructureTransformerSmall",
@@ -70083,6 +75822,7 @@ export default {
     "-874791066": "ItemPureIceSteam",
     "-869869491": "ItemBeacon",
     "-868916503": "ItemKitWindTurbine",
+    "-868055390": "StructureComputerBigScreenWallMounted",
     "-867969909": "ItemKitRocketMiner",
     "-862048392": "StructureStairwellBackPassthrough",
     "-858143148": "StructureWallArch",
@@ -70092,14 +75832,12 @@ export default {
     "-846838195": "ItemKitWallFlat",
     "-842048328": "ItemActiveVent",
     "-838472102": "ItemFlashlight",
-    "-834664349": "ItemWreckageStructureWeatherStation001",
     "-831480639": "ItemBiomass",
     "-831211676": "ItemKitPowerTransmitterOmni",
     "-828056979": "StructureKlaxon",
     "-827912235": "StructureElevatorLevelFront",
     "-827125300": "ItemKitPipeOrgan",
     "-821868990": "ItemKitWallPadded",
-    "-817051527": "DynamicGasCanisterFuel",
     "-816454272": "StructureReinforcedCompositeWindowSteel",
     "-815193061": "StructureConsoleLED5",
     "-813426145": "StructureInsulatedInLineTankLiquid1x1",
@@ -70120,7 +75858,6 @@ export default {
     "-775128944": "StructureShower",
     "-772542081": "ItemChemLightBlue",
     "-767867194": "StructureLogicSlotReader",
-    "-767685874": "ItemGasCanisterCarbonDioxide",
     "-767597887": "ItemPipeAnalyizer",
     "-761772413": "StructureBatteryChargerSmall",
     "-756587791": "StructureWaterBottleFillerPowered",
@@ -70164,13 +75901,12 @@ export default {
     "-624011170": "StructurePressureFedGasEngine",
     "-619745681": "StructureGroundBasedTelescope",
     "-616758353": "ItemKitAdvancedFurnace",
-    "-613784254": "StructureHeatExchangerLiquidtoLiquid",
     "-611232514": "StructureChuteJunction",
+    "-608261233": "StructureChuteStraight3",
     "-607241919": "StructureChuteWindow",
     "-598730959": "ItemWearLamp",
     "-598545233": "ItemKitAdvancedPackagingMachine",
     "-597479390": "ItemChemLightGreen",
-    "-583103395": "EntityRoosterBrown",
     "-566775170": "StructureLargeExtendableRadiator",
     "-566348148": "StructureMediumHangerDoor",
     "-558953231": "StructureLaunchMount",
@@ -70188,13 +75924,14 @@ export default {
     "-522428667": "StructureLarreDockCollector",
     "-517628750": "StructureWaterDigitalValve",
     "-507770416": "StructureSmallDirectHeatExchangeLiquidtoLiquid",
+    "-504802150": "StructureSuitStorageFrame",
     "-504717121": "ItemWirelessBatteryCellExtraLarge",
     "-503738105": "ItemGasFilterPollutantsInfinite",
     "-498464883": "ItemSprayCanBlue",
     "-491247370": "RespawnPointWallMounted",
     "-487378546": "ItemIronSheets",
     "-475746988": "StructureReinforcedWall",
-    "-472094806": "ItemGasCanisterVolatiles",
+    "-475065916": "SeedBag_WinterspawnBeta",
     "-466050668": "ItemCableCoil",
     "-465741100": "StructureToolManufactory",
     "-463037670": "StructureAdvancedPackagingMachine",
@@ -70208,18 +75945,16 @@ export default {
     "-417629293": "StructurePipeCrossJunction4",
     "-415420281": "StructureLadder",
     "-412551656": "ItemHardJetpack",
-    "-412104504": "CircuitboardCameraDisplay",
     "-405593895": "StructureComputerUpright",
     "-404336834": "ItemCopperIngot",
     "-401648353": "ItemCerealBarBox",
-    "-400696159": "ReagentColorOrange",
     "-400115994": "StructureBattery",
     "-399883995": "StructurePipeRadiatorFlat",
     "-387546514": "StructureCompositeCladdingAngledLong",
     "-386375420": "DynamicGasTankAdvanced",
-    "-385323479": "WeaponPistolEnergy",
     "-383972371": "ItemFertilizedEgg",
     "-380904592": "ItemRocketMiningDrillHeadIce",
+    "-377716086": "StructureGasMaskStorage",
     "-375156130": "Flag_ODA_8m",
     "-374567952": "AccessCardGreen",
     "-367720198": "StructureChairBoothCornerLeft",
@@ -70231,20 +75966,19 @@ export default {
     "-349716617": "StructureCableFuse50k",
     "-348918222": "StructureCompositeCladdingAngledCornerLongR",
     "-348054045": "StructureFiltration",
+    "-347191982": "ItemSuitHARM",
+    "-346183425": "StructureSuitStorageLocker",
     "-345383640": "StructureLogicReader",
-    "-344968335": "ItemKitMotherShipCore",
     "-342072665": "StructureCamera",
     "-341365649": "StructureCableJunctionHBurnt",
     "-337075633": "MotherboardComms",
     "-332896929": "AccessCardOrange",
     "-327468845": "StructurePowerTransmitterOmni",
     "-324331872": "StructureGlassDoor",
-    "-322413931": "DynamicGasCanisterCarbonDioxide",
     "-321403609": "StructureVolumePump",
     "-319510386": "DynamicMKIILiquidCanisterWater",
     "-314072139": "ItemKitRocketBattery",
     "-311170652": "ElectronicPrinterMod",
-    "-310178617": "ItemWreckageHydroponicsTray1",
     "-303008602": "ItemKitRocketCelestialTracker",
     "-302420053": "StructureFrameSide",
     "-297990285": "ItemInvarIngot",
@@ -70252,12 +75986,14 @@ export default {
     "-290196476": "ItemSiliconIngot",
     "-287495560": "StructureLiquidPipeHeater",
     "-267108827": "StructureRoboticArmRailInnerCorner",
+    "-265202332": "StructureRoboticArmRailScrewRight",
     "-261575861": "ItemChocolateCake",
     "-260316435": "StructureStirlingEngine",
     "-259357734": "StructureCompositeCladdingRounded",
-    "-256607540": "SMGMagazine",
     "-248475032": "ItemLiquidPipeHeater",
     "-247344692": "StructureArcFurnace",
+    "-240862000": "StructureInsulatedPipeStraight3",
+    "-230749741": "StructurePipeStraight10",
     "-229808600": "ItemTablet",
     "-214232602": "StructureGovernedGasEngine",
     "-212902482": "StructureStairs4x2RailR",
@@ -70266,6 +76002,7 @@ export default {
     "-185568964": "ItemGasFilterCarbonDioxideInfinite",
     "-185207387": "ItemLiquidCanisterEmpty",
     "-178893251": "ItemMKIIWireCutters",
+    "-178735543": "ItemWreckageSteelFragmentSmall",
     "-177792789": "ItemPlantThermogenic_Genepool1",
     "-177610944": "StructureInsulatedInLineTankGas1x2",
     "-177220914": "StructureCableCornerBurnt",
@@ -70276,9 +76013,7 @@ export default {
     "-158007629": "ItemSprayCanOrange",
     "-155945899": "StructureWallPaddedCorner",
     "-146200530": "StructureCableStraightH",
-    "-137465079": "StructureDockPortSide",
     "-128473777": "StructureCircuitHousing",
-    "-127121474": "MotherboardMissionControl",
     "-126038526": "ItemKitSpeaker",
     "-124308857": "StructureLogicReagentReader",
     "-123934842": "ItemGasFilterNitrousOxideInfinite",
@@ -70287,19 +76022,16 @@ export default {
     "-110788403": "ElevatorCarrage",
     "-104908736": "StructureFairingTypeA2",
     "-99091572": "ItemKitPressureFedLiquidEngine",
-    "-99064335": "Meteorite",
     "-98995857": "ItemKitArcFurnace",
     "-92778058": "StructureInsulatedPipeCrossJunction",
     "-90898877": "ItemWaterPipeMeter",
-    "-86315541": "FireArmSMG",
     "-84573099": "ItemHardsuitHelmet",
     "-82508479": "ItemSolderIngot",
     "-82343730": "CircuitboardGasDisplay",
     "-82087220": "DynamicGenerator",
-    "-81376085": "ItemFlowerRed",
     "-78099334": "KitchenTableSimpleShort",
+    "-75599100": "StructurePassiveVentValve",
     "-75205276": "ItemCerealBarBag",
-    "-73796547": "ImGuiCircuitboardAirlockControl",
     "-72748982": "StructureInsulatedPipeLiquidCrossJunction6",
     "-69685069": "StructureCompositeCladdingAngledCorner",
     "-65087121": "StructurePowerTransmitter",
@@ -70308,6 +76040,7 @@ export default {
     "-48342840": "UniformMarine",
     "-41519077": "Battery_Wireless_cell_Big",
     "-39359015": "StructureCableCornerH",
+    "-38993607": "ApplianceBobbleHeadHardSuit",
     "-38898376": "ItemPipeCowl",
     "-37454456": "StructureStairwellFrontLeft",
     "-37302931": "StructureWallPaddedWindowThin",
@@ -70317,11 +76050,8 @@ export default {
     "-21970188": "DynamicLight",
     "-21225041": "ItemKitBatteryLarge",
     "-19246131": "StructureSmallTableThickDouble",
-    "-9559091": "ItemAmmoBox",
     "-9555593": "StructurePipeLiquidCrossJunction4",
-    "-8883951": "DynamicGasCanisterRocketFuel",
     "-1755356": "ItemPureIcePollutant",
-    "-997763": "ItemWreckageLargeExtendableRadiator01",
     "-492611": "StructureSingleBed",
     "2393826": "StructureCableCorner3HBurnt",
     "7274344": "StructureAutoMinerSmall",
@@ -70330,18 +76060,15 @@ export default {
     "8846501": "StructureWallPaddedNoBorder",
     "15011598": "ItemGasFilterVolatiles",
     "15829510": "ItemMiningCharge",
-    "19645163": "ItemKitEngineSmall",
-    "21266291": "StructureHeatExchangerGastoGas",
+    "19591354": "StructureVendingMachineSmall",
     "23052817": "StructurePressurantValve",
     "24258244": "StructureWallHeater",
     "24786172": "StructurePassiveLargeRadiatorLiquid",
     "26167457": "StructureWallPlating",
     "30686509": "ItemSprayCanPurple",
-    "30727200": "DynamicGasCanisterNitrousOxide",
     "35149429": "StructureInLineTankGas1x2",
     "38555961": "ItemSteelSheets",
     "42280099": "ItemGasCanisterEmpty",
-    "45733800": "ItemWreckageWallCooler2",
     "62768076": "ItemPumpkinPie",
     "63677771": "ItemGasFilterPollutantsM",
     "73728932": "StructurePipeStraight",
@@ -70349,21 +76076,18 @@ export default {
     "81488783": "CartridgeTracker",
     "85133079": "StructureLarreDockHydroponics",
     "94730034": "ToyLuna",
-    "98602599": "ItemWreckageTurbineGenerator2",
     "101488029": "StructurePowerUmbilicalFemale",
     "106953348": "DynamicSkeleton",
     "107741229": "ItemWaterBottle",
-    "108086870": "DynamicGasCanisterVolatiles",
     "110184667": "StructureCompositeCladdingRoundedCornerInner",
     "111280987": "ItemTerrainManipulator",
     "118685786": "FlareGun",
     "119096484": "ItemKitPlanter",
-    "120807542": "ReagentColorGreen",
-    "121951301": "DynamicGasCanisterNitrogen",
     "123504691": "ItemKitPressurePlate",
     "124499454": "ItemKitLogicSwitch",
     "139107321": "StructureCompositeCladdingSpherical",
     "141535121": "ItemLaptop",
+    "142593802": "ApplianceBobbleHeadMarine",
     "142831994": "ApplianceSeedTray",
     "146051619": "Landingpad_TaxiPieceHold",
     "147395155": "StructureFuselageTypeC5",
@@ -70380,10 +76104,10 @@ export default {
     "163728359": "StructureChuteDigitalFlipFlopSplitterRight",
     "168307007": "StructureChuteStraight",
     "168615924": "ItemKitDoor",
-    "169888054": "ItemWreckageAirConditioner2",
     "170818567": "Landingpad_GasCylinderTankPiece",
     "170878959": "ItemKitStairs",
     "173023800": "ItemPlantSampler",
+    "173826094": "ItemBlueberry",
     "176446172": "ItemAlienMushroom",
     "178422810": "ItemKitSatelliteDish",
     "178472613": "StructureRocketEngineTiny",
@@ -70392,7 +76116,6 @@ export default {
     "195298587": "StructureExpansionValve",
     "195442047": "ItemCableFuse",
     "197243872": "ItemKitRoverMKI",
-    "197293625": "DynamicGasCanisterWater",
     "201215010": "ItemAngleGrinder",
     "205837861": "StructureCableCornerH4",
     "205916793": "ItemEmergencySpaceHelmet",
@@ -70411,7 +76134,6 @@ export default {
     "235638270": "StructureConsole",
     "238631271": "ItemPassiveVent",
     "240174650": "ItemMKIIAngleGrinder",
-    "247238062": "Handgun",
     "248893646": "PassiveSpeaker",
     "249073136": "ItemKitBeacon",
     "252561409": "ItemCharcoal",
@@ -70432,9 +76154,9 @@ export default {
     "293581318": "ItemKitLandingPadBasic",
     "295678685": "StructureInsulatedPipeLiquidStraight",
     "298130111": "StructureWallFlatCornerSquare",
-    "299189339": "ItemHat",
     "309693520": "ItemWaterPipeDigitalValve",
     "311593418": "SeedBag_Mushroom",
+    "315264172": "SeedBag_Watermelon",
     "318437449": "StructureCableCorner3Burnt",
     "321604921": "StructureLogicSwitch2",
     "322782515": "StructureOccupancySensor",
@@ -70442,7 +76164,6 @@ export default {
     "324791548": "ItemMKIIDrill",
     "324868581": "StructureCompositeFloorGrating",
     "326752036": "ItemKitSleeper",
-    "334097180": "EntityChickenBrown",
     "335498166": "StructurePassiveVent",
     "336213101": "StructureAutolathe",
     "337035771": "AccessCardKhaki",
@@ -70452,7 +76173,6 @@ export default {
     "341030083": "ItemKitGrowLight",
     "347154462": "StructurePictureFrameThickMountLandscapeSmall",
     "347658127": "ItemKitLarreDockCollector",
-    "350726273": "RoverCargo",
     "363303270": "StructureInsulatedPipeLiquidCrossJunction4",
     "374891127": "ItemHardBackpack",
     "375541286": "ItemKitDynamicLiquidCanister",
@@ -70464,13 +76184,12 @@ export default {
     "386754635": "ItemPureIceNitrous",
     "386820253": "StructureWallSmallPanelsMonoChrome",
     "388774906": "ItemMKIIDuctTape",
-    "391453348": "ItemWreckageStructureRTG1",
     "391769637": "ItemPipeLabel",
-    "396065382": "DynamicGasCanisterPollutants",
     "399074198": "NpcChicken",
     "399661231": "RailingElegant01",
     "406745009": "StructureBench1",
     "412924554": "ItemAstroloyIngot",
+    "415701477": "StructureInsulatedPipeStraight5",
     "416897318": "ItemGasFilterCarbonDioxideM",
     "418958601": "ItemPillStun",
     "429365598": "ItemKitCrate",
@@ -70510,9 +76229,9 @@ export default {
     "519913639": "DynamicAirConditioner",
     "529137748": "ItemKitToolManufactory",
     "529996327": "ItemKitSign",
+    "532208167": "ItemRocketDeepScanningHead",
     "534213209": "StructureCompositeCladdingSphericalCap",
     "541621589": "ItemPureIceLiquidOxygen",
-    "542009679": "ItemWreckageStructureWeatherStation003",
     "543645499": "StructureInLineTankLiquid1x1",
     "544617306": "ItemBatteryCellNuclear",
     "545034114": "ItemCornSoup",
@@ -70534,13 +76253,11 @@ export default {
     "617773453": "ItemKitLiquidTankInsulated",
     "619828719": "StructureWallSmallPanelsAndHatch",
     "632853248": "ItemGasFilterNitrogen",
-    "635208006": "ReagentColorYellow",
     "635995024": "StructureWallPadding",
     "636112787": "ItemKitPassthroughHeatExchanger",
     "648608238": "StructureChuteDigitalValveLeft",
     "653461728": "ItemRocketMiningDrillHeadHighSpeedIce",
     "656181408": "ItemKitLarreDockHydroponics",
-    "656649558": "ItemWreckageStructureWeatherStation007",
     "658916791": "ItemRice",
     "662053345": "ItemPlasticSheets",
     "665194284": "ItemKitTransformerSmall",
@@ -70557,19 +76274,16 @@ export default {
     "714830451": "ItemSpaceHelmet",
     "718343384": "StructureCompositeWall02",
     "721251202": "ItemKitRocketCircuitHousing",
-    "724776762": "ItemKitResearchMachine",
     "731250882": "ItemElectronicParts",
     "735858725": "ItemKitShower",
     "750118160": "StructureUnloader",
     "750176282": "ItemKitRailing",
     "751887598": "StructureFridgeSmall",
     "755048589": "DynamicScrubber",
-    "755302726": "ItemKitEngineLarge",
     "771439840": "ItemKitTank",
     "777684475": "ItemLiquidCanisterSmart",
     "782529714": "StructureWallArchTwoTone",
     "789015045": "ItemAuthoringTool",
-    "789494694": "WeaponEnergy",
     "791407452": "StructureCompositeWindowShutterConnector",
     "791746840": "ItemCerealBar",
     "792686502": "StructureLargeDirectHeatExchangeLiquidtoLiquid",
@@ -70577,13 +76291,11 @@ export default {
     "798439281": "StructureWallIron03",
     "799323450": "ItemPipeValve",
     "801677497": "StructureConsoleMonitor",
-    "806513938": "StructureRover",
     "808389066": "StructureRocketAvionics",
     "810053150": "UniformOrangeJumpSuit",
     "813146305": "StructureSolidFuelGenerator",
     "817945707": "Landingpad_GasConnectorInwardPiece",
     "826144419": "StructureElevatorShaft",
-    "833912764": "StructureTransformerMediumReversed",
     "839890807": "StructureFlatBench",
     "839924019": "ItemPowerConnector",
     "844391171": "ItemKitHorizontalAutoMiner",
@@ -70595,13 +76307,13 @@ export default {
     "850558385": "StructureCompositeCladdingAngledCornerLong",
     "851103794": "ItemEmergencySuppliesBox",
     "851290561": "ItemPlantEndothermic_Genepool1",
+    "853348026": "StructureChuteStraight5",
     "855694771": "CircuitboardDoorControl",
     "856108234": "ItemCrowbar",
     "860793245": "ItemChocolateCerealBar",
     "861674123": "Rover_MkI_build_states",
     "871432335": "AppliancePlantGeneticStabilizer",
     "871811564": "ItemRoadFlare",
-    "872720793": "CartridgeGuide",
     "873418029": "StructureLogicSorter",
     "876108549": "StructureLogicRocketDownlink",
     "879058460": "StructureSign1x1",
@@ -70612,7 +76324,7 @@ export default {
     "892110467": "ItemFern",
     "893514943": "ItemBreadLoaf",
     "894390004": "StructureCableJunction5",
-    "897176943": "ItemInsulation",
+    "897717596": "SeedBag_Blueberry",
     "898708250": "StructureWallFlatCornerRound",
     "900366130": "ItemHardMiningBackPack",
     "902565329": "ItemDirtCanister",
@@ -70620,22 +76332,22 @@ export default {
     "912176135": "CircuitboardAirlockControl",
     "912453390": "Landingpad_BlankPiece",
     "920411066": "ItemKitPipeRadiator",
+    "921641358": "ItemGorse",
+    "925932637": "ItemKitRocketAtmospherics",
     "929022276": "StructureLogicMinMax",
     "930865127": "StructureSolarPanel45Reinforced",
     "938836756": "StructurePoweredVent",
     "944530361": "ItemPureIceHydrogen",
-    "944685608": "StructureHeatExchangeLiquidtoGas",
     "947705066": "StructureCompositeCladdingAngledCornerInnerLongL",
     "950004659": "StructurePictureFrameThickMountLandscapeLarge",
     "955744474": "StructureTankSmallAir",
     "958056199": "StructureHarvie",
     "958476921": "StructureFridgeBig",
     "964043875": "ItemKitAirlock",
-    "966959649": "EntityRoosterBlack",
     "969522478": "ItemKitSorter",
     "976699731": "ItemEmergencyCrowbar",
     "977899131": "Landingpad_DiagonalPiece01",
-    "980054869": "ReagentColorBlue",
+    "980397232": "SeedBag_DargaFern",
     "980469101": "StructureCableCorner3",
     "982514123": "ItemNVG",
     "989835703": "StructurePlinth",
@@ -70646,12 +76358,13 @@ export default {
     "1005491513": "StructureIgniter",
     "1005571172": "SeedBag_Potato",
     "1005843700": "ItemDataDisk",
+    "1006351599": "CartridgeDeepMiner",
     "1008295833": "ItemBatteryChargerSmall",
-    "1010807532": "EntityChickenWhite",
     "1011275082": "StructureLarreDockBypass",
     "1013244511": "ItemKitStacker",
     "1013514688": "StructureTankSmall",
     "1013818348": "ItemEmptyCan",
+    "1013894259": "ItemWreckageStructureWeatherStation",
     "1021053608": "ItemKitTankInsulated",
     "1025254665": "ItemKitChute",
     "1033024712": "StructureFuselageTypeA1",
@@ -70672,6 +76385,7 @@ export default {
     "1076425094": "StructureDaylightSensor",
     "1077151132": "StructureCompositeCladdingCylindricalPanel",
     "1083675581": "ItemRocketMiningDrillHeadMineral",
+    "1087359947": "StructureInsulatedPipeStraight10",
     "1088892825": "ItemKitSuitStorage",
     "1094895077": "StructurePictureFrameThinMountPortraitLarge",
     "1098900430": "StructureLiquidTankBig",
@@ -70684,7 +76398,6 @@ export default {
     "1139887531": "SeedBag_Cocoa",
     "1143639539": "StructureMediumRocketLiquidFuelTank",
     "1151864003": "StructureCargoStorageMedium",
-    "1154745374": "WeaponRifleEnergy",
     "1155865682": "StructureSDBSilo",
     "1159126354": "Flag_ODA_4m",
     "1161510063": "ItemCannedPowderedEggs",
@@ -70712,7 +76425,6 @@ export default {
     "1237302061": "StructureCompositeWall",
     "1238905683": "StructureCombustionCentrifuge",
     "1253102035": "ItemVolatiles",
-    "1254383185": "HandgunMagazine",
     "1255156286": "ItemGasFilterVolatilesL",
     "1258187304": "ItemMiningDrillPneumatic",
     "1260651529": "StructureSmallTableDinnerSingle",
@@ -70722,7 +76434,6 @@ export default {
     "1277979876": "ItemPumpkinSoup",
     "1280378227": "StructureTankBigInsulated",
     "1281911841": "StructureWallArchCornerTriangle",
-    "1282191063": "StructureTurbineGenerator",
     "1286441942": "StructurePipeIgniter",
     "1287324802": "StructureWallIron",
     "1289581593": "StructurePipeOneWayValveLever",
@@ -70735,17 +76446,16 @@ export default {
     "1310303582": "StructureSmallDirectHeatExchangeGastoGas",
     "1310794736": "StructureTurboVolumePump",
     "1312166823": "ItemChemLightWhite",
+    "1323320543": "LanderMkII",
     "1327248310": "ItemMilk",
     "1328210035": "StructureInsulatedPipeCrossJunction3",
     "1330754486": "StructureShortCornerLocker",
-    "1331802518": "StructureTankConnectorLiquid",
+    "1335155606": "ItemWreckageSteelCornerSmall",
     "1344257263": "ItemSprayCanPink",
     "1344368806": "CircuitboardGraphDisplay",
-    "1344576960": "ItemWreckageStructureWeatherStation006",
     "1344773148": "ItemCookedCorn",
     "1353449022": "ItemCookedSoybean",
     "1360330136": "StructureChuteCorner",
-    "1360925836": "DynamicGasCanisterOxygen",
     "1363077139": "StructurePassiveVentInsulated",
     "1365789392": "ApplianceChemistryStation",
     "1366030599": "ItemPipeIgniter",
@@ -70763,9 +76473,10 @@ export default {
     "1415443359": "StructureLogicBatchWriter",
     "1420719315": "StructureCondensationChamber",
     "1423199840": "SeedBag_Pumpkin",
+    "1426991452": "StructurePipeStraight5",
     "1428477399": "ItemPureIceLiquidNitrous",
     "1432512808": "StructureFrame",
-    "1433754995": "StructureWaterBottleFillerBottom",
+    "1435578852": "StructureManualFloorHatch",
     "1436121888": "StructureLightRoundSmall",
     "1440678625": "ItemRocketMiningDrillHeadHighSpeedMineral",
     "1440775434": "ItemMKIICrowbar",
@@ -70775,12 +76486,10 @@ export default {
     "1453961898": "ItemKitPassiveLargeRadiatorLiquid",
     "1459105919": "ItemPortablesPackage",
     "1459985302": "ItemKitReinforcedWindows",
-    "1464424921": "ItemWreckageStructureWeatherStation002",
     "1464854517": "StructureHydroponicsTray",
     "1467558064": "ItemMkIIToolbelt",
     "1468249454": "StructureOverheadShortLocker",
     "1470787934": "ItemMiningBeltMKII",
-    "1473807953": "StructureTorpedoRack",
     "1476318823": "ItemWaterBottleBag",
     "1485675617": "ItemInsulatedCanisterPackage",
     "1485834215": "StructureWallIron02",
@@ -70829,7 +76538,6 @@ export default {
     "1654694384": "StructureInsulatedPipeLiquidCrossJunction5",
     "1657691323": "StructureLogicMath",
     "1661226524": "ItemKitFridgeSmall",
-    "1661270830": "ItemScanner",
     "1661941301": "ItemEmergencyToolBelt",
     "1668452680": "StructureEmergencyButton",
     "1668815415": "ItemKitAutoMinerSmall",
@@ -70844,14 +76552,14 @@ export default {
     "1700018136": "ToolPrinterMod",
     "1701593300": "StructureCableJunctionH5Burnt",
     "1701764190": "ItemKitFlagODA",
+    "1708439824": "MotherboardMap",
     "1709994581": "StructureWallSmallPanelsTwoTone",
-    "1712822019": "ItemFlowerYellow",
     "1713710802": "StructureInsulatedPipeLiquidCorner",
     "1715917521": "ItemCookedCondensedMilk",
+    "1716878560": "ItemGasMask",
     "1717593480": "ItemGasSensor",
     "1722785341": "ItemAdvancedTablet",
     "1724793494": "ItemCoalOre",
-    "1730165908": "EntityChick",
     "1734723642": "StructureLiquidUmbilicalFemale",
     "1736080881": "StructureAirlockGate",
     "1738236580": "CartridgeOreScannerColor",
@@ -70878,7 +76586,6 @@ export default {
     "1822736084": "StructureLogicSelect",
     "1824284061": "ItemGasFilterNitrousOxideM",
     "1825212016": "StructureSmallDirectHeatExchangeLiquidtoGas",
-    "1827215803": "ItemKitRoverFrame",
     "1830218956": "ItemNickelOre",
     "1835796040": "StructurePictureFrameThinMountPortraitSmall",
     "1840108251": "H2Combustor",
@@ -70901,31 +76608,29 @@ export default {
     "1922506192": "StructurePowerUmbilicalFemaleSide",
     "1924673028": "ItemSoybean",
     "1926651727": "StructureInsulatedPipeLiquidCrossJunction",
-    "1927790321": "ItemWreckageTurbineGenerator3",
     "1928991265": "StructurePassthroughHeatExchangerGasToLiquid",
     "1929046963": "ItemPotato",
     "1931412811": "StructureCableCornerHBurnt",
     "1932952652": "KitSDBSilo",
     "1934508338": "ItemKitPipeUtility",
     "1935945891": "ItemKitInteriorDoors",
-    "1938254586": "StructureCryoTube",
     "1939061729": "StructureReinforcedWallPaddedWindow",
+    "1941072263": "StructureAirlockWide",
     "1941079206": "DynamicCrate",
     "1942143074": "StructureLogicGate",
     "1944485013": "StructureDiode",
     "1944858936": "StructureChairBacklessDouble",
     "1945930022": "StructureBatteryCharger",
     "1947944864": "StructureFurnace",
-    "1949076595": "ItemLightSword",
     "1951126161": "ItemKitLiquidRegulator",
     "1951525046": "StructureCompositeCladdingRoundedCorner",
+    "1952395881": "StructureComputerBigScreen",
     "1957571043": "StructureChuteExportBin",
     "1959564765": "ItemGasFilterPollutantsL",
     "1960952220": "ItemKitSmallSatelliteDish",
     "1968102968": "StructureSolarPanelFlat",
     "1968371847": "StructureDrinkingFountain",
     "1969189000": "ItemJetpackBasic",
-    "1969312177": "ItemKitEngineMedium",
     "1974053060": "StructureRoboticArmRailCornerStop",
     "1978422481": "StructureLarreDockAtmos",
     "1979212240": "StructureWallGeometryCorner",
@@ -70937,11 +76642,11 @@ export default {
     "1997293610": "ItemKitLogicInputOutput",
     "1997436771": "StructureCompositeCladdingPanel",
     "1998354978": "StructureElevatorShaftIndustrial",
-    "1998377961": "ReagentColorRed",
     "1998634960": "Flag_ODA_6m",
     "1999523701": "StructureAreaPowerControl",
     "2004969680": "ItemGasFilterWaterL",
     "2009673399": "ItemDrill",
+    "2009884607": "SeedBag_Strawberry",
     "2011191088": "ItemFlagSmall",
     "2013539020": "ItemCookedRice",
     "2014252591": "StructureRocketScanner",
@@ -70953,12 +76658,14 @@ export default {
     "2032027950": "ItemKitRocketLiquidFuelTank",
     "2035781224": "StructureEngineMountTypeA1",
     "2036225202": "ItemLiquidDrain",
+    "2037291645": "StructureCircuitHousingCompact",
     "2037427578": "ItemLiquidTankStorage",
     "2038427184": "StructurePipeCrossJunction3",
     "2042955224": "ItemPeaceLily",
     "2043318949": "PortableSolarPanel",
     "2044798572": "ItemMushroom",
     "2049879875": "StructureStairwellNoDoors",
+    "2051209828": "StructurePipeLiquidStraight3",
     "2057179799": "ItemKitHydroponicStation",
     "2060134443": "ItemCableCoilHeavy",
     "2060648791": "StructureElevatorLevelIndustrial",
@@ -70969,6 +76676,7 @@ export default {
     "2079959157": "AccessCardWhite",
     "2085762089": "StructureCableStraightHBurnt",
     "2087628940": "StructureWallPaddedWindow",
+    "2093095541": "StructureInsulatedPipeLiquidStraight5",
     "2096189278": "StructureLogicMirror",
     "2097419366": "StructureWallFlatCornerTriangle",
     "2099900163": "StructureBackLiquidPressureRegulator",
@@ -70978,12 +76686,12 @@ export default {
     "2109695912": "StructureCompositeFloorGratingOpen",
     "2109945337": "ItemRocketMiningDrillHead",
     "2111910840": "ItemSugar",
+    "2116552372": "ItemGrass",
     "2130739600": "DynamicMKIILiquidCanisterEmpty",
     "2131916219": "ItemSpaceOre",
     "2133035682": "ItemKitStandardChute",
     "2134172356": "StructureInsulatedPipeStraight",
-    "2134647745": "ItemLeadIngot",
-    "2145068424": "ItemGasCanisterNitrogen"
+    "2134647745": "ItemLeadIngot"
   },
   "structures": [
     "CompositeRollCover",
@@ -71007,6 +76715,7 @@ export default {
     "Landingpad_GasConnectorInwardPiece",
     "Landingpad_GasConnectorOutwardPiece",
     "Landingpad_GasCylinderTankPiece",
+    "Landingpad_LargeTank",
     "Landingpad_LiquidConnectorInwardPiece",
     "Landingpad_LiquidConnectorOutwardPiece",
     "Landingpad_StraightPiece01",
@@ -71031,6 +76740,7 @@ export default {
     "StructureAirConditioner",
     "StructureAirlock",
     "StructureAirlockGate",
+    "StructureAirlockWide",
     "StructureAngledBench",
     "StructureArcFurnace",
     "StructureAreaPowerControl",
@@ -71121,12 +76831,16 @@ export default {
     "StructureChuteOutlet",
     "StructureChuteOverflow",
     "StructureChuteStraight",
+    "StructureChuteStraight10",
+    "StructureChuteStraight3",
+    "StructureChuteStraight5",
     "StructureChuteUmbilicalFemale",
     "StructureChuteUmbilicalFemaleSide",
     "StructureChuteUmbilicalMale",
     "StructureChuteValve",
     "StructureChuteWindow",
     "StructureCircuitHousing",
+    "StructureCircuitHousingCompact",
     "StructureCombustionCentrifuge",
     "StructureCompositeCladdingAngled",
     "StructureCompositeCladdingAngledCorner",
@@ -71163,6 +76877,8 @@ export default {
     "StructureCompositeWindowShutterConnector",
     "StructureCompositeWindowShutterController",
     "StructureComputer",
+    "StructureComputerBigScreen",
+    "StructureComputerBigScreenWallMounted",
     "StructureComputerUpright",
     "StructureCondensationChamber",
     "StructureCondensationValve",
@@ -71172,10 +76888,8 @@ export default {
     "StructureConsoleLED1x3",
     "StructureConsoleLED5",
     "StructureConsoleMonitor",
-    "StructureControlChair",
     "StructureCornerLocker",
     "StructureCrateMount",
-    "StructureCryoTube",
     "StructureCryoTubeHorizontal",
     "StructureCryoTubeVertical",
     "StructureDaylightSensor",
@@ -71183,7 +76897,6 @@ export default {
     "StructureDigitalValve",
     "StructureDiode",
     "StructureDiodeSlide",
-    "StructureDockPortSide",
     "StructureDrinkingFountain",
     "StructureElectrolyzer",
     "StructureElectronicsPrinter",
@@ -71199,6 +76912,7 @@ export default {
     "StructureFairingTypeA2",
     "StructureFairingTypeA3",
     "StructureFiltration",
+    "StructureFireExtinguisherStorage",
     "StructureFlagSmall",
     "StructureFlashingLight",
     "StructureFlatBench",
@@ -71211,11 +76925,13 @@ export default {
     "StructureFridgeBig",
     "StructureFridgeSmall",
     "StructureFurnace",
+    "StructureFuselageDoorsDual",
     "StructureFuselageTypeA1",
     "StructureFuselageTypeA2",
     "StructureFuselageTypeA4",
     "StructureFuselageTypeC5",
     "StructureGasGenerator",
+    "StructureGasMaskStorage",
     "StructureGasMixer",
     "StructureGasSensor",
     "StructureGasTankStorage",
@@ -71227,9 +76943,6 @@ export default {
     "StructureGroundBasedTelescope",
     "StructureGrowLight",
     "StructureHarvie",
-    "StructureHeatExchangeLiquidtoGas",
-    "StructureHeatExchangerGastoGas",
-    "StructureHeatExchangerLiquidtoLiquid",
     "StructureHorizontalAutoMiner",
     "StructureHydraulicPipeBender",
     "StructureHydroponicsStation",
@@ -71257,8 +76970,14 @@ export default {
     "StructureInsulatedPipeLiquidCrossJunction5",
     "StructureInsulatedPipeLiquidCrossJunction6",
     "StructureInsulatedPipeLiquidStraight",
+    "StructureInsulatedPipeLiquidStraight10",
+    "StructureInsulatedPipeLiquidStraight3",
+    "StructureInsulatedPipeLiquidStraight5",
     "StructureInsulatedPipeLiquidTJunction",
     "StructureInsulatedPipeStraight",
+    "StructureInsulatedPipeStraight10",
+    "StructureInsulatedPipeStraight3",
+    "StructureInsulatedPipeStraight5",
     "StructureInsulatedPipeTJunction",
     "StructureInsulatedTankConnector",
     "StructureInsulatedTankConnectorLiquid",
@@ -71274,6 +76993,8 @@ export default {
     "StructureLargeDirectHeatExchangeLiquidtoLiquid",
     "StructureLargeExtendableRadiator",
     "StructureLargeHangerDoor",
+    "StructureLargeRocketGasFuelTank",
+    "StructureLargeRocketLiquidFuelTank",
     "StructureLargeSatelliteDish",
     "StructureLarreDockAtmos",
     "StructureLarreDockBypass",
@@ -71317,6 +77038,7 @@ export default {
     "StructureLogicMemory",
     "StructureLogicMinMax",
     "StructureLogicMirror",
+    "StructureLogicPidController",
     "StructureLogicReader",
     "StructureLogicReagentReader",
     "StructureLogicRocketDownlink",
@@ -71329,6 +77051,7 @@ export default {
     "StructureLogicTransmitter",
     "StructureLogicWriter",
     "StructureLogicWriterSwitch",
+    "StructureManualFloorHatch",
     "StructureManualHatch",
     "StructureMediumConvectionRadiator",
     "StructureMediumConvectionRadiatorLiquid",
@@ -71347,6 +77070,7 @@ export default {
     "StructurePassiveLiquidDrain",
     "StructurePassiveVent",
     "StructurePassiveVentInsulated",
+    "StructurePassiveVentValve",
     "StructurePassthroughHeatExchangerGasToGas",
     "StructurePassthroughHeatExchangerGasToLiquid",
     "StructurePassthroughHeatExchangerLiquidToLiquid",
@@ -71386,6 +77110,9 @@ export default {
     "StructurePipeLiquidCrossJunction6",
     "StructurePipeLiquidOneWayValveLever",
     "StructurePipeLiquidStraight",
+    "StructurePipeLiquidStraight10",
+    "StructurePipeLiquidStraight3",
+    "StructurePipeLiquidStraight5",
     "StructurePipeLiquidTJunction",
     "StructurePipeMeter",
     "StructurePipeOneWayValveLever",
@@ -71394,6 +77121,9 @@ export default {
     "StructurePipeRadiatorFlat",
     "StructurePipeRadiatorFlatLiquid",
     "StructurePipeStraight",
+    "StructurePipeStraight10",
+    "StructurePipeStraight3",
+    "StructurePipeStraight5",
     "StructurePipeTJunction",
     "StructurePlanter",
     "StructurePlatformLadderOpen",
@@ -71432,18 +77162,21 @@ export default {
     "StructureRoboticArmRailCornerStop",
     "StructureRoboticArmRailInnerCorner",
     "StructureRoboticArmRailOuterCorner",
+    "StructureRoboticArmRailScrewLeft",
+    "StructureRoboticArmRailScrewRight",
     "StructureRoboticArmRailStraight",
     "StructureRoboticArmRailStraightStop",
     "StructureRocketAvionics",
     "StructureRocketCelestialTracker",
     "StructureRocketCircuitHousing",
     "StructureRocketEngineTiny",
+    "StructureRocketFiltrationGas",
+    "StructureRocketGasCollector",
     "StructureRocketManufactory",
     "StructureRocketMiner",
     "StructureRocketScanner",
     "StructureRocketTower",
     "StructureRocketTransformerSmall",
-    "StructureRover",
     "StructureSDBHopper",
     "StructureSDBHopperAdvanced",
     "StructureSDBSilo",
@@ -71500,28 +77233,26 @@ export default {
     "StructureStirlingEngine",
     "StructureStorageLocker",
     "StructureSuitStorage",
+    "StructureSuitStorageFrame",
+    "StructureSuitStorageLocker",
     "StructureTankBig",
     "StructureTankBigInsulated",
-    "StructureTankConnector",
-    "StructureTankConnectorLiquid",
     "StructureTankSmall",
     "StructureTankSmallAir",
     "StructureTankSmallFuel",
     "StructureTankSmallInsulated",
     "StructureToolManufactory",
-    "StructureTorpedoRack",
     "StructureTraderWaypoint",
     "StructureTransformer",
     "StructureTransformerMedium",
-    "StructureTransformerMediumReversed",
     "StructureTransformerSmall",
     "StructureTransformerSmallReversed",
-    "StructureTurbineGenerator",
     "StructureTurboVolumePump",
     "StructureUnloader",
     "StructureUprightWindTurbine",
     "StructureValve",
     "StructureVendingMachine",
+    "StructureVendingMachineSmall",
     "StructureVolumePump",
     "StructureWallArch",
     "StructureWallArchArrow",
@@ -71572,8 +77303,6 @@ export default {
     "StructureWallSmallPanelsOpen",
     "StructureWallSmallPanelsTwoTone",
     "StructureWallVent",
-    "StructureWaterBottleFiller",
-    "StructureWaterBottleFillerBottom",
     "StructureWaterBottleFillerPowered",
     "StructureWaterBottleFillerPoweredBottom",
     "StructureWaterDigitalValve",
@@ -71605,6 +77334,7 @@ export default {
     "StructureAirConditioner",
     "StructureAirlock",
     "StructureAirlockGate",
+    "StructureAirlockWide",
     "StructureAngledBench",
     "StructureArcFurnace",
     "StructureAreaPowerControl",
@@ -71661,10 +77391,13 @@ export default {
     "StructureChuteUmbilicalFemaleSide",
     "StructureChuteUmbilicalMale",
     "StructureCircuitHousing",
+    "StructureCircuitHousingCompact",
     "StructureCombustionCentrifuge",
     "StructureCompositeDoor",
     "StructureCompositeWindowShutterController",
     "StructureComputer",
+    "StructureComputerBigScreen",
+    "StructureComputerBigScreenWallMounted",
     "StructureComputerUpright",
     "StructureCondensationChamber",
     "StructureCondensationValve",
@@ -71674,9 +77407,7 @@ export default {
     "StructureConsoleLED1x3",
     "StructureConsoleLED5",
     "StructureConsoleMonitor",
-    "StructureControlChair",
     "StructureCornerLocker",
-    "StructureCryoTube",
     "StructureCryoTubeHorizontal",
     "StructureCryoTubeVertical",
     "StructureDaylightSensor",
@@ -71684,7 +77415,6 @@ export default {
     "StructureDigitalValve",
     "StructureDiode",
     "StructureDiodeSlide",
-    "StructureDockPortSide",
     "StructureDrinkingFountain",
     "StructureElectrolyzer",
     "StructureElectronicsPrinter",
@@ -71713,9 +77443,6 @@ export default {
     "StructureGroundBasedTelescope",
     "StructureGrowLight",
     "StructureHarvie",
-    "StructureHeatExchangeLiquidtoGas",
-    "StructureHeatExchangerGastoGas",
-    "StructureHeatExchangerLiquidtoLiquid",
     "StructureHorizontalAutoMiner",
     "StructureHydraulicPipeBender",
     "StructureHydroponicsStation",
@@ -71732,6 +77459,8 @@ export default {
     "StructureLargeDirectHeatExchangeLiquidtoLiquid",
     "StructureLargeExtendableRadiator",
     "StructureLargeHangerDoor",
+    "StructureLargeRocketGasFuelTank",
+    "StructureLargeRocketLiquidFuelTank",
     "StructureLargeSatelliteDish",
     "StructureLarreDockAtmos",
     "StructureLarreDockBypass",
@@ -71774,6 +77503,7 @@ export default {
     "StructureLogicMemory",
     "StructureLogicMinMax",
     "StructureLogicMirror",
+    "StructureLogicPidController",
     "StructureLogicReader",
     "StructureLogicReagentReader",
     "StructureLogicRocketDownlink",
@@ -71786,6 +77516,7 @@ export default {
     "StructureLogicTransmitter",
     "StructureLogicWriter",
     "StructureLogicWriterSwitch",
+    "StructureManualFloorHatch",
     "StructureManualHatch",
     "StructureMediumConvectionRadiator",
     "StructureMediumConvectionRadiatorLiquid",
@@ -71843,6 +77574,8 @@ export default {
     "StructureRocketCelestialTracker",
     "StructureRocketCircuitHousing",
     "StructureRocketEngineTiny",
+    "StructureRocketFiltrationGas",
+    "StructureRocketGasCollector",
     "StructureRocketManufactory",
     "StructureRocketMiner",
     "StructureRocketScanner",
@@ -71884,6 +77617,8 @@ export default {
     "StructureStirlingEngine",
     "StructureStorageLocker",
     "StructureSuitStorage",
+    "StructureSuitStorageFrame",
+    "StructureSuitStorageLocker",
     "StructureTankBig",
     "StructureTankBigInsulated",
     "StructureTankSmall",
@@ -71894,22 +77629,19 @@ export default {
     "StructureTraderWaypoint",
     "StructureTransformer",
     "StructureTransformerMedium",
-    "StructureTransformerMediumReversed",
     "StructureTransformerSmall",
     "StructureTransformerSmallReversed",
-    "StructureTurbineGenerator",
     "StructureTurboVolumePump",
     "StructureUnloader",
     "StructureUprightWindTurbine",
     "StructureValve",
     "StructureVendingMachine",
+    "StructureVendingMachineSmall",
     "StructureVolumePump",
     "StructureWallCooler",
     "StructureWallHeater",
     "StructureWallLight",
     "StructureWallLightBattery",
-    "StructureWaterBottleFiller",
-    "StructureWaterBottleFillerBottom",
     "StructureWaterBottleFillerPowered",
     "StructureWaterBottleFillerPoweredBottom",
     "StructureWaterDigitalValve",
@@ -71932,12 +77664,14 @@ export default {
     "AccessCardRed",
     "AccessCardWhite",
     "AccessCardYellow",
+    "ApplianceBobbleHeadBasicSuit",
+    "ApplianceBobbleHeadHardSuit",
+    "ApplianceBobbleHeadMarine",
     "ApplianceChemistryStation",
     "ApplianceDeskLampLeft",
     "ApplianceDeskLampRight",
     "ApplianceMicrowave",
     "AppliancePackagingMachine",
-    "AppliancePaintMixer",
     "AppliancePlantGeneticAnalyzer",
     "AppliancePlantGeneticSplicer",
     "AppliancePlantGeneticStabilizer",
@@ -71951,10 +77685,7 @@ export default {
     "CartridgeAccessController",
     "CartridgeAtmosAnalyser",
     "CartridgeConfiguration",
-    "CartridgeElectronicReader",
-    "CartridgeGPS",
-    "CartridgeGuide",
-    "CartridgeMedicalAnalyser",
+    "CartridgeDeepMiner",
     "CartridgeNetworkAnalyser",
     "CartridgeOreScanner",
     "CartridgeOreScannerColor",
@@ -71963,33 +77694,20 @@ export default {
     "CircuitboardAdvAirlockControl",
     "CircuitboardAirControl",
     "CircuitboardAirlockControl",
-    "CircuitboardCameraDisplay",
     "CircuitboardDoorControl",
     "CircuitboardGasDisplay",
     "CircuitboardGraphDisplay",
     "CircuitboardHashDisplay",
     "CircuitboardModeControl",
     "CircuitboardPowerControl",
-    "CircuitboardShipDisplay",
     "CircuitboardSolarControl",
     "CrateMkII",
     "DecayedFood",
     "DynamicAirConditioner",
     "DynamicCrate",
     "DynamicGPR",
-    "DynamicGasCanisterAir",
-    "DynamicGasCanisterCarbonDioxide",
     "DynamicGasCanisterEmpty",
-    "DynamicGasCanisterFuel",
-    "DynamicGasCanisterNitrogen",
-    "DynamicGasCanisterNitrousOxide",
-    "DynamicGasCanisterOxygen",
-    "DynamicGasCanisterPollutants",
-    "DynamicGasCanisterRocketFuel",
-    "DynamicGasCanisterVolatiles",
-    "DynamicGasCanisterWater",
     "DynamicGasTankAdvanced",
-    "DynamicGasTankAdvancedOxygen",
     "DynamicGenerator",
     "DynamicHydroponics",
     "DynamicLight",
@@ -72000,30 +77718,19 @@ export default {
     "DynamicSkeleton",
     "ElectronicPrinterMod",
     "ElevatorCarrage",
-    "EntityChick",
-    "EntityChickenBrown",
-    "EntityChickenWhite",
-    "EntityRoosterBlack",
-    "EntityRoosterBrown",
     "Fertilizer",
-    "FireArmSMG",
     "FlareGun",
-    "Handgun",
-    "HandgunMagazine",
     "HumanSkull",
-    "ImGuiCircuitboardAirlockControl",
     "ItemActiveVent",
     "ItemAdhesiveInsulation",
     "ItemAdvancedTablet",
     "ItemAlienMushroom",
-    "ItemAmmoBox",
     "ItemAngleGrinder",
     "ItemArcWelder",
     "ItemAreaPowerControl",
     "ItemAstroloyIngot",
     "ItemAstroloySheets",
     "ItemAuthoringTool",
-    "ItemAuthoringToolRocketNetwork",
     "ItemBasketBall",
     "ItemBatteryCell",
     "ItemBatteryCellLarge",
@@ -72032,6 +77739,7 @@ export default {
     "ItemBatteryChargerSmall",
     "ItemBeacon",
     "ItemBiomass",
+    "ItemBlueberry",
     "ItemBreadLoaf",
     "ItemCableAnalyser",
     "ItemCableCoil",
@@ -72107,24 +77815,12 @@ export default {
     "ItemFlagSmall",
     "ItemFlashingLight",
     "ItemFlashlight",
+    "ItemFlax",
     "ItemFlour",
-    "ItemFlowerBlue",
-    "ItemFlowerGreen",
-    "ItemFlowerOrange",
-    "ItemFlowerRed",
-    "ItemFlowerYellow",
     "ItemFrenchFries",
     "ItemFries",
-    "ItemGasCanisterCarbonDioxide",
     "ItemGasCanisterEmpty",
-    "ItemGasCanisterFuel",
-    "ItemGasCanisterNitrogen",
-    "ItemGasCanisterNitrousOxide",
-    "ItemGasCanisterOxygen",
-    "ItemGasCanisterPollutants",
     "ItemGasCanisterSmart",
-    "ItemGasCanisterVolatiles",
-    "ItemGasCanisterWater",
     "ItemGasFilterCarbonDioxide",
     "ItemGasFilterCarbonDioxideInfinite",
     "ItemGasFilterCarbonDioxideL",
@@ -72153,29 +77849,32 @@ export default {
     "ItemGasFilterWaterInfinite",
     "ItemGasFilterWaterL",
     "ItemGasFilterWaterM",
+    "ItemGasMask",
     "ItemGasSensor",
     "ItemGasTankStorage",
     "ItemGlassSheets",
     "ItemGlasses",
     "ItemGoldIngot",
     "ItemGoldOre",
+    "ItemGorse",
+    "ItemGrass",
     "ItemGrenade",
     "ItemHEMDroidRepairKit",
     "ItemHardBackpack",
+    "ItemHardHat",
     "ItemHardJetpack",
     "ItemHardMiningBackPack",
     "ItemHardSuit",
     "ItemHardsuitHelmet",
     "ItemHastelloyIngot",
-    "ItemHat",
     "ItemHighVolumeGasCanisterEmpty",
-    "ItemHorticultureBelt",
     "ItemHydroponicTray",
+    "ItemIcarusHelmet",
+    "ItemIcarusSuit",
     "ItemIce",
     "ItemIgniter",
     "ItemInconelIngot",
     "ItemInsulatedCanisterPackage",
-    "ItemInsulation",
     "ItemIntegratedCircuit10",
     "ItemInvarIngot",
     "ItemIronFrames",
@@ -72226,9 +77925,6 @@ export default {
     "ItemKitElectricUmbilical",
     "ItemKitElectronicsPrinter",
     "ItemKitElevator",
-    "ItemKitEngineLarge",
-    "ItemKitEngineMedium",
-    "ItemKitEngineSmall",
     "ItemKitEvaporationChamber",
     "ItemKitFlagODA",
     "ItemKitFridgeBig",
@@ -72242,7 +77938,6 @@ export default {
     "ItemKitGroundTelescope",
     "ItemKitGrowLight",
     "ItemKitHarvie",
-    "ItemKitHeatExchanger",
     "ItemKitHorizontalAutoMiner",
     "ItemKitHydraulicPipeBender",
     "ItemKitHydroponicAutomated",
@@ -72280,7 +77975,6 @@ export default {
     "ItemKitLogicProcessor",
     "ItemKitLogicSwitch",
     "ItemKitLogicTransmitter",
-    "ItemKitMotherShipCore",
     "ItemKitMusicMachines",
     "ItemKitPassiveLargeRadiatorGas",
     "ItemKitPassiveLargeRadiatorLiquid",
@@ -72306,10 +78000,10 @@ export default {
     "ItemKitRecycler",
     "ItemKitRegulator",
     "ItemKitReinforcedWindows",
-    "ItemKitResearchMachine",
     "ItemKitRespawnPointWallMounted",
     "ItemKitRobotArmDoor",
     "ItemKitRoboticArm",
+    "ItemKitRocketAtmospherics",
     "ItemKitRocketAvionics",
     "ItemKitRocketBattery",
     "ItemKitRocketCargoStorage",
@@ -72322,7 +78016,6 @@ export default {
     "ItemKitRocketMiner",
     "ItemKitRocketScanner",
     "ItemKitRocketTransformerSmall",
-    "ItemKitRoverFrame",
     "ItemKitRoverMKI",
     "ItemKitSDBHopper",
     "ItemKitSatelliteDish",
@@ -72352,7 +78045,6 @@ export default {
     "ItemKitToolManufactory",
     "ItemKitTransformer",
     "ItemKitTransformerSmall",
-    "ItemKitTurbineGenerator",
     "ItemKitTurboVolumePump",
     "ItemKitUprightWindTurbine",
     "ItemKitVendingMachine",
@@ -72372,7 +78064,6 @@ export default {
     "ItemLaptop",
     "ItemLeadIngot",
     "ItemLeadOre",
-    "ItemLightSword",
     "ItemLiquidCanisterEmpty",
     "ItemLiquidCanisterSmart",
     "ItemLiquidDrain",
@@ -72381,6 +78072,7 @@ export default {
     "ItemLiquidPipeValve",
     "ItemLiquidPipeVolumePump",
     "ItemLiquidTankStorage",
+    "ItemLiquidVacuum",
     "ItemMKIIAngleGrinder",
     "ItemMKIIArcWelder",
     "ItemMKIICrowbar",
@@ -72428,12 +78120,10 @@ export default {
     "ItemPipeValve",
     "ItemPipeVolumePump",
     "ItemPlainCake",
-    "ItemPlantEndothermic_Creative",
     "ItemPlantEndothermic_Genepool1",
     "ItemPlantEndothermic_Genepool2",
     "ItemPlantSampler",
     "ItemPlantSwitchGrass",
-    "ItemPlantThermogenic_Creative",
     "ItemPlantThermogenic_Genepool1",
     "ItemPlantThermogenic_Genepool2",
     "ItemPlasticSheets",
@@ -72469,6 +78159,7 @@ export default {
     "ItemReusableFireExtinguisher",
     "ItemRice",
     "ItemRoadFlare",
+    "ItemRocketDeepScanningHead",
     "ItemRocketMiningDrillHead",
     "ItemRocketMiningDrillHeadDurable",
     "ItemRocketMiningDrillHeadHighSpeedIce",
@@ -72477,7 +78168,6 @@ export default {
     "ItemRocketMiningDrillHeadLongTerm",
     "ItemRocketMiningDrillHeadMineral",
     "ItemRocketScanningHead",
-    "ItemScanner",
     "ItemScrewdriver",
     "ItemSecurityCamera",
     "ItemSensorLenses",
@@ -72496,7 +78186,6 @@ export default {
     "ItemSoundCartridgeSynth",
     "ItemSoyOil",
     "ItemSoybean",
-    "ItemSpaceCleaner",
     "ItemSpaceHelmet",
     "ItemSpaceIce",
     "ItemSpaceOre",
@@ -72519,8 +78208,11 @@ export default {
     "ItemSteelSheets",
     "ItemStelliteGlassSheets",
     "ItemStelliteIngot",
+    "ItemStrawberry",
     "ItemSugar",
     "ItemSugarCane",
+    "ItemSuitHARM",
+    "ItemSuitHelmetHARM",
     "ItemSuitModCryogenicUpgrade",
     "ItemTablet",
     "ItemTerrainManipulator",
@@ -72540,78 +78232,61 @@ export default {
     "ItemWaterPipeDigitalValve",
     "ItemWaterPipeMeter",
     "ItemWaterWallCooler",
+    "ItemWatermelon",
     "ItemWearLamp",
     "ItemWeldingTorch",
     "ItemWheat",
     "ItemWireCutters",
     "ItemWirelessBatteryCellExtraLarge",
-    "ItemWreckageAirConditioner1",
-    "ItemWreckageAirConditioner2",
-    "ItemWreckageHydroponicsTray1",
-    "ItemWreckageLargeExtendableRadiator01",
-    "ItemWreckageStructureRTG1",
-    "ItemWreckageStructureWeatherStation001",
-    "ItemWreckageStructureWeatherStation002",
-    "ItemWreckageStructureWeatherStation003",
-    "ItemWreckageStructureWeatherStation004",
-    "ItemWreckageStructureWeatherStation005",
-    "ItemWreckageStructureWeatherStation006",
-    "ItemWreckageStructureWeatherStation007",
-    "ItemWreckageStructureWeatherStation008",
-    "ItemWreckageTurbineGenerator1",
-    "ItemWreckageTurbineGenerator2",
-    "ItemWreckageTurbineGenerator3",
-    "ItemWreckageWallCooler1",
-    "ItemWreckageWallCooler2",
+    "ItemWreckageLargeExtendableRadiator",
+    "ItemWreckageSmallFan",
+    "ItemWreckageSteelCornerSmall",
+    "ItemWreckageSteelFragmentSmall",
+    "ItemWreckageStructureWeatherStation",
     "ItemWrench",
     "KitSDBSilo",
     "KitStructureCombustionCentrifuge",
     "Lander",
-    "Meteorite",
-    "MonsterEgg",
+    "LanderMkII",
     "MotherboardComms",
     "MotherboardLogic",
-    "MotherboardMissionControl",
+    "MotherboardMap",
     "MotherboardProgrammableChip",
     "MotherboardRockets",
     "MotherboardSorter",
-    "MothershipCore",
     "NpcChick",
     "NpcChicken",
     "PipeBenderMod",
     "PortableComposter",
     "PortableSolarPanel",
-    "ReagentColorBlue",
-    "ReagentColorGreen",
-    "ReagentColorOrange",
-    "ReagentColorRed",
-    "ReagentColorYellow",
     "Robot",
-    "RoverCargo",
     "Rover_MkI",
-    "SMGMagazine",
+    "SeedBag_Blueberry",
     "SeedBag_Cocoa",
     "SeedBag_Corn",
+    "SeedBag_DargaFern",
     "SeedBag_Fern",
+    "SeedBag_HadesAlpha",
+    "SeedBag_HadesBeta",
     "SeedBag_Mushroom",
     "SeedBag_Potato",
     "SeedBag_Pumpkin",
     "SeedBag_Rice",
     "SeedBag_Soybean",
+    "SeedBag_Strawberry",
     "SeedBag_SugarCane",
     "SeedBag_Switchgrass",
     "SeedBag_Tomato",
+    "SeedBag_Watermelon",
     "SeedBag_Wheet",
-    "SpaceShuttle",
+    "SeedBag_WinterspawnAlpha",
+    "SeedBag_WinterspawnBeta",
+    "ShuttlecraftMkII",
     "ToolPrinterMod",
     "ToyLuna",
     "UniformCommander",
     "UniformMarine",
-    "UniformOrangeJumpSuit",
-    "WeaponEnergy",
-    "WeaponPistolEnergy",
-    "WeaponRifleEnergy",
-    "WeaponTorpedo"
+    "UniformOrangeJumpSuit"
   ],
   "logicableItems": [
     "Battery_Wireless_cell",
@@ -72631,14 +78306,18 @@ export default {
     "ItemEmergencyDrill",
     "ItemEmergencySpaceHelmet",
     "ItemFlashlight",
+    "ItemGasMask",
     "ItemHardBackpack",
+    "ItemHardHat",
     "ItemHardJetpack",
     "ItemHardSuit",
     "ItemHardsuitHelmet",
+    "ItemIcarusHelmet",
     "ItemIntegratedCircuit10",
     "ItemJetpackBasic",
     "ItemLabeller",
     "ItemLaptop",
+    "ItemLiquidVacuum",
     "ItemMKIIAngleGrinder",
     "ItemMKIIArcWelder",
     "ItemMKIIDrill",
@@ -72653,35 +78332,38 @@ export default {
     "ItemSensorLenses",
     "ItemSpaceHelmet",
     "ItemSpacepack",
+    "ItemSuitHARM",
+    "ItemSuitHelmetHARM",
     "ItemTablet",
     "ItemTerrainManipulator",
     "ItemWearLamp",
     "ItemWirelessBatteryCellExtraLarge",
     "PortableSolarPanel",
     "Robot",
-    "RoverCargo",
-    "Rover_MkI",
-    "WeaponEnergy",
-    "WeaponPistolEnergy",
-    "WeaponRifleEnergy"
+    "Rover_MkI"
   ],
   "suits": [
     "ItemEmergencyEvaSuit",
     "ItemEvaSuit",
-    "ItemHardSuit"
+    "ItemHardSuit",
+    "ItemIcarusSuit",
+    "ItemSuitHARM"
   ],
   "circuitHolders": [
     "H2Combustor",
     "ItemAdvancedTablet",
     "ItemHardSuit",
     "ItemLaptop",
+    "ItemSuitHARM",
     "Robot",
     "StructureAirConditioner",
     "StructureCircuitHousing",
+    "StructureCircuitHousingCompact",
     "StructureCombustionCentrifuge",
     "StructureElectrolyzer",
     "StructureFiltration",
     "StructureNitrolyzer",
-    "StructureRocketCircuitHousing"
+    "StructureRocketCircuitHousing",
+    "StructureRocketFiltrationGas"
   ]
 } as const

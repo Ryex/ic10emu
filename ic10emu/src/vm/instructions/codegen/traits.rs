@@ -414,16 +414,16 @@ pub trait BapzalInstruction: IntegratedCircuit {
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BdnsInstruction: IntegratedCircuit {
-    ///bdns d? a(r?|num)
+    ///bdns device(d?|r?|id) a(r?|num)
     fn execute_bdns(
         &mut self,
-        d: &crate::vm::instructions::operands::Operand,
+        device: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError> {
         BdnsInstruction::execute_inner(
             self,
             &crate::vm::instructions::operands::InstOperand::new(
-                d,
+                device,
                 InstructionOp::Bdns,
                 0usize,
             ),
@@ -434,24 +434,24 @@ pub trait BdnsInstruction: IntegratedCircuit {
             ),
         )
     }
-    ///bdns d? a(r?|num)
+    ///bdns device(d?|r?|id) a(r?|num)
     fn execute_inner(
         &mut self,
-        d: &crate::vm::instructions::operands::InstOperand,
+        device: &crate::vm::instructions::operands::InstOperand,
         a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BdnsalInstruction: IntegratedCircuit {
-    ///bdnsal d? a(r?|num)
+    ///bdnsal device(d?|r?|id) a(r?|num)
     fn execute_bdnsal(
         &mut self,
-        d: &crate::vm::instructions::operands::Operand,
+        device: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError> {
         BdnsalInstruction::execute_inner(
             self,
             &crate::vm::instructions::operands::InstOperand::new(
-                d,
+                device,
                 InstructionOp::Bdnsal,
                 0usize,
             ),
@@ -462,24 +462,94 @@ pub trait BdnsalInstruction: IntegratedCircuit {
             ),
         )
     }
-    ///bdnsal d? a(r?|num)
+    ///bdnsal device(d?|r?|id) a(r?|num)
     fn execute_inner(
         &mut self,
-        d: &crate::vm::instructions::operands::InstOperand,
+        device: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+    ) -> Result<(), crate::errors::ICError>;
+}
+pub trait BdnvlInstruction: IntegratedCircuit {
+    ///bdnvl device(d?|r?|id) logicType a(r?|num)
+    fn execute_bdnvl(
+        &mut self,
+        device: &crate::vm::instructions::operands::Operand,
+        logic_type: &crate::vm::instructions::operands::Operand,
+        a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BdnvlInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(
+                device,
+                InstructionOp::Bdnvl,
+                0usize,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(
+                logic_type,
+                InstructionOp::Bdnvl,
+                1usize,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(
+                a,
+                InstructionOp::Bdnvl,
+                2usize,
+            ),
+        )
+    }
+    ///bdnvl device(d?|r?|id) logicType a(r?|num)
+    fn execute_inner(
+        &mut self,
+        device: &crate::vm::instructions::operands::InstOperand,
+        logic_type: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+    ) -> Result<(), crate::errors::ICError>;
+}
+pub trait BdnvsInstruction: IntegratedCircuit {
+    ///bdnvs device(d?|r?|id) logicType a(r?|num)
+    fn execute_bdnvs(
+        &mut self,
+        device: &crate::vm::instructions::operands::Operand,
+        logic_type: &crate::vm::instructions::operands::Operand,
+        a: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        BdnvsInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(
+                device,
+                InstructionOp::Bdnvs,
+                0usize,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(
+                logic_type,
+                InstructionOp::Bdnvs,
+                1usize,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(
+                a,
+                InstructionOp::Bdnvs,
+                2usize,
+            ),
+        )
+    }
+    ///bdnvs device(d?|r?|id) logicType a(r?|num)
+    fn execute_inner(
+        &mut self,
+        device: &crate::vm::instructions::operands::InstOperand,
+        logic_type: &crate::vm::instructions::operands::InstOperand,
         a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BdseInstruction: IntegratedCircuit {
-    ///bdse d? a(r?|num)
+    ///bdse device(d?|r?|id) a(r?|num)
     fn execute_bdse(
         &mut self,
-        d: &crate::vm::instructions::operands::Operand,
+        device: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError> {
         BdseInstruction::execute_inner(
             self,
             &crate::vm::instructions::operands::InstOperand::new(
-                d,
+                device,
                 InstructionOp::Bdse,
                 0usize,
             ),
@@ -490,24 +560,24 @@ pub trait BdseInstruction: IntegratedCircuit {
             ),
         )
     }
-    ///bdse d? a(r?|num)
+    ///bdse device(d?|r?|id) a(r?|num)
     fn execute_inner(
         &mut self,
-        d: &crate::vm::instructions::operands::InstOperand,
+        device: &crate::vm::instructions::operands::InstOperand,
         a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BdsealInstruction: IntegratedCircuit {
-    ///bdseal d? a(r?|num)
+    ///bdseal device(d?|r?|id) a(r?|num)
     fn execute_bdseal(
         &mut self,
-        d: &crate::vm::instructions::operands::Operand,
+        device: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError> {
         BdsealInstruction::execute_inner(
             self,
             &crate::vm::instructions::operands::InstOperand::new(
-                d,
+                device,
                 InstructionOp::Bdseal,
                 0usize,
             ),
@@ -518,10 +588,10 @@ pub trait BdsealInstruction: IntegratedCircuit {
             ),
         )
     }
-    ///bdseal d? a(r?|num)
+    ///bdseal device(d?|r?|id) a(r?|num)
     fn execute_inner(
         &mut self,
-        d: &crate::vm::instructions::operands::InstOperand,
+        device: &crate::vm::instructions::operands::InstOperand,
         a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
@@ -1541,16 +1611,16 @@ pub trait BrapzInstruction: IntegratedCircuit {
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BrdnsInstruction: IntegratedCircuit {
-    ///brdns d? a(r?|num)
+    ///brdns device(d?|r?|id) a(r?|num)
     fn execute_brdns(
         &mut self,
-        d: &crate::vm::instructions::operands::Operand,
+        device: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError> {
         BrdnsInstruction::execute_inner(
             self,
             &crate::vm::instructions::operands::InstOperand::new(
-                d,
+                device,
                 InstructionOp::Brdns,
                 0usize,
             ),
@@ -1561,24 +1631,24 @@ pub trait BrdnsInstruction: IntegratedCircuit {
             ),
         )
     }
-    ///brdns d? a(r?|num)
+    ///brdns device(d?|r?|id) a(r?|num)
     fn execute_inner(
         &mut self,
-        d: &crate::vm::instructions::operands::InstOperand,
+        device: &crate::vm::instructions::operands::InstOperand,
         a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait BrdseInstruction: IntegratedCircuit {
-    ///brdse d? a(r?|num)
+    ///brdse device(d?|r?|id) a(r?|num)
     fn execute_brdse(
         &mut self,
-        d: &crate::vm::instructions::operands::Operand,
+        device: &crate::vm::instructions::operands::Operand,
         a: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError> {
         BrdseInstruction::execute_inner(
             self,
             &crate::vm::instructions::operands::InstOperand::new(
-                d,
+                device,
                 InstructionOp::Brdse,
                 0usize,
             ),
@@ -1589,10 +1659,10 @@ pub trait BrdseInstruction: IntegratedCircuit {
             ),
         )
     }
-    ///brdse d? a(r?|num)
+    ///brdse device(d?|r?|id) a(r?|num)
     fn execute_inner(
         &mut self,
-        d: &crate::vm::instructions::operands::InstOperand,
+        device: &crate::vm::instructions::operands::InstOperand,
         a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
@@ -2268,6 +2338,48 @@ pub trait ExpInstruction: IntegratedCircuit {
         a: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
+pub trait ExtInstruction: IntegratedCircuit {
+    ///ext r? a(r?|num) b(r?|num) c(r?|num)
+    fn execute_ext(
+        &mut self,
+        r: &crate::vm::instructions::operands::Operand,
+        a: &crate::vm::instructions::operands::Operand,
+        b: &crate::vm::instructions::operands::Operand,
+        c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        ExtInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(
+                r,
+                InstructionOp::Ext,
+                0usize,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(
+                a,
+                InstructionOp::Ext,
+                1usize,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(
+                b,
+                InstructionOp::Ext,
+                2usize,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(
+                c,
+                InstructionOp::Ext,
+                3usize,
+            ),
+        )
+    }
+    ///ext r? a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
+    ) -> Result<(), crate::errors::ICError>;
+}
 pub trait FloorInstruction: IntegratedCircuit {
     ///floor r? a(r?|num)
     fn execute_floor(
@@ -2297,11 +2409,11 @@ pub trait FloorInstruction: IntegratedCircuit {
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait GetInstruction: IntegratedCircuit {
-    ///get r? d? address(r?|num)
+    ///get r? device(d?|r?|id) address(r?|num)
     fn execute_get(
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
-        d: &crate::vm::instructions::operands::Operand,
+        device: &crate::vm::instructions::operands::Operand,
         address: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError> {
         GetInstruction::execute_inner(
@@ -2312,7 +2424,7 @@ pub trait GetInstruction: IntegratedCircuit {
                 0usize,
             ),
             &crate::vm::instructions::operands::InstOperand::new(
-                d,
+                device,
                 InstructionOp::Get,
                 1usize,
             ),
@@ -2323,16 +2435,16 @@ pub trait GetInstruction: IntegratedCircuit {
             ),
         )
     }
-    ///get r? d? address(r?|num)
+    ///get r? device(d?|r?|id) address(r?|num)
     fn execute_inner(
         &mut self,
         r: &crate::vm::instructions::operands::InstOperand,
-        d: &crate::vm::instructions::operands::InstOperand,
+        device: &crate::vm::instructions::operands::InstOperand,
         address: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait GetdInstruction: IntegratedCircuit {
-    ///getd r? id(r?|num) address(r?|num)
+    ///getd r? id(r?|id) address(r?|num)
     fn execute_getd(
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
@@ -2358,7 +2470,7 @@ pub trait GetdInstruction: IntegratedCircuit {
             ),
         )
     }
-    ///getd r? id(r?|num) address(r?|num)
+    ///getd r? id(r?|id) address(r?|num)
     fn execute_inner(
         &mut self,
         r: &crate::vm::instructions::operands::InstOperand,
@@ -2373,6 +2485,48 @@ pub trait HcfInstruction: IntegratedCircuit {
     }
     ///hcf
     fn execute_inner(&mut self) -> Result<(), crate::errors::ICError>;
+}
+pub trait InsInstruction: IntegratedCircuit {
+    ///ins r? a(r?|num) b(r?|num) c(r?|num)
+    fn execute_ins(
+        &mut self,
+        r: &crate::vm::instructions::operands::Operand,
+        a: &crate::vm::instructions::operands::Operand,
+        b: &crate::vm::instructions::operands::Operand,
+        c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        InsInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(
+                r,
+                InstructionOp::Ins,
+                0usize,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(
+                a,
+                InstructionOp::Ins,
+                1usize,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(
+                b,
+                InstructionOp::Ins,
+                2usize,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(
+                c,
+                InstructionOp::Ins,
+                3usize,
+            ),
+        )
+    }
+    ///ins r? a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
+    ) -> Result<(), crate::errors::ICError>;
 }
 pub trait JInstruction: IntegratedCircuit {
     ///j int
@@ -2438,11 +2592,11 @@ pub trait JrInstruction: IntegratedCircuit {
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait LInstruction: IntegratedCircuit {
-    ///l r? d? logicType
+    ///l r? device(d?|r?|id) logicType
     fn execute_l(
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
-        d: &crate::vm::instructions::operands::Operand,
+        device: &crate::vm::instructions::operands::Operand,
         logic_type: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError> {
         LInstruction::execute_inner(
@@ -2453,7 +2607,7 @@ pub trait LInstruction: IntegratedCircuit {
                 0usize,
             ),
             &crate::vm::instructions::operands::InstOperand::new(
-                d,
+                device,
                 InstructionOp::L,
                 1usize,
             ),
@@ -2464,11 +2618,11 @@ pub trait LInstruction: IntegratedCircuit {
             ),
         )
     }
-    ///l r? d? logicType
+    ///l r? device(d?|r?|id) logicType
     fn execute_inner(
         &mut self,
         r: &crate::vm::instructions::operands::InstOperand,
-        d: &crate::vm::instructions::operands::InstOperand,
+        device: &crate::vm::instructions::operands::InstOperand,
         logic_type: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
@@ -2697,7 +2851,7 @@ pub trait LbsInstruction: IntegratedCircuit {
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait LdInstruction: IntegratedCircuit {
-    ///ld r? id(r?|num) logicType
+    ///ld r? id(r?|id) logicType
     fn execute_ld(
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
@@ -2723,12 +2877,54 @@ pub trait LdInstruction: IntegratedCircuit {
             ),
         )
     }
-    ///ld r? id(r?|num) logicType
+    ///ld r? id(r?|id) logicType
     fn execute_inner(
         &mut self,
         r: &crate::vm::instructions::operands::InstOperand,
         id: &crate::vm::instructions::operands::InstOperand,
         logic_type: &crate::vm::instructions::operands::InstOperand,
+    ) -> Result<(), crate::errors::ICError>;
+}
+pub trait LerpInstruction: IntegratedCircuit {
+    ///lerp r? a(r?|num) b(r?|num) c(r?|num)
+    fn execute_lerp(
+        &mut self,
+        r: &crate::vm::instructions::operands::Operand,
+        a: &crate::vm::instructions::operands::Operand,
+        b: &crate::vm::instructions::operands::Operand,
+        c: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        LerpInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(
+                r,
+                InstructionOp::Lerp,
+                0usize,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(
+                a,
+                InstructionOp::Lerp,
+                1usize,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(
+                b,
+                InstructionOp::Lerp,
+                2usize,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(
+                c,
+                InstructionOp::Lerp,
+                3usize,
+            ),
+        )
+    }
+    ///lerp r? a(r?|num) b(r?|num) c(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+        c: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait LogInstruction: IntegratedCircuit {
@@ -2760,11 +2956,11 @@ pub trait LogInstruction: IntegratedCircuit {
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait LrInstruction: IntegratedCircuit {
-    ///lr r? d? reagentMode int
+    ///lr r? device(d?|r?|id) reagentMode int
     fn execute_lr(
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
-        d: &crate::vm::instructions::operands::Operand,
+        device: &crate::vm::instructions::operands::Operand,
         reagent_mode: &crate::vm::instructions::operands::Operand,
         int: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError> {
@@ -2776,7 +2972,7 @@ pub trait LrInstruction: IntegratedCircuit {
                 0usize,
             ),
             &crate::vm::instructions::operands::InstOperand::new(
-                d,
+                device,
                 InstructionOp::Lr,
                 1usize,
             ),
@@ -2792,21 +2988,21 @@ pub trait LrInstruction: IntegratedCircuit {
             ),
         )
     }
-    ///lr r? d? reagentMode int
+    ///lr r? device(d?|r?|id) reagentMode int
     fn execute_inner(
         &mut self,
         r: &crate::vm::instructions::operands::InstOperand,
-        d: &crate::vm::instructions::operands::InstOperand,
+        device: &crate::vm::instructions::operands::InstOperand,
         reagent_mode: &crate::vm::instructions::operands::InstOperand,
         int: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait LsInstruction: IntegratedCircuit {
-    ///ls r? d? slotIndex logicSlotType
+    ///ls r? device(d?|r?|id) slotIndex logicSlotType
     fn execute_ls(
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
-        d: &crate::vm::instructions::operands::Operand,
+        device: &crate::vm::instructions::operands::Operand,
         slot_index: &crate::vm::instructions::operands::Operand,
         logic_slot_type: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError> {
@@ -2818,7 +3014,7 @@ pub trait LsInstruction: IntegratedCircuit {
                 0usize,
             ),
             &crate::vm::instructions::operands::InstOperand::new(
-                d,
+                device,
                 InstructionOp::Ls,
                 1usize,
             ),
@@ -2834,11 +3030,11 @@ pub trait LsInstruction: IntegratedCircuit {
             ),
         )
     }
-    ///ls r? d? slotIndex logicSlotType
+    ///ls r? device(d?|r?|id) slotIndex logicSlotType
     fn execute_inner(
         &mut self,
         r: &crate::vm::instructions::operands::InstOperand,
-        d: &crate::vm::instructions::operands::InstOperand,
+        device: &crate::vm::instructions::operands::InstOperand,
         slot_index: &crate::vm::instructions::operands::InstOperand,
         logic_slot_type: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
@@ -3179,6 +3375,41 @@ pub trait PopInstruction: IntegratedCircuit {
         r: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
+pub trait PowInstruction: IntegratedCircuit {
+    ///pow r? a(r?|num) b(r?|num)
+    fn execute_pow(
+        &mut self,
+        r: &crate::vm::instructions::operands::Operand,
+        a: &crate::vm::instructions::operands::Operand,
+        b: &crate::vm::instructions::operands::Operand,
+    ) -> Result<(), crate::errors::ICError> {
+        PowInstruction::execute_inner(
+            self,
+            &crate::vm::instructions::operands::InstOperand::new(
+                r,
+                InstructionOp::Pow,
+                0usize,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(
+                a,
+                InstructionOp::Pow,
+                1usize,
+            ),
+            &crate::vm::instructions::operands::InstOperand::new(
+                b,
+                InstructionOp::Pow,
+                2usize,
+            ),
+        )
+    }
+    ///pow r? a(r?|num) b(r?|num)
+    fn execute_inner(
+        &mut self,
+        r: &crate::vm::instructions::operands::InstOperand,
+        a: &crate::vm::instructions::operands::InstOperand,
+        b: &crate::vm::instructions::operands::InstOperand,
+    ) -> Result<(), crate::errors::ICError>;
+}
 pub trait PushInstruction: IntegratedCircuit {
     ///push a(r?|num)
     fn execute_push(
@@ -3201,17 +3432,17 @@ pub trait PushInstruction: IntegratedCircuit {
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait PutInstruction: IntegratedCircuit {
-    ///put d? address(r?|num) value(r?|num)
+    ///put device(d?|r?|id) address(r?|num) value(r?|num)
     fn execute_put(
         &mut self,
-        d: &crate::vm::instructions::operands::Operand,
+        device: &crate::vm::instructions::operands::Operand,
         address: &crate::vm::instructions::operands::Operand,
         value: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError> {
         PutInstruction::execute_inner(
             self,
             &crate::vm::instructions::operands::InstOperand::new(
-                d,
+                device,
                 InstructionOp::Put,
                 0usize,
             ),
@@ -3227,16 +3458,16 @@ pub trait PutInstruction: IntegratedCircuit {
             ),
         )
     }
-    ///put d? address(r?|num) value(r?|num)
+    ///put device(d?|r?|id) address(r?|num) value(r?|num)
     fn execute_inner(
         &mut self,
-        d: &crate::vm::instructions::operands::InstOperand,
+        device: &crate::vm::instructions::operands::InstOperand,
         address: &crate::vm::instructions::operands::InstOperand,
         value: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait PutdInstruction: IntegratedCircuit {
-    ///putd id(r?|num) address(r?|num) value(r?|num)
+    ///putd id(r?|id) address(r?|num) value(r?|num)
     fn execute_putd(
         &mut self,
         id: &crate::vm::instructions::operands::Operand,
@@ -3262,7 +3493,7 @@ pub trait PutdInstruction: IntegratedCircuit {
             ),
         )
     }
-    ///putd id(r?|num) address(r?|num) value(r?|num)
+    ///putd id(r?|id) address(r?|num) value(r?|num)
     fn execute_inner(
         &mut self,
         id: &crate::vm::instructions::operands::InstOperand,
@@ -3355,17 +3586,17 @@ pub trait RoundInstruction: IntegratedCircuit {
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SInstruction: IntegratedCircuit {
-    ///s d? logicType r?
+    ///s device(d?|r?|id) logicType r?
     fn execute_s(
         &mut self,
-        d: &crate::vm::instructions::operands::Operand,
+        device: &crate::vm::instructions::operands::Operand,
         logic_type: &crate::vm::instructions::operands::Operand,
         r: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError> {
         SInstruction::execute_inner(
             self,
             &crate::vm::instructions::operands::InstOperand::new(
-                d,
+                device,
                 InstructionOp::S,
                 0usize,
             ),
@@ -3381,10 +3612,10 @@ pub trait SInstruction: IntegratedCircuit {
             ),
         )
     }
-    ///s d? logicType r?
+    ///s device(d?|r?|id) logicType r?
     fn execute_inner(
         &mut self,
-        d: &crate::vm::instructions::operands::InstOperand,
+        device: &crate::vm::instructions::operands::InstOperand,
         logic_type: &crate::vm::instructions::operands::InstOperand,
         r: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
@@ -3586,7 +3817,7 @@ pub trait SbsInstruction: IntegratedCircuit {
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SdInstruction: IntegratedCircuit {
-    ///sd id(r?|num) logicType r?
+    ///sd id(r?|id) logicType r?
     fn execute_sd(
         &mut self,
         id: &crate::vm::instructions::operands::Operand,
@@ -3612,7 +3843,7 @@ pub trait SdInstruction: IntegratedCircuit {
             ),
         )
     }
-    ///sd id(r?|num) logicType r?
+    ///sd id(r?|id) logicType r?
     fn execute_inner(
         &mut self,
         id: &crate::vm::instructions::operands::InstOperand,
@@ -3621,11 +3852,11 @@ pub trait SdInstruction: IntegratedCircuit {
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SdnsInstruction: IntegratedCircuit {
-    ///sdns r? d?
+    ///sdns r? device(d?|r?|id)
     fn execute_sdns(
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
-        d: &crate::vm::instructions::operands::Operand,
+        device: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError> {
         SdnsInstruction::execute_inner(
             self,
@@ -3635,25 +3866,25 @@ pub trait SdnsInstruction: IntegratedCircuit {
                 0usize,
             ),
             &crate::vm::instructions::operands::InstOperand::new(
-                d,
+                device,
                 InstructionOp::Sdns,
                 1usize,
             ),
         )
     }
-    ///sdns r? d?
+    ///sdns r? device(d?|r?|id)
     fn execute_inner(
         &mut self,
         r: &crate::vm::instructions::operands::InstOperand,
-        d: &crate::vm::instructions::operands::InstOperand,
+        device: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SdseInstruction: IntegratedCircuit {
-    ///sdse r? d?
+    ///sdse r? device(d?|r?|id)
     fn execute_sdse(
         &mut self,
         r: &crate::vm::instructions::operands::Operand,
-        d: &crate::vm::instructions::operands::Operand,
+        device: &crate::vm::instructions::operands::Operand,
     ) -> Result<(), crate::errors::ICError> {
         SdseInstruction::execute_inner(
             self,
@@ -3663,17 +3894,17 @@ pub trait SdseInstruction: IntegratedCircuit {
                 0usize,
             ),
             &crate::vm::instructions::operands::InstOperand::new(
-                d,
+                device,
                 InstructionOp::Sdse,
                 1usize,
             ),
         )
     }
-    ///sdse r? d?
+    ///sdse r? device(d?|r?|id)
     fn execute_inner(
         &mut self,
         r: &crate::vm::instructions::operands::InstOperand,
-        d: &crate::vm::instructions::operands::InstOperand,
+        device: &crate::vm::instructions::operands::InstOperand,
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SelectInstruction: IntegratedCircuit {
@@ -4447,10 +4678,10 @@ pub trait SrlInstruction: IntegratedCircuit {
     ) -> Result<(), crate::errors::ICError>;
 }
 pub trait SsInstruction: IntegratedCircuit {
-    ///ss d? slotIndex logicSlotType r?
+    ///ss device(d?|r?|id) slotIndex logicSlotType r?
     fn execute_ss(
         &mut self,
-        d: &crate::vm::instructions::operands::Operand,
+        device: &crate::vm::instructions::operands::Operand,
         slot_index: &crate::vm::instructions::operands::Operand,
         logic_slot_type: &crate::vm::instructions::operands::Operand,
         r: &crate::vm::instructions::operands::Operand,
@@ -4458,7 +4689,7 @@ pub trait SsInstruction: IntegratedCircuit {
         SsInstruction::execute_inner(
             self,
             &crate::vm::instructions::operands::InstOperand::new(
-                d,
+                device,
                 InstructionOp::Ss,
                 0usize,
             ),
@@ -4479,10 +4710,10 @@ pub trait SsInstruction: IntegratedCircuit {
             ),
         )
     }
-    ///ss d? slotIndex logicSlotType r?
+    ///ss device(d?|r?|id) slotIndex logicSlotType r?
     fn execute_inner(
         &mut self,
-        d: &crate::vm::instructions::operands::InstOperand,
+        device: &crate::vm::instructions::operands::InstOperand,
         slot_index: &crate::vm::instructions::operands::InstOperand,
         logic_slot_type: &crate::vm::instructions::operands::InstOperand,
         r: &crate::vm::instructions::operands::InstOperand,
@@ -4622,43 +4853,45 @@ pub trait YieldInstruction: IntegratedCircuit {
     ///yield
     fn execute_inner(&mut self) -> Result<(), crate::errors::ICError>;
 }
-pub trait ICInstructable: AbsInstruction + AcosInstruction + AddInstruction + AliasInstruction + AndInstruction + AsinInstruction + AtanInstruction + Atan2Instruction + BapInstruction + BapalInstruction + BapzInstruction + BapzalInstruction + BdnsInstruction + BdnsalInstruction + BdseInstruction + BdsealInstruction + BeqInstruction + BeqalInstruction + BeqzInstruction + BeqzalInstruction + BgeInstruction + BgealInstruction + BgezInstruction + BgezalInstruction + BgtInstruction + BgtalInstruction + BgtzInstruction + BgtzalInstruction + BleInstruction + BlealInstruction + BlezInstruction + BlezalInstruction + BltInstruction + BltalInstruction + BltzInstruction + BltzalInstruction + BnaInstruction + BnaalInstruction + BnanInstruction + BnazInstruction + BnazalInstruction + BneInstruction + BnealInstruction + BnezInstruction + BnezalInstruction + BrapInstruction + BrapzInstruction + BrdnsInstruction + BrdseInstruction + BreqInstruction + BreqzInstruction + BrgeInstruction + BrgezInstruction + BrgtInstruction + BrgtzInstruction + BrleInstruction + BrlezInstruction + BrltInstruction + BrltzInstruction + BrnaInstruction + BrnanInstruction + BrnazInstruction + BrneInstruction + BrnezInstruction + CeilInstruction + ClrInstruction + ClrdInstruction + CosInstruction + DefineInstruction + DivInstruction + ExpInstruction + FloorInstruction + GetInstruction + GetdInstruction + HcfInstruction + JInstruction + JalInstruction + JrInstruction + LInstruction + LabelInstruction + LbInstruction + LbnInstruction + LbnsInstruction + LbsInstruction + LdInstruction + LogInstruction + LrInstruction + LsInstruction + MaxInstruction + MinInstruction + ModInstruction + MoveInstruction + MulInstruction + NorInstruction + NotInstruction + OrInstruction + PeekInstruction + PokeInstruction + PopInstruction + PushInstruction + PutInstruction + PutdInstruction + RandInstruction + RmapInstruction + RoundInstruction + SInstruction + SapInstruction + SapzInstruction + SbInstruction + SbnInstruction + SbsInstruction + SdInstruction + SdnsInstruction + SdseInstruction + SelectInstruction + SeqInstruction + SeqzInstruction + SgeInstruction + SgezInstruction + SgtInstruction + SgtzInstruction + SinInstruction + SlaInstruction + SleInstruction + SleepInstruction + SlezInstruction + SllInstruction + SltInstruction + SltzInstruction + SnaInstruction + SnanInstruction + SnanzInstruction + SnazInstruction + SneInstruction + SnezInstruction + SqrtInstruction + SraInstruction + SrlInstruction + SsInstruction + SubInstruction + TanInstruction + TruncInstruction + XorInstruction + YieldInstruction {}
+pub trait ICInstructable: AbsInstruction + AcosInstruction + AddInstruction + AliasInstruction + AndInstruction + AsinInstruction + AtanInstruction + Atan2Instruction + BapInstruction + BapalInstruction + BapzInstruction + BapzalInstruction + BdnsInstruction + BdnsalInstruction + BdnvlInstruction + BdnvsInstruction + BdseInstruction + BdsealInstruction + BeqInstruction + BeqalInstruction + BeqzInstruction + BeqzalInstruction + BgeInstruction + BgealInstruction + BgezInstruction + BgezalInstruction + BgtInstruction + BgtalInstruction + BgtzInstruction + BgtzalInstruction + BleInstruction + BlealInstruction + BlezInstruction + BlezalInstruction + BltInstruction + BltalInstruction + BltzInstruction + BltzalInstruction + BnaInstruction + BnaalInstruction + BnanInstruction + BnazInstruction + BnazalInstruction + BneInstruction + BnealInstruction + BnezInstruction + BnezalInstruction + BrapInstruction + BrapzInstruction + BrdnsInstruction + BrdseInstruction + BreqInstruction + BreqzInstruction + BrgeInstruction + BrgezInstruction + BrgtInstruction + BrgtzInstruction + BrleInstruction + BrlezInstruction + BrltInstruction + BrltzInstruction + BrnaInstruction + BrnanInstruction + BrnazInstruction + BrneInstruction + BrnezInstruction + CeilInstruction + ClrInstruction + ClrdInstruction + CosInstruction + DefineInstruction + DivInstruction + ExpInstruction + ExtInstruction + FloorInstruction + GetInstruction + GetdInstruction + HcfInstruction + InsInstruction + JInstruction + JalInstruction + JrInstruction + LInstruction + LabelInstruction + LbInstruction + LbnInstruction + LbnsInstruction + LbsInstruction + LdInstruction + LerpInstruction + LogInstruction + LrInstruction + LsInstruction + MaxInstruction + MinInstruction + ModInstruction + MoveInstruction + MulInstruction + NorInstruction + NotInstruction + OrInstruction + PeekInstruction + PokeInstruction + PopInstruction + PowInstruction + PushInstruction + PutInstruction + PutdInstruction + RandInstruction + RmapInstruction + RoundInstruction + SInstruction + SapInstruction + SapzInstruction + SbInstruction + SbnInstruction + SbsInstruction + SdInstruction + SdnsInstruction + SdseInstruction + SelectInstruction + SeqInstruction + SeqzInstruction + SgeInstruction + SgezInstruction + SgtInstruction + SgtzInstruction + SinInstruction + SlaInstruction + SleInstruction + SleepInstruction + SlezInstruction + SllInstruction + SltInstruction + SltzInstruction + SnaInstruction + SnanInstruction + SnanzInstruction + SnazInstruction + SneInstruction + SnezInstruction + SqrtInstruction + SraInstruction + SrlInstruction + SsInstruction + SubInstruction + TanInstruction + TruncInstruction + XorInstruction + YieldInstruction {}
 impl<T> ICInstructable for T
 where
     T: AbsInstruction + AcosInstruction + AddInstruction + AliasInstruction
         + AndInstruction + AsinInstruction + AtanInstruction + Atan2Instruction
         + BapInstruction + BapalInstruction + BapzInstruction + BapzalInstruction
-        + BdnsInstruction + BdnsalInstruction + BdseInstruction + BdsealInstruction
-        + BeqInstruction + BeqalInstruction + BeqzInstruction + BeqzalInstruction
-        + BgeInstruction + BgealInstruction + BgezInstruction + BgezalInstruction
-        + BgtInstruction + BgtalInstruction + BgtzInstruction + BgtzalInstruction
-        + BleInstruction + BlealInstruction + BlezInstruction + BlezalInstruction
-        + BltInstruction + BltalInstruction + BltzInstruction + BltzalInstruction
-        + BnaInstruction + BnaalInstruction + BnanInstruction + BnazInstruction
-        + BnazalInstruction + BneInstruction + BnealInstruction + BnezInstruction
-        + BnezalInstruction + BrapInstruction + BrapzInstruction + BrdnsInstruction
-        + BrdseInstruction + BreqInstruction + BreqzInstruction + BrgeInstruction
-        + BrgezInstruction + BrgtInstruction + BrgtzInstruction + BrleInstruction
-        + BrlezInstruction + BrltInstruction + BrltzInstruction + BrnaInstruction
-        + BrnanInstruction + BrnazInstruction + BrneInstruction + BrnezInstruction
-        + CeilInstruction + ClrInstruction + ClrdInstruction + CosInstruction
-        + DefineInstruction + DivInstruction + ExpInstruction + FloorInstruction
-        + GetInstruction + GetdInstruction + HcfInstruction + JInstruction
+        + BdnsInstruction + BdnsalInstruction + BdnvlInstruction + BdnvsInstruction
+        + BdseInstruction + BdsealInstruction + BeqInstruction + BeqalInstruction
+        + BeqzInstruction + BeqzalInstruction + BgeInstruction + BgealInstruction
+        + BgezInstruction + BgezalInstruction + BgtInstruction + BgtalInstruction
+        + BgtzInstruction + BgtzalInstruction + BleInstruction + BlealInstruction
+        + BlezInstruction + BlezalInstruction + BltInstruction + BltalInstruction
+        + BltzInstruction + BltzalInstruction + BnaInstruction + BnaalInstruction
+        + BnanInstruction + BnazInstruction + BnazalInstruction + BneInstruction
+        + BnealInstruction + BnezInstruction + BnezalInstruction + BrapInstruction
+        + BrapzInstruction + BrdnsInstruction + BrdseInstruction + BreqInstruction
+        + BreqzInstruction + BrgeInstruction + BrgezInstruction + BrgtInstruction
+        + BrgtzInstruction + BrleInstruction + BrlezInstruction + BrltInstruction
+        + BrltzInstruction + BrnaInstruction + BrnanInstruction + BrnazInstruction
+        + BrneInstruction + BrnezInstruction + CeilInstruction + ClrInstruction
+        + ClrdInstruction + CosInstruction + DefineInstruction + DivInstruction
+        + ExpInstruction + ExtInstruction + FloorInstruction + GetInstruction
+        + GetdInstruction + HcfInstruction + InsInstruction + JInstruction
         + JalInstruction + JrInstruction + LInstruction + LabelInstruction
         + LbInstruction + LbnInstruction + LbnsInstruction + LbsInstruction
-        + LdInstruction + LogInstruction + LrInstruction + LsInstruction + MaxInstruction
-        + MinInstruction + ModInstruction + MoveInstruction + MulInstruction
-        + NorInstruction + NotInstruction + OrInstruction + PeekInstruction
-        + PokeInstruction + PopInstruction + PushInstruction + PutInstruction
-        + PutdInstruction + RandInstruction + RmapInstruction + RoundInstruction
-        + SInstruction + SapInstruction + SapzInstruction + SbInstruction
-        + SbnInstruction + SbsInstruction + SdInstruction + SdnsInstruction
-        + SdseInstruction + SelectInstruction + SeqInstruction + SeqzInstruction
-        + SgeInstruction + SgezInstruction + SgtInstruction + SgtzInstruction
-        + SinInstruction + SlaInstruction + SleInstruction + SleepInstruction
-        + SlezInstruction + SllInstruction + SltInstruction + SltzInstruction
-        + SnaInstruction + SnanInstruction + SnanzInstruction + SnazInstruction
-        + SneInstruction + SnezInstruction + SqrtInstruction + SraInstruction
-        + SrlInstruction + SsInstruction + SubInstruction + TanInstruction
-        + TruncInstruction + XorInstruction + YieldInstruction,
+        + LdInstruction + LerpInstruction + LogInstruction + LrInstruction
+        + LsInstruction + MaxInstruction + MinInstruction + ModInstruction
+        + MoveInstruction + MulInstruction + NorInstruction + NotInstruction
+        + OrInstruction + PeekInstruction + PokeInstruction + PopInstruction
+        + PowInstruction + PushInstruction + PutInstruction + PutdInstruction
+        + RandInstruction + RmapInstruction + RoundInstruction + SInstruction
+        + SapInstruction + SapzInstruction + SbInstruction + SbnInstruction
+        + SbsInstruction + SdInstruction + SdnsInstruction + SdseInstruction
+        + SelectInstruction + SeqInstruction + SeqzInstruction + SgeInstruction
+        + SgezInstruction + SgtInstruction + SgtzInstruction + SinInstruction
+        + SlaInstruction + SleInstruction + SleepInstruction + SlezInstruction
+        + SllInstruction + SltInstruction + SltzInstruction + SnaInstruction
+        + SnanInstruction + SnanzInstruction + SnazInstruction + SneInstruction
+        + SnezInstruction + SqrtInstruction + SraInstruction + SrlInstruction
+        + SsInstruction + SubInstruction + TanInstruction + TruncInstruction
+        + XorInstruction + YieldInstruction,
 {}

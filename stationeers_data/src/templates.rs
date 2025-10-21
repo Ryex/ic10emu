@@ -686,5 +686,5 @@ pub struct ItemSuitCircuitHolderTemplate {
     #[cfg_attr(feature = "tsify", tsify(type = "Map<string, SlotInfo>"))]
     pub slots: BTreeMap<u32, SlotInfo>,
     pub suit_info: SuitInfo,
-    pub memory: MemoryInfo,
+    pub memory: Option<MemoryInfo>,
 }

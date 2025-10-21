@@ -6,6 +6,9 @@ use std::{
     path::PathBuf,
 };
 
+use color_eyre::eyre::{eyre, Context};
+
+use itertools::Itertools;
 use quote::quote;
 use serde_derive::{Deserialize, Serialize};
 
@@ -14,16 +17,22 @@ use crate::{
     stationpedia::{self, Memory, Page, Stationpedia},
 };
 
-use stationeers_data::templates::{
-    ConnectionInfo, ConsumerInfo, DeviceInfo, FabricatorInfo, Instruction, InstructionPart,
-    InstructionPartType, InternalAtmoInfo, ItemCircuitHolderTemplate, ItemConsumerTemplate,
-    ItemInfo, ItemLogicMemoryTemplate, ItemLogicTemplate, ItemSlotsTemplate,
-    ItemSuitCircuitHolderTemplate, ItemSuitLogicTemplate, ItemSuitTemplate, ItemTemplate,
-    LogicInfo, MemoryInfo, ObjectTemplate, PrefabInfo, Reagent, Recipe, RecipeGasMix, RecipeRange,
-    SlotInfo, StructureCircuitHolderTemplate, StructureInfo,
-    StructureLogicDeviceConsumerMemoryTemplate, StructureLogicDeviceConsumerTemplate,
-    StructureLogicDeviceMemoryTemplate, StructureLogicDeviceTemplate, StructureLogicTemplate,
-    StructureSlotsTemplate, StructureTemplate, SuitInfo, ThermalInfo,
+use stationeers_data::{
+    enums::{
+        script::{LogicSlotType, LogicType},
+        MemoryAccess,
+    },
+    templates::{
+        ConnectionInfo, ConsumerInfo, DeviceInfo, FabricatorInfo, Instruction, InstructionPart,
+        InstructionPartType, InternalAtmoInfo, ItemCircuitHolderTemplate, ItemConsumerTemplate,
+        ItemInfo, ItemLogicMemoryTemplate, ItemLogicTemplate, ItemSlotsTemplate,
+        ItemSuitCircuitHolderTemplate, ItemSuitLogicTemplate, ItemSuitTemplate, ItemTemplate,
+        LogicInfo, MemoryInfo, ObjectTemplate, PrefabInfo, Reagent, Recipe, RecipeGasMix,
+        RecipeRange, SlotInfo, StructureCircuitHolderTemplate, StructureInfo,
+        StructureLogicDeviceConsumerMemoryTemplate, StructureLogicDeviceConsumerTemplate,
+        StructureLogicDeviceMemoryTemplate, StructureLogicDeviceTemplate, StructureLogicTemplate,
+        StructureSlotsTemplate, StructureTemplate, SuitInfo, ThermalInfo,
+    },
 };
 
 #[allow(clippy::too_many_lines)]
@@ -32,7 +41,7 @@ pub fn generate_database(
     enums: &enums::Enums,
     workspace: &std::path::Path,
 ) -> color_eyre::Result<Vec<PathBuf>> {
-    let templates = generate_templates(stationpedia);
+    let templates = generate_templates(stationpedia)?;
 
     eprintln!("Writing prefab database ...");
 
@@ -270,9 +279,8 @@ fn write_prefab_map<T: std::io::Write>(
             let hash = prefab.prefab().prefab_hash;
             let uneval_src = &uneval::to_string(prefab)?;
             let fixed = enum_tag_regex.replace_all(&uneval_src, "");
-            let fixed = numeric_string_literal_regex.replace_all(&fixed, |captures: &regex::Captures| {
-                captures[1].to_string()
-            });
+            let fixed = numeric_string_literal_regex
+                .replace_all(&fixed, |captures: &regex::Captures| captures[1].to_string());
             let obj = syn::parse_str::<syn::Expr>(&fixed)?;
             let entry = quote! {
                 map.insert(#hash, #obj.into());
@@ -334,10 +342,15 @@ fn write_reagent_map<T: std::io::Write>(
 }
 
 #[allow(clippy::too_many_lines)]
-fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
+fn generate_templates(pedia: &Stationpedia) -> color_eyre::Result<Vec<ObjectTemplate>> {
     eprintln!("Generating templates ...");
     let mut templates: Vec<ObjectTemplate> = Vec::new();
     for page in &pedia.pages {
+        let name = &page.prefab_name;
+
+        let span = tracing::span!(tracing::Level::INFO, "generate_template", prefab = name);
+        let _enter = span.enter();
+
         let prefab = PrefabInfo {
             prefab_name: page.prefab_name.clone(),
             prefab_hash: page.prefab_hash,
@@ -374,6 +387,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                 item: Some(item),
                 structure: None,
                 logic_info: None,
+                slots,
                 slot_inserts,
                 memory: None,
                 device: None,
@@ -390,13 +404,15 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                     item: item.into(),
                     thermal_info: thermal.as_ref().map(Into::into),
                     internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
-                    slots: slot_inserts_to_info(slot_inserts),
+                    slots: slot_inserts_to_info(slots, slot_inserts)
+                        .wrap_err_with(|| format!("Failed to generate slot info for '{name}'"))?,
                 }));
             }
             Page {
                 item: Some(item),
                 structure: None,
                 logic_info: None,
+                slots,
                 slot_inserts,
                 memory: None,
                 device: None,
@@ -413,7 +429,8 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                     item: item.into(),
                     thermal_info: thermal.as_ref().map(Into::into),
                     internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
-                    slots: slot_inserts_to_info(slot_inserts),
+                    slots: slot_inserts_to_info(slots, slot_inserts)
+                        .wrap_err_with(|| format!("Failed to generate slot info for '{name}'"))?,
                     consumer_info: consumer.into(),
                 }));
             }
@@ -421,6 +438,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                 item: Some(item),
                 structure: None,
                 logic_info: None,
+                slots,
                 slot_inserts,
                 memory: None,
                 device: None,
@@ -437,7 +455,8 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                     item: item.into(),
                     thermal_info: thermal.as_ref().map(Into::into),
                     internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
-                    slots: slot_inserts_to_info(slot_inserts),
+                    slots: slot_inserts_to_info(slots, slot_inserts)
+                        .wrap_err_with(|| format!("Failed to generate slot info for '{name}'"))?,
                     suit_info: item.suit.as_ref().unwrap().into(),
                 }));
             }
@@ -445,6 +464,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                 item: Some(item),
                 structure: None,
                 logic_info: Some(logic),
+                slots,
                 slot_inserts,
                 memory: None,
                 device: None,
@@ -456,7 +476,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                 thermal,
                 ..
             } if item.suit.is_some() => {
-                let mut logic: LogicInfo = logic.into();
+                let mut logic: LogicInfo = logic.try_into()?;
                 if !page.mode_insert.is_empty() {
                     logic.modes = Some(mode_inserts_to_info(&page.mode_insert));
                 }
@@ -470,7 +490,8 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                     thermal_info: thermal.as_ref().map(Into::into),
                     internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
                     logic,
-                    slots: slot_inserts_to_info(slot_inserts),
+                    slots: slot_inserts_to_info(slots, slot_inserts)
+                        .wrap_err_with(|| format!("Failed to generate slot info for '{name}'"))?,
                     suit_info: item.suit.as_ref().unwrap().into(),
                 }));
             }
@@ -478,6 +499,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                 item: Some(item),
                 structure: None,
                 logic_info: Some(logic),
+                slots,
                 slot_inserts,
                 memory: None,
                 device: None,
@@ -489,7 +511,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                 thermal,
                 ..
             } if item.suit.is_none() => {
-                let mut logic: LogicInfo = logic.into();
+                let mut logic: LogicInfo = logic.try_into()?;
                 if !page.mode_insert.is_empty() {
                     logic.modes = Some(mode_inserts_to_info(&page.mode_insert));
                 }
@@ -503,13 +525,15 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                     thermal_info: thermal.as_ref().map(Into::into),
                     internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
                     logic,
-                    slots: slot_inserts_to_info(slot_inserts),
+                    slots: slot_inserts_to_info(slots, slot_inserts)
+                        .wrap_err_with(|| format!("Failed to generate slot info for '{name}'"))?,
                 }));
             }
             Page {
                 item: Some(item),
                 structure: None,
                 logic_info: Some(logic),
+                slots,
                 slot_inserts,
                 memory: None,
                 device: None,
@@ -521,7 +545,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                 thermal,
                 ..
             } if item.suit.is_none() => {
-                let mut logic: LogicInfo = logic.into();
+                let mut logic: LogicInfo = logic.try_into()?;
                 if !page.mode_insert.is_empty() {
                     logic.modes = Some(mode_inserts_to_info(&page.mode_insert));
                 }
@@ -536,7 +560,9 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                         thermal_info: thermal.as_ref().map(Into::into),
                         internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
                         logic,
-                        slots: slot_inserts_to_info(slot_inserts),
+                        slots: slot_inserts_to_info(slots, slot_inserts).wrap_err_with(|| {
+                            format!("Failed to generate slot info for '{name}'")
+                        })?,
                     },
                 ));
             }
@@ -544,8 +570,9 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                 item: Some(item),
                 structure: None,
                 logic_info: Some(logic),
+                slots,
                 slot_inserts,
-                memory: Some(memory),
+                memory,
                 device: None,
                 transmission_receiver,
                 wireless_logic,
@@ -555,7 +582,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                 thermal,
                 ..
             } if item.suit.is_some() => {
-                let mut logic: LogicInfo = logic.into();
+                let mut logic: LogicInfo = logic.try_into()?;
                 if !page.mode_insert.is_empty() {
                     logic.modes = Some(mode_inserts_to_info(&page.mode_insert));
                 }
@@ -570,9 +597,11 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                         thermal_info: thermal.as_ref().map(Into::into),
                         internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
                         logic,
-                        slots: slot_inserts_to_info(slot_inserts),
+                        slots: slot_inserts_to_info(slots, slot_inserts).wrap_err_with(|| {
+                            format!("Failed to generate slot info for '{name}'")
+                        })?,
                         suit_info: item.suit.as_ref().unwrap().into(),
-                        memory: memory.into(),
+                        memory: memory.as_ref().map(Into::into),
                     },
                 ));
             }
@@ -580,6 +609,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                 item: Some(item),
                 structure: None,
                 logic_info: Some(logic),
+                slots,
                 slot_inserts,
                 memory: Some(memory),
                 device: None,
@@ -591,7 +621,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                 thermal,
                 ..
             } if item.suit.is_none() => {
-                let mut logic: LogicInfo = logic.into();
+                let mut logic: LogicInfo = logic.try_into()?;
                 if !page.mode_insert.is_empty() {
                     logic.modes = Some(mode_inserts_to_info(&page.mode_insert));
                 }
@@ -605,7 +635,8 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                     thermal_info: thermal.as_ref().map(Into::into),
                     internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
                     logic,
-                    slots: slot_inserts_to_info(slot_inserts),
+                    slots: slot_inserts_to_info(slots, slot_inserts)
+                        .wrap_err_with(|| format!("Failed to generate slot info for '{name}'"))?,
                     memory: memory.into(),
                 }));
             }
@@ -634,6 +665,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
             Page {
                 item: None,
                 structure: Some(structure),
+                slots,
                 slot_inserts,
                 logic_info: None,
                 memory: None,
@@ -651,13 +683,15 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                     structure: structure.into(),
                     thermal_info: thermal.as_ref().map(Into::into),
                     internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
-                    slots: slot_inserts_to_info(slot_inserts),
+                    slots: slot_inserts_to_info(slots, slot_inserts)
+                        .wrap_err_with(|| format!("Failed to generate slot info for '{name}'"))?,
                 }));
             }
             Page {
                 item: None,
                 structure: Some(structure),
                 logic_info: Some(logic),
+                slots,
                 slot_inserts,
                 memory: None,
                 device: None,
@@ -669,7 +703,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                 thermal,
                 ..
             } => {
-                let mut logic: LogicInfo = logic.into();
+                let mut logic: LogicInfo = logic.try_into()?;
                 if !page.mode_insert.is_empty() {
                     logic.modes = Some(mode_inserts_to_info(&page.mode_insert));
                 }
@@ -683,13 +717,15 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                     thermal_info: thermal.as_ref().map(Into::into),
                     internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
                     logic,
-                    slots: slot_inserts_to_info(slot_inserts),
+                    slots: slot_inserts_to_info(slots, slot_inserts)
+                        .wrap_err_with(|| format!("Failed to generate slot info for '{name}'"))?,
                 }));
             }
             Page {
                 item: None,
                 structure: Some(structure),
                 logic_info: Some(logic),
+                slots,
                 slot_inserts,
                 memory: None,
                 device: Some(device),
@@ -701,7 +737,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                 thermal,
                 ..
             } => {
-                let mut logic: LogicInfo = logic.into();
+                let mut logic: LogicInfo = logic.try_into()?;
                 if !page.mode_insert.is_empty() {
                     logic.modes = Some(mode_inserts_to_info(&page.mode_insert));
                 }
@@ -716,7 +752,9 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                         thermal_info: thermal.as_ref().map(Into::into),
                         internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
                         logic,
-                        slots: slot_inserts_to_info(slot_inserts),
+                        slots: slot_inserts_to_info(slots, slot_inserts).wrap_err_with(|| {
+                            format!("Failed to generate slot info for '{name}'")
+                        })?,
                         device: device.into(),
                     },
                 ));
@@ -725,6 +763,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                 item: None,
                 structure: Some(structure),
                 logic_info: Some(logic),
+                slots,
                 slot_inserts,
                 // NOTE: at the time of writing StructureCircuitHolder structure has a read write 0b memory, useless
                 // other holders have no memory
@@ -744,7 +783,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                 thermal,
                 ..
             } => {
-                let mut logic: LogicInfo = logic.into();
+                let mut logic: LogicInfo = logic.try_into()?;
                 if !page.mode_insert.is_empty() {
                     logic.modes = Some(mode_inserts_to_info(&page.mode_insert));
                 }
@@ -759,7 +798,9 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                         thermal_info: thermal.as_ref().map(Into::into),
                         internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
                         logic,
-                        slots: slot_inserts_to_info(slot_inserts),
+                        slots: slot_inserts_to_info(slots, slot_inserts).wrap_err_with(|| {
+                            format!("Failed to generate slot info for '{name}'")
+                        })?,
                         device: device.into(),
                     },
                 ));
@@ -768,6 +809,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                 item: None,
                 structure: Some(structure),
                 logic_info: Some(logic),
+                slots,
                 slot_inserts,
                 memory: None,
                 device: Some(device),
@@ -779,7 +821,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                 thermal,
                 ..
             } => {
-                let mut logic: LogicInfo = logic.into();
+                let mut logic: LogicInfo = logic.try_into()?;
                 if !page.mode_insert.is_empty() {
                     logic.modes = Some(mode_inserts_to_info(&page.mode_insert));
                 }
@@ -794,7 +836,9 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                         thermal_info: thermal.as_ref().map(Into::into),
                         internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
                         logic,
-                        slots: slot_inserts_to_info(slot_inserts),
+                        slots: slot_inserts_to_info(slots, slot_inserts).wrap_err_with(|| {
+                            format!("Failed to generate slot info for '{name}'")
+                        })?,
                         device: device.into(),
                         consumer_info: consumer.into(),
                         fabricator_info: device.fabricator.as_ref().map(Into::into),
@@ -805,6 +849,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                 item: None,
                 structure: Some(structure),
                 logic_info: Some(logic),
+                slots,
                 slot_inserts,
                 memory: Some(memory),
                 device: Some(device),
@@ -816,7 +861,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                 thermal,
                 ..
             } => {
-                let mut logic: LogicInfo = logic.into();
+                let mut logic: LogicInfo = logic.try_into()?;
                 if !page.mode_insert.is_empty() {
                     logic.modes = Some(mode_inserts_to_info(&page.mode_insert));
                 }
@@ -830,7 +875,9 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                         thermal_info: thermal.as_ref().map(Into::into),
                         internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
                         logic,
-                        slots: slot_inserts_to_info(slot_inserts),
+                        slots: slot_inserts_to_info(slots, slot_inserts).wrap_err_with(|| {
+                            format!("Failed to generate slot info for '{name}'")
+                        })?,
                         device: device.into(),
                         memory: memory.into(),
                     },
@@ -840,6 +887,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                 item: None,
                 structure: Some(structure),
                 logic_info: Some(logic),
+                slots,
                 slot_inserts,
                 memory: Some(memory),
                 device: Some(device),
@@ -851,7 +899,7 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                 thermal,
                 ..
             } => {
-                let mut logic: LogicInfo = logic.into();
+                let mut logic: LogicInfo = logic.try_into()?;
                 if !page.mode_insert.is_empty() {
                     logic.modes = Some(mode_inserts_to_info(&page.mode_insert));
                 }
@@ -865,7 +913,9 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                         thermal_info: thermal.as_ref().map(Into::into),
                         internal_atmo_info: internal_atmosphere.as_ref().map(Into::into),
                         logic,
-                        slots: slot_inserts_to_info(slot_inserts),
+                        slots: slot_inserts_to_info(slots, slot_inserts).wrap_err_with(|| {
+                            format!("Failed to generate slot info for '{name}'")
+                        })?,
                         device: device.into(),
                         consumer_info: consumer.into(),
                         fabricator_info: device.fabricator.as_ref().map(Into::into),
@@ -873,8 +923,9 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                     },
                 ));
             }
-            _ => panic!(
-                "\
+            _ => {
+                return Err(eyre!(
+                    "\
                     Non conforming: {:?} \n\t\
                         item: {:?}\n\t\
                         structure: {:?}\n\t\
@@ -888,52 +939,79 @@ fn generate_templates(pedia: &Stationpedia) -> Vec<ObjectTemplate> {
                         internal_atmosphere: {:?}\n\t\
                         thermal: {:?}\n\t\
                     ",
-                page.key,
-                page.item,
-                page.structure,
-                page.logic_info,
-                page.slot_inserts,
-                page.logic_slot_insert,
-                page.memory,
-                page.circuit_holder,
-                page.device,
-                page.resource_consumer,
-                page.internal_atmosphere,
-                page.thermal,
-            ),
+                    page.key,
+                    page.item,
+                    page.structure,
+                    page.logic_info,
+                    page.slot_inserts,
+                    page.logic_slot_insert,
+                    page.memory,
+                    page.circuit_holder,
+                    page.device,
+                    page.resource_consumer,
+                    page.internal_atmosphere,
+                    page.thermal,
+                ))
+            }
         }
     }
-    templates
+    Ok(templates)
 }
 
-fn slot_inserts_to_info(slots: &[stationpedia::SlotInsert]) -> BTreeMap<u32, SlotInfo> {
-    let mut tmp: Vec<_> = slots.into();
+fn slot_inserts_to_info(
+    slots: &[stationpedia::SlotInfo],
+    inserts: &[stationpedia::SlotInsert],
+) -> color_eyre::Result<BTreeMap<u32, SlotInfo>> {
+    let mut tmp: Vec<_> = inserts.into();
     tmp.sort_by(|a, b| a.slot_index.cmp(&b.slot_index));
-    tmp.iter()
-        .map(|slot| {
-            let typ = &slot.slot_type;
-            if typ == "Proxy" {
-                (
-                    slot.slot_index,
+    Ok(tmp
+        .iter()
+        .zip_longest(slots.iter())
+        .enumerate()
+        .map(|(index, pair)| {
+            let (slot, insert) = match pair {
+                itertools::EitherOrBoth::Both(insert, slot) => (Some(slot), insert),
+                itertools::EitherOrBoth::Left(insert) => (None, insert),
+                itertools::EitherOrBoth::Right(slot) => {
+                    let slot_key = &slot.string_key;
+                    let slot_class = &slot.class;
+                    return Err(eyre!(
+                        "Slot'{slot_key}' without an insert! class: '{slot_class}'"
+                    ));
+                }
+            };
+            // Collapse whitespace
+            if insert.slot_type == "Proxy" {
+                Ok((
+                    insert.slot_index,
                     SlotInfo::Proxy {
-                        name: slot.slot_name.clone(),
-                        index: slot.slot_index,
+                        name: insert.slot_name.clone(),
+                        index: insert.slot_index,
                     },
-                )
+                ))
             } else {
-                (
-                    slot.slot_index,
-                    SlotInfo::Direct {
-                        name: slot.slot_name.clone(),
-                        class: typ.parse().unwrap_or_else(|err| {
-                            panic!("failed to parse slot class '{typ}': {err}")
-                        }),
-                        index: slot.slot_index,
-                    },
-                )
+                if let Some(slot) = slot {
+                    let class = &slot.class;
+                    let name = &slot.slot_name;
+                    Ok((
+                        index.try_into()?,
+                        SlotInfo::Direct {
+                            name: name.clone(),
+                            class: class.parse().map_err(|err| {
+                                eyre!("failed to parse slot class '{class}' for '{name}': {err}")
+                            })?,
+                            index: index.try_into()?,
+                        },
+                    ))
+                } else {
+                    let slot_index = &insert.slot_index;
+                    let slot_typ = &insert.slot_type;
+                    let slot_name = &insert.slot_name;
+                    return Err(eyre!("Non Proxy Slot Insert, without Slot: index: {slot_index}, name: {slot_name}, type: {slot_typ}"));
+                }
             }
         })
-        .collect()
+        .collect::<color_eyre::Result<BTreeMap<u32, SlotInfo>>>()?)
 }
 
 fn mode_inserts_to_info(modes: &[stationpedia::ModeInsert]) -> BTreeMap<u32, String> {
@@ -985,52 +1063,55 @@ impl From<&stationpedia::InternalAtmosphereInfo> for InternalAtmoInfo {
     }
 }
 
-impl From<&stationpedia::LogicInfo> for LogicInfo {
-    fn from(value: &stationpedia::LogicInfo) -> Self {
-        LogicInfo {
+impl TryFrom<&stationpedia::LogicInfo> for LogicInfo {
+    type Error = color_eyre::eyre::Report;
+    fn try_from(value: &stationpedia::LogicInfo) -> Result<Self, Self::Error> {
+        Ok(LogicInfo {
             logic_slot_types: value
                 .logic_slot_types
                 .iter()
                 .map(|(index, slt_map)| {
-                    (
-                        *index,
-                        slt_map
-                            .slot_types
-                            .iter()
-                            .map(|(key, val)| {
-                                (
-                                    key.parse().unwrap_or_else(|err| {
-                                        panic!("failed to parse logic slot type '{key}': {err}")
-                                    }),
-                                    val.parse().unwrap_or_else(|err| {
-                                        panic!("failed to parse memory access '{val}': {err}")
-                                    }),
-                                )
-                            })
-                            .collect(),
-                    )
+                    Ok(
+                            (
+                                *index,
+                                slt_map
+                                    .slot_types
+                                    .iter()
+                                    .map(|(key, val)| {
+                                        Ok((
+                                    key.parse().wrap_err_with(|| {
+                                        format!("failed to parse logic slot type '{key}'")
+                                    })?,
+                                    val.parse().wrap_err_with(|| {
+                                        format!("failed to parse memory access '{val}'")
+                                    })?,
+                                ))
+                                    })
+                                    .collect::<color_eyre::eyre::Result<
+                                        BTreeMap<LogicSlotType, MemoryAccess>,
+                                    >>()?,
+                            ),
+                        )
                 })
-                .collect(),
+                .collect::<color_eyre::eyre::Result<BTreeMap<u32, _>>>()?,
             logic_types: value
                 .logic_types
                 .types
                 .iter()
                 .map(|(key, val)| {
-                    (
-                        key.parse().unwrap_or_else(|err| {
-                            panic!("failed to parse logic type '{key}' : {err}")
-                        }),
-                        val.parse().unwrap_or_else(|err| {
-                            panic!("failed to parse memory access '{val}': {err}")
-                        }),
-                    )
+                    Ok((
+                        key.parse()
+                            .wrap_err_with(|| format!("failed to parse logic type '{key}'"))?,
+                        val.parse()
+                            .wrap_err_with(|| format!("failed to parse memory access '{val}'"))?,
+                    ))
                 })
-                .collect(),
+                .collect::<color_eyre::Result<BTreeMap<LogicType, MemoryAccess>>>()?,
             modes: None,
             transmission_receiver: false,
             wireless_logic: false,
             circuit_holder: false,
-        }
+        })
     }
 }
 
