@@ -4,7 +4,7 @@ members = [
   "stationeers_data",
   "ic10emu",
   "ic10emu_wasm",
-  "xtask",
+  "xtask", "ic10emu_frontend",
 ]
 resolver = "2"
 
@@ -18,3 +18,13 @@ opt-level = "s"
 lto = true
 [profile.dev]
 opt-level = 1
+
+[profile.wasm-dev]
+inherits = "dev"
+opt-level = 1
+
+[profile.server-dev]
+inherits = "dev"
+
+[profile.android-dev]
+inherits = "dev"

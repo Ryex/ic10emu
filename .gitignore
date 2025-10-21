@@ -8,3 +8,4 @@ package-lock.json
 
 # Local Netlify folder
 .netlify
+ic10emu_frontend/node_modules

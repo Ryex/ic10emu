@@ -479,21 +479,21 @@ export class IC10Editor extends BaseElement {
   }
 
   get editorValue() {
-    if (this.editor == undefined) {
+    if (this.editor === undefined) {
       return "";
     }
     return this.editor.getValue();
   }
 
   set editorValue(value) {
-    if (this.editor == undefined || value === undefined) {
+    if (this.editor === undefined || value === undefined) {
       return;
     }
     this.editor.setValue(value, 1);
   }
 
   focusEditor() {
-    if (this.editor == undefined) {
+    if (this.editor === undefined) {
       this.addEventListener("editor-ready", (e) => this.editor.focus(), {
         once: true,
       });
@@ -507,7 +507,7 @@ export class IC10Editor extends BaseElement {
       this.newSession(id, content);
     } else {
       const session = this.sessions.get(id);
-      if (session.getValue() == content) return;
+      if (session.getValue() === content) return;
       session.setValue(content);
     }
   }

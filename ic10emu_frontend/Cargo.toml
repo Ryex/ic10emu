@@ -1,0 +1,19 @@
+[package]
+name = "ic10emu_frontend"
+version = "0.1.0"
+authors = ["Rachel Powers <508861+Ryex@users.noreply.github.com>"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dioxus = { version = "0.6.0", features = [] }
+libsql-client = { version = "0.33.4", default-features = false, features = ["reqwest_backend"] }
+tracing = "0.1.41"
+url = "2.5.7"
+
+[features]
+default = ["web"]
+web = ["dioxus/web"]
+desktop = ["dioxus/desktop"]
+mobile = ["dioxus/mobile"]

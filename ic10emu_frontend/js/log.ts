@@ -1,4 +1,3 @@
-
 export function logHeaderFormatting(msg: string, style: string, origin: string,): string[] {
   return [
     `%c${msg}%c ${origin}%c`,

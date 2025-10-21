@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./js/",
+    "rootDir": "./js/",
+    "outDir": "./assets/js/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "esnext",
+    "target": "es2021",
+    "allowJs": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "experimentalDecorators": false,
+    "useDefineForClassFields": true,
+    "types": [
+      "@types/wicg-file-system-access"
+    ],
+    "plugins": []
+  },
+  "include": [
+    "js/**/*"
+  ]
+}

@@ -175,7 +175,7 @@ function fixup(data: {
   ) {
     if (data.params.textDocument.hasOwnProperty("uri")) {
       const match = data.params.textDocument.uri.match(/^file:\/\/\/(.*)/);
-      if (null == match) {
+      if (null === match) {
         data.params.textDocument.uri = `file:///${data.params.textDocument.uri}`;
       }
     }
