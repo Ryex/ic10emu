@@ -180,7 +180,7 @@ pub enum LogicSlotType {
     )]
     Efficiency = 5u8,
     #[strum(serialize = "Health")]
-    #[strum(props(docs = "returns the health of the plant in the slot", value = "6"))]
+    #[strum(props(docs = "Returns the health of the plant in the slot", value = "6"))]
     Health = 6u8,
     #[strum(serialize = "Growth")]
     #[strum(
@@ -296,6 +296,28 @@ pub enum LogicSlotType {
     #[strum(serialize = "ReferenceId")]
     #[strum(props(docs = "Unique Reference Identifier for this object", value = "26"))]
     ReferenceId = 26u8,
+    #[strum(serialize = "HarvestedHash")]
+    #[strum(props(docs = "No description available", value = "27"))]
+    HarvestedHash = 27u8,
+    #[strum(serialize = "Mode")]
+    #[strum(props(docs = "No description available", value = "28"))]
+    Mode = 28u8,
+    #[strum(serialize = "MaturityRatio")]
+    #[strum(
+        props(
+            docs = "How far the plant is towards maturity represented as a fraction between 0 and 1, with 1 being mature and ready for harvest.",
+            value = "29"
+        )
+    )]
+    MaturityRatio = 29u8,
+    #[strum(serialize = "SeedingRatio")]
+    #[strum(
+        props(
+            docs = "How far the plant is towards seeding represented as a fraction between 0 and 1, with 1 being seeding and will supply seeds when harvested.",
+            value = "30"
+        )
+    )]
+    SeedingRatio = 30u8,
 }
 impl TryFrom<f64> for LogicSlotType {
     type Error = super::ParseError;
@@ -368,10 +390,20 @@ pub enum LogicType {
     #[strum(props(docs = "The current temperature reading of the device", value = "6"))]
     Temperature = 6u16,
     #[strum(serialize = "PressureExternal")]
-    #[strum(props(docs = "Setting for external pressure safety, in KPa", value = "7"))]
+    #[strum(
+        props(
+            docs = "Setting for external pressure safety, in KPa. Represents the target pressure of the external atmosphere.",
+            value = "7"
+        )
+    )]
     PressureExternal = 7u16,
     #[strum(serialize = "PressureInternal")]
-    #[strum(props(docs = "Setting for internal pressure safety, in KPa", value = "8"))]
+    #[strum(
+        props(
+            docs = "Setting for internal pressure safety, in KPa. Represents the target pressure of the atmosphere inside the connected pipe network.",
+            value = "8"
+        )
+    )]
     PressureInternal = 8u16,
     #[strum(serialize = "Activate")]
     #[strum(
@@ -605,7 +637,7 @@ pub enum LogicType {
     #[strum(serialize = "RequestHash")]
     #[strum(
         props(
-            docs = "When set to the unique identifier, requests an item of the provided type from the device",
+            docs = "When set to the unique identifier, re quests an item of the provided type from the device",
             value = "60"
         )
     )]
@@ -812,10 +844,10 @@ pub enum LogicType {
     )]
     TargetZ = 90u16,
     #[strum(serialize = "SettingInput")]
-    #[strum(props(docs = "<A:EN:-1139210406>", value = "91"))]
+    #[strum(props(docs = "The input setting for the device", value = "91"))]
     SettingInput = 91u16,
     #[strum(serialize = "SettingOutput")]
-    #[strum(props(docs = "<A:EN:1605622326>", value = "92"))]
+    #[strum(props(docs = "The output setting for the device", value = "92"))]
     SettingOutput = 92u16,
     #[strum(serialize = "CurrentResearchPodType")]
     #[strum(props(docs = "<A:EN:1890273128>", value = "93"))]
@@ -1392,7 +1424,7 @@ pub enum LogicType {
     #[strum(props(docs = "Plays a sound alert on the devices speaker", value = "175"))]
     SoundAlert = 175u16,
     #[strum(serialize = "SolarIrradiance")]
-    #[strum(props(docs = "<A:EN:-1627927313>", value = "176"))]
+    #[strum(props(docs = "The current solar irradiance.", value = "176"))]
     SolarIrradiance = 176u16,
     #[strum(serialize = "RatioLiquidNitrogen")]
     #[strum(
@@ -2114,6 +2146,68 @@ pub enum LogicType {
     #[strum(serialize = "TargetPrefabHash")]
     #[strum(props(docs = "The prefab", value = "271"))]
     TargetPrefabHash = 271u16,
+    #[strum(serialize = "Extended")]
+    #[strum(props(docs = "Extended", value = "272"))]
+    Extended = 272u16,
+    #[strum(serialize = "NetworkFault")]
+    #[strum(
+        props(
+            docs = "Attached network is experiencing a fault, such as a pipe burst or other failure.",
+            value = "273"
+        )
+    )]
+    NetworkFault = 273u16,
+    #[strum(serialize = "ProportionalGain")]
+    #[strum(
+        props(
+            docs = "The proportional gain of the PID controller. This value determines how aggressively the controller responds to the error between the setpoint and the process variable. A higher value results in a faster response but may lead to overshoot or instability.",
+            value = "274"
+        )
+    )]
+    ProportionalGain = 274u16,
+    #[strum(serialize = "IntegralGain")]
+    #[strum(
+        props(
+            docs = "The integral gain of the PID controller. This value determines how much the controller responds to the accumulated error over time. A higher value can help eliminate steady-state errors but may also lead to oscillations or instability.",
+            value = "275"
+        )
+    )]
+    IntegralGain = 275u16,
+    #[strum(serialize = "DerivativeGain")]
+    #[strum(
+        props(
+            docs = "The derivative gain of the PID controller. This value determines how much the controller responds to the rate of change of the error. A higher value can help dampen oscillations and improve stability, but may also lead to noise amplification.",
+            value = "276"
+        )
+    )]
+    DerivativeGain = 276u16,
+    #[strum(serialize = "Minimum")]
+    #[strum(props(docs = "Minimum value for provided logic device.", value = "277"))]
+    Minimum = 277u16,
+    #[strum(serialize = "Setpoint")]
+    #[strum(
+        props(
+            docs = "The desired value that the PID controller aims to achieve. This is the target value for the process variable, and the controller will adjust its output to minimize the difference between the setpoint and the process variable.",
+            value = "278"
+        )
+    )]
+    Setpoint = 278u16,
+    #[strum(serialize = "Reset")]
+    #[strum(
+        props(
+            docs = "Resets the PID controller's internal state, clearing any accumulated error and resetting the output to zero. This is useful for starting fresh or recovering from an unstable state.",
+            value = "279"
+        )
+    )]
+    Reset = 279u16,
+    #[strum(serialize = "StackSize")]
+    #[strum(
+        props(
+            docs = "Returns the stack size of the devices internal memory.",
+            value = "280"
+        )
+    )]
+    StackSize = 280u16,
 }
 impl TryFrom<f64> for LogicType {
     type Error = super::ParseError;

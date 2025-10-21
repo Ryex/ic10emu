@@ -192,6 +192,53 @@ impl TryFrom<f64> for ColorType {
     }
 }
 #[derive(
+    Debug,
+    Display,
+    Clone,
+    Copy,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    EnumString,
+    AsRefStr,
+    EnumProperty,
+    EnumIter,
+    FromRepr,
+    Serialize,
+    Deserialize
+)]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
+#[strum(use_phf)]
+#[repr(u8)]
+pub enum ContactTier {
+    #[strum(serialize = "Close")]
+    #[strum(props(docs = "", value = "0"))]
+    Close = 0u8,
+    #[strum(serialize = "Medium")]
+    #[strum(props(docs = "", value = "1"))]
+    Medium = 1u8,
+    #[strum(serialize = "Far")]
+    #[strum(props(docs = "", value = "2"))]
+    Far = 2u8,
+}
+impl TryFrom<f64> for ContactTier {
+    type Error = super::ParseError;
+    fn try_from(value: f64) -> Result<Self, <ContactTier as TryFrom<f64>>::Error> {
+        use strum::IntoEnumIterator;
+        if let Some(enm) = ContactTier::iter()
+            .find(|enm| (f64::from(*enm as u8) - value).abs() < f64::EPSILON)
+        {
+            Ok(enm)
+        } else {
+            Err(super::ParseError {
+                enm: value.to_string(),
+            })
+        }
+    }
+}
+#[derive(
     Default,
     Debug,
     Display,
@@ -232,6 +279,91 @@ impl TryFrom<f64> for DaylightSensorMode {
     ) -> Result<Self, <DaylightSensorMode as TryFrom<f64>>::Error> {
         use strum::IntoEnumIterator;
         if let Some(enm) = DaylightSensorMode::iter()
+            .find(|enm| (f64::from(*enm as u8) - value).abs() < f64::EPSILON)
+        {
+            Ok(enm)
+        } else {
+            Err(super::ParseError {
+                enm: value.to_string(),
+            })
+        }
+    }
+}
+#[derive(
+    Default,
+    Debug,
+    Display,
+    Clone,
+    Copy,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    EnumString,
+    AsRefStr,
+    EnumProperty,
+    EnumIter,
+    FromRepr,
+    Serialize,
+    Deserialize
+)]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
+#[strum(use_phf)]
+#[repr(u8)]
+pub enum DisplayMode {
+    #[strum(serialize = "Default")]
+    #[strum(props(docs = "", value = "0"))]
+    #[default]
+    Default = 0u8,
+    #[strum(serialize = "Percent")]
+    #[strum(props(docs = "", value = "1"))]
+    Percent = 1u8,
+    #[strum(serialize = "Power")]
+    #[strum(props(docs = "", value = "2"))]
+    Power = 2u8,
+    #[strum(serialize = "Kelvin")]
+    #[strum(props(docs = "", value = "3"))]
+    Kelvin = 3u8,
+    #[strum(serialize = "Celsius")]
+    #[strum(props(docs = "", value = "4"))]
+    Celsius = 4u8,
+    #[strum(serialize = "Meters")]
+    #[strum(props(docs = "", value = "5"))]
+    Meters = 5u8,
+    #[strum(serialize = "Credits")]
+    #[strum(props(docs = "", value = "6"))]
+    Credits = 6u8,
+    #[strum(serialize = "Seconds")]
+    #[strum(props(docs = "", value = "7"))]
+    Seconds = 7u8,
+    #[strum(serialize = "Minutes")]
+    #[strum(props(docs = "", value = "8"))]
+    Minutes = 8u8,
+    #[strum(serialize = "Days")]
+    #[strum(props(docs = "", value = "9"))]
+    Days = 9u8,
+    #[strum(serialize = "String")]
+    #[strum(props(docs = "", value = "10"))]
+    String = 10u8,
+    #[strum(serialize = "Fahrenheit")]
+    #[strum(props(docs = "", value = "11"))]
+    Fahrenheit = 11u8,
+    #[strum(serialize = "Litres")]
+    #[strum(props(docs = "", value = "12"))]
+    Litres = 12u8,
+    #[strum(serialize = "Mol")]
+    #[strum(props(docs = "", value = "13"))]
+    Mol = 13u8,
+    #[strum(serialize = "Pa")]
+    #[strum(props(docs = "", value = "14"))]
+    Pa = 14u8,
+}
+impl TryFrom<f64> for DisplayMode {
+    type Error = super::ParseError;
+    fn try_from(value: f64) -> Result<Self, <DisplayMode as TryFrom<f64>>::Error> {
+        use strum::IntoEnumIterator;
+        if let Some(enm) = DisplayMode::iter()
             .find(|enm| (f64::from(*enm as u8) - value).abs() < f64::EPSILON)
         {
             Ok(enm)
@@ -370,12 +502,18 @@ pub enum GasType {
     #[strum(serialize = "Nitrogen")]
     #[strum(props(docs = "", value = "2"))]
     Nitrogen = 2u32,
+    #[strum(serialize = "Air")]
+    #[strum(props(docs = "", value = "3"))]
+    Air = 3u32,
     #[strum(serialize = "CarbonDioxide")]
     #[strum(props(docs = "", value = "4"))]
     CarbonDioxide = 4u32,
     #[strum(serialize = "Volatiles")]
     #[strum(props(docs = "", value = "8"))]
     Volatiles = 8u32,
+    #[strum(serialize = "Fuel")]
+    #[strum(props(docs = "", value = "9"))]
+    Fuel = 9u32,
     #[strum(serialize = "Pollutant")]
     #[strum(props(docs = "", value = "16"))]
     Pollutant = 16u32,
@@ -422,6 +560,50 @@ impl TryFrom<f64> for GasType {
         use strum::IntoEnumIterator;
         if let Some(enm) = GasType::iter()
             .find(|enm| (f64::from(*enm as u32) - value).abs() < f64::EPSILON)
+        {
+            Ok(enm)
+        } else {
+            Err(super::ParseError {
+                enm: value.to_string(),
+            })
+        }
+    }
+}
+#[derive(
+    Debug,
+    Display,
+    Clone,
+    Copy,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    EnumString,
+    AsRefStr,
+    EnumProperty,
+    EnumIter,
+    FromRepr,
+    Serialize,
+    Deserialize
+)]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
+#[strum(use_phf)]
+#[repr(u8)]
+pub enum HashType {
+    #[strum(serialize = "Prefab")]
+    #[strum(props(docs = "", value = "0"))]
+    Prefab = 0u8,
+    #[strum(serialize = "GasLiquid")]
+    #[strum(props(docs = "", value = "1"))]
+    GasLiquid = 1u8,
+}
+impl TryFrom<f64> for HashType {
+    type Error = super::ParseError;
+    fn try_from(value: f64) -> Result<Self, <HashType as TryFrom<f64>>::Error> {
+        use strum::IntoEnumIterator;
+        if let Some(enm) = HashType::iter()
+            .find(|enm| (f64::from(*enm as u8) - value).abs() < f64::EPSILON)
         {
             Ok(enm)
         } else {
@@ -714,12 +896,128 @@ pub enum RocketMode {
     #[strum(serialize = "Chart")]
     #[strum(props(docs = "", value = "5"))]
     Chart = 5u8,
+    #[strum(serialize = "Deploy")]
+    #[strum(props(docs = "", value = "6"))]
+    Deploy = 6u8,
 }
 impl TryFrom<f64> for RocketMode {
     type Error = super::ParseError;
     fn try_from(value: f64) -> Result<Self, <RocketMode as TryFrom<f64>>::Error> {
         use strum::IntoEnumIterator;
         if let Some(enm) = RocketMode::iter()
+            .find(|enm| (f64::from(*enm as u8) - value).abs() < f64::EPSILON)
+        {
+            Ok(enm)
+        } else {
+            Err(super::ParseError {
+                enm: value.to_string(),
+            })
+        }
+    }
+}
+#[derive(
+    Debug,
+    Display,
+    Clone,
+    Copy,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    EnumString,
+    AsRefStr,
+    EnumProperty,
+    EnumIter,
+    FromRepr,
+    Serialize,
+    Deserialize
+)]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
+#[strum(use_phf)]
+#[repr(u8)]
+pub enum SettingDisplayMode {
+    #[strum(serialize = "Number")]
+    #[strum(props(docs = "", value = "0"))]
+    Number = 0u8,
+    #[strum(serialize = "String")]
+    #[strum(props(docs = "", value = "1"))]
+    String = 1u8,
+}
+impl TryFrom<f64> for SettingDisplayMode {
+    type Error = super::ParseError;
+    fn try_from(
+        value: f64,
+    ) -> Result<Self, <SettingDisplayMode as TryFrom<f64>>::Error> {
+        use strum::IntoEnumIterator;
+        if let Some(enm) = SettingDisplayMode::iter()
+            .find(|enm| (f64::from(*enm as u8) - value).abs() < f64::EPSILON)
+        {
+            Ok(enm)
+        } else {
+            Err(super::ParseError {
+                enm: value.to_string(),
+            })
+        }
+    }
+}
+#[derive(
+    Default,
+    Debug,
+    Display,
+    Clone,
+    Copy,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    EnumString,
+    AsRefStr,
+    EnumProperty,
+    EnumIter,
+    FromRepr,
+    Serialize,
+    Deserialize
+)]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
+#[strum(use_phf)]
+#[repr(u8)]
+pub enum ShuttleType {
+    #[strum(serialize = "None")]
+    #[strum(props(docs = "", value = "0"))]
+    #[default]
+    None = 0u8,
+    #[strum(serialize = "Small")]
+    #[strum(props(docs = "", value = "1"))]
+    Small = 1u8,
+    #[strum(serialize = "SmallGas")]
+    #[strum(props(docs = "", value = "2"))]
+    SmallGas = 2u8,
+    #[strum(serialize = "Medium")]
+    #[strum(props(docs = "", value = "3"))]
+    Medium = 3u8,
+    #[strum(serialize = "MediumGas")]
+    #[strum(props(docs = "", value = "4"))]
+    MediumGas = 4u8,
+    #[strum(serialize = "Large")]
+    #[strum(props(docs = "", value = "5"))]
+    Large = 5u8,
+    #[strum(serialize = "LargeGas")]
+    #[strum(props(docs = "", value = "6"))]
+    LargeGas = 6u8,
+    #[strum(serialize = "MediumPlane")]
+    #[strum(props(docs = "", value = "7"))]
+    MediumPlane = 7u8,
+    #[strum(serialize = "LargePlane")]
+    #[strum(props(docs = "", value = "8"))]
+    LargePlane = 8u8,
+}
+impl TryFrom<f64> for ShuttleType {
+    type Error = super::ParseError;
+    fn try_from(value: f64) -> Result<Self, <ShuttleType as TryFrom<f64>>::Error> {
+        use strum::IntoEnumIterator;
+        if let Some(enm) = ShuttleType::iter()
             .find(|enm| (f64::from(*enm as u8) - value).abs() < f64::EPSILON)
         {
             Ok(enm)
@@ -880,6 +1178,9 @@ pub enum Class {
     #[strum(serialize = "Portables")]
     #[strum(props(docs = "", value = "41"))]
     Portables = 41u8,
+    #[strum(serialize = "RocketPayload")]
+    #[strum(props(docs = "", value = "42"))]
+    RocketPayload = 42u8,
 }
 impl TryFrom<f64> for Class {
     type Error = super::ParseError;
@@ -1209,6 +1510,103 @@ impl TryFrom<f64> for SoundAlert {
     }
 }
 #[derive(
+    Default,
+    Debug,
+    Display,
+    Clone,
+    Copy,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+    EnumString,
+    AsRefStr,
+    EnumProperty,
+    EnumIter,
+    FromRepr,
+    Serialize,
+    Deserialize
+)]
+#[cfg_attr(feature = "tsify", derive(Tsify), tsify(into_wasm_abi, from_wasm_abi))]
+#[strum(use_phf)]
+#[repr(u8)]
+pub enum TraderInstruction {
+    #[strum(serialize = "None")]
+    #[strum(props(docs = "", value = "0"))]
+    #[default]
+    None = 0u8,
+    #[strum(serialize = "WriteTraderData")]
+    #[strum(props(docs = "", value = "1"))]
+    WriteTraderData = 1u8,
+    #[strum(serialize = "StrongestContactIdHash")]
+    #[strum(props(docs = "", value = "2"))]
+    StrongestContactIdHash = 2u8,
+    #[strum(serialize = "StrongestContactMetaData")]
+    #[strum(props(docs = "", value = "3"))]
+    StrongestContactMetaData = 3u8,
+    #[strum(serialize = "StrongestContactSignalData")]
+    #[strum(props(docs = "", value = "4"))]
+    StrongestContactSignalData = 4u8,
+    #[strum(serialize = "WriteTraderBuyData")]
+    #[strum(props(docs = "", value = "5"))]
+    WriteTraderBuyData = 5u8,
+    #[strum(serialize = "WriteTraderSellData")]
+    #[strum(props(docs = "", value = "6"))]
+    WriteTraderSellData = 6u8,
+    #[strum(serialize = "TraderBuyThingData")]
+    #[strum(props(docs = "", value = "7"))]
+    TraderBuyThingData = 7u8,
+    #[strum(serialize = "TraderBuyThingChildData")]
+    #[strum(props(docs = "", value = "8"))]
+    TraderBuyThingChildData = 8u8,
+    #[strum(serialize = "TraderBuyGasData")]
+    #[strum(props(docs = "", value = "9"))]
+    TraderBuyGasData = 9u8,
+    #[strum(serialize = "TraderSellThingData")]
+    #[strum(props(docs = "", value = "10"))]
+    TraderSellThingData = 10u8,
+    #[strum(serialize = "TraderSellGasData")]
+    #[strum(props(docs = "", value = "11"))]
+    TraderSellGasData = 11u8,
+    #[strum(serialize = "TraderSellThingChildData")]
+    #[strum(props(docs = "", value = "12"))]
+    TraderSellThingChildData = 12u8,
+    #[strum(serialize = "FilterPrefabHashEquals")]
+    #[strum(props(docs = "", value = "13"))]
+    FilterPrefabHashEquals = 13u8,
+    #[strum(serialize = "FilterPrefabHashNotEquals")]
+    #[strum(props(docs = "", value = "14"))]
+    FilterPrefabHashNotEquals = 14u8,
+    #[strum(serialize = "FilterSortingClassCompare")]
+    #[strum(props(docs = "", value = "15"))]
+    FilterSortingClassCompare = 15u8,
+    #[strum(serialize = "FilterQuantityCompare")]
+    #[strum(props(docs = "", value = "16"))]
+    FilterQuantityCompare = 16u8,
+    #[strum(serialize = "FilterGasContains")]
+    #[strum(props(docs = "", value = "17"))]
+    FilterGasContains = 17u8,
+    #[strum(serialize = "FilterGasNotContains")]
+    #[strum(props(docs = "", value = "18"))]
+    FilterGasNotContains = 18u8,
+}
+impl TryFrom<f64> for TraderInstruction {
+    type Error = super::ParseError;
+    fn try_from(value: f64) -> Result<Self, <TraderInstruction as TryFrom<f64>>::Error> {
+        use strum::IntoEnumIterator;
+        if let Some(enm) = TraderInstruction::iter()
+            .find(|enm| (f64::from(*enm as u8) - value).abs() < f64::EPSILON)
+        {
+            Ok(enm)
+        } else {
+            Err(super::ParseError {
+                enm: value.to_string(),
+            })
+        }
+    }
+}
+#[derive(
     Debug,
     Display,
     Clone,
@@ -1354,10 +1752,13 @@ pub enum BasicEnum {
     AirCon(AirConditioningMode),
     AirControl(AirControlMode),
     Color(ColorType),
+    ContactTier(ContactTier),
     DaylightSensorMode(DaylightSensorMode),
+    DisplayMode(DisplayMode),
     ElevatorMode(ElevatorMode),
     EntityState(EntityState),
     GasType(GasType),
+    HashType(HashType),
     LogicSlotType(LogicSlotType),
     LogicType(LogicType),
     PowerMode(PowerMode),
@@ -1365,10 +1766,13 @@ pub enum BasicEnum {
     ReEntryProfile(ReEntryProfile),
     RobotMode(RobotMode),
     RocketMode(RocketMode),
+    SettingDisplayMode(SettingDisplayMode),
+    ShuttleType(ShuttleType),
     SlotClass(Class),
     SorterInstruction(SorterInstruction),
     SortingClass(SortingClass),
     Sound(SoundAlert),
+    TraderInstruction(TraderInstruction),
     TransmitterMode(LogicTransmitterMode),
     Vent(VentDirection),
     Unnamed(ConditionOperation),
@@ -1379,10 +1783,13 @@ impl BasicEnum {
             Self::AirCon(enm) => *enm as u32,
             Self::AirControl(enm) => *enm as u32,
             Self::Color(enm) => *enm as u32,
+            Self::ContactTier(enm) => *enm as u32,
             Self::DaylightSensorMode(enm) => *enm as u32,
+            Self::DisplayMode(enm) => *enm as u32,
             Self::ElevatorMode(enm) => *enm as u32,
             Self::EntityState(enm) => *enm as u32,
             Self::GasType(enm) => *enm as u32,
+            Self::HashType(enm) => *enm as u32,
             Self::LogicSlotType(enm) => *enm as u32,
             Self::LogicType(enm) => *enm as u32,
             Self::PowerMode(enm) => *enm as u32,
@@ -1390,10 +1797,13 @@ impl BasicEnum {
             Self::ReEntryProfile(enm) => *enm as u32,
             Self::RobotMode(enm) => *enm as u32,
             Self::RocketMode(enm) => *enm as u32,
+            Self::SettingDisplayMode(enm) => *enm as u32,
+            Self::ShuttleType(enm) => *enm as u32,
             Self::SlotClass(enm) => *enm as u32,
             Self::SorterInstruction(enm) => *enm as u32,
             Self::SortingClass(enm) => *enm as u32,
             Self::Sound(enm) => *enm as u32,
+            Self::TraderInstruction(enm) => *enm as u32,
             Self::TransmitterMode(enm) => *enm as u32,
             Self::Vent(enm) => *enm as u32,
             Self::Unnamed(enm) => *enm as u32,
@@ -1404,10 +1814,13 @@ impl BasicEnum {
             Self::AirCon(enm) => enm.get_str(prop),
             Self::AirControl(enm) => enm.get_str(prop),
             Self::Color(enm) => enm.get_str(prop),
+            Self::ContactTier(enm) => enm.get_str(prop),
             Self::DaylightSensorMode(enm) => enm.get_str(prop),
+            Self::DisplayMode(enm) => enm.get_str(prop),
             Self::ElevatorMode(enm) => enm.get_str(prop),
             Self::EntityState(enm) => enm.get_str(prop),
             Self::GasType(enm) => enm.get_str(prop),
+            Self::HashType(enm) => enm.get_str(prop),
             Self::LogicSlotType(enm) => enm.get_str(prop),
             Self::LogicType(enm) => enm.get_str(prop),
             Self::PowerMode(enm) => enm.get_str(prop),
@@ -1415,10 +1828,13 @@ impl BasicEnum {
             Self::ReEntryProfile(enm) => enm.get_str(prop),
             Self::RobotMode(enm) => enm.get_str(prop),
             Self::RocketMode(enm) => enm.get_str(prop),
+            Self::SettingDisplayMode(enm) => enm.get_str(prop),
+            Self::ShuttleType(enm) => enm.get_str(prop),
             Self::SlotClass(enm) => enm.get_str(prop),
             Self::SorterInstruction(enm) => enm.get_str(prop),
             Self::SortingClass(enm) => enm.get_str(prop),
             Self::Sound(enm) => enm.get_str(prop),
+            Self::TraderInstruction(enm) => enm.get_str(prop),
             Self::TransmitterMode(enm) => enm.get_str(prop),
             Self::Vent(enm) => enm.get_str(prop),
             Self::Unnamed(enm) => enm.get_str(prop),
@@ -1430,10 +1846,13 @@ impl BasicEnum {
             .map(Self::AirCon)
             .chain(AirControlMode::iter().map(Self::AirControl))
             .chain(ColorType::iter().map(Self::Color))
+            .chain(ContactTier::iter().map(Self::ContactTier))
             .chain(DaylightSensorMode::iter().map(Self::DaylightSensorMode))
+            .chain(DisplayMode::iter().map(Self::DisplayMode))
             .chain(ElevatorMode::iter().map(Self::ElevatorMode))
             .chain(EntityState::iter().map(Self::EntityState))
             .chain(GasType::iter().map(Self::GasType))
+            .chain(HashType::iter().map(Self::HashType))
             .chain(LogicSlotType::iter().map(Self::LogicSlotType))
             .chain(LogicType::iter().map(Self::LogicType))
             .chain(PowerMode::iter().map(Self::PowerMode))
@@ -1441,10 +1860,13 @@ impl BasicEnum {
             .chain(ReEntryProfile::iter().map(Self::ReEntryProfile))
             .chain(RobotMode::iter().map(Self::RobotMode))
             .chain(RocketMode::iter().map(Self::RocketMode))
+            .chain(SettingDisplayMode::iter().map(Self::SettingDisplayMode))
+            .chain(ShuttleType::iter().map(Self::ShuttleType))
             .chain(Class::iter().map(Self::SlotClass))
             .chain(SorterInstruction::iter().map(Self::SorterInstruction))
             .chain(SortingClass::iter().map(Self::SortingClass))
             .chain(SoundAlert::iter().map(Self::Sound))
+            .chain(TraderInstruction::iter().map(Self::TraderInstruction))
             .chain(LogicTransmitterMode::iter().map(Self::TransmitterMode))
             .chain(VentDirection::iter().map(Self::Vent))
             .chain(ConditionOperation::iter().map(Self::Unnamed))
@@ -1472,6 +1894,9 @@ impl std::str::FromStr for BasicEnum {
             "color.red" => Ok(Self::Color(ColorType::Red)),
             "color.white" => Ok(Self::Color(ColorType::White)),
             "color.yellow" => Ok(Self::Color(ColorType::Yellow)),
+            "contacttier.close" => Ok(Self::ContactTier(ContactTier::Close)),
+            "contacttier.far" => Ok(Self::ContactTier(ContactTier::Far)),
+            "contacttier.medium" => Ok(Self::ContactTier(ContactTier::Medium)),
             "daylightsensormode.default" => {
                 Ok(Self::DaylightSensorMode(DaylightSensorMode::Default))
             }
@@ -1481,6 +1906,21 @@ impl std::str::FromStr for BasicEnum {
             "daylightsensormode.vertical" => {
                 Ok(Self::DaylightSensorMode(DaylightSensorMode::Vertical))
             }
+            "displaymode.celsius" => Ok(Self::DisplayMode(DisplayMode::Celsius)),
+            "displaymode.credits" => Ok(Self::DisplayMode(DisplayMode::Credits)),
+            "displaymode.days" => Ok(Self::DisplayMode(DisplayMode::Days)),
+            "displaymode.default" => Ok(Self::DisplayMode(DisplayMode::Default)),
+            "displaymode.fahrenheit" => Ok(Self::DisplayMode(DisplayMode::Fahrenheit)),
+            "displaymode.kelvin" => Ok(Self::DisplayMode(DisplayMode::Kelvin)),
+            "displaymode.litres" => Ok(Self::DisplayMode(DisplayMode::Litres)),
+            "displaymode.meters" => Ok(Self::DisplayMode(DisplayMode::Meters)),
+            "displaymode.minutes" => Ok(Self::DisplayMode(DisplayMode::Minutes)),
+            "displaymode.mol" => Ok(Self::DisplayMode(DisplayMode::Mol)),
+            "displaymode.pa" => Ok(Self::DisplayMode(DisplayMode::Pa)),
+            "displaymode.percent" => Ok(Self::DisplayMode(DisplayMode::Percent)),
+            "displaymode.power" => Ok(Self::DisplayMode(DisplayMode::Power)),
+            "displaymode.seconds" => Ok(Self::DisplayMode(DisplayMode::Seconds)),
+            "displaymode.string" => Ok(Self::DisplayMode(DisplayMode::String)),
             "elevatormode.downward" => Ok(Self::ElevatorMode(ElevatorMode::Downward)),
             "elevatormode.stationary" => Ok(Self::ElevatorMode(ElevatorMode::Stationary)),
             "elevatormode.upward" => Ok(Self::ElevatorMode(ElevatorMode::Upward)),
@@ -1488,7 +1928,9 @@ impl std::str::FromStr for BasicEnum {
             "entitystate.dead" => Ok(Self::EntityState(EntityState::Dead)),
             "entitystate.decay" => Ok(Self::EntityState(EntityState::Decay)),
             "entitystate.unconscious" => Ok(Self::EntityState(EntityState::Unconscious)),
+            "gastype.air" => Ok(Self::GasType(GasType::Air)),
             "gastype.carbondioxide" => Ok(Self::GasType(GasType::CarbonDioxide)),
+            "gastype.fuel" => Ok(Self::GasType(GasType::Fuel)),
             "gastype.hydrogen" => Ok(Self::GasType(GasType::Hydrogen)),
             "gastype.liquidcarbondioxide" => {
                 Ok(Self::GasType(GasType::LiquidCarbonDioxide))
@@ -1510,6 +1952,8 @@ impl std::str::FromStr for BasicEnum {
             "gastype.undefined" => Ok(Self::GasType(GasType::Undefined)),
             "gastype.volatiles" => Ok(Self::GasType(GasType::Volatiles)),
             "gastype.water" => Ok(Self::GasType(GasType::Water)),
+            "hashtype.gasliquid" => Ok(Self::HashType(HashType::GasLiquid)),
+            "hashtype.prefab" => Ok(Self::HashType(HashType::Prefab)),
             "logicslottype.charge" => Ok(Self::LogicSlotType(LogicSlotType::Charge)),
             "logicslottype.chargeratio" => {
                 Ok(Self::LogicSlotType(LogicSlotType::ChargeRatio))
@@ -1523,15 +1967,22 @@ impl std::str::FromStr for BasicEnum {
                 Ok(Self::LogicSlotType(LogicSlotType::FilterType))
             }
             "logicslottype.growth" => Ok(Self::LogicSlotType(LogicSlotType::Growth)),
+            "logicslottype.harvestedhash" => {
+                Ok(Self::LogicSlotType(LogicSlotType::HarvestedHash))
+            }
             "logicslottype.health" => Ok(Self::LogicSlotType(LogicSlotType::Health)),
             "logicslottype.linenumber" => {
                 Ok(Self::LogicSlotType(LogicSlotType::LineNumber))
             }
             "logicslottype.lock" => Ok(Self::LogicSlotType(LogicSlotType::Lock)),
             "logicslottype.mature" => Ok(Self::LogicSlotType(LogicSlotType::Mature)),
+            "logicslottype.maturityratio" => {
+                Ok(Self::LogicSlotType(LogicSlotType::MaturityRatio))
+            }
             "logicslottype.maxquantity" => {
                 Ok(Self::LogicSlotType(LogicSlotType::MaxQuantity))
             }
+            "logicslottype.mode" => Ok(Self::LogicSlotType(LogicSlotType::Mode)),
             "logicslottype.none" => Ok(Self::LogicSlotType(LogicSlotType::None)),
             "logicslottype.occupanthash" => {
                 Ok(Self::LogicSlotType(LogicSlotType::OccupantHash))
@@ -1554,6 +2005,9 @@ impl std::str::FromStr for BasicEnum {
                 Ok(Self::LogicSlotType(LogicSlotType::ReferenceId))
             }
             "logicslottype.seeding" => Ok(Self::LogicSlotType(LogicSlotType::Seeding)),
+            "logicslottype.seedingratio" => {
+                Ok(Self::LogicSlotType(LogicSlotType::SeedingRatio))
+            }
             "logicslottype.sortingclass" => {
                 Ok(Self::LogicSlotType(LogicSlotType::SortingClass))
             }
@@ -1623,6 +2077,7 @@ impl std::str::FromStr for BasicEnum {
                 Ok(Self::LogicType(LogicType::CurrentResearchPodType))
             }
             "logictype.density" => Ok(Self::LogicType(LogicType::Density)),
+            "logictype.derivativegain" => Ok(Self::LogicType(LogicType::DerivativeGain)),
             "logictype.destinationcode" => {
                 Ok(Self::LogicType(LogicType::DestinationCode))
             }
@@ -1648,6 +2103,7 @@ impl std::str::FromStr for BasicEnum {
             "logictype.exportslotoccupant" => {
                 Ok(Self::LogicType(LogicType::ExportSlotOccupant))
             }
+            "logictype.extended" => Ok(Self::LogicType(LogicType::Extended)),
             "logictype.filtration" => Ok(Self::LogicType(LogicType::Filtration)),
             "logictype.flightcontrolrule" => {
                 Ok(Self::LogicType(LogicType::FlightControlRule))
@@ -1672,6 +2128,7 @@ impl std::str::FromStr for BasicEnum {
             }
             "logictype.inclination" => Ok(Self::LogicType(LogicType::Inclination)),
             "logictype.index" => Ok(Self::LogicType(LogicType::Index)),
+            "logictype.integralgain" => Ok(Self::LogicType(LogicType::IntegralGain)),
             "logictype.interrogationprogress" => {
                 Ok(Self::LogicType(LogicType::InterrogationProgress))
             }
@@ -1689,12 +2146,14 @@ impl std::str::FromStr for BasicEnum {
                 Ok(Self::LogicType(LogicType::MineablesInVicinity))
             }
             "logictype.minedquantity" => Ok(Self::LogicType(LogicType::MinedQuantity)),
+            "logictype.minimum" => Ok(Self::LogicType(LogicType::Minimum)),
             "logictype.minimumwattstocontact" => {
                 Ok(Self::LogicType(LogicType::MinimumWattsToContact))
             }
             "logictype.mode" => Ok(Self::LogicType(LogicType::Mode)),
             "logictype.namehash" => Ok(Self::LogicType(LogicType::NameHash)),
             "logictype.navpoints" => Ok(Self::LogicType(LogicType::NavPoints)),
+            "logictype.networkfault" => Ok(Self::LogicType(LogicType::NetworkFault)),
             "logictype.nextweathereventtime" => {
                 Ok(Self::LogicType(LogicType::NextWeatherEventTime))
             }
@@ -1764,6 +2223,9 @@ impl std::str::FromStr for BasicEnum {
                 Ok(Self::LogicType(LogicType::PressureSetting))
             }
             "logictype.progress" => Ok(Self::LogicType(LogicType::Progress)),
+            "logictype.proportionalgain" => {
+                Ok(Self::LogicType(LogicType::ProportionalGain))
+            }
             "logictype.quantity" => Ok(Self::LogicType(LogicType::Quantity)),
             "logictype.ratio" => Ok(Self::LogicType(LogicType::Ratio)),
             "logictype.ratiocarbondioxide" => {
@@ -1979,10 +2441,12 @@ impl std::str::FromStr for BasicEnum {
             "logictype.referenceid" => Ok(Self::LogicType(LogicType::ReferenceId)),
             "logictype.requesthash" => Ok(Self::LogicType(LogicType::RequestHash)),
             "logictype.requiredpower" => Ok(Self::LogicType(LogicType::RequiredPower)),
+            "logictype.reset" => Ok(Self::LogicType(LogicType::Reset)),
             "logictype.returnfuelcost" => Ok(Self::LogicType(LogicType::ReturnFuelCost)),
             "logictype.richness" => Ok(Self::LogicType(LogicType::Richness)),
             "logictype.rpm" => Ok(Self::LogicType(LogicType::Rpm)),
             "logictype.semimajoraxis" => Ok(Self::LogicType(LogicType::SemiMajorAxis)),
+            "logictype.setpoint" => Ok(Self::LogicType(LogicType::Setpoint)),
             "logictype.setting" => Ok(Self::LogicType(LogicType::Setting)),
             "logictype.settinginput" => Ok(Self::LogicType(LogicType::SettingInput)),
             "logictype.settingoutput" => Ok(Self::LogicType(LogicType::SettingOutput)),
@@ -1998,6 +2462,7 @@ impl std::str::FromStr for BasicEnum {
                 Ok(Self::LogicType(LogicType::SolarIrradiance))
             }
             "logictype.soundalert" => Ok(Self::LogicType(LogicType::SoundAlert)),
+            "logictype.stacksize" => Ok(Self::LogicType(LogicType::StackSize)),
             "logictype.stress" => Ok(Self::LogicType(LogicType::Stress)),
             "logictype.survey" => Ok(Self::LogicType(LogicType::Survey)),
             "logictype.targetpadindex" => Ok(Self::LogicType(LogicType::TargetPadIndex)),
@@ -2128,11 +2593,27 @@ impl std::str::FromStr for BasicEnum {
             "robotmode.storagefull" => Ok(Self::RobotMode(RobotMode::StorageFull)),
             "robotmode.unload" => Ok(Self::RobotMode(RobotMode::Unload)),
             "rocketmode.chart" => Ok(Self::RocketMode(RocketMode::Chart)),
+            "rocketmode.deploy" => Ok(Self::RocketMode(RocketMode::Deploy)),
             "rocketmode.discover" => Ok(Self::RocketMode(RocketMode::Discover)),
             "rocketmode.invalid" => Ok(Self::RocketMode(RocketMode::Invalid)),
             "rocketmode.mine" => Ok(Self::RocketMode(RocketMode::Mine)),
             "rocketmode.none" => Ok(Self::RocketMode(RocketMode::None)),
             "rocketmode.survey" => Ok(Self::RocketMode(RocketMode::Survey)),
+            "settingdisplaymode.number" => {
+                Ok(Self::SettingDisplayMode(SettingDisplayMode::Number))
+            }
+            "settingdisplaymode.string" => {
+                Ok(Self::SettingDisplayMode(SettingDisplayMode::String))
+            }
+            "shuttletype.large" => Ok(Self::ShuttleType(ShuttleType::Large)),
+            "shuttletype.largegas" => Ok(Self::ShuttleType(ShuttleType::LargeGas)),
+            "shuttletype.largeplane" => Ok(Self::ShuttleType(ShuttleType::LargePlane)),
+            "shuttletype.medium" => Ok(Self::ShuttleType(ShuttleType::Medium)),
+            "shuttletype.mediumgas" => Ok(Self::ShuttleType(ShuttleType::MediumGas)),
+            "shuttletype.mediumplane" => Ok(Self::ShuttleType(ShuttleType::MediumPlane)),
+            "shuttletype.none" => Ok(Self::ShuttleType(ShuttleType::None)),
+            "shuttletype.small" => Ok(Self::ShuttleType(ShuttleType::Small)),
+            "shuttletype.smallgas" => Ok(Self::ShuttleType(ShuttleType::SmallGas)),
             "slotclass.accesscard" => Ok(Self::SlotClass(Class::AccessCard)),
             "slotclass.appliance" => Ok(Self::SlotClass(Class::Appliance)),
             "slotclass.back" => Ok(Self::SlotClass(Class::Back)),
@@ -2166,6 +2647,7 @@ impl std::str::FromStr for BasicEnum {
             "slotclass.plant" => Ok(Self::SlotClass(Class::Plant)),
             "slotclass.portables" => Ok(Self::SlotClass(Class::Portables)),
             "slotclass.programmablechip" => Ok(Self::SlotClass(Class::ProgrammableChip)),
+            "slotclass.rocketpayload" => Ok(Self::SlotClass(Class::RocketPayload)),
             "slotclass.scanninghead" => Ok(Self::SlotClass(Class::ScanningHead)),
             "slotclass.sensorprocessingunit" => {
                 Ok(Self::SlotClass(Class::SensorProcessingUnit))
@@ -2259,6 +2741,67 @@ impl std::str::FromStr for BasicEnum {
             "sound.two" => Ok(Self::Sound(SoundAlert::Two)),
             "sound.warning" => Ok(Self::Sound(SoundAlert::Warning)),
             "sound.welcome" => Ok(Self::Sound(SoundAlert::Welcome)),
+            "traderinstruction.filtergascontains" => {
+                Ok(Self::TraderInstruction(TraderInstruction::FilterGasContains))
+            }
+            "traderinstruction.filtergasnotcontains" => {
+                Ok(Self::TraderInstruction(TraderInstruction::FilterGasNotContains))
+            }
+            "traderinstruction.filterprefabhashequals" => {
+                Ok(Self::TraderInstruction(TraderInstruction::FilterPrefabHashEquals))
+            }
+            "traderinstruction.filterprefabhashnotequals" => {
+                Ok(Self::TraderInstruction(TraderInstruction::FilterPrefabHashNotEquals))
+            }
+            "traderinstruction.filterquantitycompare" => {
+                Ok(Self::TraderInstruction(TraderInstruction::FilterQuantityCompare))
+            }
+            "traderinstruction.filtersortingclasscompare" => {
+                Ok(Self::TraderInstruction(TraderInstruction::FilterSortingClassCompare))
+            }
+            "traderinstruction.none" => {
+                Ok(Self::TraderInstruction(TraderInstruction::None))
+            }
+            "traderinstruction.strongestcontactidhash" => {
+                Ok(Self::TraderInstruction(TraderInstruction::StrongestContactIdHash))
+            }
+            "traderinstruction.strongestcontactmetadata" => {
+                Ok(Self::TraderInstruction(TraderInstruction::StrongestContactMetaData))
+            }
+            "traderinstruction.strongestcontactsignaldata" => {
+                Ok(
+                    Self::TraderInstruction(
+                        TraderInstruction::StrongestContactSignalData,
+                    ),
+                )
+            }
+            "traderinstruction.traderbuygasdata" => {
+                Ok(Self::TraderInstruction(TraderInstruction::TraderBuyGasData))
+            }
+            "traderinstruction.traderbuythingchilddata" => {
+                Ok(Self::TraderInstruction(TraderInstruction::TraderBuyThingChildData))
+            }
+            "traderinstruction.traderbuythingdata" => {
+                Ok(Self::TraderInstruction(TraderInstruction::TraderBuyThingData))
+            }
+            "traderinstruction.tradersellgasdata" => {
+                Ok(Self::TraderInstruction(TraderInstruction::TraderSellGasData))
+            }
+            "traderinstruction.tradersellthingchilddata" => {
+                Ok(Self::TraderInstruction(TraderInstruction::TraderSellThingChildData))
+            }
+            "traderinstruction.tradersellthingdata" => {
+                Ok(Self::TraderInstruction(TraderInstruction::TraderSellThingData))
+            }
+            "traderinstruction.writetraderbuydata" => {
+                Ok(Self::TraderInstruction(TraderInstruction::WriteTraderBuyData))
+            }
+            "traderinstruction.writetraderdata" => {
+                Ok(Self::TraderInstruction(TraderInstruction::WriteTraderData))
+            }
+            "traderinstruction.writetraderselldata" => {
+                Ok(Self::TraderInstruction(TraderInstruction::WriteTraderSellData))
+            }
             "transmittermode.active" => {
                 Ok(Self::TransmitterMode(LogicTransmitterMode::Active))
             }
@@ -2285,10 +2828,13 @@ impl std::fmt::Display for BasicEnum {
             Self::AirCon(enm) => write!(f, "AirCon.{}", enm),
             Self::AirControl(enm) => write!(f, "AirControl.{}", enm),
             Self::Color(enm) => write!(f, "Color.{}", enm),
+            Self::ContactTier(enm) => write!(f, "ContactTier.{}", enm),
             Self::DaylightSensorMode(enm) => write!(f, "DaylightSensorMode.{}", enm),
+            Self::DisplayMode(enm) => write!(f, "DisplayMode.{}", enm),
             Self::ElevatorMode(enm) => write!(f, "ElevatorMode.{}", enm),
             Self::EntityState(enm) => write!(f, "EntityState.{}", enm),
             Self::GasType(enm) => write!(f, "GasType.{}", enm),
+            Self::HashType(enm) => write!(f, "HashType.{}", enm),
             Self::LogicSlotType(enm) => write!(f, "LogicSlotType.{}", enm),
             Self::LogicType(enm) => write!(f, "LogicType.{}", enm),
             Self::PowerMode(enm) => write!(f, "PowerMode.{}", enm),
@@ -2296,10 +2842,13 @@ impl std::fmt::Display for BasicEnum {
             Self::ReEntryProfile(enm) => write!(f, "ReEntryProfile.{}", enm),
             Self::RobotMode(enm) => write!(f, "RobotMode.{}", enm),
             Self::RocketMode(enm) => write!(f, "RocketMode.{}", enm),
+            Self::SettingDisplayMode(enm) => write!(f, "SettingDisplayMode.{}", enm),
+            Self::ShuttleType(enm) => write!(f, "ShuttleType.{}", enm),
             Self::SlotClass(enm) => write!(f, "SlotClass.{}", enm),
             Self::SorterInstruction(enm) => write!(f, "SorterInstruction.{}", enm),
             Self::SortingClass(enm) => write!(f, "SortingClass.{}", enm),
             Self::Sound(enm) => write!(f, "Sound.{}", enm),
+            Self::TraderInstruction(enm) => write!(f, "TraderInstruction.{}", enm),
             Self::TransmitterMode(enm) => write!(f, "TransmitterMode.{}", enm),
             Self::Vent(enm) => write!(f, "Vent.{}", enm),
             Self::Unnamed(enm) => write!(f, "_unnamed{}", enm),

@@ -53,7 +53,13 @@ pub enum StationpediaPrefab {
     )]
     StructureSmallSatelliteDish = -2138748650i32,
     #[strum(serialize = "StructureRobotArmDoor")]
-    #[strum(props(name = "Linear Rail Door", desc = "", value = "-2131782367"))]
+    #[strum(
+        props(
+            name = "Linear Rail Door",
+            desc = "The linear rail door allows LArRE arms to pass through while travelling along a rail network.",
+            value = "-2131782367"
+        )
+    )]
     StructureRobotArmDoor = -2131782367i32,
     #[strum(serialize = "StructureStairwellBackRight")]
     #[strum(props(name = "Stairwell (Back Right)", desc = "", value = "-2128896573"))]
@@ -80,14 +86,11 @@ pub enum StationpediaPrefab {
     )]
     ItemDisposableBatteryCharger = -2124435700i32,
     #[strum(serialize = "StructureBatterySmall")]
-    #[strum(
-        props(
-            name = "Auxiliary Rocket Battery ",
-            desc = "0.Empty\n1.Critical\n2.VeryLow\n3.Low\n4.Medium\n5.High\n6.Full",
-            value = "-2123455080"
-        )
-    )]
+    #[strum(props(name = "Auxiliary Rocket Battery ", desc = "", value = "-2123455080"))]
     StructureBatterySmall = -2123455080i32,
+    #[strum(serialize = "ItemWreckageSmallFan")]
+    #[strum(props(name = "Wreckage", desc = "", value = "-2120466121"))]
+    ItemWreckageSmallFan = -2120466121i32,
     #[strum(serialize = "StructureLiquidPipeAnalyzer")]
     #[strum(props(name = "Liquid Pipe Analyzer", desc = "", value = "-2113838091"))]
     StructureLiquidPipeAnalyzer = -2113838091i32,
@@ -100,6 +103,9 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemGasTankStorage = -2113012215i32,
+    #[strum(serialize = "ItemIcarusSuit")]
+    #[strum(props(name = "Icarus Suit", desc = "", value = "-2112405954"))]
+    ItemIcarusSuit = -2112405954i32,
     #[strum(serialize = "StructureFrameCorner")]
     #[strum(
         props(
@@ -145,13 +151,7 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Kit (Logic Memory)", desc = "", value = "-2098214189"))]
     ItemKitLogicMemory = -2098214189i32,
     #[strum(serialize = "StructureInteriorDoorGlass")]
-    #[strum(
-        props(
-            name = "Interior Door Glass",
-            desc = "0.Operate\n1.Logic",
-            value = "-2096421875"
-        )
-    )]
+    #[strum(props(name = "Interior Door Glass", desc = "", value = "-2096421875"))]
     StructureInteriorDoorGlass = -2096421875i32,
     #[strum(serialize = "StructureAirConditioner")]
     #[strum(
@@ -166,19 +166,13 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Rocket Miner",
-            desc = "Gathers available resources at the rocket's current space location.",
+            desc = "Gathers available resources at the rocket's current space location. Mining also generates a small trickle of survey points at the location.",
             value = "-2087223687"
         )
     )]
     StructureRocketMiner = -2087223687i32,
     #[strum(serialize = "DynamicGPR")]
-    #[strum(
-        props(
-            name = "<N:EN:DynamicGPR>",
-            desc = "<N:EN:DynamicGPR>",
-            value = "-2085885850"
-        )
-    )]
+    #[strum(props(name = "Dynamic GPR", desc = "", value = "-2085885850"))]
     DynamicGpr = -2085885850i32,
     #[strum(serialize = "UniformCommander")]
     #[strum(props(name = "Uniform Commander", desc = "", value = "-2083426457"))]
@@ -275,6 +269,15 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureCompositeWindow = -2060571986i32,
+    #[strum(serialize = "StructureRoboticArmRailScrewLeft")]
+    #[strum(
+        props(
+            name = "Linear Rail Screw Left",
+            desc = "A component of a linear rail network to be used in conjunction with LArRE docks.",
+            value = "-2056592380"
+        )
+    )]
+    StructureRoboticArmRailScrewLeft = -2056592380i32,
     #[strum(serialize = "ItemEmergencyDrill")]
     #[strum(props(name = "Emergency Drill", desc = "", value = "-2052458905"))]
     ItemEmergencyDrill = -2052458905i32,
@@ -296,15 +299,6 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureSolarPanel = -2045627372i32,
-    #[strum(serialize = "CircuitboardShipDisplay")]
-    #[strum(
-        props(
-            name = "Ship Display",
-            desc = "When the original <link=Stationeers><color=#0080FFFF>Stationeer</color></link> Handbook collapsed under its own weight into a singularity, certain information was irretrievably lost. Amongst this mysterious corpus of knowledge is the exact purpose of the ship display board.",
-            value = "-2044446819"
-        )
-    )]
-    CircuitboardShipDisplay = -2044446819i32,
     #[strum(serialize = "StructureBench")]
     #[strum(
         props(
@@ -400,15 +394,6 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemGasFilterWater = -1993197973i32,
-    #[strum(serialize = "SpaceShuttle")]
-    #[strum(
-        props(
-            name = "Space Shuttle",
-            desc = "An antiquated <link=Sinotai><color=#0080FFFF>Sinotai</color></link> transport craft, long since decommissioned.",
-            value = "-1991297271"
-        )
-    )]
-    SpaceShuttle = -1991297271i32,
     #[strum(serialize = "SeedBag_Fern")]
     #[strum(
         props(
@@ -445,18 +430,18 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureInsulatedPipeCorner = -1967711059i32,
+    #[strum(serialize = "StructureFuselageDoorsDual")]
+    #[strum(
+        props(
+            name = "Fuselage Doors",
+            desc = "A standard fuselage for a rocket with doors to allow easy access to contents without fairing removal",
+            value = "-1965275716"
+        )
+    )]
+    StructureFuselageDoorsDual = -1965275716i32,
     #[strum(serialize = "StructureWallArchCornerSquare")]
     #[strum(props(name = "Wall (Arch Corner Square)", desc = "", value = "-1963016580"))]
     StructureWallArchCornerSquare = -1963016580i32,
-    #[strum(serialize = "StructureControlChair")]
-    #[strum(
-        props(
-            name = "Control Chair",
-            desc = "Once, these chairs were the heart of space-going behemoths. Now, they're items of nostalgia built only by a handful of Stationeers with a sense of history. In other words, kitsch.",
-            value = "-1961153710"
-        )
-    )]
-    StructureControlChair = -1961153710i32,
     #[strum(serialize = "PortableComposter")]
     #[strum(
         props(
@@ -466,17 +451,8 @@ pub enum StationpediaPrefab {
         )
     )]
     PortableComposter = -1958705204i32,
-    #[strum(serialize = "CartridgeGPS")]
-    #[strum(props(name = "Cartridge (GPS)", desc = "", value = "-1957063345"))]
-    CartridgeGps = -1957063345i32,
     #[strum(serialize = "StructureConsoleLED1x3")]
-    #[strum(
-        props(
-            name = "LED Display (Large)",
-            desc = "0.Default\n1.Percent\n2.Power",
-            value = "-1949054743"
-        )
-    )]
+    #[strum(props(name = "LED Display (Large)", desc = "", value = "-1949054743"))]
     StructureConsoleLed1X3 = -1949054743i32,
     #[strum(serialize = "ItemDuctTape")]
     #[strum(
@@ -487,6 +463,15 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemDuctTape = -1943134693i32,
+    #[strum(serialize = "StructurePipeLiquidStraight10")]
+    #[strum(
+        props(
+            name = "Liquid Pipe (Straight 10)",
+            desc = "Long variant of liquid piping. These variants cannot be merged or upgraded with insulation.",
+            value = "-1941415400"
+        )
+    )]
+    StructurePipeLiquidStraight10 = -1941415400i32,
     #[strum(serialize = "DynamicLiquidCanisterEmpty")]
     #[strum(
         props(
@@ -502,15 +487,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemKitAutomatedOven")]
     #[strum(props(name = "Kit (Automated Oven)", desc = "", value = "-1931958659"))]
     ItemKitAutomatedOven = -1931958659i32,
-    #[strum(serialize = "MothershipCore")]
-    #[strum(
-        props(
-            name = "Mothership Core",
-            desc = "A relic of from an earlier era of space ambition, <link=Sinotai><color=#0080FFFF>Sinotai's</color></link> mothership cores formed the central element of a generation's space-going creations. While Sinotai's pivot to smaller, modular craft upset some purists, motherships continue to be built and maintained by dedicated enthusiasts.",
-            value = "-1930442922"
-        )
-    )]
-    MothershipCore = -1930442922i32,
     #[strum(serialize = "ItemKitSolarPanel")]
     #[strum(props(name = "Kit (Solar Panel)", desc = "", value = "-1924492105"))]
     ItemKitSolarPanel = -1924492105i32,
@@ -562,6 +538,15 @@ pub enum StationpediaPrefab {
         )
     )]
     MotherboardSorter = -1908268220i32,
+    #[strum(serialize = "StructureLogicPidController")]
+    #[strum(
+        props(
+            name = "PID Controller",
+            desc = "A PID (Proportional Integral Derivative) controller that provides a closed-loop feedback mechanism that can be used to automatically regulate a process variable (like temperature, speed, position, and similar) so that it tracks a desired setpoint. It does this by continually computing an error signal\u{202f}e(t)\u{202f}=\u{202f}setpoint\u{202f}–\u{202f}measurement, then applying three corrective actions as the Proportional, Integral, and Derivative.",
+            value = "-1905534007"
+        )
+    )]
+    StructureLogicPidController = -1905534007i32,
     #[strum(serialize = "ItemSoundCartridgeDrums")]
     #[strum(props(name = "Sound Cartridge Drums", desc = "", value = "-1901500508"))]
     ItemSoundCartridgeDrums = -1901500508i32,
@@ -686,9 +671,6 @@ pub enum StationpediaPrefab {
         )
     )]
     StructurePipeLiquidCorner = -1856720921i32,
-    #[strum(serialize = "ItemGasCanisterWater")]
-    #[strum(props(name = "Liquid Canister (Water)", desc = "", value = "-1854861891"))]
-    ItemGasCanisterWater = -1854861891i32,
     #[strum(serialize = "ItemKitLaunchMount")]
     #[strum(props(name = "Kit (Launch Mount)", desc = "", value = "-1854167549"))]
     ItemKitLaunchMount = -1854167549i32,
@@ -736,9 +718,15 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemKitWall")]
     #[strum(props(name = "Kit (Wall)", desc = "", value = "-1826855889"))]
     ItemKitWall = -1826855889i32,
-    #[strum(serialize = "ItemWreckageAirConditioner1")]
-    #[strum(props(name = "Wreckage", desc = "", value = "-1826023284"))]
-    ItemWreckageAirConditioner1 = -1826023284i32,
+    #[strum(serialize = "StructurePipeLiquidStraight5")]
+    #[strum(
+        props(
+            name = "Liquid Pipe (Straight 5)",
+            desc = "Long variant of liquid piping. These variants cannot be merged or upgraded with insulation.",
+            value = "-1826529455"
+        )
+    )]
+    StructurePipeLiquidStraight5 = -1826529455i32,
     #[strum(serialize = "ItemKitStirlingEngine")]
     #[strum(props(name = "Kit (Stirling Engine)", desc = "", value = "-1821571150"))]
     ItemKitStirlingEngine = -1821571150i32,
@@ -752,13 +740,7 @@ pub enum StationpediaPrefab {
     )]
     StructureRoboticArmDock = -1818718810i32,
     #[strum(serialize = "StructureGasUmbilicalMale")]
-    #[strum(
-        props(
-            name = "Umbilical (Gas)",
-            desc = "0.Left\n1.Center\n2.Right",
-            value = "-1814939203"
-        )
-    )]
+    #[strum(props(name = "Umbilical (Gas)", desc = "", value = "-1814939203"))]
     StructureGasUmbilicalMale = -1814939203i32,
     #[strum(serialize = "StructureSleeperRight")]
     #[strum(
@@ -797,13 +779,7 @@ pub enum StationpediaPrefab {
     )]
     ItemKitLiquidTurboVolumePump = -1805020897i32,
     #[strum(serialize = "StructureLiquidUmbilicalMale")]
-    #[strum(
-        props(
-            name = "Umbilical (Liquid)",
-            desc = "0.Left\n1.Center\n2.Right",
-            value = "-1798420047"
-        )
-    )]
+    #[strum(props(name = "Umbilical (Liquid)", desc = "", value = "-1798420047"))]
     StructureLiquidUmbilicalMale = -1798420047i32,
     #[strum(serialize = "StructurePipeMeter")]
     #[strum(
@@ -838,13 +814,19 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Landingpad Liquid Output",
-            desc = "Pumps liquid purchased from a trader out of the landing pad. You can increase the landing pad's liquid storage capacity by adding more <link=ThingLandingpad_GasCylinderTankPiece><color=green>Landingpad Gas Storage</color></link> to the landing pad.",
+            desc = "Pumps liquid purchased from a trader out of the landing pad. You can increase the landing pad's liquid storage capacity by adding more <link=ThingLandingpad_GasCylinderTankPiece><color=green>Landingpad Tank (Small)</color></link> to the landing pad.",
             value = "-1788929869"
         )
     )]
     LandingpadLiquidConnectorOutwardPiece = -1788929869i32,
     #[strum(serialize = "StructureRoboticArmRailStraight")]
-    #[strum(props(name = "Linear Rail Straight", desc = "", value = "-1785844184"))]
+    #[strum(
+        props(
+            name = "Linear Rail Straight",
+            desc = "A component of a linear rail network to be used in conjunction with LArRE docks.",
+            value = "-1785844184"
+        )
+    )]
     StructureRoboticArmRailStraight = -1785844184i32,
     #[strum(serialize = "StructurePipeCorner")]
     #[strum(
@@ -855,6 +837,15 @@ pub enum StationpediaPrefab {
         )
     )]
     StructurePipeCorner = -1785673561i32,
+    #[strum(serialize = "StructureInsulatedPipeLiquidStraight3")]
+    #[strum(
+        props(
+            name = "Insulated Liquid Pipe (Straight 3)",
+            desc = "Long variant of liquid piping with very low temperature loss or gain. These variants cannot be merged.",
+            value = "-1784561856"
+        )
+    )]
+    StructureInsulatedPipeLiquidStraight3 = -1784561856i32,
     #[strum(serialize = "ItemKitSensor")]
     #[strum(props(name = "Kit (Sensors)", desc = "", value = "-1776897113"))]
     ItemKitSensor = -1776897113i32,
@@ -968,24 +959,11 @@ pub enum StationpediaPrefab {
         )
     )]
     DynamicGasCanisterEmpty = -1741267161i32,
-    #[strum(serialize = "ItemSpaceCleaner")]
+    #[strum(serialize = "SeedBag_WinterspawnAlpha")]
     #[strum(
-        props(
-            name = "Space Cleaner",
-            desc = "There was a time when humanity really wanted to keep space clean. That time has passed.",
-            value = "-1737666461"
-        )
+        props(name = "Winterspawn Seed (Alpha strain)", desc = "", value = "-1740754636")
     )]
-    ItemSpaceCleaner = -1737666461i32,
-    #[strum(serialize = "ItemAuthoringToolRocketNetwork")]
-    #[strum(
-        props(
-            name = "<N:EN:ItemAuthoringToolRocketNetwork>",
-            desc = "<N:EN:ItemAuthoringToolRocketNetwork>",
-            value = "-1731627004"
-        )
-    )]
-    ItemAuthoringToolRocketNetwork = -1731627004i32,
+    SeedBagWinterspawnAlpha = -1740754636i32,
     #[strum(serialize = "ItemSensorProcessingUnitMesonScanner")]
     #[strum(
         props(
@@ -998,6 +976,15 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemWaterWallCooler")]
     #[strum(props(name = "Kit (Liquid Wall Cooler)", desc = "", value = "-1721846327"))]
     ItemWaterWallCooler = -1721846327i32,
+    #[strum(serialize = "StructureRocketGasCollector")]
+    #[strum(
+        props(
+            name = "Rocket Gas Collector",
+            desc = "When fitted on a Rocket, this device will allow the collection of gaseous atmospheres from various planetoids.",
+            value = "-1720125735"
+        )
+    )]
+    StructureRocketGasCollector = -1720125735i32,
     #[strum(serialize = "ItemPureIceLiquidCarbonDioxide")]
     #[strum(
         props(
@@ -1010,15 +997,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "AccessCardRed")]
     #[strum(props(name = "Access Card (Red)", desc = "", value = "-1713748313"))]
     AccessCardRed = -1713748313i32,
-    #[strum(serialize = "DynamicGasCanisterAir")]
-    #[strum(
-        props(
-            name = "Portable Gas Tank (Air)",
-            desc = "Portable gas tanks do one thing: store gas. But there's lots you can do with them. To refill the tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or bad things happen. Once it's full, you can refill a <link=ThingItemGasCanisterOxygen><color=green>Canister (Oxygen)</color></link> by attaching it to the tank's striped section. Or you could vent the tank's variable flow rate valve into a room and create an atmosphere. They also attach to rovers and rockets. Alternatively, kick it over and practice barrel rolling. The possibilities are endless.",
-            value = "-1713611165"
-        )
-    )]
-    DynamicGasCanisterAir = -1713611165i32,
     #[strum(serialize = "StructureMotionSensor")]
     #[strum(
         props(
@@ -1037,12 +1015,6 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemCookedPowderedEggs = -1712264413i32,
-    #[strum(serialize = "ItemGasCanisterNitrousOxide")]
-    #[strum(props(name = "Gas Canister (Sleeping)", desc = "", value = "-1712153401"))]
-    ItemGasCanisterNitrousOxide = -1712153401i32,
-    #[strum(serialize = "ItemKitHeatExchanger")]
-    #[strum(props(name = "Kit Heat Exchanger", desc = "", value = "-1710540039"))]
-    ItemKitHeatExchanger = -1710540039i32,
     #[strum(serialize = "ItemPureIceNitrogen")]
     #[strum(
         props(
@@ -1084,12 +1056,12 @@ pub enum StationpediaPrefab {
         )
     )]
     StructurePictureFrameThickPortraitLarge = -1686949570i32,
+    #[strum(serialize = "ApplianceBobbleHeadBasicSuit")]
+    #[strum(props(name = "Bobble Head (Basic Suit)", desc = "", value = "-1686269127"))]
+    ApplianceBobbleHeadBasicSuit = -1686269127i32,
     #[strum(serialize = "ApplianceDeskLampLeft")]
     #[strum(props(name = "Appliance Desk Lamp Left", desc = "", value = "-1683849799"))]
     ApplianceDeskLampLeft = -1683849799i32,
-    #[strum(serialize = "ItemWreckageWallCooler1")]
-    #[strum(props(name = "Wreckage", desc = "", value = "-1682930158"))]
-    ItemWreckageWallCooler1 = -1682930158i32,
     #[strum(serialize = "StructureGasUmbilicalFemale")]
     #[strum(props(name = "Umbilical Socket (Gas)", desc = "", value = "-1680477930"))]
     StructureGasUmbilicalFemale = -1680477930i32,
@@ -1123,15 +1095,6 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureElectrolyzer = -1668992663i32,
-    #[strum(serialize = "MonsterEgg")]
-    #[strum(
-        props(
-            name = "<N:EN:MonsterEgg>",
-            desc = "<N:EN:MonsterEgg>",
-            value = "-1667675295"
-        )
-    )]
-    MonsterEgg = -1667675295i32,
     #[strum(serialize = "ItemMiningDrillHeavy")]
     #[strum(
         props(
@@ -1144,9 +1107,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemAstroloySheets")]
     #[strum(props(name = "Astroloy Sheets", desc = "", value = "-1662476145"))]
     ItemAstroloySheets = -1662476145i32,
-    #[strum(serialize = "ItemWreckageTurbineGenerator1")]
-    #[strum(props(name = "Wreckage", desc = "", value = "-1662394403"))]
-    ItemWreckageTurbineGenerator1 = -1662394403i32,
     #[strum(serialize = "ItemMiningBackPack")]
     #[strum(props(name = "Mining Backpack", desc = "", value = "-1650383245"))]
     ItemMiningBackPack = -1650383245i32,
@@ -1197,6 +1157,15 @@ pub enum StationpediaPrefab {
         props(name = "Stairwell (Front Passthrough)", desc = "", value = "-1625452928")
     )]
     StructureStairwellFrontPassthrough = -1625452928i32,
+    #[strum(serialize = "Landingpad_LargeTank")]
+    #[strum(
+        props(
+            name = "Landingpad Tank (Large)",
+            desc = "Increases the volume of the landing pads gas storage capacity. This volume is used for buying and selling gas to traders.",
+            value = "-1621116858"
+        )
+    )]
+    LandingpadLargeTank = -1621116858i32,
     #[strum(serialize = "StructureCableJunctionBurnt")]
     #[strum(props(name = "Burnt Cable (Junction)", desc = "", value = "-1620686196"))]
     StructureCableJunctionBurnt = -1620686196i32,
@@ -1228,9 +1197,6 @@ pub enum StationpediaPrefab {
         props(name = "Insulated Tank Connector Liquid", desc = "", value = "-1602030414")
     )]
     StructureInsulatedTankConnectorLiquid = -1602030414i32,
-    #[strum(serialize = "ItemKitTurbineGenerator")]
-    #[strum(props(name = "Kit (Turbine Generator)", desc = "", value = "-1590715731"))]
-    ItemKitTurbineGenerator = -1590715731i32,
     #[strum(serialize = "ItemKitCrateMkII")]
     #[strum(props(name = "Kit (Crate Mk II)", desc = "", value = "-1585956426"))]
     ItemKitCrateMkIi = -1585956426i32,
@@ -1243,9 +1209,6 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureRefrigeratedVendingMachine = -1577831321i32,
-    #[strum(serialize = "ItemFlowerBlue")]
-    #[strum(props(name = "Flower (Blue)", desc = "", value = "-1573623434"))]
-    ItemFlowerBlue = -1573623434i32,
     #[strum(serialize = "ItemWallCooler")]
     #[strum(
         props(
@@ -1255,8 +1218,17 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemWallCooler = -1567752627i32,
+    #[strum(serialize = "ItemIcarusHelmet")]
+    #[strum(props(name = "Icarus Helmet", desc = "", value = "-1555582482"))]
+    ItemIcarusHelmet = -1555582482i32,
     #[strum(serialize = "StructureLarreDockCargo")]
-    #[strum(props(name = "LARrE Dock (Cargo)", desc = "", value = "-1555459562"))]
+    #[strum(
+        props(
+            name = "LArRE Dock (Cargo)",
+            desc = "The cargo LArRE can take things out of and put things into slots on devices. The dial on the front panel indicates which slot on the device to interact with. The slot variables of the item in the target slot can be read using the Proxy Slot Index (255)\n\nPressing the activate button while the LArRE arm is at its home dock will move the arm off the main rail. This allows other arms on the same rail to pass by.",
+            value = "-1555459562"
+        )
+    )]
     StructureLarreDockCargo = -1555459562i32,
     #[strum(serialize = "StructureSolarPanel45")]
     #[strum(
@@ -1267,9 +1239,6 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureSolarPanel45 = -1554349863i32,
-    #[strum(serialize = "ItemGasCanisterPollutants")]
-    #[strum(props(name = "Canister (Pollutants)", desc = "", value = "-1552586384"))]
-    ItemGasCanisterPollutants = -1552586384i32,
     #[strum(serialize = "CartridgeAtmosAnalyser")]
     #[strum(
         props(
@@ -1347,9 +1316,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "Landingpad_ThreshholdPiece")]
     #[strum(props(name = "Landingpad Threshhold", desc = "", value = "-1514298582"))]
     LandingpadThreshholdPiece = -1514298582i32,
-    #[strum(serialize = "ItemFlowerGreen")]
-    #[strum(props(name = "Flower (Green)", desc = "", value = "-1513337058"))]
-    ItemFlowerGreen = -1513337058i32,
     #[strum(serialize = "StructureCompositeCladdingAngled")]
     #[strum(
         props(name = "Composite Cladding (Angled)", desc = "", value = "-1513030150")
@@ -1380,13 +1346,7 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Cargo Storage (Small)", desc = "", value = "-1493672123"))]
     StructureCargoStorageSmall = -1493672123i32,
     #[strum(serialize = "StructureLogicCompare")]
-    #[strum(
-        props(
-            name = "Logic Compare",
-            desc = "0.Equals\n1.Greater\n2.Less\n3.NotEquals",
-            value = "-1489728908"
-        )
-    )]
+    #[strum(props(name = "Logic Compare", desc = "", value = "-1489728908"))]
     StructureLogicCompare = -1489728908i32,
     #[strum(serialize = "Landingpad_TaxiPieceStraight")]
     #[strum(props(name = "Landingpad Taxi Straight", desc = "", value = "-1477941080"))]
@@ -1415,9 +1375,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureSleeper")]
     #[strum(props(name = "Sleeper", desc = "", value = "-1467449329"))]
     StructureSleeper = -1467449329i32,
-    #[strum(serialize = "CartridgeElectronicReader")]
-    #[strum(props(name = "Cartridge (eReader)", desc = "", value = "-1462180176"))]
-    CartridgeElectronicReader = -1462180176i32,
     #[strum(serialize = "StructurePictureFrameThickMountPortraitLarge")]
     #[strum(
         props(
@@ -1436,6 +1393,15 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemSteelFrames = -1448105779i32,
+    #[strum(serialize = "ShuttlecraftMkII")]
+    #[strum(
+        props(
+            name = "<N:EN:ShuttlecraftMkII>",
+            desc = "<N:EN:ShuttlecraftMkII>",
+            value = "-1447924975"
+        )
+    )]
+    ShuttlecraftMkIi = -1447924975i32,
     #[strum(serialize = "StructureChuteFlipFlopSplitter")]
     #[strum(
         props(
@@ -1458,7 +1424,9 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Kit (Advanced Composter)", desc = "", value = "-1431998347"))]
     ItemKitAdvancedComposter = -1431998347i32,
     #[strum(serialize = "StructureLiquidTankBigInsulated")]
-    #[strum(props(name = "Insulated Liquid Tank Big", desc = "", value = "-1430440215"))]
+    #[strum(
+        props(name = "Liquid Tank Big (Insulated)", desc = "", value = "-1430440215")
+    )]
     StructureLiquidTankBigInsulated = -1430440215i32,
     #[strum(serialize = "StructureEvaporationChamber")]
     #[strum(
@@ -1510,15 +1478,12 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemPlantEndothermic_Genepool2")]
     #[strum(
         props(
-            name = "Winterspawn (Beta variant)",
+            name = "Winterspawn (Beta strain)",
             desc = "<link=Agrizero><color=#0080FFFF>Agrizero's</color></link> Winterspawn atmospheric bio-processor is a recent addition to their catalog of genespliced environmental decorations. Using ambient heat to split <link=GasWater><color=#44AD83>Water</color></link> into <link=GasVolatiles><color=#44AD83>Volatiles</color></link> and <link=GasOxygen><color=#44AD83>Oxygen</color></link>, the Winterspawn cools its surroundings when supplied with sufficient <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>. The beta variant has a peak cooling and electrolysis capacity of 150Watts and is most efficient operating in air temperatures of 14 to 24 Degrees Celsius.",
             value = "-1414203269"
         )
     )]
     ItemPlantEndothermicGenepool2 = -1414203269i32,
-    #[strum(serialize = "ItemFlowerOrange")]
-    #[strum(props(name = "Flower (Orange)", desc = "", value = "-1411986716"))]
-    ItemFlowerOrange = -1411986716i32,
     #[strum(serialize = "AccessCardBlue")]
     #[strum(props(name = "Access Card (Blue)", desc = "", value = "-1411327657"))]
     AccessCardBlue = -1411327657i32,
@@ -1554,6 +1519,9 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemKitChairs")]
     #[strum(props(name = "Kit (Chairs)", desc = "", value = "-1394008073"))]
     ItemKitChairs = -1394008073i32,
+    #[strum(serialize = "ItemWatermelon")]
+    #[strum(props(name = "Watermelon", desc = "", value = "-1392622903"))]
+    ItemWatermelon = -1392622903i32,
     #[strum(serialize = "StructureBatteryLarge")]
     #[strum(
         props(
@@ -1576,11 +1544,14 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Cryo Tube Vertical",
-            desc = "The vertical variant of the cryo tube. Will heal players and organs as well as revive dead players when provided with an atmosphere of Nitrogen below -150C.",
+            desc = "The exact operation of the Longsleep cryotube remains a commercial secret, with <link=Norsec><color=#0080FFFF>Norsec</color></link> merely licensing the design. A pipe connection is provided to maintain suitable internal atmosphere connected to the occupant via breathing tubes. When the liquid pipe connection is supplied super cooled <link=GasLiquidNitrogen><color=#44AD83>Liquid Nitrogen</color></link> occupants will regenerate organs and even revive if deceased. Nothing can be worn when entering the device.",
             value = "-1381321828"
         )
     )]
     StructureCryoTubeVertical = -1381321828i32,
+    #[strum(serialize = "StructureLargeRocketLiquidFuelTank")]
+    #[strum(props(name = "Liquid Capsule Tank Large", desc = "", value = "-1374757070"))]
+    StructureLargeRocketLiquidFuelTank = -1374757070i32,
     #[strum(serialize = "StructureWaterWallCooler")]
     #[strum(props(name = "Liquid Wall Cooler", desc = "", value = "-1369060582"))]
     StructureWaterWallCooler = -1369060582i32,
@@ -1605,6 +1576,9 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemGoldOre = -1348105509i32,
+    #[strum(serialize = "ItemFlax")]
+    #[strum(props(name = "Flax", desc = "", value = "-1345959473"))]
+    ItemFlax = -1345959473i32,
     #[strum(serialize = "ItemCannedMushroom")]
     #[strum(
         props(
@@ -1614,9 +1588,6 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemCannedMushroom = -1344601965i32,
-    #[strum(serialize = "AppliancePaintMixer")]
-    #[strum(props(name = "Paint Mixer", desc = "", value = "-1339716113"))]
-    AppliancePaintMixer = -1339716113i32,
     #[strum(serialize = "AccessCardGray")]
     #[strum(props(name = "Access Card (Gray)", desc = "", value = "-1339479035"))]
     AccessCardGray = -1339479035i32,
@@ -1641,6 +1612,15 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemKitSmallDirectHeatExchanger = -1332682164i32,
+    #[strum(serialize = "StructureInsulatedPipeLiquidStraight10")]
+    #[strum(
+        props(
+            name = "Insulated Liquid Pipe (Straight 10)",
+            desc = "Long variant of liquid piping with very low temperature loss or gain. These variants cannot be merged.",
+            value = "-1331405428"
+        )
+    )]
+    StructureInsulatedPipeLiquidStraight10 = -1331405428i32,
     #[strum(serialize = "AccessCardBlack")]
     #[strum(props(name = "Access Card (Black)", desc = "", value = "-1330388999"))]
     AccessCardBlack = -1330388999i32,
@@ -1648,7 +1628,13 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Logic Writer", desc = "", value = "-1326019434"))]
     StructureLogicWriter = -1326019434i32,
     #[strum(serialize = "StructureRoboticArmRailCorner")]
-    #[strum(props(name = "Linear Rail Corner", desc = "", value = "-1323992709"))]
+    #[strum(
+        props(
+            name = "Linear Rail Corner",
+            desc = "A component of a linear rail network to be used in conjunction with LArRE docks.",
+            value = "-1323992709"
+        )
+    )]
     StructureRoboticArmRailCorner = -1323992709i32,
     #[strum(serialize = "StructureLogicWriterSwitch")]
     #[strum(props(name = "Logic Writer Switch", desc = "", value = "-1321250424"))]
@@ -1668,6 +1654,9 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureWallLightBattery")]
     #[strum(props(name = "Wall Light (Battery)", desc = "", value = "-1306415132"))]
     StructureWallLightBattery = -1306415132i32,
+    #[strum(serialize = "ItemHardHat")]
+    #[strum(props(name = "Hard Hat", desc = "", value = "-1306016444"))]
+    ItemHardHat = -1306016444i32,
     #[strum(serialize = "AppliancePlantGeneticAnalyzer")]
     #[strum(
         props(
@@ -1722,15 +1711,6 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureDigitalValve = -1280984102i32,
-    #[strum(serialize = "StructureTankConnector")]
-    #[strum(
-        props(
-            name = "Tank Connector",
-            desc = "Tank connectors are basic mounting devices that allow you to attach a <link=ThingDynamicGasCanisterEmpty><color=green>Portable Gas Tank</color></link> to a gas pipe network.",
-            value = "-1276379454"
-        )
-    )]
-    StructureTankConnector = -1276379454i32,
     #[strum(serialize = "ItemSuitModCryogenicUpgrade")]
     #[strum(
         props(
@@ -1743,15 +1723,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemKitLandingPadWaypoint")]
     #[strum(props(name = "Kit (Landing Pad Runway)", desc = "", value = "-1267511065"))]
     ItemKitLandingPadWaypoint = -1267511065i32,
-    #[strum(serialize = "DynamicGasTankAdvancedOxygen")]
-    #[strum(
-        props(
-            name = "Portable Gas Tank Mk II (Oxygen)",
-            desc = "0.Mode0\n1.Mode1",
-            value = "-1264455519"
-        )
-    )]
-    DynamicGasTankAdvancedOxygen = -1264455519i32,
     #[strum(serialize = "ItemBasketBall")]
     #[strum(props(name = "Basket Ball", desc = "", value = "-1262580790"))]
     ItemBasketBall = -1262580790i32,
@@ -1853,14 +1824,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "Landingpad_LiquidConnectorInwardPiece")]
     #[strum(props(name = "Landingpad Liquid Input", desc = "", value = "-1216167727"))]
     LandingpadLiquidConnectorInwardPiece = -1216167727i32,
-    #[strum(serialize = "ItemWreckageStructureWeatherStation008")]
-    #[strum(props(name = "Wreckage", desc = "", value = "-1214467897"))]
-    ItemWreckageStructureWeatherStation008 = -1214467897i32,
-    #[strum(serialize = "ItemPlantThermogenic_Creative")]
-    #[strum(
-        props(name = "Thermogenic Plant Creative", desc = "", value = "-1208890208")
-    )]
-    ItemPlantThermogenicCreative = -1208890208i32,
     #[strum(serialize = "ItemRocketScanningHead")]
     #[strum(props(name = "Rocket Scanner Head", desc = "", value = "-1198702771"))]
     ItemRocketScanningHead = -1198702771i32,
@@ -1895,24 +1858,15 @@ pub enum StationpediaPrefab {
     )]
     StructureInLineTankLiquid1X2 = -1183969663i32,
     #[strum(serialize = "StructureInteriorDoorTriangle")]
-    #[strum(
-        props(
-            name = "Interior Door Triangle",
-            desc = "0.Operate\n1.Logic",
-            value = "-1182923101"
-        )
-    )]
+    #[strum(props(name = "Interior Door Triangle", desc = "", value = "-1182923101"))]
     StructureInteriorDoorTriangle = -1182923101i32,
     #[strum(serialize = "ItemKitElectronicsPrinter")]
     #[strum(props(name = "Kit (Electronics Printer)", desc = "", value = "-1181922382"))]
     ItemKitElectronicsPrinter = -1181922382i32,
-    #[strum(serialize = "StructureWaterBottleFiller")]
-    #[strum(props(name = "Water Bottle Filler", desc = "", value = "-1178961954"))]
-    StructureWaterBottleFiller = -1178961954i32,
     #[strum(serialize = "StructureWallVent")]
     #[strum(
         props(
-            name = "Wall Vent",
+            name = "Passive Vent (Passthrough)",
             desc = "Used to mix atmospheres passively between two walls.",
             value = "-1177469307"
         )
@@ -1955,19 +1909,17 @@ pub enum StationpediaPrefab {
     )]
     StructureWallFlatCornerTriangleFlat = -1161662836i32,
     #[strum(serialize = "StructureLogicMathUnary")]
+    #[strum(props(name = "Math Unary", desc = "", value = "-1160020195"))]
+    StructureLogicMathUnary = -1160020195i32,
+    #[strum(serialize = "StructureChuteStraight10")]
     #[strum(
         props(
-            name = "Math Unary",
-            desc = "0.Ceil\n1.Floor\n2.Abs\n3.Log\n4.Exp\n5.Round\n6.Rand\n7.Sqrt\n8.Sin\n9.Cos\n10.Tan\n11.Asin\n12.Acos\n13.Atan\n14.Not",
-            value = "-1160020195"
+            name = "Chute (Straight 10)",
+            desc = "Chutes act as pipes for items. Use them to connect various <link=ImportExportPage><color=#0080FFFF>import/export</color></link> equipment together such as the <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link> and printers like the <link=ThingStructureAutolathe><color=green>Autolathe</color></link>.\n        The aim for any <link=Stationeers><color=#0080FFFF>Stationeer</color></link> is to make off-world survival less of a struggle for themselves, and those who will follow in their footsteps.\n        Chutes are fundamental components of chute networks, which allow the transport of items between any machine or device with an <link=ImportExportPage><color=#0080FFFF>import/export</color></link> slot.",
+            value = "-1154376263"
         )
     )]
-    StructureLogicMathUnary = -1160020195i32,
-    #[strum(serialize = "ItemPlantEndothermic_Creative")]
-    #[strum(
-        props(name = "Endothermic Plant Creative", desc = "", value = "-1159179557")
-    )]
-    ItemPlantEndothermicCreative = -1159179557i32,
+    StructureChuteStraight10 = -1154376263i32,
     #[strum(serialize = "ItemSensorProcessingUnitCelestialScanner")]
     #[strum(
         props(
@@ -1980,9 +1932,15 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureChairRectangleDouble")]
     #[strum(props(name = "Chair (Rectangle Double)", desc = "", value = "-1152812099"))]
     StructureChairRectangleDouble = -1152812099i32,
-    #[strum(serialize = "ItemGasCanisterOxygen")]
-    #[strum(props(name = "Canister (Oxygen)", desc = "", value = "-1152261938"))]
-    ItemGasCanisterOxygen = -1152261938i32,
+    #[strum(serialize = "ItemLiquidVacuum")]
+    #[strum(
+        props(
+            name = "Liquid Vacuum",
+            desc = "When set to Inwards mode the <link=ThingItemLiquidVacuum><color=green>Liquid Vacuum</color></link> removes liquid from the world and into its internal tank. When set to outwards mode it empties its internal tank back into the world. Empty it over <link=ThingStructureFloorDrain><color=green>Passive Liquid Inlet</color></link> to get your liquid back into a pipe.",
+            value = "-1152751269"
+        )
+    )]
+    ItemLiquidVacuum = -1152751269i32,
     #[strum(serialize = "ItemPureIceOxygen")]
     #[strum(
         props(
@@ -2046,6 +2004,15 @@ pub enum StationpediaPrefab {
         )
     )]
     CircuitboardModeControl = -1134148135i32,
+    #[strum(serialize = "StructurePipeStraight3")]
+    #[strum(
+        props(
+            name = "Pipe (Straight 3)",
+            desc = "Long variant of the straight pipe. These variants cannot be merged or upgraded with insulation.",
+            value = "-1133671319"
+        )
+    )]
+    StructurePipeStraight3 = -1133671319i32,
     #[strum(serialize = "StructureActiveVent")]
     #[strum(
         props(
@@ -2055,6 +2022,15 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureActiveVent = -1129453144i32,
+    #[strum(serialize = "StructureFireExtinguisherStorage")]
+    #[strum(
+        props(
+            name = "Fire Extinguisher Storage",
+            desc = "The Fire Extinguisher Storage is a designated shelf specifically designed to hold a fire extinguisher.",
+            value = "-1127127263"
+        )
+    )]
+    StructureFireExtinguisherStorage = -1127127263i32,
     #[strum(serialize = "StructureWallPaddedArchCorner")]
     #[strum(props(name = "Wall (Padded Arch Corner)", desc = "", value = "-1126688298"))]
     StructureWallPaddedArchCorner = -1126688298i32,
@@ -2068,26 +2044,8 @@ pub enum StationpediaPrefab {
     )]
     StructurePlanter = -1125641329i32,
     #[strum(serialize = "StructureBatteryMedium")]
-    #[strum(
-        props(
-            name = "Battery (Medium)",
-            desc = "0.Empty\n1.Critical\n2.VeryLow\n3.Low\n4.Medium\n5.High\n6.Full",
-            value = "-1125305264"
-        )
-    )]
+    #[strum(props(name = "Battery (Medium)", desc = "", value = "-1125305264"))]
     StructureBatteryMedium = -1125305264i32,
-    #[strum(serialize = "ItemHorticultureBelt")]
-    #[strum(props(name = "Horticulture Belt", desc = "", value = "-1117581553"))]
-    ItemHorticultureBelt = -1117581553i32,
-    #[strum(serialize = "CartridgeMedicalAnalyser")]
-    #[strum(
-        props(
-            name = "Cartridge (Medical Analyzer)",
-            desc = "When added to the OreCore <link=ThingItemTablet><color=green>Handheld Tablet</color></link>, <link=Asura><color=#0080FFFF>Asura's</color></link>'s ReadyMed medical analyzer reveals the health, or otherwise, of users various organs. Due to a design flaw, older models were notorious for producing quasar-like levels of x-ray radiation. Recent advances in shielding have more than halved the risk to users.",
-            value = "-1116110181"
-        )
-    )]
-    CartridgeMedicalAnalyser = -1116110181i32,
     #[strum(serialize = "StructureCompositeFloorGrating3")]
     #[strum(
         props(
@@ -2100,15 +2058,9 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemPlainCake")]
     #[strum(props(name = "Cake", desc = "", value = "-1108244510"))]
     ItemPlainCake = -1108244510i32,
-    #[strum(serialize = "ItemWreckageStructureWeatherStation004")]
-    #[strum(props(name = "Wreckage", desc = "", value = "-1104478996"))]
-    ItemWreckageStructureWeatherStation004 = -1104478996i32,
     #[strum(serialize = "StructureCableFuse1k")]
     #[strum(props(name = "Fuse (1kW)", desc = "", value = "-1103727120"))]
     StructureCableFuse1K = -1103727120i32,
-    #[strum(serialize = "WeaponTorpedo")]
-    #[strum(props(name = "Torpedo", desc = "", value = "-1102977898"))]
-    WeaponTorpedo = -1102977898i32,
     #[strum(serialize = "StructureWallPaddingThin")]
     #[strum(props(name = "Wall (Padding Thin)", desc = "", value = "-1102403554"))]
     StructureWallPaddingThin = -1102403554i32,
@@ -2116,7 +2068,7 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Landingpad Gas Output",
-            desc = "Pumps gas purchased from a trader out of the landing pad. You can increase the landing pad's gas storage capacity by adding more <link=ThingLandingpad_GasCylinderTankPiece><color=green>Landingpad Gas Storage</color></link> to the landing pad.",
+            desc = "Pumps gas purchased from a trader out of the landing pad. You can increase the landing pad's gas storage capacity by adding more <link=ThingLandingpad_GasCylinderTankPiece><color=green>Landingpad Tank (Small)</color></link> to the landing pad.",
             value = "-1100218307"
         )
     )]
@@ -2137,7 +2089,13 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Stairs with Rails", desc = "", value = "-1088008720"))]
     StructureStairs4X2Rails = -1088008720i32,
     #[strum(serialize = "StructureShowerPowered")]
-    #[strum(props(name = "Shower (Powered)", desc = "", value = "-1081797501"))]
+    #[strum(
+        props(
+            name = "Shower (Powered)",
+            desc = "The fastest way to remove low hygiene. You must remove your <link=ThingUniformOrangeJumpSuit><color=green>Jump Suit (Orange)</color></link> and <link=ThingItemEvaSuit><color=green>Eva Suit</color></link> when using the <link=ThingStructureShowerPowered><color=green>Shower (Powered)</color></link>. It outputs <link=GasPollutedWater><color=#44AD83>Polluted Water</color></link> when in use. <link=GasPollutedWater><color=#44AD83>Polluted Water</color></link> will interfere with many other <link=GasWater><color=#44AD83>Water</color></link> systems so make sure to collect and treat it using a <link=ThingStructureWaterPurifier><color=green>Water Purifier</color></link> or dump it.",
+            value = "-1081797501"
+        )
+    )]
     StructureShowerPowered = -1081797501i32,
     #[strum(serialize = "ItemCookedMushroom")]
     #[strum(
@@ -2162,6 +2120,9 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemGasFilterOxygenM")]
     #[strum(props(name = "Medium Filter (Oxygen)", desc = "", value = "-1067319543"))]
     ItemGasFilterOxygenM = -1067319543i32,
+    #[strum(serialize = "SeedBag_HadesAlpha")]
+    #[strum(props(name = "Hades Seed (Alpha strain)", desc = "", value = "-1066145654"))]
+    SeedBagHadesAlpha = -1066145654i32,
     #[strum(serialize = "StructureTransformerMedium")]
     #[strum(
         props(
@@ -2177,6 +2138,15 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemEmergencyPickaxe")]
     #[strum(props(name = "Emergency Pickaxe", desc = "", value = "-1061510408"))]
     ItemEmergencyPickaxe = -1061510408i32,
+    #[strum(serialize = "StructureRocketFiltrationGas")]
+    #[strum(
+        props(
+            name = "Rocket Gas Filtration",
+            desc = "Allows for basic gas filtration onboard a Rocket.",
+            value = "-1061194321"
+        )
+    )]
+    StructureRocketFiltrationGas = -1061194321i32,
     #[strum(serialize = "ItemWheat")]
     #[strum(
         props(
@@ -2228,7 +2198,7 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureAreaPowerControlReversed")]
     #[strum(
         props(
-            name = "Area Power Control",
+            name = "Area Power Control (Reversed)",
             desc = "An Area Power Control (APC) has three main functions. \nIts primary purpose is to regulate power flow, ensuring uninterrupted performance from devices and machinery, especially those with a fluctuating draw. \nAPCs also create sub-networks, as no devices on the far side of an APC are visible on the main network. \nLastly, an APC charges batteries, which can provide backup power to the sub-network in the case of an outage. Note that an APC requires a battery to stabilize power draw. It also has two variants, each allowing power to flow in one direction only.",
             value = "-1032513487"
         )
@@ -2246,9 +2216,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemKitHarvie")]
     #[strum(props(name = "Kit (Harvie)", desc = "", value = "-1022693454"))]
     ItemKitHarvie = -1022693454i32,
-    #[strum(serialize = "ItemGasCanisterFuel")]
-    #[strum(props(name = "Canister (Fuel)", desc = "", value = "-1014695176"))]
-    ItemGasCanisterFuel = -1014695176i32,
     #[strum(serialize = "StructureCompositeWall04")]
     #[strum(props(name = "Composite Wall (Type 4)", desc = "", value = "-1011701267"))]
     StructureCompositeWall04 = -1011701267i32,
@@ -2288,6 +2255,9 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemTomato = -998592080i32,
+    #[strum(serialize = "StructureLargeRocketGasFuelTank")]
+    #[strum(props(name = "Gas Capsule Tank Large", desc = "", value = "-988382953"))]
+    StructureLargeRocketGasFuelTank = -988382953i32,
     #[strum(serialize = "ItemCobaltOre")]
     #[strum(
         props(
@@ -2297,6 +2267,9 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemCobaltOre = -983091249i32,
+    #[strum(serialize = "ItemSuitHelmetHARM")]
+    #[strum(props(name = "HARM Helmet", desc = "", value = "-981522067"))]
+    ItemSuitHelmetHarm = -981522067i32,
     #[strum(serialize = "StructureCableCorner4HBurnt")]
     #[strum(
         props(name = "Burnt Heavy Cable (4-Way Corner)", desc = "", value = "-981223316")
@@ -2326,6 +2299,9 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemWaterBottlePackage")]
     #[strum(props(name = "Water Bottle Package", desc = "", value = "-971586619"))]
     ItemWaterBottlePackage = -971586619i32,
+    #[strum(serialize = "SeedBag_HadesBeta")]
+    #[strum(props(name = "Hades Seed (Beta strain)", desc = "", value = "-969228551"))]
+    SeedBagHadesBeta = -969228551i32,
     #[strum(serialize = "StructureCondensationValve")]
     #[strum(
         props(
@@ -2335,14 +2311,11 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureCondensationValve = -965741795i32,
+    #[strum(serialize = "ItemWreckageLargeExtendableRadiator")]
+    #[strum(props(name = "Wreckage", desc = "", value = "-964363642"))]
+    ItemWreckageLargeExtendableRadiator = -964363642i32,
     #[strum(serialize = "StructureChuteUmbilicalMale")]
-    #[strum(
-        props(
-            name = "Umbilical (Chute)",
-            desc = "0.Left\n1.Center\n2.Right",
-            value = "-958884053"
-        )
-    )]
+    #[strum(props(name = "Umbilical (Chute)", desc = "", value = "-958884053"))]
     StructureChuteUmbilicalMale = -958884053i32,
     #[strum(serialize = "ItemKitElevator")]
     #[strum(props(name = "Kit (Elevator)", desc = "", value = "-945806652"))]
@@ -2380,9 +2353,6 @@ pub enum StationpediaPrefab {
         props(name = "Small (Table Rectangle Single)", desc = "", value = "-924678969")
     )]
     StructureSmallTableRectangleSingle = -924678969i32,
-    #[strum(serialize = "ItemWreckageStructureWeatherStation005")]
-    #[strum(props(name = "Wreckage", desc = "", value = "-919745414"))]
-    ItemWreckageStructureWeatherStation005 = -919745414i32,
     #[strum(serialize = "ItemSilverOre")]
     #[strum(
         props(
@@ -2419,6 +2389,9 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemPipeLiquidRadiator = -906521320i32,
+    #[strum(serialize = "ItemStrawberry")]
+    #[strum(props(name = "Strawberry", desc = "", value = "-906450470"))]
+    ItemStrawberry = -906450470i32,
     #[strum(serialize = "StructurePortablesConnector")]
     #[strum(props(name = "Portables Connector", desc = "", value = "-899013427"))]
     StructurePortablesConnector = -899013427i32,
@@ -2467,6 +2440,15 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemKitWindTurbine")]
     #[strum(props(name = "Kit (Wind Turbine)", desc = "", value = "-868916503"))]
     ItemKitWindTurbine = -868916503i32,
+    #[strum(serialize = "StructureComputerBigScreenWallMounted")]
+    #[strum(
+        props(
+            name = "Computer (Big Screen Wall Mounted)",
+            desc = "",
+            value = "-868055390"
+        )
+    )]
+    StructureComputerBigScreenWallMounted = -868055390i32,
     #[strum(serialize = "ItemKitRocketMiner")]
     #[strum(props(name = "Kit (Rocket Miner)", desc = "", value = "-867969909"))]
     ItemKitRocketMiner = -867969909i32,
@@ -2514,9 +2496,6 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemFlashlight = -838472102i32,
-    #[strum(serialize = "ItemWreckageStructureWeatherStation001")]
-    #[strum(props(name = "Wreckage", desc = "", value = "-834664349"))]
-    ItemWreckageStructureWeatherStation001 = -834664349i32,
     #[strum(serialize = "ItemBiomass")]
     #[strum(
         props(
@@ -2549,15 +2528,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemKitWallPadded")]
     #[strum(props(name = "Kit (Padded Wall)", desc = "", value = "-821868990"))]
     ItemKitWallPadded = -821868990i32,
-    #[strum(serialize = "DynamicGasCanisterFuel")]
-    #[strum(
-        props(
-            name = "Portable Gas Tank (Fuel)",
-            desc = "Portable tanks store gas. They're good at it. If you need to refill a tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or things get messy. You can refill a <link=ThingItemGasCanisterFuel><color=green>Canister (Fuel)</color></link> by attaching it to the tank's striped section. Or you could use a <link=ThingItemWrench><color=green>Wrench</color></link> to attach it to a rover or rocket for later. It's really up to you.",
-            value = "-817051527"
-        )
-    )]
-    DynamicGasCanisterFuel = -817051527i32,
     #[strum(serialize = "StructureReinforcedCompositeWindowSteel")]
     #[strum(
         props(
@@ -2571,19 +2541,13 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "LED Display (Small)",
-            desc = "0.Default\n1.Percent\n2.Power",
+            desc = "This LED console normally displays the raw numeric value of its setting. When you switch to String Mode, it treats that value as up to six ASCII characters, each packed in one byte by repeated 8-bit shifts and OR operations and renders them as text. Other modes offer alternative visualizations of the same underlying value.",
             value = "-815193061"
         )
     )]
     StructureConsoleLed5 = -815193061i32,
     #[strum(serialize = "StructureInsulatedInLineTankLiquid1x1")]
-    #[strum(
-        props(
-            name = "Insulated In-Line Tank Small Liquid",
-            desc = "",
-            value = "-813426145"
-        )
-    )]
+    #[strum(props(name = "In-Line Liquid (Insulated)", desc = "", value = "-813426145"))]
     StructureInsulatedInLineTankLiquid1X1 = -813426145i32,
     #[strum(serialize = "StructureChuteDigitalFlipFlopSplitterLeft")]
     #[strum(
@@ -2670,7 +2634,13 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Wall (Large Panel Arrow)", desc = "", value = "-776581573"))]
     StructureWallLargePanelArrow = -776581573i32,
     #[strum(serialize = "StructureShower")]
-    #[strum(props(name = "Shower", desc = "", value = "-775128944"))]
+    #[strum(
+        props(
+            name = "Shower",
+            desc = "The fastest way to remove low hygiene. You must remove your <link=ThingUniformOrangeJumpSuit><color=green>Jump Suit (Orange)</color></link> and <link=ThingItemEvaSuit><color=green>Eva Suit</color></link> when using the <link=ThingStructureShower><color=green>Shower</color></link>. It outputs <link=GasPollutedWater><color=#44AD83>Polluted Water</color></link> when in use. <link=GasPollutedWater><color=#44AD83>Polluted Water</color></link> will interfere with many other <link=GasWater><color=#44AD83>Water</color></link> systems so make sure to collect and treat it using a <link=ThingStructureWaterPurifier><color=green>Water Purifier</color></link> or dump it.",
+            value = "-775128944"
+        )
+    )]
     StructureShower = -775128944i32,
     #[strum(serialize = "ItemChemLightBlue")]
     #[strum(
@@ -2684,9 +2654,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureLogicSlotReader")]
     #[strum(props(name = "Slot Reader", desc = "", value = "-767867194"))]
     StructureLogicSlotReader = -767867194i32,
-    #[strum(serialize = "ItemGasCanisterCarbonDioxide")]
-    #[strum(props(name = "Canister (CO2)", desc = "", value = "-767685874"))]
-    ItemGasCanisterCarbonDioxide = -767685874i32,
     #[strum(serialize = "ItemPipeAnalyizer")]
     #[strum(
         props(
@@ -2830,13 +2797,7 @@ pub enum StationpediaPrefab {
     )]
     ItemMiningBelt = -676435305i32,
     #[strum(serialize = "ItemGasCanisterSmart")]
-    #[strum(
-        props(
-            name = "Gas Canister (Smart)",
-            desc = "0.Mode0\n1.Mode1",
-            value = "-668314371"
-        )
-    )]
+    #[strum(props(name = "Gas Canister (Smart)", desc = "", value = "-668314371"))]
     ItemGasCanisterSmart = -668314371i32,
     #[strum(serialize = "ItemFlour")]
     #[strum(
@@ -2956,15 +2917,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemKitAdvancedFurnace")]
     #[strum(props(name = "Kit (Advanced Furnace)", desc = "", value = "-616758353"))]
     ItemKitAdvancedFurnace = -616758353i32,
-    #[strum(serialize = "StructureHeatExchangerLiquidtoLiquid")]
-    #[strum(
-        props(
-            name = "Heat Exchanger - Liquid",
-            desc = "The original specs for the N Series Flow-P heat exchanger were rumored to have been scrawled on the back of a burger receipt by a bored <link=Sinotai><color=#0080FFFF>Sinotai</color></link> designer riding up the Brazilian space elevator, but that hasn't stopped it becoming one of the most widely-copied heat exchanger designs in the Solar System.\nThe 'N Flow-P' has four connections, allowing you to pass two liquid networks into the unit, which then works to equalize temperature across the two separate networks.\nAs the N Flow-P is a passive system, it equalizes pressure across the entire of each individual network, unless connected to liquid management devices like a <link=ThingStructureLiquidVolumePump><color=green>Liquid Volume Pump</color></link> or a <link=ThingStructureBackLiquidPressureRegulator><color=green>Liquid Back Volume Regulator</color></link>.\n",
-            value = "-613784254"
-        )
-    )]
-    StructureHeatExchangerLiquidtoLiquid = -613784254i32,
     #[strum(serialize = "StructureChuteJunction")]
     #[strum(
         props(
@@ -2974,6 +2926,15 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureChuteJunction = -611232514i32,
+    #[strum(serialize = "StructureChuteStraight3")]
+    #[strum(
+        props(
+            name = "Chute (Straight 3)",
+            desc = "Chutes act as pipes for items. Use them to connect various <link=ImportExportPage><color=#0080FFFF>import/export</color></link> equipment together such as the <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link> and printers like the <link=ThingStructureAutolathe><color=green>Autolathe</color></link>.\n        The aim for any <link=Stationeers><color=#0080FFFF>Stationeer</color></link> is to make off-world survival less of a struggle for themselves, and those who will follow in their footsteps.\n        Chutes are fundamental components of chute networks, which allow the transport of items between any machine or device with an <link=ImportExportPage><color=#0080FFFF>import/export</color></link> slot.",
+            value = "-608261233"
+        )
+    )]
+    StructureChuteStraight3 = -608261233i32,
     #[strum(serialize = "StructureChuteWindow")]
     #[strum(
         props(
@@ -3000,20 +2961,11 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemChemLightGreen = -597479390i32,
-    #[strum(serialize = "EntityRoosterBrown")]
-    #[strum(
-        props(
-            name = "Entity Rooster Brown",
-            desc = "The common brown rooster. Don't let it hear you say that.",
-            value = "-583103395"
-        )
-    )]
-    EntityRoosterBrown = -583103395i32,
     #[strum(serialize = "StructureLargeExtendableRadiator")]
     #[strum(
         props(
             name = "Large Extendable Radiator",
-            desc = "Omptimised for radiating heat in vacuum and low pressure environments. If pointed at the sun it will heat its contents rapidly via solar heating. The panels can fold away to stop all heat radiation/solar heating and protect them from storms.",
+            desc = "Optimized for radiating heat in vacuum and low pressure environments. If pointed at the sun it will heat its contents rapidly via solar heating. The panels can fold away to stop all heat radiation/solar heating and protect them from storms.",
             value = "-566775170"
         )
     )]
@@ -3031,7 +2983,7 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Launch Mount",
-            desc = "The first piece to place whern building a rocket. Rockets can be constructed and/or landed here. Each Launch Mount will be allocated a slot on the Space Map and assigned a Location Code.",
+            desc = "The first piece to place when building a rocket. Rockets can be constructed and/or landed here. Each Launch Mount will be allocated a slot on the Space Map and assigned a Location Code.",
             value = "-558953231"
         )
     )]
@@ -3098,8 +3050,8 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureLarreDockCollector")]
     #[strum(
         props(
-            name = "LARrE Dock (Collector)",
-            desc = "0.Outward\n1.Inward",
+            name = "LArRE Dock (Collector)",
+            desc = "The collector LArRE can suck up nearby loose items when its mode is set to inward and eject stored items when its mode is set to outward. When set to suck up items, the collector LArRE will automatically stop and retract when full. \n\nPressing the activate button while the LArRE arm is at its home dock will move the arm off the main rail. This allows other arms on the same rail to pass by.",
             value = "-522428667"
         )
     )]
@@ -3116,11 +3068,20 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureSmallDirectHeatExchangeLiquidtoLiquid = -507770416i32,
+    #[strum(serialize = "StructureSuitStorageFrame")]
+    #[strum(
+        props(
+            name = "Suit Storage Frame",
+            desc = "As tidy as it is useful, the suit storage rack holds an <link=ThingItemEvaSuit><color=green>Eva Suit</color></link>, <link=ThingItemSpaceHelmet><color=green>Space Helmet</color></link> and a <link=ThingItemJetpackBasic><color=green>Jetpack Basic</color></link>. \nWhen powered and connected to <link=GasOxygen><color=#44AD83>Oxygen</color></link> and <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>, it will recharge the suit's batteries, refill the <link=ThingItemGasCanisterOxygen><color=green>Canister (Oxygen)</color></link> and your <link=ThingItemGasCanisterNitrogen><color=green>Canister (Nitrogen)</color></link> <link=SlotGasCanister><color=orange>Gas Canister</color></link>. The wastetank will be pumped out to the pipe connected to the waste outlet.\nAll the rack's pipes must be connected or the unit will show an error state, but it will still charge the battery.",
+            value = "-504802150"
+        )
+    )]
+    StructureSuitStorageFrame = -504802150i32,
     #[strum(serialize = "ItemWirelessBatteryCellExtraLarge")]
     #[strum(
         props(
             name = "Wireless Battery Cell Extra Large",
-            desc = "0.Empty\n1.Critical\n2.VeryLow\n3.Low\n4.Medium\n5.High\n6.Full",
+            desc = "",
             value = "-504717121"
         )
     )]
@@ -3152,9 +3113,11 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureReinforcedWall")]
     #[strum(props(name = "Reinforced Wall", desc = "", value = "-475746988"))]
     StructureReinforcedWall = -475746988i32,
-    #[strum(serialize = "ItemGasCanisterVolatiles")]
-    #[strum(props(name = "Canister (Volatiles)", desc = "", value = "-472094806"))]
-    ItemGasCanisterVolatiles = -472094806i32,
+    #[strum(serialize = "SeedBag_WinterspawnBeta")]
+    #[strum(
+        props(name = "Winterspawn Seed (Beta strain)", desc = "", value = "-475065916")
+    )]
+    SeedBagWinterspawnBeta = -475065916i32,
     #[strum(serialize = "ItemCableCoil")]
     #[strum(
         props(
@@ -3183,13 +3146,7 @@ pub enum StationpediaPrefab {
     )]
     StructureAdvancedPackagingMachine = -463037670i32,
     #[strum(serialize = "Battery_Wireless_cell")]
-    #[strum(
-        props(
-            name = "Battery Wireless Cell",
-            desc = "0.Empty\n1.Critical\n2.VeryLow\n3.Low\n4.Medium\n5.High\n6.Full",
-            value = "-462415758"
-        )
-    )]
+    #[strum(props(name = "Battery Wireless Cell", desc = "", value = "-462415758"))]
     BatteryWirelessCell = -462415758i32,
     #[strum(serialize = "ItemBatteryCellLarge")]
     #[strum(
@@ -3248,15 +3205,6 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemHardJetpack = -412551656i32,
-    #[strum(serialize = "CircuitboardCameraDisplay")]
-    #[strum(
-        props(
-            name = "Camera Display",
-            desc = "Surveillance is sometimes necessary when building bases in highly hostile environments. The camera display circuit board allows wary Stationeers to turn a <link=ThingStructureConsole><color=green>Console</color></link> into a security display when connected to a <link=ThingStructureCamera><color=green>Camera</color></link>.",
-            value = "-412104504"
-        )
-    )]
-    CircuitboardCameraDisplay = -412104504i32,
     #[strum(serialize = "StructureComputerUpright")]
     #[strum(
         props(
@@ -3278,9 +3226,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemCerealBarBox")]
     #[strum(props(name = "Cereal Bar Box", desc = "", value = "-401648353"))]
     ItemCerealBarBox = -401648353i32,
-    #[strum(serialize = "ReagentColorOrange")]
-    #[strum(props(name = "Color Dye (Orange)", desc = "", value = "-400696159"))]
-    ReagentColorOrange = -400696159i32,
     #[strum(serialize = "StructureBattery")]
     #[strum(
         props(
@@ -3305,20 +3250,13 @@ pub enum StationpediaPrefab {
     )]
     StructureCompositeCladdingAngledLong = -387546514i32,
     #[strum(serialize = "DynamicGasTankAdvanced")]
-    #[strum(
-        props(name = "Gas Tank Mk II", desc = "0.Mode0\n1.Mode1", value = "-386375420")
-    )]
+    #[strum(props(name = "Gas Tank Mk II", desc = "", value = "-386375420"))]
     DynamicGasTankAdvanced = -386375420i32,
-    #[strum(serialize = "WeaponPistolEnergy")]
-    #[strum(
-        props(name = "Energy Pistol", desc = "0.Stun\n1.Kill", value = "-385323479")
-    )]
-    WeaponPistolEnergy = -385323479i32,
     #[strum(serialize = "ItemFertilizedEgg")]
     #[strum(
         props(
             name = "Egg",
-            desc = "To hatch it requires an incubation temperature of between 35 and 45 degrees Celsius and will hatch into a <link=ThingNpcChick><color=green>Chick</color></link>. If the egg is exposed to tepratures below 10 degrees it will no longer be viable.",
+            desc = "To hatch it requires an incubation temperature of between 35 and 45 degrees Celsius and will hatch into a <link=ThingNpcChick><color=green>Chick</color></link>. If the egg is exposed to temperatures below 10 degrees it will no longer be viable.",
             value = "-383972371"
         )
     )]
@@ -3326,6 +3264,15 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemRocketMiningDrillHeadIce")]
     #[strum(props(name = "Mining-Drill Head (Ice)", desc = "", value = "-380904592"))]
     ItemRocketMiningDrillHeadIce = -380904592i32,
+    #[strum(serialize = "StructureGasMaskStorage")]
+    #[strum(
+        props(
+            name = "Gas Mask Storage",
+            desc = "The Gas Mask Storage is a designated shelf specifically designed to hold a gas mask.",
+            value = "-377716086"
+        )
+    )]
+    StructureGasMaskStorage = -377716086i32,
     #[strum(serialize = "Flag_ODA_8m")]
     #[strum(props(name = "Flag (ODA 8m)", desc = "", value = "-375156130"))]
     FlagOda8M = -375156130i32,
@@ -3377,12 +3324,27 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureFiltration = -348054045i32,
+    #[strum(serialize = "ItemSuitHARM")]
+    #[strum(
+        props(
+            name = "HARM Suit",
+            desc = "The HARM Suit is the Stationeer's last resort against hostile environments.\nIt is liquid cooled for superb thermal performance and boasts superior resistance to impacts and lava exposure. While the HARM suit is not compatible with a <link=ThingItemJetpackBasic><color=green>Jetpack Basic</color></link>, Stationeer's are still able to equip a <link=ThingItemHardBackpack><color=green>Hardsuit Backpack</color></link> or <link=ThingItemHardMiningBackPack><color=green>Hard Mining Backpack</color></link>. Due to its extra stability and size, storms do not effect movement speed while in a HARM suit; however, this results in am overall reduction to movement in general operation.\n\nConnects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>",
+            value = "-347191982"
+        )
+    )]
+    ItemSuitHarm = -347191982i32,
+    #[strum(serialize = "StructureSuitStorageLocker")]
+    #[strum(
+        props(
+            name = "Suit Storage Locker",
+            desc = "As tidy as it is useful, the suit storage rack holds an <link=ThingItemEvaSuit><color=green>Eva Suit</color></link>, <link=ThingItemSpaceHelmet><color=green>Space Helmet</color></link> and a <link=ThingItemJetpackBasic><color=green>Jetpack Basic</color></link>.\nWhen powered and connected to <link=GasOxygen><color=#44AD83>Oxygen</color></link> and <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>, it will recharge the suit's batteries, refill the <link=ThingItemGasCanisterOxygen><color=green>Canister (Oxygen)</color></link> and your <link=ThingItemGasCanisterNitrogen><color=green>Canister (Nitrogen)</color></link> <link=SlotGasCanister><color=orange>Gas Canister</color></link>. The wastetank will be pumped out to the pipe connected to the waste outlet.\nAll the rack's pipes must be connected or the unit will show an error state, but it will still charge the battery.",
+            value = "-346183425"
+        )
+    )]
+    StructureSuitStorageLocker = -346183425i32,
     #[strum(serialize = "StructureLogicReader")]
     #[strum(props(name = "Logic Reader", desc = "", value = "-345383640"))]
     StructureLogicReader = -345383640i32,
-    #[strum(serialize = "ItemKitMotherShipCore")]
-    #[strum(props(name = "Kit (Mothership)", desc = "", value = "-344968335"))]
-    ItemKitMotherShipCore = -344968335i32,
     #[strum(serialize = "StructureCamera")]
     #[strum(
         props(
@@ -3411,19 +3373,8 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Power Transmitter Omni", desc = "", value = "-327468845"))]
     StructurePowerTransmitterOmni = -327468845i32,
     #[strum(serialize = "StructureGlassDoor")]
-    #[strum(
-        props(name = "Glass Door", desc = "0.Operate\n1.Logic", value = "-324331872")
-    )]
+    #[strum(props(name = "Glass Door", desc = "", value = "-324331872"))]
     StructureGlassDoor = -324331872i32,
-    #[strum(serialize = "DynamicGasCanisterCarbonDioxide")]
-    #[strum(
-        props(
-            name = "Portable Gas Tank (CO2)",
-            desc = "Portable gas tanks do one thing: store gas. To refill the tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or... boom. Once it's full, you can refill a <link=ThingItemGasCanisterCarbonDioxide><color=green>Canister (CO2)</color></link> by attaching it to the tank's striped section. Or you could vent the tank's variable flow rate valve into a room and create an atmosphere... of sorts.",
-            value = "-322413931"
-        )
-    )]
-    DynamicGasCanisterCarbonDioxide = -322413931i32,
     #[strum(serialize = "StructureVolumePump")]
     #[strum(
         props(
@@ -3454,9 +3405,6 @@ pub enum StationpediaPrefab {
         )
     )]
     ElectronicPrinterMod = -311170652i32,
-    #[strum(serialize = "ItemWreckageHydroponicsTray1")]
-    #[strum(props(name = "Wreckage", desc = "", value = "-310178617"))]
-    ItemWreckageHydroponicsTray1 = -310178617i32,
     #[strum(serialize = "ItemKitRocketCelestialTracker")]
     #[strum(
         props(name = "Kit (Rocket Celestial Tracker)", desc = "", value = "-303008602")
@@ -3490,8 +3438,23 @@ pub enum StationpediaPrefab {
     )]
     StructureLiquidPipeHeater = -287495560i32,
     #[strum(serialize = "StructureRoboticArmRailInnerCorner")]
-    #[strum(props(name = "Linear Rail Inner Corner", desc = "", value = "-267108827"))]
+    #[strum(
+        props(
+            name = "Linear Rail Inner Corner",
+            desc = "A component of a linear rail network to be used in conjunction with LArRE docks.",
+            value = "-267108827"
+        )
+    )]
     StructureRoboticArmRailInnerCorner = -267108827i32,
+    #[strum(serialize = "StructureRoboticArmRailScrewRight")]
+    #[strum(
+        props(
+            name = "Linear Rail Screw Right",
+            desc = "A component of a linear rail network to be used in conjunction with LArRE docks.",
+            value = "-265202332"
+        )
+    )]
+    StructureRoboticArmRailScrewRight = -265202332i32,
     #[strum(serialize = "ItemChocolateCake")]
     #[strum(props(name = "Chocolate Cake", desc = "", value = "-261575861"))]
     ItemChocolateCake = -261575861i32,
@@ -3509,9 +3472,6 @@ pub enum StationpediaPrefab {
         props(name = "Composite Cladding (Rounded)", desc = "", value = "-259357734")
     )]
     StructureCompositeCladdingRounded = -259357734i32,
-    #[strum(serialize = "SMGMagazine")]
-    #[strum(props(name = "SMG Magazine", desc = "", value = "-256607540"))]
-    SmgMagazine = -256607540i32,
     #[strum(serialize = "ItemLiquidPipeHeater")]
     #[strum(
         props(
@@ -3530,6 +3490,24 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureArcFurnace = -247344692i32,
+    #[strum(serialize = "StructureInsulatedPipeStraight3")]
+    #[strum(
+        props(
+            name = "Insulated Pipe (Straight 3)",
+            desc = "Long variant of the straight pipe. These variants cannot be merged. Insulated pipes greatly reduce heat loss from gases stored in them.",
+            value = "-240862000"
+        )
+    )]
+    StructureInsulatedPipeStraight3 = -240862000i32,
+    #[strum(serialize = "StructurePipeStraight10")]
+    #[strum(
+        props(
+            name = "Pipe (Straight 10)",
+            desc = "Long variant of the straight pipe. These variants cannot be merged or upgraded with insulation.",
+            value = "-230749741"
+        )
+    )]
+    StructurePipeStraight10 = -230749741i32,
     #[strum(serialize = "ItemTablet")]
     #[strum(
         props(
@@ -3584,6 +3562,9 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemMkiiWireCutters = -178893251i32,
+    #[strum(serialize = "ItemWreckageSteelFragmentSmall")]
+    #[strum(props(name = "Wreckage", desc = "", value = "-178735543"))]
+    ItemWreckageSteelFragmentSmall = -178735543i32,
     #[strum(serialize = "ItemPlantThermogenic_Genepool1")]
     #[strum(
         props(
@@ -3594,7 +3575,9 @@ pub enum StationpediaPrefab {
     )]
     ItemPlantThermogenicGenepool1 = -177792789i32,
     #[strum(serialize = "StructureInsulatedInLineTankGas1x2")]
-    #[strum(props(name = "Insulated In-Line Tank Gas", desc = "", value = "-177610944"))]
+    #[strum(
+        props(name = "In-Line Tank Gas (Insulated)", desc = "", value = "-177610944")
+    )]
     StructureInsulatedInLineTankGas1X2 = -177610944i32,
     #[strum(serialize = "StructureCableCornerBurnt")]
     #[strum(props(name = "Burnt Cable (Corner)", desc = "", value = "-177220914"))]
@@ -3638,21 +3621,15 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureCableStraightH")]
     #[strum(props(name = "Heavy Cable (Straight)", desc = "", value = "-146200530"))]
     StructureCableStraightH = -146200530i32,
-    #[strum(serialize = "StructureDockPortSide")]
-    #[strum(props(name = "Dock (Port Side)", desc = "", value = "-137465079"))]
-    StructureDockPortSide = -137465079i32,
     #[strum(serialize = "StructureCircuitHousing")]
-    #[strum(props(name = "IC Housing", desc = "", value = "-128473777"))]
-    StructureCircuitHousing = -128473777i32,
-    #[strum(serialize = "MotherboardMissionControl")]
     #[strum(
         props(
-            name = "<N:EN:MotherboardMissionControl>",
-            desc = "<N:EN:MotherboardMissionControl>",
-            value = "-127121474"
+            name = "IC Housing",
+            desc = "Used to house a <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> to run complex logic code.",
+            value = "-128473777"
         )
     )]
-    MotherboardMissionControl = -127121474i32,
+    StructureCircuitHousing = -128473777i32,
     #[strum(serialize = "ItemKitSpeaker")]
     #[strum(props(name = "Kit (Speaker)", desc = "", value = "-126038526"))]
     ItemKitSpeaker = -126038526i32,
@@ -3689,9 +3666,6 @@ pub enum StationpediaPrefab {
         props(name = "Kit (Pressure Fed Liquid Engine)", desc = "", value = "-99091572")
     )]
     ItemKitPressureFedLiquidEngine = -99091572i32,
-    #[strum(serialize = "Meteorite")]
-    #[strum(props(name = "Meteorite", desc = "", value = "-99064335"))]
-    Meteorite = -99064335i32,
     #[strum(serialize = "ItemKitArcFurnace")]
     #[strum(props(name = "Kit (Arc Furnace)", desc = "", value = "-98995857"))]
     ItemKitArcFurnace = -98995857i32,
@@ -3707,11 +3681,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemWaterPipeMeter")]
     #[strum(props(name = "Kit (Liquid Pipe Meter)", desc = "", value = "-90898877"))]
     ItemWaterPipeMeter = -90898877i32,
-    #[strum(serialize = "FireArmSMG")]
-    #[strum(
-        props(name = "Fire Arm SMG", desc = "0.Single\n1.Auto", value = "-86315541")
-    )]
-    FireArmSmg = -86315541i32,
     #[strum(serialize = "ItemHardsuitHelmet")]
     #[strum(
         props(
@@ -3742,20 +3711,23 @@ pub enum StationpediaPrefab {
         )
     )]
     DynamicGenerator = -82087220i32,
-    #[strum(serialize = "ItemFlowerRed")]
-    #[strum(props(name = "Flower (Red)", desc = "", value = "-81376085"))]
-    ItemFlowerRed = -81376085i32,
     #[strum(serialize = "KitchenTableSimpleShort")]
     #[strum(
         props(name = "Kitchen Table (Simple Short)", desc = "", value = "-78099334")
     )]
     KitchenTableSimpleShort = -78099334i32,
+    #[strum(serialize = "StructurePassiveVentValve")]
+    #[strum(
+        props(
+            name = "Passive Vent (Valve)",
+            desc = "Passive vents (Valve) allow gasses to move into and out of pipe networks, which are closed systems unless connected to a device or structure. Passive vents are not powered, but allow the user to choose when to allow gases in an enclosed space to mix inside a pipe network.",
+            value = "-75599100"
+        )
+    )]
+    StructurePassiveVentValve = -75599100i32,
     #[strum(serialize = "ItemCerealBarBag")]
     #[strum(props(name = "Cereal Bar Bag", desc = "", value = "-75205276"))]
     ItemCerealBarBag = -75205276i32,
-    #[strum(serialize = "ImGuiCircuitboardAirlockControl")]
-    #[strum(props(name = "Airlock (Experimental)", desc = "", value = "-73796547"))]
-    ImGuiCircuitboardAirlockControl = -73796547i32,
     #[strum(serialize = "StructureInsulatedPipeLiquidCrossJunction6")]
     #[strum(
         props(
@@ -3793,29 +3765,20 @@ pub enum StationpediaPrefab {
     )]
     ItemFrenchFries = -57608687i32,
     #[strum(serialize = "StructureConsoleLED1x2")]
-    #[strum(
-        props(
-            name = "LED Display (Medium)",
-            desc = "0.Default\n1.Percent\n2.Power",
-            value = "-53151617"
-        )
-    )]
+    #[strum(props(name = "LED Display (Medium)", desc = "", value = "-53151617"))]
     StructureConsoleLed1X2 = -53151617i32,
     #[strum(serialize = "UniformMarine")]
     #[strum(props(name = "Marine Uniform", desc = "", value = "-48342840"))]
     UniformMarine = -48342840i32,
     #[strum(serialize = "Battery_Wireless_cell_Big")]
-    #[strum(
-        props(
-            name = "Battery Wireless Cell (Big)",
-            desc = "0.Empty\n1.Critical\n2.VeryLow\n3.Low\n4.Medium\n5.High\n6.Full",
-            value = "-41519077"
-        )
-    )]
+    #[strum(props(name = "Battery Wireless Cell (Big)", desc = "", value = "-41519077"))]
     BatteryWirelessCellBig = -41519077i32,
     #[strum(serialize = "StructureCableCornerH")]
     #[strum(props(name = "Heavy Cable (Corner)", desc = "", value = "-39359015"))]
     StructureCableCornerH = -39359015i32,
+    #[strum(serialize = "ApplianceBobbleHeadHardSuit")]
+    #[strum(props(name = "Bobble Head (Hard Suit)", desc = "", value = "-38993607"))]
+    ApplianceBobbleHeadHardSuit = -38993607i32,
     #[strum(serialize = "ItemPipeCowl")]
     #[strum(
         props(
@@ -3832,7 +3795,13 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Wall (Padded Window Thin)", desc = "", value = "-37302931"))]
     StructureWallPaddedWindowThin = -37302931i32,
     #[strum(serialize = "StructureRoboticArmRailOuterCorner")]
-    #[strum(props(name = "Linear Rail Outer Corner", desc = "", value = "-33470826"))]
+    #[strum(
+        props(
+            name = "Linear Rail Outer Corner",
+            desc = "A component of a linear rail network to be used in conjunction with LArRE docks.",
+            value = "-33470826"
+        )
+    )]
     StructureRoboticArmRailOuterCorner = -33470826i32,
     #[strum(serialize = "StructureInsulatedTankConnector")]
     #[strum(props(name = "Insulated Tank Connector", desc = "", value = "-31273349"))]
@@ -3857,9 +3826,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureSmallTableThickDouble")]
     #[strum(props(name = "Small (Table Thick Double)", desc = "", value = "-19246131"))]
     StructureSmallTableThickDouble = -19246131i32,
-    #[strum(serialize = "ItemAmmoBox")]
-    #[strum(props(name = "Ammo Box", desc = "", value = "-9559091"))]
-    ItemAmmoBox = -9559091i32,
     #[strum(serialize = "StructurePipeLiquidCrossJunction4")]
     #[strum(
         props(
@@ -3869,11 +3835,6 @@ pub enum StationpediaPrefab {
         )
     )]
     StructurePipeLiquidCrossJunction4 = -9555593i32,
-    #[strum(serialize = "DynamicGasCanisterRocketFuel")]
-    #[strum(
-        props(name = "Dynamic Gas Canister Rocket Fuel", desc = "", value = "-8883951")
-    )]
-    DynamicGasCanisterRocketFuel = -8883951i32,
     #[strum(serialize = "ItemPureIcePollutant")]
     #[strum(
         props(
@@ -3883,20 +3844,11 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemPureIcePollutant = -1755356i32,
-    #[strum(serialize = "ItemWreckageLargeExtendableRadiator01")]
-    #[strum(props(name = "Wreckage", desc = "", value = "-997763"))]
-    ItemWreckageLargeExtendableRadiator01 = -997763i32,
     #[strum(serialize = "StructureSingleBed")]
     #[strum(props(name = "Single Bed", desc = "", value = "-492611"))]
     StructureSingleBed = -492611i32,
     #[strum(serialize = "StructureCableCorner3HBurnt")]
-    #[strum(
-        props(
-            name = "<N:EN:StructureCableCorner3HBurnt>",
-            desc = "<N:EN:StructureCableCorner3HBurnt>",
-            value = "2393826"
-        )
-    )]
+    #[strum(props(name = "Cable", desc = "", value = "2393826"))]
     StructureCableCorner3HBurnt = 2393826i32,
     #[strum(serialize = "StructureAutoMinerSmall")]
     #[strum(
@@ -3940,18 +3892,9 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemMiningCharge = 15829510i32,
-    #[strum(serialize = "ItemKitEngineSmall")]
-    #[strum(props(name = "Kit (Engine Small)", desc = "", value = "19645163"))]
-    ItemKitEngineSmall = 19645163i32,
-    #[strum(serialize = "StructureHeatExchangerGastoGas")]
-    #[strum(
-        props(
-            name = "Heat Exchanger - Gas",
-            desc = "The original specs for the N Series Flow-P heat exchanger were rumored to have been scrawled on the back of a burger receipt by a bored <link=Sinotai><color=#0080FFFF>Sinotai</color></link> designer riding up the Brazilian space elevator, but that hasn't stopped it becoming one of the most widely-copied heat exchanger designs in the Solar System.\nThe 'N Flow-P' has four connections, allowing you to pass two gas networks into the unit, which then works to equalize temperature across the two separate networks.\nAs the N Flow-P is a passive system, it equalizes pressure across the entire of each individual network, unless connected to gas management devices like a <link=ThingStructureVolumePump><color=green>Volume Pump</color></link> or a <link=ThingStructureBackPressureRegulator><color=green>Back Pressure Regulator</color></link>.",
-            value = "21266291"
-        )
-    )]
-    StructureHeatExchangerGastoGas = 21266291i32,
+    #[strum(serialize = "StructureVendingMachineSmall")]
+    #[strum(props(name = "Vending Machine Small", desc = "", value = "19591354"))]
+    StructureVendingMachineSmall = 19591354i32,
     #[strum(serialize = "StructurePressurantValve")]
     #[strum(
         props(
@@ -3991,11 +3934,6 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemSprayCanPurple = 30686509i32,
-    #[strum(serialize = "DynamicGasCanisterNitrousOxide")]
-    #[strum(
-        props(name = "Portable Gas Tank (Nitrous Oxide)", desc = "", value = "30727200")
-    )]
-    DynamicGasCanisterNitrousOxide = 30727200i32,
     #[strum(serialize = "StructureInLineTankGas1x2")]
     #[strum(
         props(
@@ -4017,9 +3955,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemGasCanisterEmpty")]
     #[strum(props(name = "Canister", desc = "", value = "42280099"))]
     ItemGasCanisterEmpty = 42280099i32,
-    #[strum(serialize = "ItemWreckageWallCooler2")]
-    #[strum(props(name = "Wreckage", desc = "", value = "45733800"))]
-    ItemWreckageWallCooler2 = 45733800i32,
     #[strum(serialize = "ItemPumpkinPie")]
     #[strum(props(name = "Pumpkin Pie", desc = "", value = "62768076"))]
     ItemPumpkinPie = 62768076i32,
@@ -4042,14 +3977,17 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Cartridge (Tracker)", desc = "", value = "81488783"))]
     CartridgeTracker = 81488783i32,
     #[strum(serialize = "StructureLarreDockHydroponics")]
-    #[strum(props(name = "LARrE Dock (Hydroponics)", desc = "", value = "85133079"))]
+    #[strum(
+        props(
+            name = "LArRE Dock (Hydroponics)",
+            desc = "The hydroponics LArRE can plant and harvest plants as well as place fertiliser into plant trays. It has an additional hopper slot which will feed items into the 'hand' slot when the hand slot is empty. Harvesting a different plant while the hand slot is full will be possible if the hopper slot is empty. In which case the plant in the hand will be moved into the hopper slot and the new plant will be harvested into the hand slot.\n        The slot variables of a plant in the plant tray below can be read using the Proxy Slot Index (255).\nPressing the activate button while the LArRE arm is at its home dock will move the arm off the main rail. This allows other arms on the same rail to pass by.",
+            value = "85133079"
+        )
+    )]
     StructureLarreDockHydroponics = 85133079i32,
     #[strum(serialize = "ToyLuna")]
     #[strum(props(name = "Toy Luna", desc = "", value = "94730034"))]
     ToyLuna = 94730034i32,
-    #[strum(serialize = "ItemWreckageTurbineGenerator2")]
-    #[strum(props(name = "Wreckage", desc = "", value = "98602599"))]
-    ItemWreckageTurbineGenerator2 = 98602599i32,
     #[strum(serialize = "StructurePowerUmbilicalFemale")]
     #[strum(props(name = "Umbilical Socket (Power)", desc = "", value = "101488029"))]
     StructurePowerUmbilicalFemale = 101488029i32,
@@ -4065,15 +4003,6 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemWaterBottle = 107741229i32,
-    #[strum(serialize = "DynamicGasCanisterVolatiles")]
-    #[strum(
-        props(
-            name = "Portable Gas Tank (Volatiles)",
-            desc = "Portable tanks store gas. To refill one, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link>, then connect it to a pipe network. Don't fill it above 10 MPa, unless you're the sort who loves complicated, flammable emergencies. You can refill a <link=ThingItemGasCanisterVolatiles><color=green>Canister (Volatiles)</color></link> by attaching it to the tank's striped section. Or you could use a <link=ThingItemWrench><color=green>Wrench</color></link> to attach to a rocket and show it around the Solar System.",
-            value = "108086870"
-        )
-    )]
-    DynamicGasCanisterVolatiles = 108086870i32,
     #[strum(serialize = "StructureCompositeCladdingRoundedCornerInner")]
     #[strum(
         props(
@@ -4084,13 +4013,7 @@ pub enum StationpediaPrefab {
     )]
     StructureCompositeCladdingRoundedCornerInner = 110184667i32,
     #[strum(serialize = "ItemTerrainManipulator")]
-    #[strum(
-        props(
-            name = "Terrain Manipulator",
-            desc = "0.Mode0\n1.Mode1",
-            value = "111280987"
-        )
-    )]
+    #[strum(props(name = "Terrain Manipulator", desc = "", value = "111280987"))]
     ItemTerrainManipulator = 111280987i32,
     #[strum(serialize = "FlareGun")]
     #[strum(props(name = "Flare Gun", desc = "", value = "118685786"))]
@@ -4098,18 +4021,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemKitPlanter")]
     #[strum(props(name = "Kit (Planter)", desc = "", value = "119096484"))]
     ItemKitPlanter = 119096484i32,
-    #[strum(serialize = "ReagentColorGreen")]
-    #[strum(props(name = "Color Dye (Green)", desc = "", value = "120807542"))]
-    ReagentColorGreen = 120807542i32,
-    #[strum(serialize = "DynamicGasCanisterNitrogen")]
-    #[strum(
-        props(
-            name = "Portable Gas Tank (Nitrogen)",
-            desc = "Portable tanks store gas. If you need to refill a tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or you'll end up with <link=GasNitrogen><color=#44AD83>Nitrogen</color></link> in places you weren't expecting. You can refill a <link=ThingItemGasCanisterNitrogen><color=green>Canister (Nitrogen)</color></link> by attaching it to the tank's striped section. Or you could use a <link=ThingItemWrench><color=green>Wrench</color></link> to attach it to a rover or rocket for later.",
-            value = "121951301"
-        )
-    )]
-    DynamicGasCanisterNitrogen = 121951301i32,
     #[strum(serialize = "ItemKitPressurePlate")]
     #[strum(props(name = "Kit (Trigger Plate)", desc = "", value = "123504691"))]
     ItemKitPressurePlate = 123504691i32,
@@ -4130,6 +4041,9 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemLaptop = 141535121i32,
+    #[strum(serialize = "ApplianceBobbleHeadMarine")]
+    #[strum(props(name = "Bobble Head (Marine)", desc = "", value = "142593802"))]
+    ApplianceBobbleHeadMarine = 142593802i32,
     #[strum(serialize = "ApplianceSeedTray")]
     #[strum(
         props(
@@ -4214,13 +4128,10 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemKitDoor")]
     #[strum(props(name = "Kit (Door)", desc = "", value = "168615924"))]
     ItemKitDoor = 168615924i32,
-    #[strum(serialize = "ItemWreckageAirConditioner2")]
-    #[strum(props(name = "Wreckage", desc = "", value = "169888054"))]
-    ItemWreckageAirConditioner2 = 169888054i32,
     #[strum(serialize = "Landingpad_GasCylinderTankPiece")]
     #[strum(
         props(
-            name = "Landingpad Gas Storage",
+            name = "Landingpad Tank (Small)",
             desc = "Increases the volume of the landing pads gas storage capacity. This volume is used for buying and selling gas to traders.",
             value = "170818567"
         )
@@ -4238,6 +4149,9 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemPlantSampler = 173023800i32,
+    #[strum(serialize = "ItemBlueberry")]
+    #[strum(props(name = "Blueberry", desc = "", value = "173826094"))]
+    ItemBlueberry = 173826094i32,
     #[strum(serialize = "ItemAlienMushroom")]
     #[strum(props(name = "Alien Mushroom", desc = "", value = "176446172"))]
     ItemAlienMushroom = 176446172i32,
@@ -4276,15 +4190,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemKitRoverMKI")]
     #[strum(props(name = "Kit (Rover Mk I)", desc = "", value = "197243872"))]
     ItemKitRoverMki = 197243872i32,
-    #[strum(serialize = "DynamicGasCanisterWater")]
-    #[strum(
-        props(
-            name = "Portable Liquid Tank (Water)",
-            desc = "This portable tank stores liquid, and liquid only. You just have to fill it up. To do this, bolt one to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link>, then connect it to <link=ThingStructurePipeLiquidStraight><color=green>Liquid Pipe (Straight)</color></link> to supply liquid to a network. \nTry to keep pressure under 10 MPa, or you'll end up wet, hurt and sorry, without any of the fun.\nYou can refill a <link=ThingItemGasCanisterWater><color=green>Liquid Canister (Water)</color></link> by attaching it to the tank's striped section. Or you could use a <link=ThingItemWrench><color=green>Wrench</color></link> to attach it to a rocket and take it somewhere distant and dry, then feel good about yourself.",
-            value = "197293625"
-        )
-    )]
-    DynamicGasCanisterWater = 197293625i32,
     #[strum(serialize = "ItemAngleGrinder")]
     #[strum(
         props(
@@ -4391,9 +4296,6 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemMkiiAngleGrinder = 240174650i32,
-    #[strum(serialize = "Handgun")]
-    #[strum(props(name = "Handgun", desc = "", value = "247238062"))]
-    Handgun = 247238062i32,
     #[strum(serialize = "PassiveSpeaker")]
     #[strum(props(name = "Passive Speaker", desc = "", value = "248893646"))]
     PassiveSpeaker = 248893646i32,
@@ -4413,7 +4315,7 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Suit Storage",
-            desc = "As tidy as it is useful, the suit storage rack holds an <link=ThingItemEvaSuit><color=green>Eva Suit</color></link>, <link=ThingItemSpaceHelmet><color=green>Space Helmet</color></link> and a <link=ThingItemJetpackBasic><color=green>Jetpack Basic</color></link>.\nWhen powered and connected to <link=ThingOxygen><color=green><N:EN:Oxygen></color></link> and <link=ThingPropellant><color=green><N:EN:Propellant></color></link>, it will recharge the suit's batteries, refill the <link=ThingItemGasCanisterOxygen><color=green>Canister (Oxygen)</color></link> and your <link=ThingItemGasFilterNitrogen><color=green>Filter (Nitrogen)</color></link> <link=SlotGasCanister><color=orange>Gas Canister</color></link>. The wastetank will be pumped out to the pipe connected to the waste outlet.\nAll the rack's pipes must be connected or the unit will show an error state, but it will still charge the battery.",
+            desc = "As tidy as it is useful, the suit storage rack holds an <link=ThingItemEvaSuit><color=green>Eva Suit</color></link>, <link=ThingItemSpaceHelmet><color=green>Space Helmet</color></link> and a <link=ThingItemJetpackBasic><color=green>Jetpack Basic</color></link>.\nWhen powered and connected to <link=GasOxygen><color=#44AD83>Oxygen</color></link> and <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>, it will recharge the suit's batteries, refill the <link=ThingItemGasCanisterOxygen><color=green>Canister (Oxygen)</color></link> and your <link=ThingItemGasCanisterNitrogen><color=green>Canister (Nitrogen)</color></link> <link=SlotGasCanister><color=orange>Gas Canister</color></link>. The wastetank will be pumped out to the pipe connected to the waste outlet.\nAll the rack's pipes must be connected or the unit will show an error state, but it will still charge the battery.",
             value = "255034731"
         )
     )]
@@ -4464,13 +4366,7 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Burnt Cable (4-Way Corner)", desc = "", value = "268421361"))]
     StructureCableCorner4Burnt = 268421361i32,
     #[strum(serialize = "StructureFrameCornerCut")]
-    #[strum(
-        props(
-            name = "Steel Frame (Corner Cut)",
-            desc = "0.Mode0\n1.Mode1",
-            value = "271315669"
-        )
-    )]
+    #[strum(props(name = "Steel Frame (Corner Cut)", desc = "", value = "271315669"))]
     StructureFrameCornerCut = 271315669i32,
     #[strum(serialize = "StructureTankSmallInsulated")]
     #[strum(props(name = "Tank Small (Insulated)", desc = "", value = "272136332"))]
@@ -4508,15 +4404,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureWallFlatCornerSquare")]
     #[strum(props(name = "Wall (Flat Corner Square)", desc = "", value = "298130111"))]
     StructureWallFlatCornerSquare = 298130111i32,
-    #[strum(serialize = "ItemHat")]
-    #[strum(
-        props(
-            name = "Hat",
-            desc = "As the name suggests, this is a hat.",
-            value = "299189339"
-        )
-    )]
-    ItemHat = 299189339i32,
     #[strum(serialize = "ItemWaterPipeDigitalValve")]
     #[strum(props(name = "Kit (Liquid Digital Valve)", desc = "", value = "309693520"))]
     ItemWaterPipeDigitalValve = 309693520i32,
@@ -4529,6 +4416,9 @@ pub enum StationpediaPrefab {
         )
     )]
     SeedBagMushroom = 311593418i32,
+    #[strum(serialize = "SeedBag_Watermelon")]
+    #[strum(props(name = "Watermelon Seeds", desc = "", value = "315264172"))]
+    SeedBagWatermelon = 315264172i32,
     #[strum(serialize = "StructureCableCorner3Burnt")]
     #[strum(props(name = "Burnt Cable (3-Way Corner)", desc = "", value = "318437449"))]
     StructureCableCorner3Burnt = 318437449i32,
@@ -4568,15 +4458,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemKitSleeper")]
     #[strum(props(name = "Kit (Sleeper)", desc = "", value = "326752036"))]
     ItemKitSleeper = 326752036i32,
-    #[strum(serialize = "EntityChickenBrown")]
-    #[strum(
-        props(
-            name = "Entity Chicken Brown",
-            desc = "Like so many of its brethren, this is a chicken. A brown one. It will eat soybeans, corn, and wheat, and lay eggs. Some will be fertilized, producing further chickens. Some will not.",
-            value = "334097180"
-        )
-    )]
-    EntityChickenBrown = 334097180i32,
     #[strum(serialize = "StructurePassiveVent")]
     #[strum(
         props(
@@ -4628,15 +4509,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemKitLarreDockCollector")]
     #[strum(props(name = "Kit (LArRE Dock Collector)", desc = "", value = "347658127"))]
     ItemKitLarreDockCollector = 347658127i32,
-    #[strum(serialize = "RoverCargo")]
-    #[strum(
-        props(
-            name = "Rover (Cargo)",
-            desc = "Connects to <pos=300><link=ThingStructureLogicTransmitter><color=green>Logic Transmitter</color></link>",
-            value = "350726273"
-        )
-    )]
-    RoverCargo = 350726273i32,
     #[strum(serialize = "StructureInsulatedPipeLiquidCrossJunction4")]
     #[strum(
         props(
@@ -4702,9 +4574,6 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemMkiiDuctTape = 388774906i32,
-    #[strum(serialize = "ItemWreckageStructureRTG1")]
-    #[strum(props(name = "Wreckage", desc = "", value = "391453348"))]
-    ItemWreckageStructureRtg1 = 391453348i32,
     #[strum(serialize = "ItemPipeLabel")]
     #[strum(
         props(
@@ -4714,11 +4583,6 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemPipeLabel = 391769637i32,
-    #[strum(serialize = "DynamicGasCanisterPollutants")]
-    #[strum(
-        props(name = "Portable Gas Tank (Pollutants)", desc = "", value = "396065382")
-    )]
-    DynamicGasCanisterPollutants = 396065382i32,
     #[strum(serialize = "NpcChicken")]
     #[strum(props(name = "Chicken", desc = "", value = "399074198"))]
     NpcChicken = 399074198i32,
@@ -4737,6 +4601,15 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemAstroloyIngot = 412924554i32,
+    #[strum(serialize = "StructureInsulatedPipeStraight5")]
+    #[strum(
+        props(
+            name = "Insulated Pipe (Straight 5)",
+            desc = "Long variant of the straight pipe. These variants cannot be merged. Insulated pipes greatly reduce heat loss from gases stored in them.",
+            value = "415701477"
+        )
+    )]
+    StructureInsulatedPipeStraight5 = 415701477i32,
     #[strum(serialize = "ItemGasFilterCarbonDioxideM")]
     #[strum(
         props(name = "Medium Filter (Carbon Dioxide)", desc = "", value = "416897318")
@@ -4846,7 +4719,7 @@ pub enum StationpediaPrefab {
     )]
     ItemGasFilterNitrousOxideL = 465267979i32,
     #[strum(serialize = "StructurePipeCowl")]
-    #[strum(props(name = "Pipe Cowl", desc = "", value = "465816159"))]
+    #[strum(props(name = "Passive Vent (Pipe Cowl)", desc = "", value = "465816159"))]
     StructurePipeCowl = 465816159i32,
     #[strum(serialize = "StructureSDBHopperAdvanced")]
     #[strum(props(name = "SDB Hopper Advanced", desc = "", value = "467225612"))]
@@ -4948,6 +4821,9 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemKitSign")]
     #[strum(props(name = "Kit (Sign)", desc = "", value = "529996327"))]
     ItemKitSign = 529996327i32,
+    #[strum(serialize = "ItemRocketDeepScanningHead")]
+    #[strum(props(name = "Rocket Deep Scanner Head", desc = "", value = "532208167"))]
+    ItemRocketDeepScanningHead = 532208167i32,
     #[strum(serialize = "StructureCompositeCladdingSphericalCap")]
     #[strum(
         props(
@@ -4966,9 +4842,6 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemPureIceLiquidOxygen = 541621589i32,
-    #[strum(serialize = "ItemWreckageStructureWeatherStation003")]
-    #[strum(props(name = "Wreckage", desc = "", value = "542009679"))]
-    ItemWreckageStructureWeatherStation003 = 542009679i32,
     #[strum(serialize = "StructureInLineTankLiquid1x1")]
     #[strum(
         props(
@@ -5062,7 +4935,9 @@ pub enum StationpediaPrefab {
     )]
     StructureCableStraight = 605357050i32,
     #[strum(serialize = "StructureLiquidTankSmallInsulated")]
-    #[strum(props(name = "Insulated Liquid Tank Small", desc = "", value = "608607718"))]
+    #[strum(
+        props(name = "Liquid Tank Small (Insulated)", desc = "", value = "608607718")
+    )]
     StructureLiquidTankSmallInsulated = 608607718i32,
     #[strum(serialize = "ItemKitWaterPurifier")]
     #[strum(props(name = "Kit (Water Purifier)", desc = "", value = "611181283"))]
@@ -5084,9 +4959,6 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemGasFilterNitrogen = 632853248i32,
-    #[strum(serialize = "ReagentColorYellow")]
-    #[strum(props(name = "Color Dye (Yellow)", desc = "", value = "635208006"))]
-    ReagentColorYellow = 635208006i32,
     #[strum(serialize = "StructureWallPadding")]
     #[strum(props(name = "Wall (Padding)", desc = "", value = "635995024"))]
     StructureWallPadding = 635995024i32,
@@ -5118,9 +4990,6 @@ pub enum StationpediaPrefab {
         props(name = "Kit (LArRE Dock Hydroponics)", desc = "", value = "656181408")
     )]
     ItemKitLarreDockHydroponics = 656181408i32,
-    #[strum(serialize = "ItemWreckageStructureWeatherStation007")]
-    #[strum(props(name = "Wreckage", desc = "", value = "656649558"))]
-    ItemWreckageStructureWeatherStation007 = 656649558i32,
     #[strum(serialize = "ItemRice")]
     #[strum(
         props(
@@ -5149,9 +5018,7 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Space Ice", desc = "", value = "675686937"))]
     ItemSpaceIce = 675686937i32,
     #[strum(serialize = "ItemRemoteDetonator")]
-    #[strum(
-        props(name = "Remote Detonator", desc = "0.Mode0\n1.Mode1", value = "678483886")
-    )]
+    #[strum(props(name = "Remote Detonator", desc = "", value = "678483886"))]
     ItemRemoteDetonator = 678483886i32,
     #[strum(serialize = "ItemCocoaTree")]
     #[strum(props(name = "Cocoa", desc = "", value = "680051921"))]
@@ -5215,9 +5082,6 @@ pub enum StationpediaPrefab {
         props(name = "Kit (Rocket Circuit Housing)", desc = "", value = "721251202")
     )]
     ItemKitRocketCircuitHousing = 721251202i32,
-    #[strum(serialize = "ItemKitResearchMachine")]
-    #[strum(props(name = "Kit Research Machine", desc = "", value = "724776762"))]
-    ItemKitResearchMachine = 724776762i32,
     #[strum(serialize = "ItemElectronicParts")]
     #[strum(props(name = "Electronic Parts", desc = "", value = "731250882"))]
     ItemElectronicParts = 731250882i32,
@@ -5254,20 +5118,11 @@ pub enum StationpediaPrefab {
         )
     )]
     DynamicScrubber = 755048589i32,
-    #[strum(serialize = "ItemKitEngineLarge")]
-    #[strum(props(name = "Kit (Engine Large)", desc = "", value = "755302726"))]
-    ItemKitEngineLarge = 755302726i32,
     #[strum(serialize = "ItemKitTank")]
     #[strum(props(name = "Kit (Tank)", desc = "", value = "771439840"))]
     ItemKitTank = 771439840i32,
     #[strum(serialize = "ItemLiquidCanisterSmart")]
-    #[strum(
-        props(
-            name = "Liquid Canister (Smart)",
-            desc = "0.Mode0\n1.Mode1",
-            value = "777684475"
-        )
-    )]
+    #[strum(props(name = "Liquid Canister (Smart)", desc = "", value = "777684475"))]
     ItemLiquidCanisterSmart = 777684475i32,
     #[strum(serialize = "StructureWallArchTwoTone")]
     #[strum(props(name = "Wall (Arch Two Tone)", desc = "", value = "782529714"))]
@@ -5275,9 +5130,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemAuthoringTool")]
     #[strum(props(name = "Authoring Tool", desc = "", value = "789015045"))]
     ItemAuthoringTool = 789015045i32,
-    #[strum(serialize = "WeaponEnergy")]
-    #[strum(props(name = "Weapon Energy", desc = "", value = "789494694"))]
-    WeaponEnergy = 789494694i32,
     #[strum(serialize = "StructureCompositeWindowShutterConnector")]
     #[strum(
         props(
@@ -5329,9 +5181,6 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureConsoleMonitor = 801677497i32,
-    #[strum(serialize = "StructureRover")]
-    #[strum(props(name = "Rover Frame", desc = "", value = "806513938"))]
-    StructureRover = 806513938i32,
     #[strum(serialize = "StructureRocketAvionics")]
     #[strum(props(name = "Rocket Avionics", desc = "", value = "808389066"))]
     StructureRocketAvionics = 808389066i32,
@@ -5353,15 +5202,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureElevatorShaft")]
     #[strum(props(name = "Elevator Shaft (Cabled)", desc = "", value = "826144419"))]
     StructureElevatorShaft = 826144419i32,
-    #[strum(serialize = "StructureTransformerMediumReversed")]
-    #[strum(
-        props(
-            name = "Transformer Reversed (Medium)",
-            desc = "Transformers control the maximum power that will flow down a sub-network of cables, to prevent overloading <link=ElectronicPage><color=#0080FFFF>electrical</color></link> systems. \nMedium transformers are used in larger setups where more than 5000W is required, with output that can be set to a maximum of 25000W.\nNote that transformers also operate as data isolators, preventing data flowing into any network beyond it.",
-            value = "833912764"
-        )
-    )]
-    StructureTransformerMediumReversed = 833912764i32,
     #[strum(serialize = "StructureFlatBench")]
     #[strum(props(name = "Bench (Flat)", desc = "", value = "839890807"))]
     StructureFlatBench = 839890807i32,
@@ -5395,13 +5235,7 @@ pub enum StationpediaPrefab {
     )]
     ItemKitLargeExtendableRadiator = 847430620i32,
     #[strum(serialize = "StructureInteriorDoorPadded")]
-    #[strum(
-        props(
-            name = "Interior Door Padded",
-            desc = "0.Operate\n1.Logic",
-            value = "847461335"
-        )
-    )]
+    #[strum(props(name = "Interior Door Padded", desc = "", value = "847461335"))]
     StructureInteriorDoorPadded = 847461335i32,
     #[strum(serialize = "ItemKitRecycler")]
     #[strum(props(name = "Kit (Recycler)", desc = "", value = "849148192"))]
@@ -5421,12 +5255,21 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemPlantEndothermic_Genepool1")]
     #[strum(
         props(
-            name = "Winterspawn (Alpha variant)",
+            name = "Winterspawn (Alpha strain)",
             desc = "<link=Agrizero><color=#0080FFFF>Agrizero's</color></link> Winterspawn atmospheric bio-processor is a recent addition to their catalog of genespliced environmental decorations. Using ambient heat to split <link=GasWater><color=#44AD83>Water</color></link> into <link=GasVolatiles><color=#44AD83>Volatiles</color></link> and <link=GasOxygen><color=#44AD83>Oxygen</color></link>, the Winterspawn cools its surroundings, when supplied with sufficient <link=GasNitrogen><color=#44AD83>Nitrogen</color></link>. The alpha variant has a peak cooling and electrolysis capacity of 90Watts and is most efficient operating in air temperatures of 0 to 40 Degrees Celsius.",
             value = "851290561"
         )
     )]
     ItemPlantEndothermicGenepool1 = 851290561i32,
+    #[strum(serialize = "StructureChuteStraight5")]
+    #[strum(
+        props(
+            name = "Chute (Straight 5)",
+            desc = "Chutes act as pipes for items. Use them to connect various <link=ImportExportPage><color=#0080FFFF>import/export</color></link> equipment together such as the <link=ThingStructureVendingMachine><color=green>Vending Machine</color></link> and printers like the <link=ThingStructureAutolathe><color=green>Autolathe</color></link>.\n        The aim for any <link=Stationeers><color=#0080FFFF>Stationeer</color></link> is to make off-world survival less of a struggle for themselves, and those who will follow in their footsteps.\n        Chutes are fundamental components of chute networks, which allow the transport of items between any machine or device with an <link=ImportExportPage><color=#0080FFFF>import/export</color></link> slot.",
+            value = "853348026"
+        )
+    )]
+    StructureChuteStraight5 = 853348026i32,
     #[strum(serialize = "CircuitboardDoorControl")]
     #[strum(
         props(
@@ -5469,9 +5312,6 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemRoadFlare = 871811564i32,
-    #[strum(serialize = "CartridgeGuide")]
-    #[strum(props(name = "Cartridge (Guide)", desc = "", value = "872720793"))]
-    CartridgeGuide = 872720793i32,
     #[strum(serialize = "StructureLogicSorter")]
     #[strum(
         props(
@@ -5532,15 +5372,9 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureCableJunction5")]
     #[strum(props(name = "Cable (5-Way Junction)", desc = "", value = "894390004"))]
     StructureCableJunction5 = 894390004i32,
-    #[strum(serialize = "ItemInsulation")]
-    #[strum(
-        props(
-            name = "Insulation",
-            desc = "Mysterious in the extreme, the function of this item is lost to the ages.",
-            value = "897176943"
-        )
-    )]
-    ItemInsulation = 897176943i32,
+    #[strum(serialize = "SeedBag_Blueberry")]
+    #[strum(props(name = "Blueberry Seeds", desc = "", value = "897717596"))]
+    SeedBagBlueberry = 897717596i32,
     #[strum(serialize = "StructureWallFlatCornerRound")]
     #[strum(props(name = "Wall (Flat Corner Round)", desc = "", value = "898708250"))]
     StructureWallFlatCornerRound = 898708250i32,
@@ -5574,10 +5408,14 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemKitPipeRadiator")]
     #[strum(props(name = "Kit (Pipe Radiator)", desc = "", value = "920411066"))]
     ItemKitPipeRadiator = 920411066i32,
+    #[strum(serialize = "ItemGorse")]
+    #[strum(props(name = "Gorse", desc = "", value = "921641358"))]
+    ItemGorse = 921641358i32,
+    #[strum(serialize = "ItemKitRocketAtmospherics")]
+    #[strum(props(name = "Kit (Rocket Atmospherics)", desc = "", value = "925932637"))]
+    ItemKitRocketAtmospherics = 925932637i32,
     #[strum(serialize = "StructureLogicMinMax")]
-    #[strum(
-        props(name = "Logic Min/Max", desc = "0.Greater\n1.Less", value = "929022276")
-    )]
+    #[strum(props(name = "Logic Min/Max", desc = "", value = "929022276"))]
     StructureLogicMinMax = 929022276i32,
     #[strum(serialize = "StructureSolarPanel45Reinforced")]
     #[strum(
@@ -5606,15 +5444,6 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemPureIceHydrogen = 944530361i32,
-    #[strum(serialize = "StructureHeatExchangeLiquidtoGas")]
-    #[strum(
-        props(
-            name = "Heat Exchanger - Liquid + Gas",
-            desc = "The original specs for the N Series Flow-P heat exchanger were rumored to have been scrawled on the back of a burger receipt by a bored <link=Sinotai><color=#0080FFFF>Sinotai</color></link> designer riding up the Brazilian space elevator, but that hasn't stopped it becoming one of the most widely-copied heat exchanger designs in the Solar System.\nThe 'N Flow-P' has four connections, allowing you to pass separate liquid and gas networks into the unit, which then works to equalize temperature across the two separate networks.\nAs the N Flow-P is a passive system, it equalizes pressure across the entire of each individual network, unless connected to devices like a <link=ThingStructureVolumePump><color=green>Volume Pump</color></link> or a <link=ThingStructureBackLiquidPressureRegulator><color=green>Liquid Back Volume Regulator</color></link>.",
-            value = "944685608"
-        )
-    )]
-    StructureHeatExchangeLiquidtoGas = 944685608i32,
     #[strum(serialize = "StructureCompositeCladdingAngledCornerInnerLongL")]
     #[strum(
         props(
@@ -5657,15 +5486,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemKitAirlock")]
     #[strum(props(name = "Kit (Airlock)", desc = "", value = "964043875"))]
     ItemKitAirlock = 964043875i32,
-    #[strum(serialize = "EntityRoosterBlack")]
-    #[strum(
-        props(
-            name = "Entity Rooster Black",
-            desc = "This is a rooster. It is black. There is dignity in this.",
-            value = "966959649"
-        )
-    )]
-    EntityRoosterBlack = 966959649i32,
     #[strum(serialize = "ItemKitSorter")]
     #[strum(props(name = "Kit (Sorter)", desc = "", value = "969522478"))]
     ItemKitSorter = 969522478i32,
@@ -5681,9 +5501,9 @@ pub enum StationpediaPrefab {
         )
     )]
     LandingpadDiagonalPiece01 = 977899131i32,
-    #[strum(serialize = "ReagentColorBlue")]
-    #[strum(props(name = "Color Dye (Blue)", desc = "", value = "980054869"))]
-    ReagentColorBlue = 980054869i32,
+    #[strum(serialize = "SeedBag_DargaFern")]
+    #[strum(props(name = "Darga Fern Seeds", desc = "", value = "980397232"))]
+    SeedBagDargaFern = 980397232i32,
     #[strum(serialize = "StructureCableCorner3")]
     #[strum(
         props(
@@ -5744,20 +5564,20 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemDataDisk")]
     #[strum(props(name = "Data Disk", desc = "", value = "1005843700"))]
     ItemDataDisk = 1005843700i32,
+    #[strum(serialize = "CartridgeDeepMiner")]
+    #[strum(props(name = "Cartridge (Deep Miner)", desc = "", value = "1006351599"))]
+    CartridgeDeepMiner = 1006351599i32,
     #[strum(serialize = "ItemBatteryChargerSmall")]
     #[strum(props(name = "Battery Charger Small", desc = "", value = "1008295833"))]
     ItemBatteryChargerSmall = 1008295833i32,
-    #[strum(serialize = "EntityChickenWhite")]
+    #[strum(serialize = "StructureLarreDockBypass")]
     #[strum(
         props(
-            name = "Entity Chicken White",
-            desc = "It's a chicken, as white as moondust. It will eat soybeans, corn, and wheat, and lay eggs. Some will be fertilized, producing further chickens. Some will not.",
-            value = "1010807532"
+            name = "LArRE Dock (Bypass)",
+            desc = "The bypass dock allows LArRE arms to move off the main rail so that others may pass. Pressing activate on a dock while its arm is at a bypass will cause the arm to move into the bypass' off-rail position.",
+            value = "1011275082"
         )
     )]
-    EntityChickenWhite = 1010807532i32,
-    #[strum(serialize = "StructureLarreDockBypass")]
-    #[strum(props(name = "LARrE Dock (Bypass)", desc = "", value = "1011275082"))]
     StructureLarreDockBypass = 1011275082i32,
     #[strum(serialize = "ItemKitStacker")]
     #[strum(props(name = "Kit (Stacker)", desc = "", value = "1013244511"))]
@@ -5774,8 +5594,11 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemEmptyCan = 1013818348i32,
+    #[strum(serialize = "ItemWreckageStructureWeatherStation")]
+    #[strum(props(name = "Wreckage", desc = "", value = "1013894259"))]
+    ItemWreckageStructureWeatherStation = 1013894259i32,
     #[strum(serialize = "ItemKitTankInsulated")]
-    #[strum(props(name = "Kit (Tank Insulated)", desc = "", value = "1021053608"))]
+    #[strum(props(name = "Kit (Insulated Tank)", desc = "", value = "1021053608"))]
     ItemKitTankInsulated = 1021053608i32,
     #[strum(serialize = "ItemKitChute")]
     #[strum(props(name = "Kit (Basic Chutes)", desc = "", value = "1025254665"))]
@@ -5801,7 +5624,7 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Passive Liquid Inlet",
-            desc = "A passive liquid floor inlet that quickly removes liquids in one direction from the world into the connected pipe network. It will equalise gasses with the world atmosphere also.",
+            desc = "A passive liquid floor inlet that quickly removes liquids in one direction from the world into the connected pipe network and equalises gasses with the world atmosphere. \n        It will remove liquids from grids at the same level up to 6 Grids away.",
             value = "1048813293"
         )
     )]
@@ -5888,6 +5711,15 @@ pub enum StationpediaPrefab {
         props(name = "Mining-Drill Head (Mineral)", desc = "", value = "1083675581")
     )]
     ItemRocketMiningDrillHeadMineral = 1083675581i32,
+    #[strum(serialize = "StructureInsulatedPipeStraight10")]
+    #[strum(
+        props(
+            name = "Insulated Pipe (Straight 10)",
+            desc = "Long variant of the straight pipe. These variants cannot be merged. Insulated pipes greatly reduce heat loss from gases stored in them.",
+            value = "1087359947"
+        )
+    )]
+    StructureInsulatedPipeStraight10 = 1087359947i32,
     #[strum(serialize = "ItemKitSuitStorage")]
     #[strum(props(name = "Kit (Suit Storage)", desc = "", value = "1088892825"))]
     ItemKitSuitStorage = 1088892825i32,
@@ -5960,9 +5792,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureCargoStorageMedium")]
     #[strum(props(name = "Cargo Storage (Medium)", desc = "", value = "1151864003"))]
     StructureCargoStorageMedium = 1151864003i32,
-    #[strum(serialize = "WeaponRifleEnergy")]
-    #[strum(props(name = "Energy Rifle", desc = "0.Stun\n1.Kill", value = "1154745374"))]
-    WeaponRifleEnergy = 1154745374i32,
     #[strum(serialize = "StructureSDBSilo")]
     #[strum(
         props(
@@ -6095,13 +5924,7 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Iron Frames", desc = "", value = "1225836666"))]
     ItemIronFrames = 1225836666i32,
     #[strum(serialize = "CompositeRollCover")]
-    #[strum(
-        props(
-            name = "Composite Roll Cover",
-            desc = "0.Operate\n1.Logic",
-            value = "1228794916"
-        )
-    )]
+    #[strum(props(name = "Composite Roll Cover", desc = "", value = "1228794916"))]
     CompositeRollCover = 1228794916i32,
     #[strum(serialize = "StructureCompositeWall")]
     #[strum(
@@ -6130,20 +5953,11 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemVolatiles = 1253102035i32,
-    #[strum(serialize = "HandgunMagazine")]
-    #[strum(props(name = "Handgun Magazine", desc = "", value = "1254383185"))]
-    HandgunMagazine = 1254383185i32,
     #[strum(serialize = "ItemGasFilterVolatilesL")]
     #[strum(props(name = "Heavy Filter (Volatiles)", desc = "", value = "1255156286"))]
     ItemGasFilterVolatilesL = 1255156286i32,
     #[strum(serialize = "ItemMiningDrillPneumatic")]
-    #[strum(
-        props(
-            name = "Pneumatic Mining Drill",
-            desc = "0.Default\n1.Flatten",
-            value = "1258187304"
-        )
-    )]
+    #[strum(props(name = "Pneumatic Mining Drill", desc = "", value = "1258187304"))]
     ItemMiningDrillPneumatic = 1258187304i32,
     #[strum(serialize = "StructureSmallTableDinnerSingle")]
     #[strum(
@@ -6188,9 +6002,6 @@ pub enum StationpediaPrefab {
         props(name = "Wall (Arch Corner Triangle)", desc = "", value = "1281911841")
     )]
     StructureWallArchCornerTriangle = 1281911841i32,
-    #[strum(serialize = "StructureTurbineGenerator")]
-    #[strum(props(name = "Turbine Generator", desc = "", value = "1282191063"))]
-    StructureTurbineGenerator = 1282191063i32,
     #[strum(serialize = "StructurePipeIgniter")]
     #[strum(
         props(
@@ -6275,6 +6086,9 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemChemLightWhite = 1312166823i32,
+    #[strum(serialize = "LanderMkII")]
+    #[strum(props(name = "Lander Mk II", desc = "", value = "1323320543"))]
+    LanderMkIi = 1323320543i32,
     #[strum(serialize = "ItemMilk")]
     #[strum(
         props(
@@ -6296,15 +6110,15 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureShortCornerLocker")]
     #[strum(props(name = "Short Corner Locker", desc = "", value = "1330754486"))]
     StructureShortCornerLocker = 1330754486i32,
-    #[strum(serialize = "StructureTankConnectorLiquid")]
+    #[strum(serialize = "ItemWreckageSteelCornerSmall")]
     #[strum(
         props(
-            name = "Liquid Tank Connector",
-            desc = "These basic mounting devices allow you to attach a <link=ThingDynamicLiquidCanisterEmpty><color=green>Portable Liquid Tank</color></link> to a liquid pipe network.",
-            value = "1331802518"
+            name = "<N:EN:ItemWreckageSteelCornerSmall>",
+            desc = "<N:EN:ItemWreckageSteelCornerSmall>",
+            value = "1335155606"
         )
     )]
-    StructureTankConnectorLiquid = 1331802518i32,
+    ItemWreckageSteelCornerSmall = 1335155606i32,
     #[strum(serialize = "ItemSprayCanPink")]
     #[strum(
         props(
@@ -6317,9 +6131,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "CircuitboardGraphDisplay")]
     #[strum(props(name = "Graph Display", desc = "", value = "1344368806"))]
     CircuitboardGraphDisplay = 1344368806i32,
-    #[strum(serialize = "ItemWreckageStructureWeatherStation006")]
-    #[strum(props(name = "Wreckage", desc = "", value = "1344576960"))]
-    ItemWreckageStructureWeatherStation006 = 1344576960i32,
     #[strum(serialize = "ItemCookedCorn")]
     #[strum(
         props(
@@ -6347,15 +6158,6 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureChuteCorner = 1360330136i32,
-    #[strum(serialize = "DynamicGasCanisterOxygen")]
-    #[strum(
-        props(
-            name = "Portable Gas Tank (Oxygen)",
-            desc = "Portable tanks store gas. If you need to refill a tank, bolt it to a <link=ThingItemTankConnector><color=green>Kit (Tank Connector)</color></link> using a <link=ThingItemWrench><color=green>Wrench</color></link>, then connect it to a pipe network. Try to avoid pushing it above 10 MPa, or you'll be picking tank shards out of your face. You can refill a <link=ThingItemGasCanisterOxygen><color=green>Canister (Oxygen)</color></link> by attaching it to the tank's striped section. Or you could vent it into a sealed room to create an atmosphere. Or even paint it pink, call it Steve and fill that sad space in your heart.",
-            value = "1360925836"
-        )
-    )]
-    DynamicGasCanisterOxygen = 1360925836i32,
     #[strum(serialize = "StructurePassiveVentInsulated")]
     #[strum(props(name = "Insulated Passive Vent", desc = "", value = "1363077139"))]
     StructurePassiveVentInsulated = 1363077139i32,
@@ -6431,6 +6233,15 @@ pub enum StationpediaPrefab {
         )
     )]
     SeedBagPumpkin = 1423199840i32,
+    #[strum(serialize = "StructurePipeStraight5")]
+    #[strum(
+        props(
+            name = "Pipe (Straight 5)",
+            desc = "Long variant of the straight pipe. These variants cannot be merged or upgraded with insulation.",
+            value = "1426991452"
+        )
+    )]
+    StructurePipeStraight5 = 1426991452i32,
     #[strum(serialize = "ItemPureIceLiquidNitrous")]
     #[strum(
         props(
@@ -6449,9 +6260,9 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureFrame = 1432512808i32,
-    #[strum(serialize = "StructureWaterBottleFillerBottom")]
-    #[strum(props(name = "Water Bottle Filler Bottom", desc = "", value = "1433754995"))]
-    StructureWaterBottleFillerBottom = 1433754995i32,
+    #[strum(serialize = "StructureManualFloorHatch")]
+    #[strum(props(name = "Manual Floor Hatch", desc = "", value = "1435578852"))]
+    StructureManualFloorHatch = 1435578852i32,
     #[strum(serialize = "StructureLightRoundSmall")]
     #[strum(props(name = "Light Round (Small)", desc = "", value = "1436121888"))]
     StructureLightRoundSmall = 1436121888i32,
@@ -6480,14 +6291,14 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Cryo Tube Horizontal",
-            desc = "The horizontal variant of the cryo tube. Will heal players and organs as well as revive dead players when provided with an atmosphere of Nitrogen below -150C.",
+            desc = "The exact operation of the Longsleep cryotube remains a commercial secret, with <link=Norsec><color=#0080FFFF>Norsec</color></link> merely licensing the design. A pipe connection is provided to maintain suitable internal atmosphere connected to the occupant via breathing tubes. When the liquid pipe connection is supplied super cooled <link=GasLiquidNitrogen><color=#44AD83>Liquid Nitrogen</color></link> occupants will regenerate organs and even revive if deceased. Nothing can be worn when entering the device.",
             value = "1443059329"
         )
     )]
     StructureCryoTubeHorizontal = 1443059329i32,
     #[strum(serialize = "StructureInsulatedInLineTankLiquid1x2")]
     #[strum(
-        props(name = "Insulated In-Line Tank Liquid", desc = "", value = "1452100517")
+        props(name = "In-Line Tank Liquid (Insulated)", desc = "", value = "1452100517")
     )]
     StructureInsulatedInLineTankLiquid1X2 = 1452100517i32,
     #[strum(serialize = "ItemKitPassiveLargeRadiatorLiquid")]
@@ -6501,9 +6312,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemKitReinforcedWindows")]
     #[strum(props(name = "Kit (Reinforced Walls)", desc = "", value = "1459985302"))]
     ItemKitReinforcedWindows = 1459985302i32,
-    #[strum(serialize = "ItemWreckageStructureWeatherStation002")]
-    #[strum(props(name = "Wreckage", desc = "", value = "1464424921"))]
-    ItemWreckageStructureWeatherStation002 = 1464424921i32,
     #[strum(serialize = "StructureHydroponicsTray")]
     #[strum(
         props(
@@ -6534,9 +6342,6 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemMiningBeltMkii = 1470787934i32,
-    #[strum(serialize = "StructureTorpedoRack")]
-    #[strum(props(name = "Torpedo Rack", desc = "", value = "1473807953"))]
-    StructureTorpedoRack = 1473807953i32,
     #[strum(serialize = "ItemWaterBottleBag")]
     #[strum(props(name = "Water Bottle Bag", desc = "", value = "1476318823"))]
     ItemWaterBottleBag = 1476318823i32,
@@ -6574,13 +6379,7 @@ pub enum StationpediaPrefab {
     )]
     Fertilizer = 1517856652i32,
     #[strum(serialize = "StructurePowerUmbilicalMale")]
-    #[strum(
-        props(
-            name = "Umbilical (Power)",
-            desc = "0.Left\n1.Center\n2.Right",
-            value = "1529453938"
-        )
-    )]
+    #[strum(props(name = "Umbilical (Power)", desc = "", value = "1529453938"))]
     StructurePowerUmbilicalMale = 1529453938i32,
     #[strum(serialize = "ItemRocketMiningDrillHeadDurable")]
     #[strum(
@@ -6778,26 +6577,11 @@ pub enum StationpediaPrefab {
     )]
     StructureInsulatedPipeLiquidCrossJunction5 = 1654694384i32,
     #[strum(serialize = "StructureLogicMath")]
-    #[strum(
-        props(
-            name = "Logic Math",
-            desc = "0.Add\n1.Subtract\n2.Multiply\n3.Divide\n4.Mod\n5.Atan2\n6.Pow\n7.Log",
-            value = "1657691323"
-        )
-    )]
+    #[strum(props(name = "Logic Math", desc = "", value = "1657691323"))]
     StructureLogicMath = 1657691323i32,
     #[strum(serialize = "ItemKitFridgeSmall")]
     #[strum(props(name = "Kit (Fridge Small)", desc = "", value = "1661226524"))]
     ItemKitFridgeSmall = 1661226524i32,
-    #[strum(serialize = "ItemScanner")]
-    #[strum(
-        props(
-            name = "Handheld Scanner",
-            desc = "A mysterious piece of technology, rumored to have Zrillian origins.",
-            value = "1661270830"
-        )
-    )]
-    ItemScanner = 1661270830i32,
     #[strum(serialize = "ItemEmergencyToolBelt")]
     #[strum(props(name = "Emergency Tool Belt", desc = "", value = "1661941301"))]
     ItemEmergencyToolBelt = 1661941301i32,
@@ -6894,14 +6678,14 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemKitFlagODA")]
     #[strum(props(name = "Kit (ODA Flag)", desc = "", value = "1701764190"))]
     ItemKitFlagOda = 1701764190i32,
+    #[strum(serialize = "MotherboardMap")]
+    #[strum(props(name = "Map Motherboard", desc = "", value = "1708439824"))]
+    MotherboardMap = 1708439824i32,
     #[strum(serialize = "StructureWallSmallPanelsTwoTone")]
     #[strum(
         props(name = "Wall (Small Panels Two Tone)", desc = "", value = "1709994581")
     )]
     StructureWallSmallPanelsTwoTone = 1709994581i32,
-    #[strum(serialize = "ItemFlowerYellow")]
-    #[strum(props(name = "Flower (Yellow)", desc = "", value = "1712822019"))]
-    ItemFlowerYellow = 1712822019i32,
     #[strum(serialize = "StructureInsulatedPipeLiquidCorner")]
     #[strum(
         props(
@@ -6920,6 +6704,15 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemCookedCondensedMilk = 1715917521i32,
+    #[strum(serialize = "ItemGasMask")]
+    #[strum(
+        props(
+            name = "Gas Mask",
+            desc = "This mask will mix with the world atmosphere but filter out the gasses based on the filters in its two slots.",
+            value = "1716878560"
+        )
+    )]
+    ItemGasMask = 1716878560i32,
     #[strum(serialize = "ItemGasSensor")]
     #[strum(props(name = "Kit (Gas Sensor)", desc = "", value = "1717593480"))]
     ItemGasSensor = 1717593480i32,
@@ -6936,20 +6729,11 @@ pub enum StationpediaPrefab {
     #[strum(
         props(
             name = "Ore (Coal)",
-            desc = "Humanity wouldn't have got to space without humble, combustible coal. Burn it in a <link=ThingSolidFuelGenerator><color=green><N:EN:SolidFuelGenerator></color></link>, smelt it in the <link=ThingStructureFurnace><color=green>Furnace</color></link> to create <link=AlloysPage><color=#0080FFFF>alloys</color></link>, or use it in the <link=ThingApplianceReagentProcessor><color=green>Reagent Processor</color></link> to make  <link=ThingItemSprayCanBlack><color=green>Spray Paint (Black)</color></link>.",
+            desc = "Humanity wouldn't have got to space without humble, combustible coal. Burn it in a <link=ThingStructureSolidFuelGenerator><color=green>Generator (Solid Fuel)</color></link>, smelt it in the <link=ThingStructureFurnace><color=green>Furnace</color></link> to create <link=AlloysPage><color=#0080FFFF>alloys</color></link>, or use it in the <link=ThingApplianceReagentProcessor><color=green>Reagent Processor</color></link> to make  <link=ThingItemSprayCanBlack><color=green>Spray Paint (Black)</color></link>.",
             value = "1724793494"
         )
     )]
     ItemCoalOre = 1724793494i32,
-    #[strum(serialize = "EntityChick")]
-    #[strum(
-        props(
-            name = "Entity Chick",
-            desc = "Once a chick is hatched, it gets hungry. It will eat soybeans, corn, and wheat, and lay eggs. Some will be fertilized, producing further chickens. Some will not.",
-            value = "1730165908"
-        )
-    )]
-    EntityChick = 1730165908i32,
     #[strum(serialize = "StructureLiquidUmbilicalFemale")]
     #[strum(props(name = "Umbilical Socket (Liquid)", desc = "", value = "1734723642"))]
     StructureLiquidUmbilicalFemale = 1734723642i32,
@@ -7005,13 +6789,7 @@ pub enum StationpediaPrefab {
     )]
     ItemIronOre = 1758427767i32,
     #[strum(serialize = "DeviceStepUnit")]
-    #[strum(
-        props(
-            name = "Device Step Unit",
-            desc = "0.C-2\n1.C#-2\n2.D-2\n3.D#-2\n4.E-2\n5.F-2\n6.F#-2\n7.G-2\n8.G#-2\n9.A-2\n10.A#-2\n11.B-2\n12.C-1\n13.C#-1\n14.D-1\n15.D#-1\n16.E-1\n17.F-1\n18.F#-1\n19.G-1\n20.G#-1\n21.A-1\n22.A#-1\n23.B-1\n24.C0\n25.C#0\n26.D0\n27.D#0\n28.E0\n29.F0\n30.F#0\n31.G0\n32.G#0\n33.A0\n34.A#0\n35.B0\n36.C1\n37.C#1\n38.D1\n39.D#1\n40.E1\n41.F1\n42.F#1\n43.G1\n44.G#1\n45.A1\n46.A#1\n47.B1\n48.C2\n49.C#2\n50.D2\n51.D#2\n52.E2\n53.F2\n54.F#2\n55.G2\n56.G#2\n57.A2\n58.A#2\n59.B2\n60.C3\n61.C#3\n62.D3\n63.D#3\n64.E3\n65.F3\n66.F#3\n67.G3\n68.G#3\n69.A3\n70.A#3\n71.B3\n72.C4\n73.C#4\n74.D4\n75.D#4\n76.E4\n77.F4\n78.F#4\n79.G4\n80.G#4\n81.A4\n82.A#4\n83.B4\n84.C5\n85.C#5\n86.D5\n87.D#5\n88.E5\n89.F5\n90.F#5\n91.G5 \n92.G#5\n93.A5\n94.A#5\n95.B5\n96.C6\n97.C#6\n98.D6\n99.D#6\n100.E6\n101.F6\n102.F#6\n103.G6\n104.G#6\n105.A6\n106.A#6\n107.B6\n108.C7\n109.C#7\n110.D7\n111.D#7\n112.E7\n113.F7\n114.F#7\n115.G7\n116.G#7\n117.A7\n118.A#7\n119.B7\n120.C8\n121.C#8\n122.D8\n123.D#8\n124.E8\n125.F8\n126.F#8\n127.G8",
-            value = "1762696475"
-        )
-    )]
+    #[strum(props(name = "Device Step Unit", desc = "", value = "1762696475"))]
     DeviceStepUnit = 1762696475i32,
     #[strum(serialize = "StructureWallPaddedThinNoBorderCorner")]
     #[strum(
@@ -7050,7 +6828,11 @@ pub enum StationpediaPrefab {
     ItemCoffeeMug = 1800622698i32,
     #[strum(serialize = "StructureRoboticArmRailStraightStop")]
     #[strum(
-        props(name = "Linear Rail Straight Station", desc = "", value = "1800701885")
+        props(
+            name = "Linear Rail Straight Station",
+            desc = "A component of a linear rail network to be used in conjunction with LArRE docks. The straight station creates a stopping point for LArRE arms along the rail.",
+            value = "1800701885"
+        )
     )]
     StructureRoboticArmRailStraightStop = 1800701885i32,
     #[strum(serialize = "StructureAngledBench")]
@@ -7081,7 +6863,11 @@ pub enum StationpediaPrefab {
     ItemRtgSurvival = 1817645803i32,
     #[strum(serialize = "StructureInsulatedInLineTankGas1x1")]
     #[strum(
-        props(name = "Insulated In-Line Tank Small Gas", desc = "", value = "1818267386")
+        props(
+            name = "In-Line Tank Small Gas (Insulated)",
+            desc = "",
+            value = "1818267386"
+        )
     )]
     StructureInsulatedInLineTankGas1X1 = 1818267386i32,
     #[strum(serialize = "ItemPlantThermogenic_Genepool2")]
@@ -7094,13 +6880,7 @@ pub enum StationpediaPrefab {
     )]
     ItemPlantThermogenicGenepool2 = 1819167057i32,
     #[strum(serialize = "StructureLogicSelect")]
-    #[strum(
-        props(
-            name = "Logic Select",
-            desc = "0.Equals\n1.Greater\n2.Less\n3.NotEquals",
-            value = "1822736084"
-        )
-    )]
+    #[strum(props(name = "Logic Select", desc = "", value = "1822736084"))]
     StructureLogicSelect = 1822736084i32,
     #[strum(serialize = "ItemGasFilterNitrousOxideM")]
     #[strum(
@@ -7116,9 +6896,6 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureSmallDirectHeatExchangeLiquidtoGas = 1825212016i32,
-    #[strum(serialize = "ItemKitRoverFrame")]
-    #[strum(props(name = "Kit (Rover Frame)", desc = "", value = "1827215803"))]
-    ItemKitRoverFrame = 1827215803i32,
     #[strum(serialize = "ItemNickelOre")]
     #[strum(
         props(
@@ -7269,9 +7046,6 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureInsulatedPipeLiquidCrossJunction = 1926651727i32,
-    #[strum(serialize = "ItemWreckageTurbineGenerator3")]
-    #[strum(props(name = "Wreckage", desc = "", value = "1927790321"))]
-    ItemWreckageTurbineGenerator3 = 1927790321i32,
     #[strum(serialize = "StructurePassthroughHeatExchangerGasToLiquid")]
     #[strum(
         props(
@@ -7308,15 +7082,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemKitInteriorDoors")]
     #[strum(props(name = "Kit (Interior Doors)", desc = "", value = "1935945891"))]
     ItemKitInteriorDoors = 1935945891i32,
-    #[strum(serialize = "StructureCryoTube")]
-    #[strum(
-        props(
-            name = "CryoTube",
-            desc = "The exact operation of the Longsleep cryotube remains a commercial secret, with <link=Norsec><color=#0080FFFF>Norsec</color></link> merely licensing the design. Able to regenerate organ damage when supplied with power and an atmosphere, the Longsleep is a minor miracle of modern medical technology.",
-            value = "1938254586"
-        )
-    )]
-    StructureCryoTube = 1938254586i32,
     #[strum(serialize = "StructureReinforcedWallPaddedWindow")]
     #[strum(
         props(
@@ -7326,6 +7091,9 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureReinforcedWallPaddedWindow = 1939061729i32,
+    #[strum(serialize = "StructureAirlockWide")]
+    #[strum(props(name = "Airlock Wide", desc = "", value = "1941072263"))]
+    StructureAirlockWide = 1941072263i32,
     #[strum(serialize = "DynamicCrate")]
     #[strum(
         props(
@@ -7368,15 +7136,6 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureFurnace = 1947944864i32,
-    #[strum(serialize = "ItemLightSword")]
-    #[strum(
-        props(
-            name = "Light Sword",
-            desc = "A charming, if useless, pseudo-weapon. (Creative only.)",
-            value = "1949076595"
-        )
-    )]
-    ItemLightSword = 1949076595i32,
     #[strum(serialize = "ItemKitLiquidRegulator")]
     #[strum(props(name = "Kit (Liquid Regulator)", desc = "", value = "1951126161"))]
     ItemKitLiquidRegulator = 1951126161i32,
@@ -7389,6 +7148,9 @@ pub enum StationpediaPrefab {
         )
     )]
     StructureCompositeCladdingRoundedCorner = 1951525046i32,
+    #[strum(serialize = "StructureComputerBigScreen")]
+    #[strum(props(name = "Computer (Big Screen)", desc = "", value = "1952395881"))]
+    StructureComputerBigScreen = 1952395881i32,
     #[strum(serialize = "StructureChuteExportBin")]
     #[strum(props(name = "Chute Export Bin", desc = "", value = "1957571043"))]
     StructureChuteExportBin = 1957571043i32,
@@ -7425,17 +7187,20 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemJetpackBasic = 1969189000i32,
-    #[strum(serialize = "ItemKitEngineMedium")]
-    #[strum(props(name = "Kit (Engine Medium)", desc = "", value = "1969312177"))]
-    ItemKitEngineMedium = 1969312177i32,
     #[strum(serialize = "StructureRoboticArmRailCornerStop")]
-    #[strum(props(name = "Linear Rail Corner Station", desc = "", value = "1974053060"))]
+    #[strum(
+        props(
+            name = "Linear Rail Corner Station",
+            desc = "A component of a linear rail network to be used in conjunction with LArRE docks. The corner station creates a stopping point for LArRE arms along the rail.",
+            value = "1974053060"
+        )
+    )]
     StructureRoboticArmRailCornerStop = 1974053060i32,
     #[strum(serialize = "StructureLarreDockAtmos")]
     #[strum(
         props(
-            name = "LARrE Dock (Atmos)",
-            desc = "0.Outward\n1.Inward",
+            name = "LArRE Dock (Atmos)",
+            desc = "The atmospherics LArRE can pump gas into and out of its storage canister. When lowered over a <link=ThingStructurePassiveVent><color=green>Passive Vent</color></link>, the atmospherics LArRE will connect with it and pump gas into and out of the connected pipe network.\n\nPressing the activate button while the LArRE arm is at its home dock will move the arm off the main rail. This allows other arms on the same rail to pass by. \n        \nThe base atmospheric logic values point to LArRE's internal gas storage. The Input atmospheric logic values point to the grid that LArRE is in OR the pipe network that LArRE is docked to via a <link=ThingStructurePassiveVent><color=green>Passive Vent</color></link>",
             value = "1978422481"
         )
     )]
@@ -7444,13 +7209,7 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Wall (Geometry Corner)", desc = "", value = "1979212240"))]
     StructureWallGeometryCorner = 1979212240i32,
     #[strum(serialize = "StructureInteriorDoorPaddedThin")]
-    #[strum(
-        props(
-            name = "Interior Door Padded Thin",
-            desc = "0.Operate\n1.Logic",
-            value = "1981698201"
-        )
-    )]
+    #[strum(props(name = "Interior Door Padded Thin", desc = "", value = "1981698201"))]
     StructureInteriorDoorPaddedThin = 1981698201i32,
     #[strum(serialize = "StructureWaterBottleFillerPoweredBottom")]
     #[strum(props(name = "Waterbottle Filler", desc = "", value = "1986658780"))]
@@ -7462,13 +7221,7 @@ pub enum StationpediaPrefab {
     #[strum(props(name = "Kit (Computer)", desc = "", value = "1990225489"))]
     ItemKitComputer = 1990225489i32,
     #[strum(serialize = "StructureWeatherStation")]
-    #[strum(
-        props(
-            name = "Weather Station",
-            desc = "0.NoStorm\n1.StormIncoming\n2.InStorm",
-            value = "1997212478"
-        )
-    )]
+    #[strum(props(name = "Weather Station", desc = "", value = "1997212478"))]
     StructureWeatherStation = 1997212478i32,
     #[strum(serialize = "ItemKitLogicInputOutput")]
     #[strum(props(name = "Kit (Logic I/O)", desc = "", value = "1997293610"))]
@@ -7479,9 +7232,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureElevatorShaftIndustrial")]
     #[strum(props(name = "Elevator Shaft", desc = "", value = "1998354978"))]
     StructureElevatorShaftIndustrial = 1998354978i32,
-    #[strum(serialize = "ReagentColorRed")]
-    #[strum(props(name = "Color Dye (Red)", desc = "", value = "1998377961"))]
-    ReagentColorRed = 1998377961i32,
     #[strum(serialize = "Flag_ODA_6m")]
     #[strum(props(name = "Flag (ODA 6m)", desc = "", value = "1998634960"))]
     FlagOda6M = 1998634960i32,
@@ -7506,6 +7256,9 @@ pub enum StationpediaPrefab {
         )
     )]
     ItemDrill = 2009673399i32,
+    #[strum(serialize = "SeedBag_Strawberry")]
+    #[strum(props(name = "Strawberry Seeds", desc = "", value = "2009884607"))]
+    SeedBagStrawberry = 2009884607i32,
     #[strum(serialize = "ItemFlagSmall")]
     #[strum(props(name = "Kit (Small Flag)", desc = "", value = "2011191088"))]
     ItemFlagSmall = 2011191088i32,
@@ -7567,6 +7320,15 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemLiquidDrain")]
     #[strum(props(name = "Kit (Liquid Drain)", desc = "", value = "2036225202"))]
     ItemLiquidDrain = 2036225202i32,
+    #[strum(serialize = "StructureCircuitHousingCompact")]
+    #[strum(
+        props(
+            name = "IC Housing (Compact)",
+            desc = "Used to house a <link=ThingItemIntegratedCircuit10><color=green>Integrated Circuit (IC10)</color></link> to run complex logic code.",
+            value = "2037291645"
+        )
+    )]
+    StructureCircuitHousingCompact = 2037291645i32,
     #[strum(serialize = "ItemLiquidTankStorage")]
     #[strum(
         props(
@@ -7609,6 +7371,15 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureStairwellNoDoors")]
     #[strum(props(name = "Stairwell (No Doors)", desc = "", value = "2049879875"))]
     StructureStairwellNoDoors = 2049879875i32,
+    #[strum(serialize = "StructurePipeLiquidStraight3")]
+    #[strum(
+        props(
+            name = "Liquid Pipe (Straight 3)",
+            desc = "Long variant of liquid piping. These variants cannot be merged or upgraded with insulation.",
+            value = "2051209828"
+        )
+    )]
+    StructurePipeLiquidStraight3 = 2051209828i32,
     #[strum(serialize = "ItemKitHydroponicStation")]
     #[strum(props(name = "Kit (Hydroponic Station)", desc = "", value = "2057179799"))]
     ItemKitHydroponicStation = 2057179799i32,
@@ -7659,6 +7430,15 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "StructureWallPaddedWindow")]
     #[strum(props(name = "Wall (Padded Window)", desc = "", value = "2087628940"))]
     StructureWallPaddedWindow = 2087628940i32,
+    #[strum(serialize = "StructureInsulatedPipeLiquidStraight5")]
+    #[strum(
+        props(
+            name = "Insulated Liquid Pipe (Straight 5)",
+            desc = "Long variant of liquid piping with very low temperature loss or gain. These variants cannot be merged.",
+            value = "2093095541"
+        )
+    )]
+    StructureInsulatedPipeLiquidStraight5 = 2093095541i32,
     #[strum(serialize = "StructureLogicMirror")]
     #[strum(props(name = "Logic Mirror", desc = "", value = "2096189278"))]
     StructureLogicMirror = 2096189278i32,
@@ -7708,6 +7488,9 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemSugar")]
     #[strum(props(name = "Sugar", desc = "", value = "2111910840"))]
     ItemSugar = 2111910840i32,
+    #[strum(serialize = "ItemGrass")]
+    #[strum(props(name = "Grass", desc = "", value = "2116552372"))]
+    ItemGrass = 2116552372i32,
     #[strum(serialize = "DynamicMKIILiquidCanisterEmpty")]
     #[strum(
         props(
@@ -7741,9 +7524,6 @@ pub enum StationpediaPrefab {
     #[strum(serialize = "ItemLeadIngot")]
     #[strum(props(name = "Ingot (Lead)", desc = "", value = "2134647745"))]
     ItemLeadIngot = 2134647745i32,
-    #[strum(serialize = "ItemGasCanisterNitrogen")]
-    #[strum(props(name = "Canister (Nitrogen)", desc = "", value = "2145068424"))]
-    ItemGasCanisterNitrogen = 2145068424i32,
 }
 impl TryFrom<f64> for StationpediaPrefab {
     type Error = super::ParseError;
