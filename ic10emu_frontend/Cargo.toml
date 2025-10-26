@@ -8,9 +8,19 @@ edition = "2021"
 
 [dependencies]
 dioxus = { version = "0.6.0", features = [] }
+serde = "=1.0.219" # higher is incompatable with libsql-client
+serde_with = "=3.14.0"
 libsql-client = { version = "0.33.4", default-features = false, features = ["reqwest_backend"] }
 tracing = "0.1.41"
+tracing-wasm = "0.2.1"
 url = "2.5.7"
+uuid = { version = "1.18.1", features = ["js", "v4", "v5", "v7", "v8"] }
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
+js-sys = "0.3"
+gloo-utils = "0.2.0"
+strum = { version = "0.27.2", features = ["derive"] }
+indoc = "2.0.7"
 
 [features]
 default = ["web"]

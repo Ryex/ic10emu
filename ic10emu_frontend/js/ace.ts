@@ -1,20 +1,31 @@
-import ace from "ace-builds";
-import "ace-builds/esm-resolver";
-
 import * as log from "log";
 
+log.info("Loading Ace Editor ...");
+
+import ace from "ace-code";
+import "ace-code/esm-resolver";
+
+import { Range, Editor, EditSession } from "ace-code";
+
+import { HoverTooltip } from "ace-code/src/tooltip";
+
+export import Ace = ace.Ace;
+
 import { AceLanguageClient } from "ace-linters/build/ace-language-client";
+import { Marker } from "ace-code/src/layer/marker";
+import { MarkerGroup } from "ace-code/src/marker_group";
+
+ace.config.setModuleLoader("ace/mode/ic10", () => import("ic10mode"));
 
 // to make sure language tools are loaded
 ace.config.loadModule("ace/ext/language_tools", () =>
   log.trace("loaded: ace/ext/language_tools"),
 );
 
-import { Mode as TextMode } from "ace-builds/src-noconflict/mode-text";
-
-export async function setupLspWorker() {
+export async function setupLspWorker(url: string) {
+  log.trace(`loading lsp worker from '${url}'`);
   // Create a web worker
-  let worker = new Worker(new URL("./lspWorker.ts", import.meta.url), {
+  let worker = new Worker(url, {
     name: "ic10lsp-Worker",
   });
 
@@ -22,10 +33,19 @@ export async function setupLspWorker() {
     new Promise((r) => w.addEventListener("message", r, { once: true }));
   await Promise.all([loaded(worker)]);
 
+  log.trace(`lsp worker from '${url}' loaded`);
   // Register the editor with the language provider
   return worker;
 }
 
-export import Ace = ace.Ace;
-import { Range } from "ace-builds";
-export { Range };
+
+export {
+  ace,
+  Range,
+  Editor,
+  EditSession,
+  AceLanguageClient,
+  Marker,
+  MarkerGroup,
+  HoverTooltip,
+};

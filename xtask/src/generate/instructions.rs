@@ -8,7 +8,7 @@ use crate::{generate::utils, stationpedia};
 pub fn generate_instructions(
     stationpedia: &stationpedia::Stationpedia,
     workspace: &std::path::Path,
-) -> color_eyre::Result<Vec<PathBuf>> {
+) -> color_eyre::Result<Vec<(PathBuf, bool)>> {
     let instructions_path = workspace
         .join("ic10emu")
         .join("src")
@@ -32,8 +32,8 @@ pub fn generate_instructions(
     write_instruction_super_trait(&mut writer, &stationpedia.script_commands)?;
 
     Ok(vec![
-        instructions_path.join("enums.rs"),
-        instructions_path.join("traits.rs"),
+        (instructions_path.join("enums.rs"), true),
+        (instructions_path.join("traits.rs"), true),
     ])
 }
 
@@ -41,7 +41,7 @@ fn write_instructions_enum<T: std::io::Write>(
     writer: &mut T,
     instructions: &BTreeMap<String, stationpedia::Command>,
 ) -> color_eyre::Result<()> {
-    eprintln!("Writing instruction Listings ...");
+    tracing::info!("Writing instruction Listings ...");
 
     let mut instructions = instructions.clone();
     for (_, ref mut info) in instructions.iter_mut() {

@@ -28,7 +28,7 @@ struct Args {
 }
 
 const PACKAGES: &[&str] = &["ic10lsp_wasm", "ic10emu_wasm"];
-const VALID_GENERATE_TYPE: &[&str] = &["enums", "instructions", "database"];
+const VALID_GENERATE_TYPE: &[&str] = &["enums", "instructions", "database", "hl_rules"];
 const DEFAULT_GENERATE: &[&str] = &["enums"];
 fn parse_generate_modules(s: &str) -> Result<String, String> {
     if !VALID_GENERATE_TYPE.contains(&s) {
@@ -215,14 +215,14 @@ where
 
 fn start_server(args: &Args, workspace: &std::path::Path) -> Result<(), Error> {
     pnpm_install(&args, &workspace)?;
-    eprintln!("Starting server");
+    tracing::info!("Starting server");
     run_command(&args.manager, ["run", "start"], &workspace.join("www"))?;
     Ok(())
 }
 
 fn deploy_web(args: &Args, workspace: &std::path::Path) -> Result<(), Error> {
     pnpm_install(&args, &workspace)?;
-    eprintln!("Production Build");
+    tracing::info!("Production Build");
     run_command(&args.manager, ["run", "build"], &workspace.join("www"))?;
     Ok(())
 }
@@ -277,10 +277,10 @@ fn build<P: AsRef<std::ffi::OsStr> + std::fmt::Debug + std::fmt::Display>(
     if packages.is_empty() {
         panic!("no package(s) specified")
     }
-    eprintln!("Building packages: {:?}, release: {}", packages, release);
+    tracing::info!("Building packages: {:?}, release: {}", packages, release);
     for package in packages {
-        eprintln!("Building package: {}", package);
-        eprintln!(
+        tracing::info!("Building package: {}", package);
+        tracing::info!(
             "Running command: {} build {} {} {}",
             &args.wasm_pack,
             if release { "--release" } else { "--dev" },
@@ -298,7 +298,7 @@ fn build<P: AsRef<std::ffi::OsStr> + std::fmt::Debug + std::fmt::Display>(
         ];
         let (status, cmd) = run_command(&args.wasm_pack, [&cmd_args, rest].concat(), workspace)?;
         if status.success() {
-            eprintln!("{} built successfully", package);
+            tracing::info!("{} built successfully", package);
         } else {
             return Err(Error::BuildFailed(
                 package.to_string(),
@@ -311,7 +311,7 @@ fn build<P: AsRef<std::ffi::OsStr> + std::fmt::Debug + std::fmt::Display>(
 }
 
 fn pnpm_install(args: &Args, workspace: &std::path::Path) -> Result<ExitStatus, Error> {
-    eprintln!("Running `pnpm install`");
+    tracing::info!("Running `pnpm install`");
     let (status, _) = run_command(&args.manager, ["install"], &workspace.join("www"))?;
     Ok(status)
 }
@@ -385,7 +385,7 @@ fn tag_release(
     let mut version = semver::Version::parse(VERSION.expect("package version to be set"))
         .expect("package version to parse");
     if let Some(bump) = bump {
-        eprintln!("Bumping {} version", bump.as_ref());
+        tracing::info!("Bumping {} version", bump.as_ref());
         bump_version(args, workspace, bump)?;
         match bump {
             &VersionBumpType::Major => {

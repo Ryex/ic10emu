@@ -7,6 +7,7 @@ use crate::{enums::Enums, stationpedia::Stationpedia};
 
 mod database;
 mod enums;
+mod highlight_rules;
 mod instructions;
 mod utils;
 
@@ -31,7 +32,7 @@ pub fn generate(
         if let Some(cmd) = pedia.script_commands.get_mut(&inst) {
             cmd.desc = patch;
         } else {
-            eprintln!("Warning: can find instruction '{inst}' to patch help!");
+            tracing::warn!("Can't find instruction '{inst}' to patch help!");
         }
     }
 
@@ -42,37 +43,43 @@ pub fn generate(
     let mut generated_files = Vec::new();
     if modules.contains(&"enums") {
         if modules.len() > 1 {
-            eprintln!(
+            tracing::warn!(
                 "generating enums alone, recompile the xtask and run again with other modules."
             )
         } else {
-            eprintln!("generating enums...");
+            tracing::info!("generating enums...");
         }
 
         let enums_files = enums::generate(&pedia, &enums, workspace)?;
-        eprintln!("Formatting generated files...");
-        for file in &enums_files {
-            prepend_generated_comment_and_format(file, "enums")?;
+        tracing::info!("Formatting generated files...");
+        for (file, format) in &enums_files {
+            prepend_generated_comment_and_format(file, "enums", *format)?;
         }
         return Ok(());
     }
 
     if modules.contains(&"database") {
-        eprintln!("generating database...");
+        tracing::info!("generating database...");
 
         let database_files = database::generate_database(&pedia, &enums, workspace)?;
-        generated_files.extend(database_files.into_iter().map(|path| (path, "database")));
+        generated_files.extend(database_files.into_iter().map(|(path, format)| (path, format, "database")));
     }
 
     if modules.contains(&"instructions") {
-        eprintln!("generating instructions...");
+        tracing::info!("generating instructions...");
         let inst_files = instructions::generate_instructions(&pedia, workspace)?;
-        generated_files.extend(inst_files.into_iter().map(|path| (path, "instructions")));
+        generated_files.extend(inst_files.into_iter().map(|(path, format)| (path, format, "instructions")));
     }
 
-    eprintln!("Formatting generated files...");
-    for (file, module) in &generated_files {
-        prepend_generated_comment_and_format(file, module)?;
+    if modules.contains(&"hl_rules") {
+        tracing::info!("generating Ace highlight rules...");
+        let hlrules_files = highlight_rules::generate(&pedia, &enums, workspace)?;
+        generated_files.extend(hlrules_files.into_iter().map(|(path, format)| (path, format, "hl_rules")));
+    }
+
+    tracing::info!("Formatting generated files...");
+    for (file, format, module) in &generated_files {
+        prepend_generated_comment_and_format(file, module, *format)?;
     }
     Ok(())
 }
@@ -101,15 +108,20 @@ fn format_rust(content: impl ToTokens) -> color_eyre::Result<String> {
 fn prepend_generated_comment_and_format(
     file_path: &std::path::Path,
     module: &str,
+    format: bool,
 ) -> color_eyre::Result<()> {
     use std::io::Write;
     let tmp_path = file_path.with_extension("rs.tmp");
     {
         let mut tmp = std::fs::File::create(&tmp_path)?;
-        let src = syn::parse_file(&std::fs::read_to_string(file_path)?)
-            .with_context(|| format!("Error parsing file {}", file_path.display()))?;
-
-        let formatted = format_rust(src)?;
+        let content = std::fs::read_to_string(file_path)?;
+        let src = if format {
+            let src = syn::parse_file(&content)
+                .with_context(|| format!("Error parsing file {}", file_path.display()))?;
+            format_rust(src)?
+        } else {
+            content
+        };
 
         write!(
             &mut tmp,
@@ -128,7 +140,7 @@ fn prepend_generated_comment_and_format(
             //\n\
             // =================================================\n\
             \n\
-            {formatted}\
+            {src}\
             "
         )?;
     }

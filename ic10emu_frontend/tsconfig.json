@@ -1,25 +1,42 @@
 {
   "compilerOptions": {
+    "lib": ["DOM", "ES2020"],
+    "target": "ES2020",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "useDefineForClassFields": true,
+
+    /* modules */
+    "module": "ESNext",
+    "moduleDetection": "force",
+    "moduleResolution": "bundler",
+    "verbatimModuleSyntax": true,
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "noUncheckedSideEffectImports": true,
+
+    /* type checking */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
     "baseUrl": "./js/",
     "rootDir": "./js/",
     "outDir": "./assets/js/",
     "sourceMap": true,
     "noImplicitAny": true,
-    "module": "esnext",
-    "target": "es2021",
     "allowJs": true,
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
     "esModuleInterop": true,
     "isolatedModules": true,
     "experimentalDecorators": false,
-    "useDefineForClassFields": true,
     "types": [
-      "@types/wicg-file-system-access"
+      "@types/wicg-file-system-access",
+      "@types/ace"
     ],
     "plugins": []
   },
   "include": [
+    "js/*",
     "js/**/*"
   ]
 }

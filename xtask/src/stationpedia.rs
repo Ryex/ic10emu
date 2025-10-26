@@ -12,6 +12,8 @@ pub struct Stationpedia {
     pub reagents: BTreeMap<String, Reagent>,
     #[serde(rename = "scriptCommands")]
     pub script_commands: BTreeMap<String, Command>,
+    #[serde(rename = "scriptConstants")]
+    pub script_constants: BTreeMap<String, Constant>,
 }
 
 #[allow(dead_code)]
@@ -48,6 +50,14 @@ pub struct Reagent {
 pub struct Command {
     pub desc: String,
     pub example: String,
+}
+
+#[serde_as]
+#[derive(Clone, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
+pub struct Constant {
+    pub desc: String,
+    #[serde_as(as = "DisplayFromStr")]
+    pub value: f64,
 }
 
 use duration_str::deserialize_option_duration;

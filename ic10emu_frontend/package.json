@@ -2,20 +2,21 @@
   "name": "ic10emu-frontend-assets",
   "private": true,
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "rspack dev",
-    "build": "rspack build",
-    "preview": "rspack preview"
+    "build": "node ./esbuild.mjs"
   },
   "devDependencies": {
-    "@rspack/cli": "^1.5.8",
-    "@rspack/core": "^1.5.8",
+    "@types/ace": "^0.0.52",
     "@types/wicg-file-system-access": "^2023.10.7",
-    "ts-checker-rspack-plugin": "^1.1.6"
+    "esbuild": "^0.25.11",
+    "esbuild-plugin-wasm": "^1.1.0",
+    "typescript": "^5.9.3"
   },
   "dependencies": {
-    "ace-builds": "^1.43.4",
+    "ace-code": "^1.43.4",
     "ace-linters": "^1.8.4",
-    "ic10lsp_wasm": "file:..\\ic10lsp_wasm\\pkg"
+    "ic10lsp_wasm": "file:../ic10lsp_wasm/pkg",
+    "tailwindcss": "^4.1.16"
   }
 }

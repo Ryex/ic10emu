@@ -1,10 +1,13 @@
 [workspace]
 members = [
+  "ic10lsp",
   "ic10lsp_wasm",
+  "tree-sitter-ic10",
   "stationeers_data",
   "ic10emu",
   "ic10emu_wasm",
-  "xtask", "ic10emu_frontend",
+  "xtask",
+  "ic10emu_frontend",
 ]
 resolver = "2"
 

@@ -40,10 +40,10 @@ pub fn generate_database(
     stationpedia: &stationpedia::Stationpedia,
     enums: &enums::Enums,
     workspace: &std::path::Path,
-) -> color_eyre::Result<Vec<PathBuf>> {
+) -> color_eyre::Result<Vec<(PathBuf, bool)>> {
     let templates = generate_templates(stationpedia)?;
 
-    eprintln!("Writing prefab database ...");
+    tracing::info!("Writing prefab database ...");
 
     let prefabs: BTreeMap<String, ObjectTemplate> = templates
         .into_iter()
@@ -254,7 +254,7 @@ pub fn generate_database(
     let mut reagent_map_file = std::io::BufWriter::new(std::fs::File::create(&reagent_map_path)?);
     write_reagent_map(&mut reagent_map_file, &db.reagents)?;
 
-    Ok(vec![prefab_map_path, reagent_map_path])
+    Ok(vec![(prefab_map_path, true), (reagent_map_path, true)])
 }
 
 fn write_prefab_map<T: std::io::Write>(
@@ -343,7 +343,7 @@ fn write_reagent_map<T: std::io::Write>(
 
 #[allow(clippy::too_many_lines)]
 fn generate_templates(pedia: &Stationpedia) -> color_eyre::Result<Vec<ObjectTemplate>> {
-    eprintln!("Generating templates ...");
+    tracing::info!("Generating templates ...");
     let mut templates: Vec<ObjectTemplate> = Vec::new();
     for page in &pedia.pages {
         let name = &page.prefab_name;

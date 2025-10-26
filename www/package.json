@@ -24,13 +24,6 @@
   },
   "homepage": "https://github.com/ryex/ic10emu#readme",
   "devDependencies": {
-    "@oneidentity/zstd-js": "^1.0.3",
-    "@rsbuild/core": "^1.0.4",
-    "@rsbuild/plugin-image-compress": "^1.0.2",
-    "@rsbuild/plugin-sass": "^1.0.1",
-    "@rsbuild/plugin-type-check": "^1.0.1",
-    "@rspack/cli": "^1.0.5",
-    "@rspack/core": "^1.0.5",
     "@swc/helpers": "^0.5.13",
     "@types/ace": "^0.0.52",
     "@types/bootstrap": "^5.2.10",

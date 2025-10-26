@@ -14,8 +14,8 @@ pub fn generate(
     stationpedia: &crate::stationpedia::Stationpedia,
     enums: &crate::enums::Enums,
     workspace: &std::path::Path,
-) -> color_eyre::Result<Vec<PathBuf>> {
-    eprintln!("Writing Enum Listings ...");
+) -> color_eyre::Result<Vec<(PathBuf, bool)>> {
+    tracing::info!("Writing Enum Listings ...");
     let enums_path = workspace.join("stationeers_data").join("src").join("enums");
     if !enums_path.exists() {
         std::fs::create_dir(&enums_path)?;
@@ -73,9 +73,9 @@ pub fn generate(
     write_repr_enum(&mut writer, "StationpediaPrefab", &prefabs, true)?;
 
     Ok(vec![
-        enums_path.join("script.rs"),
-        enums_path.join("basic.rs"),
-        enums_path.join("prefabs.rs"),
+        (enums_path.join("script.rs"), true),
+        (enums_path.join("basic.rs"), true),
+        (enums_path.join("prefabs.rs"), true),
     ])
 }
 

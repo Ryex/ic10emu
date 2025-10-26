@@ -1,5 +1,4 @@
 
-
 const ops = (
     "abs|acos|add|alias|and|asin|atan|atan2|bap|bapal|bapz|bapzal|bdns|" +
     "bdnsal|bdse|bdseal|beq|beqal|beqz|beqzal|bge|bgeal|bgez|bgezal|bgt|" +

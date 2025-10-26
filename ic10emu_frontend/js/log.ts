@@ -13,7 +13,7 @@ declare var WorkerGlobalScope: {
 };
 
 export function getOrigin(framesUp: number = 1) {
-  const origin = new Error().stack.split('\n')[framesUp + 1];
+  const origin = (new Error()).stack!.split('\n')[framesUp + 1];
   if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
     const workerName = self.name ?? "worker"
     return `(worker: ${workerName})|${origin}`;

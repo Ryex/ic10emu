@@ -1,6 +1,13 @@
 use std::sync::Arc;
 
 use dioxus::prelude::*;
+use indoc::formatdoc;
+
+pub const JS_ASSETS: Asset = asset!("/assets/js");
+pub const FONT_ASSETS: Asset = asset!("/assets/font");
+
+mod ace_editor;
+// mod turso;
 
 const FAVICON: Asset = asset!("/assets/favicon.ico");
 const MAIN_CSS: Asset = asset!("/assets/main.css");
@@ -12,33 +19,50 @@ fn main() {
 }
 
 #[derive(Clone)]
-enum DatabaseState {
+pub enum DatabaseState {
     Disconnected,
     Connected(Arc<libsql_client::Client>),
     Error(String),
 }
 
 #[derive(Clone)]
-struct DatabaseConnection {
-    connection: Signal<DatabaseState>,
+pub struct DatabaseConnection {
+    pub connection: Signal<DatabaseState>,
 }
 
 #[component]
 fn App() -> Element {
+    // use turso::TursoClient;
+    use ace_editor::AceEditor;
+
     let con = use_signal(|| DatabaseState::Disconnected);
-    use_context_provider(|| DatabaseConnection {
-        connection: con,
-    });
+    use_context_provider(|| DatabaseConnection { connection: con });
+
+    let font_style = formatdoc!(
+        r#"
+        @font-face {{
+            font-family: 'Caskaydia Cove';
+            src: url('{FONT_ASSETS}/CaskaydiaCove-Regular.woff2') format('woff2'),
+                url('{FONT_ASSETS}/CaskaydiaCove-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }}
+        "#
+    );
+
     rsx! {
         document::Link { rel: "icon", href: FAVICON }
-        document::Link { rel: "stylesheet", href: MAIN_CSS } document::Link { rel: "stylesheet", href: TAILWIND_CSS }
-        Hero {}
-
+        document::Link { rel: "stylesheet", href: MAIN_CSS }
+        document::Link { rel: "stylesheet", href: TAILWIND_CSS }
+        document::Style { "{font_style}" }
+        Header {}
+        AceEditor {}
     }
 }
 
 #[component]
-pub fn Hero() -> Element {
+pub fn Header() -> Element {
     tracing::info!("hello from hero");
     use_effect(|| {
         tracing::info!("Connecting to db");
@@ -70,17 +94,8 @@ pub fn Hero() -> Element {
     });
     rsx! {
         div {
-            id: "hero",
-            img { src: HEADER_SVG, id: "header" }
+            id: "header",
             div { p { "Database State: {db_state} "  } }
-            div { id: "links",
-                a { href: "https://dioxuslabs.com/learn/0.6/", "📚 Learn Dioxus" }
-                a { href: "https://dioxuslabs.com/awesome", "🚀 Awesome Dioxus" }
-                a { href: "https://github.com/dioxus-community/", "📡 Community Libraries" }
-                a { href: "https://github.com/DioxusLabs/sdk", "⚙️ Dioxus Development Kit" }
-                a { href: "https://marketplace.visualstudio.com/items?itemName=DioxusLabs.dioxus", "💫 VSCode Extension" }
-                a { href: "https://discord.gg/XgGxMSkvUM", "👋 Community Discord" }
-            }
         }
     }
 }
