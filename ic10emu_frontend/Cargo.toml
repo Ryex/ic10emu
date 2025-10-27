@@ -7,7 +7,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-dioxus = { version = "0.6.0", features = [] }
+dioxus = { version = "0.7.0-rc.3", features = [] }
 serde = "=1.0.219" # higher is incompatable with libsql-client
 serde_with = "=3.14.0"
 libsql-client = { version = "0.33.4", default-features = false, features = ["reqwest_backend"] }
@@ -27,3 +27,7 @@ default = ["web"]
 web = ["dioxus/web"]
 desktop = ["dioxus/desktop"]
 mobile = ["dioxus/mobile"]
+
+[build-dependencies]
+build-data = "0.3.3"
+dotenv = "0.15.0"

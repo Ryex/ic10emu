@@ -1,1 +1,146 @@
 @import "tailwindcss";
+
+body {
+  background-color: #212529;
+  height: 100%;
+  margin: 0;
+}
+
+/* ace-editor overrides */
+
+.ace_optionsMenuEntry:hover {
+  background-color: #161719;
+  transition: all 0.3s;
+}
+
+.ace_closeButton {
+  background: rgba(245, 146, 146, 0.5);
+  border: 1px solid #f48a8a;
+  border-radius: 50%;
+  padding: 7px;
+  position: absolute;
+  right: -8px;
+  top: -8px;
+  z-index: 100000;
+}
+
+.ace_closeButton {
+  background: rgba(245, 146, 146, 0.9);
+}
+
+.ace_optionsMenuKey {
+  color: #dee2e6;
+  font-weight: bold;
+}
+
+.ace_optionsMenuCommand {
+  color: #6ea8fe;
+  font-weight: normal;
+}
+
+.ace_optionsMenuEntry input,
+.ace_optionsMenuEntry button {
+  vertical-align: middle;
+}
+
+.ace_optionsMenuEntry button[ace_selected_button="true"] {
+  background: #e7e7e7;
+  box-shadow: 1px 0px 2px 0px #adadad inset;
+  border-color: #adadad;
+}
+
+.ace_optionsMenuEntry button {
+  background: white;
+  border: 1px solid lightgray;
+  margin: 0px;
+}
+
+.ace_optionsMenuEntry button:hover {
+  background: #f0f0f0;
+}
+
+.ace_prompt_container {
+  max-width: 603px;
+  width: 100%;
+  margin: 70px auto;
+  padding: 3px;
+  background: #2b3035;
+  border-radius: 2px;
+  box-shadow: 0px 2px 3px 0px #555;
+}
+
+/* ----------------
+*  Ace Tooltips
+*  --------------- */
+code {
+  // color: #e685b5
+  color: #c678dd;
+}
+
+.ace_tooltip code {
+  font-style: italic;
+  font-size: 12px;
+}
+
+.ace_tooltip {
+  background: #282c34;
+  color: #c1c1c1;
+  border: 1px #484747 solid;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.51);
+}
+
+.ace_tooltip.ace_dark {
+  background: #282c34;
+  color: #c1c1c1;
+  border: 1px #484747 solid;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.51);
+}
+
+/* ----------------
+*  Ace tooltip
+*  --------------- */
+
+.ace_dark.ace_editor.ace_autocomplete .ace_completion-highlight {
+  color: #c678dd;
+}
+
+.ace_dark.ace_editor.ace_autocomplete .ace_marker-layer .ace_active-line {
+  background-color: rgba(76, 87, 103, 0.19);
+}
+
+.ace_dark.ace_editor.ace_autocomplete .ace_line-hover {
+  border: 1px solid rgba(8, 121, 144, 0.5);
+  background: rgba(76, 87, 103, 0.19);
+}
+
+.ace_dark.ace_editor.ace_autocomplete {
+  border: 1px #484747 solid;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.51);
+  line-height: 1.4;
+  background: #282c34;
+  color: #c1c1c1;
+}
+
+.ace_editor.ace_autocomplete {
+  width: 300px;
+  z-index: 200000;
+  border: 1px #484747 solid;
+  position: fixed;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.51);
+  line-height: 1.4;
+  background: #282c34;
+  color: #c1c1c1;
+}
+
+.ace_editor.ace_autocomplete .ace_completion-highlight {
+  color: #c678dd;
+}
+
+.ace_editor.ace_autocomplete .ace_marker-layer .ace_active-line {
+  background-color: rgba(76, 87, 103, 0.19);
+}
+
+.ace_editor.ace_autocomplete .ace_line-hover {
+  border: 1px solid rgba(8, 121, 144, 0.5);
+  background: rgba(76, 87, 103, 0.19);
+}

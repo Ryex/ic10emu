@@ -15,12 +15,19 @@ import { AceLanguageClient } from "ace-linters/build/ace-language-client";
 import { Marker } from "ace-code/src/layer/marker";
 import { MarkerGroup } from "ace-code/src/marker_group";
 
-ace.config.setModuleLoader("ace/mode/ic10", () => import("ic10mode"));
+ace.config.setModuleLoader("ace/mode/ic10", () => import("./ic10mode"));
 
+ace.config.setModuleLoader("ace/ext/prompt", () => import("./ace/prompt_patch"));
 // to make sure language tools are loaded
 ace.config.loadModule("ace/ext/language_tools", () =>
   log.trace("loaded: ace/ext/language_tools"),
 );
+ace.config.loadModule("ace/ext/statusbar", () =>
+  log.trace("loaded: ace/ext/statusbar"),
+);
+
+
+    ace.config.setDefaultValue("session", "theme", "ace/theme/one_dark");
 
 export async function setupLspWorker(url: string) {
   log.trace(`loading lsp worker from '${url}'`);
@@ -37,7 +44,6 @@ export async function setupLspWorker(url: string) {
   // Register the editor with the language provider
   return worker;
 }
-
 
 export {
   ace,
